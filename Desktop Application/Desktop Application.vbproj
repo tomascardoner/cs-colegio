@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{72E9AAB5-68F1-42AA-BA6B-2EDCEA9961CB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>Sub Main</StartupObject>
+    <RootNamespace>CSColegio.DesktopApplication</RootNamespace>
+    <AssemblyName>CSColegio</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>CSColegio.xml</DocumentationFile>
+    <NoWarn>
+    </NoWarn>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>CSColegio.xml</DocumentationFile>
+    <NoWarn>
+    </NoWarn>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>On</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Anio.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Articulo.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ArticuloGrupo.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Banco.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSF_ErrorMessageBox.designer.vb">
+      <Link>CSF_ErrorMessageBox.designer.vb</Link>
+      <DependentUpon>CSF_ErrorMessageBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSF_ErrorMessageBox.vb">
+      <Link>CSF_ErrorMessageBox.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_AFIP.vb">
+      <Link>CSM_AFIP.vb</Link>
+    </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_ComboBox.vb">
+      <Link>CSM_ComboBox.vb</Link>
+    </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_DataGridView.vb">
+      <Link>CSM_DataGridView.vb</Link>
+    </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_Error.vb">
+      <Link>CSM_Error.vb</Link>
+    </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_Form.vb">
+      <Link>CSM_Form.vb</Link>
+    </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_Instance.vb">
+      <Link>CSM_Instance.vb</Link>
+    </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_Parameter.vb">
+      <Link>CSM_Parameter.vb</Link>
+    </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_ValueTranslation.vb">
+      <Link>CSM_ValueTranslation.vb</Link>
+    </Compile>
+    <Compile Include="CategoriaIVA.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Cheque.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComprobanteCabecera.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComprobanteDetalle.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComprobanteImpuesto.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComprobanteTipo.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Constants.vb" />
+    <Compile Include="CSColegio.Context.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CSColegio.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CSColegio.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CSColegio.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="CSColegio.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Curso.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CursoAnioLectivo.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentoTipo.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entidad.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntidadCurso.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntidadEntidad.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FillAndRefreshLists.vb" />
+    <Compile Include="formCABGenerico.Designer.vb">
+      <DependentUpon>formCABGenerico.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formCABGenerico.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formComprobanteCabecera.Designer.vb">
+      <DependentUpon>formComprobanteCabecera.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formComprobanteCabecera.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formEntidad.Designer.vb">
+      <DependentUpon>formEntidad.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formEntidad.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formEntidades.Designer.vb">
+      <DependentUpon>formEntidades.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formEntidades.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formLogin.Designer.vb">
+      <DependentUpon>formLogin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formMDIMain.Designer.vb">
+      <DependentUpon>formMDIMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formMDIMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formSplashScreen.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formSplashScreen.Designer.vb">
+      <DependentUpon>formSplashScreen.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Impuesto.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Localidad.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Log.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MedioPago.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Movimiento.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MovimientoGrupo.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Nivel.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Parametro.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Permisos.vb" />
+    <Compile Include="Provincia.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RelacionTipo.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StartUp.vb" />
+    <Compile Include="Turno.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Usuario.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UsuarioGrupo.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UsuarioGrupoPermiso.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSF_ErrorMessageBox.resx">
+      <Link>CSF_ErrorMessageBox.resx</Link>
+      <DependentUpon>CSF_ErrorMessageBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formCABGenerico.resx">
+      <DependentUpon>formCABGenerico.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formComprobanteCabecera.resx">
+      <DependentUpon>formComprobanteCabecera.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formEntidad.resx">
+      <DependentUpon>formEntidad.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formEntidades.resx">
+      <DependentUpon>formEntidades.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formLogin.resx">
+      <DependentUpon>formLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formMDIMain.resx">
+      <DependentUpon>formMDIMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formSplashScreen.resx">
+      <DependentUpon>formSplashScreen.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <EntityDeploy Include="CSColegio.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CSColegio.Designer.vb</LastGenOutput>
+    </EntityDeploy>
+    <None Include="CSColegio.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CSColegio.edmx</DependentUpon>
+      <LastGenOutput>CSColegio.Context.vb</LastGenOutput>
+    </None>
+    <None Include="CSColegio.edmx.diagram">
+      <DependentUpon>CSColegio.edmx</DependentUpon>
+    </None>
+    <None Include="CSColegio.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CSColegio.edmx</DependentUpon>
+      <LastGenOutput>CSColegio.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\app.manifest" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Notas.txt" />
+    <None Include="Resources\Search-icon %288%29.png" />
+    <None Include="Resources\Actions-view-pim-contacts-icon %285%29.png" />
+    <None Include="Resources\Actions-dialog-close-icon %286%29.png" />
+    <None Include="Resources\Actions-dialog-cancel-icon %286%29.png" />
+    <None Include="Resources\Actions-dialog-ok-apply-icon %286%29.png" />
+    <None Include="Resources\Actions-dialog-close-icon %288%29.png" />
+    <None Include="Resources\Actions-edit-delete-icon %286%29.png" />
+    <None Include="Resources\Actions-document-edit-icon %286%29.png" />
+    <None Include="Resources\Actions-document-new-icon %286%29.png" />
+    <None Include="Resources\WindowFitToSize16.png" />
+    <None Include="Resources\Window - Close All.png" />
+    <None Include="Resources\Window - Tile Vertically.png" />
+    <None Include="Resources\Window - Tile Horizontally.png" />
+    <None Include="Resources\School2_3211.png" />
+    <None Include="Resources\School2_321.png" />
+    <None Include="Resources\School2_48.png" />
+    <None Include="Resources\School2_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="My Project\DataSources\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

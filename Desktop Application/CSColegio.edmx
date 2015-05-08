@@ -1,0 +1,2213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CSColegioModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Anio">
+          <Key>
+            <PropertyRef Name="IDAnio" />
+          </Key>
+          <Property Name="IDAnio" Type="tinyint" Nullable="false" />
+          <Property Name="IDNivel" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Articulo">
+          <Key>
+            <PropertyRef Name="IDArticulo" />
+          </Key>
+          <Property Name="IDArticulo" Type="smallint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IDArticuloGrupo" Type="tinyint" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ArticuloGrupo">
+          <Key>
+            <PropertyRef Name="IDArticuloGrupo" />
+          </Key>
+          <Property Name="IDArticuloGrupo" Type="tinyint" Nullable="false" />
+          <Property Name="IDArticuloGrupo_Padre" Type="tinyint" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Banco">
+          <Key>
+            <PropertyRef Name="IDBanco" />
+          </Key>
+          <Property Name="IDBanco" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CUIT" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CategoriaIVA">
+          <Key>
+            <PropertyRef Name="IDCategoriaIVA" />
+          </Key>
+          <Property Name="IDCategoriaIVA" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cheque">
+          <Key>
+            <PropertyRef Name="IDCheque" />
+          </Key>
+          <Property Name="IDCheque" Type="int" Nullable="false" />
+          <Property Name="IDBanco" Type="int" Nullable="false" />
+          <Property Name="Serie" Type="char" MaxLength="2" />
+          <Property Name="Numero" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="FechaPago" Type="date" Nullable="false" />
+          <Property Name="Importe" Type="money" Nullable="false" />
+          <Property Name="CuentaBancaria" Type="varchar" MaxLength="20" />
+          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ComprobanteCabecera">
+          <Key>
+            <PropertyRef Name="IDComprobante" />
+          </Key>
+          <Property Name="IDComprobante" Type="int" Nullable="false" />
+          <Property Name="IDComprobanteTipo" Type="tinyint" Nullable="false" />
+          <Property Name="ComprobanteNumero" Type="char" MaxLength="13" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="IDEntidad" Type="int" Nullable="false" />
+          <Property Name="EntidadApellido" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EntidadNombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CUIT" Type="char" MaxLength="11" />
+          <Property Name="IDCategoriaIVA" Type="tinyint" Nullable="false" />
+          <Property Name="DomicilioCalle1" Type="varchar" MaxLength="100" />
+          <Property Name="DomicilioNumero" Type="varchar" MaxLength="10" />
+          <Property Name="DomicilioPiso" Type="varchar" MaxLength="10" />
+          <Property Name="DomicilioDepartamento" Type="varchar" MaxLength="10" />
+          <Property Name="DomicilioCalle2" Type="varchar" MaxLength="50" />
+          <Property Name="DomicilioCalle3" Type="varchar" MaxLength="50" />
+          <Property Name="DomicilioCodigoPostal" Type="varchar" MaxLength="8" />
+          <Property Name="DomicilioIDProvincia" Type="char" MaxLength="1" />
+          <Property Name="DomicilioIDLocalidad" Type="smallint" />
+          <Property Name="ImporteNeto" Type="money" Nullable="false" />
+          <Property Name="ImporteImpuesto" Type="money" Nullable="false" />
+          <Property Name="ImporteTotal" Type="money" Nullable="false" />
+          <Property Name="Notas" Type="varchar(max)" />
+          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ComprobanteDetalle">
+          <Key>
+            <PropertyRef Name="IDComprobante" />
+            <PropertyRef Name="Indice" />
+          </Key>
+          <Property Name="IDComprobante" Type="int" Nullable="false" />
+          <Property Name="Indice" Type="tinyint" Nullable="false" />
+          <Property Name="IDArticulo" Type="smallint" Nullable="false" />
+          <Property Name="IDEntidad" Type="int" Nullable="false" />
+          <Property Name="CuotaAnio" Type="smallint" />
+          <Property Name="CuotaMes" Type="tinyint" />
+          <Property Name="Cantidad" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="Unidad" Type="varchar" MaxLength="10" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PrecioUnitario" Type="money" Nullable="false" />
+          <Property Name="PrecioUnitarioDescuentoPorcentaje" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="PrecioUnitarioDescuentoImporte" Type="money" />
+          <Property Name="PrecioUnitarioFinal" Type="money" Nullable="false" />
+          <Property Name="PrecioTotal" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ComprobanteImpuesto">
+          <Key>
+            <PropertyRef Name="IDComprobante" />
+            <PropertyRef Name="Indice" />
+          </Key>
+          <Property Name="IDComprobante" Type="int" Nullable="false" />
+          <Property Name="Indice" Type="tinyint" Nullable="false" />
+          <Property Name="IDImpuesto" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ComprobanteTipo">
+          <Key>
+            <PropertyRef Name="IDComprobanteTipo" />
+          </Key>
+          <Property Name="IDComprobanteTipo" Type="tinyint" Nullable="false" />
+          <Property Name="OperacionTipo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Sigla" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="IDCurso" />
+          </Key>
+          <Property Name="IDCurso" Type="tinyint" Nullable="false" />
+          <Property Name="IDAnio" Type="tinyint" Nullable="false" />
+          <Property Name="IDTurno" Type="tinyint" Nullable="false" />
+          <Property Name="Division" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CursoAnioLectivo">
+          <Key>
+            <PropertyRef Name="IDCurso" />
+            <PropertyRef Name="AnioLectivo" />
+          </Key>
+          <Property Name="IDCurso" Type="tinyint" Nullable="false" />
+          <Property Name="AnioLectivo" Type="smallint" Nullable="false" />
+          <Property Name="ImporteMatricula" Type="money" Nullable="false" />
+          <Property Name="ImporteCuota" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DocumentoTipo">
+          <Key>
+            <PropertyRef Name="IDDocumentoTipo" />
+          </Key>
+          <Property Name="IDDocumentoTipo" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Entidad">
+          <Key>
+            <PropertyRef Name="IDEntidad" />
+          </Key>
+          <Property Name="IDEntidad" Type="int" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="TipoPersonalColegio" Type="bit" Nullable="false" />
+          <Property Name="TipoDocente" Type="bit" Nullable="false" />
+          <Property Name="TipoAlumno" Type="bit" Nullable="false" />
+          <Property Name="TipoFamiliar" Type="bit" Nullable="false" />
+          <Property Name="TipoProveedor" Type="bit" Nullable="false" />
+          <Property Name="IDDocumentoTipo" Type="tinyint" />
+          <Property Name="DocumentoNumero" Type="varchar" MaxLength="12" />
+          <Property Name="Genero" Type="char" MaxLength="1" />
+          <Property Name="FechaNacimiento" Type="date" />
+          <Property Name="CUIT_CUIL" Type="char" MaxLength="11" />
+          <Property Name="IDCategoriaIVA" Type="tinyint" />
+          <Property Name="Telefono1" Type="varchar" MaxLength="50" />
+          <Property Name="Telefono2" Type="varchar" MaxLength="50" />
+          <Property Name="Telefono3" Type="varchar" MaxLength="50" />
+          <Property Name="Email1" Type="varchar" MaxLength="50" />
+          <Property Name="Email2" Type="varchar" MaxLength="50" />
+          <Property Name="DomicilioCalle1" Type="varchar" MaxLength="100" />
+          <Property Name="DomicilioNumero" Type="varchar" MaxLength="10" />
+          <Property Name="DomicilioPiso" Type="varchar" MaxLength="10" />
+          <Property Name="DomicilioDepartamento" Type="varchar" MaxLength="10" />
+          <Property Name="DomicilioCalle2" Type="varchar" MaxLength="50" />
+          <Property Name="DomicilioCalle3" Type="varchar" MaxLength="50" />
+          <Property Name="DomicilioCodigoPostal" Type="varchar" MaxLength="8" />
+          <Property Name="DomicilioIDProvincia" Type="char" MaxLength="1" />
+          <Property Name="DomicilioIDLocalidad" Type="smallint" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="Notas" Type="varchar(max)" />
+          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EntidadCurso">
+          <Key>
+            <PropertyRef Name="IDEntidad" />
+            <PropertyRef Name="AnioLectivo" />
+            <PropertyRef Name="IDCurso" />
+          </Key>
+          <Property Name="IDEntidad" Type="int" Nullable="false" />
+          <Property Name="AnioLectivo" Type="smallint" Nullable="false" />
+          <Property Name="IDCurso" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EntidadEntidad">
+          <Key>
+            <PropertyRef Name="IDEntidadPadre" />
+            <PropertyRef Name="IDEntidadHija" />
+          </Key>
+          <Property Name="IDEntidadPadre" Type="int" Nullable="false" />
+          <Property Name="IDEntidadHija" Type="int" Nullable="false" />
+          <Property Name="IDRelacionTipo" Type="tinyint" Nullable="false" />
+          <Property Name="Notas" Type="varchar(max)" />
+          <Property Name="CreacionIDUsuario" Type="tinyint" Nullable="false" />
+          <Property Name="CreacionFechaHora" Type="smalldatetime" Nullable="false" />
+          <Property Name="ModificacionIDUsuario" Type="tinyint" Nullable="false" />
+          <Property Name="ModificacionFechaHora" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Impuesto">
+          <Key>
+            <PropertyRef Name="IDImpuesto" />
+          </Key>
+          <Property Name="IDImpuesto" Type="smallint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Alicuota" Type="decimal" Precision="4" Scale="2" />
+          <Property Name="BaseImponible" Type="char" MaxLength="2" />
+          <Property Name="MinimoNoImponible" Type="money" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Localidad">
+          <Key>
+            <PropertyRef Name="IDProvincia" />
+            <PropertyRef Name="IDLocalidad" />
+          </Key>
+          <Property Name="IDProvincia" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="IDLocalidad" Type="smallint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CodigoPostal" Type="char" MaxLength="4" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="IDLog" />
+          </Key>
+          <Property Name="IDLog" Type="int" Nullable="false" />
+          <Property Name="IDUsuario" Type="tinyint" Nullable="false" />
+          <Property Name="Accion" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MedioPago">
+          <Key>
+            <PropertyRef Name="IDMedioPago" />
+          </Key>
+          <Property Name="IDMedioPago" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DetallaValores" Type="bit" Nullable="false" />
+          <Property Name="EspecificaOtrosDatos" Type="bit" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Movimiento">
+          <Key>
+            <PropertyRef Name="IDMovimiento" />
+          </Key>
+          <Property Name="IDMovimiento" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDEntidad" Type="int" />
+          <Property Name="Importe" Type="money" Nullable="false" />
+          <Property Name="IDMedioPago" Type="tinyint" Nullable="false" />
+          <Property Name="MedioPagoNumero" Type="varchar" MaxLength="20" />
+          <Property Name="IDMovimiento_Categoria" Type="smallint" Nullable="false" />
+          <Property Name="IDMovimientoGrupo" Type="smallint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MovimientoGrupo">
+          <Key>
+            <PropertyRef Name="IDMovimientoGrupo" />
+          </Key>
+          <Property Name="IDMovimientoGrupo" Type="smallint" Nullable="false" />
+          <Property Name="IDMovimientoGrupo_Padre" Type="smallint" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Nivel">
+          <Key>
+            <PropertyRef Name="IDNivel" />
+          </Key>
+          <Property Name="IDNivel" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Parametro">
+          <Key>
+            <PropertyRef Name="IDParametro" />
+          </Key>
+          <Property Name="IDParametro" Type="char" MaxLength="100" Nullable="false" />
+          <Property Name="Texto" Type="varchar" MaxLength="1000" />
+          <Property Name="NumeroEntero" Type="int" />
+          <Property Name="NumeroDecimal" Type="decimal" Precision="18" Scale="9" />
+          <Property Name="Moneda" Type="money" />
+          <Property Name="FechaHora" Type="smalldatetime" />
+          <Property Name="SiNo" Type="bit" />
+        </EntityType>
+        <EntityType Name="Provincia">
+          <Key>
+            <PropertyRef Name="IDProvincia" />
+          </Key>
+          <Property Name="IDProvincia" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RelacionTipo">
+          <Key>
+            <PropertyRef Name="IDRelacionTipo" />
+          </Key>
+          <Property Name="IDRelacionTipo" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Turno">
+          <Key>
+            <PropertyRef Name="IDTurno" />
+          </Key>
+          <Property Name="IDTurno" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IDUsuario" />
+          </Key>
+          <Property Name="IDUsuario" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Genero" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="IDUsuarioGrupo" Type="tinyint" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsuarioGrupo">
+          <Key>
+            <PropertyRef Name="IDUsuarioGrupo" />
+          </Key>
+          <Property Name="IDUsuarioGrupo" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsuarioGrupoPermiso">
+          <Key>
+            <PropertyRef Name="IDUsuarioGrupo" />
+            <PropertyRef Name="IDPermiso" />
+          </Key>
+          <Property Name="IDUsuarioGrupo" Type="tinyint" Nullable="false" />
+          <Property Name="IDPermiso" Type="char" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Anio__Curso">
+          <End Role="Anio" Type="Self.Anio" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Anio">
+              <PropertyRef Name="IDAnio" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="IDAnio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ArticuloGrupo__Articulo">
+          <End Role="ArticuloGrupo" Type="Self.ArticuloGrupo" Multiplicity="1" />
+          <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArticuloGrupo">
+              <PropertyRef Name="IDArticuloGrupo" />
+            </Principal>
+            <Dependent Role="Articulo">
+              <PropertyRef Name="IDArticuloGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Banco__Cheque">
+          <End Role="Banco" Type="Self.Banco" Multiplicity="1" />
+          <End Role="Cheque" Type="Self.Cheque" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Banco">
+              <PropertyRef Name="IDBanco" />
+            </Principal>
+            <Dependent Role="Cheque">
+              <PropertyRef Name="IDBanco" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CategoriaIVA__ComprobanteCabecera">
+          <End Role="CategoriaIVA" Type="Self.CategoriaIVA" Multiplicity="1" />
+          <End Role="ComprobanteCabecera" Type="Self.ComprobanteCabecera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriaIVA">
+              <PropertyRef Name="IDCategoriaIVA" />
+            </Principal>
+            <Dependent Role="ComprobanteCabecera">
+              <PropertyRef Name="IDCategoriaIVA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CategoriaIVA__Entidad">
+          <End Role="CategoriaIVA" Type="Self.CategoriaIVA" Multiplicity="0..1" />
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriaIVA">
+              <PropertyRef Name="IDCategoriaIVA" />
+            </Principal>
+            <Dependent Role="Entidad">
+              <PropertyRef Name="IDCategoriaIVA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ComprobanteCabecera__ComprobanteDetalle">
+          <End Role="ComprobanteCabecera" Type="Self.ComprobanteCabecera" Multiplicity="1" />
+          <End Role="ComprobanteDetalle" Type="Self.ComprobanteDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComprobanteCabecera">
+              <PropertyRef Name="IDComprobante" />
+            </Principal>
+            <Dependent Role="ComprobanteDetalle">
+              <PropertyRef Name="IDComprobante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ComprobanteCabecera__ComprobanteImpuesto">
+          <End Role="ComprobanteCabecera" Type="Self.ComprobanteCabecera" Multiplicity="1" />
+          <End Role="ComprobanteImpuesto" Type="Self.ComprobanteImpuesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComprobanteCabecera">
+              <PropertyRef Name="IDComprobante" />
+            </Principal>
+            <Dependent Role="ComprobanteImpuesto">
+              <PropertyRef Name="IDComprobante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ComprobanteTipo__ComprobanteCabecera">
+          <End Role="ComprobanteTipo" Type="Self.ComprobanteTipo" Multiplicity="1" />
+          <End Role="ComprobanteCabecera" Type="Self.ComprobanteCabecera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComprobanteTipo">
+              <PropertyRef Name="IDComprobanteTipo" />
+            </Principal>
+            <Dependent Role="ComprobanteCabecera">
+              <PropertyRef Name="IDComprobanteTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DocumentoTipo__Entidad">
+          <End Role="DocumentoTipo" Type="Self.DocumentoTipo" Multiplicity="0..1" />
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentoTipo">
+              <PropertyRef Name="IDDocumentoTipo" />
+            </Principal>
+            <Dependent Role="Entidad">
+              <PropertyRef Name="IDDocumentoTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entidad__ComprobanteCabecera">
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="1" />
+          <End Role="ComprobanteCabecera" Type="Self.ComprobanteCabecera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="IDEntidad" />
+            </Principal>
+            <Dependent Role="ComprobanteCabecera">
+              <PropertyRef Name="IDEntidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entidad__EntidadCurso">
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="1" />
+          <End Role="EntidadCurso" Type="Self.EntidadCurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="IDEntidad" />
+            </Principal>
+            <Dependent Role="EntidadCurso">
+              <PropertyRef Name="IDEntidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entidad__EntidadEntidad__Hija">
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="1" />
+          <End Role="EntidadEntidad" Type="Self.EntidadEntidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="IDEntidad" />
+            </Principal>
+            <Dependent Role="EntidadEntidad">
+              <PropertyRef Name="IDEntidadHija" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entidad__EntidadEntidad__Padre">
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="1" />
+          <End Role="EntidadEntidad" Type="Self.EntidadEntidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="IDEntidad" />
+            </Principal>
+            <Dependent Role="EntidadEntidad">
+              <PropertyRef Name="IDEntidadPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Impuesto__ComprobanteImpuesto">
+          <End Role="Impuesto" Type="Self.Impuesto" Multiplicity="1" />
+          <End Role="ComprobanteImpuesto" Type="Self.ComprobanteImpuesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Impuesto">
+              <PropertyRef Name="IDImpuesto" />
+            </Principal>
+            <Dependent Role="ComprobanteImpuesto">
+              <PropertyRef Name="IDImpuesto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Localidad__ComprobanteCabecera">
+          <End Role="Localidad" Type="Self.Localidad" Multiplicity="0..1" />
+          <End Role="ComprobanteCabecera" Type="Self.ComprobanteCabecera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localidad">
+              <PropertyRef Name="IDProvincia" />
+              <PropertyRef Name="IDLocalidad" />
+            </Principal>
+            <Dependent Role="ComprobanteCabecera">
+              <PropertyRef Name="DomicilioIDProvincia" />
+              <PropertyRef Name="DomicilioIDLocalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Localidad__Entidad">
+          <End Role="Localidad" Type="Self.Localidad" Multiplicity="0..1" />
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localidad">
+              <PropertyRef Name="IDProvincia" />
+              <PropertyRef Name="IDLocalidad" />
+            </Principal>
+            <Dependent Role="Entidad">
+              <PropertyRef Name="DomicilioIDProvincia" />
+              <PropertyRef Name="DomicilioIDLocalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MedioPago__Movimiento">
+          <End Role="MedioPago" Type="Self.MedioPago" Multiplicity="1" />
+          <End Role="Movimiento" Type="Self.Movimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedioPago">
+              <PropertyRef Name="IDMedioPago" />
+            </Principal>
+            <Dependent Role="Movimiento">
+              <PropertyRef Name="IDMedioPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Movimiento_Categoria__Movimiento">
+          <End Role="MovimientoGrupo" Type="Self.MovimientoGrupo" Multiplicity="1" />
+          <End Role="Movimiento" Type="Self.Movimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MovimientoGrupo">
+              <PropertyRef Name="IDMovimientoGrupo" />
+            </Principal>
+            <Dependent Role="Movimiento">
+              <PropertyRef Name="IDMovimientoGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Nivel__Anio">
+          <End Role="Nivel" Type="Self.Nivel" Multiplicity="1" />
+          <End Role="Anio" Type="Self.Anio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nivel">
+              <PropertyRef Name="IDNivel" />
+            </Principal>
+            <Dependent Role="Anio">
+              <PropertyRef Name="IDNivel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Provincia__Localidad">
+          <End Role="Provincia" Type="Self.Provincia" Multiplicity="1" />
+          <End Role="Localidad" Type="Self.Localidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincia">
+              <PropertyRef Name="IDProvincia" />
+            </Principal>
+            <Dependent Role="Localidad">
+              <PropertyRef Name="IDProvincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Turno__Curso">
+          <End Role="Turno" Type="Self.Turno" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turno">
+              <PropertyRef Name="IDTurno" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="IDTurno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuarioGrupo__Usuario">
+          <End Role="UsuarioGrupo" Type="Self.UsuarioGrupo" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuarioGrupo">
+              <PropertyRef Name="IDUsuarioGrupo" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="IDUsuarioGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuarioGrupo__UsuarioGrupoPermiso">
+          <End Role="UsuarioGrupo" Type="Self.UsuarioGrupo" Multiplicity="1" />
+          <End Role="UsuarioGrupoPermiso" Type="Self.UsuarioGrupoPermiso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuarioGrupo">
+              <PropertyRef Name="IDUsuarioGrupo" />
+            </Principal>
+            <Dependent Role="UsuarioGrupoPermiso">
+              <PropertyRef Name="IDUsuarioGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CSColegioModelStoreContainer">
+          <EntitySet Name="Anio" EntityType="Self.Anio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Articulo" EntityType="Self.Articulo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArticuloGrupo" EntityType="Self.ArticuloGrupo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Banco" EntityType="Self.Banco" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoriaIVA" EntityType="Self.CategoriaIVA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cheque" EntityType="Self.Cheque" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComprobanteCabecera" EntityType="Self.ComprobanteCabecera" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComprobanteDetalle" EntityType="Self.ComprobanteDetalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComprobanteImpuesto" EntityType="Self.ComprobanteImpuesto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComprobanteTipo" EntityType="Self.ComprobanteTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CursoAnioLectivo" EntityType="Self.CursoAnioLectivo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocumentoTipo" EntityType="Self.DocumentoTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Entidad" EntityType="Self.Entidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EntidadCurso" EntityType="Self.EntidadCurso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EntidadEntidad" EntityType="Self.EntidadEntidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Impuesto" EntityType="Self.Impuesto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Localidad" EntityType="Self.Localidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedioPago" EntityType="Self.MedioPago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Movimiento" EntityType="Self.Movimiento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MovimientoGrupo" EntityType="Self.MovimientoGrupo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nivel" EntityType="Self.Nivel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parametro" EntityType="Self.Parametro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RelacionTipo" EntityType="Self.RelacionTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Turno" EntityType="Self.Turno" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuarioGrupo" EntityType="Self.UsuarioGrupo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuarioGrupoPermiso" EntityType="Self.UsuarioGrupoPermiso" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Anio__Curso" Association="Self.FK__Anio__Curso">
+            <End Role="Anio" EntitySet="Anio" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ArticuloGrupo__Articulo" Association="Self.FK__ArticuloGrupo__Articulo">
+            <End Role="ArticuloGrupo" EntitySet="ArticuloGrupo" />
+            <End Role="Articulo" EntitySet="Articulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Banco__Cheque" Association="Self.FK__Banco__Cheque">
+            <End Role="Banco" EntitySet="Banco" />
+            <End Role="Cheque" EntitySet="Cheque" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CategoriaIVA__ComprobanteCabecera" Association="Self.FK__CategoriaIVA__ComprobanteCabecera">
+            <End Role="CategoriaIVA" EntitySet="CategoriaIVA" />
+            <End Role="ComprobanteCabecera" EntitySet="ComprobanteCabecera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CategoriaIVA__Entidad" Association="Self.FK__CategoriaIVA__Entidad">
+            <End Role="CategoriaIVA" EntitySet="CategoriaIVA" />
+            <End Role="Entidad" EntitySet="Entidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ComprobanteCabecera__ComprobanteDetalle" Association="Self.FK__ComprobanteCabecera__ComprobanteDetalle">
+            <End Role="ComprobanteCabecera" EntitySet="ComprobanteCabecera" />
+            <End Role="ComprobanteDetalle" EntitySet="ComprobanteDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ComprobanteCabecera__ComprobanteImpuesto" Association="Self.FK__ComprobanteCabecera__ComprobanteImpuesto">
+            <End Role="ComprobanteCabecera" EntitySet="ComprobanteCabecera" />
+            <End Role="ComprobanteImpuesto" EntitySet="ComprobanteImpuesto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ComprobanteTipo__ComprobanteCabecera" Association="Self.FK__ComprobanteTipo__ComprobanteCabecera">
+            <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
+            <End Role="ComprobanteCabecera" EntitySet="ComprobanteCabecera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DocumentoTipo__Entidad" Association="Self.FK__DocumentoTipo__Entidad">
+            <End Role="DocumentoTipo" EntitySet="DocumentoTipo" />
+            <End Role="Entidad" EntitySet="Entidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entidad__ComprobanteCabecera" Association="Self.FK__Entidad__ComprobanteCabecera">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="ComprobanteCabecera" EntitySet="ComprobanteCabecera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entidad__EntidadCurso" Association="Self.FK__Entidad__EntidadCurso">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="EntidadCurso" EntitySet="EntidadCurso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entidad__EntidadEntidad__Hija" Association="Self.FK__Entidad__EntidadEntidad__Hija">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="EntidadEntidad" EntitySet="EntidadEntidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entidad__EntidadEntidad__Padre" Association="Self.FK__Entidad__EntidadEntidad__Padre">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="EntidadEntidad" EntitySet="EntidadEntidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Impuesto__ComprobanteImpuesto" Association="Self.FK__Impuesto__ComprobanteImpuesto">
+            <End Role="Impuesto" EntitySet="Impuesto" />
+            <End Role="ComprobanteImpuesto" EntitySet="ComprobanteImpuesto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Localidad__ComprobanteCabecera" Association="Self.FK__Localidad__ComprobanteCabecera">
+            <End Role="Localidad" EntitySet="Localidad" />
+            <End Role="ComprobanteCabecera" EntitySet="ComprobanteCabecera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Localidad__Entidad" Association="Self.FK__Localidad__Entidad">
+            <End Role="Localidad" EntitySet="Localidad" />
+            <End Role="Entidad" EntitySet="Entidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MedioPago__Movimiento" Association="Self.FK__MedioPago__Movimiento">
+            <End Role="MedioPago" EntitySet="MedioPago" />
+            <End Role="Movimiento" EntitySet="Movimiento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Movimiento_Categoria__Movimiento" Association="Self.FK__Movimiento_Categoria__Movimiento">
+            <End Role="MovimientoGrupo" EntitySet="MovimientoGrupo" />
+            <End Role="Movimiento" EntitySet="Movimiento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Nivel__Anio" Association="Self.FK__Nivel__Anio">
+            <End Role="Nivel" EntitySet="Nivel" />
+            <End Role="Anio" EntitySet="Anio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Provincia__Localidad" Association="Self.FK__Provincia__Localidad">
+            <End Role="Provincia" EntitySet="Provincia" />
+            <End Role="Localidad" EntitySet="Localidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Turno__Curso" Association="Self.FK__Turno__Curso">
+            <End Role="Turno" EntitySet="Turno" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuarioGrupo__Usuario" Association="Self.FK__UsuarioGrupo__Usuario">
+            <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuarioGrupo__UsuarioGrupoPermiso" Association="Self.FK__UsuarioGrupo__UsuarioGrupoPermiso">
+            <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
+            <End Role="UsuarioGrupoPermiso" EntitySet="UsuarioGrupoPermiso" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CSColegioModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Anio">
+          <Key>
+            <PropertyRef Name="IDAnio" />
+          </Key>
+          <Property Name="IDAnio" Type="Byte" Nullable="false" />
+          <Property Name="IDNivel" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Curso" Relationship="Self.FK__Anio__Curso" FromRole="Anio" ToRole="Curso" />
+          <NavigationProperty Name="Nivel" Relationship="Self.FK__Nivel__Anio" FromRole="Anio" ToRole="Nivel" />
+        </EntityType>
+        <EntityType Name="Articulo">
+          <Key>
+            <PropertyRef Name="IDArticulo" />
+          </Key>
+          <Property Name="IDArticulo" Type="Int16" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDArticuloGrupo" Type="Byte" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ArticuloGrupo" Relationship="Self.FK__ArticuloGrupo__Articulo" FromRole="Articulo" ToRole="ArticuloGrupo" />
+        </EntityType>
+        <EntityType Name="ArticuloGrupo">
+          <Key>
+            <PropertyRef Name="IDArticuloGrupo" />
+          </Key>
+          <Property Name="IDArticuloGrupo" Type="Byte" Nullable="false" />
+          <Property Name="IDArticuloGrupo_Padre" Type="Byte" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Articulo" Relationship="Self.FK__ArticuloGrupo__Articulo" FromRole="ArticuloGrupo" ToRole="Articulo" />
+        </EntityType>
+        <EntityType Name="Banco">
+          <Key>
+            <PropertyRef Name="IDBanco" />
+          </Key>
+          <Property Name="IDBanco" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CUIT" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Cheque" Relationship="Self.FK__Banco__Cheque" FromRole="Banco" ToRole="Cheque" />
+        </EntityType>
+        <EntityType Name="CategoriaIVA">
+          <Key>
+            <PropertyRef Name="IDCategoriaIVA" />
+          </Key>
+          <Property Name="IDCategoriaIVA" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Entidad" Relationship="Self.FK__CategoriaIVA__Entidad" FromRole="CategoriaIVA" ToRole="Entidad" />
+          <NavigationProperty Name="ComprobanteCabecera" Relationship="CSColegioModel.FK__CategoriaIVA__ComprobanteCabecera" FromRole="CategoriaIVA" ToRole="ComprobanteCabecera" />
+        </EntityType>
+        <EntityType Name="Cheque">
+          <Key>
+            <PropertyRef Name="IDCheque" />
+          </Key>
+          <Property Name="IDCheque" Type="Int32" Nullable="false" />
+          <Property Name="IDBanco" Type="Int32" Nullable="false" />
+          <Property Name="Serie" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Numero" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FechaPago" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Importe" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="CuentaBancaria" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Banco" Relationship="Self.FK__Banco__Cheque" FromRole="Cheque" ToRole="Banco" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="IDCurso" />
+          </Key>
+          <Property Name="IDCurso" Type="Byte" Nullable="false" />
+          <Property Name="IDAnio" Type="Byte" Nullable="false" />
+          <Property Name="IDTurno" Type="Byte" Nullable="false" />
+          <Property Name="Division" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Anio" Relationship="Self.FK__Anio__Curso" FromRole="Curso" ToRole="Anio" />
+          <NavigationProperty Name="Turno" Relationship="Self.FK__Turno__Curso" FromRole="Curso" ToRole="Turno" />
+        </EntityType>
+        <EntityType Name="CursoAnioLectivo">
+          <Key>
+            <PropertyRef Name="IDCurso" />
+            <PropertyRef Name="AnioLectivo" />
+          </Key>
+          <Property Name="IDCurso" Type="Byte" Nullable="false" />
+          <Property Name="AnioLectivo" Type="Int16" Nullable="false" />
+          <Property Name="ImporteMatricula" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ImporteCuota" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DocumentoTipo">
+          <Key>
+            <PropertyRef Name="IDDocumentoTipo" />
+          </Key>
+          <Property Name="IDDocumentoTipo" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Entidad" Relationship="Self.FK__DocumentoTipo__Entidad" FromRole="DocumentoTipo" ToRole="Entidad" />
+        </EntityType>
+        <EntityType Name="Entidad">
+          <Key>
+            <PropertyRef Name="IDEntidad" />
+          </Key>
+          <Property Name="IDEntidad" Type="Int32" Nullable="false" />
+          <Property Name="Apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TipoPersonalColegio" Type="Boolean" Nullable="false" />
+          <Property Name="TipoDocente" Type="Boolean" Nullable="false" />
+          <Property Name="TipoAlumno" Type="Boolean" Nullable="false" />
+          <Property Name="TipoFamiliar" Type="Boolean" Nullable="false" />
+          <Property Name="TipoProveedor" Type="Boolean" Nullable="false" />
+          <Property Name="IDDocumentoTipo" Type="Byte" />
+          <Property Name="DocumentoNumero" Type="String" MaxLength="12" Unicode="false" />
+          <Property Name="Genero" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="CUIT_CUIL" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="IDCategoriaIVA" Type="Byte" />
+          <Property Name="Telefono1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DomicilioCalle1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DomicilioNumero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DomicilioPiso" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DomicilioDepartamento" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DomicilioCalle2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DomicilioCalle3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DomicilioCodigoPostal" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="DomicilioIDProvincia" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="DomicilioIDLocalidad" Type="Int16" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="CategoriaIVA" Relationship="Self.FK__CategoriaIVA__Entidad" FromRole="Entidad" ToRole="CategoriaIVA" />
+          <NavigationProperty Name="DocumentoTipo" Relationship="Self.FK__DocumentoTipo__Entidad" FromRole="Entidad" ToRole="DocumentoTipo" />
+          <NavigationProperty Name="EntidadCurso" Relationship="Self.FK__Entidad__EntidadCurso" FromRole="Entidad" ToRole="EntidadCurso" />
+          <NavigationProperty Name="EntidadesPadres" Relationship="Self.FK__Entidad__EntidadEntidad__Hija" FromRole="Entidad" ToRole="EntidadEntidad" />
+          <NavigationProperty Name="EntidadesHijas" Relationship="Self.FK__Entidad__EntidadEntidad__Padre" FromRole="Entidad" ToRole="EntidadEntidad" />
+          <NavigationProperty Name="Localidad" Relationship="Self.FK__Localidad__Entidad" FromRole="Entidad" ToRole="Localidad" />
+          <NavigationProperty Name="ComprobanteCabecera" Relationship="CSColegioModel.FK__Entidad__ComprobanteCabecera" FromRole="Entidad" ToRole="ComprobanteCabecera" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__Entidad__Creacion" FromRole="Entidad" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__Entidad__Modificacion" FromRole="Entidad" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="EntidadCurso">
+          <Key>
+            <PropertyRef Name="IDEntidad" />
+            <PropertyRef Name="AnioLectivo" />
+            <PropertyRef Name="IDCurso" />
+          </Key>
+          <Property Name="IDEntidad" Type="Int32" Nullable="false" />
+          <Property Name="AnioLectivo" Type="Int16" Nullable="false" />
+          <Property Name="IDCurso" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Entidad" Relationship="Self.FK__Entidad__EntidadCurso" FromRole="EntidadCurso" ToRole="Entidad" />
+        </EntityType>
+        <EntityType Name="EntidadEntidad">
+          <Key>
+            <PropertyRef Name="IDEntidadPadre" />
+            <PropertyRef Name="IDEntidadHija" />
+          </Key>
+          <Property Name="IDEntidadPadre" Type="Int32" Nullable="false" />
+          <Property Name="IDEntidadHija" Type="Int32" Nullable="false" />
+          <Property Name="IDRelacionTipo" Type="Byte" Nullable="false" />
+          <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreacionIDUsuario" Type="Byte" Nullable="false" />
+          <Property Name="CreacionFechaHora" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ModificacionIDUsuario" Type="Byte" Nullable="false" />
+          <Property Name="ModificacionFechaHora" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="EntidadHija" Relationship="Self.FK__Entidad__EntidadEntidad__Hija" FromRole="EntidadEntidad" ToRole="Entidad" />
+          <NavigationProperty Name="EntidadPadre" Relationship="Self.FK__Entidad__EntidadEntidad__Padre" FromRole="EntidadEntidad" ToRole="Entidad" />
+          <NavigationProperty Name="RelacionTipo" Relationship="CSColegioModel.FK__RelacionTipo__EntidadEntidad" FromRole="EntidadEntidad" ToRole="RelacionTipo" />
+        </EntityType>
+        <EntityType Name="Localidad">
+          <Key>
+            <PropertyRef Name="IDProvincia" />
+            <PropertyRef Name="IDLocalidad" />
+          </Key>
+          <Property Name="IDProvincia" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IDLocalidad" Type="Int16" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CodigoPostal" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Entidad" Relationship="Self.FK__Localidad__Entidad" FromRole="Localidad" ToRole="Entidad" />
+          <NavigationProperty Name="Provincia" Relationship="Self.FK__Provincia__Localidad" FromRole="Localidad" ToRole="Provincia" />
+          <NavigationProperty Name="ComprobanteCabecera" Relationship="CSColegioModel.FK__Localidad__ComprobanteCabecera" FromRole="Localidad" ToRole="ComprobanteCabecera" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="IDLog" />
+          </Key>
+          <Property Name="IDLog" Type="Int32" Nullable="false" />
+          <Property Name="IDUsuario" Type="Byte" Nullable="false" />
+          <Property Name="Accion" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MedioPago">
+          <Key>
+            <PropertyRef Name="IDMedioPago" />
+          </Key>
+          <Property Name="IDMedioPago" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DetallaValores" Type="Boolean" Nullable="false" />
+          <Property Name="EspecificaOtrosDatos" Type="Boolean" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Movimiento" Relationship="Self.FK__MedioPago__Movimiento" FromRole="MedioPago" ToRole="Movimiento" />
+        </EntityType>
+        <EntityType Name="Movimiento">
+          <Key>
+            <PropertyRef Name="IDMovimiento" />
+          </Key>
+          <Property Name="IDMovimiento" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDEntidad" Type="Int32" />
+          <Property Name="Importe" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="IDMedioPago" Type="Byte" Nullable="false" />
+          <Property Name="MedioPagoNumero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IDMovimiento_Categoria" Type="Int16" Nullable="false" />
+          <Property Name="IDMovimientoGrupo" Type="Int16" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="MedioPago" Relationship="Self.FK__MedioPago__Movimiento" FromRole="Movimiento" ToRole="MedioPago" />
+          <NavigationProperty Name="MovimientoGrupo" Relationship="Self.FK__Movimiento_Categoria__Movimiento" FromRole="Movimiento" ToRole="MovimientoGrupo" />
+        </EntityType>
+        <EntityType Name="MovimientoGrupo">
+          <Key>
+            <PropertyRef Name="IDMovimientoGrupo" />
+          </Key>
+          <Property Name="IDMovimientoGrupo" Type="Int16" Nullable="false" />
+          <Property Name="IDMovimientoGrupo_Padre" Type="Int16" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Movimiento" Relationship="Self.FK__Movimiento_Categoria__Movimiento" FromRole="MovimientoGrupo" ToRole="Movimiento" />
+        </EntityType>
+        <EntityType Name="Nivel">
+          <Key>
+            <PropertyRef Name="IDNivel" />
+          </Key>
+          <Property Name="IDNivel" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Anio" Relationship="Self.FK__Nivel__Anio" FromRole="Nivel" ToRole="Anio" />
+        </EntityType>
+        <EntityType Name="Parametro">
+          <Key>
+            <PropertyRef Name="IDParametro" />
+          </Key>
+          <Property Name="IDParametro" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Texto" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroEntero" Type="Int32" />
+          <Property Name="NumeroDecimal" Type="Decimal" Precision="18" Scale="9" />
+          <Property Name="Moneda" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="FechaHora" Type="DateTime" Precision="0" />
+          <Property Name="SiNo" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Provincia">
+          <Key>
+            <PropertyRef Name="IDProvincia" />
+          </Key>
+          <Property Name="IDProvincia" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Localidad" Relationship="Self.FK__Provincia__Localidad" FromRole="Provincia" ToRole="Localidad" />
+        </EntityType>
+        <EntityType Name="RelacionTipo">
+          <Key>
+            <PropertyRef Name="IDRelacionTipo" />
+          </Key>
+          <Property Name="IDRelacionTipo" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="EntidadEntidad" Relationship="CSColegioModel.FK__RelacionTipo__EntidadEntidad" FromRole="RelacionTipo" ToRole="EntidadEntidad" />
+        </EntityType>
+        <EntityType Name="Turno">
+          <Key>
+            <PropertyRef Name="IDTurno" />
+          </Key>
+          <Property Name="IDTurno" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Curso" Relationship="Self.FK__Turno__Curso" FromRole="Turno" ToRole="Curso" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IDUsuario" />
+          </Key>
+          <Property Name="IDUsuario" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Genero" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IDUsuarioGrupo" Type="Byte" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="UsuarioGrupo" Relationship="Self.FK__UsuarioGrupo__Usuario" FromRole="Usuario" ToRole="UsuarioGrupo" />
+          <NavigationProperty Name="Entidad" Relationship="CSColegioModel.FK__Usuario__Entidad__Creacion" FromRole="Usuario" ToRole="Entidad" />
+          <NavigationProperty Name="Entidad1" Relationship="CSColegioModel.FK__Usuario__Entidad__Modificacion" FromRole="Usuario" ToRole="Entidad" />
+        </EntityType>
+        <EntityType Name="UsuarioGrupo">
+          <Key>
+            <PropertyRef Name="IDUsuarioGrupo" />
+          </Key>
+          <Property Name="IDUsuarioGrupo" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__UsuarioGrupo__Usuario" FromRole="UsuarioGrupo" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioGrupoPermiso" Relationship="CSColegioModel.FK__UsuarioGrupo__UsuarioGrupoPermiso" FromRole="UsuarioGrupo" ToRole="UsuarioGrupoPermiso" />
+        </EntityType>
+        <Association Name="FK__Anio__Curso">
+          <End Role="Anio" Type="Self.Anio" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Anio">
+              <PropertyRef Name="IDAnio" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="IDAnio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Nivel__Anio">
+          <End Role="Nivel" Type="Self.Nivel" Multiplicity="1" />
+          <End Role="Anio" Type="Self.Anio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nivel">
+              <PropertyRef Name="IDNivel" />
+            </Principal>
+            <Dependent Role="Anio">
+              <PropertyRef Name="IDNivel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ArticuloGrupo__Articulo">
+          <End Role="ArticuloGrupo" Type="Self.ArticuloGrupo" Multiplicity="1" />
+          <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArticuloGrupo">
+              <PropertyRef Name="IDArticuloGrupo" />
+            </Principal>
+            <Dependent Role="Articulo">
+              <PropertyRef Name="IDArticuloGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Banco__Cheque">
+          <End Role="Banco" Type="Self.Banco" Multiplicity="1" />
+          <End Role="Cheque" Type="Self.Cheque" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Banco">
+              <PropertyRef Name="IDBanco" />
+            </Principal>
+            <Dependent Role="Cheque">
+              <PropertyRef Name="IDBanco" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CategoriaIVA__Entidad">
+          <End Role="CategoriaIVA" Type="Self.CategoriaIVA" Multiplicity="0..1" />
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriaIVA">
+              <PropertyRef Name="IDCategoriaIVA" />
+            </Principal>
+            <Dependent Role="Entidad">
+              <PropertyRef Name="IDCategoriaIVA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Turno__Curso">
+          <End Role="Turno" Type="Self.Turno" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turno">
+              <PropertyRef Name="IDTurno" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="IDTurno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DocumentoTipo__Entidad">
+          <End Role="DocumentoTipo" Type="Self.DocumentoTipo" Multiplicity="0..1" />
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentoTipo">
+              <PropertyRef Name="IDDocumentoTipo" />
+            </Principal>
+            <Dependent Role="Entidad">
+              <PropertyRef Name="IDDocumentoTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entidad__EntidadCurso">
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="1" />
+          <End Role="EntidadCurso" Type="Self.EntidadCurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="IDEntidad" />
+            </Principal>
+            <Dependent Role="EntidadCurso">
+              <PropertyRef Name="IDEntidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entidad__EntidadEntidad__Hija">
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="1" />
+          <End Role="EntidadEntidad" Type="Self.EntidadEntidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="IDEntidad" />
+            </Principal>
+            <Dependent Role="EntidadEntidad">
+              <PropertyRef Name="IDEntidadHija" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entidad__EntidadEntidad__Padre">
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="1" />
+          <End Role="EntidadEntidad" Type="Self.EntidadEntidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="IDEntidad" />
+            </Principal>
+            <Dependent Role="EntidadEntidad">
+              <PropertyRef Name="IDEntidadPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Localidad__Entidad">
+          <End Role="Localidad" Type="Self.Localidad" Multiplicity="0..1" />
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localidad">
+              <PropertyRef Name="IDProvincia" />
+              <PropertyRef Name="IDLocalidad" />
+            </Principal>
+            <Dependent Role="Entidad">
+              <PropertyRef Name="DomicilioIDProvincia" />
+              <PropertyRef Name="DomicilioIDLocalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Provincia__Localidad">
+          <End Role="Provincia" Type="Self.Provincia" Multiplicity="1" />
+          <End Role="Localidad" Type="Self.Localidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincia">
+              <PropertyRef Name="IDProvincia" />
+            </Principal>
+            <Dependent Role="Localidad">
+              <PropertyRef Name="IDProvincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MedioPago__Movimiento">
+          <End Role="MedioPago" Type="Self.MedioPago" Multiplicity="1" />
+          <End Role="Movimiento" Type="Self.Movimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedioPago">
+              <PropertyRef Name="IDMedioPago" />
+            </Principal>
+            <Dependent Role="Movimiento">
+              <PropertyRef Name="IDMedioPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Movimiento_Categoria__Movimiento">
+          <End Role="MovimientoGrupo" Type="Self.MovimientoGrupo" Multiplicity="1" />
+          <End Role="Movimiento" Type="Self.Movimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MovimientoGrupo">
+              <PropertyRef Name="IDMovimientoGrupo" />
+            </Principal>
+            <Dependent Role="Movimiento">
+              <PropertyRef Name="IDMovimientoGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuarioGrupo__Usuario">
+          <End Role="UsuarioGrupo" Type="Self.UsuarioGrupo" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuarioGrupo">
+              <PropertyRef Name="IDUsuarioGrupo" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="IDUsuarioGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CSColegioContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Anio" EntityType="Self.Anio" />
+          <EntitySet Name="Articulo" EntityType="Self.Articulo" />
+          <EntitySet Name="ArticuloGrupo" EntityType="Self.ArticuloGrupo" />
+          <EntitySet Name="Banco" EntityType="Self.Banco" />
+          <EntitySet Name="CategoriaIVA" EntityType="Self.CategoriaIVA" />
+          <EntitySet Name="Cheque" EntityType="Self.Cheque" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" />
+          <EntitySet Name="CursoAnioLectivo" EntityType="Self.CursoAnioLectivo" />
+          <EntitySet Name="DocumentoTipo" EntityType="Self.DocumentoTipo" />
+          <EntitySet Name="Entidad" EntityType="Self.Entidad" />
+          <EntitySet Name="EntidadCurso" EntityType="Self.EntidadCurso" />
+          <EntitySet Name="EntidadEntidad" EntityType="Self.EntidadEntidad" />
+          <EntitySet Name="Localidad" EntityType="Self.Localidad" />
+          <EntitySet Name="Log" EntityType="Self.Log" />
+          <EntitySet Name="MedioPago" EntityType="Self.MedioPago" />
+          <EntitySet Name="Movimiento" EntityType="Self.Movimiento" />
+          <EntitySet Name="MovimientoGrupo" EntityType="Self.MovimientoGrupo" />
+          <EntitySet Name="Nivel" EntityType="Self.Nivel" />
+          <EntitySet Name="Parametro" EntityType="Self.Parametro" />
+          <EntitySet Name="Provincia" EntityType="Self.Provincia" />
+          <EntitySet Name="RelacionTipo" EntityType="Self.RelacionTipo" />
+          <EntitySet Name="Turno" EntityType="Self.Turno" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <EntitySet Name="UsuarioGrupo" EntityType="Self.UsuarioGrupo" />
+          <AssociationSet Name="FK__Anio__Curso" Association="Self.FK__Anio__Curso">
+            <End Role="Anio" EntitySet="Anio" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Nivel__Anio" Association="Self.FK__Nivel__Anio">
+            <End Role="Nivel" EntitySet="Nivel" />
+            <End Role="Anio" EntitySet="Anio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ArticuloGrupo__Articulo" Association="Self.FK__ArticuloGrupo__Articulo">
+            <End Role="ArticuloGrupo" EntitySet="ArticuloGrupo" />
+            <End Role="Articulo" EntitySet="Articulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Banco__Cheque" Association="Self.FK__Banco__Cheque">
+            <End Role="Banco" EntitySet="Banco" />
+            <End Role="Cheque" EntitySet="Cheque" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CategoriaIVA__Entidad" Association="Self.FK__CategoriaIVA__Entidad">
+            <End Role="CategoriaIVA" EntitySet="CategoriaIVA" />
+            <End Role="Entidad" EntitySet="Entidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Turno__Curso" Association="Self.FK__Turno__Curso">
+            <End Role="Turno" EntitySet="Turno" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DocumentoTipo__Entidad" Association="Self.FK__DocumentoTipo__Entidad">
+            <End Role="DocumentoTipo" EntitySet="DocumentoTipo" />
+            <End Role="Entidad" EntitySet="Entidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entidad__EntidadCurso" Association="Self.FK__Entidad__EntidadCurso">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="EntidadCurso" EntitySet="EntidadCurso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entidad__EntidadEntidad__Hija" Association="Self.FK__Entidad__EntidadEntidad__Hija">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="EntidadEntidad" EntitySet="EntidadEntidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entidad__EntidadEntidad__Padre" Association="Self.FK__Entidad__EntidadEntidad__Padre">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="EntidadEntidad" EntitySet="EntidadEntidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Localidad__Entidad" Association="Self.FK__Localidad__Entidad">
+            <End Role="Localidad" EntitySet="Localidad" />
+            <End Role="Entidad" EntitySet="Entidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Provincia__Localidad" Association="Self.FK__Provincia__Localidad">
+            <End Role="Provincia" EntitySet="Provincia" />
+            <End Role="Localidad" EntitySet="Localidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MedioPago__Movimiento" Association="Self.FK__MedioPago__Movimiento">
+            <End Role="MedioPago" EntitySet="MedioPago" />
+            <End Role="Movimiento" EntitySet="Movimiento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Movimiento_Categoria__Movimiento" Association="Self.FK__Movimiento_Categoria__Movimiento">
+            <End Role="MovimientoGrupo" EntitySet="MovimientoGrupo" />
+            <End Role="Movimiento" EntitySet="Movimiento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuarioGrupo__Usuario" Association="Self.FK__UsuarioGrupo__Usuario">
+            <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <EntitySet Name="ComprobanteImpuesto" EntityType="CSColegioModel.ComprobanteImpuesto" />
+          <EntitySet Name="ComprobanteTipo" EntityType="CSColegioModel.ComprobanteTipo" />
+          <EntitySet Name="Impuesto" EntityType="CSColegioModel.Impuesto" />
+          <AssociationSet Name="FK__Impuesto__ComprobanteImpuesto" Association="CSColegioModel.FK__Impuesto__ComprobanteImpuesto">
+            <End Role="Impuesto" EntitySet="Impuesto" />
+            <End Role="ComprobanteImpuesto" EntitySet="ComprobanteImpuesto" />
+          </AssociationSet>
+          <EntitySet Name="ComprobanteCabecera" EntityType="CSColegioModel.ComprobanteCabecera" />
+          <EntitySet Name="ComprobanteDetalle" EntityType="CSColegioModel.ComprobanteDetalle" />
+          <AssociationSet Name="FK__CategoriaIVA__ComprobanteCabecera" Association="CSColegioModel.FK__CategoriaIVA__ComprobanteCabecera">
+            <End Role="CategoriaIVA" EntitySet="CategoriaIVA" />
+            <End Role="ComprobanteCabecera" EntitySet="ComprobanteCabecera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ComprobanteCabecera__ComprobanteDetalle" Association="CSColegioModel.FK__ComprobanteCabecera__ComprobanteDetalle">
+            <End Role="ComprobanteCabecera" EntitySet="ComprobanteCabecera" />
+            <End Role="ComprobanteDetalle" EntitySet="ComprobanteDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ComprobanteCabecera__ComprobanteImpuesto" Association="CSColegioModel.FK__ComprobanteCabecera__ComprobanteImpuesto">
+            <End Role="ComprobanteCabecera" EntitySet="ComprobanteCabecera" />
+            <End Role="ComprobanteImpuesto" EntitySet="ComprobanteImpuesto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ComprobanteTipo__ComprobanteCabecera" Association="CSColegioModel.FK__ComprobanteTipo__ComprobanteCabecera">
+            <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
+            <End Role="ComprobanteCabecera" EntitySet="ComprobanteCabecera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entidad__ComprobanteCabecera" Association="CSColegioModel.FK__Entidad__ComprobanteCabecera">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="ComprobanteCabecera" EntitySet="ComprobanteCabecera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Localidad__ComprobanteCabecera" Association="CSColegioModel.FK__Localidad__ComprobanteCabecera">
+            <End Role="Localidad" EntitySet="Localidad" />
+            <End Role="ComprobanteCabecera" EntitySet="ComprobanteCabecera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Entidad__Creacion" Association="CSColegioModel.FK__Usuario__Entidad__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Entidad" EntitySet="Entidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Entidad__Modificacion" Association="CSColegioModel.FK__Usuario__Entidad__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Entidad" EntitySet="Entidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RelacionTipo__EntidadEntidad" Association="CSColegioModel.FK__RelacionTipo__EntidadEntidad">
+            <End Role="RelacionTipo" EntitySet="RelacionTipo" />
+            <End Role="EntidadEntidad" EntitySet="EntidadEntidad" />
+          </AssociationSet>
+          <EntitySet Name="UsuarioGrupoPermiso" EntityType="CSColegioModel.UsuarioGrupoPermiso" />
+          <AssociationSet Name="FK__UsuarioGrupo__UsuarioGrupoPermiso" Association="CSColegioModel.FK__UsuarioGrupo__UsuarioGrupoPermiso">
+            <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
+            <End Role="UsuarioGrupoPermiso" EntitySet="UsuarioGrupoPermiso" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ComprobanteImpuesto">
+          <Key>
+            <PropertyRef Name="IDComprobante" />
+            <PropertyRef Name="Indice" />
+          </Key>
+          <Property Name="IDComprobante" Type="Int32" Nullable="false" />
+          <Property Name="Indice" Type="Byte" Nullable="false" />
+          <Property Name="IDImpuesto" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Impuesto" Relationship="CSColegioModel.FK__Impuesto__ComprobanteImpuesto" FromRole="ComprobanteImpuesto" ToRole="Impuesto" />
+          <NavigationProperty Name="ComprobanteCabecera" Relationship="CSColegioModel.FK__ComprobanteCabecera__ComprobanteImpuesto" FromRole="ComprobanteImpuesto" ToRole="ComprobanteCabecera" />
+        </EntityType>
+        <EntityType Name="ComprobanteTipo">
+          <Key>
+            <PropertyRef Name="IDComprobanteTipo" />
+          </Key>
+          <Property Name="IDComprobanteTipo" Type="Byte" Nullable="false" />
+          <Property Name="OperacionTipo" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Sigla" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ComprobanteCabecera" Relationship="CSColegioModel.FK__ComprobanteTipo__ComprobanteCabecera" FromRole="ComprobanteTipo" ToRole="ComprobanteCabecera" />
+        </EntityType>
+        <EntityType Name="Impuesto">
+          <Key>
+            <PropertyRef Name="IDImpuesto" />
+          </Key>
+          <Property Name="IDImpuesto" Type="Int16" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Alicuota" Type="Decimal" Precision="4" Scale="2" />
+          <Property Name="BaseImponible" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="MinimoNoImponible" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ComprobanteImpuesto" Relationship="CSColegioModel.FK__Impuesto__ComprobanteImpuesto" FromRole="Impuesto" ToRole="ComprobanteImpuesto" />
+        </EntityType>
+        <Association Name="FK__Impuesto__ComprobanteImpuesto">
+          <End Type="CSColegioModel.Impuesto" Role="Impuesto" Multiplicity="1" />
+          <End Type="CSColegioModel.ComprobanteImpuesto" Role="ComprobanteImpuesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Impuesto">
+              <PropertyRef Name="IDImpuesto" />
+            </Principal>
+            <Dependent Role="ComprobanteImpuesto">
+              <PropertyRef Name="IDImpuesto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ComprobanteCabecera">
+          <Key>
+            <PropertyRef Name="IDComprobante" />
+          </Key>
+          <Property Name="IDComprobante" Type="Int32" Nullable="false" />
+          <Property Name="IDComprobanteTipo" Type="Byte" Nullable="false" />
+          <Property Name="ComprobanteNumero" Type="String" Nullable="false" MaxLength="13" FixedLength="true" Unicode="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDEntidad" Type="Int32" Nullable="false" />
+          <Property Name="EntidadApellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EntidadNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CUIT" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="IDCategoriaIVA" Type="Byte" Nullable="false" />
+          <Property Name="DomicilioCalle1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DomicilioNumero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DomicilioPiso" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DomicilioDepartamento" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DomicilioCalle2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DomicilioCalle3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DomicilioCodigoPostal" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="DomicilioIDProvincia" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="DomicilioIDLocalidad" Type="Int16" />
+          <Property Name="ImporteNeto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="ImporteImpuesto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="ImporteTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="CategoriaIVA" Relationship="CSColegioModel.FK__CategoriaIVA__ComprobanteCabecera" FromRole="ComprobanteCabecera" ToRole="CategoriaIVA" />
+          <NavigationProperty Name="ComprobanteDetalle" Relationship="CSColegioModel.FK__ComprobanteCabecera__ComprobanteDetalle" FromRole="ComprobanteCabecera" ToRole="ComprobanteDetalle" />
+          <NavigationProperty Name="ComprobanteImpuesto" Relationship="CSColegioModel.FK__ComprobanteCabecera__ComprobanteImpuesto" FromRole="ComprobanteCabecera" ToRole="ComprobanteImpuesto" />
+          <NavigationProperty Name="ComprobanteTipo" Relationship="CSColegioModel.FK__ComprobanteTipo__ComprobanteCabecera" FromRole="ComprobanteCabecera" ToRole="ComprobanteTipo" />
+          <NavigationProperty Name="Entidad" Relationship="CSColegioModel.FK__Entidad__ComprobanteCabecera" FromRole="ComprobanteCabecera" ToRole="Entidad" />
+          <NavigationProperty Name="Localidad" Relationship="CSColegioModel.FK__Localidad__ComprobanteCabecera" FromRole="ComprobanteCabecera" ToRole="Localidad" />
+        </EntityType>
+        <EntityType Name="ComprobanteDetalle">
+          <Key>
+            <PropertyRef Name="IDComprobante" />
+            <PropertyRef Name="Indice" />
+          </Key>
+          <Property Name="IDComprobante" Type="Int32" Nullable="false" />
+          <Property Name="Indice" Type="Byte" Nullable="false" />
+          <Property Name="IDArticulo" Type="Int16" Nullable="false" />
+          <Property Name="IDEntidad" Type="Int32" Nullable="false" />
+          <Property Name="CuotaAnio" Type="Int16" />
+          <Property Name="CuotaMes" Type="Byte" />
+          <Property Name="Cantidad" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="Unidad" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PrecioUnitario" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="PrecioUnitarioDescuentoPorcentaje" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="PrecioUnitarioDescuentoImporte" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PrecioUnitarioFinal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="PrecioTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="ComprobanteCabecera" Relationship="CSColegioModel.FK__ComprobanteCabecera__ComprobanteDetalle" FromRole="ComprobanteDetalle" ToRole="ComprobanteCabecera" />
+        </EntityType>
+        <Association Name="FK__CategoriaIVA__ComprobanteCabecera">
+          <End Type="CSColegioModel.CategoriaIVA" Role="CategoriaIVA" Multiplicity="1" />
+          <End Type="CSColegioModel.ComprobanteCabecera" Role="ComprobanteCabecera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriaIVA">
+              <PropertyRef Name="IDCategoriaIVA" />
+            </Principal>
+            <Dependent Role="ComprobanteCabecera">
+              <PropertyRef Name="IDCategoriaIVA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ComprobanteCabecera__ComprobanteDetalle">
+          <End Type="CSColegioModel.ComprobanteCabecera" Role="ComprobanteCabecera" Multiplicity="1" />
+          <End Type="CSColegioModel.ComprobanteDetalle" Role="ComprobanteDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComprobanteCabecera">
+              <PropertyRef Name="IDComprobante" />
+            </Principal>
+            <Dependent Role="ComprobanteDetalle">
+              <PropertyRef Name="IDComprobante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ComprobanteCabecera__ComprobanteImpuesto">
+          <End Type="CSColegioModel.ComprobanteCabecera" Role="ComprobanteCabecera" Multiplicity="1" />
+          <End Type="CSColegioModel.ComprobanteImpuesto" Role="ComprobanteImpuesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComprobanteCabecera">
+              <PropertyRef Name="IDComprobante" />
+            </Principal>
+            <Dependent Role="ComprobanteImpuesto">
+              <PropertyRef Name="IDComprobante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ComprobanteTipo__ComprobanteCabecera">
+          <End Type="CSColegioModel.ComprobanteTipo" Role="ComprobanteTipo" Multiplicity="1" />
+          <End Type="CSColegioModel.ComprobanteCabecera" Role="ComprobanteCabecera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComprobanteTipo">
+              <PropertyRef Name="IDComprobanteTipo" />
+            </Principal>
+            <Dependent Role="ComprobanteCabecera">
+              <PropertyRef Name="IDComprobanteTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entidad__ComprobanteCabecera">
+          <End Type="CSColegioModel.Entidad" Role="Entidad" Multiplicity="1" />
+          <End Type="CSColegioModel.ComprobanteCabecera" Role="ComprobanteCabecera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="IDEntidad" />
+            </Principal>
+            <Dependent Role="ComprobanteCabecera">
+              <PropertyRef Name="IDEntidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Localidad__ComprobanteCabecera">
+          <End Type="CSColegioModel.Localidad" Role="Localidad" Multiplicity="0..1" />
+          <End Type="CSColegioModel.ComprobanteCabecera" Role="ComprobanteCabecera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localidad">
+              <PropertyRef Name="IDProvincia" />
+              <PropertyRef Name="IDLocalidad" />
+            </Principal>
+            <Dependent Role="ComprobanteCabecera">
+              <PropertyRef Name="DomicilioIDProvincia" />
+              <PropertyRef Name="DomicilioIDLocalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Entidad__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Entidad" Role="Entidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Entidad">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Entidad__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Entidad" Role="Entidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Entidad">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RelacionTipo__EntidadEntidad">
+          <End Type="CSColegioModel.RelacionTipo" Role="RelacionTipo" Multiplicity="1" />
+          <End Type="CSColegioModel.EntidadEntidad" Role="EntidadEntidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RelacionTipo">
+              <PropertyRef Name="IDRelacionTipo" />
+            </Principal>
+            <Dependent Role="EntidadEntidad">
+              <PropertyRef Name="IDRelacionTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UsuarioGrupoPermiso">
+          <Key>
+            <PropertyRef Name="IDUsuarioGrupo" />
+            <PropertyRef Name="IDPermiso" />
+          </Key>
+          <Property Name="IDUsuarioGrupo" Type="Byte" Nullable="false" />
+          <Property Name="IDPermiso" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="UsuarioGrupo" Relationship="CSColegioModel.FK__UsuarioGrupo__UsuarioGrupoPermiso" FromRole="UsuarioGrupoPermiso" ToRole="UsuarioGrupo" />
+        </EntityType>
+        <Association Name="FK__UsuarioGrupo__UsuarioGrupoPermiso">
+          <End Type="CSColegioModel.UsuarioGrupo" Role="UsuarioGrupo" Multiplicity="1" />
+          <End Type="CSColegioModel.UsuarioGrupoPermiso" Role="UsuarioGrupoPermiso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuarioGrupo">
+              <PropertyRef Name="IDUsuarioGrupo" />
+            </Principal>
+            <Dependent Role="UsuarioGrupoPermiso">
+              <PropertyRef Name="IDUsuarioGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CSColegioModelStoreContainer" CdmEntityContainer="CSColegioContext">
+          <EntitySetMapping Name="Anio">
+            <EntityTypeMapping TypeName="CSColegioModel.Anio">
+              <MappingFragment StoreEntitySet="Anio">
+                <ScalarProperty Name="IDAnio" ColumnName="IDAnio" />
+                <ScalarProperty Name="IDNivel" ColumnName="IDNivel" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Articulo">
+            <EntityTypeMapping TypeName="CSColegioModel.Articulo">
+              <MappingFragment StoreEntitySet="Articulo">
+                <ScalarProperty Name="IDArticulo" ColumnName="IDArticulo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDArticuloGrupo" ColumnName="IDArticuloGrupo" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArticuloGrupo">
+            <EntityTypeMapping TypeName="CSColegioModel.ArticuloGrupo">
+              <MappingFragment StoreEntitySet="ArticuloGrupo">
+                <ScalarProperty Name="IDArticuloGrupo" ColumnName="IDArticuloGrupo" />
+                <ScalarProperty Name="IDArticuloGrupo_Padre" ColumnName="IDArticuloGrupo_Padre" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Banco">
+            <EntityTypeMapping TypeName="CSColegioModel.Banco">
+              <MappingFragment StoreEntitySet="Banco">
+                <ScalarProperty Name="IDBanco" ColumnName="IDBanco" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoriaIVA">
+            <EntityTypeMapping TypeName="CSColegioModel.CategoriaIVA">
+              <MappingFragment StoreEntitySet="CategoriaIVA">
+                <ScalarProperty Name="IDCategoriaIVA" ColumnName="IDCategoriaIVA" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cheque">
+            <EntityTypeMapping TypeName="CSColegioModel.Cheque">
+              <MappingFragment StoreEntitySet="Cheque">
+                <ScalarProperty Name="IDCheque" ColumnName="IDCheque" />
+                <ScalarProperty Name="IDBanco" ColumnName="IDBanco" />
+                <ScalarProperty Name="Serie" ColumnName="Serie" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="FechaPago" ColumnName="FechaPago" />
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="CuentaBancaria" ColumnName="CuentaBancaria" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Curso">
+            <EntityTypeMapping TypeName="CSColegioModel.Curso">
+              <MappingFragment StoreEntitySet="Curso">
+                <ScalarProperty Name="IDCurso" ColumnName="IDCurso" />
+                <ScalarProperty Name="IDAnio" ColumnName="IDAnio" />
+                <ScalarProperty Name="IDTurno" ColumnName="IDTurno" />
+                <ScalarProperty Name="Division" ColumnName="Division" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CursoAnioLectivo">
+            <EntityTypeMapping TypeName="CSColegioModel.CursoAnioLectivo">
+              <MappingFragment StoreEntitySet="CursoAnioLectivo">
+                <ScalarProperty Name="IDCurso" ColumnName="IDCurso" />
+                <ScalarProperty Name="AnioLectivo" ColumnName="AnioLectivo" />
+                <ScalarProperty Name="ImporteMatricula" ColumnName="ImporteMatricula" />
+                <ScalarProperty Name="ImporteCuota" ColumnName="ImporteCuota" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocumentoTipo">
+            <EntityTypeMapping TypeName="CSColegioModel.DocumentoTipo">
+              <MappingFragment StoreEntitySet="DocumentoTipo">
+                <ScalarProperty Name="IDDocumentoTipo" ColumnName="IDDocumentoTipo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entidad">
+            <EntityTypeMapping TypeName="CSColegioModel.Entidad">
+              <MappingFragment StoreEntitySet="Entidad">
+                <ScalarProperty Name="IDEntidad" ColumnName="IDEntidad" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="TipoPersonalColegio" ColumnName="TipoPersonalColegio" />
+                <ScalarProperty Name="TipoDocente" ColumnName="TipoDocente" />
+                <ScalarProperty Name="TipoAlumno" ColumnName="TipoAlumno" />
+                <ScalarProperty Name="TipoFamiliar" ColumnName="TipoFamiliar" />
+                <ScalarProperty Name="TipoProveedor" ColumnName="TipoProveedor" />
+                <ScalarProperty Name="IDDocumentoTipo" ColumnName="IDDocumentoTipo" />
+                <ScalarProperty Name="DocumentoNumero" ColumnName="DocumentoNumero" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="CUIT_CUIL" ColumnName="CUIT_CUIL" />
+                <ScalarProperty Name="IDCategoriaIVA" ColumnName="IDCategoriaIVA" />
+                <ScalarProperty Name="Telefono1" ColumnName="Telefono1" />
+                <ScalarProperty Name="Telefono2" ColumnName="Telefono2" />
+                <ScalarProperty Name="Telefono3" ColumnName="Telefono3" />
+                <ScalarProperty Name="Email1" ColumnName="Email1" />
+                <ScalarProperty Name="Email2" ColumnName="Email2" />
+                <ScalarProperty Name="DomicilioCalle1" ColumnName="DomicilioCalle1" />
+                <ScalarProperty Name="DomicilioNumero" ColumnName="DomicilioNumero" />
+                <ScalarProperty Name="DomicilioPiso" ColumnName="DomicilioPiso" />
+                <ScalarProperty Name="DomicilioDepartamento" ColumnName="DomicilioDepartamento" />
+                <ScalarProperty Name="DomicilioCalle2" ColumnName="DomicilioCalle2" />
+                <ScalarProperty Name="DomicilioCalle3" ColumnName="DomicilioCalle3" />
+                <ScalarProperty Name="DomicilioCodigoPostal" ColumnName="DomicilioCodigoPostal" />
+                <ScalarProperty Name="DomicilioIDProvincia" ColumnName="DomicilioIDProvincia" />
+                <ScalarProperty Name="DomicilioIDLocalidad" ColumnName="DomicilioIDLocalidad" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="Notas" ColumnName="Notas" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntidadCurso">
+            <EntityTypeMapping TypeName="CSColegioModel.EntidadCurso">
+              <MappingFragment StoreEntitySet="EntidadCurso">
+                <ScalarProperty Name="IDEntidad" ColumnName="IDEntidad" />
+                <ScalarProperty Name="AnioLectivo" ColumnName="AnioLectivo" />
+                <ScalarProperty Name="IDCurso" ColumnName="IDCurso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntidadEntidad">
+            <EntityTypeMapping TypeName="CSColegioModel.EntidadEntidad">
+              <MappingFragment StoreEntitySet="EntidadEntidad">
+                <ScalarProperty Name="IDEntidadPadre" ColumnName="IDEntidadPadre" />
+                <ScalarProperty Name="IDEntidadHija" ColumnName="IDEntidadHija" />
+                <ScalarProperty Name="IDRelacionTipo" ColumnName="IDRelacionTipo" />
+                <ScalarProperty Name="Notas" ColumnName="Notas" />
+                <ScalarProperty Name="CreacionIDUsuario" ColumnName="CreacionIDUsuario" />
+                <ScalarProperty Name="CreacionFechaHora" ColumnName="CreacionFechaHora" />
+                <ScalarProperty Name="ModificacionIDUsuario" ColumnName="ModificacionIDUsuario" />
+                <ScalarProperty Name="ModificacionFechaHora" ColumnName="ModificacionFechaHora" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Localidad">
+            <EntityTypeMapping TypeName="CSColegioModel.Localidad">
+              <MappingFragment StoreEntitySet="Localidad">
+                <ScalarProperty Name="IDProvincia" ColumnName="IDProvincia" />
+                <ScalarProperty Name="IDLocalidad" ColumnName="IDLocalidad" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Log">
+            <EntityTypeMapping TypeName="CSColegioModel.Log">
+              <MappingFragment StoreEntitySet="Log">
+                <ScalarProperty Name="IDLog" ColumnName="IDLog" />
+                <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
+                <ScalarProperty Name="Accion" ColumnName="Accion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedioPago">
+            <EntityTypeMapping TypeName="CSColegioModel.MedioPago">
+              <MappingFragment StoreEntitySet="MedioPago">
+                <ScalarProperty Name="IDMedioPago" ColumnName="IDMedioPago" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="DetallaValores" ColumnName="DetallaValores" />
+                <ScalarProperty Name="EspecificaOtrosDatos" ColumnName="EspecificaOtrosDatos" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movimiento">
+            <EntityTypeMapping TypeName="CSColegioModel.Movimiento">
+              <MappingFragment StoreEntitySet="Movimiento">
+                <ScalarProperty Name="IDMovimiento" ColumnName="IDMovimiento" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IDEntidad" ColumnName="IDEntidad" />
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="IDMedioPago" ColumnName="IDMedioPago" />
+                <ScalarProperty Name="MedioPagoNumero" ColumnName="MedioPagoNumero" />
+                <ScalarProperty Name="IDMovimiento_Categoria" ColumnName="IDMovimiento_Categoria" />
+                <ScalarProperty Name="IDMovimientoGrupo" ColumnName="IDMovimientoGrupo" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MovimientoGrupo">
+            <EntityTypeMapping TypeName="CSColegioModel.MovimientoGrupo">
+              <MappingFragment StoreEntitySet="MovimientoGrupo">
+                <ScalarProperty Name="IDMovimientoGrupo" ColumnName="IDMovimientoGrupo" />
+                <ScalarProperty Name="IDMovimientoGrupo_Padre" ColumnName="IDMovimientoGrupo_Padre" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nivel">
+            <EntityTypeMapping TypeName="CSColegioModel.Nivel">
+              <MappingFragment StoreEntitySet="Nivel">
+                <ScalarProperty Name="IDNivel" ColumnName="IDNivel" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parametro">
+            <EntityTypeMapping TypeName="CSColegioModel.Parametro">
+              <MappingFragment StoreEntitySet="Parametro">
+                <ScalarProperty Name="IDParametro" ColumnName="IDParametro" />
+                <ScalarProperty Name="Texto" ColumnName="Texto" />
+                <ScalarProperty Name="NumeroEntero" ColumnName="NumeroEntero" />
+                <ScalarProperty Name="NumeroDecimal" ColumnName="NumeroDecimal" />
+                <ScalarProperty Name="Moneda" ColumnName="Moneda" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+                <ScalarProperty Name="SiNo" ColumnName="SiNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provincia">
+            <EntityTypeMapping TypeName="CSColegioModel.Provincia">
+              <MappingFragment StoreEntitySet="Provincia">
+                <ScalarProperty Name="IDProvincia" ColumnName="IDProvincia" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelacionTipo">
+            <EntityTypeMapping TypeName="CSColegioModel.RelacionTipo">
+              <MappingFragment StoreEntitySet="RelacionTipo">
+                <ScalarProperty Name="IDRelacionTipo" ColumnName="IDRelacionTipo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Turno">
+            <EntityTypeMapping TypeName="CSColegioModel.Turno">
+              <MappingFragment StoreEntitySet="Turno">
+                <ScalarProperty Name="IDTurno" ColumnName="IDTurno" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="CSColegioModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="IDUsuarioGrupo" ColumnName="IDUsuarioGrupo" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuarioGrupo">
+            <EntityTypeMapping TypeName="CSColegioModel.UsuarioGrupo">
+              <MappingFragment StoreEntitySet="UsuarioGrupo">
+                <ScalarProperty Name="IDUsuarioGrupo" ColumnName="IDUsuarioGrupo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComprobanteImpuesto">
+            <EntityTypeMapping TypeName="CSColegioModel.ComprobanteImpuesto">
+              <MappingFragment StoreEntitySet="ComprobanteImpuesto">
+                <ScalarProperty Name="IDImpuesto" ColumnName="IDImpuesto" />
+                <ScalarProperty Name="Indice" ColumnName="Indice" />
+                <ScalarProperty Name="IDComprobante" ColumnName="IDComprobante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComprobanteTipo">
+            <EntityTypeMapping TypeName="CSColegioModel.ComprobanteTipo">
+              <MappingFragment StoreEntitySet="ComprobanteTipo">
+                <ScalarProperty Name="OperacionTipo" ColumnName="OperacionTipo" />
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Sigla" ColumnName="Sigla" />
+                <ScalarProperty Name="IDComprobanteTipo" ColumnName="IDComprobanteTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Impuesto">
+            <EntityTypeMapping TypeName="CSColegioModel.Impuesto">
+              <MappingFragment StoreEntitySet="Impuesto">
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="MinimoNoImponible" ColumnName="MinimoNoImponible" />
+                <ScalarProperty Name="BaseImponible" ColumnName="BaseImponible" />
+                <ScalarProperty Name="Alicuota" ColumnName="Alicuota" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDImpuesto" ColumnName="IDImpuesto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComprobanteCabecera">
+            <EntityTypeMapping TypeName="CSColegioModel.ComprobanteCabecera">
+              <MappingFragment StoreEntitySet="ComprobanteCabecera">
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="Notas" ColumnName="Notas" />
+                <ScalarProperty Name="ImporteTotal" ColumnName="ImporteTotal" />
+                <ScalarProperty Name="ImporteImpuesto" ColumnName="ImporteImpuesto" />
+                <ScalarProperty Name="ImporteNeto" ColumnName="ImporteNeto" />
+                <ScalarProperty Name="DomicilioIDLocalidad" ColumnName="DomicilioIDLocalidad" />
+                <ScalarProperty Name="DomicilioIDProvincia" ColumnName="DomicilioIDProvincia" />
+                <ScalarProperty Name="DomicilioCodigoPostal" ColumnName="DomicilioCodigoPostal" />
+                <ScalarProperty Name="DomicilioCalle3" ColumnName="DomicilioCalle3" />
+                <ScalarProperty Name="DomicilioCalle2" ColumnName="DomicilioCalle2" />
+                <ScalarProperty Name="DomicilioDepartamento" ColumnName="DomicilioDepartamento" />
+                <ScalarProperty Name="DomicilioPiso" ColumnName="DomicilioPiso" />
+                <ScalarProperty Name="DomicilioNumero" ColumnName="DomicilioNumero" />
+                <ScalarProperty Name="DomicilioCalle1" ColumnName="DomicilioCalle1" />
+                <ScalarProperty Name="IDCategoriaIVA" ColumnName="IDCategoriaIVA" />
+                <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+                <ScalarProperty Name="EntidadNombre" ColumnName="EntidadNombre" />
+                <ScalarProperty Name="EntidadApellido" ColumnName="EntidadApellido" />
+                <ScalarProperty Name="IDEntidad" ColumnName="IDEntidad" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="ComprobanteNumero" ColumnName="ComprobanteNumero" />
+                <ScalarProperty Name="IDComprobanteTipo" ColumnName="IDComprobanteTipo" />
+                <ScalarProperty Name="IDComprobante" ColumnName="IDComprobante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComprobanteDetalle">
+            <EntityTypeMapping TypeName="CSColegioModel.ComprobanteDetalle">
+              <MappingFragment StoreEntitySet="ComprobanteDetalle">
+                <ScalarProperty Name="PrecioTotal" ColumnName="PrecioTotal" />
+                <ScalarProperty Name="PrecioUnitarioFinal" ColumnName="PrecioUnitarioFinal" />
+                <ScalarProperty Name="PrecioUnitarioDescuentoImporte" ColumnName="PrecioUnitarioDescuentoImporte" />
+                <ScalarProperty Name="PrecioUnitarioDescuentoPorcentaje" ColumnName="PrecioUnitarioDescuentoPorcentaje" />
+                <ScalarProperty Name="PrecioUnitario" ColumnName="PrecioUnitario" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Unidad" ColumnName="Unidad" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="CuotaMes" ColumnName="CuotaMes" />
+                <ScalarProperty Name="CuotaAnio" ColumnName="CuotaAnio" />
+                <ScalarProperty Name="IDEntidad" ColumnName="IDEntidad" />
+                <ScalarProperty Name="IDArticulo" ColumnName="IDArticulo" />
+                <ScalarProperty Name="Indice" ColumnName="Indice" />
+                <ScalarProperty Name="IDComprobante" ColumnName="IDComprobante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuarioGrupoPermiso">
+            <EntityTypeMapping TypeName="CSColegioModel.UsuarioGrupoPermiso">
+              <MappingFragment StoreEntitySet="UsuarioGrupoPermiso">
+                <ScalarProperty Name="IDPermiso" ColumnName="IDPermiso" />
+                <ScalarProperty Name="IDUsuarioGrupo" ColumnName="IDUsuarioGrupo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

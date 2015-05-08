@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="IMAGE_INICIO_SESION_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Login Manager (5).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_USUARIO_MUJER_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Office-Girl-icon (8).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_USUARIO_MUJER_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Office-Girl-icon (5).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_USUARIO_HOMBRE_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\User-Coat-Red-icon (8).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_USUARIO_HOMBRE_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\User-Coat-Red-icon (5).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_ENTIDADES_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\demographic (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ICON_SCHOOL_48_32_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\school_48_32_16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_SENAL_ESCUELA_152" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\school_sign_transparent.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_TABLAS_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\School2_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_TABLAS_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\School2_3211.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_MENU_WINDOW_CLOSE_ALL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Window - Close All.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_MENU_WINDOW_TILE_HORIZONTALLY" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Window - Tile Horizontally.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_MENU_WINDOW_TILE_VERTICALLY" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Window - Tile Vertically.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_MENU_WINDOW_FIT_SIZE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WindowFitToSize16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_ITEM_ADD_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions-document-new-icon (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_ITEM_DELETE_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions-edit-delete-icon (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_ITEM_EDIT_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions-document-edit-icon (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_CLOSE_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions-dialog-close-icon (8).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="STRING_ITEM_ALL_FEMALE" xml:space="preserve">
+    <value>«Todas»</value>
+  </data>
+  <data name="STRING_ITEM_ALL_MALE" xml:space="preserve">
+    <value>«Todos»</value>
+  </data>
+  <data name="STRING_ITEM_COMPLETE_FEMALE" xml:space="preserve">
+    <value>«Completa»</value>
+  </data>
+  <data name="STRING_ITEM_COMPLETE_MALE" xml:space="preserve">
+    <value>«Completo»</value>
+  </data>
+  <data name="STRING_ITEM_EMPTY_FEMALE" xml:space="preserve">
+    <value>«Vacía»</value>
+  </data>
+  <data name="STRING_ITEM_EMPTY_MALE" xml:space="preserve">
+    <value>«Vacío»</value>
+  </data>
+  <data name="STRING_ITEM_END_CHAR" xml:space="preserve">
+    <value>»</value>
+  </data>
+  <data name="STRING_ITEM_NONE_CHARS10" xml:space="preserve">
+    <value>----------</value>
+  </data>
+  <data name="STRING_ITEM_NONE_CHARS2" xml:space="preserve">
+    <value>--</value>
+  </data>
+  <data name="STRING_ITEM_NONE_CHARS20" xml:space="preserve">
+    <value>--------------------</value>
+  </data>
+  <data name="STRING_ITEM_NONE_CHARS5" xml:space="preserve">
+    <value>-----</value>
+  </data>
+  <data name="STRING_ITEM_NONE_FEMALE" xml:space="preserve">
+    <value>«Ninguno»</value>
+  </data>
+  <data name="STRING_ITEM_NONE_MALE" xml:space="preserve">
+    <value>«Ninguna»</value>
+  </data>
+  <data name="STRING_ITEM_START_CHAR" xml:space="preserve">
+    <value>«</value>
+  </data>
+  <data name="STRING_NO" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="STRING_YES" xml:space="preserve">
+    <value>Sí</value>
+  </data>
+  <data name="STRING_GENERO_FEMENINO" xml:space="preserve">
+    <value>Femenino</value>
+  </data>
+  <data name="STRING_GENERO_MASCULINO" xml:space="preserve">
+    <value>Masculino</value>
+  </data>
+  <data name="STRING_ITEM_NON_SPECIFIED" xml:space="preserve">
+    <value>«No especifica»</value>
+  </data>
+  <data name="IMAGE_CANCEL_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions-dialog-cancel-icon (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_OK_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions-dialog-ok-apply-icon (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_CLOSE_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions-dialog-close-icon (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_ENTIDAD_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions-view-pim-contacts-icon (5).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_SEARCH_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Search-icon (8).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="STRING_ITEM_NEW_MALE" xml:space="preserve">
+    <value>«Nuevo»</value>
+  </data>
+</root>
