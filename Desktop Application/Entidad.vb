@@ -52,7 +52,6 @@ Partial Public Class Entidad
 
     Public Overridable Property CategoriaIVA As CategoriaIVA
     Public Overridable Property DocumentoTipo As DocumentoTipo
-    Public Overridable Property EntidadCurso As ICollection(Of EntidadCurso) = New HashSet(Of EntidadCurso)
     Public Overridable Property EntidadesPadres As ICollection(Of EntidadEntidad) = New HashSet(Of EntidadEntidad)
     Public Overridable Property EntidadesHijas As ICollection(Of EntidadEntidad) = New HashSet(Of EntidadEntidad)
     Public Overridable Property Localidad As Localidad
@@ -63,5 +62,6 @@ Partial Public Class Entidad
     Public Overridable Property EntidadMadre As Entidad
     Public Overridable Property EntidadPadreHijas As ICollection(Of Entidad) = New HashSet(Of Entidad)
     Public Overridable Property EntidadPadre As Entidad
+    Public Overridable Property AniosLectivosCursos As ICollection(Of AnioLectivoCurso) = New HashSet(Of AnioLectivoCurso)
 
 End Class

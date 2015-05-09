@@ -98,6 +98,9 @@
     <Compile Include="Anio.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="AnioLectivoCurso.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
     <Compile Include="Articulo.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -176,16 +179,10 @@
     <Compile Include="Curso.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
-    <Compile Include="CursoAnioLectivo.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
     <Compile Include="DocumentoTipo.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="Entidad.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EntidadCurso.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="EntidadEntidad.vb">

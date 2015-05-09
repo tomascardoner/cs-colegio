@@ -29,10 +29,8 @@ Partial Public Class CSColegioContext
     Public Overridable Property CategoriaIVA() As DbSet(Of CategoriaIVA)
     Public Overridable Property Cheque() As DbSet(Of Cheque)
     Public Overridable Property Curso() As DbSet(Of Curso)
-    Public Overridable Property CursoAnioLectivo() As DbSet(Of CursoAnioLectivo)
     Public Overridable Property DocumentoTipo() As DbSet(Of DocumentoTipo)
     Public Overridable Property Entidad() As DbSet(Of Entidad)
-    Public Overridable Property EntidadCurso() As DbSet(Of EntidadCurso)
     Public Overridable Property EntidadEntidad() As DbSet(Of EntidadEntidad)
     Public Overridable Property Localidad() As DbSet(Of Localidad)
     Public Overridable Property Log() As DbSet(Of Log)
@@ -52,5 +50,6 @@ Partial Public Class CSColegioContext
     Public Overridable Property ComprobanteCabecera() As DbSet(Of ComprobanteCabecera)
     Public Overridable Property ComprobanteDetalle() As DbSet(Of ComprobanteDetalle)
     Public Overridable Property UsuarioGrupoPermiso() As DbSet(Of UsuarioGrupoPermiso)
+    Public Overridable Property AnioLectivoCurso() As DbSet(Of AnioLectivoCurso)
 
 End Class

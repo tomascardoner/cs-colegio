@@ -10,10 +10,14 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class CursoAnioLectivo
-    Public Property IDCurso As Byte
+Partial Public Class AnioLectivoCurso
+    Public Property IDAnioLectivoCurso As Short
     Public Property AnioLectivo As Short
+    Public Property IDCurso As Byte
     Public Property ImporteMatricula As Decimal
     Public Property ImporteCuota As Decimal
+
+    Public Overridable Property Entidades As ICollection(Of Entidad) = New HashSet(Of Entidad)
+    Public Overridable Property Curso As Curso
 
 End Class

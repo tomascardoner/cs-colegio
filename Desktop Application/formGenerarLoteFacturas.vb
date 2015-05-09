@@ -1,5 +1,6 @@
 ﻿Public Class formGenerarLoteFacturas
     Private dbcColegio As CSColegioContext
+    Private AnioLectivo As Integer = Today.Year
     Private Const NODO_CARGANDO_TEXTO As String = "Cargando..."
 
     Private Sub formGenerarLoteFacturas_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -19,7 +20,7 @@
         FillTreeViewNiveles()
         FillTreeViewPadres()
 
-        lalbelPaso1Periodo.Text = "Período a Facturar: " & StrConv(MonthName(Today.Month), VbStrConv.ProperCase) & " de " & Today.Year
+        lalbelPaso1Periodo.Text = "Período a Facturar: " & StrConv(MonthName(Today.Month), VbStrConv.ProperCase) & " de " & AnioLectivo
     End Sub
 
     Private Sub FillTreeViewNiveles()
@@ -91,11 +92,11 @@
         treeviewNivelCursoAlumno.BeginUpdate()
         NodoCurso.Nodes.RemoveAt(0)
         CursoCurrent = CType(NodoCurso.Tag, Curso)
-        For Each EntidadCursoCurrent As EntidadCurso In CursoCurrent.EntidadCurso.Where(Function(entcur) entcur.AnioLectivo = Today.Year And entcur.Entidad.EsActivo = True).OrderBy(Function(entcur) entcur.Entidad.Apellido & entcur.Entidad.Nombre)
+        For Each EntidadCurrent As Entidad In CursoCurrent.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = AnioLectivo).FirstOrDefault().Entidades.Where(Function(ent) ent.EsActivo = True).OrderBy(Function(ent) ent.ApellidoNombre)
             ' Agrego el nodo correspondiente a la Entidad actual
-            NewNode = New TreeNode(EntidadCursoCurrent.Entidad.Apellido & CStr(IIf(IsDBNull(EntidadCursoCurrent.Entidad.Nombre), "", ", " & EntidadCursoCurrent.Entidad.Nombre)))
+            NewNode = New TreeNode(EntidadCurrent.ApellidoNombre)
             NewNode.Checked = NodoCurso.Checked
-            NewNode.Tag = EntidadCursoCurrent
+            NewNode.Tag = EntidadCurrent
             NodoCurso.Nodes.Add(NewNode)
         Next
         treeviewNivelCursoAlumno.EndUpdate()
@@ -132,9 +133,9 @@
         Me.Cursor = Cursors.WaitCursor
 
         treeviewPadresAlumnos.BeginUpdate()
-        For Each EntidadCurrent As Entidad In dbcColegio.Entidad.Where(Function(ent) ent.EsActivo = True And ent.TipoFamiliar).OrderBy(Function(ent) ent.Apellido & ent.Nombre)
+        For Each EntidadCurrent As Entidad In dbcColegio.Entidad.Where(Function(ent) ent.EsActivo = True And ent.TipoFamiliar).OrderBy(Function(ent) ent.ApellidoNombre)
             ' Agrego el nodo correspondiente al Padre/Madre actual y agrego un nodo hijo que diga "cargando..." para cuando se expanda el nodo
-            NewNode = New TreeNode(EntidadCurrent.Apellido & CStr(IIf(IsDBNull(EntidadCurrent.Nombre), "", ", " & EntidadCurrent.Nombre)), {New TreeNode(NODO_CARGANDO_TEXTO)})
+            NewNode = New TreeNode(EntidadCurrent.ApellidoNombre, {New TreeNode(NODO_CARGANDO_TEXTO)})
             NewNode.Checked = My.Settings.GenerarLoteFacturasPreseleccionarTodos
             NewNode.Tag = EntidadCurrent
             treeviewPadresAlumnos.Nodes.Add(NewNode)
@@ -153,12 +154,21 @@
         treeviewPadresAlumnos.BeginUpdate()
         NodoEntidad.Nodes.RemoveAt(0)
         EntidadNodoCurrent = CType(NodoEntidad.Tag, Entidad)
-        For Each EntidadEntidadCurrent As EntidadEntidad In EntidadNodoCurrent.EntidadesPadres.Where(Function(entent) entent.EntidadPadre.EsActivo).OrderBy(Function(entent) entent.EntidadPadre.Apellido & entent.EntidadPadre.Nombre)
-            ' Agrego el nodo correspondiente a la Entidad actual
-            If EntidadEntidadCurrent.EntidadPadre.EntidadCurso.Where(Function(entcur) entcur.AnioLectivo = Today.Year).Count > 0 Then
-                NewNode = New TreeNode(EntidadEntidadCurrent.EntidadPadre.Apellido & CStr(IIf(IsDBNull(EntidadEntidadCurrent.EntidadPadre.Nombre), "", ", " & EntidadEntidadCurrent.EntidadPadre.Nombre)))
+        ' Primero busco los Hijos del Padre
+        For Each EntidadHijoCurrent As Entidad In EntidadNodoCurrent.EntidadPadreHijas.Where(Function(ent) ent.EsActivo).OrderBy(Function(ent) ent.ApellidoNombre)
+            If EntidadHijoCurrent.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = AnioLectivo).Count > 0 Then
+                NewNode = New TreeNode(EntidadHijoCurrent.ApellidoNombre)
                 NewNode.Checked = NodoEntidad.Checked
-                NewNode.Tag = EntidadEntidadCurrent
+                NewNode.Tag = EntidadHijoCurrent
+                NodoEntidad.Nodes.Add(NewNode)
+            End If
+        Next
+        ' Ahora busco los Hijos de la Madre
+        For Each EntidadHijoCurrent As Entidad In EntidadNodoCurrent.EntidadMadreHijas.Where(Function(ent) ent.EsActivo).OrderBy(Function(ent) ent.ApellidoNombre)
+            If EntidadHijoCurrent.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = AnioLectivo).Count > 0 Then
+                NewNode = New TreeNode(EntidadHijoCurrent.ApellidoNombre)
+                NewNode.Checked = NodoEntidad.Checked
+                NewNode.Tag = EntidadHijoCurrent
                 NodoEntidad.Nodes.Add(NewNode)
             End If
         Next

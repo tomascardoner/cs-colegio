@@ -229,6 +229,7 @@
                 With EntidadAgregar
                     .DomicilioIDProvincia = CSM_Parameter.GetString(PARAMETRO_PROVINCIA_PREDETERMINADA)
                     .DomicilioIDLocalidad = CSM_Parameter.GetIntegerAsShort(PARAMETRO_LOCALIDAD_PREDETERMINADA)
+                    .DomicilioCodigoPostal = CSM_Parameter.GetString(PARAMETRO_CODIGOPOSTAL_PREDETERMINADO)
                     .EsActivo = True
                     .IDUsuarioCreacion = pUsuario.IDUsuario
                     .FechaHoraCreacion = Now
@@ -286,7 +287,7 @@
             If Permisos.VerificarPermiso(Permisos.ENTIDAD_DELETE) Then
                 Using DBContextEliminar = New CSColegioContext
                     Dim EntidadEliminar = DBContextEliminar.Entidad.Find(datagridviewMain.SelectedRows.Item(0).Cells(COLUMNA_IDENTIDAD).Value)
-                    If MsgBox("Se eliminará la Entidad seleccionada." & vbCrLf & vbCrLf & EntidadEliminar.Apellido & CStr(IIf(IsDBNull(EntidadEliminar.Nombre), "", ", " & EntidadEliminar.Nombre)) & vbCrLf & vbCrLf & "¿Confirma la eliminación definitiva?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
+                    If MsgBox("Se eliminará la Entidad seleccionada." & vbCrLf & vbCrLf & EntidadEliminar.ApellidoNombre & vbCrLf & vbCrLf & "¿Confirma la eliminación definitiva?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                         Me.Cursor = Cursors.WaitCursor
                         DBContextEliminar.Entidad.Remove(EntidadEliminar)
                         DBContextEliminar.SaveChanges()

@@ -22,6 +22,6 @@ Partial Public Class Curso
 
     Public Overridable Property Anio As Anio
     Public Overridable Property Turno As Turno
-    Public Overridable Property EntidadCurso As ICollection(Of EntidadCurso) = New HashSet(Of EntidadCurso)
+    Public Overridable Property AniosLectivosCursos As ICollection(Of AnioLectivoCurso) = New HashSet(Of AnioLectivoCurso)
 
 End Class

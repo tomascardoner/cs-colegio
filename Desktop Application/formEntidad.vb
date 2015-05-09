@@ -70,24 +70,14 @@
             checkboxActivo.CheckState = CSM_ValueTranslation.FromObjectBooleanToControlCheckBox(.EsActivo)
             textboxNotas.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.Notas)
 
-            ' Datos de la pestaña Relaciones Hijas
-            'Dim EntidadHija As Entidad
-            'Dim datagridrowNew As DataGridViewRow
-            'For Each EntidadEntidadCurrent In EntidadCurrent.EntidadesHijas
-            '    datagridrowNew = New DataGridViewRow
-
-            '    datagridviewRelacionesHijas.Rows.Add()
-            'Next
-            'Using dbcRelaciones As New CSColegioContext
-            '    Dim qryRelacionesHijas = From ent In dbcRelaciones.Entidad
-            '                             Join entxent In dbcRelaciones.EntidadEntidad On ent.IDEntidad Equals entxent.IDEntidadHija
-            '                             Join reltip In dbcRelaciones.RelacionTipo On entxent.IDRelacionTipo Equals reltip.IDRelacionTipo
-            '                             Where entxent.IDEntidadPadre = .IDEntidad
-            '                             Select IDEntidad = ent.IDEntidad, Apellido = ent.Apellido, Nombre = ent.Nombre, RelacionTipoNombre = reltip.Nombre
-
-            '    datagridviewRelacionesHijas.AutoGenerateColumns = False
-            '    datagridviewRelacionesHijas.DataSource = qryRelacionesHijas.ToList
-            'End Using
+            ' Datos de la pestaña Hijos
+            Using dbcHijos As New CSColegioContext
+                Dim qryHijos = From ent In dbcHijos.Entidad
+                               Where ent.IDEntidadPadre = .IDEntidad Or ent.IDEntidadMadre = .IDEntidad
+                               Select IDEntidad = ent.IDEntidad, Apellido = ent.Apellido, Nombre = ent.Nombre
+                datagridviewHijos.AutoGenerateColumns = False
+                datagridviewHijos.DataSource = qryHijos.ToList
+            End Using
 
             ' Datos de la pestaña Relaciones Padres
             Using dbcRelaciones As New CSColegioContext
@@ -97,24 +87,16 @@
                                          Where entxent.IDEntidadHija = .IDEntidad
                                          Select IDEntidad = ent.IDEntidad, Apellido = ent.Apellido, Nombre = ent.Nombre, RelacionTipoNombre = reltip.Nombre
 
-                datagridviewRelacionesPadres.AutoGenerateColumns = False
-                datagridviewRelacionesPadres.DataSource = qryRelacionesPadres.ToList
+                datagridviewRelaciones.AutoGenerateColumns = False
+                datagridviewRelaciones.DataSource = qryRelacionesPadres.ToList
             End Using
 
             ' Datos de la pestaña Cursos Asistidos
-            Using dbcCursosAsistidos As New CSColegioContext
-                Dim qryCursosAsistidos = From niv In dbcCursosAsistidos.Nivel
-                                         Join ani In dbcCursosAsistidos.Anio On niv.IDNivel Equals ani.IDNivel
-                                         Join curs In dbcCursosAsistidos.Curso On ani.IDAnio Equals curs.IDAnio
-                                         Join turn In dbcCursosAsistidos.Turno On curs.IDTurno Equals turn.IDTurno
-                                         Join entcur In dbcCursosAsistidos.EntidadCurso On curs.IDCurso Equals entcur.IDCurso
-                                         Where entcur.IDEntidad = .IDEntidad
-                                         Order By entcur.AnioLectivo Descending
-                                         Select AnioLectivo = entcur.AnioLectivo, NivelNombre = niv.Nombre, AnioNombre = ani.Nombre, TurnoNombre = turn.Nombre, Division = curs.Division
-
-                datagridviewCursosAsistidos.AutoGenerateColumns = False
-                datagridviewCursosAsistidos.DataSource = qryCursosAsistidos.ToList
-            End Using
+            Dim listCursosAsistidos As New List(Of Object)
+            For Each AnioLectivoCursoCurrent As AnioLectivoCurso In EntidadCurrent.AniosLectivosCursos.OrderByDescending(Function(alc) alc.AnioLectivo).ToList
+                listCursosAsistidos.Add(New With {.AnioLectivo = AnioLectivoCursoCurrent.AnioLectivo, .NivelNombre = AnioLectivoCursoCurrent.Curso.Anio.Nivel.Nombre, .AnioNombre = AnioLectivoCursoCurrent.Curso.Anio.Nombre, .TurnoNombre = AnioLectivoCursoCurrent.Curso.Turno.Nombre, .Division = AnioLectivoCursoCurrent.Curso.Division})
+            Next
+            datagridviewCursosAsistidos.DataSource = listCursosAsistidos
 
             ' Datos de la pestaña Auditoría
             textboxFechaHoraCreacion.Text = .FechaHoraCreacion.ToShortDateString & " " & .FechaHoraCreacion.ToShortTimeString
@@ -180,8 +162,12 @@
         FormDBContext.Dispose()
     End Sub
 
-    Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxIDEntidad.GotFocus, textboxApellido.GotFocus, textboxNombre.GotFocus, textboxDocumentoNumero.GotFocus, maskedtextboxCUIT_CUIL.GotFocus, textboxTelefono1.GotFocus, textboxTelefono2.GotFocus, textboxTelefono3.GotFocus, textboxEmail1.GotFocus, textboxEmail2.GotFocus, textboxDomicilioCalle1.GotFocus, textboxDomicilioNumero.GotFocus, textboxDomicilioPiso.GotFocus, textboxDomicilioDepartamento.GotFocus, textboxDomicilioCodigoPostal.GotFocus, textboxNotas.GotFocus
+    Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxIDEntidad.GotFocus, textboxApellido.GotFocus, textboxNombre.GotFocus, textboxDocumentoNumero.GotFocus, textboxTelefono1.GotFocus, textboxTelefono2.GotFocus, textboxTelefono3.GotFocus, textboxEmail1.GotFocus, textboxEmail2.GotFocus, textboxDomicilioCalle1.GotFocus, textboxDomicilioNumero.GotFocus, textboxDomicilioPiso.GotFocus, textboxDomicilioDepartamento.GotFocus, textboxDomicilioCodigoPostal.GotFocus, textboxNotas.GotFocus
         CType(sender, TextBox).SelectAll()
+    End Sub
+
+    Private Sub MaskedTextBoxs_GotFocus(sender As Object, e As EventArgs) Handles maskedtextboxCUIT_CUIL.GotFocus
+        CType(sender, MaskedTextBox).SelectAll()
     End Sub
 
     Private Sub comboboxDomicilioProvincia_SelectedValueChanged() Handles comboboxDomicilioProvincia.SelectedValueChanged
@@ -262,7 +248,7 @@
                     Exit Sub
                 End If
             Case "M"
-                If textboxEntidadPadre.Tag Is Nothing Then
+                If textboxEntidadMadre.Tag Is Nothing Then
                     tabcontrolMain.SelectedTab = tabpageExtra
                     MsgBox("Si las facturas se emitirán a nombre de la Madre / Tutora, debe especificar la misma.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadMadre.Focus()
