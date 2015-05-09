@@ -226,110 +226,147 @@ Namespace My.Resources
         Friend ReadOnly Property IMAGE_MOVE_NEXT_24() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("IMAGE_MOVE_NEXT_24", resourceCulture)
-                Return CType(obj, System.Drawing.Bitmap)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property IMAGE_MOVE_PREVIOUS_24() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("IMAGE_MOVE_PREVIOUS_24", resourceCulture)
-                Return CType(obj, System.Drawing.Bitmap)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property IMAGE_OK_32() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("IMAGE_OK_32", resourceCulture)
-                Return CType(obj, System.Drawing.Bitmap)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property IMAGE_SEARCH_16() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("IMAGE_SEARCH_16", resourceCulture)
-                Return CType(obj, System.Drawing.Bitmap)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property IMAGE_SENAL_ESCUELA_152() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("IMAGE_SENAL_ESCUELA_152", resourceCulture)
-                Return CType(obj, System.Drawing.Bitmap)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
-
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property IMAGE_SPLASH_SCREEN_BACKGROUND() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("IMAGE_SPLASH_SCREEN_BACKGROUND", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property IMAGE_TABLAS_32() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("IMAGE_TABLAS_32", resourceCulture)
-                Return CType(obj, System.Drawing.Bitmap)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property IMAGE_TABLAS_48() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("IMAGE_TABLAS_48", resourceCulture)
-                Return CType(obj, System.Drawing.Bitmap)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property IMAGE_USUARIO_HOMBRE_16() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("IMAGE_USUARIO_HOMBRE_16", resourceCulture)
-                Return CType(obj, System.Drawing.Bitmap)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property IMAGE_USUARIO_HOMBRE_48() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("IMAGE_USUARIO_HOMBRE_48", resourceCulture)
-                Return CType(obj, System.Drawing.Bitmap)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property IMAGE_USUARIO_MUJER_16() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("IMAGE_USUARIO_MUJER_16", resourceCulture)
-                Return CType(obj, System.Drawing.Bitmap)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property IMAGE_USUARIO_MUJER_48() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("IMAGE_USUARIO_MUJER_48", resourceCulture)
-                Return CType(obj, System.Drawing.Bitmap)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
-
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Alumno.
+        '''</summary>
+        Friend ReadOnly Property STRING_ENTIDADFACTURA_ALUMNO() As String
+            Get
+                Return ResourceManager.GetString("STRING_ENTIDADFACTURA_ALUMNO", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Madre.
+        '''</summary>
+        Friend ReadOnly Property STRING_ENTIDADFACTURA_MADRE() As String
+            Get
+                Return ResourceManager.GetString("STRING_ENTIDADFACTURA_MADRE", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Padre.
+        '''</summary>
+        Friend ReadOnly Property STRING_ENTIDADFACTURA_PADRE() As String
+            Get
+                Return ResourceManager.GetString("STRING_ENTIDADFACTURA_PADRE", resourceCulture)
+            End Get
+        End Property
+        
         '''<summary>
         '''  Looks up a localized string similar to Femenino.
         '''</summary>

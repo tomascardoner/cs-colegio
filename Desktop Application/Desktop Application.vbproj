@@ -53,8 +53,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>school_48_32_16.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
@@ -217,6 +216,12 @@
     <Compile Include="formEntidades.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formEntidadesSeleccionar.Designer.vb">
+      <DependentUpon>formEntidadesSeleccionar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formEntidadesSeleccionar.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formGenerarLoteFacturas.Designer.vb">
       <DependentUpon>formGenerarLoteFacturas.vb</DependentUpon>
     </Compile>
@@ -325,6 +330,9 @@
     <EmbeddedResource Include="formEntidades.resx">
       <DependentUpon>formEntidades.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formEntidadesSeleccionar.resx">
+      <DependentUpon>formEntidadesSeleccionar.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formGenerarLoteFacturas.resx">
       <DependentUpon>formGenerarLoteFacturas.vb</DependentUpon>
     </EmbeddedResource>
@@ -379,6 +387,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notas.txt" />
+    <None Include="Resources\5_Resized.jpg" />
+    <Content Include="school_48_32_16.ico" />
     <None Include="Resources\Move Previous %28Arrow%29 Red24.png" />
     <None Include="Resources\Move Next %28Arrow%29 Green24.png" />
     <None Include="Resources\invoice-icon %2812%29.png" />

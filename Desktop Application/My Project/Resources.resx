@@ -118,71 +118,65 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="IMAGE_INICIO_SESION_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Login Manager (5).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IMAGE_ENTIDAD_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions-view-pim-contacts-icon (5).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="IMAGE_USUARIO_MUJER_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Office-Girl-icon (8).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IMAGE_USUARIO_MUJER_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Office-Girl-icon (5).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IMAGE_USUARIO_HOMBRE_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\User-Coat-Red-icon (8).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IMAGE_USUARIO_HOMBRE_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\User-Coat-Red-icon (5).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IMAGE_ENTIDADES_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\demographic (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ICON_SCHOOL_48_32_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\school_48_32_16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IMAGE_SENAL_ESCUELA_152" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\school_sign_transparent.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IMAGE_TABLAS_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\School2_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IMAGE_TABLAS_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\School2_3211.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IMAGE_MENU_WINDOW_CLOSE_ALL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Window - Close All.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IMAGE_MENU_WINDOW_TILE_HORIZONTALLY" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Window - Tile Horizontally.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IMAGE_COMPROBANTE_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\invoice-icon (12).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="IMAGE_MENU_WINDOW_TILE_VERTICALLY" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Window - Tile Vertically.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="IMAGE_MENU_WINDOW_FIT_SIZE" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WindowFitToSize16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IMAGE_ITEM_ADD_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Actions-document-new-icon (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IMAGE_TABLAS_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\School2_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="IMAGE_ITEM_DELETE_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Actions-edit-delete-icon (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="IMAGE_ITEM_EDIT_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Actions-document-edit-icon (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IMAGE_USUARIO_MUJER_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Office-Girl-icon (5).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="IMAGE_CLOSE_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Actions-dialog-close-icon (8).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IMAGE_INICIO_SESION_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Login Manager (5).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="STRING_ITEM_ALL_FEMALE" xml:space="preserve">
-    <value>«Todas»</value>
+  <data name="STRING_ITEM_NON_SPECIFIED" xml:space="preserve">
+    <value>«No especifica»</value>
+  </data>
+  <data name="STRING_ITEM_NONE_CHARS2" xml:space="preserve">
+    <value>--</value>
+  </data>
+  <data name="IMAGE_SEARCH_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Search-icon (8).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_USUARIO_HOMBRE_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\User-Coat-Red-icon (8).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="STRING_ITEM_NONE_CHARS10" xml:space="preserve">
+    <value>----------</value>
+  </data>
+  <data name="STRING_ITEM_COMPLETE_MALE" xml:space="preserve">
+    <value>«Completo»</value>
+  </data>
+  <data name="STRING_GENERO_FEMENINO" xml:space="preserve">
+    <value>Femenino</value>
+  </data>
+  <data name="STRING_ITEM_START_CHAR" xml:space="preserve">
+    <value>«</value>
+  </data>
+  <data name="IMAGE_SENAL_ESCUELA_152" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\school_sign_transparent.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="STRING_ITEM_ALL_MALE" xml:space="preserve">
     <value>«Todos»</value>
   </data>
-  <data name="STRING_ITEM_COMPLETE_FEMALE" xml:space="preserve">
-    <value>«Completa»</value>
+  <data name="IMAGE_TABLAS_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\School2_3211.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="STRING_ITEM_COMPLETE_MALE" xml:space="preserve">
-    <value>«Completo»</value>
+  <data name="IMAGE_ITEM_EDIT_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions-document-edit-icon (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="STRING_YES" xml:space="preserve">
+    <value>Sí</value>
   </data>
   <data name="STRING_ITEM_EMPTY_FEMALE" xml:space="preserve">
     <value>«Vacía»</value>
@@ -190,20 +184,62 @@
   <data name="STRING_ITEM_EMPTY_MALE" xml:space="preserve">
     <value>«Vacío»</value>
   </data>
+  <data name="IMAGE_CANCEL_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions-dialog-cancel-icon (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="STRING_ITEM_END_CHAR" xml:space="preserve">
     <value>»</value>
   </data>
-  <data name="STRING_ITEM_NONE_CHARS10" xml:space="preserve">
-    <value>----------</value>
+  <data name="STRING_ITEM_ALL_FEMALE" xml:space="preserve">
+    <value>«Todas»</value>
   </data>
-  <data name="STRING_ITEM_NONE_CHARS2" xml:space="preserve">
-    <value>--</value>
+  <data name="STRING_ITEM_COMPLETE_FEMALE" xml:space="preserve">
+    <value>«Completa»</value>
   </data>
-  <data name="STRING_ITEM_NONE_CHARS20" xml:space="preserve">
-    <value>--------------------</value>
+  <data name="IMAGE_ITEM_ADD_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions-document-new-icon (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_ENTIDADES_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\demographic (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ICON_SCHOOL_48_32_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\school_48_32_16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_MOVE_PREVIOUS_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Move Previous (Arrow) Red24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_MENU_WINDOW_CLOSE_ALL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Window - Close All.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_MOVE_NEXT_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Move Next (Arrow) Green24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_CLOSE_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions-dialog-close-icon (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="STRING_NO" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="IMAGE_COMPROBANTES_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\invoice-icon (13).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="STRING_ITEM_NEW_MALE" xml:space="preserve">
+    <value>«Nuevo»</value>
   </data>
   <data name="STRING_ITEM_NONE_CHARS5" xml:space="preserve">
     <value>-----</value>
+  </data>
+  <data name="STRING_GENERO_MASCULINO" xml:space="preserve">
+    <value>Masculino</value>
+  </data>
+  <data name="IMAGE_CLOSE_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions-dialog-close-icon (8).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_MENU_WINDOW_FIT_SIZE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WindowFitToSize16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="STRING_ITEM_NONE_CHARS20" xml:space="preserve">
+    <value>--------------------</value>
   </data>
   <data name="STRING_ITEM_NONE_FEMALE" xml:space="preserve">
     <value>«Ninguno»</value>
@@ -211,52 +247,28 @@
   <data name="STRING_ITEM_NONE_MALE" xml:space="preserve">
     <value>«Ninguna»</value>
   </data>
-  <data name="STRING_ITEM_START_CHAR" xml:space="preserve">
-    <value>«</value>
+  <data name="IMAGE_USUARIO_HOMBRE_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\User-Coat-Red-icon (5).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="STRING_NO" xml:space="preserve">
-    <value>No</value>
+  <data name="IMAGE_USUARIO_MUJER_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Office-Girl-icon (8).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="STRING_YES" xml:space="preserve">
-    <value>Sí</value>
-  </data>
-  <data name="STRING_GENERO_FEMENINO" xml:space="preserve">
-    <value>Femenino</value>
-  </data>
-  <data name="STRING_GENERO_MASCULINO" xml:space="preserve">
-    <value>Masculino</value>
-  </data>
-  <data name="STRING_ITEM_NON_SPECIFIED" xml:space="preserve">
-    <value>«No especifica»</value>
-  </data>
-  <data name="IMAGE_CANCEL_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Actions-dialog-cancel-icon (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IMAGE_MENU_WINDOW_TILE_HORIZONTALLY" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Window - Tile Horizontally.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="IMAGE_OK_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Actions-dialog-ok-apply-icon (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="IMAGE_CLOSE_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Actions-dialog-close-icon (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IMAGE_SPLASH_SCREEN_BACKGROUND" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\5_Resized.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="IMAGE_ENTIDAD_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Actions-view-pim-contacts-icon (5).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="STRING_ENTIDADFACTURA_ALUMNO" xml:space="preserve">
+    <value>Alumno</value>
   </data>
-  <data name="IMAGE_SEARCH_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Search-icon (8).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="STRING_ENTIDADFACTURA_MADRE" xml:space="preserve">
+    <value>Madre</value>
   </data>
-  <data name="STRING_ITEM_NEW_MALE" xml:space="preserve">
-    <value>«Nuevo»</value>
-  </data>
-  <data name="IMAGE_COMPROBANTES_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\invoice-icon (13).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IMAGE_COMPROBANTE_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\invoice-icon (12).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IMAGE_MOVE_NEXT_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Move Next (Arrow) Green24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IMAGE_MOVE_PREVIOUS_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Move Previous (Arrow) Red24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="STRING_ENTIDADFACTURA_PADRE" xml:space="preserve">
+    <value>Padre</value>
   </data>
 </root>
