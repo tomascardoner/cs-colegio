@@ -50,17 +50,17 @@ Partial Class formEntidad
         Dim labelModificacion As System.Windows.Forms.Label
         Dim labelCreacion As System.Windows.Forms.Label
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formEntidad))
         Me.textboxApellido = New System.Windows.Forms.TextBox()
         Me.textboxIDEntidad = New System.Windows.Forms.TextBox()
@@ -95,37 +95,51 @@ Partial Class formEntidad
         Me.textboxTelefono2 = New System.Windows.Forms.TextBox()
         Me.textboxTelefono3 = New System.Windows.Forms.TextBox()
         Me.tabpageExtra = New System.Windows.Forms.TabPage()
+        Me.comboboxEntidadFactura = New System.Windows.Forms.ComboBox()
+        Me.labelEntidadFactura = New System.Windows.Forms.Label()
+        Me.labelEntidadMadre = New System.Windows.Forms.Label()
+        Me.panelEntidadMadre = New System.Windows.Forms.Panel()
+        Me.buttonEntidadMadreBorrar = New System.Windows.Forms.Button()
+        Me.buttonEntidadMadre = New System.Windows.Forms.Button()
+        Me.textboxEntidadMadre = New System.Windows.Forms.TextBox()
+        Me.panelEntidadPadre = New System.Windows.Forms.Panel()
+        Me.buttonEntidadPadreBorrar = New System.Windows.Forms.Button()
+        Me.buttonEntidadPadre = New System.Windows.Forms.Button()
+        Me.textboxEntidadPadre = New System.Windows.Forms.TextBox()
+        Me.labelEntidadPadre = New System.Windows.Forms.Label()
+        Me.textboxNotas = New System.Windows.Forms.TextBox()
+        Me.checkboxActivo = New System.Windows.Forms.CheckBox()
+        Me.tabpageRelacionesHijas = New System.Windows.Forms.TabPage()
+        Me.ListView1 = New System.Windows.Forms.ListView()
+        Me.datagridviewRelacionesHijas = New System.Windows.Forms.DataGridView()
+        Me.columnHijasIDEntidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnHijasApellido = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnHijasNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnHijasRelacionTipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.tabpageRelacionesPadres = New System.Windows.Forms.TabPage()
+        Me.datagridviewRelacionesPadres = New System.Windows.Forms.DataGridView()
+        Me.columnPadresIDEntidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnPadresApellido = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnPadresNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnPadresRelacionTipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.tabpageCursosAsistidos = New System.Windows.Forms.TabPage()
+        Me.datagridviewCursosAsistidos = New System.Windows.Forms.DataGridView()
+        Me.columnAnioLectivo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnNivelNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnAnioNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnTurnoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnDivision = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.tabpageAuditoria = New System.Windows.Forms.TabPage()
         Me.textboxUsuarioModificacion = New System.Windows.Forms.TextBox()
         Me.textboxUsuarioCreacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraModificacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraCreacion = New System.Windows.Forms.TextBox()
-        Me.textboxNotas = New System.Windows.Forms.TextBox()
-        Me.checkboxActivo = New System.Windows.Forms.CheckBox()
-        Me.tabpageRelacionesHijas = New System.Windows.Forms.TabPage()
-        Me.datagridviewRelacionesHijas = New System.Windows.Forms.DataGridView()
-        Me.tabpageRelacionesPadres = New System.Windows.Forms.TabPage()
-        Me.datagridviewRelacionesPadres = New System.Windows.Forms.DataGridView()
-        Me.tabpageCursosAsistidos = New System.Windows.Forms.TabPage()
-        Me.datagridviewCursosAsistidos = New System.Windows.Forms.DataGridView()
         Me.toolstripMain = New System.Windows.Forms.ToolStrip()
         Me.buttonCerrar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
         Me.buttonCancelar = New System.Windows.Forms.ToolStripButton()
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
         Me.tooltipMain = New System.Windows.Forms.ToolTip(Me.components)
-        Me.columnAnioLectivo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnNivelNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnAnioNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnTurnoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnDivision = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnPadresIDEntidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnPadresApellido = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnPadresNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnPadresRelacionTipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnHijasIDEntidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnHijasApellido = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnHijasNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnHijasRelacionTipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         labelApellido = New System.Windows.Forms.Label()
         labelIDEntidad = New System.Windows.Forms.Label()
         labelNombre = New System.Windows.Forms.Label()
@@ -157,12 +171,15 @@ Partial Class formEntidad
         Me.tabpageGeneral.SuspendLayout()
         Me.tabpageContacto.SuspendLayout()
         Me.tabpageExtra.SuspendLayout()
+        Me.panelEntidadMadre.SuspendLayout()
+        Me.panelEntidadPadre.SuspendLayout()
         Me.tabpageRelacionesHijas.SuspendLayout()
         CType(Me.datagridviewRelacionesHijas, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabpageRelacionesPadres.SuspendLayout()
         CType(Me.datagridviewRelacionesPadres, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabpageCursosAsistidos.SuspendLayout()
         CType(Me.datagridviewCursosAsistidos, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tabpageAuditoria.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -350,10 +367,10 @@ Partial Class formEntidad
         'labelNotas
         '
         labelNotas.AutoSize = True
-        labelNotas.Location = New System.Drawing.Point(6, 33)
+        labelNotas.Location = New System.Drawing.Point(6, 118)
         labelNotas.Name = "labelNotas"
         labelNotas.Size = New System.Drawing.Size(38, 13)
-        labelNotas.TabIndex = 1
+        labelNotas.TabIndex = 7
         labelNotas.Text = "Notas:"
         '
         'labelTipo
@@ -386,19 +403,19 @@ Partial Class formEntidad
         'labelModificacion
         '
         labelModificacion.AutoSize = True
-        labelModificacion.Location = New System.Drawing.Point(6, 192)
+        labelModificacion.Location = New System.Drawing.Point(6, 35)
         labelModificacion.Name = "labelModificacion"
         labelModificacion.Size = New System.Drawing.Size(102, 13)
-        labelModificacion.TabIndex = 6
+        labelModificacion.TabIndex = 12
         labelModificacion.Text = "Ultima Modificación:"
         '
         'labelCreacion
         '
         labelCreacion.AutoSize = True
-        labelCreacion.Location = New System.Drawing.Point(6, 170)
+        labelCreacion.Location = New System.Drawing.Point(6, 13)
         labelCreacion.Name = "labelCreacion"
         labelCreacion.Size = New System.Drawing.Size(52, 13)
-        labelCreacion.TabIndex = 3
+        labelCreacion.TabIndex = 9
         labelCreacion.Text = "Creación:"
         '
         'textboxApellido
@@ -446,6 +463,7 @@ Partial Class formEntidad
         Me.tabcontrolMain.Controls.Add(Me.tabpageRelacionesHijas)
         Me.tabcontrolMain.Controls.Add(Me.tabpageRelacionesPadres)
         Me.tabcontrolMain.Controls.Add(Me.tabpageCursosAsistidos)
+        Me.tabcontrolMain.Controls.Add(Me.tabpageAuditoria)
         Me.tabcontrolMain.Location = New System.Drawing.Point(12, 138)
         Me.tabcontrolMain.Name = "tabcontrolMain"
         Me.tabcontrolMain.SelectedIndex = 0
@@ -743,12 +761,12 @@ Partial Class formEntidad
         '
         'tabpageExtra
         '
-        Me.tabpageExtra.Controls.Add(Me.textboxUsuarioModificacion)
-        Me.tabpageExtra.Controls.Add(Me.textboxUsuarioCreacion)
-        Me.tabpageExtra.Controls.Add(Me.textboxFechaHoraModificacion)
-        Me.tabpageExtra.Controls.Add(Me.textboxFechaHoraCreacion)
-        Me.tabpageExtra.Controls.Add(labelModificacion)
-        Me.tabpageExtra.Controls.Add(labelCreacion)
+        Me.tabpageExtra.Controls.Add(Me.comboboxEntidadFactura)
+        Me.tabpageExtra.Controls.Add(Me.labelEntidadFactura)
+        Me.tabpageExtra.Controls.Add(Me.labelEntidadMadre)
+        Me.tabpageExtra.Controls.Add(Me.panelEntidadMadre)
+        Me.tabpageExtra.Controls.Add(Me.panelEntidadPadre)
+        Me.tabpageExtra.Controls.Add(Me.labelEntidadPadre)
         Me.tabpageExtra.Controls.Add(labelNotas)
         Me.tabpageExtra.Controls.Add(Me.textboxNotas)
         Me.tabpageExtra.Controls.Add(Me.checkboxActivo)
@@ -760,63 +778,150 @@ Partial Class formEntidad
         Me.tabpageExtra.Text = "Extra"
         Me.tabpageExtra.UseVisualStyleBackColor = True
         '
-        'textboxUsuarioModificacion
+        'comboboxEntidadFactura
         '
-        Me.textboxUsuarioModificacion.Location = New System.Drawing.Point(241, 189)
-        Me.textboxUsuarioModificacion.MaxLength = 50
-        Me.textboxUsuarioModificacion.Name = "textboxUsuarioModificacion"
-        Me.textboxUsuarioModificacion.ReadOnly = True
-        Me.textboxUsuarioModificacion.Size = New System.Drawing.Size(259, 20)
-        Me.textboxUsuarioModificacion.TabIndex = 8
+        Me.comboboxEntidadFactura.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxEntidadFactura.FormattingEnabled = True
+        Me.comboboxEntidadFactura.Location = New System.Drawing.Point(95, 64)
+        Me.comboboxEntidadFactura.Name = "comboboxEntidadFactura"
+        Me.comboboxEntidadFactura.Size = New System.Drawing.Size(102, 21)
+        Me.comboboxEntidadFactura.TabIndex = 5
         '
-        'textboxUsuarioCreacion
+        'labelEntidadFactura
         '
-        Me.textboxUsuarioCreacion.Location = New System.Drawing.Point(241, 163)
-        Me.textboxUsuarioCreacion.MaxLength = 50
-        Me.textboxUsuarioCreacion.Name = "textboxUsuarioCreacion"
-        Me.textboxUsuarioCreacion.ReadOnly = True
-        Me.textboxUsuarioCreacion.Size = New System.Drawing.Size(259, 20)
-        Me.textboxUsuarioCreacion.TabIndex = 5
+        Me.labelEntidadFactura.AutoSize = True
+        Me.labelEntidadFactura.Location = New System.Drawing.Point(6, 67)
+        Me.labelEntidadFactura.Name = "labelEntidadFactura"
+        Me.labelEntidadFactura.Size = New System.Drawing.Size(83, 13)
+        Me.labelEntidadFactura.TabIndex = 4
+        Me.labelEntidadFactura.Text = "Emitir Factura a:"
         '
-        'textboxFechaHoraModificacion
+        'labelEntidadMadre
         '
-        Me.textboxFechaHoraModificacion.Location = New System.Drawing.Point(114, 189)
-        Me.textboxFechaHoraModificacion.MaxLength = 0
-        Me.textboxFechaHoraModificacion.Name = "textboxFechaHoraModificacion"
-        Me.textboxFechaHoraModificacion.ReadOnly = True
-        Me.textboxFechaHoraModificacion.Size = New System.Drawing.Size(121, 20)
-        Me.textboxFechaHoraModificacion.TabIndex = 7
+        Me.labelEntidadMadre.AutoSize = True
+        Me.labelEntidadMadre.Location = New System.Drawing.Point(6, 41)
+        Me.labelEntidadMadre.Name = "labelEntidadMadre"
+        Me.labelEntidadMadre.Size = New System.Drawing.Size(82, 13)
+        Me.labelEntidadMadre.TabIndex = 2
+        Me.labelEntidadMadre.Text = "Madre / Tutora:"
         '
-        'textboxFechaHoraCreacion
+        'panelEntidadMadre
         '
-        Me.textboxFechaHoraCreacion.Location = New System.Drawing.Point(114, 163)
-        Me.textboxFechaHoraCreacion.MaxLength = 0
-        Me.textboxFechaHoraCreacion.Name = "textboxFechaHoraCreacion"
-        Me.textboxFechaHoraCreacion.ReadOnly = True
-        Me.textboxFechaHoraCreacion.Size = New System.Drawing.Size(121, 20)
-        Me.textboxFechaHoraCreacion.TabIndex = 4
+        Me.panelEntidadMadre.Controls.Add(Me.buttonEntidadMadreBorrar)
+        Me.panelEntidadMadre.Controls.Add(Me.buttonEntidadMadre)
+        Me.panelEntidadMadre.Controls.Add(Me.textboxEntidadMadre)
+        Me.panelEntidadMadre.Location = New System.Drawing.Point(95, 36)
+        Me.panelEntidadMadre.Name = "panelEntidadMadre"
+        Me.panelEntidadMadre.Size = New System.Drawing.Size(405, 22)
+        Me.panelEntidadMadre.TabIndex = 3
+        '
+        'buttonEntidadMadreBorrar
+        '
+        Me.buttonEntidadMadreBorrar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.buttonEntidadMadreBorrar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_CLOSE_16
+        Me.buttonEntidadMadreBorrar.Location = New System.Drawing.Point(383, 0)
+        Me.buttonEntidadMadreBorrar.Name = "buttonEntidadMadreBorrar"
+        Me.buttonEntidadMadreBorrar.Size = New System.Drawing.Size(22, 22)
+        Me.buttonEntidadMadreBorrar.TabIndex = 2
+        Me.buttonEntidadMadreBorrar.Text = "…"
+        Me.buttonEntidadMadreBorrar.UseVisualStyleBackColor = True
+        '
+        'buttonEntidadMadre
+        '
+        Me.buttonEntidadMadre.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.buttonEntidadMadre.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_SEARCH_16
+        Me.buttonEntidadMadre.Location = New System.Drawing.Point(362, 0)
+        Me.buttonEntidadMadre.Name = "buttonEntidadMadre"
+        Me.buttonEntidadMadre.Size = New System.Drawing.Size(22, 22)
+        Me.buttonEntidadMadre.TabIndex = 1
+        Me.buttonEntidadMadre.Text = "…"
+        Me.buttonEntidadMadre.UseVisualStyleBackColor = True
+        '
+        'textboxEntidadMadre
+        '
+        Me.textboxEntidadMadre.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxEntidadMadre.Location = New System.Drawing.Point(0, 1)
+        Me.textboxEntidadMadre.MaxLength = 150
+        Me.textboxEntidadMadre.Name = "textboxEntidadMadre"
+        Me.textboxEntidadMadre.ReadOnly = True
+        Me.textboxEntidadMadre.Size = New System.Drawing.Size(362, 20)
+        Me.textboxEntidadMadre.TabIndex = 0
+        '
+        'panelEntidadPadre
+        '
+        Me.panelEntidadPadre.Controls.Add(Me.buttonEntidadPadreBorrar)
+        Me.panelEntidadPadre.Controls.Add(Me.buttonEntidadPadre)
+        Me.panelEntidadPadre.Controls.Add(Me.textboxEntidadPadre)
+        Me.panelEntidadPadre.Location = New System.Drawing.Point(95, 8)
+        Me.panelEntidadPadre.Name = "panelEntidadPadre"
+        Me.panelEntidadPadre.Size = New System.Drawing.Size(405, 22)
+        Me.panelEntidadPadre.TabIndex = 1
+        '
+        'buttonEntidadPadreBorrar
+        '
+        Me.buttonEntidadPadreBorrar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.buttonEntidadPadreBorrar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_CLOSE_16
+        Me.buttonEntidadPadreBorrar.Location = New System.Drawing.Point(383, 0)
+        Me.buttonEntidadPadreBorrar.Name = "buttonEntidadPadreBorrar"
+        Me.buttonEntidadPadreBorrar.Size = New System.Drawing.Size(22, 22)
+        Me.buttonEntidadPadreBorrar.TabIndex = 2
+        Me.buttonEntidadPadreBorrar.Text = "…"
+        Me.buttonEntidadPadreBorrar.UseVisualStyleBackColor = True
+        '
+        'buttonEntidadPadre
+        '
+        Me.buttonEntidadPadre.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.buttonEntidadPadre.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_SEARCH_16
+        Me.buttonEntidadPadre.Location = New System.Drawing.Point(362, 0)
+        Me.buttonEntidadPadre.Name = "buttonEntidadPadre"
+        Me.buttonEntidadPadre.Size = New System.Drawing.Size(22, 22)
+        Me.buttonEntidadPadre.TabIndex = 1
+        Me.buttonEntidadPadre.Text = "…"
+        Me.buttonEntidadPadre.UseVisualStyleBackColor = True
+        '
+        'textboxEntidadPadre
+        '
+        Me.textboxEntidadPadre.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxEntidadPadre.Location = New System.Drawing.Point(0, 1)
+        Me.textboxEntidadPadre.MaxLength = 150
+        Me.textboxEntidadPadre.Name = "textboxEntidadPadre"
+        Me.textboxEntidadPadre.ReadOnly = True
+        Me.textboxEntidadPadre.Size = New System.Drawing.Size(362, 20)
+        Me.textboxEntidadPadre.TabIndex = 0
+        '
+        'labelEntidadPadre
+        '
+        Me.labelEntidadPadre.AutoSize = True
+        Me.labelEntidadPadre.Location = New System.Drawing.Point(6, 12)
+        Me.labelEntidadPadre.Name = "labelEntidadPadre"
+        Me.labelEntidadPadre.Size = New System.Drawing.Size(74, 13)
+        Me.labelEntidadPadre.TabIndex = 0
+        Me.labelEntidadPadre.Text = "Padre / Tutor:"
         '
         'textboxNotas
         '
-        Me.textboxNotas.Location = New System.Drawing.Point(72, 30)
+        Me.textboxNotas.Location = New System.Drawing.Point(95, 115)
         Me.textboxNotas.MaxLength = 0
         Me.textboxNotas.Multiline = True
         Me.textboxNotas.Name = "textboxNotas"
-        Me.textboxNotas.Size = New System.Drawing.Size(428, 127)
-        Me.textboxNotas.TabIndex = 2
+        Me.textboxNotas.Size = New System.Drawing.Size(405, 98)
+        Me.textboxNotas.TabIndex = 8
         '
         'checkboxActivo
         '
         Me.checkboxActivo.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.checkboxActivo.Location = New System.Drawing.Point(3, 6)
+        Me.checkboxActivo.Location = New System.Drawing.Point(6, 91)
         Me.checkboxActivo.Name = "checkboxActivo"
-        Me.checkboxActivo.Size = New System.Drawing.Size(83, 18)
-        Me.checkboxActivo.TabIndex = 0
+        Me.checkboxActivo.Size = New System.Drawing.Size(103, 18)
+        Me.checkboxActivo.TabIndex = 6
         Me.checkboxActivo.Text = "Activo"
         Me.checkboxActivo.UseVisualStyleBackColor = True
         '
         'tabpageRelacionesHijas
         '
+        Me.tabpageRelacionesHijas.Controls.Add(Me.ListView1)
         Me.tabpageRelacionesHijas.Controls.Add(Me.datagridviewRelacionesHijas)
         Me.tabpageRelacionesHijas.Location = New System.Drawing.Point(4, 25)
         Me.tabpageRelacionesHijas.Name = "tabpageRelacionesHijas"
@@ -825,6 +930,14 @@ Partial Class formEntidad
         Me.tabpageRelacionesHijas.TabIndex = 4
         Me.tabpageRelacionesHijas.Text = "Relaciones Hijas"
         Me.tabpageRelacionesHijas.UseVisualStyleBackColor = True
+        '
+        'ListView1
+        '
+        Me.ListView1.Location = New System.Drawing.Point(62, 25)
+        Me.ListView1.Name = "ListView1"
+        Me.ListView1.Size = New System.Drawing.Size(414, 164)
+        Me.ListView1.TabIndex = 4
+        Me.ListView1.UseCompatibleStateImageBehavior = False
         '
         'datagridviewRelacionesHijas
         '
@@ -849,6 +962,48 @@ Partial Class formEntidad
         Me.datagridviewRelacionesHijas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewRelacionesHijas.Size = New System.Drawing.Size(500, 213)
         Me.datagridviewRelacionesHijas.TabIndex = 3
+        '
+        'columnHijasIDEntidad
+        '
+        Me.columnHijasIDEntidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnHijasIDEntidad.DataPropertyName = "IDEntidad"
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.columnHijasIDEntidad.DefaultCellStyle = DataGridViewCellStyle2
+        Me.columnHijasIDEntidad.HeaderText = "N° Entidad"
+        Me.columnHijasIDEntidad.Name = "columnHijasIDEntidad"
+        Me.columnHijasIDEntidad.ReadOnly = True
+        Me.columnHijasIDEntidad.Width = 83
+        '
+        'columnHijasApellido
+        '
+        Me.columnHijasApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnHijasApellido.DataPropertyName = "Apellido"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnHijasApellido.DefaultCellStyle = DataGridViewCellStyle3
+        Me.columnHijasApellido.HeaderText = "Apellido"
+        Me.columnHijasApellido.Name = "columnHijasApellido"
+        Me.columnHijasApellido.ReadOnly = True
+        Me.columnHijasApellido.Width = 69
+        '
+        'columnHijasNombre
+        '
+        Me.columnHijasNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnHijasNombre.DataPropertyName = "Nombre"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnHijasNombre.DefaultCellStyle = DataGridViewCellStyle4
+        Me.columnHijasNombre.HeaderText = "Nombre"
+        Me.columnHijasNombre.Name = "columnHijasNombre"
+        Me.columnHijasNombre.ReadOnly = True
+        Me.columnHijasNombre.Width = 69
+        '
+        'columnHijasRelacionTipo
+        '
+        Me.columnHijasRelacionTipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnHijasRelacionTipo.DataPropertyName = "RelacionTipoNombre"
+        Me.columnHijasRelacionTipo.HeaderText = "Relación"
+        Me.columnHijasRelacionTipo.Name = "columnHijasRelacionTipo"
+        Me.columnHijasRelacionTipo.ReadOnly = True
+        Me.columnHijasRelacionTipo.Width = 74
         '
         'tabpageRelacionesPadres
         '
@@ -885,6 +1040,48 @@ Partial Class formEntidad
         Me.datagridviewRelacionesPadres.Size = New System.Drawing.Size(500, 213)
         Me.datagridviewRelacionesPadres.TabIndex = 4
         '
+        'columnPadresIDEntidad
+        '
+        Me.columnPadresIDEntidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnPadresIDEntidad.DataPropertyName = "IDEntidad"
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.columnPadresIDEntidad.DefaultCellStyle = DataGridViewCellStyle6
+        Me.columnPadresIDEntidad.HeaderText = "N° Entidad"
+        Me.columnPadresIDEntidad.Name = "columnPadresIDEntidad"
+        Me.columnPadresIDEntidad.ReadOnly = True
+        Me.columnPadresIDEntidad.Width = 83
+        '
+        'columnPadresApellido
+        '
+        Me.columnPadresApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnPadresApellido.DataPropertyName = "Apellido"
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnPadresApellido.DefaultCellStyle = DataGridViewCellStyle7
+        Me.columnPadresApellido.HeaderText = "Apellido"
+        Me.columnPadresApellido.Name = "columnPadresApellido"
+        Me.columnPadresApellido.ReadOnly = True
+        Me.columnPadresApellido.Width = 69
+        '
+        'columnPadresNombre
+        '
+        Me.columnPadresNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnPadresNombre.DataPropertyName = "Nombre"
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnPadresNombre.DefaultCellStyle = DataGridViewCellStyle8
+        Me.columnPadresNombre.HeaderText = "Nombre"
+        Me.columnPadresNombre.Name = "columnPadresNombre"
+        Me.columnPadresNombre.ReadOnly = True
+        Me.columnPadresNombre.Width = 69
+        '
+        'columnPadresRelacionTipo
+        '
+        Me.columnPadresRelacionTipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnPadresRelacionTipo.DataPropertyName = "RelacionTipoNombre"
+        Me.columnPadresRelacionTipo.HeaderText = "Relación"
+        Me.columnPadresRelacionTipo.Name = "columnPadresRelacionTipo"
+        Me.columnPadresRelacionTipo.ReadOnly = True
+        Me.columnPadresRelacionTipo.Width = 74
+        '
         'tabpageCursosAsistidos
         '
         Me.tabpageCursosAsistidos.Controls.Add(Me.datagridviewCursosAsistidos)
@@ -919,55 +1116,6 @@ Partial Class formEntidad
         Me.datagridviewCursosAsistidos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewCursosAsistidos.Size = New System.Drawing.Size(500, 213)
         Me.datagridviewCursosAsistidos.TabIndex = 5
-        '
-        'toolstripMain
-        '
-        Me.toolstripMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonCerrar, Me.buttonEditar, Me.buttonCancelar, Me.buttonGuardar})
-        Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
-        Me.toolstripMain.Name = "toolstripMain"
-        Me.toolstripMain.Size = New System.Drawing.Size(537, 39)
-        Me.toolstripMain.TabIndex = 94
-        '
-        'buttonCerrar
-        '
-        Me.buttonCerrar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.buttonCerrar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_CLOSE_32
-        Me.buttonCerrar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonCerrar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonCerrar.Name = "buttonCerrar"
-        Me.buttonCerrar.Size = New System.Drawing.Size(75, 36)
-        Me.buttonCerrar.Text = "Cerrar"
-        '
-        'buttonEditar
-        '
-        Me.buttonEditar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.buttonEditar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_EDIT_32
-        Me.buttonEditar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonEditar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonEditar.Name = "buttonEditar"
-        Me.buttonEditar.Size = New System.Drawing.Size(73, 36)
-        Me.buttonEditar.Text = "Editar"
-        '
-        'buttonCancelar
-        '
-        Me.buttonCancelar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.buttonCancelar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_CANCEL_32
-        Me.buttonCancelar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonCancelar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonCancelar.Name = "buttonCancelar"
-        Me.buttonCancelar.Size = New System.Drawing.Size(89, 36)
-        Me.buttonCancelar.Text = "Cancelar"
-        '
-        'buttonGuardar
-        '
-        Me.buttonGuardar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.buttonGuardar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_OK_32
-        Me.buttonGuardar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonGuardar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonGuardar.Name = "buttonGuardar"
-        Me.buttonGuardar.Size = New System.Drawing.Size(85, 36)
-        Me.buttonGuardar.Text = "Guardar"
         '
         'columnAnioLectivo
         '
@@ -1020,95 +1168,112 @@ Partial Class formEntidad
         Me.columnDivision.ReadOnly = True
         Me.columnDivision.Width = 69
         '
-        'columnPadresIDEntidad
+        'tabpageAuditoria
         '
-        Me.columnPadresIDEntidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnPadresIDEntidad.DataPropertyName = "IDEntidad"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.columnPadresIDEntidad.DefaultCellStyle = DataGridViewCellStyle6
-        Me.columnPadresIDEntidad.HeaderText = "N° Entidad"
-        Me.columnPadresIDEntidad.Name = "columnPadresIDEntidad"
-        Me.columnPadresIDEntidad.ReadOnly = True
-        Me.columnPadresIDEntidad.Width = 83
+        Me.tabpageAuditoria.Controls.Add(Me.textboxUsuarioModificacion)
+        Me.tabpageAuditoria.Controls.Add(Me.textboxUsuarioCreacion)
+        Me.tabpageAuditoria.Controls.Add(Me.textboxFechaHoraModificacion)
+        Me.tabpageAuditoria.Controls.Add(Me.textboxFechaHoraCreacion)
+        Me.tabpageAuditoria.Controls.Add(labelModificacion)
+        Me.tabpageAuditoria.Controls.Add(labelCreacion)
+        Me.tabpageAuditoria.Location = New System.Drawing.Point(4, 25)
+        Me.tabpageAuditoria.Name = "tabpageAuditoria"
+        Me.tabpageAuditoria.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabpageAuditoria.Size = New System.Drawing.Size(506, 219)
+        Me.tabpageAuditoria.TabIndex = 7
+        Me.tabpageAuditoria.Text = "Auditoría"
+        Me.tabpageAuditoria.UseVisualStyleBackColor = True
         '
-        'columnPadresApellido
+        'textboxUsuarioModificacion
         '
-        Me.columnPadresApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnPadresApellido.DataPropertyName = "Apellido"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnPadresApellido.DefaultCellStyle = DataGridViewCellStyle7
-        Me.columnPadresApellido.HeaderText = "Apellido"
-        Me.columnPadresApellido.Name = "columnPadresApellido"
-        Me.columnPadresApellido.ReadOnly = True
-        Me.columnPadresApellido.Width = 69
+        Me.textboxUsuarioModificacion.Location = New System.Drawing.Point(241, 32)
+        Me.textboxUsuarioModificacion.MaxLength = 50
+        Me.textboxUsuarioModificacion.Name = "textboxUsuarioModificacion"
+        Me.textboxUsuarioModificacion.ReadOnly = True
+        Me.textboxUsuarioModificacion.Size = New System.Drawing.Size(259, 20)
+        Me.textboxUsuarioModificacion.TabIndex = 14
         '
-        'columnPadresNombre
+        'textboxUsuarioCreacion
         '
-        Me.columnPadresNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnPadresNombre.DataPropertyName = "Nombre"
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnPadresNombre.DefaultCellStyle = DataGridViewCellStyle8
-        Me.columnPadresNombre.HeaderText = "Nombre"
-        Me.columnPadresNombre.Name = "columnPadresNombre"
-        Me.columnPadresNombre.ReadOnly = True
-        Me.columnPadresNombre.Width = 69
+        Me.textboxUsuarioCreacion.Location = New System.Drawing.Point(241, 6)
+        Me.textboxUsuarioCreacion.MaxLength = 50
+        Me.textboxUsuarioCreacion.Name = "textboxUsuarioCreacion"
+        Me.textboxUsuarioCreacion.ReadOnly = True
+        Me.textboxUsuarioCreacion.Size = New System.Drawing.Size(259, 20)
+        Me.textboxUsuarioCreacion.TabIndex = 11
         '
-        'columnPadresRelacionTipo
+        'textboxFechaHoraModificacion
         '
-        Me.columnPadresRelacionTipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnPadresRelacionTipo.DataPropertyName = "RelacionTipoNombre"
-        Me.columnPadresRelacionTipo.HeaderText = "Relación"
-        Me.columnPadresRelacionTipo.Name = "columnPadresRelacionTipo"
-        Me.columnPadresRelacionTipo.ReadOnly = True
-        Me.columnPadresRelacionTipo.Width = 74
+        Me.textboxFechaHoraModificacion.Location = New System.Drawing.Point(114, 32)
+        Me.textboxFechaHoraModificacion.MaxLength = 0
+        Me.textboxFechaHoraModificacion.Name = "textboxFechaHoraModificacion"
+        Me.textboxFechaHoraModificacion.ReadOnly = True
+        Me.textboxFechaHoraModificacion.Size = New System.Drawing.Size(121, 20)
+        Me.textboxFechaHoraModificacion.TabIndex = 13
         '
-        'columnHijasIDEntidad
+        'textboxFechaHoraCreacion
         '
-        Me.columnHijasIDEntidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnHijasIDEntidad.DataPropertyName = "IDEntidad"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.columnHijasIDEntidad.DefaultCellStyle = DataGridViewCellStyle2
-        Me.columnHijasIDEntidad.HeaderText = "N° Entidad"
-        Me.columnHijasIDEntidad.Name = "columnHijasIDEntidad"
-        Me.columnHijasIDEntidad.ReadOnly = True
-        Me.columnHijasIDEntidad.Width = 83
+        Me.textboxFechaHoraCreacion.Location = New System.Drawing.Point(114, 6)
+        Me.textboxFechaHoraCreacion.MaxLength = 0
+        Me.textboxFechaHoraCreacion.Name = "textboxFechaHoraCreacion"
+        Me.textboxFechaHoraCreacion.ReadOnly = True
+        Me.textboxFechaHoraCreacion.Size = New System.Drawing.Size(121, 20)
+        Me.textboxFechaHoraCreacion.TabIndex = 10
         '
-        'columnHijasApellido
+        'toolstripMain
         '
-        Me.columnHijasApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnHijasApellido.DataPropertyName = "Apellido"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnHijasApellido.DefaultCellStyle = DataGridViewCellStyle3
-        Me.columnHijasApellido.HeaderText = "Apellido"
-        Me.columnHijasApellido.Name = "columnHijasApellido"
-        Me.columnHijasApellido.ReadOnly = True
-        Me.columnHijasApellido.Width = 69
+        Me.toolstripMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonCerrar, Me.buttonEditar, Me.buttonCancelar, Me.buttonGuardar})
+        Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
+        Me.toolstripMain.Name = "toolstripMain"
+        Me.toolstripMain.Size = New System.Drawing.Size(539, 39)
+        Me.toolstripMain.TabIndex = 94
         '
-        'columnHijasNombre
+        'buttonCerrar
         '
-        Me.columnHijasNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnHijasNombre.DataPropertyName = "Nombre"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnHijasNombre.DefaultCellStyle = DataGridViewCellStyle4
-        Me.columnHijasNombre.HeaderText = "Nombre"
-        Me.columnHijasNombre.Name = "columnHijasNombre"
-        Me.columnHijasNombre.ReadOnly = True
-        Me.columnHijasNombre.Width = 69
+        Me.buttonCerrar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.buttonCerrar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_CLOSE_32
+        Me.buttonCerrar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonCerrar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonCerrar.Name = "buttonCerrar"
+        Me.buttonCerrar.Size = New System.Drawing.Size(75, 36)
+        Me.buttonCerrar.Text = "Cerrar"
         '
-        'columnHijasRelacionTipo
+        'buttonEditar
         '
-        Me.columnHijasRelacionTipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnHijasRelacionTipo.DataPropertyName = "RelacionTipoNombre"
-        Me.columnHijasRelacionTipo.HeaderText = "Relación"
-        Me.columnHijasRelacionTipo.Name = "columnHijasRelacionTipo"
-        Me.columnHijasRelacionTipo.ReadOnly = True
-        Me.columnHijasRelacionTipo.Width = 74
+        Me.buttonEditar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.buttonEditar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_EDIT_32
+        Me.buttonEditar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonEditar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonEditar.Name = "buttonEditar"
+        Me.buttonEditar.Size = New System.Drawing.Size(73, 36)
+        Me.buttonEditar.Text = "Editar"
+        '
+        'buttonCancelar
+        '
+        Me.buttonCancelar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.buttonCancelar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_CANCEL_32
+        Me.buttonCancelar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonCancelar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonCancelar.Name = "buttonCancelar"
+        Me.buttonCancelar.Size = New System.Drawing.Size(89, 36)
+        Me.buttonCancelar.Text = "Cancelar"
+        '
+        'buttonGuardar
+        '
+        Me.buttonGuardar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.buttonGuardar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_OK_32
+        Me.buttonGuardar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonGuardar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonGuardar.Name = "buttonGuardar"
+        Me.buttonGuardar.Size = New System.Drawing.Size(85, 36)
+        Me.buttonGuardar.Text = "Guardar"
         '
         'formEntidad
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(537, 399)
+        Me.ClientSize = New System.Drawing.Size(539, 399)
         Me.Controls.Add(Me.toolstripMain)
         Me.Controls.Add(Me.tabcontrolMain)
         Me.Controls.Add(Me.pictureboxMain)
@@ -1133,12 +1298,18 @@ Partial Class formEntidad
         Me.tabpageContacto.PerformLayout()
         Me.tabpageExtra.ResumeLayout(False)
         Me.tabpageExtra.PerformLayout()
+        Me.panelEntidadMadre.ResumeLayout(False)
+        Me.panelEntidadMadre.PerformLayout()
+        Me.panelEntidadPadre.ResumeLayout(False)
+        Me.panelEntidadPadre.PerformLayout()
         Me.tabpageRelacionesHijas.ResumeLayout(False)
         CType(Me.datagridviewRelacionesHijas, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabpageRelacionesPadres.ResumeLayout(False)
         CType(Me.datagridviewRelacionesPadres, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabpageCursosAsistidos.ResumeLayout(False)
         CType(Me.datagridviewCursosAsistidos, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tabpageAuditoria.ResumeLayout(False)
+        Me.tabpageAuditoria.PerformLayout()
         Me.toolstripMain.ResumeLayout(False)
         Me.toolstripMain.PerformLayout()
         Me.ResumeLayout(False)
@@ -1180,10 +1351,6 @@ Partial Class formEntidad
     Friend WithEvents textboxDomicilioCalle3 As System.Windows.Forms.TextBox
     Friend WithEvents textboxDomicilioCalle2 As System.Windows.Forms.TextBox
     Friend WithEvents tabpageRelacionesHijas As System.Windows.Forms.TabPage
-    Friend WithEvents textboxFechaHoraModificacion As System.Windows.Forms.TextBox
-    Friend WithEvents textboxFechaHoraCreacion As System.Windows.Forms.TextBox
-    Friend WithEvents textboxUsuarioModificacion As System.Windows.Forms.TextBox
-    Friend WithEvents textboxUsuarioCreacion As System.Windows.Forms.TextBox
     Friend WithEvents datagridviewRelacionesHijas As System.Windows.Forms.DataGridView
     Friend WithEvents toolstripMain As System.Windows.Forms.ToolStrip
     Friend WithEvents buttonCancelar As System.Windows.Forms.ToolStripButton
@@ -1209,4 +1376,22 @@ Partial Class formEntidad
     Friend WithEvents columnPadresApellido As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnPadresNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnPadresRelacionTipo As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents ListView1 As System.Windows.Forms.ListView
+    Friend WithEvents labelEntidadPadre As System.Windows.Forms.Label
+    Friend WithEvents panelEntidadPadre As System.Windows.Forms.Panel
+    Friend WithEvents buttonEntidadPadreBorrar As System.Windows.Forms.Button
+    Friend WithEvents buttonEntidadPadre As System.Windows.Forms.Button
+    Friend WithEvents textboxEntidadPadre As System.Windows.Forms.TextBox
+    Friend WithEvents labelEntidadMadre As System.Windows.Forms.Label
+    Friend WithEvents panelEntidadMadre As System.Windows.Forms.Panel
+    Friend WithEvents buttonEntidadMadreBorrar As System.Windows.Forms.Button
+    Friend WithEvents buttonEntidadMadre As System.Windows.Forms.Button
+    Friend WithEvents textboxEntidadMadre As System.Windows.Forms.TextBox
+    Friend WithEvents comboboxEntidadFactura As System.Windows.Forms.ComboBox
+    Friend WithEvents labelEntidadFactura As System.Windows.Forms.Label
+    Friend WithEvents tabpageAuditoria As System.Windows.Forms.TabPage
+    Friend WithEvents textboxUsuarioModificacion As System.Windows.Forms.TextBox
+    Friend WithEvents textboxUsuarioCreacion As System.Windows.Forms.TextBox
+    Friend WithEvents textboxFechaHoraModificacion As System.Windows.Forms.TextBox
+    Friend WithEvents textboxFechaHoraCreacion As System.Windows.Forms.TextBox
 End Class

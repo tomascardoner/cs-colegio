@@ -14,7 +14,6 @@ Partial Public Class EntidadEntidad
     Public Property IDEntidadPadre As Integer
     Public Property IDEntidadHija As Integer
     Public Property IDRelacionTipo As Byte
-    Public Property TitularFactura As Boolean
     Public Property Notas As String
     Public Property CreacionIDUsuario As Byte
     Public Property CreacionFechaHora As Date

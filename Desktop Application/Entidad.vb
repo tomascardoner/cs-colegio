@@ -14,6 +14,7 @@ Partial Public Class Entidad
     Public Property IDEntidad As Integer
     Public Property Apellido As String
     Public Property Nombre As String
+    Public Property ApellidoNombre As String
     Public Property TipoPersonalColegio As Boolean
     Public Property TipoDocente As Boolean
     Public Property TipoAlumno As Boolean
@@ -39,6 +40,9 @@ Partial Public Class Entidad
     Public Property DomicilioCodigoPostal As String
     Public Property DomicilioIDProvincia As String
     Public Property DomicilioIDLocalidad As Nullable(Of Short)
+    Public Property IDEntidadPadre As Nullable(Of Integer)
+    Public Property IDEntidadMadre As Nullable(Of Integer)
+    Public Property EntidadFactura As String
     Public Property EsActivo As Boolean
     Public Property Notas As String
     Public Property IDUsuarioCreacion As Byte
@@ -55,5 +59,9 @@ Partial Public Class Entidad
     Public Overridable Property ComprobanteCabecera As ICollection(Of ComprobanteCabecera) = New HashSet(Of ComprobanteCabecera)
     Public Overridable Property UsuarioCreacion As Usuario
     Public Overridable Property UsuarioModificacion As Usuario
+    Public Overridable Property EntidadMadreHijas As ICollection(Of Entidad) = New HashSet(Of Entidad)
+    Public Overridable Property EntidadMadre As Entidad
+    Public Overridable Property EntidadPadreHijas As ICollection(Of Entidad) = New HashSet(Of Entidad)
+    Public Overridable Property EntidadPadre As Entidad
 
 End Class

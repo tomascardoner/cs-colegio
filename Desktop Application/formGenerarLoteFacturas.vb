@@ -153,7 +153,7 @@
         treeviewPadresAlumnos.BeginUpdate()
         NodoEntidad.Nodes.RemoveAt(0)
         EntidadNodoCurrent = CType(NodoEntidad.Tag, Entidad)
-        For Each EntidadEntidadCurrent As EntidadEntidad In EntidadNodoCurrent.EntidadesPadres.Where(Function(entent) entent.TitularFactura = True And entent.EntidadPadre.EsActivo).OrderBy(Function(entent) entent.EntidadPadre.Apellido & entent.EntidadPadre.Nombre)
+        For Each EntidadEntidadCurrent As EntidadEntidad In EntidadNodoCurrent.EntidadesPadres.Where(Function(entent) entent.EntidadPadre.EsActivo).OrderBy(Function(entent) entent.EntidadPadre.Apellido & entent.EntidadPadre.Nombre)
             ' Agrego el nodo correspondiente a la Entidad actual
             If EntidadEntidadCurrent.EntidadPadre.EntidadCurso.Where(Function(entcur) entcur.AnioLectivo = Today.Year).Count > 0 Then
                 NewNode = New TreeNode(EntidadEntidadCurrent.EntidadPadre.Apellido & CStr(IIf(IsDBNull(EntidadEntidadCurrent.EntidadPadre.Nombre), "", ", " & EntidadEntidadCurrent.EntidadPadre.Nombre)))

@@ -1,4 +1,4 @@
-﻿Public Class formEntidades
+﻿Public Class formEntidadesSeleccionar
     Private listEntidadBase As List(Of Entidad)
     Private listEntidadFiltradaYOrdenada As List(Of Entidad)
     Private SkipFilterData As Boolean = False
@@ -6,9 +6,9 @@
     Private OrdenColumna As DataGridViewColumn
     Private OrdenTipo As SortOrder
 
-    Private Const COLUMNA_IDENTIDAD As String = "columnIDEntidad"
-    Private Const COLUMNA_APELLIDO As String = "columnApellido"
-    Private Const COLUMNA_NOMBRE As String = "columnNombre"
+    Friend Const COLUMNA_IDENTIDAD As String = "columnIDEntidad"
+    Friend Const COLUMNA_APELLIDO As String = "columnApellido"
+    Friend Const COLUMNA_NOMBRE As String = "columnNombre"
 
     Friend Sub RefreshData(Optional ByVal PositionIDEntidad As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
         Me.Cursor = Cursors.WaitCursor
@@ -109,7 +109,7 @@
         datagridviewMain.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsFont
     End Sub
 
-    Private Sub formEntidades_Load() Handles Me.Load
+    Private Sub formEntidadesSeleccionar_Load() Handles Me.Load
         SetAppearance()
 
         SkipFilterData = True
@@ -127,17 +127,6 @@
 
     Private Sub formEntidades_FormClosed() Handles Me.FormClosed
         listEntidadBase = Nothing
-    End Sub
-
-    Private Sub bindingsourceEntidad_ListChanged() Handles bindingsourceMain.ListChanged
-        Select Case bindingsourceMain.Count
-            Case 0
-                statuslabelMain.Text = String.Format("No hay Entidades para mostrar.")
-            Case 1
-                statuslabelMain.Text = String.Format("Se muestra 1 Entidad.")
-            Case Else
-                statuslabelMain.Text = String.Format("Se muestran {0} Entidades.", bindingsourceMain.Count)
-        End Select
     End Sub
 
     Private Sub menuitemEntidadTipo_Click() Handles menuitemEntidadTipo_PersonalColegio.Click, menuitemEntidadTipo_Docente.Click, menuitemEntidadTipo_Alumno.Click, menuitemEntidadTipo_Familiar.Click, menuitemEntidadTipo_Proveedor.Click
@@ -187,117 +176,6 @@
         FilterData()
     End Sub
 
-    Private Sub datagridviewMain_CellContentDoubleClick() Handles datagridviewMain.CellDoubleClick
-        If datagridviewMain.CurrentRow Is Nothing Then
-            MsgBox("No hay ninguna Entidad para ver.", vbInformation, My.Application.Info.Title)
-        Else
-            Me.Cursor = Cursors.WaitCursor
-
-            datagridviewMain.Enabled = False
-
-            Dim formEntidadVer As New formEntidad
-
-            With formEntidadVer
-                .MdiParent = formMDIMain
-                .EntidadCurrent = .FormDBContext.Entidad.Find(datagridviewMain.SelectedRows.Item(0).Cells(COLUMNA_IDENTIDAD).Value)
-                CSM_Form.CenterToParent(Me, CType(formEntidadVer, Form))
-                .buttonGuardar.Visible = False
-                .buttonCancelar.Visible = False
-                .InitializeFormAndControls()
-                .SetDataFromObjectToControls()
-                CSM_Form.ControlsChangeStateReadOnly(.Controls, True, True)
-                .Show()
-            End With
-
-            datagridviewMain.Enabled = True
-
-            Me.Cursor = Cursors.Default
-        End If
-    End Sub
-
-    Private Sub buttonAgregar_Click() Handles buttonAgregar.Click
-        If Permisos.VerificarPermiso(Permisos.ENTIDAD_ADD) Then
-            Me.Cursor = Cursors.WaitCursor
-
-            datagridviewMain.Enabled = False
-
-            Dim formEntidadAgregar As New formEntidad
-
-            With formEntidadAgregar
-                .MdiParent = formMDIMain
-                Dim EntidadAgregar = .FormDBContext.Entidad.Add(New Entidad)
-                With EntidadAgregar
-                    .DomicilioIDProvincia = CSM_Parameter.GetString(PARAMETRO_PROVINCIA_PREDETERMINADA)
-                    .DomicilioIDLocalidad = CSM_Parameter.GetIntegerAsShort(PARAMETRO_LOCALIDAD_PREDETERMINADA)
-                    .EsActivo = True
-                    .IDUsuarioCreacion = pUsuario.IDUsuario
-                    .FechaHoraCreacion = Now
-                    .IDUsuarioModificacion = pUsuario.IDUsuario
-                    .FechaHoraModificacion = .FechaHoraCreacion
-                End With
-                .EntidadCurrent = EntidadAgregar
-                CSM_Form.CenterToParent(Me, CType(formEntidadAgregar, Form))
-                .buttonEditar.Visible = False
-                .buttonCerrar.Visible = False
-                .InitializeFormAndControls()
-                .SetDataFromObjectToControls()
-                .Show()
-            End With
-
-            datagridviewMain.Enabled = True
-
-            Me.Cursor = Cursors.Default
-        End If
-    End Sub
-
-    Private Sub buttonEditar_Click() Handles buttonEditar.Click
-        If datagridviewMain.CurrentRow Is Nothing Then
-            MsgBox("No hay ninguna Entidad para editar.", vbInformation, My.Application.Info.Title)
-        Else
-            If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDIT) Then
-                Me.Cursor = Cursors.WaitCursor
-
-                datagridviewMain.Enabled = False
-
-                Dim formEntidadEditar As New formEntidad
-
-                With formEntidadEditar
-                    .MdiParent = formMDIMain
-                    .EntidadCurrent = .FormDBContext.Entidad.Find(datagridviewMain.SelectedRows.Item(0).Cells(COLUMNA_IDENTIDAD).Value)
-                    CSM_Form.CenterToParent(Me, CType(formEntidadEditar, Form))
-                    .buttonEditar.Visible = False
-                    .buttonCerrar.Visible = False
-                    .InitializeFormAndControls()
-                    .SetDataFromObjectToControls()
-                    .Show()
-                End With
-
-                datagridviewMain.Enabled = True
-
-                Me.Cursor = Cursors.Default
-            End If
-        End If
-    End Sub
-
-    Private Sub buttonEliminar_Click() Handles buttonEliminar.Click
-        If datagridviewMain.CurrentRow Is Nothing Then
-            MsgBox("No hay ninguna Entidad para eliminar.", vbInformation, My.Application.Info.Title)
-        Else
-            If Permisos.VerificarPermiso(Permisos.ENTIDAD_DELETE) Then
-                Using DBContextEliminar = New CSColegioContext
-                    Dim EntidadEliminar = DBContextEliminar.Entidad.Find(datagridviewMain.SelectedRows.Item(0).Cells(COLUMNA_IDENTIDAD).Value)
-                    If MsgBox("Se eliminará la Entidad seleccionada." & vbCrLf & vbCrLf & EntidadEliminar.Apellido & CStr(IIf(IsDBNull(EntidadEliminar.Nombre), "", ", " & EntidadEliminar.Nombre)) & vbCrLf & vbCrLf & "¿Confirma la eliminación definitiva?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
-                        Me.Cursor = Cursors.WaitCursor
-                        DBContextEliminar.Entidad.Remove(EntidadEliminar)
-                        DBContextEliminar.SaveChanges()
-                        RefreshData()
-                        Me.Cursor = Cursors.Default
-                    End If
-                End Using
-            End If
-        End If
-    End Sub
-
     Private Sub GridChangeOrder(sender As Object, e As DataGridViewCellMouseEventArgs) Handles datagridviewMain.ColumnHeaderMouseClick
         Dim ClickedColumn As DataGridViewColumn
 
@@ -325,5 +203,25 @@
         End If
 
         OrderData()
+    End Sub
+
+    Private Sub Seleccionar() Handles datagridviewMain.CellDoubleClick, buttonSeleccionar.Click
+        If datagridviewMain.CurrentRow Is Nothing Then
+            MsgBox("No hay ninguna Entidad para seleccionar.", vbInformation, My.Application.Info.Title)
+        Else
+            Me.DialogResult = Windows.Forms.DialogResult.OK
+        End If
+    End Sub
+
+    Private Sub Cancelar() Handles buttonCancelar.Click
+        Me.DialogResult = Windows.Forms.DialogResult.Cancel
+    End Sub
+
+    Private Sub datagridviewMain_KeyPress(sender As Object, e As KeyPressEventArgs) Handles datagridviewMain.KeyPress
+        If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Return) Then
+            Seleccionar()
+        ElseIf e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Return) Then
+            Cancelar()
+        End If
     End Sub
 End Class

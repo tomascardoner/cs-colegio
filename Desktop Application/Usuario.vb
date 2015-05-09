@@ -24,7 +24,7 @@ Partial Public Class Usuario
     Public Property FechaHoraModificacion As Date
 
     Public Overridable Property UsuarioGrupo As UsuarioGrupo
-    Public Overridable Property Entidad As ICollection(Of Entidad) = New HashSet(Of Entidad)
-    Public Overridable Property Entidad1 As ICollection(Of Entidad) = New HashSet(Of Entidad)
+    Public Overridable Property EntidadesCreadas As ICollection(Of Entidad) = New HashSet(Of Entidad)
+    Public Overridable Property EntidadesModificadas As ICollection(Of Entidad) = New HashSet(Of Entidad)
 
 End Class

@@ -134,4 +134,41 @@
 
         ComboBoxControl.DataSource = datatableGeneros
     End Sub
+
+    Friend Sub EntidadFactura(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
+        Dim datatableEntidadFactura As New DataTable("EntidadFactura")
+        Dim datarowRow As DataRow
+
+        ComboBoxControl.ValueMember = "IDEntidadFactura"
+        ComboBoxControl.DisplayMember = "Nombre"
+
+        With datatableEntidadFactura
+            .Columns.Add("IDEntidadFactura", System.Type.GetType("System.String"))
+            .Columns.Add("Nombre", System.Type.GetType("System.String"))
+
+            If ShowUnspecifiedItem Then
+                datarowRow = .NewRow
+                datarowRow("IDEntidadFactura") = "-"
+                datarowRow("Nombre") = My.Resources.STRING_ITEM_NON_SPECIFIED
+                datatableEntidadFactura.Rows.Add(datarowRow)
+            End If
+
+            datarowRow = .NewRow
+            datarowRow("IDEntidadFactura") = "P"
+            datarowRow("Nombre") = My.Resources.STRING_ENTIDADFACTURA_PADRE
+            datatableEntidadFactura.Rows.Add(datarowRow)
+
+            datarowRow = .NewRow
+            datarowRow("IDEntidadFactura") = "M"
+            datarowRow("Nombre") = My.Resources.STRING_ENTIDADFACTURA_MADRE
+            datatableEntidadFactura.Rows.Add(datarowRow)
+
+            datarowRow = .NewRow
+            datarowRow("IDEntidadFactura") = "A"
+            datarowRow("Nombre") = My.Resources.STRING_ENTIDADFACTURA_ALUMNO
+            datatableEntidadFactura.Rows.Add(datarowRow)
+        End With
+
+        ComboBoxControl.DataSource = datatableEntidadFactura
+    End Sub
 End Module

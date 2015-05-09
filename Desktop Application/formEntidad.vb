@@ -8,6 +8,7 @@
         FillAndRefreshLists.Genero(comboboxGenero, True)
         FillAndRefreshLists.CategoriaIVA(comboboxCategoriaIVA, True)
         FillAndRefreshLists.Provincia(comboboxDomicilioProvincia, True)
+        FillAndRefreshLists.EntidadFactura(comboboxEntidadFactura, True)
     End Sub
 
     Friend Sub SetDataFromObjectToControls()
@@ -51,32 +52,42 @@
             textboxDomicilioCodigoPostal.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCodigoPostal)
 
             ' Datos de la pestaña Extra
+            If .EntidadPadre Is Nothing Then
+                textboxEntidadPadre.Text = ""
+                textboxEntidadPadre.Tag = Nothing
+            Else
+                textboxEntidadPadre.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.EntidadPadre.ApellidoNombre)
+                textboxEntidadPadre.Tag = .EntidadPadre.IDEntidad
+            End If
+            If .EntidadMadre Is Nothing Then
+                textboxEntidadMadre.Text = ""
+                textboxEntidadMadre.Tag = Nothing
+            Else
+                textboxEntidadMadre.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.EntidadMadre.ApellidoNombre)
+                textboxEntidadMadre.Tag = .EntidadMadre.IDEntidad
+            End If
+            CSM_ComboBox.SetSelectedValue(comboboxEntidadFactura, SelectedItemOptions.ValueOrFirst, .EntidadFactura, "-")
             checkboxActivo.CheckState = CSM_ValueTranslation.FromObjectBooleanToControlCheckBox(.EsActivo)
             textboxNotas.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.Notas)
-            textboxFechaHoraCreacion.Text = .FechaHoraCreacion.ToShortDateString & " " & .FechaHoraCreacion.ToShortTimeString
-            If .UsuarioCreacion Is Nothing Then
-                textboxUsuarioCreacion.Text = ""
-            Else
-                textboxUsuarioCreacion.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.UsuarioCreacion.Descripcion)
-            End If
-            textboxFechaHoraModificacion.Text = .FechaHoraModificacion.ToShortDateString & " " & .FechaHoraModificacion.ToShortTimeString
-            If .UsuarioModificacion Is Nothing Then
-                textboxUsuarioModificacion.Text = ""
-            Else
-                textboxUsuarioModificacion.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.UsuarioModificacion.Descripcion)
-            End If
 
             ' Datos de la pestaña Relaciones Hijas
-            Using dbcRelaciones As New CSColegioContext
-                Dim qryRelacionesHijas = From ent In dbcRelaciones.Entidad
-                                         Join entxent In dbcRelaciones.EntidadEntidad On ent.IDEntidad Equals entxent.IDEntidadHija
-                                         Join reltip In dbcRelaciones.RelacionTipo On entxent.IDRelacionTipo Equals reltip.IDRelacionTipo
-                                         Where entxent.IDEntidadPadre = .IDEntidad
-                                         Select IDEntidad = ent.IDEntidad, Apellido = ent.Apellido, Nombre = ent.Nombre, RelacionTipoNombre = reltip.Nombre
+            'Dim EntidadHija As Entidad
+            'Dim datagridrowNew As DataGridViewRow
+            'For Each EntidadEntidadCurrent In EntidadCurrent.EntidadesHijas
+            '    datagridrowNew = New DataGridViewRow
 
-                datagridviewRelacionesHijas.AutoGenerateColumns = False
-                datagridviewRelacionesHijas.DataSource = qryRelacionesHijas.ToList
-            End Using
+            '    datagridviewRelacionesHijas.Rows.Add()
+            'Next
+            'Using dbcRelaciones As New CSColegioContext
+            '    Dim qryRelacionesHijas = From ent In dbcRelaciones.Entidad
+            '                             Join entxent In dbcRelaciones.EntidadEntidad On ent.IDEntidad Equals entxent.IDEntidadHija
+            '                             Join reltip In dbcRelaciones.RelacionTipo On entxent.IDRelacionTipo Equals reltip.IDRelacionTipo
+            '                             Where entxent.IDEntidadPadre = .IDEntidad
+            '                             Select IDEntidad = ent.IDEntidad, Apellido = ent.Apellido, Nombre = ent.Nombre, RelacionTipoNombre = reltip.Nombre
+
+            '    datagridviewRelacionesHijas.AutoGenerateColumns = False
+            '    datagridviewRelacionesHijas.DataSource = qryRelacionesHijas.ToList
+            'End Using
 
             ' Datos de la pestaña Relaciones Padres
             Using dbcRelaciones As New CSColegioContext
@@ -104,6 +115,20 @@
                 datagridviewCursosAsistidos.AutoGenerateColumns = False
                 datagridviewCursosAsistidos.DataSource = qryCursosAsistidos.ToList
             End Using
+
+            ' Datos de la pestaña Auditoría
+            textboxFechaHoraCreacion.Text = .FechaHoraCreacion.ToShortDateString & " " & .FechaHoraCreacion.ToShortTimeString
+            If .UsuarioCreacion Is Nothing Then
+                textboxUsuarioCreacion.Text = ""
+            Else
+                textboxUsuarioCreacion.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.UsuarioCreacion.Descripcion)
+            End If
+            textboxFechaHoraModificacion.Text = .FechaHoraModificacion.ToShortDateString & " " & .FechaHoraModificacion.ToShortTimeString
+            If .UsuarioModificacion Is Nothing Then
+                textboxUsuarioModificacion.Text = ""
+            Else
+                textboxUsuarioModificacion.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.UsuarioModificacion.Descripcion)
+            End If
         End With
     End Sub
 
@@ -143,6 +168,9 @@
             .DomicilioCodigoPostal = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioCodigoPostal.Text)
 
             ' Datos de la pestaña Extra
+            .IDEntidadPadre = CSM_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadPadre.Tag)
+            .IDEntidadMadre = CSM_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadMadre.Tag)
+            .EntidadFactura = CSM_ValueTranslation.FromControlComboBoxToObjectString(comboboxEntidadFactura.SelectedValue, "-")
             .EsActivo = CSM_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxActivo.CheckState)
             .Notas = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxNotas.Text.Trim)
         End With
@@ -179,7 +207,7 @@
             buttonCancelar.Visible = True
             buttonEditar.Visible = False
             buttonCerrar.Visible = False
-            CSM_Form.ControlsChangeStateReadOnly(Me.Controls, False, True, textboxIDEntidad.Name, textboxFechaHoraCreacion.Name, textboxUsuarioCreacion.Name, textboxFechaHoraModificacion.Name, textboxUsuarioModificacion.Name)
+            CSM_Form.ControlsChangeStateReadOnly(Me.Controls, False, True, textboxIDEntidad.Name, textboxEntidadPadre.Name, textboxEntidadMadre.Name, textboxFechaHoraCreacion.Name, textboxUsuarioCreacion.Name, textboxFechaHoraModificacion.Name, textboxUsuarioModificacion.Name)
         End If
     End Sub
 
@@ -195,31 +223,52 @@
             Exit Sub
         End If
         If checkboxTipoPersonalColegio.Checked = False And checkboxTipoDocente.Checked = False And checkboxTipoAlumno.Checked = False And checkboxTipoFamiliar.Checked = False And checkboxTipoPersonalColegio.Checked = False Then
+            tabcontrolMain.SelectedTab = tabpageGeneral
             MsgBox("Debe especificar el Tipo de Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
             Exit Sub
         End If
         If comboboxDocumentoTipo.SelectedIndex > 0 And textboxDocumentoNumero.Text.Length = 0 Then
+            tabcontrolMain.SelectedTab = tabpageGeneral
             MsgBox("Si especifica el Tipo de Documento, también debe especificar el Número de Documento.", MsgBoxStyle.Information, My.Application.Info.Title)
             textboxDocumentoNumero.Focus()
             Exit Sub
         End If
         If datetimepickerFechaNacimiento.Checked And datetimepickerFechaNacimiento.Value.Year = Today.Year Then
+            tabcontrolMain.SelectedTab = tabpageGeneral
             MsgBox("Se ha especificado una Fecha de Nacimiento que no parece ser válida ya que es del año actual.", MsgBoxStyle.Information, My.Application.Info.Title)
             datetimepickerFechaNacimiento.Focus()
             Exit Sub
         End If
         If maskedtextboxCUIT_CUIL.Text.Trim.Length > 0 Then
             If maskedtextboxCUIT_CUIL.Text.Trim.Length < 11 Then
+                tabcontrolMain.SelectedTab = tabpageGeneral
                 MsgBox("El número de CUIT / CUIL debe contener 11 dígitos (sin guiones).", MsgBoxStyle.Information, My.Application.Info.Title)
                 maskedtextboxCUIT_CUIL.Focus()
                 Exit Sub
             End If
             If Not CSM_AFIP.VerificarCUIT(maskedtextboxCUIT_CUIL.Text) Then
+                tabcontrolMain.SelectedTab = tabpageGeneral
                 MsgBox("El CUIT / CUIL ingresado es incorrecto.", MsgBoxStyle.Information, My.Application.Info.Title)
                 maskedtextboxCUIT_CUIL.Focus()
                 Exit Sub
             End If
         End If
+        Select Case CStr(comboboxEntidadFactura.SelectedValue)
+            Case "P"
+                If textboxEntidadPadre.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpageExtra
+                    MsgBox("Si las facturas se emitirán a nombre del Padre / Tutor, debe especificar el mismo.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadPadre.Focus()
+                    Exit Sub
+                End If
+            Case "M"
+                If textboxEntidadPadre.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpageExtra
+                    MsgBox("Si las facturas se emitirán a nombre de la Madre / Tutora, debe especificar la misma.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadMadre.Focus()
+                    Exit Sub
+                End If
+        End Select
 
         ' Generar el ID de la Entidad nueva
         If EntidadCurrent.IDEntidad = 0 Then
@@ -272,5 +321,39 @@
         Else
             Me.Close()
         End If
+    End Sub
+
+    Private Sub buttonEntidadPadre_Click(sender As Object, e As EventArgs) Handles buttonEntidadPadre.Click
+        formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
+        If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+            textboxEntidadPadre.Text = CStr(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_APELLIDO).Value()) & CStr(IIf(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_NOMBRE).Value Is Nothing, "", ", " & CStr(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_NOMBRE).Value)))
+            textboxEntidadPadre.Tag = CInt(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_IDENTIDAD).Value())
+        End If
+        formEntidadesSeleccionar.Dispose()
+    End Sub
+
+    Private Sub buttonEntidadPadreBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadPadreBorrar.Click
+        textboxEntidadPadre.Text = ""
+        textboxEntidadPadre.Tag = Nothing
+    End Sub
+
+    Private Sub buttonEntidadMadre_Click(sender As Object, e As EventArgs) Handles buttonEntidadMadre.Click
+        formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
+        If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+            textboxEntidadMadre.Text = CStr(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_APELLIDO).Value()) & CStr(IIf(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_NOMBRE).Value Is Nothing, "", ", " & CStr(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_NOMBRE).Value)))
+            textboxEntidadMadre.Tag = CInt(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_IDENTIDAD).Value())
+        End If
+        formEntidadesSeleccionar.Dispose()
+    End Sub
+
+    Private Sub buttonEntidadMadreBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadMadreBorrar.Click
+        textboxEntidadMadre.Text = ""
+        textboxEntidadMadre.Tag = Nothing
     End Sub
 End Class
