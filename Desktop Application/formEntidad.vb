@@ -89,6 +89,21 @@
                 datagridviewRelacionesPadres.AutoGenerateColumns = False
                 datagridviewRelacionesPadres.DataSource = qryRelacionesPadres.ToList
             End Using
+
+            ' Datos de la pestaña Cursos Asistidos
+            Using dbcCursosAsistidos As New CSColegioContext
+                Dim qryCursosAsistidos = From niv In dbcCursosAsistidos.Nivel
+                                         Join ani In dbcCursosAsistidos.Anio On niv.IDNivel Equals ani.IDNivel
+                                         Join curs In dbcCursosAsistidos.Curso On ani.IDAnio Equals curs.IDAnio
+                                         Join turn In dbcCursosAsistidos.Turno On curs.IDTurno Equals turn.IDTurno
+                                         Join entcur In dbcCursosAsistidos.EntidadCurso On curs.IDCurso Equals entcur.IDCurso
+                                         Where entcur.IDEntidad = .IDEntidad
+                                         Order By entcur.AnioLectivo Descending
+                                         Select AnioLectivo = entcur.AnioLectivo, NivelNombre = niv.Nombre, AnioNombre = ani.Nombre, TurnoNombre = turn.Nombre, Division = curs.Division
+
+                datagridviewCursosAsistidos.AutoGenerateColumns = False
+                datagridviewCursosAsistidos.DataSource = qryCursosAsistidos.ToList
+            End Using
         End With
     End Sub
 

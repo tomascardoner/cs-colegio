@@ -11,6 +11,8 @@
     ' TODO: Verificar que cada Entidad a la cual se le va a facturar, tenga los datos mínimos completos (Situación ante el IVA, etc.)
     ' Ofrecer la opción de aplicar la Categoria de IVA predeterminada a todos los que no hayan especificado otra.
 
+    ' TODO: Verificar que no se facture 2 veces en el mismo período al mismo alumno
+
     Private Sub formGenerarLoteFacturas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         dbcColegio = New CSColegioContext
 

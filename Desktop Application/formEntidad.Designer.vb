@@ -50,13 +50,17 @@ Partial Class formEntidad
         Dim labelModificacion As System.Windows.Forms.Label
         Dim labelCreacion As System.Windows.Forms.Label
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formEntidad))
         Me.textboxApellido = New System.Windows.Forms.TextBox()
         Me.textboxIDEntidad = New System.Windows.Forms.TextBox()
@@ -99,22 +103,29 @@ Partial Class formEntidad
         Me.checkboxActivo = New System.Windows.Forms.CheckBox()
         Me.tabpageRelacionesHijas = New System.Windows.Forms.TabPage()
         Me.datagridviewRelacionesHijas = New System.Windows.Forms.DataGridView()
-        Me.columnHijasIDEntidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnHijasApellido = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnHijasNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnHijasRelacionTipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabpageRelacionesPadres = New System.Windows.Forms.TabPage()
         Me.datagridviewRelacionesPadres = New System.Windows.Forms.DataGridView()
-        Me.columnPadresIDEntidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnPadresApellido = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnPadresNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnPadresRelacionTipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.tabpageCursosAsistidos = New System.Windows.Forms.TabPage()
+        Me.datagridviewCursosAsistidos = New System.Windows.Forms.DataGridView()
         Me.toolstripMain = New System.Windows.Forms.ToolStrip()
         Me.buttonCerrar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
         Me.buttonCancelar = New System.Windows.Forms.ToolStripButton()
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
         Me.tooltipMain = New System.Windows.Forms.ToolTip(Me.components)
+        Me.columnAnioLectivo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnNivelNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnAnioNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnTurnoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnDivision = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnPadresIDEntidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnPadresApellido = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnPadresNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnPadresRelacionTipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnHijasIDEntidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnHijasApellido = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnHijasNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnHijasRelacionTipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         labelApellido = New System.Windows.Forms.Label()
         labelIDEntidad = New System.Windows.Forms.Label()
         labelNombre = New System.Windows.Forms.Label()
@@ -150,6 +161,8 @@ Partial Class formEntidad
         CType(Me.datagridviewRelacionesHijas, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabpageRelacionesPadres.SuspendLayout()
         CType(Me.datagridviewRelacionesPadres, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tabpageCursosAsistidos.SuspendLayout()
+        CType(Me.datagridviewCursosAsistidos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.toolstripMain.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -432,6 +445,7 @@ Partial Class formEntidad
         Me.tabcontrolMain.Controls.Add(Me.tabpageExtra)
         Me.tabcontrolMain.Controls.Add(Me.tabpageRelacionesHijas)
         Me.tabcontrolMain.Controls.Add(Me.tabpageRelacionesPadres)
+        Me.tabcontrolMain.Controls.Add(Me.tabpageCursosAsistidos)
         Me.tabcontrolMain.Location = New System.Drawing.Point(12, 138)
         Me.tabcontrolMain.Name = "tabcontrolMain"
         Me.tabcontrolMain.SelectedIndex = 0
@@ -836,48 +850,6 @@ Partial Class formEntidad
         Me.datagridviewRelacionesHijas.Size = New System.Drawing.Size(500, 213)
         Me.datagridviewRelacionesHijas.TabIndex = 3
         '
-        'columnHijasIDEntidad
-        '
-        Me.columnHijasIDEntidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnHijasIDEntidad.DataPropertyName = "IDEntidad"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.columnHijasIDEntidad.DefaultCellStyle = DataGridViewCellStyle2
-        Me.columnHijasIDEntidad.HeaderText = "N° Entidad"
-        Me.columnHijasIDEntidad.Name = "columnHijasIDEntidad"
-        Me.columnHijasIDEntidad.ReadOnly = True
-        Me.columnHijasIDEntidad.Width = 77
-        '
-        'columnHijasApellido
-        '
-        Me.columnHijasApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnHijasApellido.DataPropertyName = "Apellido"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnHijasApellido.DefaultCellStyle = DataGridViewCellStyle3
-        Me.columnHijasApellido.HeaderText = "Apellido"
-        Me.columnHijasApellido.Name = "columnHijasApellido"
-        Me.columnHijasApellido.ReadOnly = True
-        Me.columnHijasApellido.Width = 69
-        '
-        'columnHijasNombre
-        '
-        Me.columnHijasNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnHijasNombre.DataPropertyName = "Nombre"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnHijasNombre.DefaultCellStyle = DataGridViewCellStyle4
-        Me.columnHijasNombre.HeaderText = "Nombre"
-        Me.columnHijasNombre.Name = "columnHijasNombre"
-        Me.columnHijasNombre.ReadOnly = True
-        Me.columnHijasNombre.Width = 69
-        '
-        'columnHijasRelacionTipo
-        '
-        Me.columnHijasRelacionTipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnHijasRelacionTipo.DataPropertyName = "RelacionTipoNombre"
-        Me.columnHijasRelacionTipo.HeaderText = "Tipo de Relación"
-        Me.columnHijasRelacionTipo.Name = "columnHijasRelacionTipo"
-        Me.columnHijasRelacionTipo.ReadOnly = True
-        Me.columnHijasRelacionTipo.Width = 104
-        '
         'tabpageRelacionesPadres
         '
         Me.tabpageRelacionesPadres.Controls.Add(Me.datagridviewRelacionesPadres)
@@ -913,47 +885,40 @@ Partial Class formEntidad
         Me.datagridviewRelacionesPadres.Size = New System.Drawing.Size(500, 213)
         Me.datagridviewRelacionesPadres.TabIndex = 4
         '
-        'columnPadresIDEntidad
+        'tabpageCursosAsistidos
         '
-        Me.columnPadresIDEntidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnPadresIDEntidad.DataPropertyName = "IDEntidad"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.columnPadresIDEntidad.DefaultCellStyle = DataGridViewCellStyle6
-        Me.columnPadresIDEntidad.HeaderText = "N° Entidad"
-        Me.columnPadresIDEntidad.Name = "columnPadresIDEntidad"
-        Me.columnPadresIDEntidad.ReadOnly = True
-        Me.columnPadresIDEntidad.Width = 77
+        Me.tabpageCursosAsistidos.Controls.Add(Me.datagridviewCursosAsistidos)
+        Me.tabpageCursosAsistidos.Location = New System.Drawing.Point(4, 25)
+        Me.tabpageCursosAsistidos.Name = "tabpageCursosAsistidos"
+        Me.tabpageCursosAsistidos.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabpageCursosAsistidos.Size = New System.Drawing.Size(506, 219)
+        Me.tabpageCursosAsistidos.TabIndex = 6
+        Me.tabpageCursosAsistidos.Text = "Cursos Asistidos"
+        Me.tabpageCursosAsistidos.UseVisualStyleBackColor = True
         '
-        'columnPadresApellido
+        'datagridviewCursosAsistidos
         '
-        Me.columnPadresApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnPadresApellido.DataPropertyName = "Apellido"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnPadresApellido.DefaultCellStyle = DataGridViewCellStyle7
-        Me.columnPadresApellido.HeaderText = "Apellido"
-        Me.columnPadresApellido.Name = "columnPadresApellido"
-        Me.columnPadresApellido.ReadOnly = True
-        Me.columnPadresApellido.Width = 69
-        '
-        'columnPadresNombre
-        '
-        Me.columnPadresNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnPadresNombre.DataPropertyName = "Nombre"
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnPadresNombre.DefaultCellStyle = DataGridViewCellStyle8
-        Me.columnPadresNombre.HeaderText = "Nombre"
-        Me.columnPadresNombre.Name = "columnPadresNombre"
-        Me.columnPadresNombre.ReadOnly = True
-        Me.columnPadresNombre.Width = 69
-        '
-        'columnPadresRelacionTipo
-        '
-        Me.columnPadresRelacionTipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnPadresRelacionTipo.DataPropertyName = "RelacionTipoNombre"
-        Me.columnPadresRelacionTipo.HeaderText = "Tipo de Relación"
-        Me.columnPadresRelacionTipo.Name = "columnPadresRelacionTipo"
-        Me.columnPadresRelacionTipo.ReadOnly = True
-        Me.columnPadresRelacionTipo.Width = 104
+        Me.datagridviewCursosAsistidos.AllowUserToAddRows = False
+        Me.datagridviewCursosAsistidos.AllowUserToDeleteRows = False
+        Me.datagridviewCursosAsistidos.AllowUserToOrderColumns = True
+        Me.datagridviewCursosAsistidos.AllowUserToResizeRows = False
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewCursosAsistidos.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
+        Me.datagridviewCursosAsistidos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.datagridviewCursosAsistidos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnAnioLectivo, Me.columnNivelNombre, Me.columnAnioNombre, Me.columnTurnoNombre, Me.columnDivision})
+        Me.datagridviewCursosAsistidos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.datagridviewCursosAsistidos.Location = New System.Drawing.Point(3, 3)
+        Me.datagridviewCursosAsistidos.MultiSelect = False
+        Me.datagridviewCursosAsistidos.Name = "datagridviewCursosAsistidos"
+        Me.datagridviewCursosAsistidos.ReadOnly = True
+        Me.datagridviewCursosAsistidos.RowHeadersVisible = False
+        Me.datagridviewCursosAsistidos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        Me.datagridviewCursosAsistidos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.datagridviewCursosAsistidos.Size = New System.Drawing.Size(500, 213)
+        Me.datagridviewCursosAsistidos.TabIndex = 5
         '
         'toolstripMain
         '
@@ -1004,6 +969,141 @@ Partial Class formEntidad
         Me.buttonGuardar.Size = New System.Drawing.Size(85, 36)
         Me.buttonGuardar.Text = "Guardar"
         '
+        'columnAnioLectivo
+        '
+        Me.columnAnioLectivo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnAnioLectivo.DataPropertyName = "AnioLectivo"
+        Me.columnAnioLectivo.HeaderText = "Año Lectivo"
+        Me.columnAnioLectivo.Name = "columnAnioLectivo"
+        Me.columnAnioLectivo.ReadOnly = True
+        Me.columnAnioLectivo.Width = 89
+        '
+        'columnNivelNombre
+        '
+        Me.columnNivelNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnNivelNombre.DataPropertyName = "NivelNombre"
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.columnNivelNombre.DefaultCellStyle = DataGridViewCellStyle10
+        Me.columnNivelNombre.HeaderText = "Nivel"
+        Me.columnNivelNombre.Name = "columnNivelNombre"
+        Me.columnNivelNombre.ReadOnly = True
+        Me.columnNivelNombre.Width = 56
+        '
+        'columnAnioNombre
+        '
+        Me.columnAnioNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnAnioNombre.DataPropertyName = "AnioNombre"
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnAnioNombre.DefaultCellStyle = DataGridViewCellStyle11
+        Me.columnAnioNombre.HeaderText = "Año"
+        Me.columnAnioNombre.Name = "columnAnioNombre"
+        Me.columnAnioNombre.ReadOnly = True
+        Me.columnAnioNombre.Width = 51
+        '
+        'columnTurnoNombre
+        '
+        Me.columnTurnoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnTurnoNombre.DataPropertyName = "TurnoNombre"
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnTurnoNombre.DefaultCellStyle = DataGridViewCellStyle12
+        Me.columnTurnoNombre.HeaderText = "Turno"
+        Me.columnTurnoNombre.Name = "columnTurnoNombre"
+        Me.columnTurnoNombre.ReadOnly = True
+        Me.columnTurnoNombre.Width = 60
+        '
+        'columnDivision
+        '
+        Me.columnDivision.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnDivision.DataPropertyName = "Division"
+        Me.columnDivision.HeaderText = "División"
+        Me.columnDivision.Name = "columnDivision"
+        Me.columnDivision.ReadOnly = True
+        Me.columnDivision.Width = 69
+        '
+        'columnPadresIDEntidad
+        '
+        Me.columnPadresIDEntidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnPadresIDEntidad.DataPropertyName = "IDEntidad"
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.columnPadresIDEntidad.DefaultCellStyle = DataGridViewCellStyle6
+        Me.columnPadresIDEntidad.HeaderText = "N° Entidad"
+        Me.columnPadresIDEntidad.Name = "columnPadresIDEntidad"
+        Me.columnPadresIDEntidad.ReadOnly = True
+        Me.columnPadresIDEntidad.Width = 83
+        '
+        'columnPadresApellido
+        '
+        Me.columnPadresApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnPadresApellido.DataPropertyName = "Apellido"
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnPadresApellido.DefaultCellStyle = DataGridViewCellStyle7
+        Me.columnPadresApellido.HeaderText = "Apellido"
+        Me.columnPadresApellido.Name = "columnPadresApellido"
+        Me.columnPadresApellido.ReadOnly = True
+        Me.columnPadresApellido.Width = 69
+        '
+        'columnPadresNombre
+        '
+        Me.columnPadresNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnPadresNombre.DataPropertyName = "Nombre"
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnPadresNombre.DefaultCellStyle = DataGridViewCellStyle8
+        Me.columnPadresNombre.HeaderText = "Nombre"
+        Me.columnPadresNombre.Name = "columnPadresNombre"
+        Me.columnPadresNombre.ReadOnly = True
+        Me.columnPadresNombre.Width = 69
+        '
+        'columnPadresRelacionTipo
+        '
+        Me.columnPadresRelacionTipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnPadresRelacionTipo.DataPropertyName = "RelacionTipoNombre"
+        Me.columnPadresRelacionTipo.HeaderText = "Relación"
+        Me.columnPadresRelacionTipo.Name = "columnPadresRelacionTipo"
+        Me.columnPadresRelacionTipo.ReadOnly = True
+        Me.columnPadresRelacionTipo.Width = 74
+        '
+        'columnHijasIDEntidad
+        '
+        Me.columnHijasIDEntidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnHijasIDEntidad.DataPropertyName = "IDEntidad"
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.columnHijasIDEntidad.DefaultCellStyle = DataGridViewCellStyle2
+        Me.columnHijasIDEntidad.HeaderText = "N° Entidad"
+        Me.columnHijasIDEntidad.Name = "columnHijasIDEntidad"
+        Me.columnHijasIDEntidad.ReadOnly = True
+        Me.columnHijasIDEntidad.Width = 83
+        '
+        'columnHijasApellido
+        '
+        Me.columnHijasApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnHijasApellido.DataPropertyName = "Apellido"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnHijasApellido.DefaultCellStyle = DataGridViewCellStyle3
+        Me.columnHijasApellido.HeaderText = "Apellido"
+        Me.columnHijasApellido.Name = "columnHijasApellido"
+        Me.columnHijasApellido.ReadOnly = True
+        Me.columnHijasApellido.Width = 69
+        '
+        'columnHijasNombre
+        '
+        Me.columnHijasNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnHijasNombre.DataPropertyName = "Nombre"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnHijasNombre.DefaultCellStyle = DataGridViewCellStyle4
+        Me.columnHijasNombre.HeaderText = "Nombre"
+        Me.columnHijasNombre.Name = "columnHijasNombre"
+        Me.columnHijasNombre.ReadOnly = True
+        Me.columnHijasNombre.Width = 69
+        '
+        'columnHijasRelacionTipo
+        '
+        Me.columnHijasRelacionTipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnHijasRelacionTipo.DataPropertyName = "RelacionTipoNombre"
+        Me.columnHijasRelacionTipo.HeaderText = "Relación"
+        Me.columnHijasRelacionTipo.Name = "columnHijasRelacionTipo"
+        Me.columnHijasRelacionTipo.ReadOnly = True
+        Me.columnHijasRelacionTipo.Width = 74
+        '
         'formEntidad
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1037,6 +1137,8 @@ Partial Class formEntidad
         CType(Me.datagridviewRelacionesHijas, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabpageRelacionesPadres.ResumeLayout(False)
         CType(Me.datagridviewRelacionesPadres, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tabpageCursosAsistidos.ResumeLayout(False)
+        CType(Me.datagridviewCursosAsistidos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.toolstripMain.ResumeLayout(False)
         Me.toolstripMain.PerformLayout()
         Me.ResumeLayout(False)
@@ -1090,14 +1192,21 @@ Partial Class formEntidad
     Friend WithEvents buttonEditar As System.Windows.Forms.ToolStripButton
     Friend WithEvents tabpageRelacionesPadres As System.Windows.Forms.TabPage
     Friend WithEvents datagridviewRelacionesPadres As System.Windows.Forms.DataGridView
-    Friend WithEvents columnPadresIDEntidad As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnPadresApellido As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnPadresNombre As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnPadresRelacionTipo As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents tooltipMain As System.Windows.Forms.ToolTip
+    Friend WithEvents maskedtextboxCUIT_CUIL As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents tabpageCursosAsistidos As System.Windows.Forms.TabPage
+    Friend WithEvents datagridviewCursosAsistidos As System.Windows.Forms.DataGridView
+    Friend WithEvents columnAnioLectivo As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnNivelNombre As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnAnioNombre As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnTurnoNombre As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnDivision As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnHijasIDEntidad As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnHijasApellido As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnHijasNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnHijasRelacionTipo As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents tooltipMain As System.Windows.Forms.ToolTip
-    Friend WithEvents maskedtextboxCUIT_CUIL As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents columnPadresIDEntidad As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnPadresApellido As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnPadresNombre As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnPadresRelacionTipo As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class
