@@ -11,6 +11,12 @@
     Friend Const ENTIDAD_EDIT As String = "ENTIDAD_EDIT"
     Friend Const ENTIDAD_DELETE As String = "ENTIDAD_DELETE"
 
+    Friend Const COMPROBANTE As String = "COMPROBANTE"
+    Friend Const COMPROBANTE_ADD As String = "COMPROBANTE_ADD"
+    Friend Const COMPROBANTE_EDIT As String = "COMPROBANTE_EDIT"
+    Friend Const COMPROBANTE_DELETE As String = "COMPROBANTE_DELETE"
+    Friend Const COMPROBANTE_GENERARLOTE As String = "COMPROBANTE_GENERARLOTE"
+
     Friend Function VerificarPermiso(ByVal IDPermiso As String, Optional ByVal MostrarAviso As Boolean = True) As Boolean
         If pUsuario.IDUsuario = 1 Then
             Return True

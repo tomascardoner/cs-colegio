@@ -11,7 +11,8 @@
     <AssemblyName>CSColegio</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsFormsWithCustomSubMain</MyType>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -24,6 +25,7 @@
     <NoWarn>
     </NoWarn>
     <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,6 +38,7 @@
     <NoWarn>
     </NoWarn>
     <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -57,13 +60,17 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.Collections.Concurrent" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -210,6 +217,12 @@
     <Compile Include="formEntidades.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formGenerarLoteFacturas.Designer.vb">
+      <DependentUpon>formGenerarLoteFacturas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formGenerarLoteFacturas.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formLogin.Designer.vb">
       <DependentUpon>formLogin.vb</DependentUpon>
     </Compile>
@@ -276,6 +289,12 @@
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="StartUp.vb" />
+    <Compile Include="TempDepot.Designer.vb">
+      <DependentUpon>TempDepot.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TempDepot.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Turno.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -306,6 +325,9 @@
     <EmbeddedResource Include="formEntidades.resx">
       <DependentUpon>formEntidades.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formGenerarLoteFacturas.resx">
+      <DependentUpon>formGenerarLoteFacturas.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formLogin.resx">
       <DependentUpon>formLogin.vb</DependentUpon>
     </EmbeddedResource>
@@ -320,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formSplashScreen.resx">
       <DependentUpon>formSplashScreen.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TempDepot.resx">
+      <DependentUpon>TempDepot.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -351,10 +376,14 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notas.txt" />
+    <None Include="Resources\Move Previous %28Arrow%29 Red24.png" />
+    <None Include="Resources\Move Next %28Arrow%29 Green24.png" />
+    <None Include="Resources\invoice-icon %2812%29.png" />
+    <None Include="Resources\invoice-icon %2813%29.png" />
+    <None Include="packages.config" />
     <None Include="Resources\Search-icon %288%29.png" />
     <None Include="Resources\Actions-view-pim-contacts-icon %285%29.png" />
     <None Include="Resources\Actions-dialog-close-icon %286%29.png" />

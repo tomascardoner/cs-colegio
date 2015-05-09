@@ -45,26 +45,6 @@
         Me.Close()
     End Sub
 
-    Private Sub buttonEntidades_Click() Handles buttonEntidades.Click
-        If Permisos.VerificarPermiso(Permisos.ENTIDAD) Then
-            Me.Cursor = Cursors.WaitCursor
-
-            CSM_Form.MDIChild_PositionAndSize(Me, CType(formEntidades, Form), mForm_ClientSize)
-            formEntidades.Show()
-
-            Me.Cursor = Cursors.Default
-        End If
-    End Sub
-
-    Private Sub buttonFacturar_Click() Handles buttonFacturar.Click
-        Me.Cursor = Cursors.WaitCursor
-
-        CSM_Form.MDIChild_PositionAndSize(Me, CType(formComprobanteCabecera, Form), mForm_ClientSize)
-        formComprobanteCabecera.Show()
-
-        Me.Cursor = Cursors.Default
-    End Sub
-
     Private Function FormCABGenerico_CrearOMostrar(ByVal EntityNameSingular As String, ByVal EntityNamePlural As String) As formCABGenerico
         Dim FormCurrent As formCABGenerico
 
@@ -243,6 +223,7 @@
     Private Sub menuitemVentana_OrganizarIconos_Click() Handles menuitemVentanaOrganizarIconos.Click
         Me.LayoutMdi(MdiLayout.ArrangeIcons)
     End Sub
+
     Private Sub menuitemVentana_EncajarEnVentana_Click() Handles menuitemVentanaEncajarEnVentana.Click
         If Not Me.ActiveMdiChild Is Nothing Then
             Me.ActiveMdiChild.Left = 0
@@ -267,6 +248,40 @@
                 My.Application.Log.WriteEntry("La Aplicación ha finalizado porque el Usuario no ha iniciado sesión.", TraceEventType.Warning)
                 Exit Sub
             End If
+        End If
+    End Sub
+
+    Private Sub buttonEntidades_Click() Handles buttonEntidades.Click
+        If Permisos.VerificarPermiso(Permisos.ENTIDAD) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            CSM_Form.MDIChild_PositionAndSize(Me, CType(formEntidades, Form), mForm_ClientSize)
+            formEntidades.Show()
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
+
+    Private Sub buttonFacturar_ButtonClick() Handles buttonFacturar.ButtonClick, menuitemFacturasIngresar.Click
+        If Permisos.VerificarPermiso(Permisos.COMPROBANTE) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            CSM_Form.MDIChild_PositionAndSize(Me, CType(formComprobanteCabecera, Form), mForm_ClientSize)
+            formComprobanteCabecera.Show()
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
+
+    Private Sub menuitemFacturasGenerarLote_Click() Handles menuitemFacturasGenerarLote.Click
+        If Permisos.VerificarPermiso(Permisos.COMPROBANTE_GENERARLOTE) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            formGenerarLoteFacturas.MdiParent = Me
+            CSM_Form.CenterToParent(Me, CType(formGenerarLoteFacturas, Form))
+            formGenerarLoteFacturas.Show()
+
+            Me.Cursor = Cursors.Default
         End If
     End Sub
 End Class

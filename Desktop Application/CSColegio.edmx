@@ -244,6 +244,7 @@
           <Property Name="IDEntidadPadre" Type="int" Nullable="false" />
           <Property Name="IDEntidadHija" Type="int" Nullable="false" />
           <Property Name="IDRelacionTipo" Type="tinyint" Nullable="false" />
+          <Property Name="TitularFactura" Type="bit" Nullable="false" />
           <Property Name="Notas" Type="varchar(max)" />
           <Property Name="CreacionIDUsuario" Type="tinyint" Nullable="false" />
           <Property Name="CreacionFechaHora" Type="smalldatetime" Nullable="false" />
@@ -926,6 +927,7 @@
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Anio" Relationship="Self.FK__Anio__Curso" FromRole="Curso" ToRole="Anio" />
           <NavigationProperty Name="Turno" Relationship="Self.FK__Turno__Curso" FromRole="Curso" ToRole="Turno" />
+          <NavigationProperty Name="EntidadCurso" Relationship="CSColegioModel.FK__Curso__EntidadCurso" FromRole="Curso" ToRole="EntidadCurso" />
         </EntityType>
         <EntityType Name="CursoAnioLectivo">
           <Key>
@@ -959,7 +961,7 @@
           <Property Name="TipoFamiliar" Type="Boolean" Nullable="false" />
           <Property Name="TipoProveedor" Type="Boolean" Nullable="false" />
           <Property Name="IDDocumentoTipo" Type="Byte" />
-          <Property Name="DocumentoNumero" Type="String" MaxLength="12" Unicode="false" />
+          <Property Name="DocumentoNumero" Type="String" MaxLength="12" Unicode="false" FixedLength="false" />
           <Property Name="Genero" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
           <Property Name="CUIT_CUIL" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
@@ -1004,6 +1006,7 @@
           <Property Name="AnioLectivo" Type="Int16" Nullable="false" />
           <Property Name="IDCurso" Type="Byte" Nullable="false" />
           <NavigationProperty Name="Entidad" Relationship="Self.FK__Entidad__EntidadCurso" FromRole="EntidadCurso" ToRole="Entidad" />
+          <NavigationProperty Name="Curso" Relationship="CSColegioModel.FK__Curso__EntidadCurso" FromRole="EntidadCurso" ToRole="Curso" />
         </EntityType>
         <EntityType Name="EntidadEntidad">
           <Key>
@@ -1013,6 +1016,7 @@
           <Property Name="IDEntidadPadre" Type="Int32" Nullable="false" />
           <Property Name="IDEntidadHija" Type="Int32" Nullable="false" />
           <Property Name="IDRelacionTipo" Type="Byte" Nullable="false" />
+          <Property Name="TitularFactura" Type="Boolean" Nullable="false" />
           <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CreacionIDUsuario" Type="Byte" Nullable="false" />
           <Property Name="CreacionFechaHora" Type="DateTime" Nullable="false" Precision="0" />
@@ -1501,6 +1505,10 @@
             <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
             <End Role="UsuarioGrupoPermiso" EntitySet="UsuarioGrupoPermiso" />
           </AssociationSet>
+          <AssociationSet Name="FK__Curso__EntidadCurso" Association="CSColegioModel.FK__Curso__EntidadCurso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="EntidadCurso" EntitySet="EntidadCurso" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
           <Key>
@@ -1745,6 +1753,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Curso__EntidadCurso">
+          <End Type="CSColegioModel.Curso" Role="Curso" Multiplicity="1" />
+          <End Type="CSColegioModel.EntidadCurso" Role="EntidadCurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="IDCurso" />
+            </Principal>
+            <Dependent Role="EntidadCurso">
+              <PropertyRef Name="IDCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1919,6 +1939,7 @@
           <EntitySetMapping Name="EntidadEntidad">
             <EntityTypeMapping TypeName="CSColegioModel.EntidadEntidad">
               <MappingFragment StoreEntitySet="EntidadEntidad">
+                <ScalarProperty Name="TitularFactura" ColumnName="TitularFactura" />
                 <ScalarProperty Name="IDEntidadPadre" ColumnName="IDEntidadPadre" />
                 <ScalarProperty Name="IDEntidadHija" ColumnName="IDEntidadHija" />
                 <ScalarProperty Name="IDRelacionTipo" ColumnName="IDRelacionTipo" />

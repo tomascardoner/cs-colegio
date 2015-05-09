@@ -27,9 +27,6 @@ Module StartUp
         formSplashScreen.Cursor = Cursors.AppStarting
         Application.DoEvents()
 
-        ' Tomo el tiempo de inicio para controlar los segundos mínimos que se debe mostrar el Splash Screen
-        StartupTime = Now
-
         ' Creo un context global para leer los Parámetros y los Permisos
         pCSColegioContext = New CSColegioContext
 
@@ -45,6 +42,9 @@ Module StartUp
         ' Muestro el Nombre de la Compañía a la que está licenciada la Aplicación
         formSplashScreen.labelLicensedTo.Text = CSM_Parameter.GetString(Constants.PARAMETRO_LICENSE_COMPANY_NAME, "")
         Application.DoEvents()
+
+        ' Tomo el tiempo de inicio para controlar los segundos mínimos que se debe mostrar el Splash Screen
+        StartupTime = Now
 
         ' Muestro el form MDI principal
         formMDIMain.Show()

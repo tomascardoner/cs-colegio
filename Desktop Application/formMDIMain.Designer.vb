@@ -55,7 +55,9 @@ Partial Class formMDIMain
         Me.separatorRelacionTipo = New System.Windows.Forms.ToolStripSeparator()
         Me.menuitemRelacionTipo = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonEntidades = New System.Windows.Forms.ToolStripButton()
-        Me.buttonFacturar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonFacturar = New System.Windows.Forms.ToolStripSplitButton()
+        Me.menuitemFacturasIngresar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemFacturasGenerarLote = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
@@ -202,7 +204,7 @@ Partial Class formMDIMain
         Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.dropdownbuttonTablas, Me.buttonEntidades, Me.buttonFacturar})
         Me.toolstripMain.Location = New System.Drawing.Point(0, 24)
         Me.toolstripMain.Name = "toolstripMain"
-        Me.toolstripMain.Size = New System.Drawing.Size(95, 489)
+        Me.toolstripMain.Size = New System.Drawing.Size(100, 489)
         Me.toolstripMain.TabIndex = 1
         Me.toolstripMain.Text = "Principal"
         '
@@ -213,7 +215,7 @@ Partial Class formMDIMain
         Me.dropdownbuttonTablas.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.dropdownbuttonTablas.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.dropdownbuttonTablas.Name = "dropdownbuttonTablas"
-        Me.dropdownbuttonTablas.Size = New System.Drawing.Size(92, 36)
+        Me.dropdownbuttonTablas.Size = New System.Drawing.Size(97, 36)
         Me.dropdownbuttonTablas.Text = "Tablas"
         '
         'menuitemNivel
@@ -268,16 +270,30 @@ Partial Class formMDIMain
         Me.buttonEntidades.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonEntidades.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonEntidades.Name = "buttonEntidades"
-        Me.buttonEntidades.Size = New System.Drawing.Size(92, 36)
+        Me.buttonEntidades.Size = New System.Drawing.Size(97, 36)
         Me.buttonEntidades.Text = "Entidades"
         '
         'buttonFacturar
         '
-        Me.buttonFacturar.Image = CType(resources.GetObject("buttonFacturar.Image"), System.Drawing.Image)
+        Me.buttonFacturar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemFacturasIngresar, Me.menuitemFacturasGenerarLote})
+        Me.buttonFacturar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_COMPROBANTES_32
+        Me.buttonFacturar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonFacturar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonFacturar.Name = "buttonFacturar"
-        Me.buttonFacturar.Size = New System.Drawing.Size(92, 20)
-        Me.buttonFacturar.Text = "Facturar"
+        Me.buttonFacturar.Size = New System.Drawing.Size(97, 36)
+        Me.buttonFacturar.Text = "Facturas"
+        '
+        'menuitemFacturasIngresar
+        '
+        Me.menuitemFacturasIngresar.Name = "menuitemFacturasIngresar"
+        Me.menuitemFacturasIngresar.Size = New System.Drawing.Size(152, 22)
+        Me.menuitemFacturasIngresar.Text = "Ingresar"
+        '
+        'menuitemFacturasGenerarLote
+        '
+        Me.menuitemFacturasGenerarLote.Name = "menuitemFacturasGenerarLote"
+        Me.menuitemFacturasGenerarLote.Size = New System.Drawing.Size(152, 22)
+        Me.menuitemFacturasGenerarLote.Text = "Generar Lote"
         '
         'formMDIMain
         '
@@ -337,5 +353,7 @@ Partial Class formMDIMain
     Friend WithEvents menuitemRelacionTipo As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemNivel As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemVentanaSeparadorListaVentanas As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents buttonFacturar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents buttonFacturar As System.Windows.Forms.ToolStripSplitButton
+    Friend WithEvents menuitemFacturasIngresar As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemFacturasGenerarLote As System.Windows.Forms.ToolStripMenuItem
 End Class

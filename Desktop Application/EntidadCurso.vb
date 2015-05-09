@@ -16,5 +16,6 @@ Partial Public Class EntidadCurso
     Public Property IDCurso As Byte
 
     Public Overridable Property Entidad As Entidad
+    Public Overridable Property Curso As Curso
 
 End Class

@@ -63,6 +63,7 @@
         <AssociationConnector Association="CSColegioModel.FK__RelacionTipo__EntidadEntidad" />
         <EntityTypeShape EntityType="CSColegioModel.UsuarioGrupoPermiso" Width="1.5" PointX="3.75" PointY="20.5" />
         <AssociationConnector Association="CSColegioModel.FK__UsuarioGrupo__UsuarioGrupoPermiso" />
+        <AssociationConnector Association="CSColegioModel.FK__Curso__EntidadCurso" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

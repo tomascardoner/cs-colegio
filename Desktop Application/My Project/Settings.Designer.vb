@@ -146,6 +146,24 @@ Namespace My
                 Return CType(Me("UseCustomDialogForErrorMessage"),Boolean)
             End Get
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public ReadOnly Property GenerarLoteFacturasPreseleccionarTodos() As Boolean
+            Get
+                Return CType(Me("GenerarLoteFacturasPreseleccionarTodos"),Boolean)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("10")>  _
+        Public ReadOnly Property PermiteGenerarMatriculaMesDesde() As Byte
+            Get
+                Return CType(Me("PermiteGenerarMatriculaMesDesde"),Byte)
+            End Get
+        End Property
     End Class
 End Namespace
 

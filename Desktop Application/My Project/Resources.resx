@@ -247,4 +247,16 @@
   <data name="STRING_ITEM_NEW_MALE" xml:space="preserve">
     <value>«Nuevo»</value>
   </data>
+  <data name="IMAGE_COMPROBANTES_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\invoice-icon (13).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_COMPROBANTE_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\invoice-icon (12).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_MOVE_NEXT_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Move Next (Arrow) Green24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_MOVE_PREVIOUS_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Move Previous (Arrow) Red24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
