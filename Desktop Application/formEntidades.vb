@@ -70,6 +70,15 @@
 
             End If
 
+            Select Case listEntidadFiltradaYOrdenada.Count
+                Case 0
+                    statuslabelMain.Text = String.Format("No hay Entidades para mostrar.")
+                Case 1
+                    statuslabelMain.Text = String.Format("Se muestra 1 Entidad.")
+                Case Else
+                    statuslabelMain.Text = String.Format("Se muestran {0} Entidades.", listEntidadFiltradaYOrdenada.Count)
+            End Select
+
             OrderData()
 
             Me.Cursor = Cursors.Default
@@ -127,17 +136,6 @@
 
     Private Sub formEntidades_FormClosed() Handles Me.FormClosed
         listEntidadBase = Nothing
-    End Sub
-
-    Private Sub bindingsourceEntidad_ListChanged() Handles bindingsourceMain.ListChanged
-        Select Case bindingsourceMain.Count
-            Case 0
-                statuslabelMain.Text = String.Format("No hay Entidades para mostrar.")
-            Case 1
-                statuslabelMain.Text = String.Format("Se muestra 1 Entidad.")
-            Case Else
-                statuslabelMain.Text = String.Format("Se muestran {0} Entidades.", bindingsourceMain.Count)
-        End Select
     End Sub
 
     Private Sub menuitemEntidadTipo_Click() Handles menuitemEntidadTipo_PersonalColegio.Click, menuitemEntidadTipo_Docente.Click, menuitemEntidadTipo_Alumno.Click, menuitemEntidadTipo_Familiar.Click, menuitemEntidadTipo_Proveedor.Click
@@ -286,7 +284,7 @@
         Else
             If Permisos.VerificarPermiso(Permisos.ENTIDAD_DELETE) Then
                 Using DBContextEliminar = New CSColegioContext
-                    Dim EntidadEliminar = DBContextEliminar.Entidad.Find(datagridviewMain.SelectedRows.Item(0).Cells(COLUMNA_IDENTIDAD).Value)
+                    Dim EntidadEliminar = DBContextEliminar.Entidad.Find(datagridviewMain.SelectedRows(0).Cells(COLUMNA_IDENTIDAD).Value)
                     If MsgBox("Se eliminará la Entidad seleccionada." & vbCrLf & vbCrLf & EntidadEliminar.ApellidoNombre & vbCrLf & vbCrLf & "¿Confirma la eliminación definitiva?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                         Me.Cursor = Cursors.WaitCursor
                         DBContextEliminar.Entidad.Remove(EntidadEliminar)

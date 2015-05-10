@@ -213,6 +213,12 @@
     <Compile Include="formEntidades.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formEntidadesAnioLectivoCurso.Designer.vb">
+      <DependentUpon>formEntidadesAnioLectivoCurso.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formEntidadesAnioLectivoCurso.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formEntidadesSeleccionar.Designer.vb">
       <DependentUpon>formEntidadesSeleccionar.vb</DependentUpon>
     </Compile>
@@ -326,6 +332,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formEntidades.resx">
       <DependentUpon>formEntidades.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formEntidadesAnioLectivoCurso.resx">
+      <DependentUpon>formEntidadesAnioLectivoCurso.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formEntidadesSeleccionar.resx">
       <DependentUpon>formEntidadesSeleccionar.vb</DependentUpon>

@@ -251,7 +251,7 @@
         End If
     End Sub
 
-    Private Sub buttonEntidades_Click() Handles buttonEntidades.Click
+    Private Sub buttonEntidades_Click() Handles buttonEntidades.ButtonClick
         If Permisos.VerificarPermiso(Permisos.ENTIDAD) Then
             Me.Cursor = Cursors.WaitCursor
 
@@ -280,6 +280,17 @@
             formGenerarLoteFacturas.MdiParent = Me
             CSM_Form.CenterToParent(Me, CType(formGenerarLoteFacturas, Form))
             formGenerarLoteFacturas.Show()
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
+
+    Private Sub AñosLectivosYCursosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AñosLectivosYCursosToolStripMenuItem.Click
+        If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            CSM_Form.MDIChild_PositionAndSize(Me, CType(formEntidadesAnioLectivoCurso, Form), mForm_ClientSize)
+            formEntidadesAnioLectivoCurso.Show()
 
             Me.Cursor = Cursors.Default
         End If

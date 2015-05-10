@@ -174,6 +174,7 @@
           <Property Name="IDAnio" Type="tinyint" Nullable="false" />
           <Property Name="IDTurno" Type="tinyint" Nullable="false" />
           <Property Name="Division" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
           <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
@@ -185,7 +186,7 @@
           </Key>
           <Property Name="IDDocumentoTipo" Type="tinyint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Entidad">
           <Key>
@@ -970,6 +971,7 @@
           <Property Name="IDAnio" Type="Byte" Nullable="false" />
           <Property Name="IDTurno" Type="Byte" Nullable="false" />
           <Property Name="Division" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
@@ -984,8 +986,8 @@
           </Key>
           <Property Name="IDDocumentoTipo" Type="Byte" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Activo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Entidad" Relationship="Self.FK__DocumentoTipo__Entidad" FromRole="DocumentoTipo" ToRole="Entidad" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Entidad">
           <Key>
@@ -1926,6 +1928,7 @@
           <EntitySetMapping Name="Curso">
             <EntityTypeMapping TypeName="CSColegioModel.Curso">
               <MappingFragment StoreEntitySet="Curso">
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
                 <ScalarProperty Name="IDCurso" ColumnName="IDCurso" />
                 <ScalarProperty Name="IDAnio" ColumnName="IDAnio" />
                 <ScalarProperty Name="IDTurno" ColumnName="IDTurno" />
@@ -1940,9 +1943,9 @@
           <EntitySetMapping Name="DocumentoTipo">
             <EntityTypeMapping TypeName="CSColegioModel.DocumentoTipo">
               <MappingFragment StoreEntitySet="DocumentoTipo">
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
                 <ScalarProperty Name="IDDocumentoTipo" ColumnName="IDDocumentoTipo" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Activo" ColumnName="Activo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

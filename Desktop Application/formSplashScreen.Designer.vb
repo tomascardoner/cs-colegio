@@ -69,7 +69,7 @@ Partial Class formSplashScreen
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox1.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_SENAL_ESCUELA_152
-        Me.PictureBox1.Location = New System.Drawing.Point(12, 146)
+        Me.PictureBox1.Location = New System.Drawing.Point(396, 146)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(90, 96)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom

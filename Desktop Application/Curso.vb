@@ -15,6 +15,7 @@ Partial Public Class Curso
     Public Property IDAnio As Byte
     Public Property IDTurno As Byte
     Public Property Division As String
+    Public Property EsActivo As Boolean
     Public Property IDUsuarioCreacion As Byte
     Public Property FechaHoraCreacion As Date
     Public Property IDUsuarioModificacion As Byte

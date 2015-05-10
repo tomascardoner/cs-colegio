@@ -54,9 +54,11 @@ Module StartUp
         formMDIMain.Enabled = False
 
         ' Espero el tiempo mínimo para mostrar el Splash Screen y después lo cierro
-        Do While Now.Subtract(StartupTime).Seconds < My.Settings.MinimumSplashScreenDisplaySeconds
-            Application.DoEvents()
-        Loop
+        If Not CSM_Instance.IsRunningUnderIDE Then
+            Do While Now.Subtract(StartupTime).Seconds < My.Settings.MinimumSplashScreenDisplaySeconds
+                Application.DoEvents()
+            Loop
+        End If
         formSplashScreen.Close()
         formSplashScreen.Dispose()
 

@@ -5,7 +5,7 @@
 
         Using dbContext As New CSColegioContext
             Dim qryList = From tbl In dbContext.DocumentoTipo
-                          Where tbl.Activo
+                          Where tbl.EsActivo
                           Order By tbl.Nombre
 
             Dim localList = qryList.ToList
@@ -170,5 +170,64 @@
         End With
 
         ComboBoxControl.DataSource = datatableEntidadFactura
+    End Sub
+
+    Friend Sub AnioLectivo(ByRef ComboBoxControl As ComboBox, Optional ByVal Orden As SortOrder = SortOrder.Ascending)
+        ComboBoxControl.ValueMember = "AnioLectivo"
+        ComboBoxControl.DisplayMember = "AnioLectivo"
+
+        Using dbContext As New CSColegioContext
+            Dim qryList = From tbl In dbContext.AnioLectivoCurso
+                          Select tbl.AnioLectivo
+                          Distinct
+
+            If Orden = SortOrder.Descending Then
+                ComboBoxControl.DataSource = qryList.OrderByDescending(Function(al) al).ToList
+            Else
+                ComboBoxControl.DataSource = qryList.OrderBy(Function(al) al).ToList
+            End If
+        End Using
+    End Sub
+
+    Friend Sub Nivel(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
+        ComboBoxControl.ValueMember = "IDNivel"
+        ComboBoxControl.DisplayMember = "Nombre"
+
+        Using dbContext As New CSColegioContext
+            Dim qryList = From tbl In dbContext.Nivel
+                          Where tbl.EsActivo
+                          Order By tbl.Nombre
+
+            Dim localList = qryList.ToList
+            If ShowUnspecifiedItem Then
+                Dim UnspecifiedItem As New Nivel
+                UnspecifiedItem.IDNivel = 0
+                UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+                localList.Insert(0, UnspecifiedItem)
+            End If
+
+            ComboBoxControl.DataSource = localList
+        End Using
+    End Sub
+
+    Friend Sub CursoPorAnioLectivoYNivel(ByRef ComboBoxControl As ComboBox, ByVal AnioLectivo As Integer, Optional ByVal IDNivel As Byte? = Nothing)
+        ComboBoxControl.ValueMember = "IDCurso"
+        ComboBoxControl.DisplayMember = "Descripcion"
+
+        Using dbContext As New CSColegioContext
+            If IDNivel Is Nothing Then
+                Dim qryList = From tbl In dbContext.AnioLectivoCurso
+                              Where tbl.AnioLectivo = AnioLectivo
+                              Order By tbl.Curso.Anio.Nivel.Nombre, tbl.Curso.Anio.Nombre, tbl.Curso.Turno.Nombre, tbl.Curso.Division
+                              Select tbl.IDCurso, Descripcion = tbl.Curso.Anio.Nivel.Nombre & " - " & tbl.Curso.Anio.Nombre & " - " & tbl.Curso.Turno.Nombre & " - " & tbl.Curso.Division
+                ComboBoxControl.DataSource = qryList.ToList
+            Else
+                Dim qryList = From tbl In dbContext.AnioLectivoCurso
+                              Where tbl.AnioLectivo = AnioLectivo And tbl.Curso.Anio.IDNivel = IDNivel
+                              Order By tbl.Curso.Anio.Nombre, tbl.Curso.Turno.Nombre, tbl.Curso.Division
+                              Select tbl.IDCurso, Descripcion = tbl.Curso.Anio.Nombre & " - " & tbl.Curso.Turno.Nombre & " - " & tbl.Curso.Division
+                ComboBoxControl.DataSource = qryList.ToList
+            End If
+        End Using
     End Sub
 End Module

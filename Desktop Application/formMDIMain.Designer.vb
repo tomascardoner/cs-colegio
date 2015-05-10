@@ -54,7 +54,8 @@ Partial Class formMDIMain
         Me.menuitemBanco = New System.Windows.Forms.ToolStripMenuItem()
         Me.separatorRelacionTipo = New System.Windows.Forms.ToolStripSeparator()
         Me.menuitemRelacionTipo = New System.Windows.Forms.ToolStripMenuItem()
-        Me.buttonEntidades = New System.Windows.Forms.ToolStripButton()
+        Me.buttonEntidades = New System.Windows.Forms.ToolStripSplitButton()
+        Me.AñosLectivosYCursosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonFacturar = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemFacturasIngresar = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemFacturasGenerarLote = New System.Windows.Forms.ToolStripMenuItem()
@@ -204,7 +205,7 @@ Partial Class formMDIMain
         Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.dropdownbuttonTablas, Me.buttonEntidades, Me.buttonFacturar})
         Me.toolstripMain.Location = New System.Drawing.Point(0, 24)
         Me.toolstripMain.Name = "toolstripMain"
-        Me.toolstripMain.Size = New System.Drawing.Size(100, 489)
+        Me.toolstripMain.Size = New System.Drawing.Size(107, 489)
         Me.toolstripMain.TabIndex = 1
         Me.toolstripMain.Text = "Principal"
         '
@@ -215,7 +216,7 @@ Partial Class formMDIMain
         Me.dropdownbuttonTablas.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.dropdownbuttonTablas.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.dropdownbuttonTablas.Name = "dropdownbuttonTablas"
-        Me.dropdownbuttonTablas.Size = New System.Drawing.Size(97, 36)
+        Me.dropdownbuttonTablas.Size = New System.Drawing.Size(104, 36)
         Me.dropdownbuttonTablas.Text = "Tablas"
         '
         'menuitemNivel
@@ -266,12 +267,19 @@ Partial Class formMDIMain
         '
         'buttonEntidades
         '
+        Me.buttonEntidades.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AñosLectivosYCursosToolStripMenuItem})
         Me.buttonEntidades.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ENTIDADES_32
         Me.buttonEntidades.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonEntidades.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonEntidades.Name = "buttonEntidades"
-        Me.buttonEntidades.Size = New System.Drawing.Size(97, 36)
+        Me.buttonEntidades.Size = New System.Drawing.Size(104, 36)
         Me.buttonEntidades.Text = "Entidades"
+        '
+        'AñosLectivosYCursosToolStripMenuItem
+        '
+        Me.AñosLectivosYCursosToolStripMenuItem.Name = "AñosLectivosYCursosToolStripMenuItem"
+        Me.AñosLectivosYCursosToolStripMenuItem.Size = New System.Drawing.Size(195, 22)
+        Me.AñosLectivosYCursosToolStripMenuItem.Text = "Años Lectivos y Cursos"
         '
         'buttonFacturar
         '
@@ -280,19 +288,19 @@ Partial Class formMDIMain
         Me.buttonFacturar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonFacturar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonFacturar.Name = "buttonFacturar"
-        Me.buttonFacturar.Size = New System.Drawing.Size(97, 36)
+        Me.buttonFacturar.Size = New System.Drawing.Size(104, 36)
         Me.buttonFacturar.Text = "Facturas"
         '
         'menuitemFacturasIngresar
         '
         Me.menuitemFacturasIngresar.Name = "menuitemFacturasIngresar"
-        Me.menuitemFacturasIngresar.Size = New System.Drawing.Size(152, 22)
+        Me.menuitemFacturasIngresar.Size = New System.Drawing.Size(141, 22)
         Me.menuitemFacturasIngresar.Text = "Ingresar"
         '
         'menuitemFacturasGenerarLote
         '
         Me.menuitemFacturasGenerarLote.Name = "menuitemFacturasGenerarLote"
-        Me.menuitemFacturasGenerarLote.Size = New System.Drawing.Size(152, 22)
+        Me.menuitemFacturasGenerarLote.Size = New System.Drawing.Size(141, 22)
         Me.menuitemFacturasGenerarLote.Text = "Generar Lote"
         '
         'formMDIMain
@@ -342,7 +350,6 @@ Partial Class formMDIMain
     Friend WithEvents menuitemAyuda As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemAyuda_AcercaDe As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents toolstripMain As System.Windows.Forms.ToolStrip
-    Friend WithEvents buttonEntidades As System.Windows.Forms.ToolStripButton
     Friend WithEvents dropdownbuttonTablas As System.Windows.Forms.ToolStripDropDownButton
     Friend WithEvents menuitemAnio As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemTurno As System.Windows.Forms.ToolStripMenuItem
@@ -356,4 +363,6 @@ Partial Class formMDIMain
     Friend WithEvents buttonFacturar As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents menuitemFacturasIngresar As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemFacturasGenerarLote As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents buttonEntidades As System.Windows.Forms.ToolStripSplitButton
+    Friend WithEvents AñosLectivosYCursosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

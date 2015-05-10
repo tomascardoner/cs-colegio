@@ -61,6 +61,8 @@ Partial Class formEntidades
         Me.columnTipoFamiliar = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.columnTipoProveedor = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.bindingsourceMain = New System.Windows.Forms.BindingSource(Me.components)
+        Me.toolstripMain.SuspendLayout()
+        Me.statusstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.bindingsourceMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -68,10 +70,10 @@ Partial Class formEntidades
         'toolstripMain
         '
         Me.toolstripMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-		Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAgregar, Me.buttonEditar, Me.buttonEliminar, Me.ToolStripSeparator1, Me.dropdownbuttonEntidadTipos, Me.ToolStripSeparator3, Me.labelBuscar, Me.textboxBuscar, Me.buttonBuscarBorrar, Me.ToolStripSeparator4, Me.labelActivo, Me.comboboxActivo})
+        Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAgregar, Me.buttonEditar, Me.buttonEliminar, Me.ToolStripSeparator1, Me.dropdownbuttonEntidadTipos, Me.ToolStripSeparator3, Me.labelBuscar, Me.textboxBuscar, Me.buttonBuscarBorrar, Me.ToolStripSeparator4, Me.labelActivo, Me.comboboxActivo})
         Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
         Me.toolstripMain.Name = "toolstripMain"
-        Me.toolstripMain.Size = New System.Drawing.Size(781, 25)
+        Me.toolstripMain.Size = New System.Drawing.Size(781, 39)
         Me.toolstripMain.TabIndex = 0
         '
         'buttonAgregar
@@ -212,23 +214,22 @@ Partial Class formEntidades
         'labelActivo
         '
         Me.labelActivo.Name = "labelActivo"
-        Me.labelActivo.Size = New System.Drawing.Size(41, 36)
-        Me.labelActivo.Text = "Activo"
+        Me.labelActivo.Size = New System.Drawing.Size(44, 36)
+        Me.labelActivo.Text = "Activo:"
         '
         'comboboxActivo
         '
         Me.comboboxActivo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxActivo.Name = "comboboxActivo"
-        Me.comboboxActivo.Size = New System.Drawing.Size(75, 23)
+        Me.comboboxActivo.Size = New System.Drawing.Size(75, 39)
         '
         'statusstripMain
         '
-		Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statuslabelMain})
+        Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statuslabelMain})
         Me.statusstripMain.Location = New System.Drawing.Point(0, 347)
         Me.statusstripMain.Name = "statusstripMain"
         Me.statusstripMain.Size = New System.Drawing.Size(781, 22)
         Me.statusstripMain.TabIndex = 1
-        Me.statusstripMain.Text = "StatusStrip1"
         '
         'statuslabelMain
         '
@@ -253,14 +254,14 @@ Partial Class formEntidades
         Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnIDEntidad, Me.columnApellido, Me.columnNombre, Me.columnTipoPersonalColegio, Me.columnTipoDocente, Me.columnTipoAlumno, Me.columnTipoFamiliar, Me.columnTipoProveedor})
         Me.datagridviewMain.DataSource = Me.bindingsourceMain
         Me.datagridviewMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.datagridviewMain.Location = New System.Drawing.Point(0, 25)
+        Me.datagridviewMain.Location = New System.Drawing.Point(0, 39)
         Me.datagridviewMain.MultiSelect = False
         Me.datagridviewMain.Name = "datagridviewMain"
         Me.datagridviewMain.ReadOnly = True
         Me.datagridviewMain.RowHeadersVisible = False
         Me.datagridviewMain.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewMain.Size = New System.Drawing.Size(781, 322)
+        Me.datagridviewMain.Size = New System.Drawing.Size(781, 308)
         Me.datagridviewMain.TabIndex = 2
         '
         'columnIDEntidad
@@ -356,6 +357,10 @@ Partial Class formEntidades
         Me.Name = "formEntidades"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Entidades"
+        Me.toolstripMain.ResumeLayout(False)
+        Me.toolstripMain.PerformLayout()
+        Me.statusstripMain.ResumeLayout(False)
+        Me.statusstripMain.PerformLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.bindingsourceMain, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

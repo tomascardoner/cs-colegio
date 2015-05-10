@@ -13,7 +13,7 @@ Imports System.Collections.Generic
 Partial Public Class DocumentoTipo
     Public Property IDDocumentoTipo As Byte
     Public Property Nombre As String
-    Public Property Activo As Boolean
+    Public Property EsActivo As Boolean
 
     Public Overridable Property Entidad As ICollection(Of Entidad) = New HashSet(Of Entidad)
 
