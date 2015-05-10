@@ -394,6 +394,7 @@
   <ItemGroup>
     <Content Include="Notas.txt" />
     <None Include="Resources\5_Resized.jpg" />
+    <None Include="Resources\5.jpg" />
     <Content Include="school_48_32_16.ico" />
     <None Include="Resources\Move Previous %28Arrow%29 Red24.png" />
     <None Include="Resources\Move Next %28Arrow%29 Green24.png" />

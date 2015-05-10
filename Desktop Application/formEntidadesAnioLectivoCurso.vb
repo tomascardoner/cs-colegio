@@ -60,12 +60,19 @@
     Private Sub buttonAgregar_Click() Handles buttonAgregar.Click
         formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
-        formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = True
+        formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
         If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
             Dim EntidadNueva As Entidad = dbcEntidadesAnioLectivoCurso.Entidad.Find(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).Cells(formEntidadesSeleccionar.COLUMNA_IDENTIDAD).Value)
-            AnioLectivoCurso.Entidades.Add(EntidadNueva)
-            dbcEntidadesAnioLectivoCurso.SaveChanges()
+            Try
+                Me.Cursor = Cursors.WaitCursor
+                AnioLectivoCurso.Entidades.Add(EntidadNueva)
+                dbcEntidadesAnioLectivoCurso.SaveChanges()
+                Me.Cursor = Cursors.Default
+            Catch ex As Exception
+                CSM_Error.ProcessError(ex, "Error al agregar la Entidad al Curso.")
+            End Try
             RefreshData()
         End If
         formEntidadesSeleccionar.Dispose()
@@ -78,11 +85,15 @@
             If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO_DELETE) Then
                 Dim EntidadEliminar = CType(datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
                 If MsgBox("Se eliminará la Entidad seleccionada del Curso actual." & vbCrLf & vbCrLf & EntidadEliminar.ApellidoNombre & vbCrLf & vbCrLf & "¿Confirma la eliminación definitiva?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
-                    Me.Cursor = Cursors.WaitCursor
-                    AnioLectivoCurso.Entidades.Remove(EntidadEliminar)
-                    dbcEntidadesAnioLectivoCurso.SaveChanges()
+                    Try
+                        Me.Cursor = Cursors.WaitCursor
+                        AnioLectivoCurso.Entidades.Remove(EntidadEliminar)
+                        dbcEntidadesAnioLectivoCurso.SaveChanges()
+                        Me.Cursor = Cursors.Default
+                    Catch ex As Exception
+                        CSM_Error.ProcessError(ex, "Error al eliminar la Entidad del Curso.")
+                    End Try
                     RefreshData()
-                    Me.Cursor = Cursors.Default
                 End If
             End If
         End If

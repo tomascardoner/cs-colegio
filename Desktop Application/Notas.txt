@@ -44,3 +44,5 @@ Mayúsculas (de la A a la Z)
 Minúsculas (de la a a la z)
 Dígitos de base 10 (del 0 al 9)
 Caracteres no alfanuméricos (por ejemplo, !, $, #, %)
+
+Poder imprimir el contenido de las Grillas (ejemplo: Alumnos por Año Lectivo y Curso)

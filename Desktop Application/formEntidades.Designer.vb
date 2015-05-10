@@ -40,8 +40,8 @@ Partial Class formEntidades
         Me.menuitemEntidadTipo_Familiar = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemEntidadTipo_Proveedor = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.menuitemMarcarTodo = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemDesmarcarTodo = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemMarcarTodos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDesmarcarTodos = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.labelBuscar = New System.Windows.Forms.ToolStripLabel()
         Me.textboxBuscar = New System.Windows.Forms.ToolStripTextBox()
@@ -111,7 +111,7 @@ Partial Class formEntidades
         'dropdownbuttonEntidadTipos
         '
         Me.dropdownbuttonEntidadTipos.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.dropdownbuttonEntidadTipos.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemEntidadTipo_PersonalColegio, Me.menuitemEntidadTipo_Docente, Me.menuitemEntidadTipo_Alumno, Me.menuitemEntidadTipo_Familiar, Me.menuitemEntidadTipo_Proveedor, Me.ToolStripSeparator2, Me.menuitemMarcarTodo, Me.menuitemDesmarcarTodo})
+        Me.dropdownbuttonEntidadTipos.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemEntidadTipo_PersonalColegio, Me.menuitemEntidadTipo_Docente, Me.menuitemEntidadTipo_Alumno, Me.menuitemEntidadTipo_Familiar, Me.menuitemEntidadTipo_Proveedor, Me.ToolStripSeparator2, Me.menuitemMarcarTodos, Me.menuitemDesmarcarTodos})
         Me.dropdownbuttonEntidadTipos.Image = CType(resources.GetObject("dropdownbuttonEntidadTipos.Image"), System.Drawing.Image)
         Me.dropdownbuttonEntidadTipos.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.dropdownbuttonEntidadTipos.Name = "dropdownbuttonEntidadTipos"
@@ -168,17 +168,17 @@ Partial Class formEntidades
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
         Me.ToolStripSeparator2.Size = New System.Drawing.Size(160, 6)
         '
-        'menuitemMarcarTodo
+        'menuitemMarcarTodos
         '
-        Me.menuitemMarcarTodo.Name = "menuitemMarcarTodo"
-        Me.menuitemMarcarTodo.Size = New System.Drawing.Size(163, 22)
-        Me.menuitemMarcarTodo.Text = "Marcar todos"
+        Me.menuitemMarcarTodos.Name = "menuitemMarcarTodos"
+        Me.menuitemMarcarTodos.Size = New System.Drawing.Size(163, 22)
+        Me.menuitemMarcarTodos.Text = "Marcar todos"
         '
-        'menuitemDesmarcarTodo
+        'menuitemDesmarcarTodos
         '
-        Me.menuitemDesmarcarTodo.Name = "menuitemDesmarcarTodo"
-        Me.menuitemDesmarcarTodo.Size = New System.Drawing.Size(163, 22)
-        Me.menuitemDesmarcarTodo.Text = "Desmarcar todos"
+        Me.menuitemDesmarcarTodos.Name = "menuitemDesmarcarTodos"
+        Me.menuitemDesmarcarTodos.Size = New System.Drawing.Size(163, 22)
+        Me.menuitemDesmarcarTodos.Text = "Desmarcar todos"
         '
         'ToolStripSeparator3
         '
@@ -342,9 +342,6 @@ Partial Class formEntidades
         Me.columnTipoProveedor.ReadOnly = True
         Me.columnTipoProveedor.Width = 62
         '
-        'bindingsourceMain
-        '
-        '
         'formEntidades
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -383,8 +380,8 @@ Partial Class formEntidades
     Friend WithEvents menuitemEntidadTipo_Familiar As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemEntidadTipo_Proveedor As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents menuitemMarcarTodo As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemDesmarcarTodo As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemMarcarTodos As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDesmarcarTodos As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents labelBuscar As System.Windows.Forms.ToolStripLabel
     Friend WithEvents textboxBuscar As System.Windows.Forms.ToolStripTextBox

@@ -30,17 +30,12 @@ Partial Class TempDepot
         Me.labelPaso3Titulo = New System.Windows.Forms.Label()
         Me.buttonPaso3Anterior = New System.Windows.Forms.Button()
         Me.buttonPaso3Siguiente = New System.Windows.Forms.Button()
-        Me.panelPaso2 = New System.Windows.Forms.Panel()
-        Me.labelPaso2Titulo = New System.Windows.Forms.Label()
-        Me.buttonPaso2Anterior = New System.Windows.Forms.Button()
-        Me.buttonPaso2Siguiente = New System.Windows.Forms.Button()
         Me.panelPaso5 = New System.Windows.Forms.Panel()
         Me.labelPaso5Titulo = New System.Windows.Forms.Label()
         Me.buttonPaso5Anterior = New System.Windows.Forms.Button()
         Me.buttonPaso5Siguiente = New System.Windows.Forms.Button()
         Me.panelPaso4.SuspendLayout()
         Me.panelPaso3.SuspendLayout()
-        Me.panelPaso2.SuspendLayout()
         Me.panelPaso5.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -138,53 +133,6 @@ Partial Class TempDepot
         Me.buttonPaso3Siguiente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonPaso3Siguiente.UseVisualStyleBackColor = True
         '
-        'panelPaso2
-        '
-        Me.panelPaso2.Controls.Add(Me.labelPaso2Titulo)
-        Me.panelPaso2.Controls.Add(Me.buttonPaso2Anterior)
-        Me.panelPaso2.Controls.Add(Me.buttonPaso2Siguiente)
-        Me.panelPaso2.Location = New System.Drawing.Point(12, 12)
-        Me.panelPaso2.Name = "panelPaso2"
-        Me.panelPaso2.Size = New System.Drawing.Size(301, 237)
-        Me.panelPaso2.TabIndex = 100
-        '
-        'labelPaso2Titulo
-        '
-        Me.labelPaso2Titulo.AutoSize = True
-        Me.labelPaso2Titulo.Dock = System.Windows.Forms.DockStyle.Top
-        Me.labelPaso2Titulo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelPaso2Titulo.Location = New System.Drawing.Point(0, 0)
-        Me.labelPaso2Titulo.Name = "labelPaso2Titulo"
-        Me.labelPaso2Titulo.Size = New System.Drawing.Size(153, 17)
-        Me.labelPaso2Titulo.TabIndex = 105
-        Me.labelPaso2Titulo.Text = "Paso 2: Verificación"
-        '
-        'buttonPaso2Anterior
-        '
-        Me.buttonPaso2Anterior.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonPaso2Anterior.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_PREVIOUS_24
-        Me.buttonPaso2Anterior.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.buttonPaso2Anterior.Location = New System.Drawing.Point(12, 200)
-        Me.buttonPaso2Anterior.Name = "buttonPaso2Anterior"
-        Me.buttonPaso2Anterior.Size = New System.Drawing.Size(140, 34)
-        Me.buttonPaso2Anterior.TabIndex = 99
-        Me.buttonPaso2Anterior.Text = "Paso 1: Selección"
-        Me.buttonPaso2Anterior.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.buttonPaso2Anterior.UseVisualStyleBackColor = True
-        '
-        'buttonPaso2Siguiente
-        '
-        Me.buttonPaso2Siguiente.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonPaso2Siguiente.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_NEXT_24
-        Me.buttonPaso2Siguiente.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.buttonPaso2Siguiente.Location = New System.Drawing.Point(158, 200)
-        Me.buttonPaso2Siguiente.Name = "buttonPaso2Siguiente"
-        Me.buttonPaso2Siguiente.Size = New System.Drawing.Size(140, 34)
-        Me.buttonPaso2Siguiente.TabIndex = 98
-        Me.buttonPaso2Siguiente.Text = "Paso 3: Confirmación"
-        Me.buttonPaso2Siguiente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.buttonPaso2Siguiente.UseVisualStyleBackColor = True
-        '
         'panelPaso5
         '
         Me.panelPaso5.Controls.Add(Me.labelPaso5Titulo)
@@ -240,15 +188,12 @@ Partial Class TempDepot
         Me.Controls.Add(Me.panelPaso5)
         Me.Controls.Add(Me.panelPaso4)
         Me.Controls.Add(Me.panelPaso3)
-        Me.Controls.Add(Me.panelPaso2)
         Me.Name = "TempDepot"
         Me.Text = "TempDepot"
         Me.panelPaso4.ResumeLayout(False)
         Me.panelPaso4.PerformLayout()
         Me.panelPaso3.ResumeLayout(False)
         Me.panelPaso3.PerformLayout()
-        Me.panelPaso2.ResumeLayout(False)
-        Me.panelPaso2.PerformLayout()
         Me.panelPaso5.ResumeLayout(False)
         Me.panelPaso5.PerformLayout()
         Me.ResumeLayout(False)
@@ -262,10 +207,6 @@ Partial Class TempDepot
     Friend WithEvents labelPaso3Titulo As System.Windows.Forms.Label
     Friend WithEvents buttonPaso3Anterior As System.Windows.Forms.Button
     Friend WithEvents buttonPaso3Siguiente As System.Windows.Forms.Button
-    Friend WithEvents panelPaso2 As System.Windows.Forms.Panel
-    Friend WithEvents labelPaso2Titulo As System.Windows.Forms.Label
-    Friend WithEvents buttonPaso2Anterior As System.Windows.Forms.Button
-    Friend WithEvents buttonPaso2Siguiente As System.Windows.Forms.Button
     Friend WithEvents panelPaso5 As System.Windows.Forms.Panel
     Friend WithEvents labelPaso5Titulo As System.Windows.Forms.Label
     Friend WithEvents buttonPaso5Anterior As System.Windows.Forms.Button

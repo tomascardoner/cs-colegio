@@ -62,6 +62,9 @@ Module StartUp
         formSplashScreen.Close()
         formSplashScreen.Dispose()
 
+        ' Muestro la imagen de fondo del MDI
+        formMDIMain.BackgroundImage = My.Resources.IMAGE_MDI_BACKGROUND
+
         ' Si no se está ejecutando dentro del IDE de Visual Studio, se requiere que ingrese Usuario y Contraseña
         If CSM_Instance.IsRunningUnderIDE Then
             Using dbcUsuario As New CSColegioContext

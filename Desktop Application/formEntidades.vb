@@ -142,14 +142,14 @@
         FilterData()
     End Sub
 
-    Private Sub menuitemMarcarYDesmarcarTodo_Click(sender As Object, e As EventArgs) Handles menuitemMarcarTodo.Click, menuitemDesmarcarTodo.Click
+    Private Sub menuitemMarcarYDesmarcarTodo_Click(sender As Object, e As EventArgs) Handles menuitemMarcarTodos.Click, menuitemDesmarcarTodos.Click
         SkipFilterData = True
 
-        menuitemEntidadTipo_PersonalColegio.Checked = (CType(sender, ToolStripMenuItem).Name = "menuitemMarcarTodo")
-        menuitemEntidadTipo_Docente.Checked = (CType(sender, ToolStripMenuItem).Name = "menuitemMarcarTodo")
-        menuitemEntidadTipo_Alumno.Checked = (CType(sender, ToolStripMenuItem).Name = "menuitemMarcarTodo")
-        menuitemEntidadTipo_Familiar.Checked = (CType(sender, ToolStripMenuItem).Name = "menuitemMarcarTodo")
-        menuitemEntidadTipo_Proveedor.Checked = (CType(sender, ToolStripMenuItem).Name = "menuitemMarcarTodo")
+        menuitemEntidadTipo_PersonalColegio.Checked = (CType(sender, ToolStripMenuItem) Is menuitemMarcarTodos)
+        menuitemEntidadTipo_Docente.Checked = (CType(sender, ToolStripMenuItem) Is menuitemMarcarTodos)
+        menuitemEntidadTipo_Alumno.Checked = (CType(sender, ToolStripMenuItem) Is menuitemMarcarTodos)
+        menuitemEntidadTipo_Familiar.Checked = (CType(sender, ToolStripMenuItem) Is menuitemMarcarTodos)
+        menuitemEntidadTipo_Proveedor.Checked = (CType(sender, ToolStripMenuItem) Is menuitemMarcarTodos)
 
         SkipFilterData = False
 

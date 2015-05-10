@@ -240,6 +240,14 @@
             End If
         End If
         Select Case CStr(comboboxEntidadFactura.SelectedValue)
+            Case "-"
+                If checkboxTipoAlumno.Checked AndAlso (((Not textboxEntidadPadre.Tag Is Nothing) And (EntidadCurrent.IDEntidadPadre Is Nothing)) Or ((Not textboxEntidadMadre.Tag Is Nothing) And (EntidadCurrent.IDEntidadMadre Is Nothing))) Then
+                    If MsgBox("Ha especificado el Padre y/o la Madre del Alumno, pero no especificó a quien se le facturará." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
+                        tabcontrolMain.SelectedTab = tabpageExtra
+                        comboboxEntidadFactura.Focus()
+                        Exit Sub
+                    End If
+                End If
             Case "P"
                 If textboxEntidadPadre.Tag Is Nothing Then
                     tabcontrolMain.SelectedTab = tabpageExtra
@@ -313,6 +321,7 @@
         formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = True
         formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
         If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
             textboxEntidadPadre.Text = CStr(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_APELLIDO).Value()) & CStr(IIf(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_NOMBRE).Value Is Nothing, "", ", " & CStr(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_NOMBRE).Value)))
@@ -330,6 +339,7 @@
         formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = True
         formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
         If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
             textboxEntidadMadre.Text = CStr(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_APELLIDO).Value()) & CStr(IIf(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_NOMBRE).Value Is Nothing, "", ", " & CStr(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_NOMBRE).Value)))

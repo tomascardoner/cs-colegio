@@ -262,7 +262,7 @@
         End If
     End Sub
 
-    Private Sub buttonFacturar_ButtonClick() Handles buttonFacturar.ButtonClick, menuitemFacturasIngresar.Click
+    Private Sub buttonFacturar_ButtonClick() Handles buttonFacturar.ButtonClick
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE) Then
             Me.Cursor = Cursors.WaitCursor
 
