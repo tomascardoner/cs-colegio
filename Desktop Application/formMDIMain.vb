@@ -19,7 +19,9 @@
 
         'HAGO UN RESIZE DE TODOS LOS CHILDS QUE ESTÉN ABIERTOS
         For Each FormCurrent As Form In Me.MdiChildren
-            FormCurrent.Size = mForm_ClientSize
+            If FormCurrent.FormBorderStyle = Windows.Forms.FormBorderStyle.Sizable Then
+                FormCurrent.Size = mForm_ClientSize
+            End If
         Next
     End Sub
 

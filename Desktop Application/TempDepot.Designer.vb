@@ -26,16 +26,11 @@ Partial Class TempDepot
         Me.labelPaso4Titulo = New System.Windows.Forms.Label()
         Me.buttonPaso4Anterior = New System.Windows.Forms.Button()
         Me.buttonPaso4Siguiente = New System.Windows.Forms.Button()
-        Me.panelPaso3 = New System.Windows.Forms.Panel()
-        Me.labelPaso3Titulo = New System.Windows.Forms.Label()
-        Me.buttonPaso3Anterior = New System.Windows.Forms.Button()
-        Me.buttonPaso3Siguiente = New System.Windows.Forms.Button()
         Me.panelPaso5 = New System.Windows.Forms.Panel()
         Me.labelPaso5Titulo = New System.Windows.Forms.Label()
         Me.buttonPaso5Anterior = New System.Windows.Forms.Button()
         Me.buttonPaso5Siguiente = New System.Windows.Forms.Button()
         Me.panelPaso4.SuspendLayout()
-        Me.panelPaso3.SuspendLayout()
         Me.panelPaso5.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -85,53 +80,6 @@ Partial Class TempDepot
         Me.buttonPaso4Siguiente.Text = "Paso 5: Transmisión"
         Me.buttonPaso4Siguiente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonPaso4Siguiente.UseVisualStyleBackColor = True
-        '
-        'panelPaso3
-        '
-        Me.panelPaso3.Controls.Add(Me.labelPaso3Titulo)
-        Me.panelPaso3.Controls.Add(Me.buttonPaso3Anterior)
-        Me.panelPaso3.Controls.Add(Me.buttonPaso3Siguiente)
-        Me.panelPaso3.Location = New System.Drawing.Point(334, 12)
-        Me.panelPaso3.Name = "panelPaso3"
-        Me.panelPaso3.Size = New System.Drawing.Size(294, 237)
-        Me.panelPaso3.TabIndex = 101
-        '
-        'labelPaso3Titulo
-        '
-        Me.labelPaso3Titulo.AutoSize = True
-        Me.labelPaso3Titulo.Dock = System.Windows.Forms.DockStyle.Top
-        Me.labelPaso3Titulo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelPaso3Titulo.Location = New System.Drawing.Point(0, 0)
-        Me.labelPaso3Titulo.Name = "labelPaso3Titulo"
-        Me.labelPaso3Titulo.Size = New System.Drawing.Size(162, 17)
-        Me.labelPaso3Titulo.TabIndex = 106
-        Me.labelPaso3Titulo.Text = "Paso 3: Confirmación"
-        '
-        'buttonPaso3Anterior
-        '
-        Me.buttonPaso3Anterior.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonPaso3Anterior.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_PREVIOUS_24
-        Me.buttonPaso3Anterior.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.buttonPaso3Anterior.Location = New System.Drawing.Point(5, 200)
-        Me.buttonPaso3Anterior.Name = "buttonPaso3Anterior"
-        Me.buttonPaso3Anterior.Size = New System.Drawing.Size(140, 34)
-        Me.buttonPaso3Anterior.TabIndex = 99
-        Me.buttonPaso3Anterior.Text = "Paso 2: Verificación"
-        Me.buttonPaso3Anterior.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.buttonPaso3Anterior.UseVisualStyleBackColor = True
-        '
-        'buttonPaso3Siguiente
-        '
-        Me.buttonPaso3Siguiente.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonPaso3Siguiente.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_NEXT_24
-        Me.buttonPaso3Siguiente.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.buttonPaso3Siguiente.Location = New System.Drawing.Point(151, 200)
-        Me.buttonPaso3Siguiente.Name = "buttonPaso3Siguiente"
-        Me.buttonPaso3Siguiente.Size = New System.Drawing.Size(140, 34)
-        Me.buttonPaso3Siguiente.TabIndex = 98
-        Me.buttonPaso3Siguiente.Text = "Paso 4: Emisión"
-        Me.buttonPaso3Siguiente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.buttonPaso3Siguiente.UseVisualStyleBackColor = True
         '
         'panelPaso5
         '
@@ -187,13 +135,10 @@ Partial Class TempDepot
         Me.ClientSize = New System.Drawing.Size(1272, 265)
         Me.Controls.Add(Me.panelPaso5)
         Me.Controls.Add(Me.panelPaso4)
-        Me.Controls.Add(Me.panelPaso3)
         Me.Name = "TempDepot"
         Me.Text = "TempDepot"
         Me.panelPaso4.ResumeLayout(False)
         Me.panelPaso4.PerformLayout()
-        Me.panelPaso3.ResumeLayout(False)
-        Me.panelPaso3.PerformLayout()
         Me.panelPaso5.ResumeLayout(False)
         Me.panelPaso5.PerformLayout()
         Me.ResumeLayout(False)
@@ -203,10 +148,6 @@ Partial Class TempDepot
     Friend WithEvents labelPaso4Titulo As System.Windows.Forms.Label
     Friend WithEvents buttonPaso4Anterior As System.Windows.Forms.Button
     Friend WithEvents buttonPaso4Siguiente As System.Windows.Forms.Button
-    Friend WithEvents panelPaso3 As System.Windows.Forms.Panel
-    Friend WithEvents labelPaso3Titulo As System.Windows.Forms.Label
-    Friend WithEvents buttonPaso3Anterior As System.Windows.Forms.Button
-    Friend WithEvents buttonPaso3Siguiente As System.Windows.Forms.Button
     Friend WithEvents panelPaso5 As System.Windows.Forms.Panel
     Friend WithEvents labelPaso5Titulo As System.Windows.Forms.Label
     Friend WithEvents buttonPaso5Anterior As System.Windows.Forms.Button
