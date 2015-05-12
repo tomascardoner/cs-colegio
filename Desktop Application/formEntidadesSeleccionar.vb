@@ -205,7 +205,7 @@
         OrderData()
     End Sub
 
-    Private Sub Seleccionar() Handles datagridviewMain.CellDoubleClick, buttonSeleccionar.Click
+    Private Sub Seleccionar() Handles datagridviewMain.DoubleClick, buttonSeleccionar.Click
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ninguna Entidad para seleccionar.", vbInformation, My.Application.Info.Title)
         Else

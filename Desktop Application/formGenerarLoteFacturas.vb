@@ -1,10 +1,13 @@
-﻿Public Class formGenerarLoteFacturas
+﻿Imports System.Drawing.Printing
+
+Public Class formGenerarLoteFacturas
     Private dbcColegio As CSColegioContext
     Private AnioLectivo As Integer = Today.Year
     Private Const NODO_CARGANDO_TEXTO As String = "Cargando..."
 
     Private listEntidadesSeleccionadasOk As List(Of Entidad)
-    Private listEntidadesSeleccionadasCorregir As IList(Of EntidadACorregir)
+    'Private listEntidadesSeleccionadasCorregir As IList(Of EntidadACorregir)
+    Private listEntidadesSeleccionadasCorregir As IList(Of Object)
     Private listEntidadesYAlumnosAFacturar As List(Of EntidadYAlumnosAFacturar)
 
     Private Class EntidadACorregir
@@ -42,10 +45,6 @@
         lalbelPaso1Pie.Text = "Período a Facturar: " & StrConv(MonthName(Today.Month), VbStrConv.ProperCase) & " de " & AnioLectivo
 
         MostrarPaneles(1)
-    End Sub
-
-    Private Sub formGenerarLoteFacturas_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        dbcColegio.Dispose()
     End Sub
 
     Private Sub MostrarPaneles(ByVal Paso As Byte)
@@ -260,14 +259,14 @@
         Me.Cursor = Cursors.WaitCursor
 
         listEntidadesSeleccionadasOk = New List(Of Entidad)
-        listEntidadesSeleccionadasCorregir = New List(Of EntidadACorregir)
+        'listEntidadesSeleccionadasCorregir = New List(Of EntidadACorregir)
+        listEntidadesSeleccionadasCorregir = New List(Of Object)
 
         If tabcontrolMain.SelectedTab Is tabpageNivelesCursosAlumnos Then
             ' La selección está hecha por Niveles - Cursos - Alumnos
 
             ' Desactivo la actualización gráfica para expandir todos y que se carguen todos los Nodos
             treeviewPaso1NivelCursoAlumno.BeginUpdate()
-            'treeviewPaso1NivelCursoAlumno.ExpandAll()
             For Each TreeNodeNivel As TreeNode In treeviewPaso1NivelCursoAlumno.Nodes
                 ' Si no se cargaron los Nodos hijos y el Nodo no está tildado, ignoro este Nodo, si no, lo expando
                 If TreeNodeNivel.Nodes.Count = 1 AndAlso TreeNodeNivel.Nodes(0).Tag Is Nothing Then
@@ -323,7 +322,7 @@
         End If
 
         listEntidadesSeleccionadasOk.OrderBy(Function(ent) ent.ApellidoNombre)
-        listEntidadesSeleccionadasCorregir.OrderBy(Function(eac) eac.ApellidoNombre)
+        listEntidadesSeleccionadasCorregir.OrderBy(Function(eac) CType(eac, EntidadACorregir).ApellidoNombre)
 
         Me.Cursor = Cursors.Default
     End Sub
@@ -331,7 +330,6 @@
     Private Sub VerificarEntidad(ByRef EntidadActual As Entidad)
         Dim CorregirEntidad As Boolean = False
         Dim CorreccionDescripcion As String = ""
-        Dim EntidadACorregirActual As EntidadACorregir
 
         Const CORRECCION_DESCRIPCION_NOESALUMNO As String = "No es una Entidad del tipo Alumno."
         Const CORRECCION_DESCRIPCION_NOESPECIFICAENTIDADFACTURA As String = "No está especificado a quién se le factura."
@@ -372,28 +370,66 @@
         ' Si hay que corregir la Entidad, la agrego a la lista de Entidades a corregir
         If CorregirEntidad Then
             CorreccionDescripcion = CorreccionDescripcion.Remove(CorreccionDescripcion.Length - vbCrLf.Length)
-            EntidadACorregirActual = New EntidadACorregir
-            EntidadACorregirActual.IDEntidad = EntidadActual.IDEntidad
-            EntidadACorregirActual.Apellido = EntidadActual.Apellido
-            EntidadACorregirActual.Nombre = EntidadActual.Nombre
-            EntidadACorregirActual.ApellidoNombre = EntidadActual.ApellidoNombre
-            EntidadACorregirActual.CorreccionDescripcion = CorreccionDescripcion
-
-            listEntidadesSeleccionadasCorregir.Add(EntidadACorregirActual)
+            listEntidadesSeleccionadasCorregir.Add(New With {.IDEntidad = EntidadActual.IDEntidad, .Apellido = EntidadActual.Apellido, .Nombre = EntidadActual.Nombre, .ApellidoNombre = EntidadActual.ApellidoNombre, .CorreccionDescripcion = CorreccionDescripcion})
         Else
             listEntidadesSeleccionadasOk.Add(EntidadActual)
         End If
     End Sub
 
     Private Sub MostrarEntidadesACorregir()
-        ' TODO - BUG: La Grilla de Entidades a corregir no muestra los datos de la Lista
+        ' TODO - BUG: La Grilla de Entidades a corregir se muestra desordenada
 
-        datagridviewPaso2.AutoGenerateColumns = True
+        datagridviewPaso2.AutoGenerateColumns = False
         datagridviewPaso2.DataSource = listEntidadesSeleccionadasCorregir
 
         labelPaso2Pie.Text = "Entidades a corregir: " & listEntidadesSeleccionadasCorregir.Count.ToString
 
         buttonPaso2Siguiente.Enabled = (listEntidadesSeleccionadasCorregir.Count = 0)
+    End Sub
+
+    Private Sub buttonPaso2Print_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles buttonPaso2Print.Click
+        Dim PreviewForm As New PrintPreviewDialog
+
+        Me.Cursor = Cursors.WaitCursor
+
+        PreviewForm.PrintPreviewControl.Zoom = 1
+        PreviewForm.Document = printdocumentPaso2
+        printdocumentPaso2.DefaultPageSettings.Landscape = True
+        CType(PreviewForm, Form).StartPosition = FormStartPosition.Manual
+        CSM_Form.MDIChild_PositionAndSize(CType(formMDIMain, Form), CType(PreviewForm, Form), formMDIMain.Form_ClientSize)
+        PreviewForm.Show()
+
+        Me.Cursor = Cursors.Default
+    End Sub
+
+    Protected Sub printdocumentPaso2_PrintPage(ByVal sender As Object, ByVal e As PrintPageEventArgs) Handles printdocumentPaso2.PrintPage
+        Dim ColumnCount As Integer = datagridviewPaso2.ColumnCount
+        Dim RowCount As Integer = datagridviewPaso2.RowCount
+
+        Dim CellTopPos As Integer = printdocumentPaso2.PrinterSettings.DefaultPageSettings.Margins.Top
+
+        For Row = 0 To RowCount - 1
+
+            Dim CellLeftPos As Integer = printdocumentPaso2.PrinterSettings.DefaultPageSettings.Margins.Left
+
+            For Cell = 0 To ColumnCount - 1
+
+                Dim CellValue As String = datagridviewPaso2.Rows(Row).Cells(Cell).Value.ToString()
+                Dim CellWidth = datagridviewPaso2.Rows(Row).Cells(Cell).Size.Width + 50
+                Dim CellHeight = datagridviewPaso2.Rows(Row).Cells(Cell).Size.Height
+
+                Dim Brush As New SolidBrush(Color.Black)
+                e.Graphics.DrawString(CellValue, New Font("Century Gothic", 10), Brush, CellLeftPos, CellTopPos)
+                If Cell = 3 Then
+                    CellWidth = CInt(CellWidth * 1.2)
+                End If
+                e.Graphics.DrawRectangle(Pens.Black, CellLeftPos, CellTopPos, CellWidth, CellHeight)
+
+                CellLeftPos += CellWidth
+            Next
+
+            CellTopPos += datagridviewPaso2.Rows(Row).Cells(0).Size.Height
+        Next
     End Sub
 
     Private Sub buttonPaso2Anterior_Click() Handles buttonPaso2Anterior.Click

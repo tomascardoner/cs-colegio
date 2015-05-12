@@ -8,6 +8,7 @@ Partial Class formEntidadesAnioLectivoCurso
         Try
             If disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
+                dbcEntidadesAnioLectivoCurso.Dispose()
             End If
         Finally
             MyBase.Dispose(disposing)

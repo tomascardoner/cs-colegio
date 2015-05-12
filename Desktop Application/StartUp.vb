@@ -1,6 +1,4 @@
-﻿Imports System.Data.Entity
-
-Module StartUp
+﻿Module StartUp
     Friend pUsuario As Usuario
 
     Friend pCSColegioContext As CSColegioContext
@@ -72,8 +70,7 @@ Module StartUp
                         Where u.IDUsuario = 1
                         Select u
                 pUsuario = qryUsuarios.SingleOrDefault()
-                formMDIMain.labelUsuarioNombre.Image = My.Resources.IMAGE_USUARIO_HOMBRE_16
-                formMDIMain.labelUsuarioNombre.Text = pUsuario.Descripcion
+                formMDIMain.ShowCurrentUserInfo()
             End Using
         ElseIf Not formLogin.ShowDialog(formMDIMain) = DialogResult.OK Then
             Application.Exit()

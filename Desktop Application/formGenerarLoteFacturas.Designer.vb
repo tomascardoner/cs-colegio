@@ -8,6 +8,7 @@ Partial Class formGenerarLoteFacturas
         Try
             If disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
+                dbcColegio.Dispose()
             End If
         Finally
             MyBase.Dispose(disposing)
@@ -47,12 +48,13 @@ Partial Class formGenerarLoteFacturas
         Me.buttonPaso1Siguiente = New System.Windows.Forms.Button()
         Me.labelPaso1Mensaje = New System.Windows.Forms.Label()
         Me.panelPaso2 = New System.Windows.Forms.Panel()
+        Me.buttonPaso2Print = New System.Windows.Forms.Button()
         Me.labelPaso2Pie = New System.Windows.Forms.Label()
         Me.datagridviewPaso2 = New System.Windows.Forms.DataGridView()
         Me.columnVerificacionIDEntidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnVerificacionApellido = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnVerificacionNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnCorrecionDescripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnCorreccionDescripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.pictureboxPaso2 = New System.Windows.Forms.PictureBox()
         Me.labelPaso2Mensaje = New System.Windows.Forms.Label()
         Me.labelPaso2Titulo = New System.Windows.Forms.Label()
@@ -66,6 +68,7 @@ Partial Class formGenerarLoteFacturas
         Me.labelPaso3Titulo = New System.Windows.Forms.Label()
         Me.buttonPaso3Anterior = New System.Windows.Forms.Button()
         Me.buttonPaso3Siguiente = New System.Windows.Forms.Button()
+        Me.printdocumentPaso2 = New System.Drawing.Printing.PrintDocument()
         Me.panelPaso1.SuspendLayout()
         Me.tabcontrolMain.SuspendLayout()
         Me.tabpageNivelesCursosAlumnos.SuspendLayout()
@@ -254,6 +257,7 @@ Partial Class formGenerarLoteFacturas
         '
         'panelPaso2
         '
+        Me.panelPaso2.Controls.Add(Me.buttonPaso2Print)
         Me.panelPaso2.Controls.Add(Me.labelPaso2Pie)
         Me.panelPaso2.Controls.Add(Me.datagridviewPaso2)
         Me.panelPaso2.Controls.Add(Me.pictureboxPaso2)
@@ -265,6 +269,15 @@ Partial Class formGenerarLoteFacturas
         Me.panelPaso2.Name = "panelPaso2"
         Me.panelPaso2.Size = New System.Drawing.Size(611, 441)
         Me.panelPaso2.TabIndex = 1
+        '
+        'buttonPaso2Print
+        '
+        Me.buttonPaso2Print.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_PRINT_24
+        Me.buttonPaso2Print.Location = New System.Drawing.Point(282, 404)
+        Me.buttonPaso2Print.Name = "buttonPaso2Print"
+        Me.buttonPaso2Print.Size = New System.Drawing.Size(34, 34)
+        Me.buttonPaso2Print.TabIndex = 4
+        Me.buttonPaso2Print.UseVisualStyleBackColor = True
         '
         'labelPaso2Pie
         '
@@ -291,7 +304,7 @@ Partial Class formGenerarLoteFacturas
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.datagridviewPaso2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.datagridviewPaso2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnVerificacionIDEntidad, Me.columnVerificacionApellido, Me.columnVerificacionNombre, Me.columnCorrecionDescripcion})
+        Me.datagridviewPaso2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnVerificacionIDEntidad, Me.columnVerificacionApellido, Me.columnVerificacionNombre, Me.columnCorreccionDescripcion})
         Me.datagridviewPaso2.Location = New System.Drawing.Point(3, 84)
         Me.datagridviewPaso2.MultiSelect = False
         Me.datagridviewPaso2.Name = "datagridviewPaso2"
@@ -335,16 +348,16 @@ Partial Class formGenerarLoteFacturas
         Me.columnVerificacionNombre.ReadOnly = True
         Me.columnVerificacionNombre.Width = 69
         '
-        'columnCorrecionDescripcion
+        'columnCorreccionDescripcion
         '
-        Me.columnCorrecionDescripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnCorrecionDescripcion.DataPropertyName = "CorreccionDescripcion"
+        Me.columnCorreccionDescripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnCorreccionDescripcion.DataPropertyName = "CorreccionDescripcion"
         DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.columnCorrecionDescripcion.DefaultCellStyle = DataGridViewCellStyle5
-        Me.columnCorrecionDescripcion.HeaderText = "Descripción del problema"
-        Me.columnCorrecionDescripcion.Name = "columnCorrecionDescripcion"
-        Me.columnCorrecionDescripcion.ReadOnly = True
-        Me.columnCorrecionDescripcion.Width = 99
+        Me.columnCorreccionDescripcion.DefaultCellStyle = DataGridViewCellStyle5
+        Me.columnCorreccionDescripcion.HeaderText = "Descripción del problema"
+        Me.columnCorreccionDescripcion.Name = "columnCorreccionDescripcion"
+        Me.columnCorreccionDescripcion.ReadOnly = True
+        Me.columnCorreccionDescripcion.Width = 99
         '
         'pictureboxPaso2
         '
@@ -386,7 +399,7 @@ Partial Class formGenerarLoteFacturas
         Me.buttonPaso2Anterior.Location = New System.Drawing.Point(322, 404)
         Me.buttonPaso2Anterior.Name = "buttonPaso2Anterior"
         Me.buttonPaso2Anterior.Size = New System.Drawing.Size(140, 34)
-        Me.buttonPaso2Anterior.TabIndex = 4
+        Me.buttonPaso2Anterior.TabIndex = 5
         Me.buttonPaso2Anterior.Text = "Paso 1: Selección"
         Me.buttonPaso2Anterior.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.buttonPaso2Anterior.UseVisualStyleBackColor = True
@@ -399,7 +412,7 @@ Partial Class formGenerarLoteFacturas
         Me.buttonPaso2Siguiente.Location = New System.Drawing.Point(468, 404)
         Me.buttonPaso2Siguiente.Name = "buttonPaso2Siguiente"
         Me.buttonPaso2Siguiente.Size = New System.Drawing.Size(140, 34)
-        Me.buttonPaso2Siguiente.TabIndex = 5
+        Me.buttonPaso2Siguiente.TabIndex = 6
         Me.buttonPaso2Siguiente.Text = "Paso 3: Confirmación"
         Me.buttonPaso2Siguiente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonPaso2Siguiente.UseVisualStyleBackColor = True
@@ -497,11 +510,14 @@ Partial Class formGenerarLoteFacturas
         Me.buttonPaso3Siguiente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonPaso3Siguiente.UseVisualStyleBackColor = True
         '
+        'printdocumentPaso2
+        '
+        '
         'formGenerarLoteFacturas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(634, 464)
+        Me.ClientSize = New System.Drawing.Size(636, 464)
         Me.Controls.Add(Me.panelPaso1)
         Me.Controls.Add(Me.panelPaso2)
         Me.Controls.Add(Me.panelPaso3)
@@ -554,10 +570,6 @@ Partial Class formGenerarLoteFacturas
     Friend WithEvents contextmenuPadreAlumno As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents menuitemPadreAlumnoMarcarTodos As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemPadreAlumnoDesmarcarTodos As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents columnVerificacionIDEntidad As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnVerificacionApellido As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnVerificacionNombre As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnCorrecionDescripcion As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents labelPaso2Pie As System.Windows.Forms.Label
     Friend WithEvents panelPaso3 As System.Windows.Forms.Panel
     Friend WithEvents labelPaso3Pie As System.Windows.Forms.Label
@@ -567,4 +579,10 @@ Partial Class formGenerarLoteFacturas
     Friend WithEvents labelPaso3Titulo As System.Windows.Forms.Label
     Friend WithEvents buttonPaso3Anterior As System.Windows.Forms.Button
     Friend WithEvents buttonPaso3Siguiente As System.Windows.Forms.Button
+    Friend WithEvents printdocumentPaso2 As System.Drawing.Printing.PrintDocument
+    Friend WithEvents columnVerificacionIDEntidad As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnVerificacionApellido As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnVerificacionNombre As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnCorreccionDescripcion As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents buttonPaso2Print As System.Windows.Forms.Button
 End Class

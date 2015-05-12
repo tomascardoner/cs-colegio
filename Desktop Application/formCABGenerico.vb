@@ -40,7 +40,6 @@ Public Class formCABGenerico
 
     Private Sub formCABGenerico_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         EntityDBSet = Nothing
-        FormDBContext.Dispose()
     End Sub
 
     Friend Function AddToolbar(ByVal ToolbarName As String) As ToolStrip

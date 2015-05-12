@@ -1,5 +1,5 @@
 ﻿Public Class formMDIMain
-    Private mForm_ClientSize As Size
+    Friend Form_ClientSize As Size
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Cambio el puntero del mouse para indicar que la aplicación está iniciando
@@ -15,12 +15,12 @@
 
     Private Sub formMDIMain_Resize() Handles Me.Resize
         'OBTENGO LAS MEDIDAS DEL CLIENT AREA DEL FORM MDI
-        mForm_ClientSize = New Size(Me.ClientSize.Width - toolstripMain.Width - My.Settings.MDIFormMargin, Me.ClientSize.Height - menustripMain.Height - statusstripMain.Height - My.Settings.MDIFormMargin)
+        Form_ClientSize = New Size(Me.ClientSize.Width - toolstripMain.Width - My.Settings.MDIFormMargin, Me.ClientSize.Height - menustripMain.Height - statusstripMain.Height - My.Settings.MDIFormMargin)
 
         'HAGO UN RESIZE DE TODOS LOS CHILDS QUE ESTÉN ABIERTOS
         For Each FormCurrent As Form In Me.MdiChildren
             If FormCurrent.FormBorderStyle = Windows.Forms.FormBorderStyle.Sizable Then
-                FormCurrent.Size = mForm_ClientSize
+                FormCurrent.Size = Form_ClientSize
             End If
         Next
     End Sub
@@ -47,6 +47,7 @@
         Me.Close()
     End Sub
 
+#Region "Tablas"
     Private Function FormCABGenerico_CrearOMostrar(ByVal EntityNameSingular As String, ByVal EntityNamePlural As String) As formCABGenerico
         Dim FormCurrent As formCABGenerico
 
@@ -56,7 +57,7 @@
 
             FormCurrent = New formCABGenerico()
 
-            CSM_Form.MDIChild_PositionAndSize(Me, CType(FormCurrent, Form), mForm_ClientSize)
+            CSM_Form.MDIChild_PositionAndSize(Me, CType(FormCurrent, Form), Form_ClientSize)
             FormCurrent.EntityNameSingular = EntityNameSingular
             FormCurrent.EntityNamePlural = EntityNamePlural
             Return FormCurrent
@@ -65,7 +66,6 @@
             If FormCurrent.WindowState = FormWindowState.Minimized Then
                 FormCurrent.WindowState = FormWindowState.Normal
             End If
-            FormCurrent.BringToFront()
             FormCurrent.Focus()
 
             Return Nothing
@@ -209,7 +209,9 @@
             End If
         End If
     End Sub
+#End Region
 
+#Region "Menu Ventana"
     Private Sub menuitemVentana_MosaicoHorizontal_Click() Handles menuitemVentanaMosaicoHorizontal.Click
         Me.LayoutMdi(MdiLayout.TileHorizontal)
     End Sub
@@ -230,7 +232,7 @@
         If Not Me.ActiveMdiChild Is Nothing Then
             Me.ActiveMdiChild.Left = 0
             Me.ActiveMdiChild.Top = 0
-            Me.ActiveMdiChild.Size = mForm_ClientSize
+            Me.ActiveMdiChild.Size = Form_ClientSize
         End If
     End Sub
 
@@ -239,6 +241,7 @@
             FormCurrent.Close()
         Next
     End Sub
+#End Region
 
     Private Sub UsuarioCerrarSesion() Handles menuitemArchivo_CerrarSesion.Click
         If MsgBox("¿Desea cerrar la sesión del Usuario actual?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
@@ -257,8 +260,27 @@
         If Permisos.VerificarPermiso(Permisos.ENTIDAD) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CSM_Form.MDIChild_PositionAndSize(Me, CType(formEntidades, Form), mForm_ClientSize)
+            CSM_Form.MDIChild_PositionAndSize(Me, CType(formEntidades, Form), Form_ClientSize)
             formEntidades.Show()
+            If formEntidades.WindowState = FormWindowState.Minimized Then
+                formEntidades.WindowState = FormWindowState.Normal
+            End If
+            formEntidades.Focus()
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
+
+    Private Sub AñosLectivosYCursosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AñosLectivosYCursosToolStripMenuItem.Click
+        If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            CSM_Form.MDIChild_PositionAndSize(Me, CType(formEntidadesAnioLectivoCurso, Form), Form_ClientSize)
+            formEntidadesAnioLectivoCurso.Show()
+            If formEntidadesAnioLectivoCurso.WindowState = FormWindowState.Minimized Then
+                formEntidadesAnioLectivoCurso.WindowState = FormWindowState.Normal
+            End If
+            formEntidadesAnioLectivoCurso.Focus()
 
             Me.Cursor = Cursors.Default
         End If
@@ -268,8 +290,13 @@
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CSM_Form.MDIChild_PositionAndSize(Me, CType(formComprobanteCabecera, Form), mForm_ClientSize)
+            CSM_Form.MDIChild_PositionAndSize(Me, CType(formComprobanteCabecera, Form), Form_ClientSize)
             formComprobanteCabecera.Show()
+            formComprobanteCabecera.Show()
+            If formComprobanteCabecera.WindowState = FormWindowState.Minimized Then
+                formComprobanteCabecera.WindowState = FormWindowState.Normal
+            End If
+            formComprobanteCabecera.Focus()
 
             Me.Cursor = Cursors.Default
         End If
@@ -282,17 +309,10 @@
             formGenerarLoteFacturas.MdiParent = Me
             CSM_Form.CenterToParent(Me, CType(formGenerarLoteFacturas, Form))
             formGenerarLoteFacturas.Show()
-
-            Me.Cursor = Cursors.Default
-        End If
-    End Sub
-
-    Private Sub AñosLectivosYCursosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AñosLectivosYCursosToolStripMenuItem.Click
-        If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO) Then
-            Me.Cursor = Cursors.WaitCursor
-
-            CSM_Form.MDIChild_PositionAndSize(Me, CType(formEntidadesAnioLectivoCurso, Form), mForm_ClientSize)
-            formEntidadesAnioLectivoCurso.Show()
+            If formGenerarLoteFacturas.WindowState = FormWindowState.Minimized Then
+                formGenerarLoteFacturas.WindowState = FormWindowState.Normal
+            End If
+            formGenerarLoteFacturas.Focus()
 
             Me.Cursor = Cursors.Default
         End If

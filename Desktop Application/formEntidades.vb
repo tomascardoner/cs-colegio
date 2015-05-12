@@ -185,7 +185,7 @@
         FilterData()
     End Sub
 
-    Private Sub datagridviewMain_CellContentDoubleClick() Handles datagridviewMain.CellDoubleClick
+    Private Sub datagridviewMain_CellContentDoubleClick() Handles datagridviewMain.DoubleClick
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ninguna Entidad para ver.", vbInformation, My.Application.Info.Title)
         Else
