@@ -360,6 +360,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Ambos padres (50% c/u).
+        '''</summary>
+        Friend ReadOnly Property STRING_ENTIDADFACTURA_AMBOSPADRES() As String
+            Get
+                Return ResourceManager.GetString("STRING_ENTIDADFACTURA_AMBOSPADRES", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Madre.
         '''</summary>
         Friend ReadOnly Property STRING_ENTIDADFACTURA_MADRE() As String

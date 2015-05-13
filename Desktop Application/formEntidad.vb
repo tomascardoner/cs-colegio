@@ -67,7 +67,7 @@
                 textboxEntidadMadre.Tag = .EntidadMadre.IDEntidad
             End If
             CSM_ComboBox.SetSelectedValue(comboboxEntidadFactura, SelectedItemOptions.ValueOrFirst, .EntidadFactura, "-")
-            checkboxActivo.CheckState = CSM_ValueTranslation.FromObjectBooleanToControlCheckBox(.EsActivo)
+            checkboxEsActivo.CheckState = CSM_ValueTranslation.FromObjectBooleanToControlCheckBox(.EsActivo)
             textboxNotas.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.Notas)
 
             ' Datos de la pestaña Hijos
@@ -153,7 +153,7 @@
             .IDEntidadPadre = CSM_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadPadre.Tag)
             .IDEntidadMadre = CSM_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadMadre.Tag)
             .EntidadFactura = CSM_ValueTranslation.FromControlComboBoxToObjectString(comboboxEntidadFactura.SelectedValue, "-")
-            .EsActivo = CSM_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxActivo.CheckState)
+            .EsActivo = CSM_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxEsActivo.CheckState)
             .Notas = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxNotas.Text.Trim)
         End With
     End Sub

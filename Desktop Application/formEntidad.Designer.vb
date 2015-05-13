@@ -50,6 +50,7 @@ Partial Class formEntidad
         Dim labelDomicilioCalle3 As System.Windows.Forms.Label
         Dim labelModificacion As System.Windows.Forms.Label
         Dim labelCreacion As System.Windows.Forms.Label
+        Dim labelEsActivo As System.Windows.Forms.Label
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -69,6 +70,11 @@ Partial Class formEntidad
         Me.pictureboxMain = New System.Windows.Forms.PictureBox()
         Me.tabcontrolMain = New System.Windows.Forms.TabControl()
         Me.tabpageGeneral = New System.Windows.Forms.TabPage()
+        Me.labelTipoProveedor = New System.Windows.Forms.Label()
+        Me.labelTipoFamiliar = New System.Windows.Forms.Label()
+        Me.labelTipoAlumno = New System.Windows.Forms.Label()
+        Me.labelTipoDocente = New System.Windows.Forms.Label()
+        Me.labelTipoPersonalColegio = New System.Windows.Forms.Label()
         Me.maskedtextboxCUIT_CUIL = New System.Windows.Forms.MaskedTextBox()
         Me.checkboxTipoAlumno = New System.Windows.Forms.CheckBox()
         Me.checkboxTipoDocente = New System.Windows.Forms.CheckBox()
@@ -109,7 +115,7 @@ Partial Class formEntidad
         Me.textboxEntidadPadre = New System.Windows.Forms.TextBox()
         Me.labelEntidadPadre = New System.Windows.Forms.Label()
         Me.textboxNotas = New System.Windows.Forms.TextBox()
-        Me.checkboxActivo = New System.Windows.Forms.CheckBox()
+        Me.checkboxEsActivo = New System.Windows.Forms.CheckBox()
         Me.tabpageHijos = New System.Windows.Forms.TabPage()
         Me.datagridviewHijos = New System.Windows.Forms.DataGridView()
         Me.columnHijosIDEntidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -123,6 +129,11 @@ Partial Class formEntidad
         Me.columnPadresRelacionTipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabpageCursosAsistidos = New System.Windows.Forms.TabPage()
         Me.datagridviewCursosAsistidos = New System.Windows.Forms.DataGridView()
+        Me.columnAnioLectivo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnNivelNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnAnioNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnTurnoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnDivision = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabpageAuditoria = New System.Windows.Forms.TabPage()
         Me.textboxUsuarioModificacion = New System.Windows.Forms.TextBox()
         Me.textboxUsuarioCreacion = New System.Windows.Forms.TextBox()
@@ -134,11 +145,6 @@ Partial Class formEntidad
         Me.buttonCancelar = New System.Windows.Forms.ToolStripButton()
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
         Me.tooltipMain = New System.Windows.Forms.ToolTip(Me.components)
-        Me.columnAnioLectivo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnNivelNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnAnioNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnTurnoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnDivision = New System.Windows.Forms.DataGridViewTextBoxColumn()
         labelApellido = New System.Windows.Forms.Label()
         labelIDEntidad = New System.Windows.Forms.Label()
         labelNombre = New System.Windows.Forms.Label()
@@ -165,6 +171,7 @@ Partial Class formEntidad
         labelDomicilioCalle3 = New System.Windows.Forms.Label()
         labelModificacion = New System.Windows.Forms.Label()
         labelCreacion = New System.Windows.Forms.Label()
+        labelEsActivo = New System.Windows.Forms.Label()
         CType(Me.pictureboxMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabcontrolMain.SuspendLayout()
         Me.tabpageGeneral.SuspendLayout()
@@ -188,7 +195,7 @@ Partial Class formEntidad
         labelApellido.Location = New System.Drawing.Point(75, 80)
         labelApellido.Name = "labelApellido"
         labelApellido.Size = New System.Drawing.Size(52, 13)
-        labelApellido.TabIndex = 2
+        labelApellido.TabIndex = 3
         labelApellido.Text = "Apellidos:"
         '
         'labelIDEntidad
@@ -197,7 +204,7 @@ Partial Class formEntidad
         labelIDEntidad.Location = New System.Drawing.Point(73, 52)
         labelIDEntidad.Name = "labelIDEntidad"
         labelIDEntidad.Size = New System.Drawing.Size(76, 13)
-        labelIDEntidad.TabIndex = 0
+        labelIDEntidad.TabIndex = 1
         labelIDEntidad.Text = "N° de Entidad:"
         '
         'labelNombre
@@ -206,7 +213,7 @@ Partial Class formEntidad
         labelNombre.Location = New System.Drawing.Point(75, 108)
         labelNombre.Name = "labelNombre"
         labelNombre.Size = New System.Drawing.Size(52, 13)
-        labelNombre.TabIndex = 4
+        labelNombre.TabIndex = 5
         labelNombre.Text = "Nombres:"
         '
         'labelDocumento
@@ -215,7 +222,7 @@ Partial Class formEntidad
         labelDocumento.Location = New System.Drawing.Point(6, 40)
         labelDocumento.Name = "labelDocumento"
         labelDocumento.Size = New System.Drawing.Size(65, 13)
-        labelDocumento.TabIndex = 6
+        labelDocumento.TabIndex = 11
         labelDocumento.Text = "Documento:"
         Me.tooltipMain.SetToolTip(labelDocumento, "Ingrese el Número de Documento sin utilizar puntos.")
         '
@@ -225,7 +232,7 @@ Partial Class formEntidad
         labelGenero.Location = New System.Drawing.Point(6, 70)
         labelGenero.Name = "labelGenero"
         labelGenero.Size = New System.Drawing.Size(45, 13)
-        labelGenero.TabIndex = 9
+        labelGenero.TabIndex = 14
         labelGenero.Text = "Género:"
         '
         'labelFechaNacimiento
@@ -234,7 +241,7 @@ Partial Class formEntidad
         labelFechaNacimiento.Location = New System.Drawing.Point(6, 100)
         labelFechaNacimiento.Name = "labelFechaNacimiento"
         labelFechaNacimiento.Size = New System.Drawing.Size(111, 13)
-        labelFechaNacimiento.TabIndex = 11
+        labelFechaNacimiento.TabIndex = 16
         labelFechaNacimiento.Text = "Fecha de Nacimiento:"
         '
         'labelCUIT_CUIL
@@ -243,7 +250,7 @@ Partial Class formEntidad
         labelCUIT_CUIL.Location = New System.Drawing.Point(6, 130)
         labelCUIT_CUIL.Name = "labelCUIT_CUIL"
         labelCUIT_CUIL.Size = New System.Drawing.Size(70, 13)
-        labelCUIT_CUIL.TabIndex = 13
+        labelCUIT_CUIL.TabIndex = 18
         labelCUIT_CUIL.Text = "CUIT / CUIL:"
         '
         'labelCategoriaIVA
@@ -252,7 +259,7 @@ Partial Class formEntidad
         labelCategoriaIVA.Location = New System.Drawing.Point(6, 160)
         labelCategoriaIVA.Name = "labelCategoriaIVA"
         labelCategoriaIVA.Size = New System.Drawing.Size(92, 13)
-        labelCategoriaIVA.TabIndex = 15
+        labelCategoriaIVA.TabIndex = 20
         labelCategoriaIVA.Text = "Categoría de IVA:"
         '
         'labelTelefono1
@@ -417,13 +424,22 @@ Partial Class formEntidad
         labelCreacion.TabIndex = 9
         labelCreacion.Text = "Creación:"
         '
+        'labelEsActivo
+        '
+        labelEsActivo.AutoSize = True
+        labelEsActivo.Location = New System.Drawing.Point(6, 91)
+        labelEsActivo.Name = "labelEsActivo"
+        labelEsActivo.Size = New System.Drawing.Size(40, 13)
+        labelEsActivo.TabIndex = 6
+        labelEsActivo.Text = "Activo:"
+        '
         'textboxApellido
         '
         Me.textboxApellido.Location = New System.Drawing.Point(155, 77)
         Me.textboxApellido.MaxLength = 100
         Me.textboxApellido.Name = "textboxApellido"
         Me.textboxApellido.Size = New System.Drawing.Size(371, 20)
-        Me.textboxApellido.TabIndex = 3
+        Me.textboxApellido.TabIndex = 4
         '
         'textboxIDEntidad
         '
@@ -432,7 +448,7 @@ Partial Class formEntidad
         Me.textboxIDEntidad.Name = "textboxIDEntidad"
         Me.textboxIDEntidad.ReadOnly = True
         Me.textboxIDEntidad.Size = New System.Drawing.Size(72, 20)
-        Me.textboxIDEntidad.TabIndex = 1
+        Me.textboxIDEntidad.TabIndex = 2
         Me.textboxIDEntidad.TabStop = False
         Me.textboxIDEntidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -442,7 +458,7 @@ Partial Class formEntidad
         Me.textboxNombre.MaxLength = 50
         Me.textboxNombre.Name = "textboxNombre"
         Me.textboxNombre.Size = New System.Drawing.Size(239, 20)
-        Me.textboxNombre.TabIndex = 5
+        Me.textboxNombre.TabIndex = 6
         '
         'pictureboxMain
         '
@@ -468,10 +484,15 @@ Partial Class formEntidad
         Me.tabcontrolMain.Name = "tabcontrolMain"
         Me.tabcontrolMain.SelectedIndex = 0
         Me.tabcontrolMain.Size = New System.Drawing.Size(514, 248)
-        Me.tabcontrolMain.TabIndex = 6
+        Me.tabcontrolMain.TabIndex = 7
         '
         'tabpageGeneral
         '
+        Me.tabpageGeneral.Controls.Add(Me.labelTipoProveedor)
+        Me.tabpageGeneral.Controls.Add(Me.labelTipoFamiliar)
+        Me.tabpageGeneral.Controls.Add(Me.labelTipoAlumno)
+        Me.tabpageGeneral.Controls.Add(Me.labelTipoDocente)
+        Me.tabpageGeneral.Controls.Add(Me.labelTipoPersonalColegio)
         Me.tabpageGeneral.Controls.Add(Me.maskedtextboxCUIT_CUIL)
         Me.tabpageGeneral.Controls.Add(labelTipo)
         Me.tabpageGeneral.Controls.Add(Me.checkboxTipoAlumno)
@@ -497,6 +518,51 @@ Partial Class formEntidad
         Me.tabpageGeneral.Text = "General"
         Me.tabpageGeneral.UseVisualStyleBackColor = True
         '
+        'labelTipoProveedor
+        '
+        Me.labelTipoProveedor.AutoSize = True
+        Me.labelTipoProveedor.Location = New System.Drawing.Point(435, 9)
+        Me.labelTipoProveedor.Name = "labelTipoProveedor"
+        Me.labelTipoProveedor.Size = New System.Drawing.Size(56, 13)
+        Me.labelTipoProveedor.TabIndex = 10
+        Me.labelTipoProveedor.Text = "Proveedor"
+        '
+        'labelTipoFamiliar
+        '
+        Me.labelTipoFamiliar.AutoSize = True
+        Me.labelTipoFamiliar.Location = New System.Drawing.Point(365, 9)
+        Me.labelTipoFamiliar.Name = "labelTipoFamiliar"
+        Me.labelTipoFamiliar.Size = New System.Drawing.Size(42, 13)
+        Me.labelTipoFamiliar.TabIndex = 8
+        Me.labelTipoFamiliar.Text = "Familiar"
+        '
+        'labelTipoAlumno
+        '
+        Me.labelTipoAlumno.AutoSize = True
+        Me.labelTipoAlumno.Location = New System.Drawing.Point(295, 9)
+        Me.labelTipoAlumno.Name = "labelTipoAlumno"
+        Me.labelTipoAlumno.Size = New System.Drawing.Size(42, 13)
+        Me.labelTipoAlumno.TabIndex = 6
+        Me.labelTipoAlumno.Text = "Alumno"
+        '
+        'labelTipoDocente
+        '
+        Me.labelTipoDocente.AutoSize = True
+        Me.labelTipoDocente.Location = New System.Drawing.Point(219, 9)
+        Me.labelTipoDocente.Name = "labelTipoDocente"
+        Me.labelTipoDocente.Size = New System.Drawing.Size(48, 13)
+        Me.labelTipoDocente.TabIndex = 4
+        Me.labelTipoDocente.Text = "Docente"
+        '
+        'labelTipoPersonalColegio
+        '
+        Me.labelTipoPersonalColegio.AutoSize = True
+        Me.labelTipoPersonalColegio.Location = New System.Drawing.Point(105, 9)
+        Me.labelTipoPersonalColegio.Name = "labelTipoPersonalColegio"
+        Me.labelTipoPersonalColegio.Size = New System.Drawing.Size(86, 13)
+        Me.labelTipoPersonalColegio.TabIndex = 2
+        Me.labelTipoPersonalColegio.Text = "Personal Colegio"
+        '
         'maskedtextboxCUIT_CUIL
         '
         Me.maskedtextboxCUIT_CUIL.AllowPromptAsInput = False
@@ -507,7 +573,7 @@ Partial Class formEntidad
         Me.maskedtextboxCUIT_CUIL.Mask = "00-00000000-0"
         Me.maskedtextboxCUIT_CUIL.Name = "maskedtextboxCUIT_CUIL"
         Me.maskedtextboxCUIT_CUIL.Size = New System.Drawing.Size(100, 20)
-        Me.maskedtextboxCUIT_CUIL.TabIndex = 14
+        Me.maskedtextboxCUIT_CUIL.TabIndex = 19
         Me.maskedtextboxCUIT_CUIL.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'checkboxTipoAlumno
@@ -515,9 +581,8 @@ Partial Class formEntidad
         Me.checkboxTipoAlumno.AutoSize = True
         Me.checkboxTipoAlumno.Location = New System.Drawing.Point(280, 9)
         Me.checkboxTipoAlumno.Name = "checkboxTipoAlumno"
-        Me.checkboxTipoAlumno.Size = New System.Drawing.Size(61, 17)
-        Me.checkboxTipoAlumno.TabIndex = 3
-        Me.checkboxTipoAlumno.Text = "Alumno"
+        Me.checkboxTipoAlumno.Size = New System.Drawing.Size(15, 14)
+        Me.checkboxTipoAlumno.TabIndex = 5
         Me.checkboxTipoAlumno.UseVisualStyleBackColor = True
         '
         'checkboxTipoDocente
@@ -525,9 +590,8 @@ Partial Class formEntidad
         Me.checkboxTipoDocente.AutoSize = True
         Me.checkboxTipoDocente.Location = New System.Drawing.Point(204, 9)
         Me.checkboxTipoDocente.Name = "checkboxTipoDocente"
-        Me.checkboxTipoDocente.Size = New System.Drawing.Size(67, 17)
-        Me.checkboxTipoDocente.TabIndex = 2
-        Me.checkboxTipoDocente.Text = "Docente"
+        Me.checkboxTipoDocente.Size = New System.Drawing.Size(15, 14)
+        Me.checkboxTipoDocente.TabIndex = 3
         Me.checkboxTipoDocente.UseVisualStyleBackColor = True
         '
         'checkboxTipoFamiliar
@@ -535,9 +599,8 @@ Partial Class formEntidad
         Me.checkboxTipoFamiliar.AutoSize = True
         Me.checkboxTipoFamiliar.Location = New System.Drawing.Point(350, 9)
         Me.checkboxTipoFamiliar.Name = "checkboxTipoFamiliar"
-        Me.checkboxTipoFamiliar.Size = New System.Drawing.Size(61, 17)
-        Me.checkboxTipoFamiliar.TabIndex = 4
-        Me.checkboxTipoFamiliar.Text = "Familiar"
+        Me.checkboxTipoFamiliar.Size = New System.Drawing.Size(15, 14)
+        Me.checkboxTipoFamiliar.TabIndex = 7
         Me.checkboxTipoFamiliar.UseVisualStyleBackColor = True
         '
         'checkboxTipoPersonalColegio
@@ -545,9 +608,8 @@ Partial Class formEntidad
         Me.checkboxTipoPersonalColegio.AutoSize = True
         Me.checkboxTipoPersonalColegio.Location = New System.Drawing.Point(90, 9)
         Me.checkboxTipoPersonalColegio.Name = "checkboxTipoPersonalColegio"
-        Me.checkboxTipoPersonalColegio.Size = New System.Drawing.Size(105, 17)
+        Me.checkboxTipoPersonalColegio.Size = New System.Drawing.Size(15, 14)
         Me.checkboxTipoPersonalColegio.TabIndex = 1
-        Me.checkboxTipoPersonalColegio.Text = "Personal Colegio"
         Me.checkboxTipoPersonalColegio.UseVisualStyleBackColor = True
         '
         'checkboxTipoProveedor
@@ -555,9 +617,8 @@ Partial Class formEntidad
         Me.checkboxTipoProveedor.AutoSize = True
         Me.checkboxTipoProveedor.Location = New System.Drawing.Point(420, 9)
         Me.checkboxTipoProveedor.Name = "checkboxTipoProveedor"
-        Me.checkboxTipoProveedor.Size = New System.Drawing.Size(75, 17)
-        Me.checkboxTipoProveedor.TabIndex = 5
-        Me.checkboxTipoProveedor.Text = "Proveedor"
+        Me.checkboxTipoProveedor.Size = New System.Drawing.Size(15, 14)
+        Me.checkboxTipoProveedor.TabIndex = 9
         Me.checkboxTipoProveedor.UseVisualStyleBackColor = True
         '
         'comboboxCategoriaIVA
@@ -567,7 +628,7 @@ Partial Class formEntidad
         Me.comboboxCategoriaIVA.Location = New System.Drawing.Point(123, 157)
         Me.comboboxCategoriaIVA.Name = "comboboxCategoriaIVA"
         Me.comboboxCategoriaIVA.Size = New System.Drawing.Size(200, 21)
-        Me.comboboxCategoriaIVA.TabIndex = 16
+        Me.comboboxCategoriaIVA.TabIndex = 21
         '
         'datetimepickerFechaNacimiento
         '
@@ -578,7 +639,7 @@ Partial Class formEntidad
         Me.datetimepickerFechaNacimiento.Name = "datetimepickerFechaNacimiento"
         Me.datetimepickerFechaNacimiento.ShowCheckBox = True
         Me.datetimepickerFechaNacimiento.Size = New System.Drawing.Size(148, 20)
-        Me.datetimepickerFechaNacimiento.TabIndex = 12
+        Me.datetimepickerFechaNacimiento.TabIndex = 17
         '
         'comboboxGenero
         '
@@ -587,7 +648,7 @@ Partial Class formEntidad
         Me.comboboxGenero.Location = New System.Drawing.Point(123, 67)
         Me.comboboxGenero.Name = "comboboxGenero"
         Me.comboboxGenero.Size = New System.Drawing.Size(102, 21)
-        Me.comboboxGenero.TabIndex = 10
+        Me.comboboxGenero.TabIndex = 15
         '
         'comboboxDocumentoTipo
         '
@@ -596,7 +657,7 @@ Partial Class formEntidad
         Me.comboboxDocumentoTipo.Location = New System.Drawing.Point(123, 37)
         Me.comboboxDocumentoTipo.Name = "comboboxDocumentoTipo"
         Me.comboboxDocumentoTipo.Size = New System.Drawing.Size(102, 21)
-        Me.comboboxDocumentoTipo.TabIndex = 7
+        Me.comboboxDocumentoTipo.TabIndex = 12
         '
         'textboxDocumentoNumero
         '
@@ -604,7 +665,7 @@ Partial Class formEntidad
         Me.textboxDocumentoNumero.MaxLength = 11
         Me.textboxDocumentoNumero.Name = "textboxDocumentoNumero"
         Me.textboxDocumentoNumero.Size = New System.Drawing.Size(115, 20)
-        Me.textboxDocumentoNumero.TabIndex = 8
+        Me.textboxDocumentoNumero.TabIndex = 13
         Me.tooltipMain.SetToolTip(Me.textboxDocumentoNumero, "Ingrese el Número de Documento sin utilizar puntos.")
         '
         'tabpageContacto
@@ -761,6 +822,7 @@ Partial Class formEntidad
         '
         'tabpageExtra
         '
+        Me.tabpageExtra.Controls.Add(labelEsActivo)
         Me.tabpageExtra.Controls.Add(Me.comboboxEntidadFactura)
         Me.tabpageExtra.Controls.Add(Me.labelEntidadFactura)
         Me.tabpageExtra.Controls.Add(Me.labelEntidadMadre)
@@ -769,7 +831,7 @@ Partial Class formEntidad
         Me.tabpageExtra.Controls.Add(Me.labelEntidadPadre)
         Me.tabpageExtra.Controls.Add(labelNotas)
         Me.tabpageExtra.Controls.Add(Me.textboxNotas)
-        Me.tabpageExtra.Controls.Add(Me.checkboxActivo)
+        Me.tabpageExtra.Controls.Add(Me.checkboxEsActivo)
         Me.tabpageExtra.Location = New System.Drawing.Point(4, 25)
         Me.tabpageExtra.Name = "tabpageExtra"
         Me.tabpageExtra.Padding = New System.Windows.Forms.Padding(3)
@@ -784,7 +846,7 @@ Partial Class formEntidad
         Me.comboboxEntidadFactura.FormattingEnabled = True
         Me.comboboxEntidadFactura.Location = New System.Drawing.Point(95, 64)
         Me.comboboxEntidadFactura.Name = "comboboxEntidadFactura"
-        Me.comboboxEntidadFactura.Size = New System.Drawing.Size(102, 21)
+        Me.comboboxEntidadFactura.Size = New System.Drawing.Size(137, 21)
         Me.comboboxEntidadFactura.TabIndex = 5
         '
         'labelEntidadFactura
@@ -909,15 +971,14 @@ Partial Class formEntidad
         Me.textboxNotas.Size = New System.Drawing.Size(405, 98)
         Me.textboxNotas.TabIndex = 8
         '
-        'checkboxActivo
+        'checkboxEsActivo
         '
-        Me.checkboxActivo.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.checkboxActivo.Location = New System.Drawing.Point(6, 91)
-        Me.checkboxActivo.Name = "checkboxActivo"
-        Me.checkboxActivo.Size = New System.Drawing.Size(103, 18)
-        Me.checkboxActivo.TabIndex = 6
-        Me.checkboxActivo.Text = "Activo"
-        Me.checkboxActivo.UseVisualStyleBackColor = True
+        Me.checkboxEsActivo.AutoSize = True
+        Me.checkboxEsActivo.Location = New System.Drawing.Point(95, 91)
+        Me.checkboxEsActivo.Name = "checkboxEsActivo"
+        Me.checkboxEsActivo.Size = New System.Drawing.Size(15, 14)
+        Me.checkboxEsActivo.TabIndex = 6
+        Me.checkboxEsActivo.UseVisualStyleBackColor = True
         '
         'tabpageHijos
         '
@@ -1099,6 +1160,57 @@ Partial Class formEntidad
         Me.datagridviewCursosAsistidos.Size = New System.Drawing.Size(500, 213)
         Me.datagridviewCursosAsistidos.TabIndex = 5
         '
+        'columnAnioLectivo
+        '
+        Me.columnAnioLectivo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnAnioLectivo.DataPropertyName = "AnioLectivo"
+        Me.columnAnioLectivo.HeaderText = "Año Lectivo"
+        Me.columnAnioLectivo.Name = "columnAnioLectivo"
+        Me.columnAnioLectivo.ReadOnly = True
+        Me.columnAnioLectivo.Width = 89
+        '
+        'columnNivelNombre
+        '
+        Me.columnNivelNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnNivelNombre.DataPropertyName = "NivelNombre"
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.columnNivelNombre.DefaultCellStyle = DataGridViewCellStyle10
+        Me.columnNivelNombre.HeaderText = "Nivel"
+        Me.columnNivelNombre.Name = "columnNivelNombre"
+        Me.columnNivelNombre.ReadOnly = True
+        Me.columnNivelNombre.Width = 56
+        '
+        'columnAnioNombre
+        '
+        Me.columnAnioNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnAnioNombre.DataPropertyName = "AnioNombre"
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnAnioNombre.DefaultCellStyle = DataGridViewCellStyle11
+        Me.columnAnioNombre.HeaderText = "Año"
+        Me.columnAnioNombre.Name = "columnAnioNombre"
+        Me.columnAnioNombre.ReadOnly = True
+        Me.columnAnioNombre.Width = 51
+        '
+        'columnTurnoNombre
+        '
+        Me.columnTurnoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnTurnoNombre.DataPropertyName = "TurnoNombre"
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnTurnoNombre.DefaultCellStyle = DataGridViewCellStyle12
+        Me.columnTurnoNombre.HeaderText = "Turno"
+        Me.columnTurnoNombre.Name = "columnTurnoNombre"
+        Me.columnTurnoNombre.ReadOnly = True
+        Me.columnTurnoNombre.Width = 60
+        '
+        'columnDivision
+        '
+        Me.columnDivision.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnDivision.DataPropertyName = "Division"
+        Me.columnDivision.HeaderText = "División"
+        Me.columnDivision.Name = "columnDivision"
+        Me.columnDivision.ReadOnly = True
+        Me.columnDivision.Width = 69
+        '
         'tabpageAuditoria
         '
         Me.tabpageAuditoria.Controls.Add(Me.textboxUsuarioModificacion)
@@ -1158,7 +1270,7 @@ Partial Class formEntidad
         Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
         Me.toolstripMain.Name = "toolstripMain"
         Me.toolstripMain.Size = New System.Drawing.Size(539, 39)
-        Me.toolstripMain.TabIndex = 94
+        Me.toolstripMain.TabIndex = 0
         '
         'buttonCerrar
         '
@@ -1199,57 +1311,6 @@ Partial Class formEntidad
         Me.buttonGuardar.Name = "buttonGuardar"
         Me.buttonGuardar.Size = New System.Drawing.Size(85, 36)
         Me.buttonGuardar.Text = "Guardar"
-        '
-        'columnAnioLectivo
-        '
-        Me.columnAnioLectivo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnAnioLectivo.DataPropertyName = "AnioLectivo"
-        Me.columnAnioLectivo.HeaderText = "Año Lectivo"
-        Me.columnAnioLectivo.Name = "columnAnioLectivo"
-        Me.columnAnioLectivo.ReadOnly = True
-        Me.columnAnioLectivo.Width = 89
-        '
-        'columnNivelNombre
-        '
-        Me.columnNivelNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnNivelNombre.DataPropertyName = "NivelNombre"
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.columnNivelNombre.DefaultCellStyle = DataGridViewCellStyle10
-        Me.columnNivelNombre.HeaderText = "Nivel"
-        Me.columnNivelNombre.Name = "columnNivelNombre"
-        Me.columnNivelNombre.ReadOnly = True
-        Me.columnNivelNombre.Width = 56
-        '
-        'columnAnioNombre
-        '
-        Me.columnAnioNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnAnioNombre.DataPropertyName = "AnioNombre"
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnAnioNombre.DefaultCellStyle = DataGridViewCellStyle11
-        Me.columnAnioNombre.HeaderText = "Año"
-        Me.columnAnioNombre.Name = "columnAnioNombre"
-        Me.columnAnioNombre.ReadOnly = True
-        Me.columnAnioNombre.Width = 51
-        '
-        'columnTurnoNombre
-        '
-        Me.columnTurnoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnTurnoNombre.DataPropertyName = "TurnoNombre"
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnTurnoNombre.DefaultCellStyle = DataGridViewCellStyle12
-        Me.columnTurnoNombre.HeaderText = "Turno"
-        Me.columnTurnoNombre.Name = "columnTurnoNombre"
-        Me.columnTurnoNombre.ReadOnly = True
-        Me.columnTurnoNombre.Width = 60
-        '
-        'columnDivision
-        '
-        Me.columnDivision.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnDivision.DataPropertyName = "Division"
-        Me.columnDivision.HeaderText = "División"
-        Me.columnDivision.Name = "columnDivision"
-        Me.columnDivision.ReadOnly = True
-        Me.columnDivision.Width = 69
         '
         'formEntidad
         '
@@ -1322,7 +1383,7 @@ Partial Class formEntidad
     Friend WithEvents textboxTelefono3 As System.Windows.Forms.TextBox
     Friend WithEvents tabpageExtra As System.Windows.Forms.TabPage
     Friend WithEvents textboxNotas As System.Windows.Forms.TextBox
-    Friend WithEvents checkboxActivo As System.Windows.Forms.CheckBox
+    Friend WithEvents checkboxEsActivo As System.Windows.Forms.CheckBox
     Friend WithEvents comboboxDomicilioProvincia As System.Windows.Forms.ComboBox
     Friend WithEvents comboboxDomicilioLocalidad As System.Windows.Forms.ComboBox
     Friend WithEvents checkboxTipoAlumno As System.Windows.Forms.CheckBox
@@ -1374,4 +1435,9 @@ Partial Class formEntidad
     Friend WithEvents columnAnioNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnTurnoNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnDivision As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents labelTipoProveedor As System.Windows.Forms.Label
+    Friend WithEvents labelTipoFamiliar As System.Windows.Forms.Label
+    Friend WithEvents labelTipoAlumno As System.Windows.Forms.Label
+    Friend WithEvents labelTipoDocente As System.Windows.Forms.Label
+    Friend WithEvents labelTipoPersonalColegio As System.Windows.Forms.Label
 End Class

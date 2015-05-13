@@ -53,7 +53,7 @@ Public Class formGenerarLoteFacturas
         panelPaso3.Visible = (Paso = 3)
     End Sub
 
-#Region "Paso 1 - TreeView de Niveles - Cursos - Alumnos"
+#Region "Paso 1 - Selección - TreeView de Niveles - Cursos - Alumnos"
     Private Sub FillTreeViewNiveles()
         Dim NewNode As TreeNode
 
@@ -169,7 +169,7 @@ Public Class formGenerarLoteFacturas
     End Sub
 #End Region
 
-#Region "Paso 1 - TreeView de Padres - Alumnos"
+#Region "Paso 1 - Selección - TreeView de Padres - Alumnos"
     Private Sub FillTreeViewPadres()
         Dim NewNode As TreeNode
 
@@ -240,7 +240,7 @@ Public Class formGenerarLoteFacturas
     End Sub
 #End Region
 
-#Region "Paso 1 - Botones"
+#Region "Paso 1 - Selección - Botones"
     Private Sub buttonPaso1Cancelar_Click() Handles buttonPaso1Cancelar.Click
         Me.Close()
     End Sub
@@ -252,10 +252,8 @@ Public Class formGenerarLoteFacturas
     End Sub
 #End Region
 
-#Region "Paso 2"
+#Region "Paso 2 - Verificación"
     Private Sub VerificarEntidades()
-        ' TODO: Verificar que el mismo Alumno no esté en 2 cursos a la vez
-
         Me.Cursor = Cursors.WaitCursor
 
         listEntidadesSeleccionadasOk = New List(Of Entidad)
@@ -331,39 +329,61 @@ Public Class formGenerarLoteFacturas
         Dim CorregirEntidad As Boolean = False
         Dim CorreccionDescripcion As String = ""
 
-        Const CORRECCION_DESCRIPCION_NOESALUMNO As String = "No es una Entidad del tipo Alumno."
-        Const CORRECCION_DESCRIPCION_NOESPECIFICAENTIDADFACTURA As String = "No está especificado a quién se le factura."
-        Const CORRECCION_DESCRIPCION_NOESPECIFICAPADRE As String = "Se indica que se facture a nombre del Padre, pero no se especifica el mismo."
-        Const CORRECCION_DESCRIPCION_NOESPECIFICAMADRE As String = "Se indica que se facture a nombre de la Madre, pero no se especifica la misma."
-        Const CORRECCION_DESCRIPCION_NOESPECIFICACATEGORIAIVA As String = "La Entidad a la que se le va a facturar, no tiene especificada la Categoría de IVA."
-
         If EntidadActual.TipoAlumno = False Then
             CorregirEntidad = True
-            CorreccionDescripcion &= CORRECCION_DESCRIPCION_NOESALUMNO & vbCrLf
+            CorreccionDescripcion &= "No es una Entidad del tipo Alumno." & vbCrLf
+        End If
+        If EntidadActual.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = AnioLectivo).Count > 1 Then
+            CorregirEntidad = True
+            CorreccionDescripcion &= "El Alumno está cargado en más de un curso para el Año Lectivo que se va a facturar." & vbCrLf
         End If
         If EntidadActual.EntidadFactura Is Nothing Then
             CorregirEntidad = True
-            CorreccionDescripcion &= CORRECCION_DESCRIPCION_NOESPECIFICAENTIDADFACTURA & vbCrLf
+            CorreccionDescripcion &= "No está especificado a quién se le factura." & vbCrLf
         ElseIf EntidadActual.EntidadFactura = "A" Then
+            ' Se le factura al Alumno
             If EntidadActual.IDCategoriaIVA Is Nothing Then
                 CorregirEntidad = True
-                CorreccionDescripcion &= CORRECCION_DESCRIPCION_NOESPECIFICACATEGORIAIVA & vbCrLf
+                CorreccionDescripcion &= "El Alumno no tiene especificada la Categoría de IVA." & vbCrLf
             End If
         ElseIf EntidadActual.EntidadFactura = "P" Then
+            ' Se le factura al Padre
             If EntidadActual.IDEntidadPadre Is Nothing Then
                 CorregirEntidad = True
-                CorreccionDescripcion &= CORRECCION_DESCRIPCION_NOESPECIFICAPADRE & vbCrLf
+                CorreccionDescripcion &= "Se indica que se facture al Padre, pero no se especifica el mismo." & vbCrLf
             ElseIf EntidadActual.EntidadPadre.IDCategoriaIVA Is Nothing Then
                 CorregirEntidad = True
-                CorreccionDescripcion &= CORRECCION_DESCRIPCION_NOESPECIFICACATEGORIAIVA & vbCrLf
+                CorreccionDescripcion &= "El Padre no tiene especificada la Categoría de IVA." & vbCrLf
             End If
         ElseIf EntidadActual.EntidadFactura = "M" Then
+            ' Se le factura a la Madre
             If EntidadActual.IDEntidadMadre Is Nothing Then
                 CorregirEntidad = True
-                CorreccionDescripcion &= CORRECCION_DESCRIPCION_NOESPECIFICAMADRE & vbCrLf
+                CorreccionDescripcion &= "Se indica que se facture a la Madre, pero no se especifica la misma." & vbCrLf
             ElseIf EntidadActual.EntidadMadre.IDCategoriaIVA Is Nothing Then
                 CorregirEntidad = True
-                CorreccionDescripcion &= CORRECCION_DESCRIPCION_NOESPECIFICACATEGORIAIVA & vbCrLf
+                CorreccionDescripcion &= "La Madre no tiene especificada la Categoría de IVA." & vbCrLf
+            End If
+        ElseIf EntidadActual.EntidadFactura = "2" Then
+            ' Se le factura a ambos Padres (50% a cada uno)
+            If EntidadActual.IDEntidadPadre Is Nothing And EntidadActual.IDEntidadMadre Is Nothing Then
+                CorregirEntidad = True
+                CorreccionDescripcion &= "Se indica que se facture a ambos Padres, pero no se especifica ninguno de los dos." & vbCrLf
+            Else
+                If EntidadActual.IDEntidadPadre Is Nothing Then
+                    CorregirEntidad = True
+                    CorreccionDescripcion &= "Se indica que se facture a ambos Padres, pero no se especifica el Padre." & vbCrLf
+                ElseIf EntidadActual.EntidadPadre.IDCategoriaIVA Is Nothing Then
+                    CorregirEntidad = True
+                    CorreccionDescripcion &= "El Padre no tiene especificada la Categoría de IVA." & vbCrLf
+                End If
+                If EntidadActual.IDEntidadMadre Is Nothing Then
+                    CorregirEntidad = True
+                    CorreccionDescripcion &= "Se indica que se facture a ambos Padres, pero no se especifica la Madre." & vbCrLf
+                ElseIf EntidadActual.EntidadMadre.IDCategoriaIVA Is Nothing Then
+                    CorregirEntidad = True
+                    CorreccionDescripcion &= "La Madre no tiene especificada la Categoría de IVA." & vbCrLf
+                End If
             End If
         End If
 
@@ -421,7 +441,7 @@ Public Class formGenerarLoteFacturas
                 Dim Brush As New SolidBrush(Color.Black)
                 e.Graphics.DrawString(CellValue, New Font("Century Gothic", 10), Brush, CellLeftPos, CellTopPos)
                 If Cell = 3 Then
-                    CellWidth = CInt(CellWidth * 1.2)
+                    CellWidth = CInt(CellWidth * 1.3)
                 End If
                 e.Graphics.DrawRectangle(Pens.Black, CellLeftPos, CellTopPos, CellWidth, CellHeight)
 
@@ -443,7 +463,7 @@ Public Class formGenerarLoteFacturas
     End Sub
 #End Region
 
-#Region "Paso 3"
+#Region "Paso 3 - Confirmación"
     Private Sub GeneraArbolDeEntidadesConAlumnos()
         Dim EntidadYAlumnosAFacturarActual As EntidadYAlumnosAFacturar
 
@@ -489,6 +509,36 @@ Public Class formGenerarLoteFacturas
                     Else
                         EntidadYAlumnosAFacturarActual.Alumnos.Add(EntidadAlumno)
                     End If
+                Case "2"
+                    ' Se factura a los 2 Padres (50% a cada uno)
+
+                    ' Busco si no está cargado el Padre en la lista (por otro Alumno)
+                    EntidadYAlumnosAFacturarActual = listEntidadesYAlumnosAFacturar.Find(Function(eaf) eaf.IDEntidad = EntidadAlumno.EntidadPadre.IDEntidad)
+                    If EntidadYAlumnosAFacturarActual Is Nothing Then
+                        ' No existe el Padre
+                        EntidadYAlumnosAFacturarActual = New EntidadYAlumnosAFacturar
+                        EntidadYAlumnosAFacturarActual.IDEntidad = EntidadAlumno.EntidadPadre.IDEntidad
+                        EntidadYAlumnosAFacturarActual.ApellidoNombre = EntidadAlumno.EntidadPadre.ApellidoNombre
+                        EntidadYAlumnosAFacturarActual.TitularFactura = EntidadAlumno.EntidadPadre
+                        EntidadYAlumnosAFacturarActual.Alumnos.Add(EntidadAlumno)
+                        listEntidadesYAlumnosAFacturar.Add(EntidadYAlumnosAFacturarActual)
+                    Else
+                        EntidadYAlumnosAFacturarActual.Alumnos.Add(EntidadAlumno)
+                    End If
+
+                    ' Busco si no está cargada la Madre en la lista (por otro Alumno)
+                    EntidadYAlumnosAFacturarActual = listEntidadesYAlumnosAFacturar.Find(Function(eaf) eaf.IDEntidad = EntidadAlumno.EntidadMadre.IDEntidad)
+                    If EntidadYAlumnosAFacturarActual Is Nothing Then
+                        ' No existe la Madre
+                        EntidadYAlumnosAFacturarActual = New EntidadYAlumnosAFacturar
+                        EntidadYAlumnosAFacturarActual.IDEntidad = EntidadAlumno.EntidadMadre.IDEntidad
+                        EntidadYAlumnosAFacturarActual.ApellidoNombre = EntidadAlumno.EntidadMadre.ApellidoNombre
+                        EntidadYAlumnosAFacturarActual.TitularFactura = EntidadAlumno.EntidadMadre
+                        EntidadYAlumnosAFacturarActual.Alumnos.Add(EntidadAlumno)
+                        listEntidadesYAlumnosAFacturar.Add(EntidadYAlumnosAFacturarActual)
+                    Else
+                        EntidadYAlumnosAFacturarActual.Alumnos.Add(EntidadAlumno)
+                    End If
             End Select
         Next
 
@@ -509,8 +559,15 @@ Public Class formGenerarLoteFacturas
             EntidadesCount += 1
             EntidadNode = New TreeNode(EntidadYAlumnosAFacturarActual.TitularFactura.ApellidoNombre)
             For Each AlumnoActual As Entidad In EntidadYAlumnosAFacturarActual.Alumnos
-                AlumnosCount += 1
-                EntidadNode.Nodes.Add(New TreeNode(AlumnoActual.ApellidoNombre))
+                If AlumnoActual.EntidadFactura = "2" Then
+                    If EntidadYAlumnosAFacturarActual.TitularFactura Is AlumnoActual.EntidadPadre Then
+                        AlumnosCount += 1
+                    End If
+                    EntidadNode.Nodes.Add(New TreeNode(AlumnoActual.ApellidoNombre & " - (50%)"))
+                Else
+                    AlumnosCount += 1
+                    EntidadNode.Nodes.Add(New TreeNode(AlumnoActual.ApellidoNombre))
+                End If
             Next
             treeviewPaso3.Nodes.Add(EntidadNode)
         Next
@@ -529,6 +586,12 @@ Public Class formGenerarLoteFacturas
 
     Private Sub buttonPaso3Siguiente_Click() Handles buttonPaso3Siguiente.Click
         MostrarPaneles(4)
+    End Sub
+#End Region
+
+#Region "Paso 4 - Emisión"
+    Private Sub EmitirComprobantes()
+
     End Sub
 #End Region
 

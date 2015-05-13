@@ -164,6 +164,11 @@
             datatableEntidadFactura.Rows.Add(datarowRow)
 
             datarowRow = .NewRow
+            datarowRow("IDEntidadFactura") = "2"
+            datarowRow("Nombre") = My.Resources.STRING_ENTIDADFACTURA_AMBOSPADRES
+            datatableEntidadFactura.Rows.Add(datarowRow)
+            datarowRow = .NewRow
+
             datarowRow("IDEntidadFactura") = "A"
             datarowRow("Nombre") = My.Resources.STRING_ENTIDADFACTURA_ALUMNO
             datatableEntidadFactura.Rows.Add(datarowRow)

@@ -39,7 +39,7 @@ Partial Class TempDepot
         Me.panelPaso4.Controls.Add(Me.labelPaso4Titulo)
         Me.panelPaso4.Controls.Add(Me.buttonPaso4Anterior)
         Me.panelPaso4.Controls.Add(Me.buttonPaso4Siguiente)
-        Me.panelPaso4.Location = New System.Drawing.Point(647, 12)
+        Me.panelPaso4.Location = New System.Drawing.Point(12, 12)
         Me.panelPaso4.Name = "panelPaso4"
         Me.panelPaso4.Size = New System.Drawing.Size(294, 237)
         Me.panelPaso4.TabIndex = 102
@@ -86,7 +86,7 @@ Partial Class TempDepot
         Me.panelPaso5.Controls.Add(Me.labelPaso5Titulo)
         Me.panelPaso5.Controls.Add(Me.buttonPaso5Anterior)
         Me.panelPaso5.Controls.Add(Me.buttonPaso5Siguiente)
-        Me.panelPaso5.Location = New System.Drawing.Point(963, 12)
+        Me.panelPaso5.Location = New System.Drawing.Point(312, 12)
         Me.panelPaso5.Name = "panelPaso5"
         Me.panelPaso5.Size = New System.Drawing.Size(294, 237)
         Me.panelPaso5.TabIndex = 103
@@ -132,7 +132,7 @@ Partial Class TempDepot
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1272, 265)
+        Me.ClientSize = New System.Drawing.Size(617, 265)
         Me.Controls.Add(Me.panelPaso5)
         Me.Controls.Add(Me.panelPaso4)
         Me.Name = "TempDepot"
