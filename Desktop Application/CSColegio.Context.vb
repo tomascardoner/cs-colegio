@@ -51,5 +51,11 @@ Partial Public Class CSColegioContext
     Public Overridable Property ComprobanteDetalle() As DbSet(Of ComprobanteDetalle)
     Public Overridable Property UsuarioGrupoPermiso() As DbSet(Of UsuarioGrupoPermiso)
     Public Overridable Property AnioLectivoCurso() As DbSet(Of AnioLectivoCurso)
+    Public Overridable Property Concepto() As DbSet(Of Concepto)
+    Public Overridable Property CondicionIVA() As DbSet(Of CondicionIVA)
+    Public Overridable Property ImpuestoOtro() As DbSet(Of ImpuestoOtro)
+    Public Overridable Property Moneda() As DbSet(Of Moneda)
+    Public Overridable Property UnidadMedida() As DbSet(Of UnidadMedida)
+    Public Overridable Property Descuento() As DbSet(Of Descuento)
 
 End Class

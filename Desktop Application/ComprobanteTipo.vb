@@ -20,6 +20,7 @@ Partial Public Class ComprobanteTipo
     Public Property FechaHoraCreacion As Date
     Public Property IDUsuarioModificacion As Byte
     Public Property FechaHoraModificacion As Date
+    Public Property CodigoAFIP As Byte
 
     Public Overridable Property ComprobanteCabecera As ICollection(Of ComprobanteCabecera) = New HashSet(Of ComprobanteCabecera)
 

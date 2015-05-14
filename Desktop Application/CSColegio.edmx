@@ -96,7 +96,7 @@
           <Key>
             <PropertyRef Name="IDComprobante" />
           </Key>
-          <Property Name="IDComprobante" Type="int" Nullable="false" />
+          <Property Name="IDComprobante" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IDComprobanteTipo" Type="tinyint" Nullable="false" />
           <Property Name="ComprobanteNumero" Type="char" MaxLength="13" Nullable="false" />
           <Property Name="Fecha" Type="date" Nullable="false" />
@@ -112,7 +112,7 @@
           <Property Name="DomicilioCalle2" Type="varchar" MaxLength="50" />
           <Property Name="DomicilioCalle3" Type="varchar" MaxLength="50" />
           <Property Name="DomicilioCodigoPostal" Type="varchar" MaxLength="8" />
-          <Property Name="DomicilioIDProvincia" Type="char" MaxLength="1" />
+          <Property Name="DomicilioIDProvincia" Type="tinyint" />
           <Property Name="DomicilioIDLocalidad" Type="smallint" />
           <Property Name="ImporteNeto" Type="money" Nullable="false" />
           <Property Name="ImporteImpuesto" Type="money" Nullable="false" />
@@ -160,11 +160,28 @@
           <Property Name="OperacionTipo" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="Sigla" Type="char" MaxLength="3" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CodigoAFIP" Type="tinyint" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
           <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Concepto">
+          <Key>
+            <PropertyRef Name="IDConcepto" />
+          </Key>
+          <Property Name="IDConcepto" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CondicionIVA">
+          <Key>
+            <PropertyRef Name="IDCondicionIVA" />
+          </Key>
+          <Property Name="IDCondicionIVA" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Curso">
           <Key>
@@ -179,6 +196,16 @@
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
           <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Descuento">
+          <Key>
+            <PropertyRef Name="IDDescuento" />
+          </Key>
+          <Property Name="IDDescuento" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NombreCompleto" Type="varchar" MaxLength="8000" StoreGeneratedPattern="Computed" />
+          <Property Name="Porcentaje" Type="decimal" Precision="3" Scale="1" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="DocumentoTipo">
           <Key>
@@ -219,11 +246,12 @@
           <Property Name="DomicilioCalle2" Type="varchar" MaxLength="50" />
           <Property Name="DomicilioCalle3" Type="varchar" MaxLength="50" />
           <Property Name="DomicilioCodigoPostal" Type="varchar" MaxLength="8" />
-          <Property Name="DomicilioIDProvincia" Type="char" MaxLength="1" />
+          <Property Name="DomicilioIDProvincia" Type="tinyint" />
           <Property Name="DomicilioIDLocalidad" Type="smallint" />
           <Property Name="IDEntidadPadre" Type="int" />
           <Property Name="IDEntidadMadre" Type="int" />
           <Property Name="EntidadFactura" Type="char" MaxLength="1" />
+          <Property Name="IDDescuento" Type="tinyint" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="Notas" Type="varchar(max)" />
           <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
@@ -268,12 +296,20 @@
           <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="ImpuestoOtro">
+          <Key>
+            <PropertyRef Name="IDImpuestoOtro" />
+          </Key>
+          <Property Name="IDImpuestoOtro" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Localidad">
           <Key>
             <PropertyRef Name="IDProvincia" />
             <PropertyRef Name="IDLocalidad" />
           </Key>
-          <Property Name="IDProvincia" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="IDProvincia" Type="tinyint" Nullable="false" />
           <Property Name="IDLocalidad" Type="smallint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="CodigoPostal" Type="char" MaxLength="4" />
@@ -300,6 +336,16 @@
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
           <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Moneda">
+          <Key>
+            <PropertyRef Name="IDMoneda" />
+          </Key>
+          <Property Name="IDMoneda" Type="smallint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Simbolo" Type="varchar" MaxLength="10" />
+          <Property Name="CodigoAFIP" Type="char" MaxLength="3" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Movimiento">
           <Key>
@@ -359,7 +405,7 @@
           <Key>
             <PropertyRef Name="IDProvincia" />
           </Key>
-          <Property Name="IDProvincia" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="IDProvincia" Type="tinyint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="RelacionTipo">
@@ -385,6 +431,15 @@
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
           <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnidadMedida">
+          <Key>
+            <PropertyRef Name="IDUnidadMedida" />
+          </Key>
+          <Property Name="IDUnidadMedida" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Abreviatura" Type="varchar" MaxLength="10" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -527,6 +582,18 @@
             </Principal>
             <Dependent Role="ComprobanteCabecera">
               <PropertyRef Name="IDComprobanteTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Descuento__Entidad">
+          <End Role="Descuento" Type="Self.Descuento" Multiplicity="0..1" />
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Descuento">
+              <PropertyRef Name="IDDescuento" />
+            </Principal>
+            <Dependent Role="Entidad">
+              <PropertyRef Name="IDDescuento" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -750,15 +817,20 @@
           <EntitySet Name="ComprobanteDetalle" EntityType="Self.ComprobanteDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteImpuesto" EntityType="Self.ComprobanteImpuesto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteTipo" EntityType="Self.ComprobanteTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Concepto" EntityType="Self.Concepto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CondicionIVA" EntityType="Self.CondicionIVA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Descuento" EntityType="Self.Descuento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DocumentoTipo" EntityType="Self.DocumentoTipo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Entidad" EntityType="Self.Entidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EntidadAnioLectivoCurso" EntityType="Self.EntidadAnioLectivoCurso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EntidadEntidad" EntityType="Self.EntidadEntidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Impuesto" EntityType="Self.Impuesto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImpuestoOtro" EntityType="Self.ImpuestoOtro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Localidad" EntityType="Self.Localidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MedioPago" EntityType="Self.MedioPago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Moneda" EntityType="Self.Moneda" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Movimiento" EntityType="Self.Movimiento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MovimientoGrupo" EntityType="Self.MovimientoGrupo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Nivel" EntityType="Self.Nivel" Schema="dbo" store:Type="Tables" />
@@ -766,6 +838,7 @@
           <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelacionTipo" EntityType="Self.RelacionTipo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Turno" EntityType="Self.Turno" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnidadMedida" EntityType="Self.UnidadMedida" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsuarioGrupo" EntityType="Self.UsuarioGrupo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsuarioGrupoPermiso" EntityType="Self.UsuarioGrupoPermiso" Schema="dbo" store:Type="Tables" />
@@ -804,6 +877,10 @@
           <AssociationSet Name="FK__ComprobanteTipo__ComprobanteCabecera" Association="Self.FK__ComprobanteTipo__ComprobanteCabecera">
             <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
             <End Role="ComprobanteCabecera" EntitySet="ComprobanteCabecera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Descuento__Entidad" Association="Self.FK__Descuento__Entidad">
+            <End Role="Descuento" EntitySet="Descuento" />
+            <End Role="Entidad" EntitySet="Entidad" />
           </AssociationSet>
           <AssociationSet Name="FK__DocumentoTipo__Entidad" Association="Self.FK__DocumentoTipo__Entidad">
             <End Role="DocumentoTipo" EntitySet="DocumentoTipo" />
@@ -1020,11 +1097,12 @@
           <Property Name="DomicilioCalle2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DomicilioCalle3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DomicilioCodigoPostal" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="DomicilioIDProvincia" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="DomicilioIDProvincia" Type="Byte" />
           <Property Name="DomicilioIDLocalidad" Type="Int16" />
           <Property Name="IDEntidadPadre" Type="Int32" />
           <Property Name="IDEntidadMadre" Type="Int32" />
           <Property Name="EntidadFactura" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="IDDescuento" Type="Byte" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
@@ -1044,6 +1122,7 @@
           <NavigationProperty Name="EntidadPadreHijas" Relationship="CSColegioModel.FK__Entidad__EntidadPadre" FromRole="Entidad" ToRole="Entidad1" />
           <NavigationProperty Name="EntidadPadre" Relationship="CSColegioModel.FK__Entidad__EntidadPadre" FromRole="Entidad1" ToRole="Entidad" />
           <NavigationProperty Name="AniosLectivosCursos" Relationship="CSColegioModel.EntidadAnioLectivoCurso" FromRole="Entidad" ToRole="AnioLectivoCurso" />
+          <NavigationProperty Name="Descuento" Relationship="CSColegioModel.FK__Descuento__Entidad" FromRole="Entidad" ToRole="Descuento" />
         </EntityType>
         <EntityType Name="EntidadEntidad">
           <Key>
@@ -1067,7 +1146,7 @@
             <PropertyRef Name="IDProvincia" />
             <PropertyRef Name="IDLocalidad" />
           </Key>
-          <Property Name="IDProvincia" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IDProvincia" Type="Byte" Nullable="false" />
           <Property Name="IDLocalidad" Type="Int16" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CodigoPostal" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
@@ -1161,7 +1240,7 @@
           <Key>
             <PropertyRef Name="IDProvincia" />
           </Key>
-          <Property Name="IDProvincia" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IDProvincia" Type="Byte" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Localidad" Relationship="Self.FK__Provincia__Localidad" FromRole="Provincia" ToRole="Localidad" />
         </EntityType>
@@ -1540,6 +1619,16 @@
             <End Role="Curso" EntitySet="Curso" />
             <End Role="AnioLectivoCurso" EntitySet="AnioLectivoCurso" />
           </AssociationSet>
+          <EntitySet Name="Concepto" EntityType="CSColegioModel.Concepto" />
+          <EntitySet Name="CondicionIVA" EntityType="CSColegioModel.CondicionIVA" />
+          <EntitySet Name="ImpuestoOtro" EntityType="CSColegioModel.ImpuestoOtro" />
+          <EntitySet Name="Moneda" EntityType="CSColegioModel.Moneda" />
+          <EntitySet Name="UnidadMedida" EntityType="CSColegioModel.UnidadMedida" />
+          <EntitySet Name="Descuento" EntityType="CSColegioModel.Descuento" />
+          <AssociationSet Name="FK__Descuento__Entidad" Association="CSColegioModel.FK__Descuento__Entidad">
+            <End Role="Descuento" EntitySet="Descuento" />
+            <End Role="Entidad" EntitySet="Entidad" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
           <Key>
@@ -1566,6 +1655,7 @@
           <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ComprobanteCabecera" Relationship="CSColegioModel.FK__ComprobanteTipo__ComprobanteCabecera" FromRole="ComprobanteTipo" ToRole="ComprobanteCabecera" />
+          <Property Name="CodigoAFIP" Type="Byte" Nullable="false" />
         </EntityType>
         <EntityType Name="Impuesto">
           <Key>
@@ -1615,7 +1705,7 @@
           <Property Name="DomicilioCalle2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DomicilioCalle3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DomicilioCodigoPostal" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="DomicilioIDProvincia" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="DomicilioIDProvincia" Type="Byte" />
           <Property Name="DomicilioIDLocalidad" Type="Int16" />
           <Property Name="ImporteNeto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="ImporteImpuesto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
@@ -1836,6 +1926,72 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Concepto">
+          <Key>
+            <PropertyRef Name="IDConcepto" />
+          </Key>
+          <Property Name="IDConcepto" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CondicionIVA">
+          <Key>
+            <PropertyRef Name="IDCondicionIVA" />
+          </Key>
+          <Property Name="IDCondicionIVA" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ImpuestoOtro">
+          <Key>
+            <PropertyRef Name="IDImpuestoOtro" />
+          </Key>
+          <Property Name="IDImpuestoOtro" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Moneda">
+          <Key>
+            <PropertyRef Name="IDMoneda" />
+          </Key>
+          <Property Name="IDMoneda" Type="Int16" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Simbolo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoAFIP" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnidadMedida">
+          <Key>
+            <PropertyRef Name="IDUnidadMedida" />
+          </Key>
+          <Property Name="IDUnidadMedida" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Abreviatura" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Descuento">
+          <Key>
+            <PropertyRef Name="IDDescuento" />
+          </Key>
+          <Property Name="IDDescuento" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NombreCompleto" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Porcentaje" Type="Decimal" Nullable="false" Precision="3" Scale="1" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Entidad" Relationship="CSColegioModel.FK__Descuento__Entidad" FromRole="Descuento" ToRole="Entidad" />
+        </EntityType>
+        <Association Name="FK__Descuento__Entidad">
+          <End Type="CSColegioModel.Descuento" Role="Descuento" Multiplicity="0..1" />
+          <End Type="CSColegioModel.Entidad" Role="Entidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Descuento">
+              <PropertyRef Name="IDDescuento" />
+            </Principal>
+            <Dependent Role="Entidad">
+              <PropertyRef Name="IDDescuento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1952,6 +2108,7 @@
           <EntitySetMapping Name="Entidad">
             <EntityTypeMapping TypeName="CSColegioModel.Entidad">
               <MappingFragment StoreEntitySet="Entidad">
+                <ScalarProperty Name="IDDescuento" ColumnName="IDDescuento" />
                 <ScalarProperty Name="ApellidoNombre" ColumnName="ApellidoNombre" />
                 <ScalarProperty Name="EntidadFactura" ColumnName="EntidadFactura" />
                 <ScalarProperty Name="IDEntidadMadre" ColumnName="IDEntidadMadre" />
@@ -2176,6 +2333,7 @@
           <EntitySetMapping Name="ComprobanteTipo">
             <EntityTypeMapping TypeName="CSColegioModel.ComprobanteTipo">
               <MappingFragment StoreEntitySet="ComprobanteTipo">
+                <ScalarProperty Name="CodigoAFIP" ColumnName="CodigoAFIP" />
                 <ScalarProperty Name="OperacionTipo" ColumnName="OperacionTipo" />
                 <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
                 <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
@@ -2283,6 +2441,65 @@
               <ScalarProperty Name="IDAnioLectivoCurso" ColumnName="IDAnioLectivoCurso" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Concepto">
+            <EntityTypeMapping TypeName="CSColegioModel.Concepto">
+              <MappingFragment StoreEntitySet="Concepto">
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDConcepto" ColumnName="IDConcepto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CondicionIVA">
+            <EntityTypeMapping TypeName="CSColegioModel.CondicionIVA">
+              <MappingFragment StoreEntitySet="CondicionIVA">
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDCondicionIVA" ColumnName="IDCondicionIVA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImpuestoOtro">
+            <EntityTypeMapping TypeName="CSColegioModel.ImpuestoOtro">
+              <MappingFragment StoreEntitySet="ImpuestoOtro">
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDImpuestoOtro" ColumnName="IDImpuestoOtro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Moneda">
+            <EntityTypeMapping TypeName="CSColegioModel.Moneda">
+              <MappingFragment StoreEntitySet="Moneda">
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="CodigoAFIP" ColumnName="CodigoAFIP" />
+                <ScalarProperty Name="Simbolo" ColumnName="Simbolo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDMoneda" ColumnName="IDMoneda" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnidadMedida">
+            <EntityTypeMapping TypeName="CSColegioModel.UnidadMedida">
+              <MappingFragment StoreEntitySet="UnidadMedida">
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="Abreviatura" ColumnName="Abreviatura" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDUnidadMedida" ColumnName="IDUnidadMedida" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Descuento">
+            <EntityTypeMapping TypeName="CSColegioModel.Descuento">
+              <MappingFragment StoreEntitySet="Descuento">
+                <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="Porcentaje" ColumnName="Porcentaje" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDDescuento" ColumnName="IDDescuento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

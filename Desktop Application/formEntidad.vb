@@ -9,6 +9,7 @@
         FillAndRefreshLists.CategoriaIVA(comboboxCategoriaIVA, True)
         FillAndRefreshLists.Provincia(comboboxDomicilioProvincia, True)
         FillAndRefreshLists.EntidadFactura(comboboxEntidadFactura, True)
+        FillAndRefreshLists.Descuento(comboboxDescuento, True)
     End Sub
 
     Friend Sub SetDataFromObjectToControls()
@@ -19,6 +20,7 @@
             Else
                 textboxIDEntidad.Text = String.Format(.IDEntidad.ToString, "G")
             End If
+            checkboxEsActivo.CheckState = CSM_ValueTranslation.FromObjectBooleanToControlCheckBox(.EsActivo)
             textboxApellido.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.Apellido)
             textboxNombre.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.Nombre)
 
@@ -30,7 +32,7 @@
             checkboxTipoProveedor.CheckState = CSM_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoProveedor)
             CSM_ComboBox.SetSelectedValue(comboboxDocumentoTipo, SelectedItemOptions.ValueOrFirst, .IDDocumentoTipo, 0)
             textboxDocumentoNumero.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.DocumentoNumero)
-            CSM_ComboBox.SetSelectedValue(comboboxGenero, SelectedItemOptions.ValueOrFirst, .Genero, "-")
+            CSM_ComboBox.SetSelectedValue(comboboxGenero, SelectedItemOptions.ValueOrFirst, .Genero, Constants.GENERO_NOESPECIFICA)
             datetimepickerFechaNacimiento.Value = CSM_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaNacimiento, datetimepickerFechaNacimiento)
             maskedtextboxCUIT_CUIL.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.CUIT_CUIL)
             CSM_ComboBox.SetSelectedValue(comboboxCategoriaIVA, SelectedItemOptions.ValueOrFirst, .IDCategoriaIVA, 0)
@@ -47,7 +49,7 @@
             textboxDomicilioDepartamento.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioDepartamento)
             textboxDomicilioCalle2.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCalle2)
             textboxDomicilioCalle3.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCalle3)
-            CSM_ComboBox.SetSelectedValue(comboboxDomicilioProvincia, SelectedItemOptions.Value, .DomicilioIDProvincia, "-")
+            CSM_ComboBox.SetSelectedValue(comboboxDomicilioProvincia, SelectedItemOptions.Value, .DomicilioIDProvincia, Constants.PROVINCIA_NOESPECIFICA)
             CSM_ComboBox.SetSelectedValue(comboboxDomicilioLocalidad, SelectedItemOptions.Value, .DomicilioIDLocalidad, 0)
             textboxDomicilioCodigoPostal.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCodigoPostal)
 
@@ -66,8 +68,8 @@
                 textboxEntidadMadre.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.EntidadMadre.ApellidoNombre)
                 textboxEntidadMadre.Tag = .EntidadMadre.IDEntidad
             End If
-            CSM_ComboBox.SetSelectedValue(comboboxEntidadFactura, SelectedItemOptions.ValueOrFirst, .EntidadFactura, "-")
-            checkboxEsActivo.CheckState = CSM_ValueTranslation.FromObjectBooleanToControlCheckBox(.EsActivo)
+            CSM_ComboBox.SetSelectedValue(comboboxEntidadFactura, SelectedItemOptions.ValueOrFirst, .EntidadFactura, Constants.ENTIDADFACTURA_NOESPECIFICA)
+            CSM_ComboBox.SetSelectedValue(comboboxDescuento, SelectedItemOptions.ValueOrFirst, .IDDescuento, 0)
             textboxNotas.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.Notas)
 
             ' Datos de la pestaña Hijos
@@ -117,6 +119,7 @@
     Friend Sub SetDataFromControlsToObject()
         With EntidadCurrent
             ' Datos del Encabezado
+            .EsActivo = CSM_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxEsActivo.CheckState)
             .Apellido = textboxApellido.Text.Trim
             .Nombre = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxNombre.Text.Trim)
 
@@ -128,7 +131,7 @@
             .TipoProveedor = CSM_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoProveedor.CheckState)
             .IDDocumentoTipo = CSM_ValueTranslation.FromControlComboBoxToObjectByte(comboboxDocumentoTipo.SelectedValue, 0)
             .DocumentoNumero = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxDocumentoNumero.Text.Trim)
-            .Genero = CSM_ValueTranslation.FromControlComboBoxToObjectString(comboboxGenero.SelectedValue, "-")
+            .Genero = CSM_ValueTranslation.FromControlComboBoxToObjectString(comboboxGenero.SelectedValue, Constants.GENERO_NOESPECIFICA)
             .FechaNacimiento = CSM_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFechaNacimiento.Value, datetimepickerFechaNacimiento.Checked)
             .CUIT_CUIL = CSM_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxCUIT_CUIL.Text.Trim)
             .IDCategoriaIVA = CSM_ValueTranslation.FromControlComboBoxToObjectByte(comboboxCategoriaIVA.SelectedValue, 0)
@@ -145,15 +148,16 @@
             .DomicilioDepartamento = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioDepartamento.Text)
             .DomicilioCalle2 = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioCalle2.Text)
             .DomicilioCalle3 = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioCalle3.Text)
-            .DomicilioIDProvincia = CSM_ValueTranslation.FromControlComboBoxToObjectString(comboboxDomicilioProvincia.SelectedValue, "-")
+            .DomicilioIDProvincia = CSM_ValueTranslation.FromControlComboBoxToObjectByte(comboboxDomicilioProvincia.SelectedValue, Constants.PROVINCIA_NOESPECIFICA)
             .DomicilioIDLocalidad = CSM_ValueTranslation.FromControlComboBoxToObjectShort(comboboxDomicilioLocalidad.SelectedValue, 0)
             .DomicilioCodigoPostal = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioCodigoPostal.Text)
 
             ' Datos de la pestaña Extra
             .IDEntidadPadre = CSM_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadPadre.Tag)
             .IDEntidadMadre = CSM_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadMadre.Tag)
-            .EntidadFactura = CSM_ValueTranslation.FromControlComboBoxToObjectString(comboboxEntidadFactura.SelectedValue, "-")
-            .EsActivo = CSM_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxEsActivo.CheckState)
+            .EntidadFactura = CSM_ValueTranslation.FromControlComboBoxToObjectString(comboboxEntidadFactura.SelectedValue, Constants.ENTIDADFACTURA_NOESPECIFICA)
+            .IDDescuento = CSM_ValueTranslation.FromControlComboBoxToObjectByte(comboboxDescuento.SelectedValue, 0)
+
             .Notas = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxNotas.Text.Trim)
         End With
     End Sub
@@ -170,8 +174,8 @@
         If comboboxDomicilioProvincia.SelectedValue Is Nothing Then
             comboboxDomicilioLocalidad.DataSource = Nothing
         Else
-            FillAndRefreshLists.Localidad(comboboxDomicilioLocalidad, comboboxDomicilioProvincia.SelectedValue.ToString, False)
-            If comboboxDomicilioProvincia.SelectedValue.ToString = CSM_Parameter.GetString(PARAMETRO_PROVINCIA_PREDETERMINADA) Then
+            FillAndRefreshLists.Localidad(comboboxDomicilioLocalidad, CByte(comboboxDomicilioProvincia.SelectedValue), False)
+            If CByte(comboboxDomicilioProvincia.SelectedValue) = CSM_Parameter.GetIntegerAsByte(PARAMETRO_PROVINCIA_PREDETERMINADA) Then
                 CSM_ComboBox.SetSelectedValue(comboboxDomicilioLocalidad, SelectedItemOptions.ValueOrFirst, CSM_Parameter.GetIntegerAsShort(PARAMETRO_LOCALIDAD_PREDETERMINADA))
             End If
         End If
@@ -236,7 +240,7 @@
             End If
         End If
         Select Case CStr(comboboxEntidadFactura.SelectedValue)
-            Case "-"
+            Case Constants.ENTIDADFACTURA_NOESPECIFICA
                 If checkboxTipoAlumno.Checked AndAlso (((Not textboxEntidadPadre.Tag Is Nothing) And (EntidadCurrent.IDEntidadPadre Is Nothing)) Or ((Not textboxEntidadMadre.Tag Is Nothing) And (EntidadCurrent.IDEntidadMadre Is Nothing))) Then
                     If MsgBox("Ha especificado el Padre y/o la Madre del Alumno, pero no especificó a quien se le facturará." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                         tabcontrolMain.SelectedTab = tabpageExtra
@@ -244,17 +248,34 @@
                         Exit Sub
                     End If
                 End If
-            Case "P"
+            Case Constants.ENTIDADFACTURA_PADRE
                 If textboxEntidadPadre.Tag Is Nothing Then
                     tabcontrolMain.SelectedTab = tabpageExtra
                     MsgBox("Si las facturas se emitirán a nombre del Padre / Tutor, debe especificar el mismo.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadPadre.Focus()
                     Exit Sub
                 End If
-            Case "M"
+            Case Constants.ENTIDADFACTURA_MADRE
                 If textboxEntidadMadre.Tag Is Nothing Then
                     tabcontrolMain.SelectedTab = tabpageExtra
                     MsgBox("Si las facturas se emitirán a nombre de la Madre / Tutora, debe especificar la misma.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadMadre.Focus()
+                    Exit Sub
+                End If
+            Case Constants.ENTIDADFACTURA_AMBOSPADRES
+                If textboxEntidadPadre.Tag Is Nothing And textboxEntidadMadre.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpageExtra
+                    MsgBox("Si las facturas se emitirán a nombre de ambos Padres, debe especificarlos.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadPadre.Focus()
+                    Exit Sub
+                ElseIf textboxEntidadPadre.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpageExtra
+                    MsgBox("Si las facturas se emitirán a nombre de ambos Padres, debe especificar el Padre.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadPadre.Focus()
+                    Exit Sub
+                ElseIf textboxEntidadMadre.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpageExtra
+                    MsgBox("Si las facturas se emitirán a nombre de ambos Padres, debe especificar la Madre.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadMadre.Focus()
                     Exit Sub
                 End If

@@ -52,7 +52,7 @@
             Dim localList = qryList.ToList
             If ShowUnspecifiedItem Then
                 Dim UnspecifiedItem As New Provincia
-                UnspecifiedItem.IDProvincia = "-"
+                UnspecifiedItem.IDProvincia = Constants.PROVINCIA_NOESPECIFICA
                 UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
                 localList.Insert(0, UnspecifiedItem)
             End If
@@ -61,7 +61,7 @@
         End Using
     End Sub
 
-    Friend Sub Localidad(ByRef ComboBoxControl As ComboBox, ByVal IDProvincia As String, ByVal ShowUnspecifiedItem As Boolean)
+    Friend Sub Localidad(ByRef ComboBoxControl As ComboBox, ByVal IDProvincia As Byte, ByVal ShowUnspecifiedItem As Boolean)
         ComboBoxControl.ValueMember = "IDLocalidad"
         ComboBoxControl.DisplayMember = "Nombre"
 
@@ -116,7 +116,7 @@
 
             If ShowUnspecifiedItem Then
                 datarowRow = .NewRow
-                datarowRow("IDGenero") = "-"
+                datarowRow("IDGenero") = Constants.GENERO_NOESPECIFICA
                 datarowRow("Nombre") = My.Resources.STRING_ITEM_NON_SPECIFIED
                 datatableGeneros.Rows.Add(datarowRow)
             End If
@@ -148,33 +148,54 @@
 
             If ShowUnspecifiedItem Then
                 datarowRow = .NewRow
-                datarowRow("IDEntidadFactura") = "-"
+                datarowRow("IDEntidadFactura") = Constants.ENTIDADFACTURA_NOESPECIFICA
                 datarowRow("Nombre") = My.Resources.STRING_ITEM_NON_SPECIFIED
                 datatableEntidadFactura.Rows.Add(datarowRow)
             End If
 
             datarowRow = .NewRow
-            datarowRow("IDEntidadFactura") = "P"
+            datarowRow("IDEntidadFactura") = Constants.ENTIDADFACTURA_PADRE
             datarowRow("Nombre") = My.Resources.STRING_ENTIDADFACTURA_PADRE
             datatableEntidadFactura.Rows.Add(datarowRow)
 
             datarowRow = .NewRow
-            datarowRow("IDEntidadFactura") = "M"
+            datarowRow("IDEntidadFactura") = Constants.ENTIDADFACTURA_MADRE
             datarowRow("Nombre") = My.Resources.STRING_ENTIDADFACTURA_MADRE
             datatableEntidadFactura.Rows.Add(datarowRow)
 
             datarowRow = .NewRow
-            datarowRow("IDEntidadFactura") = "2"
+            datarowRow("IDEntidadFactura") = Constants.ENTIDADFACTURA_AMBOSPADRES
             datarowRow("Nombre") = My.Resources.STRING_ENTIDADFACTURA_AMBOSPADRES
             datatableEntidadFactura.Rows.Add(datarowRow)
             datarowRow = .NewRow
 
-            datarowRow("IDEntidadFactura") = "A"
+            datarowRow("IDEntidadFactura") = Constants.ENTIDADFACTURA_ALUMNO
             datarowRow("Nombre") = My.Resources.STRING_ENTIDADFACTURA_ALUMNO
             datatableEntidadFactura.Rows.Add(datarowRow)
         End With
 
         ComboBoxControl.DataSource = datatableEntidadFactura
+    End Sub
+
+    Friend Sub Descuento(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
+        ComboBoxControl.ValueMember = "IDDescuento"
+        ComboBoxControl.DisplayMember = "NombreCompleto"
+
+        Using dbContext As New CSColegioContext
+            Dim qryList = From tbl In dbContext.Descuento
+                          Where tbl.EsActivo
+                          Order By tbl.Nombre
+
+            Dim localList = qryList.ToList
+            If ShowUnspecifiedItem Then
+                Dim UnspecifiedItem As New Descuento
+                UnspecifiedItem.IDDescuento = 0
+                UnspecifiedItem.NombreCompleto = My.Resources.STRING_ITEM_NON_SPECIFIED
+                localList.Insert(0, UnspecifiedItem)
+            End If
+
+            ComboBoxControl.DataSource = localList
+        End Using
     End Sub
 
     Friend Sub AnioLectivo(ByRef ComboBoxControl As ComboBox, Optional ByVal Orden As SortOrder = SortOrder.Ascending)

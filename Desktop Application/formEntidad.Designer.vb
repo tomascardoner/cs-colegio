@@ -50,7 +50,7 @@ Partial Class formEntidad
         Dim labelDomicilioCalle3 As System.Windows.Forms.Label
         Dim labelModificacion As System.Windows.Forms.Label
         Dim labelCreacion As System.Windows.Forms.Label
-        Dim labelEsActivo As System.Windows.Forms.Label
+        Dim labelDescuento As System.Windows.Forms.Label
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -63,6 +63,7 @@ Partial Class formEntidad
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim labelEsActivo As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formEntidad))
         Me.textboxApellido = New System.Windows.Forms.TextBox()
         Me.textboxIDEntidad = New System.Windows.Forms.TextBox()
@@ -115,7 +116,6 @@ Partial Class formEntidad
         Me.textboxEntidadPadre = New System.Windows.Forms.TextBox()
         Me.labelEntidadPadre = New System.Windows.Forms.Label()
         Me.textboxNotas = New System.Windows.Forms.TextBox()
-        Me.checkboxEsActivo = New System.Windows.Forms.CheckBox()
         Me.tabpageHijos = New System.Windows.Forms.TabPage()
         Me.datagridviewHijos = New System.Windows.Forms.DataGridView()
         Me.columnHijosIDEntidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -145,6 +145,8 @@ Partial Class formEntidad
         Me.buttonCancelar = New System.Windows.Forms.ToolStripButton()
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
         Me.tooltipMain = New System.Windows.Forms.ToolTip(Me.components)
+        Me.checkboxEsActivo = New System.Windows.Forms.CheckBox()
+        Me.comboboxDescuento = New System.Windows.Forms.ComboBox()
         labelApellido = New System.Windows.Forms.Label()
         labelIDEntidad = New System.Windows.Forms.Label()
         labelNombre = New System.Windows.Forms.Label()
@@ -171,6 +173,7 @@ Partial Class formEntidad
         labelDomicilioCalle3 = New System.Windows.Forms.Label()
         labelModificacion = New System.Windows.Forms.Label()
         labelCreacion = New System.Windows.Forms.Label()
+        labelDescuento = New System.Windows.Forms.Label()
         labelEsActivo = New System.Windows.Forms.Label()
         CType(Me.pictureboxMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabcontrolMain.SuspendLayout()
@@ -373,7 +376,7 @@ Partial Class formEntidad
         'labelNotas
         '
         labelNotas.AutoSize = True
-        labelNotas.Location = New System.Drawing.Point(6, 118)
+        labelNotas.Location = New System.Drawing.Point(6, 121)
         labelNotas.Name = "labelNotas"
         labelNotas.Size = New System.Drawing.Size(38, 13)
         labelNotas.TabIndex = 7
@@ -424,14 +427,14 @@ Partial Class formEntidad
         labelCreacion.TabIndex = 9
         labelCreacion.Text = "Creación:"
         '
-        'labelEsActivo
+        'labelDescuento
         '
-        labelEsActivo.AutoSize = True
-        labelEsActivo.Location = New System.Drawing.Point(6, 91)
-        labelEsActivo.Name = "labelEsActivo"
-        labelEsActivo.Size = New System.Drawing.Size(40, 13)
-        labelEsActivo.TabIndex = 6
-        labelEsActivo.Text = "Activo:"
+        labelDescuento.AutoSize = True
+        labelDescuento.Location = New System.Drawing.Point(6, 94)
+        labelDescuento.Name = "labelDescuento"
+        labelDescuento.Size = New System.Drawing.Size(62, 13)
+        labelDescuento.TabIndex = 6
+        labelDescuento.Text = "Descuento:"
         '
         'textboxApellido
         '
@@ -822,7 +825,8 @@ Partial Class formEntidad
         '
         'tabpageExtra
         '
-        Me.tabpageExtra.Controls.Add(labelEsActivo)
+        Me.tabpageExtra.Controls.Add(Me.comboboxDescuento)
+        Me.tabpageExtra.Controls.Add(labelDescuento)
         Me.tabpageExtra.Controls.Add(Me.comboboxEntidadFactura)
         Me.tabpageExtra.Controls.Add(Me.labelEntidadFactura)
         Me.tabpageExtra.Controls.Add(Me.labelEntidadMadre)
@@ -831,7 +835,6 @@ Partial Class formEntidad
         Me.tabpageExtra.Controls.Add(Me.labelEntidadPadre)
         Me.tabpageExtra.Controls.Add(labelNotas)
         Me.tabpageExtra.Controls.Add(Me.textboxNotas)
-        Me.tabpageExtra.Controls.Add(Me.checkboxEsActivo)
         Me.tabpageExtra.Location = New System.Drawing.Point(4, 25)
         Me.tabpageExtra.Name = "tabpageExtra"
         Me.tabpageExtra.Padding = New System.Windows.Forms.Padding(3)
@@ -964,21 +967,12 @@ Partial Class formEntidad
         '
         'textboxNotas
         '
-        Me.textboxNotas.Location = New System.Drawing.Point(95, 115)
+        Me.textboxNotas.Location = New System.Drawing.Point(95, 118)
         Me.textboxNotas.MaxLength = 0
         Me.textboxNotas.Multiline = True
         Me.textboxNotas.Name = "textboxNotas"
-        Me.textboxNotas.Size = New System.Drawing.Size(405, 98)
+        Me.textboxNotas.Size = New System.Drawing.Size(405, 95)
         Me.textboxNotas.TabIndex = 8
-        '
-        'checkboxEsActivo
-        '
-        Me.checkboxEsActivo.AutoSize = True
-        Me.checkboxEsActivo.Location = New System.Drawing.Point(95, 91)
-        Me.checkboxEsActivo.Name = "checkboxEsActivo"
-        Me.checkboxEsActivo.Size = New System.Drawing.Size(15, 14)
-        Me.checkboxEsActivo.TabIndex = 6
-        Me.checkboxEsActivo.UseVisualStyleBackColor = True
         '
         'tabpageHijos
         '
@@ -1312,11 +1306,40 @@ Partial Class formEntidad
         Me.buttonGuardar.Size = New System.Drawing.Size(85, 36)
         Me.buttonGuardar.Text = "Guardar"
         '
+        'labelEsActivo
+        '
+        labelEsActivo.AutoSize = True
+        labelEsActivo.Location = New System.Drawing.Point(273, 52)
+        labelEsActivo.Name = "labelEsActivo"
+        labelEsActivo.Size = New System.Drawing.Size(40, 13)
+        labelEsActivo.TabIndex = 94
+        labelEsActivo.Text = "Activo:"
+        '
+        'checkboxEsActivo
+        '
+        Me.checkboxEsActivo.AutoSize = True
+        Me.checkboxEsActivo.Location = New System.Drawing.Point(319, 52)
+        Me.checkboxEsActivo.Name = "checkboxEsActivo"
+        Me.checkboxEsActivo.Size = New System.Drawing.Size(15, 14)
+        Me.checkboxEsActivo.TabIndex = 95
+        Me.checkboxEsActivo.UseVisualStyleBackColor = True
+        '
+        'comboboxDescuento
+        '
+        Me.comboboxDescuento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxDescuento.FormattingEnabled = True
+        Me.comboboxDescuento.Location = New System.Drawing.Point(95, 91)
+        Me.comboboxDescuento.Name = "comboboxDescuento"
+        Me.comboboxDescuento.Size = New System.Drawing.Size(170, 21)
+        Me.comboboxDescuento.TabIndex = 7
+        '
         'formEntidad
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(539, 399)
+        Me.Controls.Add(Me.checkboxEsActivo)
+        Me.Controls.Add(labelEsActivo)
         Me.Controls.Add(Me.toolstripMain)
         Me.Controls.Add(Me.tabcontrolMain)
         Me.Controls.Add(Me.pictureboxMain)
@@ -1383,7 +1406,6 @@ Partial Class formEntidad
     Friend WithEvents textboxTelefono3 As System.Windows.Forms.TextBox
     Friend WithEvents tabpageExtra As System.Windows.Forms.TabPage
     Friend WithEvents textboxNotas As System.Windows.Forms.TextBox
-    Friend WithEvents checkboxEsActivo As System.Windows.Forms.CheckBox
     Friend WithEvents comboboxDomicilioProvincia As System.Windows.Forms.ComboBox
     Friend WithEvents comboboxDomicilioLocalidad As System.Windows.Forms.ComboBox
     Friend WithEvents checkboxTipoAlumno As System.Windows.Forms.CheckBox
@@ -1440,4 +1462,6 @@ Partial Class formEntidad
     Friend WithEvents labelTipoAlumno As System.Windows.Forms.Label
     Friend WithEvents labelTipoDocente As System.Windows.Forms.Label
     Friend WithEvents labelTipoPersonalColegio As System.Windows.Forms.Label
+    Friend WithEvents comboboxDescuento As System.Windows.Forms.ComboBox
+    Friend WithEvents checkboxEsActivo As System.Windows.Forms.CheckBox
 End Class

@@ -45,4 +45,62 @@ Minúsculas (de la a a la z)
 Dígitos de base 10 (del 0 al 9)
 Caracteres no alfanuméricos (por ejemplo, !, $, #, %)
 
-Poder imprimir el contenido de las Grillas (ejemplo: Alumnos por Año Lectivo y Curso)
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Dim WhereString As String = ""
+        Dim WhereStringTipo As String = ""
+
+
+            ''//////////////////////////////////////
+            ''TIPOS DE ENTIDAD
+            'If menuitemEntidadTipo_PersonalColegio.Checked And menuitemEntidadTipo_Docente.Checked And menuitemEntidadTipo_Alumno.Checked And menuitemEntidadTipo_Familiar.Checked And menuitemEntidadTipo_Proveedor.Checked Then
+            '    'TODOS LOS TIPOS DE ENTIDAD SELECCIONADOS, NO FILTRO NADA
+            'Else
+            '    If menuitemEntidadTipo_PersonalColegio.Checked Then
+            '        WhereStringTipo = WhereStringTipo & IIf(WhereStringTipo = "", "", " OR ").ToString & "ent.TipoPersonalColegio"
+            '    End If
+            '    If menuitemEntidadTipo_Docente.Checked Then
+            '        WhereStringTipo = WhereStringTipo & IIf(WhereStringTipo = "", "", " OR ").ToString & "ent.TipoDocente"
+            '    End If
+            '    If menuitemEntidadTipo_Alumno.Checked Then
+            '        WhereStringTipo = WhereStringTipo & IIf(WhereStringTipo = "", "", " OR ").ToString & "ent.TipoAlumno"
+            '    End If
+            '    If menuitemEntidadTipo_Familiar.Checked Then
+            '        WhereStringTipo = WhereStringTipo & IIf(WhereStringTipo = "", "", " OR ").ToString & "ent.TipoFamiliar"
+            '    End If
+            '    If menuitemEntidadTipo_Proveedor.Checked Then
+            '        WhereStringTipo = WhereStringTipo & IIf(WhereStringTipo = "", "", " OR ").ToString & "ent.TipoProveedor"
+            '    End If
+
+            '    WhereString = WhereString & IIf(WhereString = "", "(", " AND (").ToString & WhereStringTipo & ")"
+            'End If
+
+            ''//////////////////////////////////////
+            ''BUSQUEDA
+            'If BusquedaAplicada Then
+            '    WhereString = WhereString & IIf(WhereString = "", "", " AND ").ToString & "(ent.Apellido.ToLower.Contains(textboxBuscar.Text.ToLower.Trim) Or ent.Nombre.ToLower.Contains(textboxBuscar.Text.ToLower.Trim))"
+            'End If
+
+            ''//////////////////////////////////////
+            ''ACTIVO
+            'Select Case comboboxActivo.SelectedIndex
+            '    Case 1
+            '        WhereString = WhereString & IIf(WhereString = "", "", " AND ").ToString & "ent.Activo"
+            '    Case 2
+            '        WhereString = WhereString & IIf(WhereString = "", "", " AND ").ToString & "NOT ent.Activo"
+            'End Select
+
+            ''//////////////////////////////////////
+            ''APLICAR EL FILTRO
+            'listEntidadGrid = listEntidadBase.Where(Function(ent) WhereString)

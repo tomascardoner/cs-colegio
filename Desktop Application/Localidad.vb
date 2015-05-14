@@ -11,7 +11,7 @@ Imports System
 Imports System.Collections.Generic
 
 Partial Public Class Localidad
-    Public Property IDProvincia As String
+    Public Property IDProvincia As Byte
     Public Property IDLocalidad As Short
     Public Property Nombre As String
     Public Property CodigoPostal As String

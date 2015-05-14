@@ -170,6 +170,12 @@
     <Compile Include="ComprobanteTipo.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Concepto.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CondicionIVA.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
     <Compile Include="Constants.vb" />
     <Compile Include="CSColegio.Context.vb">
       <AutoGen>True</AutoGen>
@@ -187,6 +193,9 @@
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="Curso.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Descuento.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="DocumentoTipo.vb">
@@ -263,6 +272,9 @@
     <Compile Include="Impuesto.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="ImpuestoOtro.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
     <Compile Include="Localidad.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -270,6 +282,9 @@
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="MedioPago.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Moneda.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="Movimiento.vb">
@@ -314,6 +329,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Turno.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UnidadMedida.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="Usuario.vb">

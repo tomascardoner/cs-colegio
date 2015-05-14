@@ -10,10 +10,13 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class Provincia
-    Public Property IDProvincia As Byte
+Partial Public Class Descuento
+    Public Property IDDescuento As Byte
     Public Property Nombre As String
+    Public Property NombreCompleto As String
+    Public Property Porcentaje As Decimal
+    Public Property EsActivo As Boolean
 
-    Public Overridable Property Localidad As ICollection(Of Localidad) = New HashSet(Of Localidad)
+    Public Overridable Property Entidad As ICollection(Of Entidad) = New HashSet(Of Entidad)
 
 End Class

@@ -10,10 +10,10 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class Provincia
-    Public Property IDProvincia As Byte
+Partial Public Class UnidadMedida
+    Public Property IDUnidadMedida As Byte
     Public Property Nombre As String
-
-    Public Overridable Property Localidad As ICollection(Of Localidad) = New HashSet(Of Localidad)
+    Public Property Abreviatura As String
+    Public Property EsActivo As Boolean
 
 End Class

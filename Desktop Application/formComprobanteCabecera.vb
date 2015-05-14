@@ -17,7 +17,7 @@
         If comboboxDomicilioProvincia.SelectedValue Is Nothing Then
             comboboxDomicilioLocalidad.Items.Clear()
         Else
-            FillAndRefreshLists.Localidad(comboboxDomicilioLocalidad, comboboxDomicilioProvincia.SelectedValue.ToString, False)
+            FillAndRefreshLists.Localidad(comboboxDomicilioLocalidad, CByte(comboboxDomicilioProvincia.SelectedValue), False)
         End If
     End Sub
 

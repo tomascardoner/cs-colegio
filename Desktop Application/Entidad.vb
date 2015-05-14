@@ -38,11 +38,12 @@ Partial Public Class Entidad
     Public Property DomicilioCalle2 As String
     Public Property DomicilioCalle3 As String
     Public Property DomicilioCodigoPostal As String
-    Public Property DomicilioIDProvincia As String
+    Public Property DomicilioIDProvincia As Nullable(Of Byte)
     Public Property DomicilioIDLocalidad As Nullable(Of Short)
     Public Property IDEntidadPadre As Nullable(Of Integer)
     Public Property IDEntidadMadre As Nullable(Of Integer)
     Public Property EntidadFactura As String
+    Public Property IDDescuento As Nullable(Of Byte)
     Public Property EsActivo As Boolean
     Public Property Notas As String
     Public Property IDUsuarioCreacion As Byte
@@ -63,5 +64,6 @@ Partial Public Class Entidad
     Public Overridable Property EntidadPadreHijas As ICollection(Of Entidad) = New HashSet(Of Entidad)
     Public Overridable Property EntidadPadre As Entidad
     Public Overridable Property AniosLectivosCursos As ICollection(Of AnioLectivoCurso) = New HashSet(Of AnioLectivoCurso)
+    Public Overridable Property Descuento As Descuento
 
 End Class
