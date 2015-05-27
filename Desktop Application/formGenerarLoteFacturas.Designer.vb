@@ -29,6 +29,10 @@ Partial Class formGenerarLoteFacturas
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.panelPaso1 = New System.Windows.Forms.Panel()
         Me.lalbelPaso1Pie = New System.Windows.Forms.Label()
         Me.tabcontrolMain = New System.Windows.Forms.TabControl()
@@ -69,6 +73,23 @@ Partial Class formGenerarLoteFacturas
         Me.buttonPaso3Anterior = New System.Windows.Forms.Button()
         Me.buttonPaso3Siguiente = New System.Windows.Forms.Button()
         Me.printdocumentPaso2 = New System.Drawing.Printing.PrintDocument()
+        Me.panelPaso4 = New System.Windows.Forms.Panel()
+        Me.datagridviewPaso4Detalle = New System.Windows.Forms.DataGridView()
+        Me.columnDescripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnPrecioTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.datagridviewPaso4Cabecera = New System.Windows.Forms.DataGridView()
+        Me.pictureboxPaso4 = New System.Windows.Forms.PictureBox()
+        Me.labelPaso4Mensaje = New System.Windows.Forms.Label()
+        Me.labelPaso4Titulo = New System.Windows.Forms.Label()
+        Me.buttonPaso4Anterior = New System.Windows.Forms.Button()
+        Me.buttonPaso4Siguiente = New System.Windows.Forms.Button()
+        Me.columnComprobanteTipoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnComprobanteNumero = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnEntidadApellido = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnEntidadNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnCUIT = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnCategoriaIVANombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.panelPaso1.SuspendLayout()
         Me.tabcontrolMain.SuspendLayout()
         Me.tabpageNivelesCursosAlumnos.SuspendLayout()
@@ -81,6 +102,10 @@ Partial Class formGenerarLoteFacturas
         CType(Me.pictureboxPaso2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelPaso3.SuspendLayout()
         CType(Me.pictureboxPaso3, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.panelPaso4.SuspendLayout()
+        CType(Me.datagridviewPaso4Detalle, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.datagridviewPaso4Cabecera, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pictureboxPaso4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'panelPaso1
@@ -513,14 +538,231 @@ Partial Class formGenerarLoteFacturas
         'printdocumentPaso2
         '
         '
+        'panelPaso4
+        '
+        Me.panelPaso4.Controls.Add(Me.datagridviewPaso4Detalle)
+        Me.panelPaso4.Controls.Add(Me.datagridviewPaso4Cabecera)
+        Me.panelPaso4.Controls.Add(Me.pictureboxPaso4)
+        Me.panelPaso4.Controls.Add(Me.labelPaso4Mensaje)
+        Me.panelPaso4.Controls.Add(Me.labelPaso4Titulo)
+        Me.panelPaso4.Controls.Add(Me.buttonPaso4Anterior)
+        Me.panelPaso4.Controls.Add(Me.buttonPaso4Siguiente)
+        Me.panelPaso4.Location = New System.Drawing.Point(630, 12)
+        Me.panelPaso4.Name = "panelPaso4"
+        Me.panelPaso4.Size = New System.Drawing.Size(611, 441)
+        Me.panelPaso4.TabIndex = 103
+        '
+        'datagridviewPaso4Detalle
+        '
+        Me.datagridviewPaso4Detalle.AllowUserToAddRows = False
+        Me.datagridviewPaso4Detalle.AllowUserToDeleteRows = False
+        Me.datagridviewPaso4Detalle.AllowUserToResizeRows = False
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewPaso4Detalle.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
+        Me.datagridviewPaso4Detalle.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.datagridviewPaso4Detalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.datagridviewPaso4Detalle.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnDescripcion, Me.columnPrecioTotal})
+        Me.datagridviewPaso4Detalle.Location = New System.Drawing.Point(3, 298)
+        Me.datagridviewPaso4Detalle.MultiSelect = False
+        Me.datagridviewPaso4Detalle.Name = "datagridviewPaso4Detalle"
+        Me.datagridviewPaso4Detalle.ReadOnly = True
+        Me.datagridviewPaso4Detalle.RowHeadersVisible = False
+        Me.datagridviewPaso4Detalle.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        Me.datagridviewPaso4Detalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.datagridviewPaso4Detalle.Size = New System.Drawing.Size(605, 100)
+        Me.datagridviewPaso4Detalle.TabIndex = 110
+        '
+        'columnDescripcion
+        '
+        Me.columnDescripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnDescripcion.DataPropertyName = "Descripcion"
+        Me.columnDescripcion.HeaderText = "Descripción"
+        Me.columnDescripcion.Name = "columnDescripcion"
+        Me.columnDescripcion.ReadOnly = True
+        Me.columnDescripcion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnDescripcion.Width = 69
+        '
+        'columnPrecioTotal
+        '
+        Me.columnPrecioTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnPrecioTotal.DataPropertyName = "PrecioTotal"
+        DataGridViewCellStyle7.Format = "C2"
+        DataGridViewCellStyle7.NullValue = "0"
+        Me.columnPrecioTotal.DefaultCellStyle = DataGridViewCellStyle7
+        Me.columnPrecioTotal.HeaderText = "Precio"
+        Me.columnPrecioTotal.Name = "columnPrecioTotal"
+        Me.columnPrecioTotal.ReadOnly = True
+        Me.columnPrecioTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnPrecioTotal.Width = 43
+        '
+        'datagridviewPaso4Cabecera
+        '
+        Me.datagridviewPaso4Cabecera.AllowUserToAddRows = False
+        Me.datagridviewPaso4Cabecera.AllowUserToDeleteRows = False
+        Me.datagridviewPaso4Cabecera.AllowUserToResizeRows = False
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewPaso4Cabecera.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle8
+        Me.datagridviewPaso4Cabecera.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.datagridviewPaso4Cabecera.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.datagridviewPaso4Cabecera.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnComprobanteNumero, Me.columnEntidadApellido, Me.columnEntidadNombre, Me.columnCUIT, Me.columnCategoriaIVANombre, Me.columnImporteTotal})
+        Me.datagridviewPaso4Cabecera.Location = New System.Drawing.Point(3, 84)
+        Me.datagridviewPaso4Cabecera.MultiSelect = False
+        Me.datagridviewPaso4Cabecera.Name = "datagridviewPaso4Cabecera"
+        Me.datagridviewPaso4Cabecera.ReadOnly = True
+        Me.datagridviewPaso4Cabecera.RowHeadersVisible = False
+        Me.datagridviewPaso4Cabecera.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        Me.datagridviewPaso4Cabecera.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.datagridviewPaso4Cabecera.Size = New System.Drawing.Size(605, 208)
+        Me.datagridviewPaso4Cabecera.TabIndex = 109
+        '
+        'pictureboxPaso4
+        '
+        Me.pictureboxPaso4.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_COMPROBANTE_48
+        Me.pictureboxPaso4.Location = New System.Drawing.Point(3, 20)
+        Me.pictureboxPaso4.Name = "pictureboxPaso4"
+        Me.pictureboxPaso4.Size = New System.Drawing.Size(48, 48)
+        Me.pictureboxPaso4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.pictureboxPaso4.TabIndex = 108
+        Me.pictureboxPaso4.TabStop = False
+        '
+        'labelPaso4Mensaje
+        '
+        Me.labelPaso4Mensaje.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.labelPaso4Mensaje.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelPaso4Mensaje.Location = New System.Drawing.Point(57, 20)
+        Me.labelPaso4Mensaje.Name = "labelPaso4Mensaje"
+        Me.labelPaso4Mensaje.Size = New System.Drawing.Size(551, 61)
+        Me.labelPaso4Mensaje.TabIndex = 107
+        Me.labelPaso4Mensaje.Text = "Se han Emitido las siguientes facturas. Verifique que estén correcto tanto el enc" & _
+    "abezado como el detalle, y luego proceda a la Transmisión de los datos a través " & _
+    "de Internet."
+        '
+        'labelPaso4Titulo
+        '
+        Me.labelPaso4Titulo.AutoSize = True
+        Me.labelPaso4Titulo.Dock = System.Windows.Forms.DockStyle.Top
+        Me.labelPaso4Titulo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelPaso4Titulo.Location = New System.Drawing.Point(0, 0)
+        Me.labelPaso4Titulo.Name = "labelPaso4Titulo"
+        Me.labelPaso4Titulo.Size = New System.Drawing.Size(124, 17)
+        Me.labelPaso4Titulo.TabIndex = 106
+        Me.labelPaso4Titulo.Text = "Paso 4: Emisión"
+        '
+        'buttonPaso4Anterior
+        '
+        Me.buttonPaso4Anterior.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.buttonPaso4Anterior.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_PREVIOUS_24
+        Me.buttonPaso4Anterior.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.buttonPaso4Anterior.Location = New System.Drawing.Point(322, 404)
+        Me.buttonPaso4Anterior.Name = "buttonPaso4Anterior"
+        Me.buttonPaso4Anterior.Size = New System.Drawing.Size(140, 34)
+        Me.buttonPaso4Anterior.TabIndex = 99
+        Me.buttonPaso4Anterior.Text = "Paso 3: Confirmación"
+        Me.buttonPaso4Anterior.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.buttonPaso4Anterior.UseVisualStyleBackColor = True
+        '
+        'buttonPaso4Siguiente
+        '
+        Me.buttonPaso4Siguiente.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.buttonPaso4Siguiente.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_NEXT_24
+        Me.buttonPaso4Siguiente.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.buttonPaso4Siguiente.Location = New System.Drawing.Point(468, 404)
+        Me.buttonPaso4Siguiente.Name = "buttonPaso4Siguiente"
+        Me.buttonPaso4Siguiente.Size = New System.Drawing.Size(140, 34)
+        Me.buttonPaso4Siguiente.TabIndex = 98
+        Me.buttonPaso4Siguiente.Text = "Paso 5: Transmisión"
+        Me.buttonPaso4Siguiente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.buttonPaso4Siguiente.UseVisualStyleBackColor = True
+        '
+        'columnComprobanteTipoNombre
+        '
+        Me.columnComprobanteTipoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnComprobanteTipoNombre.DataPropertyName = "ComprobanteTipoNombre"
+        Me.columnComprobanteTipoNombre.HeaderText = "Tipo"
+        Me.columnComprobanteTipoNombre.Name = "columnComprobanteTipoNombre"
+        Me.columnComprobanteTipoNombre.ReadOnly = True
+        Me.columnComprobanteTipoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnComprobanteTipoNombre.Width = 34
+        '
+        'columnComprobanteNumero
+        '
+        Me.columnComprobanteNumero.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnComprobanteNumero.DataPropertyName = "ComprobanteNumero"
+        Me.columnComprobanteNumero.HeaderText = "Factura N°"
+        Me.columnComprobanteNumero.Name = "columnComprobanteNumero"
+        Me.columnComprobanteNumero.ReadOnly = True
+        Me.columnComprobanteNumero.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnComprobanteNumero.Width = 64
+        '
+        'columnEntidadApellido
+        '
+        Me.columnEntidadApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnEntidadApellido.DataPropertyName = "EntidadApellido"
+        Me.columnEntidadApellido.HeaderText = "Apellido"
+        Me.columnEntidadApellido.Name = "columnEntidadApellido"
+        Me.columnEntidadApellido.ReadOnly = True
+        Me.columnEntidadApellido.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnEntidadApellido.Width = 50
+        '
+        'columnEntidadNombre
+        '
+        Me.columnEntidadNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnEntidadNombre.DataPropertyName = "EntidadNombre"
+        Me.columnEntidadNombre.HeaderText = "Nombre"
+        Me.columnEntidadNombre.Name = "columnEntidadNombre"
+        Me.columnEntidadNombre.ReadOnly = True
+        Me.columnEntidadNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnEntidadNombre.Width = 50
+        '
+        'columnCUIT
+        '
+        Me.columnCUIT.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnCUIT.DataPropertyName = "CUIT"
+        Me.columnCUIT.HeaderText = "CUIT"
+        Me.columnCUIT.Name = "columnCUIT"
+        Me.columnCUIT.ReadOnly = True
+        Me.columnCUIT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnCUIT.Width = 38
+        '
+        'columnCategoriaIVANombre
+        '
+        Me.columnCategoriaIVANombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnCategoriaIVANombre.DataPropertyName = "CategoriaIVANombre"
+        Me.columnCategoriaIVANombre.HeaderText = "IVA"
+        Me.columnCategoriaIVANombre.Name = "columnCategoriaIVANombre"
+        Me.columnCategoriaIVANombre.ReadOnly = True
+        Me.columnCategoriaIVANombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnCategoriaIVANombre.Width = 30
+        '
+        'columnImporteTotal
+        '
+        Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnImporteTotal.DataPropertyName = "ImporteTotal"
+        DataGridViewCellStyle9.Format = "C2"
+        DataGridViewCellStyle9.NullValue = "0"
+        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle9
+        Me.columnImporteTotal.HeaderText = "Importe"
+        Me.columnImporteTotal.Name = "columnImporteTotal"
+        Me.columnImporteTotal.ReadOnly = True
+        Me.columnImporteTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnImporteTotal.Width = 48
+        '
         'formGenerarLoteFacturas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(636, 464)
+        Me.ClientSize = New System.Drawing.Size(1253, 464)
         Me.Controls.Add(Me.panelPaso1)
         Me.Controls.Add(Me.panelPaso2)
         Me.Controls.Add(Me.panelPaso3)
+        Me.Controls.Add(Me.panelPaso4)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.Name = "formGenerarLoteFacturas"
@@ -542,6 +784,11 @@ Partial Class formGenerarLoteFacturas
         Me.panelPaso3.ResumeLayout(False)
         Me.panelPaso3.PerformLayout()
         CType(Me.pictureboxPaso3, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.panelPaso4.ResumeLayout(False)
+        Me.panelPaso4.PerformLayout()
+        CType(Me.datagridviewPaso4Detalle, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.datagridviewPaso4Cabecera, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pictureboxPaso4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -585,4 +832,21 @@ Partial Class formGenerarLoteFacturas
     Friend WithEvents columnVerificacionNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnCorreccionDescripcion As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents buttonPaso2Print As System.Windows.Forms.Button
+    Friend WithEvents panelPaso4 As System.Windows.Forms.Panel
+    Friend WithEvents labelPaso4Titulo As System.Windows.Forms.Label
+    Friend WithEvents buttonPaso4Anterior As System.Windows.Forms.Button
+    Friend WithEvents buttonPaso4Siguiente As System.Windows.Forms.Button
+    Friend WithEvents pictureboxPaso4 As System.Windows.Forms.PictureBox
+    Friend WithEvents labelPaso4Mensaje As System.Windows.Forms.Label
+    Friend WithEvents datagridviewPaso4Cabecera As System.Windows.Forms.DataGridView
+    Friend WithEvents datagridviewPaso4Detalle As System.Windows.Forms.DataGridView
+    Friend WithEvents columnDescripcion As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnPrecioTotal As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnComprobanteTipoNombre As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnComprobanteNumero As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnEntidadApellido As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnEntidadNombre As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnCUIT As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnCategoriaIVANombre As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

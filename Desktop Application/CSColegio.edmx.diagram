@@ -41,7 +41,7 @@
         <AssociationConnector Association="CSColegioModel.FK__MedioPago__Movimiento" ManuallyRouted="false" />
         <AssociationConnector Association="CSColegioModel.FK__Movimiento_Categoria__Movimiento" ManuallyRouted="false" />
         <AssociationConnector Association="CSColegioModel.FK__UsuarioGrupo__Usuario" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="CSColegioModel.ComprobanteImpuesto" Width="1.5" PointX="13" PointY="8" />
+        <EntityTypeShape EntityType="CSColegioModel.ComprobanteImpuesto" Width="1.875" PointX="13" PointY="8" />
         <EntityTypeShape EntityType="CSColegioModel.ComprobanteTipo" Width="1.5" PointX="8.5" PointY="12.5" />
         <EntityTypeShape EntityType="CSColegioModel.Impuesto" Width="1.5" PointX="10.75" PointY="2.5" />
         <AssociationConnector Association="CSColegioModel.FK__Impuesto__ComprobanteImpuesto" />
@@ -72,6 +72,8 @@
         <EntityTypeShape EntityType="CSColegioModel.UnidadMedida" Width="1.5" PointX="19.75" PointY="11.75" />
         <EntityTypeShape EntityType="CSColegioModel.Descuento" Width="1.5" PointX="20.375" PointY="0.875" />
         <AssociationConnector Association="CSColegioModel.FK__Descuento__Entidad" />
+        <AssociationConnector Association="CSColegioModel.FK__AnioLectivoCurso__ComprobanteDetalle" />
+        <AssociationConnector Association="CSColegioModel.FK__Entidad__ComprobanteDetalle" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

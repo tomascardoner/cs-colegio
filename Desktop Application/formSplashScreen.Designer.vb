@@ -59,11 +59,12 @@ Partial Class formSplashScreen
         Me.labelCopyright.BackColor = System.Drawing.Color.Transparent
         Me.labelCopyright.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.labelCopyright.ForeColor = System.Drawing.Color.White
-        Me.labelCopyright.Location = New System.Drawing.Point(62, 304)
+        Me.labelCopyright.Location = New System.Drawing.Point(12, 304)
         Me.labelCopyright.Name = "labelCopyright"
-        Me.labelCopyright.Size = New System.Drawing.Size(424, 16)
+        Me.labelCopyright.Size = New System.Drawing.Size(474, 16)
         Me.labelCopyright.TabIndex = 2
         Me.labelCopyright.Text = "Copyright"
+        Me.labelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'PictureBox1
         '

@@ -21,6 +21,8 @@ Partial Public Class ComprobanteTipo
     Public Property IDUsuarioModificacion As Byte
     Public Property FechaHoraModificacion As Date
     Public Property CodigoAFIP As Byte
+    Public Property EmisionElectronica As Nullable(Of Boolean)
+    Public Property UltimoNumero As String
 
     Public Overridable Property ComprobanteCabecera As ICollection(Of ComprobanteCabecera) = New HashSet(Of ComprobanteCabecera)
 

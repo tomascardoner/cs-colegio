@@ -37,6 +37,7 @@ Partial Public Class ComprobanteCabecera
     Public Property FechaHoraCreacion As Date
     Public Property IDUsuarioModificacion As Byte
     Public Property FechaHoraModificacion As Date
+    Public Property FechaHoraTransmision As Nullable(Of Date)
 
     Public Overridable Property CategoriaIVA As CategoriaIVA
     Public Overridable Property ComprobanteDetalle As ICollection(Of ComprobanteDetalle) = New HashSet(Of ComprobanteDetalle)

@@ -14,8 +14,8 @@ Partial Public Class ComprobanteDetalle
     Public Property IDComprobante As Integer
     Public Property Indice As Byte
     Public Property IDArticulo As Short
-    Public Property IDEntidad As Integer
-    Public Property CuotaAnio As Nullable(Of Short)
+    Public Property IDEntidad As Nullable(Of Integer)
+    Public Property IDAnioLectivoCurso As Nullable(Of Short)
     Public Property CuotaMes As Nullable(Of Byte)
     Public Property Cantidad As Nullable(Of Decimal)
     Public Property Unidad As String
@@ -27,5 +27,7 @@ Partial Public Class ComprobanteDetalle
     Public Property PrecioTotal As Decimal
 
     Public Overridable Property ComprobanteCabecera As ComprobanteCabecera
+    Public Overridable Property AnioLectivoCurso As AnioLectivoCurso
+    Public Overridable Property Entidad As Entidad
 
 End Class

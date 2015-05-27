@@ -51,6 +51,7 @@ Partial Class formEntidad
         Dim labelModificacion As System.Windows.Forms.Label
         Dim labelCreacion As System.Windows.Forms.Label
         Dim labelDescuento As System.Windows.Forms.Label
+        Dim labelEsActivo As System.Windows.Forms.Label
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -63,7 +64,6 @@ Partial Class formEntidad
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim labelEsActivo As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formEntidad))
         Me.textboxApellido = New System.Windows.Forms.TextBox()
         Me.textboxIDEntidad = New System.Windows.Forms.TextBox()
@@ -103,6 +103,7 @@ Partial Class formEntidad
         Me.textboxTelefono2 = New System.Windows.Forms.TextBox()
         Me.textboxTelefono3 = New System.Windows.Forms.TextBox()
         Me.tabpageExtra = New System.Windows.Forms.TabPage()
+        Me.comboboxDescuento = New System.Windows.Forms.ComboBox()
         Me.comboboxEntidadFactura = New System.Windows.Forms.ComboBox()
         Me.labelEntidadFactura = New System.Windows.Forms.Label()
         Me.labelEntidadMadre = New System.Windows.Forms.Label()
@@ -146,7 +147,6 @@ Partial Class formEntidad
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
         Me.tooltipMain = New System.Windows.Forms.ToolTip(Me.components)
         Me.checkboxEsActivo = New System.Windows.Forms.CheckBox()
-        Me.comboboxDescuento = New System.Windows.Forms.ComboBox()
         labelApellido = New System.Windows.Forms.Label()
         labelIDEntidad = New System.Windows.Forms.Label()
         labelNombre = New System.Windows.Forms.Label()
@@ -435,6 +435,15 @@ Partial Class formEntidad
         labelDescuento.Size = New System.Drawing.Size(62, 13)
         labelDescuento.TabIndex = 6
         labelDescuento.Text = "Descuento:"
+        '
+        'labelEsActivo
+        '
+        labelEsActivo.AutoSize = True
+        labelEsActivo.Location = New System.Drawing.Point(273, 52)
+        labelEsActivo.Name = "labelEsActivo"
+        labelEsActivo.Size = New System.Drawing.Size(40, 13)
+        labelEsActivo.TabIndex = 94
+        labelEsActivo.Text = "Activo:"
         '
         'textboxApellido
         '
@@ -843,13 +852,22 @@ Partial Class formEntidad
         Me.tabpageExtra.Text = "Extra"
         Me.tabpageExtra.UseVisualStyleBackColor = True
         '
+        'comboboxDescuento
+        '
+        Me.comboboxDescuento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxDescuento.FormattingEnabled = True
+        Me.comboboxDescuento.Location = New System.Drawing.Point(95, 91)
+        Me.comboboxDescuento.Name = "comboboxDescuento"
+        Me.comboboxDescuento.Size = New System.Drawing.Size(160, 21)
+        Me.comboboxDescuento.TabIndex = 7
+        '
         'comboboxEntidadFactura
         '
         Me.comboboxEntidadFactura.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxEntidadFactura.FormattingEnabled = True
         Me.comboboxEntidadFactura.Location = New System.Drawing.Point(95, 64)
         Me.comboboxEntidadFactura.Name = "comboboxEntidadFactura"
-        Me.comboboxEntidadFactura.Size = New System.Drawing.Size(137, 21)
+        Me.comboboxEntidadFactura.Size = New System.Drawing.Size(160, 21)
         Me.comboboxEntidadFactura.TabIndex = 5
         '
         'labelEntidadFactura
@@ -1306,15 +1324,6 @@ Partial Class formEntidad
         Me.buttonGuardar.Size = New System.Drawing.Size(85, 36)
         Me.buttonGuardar.Text = "Guardar"
         '
-        'labelEsActivo
-        '
-        labelEsActivo.AutoSize = True
-        labelEsActivo.Location = New System.Drawing.Point(273, 52)
-        labelEsActivo.Name = "labelEsActivo"
-        labelEsActivo.Size = New System.Drawing.Size(40, 13)
-        labelEsActivo.TabIndex = 94
-        labelEsActivo.Text = "Activo:"
-        '
         'checkboxEsActivo
         '
         Me.checkboxEsActivo.AutoSize = True
@@ -1323,15 +1332,6 @@ Partial Class formEntidad
         Me.checkboxEsActivo.Size = New System.Drawing.Size(15, 14)
         Me.checkboxEsActivo.TabIndex = 95
         Me.checkboxEsActivo.UseVisualStyleBackColor = True
-        '
-        'comboboxDescuento
-        '
-        Me.comboboxDescuento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.comboboxDescuento.FormattingEnabled = True
-        Me.comboboxDescuento.Location = New System.Drawing.Point(95, 91)
-        Me.comboboxDescuento.Name = "comboboxDescuento"
-        Me.comboboxDescuento.Size = New System.Drawing.Size(170, 21)
-        Me.comboboxDescuento.TabIndex = 7
         '
         'formEntidad
         '

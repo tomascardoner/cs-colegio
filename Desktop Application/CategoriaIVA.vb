@@ -13,6 +13,7 @@ Imports System.Collections.Generic
 Partial Public Class CategoriaIVA
     Public Property IDCategoriaIVA As Byte
     Public Property Nombre As String
+    Public Property VentaIDComprobanteTipo As Byte
     Public Property EsActivo As Boolean
 
     Public Overridable Property Entidad As ICollection(Of Entidad) = New HashSet(Of Entidad)
