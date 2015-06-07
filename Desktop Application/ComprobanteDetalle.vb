@@ -17,12 +17,12 @@ Partial Public Class ComprobanteDetalle
     Public Property IDEntidad As Nullable(Of Integer)
     Public Property IDAnioLectivoCurso As Nullable(Of Short)
     Public Property CuotaMes As Nullable(Of Byte)
-    Public Property Cantidad As Nullable(Of Decimal)
+    Public Property Cantidad As Decimal
     Public Property Unidad As String
     Public Property Descripcion As String
     Public Property PrecioUnitario As Decimal
-    Public Property PrecioUnitarioDescuentoPorcentaje As Nullable(Of Decimal)
-    Public Property PrecioUnitarioDescuentoImporte As Nullable(Of Decimal)
+    Public Property PrecioUnitarioDescuentoPorcentaje As Decimal
+    Public Property PrecioUnitarioDescuentoImporte As Decimal
     Public Property PrecioUnitarioFinal As Decimal
     Public Property PrecioTotal As Decimal
 

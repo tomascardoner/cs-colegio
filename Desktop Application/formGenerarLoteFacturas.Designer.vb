@@ -65,15 +65,6 @@ Partial Class formGenerarLoteFacturas
         Me.buttonPaso2Anterior = New System.Windows.Forms.Button()
         Me.buttonPaso2Siguiente = New System.Windows.Forms.Button()
         Me.panelPaso3 = New System.Windows.Forms.Panel()
-        Me.labelPaso3Pie = New System.Windows.Forms.Label()
-        Me.treeviewPaso3 = New System.Windows.Forms.TreeView()
-        Me.pictureboxPaso3 = New System.Windows.Forms.PictureBox()
-        Me.labelPaso3Mensaje = New System.Windows.Forms.Label()
-        Me.labelPaso3Titulo = New System.Windows.Forms.Label()
-        Me.buttonPaso3Anterior = New System.Windows.Forms.Button()
-        Me.buttonPaso3Siguiente = New System.Windows.Forms.Button()
-        Me.printdocumentPaso2 = New System.Drawing.Printing.PrintDocument()
-        Me.panelPaso4 = New System.Windows.Forms.Panel()
         Me.datagridviewPaso4Detalle = New System.Windows.Forms.DataGridView()
         Me.columnDescripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnPrecioTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -85,11 +76,13 @@ Partial Class formGenerarLoteFacturas
         Me.columnCUIT = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnCategoriaIVANombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.pictureboxPaso4 = New System.Windows.Forms.PictureBox()
-        Me.labelPaso4Mensaje = New System.Windows.Forms.Label()
-        Me.labelPaso4Titulo = New System.Windows.Forms.Label()
-        Me.buttonPaso4Anterior = New System.Windows.Forms.Button()
-        Me.buttonPaso4Siguiente = New System.Windows.Forms.Button()
+        Me.labelPaso3Pie = New System.Windows.Forms.Label()
+        Me.pictureboxPaso3 = New System.Windows.Forms.PictureBox()
+        Me.labelPaso3Mensaje = New System.Windows.Forms.Label()
+        Me.labelPaso3Titulo = New System.Windows.Forms.Label()
+        Me.buttonPaso3Anterior = New System.Windows.Forms.Button()
+        Me.buttonPaso3Siguiente = New System.Windows.Forms.Button()
+        Me.printdocumentPaso2 = New System.Drawing.Printing.PrintDocument()
         Me.panelPaso1.SuspendLayout()
         Me.tabcontrolMain.SuspendLayout()
         Me.tabpageNivelesCursosAlumnos.SuspendLayout()
@@ -101,11 +94,9 @@ Partial Class formGenerarLoteFacturas
         CType(Me.datagridviewPaso2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureboxPaso2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelPaso3.SuspendLayout()
-        CType(Me.pictureboxPaso3, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.panelPaso4.SuspendLayout()
         CType(Me.datagridviewPaso4Detalle, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.datagridviewPaso4Cabecera, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.pictureboxPaso4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pictureboxPaso3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'panelPaso1
@@ -444,113 +435,18 @@ Partial Class formGenerarLoteFacturas
         '
         'panelPaso3
         '
+        Me.panelPaso3.Controls.Add(Me.datagridviewPaso4Detalle)
+        Me.panelPaso3.Controls.Add(Me.datagridviewPaso4Cabecera)
         Me.panelPaso3.Controls.Add(Me.labelPaso3Pie)
-        Me.panelPaso3.Controls.Add(Me.treeviewPaso3)
         Me.panelPaso3.Controls.Add(Me.pictureboxPaso3)
         Me.panelPaso3.Controls.Add(Me.labelPaso3Mensaje)
         Me.panelPaso3.Controls.Add(Me.labelPaso3Titulo)
         Me.panelPaso3.Controls.Add(Me.buttonPaso3Anterior)
         Me.panelPaso3.Controls.Add(Me.buttonPaso3Siguiente)
-        Me.panelPaso3.Location = New System.Drawing.Point(12, 12)
+        Me.panelPaso3.Location = New System.Drawing.Point(630, 12)
         Me.panelPaso3.Name = "panelPaso3"
         Me.panelPaso3.Size = New System.Drawing.Size(611, 441)
         Me.panelPaso3.TabIndex = 2
-        '
-        'labelPaso3Pie
-        '
-        Me.labelPaso3Pie.AutoSize = True
-        Me.labelPaso3Pie.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelPaso3Pie.Location = New System.Drawing.Point(7, 413)
-        Me.labelPaso3Pie.Name = "labelPaso3Pie"
-        Me.labelPaso3Pie.Size = New System.Drawing.Size(31, 16)
-        Me.labelPaso3Pie.TabIndex = 3
-        Me.labelPaso3Pie.Text = "Pie"
-        '
-        'treeviewPaso3
-        '
-        Me.treeviewPaso3.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.treeviewPaso3.Location = New System.Drawing.Point(5, 84)
-        Me.treeviewPaso3.Name = "treeviewPaso3"
-        Me.treeviewPaso3.Size = New System.Drawing.Size(603, 314)
-        Me.treeviewPaso3.TabIndex = 2
-        '
-        'pictureboxPaso3
-        '
-        Me.pictureboxPaso3.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_COMPROBANTE_48
-        Me.pictureboxPaso3.Location = New System.Drawing.Point(5, 20)
-        Me.pictureboxPaso3.Name = "pictureboxPaso3"
-        Me.pictureboxPaso3.Size = New System.Drawing.Size(48, 48)
-        Me.pictureboxPaso3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
-        Me.pictureboxPaso3.TabIndex = 108
-        Me.pictureboxPaso3.TabStop = False
-        '
-        'labelPaso3Mensaje
-        '
-        Me.labelPaso3Mensaje.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.labelPaso3Mensaje.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelPaso3Mensaje.Location = New System.Drawing.Point(59, 20)
-        Me.labelPaso3Mensaje.Name = "labelPaso3Mensaje"
-        Me.labelPaso3Mensaje.Size = New System.Drawing.Size(549, 61)
-        Me.labelPaso3Mensaje.TabIndex = 1
-        Me.labelPaso3Mensaje.Text = "A continuación, se muestran las Entidades (Padres/Madres/Alumnos) a nombre de qui" & _
-    "en se emitirán las facturas con sus respectivos Alumnos en el detalle."
-        '
-        'labelPaso3Titulo
-        '
-        Me.labelPaso3Titulo.AutoSize = True
-        Me.labelPaso3Titulo.Dock = System.Windows.Forms.DockStyle.Top
-        Me.labelPaso3Titulo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelPaso3Titulo.Location = New System.Drawing.Point(0, 0)
-        Me.labelPaso3Titulo.Name = "labelPaso3Titulo"
-        Me.labelPaso3Titulo.Size = New System.Drawing.Size(162, 17)
-        Me.labelPaso3Titulo.TabIndex = 0
-        Me.labelPaso3Titulo.Text = "Paso 3: Confirmación"
-        '
-        'buttonPaso3Anterior
-        '
-        Me.buttonPaso3Anterior.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonPaso3Anterior.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_PREVIOUS_24
-        Me.buttonPaso3Anterior.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.buttonPaso3Anterior.Location = New System.Drawing.Point(322, 404)
-        Me.buttonPaso3Anterior.Name = "buttonPaso3Anterior"
-        Me.buttonPaso3Anterior.Size = New System.Drawing.Size(140, 34)
-        Me.buttonPaso3Anterior.TabIndex = 4
-        Me.buttonPaso3Anterior.Text = "Paso 2: Verificación"
-        Me.buttonPaso3Anterior.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.buttonPaso3Anterior.UseVisualStyleBackColor = True
-        '
-        'buttonPaso3Siguiente
-        '
-        Me.buttonPaso3Siguiente.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonPaso3Siguiente.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_NEXT_24
-        Me.buttonPaso3Siguiente.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.buttonPaso3Siguiente.Location = New System.Drawing.Point(468, 404)
-        Me.buttonPaso3Siguiente.Name = "buttonPaso3Siguiente"
-        Me.buttonPaso3Siguiente.Size = New System.Drawing.Size(140, 34)
-        Me.buttonPaso3Siguiente.TabIndex = 5
-        Me.buttonPaso3Siguiente.Text = "Paso 4: Emisión"
-        Me.buttonPaso3Siguiente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.buttonPaso3Siguiente.UseVisualStyleBackColor = True
-        '
-        'printdocumentPaso2
-        '
-        '
-        'panelPaso4
-        '
-        Me.panelPaso4.Controls.Add(Me.datagridviewPaso4Detalle)
-        Me.panelPaso4.Controls.Add(Me.datagridviewPaso4Cabecera)
-        Me.panelPaso4.Controls.Add(Me.pictureboxPaso4)
-        Me.panelPaso4.Controls.Add(Me.labelPaso4Mensaje)
-        Me.panelPaso4.Controls.Add(Me.labelPaso4Titulo)
-        Me.panelPaso4.Controls.Add(Me.buttonPaso4Anterior)
-        Me.panelPaso4.Controls.Add(Me.buttonPaso4Siguiente)
-        Me.panelPaso4.Location = New System.Drawing.Point(630, 12)
-        Me.panelPaso4.Name = "panelPaso4"
-        Me.panelPaso4.Size = New System.Drawing.Size(611, 441)
-        Me.panelPaso4.TabIndex = 103
         '
         'datagridviewPaso4Detalle
         '
@@ -573,7 +469,7 @@ Partial Class formGenerarLoteFacturas
         Me.datagridviewPaso4Detalle.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewPaso4Detalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewPaso4Detalle.Size = New System.Drawing.Size(605, 100)
-        Me.datagridviewPaso4Detalle.TabIndex = 110
+        Me.datagridviewPaso4Detalle.TabIndex = 111
         '
         'columnDescripcion
         '
@@ -619,7 +515,7 @@ Partial Class formGenerarLoteFacturas
         Me.datagridviewPaso4Cabecera.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewPaso4Cabecera.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewPaso4Cabecera.Size = New System.Drawing.Size(605, 208)
-        Me.datagridviewPaso4Cabecera.TabIndex = 109
+        Me.datagridviewPaso4Cabecera.TabIndex = 110
         '
         'columnComprobanteTipoNombre
         '
@@ -694,75 +590,86 @@ Partial Class formGenerarLoteFacturas
         Me.columnImporteTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.columnImporteTotal.Width = 48
         '
-        'pictureboxPaso4
+        'labelPaso3Pie
         '
-        Me.pictureboxPaso4.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_COMPROBANTE_48
-        Me.pictureboxPaso4.Location = New System.Drawing.Point(3, 20)
-        Me.pictureboxPaso4.Name = "pictureboxPaso4"
-        Me.pictureboxPaso4.Size = New System.Drawing.Size(48, 48)
-        Me.pictureboxPaso4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
-        Me.pictureboxPaso4.TabIndex = 108
-        Me.pictureboxPaso4.TabStop = False
+        Me.labelPaso3Pie.AutoSize = True
+        Me.labelPaso3Pie.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelPaso3Pie.Location = New System.Drawing.Point(7, 413)
+        Me.labelPaso3Pie.Name = "labelPaso3Pie"
+        Me.labelPaso3Pie.Size = New System.Drawing.Size(31, 16)
+        Me.labelPaso3Pie.TabIndex = 3
+        Me.labelPaso3Pie.Text = "Pie"
         '
-        'labelPaso4Mensaje
+        'pictureboxPaso3
         '
-        Me.labelPaso4Mensaje.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.pictureboxPaso3.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_COMPROBANTE_48
+        Me.pictureboxPaso3.Location = New System.Drawing.Point(5, 20)
+        Me.pictureboxPaso3.Name = "pictureboxPaso3"
+        Me.pictureboxPaso3.Size = New System.Drawing.Size(48, 48)
+        Me.pictureboxPaso3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.pictureboxPaso3.TabIndex = 108
+        Me.pictureboxPaso3.TabStop = False
+        '
+        'labelPaso3Mensaje
+        '
+        Me.labelPaso3Mensaje.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.labelPaso4Mensaje.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelPaso4Mensaje.Location = New System.Drawing.Point(57, 20)
-        Me.labelPaso4Mensaje.Name = "labelPaso4Mensaje"
-        Me.labelPaso4Mensaje.Size = New System.Drawing.Size(551, 61)
-        Me.labelPaso4Mensaje.TabIndex = 107
-        Me.labelPaso4Mensaje.Text = "Se han Emitido las siguientes facturas. Verifique que estén correcto tanto el enc" & _
-    "abezado como el detalle, y luego proceda a la Transmisión de los datos a través " & _
-    "de Internet."
+        Me.labelPaso3Mensaje.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelPaso3Mensaje.Location = New System.Drawing.Point(59, 20)
+        Me.labelPaso3Mensaje.Name = "labelPaso3Mensaje"
+        Me.labelPaso3Mensaje.Size = New System.Drawing.Size(549, 61)
+        Me.labelPaso3Mensaje.TabIndex = 1
+        Me.labelPaso3Mensaje.Text = "A continuación, se muestran las Facturas que se generarán con su correspondiente " & _
+    "detalle."
         '
-        'labelPaso4Titulo
+        'labelPaso3Titulo
         '
-        Me.labelPaso4Titulo.AutoSize = True
-        Me.labelPaso4Titulo.Dock = System.Windows.Forms.DockStyle.Top
-        Me.labelPaso4Titulo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelPaso4Titulo.Location = New System.Drawing.Point(0, 0)
-        Me.labelPaso4Titulo.Name = "labelPaso4Titulo"
-        Me.labelPaso4Titulo.Size = New System.Drawing.Size(124, 17)
-        Me.labelPaso4Titulo.TabIndex = 106
-        Me.labelPaso4Titulo.Text = "Paso 4: Emisión"
+        Me.labelPaso3Titulo.AutoSize = True
+        Me.labelPaso3Titulo.Dock = System.Windows.Forms.DockStyle.Top
+        Me.labelPaso3Titulo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelPaso3Titulo.Location = New System.Drawing.Point(0, 0)
+        Me.labelPaso3Titulo.Name = "labelPaso3Titulo"
+        Me.labelPaso3Titulo.Size = New System.Drawing.Size(162, 17)
+        Me.labelPaso3Titulo.TabIndex = 0
+        Me.labelPaso3Titulo.Text = "Paso 3: Confirmación"
         '
-        'buttonPaso4Anterior
+        'buttonPaso3Anterior
         '
-        Me.buttonPaso4Anterior.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonPaso4Anterior.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_PREVIOUS_24
-        Me.buttonPaso4Anterior.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.buttonPaso4Anterior.Location = New System.Drawing.Point(322, 404)
-        Me.buttonPaso4Anterior.Name = "buttonPaso4Anterior"
-        Me.buttonPaso4Anterior.Size = New System.Drawing.Size(140, 34)
-        Me.buttonPaso4Anterior.TabIndex = 99
-        Me.buttonPaso4Anterior.Text = "Paso 3: Confirmación"
-        Me.buttonPaso4Anterior.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.buttonPaso4Anterior.UseVisualStyleBackColor = True
+        Me.buttonPaso3Anterior.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.buttonPaso3Anterior.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_PREVIOUS_24
+        Me.buttonPaso3Anterior.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.buttonPaso3Anterior.Location = New System.Drawing.Point(322, 404)
+        Me.buttonPaso3Anterior.Name = "buttonPaso3Anterior"
+        Me.buttonPaso3Anterior.Size = New System.Drawing.Size(140, 34)
+        Me.buttonPaso3Anterior.TabIndex = 4
+        Me.buttonPaso3Anterior.Text = "Paso 2: Verificación"
+        Me.buttonPaso3Anterior.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.buttonPaso3Anterior.UseVisualStyleBackColor = True
         '
-        'buttonPaso4Siguiente
+        'buttonPaso3Siguiente
         '
-        Me.buttonPaso4Siguiente.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonPaso4Siguiente.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_NEXT_24
-        Me.buttonPaso4Siguiente.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.buttonPaso4Siguiente.Location = New System.Drawing.Point(468, 404)
-        Me.buttonPaso4Siguiente.Name = "buttonPaso4Siguiente"
-        Me.buttonPaso4Siguiente.Size = New System.Drawing.Size(140, 34)
-        Me.buttonPaso4Siguiente.TabIndex = 98
-        Me.buttonPaso4Siguiente.Text = "Paso 5: Transmisión"
-        Me.buttonPaso4Siguiente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.buttonPaso4Siguiente.UseVisualStyleBackColor = True
+        Me.buttonPaso3Siguiente.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.buttonPaso3Siguiente.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_NEXT_24
+        Me.buttonPaso3Siguiente.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.buttonPaso3Siguiente.Location = New System.Drawing.Point(468, 404)
+        Me.buttonPaso3Siguiente.Name = "buttonPaso3Siguiente"
+        Me.buttonPaso3Siguiente.Size = New System.Drawing.Size(140, 34)
+        Me.buttonPaso3Siguiente.TabIndex = 5
+        Me.buttonPaso3Siguiente.Text = "Paso 4: Emisión"
+        Me.buttonPaso3Siguiente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.buttonPaso3Siguiente.UseVisualStyleBackColor = True
+        '
+        'printdocumentPaso2
+        '
         '
         'formGenerarLoteFacturas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1253, 464)
+        Me.ClientSize = New System.Drawing.Size(1414, 464)
         Me.Controls.Add(Me.panelPaso1)
         Me.Controls.Add(Me.panelPaso2)
         Me.Controls.Add(Me.panelPaso3)
-        Me.Controls.Add(Me.panelPaso4)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.Name = "formGenerarLoteFacturas"
@@ -783,12 +690,9 @@ Partial Class formGenerarLoteFacturas
         CType(Me.pictureboxPaso2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panelPaso3.ResumeLayout(False)
         Me.panelPaso3.PerformLayout()
-        CType(Me.pictureboxPaso3, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.panelPaso4.ResumeLayout(False)
-        Me.panelPaso4.PerformLayout()
         CType(Me.datagridviewPaso4Detalle, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.datagridviewPaso4Cabecera, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.pictureboxPaso4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pictureboxPaso3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -820,7 +724,6 @@ Partial Class formGenerarLoteFacturas
     Friend WithEvents labelPaso2Pie As System.Windows.Forms.Label
     Friend WithEvents panelPaso3 As System.Windows.Forms.Panel
     Friend WithEvents labelPaso3Pie As System.Windows.Forms.Label
-    Friend WithEvents treeviewPaso3 As System.Windows.Forms.TreeView
     Friend WithEvents pictureboxPaso3 As System.Windows.Forms.PictureBox
     Friend WithEvents labelPaso3Mensaje As System.Windows.Forms.Label
     Friend WithEvents labelPaso3Titulo As System.Windows.Forms.Label
@@ -832,16 +735,10 @@ Partial Class formGenerarLoteFacturas
     Friend WithEvents columnVerificacionNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnCorreccionDescripcion As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents buttonPaso2Print As System.Windows.Forms.Button
-    Friend WithEvents panelPaso4 As System.Windows.Forms.Panel
-    Friend WithEvents labelPaso4Titulo As System.Windows.Forms.Label
-    Friend WithEvents buttonPaso4Anterior As System.Windows.Forms.Button
-    Friend WithEvents buttonPaso4Siguiente As System.Windows.Forms.Button
-    Friend WithEvents pictureboxPaso4 As System.Windows.Forms.PictureBox
-    Friend WithEvents labelPaso4Mensaje As System.Windows.Forms.Label
-    Friend WithEvents datagridviewPaso4Cabecera As System.Windows.Forms.DataGridView
     Friend WithEvents datagridviewPaso4Detalle As System.Windows.Forms.DataGridView
     Friend WithEvents columnDescripcion As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnPrecioTotal As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents datagridviewPaso4Cabecera As System.Windows.Forms.DataGridView
     Friend WithEvents columnComprobanteTipoNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnComprobanteNumero As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnEntidadApellido As System.Windows.Forms.DataGridViewTextBoxColumn

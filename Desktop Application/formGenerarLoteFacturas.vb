@@ -9,7 +9,6 @@ Public Class formGenerarLoteFacturas
     Private listEntidadesSeleccionadasOk As List(Of Entidad)
     'Private listEntidadesSeleccionadasCorregir As IList(Of EntidadACorregir)
     Private listEntidadesSeleccionadasCorregir As IList(Of Object)
-    Private listFacturaTitularEItems As List(Of FacturaTitularEItems)
 
     Private Const NODO_CARGANDO_TEXTO As String = "Cargando..."
 
@@ -19,33 +18,6 @@ Public Class formGenerarLoteFacturas
         Friend Property Nombre As String
         Friend Property ApellidoNombre As String
         Friend Property CorreccionDescripcion As String
-    End Class
-
-    Private Class FacturaItem
-        Friend Property Alumno As Entidad
-        Friend Property IDAnioLectivoCurso As Short
-        Friend Property NivelNombre As String
-        Friend Property AnioNombre As String
-        Friend Property TurnoNombre As String
-        Friend Property Division As String
-        Friend Property ImporteCuota As Decimal
-    End Class
-
-    Private Class FacturaTitularEItems
-        Friend Property IDComprobanteTipo As Byte
-        Friend Property IDEntidad() As Integer
-        Friend Property ApellidoNombre As String
-        Friend Property TitularFactura As Entidad
-        Friend Property FacturaItems As List(Of FacturaItem)
-
-        Friend Sub New()
-            FacturaItems = New List(Of FacturaItem)
-        End Sub
-
-        Protected Overrides Sub Finalize()
-            FacturaItems = Nothing
-            MyBase.Finalize()
-        End Sub
     End Class
 
     ' TODO: Verificar que no se facture 2 veces en el mismo período al mismo alumno
@@ -472,161 +444,241 @@ Public Class formGenerarLoteFacturas
     End Sub
 
     Private Sub buttonPaso2Siguiente_Click() Handles buttonPaso2Siguiente.Click
-        GeneraArbolDeEntidadesConAlumnos()
-        MostrarArbolDeEntidadesConAlumnos()
+        GenerarComprobantes()
+        'ConfirmarComprobantes()
         MostrarPaneles(3)
     End Sub
 #End Region
 
-#Region "Paso 3 - Confirmación"
-    Private Sub GeneraArbolDeEntidadesConAlumnos()
-        Dim FacturaTitularEItemsActual As FacturaTitularEItems
-        Dim FacturaItemNuevo As FacturaItem
+#Region "Paso 3 - Generación, Confirmación y Emisión"
+    Private Sub GenerarComprobantes()
+        Dim dbcEmision As New CSColegioContext
+
+        ' Parámetros
+        Dim IDArticulo As Short
+        Dim ComprobanteEntidadMayusculas As Boolean
+
+        ' Datos de la Factura
+        Dim NextID As Integer
+        Dim ComprobanteTipo As New ComprobanteTipo
+        Dim NextComprobanteNumero As String = ""
+
+        Dim FacturaCabecera As New ComprobanteCabecera
+        Dim FacturaDetalle As ComprobanteDetalle
+
+        ' Lista para mostrar la Grilla
+        Dim listFacturas As New List(Of ComprobanteCabecera)
 
         Me.Cursor = Cursors.WaitCursor
 
-        listFacturaTitularEItems = New List(Of FacturaTitularEItems)
+        ' Cargo los parámetros en variables para reducir tiempo de procesamiento
+        IDArticulo = CSM_Parameter.GetIntegerAsShort(Constants.PARAMETRO_ARTICULO_CUOTA_MENSUAL)
+        ComprobanteEntidadMayusculas = CSM_Parameter.GetBoolean(Constants.PARAMETRO_COMPROBANTE_ENTIDAD_MAYUSCULAS, False).Value
 
         For Each EntidadAlumno As Entidad In listEntidadesSeleccionadasOk
-            FacturaItemNuevo = New FacturaItem
             Select Case EntidadAlumno.EntidadFactura
-                Case "A"
+                Case Constants.ENTIDADFACTURA_ALUMNO
                     ' Se factura directamente al Alumno, así que lo agrego a él mismo como Titular de la Factura y como Alumno
-                    FacturaTitularEItemsActual = New FacturaTitularEItems
-                    FacturaTitularEItemsActual.IDComprobanteTipo = EntidadAlumno.CategoriaIVA.VentaIDComprobanteTipo
-                    FacturaTitularEItemsActual.IDEntidad = EntidadAlumno.IDEntidad
-                    FacturaTitularEItemsActual.ApellidoNombre = EntidadAlumno.ApellidoNombre
-                    FacturaTitularEItemsActual.TitularFactura = EntidadAlumno
-                    FacturaItemNuevo.Alumno = EntidadAlumno
-                    FacturaTitularEItemsActual.FacturaItems.Add(FacturaItemNuevo)
-                    listFacturaTitularEItems.Add(FacturaTitularEItemsActual)
-                Case "P"
+                    FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno, ComprobanteEntidadMayusculas)
+                    FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
+                    FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
+                    FacturaCabecera.ImporteImpuesto = 0
+                    FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
+                    listFacturas.Add(FacturaCabecera)
+
+                Case Constants.ENTIDADFACTURA_PADRE
                     ' Se factura al Padre, así que primero busco si no está cargado en la lista (por otro Alumno)
-                    FacturaTitularEItemsActual = listFacturaTitularEItems.Find(Function(eaf) eaf.IDEntidad = EntidadAlumno.EntidadPadre.IDEntidad)
-                    If FacturaTitularEItemsActual Is Nothing Then
-                        ' No existe el Padre
-                        FacturaTitularEItemsActual = New FacturaTitularEItems
-                        FacturaTitularEItemsActual.IDComprobanteTipo = EntidadAlumno.EntidadPadre.CategoriaIVA.VentaIDComprobanteTipo
-                        FacturaTitularEItemsActual.IDEntidad = EntidadAlumno.EntidadPadre.IDEntidad
-                        FacturaTitularEItemsActual.ApellidoNombre = EntidadAlumno.EntidadPadre.ApellidoNombre
-                        FacturaTitularEItemsActual.TitularFactura = EntidadAlumno.EntidadPadre
-                        FacturaItemNuevo.Alumno = EntidadAlumno
-                        FacturaTitularEItemsActual.FacturaItems.Add(FacturaItemNuevo)
-                        listFacturaTitularEItems.Add(FacturaTitularEItemsActual)
+                    FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.EntidadPadre.IDEntidad)
+                    If FacturaCabecera Is Nothing Then
+                        ' No existe la Factura del Padre
+                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, ComprobanteEntidadMayusculas)
+                        FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
+                        FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
+                        FacturaCabecera.ImporteImpuesto = 0
+                        FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
+                        listFacturas.Add(FacturaCabecera)
                     Else
-                        FacturaItemNuevo.Alumno = EntidadAlumno
-                        FacturaTitularEItemsActual.FacturaItems.Add(FacturaItemNuevo)
+                        ' Ya existem así que sólo agrego un item al Detalle
+                        FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
+                        FacturaCabecera.ImporteNeto = FacturaCabecera.ImporteNeto + FacturaDetalle.PrecioTotal
+                        FacturaCabecera.ImporteImpuesto = 0
+                        FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
                     End If
-                Case "M"
+
+                Case Constants.ENTIDADFACTURA_MADRE
                     ' Se factura a la Madre, así que primero busco si no está cargada en la lista (por otro Alumno)
-                    FacturaTitularEItemsActual = listFacturaTitularEItems.Find(Function(eaf) eaf.IDEntidad = EntidadAlumno.EntidadMadre.IDEntidad)
-                    If FacturaTitularEItemsActual Is Nothing Then
-                        ' No existe la Madre
-                        FacturaTitularEItemsActual = New FacturaTitularEItems
-                        FacturaTitularEItemsActual.IDComprobanteTipo = EntidadAlumno.EntidadMadre.CategoriaIVA.VentaIDComprobanteTipo
-                        FacturaTitularEItemsActual.IDEntidad = EntidadAlumno.EntidadMadre.IDEntidad
-                        FacturaTitularEItemsActual.ApellidoNombre = EntidadAlumno.EntidadMadre.ApellidoNombre
-                        FacturaTitularEItemsActual.TitularFactura = EntidadAlumno.EntidadMadre
-                        FacturaItemNuevo.Alumno = EntidadAlumno
-                        FacturaTitularEItemsActual.FacturaItems.Add(FacturaItemNuevo)
-                        listFacturaTitularEItems.Add(FacturaTitularEItemsActual)
+                    FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.EntidadMadre.IDEntidad)
+                    If FacturaCabecera Is Nothing Then
+                        ' No existe la Factura de la Madre
+                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, ComprobanteEntidadMayusculas)
+                        FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
+                        FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
+                        FacturaCabecera.ImporteImpuesto = 0
+                        FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
+                        listFacturas.Add(FacturaCabecera)
                     Else
-                        FacturaItemNuevo.Alumno = EntidadAlumno
-                        FacturaTitularEItemsActual.FacturaItems.Add(FacturaItemNuevo)
+                        FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
+                        FacturaCabecera.ImporteNeto = FacturaCabecera.ImporteNeto + FacturaDetalle.PrecioTotal
+                        FacturaCabecera.ImporteImpuesto = 0
+                        FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
                     End If
-                Case "2"
+
+                Case Constants.ENTIDADFACTURA_AMBOSPADRES
                     ' Se factura a los 2 Padres (50% a cada uno)
 
                     ' Busco si no está cargado el Padre en la lista (por otro Alumno)
-                    FacturaTitularEItemsActual = listFacturaTitularEItems.Find(Function(eaf) eaf.IDEntidad = EntidadAlumno.EntidadPadre.IDEntidad)
-                    If FacturaTitularEItemsActual Is Nothing Then
-                        ' No existe el Padre
-                        FacturaTitularEItemsActual = New FacturaTitularEItems
-                        FacturaTitularEItemsActual.IDComprobanteTipo = EntidadAlumno.EntidadPadre.CategoriaIVA.VentaIDComprobanteTipo
-                        FacturaTitularEItemsActual.IDEntidad = EntidadAlumno.EntidadPadre.IDEntidad
-                        FacturaTitularEItemsActual.ApellidoNombre = EntidadAlumno.EntidadPadre.ApellidoNombre
-                        FacturaTitularEItemsActual.TitularFactura = EntidadAlumno.EntidadPadre
-                        FacturaItemNuevo.Alumno = EntidadAlumno
-                        FacturaTitularEItemsActual.FacturaItems.Add(FacturaItemNuevo)
-                        listFacturaTitularEItems.Add(FacturaTitularEItemsActual)
+                    FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.EntidadPadre.IDEntidad)
+                    If FacturaCabecera Is Nothing Then
+                        ' No existe la Factura del Padre
+                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, ComprobanteEntidadMayusculas)
+                        FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
+                        FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
+                        FacturaCabecera.ImporteImpuesto = 0
+                        FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
+                        listFacturas.Add(FacturaCabecera)
                     Else
-                        FacturaItemNuevo.Alumno = EntidadAlumno
-                        FacturaTitularEItemsActual.FacturaItems.Add(FacturaItemNuevo)
+                        FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
+                        FacturaCabecera.ImporteNeto = FacturaCabecera.ImporteNeto + FacturaDetalle.PrecioTotal
+                        FacturaCabecera.ImporteImpuesto = 0
+                        FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
                     End If
 
                     ' Busco si no está cargada la Madre en la lista (por otro Alumno)
-                    FacturaTitularEItemsActual = listFacturaTitularEItems.Find(Function(eaf) eaf.IDEntidad = EntidadAlumno.EntidadMadre.IDEntidad)
-                    If FacturaTitularEItemsActual Is Nothing Then
-                        ' No existe la Madre
-                        FacturaTitularEItemsActual = New FacturaTitularEItems
-                        FacturaTitularEItemsActual.IDComprobanteTipo = EntidadAlumno.EntidadMadre.CategoriaIVA.VentaIDComprobanteTipo
-                        FacturaTitularEItemsActual.IDEntidad = EntidadAlumno.EntidadMadre.IDEntidad
-                        FacturaTitularEItemsActual.ApellidoNombre = EntidadAlumno.EntidadMadre.ApellidoNombre
-                        FacturaTitularEItemsActual.TitularFactura = EntidadAlumno.EntidadMadre
-                        FacturaItemNuevo.Alumno = EntidadAlumno
-                        FacturaTitularEItemsActual.FacturaItems.Add(FacturaItemNuevo)
-                        listFacturaTitularEItems.Add(FacturaTitularEItemsActual)
+                    FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.EntidadMadre.IDEntidad)
+                    If FacturaCabecera Is Nothing Then
+                        ' No existe la Factura de la Madre
+                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, ComprobanteEntidadMayusculas)
+                        FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
+                        FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
+                        FacturaCabecera.ImporteImpuesto = 0
+                        FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
+                        listFacturas.Add(FacturaCabecera)
                     Else
-                        FacturaItemNuevo.Alumno = EntidadAlumno
-                        FacturaTitularEItemsActual.FacturaItems.Add(FacturaItemNuevo)
+                        FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
+                        FacturaCabecera.ImporteNeto = FacturaCabecera.ImporteNeto + FacturaDetalle.PrecioTotal
+                        FacturaCabecera.ImporteImpuesto = 0
+                        FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
                     End If
             End Select
         Next
 
+        ' Ordeno la lista de Facturas por Tipo de Comprobante
+        listFacturas.OrderBy(Function(cc) cc.IDComprobanteTipo)
+
+        ' Obtengo el ID del último Comprobante cargado
+        If dbcEmision.ComprobanteCabecera.Count = 0 Then
+            NextID = 0
+        Else
+            NextID = dbcEmision.ComprobanteCabecera.Max(Function(cc) cc.IDComprobanteTipo)
+        End If
+
+        ' Recorro todas las Facturas generadas para aplicarles los ID y los Números de Comprobante
+        For Each FacturaCabeceraActual As ComprobanteCabecera In listFacturas
+            With FacturaCabeceraActual
+                .IDComprobante = NextID
+                If ComprobanteTipo.IDComprobanteTipo <> .IDComprobanteTipo Then
+                    ComprobanteTipo = dbcEmision.ComprobanteTipo.Find(.IDComprobanteTipo)
+                    ' Si el Comprobante no es de Emisión Electrónica, obtengo el nuevo Número de Comprobante
+                    If ComprobanteTipo.EmisionElectronica Then
+                        NextComprobanteNumero = New String("0"c, 12)
+                    Else
+                        NextComprobanteNumero = ComprobanteTipo.UltimoNumero
+                    End If
+                End If
+                If Not ComprobanteTipo.EmisionElectronica Then
+                    NextComprobanteNumero = NextComprobanteNumero.Substring(0, NextComprobanteNumero.Length - 8) & CStr(CInt(NextComprobanteNumero.Substring(NextComprobanteNumero.Length - 8)) + 1).PadLeft(8, "0"c)
+                End If
+                .ComprobanteNumero = NextComprobanteNumero
+            End With
+        Next
+
+        datagridviewPaso4Cabecera.AutoGenerateColumns = False
+        datagridviewPaso4Cabecera.DataSource = listFacturas
+
+        labelPaso3Pie.Text = String.Format("Se generarán {0} Facturas.", listFacturas.Count)
+
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub MostrarArbolDeEntidadesConAlumnos()
-        Dim EntidadesCount As Integer = 0
-        Dim AlumnosCount As Integer = 0
-        Dim EntidadNode As TreeNode
+    Private Function GenerarComprobanteCabecera(ByRef EntidadCabecera As Entidad, ByVal ComprobanteEntidadMayusculas As Boolean) As ComprobanteCabecera
+        Dim FacturaCabecera As New ComprobanteCabecera
+
+        With FacturaCabecera
+            .IDComprobanteTipo = EntidadCabecera.CategoriaIVA.VentaIDComprobanteTipo
+            .Fecha = System.DateTime.Now
+            .IDEntidad = EntidadCabecera.IDEntidad
+            If ComprobanteEntidadMayusculas Then
+                .EntidadApellido = EntidadCabecera.Apellido.ToUpper
+                .EntidadNombre = EntidadCabecera.Nombre.ToUpper
+            Else
+                .EntidadApellido = EntidadCabecera.Apellido
+                .EntidadNombre = EntidadCabecera.Nombre
+            End If
+            .CUIT = EntidadCabecera.CUIT_CUIL
+            .IDCategoriaIVA = EntidadCabecera.IDCategoriaIVA.Value
+
+            .DomicilioCalle1 = EntidadCabecera.DomicilioCalle1
+            .DomicilioNumero = EntidadCabecera.DomicilioNumero
+            .DomicilioPiso = EntidadCabecera.DomicilioPiso
+            .DomicilioDepartamento = EntidadCabecera.DomicilioDepartamento
+            .DomicilioCalle2 = EntidadCabecera.DomicilioCalle2
+            .DomicilioCalle3 = EntidadCabecera.DomicilioCalle3
+            .DomicilioCodigoPostal = EntidadCabecera.DomicilioCodigoPostal
+            .DomicilioIDProvincia = EntidadCabecera.DomicilioIDProvincia
+            .DomicilioIDLocalidad = EntidadCabecera.DomicilioIDLocalidad
+
+            .IDUsuarioCreacion = pUsuario.IDUsuario
+            .FechaHoraCreacion = System.DateTime.Now
+            .IDUsuarioModificacion = pUsuario.IDUsuario
+            .FechaHoraModificacion = .FechaHoraCreacion
+        End With
+
+        Return FacturaCabecera
+    End Function
+
+    Private Function GenerarComprobanteDetalle(ByRef FacturaCabecera As ComprobanteCabecera, ByRef EntidadDetalle As Entidad, ByVal IDArticulo As Short) As ComprobanteDetalle
+        Dim FacturaDetalle As New ComprobanteDetalle
         Dim AnioLectivoCursoActual As AnioLectivoCurso
-        Dim AlumnoImporteAFacturar As Decimal
 
-        Me.Cursor = Cursors.WaitCursor
+        AnioLectivoCursoActual = EntidadDetalle.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = AnioLectivo).FirstOrDefault
+        If Not AnioLectivoCursoActual Is Nothing Then
+            With FacturaDetalle
+                .Indice = CByte(FacturaCabecera.ComprobanteDetalle.Count + 1)
+                .IDArticulo = IDArticulo
+                .IDEntidad = EntidadDetalle.IDEntidad
+                .IDAnioLectivoCurso = AnioLectivoCursoActual.IDAnioLectivoCurso
+                .CuotaMes = MesAFacturar
+                .Cantidad = 1
+                .Descripcion = String.Format("Cuota de {0} de {1} - {2}", MesAFacturarNombre, AnioLectivo, EntidadDetalle.ApellidoNombre)
 
-        listFacturaTitularEItems.Sort(Function(eac1, eac2) eac1.ApellidoNombre.CompareTo(eac2.ApellidoNombre))
-
-        treeviewPaso3.BeginUpdate()
-        treeviewPaso3.Nodes.Clear()
-        For Each EntidadYAlumnosAFacturarActual As FacturaTitularEItems In listFacturaTitularEItems
-            EntidadesCount += 1
-            EntidadNode = New TreeNode(EntidadYAlumnosAFacturarActual.TitularFactura.ApellidoNombre)
-            For Each FacturaItemActual As FacturaItem In EntidadYAlumnosAFacturarActual.FacturaItems
-                AnioLectivoCursoActual = FacturaItemActual.Alumno.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = AnioLectivo).FirstOrDefault
-                If Not AnioLectivoCursoActual Is Nothing Then
-                    FacturaItemActual.IDAnioLectivoCurso = AnioLectivoCursoActual.IDAnioLectivoCurso
-                    FacturaItemActual.NivelNombre = AnioLectivoCursoActual.Curso.Anio.Nivel.Nombre
-                    FacturaItemActual.AnioNombre = AnioLectivoCursoActual.Curso.Anio.Nombre
-                    FacturaItemActual.TurnoNombre = AnioLectivoCursoActual.Curso.Turno.Nombre
-                    FacturaItemActual.Division = AnioLectivoCursoActual.Curso.Division
-
-                    If FacturaItemActual.Alumno.IDDescuento Is Nothing Then
-                        AlumnoImporteAFacturar = AnioLectivoCursoActual.ImporteCuota
-                    Else
-                        AlumnoImporteAFacturar = AnioLectivoCursoActual.ImporteCuota * (1 - (FacturaItemActual.Alumno.Descuento.Porcentaje / 100))
-                    End If
-                    If FacturaItemActual.Alumno.EntidadFactura = "2" Then
-                        If EntidadYAlumnosAFacturarActual.TitularFactura Is FacturaItemActual.Alumno.EntidadPadre Then
-                            AlumnosCount += 1
-                        End If
-                        AlumnoImporteAFacturar = AlumnoImporteAFacturar / 2
-                    Else
-                        AlumnosCount += 1
-                    End If
-                    FacturaItemActual.ImporteCuota = AlumnoImporteAFacturar
-                    EntidadNode.Nodes.Add(New TreeNode(String.Format("Alumno: {0} - Curso: {1}, {2}, {3}, {4} - Importe: {5}", FacturaItemActual.Alumno.ApellidoNombre, FacturaItemActual.NivelNombre, FacturaItemActual.AnioNombre, FacturaItemActual.TurnoNombre, FacturaItemActual.Division, FormatCurrency(FacturaItemActual.ImporteCuota))))
+                ' Precios
+                If EntidadDetalle.EntidadFactura = Constants.ENTIDADFACTURA_AMBOSPADRES Then
+                    .PrecioUnitario = AnioLectivoCursoActual.ImporteCuota / 2
+                Else
+                    .PrecioUnitario = AnioLectivoCursoActual.ImporteCuota
                 End If
-            Next
-            treeviewPaso3.Nodes.Add(EntidadNode)
-        Next
-        treeviewPaso3.EndUpdate()
+                If EntidadDetalle.IDDescuento Is Nothing Then
+                    .PrecioUnitarioDescuentoPorcentaje = 0
+                    .PrecioUnitarioDescuentoImporte = 0
+                Else
+                    .PrecioUnitarioDescuentoPorcentaje = EntidadDetalle.Descuento.Porcentaje
+                    .PrecioUnitarioDescuentoImporte = .PrecioUnitario * .PrecioUnitarioDescuentoPorcentaje / 100
+                End If
+                .PrecioUnitarioFinal = .PrecioUnitario - .PrecioUnitarioDescuentoImporte
+                .PrecioTotal = .PrecioUnitarioFinal
+            End With
 
-        labelPaso3Pie.Text = "Facturas a emitir: " & EntidadesCount & " - Alumnos: " & AlumnosCount
+            FacturaCabecera.ComprobanteDetalle.Add(FacturaDetalle)
 
-        buttonPaso3Siguiente.Enabled = (listFacturaTitularEItems.Count > 0)
+            Return FacturaDetalle
+        Else
+            Return Nothing
+        End If
+    End Function
 
-        Me.Cursor = Cursors.Default
+    Private Sub Paso4MostrarDetalle() Handles datagridviewPaso4Cabecera.SelectionChanged
+        datagridviewPaso4Detalle.AutoGenerateColumns = False
+        datagridviewPaso4Detalle.DataSource = CType(datagridviewPaso4Cabecera.SelectedRows(0).DataBoundItem, ComprobanteCabecera).ComprobanteDetalle.ToList
     End Sub
 
     Private Sub buttonPaso3Anterior_Click() Handles buttonPaso3Anterior.Click
@@ -635,152 +687,18 @@ Public Class formGenerarLoteFacturas
 
     Private Sub buttonPaso3Siguiente_Click() Handles buttonPaso3Siguiente.Click
         MostrarPaneles(4)
-        EmitirComprobantes()
+        'EmitirComprobantes()
     End Sub
 #End Region
 
-#Region "Paso 4 - Emisión"
-    Private Sub EmitirComprobantes()
-        Dim dbcEmision As New CSColegioContext
-        Dim FacturaCabecera As ComprobanteCabecera
-        Dim FacturaDetalle As ComprobanteDetalle
+#Region "Paso 4"
+    'Private Sub buttonPaso4Anterior_Click() Handles buttonPaso4Anterior.Click
+    '    MostrarPaneles(3)
+    'End Sub
 
-        Dim ComprobanteTipo As New ComprobanteTipo
-        Dim NextComprobanteNumero As String = ""
-        Dim FirstID As Integer
-        Dim LastID As Integer
-        Dim NextID As Integer
-        Dim NextIndice As Byte
-        Dim IDArticulo As Short
-        Dim ComprobanteEntidadMayusculas As Boolean
-
-        Dim ImporteNeto As Decimal
-        Dim ImporteImpuesto As Decimal
-
-        Dim listFacturas As New List(Of ComprobanteCabecera)
-
-        Me.Cursor = Cursors.WaitCursor
-
-        ' Ordeno la lista por Tipo de Comprobante para que de esa manera, para calcular la numeración, consulto la base de datos una sola vez por tipo de comprobante y después voy sumando uno
-        listFacturaTitularEItems.OrderBy(Function(ftei) ftei.IDComprobanteTipo)
-
-        If dbcEmision.ComprobanteCabecera.Count = 0 Then
-            NextID = 0
-        Else
-            NextID = dbcEmision.ComprobanteCabecera.Max(Function(cc) cc.IDComprobante)
-        End If
-        FirstID = NextID + 1
-
-        IDArticulo = CSM_Parameter.GetIntegerAsShort(Constants.PARAMETRO_ARTICULO_CUOTA_MENSUAL)
-        ComprobanteEntidadMayusculas = CSM_Parameter.GetBoolean(Constants.PARAMETRO_COMPROBANTE_ENTIDAD_MAYUSCULAS, False).Value
-
-        For Each EntidadYAlumnosAFacturarActual As FacturaTitularEItems In listFacturaTitularEItems
-            If ComprobanteTipo.IDComprobanteTipo <> EntidadYAlumnosAFacturarActual.IDComprobanteTipo Then
-                ComprobanteTipo = dbcEmision.ComprobanteTipo.Find(EntidadYAlumnosAFacturarActual.IDComprobanteTipo)
-                ' Si el Comprobante no es de Emisión Electrónica, obtengo el nuevo Número de Comprobante
-                If ComprobanteTipo.EmisionElectronica Then
-                    NextComprobanteNumero = New String("0"c, 12)
-                Else
-                    NextComprobanteNumero = ComprobanteTipo.UltimoNumero
-                End If
-            End If
-            If Not ComprobanteTipo.EmisionElectronica Then
-                NextComprobanteNumero = NextComprobanteNumero.Substring(0, NextComprobanteNumero.Length - 8) & CStr(CInt(NextComprobanteNumero.Substring(NextComprobanteNumero.Length - 8)) + 1).PadLeft(8, "0"c)
-            End If
-            NextID += 1
-            NextIndice = 0
-            ImporteNeto = 0
-            ImporteImpuesto = 0
-            FacturaCabecera = New ComprobanteCabecera
-            With FacturaCabecera
-                .IDComprobante = NextID
-                .IDComprobanteTipo = ComprobanteTipo.IDComprobanteTipo
-                .ComprobanteNumero = NextComprobanteNumero
-                .Fecha = System.DateTime.Now
-                .IDEntidad = EntidadYAlumnosAFacturarActual.IDEntidad
-                If ComprobanteEntidadMayusculas Then
-                    .EntidadApellido = EntidadYAlumnosAFacturarActual.TitularFactura.Apellido.ToUpper
-                    .EntidadNombre = EntidadYAlumnosAFacturarActual.TitularFactura.Nombre.ToUpper
-                Else
-                    .EntidadApellido = EntidadYAlumnosAFacturarActual.TitularFactura.Apellido
-                    .EntidadNombre = EntidadYAlumnosAFacturarActual.TitularFactura.Nombre
-                End If
-                .CUIT = EntidadYAlumnosAFacturarActual.TitularFactura.CUIT_CUIL
-                .IDCategoriaIVA = EntidadYAlumnosAFacturarActual.TitularFactura.IDCategoriaIVA.Value
-                .DomicilioCalle1 = EntidadYAlumnosAFacturarActual.TitularFactura.DomicilioCalle1
-                .DomicilioNumero = EntidadYAlumnosAFacturarActual.TitularFactura.DomicilioNumero
-                .DomicilioPiso = EntidadYAlumnosAFacturarActual.TitularFactura.DomicilioPiso
-                .DomicilioDepartamento = EntidadYAlumnosAFacturarActual.TitularFactura.DomicilioDepartamento
-                .DomicilioCalle2 = EntidadYAlumnosAFacturarActual.TitularFactura.DomicilioCalle2
-                .DomicilioCalle3 = EntidadYAlumnosAFacturarActual.TitularFactura.DomicilioCalle3
-                .DomicilioCodigoPostal = EntidadYAlumnosAFacturarActual.TitularFactura.DomicilioCodigoPostal
-                .DomicilioIDProvincia = EntidadYAlumnosAFacturarActual.TitularFactura.DomicilioIDProvincia
-                .DomicilioIDLocalidad = EntidadYAlumnosAFacturarActual.TitularFactura.DomicilioIDLocalidad
-                For Each FacturaItemActual As FacturaItem In EntidadYAlumnosAFacturarActual.FacturaItems
-                    NextIndice += CByte(1)
-                    FacturaDetalle = New ComprobanteDetalle
-                    FacturaDetalle.Indice = NextIndice
-                    FacturaDetalle.IDArticulo = IDArticulo
-                    FacturaDetalle.IDEntidad = FacturaItemActual.Alumno.IDEntidad
-                    FacturaDetalle.IDAnioLectivoCurso = FacturaItemActual.IDAnioLectivoCurso
-                    FacturaDetalle.CuotaMes = MesAFacturar
-                    FacturaDetalle.Cantidad = 1
-                    FacturaDetalle.Descripcion = String.Format("Cuota de {0} de {1} - {2}", MesAFacturarNombre, AnioLectivo, FacturaItemActual.Alumno.ApellidoNombre)
-                    FacturaDetalle.PrecioUnitario = FacturaItemActual.ImporteCuota
-                    FacturaDetalle.PrecioUnitarioFinal = FacturaItemActual.ImporteCuota
-                    FacturaDetalle.PrecioTotal = FacturaItemActual.ImporteCuota
-                    .ComprobanteDetalle.Add(FacturaDetalle)
-                    ImporteNeto += FacturaItemActual.ImporteCuota
-                Next
-                .ImporteNeto = ImporteNeto
-                .ImporteImpuesto = ImporteImpuesto
-                .ImporteTotal = ImporteNeto + ImporteImpuesto
-                .IDUsuarioCreacion = pUsuario.IDUsuario
-                .FechaHoraCreacion = System.DateTime.Now
-                .IDUsuarioModificacion = pUsuario.IDUsuario
-                .FechaHoraModificacion = .FechaHoraCreacion
-            End With
-            dbcColegio.ComprobanteCabecera.Add(FacturaCabecera)
-            listFacturas.Add(FacturaCabecera)
-        Next
-        LastID = NextID
-
-        Try
-            dbcColegio.SaveChanges()
-        Catch ex As Exception
-            CSM_Error.ProcessError(ex, "Error al guardar los datos de las Facturas")
-        End Try
-
-        ' Muestro los comprobantes generados en la Grilla
-        'Dim listFacturasGeneradas = (From cc In dbcEmision.ComprobanteCabecera
-        '                            Join ct In dbcEmision.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
-        '                            Join ci In dbcEmision.CategoriaIVA On cc.IDCategoriaIVA Equals ci.IDCategoriaIVA
-        '                            Where cc.IDComprobante >= FirstID And cc.IDComprobante <= LastID
-        '                            Order By cc.IDComprobante
-        '                            Select ComprobanteTipoNombre = ct.Nombre, ComprobanteNumero = cc.ComprobanteNumero, EntidadApellido = cc.EntidadApellido, EntidadNombre = cc.EntidadNombre, CUIT = cc.CUIT, CategoriaIVANombre = ci.Nombre, ImporteTotal = cc.ImporteTotal).ToList
-
-        datagridviewPaso4Cabecera.AutoGenerateColumns = False
-        datagridviewPaso4Cabecera.DataSource = listFacturas
-
-        Me.Cursor = Cursors.Default
-    End Sub
-
-    Private Sub Paso4MostrarDetalle() Handles datagridviewPaso4Cabecera.SelectionChanged
-        'Dim listDetalleFactura = (From cd In dbcColegio.ComprobanteDetalle
-        '                          Where cd.IDComprobante = CInt(datagridviewPaso4Cabecera.SelectedRows(0).Cells(0).Value)
-        '                          Order By cd.Indice
-        '                          Select Descripcion = cd.Descripcion, PrecioTotal = cd.PrecioTotal).ToList
-
-        datagridviewPaso4Detalle.AutoGenerateColumns = False
-        datagridviewPaso4Detalle.DataSource = CType(datagridviewPaso4Cabecera.SelectedRows(0).DataBoundItem, ComprobanteCabecera).ComprobanteDetalle.ToList
-    End Sub
-
-    Private Sub buttonPaso4Anterior_Click() Handles buttonPaso4Anterior.Click
-        MostrarPaneles(3)
-    End Sub
-
-    Private Sub buttonPaso4Siguiente_Click() Handles buttonPaso4Siguiente.Click
-        MostrarPaneles(5)
-    End Sub
+    'Private Sub buttonPaso4Siguiente_Click() Handles buttonPaso4Siguiente.Click
+    '    MostrarPaneles(5)
+    'End Sub
 #End Region
+
 End Class

@@ -369,4 +369,8 @@
         textboxEntidadMadre.Text = ""
         textboxEntidadMadre.Tag = Nothing
     End Sub
+
+    Private Sub textboxDocumentoNumero_LostFocus(sender As Object, e As EventArgs) Handles textboxDocumentoNumero.LostFocus
+        textboxDocumentoNumero.Text = textboxDocumentoNumero.Text.Replace(".", "")
+    End Sub
 End Class

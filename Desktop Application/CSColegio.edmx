@@ -136,12 +136,12 @@
           <Property Name="IDEntidad" Type="int" />
           <Property Name="IDAnioLectivoCurso" Type="smallint" />
           <Property Name="CuotaMes" Type="tinyint" />
-          <Property Name="Cantidad" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="Cantidad" Type="decimal" Precision="8" Scale="2" Nullable="false" />
           <Property Name="Unidad" Type="varchar" MaxLength="10" />
           <Property Name="Descripcion" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="PrecioUnitario" Type="money" Nullable="false" />
-          <Property Name="PrecioUnitarioDescuentoPorcentaje" Type="decimal" Precision="5" Scale="2" />
-          <Property Name="PrecioUnitarioDescuentoImporte" Type="money" />
+          <Property Name="PrecioUnitarioDescuentoPorcentaje" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="PrecioUnitarioDescuentoImporte" Type="money" Nullable="false" />
           <Property Name="PrecioUnitarioFinal" Type="money" Nullable="false" />
           <Property Name="PrecioTotal" Type="money" Nullable="false" />
         </EntityType>
@@ -1782,12 +1782,12 @@
           <Property Name="IDEntidad" Type="Int32" />
           <Property Name="IDAnioLectivoCurso" Type="Int16" />
           <Property Name="CuotaMes" Type="Byte" />
-          <Property Name="Cantidad" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="Cantidad" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
           <Property Name="Unidad" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="PrecioUnitario" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="PrecioUnitarioDescuentoPorcentaje" Type="Decimal" Precision="5" Scale="2" />
-          <Property Name="PrecioUnitarioDescuentoImporte" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PrecioUnitarioDescuentoPorcentaje" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="PrecioUnitarioDescuentoImporte" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="PrecioUnitarioFinal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="PrecioTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <NavigationProperty Name="ComprobanteCabecera" Relationship="CSColegioModel.FK__ComprobanteCabecera__ComprobanteDetalle" FromRole="ComprobanteDetalle" ToRole="ComprobanteCabecera" />
