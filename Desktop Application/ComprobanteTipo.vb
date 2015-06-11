@@ -15,15 +15,15 @@ Partial Public Class ComprobanteTipo
     Public Property OperacionTipo As String
     Public Property Sigla As String
     Public Property Nombre As String
+    Public Property CodigoAFIP As Byte
+    Public Property EmisionElectronica As Nullable(Of Boolean)
     Public Property EsActivo As Boolean
     Public Property IDUsuarioCreacion As Byte
     Public Property FechaHoraCreacion As Date
     Public Property IDUsuarioModificacion As Byte
     Public Property FechaHoraModificacion As Date
-    Public Property CodigoAFIP As Byte
-    Public Property EmisionElectronica As Nullable(Of Boolean)
-    Public Property UltimoNumero As String
 
     Public Overridable Property ComprobanteCabecera As ICollection(Of ComprobanteCabecera) = New HashSet(Of ComprobanteCabecera)
+    Public Overridable Property ComprobanteTipoPuntoVenta As ICollection(Of ComprobanteTipoPuntoVenta) = New HashSet(Of ComprobanteTipoPuntoVenta)
 
 End Class

@@ -164,6 +164,63 @@ Namespace My
                 Return CType(Me("PermiteGenerarMatriculaMesDesde"),Byte)
             End Get
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=PHENOMII-X4;Initial Catalog=CSColegio;Persist Security Info=True;User"& _ 
+            " ID=sa;Password=Tai1802Pei;MultipleActiveResultSets=True;Application Name=Entity"& _ 
+            "Framework")>  _
+        Public ReadOnly Property CSColegioConnectionString() As String
+            Get
+                Return CType(Me("CSColegioConnectionString"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Tomas\Dropbox\Cardoner Sistemas\AFIP Data\cscolegio_homo.crt")>  _
+        Public ReadOnly Property AFIP_Certificado() As String
+            Get
+                Return CType(Me("AFIP_Certificado"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Tomas\Dropbox\Cardoner Sistemas\AFIP Data\privada.key")>  _
+        Public ReadOnly Property AFIP_ClavePrivada() As String
+            Get
+                Return CType(Me("AFIP_ClavePrivada"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("1")> _
+        Public ReadOnly Property IDPuntoVenta() As Byte
+            Get
+                Return CType(Me("IDPuntoVenta"), Byte)
+            End Get
+        End Property
+
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("2400")> _
+        Public ReadOnly Property AFIP_TTLTicketRequerimientoAcceso() As Short
+            Get
+                Return CType(Me("AFIP_TTLTicketRequerimientoAcceso"), Short)
+            End Get
+        End Property
+
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Tomas\Dropbox\Cardoner Sistemas\AFIP Data\")> _
+        Public ReadOnly Property AFIP_TicketAccesoUbicacion() As String
+            Get
+                Return CType(Me("AFIP_TicketAccesoUbicacion"), String)
+            End Get
+        End Property
     End Class
 End Namespace
 

@@ -99,7 +99,8 @@
           </Key>
           <Property Name="IDComprobante" Type="int" Nullable="false" />
           <Property Name="IDComprobanteTipo" Type="tinyint" Nullable="false" />
-          <Property Name="ComprobanteNumero" Type="char" MaxLength="12" Nullable="false" />
+          <Property Name="PuntoVenta" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="Numero" Type="char" MaxLength="8" Nullable="false" />
           <Property Name="Fecha" Type="date" Nullable="false" />
           <Property Name="IDEntidad" Type="int" Nullable="false" />
           <Property Name="EntidadApellido" Type="varchar" MaxLength="100" Nullable="false" />
@@ -164,12 +165,20 @@
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CodigoAFIP" Type="tinyint" Nullable="false" />
           <Property Name="EmisionElectronica" Type="bit" />
-          <Property Name="UltimoNumero" Type="char" MaxLength="12" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
           <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ComprobanteTipoPuntoVenta">
+          <Key>
+            <PropertyRef Name="IDComprobanteTipo" />
+            <PropertyRef Name="IDPuntoVenta" />
+          </Key>
+          <Property Name="IDComprobanteTipo" Type="tinyint" Nullable="false" />
+          <Property Name="IDPuntoVenta" Type="tinyint" Nullable="false" />
+          <Property Name="UltimoNumero" Type="char" MaxLength="8" Nullable="false" />
         </EntityType>
         <EntityType Name="Concepto">
           <Key>
@@ -207,8 +216,7 @@
           </Key>
           <Property Name="IDDescuento" Type="tinyint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="NombreCompleto" Type="varchar" MaxLength="8000" StoreGeneratedPattern="Computed" />
-          <Property Name="Porcentaje" Type="decimal" Precision="3" Scale="1" Nullable="false" />
+          <Property Name="Porcentaje" Type="decimal" Precision="4" Scale="1" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="DocumentoTipo">
@@ -412,6 +420,15 @@
           <Property Name="IDProvincia" Type="tinyint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="PuntoVenta">
+          <Key>
+            <PropertyRef Name="IDPuntoVenta" />
+          </Key>
+          <Property Name="IDPuntoVenta" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Numero" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="RelacionTipo">
           <Key>
             <PropertyRef Name="IDRelacionTipo" />
@@ -597,6 +614,18 @@
               <PropertyRef Name="IDComprobanteTipo" />
             </Principal>
             <Dependent Role="ComprobanteCabecera">
+              <PropertyRef Name="IDComprobanteTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ComprobanteTipo__ComprobanteTipoPuntoVenta">
+          <End Role="ComprobanteTipo" Type="Self.ComprobanteTipo" Multiplicity="1" />
+          <End Role="ComprobanteTipoPuntoVenta" Type="Self.ComprobanteTipoPuntoVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComprobanteTipo">
+              <PropertyRef Name="IDComprobanteTipo" />
+            </Principal>
+            <Dependent Role="ComprobanteTipoPuntoVenta">
               <PropertyRef Name="IDComprobanteTipo" />
             </Dependent>
           </ReferentialConstraint>
@@ -797,6 +826,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__PuntoVenta__ComprobanteTipoPuntoVenta">
+          <End Role="PuntoVenta" Type="Self.PuntoVenta" Multiplicity="1" />
+          <End Role="ComprobanteTipoPuntoVenta" Type="Self.ComprobanteTipoPuntoVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PuntoVenta">
+              <PropertyRef Name="IDPuntoVenta" />
+            </Principal>
+            <Dependent Role="ComprobanteTipoPuntoVenta">
+              <PropertyRef Name="IDPuntoVenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Turno__Curso">
           <End Role="Turno" Type="Self.Turno" Multiplicity="1" />
           <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
@@ -845,6 +886,7 @@
           <EntitySet Name="ComprobanteDetalle" EntityType="Self.ComprobanteDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteImpuesto" EntityType="Self.ComprobanteImpuesto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteTipo" EntityType="Self.ComprobanteTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComprobanteTipoPuntoVenta" EntityType="Self.ComprobanteTipoPuntoVenta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Concepto" EntityType="Self.Concepto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CondicionIVA" EntityType="Self.CondicionIVA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
@@ -864,6 +906,7 @@
           <EntitySet Name="Nivel" EntityType="Self.Nivel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Parametro" EntityType="Self.Parametro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PuntoVenta" EntityType="Self.PuntoVenta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelacionTipo" EntityType="Self.RelacionTipo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Turno" EntityType="Self.Turno" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnidadMedida" EntityType="Self.UnidadMedida" Schema="dbo" store:Type="Tables" />
@@ -909,6 +952,10 @@
           <AssociationSet Name="FK__ComprobanteTipo__ComprobanteCabecera" Association="Self.FK__ComprobanteTipo__ComprobanteCabecera">
             <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
             <End Role="ComprobanteCabecera" EntitySet="ComprobanteCabecera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ComprobanteTipo__ComprobanteTipoPuntoVenta" Association="Self.FK__ComprobanteTipo__ComprobanteTipoPuntoVenta">
+            <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
+            <End Role="ComprobanteTipoPuntoVenta" EntitySet="ComprobanteTipoPuntoVenta" />
           </AssociationSet>
           <AssociationSet Name="FK__Descuento__Entidad" Association="Self.FK__Descuento__Entidad">
             <End Role="Descuento" EntitySet="Descuento" />
@@ -973,6 +1020,10 @@
           <AssociationSet Name="FK__Provincia__Localidad" Association="Self.FK__Provincia__Localidad">
             <End Role="Provincia" EntitySet="Provincia" />
             <End Role="Localidad" EntitySet="Localidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PuntoVenta__ComprobanteTipoPuntoVenta" Association="Self.FK__PuntoVenta__ComprobanteTipoPuntoVenta">
+            <End Role="PuntoVenta" EntitySet="PuntoVenta" />
+            <End Role="ComprobanteTipoPuntoVenta" EntitySet="ComprobanteTipoPuntoVenta" />
           </AssociationSet>
           <AssociationSet Name="FK__Turno__Curso" Association="Self.FK__Turno__Curso">
             <End Role="Turno" EntitySet="Turno" />
@@ -1675,6 +1726,16 @@
             <End Role="Entidad" EntitySet="Entidad" />
             <End Role="ComprobanteDetalle" EntitySet="ComprobanteDetalle" />
           </AssociationSet>
+          <EntitySet Name="ComprobanteTipoPuntoVenta" EntityType="CSColegioModel.ComprobanteTipoPuntoVenta" />
+          <EntitySet Name="PuntoVenta" EntityType="CSColegioModel.PuntoVenta" />
+          <AssociationSet Name="FK__ComprobanteTipo__ComprobanteTipoPuntoVenta" Association="CSColegioModel.FK__ComprobanteTipo__ComprobanteTipoPuntoVenta">
+            <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
+            <End Role="ComprobanteTipoPuntoVenta" EntitySet="ComprobanteTipoPuntoVenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PuntoVenta__ComprobanteTipoPuntoVenta" Association="CSColegioModel.FK__PuntoVenta__ComprobanteTipoPuntoVenta">
+            <End Role="PuntoVenta" EntitySet="PuntoVenta" />
+            <End Role="ComprobanteTipoPuntoVenta" EntitySet="ComprobanteTipoPuntoVenta" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
           <Key>
@@ -1695,15 +1756,15 @@
           <Property Name="OperacionTipo" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="Sigla" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoAFIP" Type="Byte" Nullable="false" />
+          <Property Name="EmisionElectronica" Type="Boolean" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ComprobanteCabecera" Relationship="CSColegioModel.FK__ComprobanteTipo__ComprobanteCabecera" FromRole="ComprobanteTipo" ToRole="ComprobanteCabecera" />
-          <Property Name="CodigoAFIP" Type="Byte" Nullable="false" />
-          <Property Name="EmisionElectronica" Type="Boolean" />
-          <Property Name="UltimoNumero" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="ComprobanteTipoPuntoVenta" Relationship="CSColegioModel.FK__ComprobanteTipo__ComprobanteTipoPuntoVenta" FromRole="ComprobanteTipo" ToRole="ComprobanteTipoPuntoVenta" />
         </EntityType>
         <EntityType Name="Impuesto">
           <Key>
@@ -1739,7 +1800,8 @@
           </Key>
           <Property Name="IDComprobante" Type="Int32" Nullable="false" />
           <Property Name="IDComprobanteTipo" Type="Byte" Nullable="false" />
-          <Property Name="ComprobanteNumero" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="false" />
+          <Property Name="PuntoVenta" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="Numero" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IDEntidad" Type="Int32" Nullable="false" />
           <Property Name="EntidadApellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -2027,8 +2089,7 @@
           </Key>
           <Property Name="IDDescuento" Type="Byte" Nullable="false" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="NombreCompleto" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-          <Property Name="Porcentaje" Type="Decimal" Nullable="false" Precision="3" Scale="1" />
+          <Property Name="Porcentaje" Type="Decimal" Nullable="false" Precision="4" Scale="1" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Entidad" Relationship="CSColegioModel.FK__Descuento__Entidad" FromRole="Descuento" ToRole="Entidad" />
         </EntityType>
@@ -2065,6 +2126,51 @@
             </Principal>
             <Dependent Role="ComprobanteDetalle">
               <PropertyRef Name="IDEntidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ComprobanteTipoPuntoVenta">
+          <Key>
+            <PropertyRef Name="IDComprobanteTipo" />
+            <PropertyRef Name="IDPuntoVenta" />
+          </Key>
+          <Property Name="IDComprobanteTipo" Type="Byte" Nullable="false" />
+          <Property Name="IDPuntoVenta" Type="Byte" Nullable="false" />
+          <Property Name="UltimoNumero" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="ComprobanteTipo" Relationship="CSColegioModel.FK__ComprobanteTipo__ComprobanteTipoPuntoVenta" FromRole="ComprobanteTipoPuntoVenta" ToRole="ComprobanteTipo" />
+          <NavigationProperty Name="PuntoVenta" Relationship="CSColegioModel.FK__PuntoVenta__ComprobanteTipoPuntoVenta" FromRole="ComprobanteTipoPuntoVenta" ToRole="PuntoVenta" />
+        </EntityType>
+        <EntityType Name="PuntoVenta">
+          <Key>
+            <PropertyRef Name="IDPuntoVenta" />
+          </Key>
+          <Property Name="IDPuntoVenta" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Numero" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ComprobanteTipoPuntoVenta" Relationship="CSColegioModel.FK__PuntoVenta__ComprobanteTipoPuntoVenta" FromRole="PuntoVenta" ToRole="ComprobanteTipoPuntoVenta" />
+        </EntityType>
+        <Association Name="FK__ComprobanteTipo__ComprobanteTipoPuntoVenta">
+          <End Type="CSColegioModel.ComprobanteTipo" Role="ComprobanteTipo" Multiplicity="1" />
+          <End Type="CSColegioModel.ComprobanteTipoPuntoVenta" Role="ComprobanteTipoPuntoVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComprobanteTipo">
+              <PropertyRef Name="IDComprobanteTipo" />
+            </Principal>
+            <Dependent Role="ComprobanteTipoPuntoVenta">
+              <PropertyRef Name="IDComprobanteTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PuntoVenta__ComprobanteTipoPuntoVenta">
+          <End Type="CSColegioModel.PuntoVenta" Role="PuntoVenta" Multiplicity="1" />
+          <End Type="CSColegioModel.ComprobanteTipoPuntoVenta" Role="ComprobanteTipoPuntoVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PuntoVenta">
+              <PropertyRef Name="IDPuntoVenta" />
+            </Principal>
+            <Dependent Role="ComprobanteTipoPuntoVenta">
+              <PropertyRef Name="IDPuntoVenta" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2410,7 +2516,6 @@
           <EntitySetMapping Name="ComprobanteTipo">
             <EntityTypeMapping TypeName="CSColegioModel.ComprobanteTipo">
               <MappingFragment StoreEntitySet="ComprobanteTipo">
-                <ScalarProperty Name="UltimoNumero" ColumnName="UltimoNumero" />
                 <ScalarProperty Name="EmisionElectronica" ColumnName="EmisionElectronica" />
                 <ScalarProperty Name="CodigoAFIP" ColumnName="CodigoAFIP" />
                 <ScalarProperty Name="OperacionTipo" ColumnName="OperacionTipo" />
@@ -2444,6 +2549,8 @@
           <EntitySetMapping Name="ComprobanteCabecera">
             <EntityTypeMapping TypeName="CSColegioModel.ComprobanteCabecera">
               <MappingFragment StoreEntitySet="ComprobanteCabecera">
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="PuntoVenta" ColumnName="PuntoVenta" />
                 <ScalarProperty Name="FechaHoraTransmision" ColumnName="FechaHoraTransmision" />
                 <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
                 <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
@@ -2468,7 +2575,6 @@
                 <ScalarProperty Name="EntidadApellido" ColumnName="EntidadApellido" />
                 <ScalarProperty Name="IDEntidad" ColumnName="IDEntidad" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="ComprobanteNumero" ColumnName="ComprobanteNumero" />
                 <ScalarProperty Name="IDComprobanteTipo" ColumnName="IDComprobanteTipo" />
                 <ScalarProperty Name="IDComprobante" ColumnName="IDComprobante" />
               </MappingFragment>
@@ -2572,11 +2678,29 @@
           <EntitySetMapping Name="Descuento">
             <EntityTypeMapping TypeName="CSColegioModel.Descuento">
               <MappingFragment StoreEntitySet="Descuento">
-                <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
                 <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
                 <ScalarProperty Name="Porcentaje" ColumnName="Porcentaje" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IDDescuento" ColumnName="IDDescuento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComprobanteTipoPuntoVenta">
+            <EntityTypeMapping TypeName="CSColegioModel.ComprobanteTipoPuntoVenta">
+              <MappingFragment StoreEntitySet="ComprobanteTipoPuntoVenta">
+                <ScalarProperty Name="UltimoNumero" ColumnName="UltimoNumero" />
+                <ScalarProperty Name="IDPuntoVenta" ColumnName="IDPuntoVenta" />
+                <ScalarProperty Name="IDComprobanteTipo" ColumnName="IDComprobanteTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PuntoVenta">
+            <EntityTypeMapping TypeName="CSColegioModel.PuntoVenta">
+              <MappingFragment StoreEntitySet="PuntoVenta">
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDPuntoVenta" ColumnName="IDPuntoVenta" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

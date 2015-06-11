@@ -74,6 +74,10 @@
         <AssociationConnector Association="CSColegioModel.FK__Descuento__Entidad" />
         <AssociationConnector Association="CSColegioModel.FK__AnioLectivoCurso__ComprobanteDetalle" />
         <AssociationConnector Association="CSColegioModel.FK__Entidad__ComprobanteDetalle" />
+        <EntityTypeShape EntityType="CSColegioModel.ComprobanteTipoPuntoVenta" Width="1.5" PointX="13.75" PointY="20.375" />
+        <EntityTypeShape EntityType="CSColegioModel.PuntoVenta" Width="1.5" PointX="11.5" PointY="23.375" />
+        <AssociationConnector Association="CSColegioModel.FK__ComprobanteTipo__ComprobanteTipoPuntoVenta" />
+        <AssociationConnector Association="CSColegioModel.FK__PuntoVenta__ComprobanteTipoPuntoVenta" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

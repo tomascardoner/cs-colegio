@@ -57,5 +57,7 @@ Partial Public Class CSColegioContext
     Public Overridable Property Moneda() As DbSet(Of Moneda)
     Public Overridable Property UnidadMedida() As DbSet(Of UnidadMedida)
     Public Overridable Property Descuento() As DbSet(Of Descuento)
+    Public Overridable Property ComprobanteTipoPuntoVenta() As DbSet(Of ComprobanteTipoPuntoVenta)
+    Public Overridable Property PuntoVenta() As DbSet(Of PuntoVenta)
 
 End Class

@@ -10,12 +10,12 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class Descuento
-    Public Property IDDescuento As Byte
-    Public Property Nombre As String
-    Public Property Porcentaje As Decimal
-    Public Property EsActivo As Boolean
+Partial Public Class ComprobanteTipoPuntoVenta
+    Public Property IDComprobanteTipo As Byte
+    Public Property IDPuntoVenta As Byte
+    Public Property UltimoNumero As String
 
-    Public Overridable Property Entidad As ICollection(Of Entidad) = New HashSet(Of Entidad)
+    Public Overridable Property ComprobanteTipo As ComprobanteTipo
+    Public Overridable Property PuntoVenta As PuntoVenta
 
 End Class

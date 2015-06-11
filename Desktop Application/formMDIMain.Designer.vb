@@ -33,6 +33,10 @@ Partial Class formMDIMain
         Me.menuitemArchivo_CerrarSesion = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemArchivo_Separador_Salir = New System.Windows.Forms.ToolStripSeparator()
         Me.menuitemArchivo_Salir = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebug = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugAFIPWS = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugAFIPWSHomologacion = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugAFIPWSHomologacionLogin = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemVentana = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemVentanaMosaicoHorizontal = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemVentanaMosaicoVertical = New System.Windows.Forms.ToolStripMenuItem()
@@ -56,8 +60,10 @@ Partial Class formMDIMain
         Me.menuitemRelacionTipo = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonEntidades = New System.Windows.Forms.ToolStripSplitButton()
         Me.AñosLectivosYCursosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.VerificarHermanosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonFacturar = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemFacturasGenerarLote = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugAFIPWSHabilitarRegistro = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
@@ -85,7 +91,7 @@ Partial Class formMDIMain
         '
         'menustripMain
         '
-        Me.menustripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemArchivo, Me.menuitemVentana, Me.menuitemAyuda})
+        Me.menustripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemArchivo, Me.menuitemDebug, Me.menuitemVentana, Me.menuitemAyuda})
         Me.menustripMain.Location = New System.Drawing.Point(0, 0)
         Me.menustripMain.MdiWindowListItem = Me.menuitemVentana
         Me.menustripMain.Name = "menustripMain"
@@ -126,6 +132,34 @@ Partial Class formMDIMain
         Me.menuitemArchivo_Salir.Name = "menuitemArchivo_Salir"
         Me.menuitemArchivo_Salir.Size = New System.Drawing.Size(204, 22)
         Me.menuitemArchivo_Salir.Text = "&Salir"
+        '
+        'menuitemDebug
+        '
+        Me.menuitemDebug.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWS})
+        Me.menuitemDebug.Name = "menuitemDebug"
+        Me.menuitemDebug.Size = New System.Drawing.Size(54, 20)
+        Me.menuitemDebug.Text = "Debug"
+        Me.menuitemDebug.Visible = False
+        '
+        'menuitemDebugAFIPWS
+        '
+        Me.menuitemDebugAFIPWS.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWSHabilitarRegistro, Me.menuitemDebugAFIPWSHomologacion})
+        Me.menuitemDebugAFIPWS.Name = "menuitemDebugAFIPWS"
+        Me.menuitemDebugAFIPWS.Size = New System.Drawing.Size(167, 22)
+        Me.menuitemDebugAFIPWS.Text = "AFIP WebServices"
+        '
+        'menuitemDebugAFIPWSHomologacion
+        '
+        Me.menuitemDebugAFIPWSHomologacion.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWSHomologacionLogin})
+        Me.menuitemDebugAFIPWSHomologacion.Name = "menuitemDebugAFIPWSHomologacion"
+        Me.menuitemDebugAFIPWSHomologacion.Size = New System.Drawing.Size(220, 22)
+        Me.menuitemDebugAFIPWSHomologacion.Text = "Homologación"
+        '
+        'menuitemDebugAFIPWSHomologacionLogin
+        '
+        Me.menuitemDebugAFIPWSHomologacionLogin.Name = "menuitemDebugAFIPWSHomologacionLogin"
+        Me.menuitemDebugAFIPWSHomologacionLogin.Size = New System.Drawing.Size(104, 22)
+        Me.menuitemDebugAFIPWSHomologacionLogin.Text = "Login"
         '
         'menuitemVentana
         '
@@ -266,7 +300,7 @@ Partial Class formMDIMain
         '
         'buttonEntidades
         '
-        Me.buttonEntidades.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AñosLectivosYCursosToolStripMenuItem})
+        Me.buttonEntidades.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AñosLectivosYCursosToolStripMenuItem, Me.VerificarHermanosToolStripMenuItem})
         Me.buttonEntidades.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ENTIDADES_32
         Me.buttonEntidades.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonEntidades.ImageTransparentColor = System.Drawing.Color.Magenta
@@ -277,8 +311,15 @@ Partial Class formMDIMain
         'AñosLectivosYCursosToolStripMenuItem
         '
         Me.AñosLectivosYCursosToolStripMenuItem.Name = "AñosLectivosYCursosToolStripMenuItem"
-        Me.AñosLectivosYCursosToolStripMenuItem.Size = New System.Drawing.Size(195, 22)
+        Me.AñosLectivosYCursosToolStripMenuItem.Size = New System.Drawing.Size(252, 22)
         Me.AñosLectivosYCursosToolStripMenuItem.Text = "Años Lectivos y Cursos"
+        '
+        'VerificarHermanosToolStripMenuItem
+        '
+        Me.VerificarHermanosToolStripMenuItem.Enabled = False
+        Me.VerificarHermanosToolStripMenuItem.Name = "VerificarHermanosToolStripMenuItem"
+        Me.VerificarHermanosToolStripMenuItem.Size = New System.Drawing.Size(252, 22)
+        Me.VerificarHermanosToolStripMenuItem.Text = "Verificar descuentos de hermanos"
         '
         'buttonFacturar
         '
@@ -295,6 +336,13 @@ Partial Class formMDIMain
         Me.menuitemFacturasGenerarLote.Name = "menuitemFacturasGenerarLote"
         Me.menuitemFacturasGenerarLote.Size = New System.Drawing.Size(141, 22)
         Me.menuitemFacturasGenerarLote.Text = "Generar Lote"
+        '
+        'menuitemDebugAFIPWSHabilitarRegistro
+        '
+        Me.menuitemDebugAFIPWSHabilitarRegistro.CheckOnClick = True
+        Me.menuitemDebugAFIPWSHabilitarRegistro.Name = "menuitemDebugAFIPWSHabilitarRegistro"
+        Me.menuitemDebugAFIPWSHabilitarRegistro.Size = New System.Drawing.Size(220, 22)
+        Me.menuitemDebugAFIPWSHabilitarRegistro.Text = "Habilitar registro en archivo"
         '
         'formMDIMain
         '
@@ -357,4 +405,10 @@ Partial Class formMDIMain
     Friend WithEvents menuitemFacturasGenerarLote As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents buttonEntidades As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents AñosLectivosYCursosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents VerificarHermanosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDebug As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDebugAFIPWS As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDebugAFIPWSHomologacion As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDebugAFIPWSHomologacionLogin As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDebugAFIPWSHabilitarRegistro As System.Windows.Forms.ToolStripMenuItem
 End Class

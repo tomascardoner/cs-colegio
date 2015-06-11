@@ -52,7 +52,7 @@
             Dim localList = qryList.ToList
             If ShowUnspecifiedItem Then
                 Dim UnspecifiedItem As New Provincia
-                UnspecifiedItem.IDProvincia = Constants.PROVINCIA_NOESPECIFICA
+                UnspecifiedItem.IDProvincia = Constantes.PROVINCIA_NOESPECIFICA
                 UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
                 localList.Insert(0, UnspecifiedItem)
             End If
@@ -116,7 +116,7 @@
 
             If ShowUnspecifiedItem Then
                 datarowRow = .NewRow
-                datarowRow("IDGenero") = Constants.GENERO_NOESPECIFICA
+                datarowRow("IDGenero") = Constantes.GENERO_NOESPECIFICA
                 datarowRow("Nombre") = My.Resources.STRING_ITEM_NON_SPECIFIED
                 datatableGeneros.Rows.Add(datarowRow)
             End If
@@ -148,28 +148,28 @@
 
             If ShowUnspecifiedItem Then
                 datarowRow = .NewRow
-                datarowRow("IDEntidadFactura") = Constants.ENTIDADFACTURA_NOESPECIFICA
+                datarowRow("IDEntidadFactura") = Constantes.ENTIDADFACTURA_NOESPECIFICA
                 datarowRow("Nombre") = My.Resources.STRING_ITEM_NON_SPECIFIED
                 datatableEntidadFactura.Rows.Add(datarowRow)
             End If
 
             datarowRow = .NewRow
-            datarowRow("IDEntidadFactura") = Constants.ENTIDADFACTURA_PADRE
+            datarowRow("IDEntidadFactura") = Constantes.ENTIDADFACTURA_PADRE
             datarowRow("Nombre") = My.Resources.STRING_ENTIDADFACTURA_PADRE
             datatableEntidadFactura.Rows.Add(datarowRow)
 
             datarowRow = .NewRow
-            datarowRow("IDEntidadFactura") = Constants.ENTIDADFACTURA_MADRE
+            datarowRow("IDEntidadFactura") = Constantes.ENTIDADFACTURA_MADRE
             datarowRow("Nombre") = My.Resources.STRING_ENTIDADFACTURA_MADRE
             datatableEntidadFactura.Rows.Add(datarowRow)
 
             datarowRow = .NewRow
-            datarowRow("IDEntidadFactura") = Constants.ENTIDADFACTURA_AMBOSPADRES
+            datarowRow("IDEntidadFactura") = Constantes.ENTIDADFACTURA_AMBOSPADRES
             datarowRow("Nombre") = My.Resources.STRING_ENTIDADFACTURA_AMBOSPADRES
             datatableEntidadFactura.Rows.Add(datarowRow)
             datarowRow = .NewRow
 
-            datarowRow("IDEntidadFactura") = Constants.ENTIDADFACTURA_ALUMNO
+            datarowRow("IDEntidadFactura") = Constantes.ENTIDADFACTURA_ALUMNO
             datarowRow("Nombre") = My.Resources.STRING_ENTIDADFACTURA_ALUMNO
             datatableEntidadFactura.Rows.Add(datarowRow)
         End With
@@ -179,7 +179,7 @@
 
     Friend Sub Descuento(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
         ComboBoxControl.ValueMember = "IDDescuento"
-        ComboBoxControl.DisplayMember = "NombreCompleto"
+        ComboBoxControl.DisplayMember = "Nombre"
 
         Using dbContext As New CSColegioContext
             Dim qryList = From tbl In dbContext.Descuento
@@ -190,7 +190,7 @@
             If ShowUnspecifiedItem Then
                 Dim UnspecifiedItem As New Descuento
                 UnspecifiedItem.IDDescuento = 0
-                UnspecifiedItem.NombreCompleto = My.Resources.STRING_ITEM_NON_SPECIFIED
+                UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
                 localList.Insert(0, UnspecifiedItem)
             End If
 

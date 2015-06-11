@@ -29,7 +29,7 @@
         pCSColegioContext = New CSColegioContext
 
         ' Verifico que la Base de Datos corresponda a esta Aplicación a través del GUID guardado en los Parámetros
-        If CSM_Parameter.GetString(Constants.PARAMETRO_APPLICATION_DATABASE_GUID) <> Constants.APPLICATION_DATABASE_GUID Then
+        If CSM_Parameter.GetString(Parametros.APPLICATION_DATABASE_GUID) <> Constantes.APPLICATION_DATABASE_GUID Then
             MsgBox("La Base de Datos especificada no corresponde a esta aplicación.", MsgBoxStyle.Critical, My.Application.Info.Title)
             formSplashScreen.Close()
             formSplashScreen.Dispose()
@@ -38,7 +38,7 @@
         End If
 
         ' Muestro el Nombre de la Compañía a la que está licenciada la Aplicación
-        formSplashScreen.labelLicensedTo.Text = CSM_Parameter.GetString(Constants.PARAMETRO_LICENSE_COMPANY_NAME, "")
+        formSplashScreen.labelLicensedTo.Text = CSM_Parameter.GetString(Parametros.LICENSE_COMPANY_NAME, "")
         Application.DoEvents()
 
         ' Tomo el tiempo de inicio para controlar los segundos mínimos que se debe mostrar el Splash Screen

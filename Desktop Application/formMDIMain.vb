@@ -36,6 +36,8 @@
     End Sub
 
     Friend Sub ShowCurrentUserInfo()
+        menuitemDebug.Visible = (pUsuario.IDUsuario = 1)
+
         If pUsuario.Genero = GENERO_MASCULINO Then
             Me.labelUsuarioNombre.Image = My.Resources.Resources.IMAGE_USUARIO_HOMBRE_16
         Else
@@ -316,5 +318,27 @@
 
             Me.Cursor = Cursors.Default
         End If
+    End Sub
+
+    Private Sub VerificarHermanosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles VerificarHermanosToolStripMenuItem.Click
+        'If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO) Then
+        Me.Cursor = Cursors.WaitCursor
+
+        CSM_Form.MDIChild_PositionAndSize(Me, CType(formReportViewer, Form), Form_ClientSize)
+        formReportViewer.reportviewerMain.LocalReport.ReportEmbeddedResource = My.Application.Info.AssemblyName & ".HermanosSinDescuento.rdlc"
+        formReportViewer.reportviewerMain.LocalReport.Refresh()
+
+        formReportViewer.Show()
+        If formReportViewer.WindowState = FormWindowState.Minimized Then
+            formReportViewer.WindowState = FormWindowState.Normal
+        End If
+        formReportViewer.Focus()
+
+        Me.Cursor = Cursors.Default
+        'End If
+    End Sub
+
+    Private Sub Debug_AFIPWSHomologaciónLogin() Handles menuitemDebugAFIPWSHomologacionLogin.Click
+        CSM_AFIP_WS.Login(CSM_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION), "", CSM_AFIP.SERVICIO_FACTURACION_ECLECTRONICA, My.Settings.AFIP_Certificado, My.Settings.AFIP_ClavePrivada)
     End Sub
 End Class

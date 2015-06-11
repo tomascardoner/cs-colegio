@@ -13,7 +13,8 @@ Imports System.Collections.Generic
 Partial Public Class ComprobanteCabecera
     Public Property IDComprobante As Integer
     Public Property IDComprobanteTipo As Byte
-    Public Property ComprobanteNumero As String
+    Public Property PuntoVenta As String
+    Public Property Numero As String
     Public Property Fecha As Date
     Public Property IDEntidad As Integer
     Public Property EntidadApellido As String
