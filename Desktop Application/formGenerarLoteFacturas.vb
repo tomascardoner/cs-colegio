@@ -723,21 +723,21 @@ Public Class formGenerarLoteFacturas
     End Sub
 #End Region
 
-#Region "Paso 4"
+#Region "Paso 4 - Transmisión de Comprobantes a AFIP y envío de e-mails"
     Private Sub TransmitirComprobantes()
-        Dim WSAA As Object
-        Dim AFIPFactura As CSM_AFIP_WS.FacturaElectronicaCabecera
+        Dim AFIP_TicketAcceso As String
+        Dim AFIP_Factura As CSM_AFIP_WS.FacturaElectronicaCabecera
         Dim CAE As String
 
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
 
         ' Intento realizar la Autenticación en el Servidor de AFIP
-        WSAA = CSM_AFIP_WS.Login(CSM_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION), "", CSM_AFIP.SERVICIO_FACTURACION_ECLECTRONICA, My.Settings.AFIP_Certificado, My.Settings.AFIP_ClavePrivada)
-        If Not WSAA Is Nothing Then
+        AFIP_TicketAcceso = CSM_AFIP_WS.Login(CSM_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION), "", CSM_AFIP.SERVICIO_FACTURACION_ECLECTRONICA, My.Settings.AFIP_Certificado, My.Settings.AFIP_ClavePrivada, formMDIMain.menuitemDebugAFIPWSHabilitarRegistro.Checked)
+        If AFIP_TicketAcceso <> "" Then
             For Each FacturaActual In listFacturas
-                AFIPFactura = New CSM_AFIP_WS.FacturaElectronicaCabecera
-                With AFIPFactura
+                AFIP_Factura = New CSM_AFIP_WS.FacturaElectronicaCabecera
+                With AFIP_Factura
                     .Concepto = 2
                     .TipoDocumento = 80
                     .DocumentoNumero = CInt(FacturaActual.CUIT)
@@ -758,12 +758,11 @@ Public Class formGenerarLoteFacturas
                     .MonedaID = "PES"
                     .MonedaCotizacion = 1
                 End With
-                CAE = CSM_AFIP_WS.CrearFacturaElectronica(WSAA, CSM_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION), "", "30710717946", AFIPFactura)
+                CAE = CSM_AFIP_WS.CrearFacturaElectronica(AFIP_TicketAcceso, CSM_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION), "", "30710717946", AFIP_Factura, formMDIMain.menuitemDebugAFIPWSHabilitarRegistro.Checked)
                 If CAE = "" Then
                     Exit For
                 End If
             Next
-            WSAA = Nothing
         End If
 
         Me.Cursor = Cursors.Default
