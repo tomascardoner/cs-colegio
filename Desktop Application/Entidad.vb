@@ -22,9 +22,10 @@ Partial Public Class Entidad
     Public Property TipoProveedor As Boolean
     Public Property IDDocumentoTipo As Nullable(Of Byte)
     Public Property DocumentoNumero As String
+    Public Property FacturaIDDocumentoTipo As Nullable(Of Byte)
+    Public Property FacturaDocumentoNumero As String
     Public Property Genero As String
     Public Property FechaNacimiento As Nullable(Of Date)
-    Public Property CUIT_CUIL As String
     Public Property IDCategoriaIVA As Nullable(Of Byte)
     Public Property Telefono1 As String
     Public Property Telefono2 As String
@@ -66,5 +67,6 @@ Partial Public Class Entidad
     Public Overridable Property AniosLectivosCursos As ICollection(Of AnioLectivoCurso) = New HashSet(Of AnioLectivoCurso)
     Public Overridable Property Descuento As Descuento
     Public Overridable Property ComprobanteDetalle As ICollection(Of ComprobanteDetalle) = New HashSet(Of ComprobanteDetalle)
+    Public Overridable Property FacturaDocumentoTipo As DocumentoTipo
 
 End Class

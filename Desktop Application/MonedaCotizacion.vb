@@ -10,11 +10,9 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class Concepto
-    Public Property IDConcepto As Byte
-    Public Property Nombre As String
-    Public Property EsActivo As Boolean
-
-    Public Overridable Property Articulo As ICollection(Of Articulo) = New HashSet(Of Articulo)
+Partial Public Class MonedaCotizacion
+    Public Property IDMoneda As Short
+    Public Property Fecha As Date
+    Public Property Cotizacion As Decimal
 
 End Class

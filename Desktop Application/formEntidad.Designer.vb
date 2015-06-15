@@ -30,7 +30,6 @@ Partial Class formEntidad
         Dim labelDocumento As System.Windows.Forms.Label
         Dim labelGenero As System.Windows.Forms.Label
         Dim labelFechaNacimiento As System.Windows.Forms.Label
-        Dim labelCUIT_CUIL As System.Windows.Forms.Label
         Dim labelCategoriaIVA As System.Windows.Forms.Label
         Dim labelTelefono1 As System.Windows.Forms.Label
         Dim labelTelefono2 As System.Windows.Forms.Label
@@ -64,6 +63,7 @@ Partial Class formEntidad
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim labelFacturaDocumento As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formEntidad))
         Me.textboxApellido = New System.Windows.Forms.TextBox()
         Me.textboxIDEntidad = New System.Windows.Forms.TextBox()
@@ -76,7 +76,7 @@ Partial Class formEntidad
         Me.labelTipoAlumno = New System.Windows.Forms.Label()
         Me.labelTipoDocente = New System.Windows.Forms.Label()
         Me.labelTipoPersonalColegio = New System.Windows.Forms.Label()
-        Me.maskedtextboxCUIT_CUIL = New System.Windows.Forms.MaskedTextBox()
+        Me.maskedtextboxDocumentoNumero = New System.Windows.Forms.MaskedTextBox()
         Me.checkboxTipoAlumno = New System.Windows.Forms.CheckBox()
         Me.checkboxTipoDocente = New System.Windows.Forms.CheckBox()
         Me.checkboxTipoFamiliar = New System.Windows.Forms.CheckBox()
@@ -147,13 +147,15 @@ Partial Class formEntidad
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
         Me.tooltipMain = New System.Windows.Forms.ToolTip(Me.components)
         Me.checkboxEsActivo = New System.Windows.Forms.CheckBox()
+        Me.comboboxFacturaDocumentoTipo = New System.Windows.Forms.ComboBox()
+        Me.textboxFacturaDocumentoNumero = New System.Windows.Forms.TextBox()
+        Me.maskedtextboxFacturaDocumentoNumero = New System.Windows.Forms.MaskedTextBox()
         labelApellido = New System.Windows.Forms.Label()
         labelIDEntidad = New System.Windows.Forms.Label()
         labelNombre = New System.Windows.Forms.Label()
         labelDocumento = New System.Windows.Forms.Label()
         labelGenero = New System.Windows.Forms.Label()
         labelFechaNacimiento = New System.Windows.Forms.Label()
-        labelCUIT_CUIL = New System.Windows.Forms.Label()
         labelCategoriaIVA = New System.Windows.Forms.Label()
         labelTelefono1 = New System.Windows.Forms.Label()
         labelTelefono2 = New System.Windows.Forms.Label()
@@ -175,6 +177,7 @@ Partial Class formEntidad
         labelCreacion = New System.Windows.Forms.Label()
         labelDescuento = New System.Windows.Forms.Label()
         labelEsActivo = New System.Windows.Forms.Label()
+        labelFacturaDocumento = New System.Windows.Forms.Label()
         CType(Me.pictureboxMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabcontrolMain.SuspendLayout()
         Me.tabpageGeneral.SuspendLayout()
@@ -232,37 +235,28 @@ Partial Class formEntidad
         'labelGenero
         '
         labelGenero.AutoSize = True
-        labelGenero.Location = New System.Drawing.Point(6, 70)
+        labelGenero.Location = New System.Drawing.Point(6, 94)
         labelGenero.Name = "labelGenero"
         labelGenero.Size = New System.Drawing.Size(45, 13)
-        labelGenero.TabIndex = 14
+        labelGenero.TabIndex = 19
         labelGenero.Text = "Género:"
         '
         'labelFechaNacimiento
         '
         labelFechaNacimiento.AutoSize = True
-        labelFechaNacimiento.Location = New System.Drawing.Point(6, 100)
+        labelFechaNacimiento.Location = New System.Drawing.Point(6, 123)
         labelFechaNacimiento.Name = "labelFechaNacimiento"
         labelFechaNacimiento.Size = New System.Drawing.Size(111, 13)
-        labelFechaNacimiento.TabIndex = 16
+        labelFechaNacimiento.TabIndex = 21
         labelFechaNacimiento.Text = "Fecha de Nacimiento:"
-        '
-        'labelCUIT_CUIL
-        '
-        labelCUIT_CUIL.AutoSize = True
-        labelCUIT_CUIL.Location = New System.Drawing.Point(6, 130)
-        labelCUIT_CUIL.Name = "labelCUIT_CUIL"
-        labelCUIT_CUIL.Size = New System.Drawing.Size(70, 13)
-        labelCUIT_CUIL.TabIndex = 18
-        labelCUIT_CUIL.Text = "CUIT / CUIL:"
         '
         'labelCategoriaIVA
         '
         labelCategoriaIVA.AutoSize = True
-        labelCategoriaIVA.Location = New System.Drawing.Point(6, 160)
+        labelCategoriaIVA.Location = New System.Drawing.Point(6, 149)
         labelCategoriaIVA.Name = "labelCategoriaIVA"
         labelCategoriaIVA.Size = New System.Drawing.Size(92, 13)
-        labelCategoriaIVA.TabIndex = 20
+        labelCategoriaIVA.TabIndex = 23
         labelCategoriaIVA.Text = "Categoría de IVA:"
         '
         'labelTelefono1
@@ -500,12 +494,14 @@ Partial Class formEntidad
         '
         'tabpageGeneral
         '
+        Me.tabpageGeneral.Controls.Add(Me.comboboxFacturaDocumentoTipo)
+        Me.tabpageGeneral.Controls.Add(Me.textboxFacturaDocumentoNumero)
+        Me.tabpageGeneral.Controls.Add(labelFacturaDocumento)
         Me.tabpageGeneral.Controls.Add(Me.labelTipoProveedor)
         Me.tabpageGeneral.Controls.Add(Me.labelTipoFamiliar)
         Me.tabpageGeneral.Controls.Add(Me.labelTipoAlumno)
         Me.tabpageGeneral.Controls.Add(Me.labelTipoDocente)
         Me.tabpageGeneral.Controls.Add(Me.labelTipoPersonalColegio)
-        Me.tabpageGeneral.Controls.Add(Me.maskedtextboxCUIT_CUIL)
         Me.tabpageGeneral.Controls.Add(labelTipo)
         Me.tabpageGeneral.Controls.Add(Me.checkboxTipoAlumno)
         Me.tabpageGeneral.Controls.Add(Me.checkboxTipoDocente)
@@ -514,7 +510,6 @@ Partial Class formEntidad
         Me.tabpageGeneral.Controls.Add(Me.checkboxTipoProveedor)
         Me.tabpageGeneral.Controls.Add(Me.comboboxCategoriaIVA)
         Me.tabpageGeneral.Controls.Add(labelCategoriaIVA)
-        Me.tabpageGeneral.Controls.Add(labelCUIT_CUIL)
         Me.tabpageGeneral.Controls.Add(labelFechaNacimiento)
         Me.tabpageGeneral.Controls.Add(Me.datetimepickerFechaNacimiento)
         Me.tabpageGeneral.Controls.Add(Me.comboboxGenero)
@@ -522,6 +517,8 @@ Partial Class formEntidad
         Me.tabpageGeneral.Controls.Add(Me.comboboxDocumentoTipo)
         Me.tabpageGeneral.Controls.Add(Me.textboxDocumentoNumero)
         Me.tabpageGeneral.Controls.Add(labelDocumento)
+        Me.tabpageGeneral.Controls.Add(Me.maskedtextboxDocumentoNumero)
+        Me.tabpageGeneral.Controls.Add(Me.maskedtextboxFacturaDocumentoNumero)
         Me.tabpageGeneral.Location = New System.Drawing.Point(4, 25)
         Me.tabpageGeneral.Name = "tabpageGeneral"
         Me.tabpageGeneral.Padding = New System.Windows.Forms.Padding(3)
@@ -575,18 +572,18 @@ Partial Class formEntidad
         Me.labelTipoPersonalColegio.TabIndex = 2
         Me.labelTipoPersonalColegio.Text = "Personal Colegio"
         '
-        'maskedtextboxCUIT_CUIL
+        'maskedtextboxDocumentoNumero
         '
-        Me.maskedtextboxCUIT_CUIL.AllowPromptAsInput = False
-        Me.maskedtextboxCUIT_CUIL.AsciiOnly = True
-        Me.maskedtextboxCUIT_CUIL.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        Me.maskedtextboxCUIT_CUIL.HidePromptOnLeave = True
-        Me.maskedtextboxCUIT_CUIL.Location = New System.Drawing.Point(123, 127)
-        Me.maskedtextboxCUIT_CUIL.Mask = "00-00000000-0"
-        Me.maskedtextboxCUIT_CUIL.Name = "maskedtextboxCUIT_CUIL"
-        Me.maskedtextboxCUIT_CUIL.Size = New System.Drawing.Size(100, 20)
-        Me.maskedtextboxCUIT_CUIL.TabIndex = 19
-        Me.maskedtextboxCUIT_CUIL.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
+        Me.maskedtextboxDocumentoNumero.AllowPromptAsInput = False
+        Me.maskedtextboxDocumentoNumero.AsciiOnly = True
+        Me.maskedtextboxDocumentoNumero.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
+        Me.maskedtextboxDocumentoNumero.HidePromptOnLeave = True
+        Me.maskedtextboxDocumentoNumero.Location = New System.Drawing.Point(250, 38)
+        Me.maskedtextboxDocumentoNumero.Mask = "00-00000000-0"
+        Me.maskedtextboxDocumentoNumero.Name = "maskedtextboxDocumentoNumero"
+        Me.maskedtextboxDocumentoNumero.Size = New System.Drawing.Size(115, 20)
+        Me.maskedtextboxDocumentoNumero.TabIndex = 14
+        Me.maskedtextboxDocumentoNumero.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'checkboxTipoAlumno
         '
@@ -637,43 +634,43 @@ Partial Class formEntidad
         '
         Me.comboboxCategoriaIVA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxCategoriaIVA.FormattingEnabled = True
-        Me.comboboxCategoriaIVA.Location = New System.Drawing.Point(123, 157)
+        Me.comboboxCategoriaIVA.Location = New System.Drawing.Point(142, 146)
         Me.comboboxCategoriaIVA.Name = "comboboxCategoriaIVA"
         Me.comboboxCategoriaIVA.Size = New System.Drawing.Size(200, 21)
-        Me.comboboxCategoriaIVA.TabIndex = 21
+        Me.comboboxCategoriaIVA.TabIndex = 24
         '
         'datetimepickerFechaNacimiento
         '
         Me.datetimepickerFechaNacimiento.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.datetimepickerFechaNacimiento.Location = New System.Drawing.Point(123, 97)
+        Me.datetimepickerFechaNacimiento.Location = New System.Drawing.Point(142, 120)
         Me.datetimepickerFechaNacimiento.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
         Me.datetimepickerFechaNacimiento.MinDate = New Date(1910, 1, 1, 0, 0, 0, 0)
         Me.datetimepickerFechaNacimiento.Name = "datetimepickerFechaNacimiento"
         Me.datetimepickerFechaNacimiento.ShowCheckBox = True
         Me.datetimepickerFechaNacimiento.Size = New System.Drawing.Size(148, 20)
-        Me.datetimepickerFechaNacimiento.TabIndex = 17
+        Me.datetimepickerFechaNacimiento.TabIndex = 22
         '
         'comboboxGenero
         '
         Me.comboboxGenero.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxGenero.FormattingEnabled = True
-        Me.comboboxGenero.Location = New System.Drawing.Point(123, 67)
+        Me.comboboxGenero.Location = New System.Drawing.Point(142, 91)
         Me.comboboxGenero.Name = "comboboxGenero"
         Me.comboboxGenero.Size = New System.Drawing.Size(102, 21)
-        Me.comboboxGenero.TabIndex = 15
+        Me.comboboxGenero.TabIndex = 20
         '
         'comboboxDocumentoTipo
         '
         Me.comboboxDocumentoTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxDocumentoTipo.FormattingEnabled = True
-        Me.comboboxDocumentoTipo.Location = New System.Drawing.Point(123, 37)
+        Me.comboboxDocumentoTipo.Location = New System.Drawing.Point(142, 37)
         Me.comboboxDocumentoTipo.Name = "comboboxDocumentoTipo"
         Me.comboboxDocumentoTipo.Size = New System.Drawing.Size(102, 21)
         Me.comboboxDocumentoTipo.TabIndex = 12
         '
         'textboxDocumentoNumero
         '
-        Me.textboxDocumentoNumero.Location = New System.Drawing.Point(231, 38)
+        Me.textboxDocumentoNumero.Location = New System.Drawing.Point(250, 38)
         Me.textboxDocumentoNumero.MaxLength = 11
         Me.textboxDocumentoNumero.Name = "textboxDocumentoNumero"
         Me.textboxDocumentoNumero.Size = New System.Drawing.Size(115, 20)
@@ -1333,6 +1330,47 @@ Partial Class formEntidad
         Me.checkboxEsActivo.TabIndex = 95
         Me.checkboxEsActivo.UseVisualStyleBackColor = True
         '
+        'comboboxFacturaDocumentoTipo
+        '
+        Me.comboboxFacturaDocumentoTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxFacturaDocumentoTipo.FormattingEnabled = True
+        Me.comboboxFacturaDocumentoTipo.Location = New System.Drawing.Point(142, 63)
+        Me.comboboxFacturaDocumentoTipo.Name = "comboboxFacturaDocumentoTipo"
+        Me.comboboxFacturaDocumentoTipo.Size = New System.Drawing.Size(102, 21)
+        Me.comboboxFacturaDocumentoTipo.TabIndex = 16
+        '
+        'textboxFacturaDocumentoNumero
+        '
+        Me.textboxFacturaDocumentoNumero.Location = New System.Drawing.Point(250, 64)
+        Me.textboxFacturaDocumentoNumero.MaxLength = 11
+        Me.textboxFacturaDocumentoNumero.Name = "textboxFacturaDocumentoNumero"
+        Me.textboxFacturaDocumentoNumero.Size = New System.Drawing.Size(115, 20)
+        Me.textboxFacturaDocumentoNumero.TabIndex = 17
+        Me.tooltipMain.SetToolTip(Me.textboxFacturaDocumentoNumero, "Ingrese el Número de Documento sin utilizar puntos.")
+        '
+        'labelFacturaDocumento
+        '
+        labelFacturaDocumento.AutoSize = True
+        labelFacturaDocumento.Location = New System.Drawing.Point(6, 67)
+        labelFacturaDocumento.Name = "labelFacturaDocumento"
+        labelFacturaDocumento.Size = New System.Drawing.Size(131, 13)
+        labelFacturaDocumento.TabIndex = 15
+        labelFacturaDocumento.Text = "Documento para Facturar:"
+        Me.tooltipMain.SetToolTip(labelFacturaDocumento, "Ingrese el Número de Documento sin utilizar puntos.")
+        '
+        'maskedtextboxFacturaDocumentoNumero
+        '
+        Me.maskedtextboxFacturaDocumentoNumero.AllowPromptAsInput = False
+        Me.maskedtextboxFacturaDocumentoNumero.AsciiOnly = True
+        Me.maskedtextboxFacturaDocumentoNumero.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
+        Me.maskedtextboxFacturaDocumentoNumero.HidePromptOnLeave = True
+        Me.maskedtextboxFacturaDocumentoNumero.Location = New System.Drawing.Point(250, 64)
+        Me.maskedtextboxFacturaDocumentoNumero.Mask = "00-00000000-0"
+        Me.maskedtextboxFacturaDocumentoNumero.Name = "maskedtextboxFacturaDocumentoNumero"
+        Me.maskedtextboxFacturaDocumentoNumero.Size = New System.Drawing.Size(115, 20)
+        Me.maskedtextboxFacturaDocumentoNumero.TabIndex = 18
+        Me.maskedtextboxFacturaDocumentoNumero.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
+        '
         'formEntidad
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1425,7 +1463,7 @@ Partial Class formEntidad
     Friend WithEvents tabpageRelaciones As System.Windows.Forms.TabPage
     Friend WithEvents datagridviewRelaciones As System.Windows.Forms.DataGridView
     Friend WithEvents tooltipMain As System.Windows.Forms.ToolTip
-    Friend WithEvents maskedtextboxCUIT_CUIL As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents maskedtextboxDocumentoNumero As System.Windows.Forms.MaskedTextBox
     Friend WithEvents tabpageCursosAsistidos As System.Windows.Forms.TabPage
     Friend WithEvents datagridviewCursosAsistidos As System.Windows.Forms.DataGridView
     Friend WithEvents columnPadresIDEntidad As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -1464,4 +1502,7 @@ Partial Class formEntidad
     Friend WithEvents labelTipoPersonalColegio As System.Windows.Forms.Label
     Friend WithEvents comboboxDescuento As System.Windows.Forms.ComboBox
     Friend WithEvents checkboxEsActivo As System.Windows.Forms.CheckBox
+    Friend WithEvents comboboxFacturaDocumentoTipo As System.Windows.Forms.ComboBox
+    Friend WithEvents textboxFacturaDocumentoNumero As System.Windows.Forms.TextBox
+    Friend WithEvents maskedtextboxFacturaDocumentoNumero As System.Windows.Forms.MaskedTextBox
 End Class

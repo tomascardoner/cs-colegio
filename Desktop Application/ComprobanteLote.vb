@@ -10,11 +10,15 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class Concepto
-    Public Property IDConcepto As Byte
+Partial Public Class ComprobanteLote
+    Public Property IDComprobanteLote As Integer
+    Public Property FechaHora As Date
     Public Property Nombre As String
-    Public Property EsActivo As Boolean
+    Public Property IDUsuarioCreacion As Byte
+    Public Property FechaHoraCreacion As Date
+    Public Property IDUsuarioModificacion As Byte
+    Public Property FechaHoraModificacion As Date
 
-    Public Overridable Property Articulo As ICollection(Of Articulo) = New HashSet(Of Articulo)
+    Public Overridable Property ComprobanteCabecera As ICollection(Of ComprobanteCabecera) = New HashSet(Of ComprobanteCabecera)
 
 End Class

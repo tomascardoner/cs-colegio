@@ -2,14 +2,17 @@
 
 Public Class formGenerarLoteFacturas
     Private dbcColegio As CSColegioContext
-    Private AnioLectivo As Integer = Today.Year
-    Private MesAFacturar As Byte = CByte(Today.Month)
-    Private MesAFacturarNombre As String = StrConv(MonthName(MesAFacturar), VbStrConv.ProperCase)
 
     Private listEntidadesSeleccionadasOk As List(Of Entidad)
     'Private listEntidadesSeleccionadasCorregir As IList(Of EntidadACorregir)
     Private listEntidadesSeleccionadasCorregir As IList(Of Object)
+
+    Private FacturaLote As New ComprobanteLote
     Private listFacturas As List(Of ComprobanteCabecera)
+
+    Private AnioLectivo As Integer
+    Private MesAFacturar As Byte
+    Private MesAFacturarNombre As String
 
     Private Const NODO_CARGANDO_TEXTO As String = "Cargando..."
 
@@ -21,10 +24,21 @@ Public Class formGenerarLoteFacturas
         Friend Property CorreccionDescripcion As String
     End Class
 
+    Private Sub formGenerarLoteFacturas_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        dbcColegio.Dispose()
+        listEntidadesSeleccionadasOk = Nothing
+        listEntidadesSeleccionadasCorregir = Nothing
+        listFacturas = Nothing
+    End Sub
+
     ' TODO: Verificar que no se facture 2 veces en el mismo período al mismo alumno
 
     Private Sub formGenerarLoteFacturas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         dbcColegio = New CSColegioContext
+
+        AnioLectivo = Today.Year
+        MesAFacturar = CByte(Today.Month)
+        MesAFacturarNombre = StrConv(MonthName(MesAFacturar), VbStrConv.ProperCase)
 
         FillTreeViewNiveles()
         FillTreeViewPadres()
@@ -38,7 +52,6 @@ Public Class formGenerarLoteFacturas
         panelPaso1.Visible = (Paso = 1)
         panelPaso2.Visible = (Paso = 2)
         panelPaso3.Visible = (Paso = 3)
-        panelPaso4.Visible = (Paso = 4)
         Application.DoEvents()
     End Sub
 
@@ -295,14 +308,16 @@ Public Class formGenerarLoteFacturas
 
             ' Desactivo la actualización gráfica para expandir todos y que se carguen todos los Nodos
             treeviewPaso1PadresAlumnos.BeginUpdate()
-            treeviewPaso1PadresAlumnos.ExpandAll()
 
             For Each TreeNodeEntidad As TreeNode In treeviewPaso1PadresAlumnos.Nodes
-                For Each TreeNodeAlumno As TreeNode In TreeNodeEntidad.Nodes
-                    If TreeNodeAlumno.Checked Then
-                        VerificarEntidad(CType(TreeNodeAlumno.Tag, Entidad))
-                    End If
-                Next
+                If TreeNodeEntidad.Checked Then
+                    TreeNodeEntidad.Expand()
+                    For Each TreeNodeAlumno As TreeNode In TreeNodeEntidad.Nodes
+                        If TreeNodeAlumno.Checked Then
+                            VerificarEntidad(CType(TreeNodeAlumno.Tag, Entidad))
+                        End If
+                    Next
+                End If
             Next
 
             treeviewPaso1PadresAlumnos.EndUpdate()
@@ -446,14 +461,17 @@ Public Class formGenerarLoteFacturas
     End Sub
 
     Private Sub buttonPaso2Siguiente_Click() Handles buttonPaso2Siguiente.Click
-        GenerarComprobantes()
-        'ConfirmarComprobantes()
+        Dim LoteNombre As String
+
+        LoteNombre = InputBox("Ingrese el nombre del Lote a Generar:", My.Application.Info.Title, String.Format("Período {0}/{1}", MesAFacturar, AnioLectivo))
+
+        GenerarComprobantes(LoteNombre)
         MostrarPaneles(3)
     End Sub
 #End Region
 
-#Region "Paso 3 - Generación, Confirmación y Emisión"
-    Private Sub GenerarComprobantes()
+#Region "Paso 3 - Generación"
+    Private Sub GenerarComprobantes(ByVal LoteNombre As String)
         Dim dbcGeneracion As New CSColegioContext
 
         ' Parámetros
@@ -475,14 +493,31 @@ Public Class formGenerarLoteFacturas
         listFacturas = New List(Of ComprobanteCabecera)
 
         ' Cargo los parámetros en variables para reducir tiempo de procesamiento
-        IDArticulo = CSM_Parameter.GetIntegerAsShort(Parametros.ARTICULO_CUOTA_MENSUAL_ID)
+        IDArticulo = CSM_Parameter.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID)
         ComprobanteEntidadMayusculas = CSM_Parameter.GetBoolean(Parametros.COMPROBANTE_ENTIDAD_MAYUSCULAS, False).Value
+
+        ' Creo el Lote de Comprobantes
+        With FacturaLote
+            If dbcGeneracion.ComprobanteLote.Count = 0 Then
+                .IDComprobanteLote = 1
+            Else
+                .IDComprobanteLote = dbcGeneracion.ComprobanteLote.Max(Function(cl) cl.IDComprobanteLote)
+            End If
+            .FechaHora = Now
+            .Nombre = LoteNombre
+
+            ' Auditoría
+            .IDUsuarioCreacion = pUsuario.IDUsuario
+            .FechaHoraCreacion = System.DateTime.Now
+            .IDUsuarioModificacion = pUsuario.IDUsuario
+            .FechaHoraModificacion = .FechaHoraCreacion
+        End With
 
         For Each EntidadAlumno As Entidad In listEntidadesSeleccionadasOk
             Select Case EntidadAlumno.EntidadFactura
                 Case Constantes.ENTIDADFACTURA_ALUMNO
                     ' Se factura directamente al Alumno, así que lo agrego a él mismo como Titular de la Factura y como Alumno
-                    FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno, ComprobanteEntidadMayusculas)
+                    FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
                     FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                     FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
                     FacturaCabecera.ImporteImpuesto = 0
@@ -494,7 +529,7 @@ Public Class formGenerarLoteFacturas
                     FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.EntidadPadre.IDEntidad)
                     If FacturaCabecera Is Nothing Then
                         ' No existe la Factura del Padre
-                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, ComprobanteEntidadMayusculas)
+                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
                         FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                         FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
                         FacturaCabecera.ImporteImpuesto = 0
@@ -513,7 +548,7 @@ Public Class formGenerarLoteFacturas
                     FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.EntidadMadre.IDEntidad)
                     If FacturaCabecera Is Nothing Then
                         ' No existe la Factura de la Madre
-                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, ComprobanteEntidadMayusculas)
+                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
                         FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                         FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
                         FacturaCabecera.ImporteImpuesto = 0
@@ -533,7 +568,7 @@ Public Class formGenerarLoteFacturas
                     FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.EntidadPadre.IDEntidad)
                     If FacturaCabecera Is Nothing Then
                         ' No existe la Factura del Padre
-                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, ComprobanteEntidadMayusculas)
+                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
                         FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                         FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
                         FacturaCabecera.ImporteImpuesto = 0
@@ -550,7 +585,7 @@ Public Class formGenerarLoteFacturas
                     FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.EntidadMadre.IDEntidad)
                     If FacturaCabecera Is Nothing Then
                         ' No existe la Factura de la Madre
-                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, ComprobanteEntidadMayusculas)
+                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
                         FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                         FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
                         FacturaCabecera.ImporteImpuesto = 0
@@ -611,12 +646,15 @@ Public Class formGenerarLoteFacturas
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Function GenerarComprobanteCabecera(ByRef EntidadCabecera As Entidad, ByVal ComprobanteEntidadMayusculas As Boolean) As ComprobanteCabecera
+    Private Function GenerarComprobanteCabecera(ByRef EntidadCabecera As Entidad, ByVal IDFacturaLote As Integer, ByVal ComprobanteEntidadMayusculas As Boolean) As ComprobanteCabecera
         Dim FacturaCabecera As New ComprobanteCabecera
 
         With FacturaCabecera
+            ' Cabecera
             .IDComprobanteTipo = EntidadCabecera.CategoriaIVA.VentaIDComprobanteTipo
             .Fecha = System.DateTime.Now
+
+            ' Entidad
             .IDEntidad = EntidadCabecera.IDEntidad
             If ComprobanteEntidadMayusculas Then
                 .EntidadApellido = EntidadCabecera.Apellido.ToUpper
@@ -625,9 +663,21 @@ Public Class formGenerarLoteFacturas
                 .EntidadApellido = EntidadCabecera.Apellido
                 .EntidadNombre = EntidadCabecera.Nombre
             End If
-            .CUIT = EntidadCabecera.CUIT_CUIL
+
+            ' Tipo y Número de Documento
+            If Not EntidadCabecera.FacturaIDDocumentoTipo Is Nothing Then
+                .IDDocumentoTipo = EntidadCabecera.FacturaIDDocumentoTipo.Value
+                .DocumentoNumero = EntidadCabecera.FacturaDocumentoNumero
+            ElseIf Not EntidadCabecera.IDDocumentoTipo Is Nothing Then
+                .IDDocumentoTipo = EntidadCabecera.IDDocumentoTipo.Value
+                .DocumentoNumero = EntidadCabecera.DocumentoNumero
+            Else
+                .IDDocumentoTipo = CSM_Parameter.GetIntegerAsByte(Parametros.CONSUMIDORFINAL_DOCUMENTOTIPO_ID)
+                .DocumentoNumero = CSM_Parameter.GetString(Parametros.CONSUMIDORFINAL_DOCUMENTONUMERO)
+            End If
             .IDCategoriaIVA = EntidadCabecera.IDCategoriaIVA.Value
 
+            ' Domicilio
             .DomicilioCalle1 = EntidadCabecera.DomicilioCalle1
             .DomicilioNumero = EntidadCabecera.DomicilioNumero
             .DomicilioPiso = EntidadCabecera.DomicilioPiso
@@ -638,6 +688,9 @@ Public Class formGenerarLoteFacturas
             .DomicilioIDProvincia = EntidadCabecera.DomicilioIDProvincia
             .DomicilioIDLocalidad = EntidadCabecera.DomicilioIDLocalidad
 
+            .IDComprobanteLote = IDFacturaLote
+
+            ' Auditoría
             .IDUsuarioCreacion = pUsuario.IDUsuario
             .FechaHoraCreacion = System.DateTime.Now
             .IDUsuarioModificacion = pUsuario.IDUsuario
@@ -693,6 +746,7 @@ Public Class formGenerarLoteFacturas
             Application.DoEvents()
 
             Using dbcGuardado As New CSColegioContext
+                dbcGuardado.ComprobanteLote.Add(FacturaLote)
                 dbcGuardado.ComprobanteCabecera.AddRange(listFacturas)
 
                 dbcGuardado.SaveChanges()
@@ -701,6 +755,7 @@ Public Class formGenerarLoteFacturas
             Me.Cursor = Cursors.Default
             Return True
         Catch ex As Exception
+            Me.Cursor = Cursors.Default
             CSM_Error.ProcessError(ex, "Error al guardar las Facturas Generadas")
             Return False
         End Try
@@ -715,69 +770,13 @@ Public Class formGenerarLoteFacturas
         MostrarPaneles(2)
     End Sub
 
-    Private Sub buttonPaso3Siguiente_Click() Handles buttonPaso3Siguiente.Click
-        If GuardarComprobantes Then
-            MostrarPaneles(4)
-            TransmitirComprobantes()
+    Private Sub buttonPaso3Finalizar_Click() Handles buttonPaso3Finalizar.Click
+        If MsgBox("¿Confirma la Generación del Lote de Facturas?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
+            If GuardarComprobantes() Then
+                Me.Close()
+            End If
         End If
     End Sub
 #End Region
 
-#Region "Paso 4 - Transmisión de Comprobantes a AFIP y envío de e-mails"
-    Private Sub TransmitirComprobantes()
-        Dim AFIP_TicketAcceso As String
-        Dim AFIP_Factura As CSM_AFIP_WS.FacturaElectronicaCabecera
-        Dim CAE As String
-
-        Me.Cursor = Cursors.WaitCursor
-        Application.DoEvents()
-
-        ' Intento realizar la Autenticación en el Servidor de AFIP
-        AFIP_TicketAcceso = CSM_AFIP_WS.Login(CSM_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION), "", CSM_AFIP.SERVICIO_FACTURACION_ECLECTRONICA, My.Settings.AFIP_Certificado, My.Settings.AFIP_ClavePrivada, formMDIMain.menuitemDebugAFIPWSHabilitarRegistro.Checked)
-        If AFIP_TicketAcceso <> "" Then
-            For Each FacturaActual In listFacturas
-                AFIP_Factura = New CSM_AFIP_WS.FacturaElectronicaCabecera
-                With AFIP_Factura
-                    .Concepto = 2
-                    .TipoDocumento = 80
-                    .DocumentoNumero = CInt(FacturaActual.CUIT)
-                    .TipoComprobante = 11 'FacturaActual.ComprobanteTipo.CodigoAFIP
-                    .PuntoVenta = CShort(FacturaActual.PuntoVenta)
-                    .ComprobanteDesde = FacturaActual.IDComprobante
-                    .ComprobanteHasta = FacturaActual.IDComprobante
-                    .ComprobanteFecha = FacturaActual.Fecha
-                    .ImporteTotal = FacturaActual.ImporteTotal
-                    .ImporteTotalConc = 0
-                    .ImporteNeto = FacturaActual.ImporteTotal
-                    .ImporteOperacionesExentas = 0
-                    .ImporteTributos = 0
-                    .ImporteIVA = FacturaActual.ImporteImpuesto
-                    .FechaServicioDesde = Now
-                    .FechaServicioHasta = Now
-                    .FechaVencimientoPago = Now
-                    .MonedaID = "PES"
-                    .MonedaCotizacion = 1
-                End With
-                CAE = CSM_AFIP_WS.CrearFacturaElectronica(AFIP_TicketAcceso, CSM_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION), "", "30710717946", AFIP_Factura, formMDIMain.menuitemDebugAFIPWSHabilitarRegistro.Checked)
-                If CAE = "" Then
-                    Exit For
-                End If
-            Next
-        End If
-
-        Me.Cursor = Cursors.Default
-    End Sub
-
-    'Private Sub buttonPaso4Anterior_Click() Handles buttonPaso4Anterior.Click
-    '    MostrarPaneles(3)
-    'End Sub
-
-    'Private Sub buttonPaso4Siguiente_Click() Handles buttonPaso4Siguiente.Click
-    '    MostrarPaneles(5)
-    'End Sub
-#End Region
-
-    Private Sub Paso4MostrarDetalle(sender As Object, e As EventArgs) Handles datagridviewPaso4Cabecera.SelectionChanged
-
-    End Sub
 End Class

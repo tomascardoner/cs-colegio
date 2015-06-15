@@ -5,6 +5,7 @@
     Friend Sub InitializeFormAndControls()
         ' Cargo los ComboBox
         FillAndRefreshLists.DocumentoTipo(comboboxDocumentoTipo, True)
+        FillAndRefreshLists.DocumentoTipo(comboboxFacturaDocumentoTipo, True)
         FillAndRefreshLists.Genero(comboboxGenero, True)
         FillAndRefreshLists.CategoriaIVA(comboboxCategoriaIVA, True)
         FillAndRefreshLists.Provincia(comboboxDomicilioProvincia, True)
@@ -30,11 +31,20 @@
             checkboxTipoAlumno.CheckState = CSM_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoAlumno)
             checkboxTipoFamiliar.CheckState = CSM_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoFamiliar)
             checkboxTipoProveedor.CheckState = CSM_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoProveedor)
-            CSM_ComboBox.SetSelectedValue(comboboxDocumentoTipo, SelectedItemOptions.ValueOrFirst, .IDDocumentoTipo, 0)
-            textboxDocumentoNumero.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.DocumentoNumero)
+            CSM_ComboBox.SetSelectedValue(comboboxDocumentoTipo, SelectedItemOptions.ValueOrFirst, .IDDocumentoTipo, CByte(0))
+            If CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
+                maskedtextboxDocumentoNumero.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.DocumentoNumero)
+            Else
+                textboxDocumentoNumero.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.DocumentoNumero)
+            End If
+            CSM_ComboBox.SetSelectedValue(comboboxFacturaDocumentoTipo, SelectedItemOptions.ValueOrFirst, .FacturaIDDocumentoTipo, CByte(0))
+            If CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
+                maskedtextboxFacturaDocumentoNumero.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.FacturaDocumentoNumero)
+            Else
+                textboxFacturaDocumentoNumero.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.FacturaDocumentoNumero)
+            End If
             CSM_ComboBox.SetSelectedValue(comboboxGenero, SelectedItemOptions.ValueOrFirst, .Genero, Constantes.GENERO_NOESPECIFICA)
             datetimepickerFechaNacimiento.Value = CSM_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaNacimiento, datetimepickerFechaNacimiento)
-            maskedtextboxCUIT_CUIL.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.CUIT_CUIL)
             CSM_ComboBox.SetSelectedValue(comboboxCategoriaIVA, SelectedItemOptions.ValueOrFirst, .IDCategoriaIVA, 0)
 
             ' Datos de la pestaña Contacto
@@ -130,10 +140,19 @@
             .TipoFamiliar = CSM_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoFamiliar.CheckState)
             .TipoProveedor = CSM_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoProveedor.CheckState)
             .IDDocumentoTipo = CSM_ValueTranslation.FromControlComboBoxToObjectByte(comboboxDocumentoTipo.SelectedValue, 0)
-            .DocumentoNumero = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxDocumentoNumero.Text.Trim)
+            If CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
+                .DocumentoNumero = CSM_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxDocumentoNumero.Text.Trim)
+            Else
+                .DocumentoNumero = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxDocumentoNumero.Text.Trim)
+            End If
+            .FacturaIDDocumentoTipo = CSM_ValueTranslation.FromControlComboBoxToObjectByte(comboboxFacturaDocumentoTipo.SelectedValue, 0)
+            If CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
+                .FacturaDocumentoNumero = CSM_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxFacturaDocumentoNumero.Text.Trim)
+            Else
+                .FacturaDocumentoNumero = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxFacturaDocumentoNumero.Text.Trim)
+            End If
             .Genero = CSM_ValueTranslation.FromControlComboBoxToObjectString(comboboxGenero.SelectedValue, Constantes.GENERO_NOESPECIFICA)
             .FechaNacimiento = CSM_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFechaNacimiento.Value, datetimepickerFechaNacimiento.Checked)
-            .CUIT_CUIL = CSM_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxCUIT_CUIL.Text.Trim)
             .IDCategoriaIVA = CSM_ValueTranslation.FromControlComboBoxToObjectByte(comboboxCategoriaIVA.SelectedValue, 0)
 
             ' Datos de la pestaña Contacto
@@ -166,8 +185,26 @@
         CType(sender, TextBox).SelectAll()
     End Sub
 
-    Private Sub MaskedTextBoxs_GotFocus(sender As Object, e As EventArgs) Handles maskedtextboxCUIT_CUIL.GotFocus
+    Private Sub MaskedTextBoxs_GotFocus(sender As Object, e As EventArgs) Handles maskedtextboxDocumentoNumero.GotFocus
         CType(sender, MaskedTextBox).SelectAll()
+    End Sub
+
+    Private Sub comboboxDocumentoTipo_SelectedIndexChanged() Handles comboboxDocumentoTipo.SelectedIndexChanged
+        If Not comboboxDocumentoTipo.SelectedItem Is Nothing Then
+            textboxDocumentoNumero.Visible = (CByte(comboboxDocumentoTipo.SelectedValue) > 0 AndAlso Not CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11)
+            maskedtextboxDocumentoNumero.Visible = (CByte(comboboxDocumentoTipo.SelectedValue) > 0 AndAlso Not textboxDocumentoNumero.Visible)
+        End If
+    End Sub
+
+    Private Sub comboboxFacturaDocumentoTipo_SelectedIndexChanged() Handles comboboxFacturaDocumentoTipo.SelectedIndexChanged
+        If Not comboboxFacturaDocumentoTipo.SelectedItem Is Nothing Then
+            textboxFacturaDocumentoNumero.Visible = (CByte(comboboxFacturaDocumentoTipo.SelectedValue) > 0 AndAlso Not CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11)
+            maskedtextboxFacturaDocumentoNumero.Visible = (CByte(comboboxFacturaDocumentoTipo.SelectedValue) > 0 AndAlso Not textboxFacturaDocumentoNumero.Visible)
+        End If
+    End Sub
+
+    Private Sub DocumentoNumero_LimpiarCaracteres(sender As Object, e As EventArgs) Handles textboxDocumentoNumero.LostFocus, textboxFacturaDocumentoNumero.LostFocus
+        CType(sender, TextBox).Text = CType(sender, TextBox).Text.Replace(".", "")
     End Sub
 
     Private Sub comboboxDomicilioProvincia_SelectedValueChanged() Handles comboboxDomicilioProvincia.SelectedValueChanged
@@ -213,31 +250,74 @@
             MsgBox("Debe especificar el Tipo de Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
             Exit Sub
         End If
-        If comboboxDocumentoTipo.SelectedIndex > 0 And textboxDocumentoNumero.Text.Length = 0 Then
-            tabcontrolMain.SelectedTab = tabpageGeneral
-            MsgBox("Si especifica el Tipo de Documento, también debe especificar el Número de Documento.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxDocumentoNumero.Focus()
-            Exit Sub
+
+        ' Verifico el Número de Documento
+        If comboboxDocumentoTipo.SelectedIndex > 0 AndAlso textboxDocumentoNumero.Text.Length = 0 Then
+            If CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
+                If maskedtextboxDocumentoNumero.Text.Length = 0 Then
+                    tabcontrolMain.SelectedTab = tabpageGeneral
+                    MsgBox("Si especifica el Tipo de Documento, también debe especificar el Número de Documento.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxDocumentoNumero.Focus()
+                    Exit Sub
+                End If
+                If maskedtextboxDocumentoNumero.Text.Trim.Length < 11 Then
+                    tabcontrolMain.SelectedTab = tabpageGeneral
+                    MsgBox("El Número de " & CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).Nombre & " debe contener 11 dígitos (sin contar los guiones).", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxDocumentoNumero.Focus()
+                    Exit Sub
+                End If
+                If Not CSM_AFIP.VerificarCUIT(maskedtextboxDocumentoNumero.Text) Then
+                    tabcontrolMain.SelectedTab = tabpageGeneral
+                    MsgBox("El Número de " & CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).Nombre & " ingresado es incorrecto.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxDocumentoNumero.Focus()
+                    Exit Sub
+                End If
+            Else
+                If textboxDocumentoNumero.Text.Length = 0 Then
+                    tabcontrolMain.SelectedTab = tabpageGeneral
+                    MsgBox("Si especifica el Tipo de Documento, también debe especificar el Número de Documento.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxDocumentoNumero.Focus()
+                    Exit Sub
+                End If
+            End If
         End If
+
+        ' Verifico el Número de Documento para la Factura
+        If comboboxDocumentoTipo.SelectedIndex > 0 AndAlso textboxDocumentoNumero.Text.Length = 0 Then
+            If CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
+                If maskedtextboxDocumentoNumero.Text.Length = 0 Then
+                    tabcontrolMain.SelectedTab = tabpageGeneral
+                    MsgBox("Si especifica el Tipo de Documento, también debe especificar el Número de Documento.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxDocumentoNumero.Focus()
+                    Exit Sub
+                End If
+                If maskedtextboxDocumentoNumero.Text.Trim.Length < 11 Then
+                    tabcontrolMain.SelectedTab = tabpageGeneral
+                    MsgBox("El Número de " & CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).Nombre & " debe contener 11 dígitos (sin contar los guiones).", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxDocumentoNumero.Focus()
+                    Exit Sub
+                End If
+                If Not CSM_AFIP.VerificarCUIT(maskedtextboxDocumentoNumero.Text) Then
+                    tabcontrolMain.SelectedTab = tabpageGeneral
+                    MsgBox("El Número de " & CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).Nombre & " ingresado es incorrecto.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxDocumentoNumero.Focus()
+                    Exit Sub
+                End If
+            Else
+                If textboxDocumentoNumero.Text.Length = 0 Then
+                    tabcontrolMain.SelectedTab = tabpageGeneral
+                    MsgBox("Si especifica el Tipo de Documento, también debe especificar el Número de Documento.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxDocumentoNumero.Focus()
+                    Exit Sub
+                End If
+            End If
+        End If
+
         If datetimepickerFechaNacimiento.Checked And datetimepickerFechaNacimiento.Value.Year = Today.Year Then
             tabcontrolMain.SelectedTab = tabpageGeneral
             MsgBox("Se ha especificado una Fecha de Nacimiento que no parece ser válida ya que es del año actual.", MsgBoxStyle.Information, My.Application.Info.Title)
             datetimepickerFechaNacimiento.Focus()
             Exit Sub
-        End If
-        If maskedtextboxCUIT_CUIL.Text.Trim.Length > 0 Then
-            If maskedtextboxCUIT_CUIL.Text.Trim.Length < 11 Then
-                tabcontrolMain.SelectedTab = tabpageGeneral
-                MsgBox("El número de CUIT / CUIL debe contener 11 dígitos (sin guiones).", MsgBoxStyle.Information, My.Application.Info.Title)
-                maskedtextboxCUIT_CUIL.Focus()
-                Exit Sub
-            End If
-            If Not CSM_AFIP.VerificarCUIT(maskedtextboxCUIT_CUIL.Text) Then
-                tabcontrolMain.SelectedTab = tabpageGeneral
-                MsgBox("El CUIT / CUIL ingresado es incorrecto.", MsgBoxStyle.Information, My.Application.Info.Title)
-                maskedtextboxCUIT_CUIL.Focus()
-                Exit Sub
-            End If
         End If
         Select Case CStr(comboboxEntidadFactura.SelectedValue)
             Case Constantes.ENTIDADFACTURA_NOESPECIFICA
@@ -368,9 +448,5 @@
     Private Sub buttonEntidadMadreBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadMadreBorrar.Click
         textboxEntidadMadre.Text = ""
         textboxEntidadMadre.Tag = Nothing
-    End Sub
-
-    Private Sub textboxDocumentoNumero_LostFocus(sender As Object, e As EventArgs) Handles textboxDocumentoNumero.LostFocus
-        textboxDocumentoNumero.Text = textboxDocumentoNumero.Text.Replace(".", "")
     End Sub
 End Class

@@ -35,6 +35,7 @@
           <Property Name="IDArticulo" Type="smallint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="IDArticuloGrupo" Type="tinyint" Nullable="false" />
+          <Property Name="IDConcepto" Type="tinyint" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
@@ -105,7 +106,8 @@
           <Property Name="IDEntidad" Type="int" Nullable="false" />
           <Property Name="EntidadApellido" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="EntidadNombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="CUIT" Type="char" MaxLength="11" />
+          <Property Name="IDDocumentoTipo" Type="tinyint" Nullable="false" />
+          <Property Name="DocumentoNumero" Type="varchar" MaxLength="12" Nullable="false" />
           <Property Name="IDCategoriaIVA" Type="tinyint" Nullable="false" />
           <Property Name="DomicilioCalle1" Type="varchar" MaxLength="100" />
           <Property Name="DomicilioNumero" Type="varchar" MaxLength="10" />
@@ -120,6 +122,7 @@
           <Property Name="ImporteImpuesto" Type="money" Nullable="false" />
           <Property Name="ImporteTotal" Type="money" Nullable="false" />
           <Property Name="Notas" Type="varchar(max)" />
+          <Property Name="IDComprobanteLote" Type="int" />
           <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
           <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
@@ -154,6 +157,18 @@
           <Property Name="IDComprobante" Type="int" Nullable="false" />
           <Property Name="Indice" Type="tinyint" Nullable="false" />
           <Property Name="IDImpuesto" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ComprobanteLote">
+          <Key>
+            <PropertyRef Name="IDComprobanteLote" />
+          </Key>
+          <Property Name="IDComprobanteLote" Type="int" Nullable="false" />
+          <Property Name="FechaHora" Type="smalldatetime" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="ComprobanteTipo">
           <Key>
@@ -225,6 +240,7 @@
           </Key>
           <Property Name="IDDocumentoTipo" Type="tinyint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="VerificaModulo11" Type="bit" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Entidad">
@@ -242,9 +258,10 @@
           <Property Name="TipoProveedor" Type="bit" Nullable="false" />
           <Property Name="IDDocumentoTipo" Type="tinyint" />
           <Property Name="DocumentoNumero" Type="varchar" MaxLength="12" />
+          <Property Name="FacturaIDDocumentoTipo" Type="tinyint" />
+          <Property Name="FacturaDocumentoNumero" Type="varchar" MaxLength="12" />
           <Property Name="Genero" Type="char" MaxLength="1" />
           <Property Name="FechaNacimiento" Type="date" />
-          <Property Name="CUIT_CUIL" Type="char" MaxLength="11" />
           <Property Name="IDCategoriaIVA" Type="tinyint" />
           <Property Name="Telefono1" Type="varchar" MaxLength="50" />
           <Property Name="Telefono2" Type="varchar" MaxLength="50" />
@@ -358,6 +375,15 @@
           <Property Name="Simbolo" Type="varchar" MaxLength="10" />
           <Property Name="CodigoAFIP" Type="char" MaxLength="3" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MonedaCotizacion">
+          <Key>
+            <PropertyRef Name="IDMoneda" />
+            <PropertyRef Name="Fecha" />
+          </Key>
+          <Property Name="IDMoneda" Type="smallint" Nullable="false" />
+          <Property Name="Fecha" Type="smalldatetime" Nullable="false" />
+          <Property Name="Cotizacion" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="Movimiento">
           <Key>
@@ -606,6 +632,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ComprobanteLote__ComprobanteCabecera">
+          <End Role="ComprobanteLote" Type="Self.ComprobanteLote" Multiplicity="0..1" />
+          <End Role="ComprobanteCabecera" Type="Self.ComprobanteCabecera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComprobanteLote">
+              <PropertyRef Name="IDComprobanteLote" />
+            </Principal>
+            <Dependent Role="ComprobanteCabecera">
+              <PropertyRef Name="IDComprobanteLote" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__ComprobanteTipo__ComprobanteCabecera">
           <End Role="ComprobanteTipo" Type="Self.ComprobanteTipo" Multiplicity="1" />
           <End Role="ComprobanteCabecera" Type="Self.ComprobanteCabecera" Multiplicity="*" />
@@ -630,6 +668,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Concepto__Articulo">
+          <End Role="Concepto" Type="Self.Concepto" Multiplicity="1" />
+          <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concepto">
+              <PropertyRef Name="IDConcepto" />
+            </Principal>
+            <Dependent Role="Articulo">
+              <PropertyRef Name="IDConcepto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Descuento__Entidad">
           <End Role="Descuento" Type="Self.Descuento" Multiplicity="0..1" />
           <End Role="Entidad" Type="Self.Entidad" Multiplicity="*" />
@@ -651,6 +701,18 @@
             </Principal>
             <Dependent Role="Entidad">
               <PropertyRef Name="IDDocumentoTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DocumentoTipo__Entidad__Factura">
+          <End Role="DocumentoTipo" Type="Self.DocumentoTipo" Multiplicity="0..1" />
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentoTipo">
+              <PropertyRef Name="IDDocumentoTipo" />
+            </Principal>
+            <Dependent Role="Entidad">
+              <PropertyRef Name="FacturaIDDocumentoTipo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -885,6 +947,7 @@
           <EntitySet Name="ComprobanteCabecera" EntityType="Self.ComprobanteCabecera" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteDetalle" EntityType="Self.ComprobanteDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteImpuesto" EntityType="Self.ComprobanteImpuesto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComprobanteLote" EntityType="Self.ComprobanteLote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteTipo" EntityType="Self.ComprobanteTipo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteTipoPuntoVenta" EntityType="Self.ComprobanteTipoPuntoVenta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Concepto" EntityType="Self.Concepto" Schema="dbo" store:Type="Tables" />
@@ -901,6 +964,7 @@
           <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MedioPago" EntityType="Self.MedioPago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Moneda" EntityType="Self.Moneda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonedaCotizacion" EntityType="Self.MonedaCotizacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Movimiento" EntityType="Self.Movimiento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MovimientoGrupo" EntityType="Self.MovimientoGrupo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Nivel" EntityType="Self.Nivel" Schema="dbo" store:Type="Tables" />
@@ -949,6 +1013,10 @@
             <End Role="ComprobanteCabecera" EntitySet="ComprobanteCabecera" />
             <End Role="ComprobanteImpuesto" EntitySet="ComprobanteImpuesto" />
           </AssociationSet>
+          <AssociationSet Name="FK__ComprobanteLote__ComprobanteCabecera" Association="Self.FK__ComprobanteLote__ComprobanteCabecera">
+            <End Role="ComprobanteLote" EntitySet="ComprobanteLote" />
+            <End Role="ComprobanteCabecera" EntitySet="ComprobanteCabecera" />
+          </AssociationSet>
           <AssociationSet Name="FK__ComprobanteTipo__ComprobanteCabecera" Association="Self.FK__ComprobanteTipo__ComprobanteCabecera">
             <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
             <End Role="ComprobanteCabecera" EntitySet="ComprobanteCabecera" />
@@ -957,11 +1025,19 @@
             <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
             <End Role="ComprobanteTipoPuntoVenta" EntitySet="ComprobanteTipoPuntoVenta" />
           </AssociationSet>
+          <AssociationSet Name="FK__Concepto__Articulo" Association="Self.FK__Concepto__Articulo">
+            <End Role="Concepto" EntitySet="Concepto" />
+            <End Role="Articulo" EntitySet="Articulo" />
+          </AssociationSet>
           <AssociationSet Name="FK__Descuento__Entidad" Association="Self.FK__Descuento__Entidad">
             <End Role="Descuento" EntitySet="Descuento" />
             <End Role="Entidad" EntitySet="Entidad" />
           </AssociationSet>
           <AssociationSet Name="FK__DocumentoTipo__Entidad" Association="Self.FK__DocumentoTipo__Entidad">
+            <End Role="DocumentoTipo" EntitySet="DocumentoTipo" />
+            <End Role="Entidad" EntitySet="Entidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DocumentoTipo__Entidad__Factura" Association="Self.FK__DocumentoTipo__Entidad__Factura">
             <End Role="DocumentoTipo" EntitySet="DocumentoTipo" />
             <End Role="Entidad" EntitySet="Entidad" />
           </AssociationSet>
@@ -1070,6 +1146,8 @@
           <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ArticuloGrupo" Relationship="Self.FK__ArticuloGrupo__Articulo" FromRole="Articulo" ToRole="ArticuloGrupo" />
+          <Property Name="IDConcepto" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Concepto" Relationship="CSColegioModel.FK__Concepto__Articulo" FromRole="Articulo" ToRole="Concepto" />
         </EntityType>
         <EntityType Name="ArticuloGrupo">
           <Key>
@@ -1151,8 +1229,10 @@
           </Key>
           <Property Name="IDDocumentoTipo" Type="Byte" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Entidad" Relationship="Self.FK__DocumentoTipo__Entidad" FromRole="DocumentoTipo" ToRole="Entidad" />
+          <NavigationProperty Name="Entidades" Relationship="Self.FK__DocumentoTipo__Entidad" FromRole="DocumentoTipo" ToRole="Entidad" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="EntidadesFactura" Relationship="CSColegioModel.FK__DocumentoTipo__Entidad__Factura" FromRole="DocumentoTipo" ToRole="Entidad" />
+          <Property Name="VerificaModulo11" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Entidad">
           <Key>
@@ -1169,9 +1249,10 @@
           <Property Name="TipoProveedor" Type="Boolean" Nullable="false" />
           <Property Name="IDDocumentoTipo" Type="Byte" />
           <Property Name="DocumentoNumero" Type="String" MaxLength="12" Unicode="false" FixedLength="false" />
+          <Property Name="FacturaIDDocumentoTipo" Type="Byte" />
+          <Property Name="FacturaDocumentoNumero" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="Genero" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
-          <Property Name="CUIT_CUIL" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
           <Property Name="IDCategoriaIVA" Type="Byte" />
           <Property Name="Telefono1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Telefono2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1212,6 +1293,7 @@
           <NavigationProperty Name="AniosLectivosCursos" Relationship="CSColegioModel.EntidadAnioLectivoCurso" FromRole="Entidad" ToRole="AnioLectivoCurso" />
           <NavigationProperty Name="Descuento" Relationship="CSColegioModel.FK__Descuento__Entidad" FromRole="Entidad" ToRole="Descuento" />
           <NavigationProperty Name="ComprobanteDetalle" Relationship="CSColegioModel.FK__Entidad__ComprobanteDetalle" FromRole="Entidad" ToRole="ComprobanteDetalle" />
+          <NavigationProperty Name="FacturaDocumentoTipo" Relationship="CSColegioModel.FK__DocumentoTipo__Entidad__Factura" FromRole="Entidad" ToRole="DocumentoTipo" />
         </EntityType>
         <EntityType Name="EntidadEntidad">
           <Key>
@@ -1736,6 +1818,20 @@
             <End Role="PuntoVenta" EntitySet="PuntoVenta" />
             <End Role="ComprobanteTipoPuntoVenta" EntitySet="ComprobanteTipoPuntoVenta" />
           </AssociationSet>
+          <EntitySet Name="ComprobanteLote" EntityType="CSColegioModel.ComprobanteLote" />
+          <AssociationSet Name="FK__ComprobanteLote__ComprobanteCabecera" Association="CSColegioModel.FK__ComprobanteLote__ComprobanteCabecera">
+            <End Role="ComprobanteLote" EntitySet="ComprobanteLote" />
+            <End Role="ComprobanteCabecera" EntitySet="ComprobanteCabecera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Concepto__Articulo" Association="CSColegioModel.FK__Concepto__Articulo">
+            <End Role="Concepto" EntitySet="Concepto" />
+            <End Role="Articulo" EntitySet="Articulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DocumentoTipo__Entidad__Factura" Association="CSColegioModel.FK__DocumentoTipo__Entidad__Factura">
+            <End Role="DocumentoTipo" EntitySet="DocumentoTipo" />
+            <End Role="Entidad" EntitySet="Entidad" />
+          </AssociationSet>
+          <EntitySet Name="MonedaCotizacion" EntityType="CSColegioModel.MonedaCotizacion" />
         </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
           <Key>
@@ -1806,7 +1902,8 @@
           <Property Name="IDEntidad" Type="Int32" Nullable="false" />
           <Property Name="EntidadApellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="EntidadNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CUIT" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="IDDocumentoTipo" Type="Byte" Nullable="false" />
+          <Property Name="DocumentoNumero" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="IDCategoriaIVA" Type="Byte" Nullable="false" />
           <Property Name="DomicilioCalle1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DomicilioNumero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
@@ -1821,6 +1918,7 @@
           <Property Name="ImporteImpuesto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="ImporteTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IDComprobanteLote" Type="Int32" />
           <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
@@ -1832,6 +1930,7 @@
           <NavigationProperty Name="Entidad" Relationship="CSColegioModel.FK__Entidad__ComprobanteCabecera" FromRole="ComprobanteCabecera" ToRole="Entidad" />
           <NavigationProperty Name="Localidad" Relationship="CSColegioModel.FK__Localidad__ComprobanteCabecera" FromRole="ComprobanteCabecera" ToRole="Localidad" />
           <Property Name="FechaHoraTransmision" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="ComprobanteLote" Relationship="CSColegioModel.FK__ComprobanteLote__ComprobanteCabecera" FromRole="ComprobanteCabecera" ToRole="ComprobanteLote" />
         </EntityType>
         <EntityType Name="ComprobanteDetalle">
           <Key>
@@ -2047,6 +2146,7 @@
           <Property Name="IDConcepto" Type="Byte" Nullable="false" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Articulo" Relationship="CSColegioModel.FK__Concepto__Articulo" FromRole="Concepto" ToRole="Articulo" />
         </EntityType>
         <EntityType Name="CondicionIVA">
           <Key>
@@ -2174,6 +2274,64 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ComprobanteLote">
+          <Key>
+            <PropertyRef Name="IDComprobanteLote" />
+          </Key>
+          <Property Name="IDComprobanteLote" Type="Int32" Nullable="false" />
+          <Property Name="FechaHora" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ComprobanteCabecera" Relationship="CSColegioModel.FK__ComprobanteLote__ComprobanteCabecera" FromRole="ComprobanteLote" ToRole="ComprobanteCabecera" />
+        </EntityType>
+        <Association Name="FK__ComprobanteLote__ComprobanteCabecera">
+          <End Type="CSColegioModel.ComprobanteLote" Role="ComprobanteLote" Multiplicity="0..1" />
+          <End Type="CSColegioModel.ComprobanteCabecera" Role="ComprobanteCabecera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComprobanteLote">
+              <PropertyRef Name="IDComprobanteLote" />
+            </Principal>
+            <Dependent Role="ComprobanteCabecera">
+              <PropertyRef Name="IDComprobanteLote" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Concepto__Articulo">
+          <End Type="CSColegioModel.Concepto" Role="Concepto" Multiplicity="1" />
+          <End Type="CSColegioModel.Articulo" Role="Articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concepto">
+              <PropertyRef Name="IDConcepto" />
+            </Principal>
+            <Dependent Role="Articulo">
+              <PropertyRef Name="IDConcepto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DocumentoTipo__Entidad__Factura">
+          <End Type="CSColegioModel.DocumentoTipo" Role="DocumentoTipo" Multiplicity="0..1" />
+          <End Type="CSColegioModel.Entidad" Role="Entidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentoTipo">
+              <PropertyRef Name="IDDocumentoTipo" />
+            </Principal>
+            <Dependent Role="Entidad">
+              <PropertyRef Name="FacturaIDDocumentoTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MonedaCotizacion">
+          <Key>
+            <PropertyRef Name="IDMoneda" />
+            <PropertyRef Name="Fecha" />
+          </Key>
+          <Property Name="IDMoneda" Type="Int16" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Cotizacion" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2197,6 +2355,7 @@
           <EntitySetMapping Name="Articulo">
             <EntityTypeMapping TypeName="CSColegioModel.Articulo">
               <MappingFragment StoreEntitySet="Articulo">
+                <ScalarProperty Name="IDConcepto" ColumnName="IDConcepto" />
                 <ScalarProperty Name="IDArticulo" ColumnName="IDArticulo" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IDArticuloGrupo" ColumnName="IDArticuloGrupo" />
@@ -2282,6 +2441,7 @@
           <EntitySetMapping Name="DocumentoTipo">
             <EntityTypeMapping TypeName="CSColegioModel.DocumentoTipo">
               <MappingFragment StoreEntitySet="DocumentoTipo">
+                <ScalarProperty Name="VerificaModulo11" ColumnName="VerificaModulo11" />
                 <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
                 <ScalarProperty Name="IDDocumentoTipo" ColumnName="IDDocumentoTipo" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -2291,6 +2451,8 @@
           <EntitySetMapping Name="Entidad">
             <EntityTypeMapping TypeName="CSColegioModel.Entidad">
               <MappingFragment StoreEntitySet="Entidad">
+                <ScalarProperty Name="FacturaDocumentoNumero" ColumnName="FacturaDocumentoNumero" />
+                <ScalarProperty Name="FacturaIDDocumentoTipo" ColumnName="FacturaIDDocumentoTipo" />
                 <ScalarProperty Name="IDDescuento" ColumnName="IDDescuento" />
                 <ScalarProperty Name="ApellidoNombre" ColumnName="ApellidoNombre" />
                 <ScalarProperty Name="EntidadFactura" ColumnName="EntidadFactura" />
@@ -2308,7 +2470,6 @@
                 <ScalarProperty Name="DocumentoNumero" ColumnName="DocumentoNumero" />
                 <ScalarProperty Name="Genero" ColumnName="Genero" />
                 <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
-                <ScalarProperty Name="CUIT_CUIL" ColumnName="CUIT_CUIL" />
                 <ScalarProperty Name="IDCategoriaIVA" ColumnName="IDCategoriaIVA" />
                 <ScalarProperty Name="Telefono1" ColumnName="Telefono1" />
                 <ScalarProperty Name="Telefono2" ColumnName="Telefono2" />
@@ -2549,6 +2710,9 @@
           <EntitySetMapping Name="ComprobanteCabecera">
             <EntityTypeMapping TypeName="CSColegioModel.ComprobanteCabecera">
               <MappingFragment StoreEntitySet="ComprobanteCabecera">
+                <ScalarProperty Name="DocumentoNumero" ColumnName="DocumentoNumero" />
+                <ScalarProperty Name="IDDocumentoTipo" ColumnName="IDDocumentoTipo" />
+                <ScalarProperty Name="IDComprobanteLote" ColumnName="IDComprobanteLote" />
                 <ScalarProperty Name="Numero" ColumnName="Numero" />
                 <ScalarProperty Name="PuntoVenta" ColumnName="PuntoVenta" />
                 <ScalarProperty Name="FechaHoraTransmision" ColumnName="FechaHoraTransmision" />
@@ -2570,7 +2734,6 @@
                 <ScalarProperty Name="DomicilioNumero" ColumnName="DomicilioNumero" />
                 <ScalarProperty Name="DomicilioCalle1" ColumnName="DomicilioCalle1" />
                 <ScalarProperty Name="IDCategoriaIVA" ColumnName="IDCategoriaIVA" />
-                <ScalarProperty Name="CUIT" ColumnName="CUIT" />
                 <ScalarProperty Name="EntidadNombre" ColumnName="EntidadNombre" />
                 <ScalarProperty Name="EntidadApellido" ColumnName="EntidadApellido" />
                 <ScalarProperty Name="IDEntidad" ColumnName="IDEntidad" />
@@ -2701,6 +2864,28 @@
                 <ScalarProperty Name="Numero" ColumnName="Numero" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IDPuntoVenta" ColumnName="IDPuntoVenta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComprobanteLote">
+            <EntityTypeMapping TypeName="CSColegioModel.ComprobanteLote">
+              <MappingFragment StoreEntitySet="ComprobanteLote">
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDComprobanteLote" ColumnName="IDComprobanteLote" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonedaCotizacion">
+            <EntityTypeMapping TypeName="CSColegioModel.MonedaCotizacion">
+              <MappingFragment StoreEntitySet="MonedaCotizacion">
+                <ScalarProperty Name="Cotizacion" ColumnName="Cotizacion" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IDMoneda" ColumnName="IDMoneda" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -19,7 +19,8 @@ Partial Public Class ComprobanteCabecera
     Public Property IDEntidad As Integer
     Public Property EntidadApellido As String
     Public Property EntidadNombre As String
-    Public Property CUIT As String
+    Public Property IDDocumentoTipo As Byte
+    Public Property DocumentoNumero As String
     Public Property IDCategoriaIVA As Byte
     Public Property DomicilioCalle1 As String
     Public Property DomicilioNumero As String
@@ -34,6 +35,7 @@ Partial Public Class ComprobanteCabecera
     Public Property ImporteImpuesto As Decimal
     Public Property ImporteTotal As Decimal
     Public Property Notas As String
+    Public Property IDComprobanteLote As Nullable(Of Integer)
     Public Property IDUsuarioCreacion As Byte
     Public Property FechaHoraCreacion As Date
     Public Property IDUsuarioModificacion As Byte
@@ -46,5 +48,6 @@ Partial Public Class ComprobanteCabecera
     Public Overridable Property ComprobanteTipo As ComprobanteTipo
     Public Overridable Property Entidad As Entidad
     Public Overridable Property Localidad As Localidad
+    Public Overridable Property ComprobanteLote As ComprobanteLote
 
 End Class

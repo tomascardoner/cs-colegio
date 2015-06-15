@@ -19,7 +19,9 @@ Partial Public Class Articulo
     Public Property FechaHoraCreacion As Date
     Public Property IDUsuarioModificacion As Byte
     Public Property FechaHoraModificacion As Date
+    Public Property IDConcepto As Byte
 
     Public Overridable Property ArticuloGrupo As ArticuloGrupo
+    Public Overridable Property Concepto As Concepto
 
 End Class

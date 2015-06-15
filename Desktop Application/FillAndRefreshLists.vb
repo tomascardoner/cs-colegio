@@ -13,6 +13,7 @@
                 Dim UnspecifiedItem As New DocumentoTipo
                 UnspecifiedItem.IDDocumentoTipo = 0
                 UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+                UnspecifiedItem.VerificaModulo11 = False
                 localList.Insert(0, UnspecifiedItem)
             End If
 

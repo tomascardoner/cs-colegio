@@ -14,7 +14,9 @@ Partial Public Class DocumentoTipo
     Public Property IDDocumentoTipo As Byte
     Public Property Nombre As String
     Public Property EsActivo As Boolean
+    Public Property VerificaModulo11 As Boolean
 
-    Public Overridable Property Entidad As ICollection(Of Entidad) = New HashSet(Of Entidad)
+    Public Overridable Property Entidades As ICollection(Of Entidad) = New HashSet(Of Entidad)
+    Public Overridable Property EntidadesFactura As ICollection(Of Entidad) = New HashSet(Of Entidad)
 
 End Class
