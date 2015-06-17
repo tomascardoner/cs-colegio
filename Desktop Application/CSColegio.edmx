@@ -103,6 +103,9 @@
           <Property Name="PuntoVenta" Type="char" MaxLength="4" Nullable="false" />
           <Property Name="Numero" Type="char" MaxLength="8" Nullable="false" />
           <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="FechaVencimiento" Type="date" Nullable="false" />
+          <Property Name="FechaServicioDesde" Type="date" />
+          <Property Name="FechaServicioHasta" Type="date" />
           <Property Name="IDEntidad" Type="int" Nullable="false" />
           <Property Name="EntidadApellido" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="EntidadNombre" Type="varchar" MaxLength="50" Nullable="false" />
@@ -122,11 +125,15 @@
           <Property Name="ImporteImpuesto" Type="money" Nullable="false" />
           <Property Name="ImporteTotal" Type="money" Nullable="false" />
           <Property Name="Notas" Type="varchar(max)" />
+          <Property Name="CAE" Type="char" MaxLength="14" />
           <Property Name="IDComprobanteLote" Type="int" />
           <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
           <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioAnulacion" Type="tinyint" />
+          <Property Name="FechaHoraAnulacion" Type="smalldatetime" />
+          <Property Name="IDUsuarioTransmision" Type="tinyint" />
           <Property Name="FechaHoraTransmision" Type="smalldatetime" />
         </EntityType>
         <EntityType Name="ComprobanteDetalle">
@@ -193,7 +200,7 @@
           </Key>
           <Property Name="IDComprobanteTipo" Type="tinyint" Nullable="false" />
           <Property Name="IDPuntoVenta" Type="tinyint" Nullable="false" />
-          <Property Name="UltimoNumero" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="NumeroInicio" Type="char" MaxLength="8" Nullable="false" />
         </EntityType>
         <EntityType Name="Concepto">
           <Key>
@@ -438,6 +445,7 @@
           <Property Name="Moneda" Type="money" />
           <Property Name="FechaHora" Type="smalldatetime" />
           <Property Name="SiNo" Type="bit" />
+          <Property Name="Notas" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Provincia">
           <Key>
@@ -1406,6 +1414,7 @@
           <Property Name="Moneda" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="FechaHora" Type="DateTime" Precision="0" />
           <Property Name="SiNo" Type="Boolean" />
+          <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Provincia">
           <Key>
@@ -1899,6 +1908,9 @@
           <Property Name="PuntoVenta" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
           <Property Name="Numero" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FechaVencimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FechaServicioDesde" Type="DateTime" Precision="0" />
+          <Property Name="FechaServicioHasta" Type="DateTime" Precision="0" />
           <Property Name="IDEntidad" Type="Int32" Nullable="false" />
           <Property Name="EntidadApellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="EntidadNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1918,6 +1930,7 @@
           <Property Name="ImporteImpuesto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="ImporteTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CAE" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
           <Property Name="IDComprobanteLote" Type="Int32" />
           <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
@@ -1929,8 +1942,11 @@
           <NavigationProperty Name="ComprobanteTipo" Relationship="CSColegioModel.FK__ComprobanteTipo__ComprobanteCabecera" FromRole="ComprobanteCabecera" ToRole="ComprobanteTipo" />
           <NavigationProperty Name="Entidad" Relationship="CSColegioModel.FK__Entidad__ComprobanteCabecera" FromRole="ComprobanteCabecera" ToRole="Entidad" />
           <NavigationProperty Name="Localidad" Relationship="CSColegioModel.FK__Localidad__ComprobanteCabecera" FromRole="ComprobanteCabecera" ToRole="Localidad" />
-          <Property Name="FechaHoraTransmision" Type="DateTime" Precision="0" />
           <NavigationProperty Name="ComprobanteLote" Relationship="CSColegioModel.FK__ComprobanteLote__ComprobanteCabecera" FromRole="ComprobanteCabecera" ToRole="ComprobanteLote" />
+          <Property Name="IDUsuarioAnulacion" Type="Byte" />
+          <Property Name="FechaHoraAnulacion" Type="DateTime" Precision="0" />
+          <Property Name="IDUsuarioTransmision" Type="Byte" />
+          <Property Name="FechaHoraTransmision" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="ComprobanteDetalle">
           <Key>
@@ -2236,9 +2252,9 @@
           </Key>
           <Property Name="IDComprobanteTipo" Type="Byte" Nullable="false" />
           <Property Name="IDPuntoVenta" Type="Byte" Nullable="false" />
-          <Property Name="UltimoNumero" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="ComprobanteTipo" Relationship="CSColegioModel.FK__ComprobanteTipo__ComprobanteTipoPuntoVenta" FromRole="ComprobanteTipoPuntoVenta" ToRole="ComprobanteTipo" />
           <NavigationProperty Name="PuntoVenta" Relationship="CSColegioModel.FK__PuntoVenta__ComprobanteTipoPuntoVenta" FromRole="ComprobanteTipoPuntoVenta" ToRole="PuntoVenta" />
+          <Property Name="NumeroInicio" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="PuntoVenta">
           <Key>
@@ -2591,6 +2607,7 @@
           <EntitySetMapping Name="Parametro">
             <EntityTypeMapping TypeName="CSColegioModel.Parametro">
               <MappingFragment StoreEntitySet="Parametro">
+                <ScalarProperty Name="Notas" ColumnName="Notas" />
                 <ScalarProperty Name="IDParametro" ColumnName="IDParametro" />
                 <ScalarProperty Name="Texto" ColumnName="Texto" />
                 <ScalarProperty Name="NumeroEntero" ColumnName="NumeroEntero" />
@@ -2710,6 +2727,13 @@
           <EntitySetMapping Name="ComprobanteCabecera">
             <EntityTypeMapping TypeName="CSColegioModel.ComprobanteCabecera">
               <MappingFragment StoreEntitySet="ComprobanteCabecera">
+                <ScalarProperty Name="IDUsuarioTransmision" ColumnName="IDUsuarioTransmision" />
+                <ScalarProperty Name="FechaHoraAnulacion" ColumnName="FechaHoraAnulacion" />
+                <ScalarProperty Name="IDUsuarioAnulacion" ColumnName="IDUsuarioAnulacion" />
+                <ScalarProperty Name="CAE" ColumnName="CAE" />
+                <ScalarProperty Name="FechaServicioHasta" ColumnName="FechaServicioHasta" />
+                <ScalarProperty Name="FechaServicioDesde" ColumnName="FechaServicioDesde" />
+                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
                 <ScalarProperty Name="DocumentoNumero" ColumnName="DocumentoNumero" />
                 <ScalarProperty Name="IDDocumentoTipo" ColumnName="IDDocumentoTipo" />
                 <ScalarProperty Name="IDComprobanteLote" ColumnName="IDComprobanteLote" />
@@ -2851,7 +2875,7 @@
           <EntitySetMapping Name="ComprobanteTipoPuntoVenta">
             <EntityTypeMapping TypeName="CSColegioModel.ComprobanteTipoPuntoVenta">
               <MappingFragment StoreEntitySet="ComprobanteTipoPuntoVenta">
-                <ScalarProperty Name="UltimoNumero" ColumnName="UltimoNumero" />
+                <ScalarProperty Name="NumeroInicio" ColumnName="NumeroInicio" />
                 <ScalarProperty Name="IDPuntoVenta" ColumnName="IDPuntoVenta" />
                 <ScalarProperty Name="IDComprobanteTipo" ColumnName="IDComprobanteTipo" />
               </MappingFragment>

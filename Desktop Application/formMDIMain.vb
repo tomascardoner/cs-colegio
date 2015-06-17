@@ -341,4 +341,21 @@
     Private Sub Debug_AFIPWSHomologaciónLogin() Handles menuitemDebugAFIPWSHomologacionLogin.Click
         CSM_AFIP_WS.Login(CSM_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION), "", CSM_AFIP.SERVICIO_FACTURACION_ECLECTRONICA, My.Settings.AFIP_Certificado, My.Settings.AFIP_ClavePrivada)
     End Sub
+
+    Private Sub menuitemTransmitirComprobantesElectronicos_Click(sender As Object, e As EventArgs) Handles menuitemTransmitirComprobantesElectronicos.Click
+        If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIRAAFIP) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            formTransmitirComprobantesAFIP.MdiParent = Me
+            CSM_Form.CenterToParent(Me, CType(formTransmitirComprobantesAFIP, Form))
+            formTransmitirComprobantesAFIP.Show()
+            If formTransmitirComprobantesAFIP.WindowState = FormWindowState.Minimized Then
+                formTransmitirComprobantesAFIP.WindowState = FormWindowState.Normal
+            End If
+            formTransmitirComprobantesAFIP.Focus()
+
+            Me.Cursor = Cursors.Default
+        End If
+
+    End Sub
 End Class

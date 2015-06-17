@@ -488,6 +488,11 @@ Public Class formGenerarLoteFacturas
         Dim FacturaCabecera As New ComprobanteCabecera
         Dim FacturaDetalle As ComprobanteDetalle
 
+        Dim Fecha As Date
+        Dim FechaVencimiento As Date
+        Dim FechaServicioDesde As Date
+        Dim FechaServicioHasta As Date
+
         Me.Cursor = Cursors.WaitCursor
 
         listFacturas = New List(Of ComprobanteCabecera)
@@ -495,13 +500,17 @@ Public Class formGenerarLoteFacturas
         ' Cargo los parámetros en variables para reducir tiempo de procesamiento
         IDArticulo = CSM_Parameter.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID)
         ComprobanteEntidadMayusculas = CSM_Parameter.GetBoolean(Parametros.COMPROBANTE_ENTIDAD_MAYUSCULAS, False).Value
+        Fecha = System.DateTime.Now.Date
+        FechaServicioDesde = New Date(AnioLectivo, MesAFacturar, 1)
+        FechaServicioHasta = FechaServicioDesde.AddMonths(1).AddDays(-1)
+        FechaVencimiento = New Date(AnioLectivo, MesAFacturar, CSM_Parameter.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO_DIA))
 
         ' Creo el Lote de Comprobantes
         With FacturaLote
             If dbcGeneracion.ComprobanteLote.Count = 0 Then
                 .IDComprobanteLote = 1
             Else
-                .IDComprobanteLote = dbcGeneracion.ComprobanteLote.Max(Function(cl) cl.IDComprobanteLote)
+                .IDComprobanteLote = dbcGeneracion.ComprobanteLote.Max(Function(cl) cl.IDComprobanteLote) + 1
             End If
             .FechaHora = Now
             .Nombre = LoteNombre
@@ -517,7 +526,7 @@ Public Class formGenerarLoteFacturas
             Select Case EntidadAlumno.EntidadFactura
                 Case Constantes.ENTIDADFACTURA_ALUMNO
                     ' Se factura directamente al Alumno, así que lo agrego a él mismo como Titular de la Factura y como Alumno
-                    FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
+                    FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
                     FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                     FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
                     FacturaCabecera.ImporteImpuesto = 0
@@ -529,7 +538,7 @@ Public Class formGenerarLoteFacturas
                     FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.EntidadPadre.IDEntidad)
                     If FacturaCabecera Is Nothing Then
                         ' No existe la Factura del Padre
-                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
+                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
                         FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                         FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
                         FacturaCabecera.ImporteImpuesto = 0
@@ -548,7 +557,7 @@ Public Class formGenerarLoteFacturas
                     FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.EntidadMadre.IDEntidad)
                     If FacturaCabecera Is Nothing Then
                         ' No existe la Factura de la Madre
-                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
+                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
                         FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                         FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
                         FacturaCabecera.ImporteImpuesto = 0
@@ -568,7 +577,7 @@ Public Class formGenerarLoteFacturas
                     FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.EntidadPadre.IDEntidad)
                     If FacturaCabecera Is Nothing Then
                         ' No existe la Factura del Padre
-                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
+                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
                         FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                         FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
                         FacturaCabecera.ImporteImpuesto = 0
@@ -585,7 +594,7 @@ Public Class formGenerarLoteFacturas
                     FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.EntidadMadre.IDEntidad)
                     If FacturaCabecera Is Nothing Then
                         ' No existe la Factura de la Madre
-                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
+                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
                         FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                         FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
                         FacturaCabecera.ImporteImpuesto = 0
@@ -620,17 +629,16 @@ Public Class formGenerarLoteFacturas
                     ComprobanteTipoPuntoVenta = ComprobanteTipo.ComprobanteTipoPuntoVenta.Where(Function(ctpv) ctpv.IDPuntoVenta = My.Settings.IDPuntoVenta).FirstOrDefault
                     If Not ComprobanteTipoPuntoVenta Is Nothing Then
                         PuntoVenta = ComprobanteTipoPuntoVenta.PuntoVenta
-                        ' Si el Comprobante no es de Emisión Electrónica, obtengo el nuevo Número de Comprobante
-                        If ComprobanteTipo.EmisionElectronica Then
-                            NextComprobanteNumero = New String("-"c, 8)
-                        Else
-                            NextComprobanteNumero = ComprobanteTipoPuntoVenta.UltimoNumero
-                        End If
+                    End If
+
+                    ' Busco si ya hay un comprobante creado de este tipo para obtener el último número
+                    NextComprobanteNumero = dbcGeneracion.ComprobanteCabecera.Where(Function(cc) cc.IDComprobanteTipo = .IDComprobanteTipo).Max(Function(cc) cc.Numero)
+                    If NextComprobanteNumero Is Nothing Then
+                        ' No hay ningún comprobante creado de este tipo, así que tomo el número inicial y le resto 1 porque después se lo sumo
+                        NextComprobanteNumero = CStr(CInt(ComprobanteTipoPuntoVenta.NumeroInicio) - 1).PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
                     End If
                 End If
-                If Not ComprobanteTipo.EmisionElectronica Then
-                    NextComprobanteNumero = CStr(CInt(NextComprobanteNumero) + 1).PadLeft(8, "0"c)
-                End If
+                NextComprobanteNumero = CStr(CInt(NextComprobanteNumero) + 1).PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
                 .PuntoVenta = PuntoVenta.Numero
                 .Numero = NextComprobanteNumero
             End With
@@ -638,21 +646,24 @@ Public Class formGenerarLoteFacturas
 
         dbcGeneracion.Dispose()
 
-        datagridviewPaso4Cabecera.AutoGenerateColumns = False
-        datagridviewPaso4Cabecera.DataSource = listFacturas
+        datagridviewPaso3Cabecera.AutoGenerateColumns = False
+        datagridviewPaso3Cabecera.DataSource = listFacturas
 
         labelPaso3Pie.Text = String.Format("Se generarán {0} Facturas.", listFacturas.Count)
 
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Function GenerarComprobanteCabecera(ByRef EntidadCabecera As Entidad, ByVal IDFacturaLote As Integer, ByVal ComprobanteEntidadMayusculas As Boolean) As ComprobanteCabecera
+    Private Function GenerarComprobanteCabecera(ByRef EntidadCabecera As Entidad, ByVal Fecha As Date, ByVal FechaVencimiento As Date, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDFacturaLote As Integer, ByVal ComprobanteEntidadMayusculas As Boolean) As ComprobanteCabecera
         Dim FacturaCabecera As New ComprobanteCabecera
 
         With FacturaCabecera
             ' Cabecera
             .IDComprobanteTipo = EntidadCabecera.CategoriaIVA.VentaIDComprobanteTipo
-            .Fecha = System.DateTime.Now
+            .Fecha = Fecha
+            .FechaVencimiento = FechaVencimiento
+            .FechaServicioDesde = FechaServicioDesde
+            .FechaServicioHasta = FechaServicioHasta
 
             ' Entidad
             .IDEntidad = EntidadCabecera.IDEntidad
@@ -761,9 +772,9 @@ Public Class formGenerarLoteFacturas
         End Try
     End Function
 
-    Private Sub Paso4MostrarDetalle() Handles datagridviewPaso4Cabecera.SelectionChanged
-        datagridviewPaso4Detalle.AutoGenerateColumns = False
-        datagridviewPaso4Detalle.DataSource = CType(datagridviewPaso4Cabecera.SelectedRows(0).DataBoundItem, ComprobanteCabecera).ComprobanteDetalle.ToList
+    Private Sub Paso4MostrarDetalle() Handles datagridviewPaso3Cabecera.SelectionChanged
+        datagridviewPaso3Detalle.AutoGenerateColumns = False
+        datagridviewPaso3Detalle.DataSource = CType(datagridviewPaso3Cabecera.SelectedRows(0).DataBoundItem, ComprobanteCabecera).ComprobanteDetalle.ToList
     End Sub
 
     Private Sub buttonPaso3Anterior_Click() Handles buttonPaso3Anterior.Click

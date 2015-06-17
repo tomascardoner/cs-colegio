@@ -65,10 +65,10 @@ Partial Class formGenerarLoteFacturas
         Me.buttonPaso2Anterior = New System.Windows.Forms.Button()
         Me.buttonPaso2Siguiente = New System.Windows.Forms.Button()
         Me.panelPaso3 = New System.Windows.Forms.Panel()
-        Me.datagridviewPaso4Detalle = New System.Windows.Forms.DataGridView()
+        Me.datagridviewPaso3Detalle = New System.Windows.Forms.DataGridView()
         Me.columnDescripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnPrecioTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.datagridviewPaso4Cabecera = New System.Windows.Forms.DataGridView()
+        Me.datagridviewPaso3Cabecera = New System.Windows.Forms.DataGridView()
         Me.columnComprobanteTipoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnPuntoVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnNumero = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -95,8 +95,8 @@ Partial Class formGenerarLoteFacturas
         CType(Me.datagridviewPaso2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureboxPaso2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelPaso3.SuspendLayout()
-        CType(Me.datagridviewPaso4Detalle, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.datagridviewPaso4Cabecera, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.datagridviewPaso3Detalle, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.datagridviewPaso3Cabecera, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureboxPaso3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -162,19 +162,19 @@ Partial Class formGenerarLoteFacturas
         '
         Me.contextmenuNivelCursoAlumno.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemNivelCursoAlumnoMarcarTodos, Me.menuitemNivelCursoAlumnoDesmarcarTodos})
         Me.contextmenuNivelCursoAlumno.Name = "contextmenuMain"
-        Me.contextmenuNivelCursoAlumno.Size = New System.Drawing.Size(170, 48)
+        Me.contextmenuNivelCursoAlumno.Size = New System.Drawing.Size(164, 48)
         '
         'menuitemNivelCursoAlumnoMarcarTodos
         '
         Me.menuitemNivelCursoAlumnoMarcarTodos.Name = "menuitemNivelCursoAlumnoMarcarTodos"
-        Me.menuitemNivelCursoAlumnoMarcarTodos.Size = New System.Drawing.Size(169, 22)
+        Me.menuitemNivelCursoAlumnoMarcarTodos.Size = New System.Drawing.Size(163, 22)
         Me.menuitemNivelCursoAlumnoMarcarTodos.Text = "Marcar todos"
         '
         'menuitemNivelCursoAlumnoDesmarcarTodos
         '
         Me.menuitemNivelCursoAlumnoDesmarcarTodos.Name = "menuitemNivelCursoAlumnoDesmarcarTodos"
-        Me.menuitemNivelCursoAlumnoDesmarcarTodos.Size = New System.Drawing.Size(169, 22)
-        Me.menuitemNivelCursoAlumnoDesmarcarTodos.Text = "Desemarcar todos"
+        Me.menuitemNivelCursoAlumnoDesmarcarTodos.Size = New System.Drawing.Size(163, 22)
+        Me.menuitemNivelCursoAlumnoDesmarcarTodos.Text = "Desmarcar todos"
         '
         'tabpagePadresAlumnos
         '
@@ -436,8 +436,8 @@ Partial Class formGenerarLoteFacturas
         '
         'panelPaso3
         '
-        Me.panelPaso3.Controls.Add(Me.datagridviewPaso4Detalle)
-        Me.panelPaso3.Controls.Add(Me.datagridviewPaso4Cabecera)
+        Me.panelPaso3.Controls.Add(Me.datagridviewPaso3Detalle)
+        Me.panelPaso3.Controls.Add(Me.datagridviewPaso3Cabecera)
         Me.panelPaso3.Controls.Add(Me.labelPaso3Pie)
         Me.panelPaso3.Controls.Add(Me.pictureboxPaso3)
         Me.panelPaso3.Controls.Add(Me.labelPaso3Mensaje)
@@ -449,28 +449,28 @@ Partial Class formGenerarLoteFacturas
         Me.panelPaso3.Size = New System.Drawing.Size(611, 441)
         Me.panelPaso3.TabIndex = 2
         '
-        'datagridviewPaso4Detalle
+        'datagridviewPaso3Detalle
         '
-        Me.datagridviewPaso4Detalle.AllowUserToAddRows = False
-        Me.datagridviewPaso4Detalle.AllowUserToDeleteRows = False
-        Me.datagridviewPaso4Detalle.AllowUserToResizeRows = False
+        Me.datagridviewPaso3Detalle.AllowUserToAddRows = False
+        Me.datagridviewPaso3Detalle.AllowUserToDeleteRows = False
+        Me.datagridviewPaso3Detalle.AllowUserToResizeRows = False
         DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.GradientActiveCaption
         DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
         DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
         DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewPaso4Detalle.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
-        Me.datagridviewPaso4Detalle.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
-        Me.datagridviewPaso4Detalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.datagridviewPaso4Detalle.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnDescripcion, Me.columnPrecioTotal})
-        Me.datagridviewPaso4Detalle.Location = New System.Drawing.Point(3, 298)
-        Me.datagridviewPaso4Detalle.MultiSelect = False
-        Me.datagridviewPaso4Detalle.Name = "datagridviewPaso4Detalle"
-        Me.datagridviewPaso4Detalle.ReadOnly = True
-        Me.datagridviewPaso4Detalle.RowHeadersVisible = False
-        Me.datagridviewPaso4Detalle.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
-        Me.datagridviewPaso4Detalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewPaso4Detalle.Size = New System.Drawing.Size(605, 100)
-        Me.datagridviewPaso4Detalle.TabIndex = 111
+        Me.datagridviewPaso3Detalle.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
+        Me.datagridviewPaso3Detalle.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.datagridviewPaso3Detalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.datagridviewPaso3Detalle.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnDescripcion, Me.columnPrecioTotal})
+        Me.datagridviewPaso3Detalle.Location = New System.Drawing.Point(3, 298)
+        Me.datagridviewPaso3Detalle.MultiSelect = False
+        Me.datagridviewPaso3Detalle.Name = "datagridviewPaso3Detalle"
+        Me.datagridviewPaso3Detalle.ReadOnly = True
+        Me.datagridviewPaso3Detalle.RowHeadersVisible = False
+        Me.datagridviewPaso3Detalle.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        Me.datagridviewPaso3Detalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.datagridviewPaso3Detalle.Size = New System.Drawing.Size(605, 100)
+        Me.datagridviewPaso3Detalle.TabIndex = 111
         '
         'columnDescripcion
         '
@@ -495,28 +495,28 @@ Partial Class formGenerarLoteFacturas
         Me.columnPrecioTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.columnPrecioTotal.Width = 43
         '
-        'datagridviewPaso4Cabecera
+        'datagridviewPaso3Cabecera
         '
-        Me.datagridviewPaso4Cabecera.AllowUserToAddRows = False
-        Me.datagridviewPaso4Cabecera.AllowUserToDeleteRows = False
-        Me.datagridviewPaso4Cabecera.AllowUserToResizeRows = False
+        Me.datagridviewPaso3Cabecera.AllowUserToAddRows = False
+        Me.datagridviewPaso3Cabecera.AllowUserToDeleteRows = False
+        Me.datagridviewPaso3Cabecera.AllowUserToResizeRows = False
         DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.GradientActiveCaption
         DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
         DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
         DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewPaso4Cabecera.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle8
-        Me.datagridviewPaso4Cabecera.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
-        Me.datagridviewPaso4Cabecera.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.datagridviewPaso4Cabecera.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnPuntoVenta, Me.columnNumero, Me.columnEntidadApellido, Me.columnEntidadNombre, Me.columnCUIT, Me.columnCategoriaIVANombre, Me.columnImporteTotal})
-        Me.datagridviewPaso4Cabecera.Location = New System.Drawing.Point(3, 84)
-        Me.datagridviewPaso4Cabecera.MultiSelect = False
-        Me.datagridviewPaso4Cabecera.Name = "datagridviewPaso4Cabecera"
-        Me.datagridviewPaso4Cabecera.ReadOnly = True
-        Me.datagridviewPaso4Cabecera.RowHeadersVisible = False
-        Me.datagridviewPaso4Cabecera.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
-        Me.datagridviewPaso4Cabecera.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewPaso4Cabecera.Size = New System.Drawing.Size(605, 208)
-        Me.datagridviewPaso4Cabecera.TabIndex = 110
+        Me.datagridviewPaso3Cabecera.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle8
+        Me.datagridviewPaso3Cabecera.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.datagridviewPaso3Cabecera.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.datagridviewPaso3Cabecera.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnPuntoVenta, Me.columnNumero, Me.columnEntidadApellido, Me.columnEntidadNombre, Me.columnCUIT, Me.columnCategoriaIVANombre, Me.columnImporteTotal})
+        Me.datagridviewPaso3Cabecera.Location = New System.Drawing.Point(3, 84)
+        Me.datagridviewPaso3Cabecera.MultiSelect = False
+        Me.datagridviewPaso3Cabecera.Name = "datagridviewPaso3Cabecera"
+        Me.datagridviewPaso3Cabecera.ReadOnly = True
+        Me.datagridviewPaso3Cabecera.RowHeadersVisible = False
+        Me.datagridviewPaso3Cabecera.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        Me.datagridviewPaso3Cabecera.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.datagridviewPaso3Cabecera.Size = New System.Drawing.Size(605, 208)
+        Me.datagridviewPaso3Cabecera.TabIndex = 110
         '
         'columnComprobanteTipoNombre
         '
@@ -698,8 +698,8 @@ Partial Class formGenerarLoteFacturas
         CType(Me.pictureboxPaso2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panelPaso3.ResumeLayout(False)
         Me.panelPaso3.PerformLayout()
-        CType(Me.datagridviewPaso4Detalle, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.datagridviewPaso4Cabecera, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.datagridviewPaso3Detalle, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.datagridviewPaso3Cabecera, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pictureboxPaso3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -743,10 +743,10 @@ Partial Class formGenerarLoteFacturas
     Friend WithEvents columnVerificacionNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnCorreccionDescripcion As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents buttonPaso2Print As System.Windows.Forms.Button
-    Friend WithEvents datagridviewPaso4Detalle As System.Windows.Forms.DataGridView
+    Friend WithEvents datagridviewPaso3Detalle As System.Windows.Forms.DataGridView
     Friend WithEvents columnDescripcion As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnPrecioTotal As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents datagridviewPaso4Cabecera As System.Windows.Forms.DataGridView
+    Friend WithEvents datagridviewPaso3Cabecera As System.Windows.Forms.DataGridView
     Friend WithEvents columnComprobanteTipoNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnPuntoVenta As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnNumero As System.Windows.Forms.DataGridViewTextBoxColumn

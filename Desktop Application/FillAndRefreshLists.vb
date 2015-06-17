@@ -257,4 +257,32 @@
             End If
         End Using
     End Sub
+
+    Friend Sub ComprobanteLote(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)
+        ComboBoxControl.ValueMember = "IDComprobanteLote"
+        ComboBoxControl.DisplayMember = "Nombre"
+
+        Using dbContext As New CSColegioContext
+            Dim qryList = From tbl In dbContext.ComprobanteLote
+                          Order By tbl.FechaHora Descending
+
+            Dim localList = qryList.ToList
+
+            If AgregarItem_Todos Then
+                Dim Item_Todos As New ComprobanteLote
+                Item_Todos.IDComprobanteLote = -1
+                Item_Todos.Nombre = My.Resources.STRING_ITEM_ALL_MALE
+                localList.Insert(0, Item_Todos)
+            End If
+            If AgregarItem_NoEspecifica Then
+                Dim Item_NoEspecifica As New ComprobanteLote
+                Item_NoEspecifica.IDComprobanteLote = 0
+                Item_NoEspecifica.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+                localList.Insert(0, Item_NoEspecifica)
+            End If
+
+            ComboBoxControl.DataSource = localList
+        End Using
+    End Sub
+
 End Module

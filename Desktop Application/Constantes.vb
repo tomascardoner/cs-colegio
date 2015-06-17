@@ -33,4 +33,6 @@
 
     Friend Const OPERACIONTIPO_COMPRA As String = "C"
     Friend Const OPERACIONTIPO_VENTA As String = "V"
+
+    Friend Const COMPROBANTE_NUMERO_CARACTERES As Byte = 8
 End Module

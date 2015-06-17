@@ -35,6 +35,7 @@ Partial Class formMDIMain
         Me.menuitemArchivo_Salir = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebug = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWS = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugAFIPWSHabilitarRegistro = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSHomologacion = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSHomologacionLogin = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemVentana = New System.Windows.Forms.ToolStripMenuItem()
@@ -63,7 +64,7 @@ Partial Class formMDIMain
         Me.VerificarHermanosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonFacturar = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemFacturasGenerarLote = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemDebugAFIPWSHabilitarRegistro = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemTransmitirComprobantesElectronicos = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
@@ -147,6 +148,13 @@ Partial Class formMDIMain
         Me.menuitemDebugAFIPWS.Name = "menuitemDebugAFIPWS"
         Me.menuitemDebugAFIPWS.Size = New System.Drawing.Size(167, 22)
         Me.menuitemDebugAFIPWS.Text = "AFIP WebServices"
+        '
+        'menuitemDebugAFIPWSHabilitarRegistro
+        '
+        Me.menuitemDebugAFIPWSHabilitarRegistro.CheckOnClick = True
+        Me.menuitemDebugAFIPWSHabilitarRegistro.Name = "menuitemDebugAFIPWSHabilitarRegistro"
+        Me.menuitemDebugAFIPWSHabilitarRegistro.Size = New System.Drawing.Size(220, 22)
+        Me.menuitemDebugAFIPWSHabilitarRegistro.Text = "Habilitar registro en archivo"
         '
         'menuitemDebugAFIPWSHomologacion
         '
@@ -323,7 +331,7 @@ Partial Class formMDIMain
         '
         'buttonFacturar
         '
-        Me.buttonFacturar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemFacturasGenerarLote})
+        Me.buttonFacturar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemFacturasGenerarLote, Me.menuitemTransmitirComprobantesElectronicos})
         Me.buttonFacturar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_COMPROBANTES_32
         Me.buttonFacturar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonFacturar.ImageTransparentColor = System.Drawing.Color.Magenta
@@ -334,15 +342,14 @@ Partial Class formMDIMain
         'menuitemFacturasGenerarLote
         '
         Me.menuitemFacturasGenerarLote.Name = "menuitemFacturasGenerarLote"
-        Me.menuitemFacturasGenerarLote.Size = New System.Drawing.Size(141, 22)
-        Me.menuitemFacturasGenerarLote.Text = "Generar Lote"
+        Me.menuitemFacturasGenerarLote.Size = New System.Drawing.Size(173, 22)
+        Me.menuitemFacturasGenerarLote.Text = "Generar Lote..."
         '
-        'menuitemDebugAFIPWSHabilitarRegistro
+        'menuitemTransmitirComprobantesElectronicos
         '
-        Me.menuitemDebugAFIPWSHabilitarRegistro.CheckOnClick = True
-        Me.menuitemDebugAFIPWSHabilitarRegistro.Name = "menuitemDebugAFIPWSHabilitarRegistro"
-        Me.menuitemDebugAFIPWSHabilitarRegistro.Size = New System.Drawing.Size(220, 22)
-        Me.menuitemDebugAFIPWSHabilitarRegistro.Text = "Habilitar registro en archivo"
+        Me.menuitemTransmitirComprobantesElectronicos.Name = "menuitemTransmitirComprobantesElectronicos"
+        Me.menuitemTransmitirComprobantesElectronicos.Size = New System.Drawing.Size(173, 22)
+        Me.menuitemTransmitirComprobantesElectronicos.Text = "Transmitir a AFIP..."
         '
         'formMDIMain
         '
@@ -411,4 +418,5 @@ Partial Class formMDIMain
     Friend WithEvents menuitemDebugAFIPWSHomologacion As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSHomologacionLogin As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSHabilitarRegistro As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemTransmitirComprobantesElectronicos As System.Windows.Forms.ToolStripMenuItem
 End Class

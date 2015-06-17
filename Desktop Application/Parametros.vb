@@ -1,4 +1,7 @@
 ﻿Module Parametros
+    'SISTEMA
+    Friend Const INTERNET_PROXY As String = "INTERNET_PROXY"
+
     ' APLICACIÓN
     Friend Const APPLICATION_DATABASE_GUID As String = "APPLICATION_DATABASE_GUID"
     Friend Const LICENSE_COMPANY_NAME As String = "LICENSE_COMPANY_NAME"

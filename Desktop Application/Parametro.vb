@@ -18,5 +18,6 @@ Partial Public Class Parametro
     Public Property Moneda As Nullable(Of Decimal)
     Public Property FechaHora As Nullable(Of Date)
     Public Property SiNo As Nullable(Of Boolean)
+    Public Property Notas As String
 
 End Class

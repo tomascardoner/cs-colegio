@@ -16,6 +16,9 @@ Partial Public Class ComprobanteCabecera
     Public Property PuntoVenta As String
     Public Property Numero As String
     Public Property Fecha As Date
+    Public Property FechaVencimiento As Date
+    Public Property FechaServicioDesde As Nullable(Of Date)
+    Public Property FechaServicioHasta As Nullable(Of Date)
     Public Property IDEntidad As Integer
     Public Property EntidadApellido As String
     Public Property EntidadNombre As String
@@ -35,11 +38,15 @@ Partial Public Class ComprobanteCabecera
     Public Property ImporteImpuesto As Decimal
     Public Property ImporteTotal As Decimal
     Public Property Notas As String
+    Public Property CAE As String
     Public Property IDComprobanteLote As Nullable(Of Integer)
     Public Property IDUsuarioCreacion As Byte
     Public Property FechaHoraCreacion As Date
     Public Property IDUsuarioModificacion As Byte
     Public Property FechaHoraModificacion As Date
+    Public Property IDUsuarioAnulacion As Nullable(Of Byte)
+    Public Property FechaHoraAnulacion As Nullable(Of Date)
+    Public Property IDUsuarioTransmision As Nullable(Of Byte)
     Public Property FechaHoraTransmision As Nullable(Of Date)
 
     Public Overridable Property CategoriaIVA As CategoriaIVA

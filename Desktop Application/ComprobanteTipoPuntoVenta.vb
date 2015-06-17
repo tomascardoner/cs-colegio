@@ -13,7 +13,7 @@ Imports System.Collections.Generic
 Partial Public Class ComprobanteTipoPuntoVenta
     Public Property IDComprobanteTipo As Byte
     Public Property IDPuntoVenta As Byte
-    Public Property UltimoNumero As String
+    Public Property NumeroInicio As String
 
     Public Overridable Property ComprobanteTipo As ComprobanteTipo
     Public Overridable Property PuntoVenta As PuntoVenta
