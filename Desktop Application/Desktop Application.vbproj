@@ -147,6 +147,12 @@
     <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_Error.vb">
       <Link>CSM_Error.vb</Link>
     </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_File.vb">
+      <Link>CSM_File.vb</Link>
+    </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_FileLog.vb">
+      <Link>CSM_FileLog.vb</Link>
+    </Compile>
     <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_Form.vb">
       <Link>CSM_Form.vb</Link>
     </Compile>
@@ -155,6 +161,9 @@
     </Compile>
     <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_Parameter.vb">
       <Link>CSM_Parameter.vb</Link>
+    </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_SpecialFolders.vb">
+      <Link>CSM_SpecialFolders.vb</Link>
     </Compile>
     <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_ValueTranslation.vb">
       <Link>CSM_ValueTranslation.vb</Link>

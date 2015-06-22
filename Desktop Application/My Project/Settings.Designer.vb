@@ -74,24 +74,6 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("8")>  _
-        Public ReadOnly Property UserPasswordMinimumLenght() As Integer
-            Get
-                Return CType(Me("UserPasswordMinimumLenght"),Integer)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public ReadOnly Property UserPasswordSecureRequired() As Boolean
-            Get
-                Return CType(Me("UserPasswordSecureRequired"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("4")>  _
         Public ReadOnly Property MDIFormMargin() As Integer
             Get
@@ -177,40 +159,67 @@ Namespace My
             End Get
         End Property
         
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Tomas\Dropbox\Cardoner Sistemas\AFIP Data\Colegio Horizonte\administraci"& _ 
-            "on_homo.crt")>  _
-        Public ReadOnly Property AFIP_Certificado() As String
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Tomas\Dropbox\Cardoner Sistemas\AFIP Data\Colegio Horizonte\administraci" & _
+            "on_homo.crt")> _
+        Public ReadOnly Property AFIP_WS_Certificado() As String
             Get
-                Return CType(Me("AFIP_Certificado"),String)
+                Return CType(Me("AFIP_WS_Certificado"), String)
             End Get
         End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Tomas\Dropbox\Cardoner Sistemas\AFIP Data\Colegio Horizonte\privada.key")>  _
-        Public ReadOnly Property AFIP_ClavePrivada() As String
+
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Tomas\Dropbox\Cardoner Sistemas\AFIP Data\Colegio Horizonte\privada.key")> _
+        Public ReadOnly Property AFIP_WS_ClavePrivada() As String
             Get
-                Return CType(Me("AFIP_ClavePrivada"),String)
+                Return CType(Me("AFIP_WS_ClavePrivada"), String)
             End Get
         End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
+
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("2")> _
         Public ReadOnly Property IDPuntoVenta() As Byte
             Get
-                Return CType(Me("IDPuntoVenta"),Byte)
+                Return CType(Me("IDPuntoVenta"), Byte)
             End Get
         End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("2400")>  _
+
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("2400")> _
         Public ReadOnly Property AFIP_TTLTicketRequerimientoAcceso() As Short
             Get
-                Return CType(Me("AFIP_TTLTicketRequerimientoAcceso"),Short)
+                Return CType(Me("AFIP_TTLTicketRequerimientoAcceso"), Short)
+            End Get
+        End Property
+
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("%ApplicationFolder%\Log\AFIP")> _
+        Public ReadOnly Property AFIP_WS_LogFolder() As String
+            Get
+                Return CType(Me("AFIP_WS_LogFolder"), String)
+            End Get
+        End Property
+
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("%DateTimeUniversalNoSlashes%.log")> _
+        Public ReadOnly Property AFIP_WS_LogFileName() As String
+            Get
+                Return CType(Me("AFIP_WS_LogFileName"), String)
+            End Get
+        End Property
+
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")> _
+        Public ReadOnly Property AFIP_WS_ModoHomologacion() As Boolean
+            Get
+                Return CType(Me("AFIP_WS_ModoHomologacion"), Boolean)
             End Get
         End Property
     End Class

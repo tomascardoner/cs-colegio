@@ -39,6 +39,7 @@ Partial Public Class ComprobanteCabecera
     Public Property ImporteTotal As Decimal
     Public Property Notas As String
     Public Property CAE As String
+    Public Property CAEVencimiento As Nullable(Of Date)
     Public Property IDComprobanteLote As Nullable(Of Integer)
     Public Property IDUsuarioCreacion As Byte
     Public Property FechaHoraCreacion As Date

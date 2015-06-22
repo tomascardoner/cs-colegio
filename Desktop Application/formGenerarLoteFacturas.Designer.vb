@@ -69,14 +69,6 @@ Partial Class formGenerarLoteFacturas
         Me.columnDescripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnPrecioTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.datagridviewPaso3Cabecera = New System.Windows.Forms.DataGridView()
-        Me.columnComprobanteTipoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnPuntoVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnNumero = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnEntidadApellido = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnEntidadNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnCUIT = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnCategoriaIVANombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.labelPaso3Pie = New System.Windows.Forms.Label()
         Me.pictureboxPaso3 = New System.Windows.Forms.PictureBox()
         Me.labelPaso3Mensaje = New System.Windows.Forms.Label()
@@ -84,6 +76,14 @@ Partial Class formGenerarLoteFacturas
         Me.buttonPaso3Anterior = New System.Windows.Forms.Button()
         Me.buttonPaso3Finalizar = New System.Windows.Forms.Button()
         Me.printdocumentPaso2 = New System.Drawing.Printing.PrintDocument()
+        Me.columnComprobanteTipoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnPuntoVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnNumero = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnEntidadApellido = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnEntidadNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnDocumentoNumero = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnCategoriaIVANombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.panelPaso1.SuspendLayout()
         Me.tabcontrolMain.SuspendLayout()
         Me.tabpageNivelesCursosAlumnos.SuspendLayout()
@@ -507,7 +507,7 @@ Partial Class formGenerarLoteFacturas
         Me.datagridviewPaso3Cabecera.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle8
         Me.datagridviewPaso3Cabecera.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewPaso3Cabecera.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.datagridviewPaso3Cabecera.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnPuntoVenta, Me.columnNumero, Me.columnEntidadApellido, Me.columnEntidadNombre, Me.columnCUIT, Me.columnCategoriaIVANombre, Me.columnImporteTotal})
+        Me.datagridviewPaso3Cabecera.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnPuntoVenta, Me.columnNumero, Me.columnEntidadApellido, Me.columnEntidadNombre, Me.columnDocumentoNumero, Me.columnCategoriaIVANombre, Me.columnImporteTotal})
         Me.datagridviewPaso3Cabecera.Location = New System.Drawing.Point(3, 84)
         Me.datagridviewPaso3Cabecera.MultiSelect = False
         Me.datagridviewPaso3Cabecera.Name = "datagridviewPaso3Cabecera"
@@ -517,89 +517,6 @@ Partial Class formGenerarLoteFacturas
         Me.datagridviewPaso3Cabecera.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewPaso3Cabecera.Size = New System.Drawing.Size(605, 208)
         Me.datagridviewPaso3Cabecera.TabIndex = 110
-        '
-        'columnComprobanteTipoNombre
-        '
-        Me.columnComprobanteTipoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnComprobanteTipoNombre.DataPropertyName = "ComprobanteTipo.Nombre"
-        Me.columnComprobanteTipoNombre.HeaderText = "Tipo"
-        Me.columnComprobanteTipoNombre.Name = "columnComprobanteTipoNombre"
-        Me.columnComprobanteTipoNombre.ReadOnly = True
-        Me.columnComprobanteTipoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnComprobanteTipoNombre.Width = 34
-        '
-        'columnPuntoVenta
-        '
-        Me.columnPuntoVenta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnPuntoVenta.DataPropertyName = "PuntoVenta"
-        Me.columnPuntoVenta.HeaderText = "Punto Venta"
-        Me.columnPuntoVenta.Name = "columnPuntoVenta"
-        Me.columnPuntoVenta.ReadOnly = True
-        Me.columnPuntoVenta.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnPuntoVenta.Width = 72
-        '
-        'columnNumero
-        '
-        Me.columnNumero.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnNumero.DataPropertyName = "Numero"
-        Me.columnNumero.HeaderText = "Factura N°"
-        Me.columnNumero.Name = "columnNumero"
-        Me.columnNumero.ReadOnly = True
-        Me.columnNumero.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnNumero.Width = 64
-        '
-        'columnEntidadApellido
-        '
-        Me.columnEntidadApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnEntidadApellido.DataPropertyName = "EntidadApellido"
-        Me.columnEntidadApellido.HeaderText = "Apellido"
-        Me.columnEntidadApellido.Name = "columnEntidadApellido"
-        Me.columnEntidadApellido.ReadOnly = True
-        Me.columnEntidadApellido.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnEntidadApellido.Width = 50
-        '
-        'columnEntidadNombre
-        '
-        Me.columnEntidadNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnEntidadNombre.DataPropertyName = "EntidadNombre"
-        Me.columnEntidadNombre.HeaderText = "Nombre"
-        Me.columnEntidadNombre.Name = "columnEntidadNombre"
-        Me.columnEntidadNombre.ReadOnly = True
-        Me.columnEntidadNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnEntidadNombre.Width = 50
-        '
-        'columnCUIT
-        '
-        Me.columnCUIT.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnCUIT.DataPropertyName = "CUIT"
-        Me.columnCUIT.HeaderText = "CUIT"
-        Me.columnCUIT.Name = "columnCUIT"
-        Me.columnCUIT.ReadOnly = True
-        Me.columnCUIT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnCUIT.Width = 38
-        '
-        'columnCategoriaIVANombre
-        '
-        Me.columnCategoriaIVANombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnCategoriaIVANombre.DataPropertyName = "CategoriaIVANombre"
-        Me.columnCategoriaIVANombre.HeaderText = "IVA"
-        Me.columnCategoriaIVANombre.Name = "columnCategoriaIVANombre"
-        Me.columnCategoriaIVANombre.ReadOnly = True
-        Me.columnCategoriaIVANombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnCategoriaIVANombre.Width = 30
-        '
-        'columnImporteTotal
-        '
-        Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnImporteTotal.DataPropertyName = "ImporteTotal"
-        DataGridViewCellStyle9.Format = "C2"
-        DataGridViewCellStyle9.NullValue = "0"
-        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle9
-        Me.columnImporteTotal.HeaderText = "Importe"
-        Me.columnImporteTotal.Name = "columnImporteTotal"
-        Me.columnImporteTotal.ReadOnly = True
-        Me.columnImporteTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnImporteTotal.Width = 48
         '
         'labelPaso3Pie
         '
@@ -669,6 +586,89 @@ Partial Class formGenerarLoteFacturas
         '
         'printdocumentPaso2
         '
+        '
+        'columnComprobanteTipoNombre
+        '
+        Me.columnComprobanteTipoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnComprobanteTipoNombre.DataPropertyName = "ComprobanteTipo.Nombre"
+        Me.columnComprobanteTipoNombre.HeaderText = "Tipo"
+        Me.columnComprobanteTipoNombre.Name = "columnComprobanteTipoNombre"
+        Me.columnComprobanteTipoNombre.ReadOnly = True
+        Me.columnComprobanteTipoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnComprobanteTipoNombre.Width = 34
+        '
+        'columnPuntoVenta
+        '
+        Me.columnPuntoVenta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnPuntoVenta.DataPropertyName = "PuntoVenta"
+        Me.columnPuntoVenta.HeaderText = "Punto Venta"
+        Me.columnPuntoVenta.Name = "columnPuntoVenta"
+        Me.columnPuntoVenta.ReadOnly = True
+        Me.columnPuntoVenta.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnPuntoVenta.Width = 72
+        '
+        'columnNumero
+        '
+        Me.columnNumero.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnNumero.DataPropertyName = "Numero"
+        Me.columnNumero.HeaderText = "Factura N°"
+        Me.columnNumero.Name = "columnNumero"
+        Me.columnNumero.ReadOnly = True
+        Me.columnNumero.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnNumero.Width = 64
+        '
+        'columnEntidadApellido
+        '
+        Me.columnEntidadApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnEntidadApellido.DataPropertyName = "EntidadApellido"
+        Me.columnEntidadApellido.HeaderText = "Apellido"
+        Me.columnEntidadApellido.Name = "columnEntidadApellido"
+        Me.columnEntidadApellido.ReadOnly = True
+        Me.columnEntidadApellido.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnEntidadApellido.Width = 50
+        '
+        'columnEntidadNombre
+        '
+        Me.columnEntidadNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnEntidadNombre.DataPropertyName = "EntidadNombre"
+        Me.columnEntidadNombre.HeaderText = "Nombre"
+        Me.columnEntidadNombre.Name = "columnEntidadNombre"
+        Me.columnEntidadNombre.ReadOnly = True
+        Me.columnEntidadNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnEntidadNombre.Width = 50
+        '
+        'columnDocumentoNumero
+        '
+        Me.columnDocumentoNumero.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnDocumentoNumero.DataPropertyName = "DocumentoNumero"
+        Me.columnDocumentoNumero.HeaderText = "N° Documento"
+        Me.columnDocumentoNumero.Name = "columnDocumentoNumero"
+        Me.columnDocumentoNumero.ReadOnly = True
+        Me.columnDocumentoNumero.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnDocumentoNumero.Width = 83
+        '
+        'columnCategoriaIVANombre
+        '
+        Me.columnCategoriaIVANombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnCategoriaIVANombre.DataPropertyName = "CategoriaIVANombre"
+        Me.columnCategoriaIVANombre.HeaderText = "IVA"
+        Me.columnCategoriaIVANombre.Name = "columnCategoriaIVANombre"
+        Me.columnCategoriaIVANombre.ReadOnly = True
+        Me.columnCategoriaIVANombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnCategoriaIVANombre.Width = 30
+        '
+        'columnImporteTotal
+        '
+        Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnImporteTotal.DataPropertyName = "ImporteTotal"
+        DataGridViewCellStyle9.Format = "C2"
+        DataGridViewCellStyle9.NullValue = "0"
+        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle9
+        Me.columnImporteTotal.HeaderText = "Importe"
+        Me.columnImporteTotal.Name = "columnImporteTotal"
+        Me.columnImporteTotal.ReadOnly = True
+        Me.columnImporteTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnImporteTotal.Width = 48
         '
         'formGenerarLoteFacturas
         '
@@ -752,7 +752,7 @@ Partial Class formGenerarLoteFacturas
     Friend WithEvents columnNumero As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnEntidadApellido As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnEntidadNombre As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnCUIT As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnDocumentoNumero As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnCategoriaIVANombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

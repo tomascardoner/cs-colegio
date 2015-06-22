@@ -63,7 +63,7 @@
             CSM_ComboBox.SetSelectedValue(comboboxDomicilioLocalidad, SelectedItemOptions.Value, .DomicilioIDLocalidad, 0)
             textboxDomicilioCodigoPostal.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCodigoPostal)
 
-            ' Datos de la pestaña Extra
+            ' Datos de la pestaña Padres y Facturación
             If .EntidadPadre Is Nothing Then
                 textboxEntidadPadre.Text = ""
                 textboxEntidadPadre.Tag = Nothing
@@ -80,7 +80,15 @@
             End If
             CSM_ComboBox.SetSelectedValue(comboboxEntidadFactura, SelectedItemOptions.ValueOrFirst, .EntidadFactura, Constantes.ENTIDADFACTURA_NOESPECIFICA)
             CSM_ComboBox.SetSelectedValue(comboboxDescuento, SelectedItemOptions.ValueOrFirst, .IDDescuento, 0)
-            textboxNotas.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.Notas)
+            datetimepickerExcluyeFacturaDesde.Value = CSM_ValueTranslation.FromObjectDateToControlDateTimePicker(.ExcluyeFacturaDesde, datetimepickerExcluyeFacturaDesde)
+            datetimepickerExcluyeFacturaHasta.Value = CSM_ValueTranslation.FromObjectDateToControlDateTimePicker(.ExcluyeFacturaHasta, datetimepickerExcluyeFacturaHasta)
+
+            ' Datos de la pestaña Cursos Asistidos
+            Dim listCursosAsistidos As New List(Of Object)
+            For Each AnioLectivoCursoCurrent As AnioLectivoCurso In EntidadCurrent.AniosLectivosCursos.OrderByDescending(Function(alc) alc.AnioLectivo).ToList
+                listCursosAsistidos.Add(New With {.AnioLectivo = AnioLectivoCursoCurrent.AnioLectivo, .NivelNombre = AnioLectivoCursoCurrent.Curso.Anio.Nivel.Nombre, .AnioNombre = AnioLectivoCursoCurrent.Curso.Anio.Nombre, .TurnoNombre = AnioLectivoCursoCurrent.Curso.Turno.Nombre, .Division = AnioLectivoCursoCurrent.Curso.Division})
+            Next
+            datagridviewCursosAsistidos.DataSource = listCursosAsistidos
 
             ' Datos de la pestaña Hijos
             Using dbcHijos As New CSColegioContext
@@ -103,14 +111,8 @@
                 datagridviewRelaciones.DataSource = qryRelacionesPadres.ToList
             End Using
 
-            ' Datos de la pestaña Cursos Asistidos
-            Dim listCursosAsistidos As New List(Of Object)
-            For Each AnioLectivoCursoCurrent As AnioLectivoCurso In EntidadCurrent.AniosLectivosCursos.OrderByDescending(Function(alc) alc.AnioLectivo).ToList
-                listCursosAsistidos.Add(New With {.AnioLectivo = AnioLectivoCursoCurrent.AnioLectivo, .NivelNombre = AnioLectivoCursoCurrent.Curso.Anio.Nivel.Nombre, .AnioNombre = AnioLectivoCursoCurrent.Curso.Anio.Nombre, .TurnoNombre = AnioLectivoCursoCurrent.Curso.Turno.Nombre, .Division = AnioLectivoCursoCurrent.Curso.Division})
-            Next
-            datagridviewCursosAsistidos.DataSource = listCursosAsistidos
-
-            ' Datos de la pestaña Auditoría
+            ' Datos de la pestaña Notas y Auditoría
+            textboxNotas.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.Notas)
             textboxFechaHoraCreacion.Text = .FechaHoraCreacion.ToShortDateString & " " & .FechaHoraCreacion.ToShortTimeString
             If .UsuarioCreacion Is Nothing Then
                 textboxUsuarioCreacion.Text = ""
@@ -171,17 +173,20 @@
             .DomicilioIDLocalidad = CSM_ValueTranslation.FromControlComboBoxToObjectShort(comboboxDomicilioLocalidad.SelectedValue, 0)
             .DomicilioCodigoPostal = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioCodigoPostal.Text)
 
-            ' Datos de la pestaña Extra
+            ' Datos de la pestaña Padres y Facturación
             .IDEntidadPadre = CSM_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadPadre.Tag)
             .IDEntidadMadre = CSM_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadMadre.Tag)
             .EntidadFactura = CSM_ValueTranslation.FromControlComboBoxToObjectString(comboboxEntidadFactura.SelectedValue, Constantes.ENTIDADFACTURA_NOESPECIFICA)
             .IDDescuento = CSM_ValueTranslation.FromControlComboBoxToObjectByte(comboboxDescuento.SelectedValue, 0)
+            .ExcluyeFacturaDesde = CSM_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerExcluyeFacturaDesde.Value, datetimepickerExcluyeFacturaDesde.Checked)
+            .ExcluyeFacturaHasta = CSM_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerExcluyeFacturaHasta.Value, datetimepickerExcluyeFacturaHasta.Checked)
 
+            ' Datos de la pestaña Notas y Aditoría
             .Notas = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxNotas.Text.Trim)
         End With
     End Sub
 
-    Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxIDEntidad.GotFocus, textboxApellido.GotFocus, textboxNombre.GotFocus, textboxDocumentoNumero.GotFocus, textboxTelefono1.GotFocus, textboxTelefono2.GotFocus, textboxTelefono3.GotFocus, textboxEmail1.GotFocus, textboxEmail2.GotFocus, textboxDomicilioCalle1.GotFocus, textboxDomicilioNumero.GotFocus, textboxDomicilioPiso.GotFocus, textboxDomicilioDepartamento.GotFocus, textboxDomicilioCodigoPostal.GotFocus, textboxNotas.GotFocus
+    Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxIDEntidad.GotFocus, textboxApellido.GotFocus, textboxNombre.GotFocus, textboxDocumentoNumero.GotFocus, textboxTelefono1.GotFocus, textboxTelefono2.GotFocus, textboxTelefono3.GotFocus, textboxEmail1.GotFocus, textboxEmail2.GotFocus, textboxDomicilioCalle1.GotFocus, textboxDomicilioNumero.GotFocus, textboxDomicilioPiso.GotFocus, textboxDomicilioDepartamento.GotFocus, textboxDomicilioCodigoPostal.GotFocus
         CType(sender, TextBox).SelectAll()
     End Sub
 
@@ -283,31 +288,31 @@
         End If
 
         ' Verifico el Número de Documento para la Factura
-        If comboboxDocumentoTipo.SelectedIndex > 0 AndAlso textboxDocumentoNumero.Text.Length = 0 Then
-            If CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
-                If maskedtextboxDocumentoNumero.Text.Length = 0 Then
+        If comboboxFacturaDocumentoTipo.SelectedIndex > 0 AndAlso textboxFacturaDocumentoNumero.Text.Length = 0 Then
+            If CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
+                If maskedtextboxFacturaDocumentoNumero.Text.Length = 0 Then
                     tabcontrolMain.SelectedTab = tabpageGeneral
-                    MsgBox("Si especifica el Tipo de Documento, también debe especificar el Número de Documento.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    maskedtextboxDocumentoNumero.Focus()
+                    MsgBox("Si especifica el Tipo de Documento para Facturar, también debe especificar el Número de Documento para Facturar.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxFacturaDocumentoNumero.Focus()
                     Exit Sub
                 End If
-                If maskedtextboxDocumentoNumero.Text.Trim.Length < 11 Then
+                If maskedtextboxFacturaDocumentoNumero.Text.Trim.Length < 11 Then
                     tabcontrolMain.SelectedTab = tabpageGeneral
-                    MsgBox("El Número de " & CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).Nombre & " debe contener 11 dígitos (sin contar los guiones).", MsgBoxStyle.Information, My.Application.Info.Title)
-                    maskedtextboxDocumentoNumero.Focus()
+                    MsgBox("El Número de " & CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).Nombre & " debe contener 11 dígitos (sin contar los guiones).", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxFacturaDocumentoNumero.Focus()
                     Exit Sub
                 End If
-                If Not CSM_AFIP.VerificarCUIT(maskedtextboxDocumentoNumero.Text) Then
+                If Not CSM_AFIP.VerificarCUIT(maskedtextboxFacturaDocumentoNumero.Text) Then
                     tabcontrolMain.SelectedTab = tabpageGeneral
-                    MsgBox("El Número de " & CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).Nombre & " ingresado es incorrecto.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    maskedtextboxDocumentoNumero.Focus()
+                    MsgBox("El Número de " & CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).Nombre & " ingresado es incorrecto.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxFacturaDocumentoNumero.Focus()
                     Exit Sub
                 End If
             Else
-                If textboxDocumentoNumero.Text.Length = 0 Then
+                If textboxFacturaDocumentoNumero.Text.Length = 0 Then
                     tabcontrolMain.SelectedTab = tabpageGeneral
-                    MsgBox("Si especifica el Tipo de Documento, también debe especificar el Número de Documento.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    textboxDocumentoNumero.Focus()
+                    MsgBox("Si especifica el Tipo de Documento, también debe especificar el Número de Documento para Facturar.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxFacturaDocumentoNumero.Focus()
                     Exit Sub
                 End If
             End If

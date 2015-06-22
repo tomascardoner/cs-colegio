@@ -45,6 +45,8 @@ Partial Public Class Entidad
     Public Property IDEntidadMadre As Nullable(Of Integer)
     Public Property EntidadFactura As String
     Public Property IDDescuento As Nullable(Of Byte)
+    Public Property ExcluyeFacturaDesde As Nullable(Of Date)
+    Public Property ExcluyeFacturaHasta As Nullable(Of Date)
     Public Property EsActivo As Boolean
     Public Property Notas As String
     Public Property IDUsuarioCreacion As Byte

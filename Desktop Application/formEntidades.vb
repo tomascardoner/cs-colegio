@@ -225,6 +225,7 @@
                 .MdiParent = formMDIMain
                 Dim EntidadAgregar = .FormDBContext.Entidad.Add(New Entidad)
                 With EntidadAgregar
+                    .IDCategoriaIVA = CSM_Parameter.GetIntegerAsByte(Parametros.DEFAULT_CATEGORIAIVA_ID)
                     .DomicilioIDProvincia = CSM_Parameter.GetIntegerAsByte(Parametros.DEFAULT_PROVINCIA_ID)
                     .DomicilioIDLocalidad = CSM_Parameter.GetIntegerAsShort(Parametros.DEFAULT_LOCALIDAD_ID)
                     .DomicilioCodigoPostal = CSM_Parameter.GetString(Parametros.DEFAULT_CODIGOPOSTAL)

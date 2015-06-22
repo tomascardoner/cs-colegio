@@ -13,6 +13,9 @@ Public Class formGenerarLoteFacturas
     Private AnioLectivo As Integer
     Private MesAFacturar As Byte
     Private MesAFacturarNombre As String
+    Private FechaServicioDesde As Date
+    Private FechaServicioHasta As Date
+    Private FechaVencimiento As Date
 
     Private Const NODO_CARGANDO_TEXTO As String = "Cargando..."
 
@@ -39,6 +42,10 @@ Public Class formGenerarLoteFacturas
         AnioLectivo = Today.Year
         MesAFacturar = CByte(Today.Month)
         MesAFacturarNombre = StrConv(MonthName(MesAFacturar), VbStrConv.ProperCase)
+
+        FechaServicioDesde = New Date(AnioLectivo, MesAFacturar, 1)
+        FechaServicioHasta = FechaServicioDesde.AddMonths(1).AddDays(-1)
+        FechaVencimiento = New Date(AnioLectivo, MesAFacturar, CSM_Parameter.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO_DIA))
 
         FillTreeViewNiveles()
         FillTreeViewPadres()
@@ -337,66 +344,113 @@ Public Class formGenerarLoteFacturas
             CorregirEntidad = True
             CorreccionDescripcion &= "No es una Entidad del tipo Alumno." & vbCrLf
         End If
+
         If EntidadActual.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = AnioLectivo).Count > 1 Then
             CorregirEntidad = True
             CorreccionDescripcion &= "El Alumno está cargado en más de un curso para el Año Lectivo que se va a facturar." & vbCrLf
         End If
-        If EntidadActual.EntidadFactura Is Nothing Then
-            CorregirEntidad = True
-            CorreccionDescripcion &= "No está especificado a quién se le factura." & vbCrLf
-        ElseIf EntidadActual.EntidadFactura = "A" Then
-            ' Se le factura al Alumno
-            If EntidadActual.IDCategoriaIVA Is Nothing Then
+
+        Select Case EntidadActual.EntidadFactura
+            Case Nothing
                 CorregirEntidad = True
-                CorreccionDescripcion &= "El Alumno no tiene especificada la Categoría de IVA." & vbCrLf
-            End If
-        ElseIf EntidadActual.EntidadFactura = "P" Then
-            ' Se le factura al Padre
-            If EntidadActual.IDEntidadPadre Is Nothing Then
-                CorregirEntidad = True
-                CorreccionDescripcion &= "Se indica que se facture al Padre, pero no se especifica el mismo." & vbCrLf
-            ElseIf EntidadActual.EntidadPadre.IDCategoriaIVA Is Nothing Then
-                CorregirEntidad = True
-                CorreccionDescripcion &= "El Padre no tiene especificada la Categoría de IVA." & vbCrLf
-            End If
-        ElseIf EntidadActual.EntidadFactura = "M" Then
-            ' Se le factura a la Madre
-            If EntidadActual.IDEntidadMadre Is Nothing Then
-                CorregirEntidad = True
-                CorreccionDescripcion &= "Se indica que se facture a la Madre, pero no se especifica la misma." & vbCrLf
-            ElseIf EntidadActual.EntidadMadre.IDCategoriaIVA Is Nothing Then
-                CorregirEntidad = True
-                CorreccionDescripcion &= "La Madre no tiene especificada la Categoría de IVA." & vbCrLf
-            End If
-        ElseIf EntidadActual.EntidadFactura = "2" Then
-            ' Se le factura a ambos Padres (50% a cada uno)
-            If EntidadActual.IDEntidadPadre Is Nothing And EntidadActual.IDEntidadMadre Is Nothing Then
-                CorregirEntidad = True
-                CorreccionDescripcion &= "Se indica que se facture a ambos Padres, pero no se especifica ninguno de los dos." & vbCrLf
-            Else
+                CorreccionDescripcion &= "No está especificado a quién se le factura." & vbCrLf
+
+            Case Constantes.ENTIDADFACTURA_ALUMNO
+                ' Se le factura al Alumno
+                If EntidadActual.IDCategoriaIVA Is Nothing Then
+                    CorregirEntidad = True
+                    CorreccionDescripcion &= "El Alumno no tiene especificada la Categoría de IVA." & vbCrLf
+                End If
+                If EntidadActual.DocumentoNumero Is Nothing And EntidadActual.FacturaDocumentoNumero Is Nothing Then
+                    CorregirEntidad = True
+                    CorreccionDescripcion &= "El Alumno no tiene especificado el Tipo y Número de Documento." & vbCrLf
+                End If
+
+            Case Constantes.ENTIDADFACTURA_PADRE
+                ' Se le factura al Padre
                 If EntidadActual.IDEntidadPadre Is Nothing Then
                     CorregirEntidad = True
-                    CorreccionDescripcion &= "Se indica que se facture a ambos Padres, pero no se especifica el Padre." & vbCrLf
-                ElseIf EntidadActual.EntidadPadre.IDCategoriaIVA Is Nothing Then
-                    CorregirEntidad = True
-                    CorreccionDescripcion &= "El Padre no tiene especificada la Categoría de IVA." & vbCrLf
+                    CorreccionDescripcion &= "Se indica que se facture al Padre, pero no se especifica el mismo." & vbCrLf
+                Else
+                    If EntidadActual.EntidadPadre.IDCategoriaIVA Is Nothing Then
+                        CorregirEntidad = True
+                        CorreccionDescripcion &= "El Padre no tiene especificada la Categoría de IVA." & vbCrLf
+                    End If
+                    If EntidadActual.EntidadPadre.DocumentoNumero Is Nothing And EntidadActual.EntidadPadre.FacturaDocumentoNumero Is Nothing Then
+                        CorregirEntidad = True
+                        CorreccionDescripcion &= "El Padre no tiene especificado el Tipo y Número de Documento." & vbCrLf
+                    End If
                 End If
+
+            Case Constantes.ENTIDADFACTURA_MADRE
+                ' Se le factura a la Madre
                 If EntidadActual.IDEntidadMadre Is Nothing Then
                     CorregirEntidad = True
-                    CorreccionDescripcion &= "Se indica que se facture a ambos Padres, pero no se especifica la Madre." & vbCrLf
-                ElseIf EntidadActual.EntidadMadre.IDCategoriaIVA Is Nothing Then
-                    CorregirEntidad = True
-                    CorreccionDescripcion &= "La Madre no tiene especificada la Categoría de IVA." & vbCrLf
+                    CorreccionDescripcion &= "Se indica que se facture a la Madre, pero no se especifica la misma." & vbCrLf
+                Else
+                    If EntidadActual.EntidadMadre.IDCategoriaIVA Is Nothing Then
+                        CorregirEntidad = True
+                        CorreccionDescripcion &= "La Madre no tiene especificada la Categoría de IVA." & vbCrLf
+                    End If
+                    If EntidadActual.EntidadMadre.DocumentoNumero Is Nothing And EntidadActual.EntidadMadre.FacturaDocumentoNumero Is Nothing Then
+                        CorregirEntidad = True
+                        CorreccionDescripcion &= "La Madre no tiene especificado el Tipo y Número de Documento." & vbCrLf
+                    End If
                 End If
-            End If
-        End If
+
+            Case Constantes.ENTIDADFACTURA_AMBOSPADRES
+                ' Se le factura a ambos Padres (50% a cada uno)
+                If EntidadActual.IDEntidadPadre Is Nothing And EntidadActual.IDEntidadMadre Is Nothing Then
+                    CorregirEntidad = True
+                    CorreccionDescripcion &= "Se indica que se facture a ambos Padres, pero no se especifica ninguno de los dos." & vbCrLf
+                Else
+
+                    ' Padre
+                    If EntidadActual.IDEntidadPadre Is Nothing Then
+                        CorregirEntidad = True
+                        CorreccionDescripcion &= "Se indica que se facture a ambos Padres, pero no se especifica el Padre." & vbCrLf
+                    Else
+                        If EntidadActual.EntidadPadre.IDCategoriaIVA Is Nothing Then
+                            CorregirEntidad = True
+                            CorreccionDescripcion &= "El Padre no tiene especificada la Categoría de IVA." & vbCrLf
+                        End If
+                        If EntidadActual.EntidadPadre.DocumentoNumero Is Nothing And EntidadActual.EntidadPadre.FacturaDocumentoNumero Is Nothing Then
+                            CorregirEntidad = True
+                            CorreccionDescripcion &= "El Padre no tiene especificado el Tipo y Número de Documento." & vbCrLf
+                        End If
+                    End If
+
+                    ' Madre
+                    If EntidadActual.IDEntidadMadre Is Nothing Then
+                        CorregirEntidad = True
+                        CorreccionDescripcion &= "Se indica que se facture a ambos Padres, pero no se especifica la Madre." & vbCrLf
+                    Else
+                        If EntidadActual.EntidadMadre.IDCategoriaIVA Is Nothing Then
+                            CorregirEntidad = True
+                            CorreccionDescripcion &= "La Madre no tiene especificada la Categoría de IVA." & vbCrLf
+                        End If
+                        If EntidadActual.EntidadMadre.DocumentoNumero Is Nothing And EntidadActual.EntidadMadre.FacturaDocumentoNumero Is Nothing Then
+                            CorregirEntidad = True
+                            CorreccionDescripcion &= "La Madre no tiene especificado el Tipo y Número de Documento." & vbCrLf
+                        End If
+                    End If
+                End If
+        End Select
 
         ' Si hay que corregir la Entidad, la agrego a la lista de Entidades a corregir
         If CorregirEntidad Then
             CorreccionDescripcion = CorreccionDescripcion.Remove(CorreccionDescripcion.Length - vbCrLf.Length)
             listEntidadesSeleccionadasCorregir.Add(New With {.IDEntidad = EntidadActual.IDEntidad, .Apellido = EntidadActual.Apellido, .Nombre = EntidadActual.Nombre, .ApellidoNombre = EntidadActual.ApellidoNombre, .CorreccionDescripcion = CorreccionDescripcion})
         Else
-            listEntidadesSeleccionadasOk.Add(EntidadActual)
+            ' La Entidad está verificada, pero antes de agregarla, verifico que no tenga exclusión de facturación
+            If (Not EntidadActual.ExcluyeFacturaDesde Is Nothing) AndAlso EntidadActual.ExcluyeFacturaDesde.Value.CompareTo(FechaServicioHasta) < 0 Then
+                ' Está dentro de la exclusión, así que no lo agrego a la lista
+            ElseIf (Not EntidadActual.ExcluyeFacturaHasta Is Nothing) AndAlso EntidadActual.ExcluyeFacturaHasta.Value.CompareTo(FechaServicioDesde) > 0 Then
+                ' Está dentro de la exclusión, así que no lo agrego a la lista
+            Else
+                ' Está fuera de la exclusión, asi que lo agrego
+                listEntidadesSeleccionadasOk.Add(EntidadActual)
+            End If
         End If
     End Sub
 
@@ -489,9 +543,6 @@ Public Class formGenerarLoteFacturas
         Dim FacturaDetalle As ComprobanteDetalle
 
         Dim Fecha As Date
-        Dim FechaVencimiento As Date
-        Dim FechaServicioDesde As Date
-        Dim FechaServicioHasta As Date
 
         Me.Cursor = Cursors.WaitCursor
 
@@ -501,9 +552,6 @@ Public Class formGenerarLoteFacturas
         IDArticulo = CSM_Parameter.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID)
         ComprobanteEntidadMayusculas = CSM_Parameter.GetBoolean(Parametros.COMPROBANTE_ENTIDAD_MAYUSCULAS, False).Value
         Fecha = System.DateTime.Now.Date
-        FechaServicioDesde = New Date(AnioLectivo, MesAFacturar, 1)
-        FechaServicioHasta = FechaServicioDesde.AddMonths(1).AddDays(-1)
-        FechaVencimiento = New Date(AnioLectivo, MesAFacturar, CSM_Parameter.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO_DIA))
 
         ' Creo el Lote de Comprobantes
         With FacturaLote

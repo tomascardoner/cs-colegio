@@ -41,9 +41,9 @@
             textboxPassword.Focus()
             Exit Sub
         End If
-        If My.Settings.UserPasswordSecureRequired Then
-            If textboxPassword.TextLength < My.Settings.UserPasswordMinimumLenght Then
-                MsgBox(String.Format("La Contraseña debe contener al menos {0} caracteres.", My.Settings.UserPasswordMinimumLenght), vbInformation, My.Application.Info.Title)
+        If CSM_Parameter.GetBoolean(Parametros.USER_PASSWORD_SECURE_REQUIRED, True) Then
+            If textboxPassword.TextLength < CSM_Parameter.GetIntegerAsByte(Parametros.USER_PASSWORD_MINIMUM_LENGHT, 8) Then
+                MsgBox(String.Format("La Contraseña debe contener al menos {0} caracteres.", CSM_Parameter.GetIntegerAsByte(Parametros.USER_PASSWORD_MINIMUM_LENGHT, 8)), vbInformation, My.Application.Info.Title)
                 textboxPassword.Focus()
                 Exit Sub
             End If

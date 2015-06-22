@@ -43,6 +43,7 @@
         Else
             Me.labelUsuarioNombre.Image = My.Resources.Resources.IMAGE_USUARIO_MUJER_16
         End If
+        Me.labelUsuarioNombre.Text = pUsuario.Descripcion
     End Sub
 
     Private Sub menuitemArchivo_Salir_Click() Handles menuitemArchivo_Salir.Click
@@ -114,8 +115,8 @@
                     'toolstripFiltroNivel.Items.Add(comboboxFiltroNivel)
 
                     'AGREGO LAS COLUMNAS
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_ComboBox("IDNivel", "Nivel", "IDNivel", DataGridViewContentAlignment.MiddleCenter, .FormDBContext.Nivel.ToList, "IDNivel", "Nombre"))
                     .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_TextBox("IDAnio", "Año", "IDAnio", DataGridViewContentAlignment.MiddleCenter))
+                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_ComboBox("IDNivel", "Nivel", "IDNivel", DataGridViewContentAlignment.MiddleCenter, .FormDBContext.Nivel.ToList, "IDNivel", "Nombre"))
                     .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_TextBox("Nombre", "Nombre", "Nombre", DataGridViewContentAlignment.MiddleLeft))
                     .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_CheckBox("Activo", "Activo", "Activo", DataGridViewContentAlignment.MiddleCenter, False, True, False, False))
 
@@ -157,7 +158,7 @@
             If Not formCursos Is Nothing Then
                 With formCursos
                     'AGREGO LAS COLUMNAS
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_ComboBox("IDNivel", "Nivel", "IDNivel", DataGridViewContentAlignment.MiddleCenter, .FormDBContext.Nivel.ToList, "IDNivel", "Nombre"))
+                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_TextBox("IDCurso", "ID", "IDCurso", DataGridViewContentAlignment.MiddleCenter))
                     .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_ComboBox("IDAnio", "Año", "IDAnio", DataGridViewContentAlignment.MiddleCenter, .FormDBContext.Anio.ToList, "IDAnio", "Nombre"))
                     .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_ComboBox("IDTurno", "Turno", "IDTurno", DataGridViewContentAlignment.MiddleCenter, .FormDBContext.Turno.ToList, "IDTurno", "Nombre"))
 
@@ -339,7 +340,7 @@
     End Sub
 
     Private Sub Debug_AFIPWSHomologaciónLogin() Handles menuitemDebugAFIPWSHomologacionLogin.Click
-        CSM_AFIP_WS.Login(CSM_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION), "", CSM_AFIP.SERVICIO_FACTURACION_ECLECTRONICA, My.Settings.AFIP_Certificado, My.Settings.AFIP_ClavePrivada)
+        CSM_AFIP_WS.Login(CSM_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION), "", CSM_AFIP.SERVICIO_FACTURACION_ECLECTRONICA, My.Settings.AFIP_WS_Certificado, My.Settings.AFIP_WS_ClavePrivada)
     End Sub
 
     Private Sub menuitemTransmitirComprobantesElectronicos_Click(sender As Object, e As EventArgs) Handles menuitemTransmitirComprobantesElectronicos.Click

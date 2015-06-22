@@ -60,11 +60,9 @@
         formSplashScreen.Close()
         formSplashScreen.Dispose()
 
-        ' Muestro la imagen de fondo del MDI
-        'formMDIMain.BackgroundImage = 
-
         ' Si no se está ejecutando dentro del IDE de Visual Studio, se requiere que ingrese Usuario y Contraseña
         If CSM_Instance.IsRunningUnderIDE Then
+            formMDIMain.menuitemDebugAFIPWSHabilitarRegistro.Checked = True
             Using dbcUsuario As New CSColegioContext
                 Dim qryUsuarios = From u In dbcUsuario.Usuario
                         Where u.IDUsuario = 1

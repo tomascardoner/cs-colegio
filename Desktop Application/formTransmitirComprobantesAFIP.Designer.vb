@@ -27,15 +27,15 @@ Partial Class formTransmitirComprobantesAFIP
         Me.labelLote = New System.Windows.Forms.Label()
         Me.comboboxLote = New System.Windows.Forms.ComboBox()
         Me.datagridviewPaso3Cabecera = New System.Windows.Forms.DataGridView()
+        Me.buttonTransmitir = New System.Windows.Forms.Button()
         Me.columnComprobanteTipoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnPuntoVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnNumero = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnEntidadApellido = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnEntidadNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnCUIT = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnDocumentoNumero = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnCategoriaIVANombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.buttonTransmitir = New System.Windows.Forms.Button()
         CType(Me.datagridviewPaso3Cabecera, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -69,7 +69,7 @@ Partial Class formTransmitirComprobantesAFIP
         Me.datagridviewPaso3Cabecera.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.datagridviewPaso3Cabecera.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewPaso3Cabecera.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.datagridviewPaso3Cabecera.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnPuntoVenta, Me.columnNumero, Me.columnEntidadApellido, Me.columnEntidadNombre, Me.columnCUIT, Me.columnCategoriaIVANombre, Me.columnImporteTotal})
+        Me.datagridviewPaso3Cabecera.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnPuntoVenta, Me.columnNumero, Me.columnEntidadApellido, Me.columnEntidadNombre, Me.columnDocumentoNumero, Me.columnCategoriaIVANombre, Me.columnImporteTotal})
         Me.datagridviewPaso3Cabecera.Location = New System.Drawing.Point(12, 33)
         Me.datagridviewPaso3Cabecera.MultiSelect = False
         Me.datagridviewPaso3Cabecera.Name = "datagridviewPaso3Cabecera"
@@ -79,6 +79,15 @@ Partial Class formTransmitirComprobantesAFIP
         Me.datagridviewPaso3Cabecera.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewPaso3Cabecera.Size = New System.Drawing.Size(668, 372)
         Me.datagridviewPaso3Cabecera.TabIndex = 3
+        '
+        'buttonTransmitir
+        '
+        Me.buttonTransmitir.Location = New System.Drawing.Point(503, 6)
+        Me.buttonTransmitir.Name = "buttonTransmitir"
+        Me.buttonTransmitir.Size = New System.Drawing.Size(86, 21)
+        Me.buttonTransmitir.TabIndex = 2
+        Me.buttonTransmitir.Text = "Transmitir"
+        Me.buttonTransmitir.UseVisualStyleBackColor = True
         '
         'columnComprobanteTipoNombre
         '
@@ -130,15 +139,15 @@ Partial Class formTransmitirComprobantesAFIP
         Me.columnEntidadNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.columnEntidadNombre.Width = 50
         '
-        'columnCUIT
+        'columnDocumentoNumero
         '
-        Me.columnCUIT.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnCUIT.DataPropertyName = "CUIT"
-        Me.columnCUIT.HeaderText = "CUIT"
-        Me.columnCUIT.Name = "columnCUIT"
-        Me.columnCUIT.ReadOnly = True
-        Me.columnCUIT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnCUIT.Width = 38
+        Me.columnDocumentoNumero.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnDocumentoNumero.DataPropertyName = "DocumentoNumero"
+        Me.columnDocumentoNumero.HeaderText = "N° Documento"
+        Me.columnDocumentoNumero.Name = "columnDocumentoNumero"
+        Me.columnDocumentoNumero.ReadOnly = True
+        Me.columnDocumentoNumero.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnDocumentoNumero.Width = 83
         '
         'columnCategoriaIVANombre
         '
@@ -163,15 +172,6 @@ Partial Class formTransmitirComprobantesAFIP
         Me.columnImporteTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.columnImporteTotal.Width = 48
         '
-        'buttonTransmitir
-        '
-        Me.buttonTransmitir.Location = New System.Drawing.Point(503, 6)
-        Me.buttonTransmitir.Name = "buttonTransmitir"
-        Me.buttonTransmitir.Size = New System.Drawing.Size(86, 21)
-        Me.buttonTransmitir.TabIndex = 2
-        Me.buttonTransmitir.Text = "Transmitir"
-        Me.buttonTransmitir.UseVisualStyleBackColor = True
-        '
         'formTransmitirComprobantesAFIP
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -194,13 +194,13 @@ Partial Class formTransmitirComprobantesAFIP
     Friend WithEvents labelLote As System.Windows.Forms.Label
     Friend WithEvents comboboxLote As System.Windows.Forms.ComboBox
     Friend WithEvents datagridviewPaso3Cabecera As System.Windows.Forms.DataGridView
+    Friend WithEvents buttonTransmitir As System.Windows.Forms.Button
     Friend WithEvents columnComprobanteTipoNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnPuntoVenta As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnNumero As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnEntidadApellido As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnEntidadNombre As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnCUIT As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnDocumentoNumero As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnCategoriaIVANombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents buttonTransmitir As System.Windows.Forms.Button
 End Class
