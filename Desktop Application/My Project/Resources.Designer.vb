@@ -263,6 +263,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property IMAGE_PRINT_32() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("IMAGE_PRINT_32", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property IMAGE_SEARCH_16() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("IMAGE_SEARCH_16", resourceCulture)
@@ -554,6 +564,24 @@ Namespace My.Resources
         Friend ReadOnly Property STRING_NO() As String
             Get
                 Return ResourceManager.GetString("STRING_NO", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Compra.
+        '''</summary>
+        Friend ReadOnly Property STRING_OPERACIONTIPO_COMPRA() As String
+            Get
+                Return ResourceManager.GetString("STRING_OPERACIONTIPO_COMPRA", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Venta.
+        '''</summary>
+        Friend ReadOnly Property STRING_OPERACIONTIPO_VENTA() As String
+            Get
+                Return ResourceManager.GetString("STRING_OPERACIONTIPO_VENTA", resourceCulture)
             End Get
         End Property
         

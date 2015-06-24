@@ -13,10 +13,6 @@ Public Class formCABGenerico
         Me.Text = EntityNamePlural
     End Sub
 
-    Private Sub flowlayoutpanelMain_Resize(sender As Object, e As EventArgs) Handles flowlayoutpanelMain.Resize
-        'datagridviewMain.Top = FlowLayoutPanel.DockPaddingEdge
-    End Sub
-
     Private Sub bindingsourceMain_ListChanged(sender As Object, e As System.ComponentModel.ListChangedEventArgs) Handles bindingsourceMain.ListChanged
         Select Case bindingsourceMain.Count
             Case 0

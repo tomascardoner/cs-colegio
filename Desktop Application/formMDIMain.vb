@@ -289,23 +289,22 @@
         End If
     End Sub
 
-    Private Sub buttonFacturar_ButtonClick() Handles buttonFacturar.ButtonClick
+    Private Sub buttonFacturar_ButtonClick() Handles buttonComprobantes.ButtonClick
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CSM_Form.MDIChild_PositionAndSize(Me, CType(formComprobanteCabecera, Form), Form_ClientSize)
-            formComprobanteCabecera.Show()
-            formComprobanteCabecera.Show()
-            If formComprobanteCabecera.WindowState = FormWindowState.Minimized Then
-                formComprobanteCabecera.WindowState = FormWindowState.Normal
+            CSM_Form.MDIChild_PositionAndSize(Me, CType(formComprobantes, Form), Form_ClientSize)
+            formComprobantes.Show()
+            If formComprobantes.WindowState = FormWindowState.Minimized Then
+                formComprobantes.WindowState = FormWindowState.Normal
             End If
-            formComprobanteCabecera.Focus()
+            formComprobantes.Focus()
 
             Me.Cursor = Cursors.Default
         End If
     End Sub
 
-    Private Sub menuitemFacturasGenerarLote_Click() Handles menuitemFacturasGenerarLote.Click
+    Private Sub menuitemFacturasGenerarLote_Click() Handles menuitemComprobantesGenerarLoteFacturas.Click
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE_GENERARLOTE) Then
             Me.Cursor = Cursors.WaitCursor
 
@@ -343,7 +342,7 @@
         CSM_AFIP_WS.Login(CSM_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION), "", CSM_AFIP.SERVICIO_FACTURACION_ECLECTRONICA, My.Settings.AFIP_WS_Certificado, My.Settings.AFIP_WS_ClavePrivada)
     End Sub
 
-    Private Sub menuitemTransmitirComprobantesElectronicos_Click(sender As Object, e As EventArgs) Handles menuitemTransmitirComprobantesElectronicos.Click
+    Private Sub menuitemTransmitirComprobantesElectronicos_Click(sender As Object, e As EventArgs) Handles menuitemComprobantesTransmitirAFIP.Click
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIRAAFIP) Then
             Me.Cursor = Cursors.WaitCursor
 

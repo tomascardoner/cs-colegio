@@ -62,9 +62,10 @@ Partial Class formMDIMain
         Me.buttonEntidades = New System.Windows.Forms.ToolStripSplitButton()
         Me.AñosLectivosYCursosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.VerificarHermanosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.buttonFacturar = New System.Windows.Forms.ToolStripSplitButton()
-        Me.menuitemFacturasGenerarLote = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemTransmitirComprobantesElectronicos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.buttonComprobantes = New System.Windows.Forms.ToolStripSplitButton()
+        Me.menuitemComprobantesGenerarLoteFacturas = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemComprobantesTransmitirAFIP = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemComprobantesEnviarPorMail = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
@@ -243,10 +244,10 @@ Partial Class formMDIMain
         '
         Me.toolstripMain.AllowMerge = False
         Me.toolstripMain.Dock = System.Windows.Forms.DockStyle.Left
-        Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.dropdownbuttonTablas, Me.buttonEntidades, Me.buttonFacturar})
+        Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.dropdownbuttonTablas, Me.buttonEntidades, Me.buttonComprobantes})
         Me.toolstripMain.Location = New System.Drawing.Point(0, 24)
         Me.toolstripMain.Name = "toolstripMain"
-        Me.toolstripMain.Size = New System.Drawing.Size(107, 489)
+        Me.toolstripMain.Size = New System.Drawing.Size(135, 489)
         Me.toolstripMain.TabIndex = 1
         Me.toolstripMain.Text = "Principal"
         '
@@ -257,7 +258,7 @@ Partial Class formMDIMain
         Me.dropdownbuttonTablas.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.dropdownbuttonTablas.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.dropdownbuttonTablas.Name = "dropdownbuttonTablas"
-        Me.dropdownbuttonTablas.Size = New System.Drawing.Size(104, 36)
+        Me.dropdownbuttonTablas.Size = New System.Drawing.Size(132, 36)
         Me.dropdownbuttonTablas.Text = "Tablas"
         '
         'menuitemNivel
@@ -313,7 +314,7 @@ Partial Class formMDIMain
         Me.buttonEntidades.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonEntidades.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonEntidades.Name = "buttonEntidades"
-        Me.buttonEntidades.Size = New System.Drawing.Size(104, 36)
+        Me.buttonEntidades.Size = New System.Drawing.Size(132, 36)
         Me.buttonEntidades.Text = "Entidades"
         '
         'AñosLectivosYCursosToolStripMenuItem
@@ -329,27 +330,33 @@ Partial Class formMDIMain
         Me.VerificarHermanosToolStripMenuItem.Size = New System.Drawing.Size(252, 22)
         Me.VerificarHermanosToolStripMenuItem.Text = "Verificar descuentos de hermanos"
         '
-        'buttonFacturar
+        'buttonComprobantes
         '
-        Me.buttonFacturar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemFacturasGenerarLote, Me.menuitemTransmitirComprobantesElectronicos})
-        Me.buttonFacturar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_COMPROBANTES_32
-        Me.buttonFacturar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonFacturar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonFacturar.Name = "buttonFacturar"
-        Me.buttonFacturar.Size = New System.Drawing.Size(104, 36)
-        Me.buttonFacturar.Text = "Facturas"
+        Me.buttonComprobantes.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemComprobantesGenerarLoteFacturas, Me.menuitemComprobantesTransmitirAFIP, Me.menuitemComprobantesEnviarPorMail})
+        Me.buttonComprobantes.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_COMPROBANTES_32
+        Me.buttonComprobantes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonComprobantes.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonComprobantes.Name = "buttonComprobantes"
+        Me.buttonComprobantes.Size = New System.Drawing.Size(132, 36)
+        Me.buttonComprobantes.Text = "Comprobantes"
         '
-        'menuitemFacturasGenerarLote
+        'menuitemComprobantesGenerarLoteFacturas
         '
-        Me.menuitemFacturasGenerarLote.Name = "menuitemFacturasGenerarLote"
-        Me.menuitemFacturasGenerarLote.Size = New System.Drawing.Size(173, 22)
-        Me.menuitemFacturasGenerarLote.Text = "Generar Lote..."
+        Me.menuitemComprobantesGenerarLoteFacturas.Name = "menuitemComprobantesGenerarLoteFacturas"
+        Me.menuitemComprobantesGenerarLoteFacturas.Size = New System.Drawing.Size(204, 22)
+        Me.menuitemComprobantesGenerarLoteFacturas.Text = "Generar Lote de Facturas"
         '
-        'menuitemTransmitirComprobantesElectronicos
+        'menuitemComprobantesTransmitirAFIP
         '
-        Me.menuitemTransmitirComprobantesElectronicos.Name = "menuitemTransmitirComprobantesElectronicos"
-        Me.menuitemTransmitirComprobantesElectronicos.Size = New System.Drawing.Size(173, 22)
-        Me.menuitemTransmitirComprobantesElectronicos.Text = "Transmitir a AFIP..."
+        Me.menuitemComprobantesTransmitirAFIP.Name = "menuitemComprobantesTransmitirAFIP"
+        Me.menuitemComprobantesTransmitirAFIP.Size = New System.Drawing.Size(204, 22)
+        Me.menuitemComprobantesTransmitirAFIP.Text = "Transmitir a AFIP"
+        '
+        'menuitemComprobantesEnviarPorMail
+        '
+        Me.menuitemComprobantesEnviarPorMail.Name = "menuitemComprobantesEnviarPorMail"
+        Me.menuitemComprobantesEnviarPorMail.Size = New System.Drawing.Size(204, 22)
+        Me.menuitemComprobantesEnviarPorMail.Text = "Enviar por mail"
         '
         'formMDIMain
         '
@@ -408,8 +415,8 @@ Partial Class formMDIMain
     Friend WithEvents menuitemRelacionTipo As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemNivel As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemVentanaSeparadorListaVentanas As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents buttonFacturar As System.Windows.Forms.ToolStripSplitButton
-    Friend WithEvents menuitemFacturasGenerarLote As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents buttonComprobantes As System.Windows.Forms.ToolStripSplitButton
+    Friend WithEvents menuitemComprobantesGenerarLoteFacturas As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents buttonEntidades As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents AñosLectivosYCursosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents VerificarHermanosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -418,5 +425,6 @@ Partial Class formMDIMain
     Friend WithEvents menuitemDebugAFIPWSHomologacion As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSHomologacionLogin As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSHabilitarRegistro As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemTransmitirComprobantesElectronicos As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemComprobantesTransmitirAFIP As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemComprobantesEnviarPorMail As System.Windows.Forms.ToolStripMenuItem
 End Class

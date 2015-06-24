@@ -83,19 +83,36 @@
         End Using
     End Sub
 
-    Friend Sub ComprobanteTipo(ByRef ComboBoxControl As ComboBox, ByVal OperacionTipo As String, ByVal ShowUnspecifiedItem As Boolean)
+    Friend Sub ComprobanteTipo(ByRef ComboBoxControl As ComboBox, ByVal OperacionTipo As String, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)
+        Dim localList As List(Of ComprobanteTipo)
+
         ComboBoxControl.ValueMember = "IDComprobanteTipo"
         ComboBoxControl.DisplayMember = "Nombre"
 
         Using dbContext As New CSColegioContext
-            Dim qryList = From tbl In dbContext.ComprobanteTipo
-                          Where tbl.OperacionTipo = OperacionTipo And tbl.EsActivo
-                          Order By tbl.Nombre
+            If OperacionTipo = "" Then
+                Dim qryList = From tbl In dbContext.ComprobanteTipo
+                              Where tbl.EsActivo
+                              Order By tbl.Nombre
 
-            Dim localList = qryList.ToList
-            If ShowUnspecifiedItem Then
+                localList = qryList.ToList
+            Else
+                Dim qryList = From tbl In dbContext.ComprobanteTipo
+                              Where tbl.OperacionTipo = OperacionTipo And tbl.EsActivo
+                              Order By tbl.Nombre
+
+                localList = qryList.ToList
+            End If
+
+            If AgregarItem_Todos Then
                 Dim UnspecifiedItem As New ComprobanteTipo
-                UnspecifiedItem.IDComprobanteTipo = 0
+                UnspecifiedItem.IDComprobanteTipo = Byte.MaxValue
+                UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_ALL_MALE
+                localList.Insert(0, UnspecifiedItem)
+            End If
+            If AgregarItem_NoEspecifica Then
+                Dim UnspecifiedItem As New ComprobanteTipo
+                UnspecifiedItem.IDComprobanteTipo = Byte.MinValue
                 UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
                 localList.Insert(0, UnspecifiedItem)
             End If
@@ -284,5 +301,4 @@
             ComboBoxControl.DataSource = localList
         End Using
     End Sub
-
 End Module

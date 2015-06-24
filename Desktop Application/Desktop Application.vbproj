@@ -83,6 +83,10 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.6.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.6\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="System" />
@@ -236,10 +240,16 @@
     <Compile Include="formCABGenerico.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formComprobanteCabecera.Designer.vb">
-      <DependentUpon>formComprobanteCabecera.vb</DependentUpon>
+    <Compile Include="formComprobante.Designer.vb">
+      <DependentUpon>formComprobante.vb</DependentUpon>
     </Compile>
-    <Compile Include="formComprobanteCabecera.vb">
+    <Compile Include="formComprobante.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formComprobantes.Designer.vb">
+      <DependentUpon>formComprobantes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formComprobantes.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formEntidad.Designer.vb">
@@ -398,8 +408,11 @@
     <EmbeddedResource Include="formCABGenerico.resx">
       <DependentUpon>formCABGenerico.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formComprobanteCabecera.resx">
-      <DependentUpon>formComprobanteCabecera.vb</DependentUpon>
+    <EmbeddedResource Include="formComprobante.resx">
+      <DependentUpon>formComprobante.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formComprobantes.resx">
+      <DependentUpon>formComprobantes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formEntidad.resx">
       <DependentUpon>formEntidad.vb</DependentUpon>
@@ -487,6 +500,9 @@
     </None>
     <None Include="Resources\5_Resized.jpg" />
     <None Include="Resources\Printer24.png" />
+    <None Include="Resources\printer-icon %285%29.png" />
+    <None Include="Resources\printer-icon %286%29.png" />
+    <None Include="Resources\printer-icon %287%29.png" />
     <Content Include="school_48_32_16.ico" />
     <None Include="Resources\Move Previous %28Arrow%29 Red24.png" />
     <None Include="Resources\Move Next %28Arrow%29 Green24.png" />

@@ -173,9 +173,9 @@
                             Exit For
                         End If
                     Else
-                            Exit For
+                        Exit For
                     End If
-                    End If
+                End If
             Next
         End If
 

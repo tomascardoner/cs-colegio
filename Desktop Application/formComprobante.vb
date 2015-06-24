@@ -1,8 +1,8 @@
-﻿Public Class formComprobanteCabecera
+﻿Public Class formComprobante
 
     Private Sub formComprobanteCabecera_Load(sender As Object, e As EventArgs) Handles Me.Load
         ' Cargo los ComboBox
-        FillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo, OPERACIONTIPO_VENTA, False)
+        FillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo, OPERACIONTIPO_VENTA, False, False)
 
         FillAndRefreshLists.CategoriaIVA(comboboxCategoriaIVA, False)
         CSM_ComboBox.SetSelectedValue(comboboxCategoriaIVA, SelectedItemOptions.ValueOrFirst, CSM_Parameter.GetIntegerAsByte(Parametros.DEFAULT_CATEGORIAIVA_ID, 0))

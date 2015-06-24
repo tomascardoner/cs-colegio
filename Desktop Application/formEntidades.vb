@@ -1,8 +1,10 @@
 ﻿Public Class formEntidades
     Private listEntidadBase As List(Of Entidad)
     Private listEntidadFiltradaYOrdenada As List(Of Entidad)
+
     Private SkipFilterData As Boolean = False
     Private BusquedaAplicada As Boolean = False
+
     Private OrdenColumna As DataGridViewColumn
     Private OrdenTipo As SortOrder
 
@@ -46,7 +48,7 @@
             Me.Cursor = Cursors.WaitCursor
 
             If menuitemEntidadTipo_PersonalColegio.Checked And menuitemEntidadTipo_Docente.Checked And menuitemEntidadTipo_Alumno.Checked And menuitemEntidadTipo_Familiar.Checked And menuitemEntidadTipo_Proveedor.Checked Then
-                'TODOS LOS TIPOS DE ENTIDAD SELECCIONADOS
+                ' Todos los Tipos de Entidad
                 If BusquedaAplicada Then
                     listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
                                        Where (ent.Apellido.ToLower.Contains(textboxBuscar.Text.ToLower.Trim) Or ent.Nombre.ToLower.Contains(textboxBuscar.Text.ToLower.Trim)) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo))
