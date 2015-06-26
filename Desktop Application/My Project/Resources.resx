@@ -262,16 +262,16 @@
   <data name="IMAGE_SPLASH_SCREEN_BACKGROUND" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\5_Resized.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="STRING_ENTIDADFACTURA_ALUMNO" xml:space="preserve">
+  <data name="STRING_EMITIRFACTURAA_ALUMNO" xml:space="preserve">
     <value>Alumno</value>
   </data>
-  <data name="STRING_ENTIDADFACTURA_MADRE" xml:space="preserve">
+  <data name="STRING_EMITIRFACTURAA_MADRE" xml:space="preserve">
     <value>Madre</value>
   </data>
-  <data name="STRING_ENTIDADFACTURA_PADRE" xml:space="preserve">
+  <data name="STRING_EMITIRFACTURAA_PADRE" xml:space="preserve">
     <value>Padre</value>
   </data>
-  <data name="STRING_ENTIDADFACTURA_AMBOSPADRES" xml:space="preserve">
+  <data name="STRING_EMITIRFACTURAA_AMBOSPADRES" xml:space="preserve">
     <value>Ambos padres (50% c/u)</value>
   </data>
   <data name="STRING_OPERACIONTIPO_COMPRA" xml:space="preserve">
@@ -285,5 +285,11 @@
   </data>
   <data name="IMAGE_PRINT_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\printer-icon (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="STRING_EMITIRFACTURAA_TERCERO" xml:space="preserve">
+    <value>Tercero</value>
+  </data>
+  <data name="STRING_EMITIRFACTURAA_TODOS" xml:space="preserve">
+    <value>Padres y Tercero (33% c/u)</value>
   </data>
 </root>

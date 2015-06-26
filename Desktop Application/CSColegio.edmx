@@ -102,22 +102,16 @@
           <Property Name="IDComprobanteTipo" Type="tinyint" Nullable="false" />
           <Property Name="PuntoVenta" Type="char" MaxLength="4" Nullable="false" />
           <Property Name="Numero" Type="char" MaxLength="8" Nullable="false" />
-          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="FechaEmision" Type="date" Nullable="false" />
           <Property Name="FechaVencimiento" Type="date" Nullable="false" />
           <Property Name="FechaServicioDesde" Type="date" />
           <Property Name="FechaServicioHasta" Type="date" />
           <Property Name="IDEntidad" Type="int" Nullable="false" />
-          <Property Name="EntidadApellido" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="EntidadNombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApellidoNombre" Type="varchar" MaxLength="152" Nullable="false" />
           <Property Name="IDDocumentoTipo" Type="tinyint" Nullable="false" />
           <Property Name="DocumentoNumero" Type="varchar" MaxLength="12" Nullable="false" />
           <Property Name="IDCategoriaIVA" Type="tinyint" Nullable="false" />
-          <Property Name="DomicilioCalle1" Type="varchar" MaxLength="100" />
-          <Property Name="DomicilioNumero" Type="varchar" MaxLength="10" />
-          <Property Name="DomicilioPiso" Type="varchar" MaxLength="10" />
-          <Property Name="DomicilioDepartamento" Type="varchar" MaxLength="10" />
-          <Property Name="DomicilioCalle2" Type="varchar" MaxLength="50" />
-          <Property Name="DomicilioCalle3" Type="varchar" MaxLength="50" />
+          <Property Name="DomicilioCalleCompleto" Type="varchar" MaxLength="250" />
           <Property Name="DomicilioCodigoPostal" Type="varchar" MaxLength="8" />
           <Property Name="DomicilioIDProvincia" Type="tinyint" />
           <Property Name="DomicilioIDLocalidad" Type="smallint" />
@@ -186,8 +180,10 @@
           <Property Name="OperacionTipo" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="Sigla" Type="char" MaxLength="3" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Letra" Type="char" MaxLength="1" />
           <Property Name="CodigoAFIP" Type="tinyint" Nullable="false" />
           <Property Name="EmisionElectronica" Type="bit" />
+          <Property Name="ReporteNombre" Type="varchar" MaxLength="100" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
@@ -287,7 +283,8 @@
           <Property Name="DomicilioIDLocalidad" Type="smallint" />
           <Property Name="IDEntidadPadre" Type="int" />
           <Property Name="IDEntidadMadre" Type="int" />
-          <Property Name="EntidadFactura" Type="char" MaxLength="1" />
+          <Property Name="EmitirFacturaA" Type="char" MaxLength="1" />
+          <Property Name="IDEntidadTercero" Type="int" />
           <Property Name="IDDescuento" Type="tinyint" />
           <Property Name="ExcluyeFacturaDesde" Type="date" />
           <Property Name="ExcluyeFacturaHasta" Type="date" />
@@ -811,6 +808,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Entidad__EntidadTercero">
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="0..1" />
+          <End Role="Entidad1" Type="Self.Entidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="IDEntidad" />
+            </Principal>
+            <Dependent Role="Entidad1">
+              <PropertyRef Name="IDEntidadTercero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Impuesto__ComprobanteImpuesto">
           <End Role="Impuesto" Type="Self.Impuesto" Multiplicity="1" />
           <End Role="ComprobanteImpuesto" Type="Self.ComprobanteImpuesto" Multiplicity="*" />
@@ -1080,6 +1089,10 @@
             <End Role="Entidad" EntitySet="Entidad" />
             <End Role="Entidad1" EntitySet="Entidad" />
           </AssociationSet>
+          <AssociationSet Name="FK__Entidad__EntidadTercero" Association="Self.FK__Entidad__EntidadTercero">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="Entidad1" EntitySet="Entidad" />
+          </AssociationSet>
           <AssociationSet Name="FK__Impuesto__ComprobanteImpuesto" Association="Self.FK__Impuesto__ComprobanteImpuesto">
             <End Role="Impuesto" EntitySet="Impuesto" />
             <End Role="ComprobanteImpuesto" EntitySet="ComprobanteImpuesto" />
@@ -1281,7 +1294,8 @@
           <Property Name="DomicilioIDLocalidad" Type="Int16" />
           <Property Name="IDEntidadPadre" Type="Int32" />
           <Property Name="IDEntidadMadre" Type="Int32" />
-          <Property Name="EntidadFactura" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="EmitirFacturaA" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="IDEntidadTercero" Type="Int32" />
           <Property Name="IDDescuento" Type="Byte" />
           <Property Name="ExcluyeFacturaDesde" Type="DateTime" Precision="0" />
           <Property Name="ExcluyeFacturaHasta" Type="DateTime" Precision="0" />
@@ -1307,6 +1321,8 @@
           <NavigationProperty Name="Descuento" Relationship="CSColegioModel.FK__Descuento__Entidad" FromRole="Entidad" ToRole="Descuento" />
           <NavigationProperty Name="ComprobanteDetalle" Relationship="CSColegioModel.FK__Entidad__ComprobanteDetalle" FromRole="Entidad" ToRole="ComprobanteDetalle" />
           <NavigationProperty Name="FacturaDocumentoTipo" Relationship="CSColegioModel.FK__DocumentoTipo__Entidad__Factura" FromRole="Entidad" ToRole="DocumentoTipo" />
+          <NavigationProperty Name="EntidadTerceroAlumnos" Relationship="CSColegioModel.FK__Entidad__EntidadTercero" FromRole="Entidad" ToRole="Entidad1" />
+          <NavigationProperty Name="EntidadTercero" Relationship="CSColegioModel.FK__Entidad__EntidadTercero" FromRole="Entidad1" ToRole="Entidad" />
         </EntityType>
         <EntityType Name="EntidadEntidad">
           <Key>
@@ -1846,6 +1862,10 @@
             <End Role="Entidad" EntitySet="Entidad" />
           </AssociationSet>
           <EntitySet Name="MonedaCotizacion" EntityType="CSColegioModel.MonedaCotizacion" />
+          <AssociationSet Name="FK__Entidad__EntidadTercero" Association="CSColegioModel.FK__Entidad__EntidadTercero">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="Entidad1" EntitySet="Entidad" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
           <Key>
@@ -1866,8 +1886,10 @@
           <Property Name="OperacionTipo" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="Sigla" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Letra" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="CodigoAFIP" Type="Byte" Nullable="false" />
           <Property Name="EmisionElectronica" Type="Boolean" />
+          <Property Name="ReporteNombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
@@ -1912,22 +1934,16 @@
           <Property Name="IDComprobanteTipo" Type="Byte" Nullable="false" />
           <Property Name="PuntoVenta" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
           <Property Name="Numero" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
-          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FechaEmision" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="FechaVencimiento" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="FechaServicioDesde" Type="DateTime" Precision="0" />
           <Property Name="FechaServicioHasta" Type="DateTime" Precision="0" />
           <Property Name="IDEntidad" Type="Int32" Nullable="false" />
-          <Property Name="EntidadApellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="EntidadNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoNombre" Type="String" Nullable="false" MaxLength="152" FixedLength="false" Unicode="false" />
           <Property Name="IDDocumentoTipo" Type="Byte" Nullable="false" />
           <Property Name="DocumentoNumero" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="IDCategoriaIVA" Type="Byte" Nullable="false" />
-          <Property Name="DomicilioCalle1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="DomicilioNumero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="DomicilioPiso" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="DomicilioDepartamento" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="DomicilioCalle2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DomicilioCalle3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DomicilioCalleCompleto" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="DomicilioCodigoPostal" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="DomicilioIDProvincia" Type="Byte" />
           <Property Name="DomicilioIDLocalidad" Type="Int16" />
@@ -2354,6 +2370,18 @@
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Cotizacion" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
         </EntityType>
+        <Association Name="FK__Entidad__EntidadTercero">
+          <End Type="CSColegioModel.Entidad" Role="Entidad" Multiplicity="0..1" />
+          <End Type="CSColegioModel.Entidad" Role="Entidad1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="IDEntidad" />
+            </Principal>
+            <Dependent Role="Entidad1">
+              <PropertyRef Name="IDEntidadTercero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2473,13 +2501,14 @@
           <EntitySetMapping Name="Entidad">
             <EntityTypeMapping TypeName="CSColegioModel.Entidad">
               <MappingFragment StoreEntitySet="Entidad">
+                <ScalarProperty Name="IDEntidadTercero" ColumnName="IDEntidadTercero" />
+                <ScalarProperty Name="EmitirFacturaA" ColumnName="EmitirFacturaA" />
                 <ScalarProperty Name="ExcluyeFacturaHasta" ColumnName="ExcluyeFacturaHasta" />
                 <ScalarProperty Name="ExcluyeFacturaDesde" ColumnName="ExcluyeFacturaDesde" />
                 <ScalarProperty Name="FacturaDocumentoNumero" ColumnName="FacturaDocumentoNumero" />
                 <ScalarProperty Name="FacturaIDDocumentoTipo" ColumnName="FacturaIDDocumentoTipo" />
                 <ScalarProperty Name="IDDescuento" ColumnName="IDDescuento" />
                 <ScalarProperty Name="ApellidoNombre" ColumnName="ApellidoNombre" />
-                <ScalarProperty Name="EntidadFactura" ColumnName="EntidadFactura" />
                 <ScalarProperty Name="IDEntidadMadre" ColumnName="IDEntidadMadre" />
                 <ScalarProperty Name="IDEntidadPadre" ColumnName="IDEntidadPadre" />
                 <ScalarProperty Name="IDEntidad" ColumnName="IDEntidad" />
@@ -2702,6 +2731,8 @@
           <EntitySetMapping Name="ComprobanteTipo">
             <EntityTypeMapping TypeName="CSColegioModel.ComprobanteTipo">
               <MappingFragment StoreEntitySet="ComprobanteTipo">
+                <ScalarProperty Name="ReporteNombre" ColumnName="ReporteNombre" />
+                <ScalarProperty Name="Letra" ColumnName="Letra" />
                 <ScalarProperty Name="EmisionElectronica" ColumnName="EmisionElectronica" />
                 <ScalarProperty Name="CodigoAFIP" ColumnName="CodigoAFIP" />
                 <ScalarProperty Name="OperacionTipo" ColumnName="OperacionTipo" />
@@ -2735,6 +2766,9 @@
           <EntitySetMapping Name="ComprobanteCabecera">
             <EntityTypeMapping TypeName="CSColegioModel.ComprobanteCabecera">
               <MappingFragment StoreEntitySet="ComprobanteCabecera">
+                <ScalarProperty Name="DomicilioCalleCompleto" ColumnName="DomicilioCalleCompleto" />
+                <ScalarProperty Name="ApellidoNombre" ColumnName="ApellidoNombre" />
+                <ScalarProperty Name="FechaEmision" ColumnName="FechaEmision" />
                 <ScalarProperty Name="CAEVencimiento" ColumnName="CAEVencimiento" />
                 <ScalarProperty Name="IDUsuarioTransmision" ColumnName="IDUsuarioTransmision" />
                 <ScalarProperty Name="FechaHoraAnulacion" ColumnName="FechaHoraAnulacion" />
@@ -2760,17 +2794,8 @@
                 <ScalarProperty Name="DomicilioIDLocalidad" ColumnName="DomicilioIDLocalidad" />
                 <ScalarProperty Name="DomicilioIDProvincia" ColumnName="DomicilioIDProvincia" />
                 <ScalarProperty Name="DomicilioCodigoPostal" ColumnName="DomicilioCodigoPostal" />
-                <ScalarProperty Name="DomicilioCalle3" ColumnName="DomicilioCalle3" />
-                <ScalarProperty Name="DomicilioCalle2" ColumnName="DomicilioCalle2" />
-                <ScalarProperty Name="DomicilioDepartamento" ColumnName="DomicilioDepartamento" />
-                <ScalarProperty Name="DomicilioPiso" ColumnName="DomicilioPiso" />
-                <ScalarProperty Name="DomicilioNumero" ColumnName="DomicilioNumero" />
-                <ScalarProperty Name="DomicilioCalle1" ColumnName="DomicilioCalle1" />
                 <ScalarProperty Name="IDCategoriaIVA" ColumnName="IDCategoriaIVA" />
-                <ScalarProperty Name="EntidadNombre" ColumnName="EntidadNombre" />
-                <ScalarProperty Name="EntidadApellido" ColumnName="EntidadApellido" />
                 <ScalarProperty Name="IDEntidad" ColumnName="IDEntidad" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="IDComprobanteTipo" ColumnName="IDComprobanteTipo" />
                 <ScalarProperty Name="IDComprobante" ColumnName="IDComprobante" />
               </MappingFragment>

@@ -76,6 +76,10 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -83,10 +87,7 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="itextsharp, Version=5.5.6.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\packages\iTextSharp.5.5.6\lib\itextsharp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="System" />
@@ -94,6 +95,7 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -113,6 +115,13 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Reports\ComprobanteVenta.vb">
+      <Link>ComprobanteVenta.vb</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ComprobanteVenta.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Anio.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -300,6 +309,12 @@
     <Compile Include="formReportViewer.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formReportViewerCR.Designer.vb">
+      <DependentUpon>formReportViewerCR.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formReportViewerCR.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formSplashScreen.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -328,6 +343,7 @@
     <Compile Include="MedioPago.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="MiscFunctions.vb" />
     <Compile Include="Moneda.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -372,18 +388,7 @@
     <Compile Include="RelacionTipo.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
-    <Compile Include="Reportes.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reportes.xsd</DependentUpon>
-    </Compile>
     <Compile Include="StartUp.vb" />
-    <Compile Include="TempDepot.Designer.vb">
-      <DependentUpon>TempDepot.vb</DependentUpon>
-    </Compile>
-    <Compile Include="TempDepot.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Turno.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -401,6 +406,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="..\..\Reports\ComprobanteVenta.rpt">
+      <Link>ComprobanteVenta.rpt</Link>
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ComprobanteVenta.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSF_ErrorMessageBox.resx">
       <Link>CSF_ErrorMessageBox.resx</Link>
       <DependentUpon>CSF_ErrorMessageBox.vb</DependentUpon>
@@ -438,10 +448,12 @@
     <EmbeddedResource Include="formReportViewer.resx">
       <DependentUpon>formReportViewer.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formReportViewerCR.resx">
+      <DependentUpon>formReportViewerCR.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formTransmitirComprobantesAFIP.resx">
       <DependentUpon>formTransmitirComprobantesAFIP.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HermanosSinDescuento.rdlc" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
@@ -450,9 +462,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formSplashScreen.resx">
       <DependentUpon>formSplashScreen.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TempDepot.resx">
-      <DependentUpon>TempDepot.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -487,17 +496,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notas.txt" />
-    <None Include="Reportes.xsc">
-      <DependentUpon>Reportes.xsd</DependentUpon>
-    </None>
-    <None Include="Reportes.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>Reportes.Designer.vb</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Reportes.xss">
-      <DependentUpon>Reportes.xsd</DependentUpon>
-    </None>
     <None Include="Resources\5_Resized.jpg" />
     <None Include="Resources\Printer24.png" />
     <None Include="Resources\printer-icon %285%29.png" />
@@ -529,6 +527,7 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="My Project\DataSources\" />

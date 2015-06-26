@@ -4,16 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d421cb0e5a4745b6815723ebaf9d9670" Name="Diagram1" ZoomLevel="87">
+      <Diagram DiagramId="d421cb0e5a4745b6815723ebaf9d9670" Name="Diagram1" ZoomLevel="100">
         <EntityTypeShape EntityType="CSColegioModel.Anio" Width="1.5" PointX="17" PointY="16.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CSColegioModel.Articulo" Width="1.5" PointX="18" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CSColegioModel.ArticuloGrupo" Width="1.5" PointX="15.75" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CSColegioModel.Banco" Width="1.5" PointX="5.75" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSColegioModel.Banco" Width="1.5" PointX="5.625" PointY="19" IsExpanded="true" />
         <EntityTypeShape EntityType="CSColegioModel.CategoriaIVA" Width="1.5" PointX="3.25" PointY="15.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CSColegioModel.Cheque" Width="1.5" PointX="8" PointY="16.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CSColegioModel.Curso" Width="1.5" PointX="19.25" PointY="16.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CSColegioModel.DocumentoTipo" Width="1.5" PointX="3.25" PointY="18" IsExpanded="true" />
-        <EntityTypeShape EntityType="CSColegioModel.Entidad" Width="1.5" PointX="5.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSColegioModel.Entidad" Width="1.5" PointX="5.5" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CSColegioModel.EntidadEntidad" Width="1.5" PointX="7.75" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CSColegioModel.Localidad" Width="1.5" PointX="3.25" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CSColegioModel.Log" Width="1.5" PointX="17.75" PointY="2.25" IsExpanded="true" />
@@ -81,12 +81,10 @@
         <EntityTypeShape EntityType="CSColegioModel.ComprobanteLote" Width="1.5" PointX="20.375" PointY="4" />
         <AssociationConnector Association="CSColegioModel.FK__ComprobanteLote__ComprobanteCabecera" />
         <AssociationConnector Association="CSColegioModel.FK__Concepto__Articulo" />
-        <AssociationConnector Association="CSColegioModel.FK__DocumentoTipo__Entidad__Factura" ManuallyRouted="true" >
-          <ConnectorPoint PointX="4.75" PointY="19.787656380208333" />
-          <ConnectorPoint PointX="5.59374625" PointY="19.787656380208333" />
-          <ConnectorPoint PointX="5.59374625" PointY="16.412659505208332" />
+        <AssociationConnector Association="CSColegioModel.FK__DocumentoTipo__Entidad__Factura" ManuallyRouted="false" >
         </AssociationConnector>
         <EntityTypeShape EntityType="CSColegioModel.MonedaCotizacion" Width="1.5" PointX="20.375" PointY="7.75" />
+        <AssociationConnector Association="CSColegioModel.FK__Entidad__EntidadTercero" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

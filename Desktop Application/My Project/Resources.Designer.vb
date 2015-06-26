@@ -363,36 +363,54 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to Alumno.
         '''</summary>
-        Friend ReadOnly Property STRING_ENTIDADFACTURA_ALUMNO() As String
+        Friend ReadOnly Property STRING_EMITIRFACTURAA_ALUMNO() As String
             Get
-                Return ResourceManager.GetString("STRING_ENTIDADFACTURA_ALUMNO", resourceCulture)
+                Return ResourceManager.GetString("STRING_EMITIRFACTURAA_ALUMNO", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Ambos padres (50% c/u).
         '''</summary>
-        Friend ReadOnly Property STRING_ENTIDADFACTURA_AMBOSPADRES() As String
+        Friend ReadOnly Property STRING_EMITIRFACTURAA_AMBOSPADRES() As String
             Get
-                Return ResourceManager.GetString("STRING_ENTIDADFACTURA_AMBOSPADRES", resourceCulture)
+                Return ResourceManager.GetString("STRING_EMITIRFACTURAA_AMBOSPADRES", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Madre.
         '''</summary>
-        Friend ReadOnly Property STRING_ENTIDADFACTURA_MADRE() As String
+        Friend ReadOnly Property STRING_EMITIRFACTURAA_MADRE() As String
             Get
-                Return ResourceManager.GetString("STRING_ENTIDADFACTURA_MADRE", resourceCulture)
+                Return ResourceManager.GetString("STRING_EMITIRFACTURAA_MADRE", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Padre.
         '''</summary>
-        Friend ReadOnly Property STRING_ENTIDADFACTURA_PADRE() As String
+        Friend ReadOnly Property STRING_EMITIRFACTURAA_PADRE() As String
             Get
-                Return ResourceManager.GetString("STRING_ENTIDADFACTURA_PADRE", resourceCulture)
+                Return ResourceManager.GetString("STRING_EMITIRFACTURAA_PADRE", resourceCulture)
+            End Get
+        End Property
+
+        '''<summary>
+        '''  Looks up a localized string similar to Tercero.
+        '''</summary>
+        Friend ReadOnly Property STRING_EMITIRFACTURAA_TERCERO() As String
+            Get
+                Return ResourceManager.GetString("STRING_EMITIRFACTURAA_TERCERO", resourceCulture)
+            End Get
+        End Property
+
+        '''<summary>
+        '''  Looks up a localized string similar to Padres y Tercero (33% c/u).
+        '''</summary>
+        Friend ReadOnly Property STRING_EMITIRFACTURAA_TODOS() As String
+            Get
+                Return ResourceManager.GetString("STRING_EMITIRFACTURAA_TODOS", resourceCulture)
             End Get
         End Property
         

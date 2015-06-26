@@ -214,7 +214,7 @@ Partial Class formComprobantes
         Me.toolstripButtons.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAgregar, Me.buttonEditar, Me.buttonEliminar, Me.buttonImprimir})
         Me.toolstripButtons.Location = New System.Drawing.Point(0, 0)
         Me.toolstripButtons.Name = "toolstripButtons"
-        Me.toolstripButtons.Size = New System.Drawing.Size(328, 39)
+        Me.toolstripButtons.Size = New System.Drawing.Size(359, 39)
         Me.toolstripButtons.TabIndex = 1
         '
         'buttonAgregar
@@ -258,7 +258,7 @@ Partial Class formComprobantes
         Me.toolstripPeriodo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripPeriodo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripPeriodo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelPeriodo, Me.comboboxPeriodo})
-        Me.toolstripPeriodo.Location = New System.Drawing.Point(328, 0)
+        Me.toolstripPeriodo.Location = New System.Drawing.Point(359, 0)
         Me.toolstripPeriodo.Name = "toolstripPeriodo"
         Me.toolstripPeriodo.Size = New System.Drawing.Size(131, 39)
         Me.toolstripPeriodo.TabIndex = 8
@@ -280,7 +280,7 @@ Partial Class formComprobantes
         Me.toolstripComprobanteTipo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripComprobanteTipo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripComprobanteTipo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelComprobanteTipo, Me.comboboxOperacionTipo, Me.comboboxComprobanteTipo})
-        Me.toolstripComprobanteTipo.Location = New System.Drawing.Point(459, 0)
+        Me.toolstripComprobanteTipo.Location = New System.Drawing.Point(490, 0)
         Me.toolstripComprobanteTipo.Name = "toolstripComprobanteTipo"
         Me.toolstripComprobanteTipo.Size = New System.Drawing.Size(266, 39)
         Me.toolstripComprobanteTipo.TabIndex = 10
@@ -310,7 +310,7 @@ Partial Class formComprobantes
         Me.toolstripTitular.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelEntidad, Me.textboxEntidad, Me.buttonEntidad, Me.buttonEntidadBorrar})
         Me.toolstripTitular.Location = New System.Drawing.Point(0, 39)
         Me.toolstripTitular.Name = "toolstripTitular"
-        Me.toolstripTitular.Size = New System.Drawing.Size(326, 25)
+        Me.toolstripTitular.Size = New System.Drawing.Size(295, 25)
         Me.toolstripTitular.TabIndex = 7
         '
         'labelEntidad
@@ -346,7 +346,7 @@ Partial Class formComprobantes
         Me.toolstripBuscar.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripBuscar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripBuscar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelBuscar, Me.comboboxBuscarTipo, Me.textboxBuscar, Me.buttonBuscarBorrar})
-        Me.toolstripBuscar.Location = New System.Drawing.Point(326, 39)
+        Me.toolstripBuscar.Location = New System.Drawing.Point(295, 39)
         Me.toolstripBuscar.Name = "toolstripBuscar"
         Me.toolstripBuscar.Size = New System.Drawing.Size(296, 25)
         Me.toolstripBuscar.TabIndex = 9

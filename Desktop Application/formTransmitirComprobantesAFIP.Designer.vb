@@ -31,8 +31,7 @@ Partial Class formTransmitirComprobantesAFIP
         Me.columnComprobanteTipoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnPuntoVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnNumero = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnEntidadApellido = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnEntidadNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnApellidoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnDocumentoNumero = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnCategoriaIVANombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -69,7 +68,7 @@ Partial Class formTransmitirComprobantesAFIP
         Me.datagridviewPaso3Cabecera.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.datagridviewPaso3Cabecera.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewPaso3Cabecera.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.datagridviewPaso3Cabecera.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnPuntoVenta, Me.columnNumero, Me.columnEntidadApellido, Me.columnEntidadNombre, Me.columnDocumentoNumero, Me.columnCategoriaIVANombre, Me.columnImporteTotal})
+        Me.datagridviewPaso3Cabecera.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnPuntoVenta, Me.columnNumero, Me.columnApellidoNombre, Me.columnDocumentoNumero, Me.columnCategoriaIVANombre, Me.columnImporteTotal})
         Me.datagridviewPaso3Cabecera.Location = New System.Drawing.Point(12, 33)
         Me.datagridviewPaso3Cabecera.MultiSelect = False
         Me.datagridviewPaso3Cabecera.Name = "datagridviewPaso3Cabecera"
@@ -119,25 +118,15 @@ Partial Class formTransmitirComprobantesAFIP
         Me.columnNumero.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.columnNumero.Width = 64
         '
-        'columnEntidadApellido
+        'columnApellidoNombre
         '
-        Me.columnEntidadApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnEntidadApellido.DataPropertyName = "EntidadApellido"
-        Me.columnEntidadApellido.HeaderText = "Apellido"
-        Me.columnEntidadApellido.Name = "columnEntidadApellido"
-        Me.columnEntidadApellido.ReadOnly = True
-        Me.columnEntidadApellido.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnEntidadApellido.Width = 50
-        '
-        'columnEntidadNombre
-        '
-        Me.columnEntidadNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnEntidadNombre.DataPropertyName = "EntidadNombre"
-        Me.columnEntidadNombre.HeaderText = "Nombre"
-        Me.columnEntidadNombre.Name = "columnEntidadNombre"
-        Me.columnEntidadNombre.ReadOnly = True
-        Me.columnEntidadNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnEntidadNombre.Width = 50
+        Me.columnApellidoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnApellidoNombre.DataPropertyName = "ApellidoNombre"
+        Me.columnApellidoNombre.HeaderText = "Apellido y Nombre"
+        Me.columnApellidoNombre.Name = "columnApellidoNombre"
+        Me.columnApellidoNombre.ReadOnly = True
+        Me.columnApellidoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnApellidoNombre.Width = 88
         '
         'columnDocumentoNumero
         '
@@ -147,7 +136,7 @@ Partial Class formTransmitirComprobantesAFIP
         Me.columnDocumentoNumero.Name = "columnDocumentoNumero"
         Me.columnDocumentoNumero.ReadOnly = True
         Me.columnDocumentoNumero.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnDocumentoNumero.Width = 83
+        Me.columnDocumentoNumero.Width = 75
         '
         'columnCategoriaIVANombre
         '
@@ -198,8 +187,7 @@ Partial Class formTransmitirComprobantesAFIP
     Friend WithEvents columnComprobanteTipoNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnPuntoVenta As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnNumero As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnEntidadApellido As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnEntidadNombre As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnApellidoNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnDocumentoNumero As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnCategoriaIVANombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn

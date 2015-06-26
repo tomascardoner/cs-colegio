@@ -51,6 +51,13 @@ Partial Class formEntidad
         Dim labelDescuento As System.Windows.Forms.Label
         Dim labelEsActivo As System.Windows.Forms.Label
         Dim labelFacturaDocumento As System.Windows.Forms.Label
+        Dim labelNotas As System.Windows.Forms.Label
+        Dim labelExcluyeFacturaDesde As System.Windows.Forms.Label
+        Dim labelExcluyeFacturaHasta As System.Windows.Forms.Label
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -59,13 +66,6 @@ Partial Class formEntidad
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim labelNotas As System.Windows.Forms.Label
-        Dim labelExcluyeFacturaDesde As System.Windows.Forms.Label
-        Dim labelExcluyeFacturaHasta As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formEntidad))
         Me.textboxApellido = New System.Windows.Forms.TextBox()
         Me.textboxIDEntidad = New System.Windows.Forms.TextBox()
@@ -108,9 +108,16 @@ Partial Class formEntidad
         Me.textboxTelefono2 = New System.Windows.Forms.TextBox()
         Me.textboxTelefono3 = New System.Windows.Forms.TextBox()
         Me.tabpageExtra = New System.Windows.Forms.TabPage()
+        Me.panelEntidadTercero = New System.Windows.Forms.Panel()
+        Me.buttonEntidadTerceroBorrar = New System.Windows.Forms.Button()
+        Me.buttonEntidadTercero = New System.Windows.Forms.Button()
+        Me.textboxEntidadTercero = New System.Windows.Forms.TextBox()
+        Me.labelEntidadTercero = New System.Windows.Forms.Label()
+        Me.datetimepickerExcluyeFacturaHasta = New System.Windows.Forms.DateTimePicker()
+        Me.datetimepickerExcluyeFacturaDesde = New System.Windows.Forms.DateTimePicker()
         Me.comboboxDescuento = New System.Windows.Forms.ComboBox()
-        Me.comboboxEntidadFactura = New System.Windows.Forms.ComboBox()
-        Me.labelEntidadFactura = New System.Windows.Forms.Label()
+        Me.comboboxEmitirFacturaA = New System.Windows.Forms.ComboBox()
+        Me.labelEmitirFacturaA = New System.Windows.Forms.Label()
         Me.labelEntidadMadre = New System.Windows.Forms.Label()
         Me.panelEntidadMadre = New System.Windows.Forms.Panel()
         Me.buttonEntidadMadreBorrar = New System.Windows.Forms.Button()
@@ -121,6 +128,13 @@ Partial Class formEntidad
         Me.buttonEntidadPadre = New System.Windows.Forms.Button()
         Me.textboxEntidadPadre = New System.Windows.Forms.TextBox()
         Me.labelEntidadPadre = New System.Windows.Forms.Label()
+        Me.tabpageCursosAsistidos = New System.Windows.Forms.TabPage()
+        Me.datagridviewCursosAsistidos = New System.Windows.Forms.DataGridView()
+        Me.columnAnioLectivo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnNivelNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnAnioNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnTurnoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnDivision = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabpageHijos = New System.Windows.Forms.TabPage()
         Me.datagridviewHijos = New System.Windows.Forms.DataGridView()
         Me.columnHijosIDEntidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -132,14 +146,8 @@ Partial Class formEntidad
         Me.columnPadresApellido = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnPadresNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnPadresRelacionTipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.tabpageCursosAsistidos = New System.Windows.Forms.TabPage()
-        Me.datagridviewCursosAsistidos = New System.Windows.Forms.DataGridView()
-        Me.columnAnioLectivo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnNivelNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnAnioNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnTurnoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnDivision = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabpageNotasAuditoria = New System.Windows.Forms.TabPage()
+        Me.textboxNotas = New System.Windows.Forms.TextBox()
         Me.textboxUsuarioModificacion = New System.Windows.Forms.TextBox()
         Me.textboxUsuarioCreacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraModificacion = New System.Windows.Forms.TextBox()
@@ -151,9 +159,6 @@ Partial Class formEntidad
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
         Me.tooltipMain = New System.Windows.Forms.ToolTip(Me.components)
         Me.checkboxEsActivo = New System.Windows.Forms.CheckBox()
-        Me.textboxNotas = New System.Windows.Forms.TextBox()
-        Me.datetimepickerExcluyeFacturaDesde = New System.Windows.Forms.DateTimePicker()
-        Me.datetimepickerExcluyeFacturaHasta = New System.Windows.Forms.DateTimePicker()
         labelApellido = New System.Windows.Forms.Label()
         labelIDEntidad = New System.Windows.Forms.Label()
         labelNombre = New System.Windows.Forms.Label()
@@ -189,14 +194,15 @@ Partial Class formEntidad
         Me.tabpageGeneral.SuspendLayout()
         Me.tabpageContacto.SuspendLayout()
         Me.tabpageExtra.SuspendLayout()
+        Me.panelEntidadTercero.SuspendLayout()
         Me.panelEntidadMadre.SuspendLayout()
         Me.panelEntidadPadre.SuspendLayout()
+        Me.tabpageCursosAsistidos.SuspendLayout()
+        CType(Me.datagridviewCursosAsistidos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabpageHijos.SuspendLayout()
         CType(Me.datagridviewHijos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabpageRelaciones.SuspendLayout()
         CType(Me.datagridviewRelaciones, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tabpageCursosAsistidos.SuspendLayout()
-        CType(Me.datagridviewCursosAsistidos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabpageNotasAuditoria.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
         Me.SuspendLayout()
@@ -421,10 +427,10 @@ Partial Class formEntidad
         'labelDescuento
         '
         labelDescuento.AutoSize = True
-        labelDescuento.Location = New System.Drawing.Point(6, 94)
+        labelDescuento.Location = New System.Drawing.Point(6, 122)
         labelDescuento.Name = "labelDescuento"
         labelDescuento.Size = New System.Drawing.Size(62, 13)
-        labelDescuento.TabIndex = 6
+        labelDescuento.TabIndex = 8
         labelDescuento.Text = "Descuento:"
         '
         'labelEsActivo
@@ -445,6 +451,33 @@ Partial Class formEntidad
         labelFacturaDocumento.TabIndex = 15
         labelFacturaDocumento.Text = "Documento para Facturar:"
         Me.tooltipMain.SetToolTip(labelFacturaDocumento, "Ingrese el Número de Documento sin utilizar puntos.")
+        '
+        'labelNotas
+        '
+        labelNotas.AutoSize = True
+        labelNotas.Location = New System.Drawing.Point(6, 9)
+        labelNotas.Name = "labelNotas"
+        labelNotas.Size = New System.Drawing.Size(38, 13)
+        labelNotas.TabIndex = 15
+        labelNotas.Text = "Notas:"
+        '
+        'labelExcluyeFacturaDesde
+        '
+        labelExcluyeFacturaDesde.AutoSize = True
+        labelExcluyeFacturaDesde.Location = New System.Drawing.Point(6, 149)
+        labelExcluyeFacturaDesde.Name = "labelExcluyeFacturaDesde"
+        labelExcluyeFacturaDesde.Size = New System.Drawing.Size(95, 13)
+        labelExcluyeFacturaDesde.TabIndex = 10
+        labelExcluyeFacturaDesde.Text = "No facturar desde:"
+        '
+        'labelExcluyeFacturaHasta
+        '
+        labelExcluyeFacturaHasta.AutoSize = True
+        labelExcluyeFacturaHasta.Location = New System.Drawing.Point(261, 149)
+        labelExcluyeFacturaHasta.Name = "labelExcluyeFacturaHasta"
+        labelExcluyeFacturaHasta.Size = New System.Drawing.Size(36, 13)
+        labelExcluyeFacturaHasta.TabIndex = 12
+        labelExcluyeFacturaHasta.Text = "hasta:"
         '
         'textboxApellido
         '
@@ -869,14 +902,16 @@ Partial Class formEntidad
         '
         'tabpageExtra
         '
+        Me.tabpageExtra.Controls.Add(Me.panelEntidadTercero)
+        Me.tabpageExtra.Controls.Add(Me.labelEntidadTercero)
         Me.tabpageExtra.Controls.Add(Me.datetimepickerExcluyeFacturaHasta)
         Me.tabpageExtra.Controls.Add(labelExcluyeFacturaHasta)
         Me.tabpageExtra.Controls.Add(Me.datetimepickerExcluyeFacturaDesde)
         Me.tabpageExtra.Controls.Add(labelExcluyeFacturaDesde)
         Me.tabpageExtra.Controls.Add(Me.comboboxDescuento)
         Me.tabpageExtra.Controls.Add(labelDescuento)
-        Me.tabpageExtra.Controls.Add(Me.comboboxEntidadFactura)
-        Me.tabpageExtra.Controls.Add(Me.labelEntidadFactura)
+        Me.tabpageExtra.Controls.Add(Me.comboboxEmitirFacturaA)
+        Me.tabpageExtra.Controls.Add(Me.labelEmitirFacturaA)
         Me.tabpageExtra.Controls.Add(Me.labelEntidadMadre)
         Me.tabpageExtra.Controls.Add(Me.panelEntidadMadre)
         Me.tabpageExtra.Controls.Add(Me.panelEntidadPadre)
@@ -889,32 +924,106 @@ Partial Class formEntidad
         Me.tabpageExtra.Text = "Padres y Facturación"
         Me.tabpageExtra.UseVisualStyleBackColor = True
         '
+        'panelEntidadTercero
+        '
+        Me.panelEntidadTercero.Controls.Add(Me.buttonEntidadTerceroBorrar)
+        Me.panelEntidadTercero.Controls.Add(Me.buttonEntidadTercero)
+        Me.panelEntidadTercero.Controls.Add(Me.textboxEntidadTercero)
+        Me.panelEntidadTercero.Location = New System.Drawing.Point(107, 91)
+        Me.panelEntidadTercero.Name = "panelEntidadTercero"
+        Me.panelEntidadTercero.Size = New System.Drawing.Size(393, 22)
+        Me.panelEntidadTercero.TabIndex = 7
+        '
+        'buttonEntidadTerceroBorrar
+        '
+        Me.buttonEntidadTerceroBorrar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.buttonEntidadTerceroBorrar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_CLOSE_16
+        Me.buttonEntidadTerceroBorrar.Location = New System.Drawing.Point(371, 0)
+        Me.buttonEntidadTerceroBorrar.Name = "buttonEntidadTerceroBorrar"
+        Me.buttonEntidadTerceroBorrar.Size = New System.Drawing.Size(22, 22)
+        Me.buttonEntidadTerceroBorrar.TabIndex = 2
+        Me.buttonEntidadTerceroBorrar.Text = "…"
+        Me.buttonEntidadTerceroBorrar.UseVisualStyleBackColor = True
+        '
+        'buttonEntidadTercero
+        '
+        Me.buttonEntidadTercero.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.buttonEntidadTercero.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_SEARCH_16
+        Me.buttonEntidadTercero.Location = New System.Drawing.Point(350, 0)
+        Me.buttonEntidadTercero.Name = "buttonEntidadTercero"
+        Me.buttonEntidadTercero.Size = New System.Drawing.Size(22, 22)
+        Me.buttonEntidadTercero.TabIndex = 1
+        Me.buttonEntidadTercero.Text = "…"
+        Me.buttonEntidadTercero.UseVisualStyleBackColor = True
+        '
+        'textboxEntidadTercero
+        '
+        Me.textboxEntidadTercero.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxEntidadTercero.Location = New System.Drawing.Point(0, 1)
+        Me.textboxEntidadTercero.MaxLength = 150
+        Me.textboxEntidadTercero.Name = "textboxEntidadTercero"
+        Me.textboxEntidadTercero.ReadOnly = True
+        Me.textboxEntidadTercero.Size = New System.Drawing.Size(350, 20)
+        Me.textboxEntidadTercero.TabIndex = 0
+        '
+        'labelEntidadTercero
+        '
+        Me.labelEntidadTercero.AutoSize = True
+        Me.labelEntidadTercero.Location = New System.Drawing.Point(6, 96)
+        Me.labelEntidadTercero.Name = "labelEntidadTercero"
+        Me.labelEntidadTercero.Size = New System.Drawing.Size(47, 13)
+        Me.labelEntidadTercero.TabIndex = 6
+        Me.labelEntidadTercero.Text = "Tercero:"
+        '
+        'datetimepickerExcluyeFacturaHasta
+        '
+        Me.datetimepickerExcluyeFacturaHasta.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.datetimepickerExcluyeFacturaHasta.Location = New System.Drawing.Point(303, 146)
+        Me.datetimepickerExcluyeFacturaHasta.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
+        Me.datetimepickerExcluyeFacturaHasta.MinDate = New Date(2008, 1, 1, 0, 0, 0, 0)
+        Me.datetimepickerExcluyeFacturaHasta.Name = "datetimepickerExcluyeFacturaHasta"
+        Me.datetimepickerExcluyeFacturaHasta.ShowCheckBox = True
+        Me.datetimepickerExcluyeFacturaHasta.Size = New System.Drawing.Size(148, 20)
+        Me.datetimepickerExcluyeFacturaHasta.TabIndex = 13
+        '
+        'datetimepickerExcluyeFacturaDesde
+        '
+        Me.datetimepickerExcluyeFacturaDesde.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.datetimepickerExcluyeFacturaDesde.Location = New System.Drawing.Point(107, 146)
+        Me.datetimepickerExcluyeFacturaDesde.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
+        Me.datetimepickerExcluyeFacturaDesde.MinDate = New Date(2008, 1, 1, 0, 0, 0, 0)
+        Me.datetimepickerExcluyeFacturaDesde.Name = "datetimepickerExcluyeFacturaDesde"
+        Me.datetimepickerExcluyeFacturaDesde.ShowCheckBox = True
+        Me.datetimepickerExcluyeFacturaDesde.Size = New System.Drawing.Size(148, 20)
+        Me.datetimepickerExcluyeFacturaDesde.TabIndex = 11
+        '
         'comboboxDescuento
         '
         Me.comboboxDescuento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxDescuento.FormattingEnabled = True
-        Me.comboboxDescuento.Location = New System.Drawing.Point(107, 91)
+        Me.comboboxDescuento.Location = New System.Drawing.Point(107, 119)
         Me.comboboxDescuento.Name = "comboboxDescuento"
         Me.comboboxDescuento.Size = New System.Drawing.Size(160, 21)
-        Me.comboboxDescuento.TabIndex = 7
+        Me.comboboxDescuento.TabIndex = 9
         '
-        'comboboxEntidadFactura
+        'comboboxEmitirFacturaA
         '
-        Me.comboboxEntidadFactura.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.comboboxEntidadFactura.FormattingEnabled = True
-        Me.comboboxEntidadFactura.Location = New System.Drawing.Point(107, 64)
-        Me.comboboxEntidadFactura.Name = "comboboxEntidadFactura"
-        Me.comboboxEntidadFactura.Size = New System.Drawing.Size(160, 21)
-        Me.comboboxEntidadFactura.TabIndex = 5
+        Me.comboboxEmitirFacturaA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxEmitirFacturaA.FormattingEnabled = True
+        Me.comboboxEmitirFacturaA.Location = New System.Drawing.Point(107, 64)
+        Me.comboboxEmitirFacturaA.Name = "comboboxEmitirFacturaA"
+        Me.comboboxEmitirFacturaA.Size = New System.Drawing.Size(160, 21)
+        Me.comboboxEmitirFacturaA.TabIndex = 5
         '
-        'labelEntidadFactura
+        'labelEmitirFacturaA
         '
-        Me.labelEntidadFactura.AutoSize = True
-        Me.labelEntidadFactura.Location = New System.Drawing.Point(6, 67)
-        Me.labelEntidadFactura.Name = "labelEntidadFactura"
-        Me.labelEntidadFactura.Size = New System.Drawing.Size(83, 13)
-        Me.labelEntidadFactura.TabIndex = 4
-        Me.labelEntidadFactura.Text = "Emitir Factura a:"
+        Me.labelEmitirFacturaA.AutoSize = True
+        Me.labelEmitirFacturaA.Location = New System.Drawing.Point(6, 67)
+        Me.labelEmitirFacturaA.Name = "labelEmitirFacturaA"
+        Me.labelEmitirFacturaA.Size = New System.Drawing.Size(83, 13)
+        Me.labelEmitirFacturaA.TabIndex = 4
+        Me.labelEmitirFacturaA.Text = "Emitir Factura a:"
         '
         'labelEntidadMadre
         '
@@ -1019,6 +1128,92 @@ Partial Class formEntidad
         Me.labelEntidadPadre.Size = New System.Drawing.Size(74, 13)
         Me.labelEntidadPadre.TabIndex = 0
         Me.labelEntidadPadre.Text = "Padre / Tutor:"
+        '
+        'tabpageCursosAsistidos
+        '
+        Me.tabpageCursosAsistidos.Controls.Add(Me.datagridviewCursosAsistidos)
+        Me.tabpageCursosAsistidos.Location = New System.Drawing.Point(4, 25)
+        Me.tabpageCursosAsistidos.Name = "tabpageCursosAsistidos"
+        Me.tabpageCursosAsistidos.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabpageCursosAsistidos.Size = New System.Drawing.Size(506, 219)
+        Me.tabpageCursosAsistidos.TabIndex = 6
+        Me.tabpageCursosAsistidos.Text = "Cursos Asistidos"
+        Me.tabpageCursosAsistidos.UseVisualStyleBackColor = True
+        '
+        'datagridviewCursosAsistidos
+        '
+        Me.datagridviewCursosAsistidos.AllowUserToAddRows = False
+        Me.datagridviewCursosAsistidos.AllowUserToDeleteRows = False
+        Me.datagridviewCursosAsistidos.AllowUserToOrderColumns = True
+        Me.datagridviewCursosAsistidos.AllowUserToResizeRows = False
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewCursosAsistidos.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.datagridviewCursosAsistidos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.datagridviewCursosAsistidos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnAnioLectivo, Me.columnNivelNombre, Me.columnAnioNombre, Me.columnTurnoNombre, Me.columnDivision})
+        Me.datagridviewCursosAsistidos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.datagridviewCursosAsistidos.Location = New System.Drawing.Point(3, 3)
+        Me.datagridviewCursosAsistidos.MultiSelect = False
+        Me.datagridviewCursosAsistidos.Name = "datagridviewCursosAsistidos"
+        Me.datagridviewCursosAsistidos.ReadOnly = True
+        Me.datagridviewCursosAsistidos.RowHeadersVisible = False
+        Me.datagridviewCursosAsistidos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        Me.datagridviewCursosAsistidos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.datagridviewCursosAsistidos.Size = New System.Drawing.Size(500, 213)
+        Me.datagridviewCursosAsistidos.TabIndex = 5
+        '
+        'columnAnioLectivo
+        '
+        Me.columnAnioLectivo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnAnioLectivo.DataPropertyName = "AnioLectivo"
+        Me.columnAnioLectivo.HeaderText = "Año Lectivo"
+        Me.columnAnioLectivo.Name = "columnAnioLectivo"
+        Me.columnAnioLectivo.ReadOnly = True
+        Me.columnAnioLectivo.Width = 89
+        '
+        'columnNivelNombre
+        '
+        Me.columnNivelNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnNivelNombre.DataPropertyName = "NivelNombre"
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.columnNivelNombre.DefaultCellStyle = DataGridViewCellStyle2
+        Me.columnNivelNombre.HeaderText = "Nivel"
+        Me.columnNivelNombre.Name = "columnNivelNombre"
+        Me.columnNivelNombre.ReadOnly = True
+        Me.columnNivelNombre.Width = 56
+        '
+        'columnAnioNombre
+        '
+        Me.columnAnioNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnAnioNombre.DataPropertyName = "AnioNombre"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnAnioNombre.DefaultCellStyle = DataGridViewCellStyle3
+        Me.columnAnioNombre.HeaderText = "Año"
+        Me.columnAnioNombre.Name = "columnAnioNombre"
+        Me.columnAnioNombre.ReadOnly = True
+        Me.columnAnioNombre.Width = 51
+        '
+        'columnTurnoNombre
+        '
+        Me.columnTurnoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnTurnoNombre.DataPropertyName = "TurnoNombre"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnTurnoNombre.DefaultCellStyle = DataGridViewCellStyle4
+        Me.columnTurnoNombre.HeaderText = "Turno"
+        Me.columnTurnoNombre.Name = "columnTurnoNombre"
+        Me.columnTurnoNombre.ReadOnly = True
+        Me.columnTurnoNombre.Width = 60
+        '
+        'columnDivision
+        '
+        Me.columnDivision.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnDivision.DataPropertyName = "Division"
+        Me.columnDivision.HeaderText = "División"
+        Me.columnDivision.Name = "columnDivision"
+        Me.columnDivision.ReadOnly = True
+        Me.columnDivision.Width = 69
         '
         'tabpageHijos
         '
@@ -1165,92 +1360,6 @@ Partial Class formEntidad
         Me.columnPadresRelacionTipo.ReadOnly = True
         Me.columnPadresRelacionTipo.Width = 74
         '
-        'tabpageCursosAsistidos
-        '
-        Me.tabpageCursosAsistidos.Controls.Add(Me.datagridviewCursosAsistidos)
-        Me.tabpageCursosAsistidos.Location = New System.Drawing.Point(4, 25)
-        Me.tabpageCursosAsistidos.Name = "tabpageCursosAsistidos"
-        Me.tabpageCursosAsistidos.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageCursosAsistidos.Size = New System.Drawing.Size(506, 219)
-        Me.tabpageCursosAsistidos.TabIndex = 6
-        Me.tabpageCursosAsistidos.Text = "Cursos Asistidos"
-        Me.tabpageCursosAsistidos.UseVisualStyleBackColor = True
-        '
-        'datagridviewCursosAsistidos
-        '
-        Me.datagridviewCursosAsistidos.AllowUserToAddRows = False
-        Me.datagridviewCursosAsistidos.AllowUserToDeleteRows = False
-        Me.datagridviewCursosAsistidos.AllowUserToOrderColumns = True
-        Me.datagridviewCursosAsistidos.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewCursosAsistidos.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
-        Me.datagridviewCursosAsistidos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.datagridviewCursosAsistidos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnAnioLectivo, Me.columnNivelNombre, Me.columnAnioNombre, Me.columnTurnoNombre, Me.columnDivision})
-        Me.datagridviewCursosAsistidos.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.datagridviewCursosAsistidos.Location = New System.Drawing.Point(3, 3)
-        Me.datagridviewCursosAsistidos.MultiSelect = False
-        Me.datagridviewCursosAsistidos.Name = "datagridviewCursosAsistidos"
-        Me.datagridviewCursosAsistidos.ReadOnly = True
-        Me.datagridviewCursosAsistidos.RowHeadersVisible = False
-        Me.datagridviewCursosAsistidos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
-        Me.datagridviewCursosAsistidos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewCursosAsistidos.Size = New System.Drawing.Size(500, 213)
-        Me.datagridviewCursosAsistidos.TabIndex = 5
-        '
-        'columnAnioLectivo
-        '
-        Me.columnAnioLectivo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnAnioLectivo.DataPropertyName = "AnioLectivo"
-        Me.columnAnioLectivo.HeaderText = "Año Lectivo"
-        Me.columnAnioLectivo.Name = "columnAnioLectivo"
-        Me.columnAnioLectivo.ReadOnly = True
-        Me.columnAnioLectivo.Width = 89
-        '
-        'columnNivelNombre
-        '
-        Me.columnNivelNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnNivelNombre.DataPropertyName = "NivelNombre"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.columnNivelNombre.DefaultCellStyle = DataGridViewCellStyle2
-        Me.columnNivelNombre.HeaderText = "Nivel"
-        Me.columnNivelNombre.Name = "columnNivelNombre"
-        Me.columnNivelNombre.ReadOnly = True
-        Me.columnNivelNombre.Width = 56
-        '
-        'columnAnioNombre
-        '
-        Me.columnAnioNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnAnioNombre.DataPropertyName = "AnioNombre"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnAnioNombre.DefaultCellStyle = DataGridViewCellStyle3
-        Me.columnAnioNombre.HeaderText = "Año"
-        Me.columnAnioNombre.Name = "columnAnioNombre"
-        Me.columnAnioNombre.ReadOnly = True
-        Me.columnAnioNombre.Width = 51
-        '
-        'columnTurnoNombre
-        '
-        Me.columnTurnoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnTurnoNombre.DataPropertyName = "TurnoNombre"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnTurnoNombre.DefaultCellStyle = DataGridViewCellStyle4
-        Me.columnTurnoNombre.HeaderText = "Turno"
-        Me.columnTurnoNombre.Name = "columnTurnoNombre"
-        Me.columnTurnoNombre.ReadOnly = True
-        Me.columnTurnoNombre.Width = 60
-        '
-        'columnDivision
-        '
-        Me.columnDivision.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnDivision.DataPropertyName = "Division"
-        Me.columnDivision.HeaderText = "División"
-        Me.columnDivision.Name = "columnDivision"
-        Me.columnDivision.ReadOnly = True
-        Me.columnDivision.Width = 69
-        '
         'tabpageNotasAuditoria
         '
         Me.tabpageNotasAuditoria.Controls.Add(labelNotas)
@@ -1268,6 +1377,15 @@ Partial Class formEntidad
         Me.tabpageNotasAuditoria.TabIndex = 7
         Me.tabpageNotasAuditoria.Text = "Notas y Auditoría"
         Me.tabpageNotasAuditoria.UseVisualStyleBackColor = True
+        '
+        'textboxNotas
+        '
+        Me.textboxNotas.Location = New System.Drawing.Point(114, 6)
+        Me.textboxNotas.MaxLength = 0
+        Me.textboxNotas.Multiline = True
+        Me.textboxNotas.Name = "textboxNotas"
+        Me.textboxNotas.Size = New System.Drawing.Size(386, 155)
+        Me.textboxNotas.TabIndex = 16
         '
         'textboxUsuarioModificacion
         '
@@ -1363,64 +1481,6 @@ Partial Class formEntidad
         Me.checkboxEsActivo.TabIndex = 95
         Me.checkboxEsActivo.UseVisualStyleBackColor = True
         '
-        'labelNotas
-        '
-        labelNotas.AutoSize = True
-        labelNotas.Location = New System.Drawing.Point(6, 9)
-        labelNotas.Name = "labelNotas"
-        labelNotas.Size = New System.Drawing.Size(38, 13)
-        labelNotas.TabIndex = 15
-        labelNotas.Text = "Notas:"
-        '
-        'textboxNotas
-        '
-        Me.textboxNotas.Location = New System.Drawing.Point(114, 6)
-        Me.textboxNotas.MaxLength = 0
-        Me.textboxNotas.Multiline = True
-        Me.textboxNotas.Name = "textboxNotas"
-        Me.textboxNotas.Size = New System.Drawing.Size(386, 155)
-        Me.textboxNotas.TabIndex = 16
-        '
-        'labelExcluyeFacturaDesde
-        '
-        labelExcluyeFacturaDesde.AutoSize = True
-        labelExcluyeFacturaDesde.Location = New System.Drawing.Point(6, 121)
-        labelExcluyeFacturaDesde.Name = "labelExcluyeFacturaDesde"
-        labelExcluyeFacturaDesde.Size = New System.Drawing.Size(95, 13)
-        labelExcluyeFacturaDesde.TabIndex = 8
-        labelExcluyeFacturaDesde.Text = "No facturar desde:"
-        '
-        'datetimepickerExcluyeFacturaDesde
-        '
-        Me.datetimepickerExcluyeFacturaDesde.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.datetimepickerExcluyeFacturaDesde.Location = New System.Drawing.Point(107, 118)
-        Me.datetimepickerExcluyeFacturaDesde.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
-        Me.datetimepickerExcluyeFacturaDesde.MinDate = New Date(2008, 1, 1, 0, 0, 0, 0)
-        Me.datetimepickerExcluyeFacturaDesde.Name = "datetimepickerExcluyeFacturaDesde"
-        Me.datetimepickerExcluyeFacturaDesde.ShowCheckBox = True
-        Me.datetimepickerExcluyeFacturaDesde.Size = New System.Drawing.Size(148, 20)
-        Me.datetimepickerExcluyeFacturaDesde.TabIndex = 9
-        '
-        'labelExcluyeFacturaHasta
-        '
-        labelExcluyeFacturaHasta.AutoSize = True
-        labelExcluyeFacturaHasta.Location = New System.Drawing.Point(261, 121)
-        labelExcluyeFacturaHasta.Name = "labelExcluyeFacturaHasta"
-        labelExcluyeFacturaHasta.Size = New System.Drawing.Size(36, 13)
-        labelExcluyeFacturaHasta.TabIndex = 10
-        labelExcluyeFacturaHasta.Text = "hasta:"
-        '
-        'datetimepickerExcluyeFacturaHasta
-        '
-        Me.datetimepickerExcluyeFacturaHasta.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.datetimepickerExcluyeFacturaHasta.Location = New System.Drawing.Point(303, 118)
-        Me.datetimepickerExcluyeFacturaHasta.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
-        Me.datetimepickerExcluyeFacturaHasta.MinDate = New Date(2008, 1, 1, 0, 0, 0, 0)
-        Me.datetimepickerExcluyeFacturaHasta.Name = "datetimepickerExcluyeFacturaHasta"
-        Me.datetimepickerExcluyeFacturaHasta.ShowCheckBox = True
-        Me.datetimepickerExcluyeFacturaHasta.Size = New System.Drawing.Size(148, 20)
-        Me.datetimepickerExcluyeFacturaHasta.TabIndex = 11
-        '
         'formEntidad
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1452,16 +1512,18 @@ Partial Class formEntidad
         Me.tabpageContacto.PerformLayout()
         Me.tabpageExtra.ResumeLayout(False)
         Me.tabpageExtra.PerformLayout()
+        Me.panelEntidadTercero.ResumeLayout(False)
+        Me.panelEntidadTercero.PerformLayout()
         Me.panelEntidadMadre.ResumeLayout(False)
         Me.panelEntidadMadre.PerformLayout()
         Me.panelEntidadPadre.ResumeLayout(False)
         Me.panelEntidadPadre.PerformLayout()
+        Me.tabpageCursosAsistidos.ResumeLayout(False)
+        CType(Me.datagridviewCursosAsistidos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabpageHijos.ResumeLayout(False)
         CType(Me.datagridviewHijos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabpageRelaciones.ResumeLayout(False)
         CType(Me.datagridviewRelaciones, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tabpageCursosAsistidos.ResumeLayout(False)
-        CType(Me.datagridviewCursosAsistidos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabpageNotasAuditoria.ResumeLayout(False)
         Me.tabpageNotasAuditoria.PerformLayout()
         Me.toolstripMain.ResumeLayout(False)
@@ -1529,8 +1591,8 @@ Partial Class formEntidad
     Friend WithEvents buttonEntidadMadreBorrar As System.Windows.Forms.Button
     Friend WithEvents buttonEntidadMadre As System.Windows.Forms.Button
     Friend WithEvents textboxEntidadMadre As System.Windows.Forms.TextBox
-    Friend WithEvents comboboxEntidadFactura As System.Windows.Forms.ComboBox
-    Friend WithEvents labelEntidadFactura As System.Windows.Forms.Label
+    Friend WithEvents comboboxEmitirFacturaA As System.Windows.Forms.ComboBox
+    Friend WithEvents labelEmitirFacturaA As System.Windows.Forms.Label
     Friend WithEvents tabpageNotasAuditoria As System.Windows.Forms.TabPage
     Friend WithEvents textboxUsuarioModificacion As System.Windows.Forms.TextBox
     Friend WithEvents textboxUsuarioCreacion As System.Windows.Forms.TextBox
@@ -1557,4 +1619,9 @@ Partial Class formEntidad
     Friend WithEvents textboxNotas As System.Windows.Forms.TextBox
     Friend WithEvents datetimepickerExcluyeFacturaDesde As System.Windows.Forms.DateTimePicker
     Friend WithEvents datetimepickerExcluyeFacturaHasta As System.Windows.Forms.DateTimePicker
+    Friend WithEvents panelEntidadTercero As System.Windows.Forms.Panel
+    Friend WithEvents buttonEntidadTerceroBorrar As System.Windows.Forms.Button
+    Friend WithEvents buttonEntidadTercero As System.Windows.Forms.Button
+    Friend WithEvents textboxEntidadTercero As System.Windows.Forms.TextBox
+    Friend WithEvents labelEntidadTercero As System.Windows.Forms.Label
 End Class

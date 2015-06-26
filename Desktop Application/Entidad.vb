@@ -43,7 +43,8 @@ Partial Public Class Entidad
     Public Property DomicilioIDLocalidad As Nullable(Of Short)
     Public Property IDEntidadPadre As Nullable(Of Integer)
     Public Property IDEntidadMadre As Nullable(Of Integer)
-    Public Property EntidadFactura As String
+    Public Property EmitirFacturaA As String
+    Public Property IDEntidadTercero As Nullable(Of Integer)
     Public Property IDDescuento As Nullable(Of Byte)
     Public Property ExcluyeFacturaDesde As Nullable(Of Date)
     Public Property ExcluyeFacturaHasta As Nullable(Of Date)
@@ -70,5 +71,7 @@ Partial Public Class Entidad
     Public Overridable Property Descuento As Descuento
     Public Overridable Property ComprobanteDetalle As ICollection(Of ComprobanteDetalle) = New HashSet(Of ComprobanteDetalle)
     Public Overridable Property FacturaDocumentoTipo As DocumentoTipo
+    Public Overridable Property EntidadTerceroAlumnos As ICollection(Of Entidad) = New HashSet(Of Entidad)
+    Public Overridable Property EntidadTercero As Entidad
 
 End Class

@@ -153,42 +153,52 @@
         ComboBoxControl.DataSource = datatableGeneros
     End Sub
 
-    Friend Sub EntidadFactura(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
+    Friend Sub EmitirFacturaA(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
         Dim datatableEntidadFactura As New DataTable("EntidadFactura")
         Dim datarowRow As DataRow
 
-        ComboBoxControl.ValueMember = "IDEntidadFactura"
+        ComboBoxControl.ValueMember = "IDEmitirFacturaA"
         ComboBoxControl.DisplayMember = "Nombre"
 
         With datatableEntidadFactura
-            .Columns.Add("IDEntidadFactura", System.Type.GetType("System.String"))
+            .Columns.Add("IDEmitirFacturaA", System.Type.GetType("System.String"))
             .Columns.Add("Nombre", System.Type.GetType("System.String"))
 
             If ShowUnspecifiedItem Then
                 datarowRow = .NewRow
-                datarowRow("IDEntidadFactura") = Constantes.ENTIDADFACTURA_NOESPECIFICA
+                datarowRow("IDEmitirFacturaA") = Constantes.EMITIRFACTURAA_NOESPECIFICA
                 datarowRow("Nombre") = My.Resources.STRING_ITEM_NON_SPECIFIED
                 datatableEntidadFactura.Rows.Add(datarowRow)
             End If
 
             datarowRow = .NewRow
-            datarowRow("IDEntidadFactura") = Constantes.ENTIDADFACTURA_PADRE
-            datarowRow("Nombre") = My.Resources.STRING_ENTIDADFACTURA_PADRE
+            datarowRow("IDEmitirFacturaA") = Constantes.EMITIRFACTURAA_PADRE
+            datarowRow("Nombre") = My.Resources.STRING_EMITIRFACTURAA_PADRE
             datatableEntidadFactura.Rows.Add(datarowRow)
 
             datarowRow = .NewRow
-            datarowRow("IDEntidadFactura") = Constantes.ENTIDADFACTURA_MADRE
-            datarowRow("Nombre") = My.Resources.STRING_ENTIDADFACTURA_MADRE
+            datarowRow("IDEmitirFacturaA") = Constantes.EMITIRFACTURAA_MADRE
+            datarowRow("Nombre") = My.Resources.STRING_EMITIRFACTURAA_MADRE
             datatableEntidadFactura.Rows.Add(datarowRow)
 
             datarowRow = .NewRow
-            datarowRow("IDEntidadFactura") = Constantes.ENTIDADFACTURA_AMBOSPADRES
-            datarowRow("Nombre") = My.Resources.STRING_ENTIDADFACTURA_AMBOSPADRES
+            datarowRow("IDEmitirFacturaA") = Constantes.EMITIRFACTURAA_AMBOSPADRES
+            datarowRow("Nombre") = My.Resources.STRING_EMITIRFACTURAA_AMBOSPADRES
             datatableEntidadFactura.Rows.Add(datarowRow)
-            datarowRow = .NewRow
 
-            datarowRow("IDEntidadFactura") = Constantes.ENTIDADFACTURA_ALUMNO
-            datarowRow("Nombre") = My.Resources.STRING_ENTIDADFACTURA_ALUMNO
+            datarowRow = .NewRow
+            datarowRow("IDEmitirFacturaA") = Constantes.EMITIRFACTURAA_TERCERO
+            datarowRow("Nombre") = My.Resources.STRING_EMITIRFACTURAA_TERCERO
+            datatableEntidadFactura.Rows.Add(datarowRow)
+
+            datarowRow = .NewRow
+            datarowRow("IDEmitirFacturaA") = Constantes.EMITIRFACTURAA_TODOS
+            datarowRow("Nombre") = My.Resources.STRING_EMITIRFACTURAA_TODOS
+            datatableEntidadFactura.Rows.Add(datarowRow)
+
+            datarowRow = .NewRow
+            datarowRow("IDEmitirFacturaA") = Constantes.EMITIRFACTURAA_ALUMNO
+            datarowRow("Nombre") = My.Resources.STRING_EMITIRFACTURAA_ALUMNO
             datatableEntidadFactura.Rows.Add(datarowRow)
         End With
 

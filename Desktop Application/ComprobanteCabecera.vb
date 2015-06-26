@@ -15,22 +15,16 @@ Partial Public Class ComprobanteCabecera
     Public Property IDComprobanteTipo As Byte
     Public Property PuntoVenta As String
     Public Property Numero As String
-    Public Property Fecha As Date
+    Public Property FechaEmision As Date
     Public Property FechaVencimiento As Date
     Public Property FechaServicioDesde As Nullable(Of Date)
     Public Property FechaServicioHasta As Nullable(Of Date)
     Public Property IDEntidad As Integer
-    Public Property EntidadApellido As String
-    Public Property EntidadNombre As String
+    Public Property ApellidoNombre As String
     Public Property IDDocumentoTipo As Byte
     Public Property DocumentoNumero As String
     Public Property IDCategoriaIVA As Byte
-    Public Property DomicilioCalle1 As String
-    Public Property DomicilioNumero As String
-    Public Property DomicilioPiso As String
-    Public Property DomicilioDepartamento As String
-    Public Property DomicilioCalle2 As String
-    Public Property DomicilioCalle3 As String
+    Public Property DomicilioCalleCompleto As String
     Public Property DomicilioCodigoPostal As String
     Public Property DomicilioIDProvincia As Nullable(Of Byte)
     Public Property DomicilioIDLocalidad As Nullable(Of Short)

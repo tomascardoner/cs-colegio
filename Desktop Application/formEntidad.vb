@@ -9,7 +9,7 @@
         FillAndRefreshLists.Genero(comboboxGenero, True)
         FillAndRefreshLists.CategoriaIVA(comboboxCategoriaIVA, True)
         FillAndRefreshLists.Provincia(comboboxDomicilioProvincia, True)
-        FillAndRefreshLists.EntidadFactura(comboboxEntidadFactura, True)
+        FillAndRefreshLists.EmitirFacturaA(comboboxEmitirFacturaA, True)
         FillAndRefreshLists.Descuento(comboboxDescuento, True)
     End Sub
 
@@ -78,7 +78,19 @@
                 textboxEntidadMadre.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.EntidadMadre.ApellidoNombre)
                 textboxEntidadMadre.Tag = .EntidadMadre.IDEntidad
             End If
-            CSM_ComboBox.SetSelectedValue(comboboxEntidadFactura, SelectedItemOptions.ValueOrFirst, .EntidadFactura, Constantes.ENTIDADFACTURA_NOESPECIFICA)
+            CSM_ComboBox.SetSelectedValue(comboboxEmitirFacturaA, SelectedItemOptions.ValueOrFirst, .EmitirFacturaA, Constantes.EMITIRFACTURAA_NOESPECIFICA)
+            If .EntidadTercero Is Nothing OrElse (.EmitirFacturaA <> Constantes.EMITIRFACTURAA_TERCERO And .EmitirFacturaA <> Constantes.EMITIRFACTURAA_TODOS) Then
+                textboxEntidadTercero.Text = ""
+                textboxEntidadTercero.Tag = Nothing
+            Else
+                If .IDEntidadTercero Is Nothing Then
+                    textboxEntidadTercero.Text = ""
+                    textboxEntidadTercero.Tag = Nothing
+                Else
+                    textboxEntidadTercero.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.EntidadTercero.ApellidoNombre)
+                    textboxEntidadTercero.Tag = .EntidadTercero.IDEntidad
+                End If
+            End If
             CSM_ComboBox.SetSelectedValue(comboboxDescuento, SelectedItemOptions.ValueOrFirst, .IDDescuento, 0)
             datetimepickerExcluyeFacturaDesde.Value = CSM_ValueTranslation.FromObjectDateToControlDateTimePicker(.ExcluyeFacturaDesde, datetimepickerExcluyeFacturaDesde)
             datetimepickerExcluyeFacturaHasta.Value = CSM_ValueTranslation.FromObjectDateToControlDateTimePicker(.ExcluyeFacturaHasta, datetimepickerExcluyeFacturaHasta)
@@ -176,7 +188,12 @@
             ' Datos de la pestaña Padres y Facturación
             .IDEntidadPadre = CSM_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadPadre.Tag)
             .IDEntidadMadre = CSM_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadMadre.Tag)
-            .EntidadFactura = CSM_ValueTranslation.FromControlComboBoxToObjectString(comboboxEntidadFactura.SelectedValue, Constantes.ENTIDADFACTURA_NOESPECIFICA)
+            .EmitirFacturaA = CSM_ValueTranslation.FromControlComboBoxToObjectString(comboboxEmitirFacturaA.SelectedValue, Constantes.EMITIRFACTURAA_NOESPECIFICA)
+            If .EmitirFacturaA = Constantes.EMITIRFACTURAA_TERCERO Or .EmitirFacturaA = Constantes.EMITIRFACTURAA_TODOS Then
+                .IDEntidadTercero = CSM_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadTercero.Tag)
+            Else
+                .IDEntidadTercero = Nothing
+            End If
             .IDDescuento = CSM_ValueTranslation.FromControlComboBoxToObjectByte(comboboxDescuento.SelectedValue, 0)
             .ExcluyeFacturaDesde = CSM_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerExcluyeFacturaDesde.Value, datetimepickerExcluyeFacturaDesde.Checked)
             .ExcluyeFacturaHasta = CSM_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerExcluyeFacturaHasta.Value, datetimepickerExcluyeFacturaHasta.Checked)
@@ -235,7 +252,7 @@
             buttonCancelar.Visible = True
             buttonEditar.Visible = False
             buttonCerrar.Visible = False
-            CSM_Form.ControlsChangeStateReadOnly(Me.Controls, False, True, textboxIDEntidad.Name, textboxEntidadPadre.Name, textboxEntidadMadre.Name, textboxFechaHoraCreacion.Name, textboxUsuarioCreacion.Name, textboxFechaHoraModificacion.Name, textboxUsuarioModificacion.Name)
+            CSM_Form.ControlsChangeStateReadOnly(Me.Controls, False, True, textboxIDEntidad.Name, textboxEntidadPadre.Name, textboxEntidadMadre.Name, textboxEntidadTercero.Name, textboxFechaHoraCreacion.Name, textboxUsuarioCreacion.Name, textboxFechaHoraModificacion.Name, textboxUsuarioModificacion.Name)
         End If
     End Sub
 
@@ -324,30 +341,30 @@
             datetimepickerFechaNacimiento.Focus()
             Exit Sub
         End If
-        Select Case CStr(comboboxEntidadFactura.SelectedValue)
-            Case Constantes.ENTIDADFACTURA_NOESPECIFICA
+        Select Case CStr(comboboxEmitirFacturaA.SelectedValue)
+            Case Constantes.EMITIRFACTURAA_NOESPECIFICA
                 If checkboxTipoAlumno.Checked AndAlso (((Not textboxEntidadPadre.Tag Is Nothing) And (EntidadCurrent.IDEntidadPadre Is Nothing)) Or ((Not textboxEntidadMadre.Tag Is Nothing) And (EntidadCurrent.IDEntidadMadre Is Nothing))) Then
                     If MsgBox("Ha especificado el Padre y/o la Madre del Alumno, pero no especificó a quien se le facturará." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                         tabcontrolMain.SelectedTab = tabpageExtra
-                        comboboxEntidadFactura.Focus()
+                        comboboxEmitirFacturaA.Focus()
                         Exit Sub
                     End If
                 End If
-            Case Constantes.ENTIDADFACTURA_PADRE
+            Case Constantes.EMITIRFACTURAA_PADRE
                 If textboxEntidadPadre.Tag Is Nothing Then
                     tabcontrolMain.SelectedTab = tabpageExtra
                     MsgBox("Si las facturas se emitirán a nombre del Padre / Tutor, debe especificar el mismo.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadPadre.Focus()
                     Exit Sub
                 End If
-            Case Constantes.ENTIDADFACTURA_MADRE
+            Case Constantes.EMITIRFACTURAA_MADRE
                 If textboxEntidadMadre.Tag Is Nothing Then
                     tabcontrolMain.SelectedTab = tabpageExtra
                     MsgBox("Si las facturas se emitirán a nombre de la Madre / Tutora, debe especificar la misma.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadMadre.Focus()
                     Exit Sub
                 End If
-            Case Constantes.ENTIDADFACTURA_AMBOSPADRES
+            Case Constantes.EMITIRFACTURAA_AMBOSPADRES
                 If textboxEntidadPadre.Tag Is Nothing And textboxEntidadMadre.Tag Is Nothing Then
                     tabcontrolMain.SelectedTab = tabpageExtra
                     MsgBox("Si las facturas se emitirán a nombre de ambos Padres, debe especificarlos.", MsgBoxStyle.Information, My.Application.Info.Title)
@@ -362,6 +379,28 @@
                     tabcontrolMain.SelectedTab = tabpageExtra
                     MsgBox("Si las facturas se emitirán a nombre de ambos Padres, debe especificar la Madre.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadMadre.Focus()
+                    Exit Sub
+                End If
+            Case Constantes.EMITIRFACTURAA_TERCERO, Constantes.EMITIRFACTURAA_TODOS
+                If textboxEntidadPadre.Tag Is Nothing And textboxEntidadMadre.Tag Is Nothing And textboxEntidadTercero.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpageExtra
+                    MsgBox("Si las facturas se emitirán a nombre de Todos (Padres y Tercero), debe especificarlos.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadPadre.Focus()
+                    Exit Sub
+                ElseIf textboxEntidadPadre.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpageExtra
+                    MsgBox("Si las facturas se emitirán a nombre de Todos (Padres y Tercero), debe especificar el Padre.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadPadre.Focus()
+                    Exit Sub
+                ElseIf textboxEntidadMadre.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpageExtra
+                    MsgBox("Si las facturas se emitirán a nombre de Todos (Padres y Tercero), debe especificar la Madre.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadMadre.Focus()
+                    Exit Sub
+                ElseIf textboxEntidadTercero.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpageExtra
+                    MsgBox("Si las facturas se emitirán a nombre de Todos (Padres y Tercero), debe especificar el Tercero.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadTercero.Focus()
                     Exit Sub
                 End If
         End Select
@@ -454,4 +493,30 @@
         textboxEntidadMadre.Text = ""
         textboxEntidadMadre.Tag = Nothing
     End Sub
+
+    Private Sub comboboxEmitirFacturaA_SelectedIndexChanged() Handles comboboxEmitirFacturaA.SelectedIndexChanged
+        If comboboxEmitirFacturaA.SelectedIndex > -1 Then
+            labelEntidadTercero.Visible = (comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.EMITIRFACTURAA_TERCERO Or comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.EMITIRFACTURAA_TODOS)
+            panelEntidadTercero.Visible = (comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.EMITIRFACTURAA_TERCERO Or comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.EMITIRFACTURAA_TODOS)
+        End If
+    End Sub
+
+    Private Sub buttonEntidadTercero_Click(sender As Object, e As EventArgs) Handles buttonEntidadTercero.Click
+        formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = True
+        formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
+        If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+            textboxEntidadTercero.Text = CStr(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_APELLIDO).Value()) & CStr(IIf(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_NOMBRE).Value Is Nothing, "", ", " & CStr(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_NOMBRE).Value)))
+            textboxEntidadTercero.Tag = CInt(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_IDENTIDAD).Value())
+        End If
+        formEntidadesSeleccionar.Dispose()
+    End Sub
+
+    Private Sub buttonEntidadTerceroBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadTerceroBorrar.Click
+        textboxEntidadTercero.Text = ""
+        textboxEntidadTercero.Tag = Nothing
+    End Sub
+
 End Class

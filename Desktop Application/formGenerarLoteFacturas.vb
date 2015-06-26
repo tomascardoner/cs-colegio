@@ -350,12 +350,13 @@ Public Class formGenerarLoteFacturas
             CorreccionDescripcion &= "El Alumno está cargado en más de un curso para el Año Lectivo que se va a facturar." & vbCrLf
         End If
 
-        Select Case EntidadActual.EntidadFactura
-            Case Nothing
-                CorregirEntidad = True
-                CorreccionDescripcion &= "No está especificado a quién se le factura." & vbCrLf
+        If EntidadActual.EmitirFacturaA Is Nothing Then
+            CorregirEntidad = True
+            CorreccionDescripcion &= "No está especificado a quién se le factura." & vbCrLf
 
-            Case Constantes.ENTIDADFACTURA_ALUMNO
+        Else
+
+            If EntidadActual.EmitirFacturaA = Constantes.EMITIRFACTURAA_ALUMNO Then
                 ' Se le factura al Alumno
                 If EntidadActual.IDCategoriaIVA Is Nothing Then
                     CorregirEntidad = True
@@ -365,12 +366,13 @@ Public Class formGenerarLoteFacturas
                     CorregirEntidad = True
                     CorreccionDescripcion &= "El Alumno no tiene especificado el Tipo y Número de Documento." & vbCrLf
                 End If
+            End If
 
-            Case Constantes.ENTIDADFACTURA_PADRE
-                ' Se le factura al Padre
+            If EntidadActual.EmitirFacturaA = Constantes.EMITIRFACTURAA_PADRE Or EntidadActual.EmitirFacturaA = Constantes.EMITIRFACTURAA_AMBOSPADRES Or EntidadActual.EmitirFacturaA = Constantes.EMITIRFACTURAA_TODOS Then
+                ' Se le factura al Padre (entre otros)
                 If EntidadActual.IDEntidadPadre Is Nothing Then
                     CorregirEntidad = True
-                    CorreccionDescripcion &= "Se indica que se facture al Padre, pero no se especifica el mismo." & vbCrLf
+                    CorreccionDescripcion &= "Debe especificar el Padre para poder facturarle." & vbCrLf
                 Else
                     If EntidadActual.EntidadPadre.IDCategoriaIVA Is Nothing Then
                         CorregirEntidad = True
@@ -381,12 +383,13 @@ Public Class formGenerarLoteFacturas
                         CorreccionDescripcion &= "El Padre no tiene especificado el Tipo y Número de Documento." & vbCrLf
                     End If
                 End If
+            End If
 
-            Case Constantes.ENTIDADFACTURA_MADRE
-                ' Se le factura a la Madre
+            If EntidadActual.EmitirFacturaA = Constantes.EMITIRFACTURAA_MADRE Or EntidadActual.EmitirFacturaA = Constantes.EMITIRFACTURAA_AMBOSPADRES Or EntidadActual.EmitirFacturaA = Constantes.EMITIRFACTURAA_TODOS Then
+                ' Se le factura a la Madre (entre otros)
                 If EntidadActual.IDEntidadMadre Is Nothing Then
                     CorregirEntidad = True
-                    CorreccionDescripcion &= "Se indica que se facture a la Madre, pero no se especifica la misma." & vbCrLf
+                    CorreccionDescripcion &= "Debe especificar la Madre para poder facturarle." & vbCrLf
                 Else
                     If EntidadActual.EntidadMadre.IDCategoriaIVA Is Nothing Then
                         CorregirEntidad = True
@@ -397,45 +400,25 @@ Public Class formGenerarLoteFacturas
                         CorreccionDescripcion &= "La Madre no tiene especificado el Tipo y Número de Documento." & vbCrLf
                     End If
                 End If
+            End If
 
-            Case Constantes.ENTIDADFACTURA_AMBOSPADRES
-                ' Se le factura a ambos Padres (50% a cada uno)
-                If EntidadActual.IDEntidadPadre Is Nothing And EntidadActual.IDEntidadMadre Is Nothing Then
+            If EntidadActual.EmitirFacturaA = Constantes.EMITIRFACTURAA_TERCERO Or EntidadActual.EmitirFacturaA = Constantes.EMITIRFACTURAA_TODOS Then
+                ' Se le factura a Otro (entre otros)
+                If EntidadActual.IDEntidadTercero Is Nothing Then
                     CorregirEntidad = True
-                    CorreccionDescripcion &= "Se indica que se facture a ambos Padres, pero no se especifica ninguno de los dos." & vbCrLf
+                    CorreccionDescripcion &= "Debe especificar el Tercero para poder facturarle." & vbCrLf
                 Else
-
-                    ' Padre
-                    If EntidadActual.IDEntidadPadre Is Nothing Then
+                    If EntidadActual.EntidadTercero.IDCategoriaIVA Is Nothing Then
                         CorregirEntidad = True
-                        CorreccionDescripcion &= "Se indica que se facture a ambos Padres, pero no se especifica el Padre." & vbCrLf
-                    Else
-                        If EntidadActual.EntidadPadre.IDCategoriaIVA Is Nothing Then
-                            CorregirEntidad = True
-                            CorreccionDescripcion &= "El Padre no tiene especificada la Categoría de IVA." & vbCrLf
-                        End If
-                        If EntidadActual.EntidadPadre.DocumentoNumero Is Nothing And EntidadActual.EntidadPadre.FacturaDocumentoNumero Is Nothing Then
-                            CorregirEntidad = True
-                            CorreccionDescripcion &= "El Padre no tiene especificado el Tipo y Número de Documento." & vbCrLf
-                        End If
+                        CorreccionDescripcion &= "El Tercero a quien se le va a facurar no tiene especificada la Categoría de IVA." & vbCrLf
                     End If
-
-                    ' Madre
-                    If EntidadActual.IDEntidadMadre Is Nothing Then
+                    If EntidadActual.EntidadTercero.DocumentoNumero Is Nothing And EntidadActual.EntidadTercero.FacturaDocumentoNumero Is Nothing Then
                         CorregirEntidad = True
-                        CorreccionDescripcion &= "Se indica que se facture a ambos Padres, pero no se especifica la Madre." & vbCrLf
-                    Else
-                        If EntidadActual.EntidadMadre.IDCategoriaIVA Is Nothing Then
-                            CorregirEntidad = True
-                            CorreccionDescripcion &= "La Madre no tiene especificada la Categoría de IVA." & vbCrLf
-                        End If
-                        If EntidadActual.EntidadMadre.DocumentoNumero Is Nothing And EntidadActual.EntidadMadre.FacturaDocumentoNumero Is Nothing Then
-                            CorregirEntidad = True
-                            CorreccionDescripcion &= "La Madre no tiene especificado el Tipo y Número de Documento." & vbCrLf
-                        End If
+                        CorreccionDescripcion &= "El Tercero a quien se le va a facurar no tiene especificado el Tipo y Número de Documento." & vbCrLf
                     End If
                 End If
-        End Select
+            End If
+        End If
 
         ' Si hay que corregir la Entidad, la agrego a la lista de Entidades a corregir
         If CorregirEntidad Then
@@ -571,90 +554,74 @@ Public Class formGenerarLoteFacturas
         End With
 
         For Each EntidadAlumno As Entidad In listEntidadesSeleccionadasOk
-            Select Case EntidadAlumno.EntidadFactura
-                Case Constantes.ENTIDADFACTURA_ALUMNO
-                    ' Se factura directamente al Alumno, así que lo agrego a él mismo como Titular de la Factura y como Alumno
-                    FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
+            If EntidadAlumno.EmitirFacturaA = Constantes.EMITIRFACTURAA_ALUMNO Then
+                ' Se factura directamente al Alumno, así que lo agrego a él mismo como Titular de la Factura y como Alumno
+                FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
+                FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
+                FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
+                FacturaCabecera.ImporteImpuesto = 0
+                FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
+                listFacturas.Add(FacturaCabecera)
+            End If
+
+            If EntidadAlumno.EmitirFacturaA = Constantes.EMITIRFACTURAA_PADRE Or EntidadAlumno.EmitirFacturaA = Constantes.EMITIRFACTURAA_AMBOSPADRES Or EntidadAlumno.EmitirFacturaA = Constantes.EMITIRFACTURAA_TODOS Then
+                ' Se factura al Padre, así que primero busco si no está cargado en la lista (por otro Alumno)
+                FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.IDEntidadPadre.Value)
+                If FacturaCabecera Is Nothing Then
+                    ' No existe la Factura del Padre
+                    FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
                     FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                     FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
                     FacturaCabecera.ImporteImpuesto = 0
                     FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
                     listFacturas.Add(FacturaCabecera)
+                Else
+                    ' Ya existem así que sólo agrego un item al Detalle
+                    FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
+                    FacturaCabecera.ImporteNeto = FacturaCabecera.ImporteNeto + FacturaDetalle.PrecioTotal
+                    FacturaCabecera.ImporteImpuesto = 0
+                    FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
+                End If
+            End If
 
-                Case Constantes.ENTIDADFACTURA_PADRE
-                    ' Se factura al Padre, así que primero busco si no está cargado en la lista (por otro Alumno)
-                    FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.EntidadPadre.IDEntidad)
-                    If FacturaCabecera Is Nothing Then
-                        ' No existe la Factura del Padre
-                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
-                        FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
-                        FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
-                        FacturaCabecera.ImporteImpuesto = 0
-                        FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
-                        listFacturas.Add(FacturaCabecera)
-                    Else
-                        ' Ya existem así que sólo agrego un item al Detalle
-                        FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
-                        FacturaCabecera.ImporteNeto = FacturaCabecera.ImporteNeto + FacturaDetalle.PrecioTotal
-                        FacturaCabecera.ImporteImpuesto = 0
-                        FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
-                    End If
+            If EntidadAlumno.EmitirFacturaA = Constantes.EMITIRFACTURAA_MADRE Or EntidadAlumno.EmitirFacturaA = Constantes.EMITIRFACTURAA_AMBOSPADRES Or EntidadAlumno.EmitirFacturaA = Constantes.EMITIRFACTURAA_TODOS Then
+                ' Se factura a la Madre, así que primero busco si no está cargada en la lista (por otro Alumno)
+                FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.IDEntidadMadre.Value)
+                If FacturaCabecera Is Nothing Then
+                    ' No existe la Factura de la Madre
+                    FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
+                    FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
+                    FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
+                    FacturaCabecera.ImporteImpuesto = 0
+                    FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
+                    listFacturas.Add(FacturaCabecera)
+                Else
+                    FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
+                    FacturaCabecera.ImporteNeto = FacturaCabecera.ImporteNeto + FacturaDetalle.PrecioTotal
+                    FacturaCabecera.ImporteImpuesto = 0
+                    FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
+                End If
+            End If
 
-                Case Constantes.ENTIDADFACTURA_MADRE
-                    ' Se factura a la Madre, así que primero busco si no está cargada en la lista (por otro Alumno)
-                    FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.EntidadMadre.IDEntidad)
-                    If FacturaCabecera Is Nothing Then
-                        ' No existe la Factura de la Madre
-                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
-                        FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
-                        FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
-                        FacturaCabecera.ImporteImpuesto = 0
-                        FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
-                        listFacturas.Add(FacturaCabecera)
-                    Else
-                        FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
-                        FacturaCabecera.ImporteNeto = FacturaCabecera.ImporteNeto + FacturaDetalle.PrecioTotal
-                        FacturaCabecera.ImporteImpuesto = 0
-                        FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
-                    End If
-
-                Case Constantes.ENTIDADFACTURA_AMBOSPADRES
-                    ' Se factura a los 2 Padres (50% a cada uno)
-
-                    ' Busco si no está cargado el Padre en la lista (por otro Alumno)
-                    FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.EntidadPadre.IDEntidad)
-                    If FacturaCabecera Is Nothing Then
-                        ' No existe la Factura del Padre
-                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
-                        FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
-                        FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
-                        FacturaCabecera.ImporteImpuesto = 0
-                        FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
-                        listFacturas.Add(FacturaCabecera)
-                    Else
-                        FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
-                        FacturaCabecera.ImporteNeto = FacturaCabecera.ImporteNeto + FacturaDetalle.PrecioTotal
-                        FacturaCabecera.ImporteImpuesto = 0
-                        FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
-                    End If
-
-                    ' Busco si no está cargada la Madre en la lista (por otro Alumno)
-                    FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.EntidadMadre.IDEntidad)
-                    If FacturaCabecera Is Nothing Then
-                        ' No existe la Factura de la Madre
-                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
-                        FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
-                        FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
-                        FacturaCabecera.ImporteImpuesto = 0
-                        FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
-                        listFacturas.Add(FacturaCabecera)
-                    Else
-                        FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
-                        FacturaCabecera.ImporteNeto = FacturaCabecera.ImporteNeto + FacturaDetalle.PrecioTotal
-                        FacturaCabecera.ImporteImpuesto = 0
-                        FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
-                    End If
-            End Select
+            If EntidadAlumno.EmitirFacturaA = Constantes.EMITIRFACTURAA_TERCERO Or EntidadAlumno.EmitirFacturaA = Constantes.EMITIRFACTURAA_TODOS Then
+                ' Se factura a un Tercero, así que primero busco si no está cargado en la lista (por otro Alumno)
+                FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.IDEntidadTercero.Value)
+                If FacturaCabecera Is Nothing Then
+                    ' No existe la Factura del Tercero
+                    FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadTercero, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
+                    FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
+                    FacturaCabecera.ImporteNeto = FacturaDetalle.PrecioTotal
+                    FacturaCabecera.ImporteImpuesto = 0
+                    FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
+                    listFacturas.Add(FacturaCabecera)
+                Else
+                    ' Ya existem así que sólo agrego un item al Detalle
+                    FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
+                    FacturaCabecera.ImporteNeto = FacturaCabecera.ImporteNeto + FacturaDetalle.PrecioTotal
+                    FacturaCabecera.ImporteImpuesto = 0
+                    FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteNeto
+                End If
+            End If
         Next
 
         ' Ordeno la lista de Facturas por Tipo de Comprobante
@@ -702,13 +669,13 @@ Public Class formGenerarLoteFacturas
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Function GenerarComprobanteCabecera(ByRef EntidadCabecera As Entidad, ByVal Fecha As Date, ByVal FechaVencimiento As Date, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDFacturaLote As Integer, ByVal ComprobanteEntidadMayusculas As Boolean) As ComprobanteCabecera
+    Private Function GenerarComprobanteCabecera(ByRef EntidadCabecera As Entidad, ByVal FechaEmision As Date, ByVal FechaVencimiento As Date, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDFacturaLote As Integer, ByVal ComprobanteEntidadMayusculas As Boolean) As ComprobanteCabecera
         Dim FacturaCabecera As New ComprobanteCabecera
 
         With FacturaCabecera
             ' Cabecera
             .IDComprobanteTipo = EntidadCabecera.CategoriaIVA.VentaIDComprobanteTipo
-            .Fecha = Fecha
+            .FechaEmision = FechaEmision
             .FechaVencimiento = FechaVencimiento
             .FechaServicioDesde = FechaServicioDesde
             .FechaServicioHasta = FechaServicioHasta
@@ -716,11 +683,9 @@ Public Class formGenerarLoteFacturas
             ' Entidad
             .IDEntidad = EntidadCabecera.IDEntidad
             If ComprobanteEntidadMayusculas Then
-                .EntidadApellido = EntidadCabecera.Apellido.ToUpper
-                .EntidadNombre = EntidadCabecera.Nombre.ToUpper
+                .ApellidoNombre = EntidadCabecera.ApellidoNombre.ToUpper
             Else
-                .EntidadApellido = EntidadCabecera.Apellido
-                .EntidadNombre = EntidadCabecera.Nombre
+                .ApellidoNombre = EntidadCabecera.ApellidoNombre
             End If
 
             ' Tipo y Número de Documento
@@ -737,12 +702,7 @@ Public Class formGenerarLoteFacturas
             .IDCategoriaIVA = EntidadCabecera.IDCategoriaIVA.Value
 
             ' Domicilio
-            .DomicilioCalle1 = EntidadCabecera.DomicilioCalle1
-            .DomicilioNumero = EntidadCabecera.DomicilioNumero
-            .DomicilioPiso = EntidadCabecera.DomicilioPiso
-            .DomicilioDepartamento = EntidadCabecera.DomicilioDepartamento
-            .DomicilioCalle2 = EntidadCabecera.DomicilioCalle2
-            .DomicilioCalle3 = EntidadCabecera.DomicilioCalle3
+            .DomicilioCalleCompleto = MiscFunctions.ObtenerDomicilioCalleCompleto(EntidadCabecera.DomicilioCalle1, EntidadCabecera.DomicilioNumero, EntidadCabecera.DomicilioPiso, EntidadCabecera.DomicilioDepartamento, EntidadCabecera.DomicilioCalle2, EntidadCabecera.DomicilioCalle3)
             .DomicilioCodigoPostal = EntidadCabecera.DomicilioCodigoPostal
             .DomicilioIDProvincia = EntidadCabecera.DomicilioIDProvincia
             .DomicilioIDLocalidad = EntidadCabecera.DomicilioIDLocalidad
@@ -775,11 +735,14 @@ Public Class formGenerarLoteFacturas
                 .Descripcion = String.Format("Cuota de {0} de {1} - {2}", MesAFacturarNombre, AnioLectivo, EntidadDetalle.ApellidoNombre)
 
                 ' Precios
-                If EntidadDetalle.EntidadFactura = Constantes.ENTIDADFACTURA_AMBOSPADRES Then
-                    .PrecioUnitario = AnioLectivoCursoActual.ImporteCuota / 2
-                Else
-                    .PrecioUnitario = AnioLectivoCursoActual.ImporteCuota
-                End If
+                Select Case EntidadDetalle.EmitirFacturaA
+                    Case Constantes.EMITIRFACTURAA_ALUMNO, Constantes.EMITIRFACTURAA_PADRE, Constantes.EMITIRFACTURAA_MADRE, Constantes.EMITIRFACTURAA_TERCERO
+                        .PrecioUnitario = AnioLectivoCursoActual.ImporteCuota
+                    Case Constantes.EMITIRFACTURAA_AMBOSPADRES
+                        .PrecioUnitario = Decimal.Round(AnioLectivoCursoActual.ImporteCuota / 2, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
+                    Case Constantes.EMITIRFACTURAA_TODOS
+                        .PrecioUnitario = Decimal.Round(AnioLectivoCursoActual.ImporteCuota / 3, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
+                End Select
                 If EntidadDetalle.IDDescuento Is Nothing Then
                     .PrecioUnitarioDescuentoPorcentaje = 0
                     .PrecioUnitarioDescuentoImporte = 0

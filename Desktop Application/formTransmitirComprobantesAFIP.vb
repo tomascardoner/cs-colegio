@@ -121,7 +121,7 @@
                         .PuntoVenta = CShort(FacturaActual.PuntoVenta)
                         .ComprobanteDesde = CInt(FacturaActual.Numero)
                         .ComprobanteHasta = CInt(FacturaActual.Numero)
-                        .ComprobanteFecha = FacturaActual.Fecha
+                        .ComprobanteFecha = FacturaActual.FechaEmision
 
                         ' Importes
                         .ImporteTotal = FacturaActual.ImporteTotal

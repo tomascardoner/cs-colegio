@@ -15,8 +15,10 @@ Partial Public Class ComprobanteTipo
     Public Property OperacionTipo As String
     Public Property Sigla As String
     Public Property Nombre As String
+    Public Property Letra As String
     Public Property CodigoAFIP As Byte
     Public Property EmisionElectronica As Nullable(Of Boolean)
+    Public Property ReporteNombre As String
     Public Property EsActivo As Boolean
     Public Property IDUsuarioCreacion As Byte
     Public Property FechaHoraCreacion As Date
