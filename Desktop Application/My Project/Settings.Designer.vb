@@ -213,7 +213,7 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("F:\User\Cardoner Sistemas\Development\CS-Colegio\Reports")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("F:\User\Cardoner Sistemas\Development\CS-Colegio\Reportes")>  _
         Public ReadOnly Property ReportsPath() As String
             Get
                 Return CType(Me("ReportsPath"),String)

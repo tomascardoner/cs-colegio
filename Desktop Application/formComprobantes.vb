@@ -307,7 +307,7 @@
         End Select
     End Sub
 
-    Private Sub buttonImprimir_Click() Handles buttonImprimir.Click
+    Private Sub Imprimir(sender As Object, e As EventArgs) Handles buttonImprimir.ButtonClick, menuitemImprimirPrevisualizar.Click
         Dim CurrentRow As GridRowData
         Dim ComprobanteTipoActual As ComprobanteTipo
 
@@ -315,17 +315,20 @@
             MsgBox("No hay ningún Comprobante para imprimir.", vbInformation, My.Application.Info.Title)
         Else
             If Permisos.VerificarPermiso(Permisos.COMPROBANTE_PRINT) Then
-
-                datagridviewMain.Enabled = False
+                If sender.Equals(buttonImprimir) Then
+                    If MsgBox("Se va a imprimir directamente el Comprobante seleccionado." & vbCrLf & vbCrLf & "¿Desea continuar?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                        Exit Sub
+                    End If
+                End If
 
                 CurrentRow = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData)
-                Using dbcontext As New CSColegioContext
+                Using dbcontext As New CSColegioContext(True)
                     ComprobanteTipoActual = dbcontext.ComprobanteTipo.Find(CurrentRow.IDComprobanteTipo)
                 End Using
 
                 ' Verifico que tenga un CAE asignado, si es que corresponde
                 If ComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso ComprobanteTipoActual.EmisionElectronica AndAlso CurrentRow.CAE = "" Then
-                    If MsgBox("El comprobante que está por imprimir no tiene un C.A.E. asignado. Esto puede ocurrir porque aún no fue enviado a AFIP o porque AFIP rechazó el comprobante." & vbCrLf & "Por este motivo, este comprobante no tiene validez legal." & vbCrLf & vbCrLf & "¿Desea imrimirlo de todos modos?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                    If MsgBox("El comprobante que está por imprimir no tiene un C.A.E. asignado." & vbCrLf & "Esto puede ocurrir porque aún no fue enviado a AFIP o porque AFIP rechazó el comprobante." & vbCrLf & "Por este motivo, este comprobante no tiene validez legal." & vbCrLf & vbCrLf & "¿Desea imrimirlo de todos modos?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
                         Exit Sub
                     End If
                 End If
@@ -336,10 +339,14 @@
 
                 Dim Reporte As New CS_CrystalReport
                 If Reporte.OpenReport(My.Settings.ReportsPath & "\" & ComprobanteTipoActual.ReporteNombre) Then
-                    If Reporte.SetDatabaseConnection(My.Settings.DBConnection_Datasource, My.Settings.DBConnection_Database, My.Settings.DBConnection_UserID, My.Settings.DBConnection_Password) Then
+                    If Reporte.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
                         Reporte.RecordSelectionFormula = "{ComprobanteCabecera.IDComprobante} = " & CurrentRow.IDComprobante
 
-                        MiscFunctions.PreviewCrystalReport(Reporte, CurrentRow.ComprobanteTipoNombre & " N° " & CurrentRow.PuntoVenta & "-" & CurrentRow.Numero)
+                        If sender.Equals(buttonImprimir) Then
+                            Reporte.ReportObject.PrintToPrinter(1, False, 1, 100)
+                        Else
+                            MiscFunctions.PreviewCrystalReport(Reporte, CurrentRow.ComprobanteTipoNombre & " N° " & CurrentRow.PuntoVenta & "-" & CurrentRow.Numero)
+                        End If
                     End If
                 End If
 

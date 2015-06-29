@@ -115,13 +115,6 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Reports\ComprobanteVenta.vb">
-      <Link>ComprobanteVenta.vb</Link>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ComprobanteVenta.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Anio.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -316,6 +309,12 @@
     <Compile Include="formMDIMain.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formReportes.Designer.vb">
+      <DependentUpon>formReportes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formReportes.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formReportViewer.Designer.vb">
       <DependentUpon>formReportViewer.vb</DependentUpon>
     </Compile>
@@ -419,11 +418,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\..\Reports\ComprobanteVenta.rpt">
-      <Link>ComprobanteVenta.rpt</Link>
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ComprobanteVenta.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_ErrorMessageBox.resx">
       <Link>CS_ErrorMessageBox.resx</Link>
       <DependentUpon>CS_ErrorMessageBox.vb</DependentUpon>
@@ -457,6 +451,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formMDIMain.resx">
       <DependentUpon>formMDIMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formReportes.resx">
+      <DependentUpon>formReportes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formReportViewer.resx">
       <DependentUpon>formReportViewer.vb</DependentUpon>
@@ -513,6 +510,10 @@
     <None Include="Resources\printer-icon %285%29.png" />
     <None Include="Resources\printer-icon %286%29.png" />
     <None Include="Resources\printer-icon %287%29.png" />
+    <None Include="Resources\ReportWithChart32.png" />
+    <None Include="Resources\printer %286%29.png" />
+    <None Include="Resources\printer %287%29.png" />
+    <None Include="Resources\document-print-preview %286%29.png" />
     <Content Include="school_48_32_16.ico" />
     <None Include="Resources\Move Previous %28Arrow%29 Red24.png" />
     <None Include="Resources\Move Next %28Arrow%29 Green24.png" />

@@ -23,11 +23,13 @@
     Friend Const ENTIDADANIOLECTIVOCURSO_ADD As String = "ENTIDADANIOLECTIVOCURSO_ADD"
     Friend Const ENTIDADANIOLECTIVOCURSO_DELETE As String = "ENTIDADANIOLECTIVOCURSO_DELETE"
 
+    Friend Const REPORTE As String = "REPORTE"
+
     Friend Function VerificarPermiso(ByVal IDPermiso As String, Optional ByVal MostrarAviso As Boolean = True) As Boolean
         If pUsuario.IDUsuario = 1 Then
             Return True
         Else
-            If pPermisos.Find(Function(usrper) usrper.IDUsuarioGrupo = pUsuario.IDUsuarioGrupo And usrper.IDPermiso = IDPermiso) Is Nothing Then
+            If pPermisos.Find(Function(usrper) usrper.IDUsuarioGrupo = pUsuario.IDUsuarioGrupo And usrper.IDPermiso.TrimEnd = IDPermiso) Is Nothing Then
                 MsgBox("No tiene autorización para realizar esta acción.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 Return False
             Else

@@ -273,6 +273,26 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property IMAGE_PRINT_PREVIEW_32() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("IMAGE_PRINT_PREVIEW_32", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property IMAGE_REPORTES_32() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("IMAGE_REPORTES_32", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property IMAGE_SEARCH_16() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("IMAGE_SEARCH_16", resourceCulture)
@@ -368,7 +388,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("STRING_EMITIRFACTURAA_ALUMNO", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to Ambos padres (50% c/u).
         '''</summary>
@@ -377,7 +397,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("STRING_EMITIRFACTURAA_AMBOSPADRES", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to Madre.
         '''</summary>
@@ -386,7 +406,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("STRING_EMITIRFACTURAA_MADRE", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to Padre.
         '''</summary>
@@ -395,7 +415,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("STRING_EMITIRFACTURAA_PADRE", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to Tercero.
         '''</summary>
@@ -404,7 +424,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("STRING_EMITIRFACTURAA_TERCERO", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized string similar to Padres y Tercero (33% c/u).
         '''</summary>

@@ -309,24 +309,6 @@
         End If
     End Sub
 
-    Private Sub VerificarHermanosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles VerificarHermanosToolStripMenuItem.Click
-        'If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO) Then
-        Me.Cursor = Cursors.WaitCursor
-
-        CS_Form.MDIChild_PositionAndSize(Me, CType(formReportViewer, Form), Form_ClientSize)
-        formReportViewer.reportviewerMain.LocalReport.ReportEmbeddedResource = My.Application.Info.AssemblyName & ".HermanosSinDescuento.rdlc"
-        formReportViewer.reportviewerMain.LocalReport.Refresh()
-
-        formReportViewer.Show()
-        If formReportViewer.WindowState = FormWindowState.Minimized Then
-            formReportViewer.WindowState = FormWindowState.Normal
-        End If
-        formReportViewer.Focus()
-
-        Me.Cursor = Cursors.Default
-        'End If
-    End Sub
-
     Private Sub Debug_AFIPWSHomologaciónLogin() Handles menuitemDebugAFIPWSHomologacionLogin.Click
         CS_AFIP_WS.Login(CS_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION), "", CS_AFIP_WS.SERVICIO_FACTURACION_ELECTRONICA, My.Settings.AFIP_WS_Certificado, My.Settings.AFIP_WS_ClavePrivada)
     End Sub
@@ -346,5 +328,20 @@
             Me.Cursor = Cursors.Default
         End If
 
+    End Sub
+
+    Private Sub buttonReportes_Click(sender As Object, e As EventArgs) Handles buttonReportes.Click
+        If Permisos.VerificarPermiso(Permisos.REPORTE) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            CS_Form.MDIChild_PositionAndSize(Me, CType(formReportes, Form), Form_ClientSize)
+            formReportes.Show()
+            If formReportes.WindowState = FormWindowState.Minimized Then
+                formReportes.WindowState = FormWindowState.Normal
+            End If
+            formReportes.Focus()
+
+            Me.Cursor = Cursors.Default
+        End If
     End Sub
 End Class

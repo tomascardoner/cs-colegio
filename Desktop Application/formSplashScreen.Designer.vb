@@ -101,7 +101,7 @@ Partial Class formSplashScreen
         Me.labelStatus.Size = New System.Drawing.Size(474, 16)
         Me.labelStatus.TabIndex = 5
         Me.labelStatus.Text = "Status"
-        Me.labelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.labelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'formSplashScreen
         '

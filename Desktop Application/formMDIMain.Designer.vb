@@ -61,11 +61,11 @@ Partial Class formMDIMain
         Me.menuitemRelacionTipo = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonEntidades = New System.Windows.Forms.ToolStripSplitButton()
         Me.AñosLectivosYCursosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.VerificarHermanosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonComprobantes = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemComprobantesGenerarLoteFacturas = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesTransmitirAFIP = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesEnviarPorMail = New System.Windows.Forms.ToolStripMenuItem()
+        Me.buttonReportes = New System.Windows.Forms.ToolStripButton()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
@@ -244,7 +244,7 @@ Partial Class formMDIMain
         '
         Me.toolstripMain.AllowMerge = False
         Me.toolstripMain.Dock = System.Windows.Forms.DockStyle.Left
-        Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.dropdownbuttonTablas, Me.buttonEntidades, Me.buttonComprobantes})
+        Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.dropdownbuttonTablas, Me.buttonEntidades, Me.buttonComprobantes, Me.buttonReportes})
         Me.toolstripMain.Location = New System.Drawing.Point(0, 24)
         Me.toolstripMain.Name = "toolstripMain"
         Me.toolstripMain.Size = New System.Drawing.Size(135, 489)
@@ -255,6 +255,7 @@ Partial Class formMDIMain
         '
         Me.dropdownbuttonTablas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemNivel, Me.menuitemAnio, Me.menuitemTurno, Me.menuitemCursos, Me.separatorBanco, Me.menuitemBanco, Me.separatorRelacionTipo, Me.menuitemRelacionTipo})
         Me.dropdownbuttonTablas.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_TABLAS_32
+        Me.dropdownbuttonTablas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.dropdownbuttonTablas.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.dropdownbuttonTablas.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.dropdownbuttonTablas.Name = "dropdownbuttonTablas"
@@ -309,8 +310,9 @@ Partial Class formMDIMain
         '
         'buttonEntidades
         '
-        Me.buttonEntidades.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AñosLectivosYCursosToolStripMenuItem, Me.VerificarHermanosToolStripMenuItem})
+        Me.buttonEntidades.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AñosLectivosYCursosToolStripMenuItem})
         Me.buttonEntidades.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ENTIDADES_32
+        Me.buttonEntidades.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonEntidades.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonEntidades.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonEntidades.Name = "buttonEntidades"
@@ -320,20 +322,14 @@ Partial Class formMDIMain
         'AñosLectivosYCursosToolStripMenuItem
         '
         Me.AñosLectivosYCursosToolStripMenuItem.Name = "AñosLectivosYCursosToolStripMenuItem"
-        Me.AñosLectivosYCursosToolStripMenuItem.Size = New System.Drawing.Size(252, 22)
+        Me.AñosLectivosYCursosToolStripMenuItem.Size = New System.Drawing.Size(195, 22)
         Me.AñosLectivosYCursosToolStripMenuItem.Text = "Años Lectivos y Cursos"
-        '
-        'VerificarHermanosToolStripMenuItem
-        '
-        Me.VerificarHermanosToolStripMenuItem.Enabled = False
-        Me.VerificarHermanosToolStripMenuItem.Name = "VerificarHermanosToolStripMenuItem"
-        Me.VerificarHermanosToolStripMenuItem.Size = New System.Drawing.Size(252, 22)
-        Me.VerificarHermanosToolStripMenuItem.Text = "Verificar descuentos de hermanos"
         '
         'buttonComprobantes
         '
         Me.buttonComprobantes.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemComprobantesGenerarLoteFacturas, Me.menuitemComprobantesTransmitirAFIP, Me.menuitemComprobantesEnviarPorMail})
         Me.buttonComprobantes.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_COMPROBANTES_32
+        Me.buttonComprobantes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonComprobantes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonComprobantes.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonComprobantes.Name = "buttonComprobantes"
@@ -357,6 +353,16 @@ Partial Class formMDIMain
         Me.menuitemComprobantesEnviarPorMail.Name = "menuitemComprobantesEnviarPorMail"
         Me.menuitemComprobantesEnviarPorMail.Size = New System.Drawing.Size(204, 22)
         Me.menuitemComprobantesEnviarPorMail.Text = "Enviar por mail"
+        '
+        'buttonReportes
+        '
+        Me.buttonReportes.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_REPORTES_32
+        Me.buttonReportes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.buttonReportes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonReportes.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonReportes.Name = "buttonReportes"
+        Me.buttonReportes.Size = New System.Drawing.Size(132, 36)
+        Me.buttonReportes.Text = "Reportes"
         '
         'formMDIMain
         '
@@ -419,7 +425,6 @@ Partial Class formMDIMain
     Friend WithEvents menuitemComprobantesGenerarLoteFacturas As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents buttonEntidades As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents AñosLectivosYCursosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents VerificarHermanosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebug As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWS As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSHomologacion As System.Windows.Forms.ToolStripMenuItem
@@ -427,4 +432,5 @@ Partial Class formMDIMain
     Friend WithEvents menuitemDebugAFIPWSHabilitarRegistro As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemComprobantesTransmitirAFIP As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemComprobantesEnviarPorMail As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents buttonReportes As System.Windows.Forms.ToolStripButton
 End Class
