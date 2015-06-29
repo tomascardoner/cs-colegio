@@ -137,49 +137,61 @@
     <Compile Include="Banco.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSF_ErrorMessageBox.designer.vb">
-      <Link>CSF_ErrorMessageBox.designer.vb</Link>
-      <DependentUpon>CSF_ErrorMessageBox.vb</DependentUpon>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_CrystalReports.vb">
+      <Link>CS_CrystalReports.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSF_ErrorMessageBox.vb">
-      <Link>CSF_ErrorMessageBox.vb</Link>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Database.vb">
+      <Link>CS_Database.vb</Link>
+    </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Encrypt_AES256_Enhanced.vb">
+      <Link>CS_Encrypt_AES256_Enhanced.vb</Link>
+    </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_ErrorMessageBox.designer.vb">
+      <Link>CS_ErrorMessageBox.designer.vb</Link>
+      <DependentUpon>CS_ErrorMessageBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_ErrorMessageBox.vb">
+      <Link>CS_ErrorMessageBox.vb</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_AFIP.vb">
-      <Link>CSM_AFIP.vb</Link>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_AFIP.vb">
+      <Link>CS_AFIP.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_AFIP_WS.vb">
-      <Link>CSM_AFIP_WS.vb</Link>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_AFIP_WS.vb">
+      <Link>CS_AFIP_WS.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_ComboBox.vb">
-      <Link>CSM_ComboBox.vb</Link>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_ComboBox.vb">
+      <Link>CS_ComboBox.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_DataGridView.vb">
-      <Link>CSM_DataGridView.vb</Link>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_DataGridView.vb">
+      <Link>CS_DataGridView.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_Error.vb">
-      <Link>CSM_Error.vb</Link>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Email.vb">
+      <Link>CS_Email.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_File.vb">
-      <Link>CSM_File.vb</Link>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Error.vb">
+      <Link>CS_Error.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_FileLog.vb">
-      <Link>CSM_FileLog.vb</Link>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_File.vb">
+      <Link>CS_File.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_Form.vb">
-      <Link>CSM_Form.vb</Link>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_FileLog.vb">
+      <Link>CS_FileLog.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_Instance.vb">
-      <Link>CSM_Instance.vb</Link>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Form.vb">
+      <Link>CS_Form.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_Parameter.vb">
-      <Link>CSM_Parameter.vb</Link>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Instance.vb">
+      <Link>CS_Instance.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_SpecialFolders.vb">
-      <Link>CSM_SpecialFolders.vb</Link>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Parameter.vb">
+      <Link>CS_Parameter.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSM_ValueTranslation.vb">
-      <Link>CSM_ValueTranslation.vb</Link>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_SpecialFolders.vb">
+      <Link>CS_SpecialFolders.vb</Link>
+    </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_ValueTranslation.vb">
+      <Link>CS_ValueTranslation.vb</Link>
     </Compile>
     <Compile Include="CategoriaIVA.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
@@ -242,6 +254,7 @@
     <Compile Include="EntidadEntidad.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityFrameworkExtension.vb" />
     <Compile Include="FillAndRefreshLists.vb" />
     <Compile Include="formCABGenerico.Designer.vb">
       <DependentUpon>formCABGenerico.vb</DependentUpon>
@@ -285,10 +298,10 @@
     <Compile Include="formEntidadesSeleccionar.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formGenerarLoteFacturas.Designer.vb">
-      <DependentUpon>formGenerarLoteFacturas.vb</DependentUpon>
+    <Compile Include="formComprobantesGenerarLote.Designer.vb">
+      <DependentUpon>formComprobantesGenerarLote.vb</DependentUpon>
     </Compile>
-    <Compile Include="formGenerarLoteFacturas.vb">
+    <Compile Include="formComprobantesGenerarLote.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formLogin.Designer.vb">
@@ -322,10 +335,10 @@
       <DependentUpon>formSplashScreen.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formTransmitirComprobantesAFIP.Designer.vb">
-      <DependentUpon>formTransmitirComprobantesAFIP.vb</DependentUpon>
+    <Compile Include="formComprobantesTransmitirAFIP.Designer.vb">
+      <DependentUpon>formComprobantesTransmitirAFIP.vb</DependentUpon>
     </Compile>
-    <Compile Include="formTransmitirComprobantesAFIP.vb">
+    <Compile Include="formComprobantesTransmitirAFIP.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Impuesto.vb">
@@ -411,9 +424,9 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ComprobanteVenta.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CSF_ErrorMessageBox.resx">
-      <Link>CSF_ErrorMessageBox.resx</Link>
-      <DependentUpon>CSF_ErrorMessageBox.vb</DependentUpon>
+    <EmbeddedResource Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_ErrorMessageBox.resx">
+      <Link>CS_ErrorMessageBox.resx</Link>
+      <DependentUpon>CS_ErrorMessageBox.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formCABGenerico.resx">
       <DependentUpon>formCABGenerico.vb</DependentUpon>
@@ -436,8 +449,8 @@
     <EmbeddedResource Include="formEntidadesSeleccionar.resx">
       <DependentUpon>formEntidadesSeleccionar.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formGenerarLoteFacturas.resx">
-      <DependentUpon>formGenerarLoteFacturas.vb</DependentUpon>
+    <EmbeddedResource Include="formComprobantesGenerarLote.resx">
+      <DependentUpon>formComprobantesGenerarLote.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formLogin.resx">
       <DependentUpon>formLogin.vb</DependentUpon>
@@ -451,8 +464,8 @@
     <EmbeddedResource Include="formReportViewerCR.resx">
       <DependentUpon>formReportViewerCR.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formTransmitirComprobantesAFIP.resx">
-      <DependentUpon>formTransmitirComprobantesAFIP.vb</DependentUpon>
+    <EmbeddedResource Include="formComprobantesTransmitirAFIP.resx">
+      <DependentUpon>formComprobantesTransmitirAFIP.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -495,7 +508,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Notas.txt" />
     <None Include="Resources\5_Resized.jpg" />
     <None Include="Resources\Printer24.png" />
     <None Include="Resources\printer-icon %285%29.png" />

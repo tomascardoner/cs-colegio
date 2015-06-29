@@ -4,6 +4,8 @@
     '//////////////////
     Friend Const APPLICATION_DATABASE_GUID As String = "{57FC36AB-60E1-4ded-BE7A-6337258CDAED}"
     Friend Const FILTER_ACTIVO_LIST_INDEX As Long = 1
+    Friend Const ENCRYPTION_PASSWORD As String = "CmcaTlMdmA,aTmP,am2CyalhdEb"
+    Friend Const ENCRYPTION_VECTOR As String = "DaVsmpca#Tmd1Bv@"
 
     '//////////////////
     '    BÁSICAS

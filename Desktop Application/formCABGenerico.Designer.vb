@@ -8,7 +8,7 @@ Partial Class formCABGenerico
         Try
             If disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
-                FormDBContext.Dispose()
+                dbcontext.Dispose()
             End If
         Finally
             MyBase.Dispose(disposing)

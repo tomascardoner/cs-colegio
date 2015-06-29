@@ -1,7 +1,10 @@
 ﻿Public Class formLogin
     Private Intentos As Byte = 0
+    Private dbcontext As CSColegioContext
 
-    Private Sub formLogin_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub formLogin_Load() Handles Me.Load
+        dbcontext = New CSColegioContext(True)
+
         If My.Settings.ShowLastUserLoggedIn Then
             If My.Settings.LastUserLoggedIn <> "" Then
                 textboxNombre.Text = My.Settings.LastUserLoggedIn
@@ -13,15 +16,21 @@
         End If
     End Sub
 
-    Private Sub textboxNombre_GotFocus(sender As Object, e As EventArgs) Handles textboxNombre.GotFocus
+    Private Sub formLogin_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        dbcontext.Dispose()
+    End Sub
+
+    Private Sub textboxNombre_GotFocus() Handles textboxNombre.GotFocus
         textboxNombre.SelectAll()
     End Sub
 
-    Private Sub textboxPassword_GotFocus(sender As Object, e As EventArgs) Handles textboxPassword.GotFocus
+    Private Sub textboxPassword_GotFocus() Handles textboxPassword.GotFocus
         textboxPassword.SelectAll()
     End Sub
 
-    Private Sub buttonAceptar_Click(sender As Object, e As EventArgs) Handles buttonAceptar.Click
+    Private Sub buttonAceptar_Click() Handles buttonAceptar.Click
+        Dim UsuarioCurrent As Usuario
+
         textboxNombre.Text.Trim()
 
         If textboxNombre.TextLength = 0 Then
@@ -41,9 +50,9 @@
             textboxPassword.Focus()
             Exit Sub
         End If
-        If CSM_Parameter.GetBoolean(Parametros.USER_PASSWORD_SECURE_REQUIRED, True) Then
-            If textboxPassword.TextLength < CSM_Parameter.GetIntegerAsByte(Parametros.USER_PASSWORD_MINIMUM_LENGHT, 8) Then
-                MsgBox(String.Format("La Contraseña debe contener al menos {0} caracteres.", CSM_Parameter.GetIntegerAsByte(Parametros.USER_PASSWORD_MINIMUM_LENGHT, 8)), vbInformation, My.Application.Info.Title)
+        If CS_Parameter.GetBoolean(Parametros.USER_PASSWORD_SECURE_REQUIRED, True) Then
+            If textboxPassword.TextLength < CS_Parameter.GetIntegerAsByte(Parametros.USER_PASSWORD_MINIMUM_LENGHT, 8) Then
+                MsgBox(String.Format("La Contraseña debe contener al menos {0} caracteres.", CS_Parameter.GetIntegerAsByte(Parametros.USER_PASSWORD_MINIMUM_LENGHT, 8)), vbInformation, My.Application.Info.Title)
                 textboxPassword.Focus()
                 Exit Sub
             End If
@@ -58,62 +67,42 @@
         ' Está todo OK, busco el Usuario en la Base de Datos
         Me.Cursor = Cursors.WaitCursor
 
-        Using dbContext As New CSColegioContext
-            Dim qryUsuarios = From u In dbContext.Usuario
-                    Where u.Nombre = textboxNombre.Text
-                    Select u
-
-            Dim UsuarioCurrent As Usuario = qryUsuarios.SingleOrDefault()
-
-            If UsuarioCurrent Is Nothing Then
-                My.Application.Log.WriteEntry(String.Format("Se intentó iniciar sesión con el Usuario '{0}', pero es inexistente.", pUsuario.Nombre), TraceEventType.Warning)
-                MsgBox("El Nombre de Usuario ingresado no existe.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                textboxNombre.SelectAll()
-                textboxNombre.Focus()
-                UsuarioCurrent = Nothing
-                qryUsuarios = Nothing
-                Me.Cursor = Cursors.Default
-                Intentos = Intentos + CByte(1)
-                If Intentos > 3 Then
-                    Me.DialogResult = Windows.Forms.DialogResult.Cancel
-                End If
-                Exit Sub
-            End If
-            If String.Compare(textboxPassword.Text, UsuarioCurrent.Password, False) <> 0 Then
-                My.Application.Log.WriteEntry(String.Format("Se intentó iniciar sesión con el Usuario '{0}', pero la Contraseña es incorrecta.", pUsuario.Nombre), TraceEventType.Warning)
-                MsgBox("La Contraseña ingresada es incorrecta.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                textboxPassword.SelectAll()
-                textboxPassword.Focus()
-                UsuarioCurrent = Nothing
-                qryUsuarios = Nothing
-                Me.Cursor = Cursors.Default
-                Intentos = Intentos + CByte(1)
-                If Intentos > 3 Then
-                    Me.DialogResult = Windows.Forms.DialogResult.Cancel
-                End If
-                Exit Sub
-            End If
-
-            pUsuario = UsuarioCurrent
+        UsuarioCurrent = dbcontext.Usuario.Where(Function(usr) usr.Nombre = textboxNombre.Text).FirstOrDefault
+        If UsuarioCurrent Is Nothing Then
+            My.Application.Log.WriteEntry(String.Format("Se intentó iniciar sesión con el Usuario '{0}', pero es inexistente.", pUsuario.Nombre), TraceEventType.Warning)
+            MsgBox("El Nombre de Usuario ingresado no existe.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+            textboxNombre.SelectAll()
+            textboxNombre.Focus()
             UsuarioCurrent = Nothing
-            qryUsuarios = Nothing
-        End Using
+            Me.Cursor = Cursors.Default
+            Intentos = Intentos + CByte(1)
+            If Intentos > 3 Then
+                Me.DialogResult = Windows.Forms.DialogResult.Cancel
+            End If
+            Exit Sub
+        End If
+        If String.Compare(textboxPassword.Text, UsuarioCurrent.Password, False) <> 0 Then
+            My.Application.Log.WriteEntry(String.Format("Se intentó iniciar sesión con el Usuario '{0}', pero la Contraseña es incorrecta.", pUsuario.Nombre), TraceEventType.Warning)
+            MsgBox("La Contraseña ingresada es incorrecta.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+            textboxPassword.SelectAll()
+            textboxPassword.Focus()
+            UsuarioCurrent = Nothing
+            Me.Cursor = Cursors.Default
+            Intentos = Intentos + CByte(1)
+            If Intentos > 3 Then
+                Me.DialogResult = Windows.Forms.DialogResult.Cancel
+            End If
+            Exit Sub
+        End If
+
+        pUsuario = UsuarioCurrent
+        UsuarioCurrent = Nothing
 
         ' Guardo el Nombre de Usuario para mostrarlo la próxima vez
-        My.Settings.LastUserLoggedIn = textboxNombre.Text
+        My.Settings.LastUserLoggedIn = pUsuario.Nombre
         My.Settings.Save()
 
-        ' Muestro los datos del Usuario en el Status del form principal
-        If pUsuario.Genero = GENERO_MASCULINO Then
-            formMDIMain.labelUsuarioNombre.Image = My.Resources.IMAGE_USUARIO_HOMBRE_16
-        ElseIf pUsuario.Genero = GENERO_FEMENINO Then
-            formMDIMain.labelUsuarioNombre.Image = My.Resources.IMAGE_USUARIO_MUJER_16
-        Else
-            formMDIMain.labelUsuarioNombre.Image = Nothing
-        End If
-        formMDIMain.labelUsuarioNombre.Text = pUsuario.Descripcion
-
-        My.Application.Log.WriteEntry(String.Format("El Usuario '{0}' ha iniciado sesión.", pUsuario.Nombre), TraceEventType.Information)
+        MiscFunctions.UserLoggedIn()
 
         Me.Cursor = Cursors.Default
 

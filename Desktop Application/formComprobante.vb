@@ -5,12 +5,12 @@
         FillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo, OPERACIONTIPO_VENTA, False, False)
 
         FillAndRefreshLists.CategoriaIVA(comboboxCategoriaIVA, False)
-        CSM_ComboBox.SetSelectedValue(comboboxCategoriaIVA, SelectedItemOptions.ValueOrFirst, CSM_Parameter.GetIntegerAsByte(Parametros.DEFAULT_CATEGORIAIVA_ID, 0))
+        CS_ComboBox.SetSelectedValue(comboboxCategoriaIVA, SelectedItemOptions.ValueOrFirst, CS_Parameter.GetIntegerAsByte(Parametros.DEFAULT_CATEGORIAIVA_ID, 0))
 
         FillAndRefreshLists.Provincia(comboboxDomicilioProvincia, False)
-        CSM_ComboBox.SetSelectedValue(comboboxDomicilioProvincia, SelectedItemOptions.ValueOrFirst, CSM_Parameter.GetString(Parametros.DEFAULT_PROVINCIA_ID))
+        CS_ComboBox.SetSelectedValue(comboboxDomicilioProvincia, SelectedItemOptions.ValueOrFirst, CS_Parameter.GetString(Parametros.DEFAULT_PROVINCIA_ID))
 
-        CSM_ComboBox.SetSelectedValue(comboboxDomicilioLocalidad, SelectedItemOptions.ValueOrFirst, CSM_Parameter.GetIntegerAsShort(Parametros.DEFAULT_LOCALIDAD_ID))
+        CS_ComboBox.SetSelectedValue(comboboxDomicilioLocalidad, SelectedItemOptions.ValueOrFirst, CS_Parameter.GetIntegerAsShort(Parametros.DEFAULT_LOCALIDAD_ID))
     End Sub
 
     Private Sub comboboxDomicilioProvincia_SelectedIndexChanged() Handles comboboxDomicilioProvincia.SelectedIndexChanged

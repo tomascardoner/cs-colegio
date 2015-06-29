@@ -1,41 +1,61 @@
 ﻿Module MiscFunctions
-    Friend Function ObtenerDomicilioCalleCompleto(ByVal Calle1 As String, ByVal Numero As String, ByVal Piso As String, ByVal Departamento As String, ByVal Calle2 As String, ByVal Calle3 As String) As String
-        Dim DomicilioCompleto As String
+    Friend Sub PreviewCrystalReport(ByRef Reporte As CS_CrystalReport, ByVal WindowText As String)
+        Dim VisorReporte As New formReportViewerCR
 
-        DomicilioCompleto = Calle1
-        If Not Calle1 Is Nothing Then
-            If Not Numero Is Nothing Then
-                If Numero.TrimStart.ToUpper.StartsWith("RUTA ") Then
-                    DomicilioCompleto &= " Km. " & Numero
-                ElseIf Numero.TrimStart.ToUpper.StartsWith("CALLE ") Then
-                    DomicilioCompleto &= " N° " & Numero
-                Else
-                    DomicilioCompleto &= " " & Numero
-                End If
+        formMDIMain.Cursor = Cursors.WaitCursor
+
+        CS_Form.MDIChild_PositionAndSize(CType(formMDIMain, Form), CType(VisorReporte, Form), formMDIMain.Form_ClientSize)
+        With VisorReporte
+            .Text = WindowText
+            .CRViewerMain.ReportSource = Reporte.ReportObject
+            .Show()
+            If .WindowState = FormWindowState.Minimized Then
+                .WindowState = FormWindowState.Normal
             End If
+            .Focus()
+        End With
 
-            If Not Piso Is Nothing Then
-                If IsNumeric(Piso) Then
-                    DomicilioCompleto &= " P." & Piso & "°"
-                Else
-                    DomicilioCompleto &= " " & Piso
-                End If
-            End If
+        formMDIMain.Cursor = Cursors.Default
+    End Sub
 
-            If Not Departamento Is Nothing Then
-                DomicilioCompleto &= " Dto. """ & Departamento & """"
-            End If
+    Friend Sub UserLoggedIn()
+        LoadPermisos()
 
-            If Not Calle2 Is Nothing Then
-                If Not Calle3 Is Nothing Then
-                    DomicilioCompleto &= " entre " & Calle2 & " y " & Calle3
-                Else
-                    DomicilioCompleto &= " esq. " & Calle2
-                End If
-            End If
-        End If
+        formMDIMain.menuitemDebug.Visible = (pUsuario.IDUsuario = 1)
 
-        Return DomicilioCompleto
+        Select pUsuario.Genero
+            Case Constantes.GENERO_MASCULINO
+                formMDIMain.labelUsuarioNombre.Image = My.Resources.Resources.IMAGE_USUARIO_HOMBRE_16
+            Case Constantes.GENERO_MASCULINO
+                formMDIMain.labelUsuarioNombre.Image = My.Resources.Resources.IMAGE_USUARIO_MUJER_16
+            Case Else
+                formMDIMain.labelUsuarioNombre.Text = pUsuario.Descripcion
+        End Select
+
+        My.Application.Log.WriteEntry(String.Format("El Usuario '{0}' ha iniciado sesión.", pUsuario.Nombre), TraceEventType.Information)
+    End Sub
+
+    Friend Function LoadParameters() As Boolean
+        Try
+            Using dbcontext As New CSColegioContext(True)
+                pParametros = dbcontext.Parametro.ToList
+            End Using
+            Return True
+        Catch ex As Exception
+            CS_Error.ProcessError(ex, "Error al cargar los Parámetros desde la base de datos.")
+            Return False
+        End Try
     End Function
 
+    Friend Function LoadPermisos() As Boolean
+        Try
+            Using dbcontext As New CSColegioContext(True)
+                pPermisos = dbcontext.UsuarioGrupoPermiso.ToList
+            End Using
+            Return True
+        Catch ex As Exception
+            CS_Error.ProcessError(ex, "Error al cargar los Permisos del Usuario.")
+            Return False
+        End Try
+    End Function
 End Module

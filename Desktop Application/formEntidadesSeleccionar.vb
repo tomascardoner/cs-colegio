@@ -13,8 +13,8 @@
     Friend Sub RefreshData(Optional ByVal PositionIDEntidad As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
         Me.Cursor = Cursors.WaitCursor
 
-        Using dbcEntidadList As New CSColegioContext
-            listEntidadBase = dbcEntidadList.Entidad.ToList
+        Using dbcontext As New CSColegioContext(True)
+            listEntidadBase = dbcontext.Entidad.ToList
         End Using
 
         Me.Cursor = Cursors.Default

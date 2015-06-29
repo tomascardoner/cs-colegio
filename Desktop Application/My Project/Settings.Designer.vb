@@ -149,18 +149,6 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=PHENOMII-X4;Initial Catalog=CSColegio;Persist Security Info=True;User"& _ 
-            " ID=sa;Password=redalert;MultipleActiveResultSets=True;Application Name=EntityFr"& _ 
-            "amework")>  _
-        Public ReadOnly Property CSColegioConnectionString() As String
-            Get
-                Return CType(Me("CSColegioConnectionString"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Tomas\Dropbox\Cardoner Sistemas\AFIP Data\Colegio Horizonte\administraci"& _ 
             "on_homo.crt")>  _
         Public ReadOnly Property AFIP_WS_Certificado() As String
@@ -238,6 +226,51 @@ Namespace My
         Public ReadOnly Property DecimalesEnImportes() As Byte
             Get
                 Return CType(Me("DecimalesEnImportes"),Byte)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("localhost")>  _
+        Public ReadOnly Property DBConnection_Datasource() As String
+            Get
+                Return CType(Me("DBConnection_Datasource"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("CSColegio")>  _
+        Public ReadOnly Property DBConnection_Database() As String
+            Get
+                Return CType(Me("DBConnection_Database"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("sa")>  _
+        Public ReadOnly Property DBConnection_UserID() As String
+            Get
+                Return CType(Me("DBConnection_UserID"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("a4S8iN1X/ytM7/ADjWOsyw==")>  _
+        Public ReadOnly Property DBConnection_Password() As String
+            Get
+                Return CType(Me("DBConnection_Password"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("System.Data.SqlClient")>  _
+        Public ReadOnly Property DBConnection_Provider() As String
+            Get
+                Return CType(Me("DBConnection_Provider"),String)
             End Get
         End Property
     End Class

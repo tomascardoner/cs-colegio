@@ -27,7 +27,7 @@
         If pUsuario.IDUsuario = 1 Then
             Return True
         Else
-            If pCSColegioContext.UsuarioGrupoPermiso.Find(pUsuario.IDUsuarioGrupo, IDPermiso) Is Nothing Then
+            If pPermisos.Find(Function(usrper) usrper.IDUsuarioGrupo = pUsuario.IDUsuarioGrupo And usrper.IDPermiso = IDPermiso) Is Nothing Then
                 MsgBox("No tiene autorización para realizar esta acción.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 Return False
             Else

@@ -3,8 +3,8 @@
         ComboBoxControl.ValueMember = "IDDocumentoTipo"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Using dbContext As New CSColegioContext
-            Dim qryList = From tbl In dbContext.DocumentoTipo
+        Using dbcontext As New CSColegioContext(True)
+            Dim qryList = From tbl In dbcontext.DocumentoTipo
                           Where tbl.EsActivo
                           Order By tbl.Nombre
 
@@ -25,8 +25,8 @@
         ComboBoxControl.ValueMember = "IDCategoriaIVA"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Using dbContext As New CSColegioContext
-            Dim qryList = From tbl In dbContext.CategoriaIVA
+        Using dbcontext As New CSColegioContext(True)
+            Dim qryList = From tbl In dbcontext.CategoriaIVA
                           Where tbl.EsActivo
                           Order By tbl.Nombre
 
@@ -46,8 +46,8 @@
         ComboBoxControl.ValueMember = "IDProvincia"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Using dbContext As New CSColegioContext
-            Dim qryList = From tbl In dbContext.Provincia
+        Using dbcontext As New CSColegioContext(True)
+            Dim qryList = From tbl In dbcontext.Provincia
                           Order By tbl.Nombre
 
             Dim localList = qryList.ToList
@@ -66,8 +66,8 @@
         ComboBoxControl.ValueMember = "IDLocalidad"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Using dbContext As New CSColegioContext
-            Dim qryList = From tbl In dbContext.Localidad
+        Using dbcontext As New CSColegioContext(True)
+            Dim qryList = From tbl In dbcontext.Localidad
                           Where tbl.IDProvincia = IDProvincia
                           Order By tbl.Nombre
 
@@ -89,15 +89,15 @@
         ComboBoxControl.ValueMember = "IDComprobanteTipo"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Using dbContext As New CSColegioContext
+        Using dbcontext As New CSColegioContext(True)
             If OperacionTipo = "" Then
-                Dim qryList = From tbl In dbContext.ComprobanteTipo
+                Dim qryList = From tbl In dbcontext.ComprobanteTipo
                               Where tbl.EsActivo
                               Order By tbl.Nombre
 
                 localList = qryList.ToList
             Else
-                Dim qryList = From tbl In dbContext.ComprobanteTipo
+                Dim qryList = From tbl In dbcontext.ComprobanteTipo
                               Where tbl.OperacionTipo = OperacionTipo And tbl.EsActivo
                               Order By tbl.Nombre
 
@@ -209,8 +209,8 @@
         ComboBoxControl.ValueMember = "IDDescuento"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Using dbContext As New CSColegioContext
-            Dim qryList = From tbl In dbContext.Descuento
+        Using dbcontext As New CSColegioContext(True)
+            Dim qryList = From tbl In dbcontext.Descuento
                           Where tbl.EsActivo
                           Order By tbl.Nombre
 
@@ -230,8 +230,8 @@
         ComboBoxControl.ValueMember = "AnioLectivo"
         ComboBoxControl.DisplayMember = "AnioLectivo"
 
-        Using dbContext As New CSColegioContext
-            Dim qryList = From tbl In dbContext.AnioLectivoCurso
+        Using dbcontext As New CSColegioContext(True)
+            Dim qryList = From tbl In dbcontext.AnioLectivoCurso
                           Select tbl.AnioLectivo
                           Distinct
 
@@ -247,8 +247,8 @@
         ComboBoxControl.ValueMember = "IDNivel"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Using dbContext As New CSColegioContext
-            Dim qryList = From tbl In dbContext.Nivel
+        Using dbcontext As New CSColegioContext(True)
+            Dim qryList = From tbl In dbcontext.Nivel
                           Where tbl.EsActivo
                           Order By tbl.Nombre
 
@@ -268,15 +268,15 @@
         ComboBoxControl.ValueMember = "IDCurso"
         ComboBoxControl.DisplayMember = "Descripcion"
 
-        Using dbContext As New CSColegioContext
+        Using dbcontext As New CSColegioContext(True)
             If IDNivel Is Nothing Then
-                Dim qryList = From tbl In dbContext.AnioLectivoCurso
+                Dim qryList = From tbl In dbcontext.AnioLectivoCurso
                               Where tbl.AnioLectivo = AnioLectivo
                               Order By tbl.Curso.Anio.Nivel.Nombre, tbl.Curso.Anio.Nombre, tbl.Curso.Turno.Nombre, tbl.Curso.Division
                               Select tbl.IDCurso, Descripcion = tbl.Curso.Anio.Nivel.Nombre & " - " & tbl.Curso.Anio.Nombre & " - " & tbl.Curso.Turno.Nombre & " - " & tbl.Curso.Division
                 ComboBoxControl.DataSource = qryList.ToList
             Else
-                Dim qryList = From tbl In dbContext.AnioLectivoCurso
+                Dim qryList = From tbl In dbcontext.AnioLectivoCurso
                               Where tbl.AnioLectivo = AnioLectivo And tbl.Curso.Anio.IDNivel = IDNivel
                               Order By tbl.Curso.Anio.Nombre, tbl.Curso.Turno.Nombre, tbl.Curso.Division
                               Select tbl.IDCurso, Descripcion = tbl.Curso.Anio.Nombre & " - " & tbl.Curso.Turno.Nombre & " - " & tbl.Curso.Division
@@ -289,8 +289,8 @@
         ComboBoxControl.ValueMember = "IDComprobanteLote"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Using dbContext As New CSColegioContext
-            Dim qryList = From tbl In dbContext.ComprobanteLote
+        Using dbcontext As New CSColegioContext(True)
+            Dim qryList = From tbl In dbcontext.ComprobanteLote
                           Order By tbl.FechaHora Descending
 
             Dim localList = qryList.ToList

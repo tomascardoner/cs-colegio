@@ -28,6 +28,7 @@ Partial Class formSplashScreen
         Me.labelCopyright = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.labelLicensedTo = New System.Windows.Forms.Label()
+        Me.labelStatus = New System.Windows.Forms.Label()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -60,7 +61,7 @@ Partial Class formSplashScreen
         Me.labelCopyright.BackColor = System.Drawing.Color.Transparent
         Me.labelCopyright.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.labelCopyright.ForeColor = System.Drawing.Color.White
-        Me.labelCopyright.Location = New System.Drawing.Point(12, 304)
+        Me.labelCopyright.Location = New System.Drawing.Point(12, 307)
         Me.labelCopyright.Name = "labelCopyright"
         Me.labelCopyright.Size = New System.Drawing.Size(474, 16)
         Me.labelCopyright.TabIndex = 2
@@ -71,7 +72,7 @@ Partial Class formSplashScreen
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox1.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_SENAL_ESCUELA_152
-        Me.PictureBox1.Location = New System.Drawing.Point(396, 146)
+        Me.PictureBox1.Location = New System.Drawing.Point(396, 141)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(90, 96)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -83,11 +84,24 @@ Partial Class formSplashScreen
         Me.labelLicensedTo.BackColor = System.Drawing.Color.Transparent
         Me.labelLicensedTo.Font = New System.Drawing.Font("Tahoma", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.labelLicensedTo.ForeColor = System.Drawing.Color.Gold
-        Me.labelLicensedTo.Location = New System.Drawing.Point(12, 263)
+        Me.labelLicensedTo.Location = New System.Drawing.Point(12, 239)
         Me.labelLicensedTo.Name = "labelLicensedTo"
         Me.labelLicensedTo.Size = New System.Drawing.Size(474, 31)
         Me.labelLicensedTo.TabIndex = 4
+        Me.labelLicensedTo.Text = "LicensedTo"
         Me.labelLicensedTo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'labelStatus
+        '
+        Me.labelStatus.BackColor = System.Drawing.Color.Transparent
+        Me.labelStatus.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelStatus.ForeColor = System.Drawing.Color.White
+        Me.labelStatus.Location = New System.Drawing.Point(12, 281)
+        Me.labelStatus.Name = "labelStatus"
+        Me.labelStatus.Size = New System.Drawing.Size(474, 16)
+        Me.labelStatus.TabIndex = 5
+        Me.labelStatus.Text = "Status"
+        Me.labelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'formSplashScreen
         '
@@ -97,6 +111,7 @@ Partial Class formSplashScreen
         Me.BackgroundImage = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_SPLASH_SCREEN_BACKGROUND
         Me.ClientSize = New System.Drawing.Size(498, 329)
         Me.ControlBox = False
+        Me.Controls.Add(Me.labelStatus)
         Me.Controls.Add(Me.labelLicensedTo)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.labelCopyright)
@@ -117,5 +132,6 @@ Partial Class formSplashScreen
     Friend WithEvents labelCopyright As System.Windows.Forms.Label
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents labelLicensedTo As System.Windows.Forms.Label
+    Friend WithEvents labelStatus As System.Windows.Forms.Label
 
 End Class

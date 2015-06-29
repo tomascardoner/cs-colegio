@@ -23,6 +23,7 @@ Partial Class formComprobantes
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formComprobantes))
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -30,17 +31,9 @@ Partial Class formComprobantes
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formComprobantes))
         Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
         Me.statusstripMain = New System.Windows.Forms.StatusStrip()
         Me.datagridviewMain = New System.Windows.Forms.DataGridView()
-        Me.columnComprobanteTipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnPuntoVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnNumero = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnFecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnTitular = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnCAE = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.panelToolbars = New System.Windows.Forms.FlowLayoutPanel()
         Me.toolstripButtons = New System.Windows.Forms.ToolStrip()
         Me.buttonAgregar = New System.Windows.Forms.ToolStripButton()
@@ -64,6 +57,13 @@ Partial Class formComprobantes
         Me.comboboxBuscarTipo = New System.Windows.Forms.ToolStripComboBox()
         Me.textboxBuscar = New System.Windows.Forms.ToolStripTextBox()
         Me.buttonBuscarBorrar = New System.Windows.Forms.ToolStripButton()
+        Me.columnComprobanteTipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnPuntoVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnNumero = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnFecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnTitular = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnCAE = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.statusstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelToolbars.SuspendLayout()
@@ -113,85 +113,6 @@ Partial Class formComprobantes
         Me.datagridviewMain.Size = New System.Drawing.Size(822, 325)
         Me.datagridviewMain.TabIndex = 0
         '
-        'columnComprobanteTipo
-        '
-        Me.columnComprobanteTipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnComprobanteTipo.DataPropertyName = "ComprobanteTipo"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnComprobanteTipo.DefaultCellStyle = DataGridViewCellStyle2
-        Me.columnComprobanteTipo.HeaderText = "Tipo"
-        Me.columnComprobanteTipo.Name = "columnComprobanteTipo"
-        Me.columnComprobanteTipo.ReadOnly = True
-        Me.columnComprobanteTipo.Width = 53
-        '
-        'columnPuntoVenta
-        '
-        Me.columnPuntoVenta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnPuntoVenta.DataPropertyName = "PuntoVenta"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnPuntoVenta.DefaultCellStyle = DataGridViewCellStyle3
-        Me.columnPuntoVenta.HeaderText = "Punto de Venta"
-        Me.columnPuntoVenta.Name = "columnPuntoVenta"
-        Me.columnPuntoVenta.ReadOnly = True
-        Me.columnPuntoVenta.Width = 97
-        '
-        'columnNumero
-        '
-        Me.columnNumero.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnNumero.DataPropertyName = "Numero"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnNumero.DefaultCellStyle = DataGridViewCellStyle4
-        Me.columnNumero.HeaderText = "Número"
-        Me.columnNumero.Name = "columnNumero"
-        Me.columnNumero.ReadOnly = True
-        Me.columnNumero.Width = 69
-        '
-        'columnFecha
-        '
-        Me.columnFecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnFecha.DataPropertyName = "Fecha"
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnFecha.DefaultCellStyle = DataGridViewCellStyle5
-        Me.columnFecha.HeaderText = "Fecha"
-        Me.columnFecha.Name = "columnFecha"
-        Me.columnFecha.ReadOnly = True
-        Me.columnFecha.Width = 62
-        '
-        'columnTitular
-        '
-        Me.columnTitular.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnTitular.DataPropertyName = "Titular"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnTitular.DefaultCellStyle = DataGridViewCellStyle6
-        Me.columnTitular.HeaderText = "Titular"
-        Me.columnTitular.Name = "columnTitular"
-        Me.columnTitular.ReadOnly = True
-        Me.columnTitular.Width = 61
-        '
-        'columnImporteTotal
-        '
-        Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnImporteTotal.DataPropertyName = "ImporteTotal"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle7.Format = "C2"
-        DataGridViewCellStyle7.NullValue = Nothing
-        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle7
-        Me.columnImporteTotal.HeaderText = "Importe Total"
-        Me.columnImporteTotal.Name = "columnImporteTotal"
-        Me.columnImporteTotal.ReadOnly = True
-        Me.columnImporteTotal.Width = 87
-        '
-        'columnCAE
-        '
-        Me.columnCAE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnCAE.DataPropertyName = "CAE"
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnCAE.DefaultCellStyle = DataGridViewCellStyle8
-        Me.columnCAE.HeaderText = "CAE"
-        Me.columnCAE.Name = "columnCAE"
-        Me.columnCAE.ReadOnly = True
-        Me.columnCAE.Width = 53
-        '
         'panelToolbars
         '
         Me.panelToolbars.AutoSize = True
@@ -214,7 +135,7 @@ Partial Class formComprobantes
         Me.toolstripButtons.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAgregar, Me.buttonEditar, Me.buttonEliminar, Me.buttonImprimir})
         Me.toolstripButtons.Location = New System.Drawing.Point(0, 0)
         Me.toolstripButtons.Name = "toolstripButtons"
-        Me.toolstripButtons.Size = New System.Drawing.Size(359, 39)
+        Me.toolstripButtons.Size = New System.Drawing.Size(328, 39)
         Me.toolstripButtons.TabIndex = 1
         '
         'buttonAgregar
@@ -258,7 +179,7 @@ Partial Class formComprobantes
         Me.toolstripPeriodo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripPeriodo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripPeriodo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelPeriodo, Me.comboboxPeriodo})
-        Me.toolstripPeriodo.Location = New System.Drawing.Point(359, 0)
+        Me.toolstripPeriodo.Location = New System.Drawing.Point(328, 0)
         Me.toolstripPeriodo.Name = "toolstripPeriodo"
         Me.toolstripPeriodo.Size = New System.Drawing.Size(131, 39)
         Me.toolstripPeriodo.TabIndex = 8
@@ -280,7 +201,7 @@ Partial Class formComprobantes
         Me.toolstripComprobanteTipo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripComprobanteTipo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripComprobanteTipo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelComprobanteTipo, Me.comboboxOperacionTipo, Me.comboboxComprobanteTipo})
-        Me.toolstripComprobanteTipo.Location = New System.Drawing.Point(490, 0)
+        Me.toolstripComprobanteTipo.Location = New System.Drawing.Point(459, 0)
         Me.toolstripComprobanteTipo.Name = "toolstripComprobanteTipo"
         Me.toolstripComprobanteTipo.Size = New System.Drawing.Size(266, 39)
         Me.toolstripComprobanteTipo.TabIndex = 10
@@ -378,6 +299,85 @@ Partial Class formComprobantes
         Me.buttonBuscarBorrar.Size = New System.Drawing.Size(23, 22)
         Me.buttonBuscarBorrar.ToolTipText = "Limpiar búsqueda"
         '
+        'columnComprobanteTipo
+        '
+        Me.columnComprobanteTipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnComprobanteTipo.DataPropertyName = "ComprobanteTipoNombre"
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnComprobanteTipo.DefaultCellStyle = DataGridViewCellStyle2
+        Me.columnComprobanteTipo.HeaderText = "Tipo"
+        Me.columnComprobanteTipo.Name = "columnComprobanteTipo"
+        Me.columnComprobanteTipo.ReadOnly = True
+        Me.columnComprobanteTipo.Width = 53
+        '
+        'columnPuntoVenta
+        '
+        Me.columnPuntoVenta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnPuntoVenta.DataPropertyName = "PuntoVenta"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnPuntoVenta.DefaultCellStyle = DataGridViewCellStyle3
+        Me.columnPuntoVenta.HeaderText = "Punto de Venta"
+        Me.columnPuntoVenta.Name = "columnPuntoVenta"
+        Me.columnPuntoVenta.ReadOnly = True
+        Me.columnPuntoVenta.Width = 97
+        '
+        'columnNumero
+        '
+        Me.columnNumero.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnNumero.DataPropertyName = "Numero"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnNumero.DefaultCellStyle = DataGridViewCellStyle4
+        Me.columnNumero.HeaderText = "Número"
+        Me.columnNumero.Name = "columnNumero"
+        Me.columnNumero.ReadOnly = True
+        Me.columnNumero.Width = 69
+        '
+        'columnFecha
+        '
+        Me.columnFecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnFecha.DataPropertyName = "FechaEmision"
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnFecha.DefaultCellStyle = DataGridViewCellStyle5
+        Me.columnFecha.HeaderText = "Fecha"
+        Me.columnFecha.Name = "columnFecha"
+        Me.columnFecha.ReadOnly = True
+        Me.columnFecha.Width = 62
+        '
+        'columnTitular
+        '
+        Me.columnTitular.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnTitular.DataPropertyName = "Titular"
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnTitular.DefaultCellStyle = DataGridViewCellStyle6
+        Me.columnTitular.HeaderText = "Titular"
+        Me.columnTitular.Name = "columnTitular"
+        Me.columnTitular.ReadOnly = True
+        Me.columnTitular.Width = 61
+        '
+        'columnImporteTotal
+        '
+        Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnImporteTotal.DataPropertyName = "ImporteTotal"
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle7.Format = "C2"
+        DataGridViewCellStyle7.NullValue = Nothing
+        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle7
+        Me.columnImporteTotal.HeaderText = "Importe Total"
+        Me.columnImporteTotal.Name = "columnImporteTotal"
+        Me.columnImporteTotal.ReadOnly = True
+        Me.columnImporteTotal.Width = 87
+        '
+        'columnCAE
+        '
+        Me.columnCAE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnCAE.DataPropertyName = "CAE"
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnCAE.DefaultCellStyle = DataGridViewCellStyle8
+        Me.columnCAE.HeaderText = "CAE"
+        Me.columnCAE.Name = "columnCAE"
+        Me.columnCAE.ReadOnly = True
+        Me.columnCAE.Width = 53
+        '
         'formComprobantes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -411,13 +411,6 @@ Partial Class formComprobantes
     Friend WithEvents statuslabelMain As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents statusstripMain As System.Windows.Forms.StatusStrip
     Friend WithEvents datagridviewMain As System.Windows.Forms.DataGridView
-    Friend WithEvents columnComprobanteTipo As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnPuntoVenta As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnNumero As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnFecha As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnTitular As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnCAE As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents panelToolbars As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents toolstripButtons As System.Windows.Forms.ToolStrip
     Friend WithEvents buttonAgregar As System.Windows.Forms.ToolStripButton
@@ -441,4 +434,11 @@ Partial Class formComprobantes
     Friend WithEvents comboboxComprobanteTipo As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents comboboxOperacionTipo As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents buttonImprimir As System.Windows.Forms.ToolStripButton
+    Friend WithEvents columnComprobanteTipo As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnPuntoVenta As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnNumero As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnFecha As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnTitular As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnCAE As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

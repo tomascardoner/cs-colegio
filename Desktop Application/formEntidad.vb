@@ -1,5 +1,5 @@
 ﻿Public Class formEntidad
-    Friend FormDBContext As New CSColegioContext
+    Friend dbcontext As New CSColegioContext(True)
     Friend EntidadCurrent As Entidad
 
     Friend Sub InitializeFormAndControls()
@@ -21,64 +21,64 @@
             Else
                 textboxIDEntidad.Text = String.Format(.IDEntidad.ToString, "G")
             End If
-            checkboxEsActivo.CheckState = CSM_ValueTranslation.FromObjectBooleanToControlCheckBox(.EsActivo)
-            textboxApellido.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.Apellido)
-            textboxNombre.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.Nombre)
+            checkboxEsActivo.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.EsActivo)
+            textboxApellido.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Apellido)
+            textboxNombre.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Nombre)
 
             ' Datos de la pestaña General
-            checkboxTipoPersonalColegio.CheckState = CSM_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoPersonalColegio)
-            checkboxTipoDocente.CheckState = CSM_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoDocente)
-            checkboxTipoAlumno.CheckState = CSM_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoAlumno)
-            checkboxTipoFamiliar.CheckState = CSM_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoFamiliar)
-            checkboxTipoProveedor.CheckState = CSM_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoProveedor)
-            CSM_ComboBox.SetSelectedValue(comboboxDocumentoTipo, SelectedItemOptions.ValueOrFirst, .IDDocumentoTipo, CByte(0))
+            checkboxTipoPersonalColegio.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoPersonalColegio)
+            checkboxTipoDocente.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoDocente)
+            checkboxTipoAlumno.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoAlumno)
+            checkboxTipoFamiliar.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoFamiliar)
+            checkboxTipoProveedor.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoProveedor)
+            CS_ComboBox.SetSelectedValue(comboboxDocumentoTipo, SelectedItemOptions.ValueOrFirst, .IDDocumentoTipo, CByte(0))
             If CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
-                maskedtextboxDocumentoNumero.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.DocumentoNumero)
+                maskedtextboxDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DocumentoNumero)
             Else
-                textboxDocumentoNumero.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.DocumentoNumero)
+                textboxDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DocumentoNumero)
             End If
-            CSM_ComboBox.SetSelectedValue(comboboxFacturaDocumentoTipo, SelectedItemOptions.ValueOrFirst, .FacturaIDDocumentoTipo, CByte(0))
+            CS_ComboBox.SetSelectedValue(comboboxFacturaDocumentoTipo, SelectedItemOptions.ValueOrFirst, .FacturaIDDocumentoTipo, CByte(0))
             If CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
-                maskedtextboxFacturaDocumentoNumero.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.FacturaDocumentoNumero)
+                maskedtextboxFacturaDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.FacturaDocumentoNumero)
             Else
-                textboxFacturaDocumentoNumero.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.FacturaDocumentoNumero)
+                textboxFacturaDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.FacturaDocumentoNumero)
             End If
-            CSM_ComboBox.SetSelectedValue(comboboxGenero, SelectedItemOptions.ValueOrFirst, .Genero, Constantes.GENERO_NOESPECIFICA)
-            datetimepickerFechaNacimiento.Value = CSM_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaNacimiento, datetimepickerFechaNacimiento)
-            CSM_ComboBox.SetSelectedValue(comboboxCategoriaIVA, SelectedItemOptions.ValueOrFirst, .IDCategoriaIVA, 0)
+            CS_ComboBox.SetSelectedValue(comboboxGenero, SelectedItemOptions.ValueOrFirst, .Genero, Constantes.GENERO_NOESPECIFICA)
+            datetimepickerFechaNacimiento.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaNacimiento, datetimepickerFechaNacimiento)
+            CS_ComboBox.SetSelectedValue(comboboxCategoriaIVA, SelectedItemOptions.ValueOrFirst, .IDCategoriaIVA, 0)
 
             ' Datos de la pestaña Contacto
-            textboxTelefono1.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.Telefono1)
-            textboxTelefono2.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.Telefono2)
-            textboxTelefono3.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.Telefono3)
-            textboxEmail1.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.Email1)
-            textboxEmail2.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.Email2)
-            textboxDomicilioCalle1.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCalle1)
-            textboxDomicilioNumero.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioNumero)
-            textboxDomicilioPiso.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioPiso)
-            textboxDomicilioDepartamento.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioDepartamento)
-            textboxDomicilioCalle2.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCalle2)
-            textboxDomicilioCalle3.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCalle3)
-            CSM_ComboBox.SetSelectedValue(comboboxDomicilioProvincia, SelectedItemOptions.Value, .DomicilioIDProvincia, Constantes.PROVINCIA_NOESPECIFICA)
-            CSM_ComboBox.SetSelectedValue(comboboxDomicilioLocalidad, SelectedItemOptions.Value, .DomicilioIDLocalidad, 0)
-            textboxDomicilioCodigoPostal.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCodigoPostal)
+            textboxTelefono1.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Telefono1)
+            textboxTelefono2.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Telefono2)
+            textboxTelefono3.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Telefono3)
+            textboxEmail1.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Email1)
+            textboxEmail2.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Email2)
+            textboxDomicilioCalle1.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCalle1)
+            textboxDomicilioNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioNumero)
+            textboxDomicilioPiso.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioPiso)
+            textboxDomicilioDepartamento.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioDepartamento)
+            textboxDomicilioCalle2.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCalle2)
+            textboxDomicilioCalle3.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCalle3)
+            CS_ComboBox.SetSelectedValue(comboboxDomicilioProvincia, SelectedItemOptions.Value, .DomicilioIDProvincia, Constantes.PROVINCIA_NOESPECIFICA)
+            CS_ComboBox.SetSelectedValue(comboboxDomicilioLocalidad, SelectedItemOptions.Value, .DomicilioIDLocalidad, 0)
+            textboxDomicilioCodigoPostal.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCodigoPostal)
 
             ' Datos de la pestaña Padres y Facturación
             If .EntidadPadre Is Nothing Then
                 textboxEntidadPadre.Text = ""
                 textboxEntidadPadre.Tag = Nothing
             Else
-                textboxEntidadPadre.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.EntidadPadre.ApellidoNombre)
+                textboxEntidadPadre.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.EntidadPadre.ApellidoNombre)
                 textboxEntidadPadre.Tag = .EntidadPadre.IDEntidad
             End If
             If .EntidadMadre Is Nothing Then
                 textboxEntidadMadre.Text = ""
                 textboxEntidadMadre.Tag = Nothing
             Else
-                textboxEntidadMadre.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.EntidadMadre.ApellidoNombre)
+                textboxEntidadMadre.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.EntidadMadre.ApellidoNombre)
                 textboxEntidadMadre.Tag = .EntidadMadre.IDEntidad
             End If
-            CSM_ComboBox.SetSelectedValue(comboboxEmitirFacturaA, SelectedItemOptions.ValueOrFirst, .EmitirFacturaA, Constantes.EMITIRFACTURAA_NOESPECIFICA)
+            CS_ComboBox.SetSelectedValue(comboboxEmitirFacturaA, SelectedItemOptions.ValueOrFirst, .EmitirFacturaA, Constantes.EMITIRFACTURAA_NOESPECIFICA)
             If .EntidadTercero Is Nothing OrElse (.EmitirFacturaA <> Constantes.EMITIRFACTURAA_TERCERO And .EmitirFacturaA <> Constantes.EMITIRFACTURAA_TODOS) Then
                 textboxEntidadTercero.Text = ""
                 textboxEntidadTercero.Tag = Nothing
@@ -87,13 +87,13 @@
                     textboxEntidadTercero.Text = ""
                     textboxEntidadTercero.Tag = Nothing
                 Else
-                    textboxEntidadTercero.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.EntidadTercero.ApellidoNombre)
+                    textboxEntidadTercero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.EntidadTercero.ApellidoNombre)
                     textboxEntidadTercero.Tag = .EntidadTercero.IDEntidad
                 End If
             End If
-            CSM_ComboBox.SetSelectedValue(comboboxDescuento, SelectedItemOptions.ValueOrFirst, .IDDescuento, 0)
-            datetimepickerExcluyeFacturaDesde.Value = CSM_ValueTranslation.FromObjectDateToControlDateTimePicker(.ExcluyeFacturaDesde, datetimepickerExcluyeFacturaDesde)
-            datetimepickerExcluyeFacturaHasta.Value = CSM_ValueTranslation.FromObjectDateToControlDateTimePicker(.ExcluyeFacturaHasta, datetimepickerExcluyeFacturaHasta)
+            CS_ComboBox.SetSelectedValue(comboboxDescuento, SelectedItemOptions.ValueOrFirst, .IDDescuento, 0)
+            datetimepickerExcluyeFacturaDesde.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.ExcluyeFacturaDesde, datetimepickerExcluyeFacturaDesde)
+            datetimepickerExcluyeFacturaHasta.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.ExcluyeFacturaHasta, datetimepickerExcluyeFacturaHasta)
 
             ' Datos de la pestaña Cursos Asistidos
             Dim listCursosAsistidos As New List(Of Object)
@@ -103,7 +103,7 @@
             datagridviewCursosAsistidos.DataSource = listCursosAsistidos
 
             ' Datos de la pestaña Hijos
-            Using dbcHijos As New CSColegioContext
+            Using dbcHijos As New CSColegioContext(True)
                 Dim qryHijos = From ent In dbcHijos.Entidad
                                Where ent.IDEntidadPadre = .IDEntidad Or ent.IDEntidadMadre = .IDEntidad
                                Select IDEntidad = ent.IDEntidad, Apellido = ent.Apellido, Nombre = ent.Nombre
@@ -112,7 +112,7 @@
             End Using
 
             ' Datos de la pestaña Relaciones Padres
-            Using dbcRelaciones As New CSColegioContext
+            Using dbcRelaciones As New CSColegioContext(True)
                 Dim qryRelacionesPadres = From ent In dbcRelaciones.Entidad
                                          Join entxent In dbcRelaciones.EntidadEntidad On ent.IDEntidad Equals entxent.IDEntidadPadre
                                          Join reltip In dbcRelaciones.RelacionTipo On entxent.IDRelacionTipo Equals reltip.IDRelacionTipo
@@ -124,18 +124,18 @@
             End Using
 
             ' Datos de la pestaña Notas y Auditoría
-            textboxNotas.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.Notas)
+            textboxNotas.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Notas)
             textboxFechaHoraCreacion.Text = .FechaHoraCreacion.ToShortDateString & " " & .FechaHoraCreacion.ToShortTimeString
             If .UsuarioCreacion Is Nothing Then
                 textboxUsuarioCreacion.Text = ""
             Else
-                textboxUsuarioCreacion.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.UsuarioCreacion.Descripcion)
+                textboxUsuarioCreacion.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.UsuarioCreacion.Descripcion)
             End If
             textboxFechaHoraModificacion.Text = .FechaHoraModificacion.ToShortDateString & " " & .FechaHoraModificacion.ToShortTimeString
             If .UsuarioModificacion Is Nothing Then
                 textboxUsuarioModificacion.Text = ""
             Else
-                textboxUsuarioModificacion.Text = CSM_ValueTranslation.FromObjectStringToControlTextBox(.UsuarioModificacion.Descripcion)
+                textboxUsuarioModificacion.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.UsuarioModificacion.Descripcion)
             End If
         End With
     End Sub
@@ -143,63 +143,63 @@
     Friend Sub SetDataFromControlsToObject()
         With EntidadCurrent
             ' Datos del Encabezado
-            .EsActivo = CSM_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxEsActivo.CheckState)
+            .EsActivo = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxEsActivo.CheckState)
             .Apellido = textboxApellido.Text.Trim
-            .Nombre = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxNombre.Text.Trim)
+            .Nombre = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNombre.Text.Trim)
 
             'Datos de la pestaña General
-            .TipoPersonalColegio = CSM_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoPersonalColegio.CheckState)
-            .TipoDocente = CSM_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoDocente.CheckState)
-            .TipoAlumno = CSM_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoAlumno.CheckState)
-            .TipoFamiliar = CSM_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoFamiliar.CheckState)
-            .TipoProveedor = CSM_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoProveedor.CheckState)
-            .IDDocumentoTipo = CSM_ValueTranslation.FromControlComboBoxToObjectByte(comboboxDocumentoTipo.SelectedValue, 0)
+            .TipoPersonalColegio = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoPersonalColegio.CheckState)
+            .TipoDocente = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoDocente.CheckState)
+            .TipoAlumno = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoAlumno.CheckState)
+            .TipoFamiliar = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoFamiliar.CheckState)
+            .TipoProveedor = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoProveedor.CheckState)
+            .IDDocumentoTipo = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxDocumentoTipo.SelectedValue, 0)
             If CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
-                .DocumentoNumero = CSM_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxDocumentoNumero.Text.Trim)
+                .DocumentoNumero = CS_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxDocumentoNumero.Text.Trim)
             Else
-                .DocumentoNumero = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxDocumentoNumero.Text.Trim)
+                .DocumentoNumero = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxDocumentoNumero.Text.Trim)
             End If
-            .FacturaIDDocumentoTipo = CSM_ValueTranslation.FromControlComboBoxToObjectByte(comboboxFacturaDocumentoTipo.SelectedValue, 0)
+            .FacturaIDDocumentoTipo = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxFacturaDocumentoTipo.SelectedValue, 0)
             If CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
-                .FacturaDocumentoNumero = CSM_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxFacturaDocumentoNumero.Text.Trim)
+                .FacturaDocumentoNumero = CS_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxFacturaDocumentoNumero.Text.Trim)
             Else
-                .FacturaDocumentoNumero = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxFacturaDocumentoNumero.Text.Trim)
+                .FacturaDocumentoNumero = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxFacturaDocumentoNumero.Text.Trim)
             End If
-            .Genero = CSM_ValueTranslation.FromControlComboBoxToObjectString(comboboxGenero.SelectedValue, Constantes.GENERO_NOESPECIFICA)
-            .FechaNacimiento = CSM_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFechaNacimiento.Value, datetimepickerFechaNacimiento.Checked)
-            .IDCategoriaIVA = CSM_ValueTranslation.FromControlComboBoxToObjectByte(comboboxCategoriaIVA.SelectedValue, 0)
+            .Genero = CS_ValueTranslation.FromControlComboBoxToObjectString(comboboxGenero.SelectedValue, Constantes.GENERO_NOESPECIFICA)
+            .FechaNacimiento = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFechaNacimiento.Value, datetimepickerFechaNacimiento.Checked)
+            .IDCategoriaIVA = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxCategoriaIVA.SelectedValue, 0)
 
             ' Datos de la pestaña Contacto
-            .Telefono1 = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxTelefono1.Text)
-            .Telefono2 = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxTelefono2.Text)
-            .Telefono3 = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxTelefono3.Text)
-            .Email1 = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxEmail1.Text)
-            .Email2 = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxEmail2.Text)
-            .DomicilioCalle1 = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioCalle1.Text)
-            .DomicilioNumero = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioNumero.Text)
-            .DomicilioPiso = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioPiso.Text)
-            .DomicilioDepartamento = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioDepartamento.Text)
-            .DomicilioCalle2 = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioCalle2.Text)
-            .DomicilioCalle3 = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioCalle3.Text)
-            .DomicilioIDProvincia = CSM_ValueTranslation.FromControlComboBoxToObjectByte(comboboxDomicilioProvincia.SelectedValue, Constantes.PROVINCIA_NOESPECIFICA)
-            .DomicilioIDLocalidad = CSM_ValueTranslation.FromControlComboBoxToObjectShort(comboboxDomicilioLocalidad.SelectedValue, 0)
-            .DomicilioCodigoPostal = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioCodigoPostal.Text)
+            .Telefono1 = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxTelefono1.Text)
+            .Telefono2 = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxTelefono2.Text)
+            .Telefono3 = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxTelefono3.Text)
+            .Email1 = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxEmail1.Text)
+            .Email2 = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxEmail2.Text)
+            .DomicilioCalle1 = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioCalle1.Text)
+            .DomicilioNumero = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioNumero.Text)
+            .DomicilioPiso = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioPiso.Text)
+            .DomicilioDepartamento = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioDepartamento.Text)
+            .DomicilioCalle2 = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioCalle2.Text)
+            .DomicilioCalle3 = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioCalle3.Text)
+            .DomicilioIDProvincia = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxDomicilioProvincia.SelectedValue, Constantes.PROVINCIA_NOESPECIFICA)
+            .DomicilioIDLocalidad = CS_ValueTranslation.FromControlComboBoxToObjectShort(comboboxDomicilioLocalidad.SelectedValue, 0)
+            .DomicilioCodigoPostal = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioCodigoPostal.Text)
 
             ' Datos de la pestaña Padres y Facturación
-            .IDEntidadPadre = CSM_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadPadre.Tag)
-            .IDEntidadMadre = CSM_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadMadre.Tag)
-            .EmitirFacturaA = CSM_ValueTranslation.FromControlComboBoxToObjectString(comboboxEmitirFacturaA.SelectedValue, Constantes.EMITIRFACTURAA_NOESPECIFICA)
+            .IDEntidadPadre = CS_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadPadre.Tag)
+            .IDEntidadMadre = CS_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadMadre.Tag)
+            .EmitirFacturaA = CS_ValueTranslation.FromControlComboBoxToObjectString(comboboxEmitirFacturaA.SelectedValue, Constantes.EMITIRFACTURAA_NOESPECIFICA)
             If .EmitirFacturaA = Constantes.EMITIRFACTURAA_TERCERO Or .EmitirFacturaA = Constantes.EMITIRFACTURAA_TODOS Then
-                .IDEntidadTercero = CSM_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadTercero.Tag)
+                .IDEntidadTercero = CS_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadTercero.Tag)
             Else
                 .IDEntidadTercero = Nothing
             End If
-            .IDDescuento = CSM_ValueTranslation.FromControlComboBoxToObjectByte(comboboxDescuento.SelectedValue, 0)
-            .ExcluyeFacturaDesde = CSM_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerExcluyeFacturaDesde.Value, datetimepickerExcluyeFacturaDesde.Checked)
-            .ExcluyeFacturaHasta = CSM_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerExcluyeFacturaHasta.Value, datetimepickerExcluyeFacturaHasta.Checked)
+            .IDDescuento = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxDescuento.SelectedValue, 0)
+            .ExcluyeFacturaDesde = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerExcluyeFacturaDesde.Value, datetimepickerExcluyeFacturaDesde.Checked)
+            .ExcluyeFacturaHasta = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerExcluyeFacturaHasta.Value, datetimepickerExcluyeFacturaHasta.Checked)
 
             ' Datos de la pestaña Notas y Aditoría
-            .Notas = CSM_ValueTranslation.FromControlTextBoxToObjectString(textboxNotas.Text.Trim)
+            .Notas = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNotas.Text.Trim)
         End With
     End Sub
 
@@ -234,8 +234,8 @@
             comboboxDomicilioLocalidad.DataSource = Nothing
         Else
             FillAndRefreshLists.Localidad(comboboxDomicilioLocalidad, CByte(comboboxDomicilioProvincia.SelectedValue), False)
-            If CByte(comboboxDomicilioProvincia.SelectedValue) = CSM_Parameter.GetIntegerAsByte(Parametros.DEFAULT_PROVINCIA_ID) Then
-                CSM_ComboBox.SetSelectedValue(comboboxDomicilioLocalidad, SelectedItemOptions.ValueOrFirst, CSM_Parameter.GetIntegerAsShort(Parametros.DEFAULT_LOCALIDAD_ID))
+            If CByte(comboboxDomicilioProvincia.SelectedValue) = CS_Parameter.GetIntegerAsByte(Parametros.DEFAULT_PROVINCIA_ID) Then
+                CS_ComboBox.SetSelectedValue(comboboxDomicilioLocalidad, SelectedItemOptions.ValueOrFirst, CS_Parameter.GetIntegerAsShort(Parametros.DEFAULT_LOCALIDAD_ID))
             End If
         End If
     End Sub
@@ -252,7 +252,7 @@
             buttonCancelar.Visible = True
             buttonEditar.Visible = False
             buttonCerrar.Visible = False
-            CSM_Form.ControlsChangeStateReadOnly(Me.Controls, False, True, textboxIDEntidad.Name, textboxEntidadPadre.Name, textboxEntidadMadre.Name, textboxEntidadTercero.Name, textboxFechaHoraCreacion.Name, textboxUsuarioCreacion.Name, textboxFechaHoraModificacion.Name, textboxUsuarioModificacion.Name)
+            CS_Form.ControlsChangeStateReadOnly(Me.Controls, False, True, textboxIDEntidad.Name, textboxEntidadPadre.Name, textboxEntidadMadre.Name, textboxEntidadTercero.Name, textboxFechaHoraCreacion.Name, textboxUsuarioCreacion.Name, textboxFechaHoraModificacion.Name, textboxUsuarioModificacion.Name)
         End If
     End Sub
 
@@ -288,7 +288,7 @@
                     maskedtextboxDocumentoNumero.Focus()
                     Exit Sub
                 End If
-                If Not CSM_AFIP.VerificarCUIT(maskedtextboxDocumentoNumero.Text) Then
+                If Not CS_AFIP.VerificarCUIT(maskedtextboxDocumentoNumero.Text) Then
                     tabcontrolMain.SelectedTab = tabpageGeneral
                     MsgBox("El Número de " & CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).Nombre & " ingresado es incorrecto.", MsgBoxStyle.Information, My.Application.Info.Title)
                     maskedtextboxDocumentoNumero.Focus()
@@ -307,7 +307,7 @@
         ' Verifico el Número de Documento para la Factura
         If comboboxFacturaDocumentoTipo.SelectedIndex > 0 AndAlso textboxFacturaDocumentoNumero.Text.Length = 0 Then
             If CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
-                If maskedtextboxFacturaDocumentoNumero.Text.Length = 0 Then
+                If maskedtextboxFacturaDocumentoNumero.Text.Trim.Length = 0 Then
                     tabcontrolMain.SelectedTab = tabpageGeneral
                     MsgBox("Si especifica el Tipo de Documento para Facturar, también debe especificar el Número de Documento para Facturar.", MsgBoxStyle.Information, My.Application.Info.Title)
                     maskedtextboxFacturaDocumentoNumero.Focus()
@@ -319,7 +319,7 @@
                     maskedtextboxFacturaDocumentoNumero.Focus()
                     Exit Sub
                 End If
-                If Not CSM_AFIP.VerificarCUIT(maskedtextboxFacturaDocumentoNumero.Text) Then
+                If Not CS_AFIP.VerificarCUIT(maskedtextboxFacturaDocumentoNumero.Text) Then
                     tabcontrolMain.SelectedTab = tabpageGeneral
                     MsgBox("El Número de " & CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).Nombre & " ingresado es incorrecto.", MsgBoxStyle.Information, My.Application.Info.Title)
                     maskedtextboxFacturaDocumentoNumero.Focus()
@@ -335,12 +335,33 @@
             End If
         End If
 
+        ' Fecha de Nacimiento
         If datetimepickerFechaNacimiento.Checked And datetimepickerFechaNacimiento.Value.Year = Today.Year Then
             tabcontrolMain.SelectedTab = tabpageGeneral
             MsgBox("Se ha especificado una Fecha de Nacimiento que no parece ser válida ya que es del año actual.", MsgBoxStyle.Information, My.Application.Info.Title)
             datetimepickerFechaNacimiento.Focus()
             Exit Sub
         End If
+
+        ' Direcciones de Email
+        If textboxEmail1.Text.Trim.Length > 0 Then
+            If Not CS_Email.IsValidEmail(textboxEmail1.Text.Trim) Then
+                tabcontrolMain.SelectedTab = tabpageContacto
+                MsgBox("La dirección de E-mail 1 es incorrecta.", vbInformation, My.Application.Info.Title)
+                textboxEmail1.Focus()
+                Exit Sub
+            End If
+        End If
+        If textboxEmail2.Text.Trim.Length > 0 Then
+            If Not CS_Email.IsValidEmail(textboxEmail2.Text.Trim) Then
+                tabcontrolMain.SelectedTab = tabpageContacto
+                MsgBox("La dirección de E-mail 2 es incorrecta.", vbInformation, My.Application.Info.Title)
+                textboxEmail2.Focus()
+                Exit Sub
+            End If
+        End If
+
+        ' Emitir Factura A:
         Select Case CStr(comboboxEmitirFacturaA.SelectedValue)
             Case Constantes.EMITIRFACTURAA_NOESPECIFICA
                 If checkboxTipoAlumno.Checked AndAlso (((Not textboxEntidadPadre.Tag Is Nothing) And (EntidadCurrent.IDEntidadPadre Is Nothing)) Or ((Not textboxEntidadMadre.Tag Is Nothing) And (EntidadCurrent.IDEntidadMadre Is Nothing))) Then
@@ -407,7 +428,7 @@
 
         ' Generar el ID de la Entidad nueva
         If EntidadCurrent.IDEntidad = 0 Then
-            Using dbcMaxID As New CSColegioContext
+            Using dbcMaxID As New CSColegioContext(True)
                 If dbcMaxID.Entidad.Count = 0 Then
                     EntidadCurrent.IDEntidad = 1
                 Else
@@ -419,7 +440,7 @@
         ' Paso los datos desde los controles al Objecto de EF
         SetDataFromControlsToObject()
 
-        If FormDBContext.ChangeTracker.HasChanges Then
+        If dbcontext.ChangeTracker.HasChanges Then
 
             Me.Cursor = Cursors.WaitCursor
 
@@ -429,18 +450,18 @@
             Try
 
                 ' Guardo los cambios
-                FormDBContext.SaveChanges()
+                dbcontext.SaveChanges()
 
                 ' Refresco la lista de Entidades para mostrar los cambios
-                If CSM_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formEntidades") Then
-                    Dim formEntidades As formEntidades = CType(CSM_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formEntidades"), formEntidades)
+                If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formEntidades") Then
+                    Dim formEntidades As formEntidades = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formEntidades"), formEntidades)
                     formEntidades.RefreshData(EntidadCurrent.IDEntidad)
                     formEntidades = Nothing
                 End If
 
             Catch ex As Exception
                 Me.Cursor = Cursors.Default
-                CSM_Error.ProcessError(ex, "Error al intentar guardar los cambios a la Base de Datos.")
+                CS_Error.ProcessError(ex, "Error al intentar guardar los cambios a la Base de Datos.")
                 Exit Sub
             End Try
         End If
@@ -449,7 +470,7 @@
     End Sub
 
     Private Sub buttonCancelar_Click() Handles buttonCancelar.Click
-        If FormDBContext.ChangeTracker.HasChanges Then
+        If dbcontext.ChangeTracker.HasChanges Then
             If MsgBox("Ha realizado cambios en los datos y seleccionó cancelar, los cambios se perderán." & vbCr & vbCr & "¿Confirma la pérdida de los cambios?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                 Me.Close()
             End If

@@ -35,17 +35,6 @@
         TerminateApplication()
     End Sub
 
-    Friend Sub ShowCurrentUserInfo()
-        menuitemDebug.Visible = (pUsuario.IDUsuario = 1)
-
-        If pUsuario.Genero = GENERO_MASCULINO Then
-            Me.labelUsuarioNombre.Image = My.Resources.Resources.IMAGE_USUARIO_HOMBRE_16
-        Else
-            Me.labelUsuarioNombre.Image = My.Resources.Resources.IMAGE_USUARIO_MUJER_16
-        End If
-        Me.labelUsuarioNombre.Text = pUsuario.Descripcion
-    End Sub
-
     Private Sub menuitemArchivo_Salir_Click() Handles menuitemArchivo_Salir.Click
         Me.Close()
     End Sub
@@ -54,13 +43,13 @@
     Private Function FormCABGenerico_CrearOMostrar(ByVal EntityNameSingular As String, ByVal EntityNamePlural As String) As formCABGenerico
         Dim FormCurrent As formCABGenerico
 
-        FormCurrent = CType(CSM_Form.MDIChild_GetInstance(Me, "formCABGenerico", EntityNamePlural), formCABGenerico)
+        FormCurrent = CType(CS_Form.MDIChild_GetInstance(Me, "formCABGenerico", EntityNamePlural), formCABGenerico)
         If FormCurrent Is Nothing Then
             Me.Cursor = Cursors.WaitCursor
 
             FormCurrent = New formCABGenerico()
 
-            CSM_Form.MDIChild_PositionAndSize(Me, CType(FormCurrent, Form), Form_ClientSize)
+            CS_Form.MDIChild_PositionAndSize(Me, CType(FormCurrent, Form), Form_ClientSize)
             FormCurrent.EntityNameSingular = EntityNameSingular
             FormCurrent.EntityNamePlural = EntityNamePlural
             Return FormCurrent
@@ -83,11 +72,11 @@
             If Not formNiveles Is Nothing Then
                 With formNiveles
                     'AGREGO LAS COLUMNAS
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_TextBox("IDNivel", "ID", "IDNivel", DataGridViewContentAlignment.MiddleCenter))
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_TextBox("Nombre", "Nombre", "Nombre", DataGridViewContentAlignment.MiddleLeft))
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_CheckBox("Activo", "Activo", "Activo", DataGridViewContentAlignment.MiddleCenter, False, True, False, False))
+                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("IDNivel", "ID", "IDNivel", DataGridViewContentAlignment.MiddleCenter))
+                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("Nombre", "Nombre", "Nombre", DataGridViewContentAlignment.MiddleLeft))
+                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_CheckBox("Activo", "Activo", "Activo", DataGridViewContentAlignment.MiddleCenter, False, True, False, False))
 
-                    .bindingsourceMain.DataSource = .FormDBContext.Nivel.ToList
+                    .bindingsourceMain.DataSource = .dbcontext.Nivel.ToList
                     .Show()
                 End With
 
@@ -109,18 +98,18 @@
                     'toolstripFiltroNivel.Items.Add(labelFiltroNivel)
                     'Dim comboboxFiltroNivel As New ToolStripComboBox("comboboxFiltroNivel")
                     'comboboxFiltroNivel.DropDownStyle = ComboBoxStyle.DropDownList
-                    'comboboxFiltroNivel.ComboBox.DataSource = .FormDBContext.Nivel.ToList()
+                    'comboboxFiltroNivel.ComboBox.DataSource = .dbcontext.Nivel.ToList()
                     'comboboxFiltroNivel.ComboBox.ValueMember = "IDNivel"
                     'comboboxFiltroNivel.ComboBox.DisplayMember = "Nombre"
                     'toolstripFiltroNivel.Items.Add(comboboxFiltroNivel)
 
                     'AGREGO LAS COLUMNAS
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_TextBox("IDAnio", "Año", "IDAnio", DataGridViewContentAlignment.MiddleCenter))
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_ComboBox("IDNivel", "Nivel", "IDNivel", DataGridViewContentAlignment.MiddleCenter, .FormDBContext.Nivel.ToList, "IDNivel", "Nombre"))
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_TextBox("Nombre", "Nombre", "Nombre", DataGridViewContentAlignment.MiddleLeft))
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_CheckBox("Activo", "Activo", "Activo", DataGridViewContentAlignment.MiddleCenter, False, True, False, False))
+                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("IDAnio", "Año", "IDAnio", DataGridViewContentAlignment.MiddleCenter))
+                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_ComboBox("IDNivel", "Nivel", "IDNivel", DataGridViewContentAlignment.MiddleCenter, .dbcontext.Nivel.ToList, "IDNivel", "Nombre"))
+                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("Nombre", "Nombre", "Nombre", DataGridViewContentAlignment.MiddleLeft))
+                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_CheckBox("Activo", "Activo", "Activo", DataGridViewContentAlignment.MiddleCenter, False, True, False, False))
 
-                    .bindingsourceMain.DataSource = .FormDBContext.Anio.ToList
+                    .bindingsourceMain.DataSource = .dbcontext.Anio.ToList
                     .Show()
                 End With
 
@@ -137,11 +126,11 @@
             If Not formTurnos Is Nothing Then
                 With formTurnos
                     'AGREGO LAS COLUMNAS
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_TextBox("IDTurno", "ID", "IDTurno", DataGridViewContentAlignment.MiddleCenter))
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_TextBox("Nombre", "Nombre", "Nombre", DataGridViewContentAlignment.MiddleLeft))
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_CheckBox("Activo", "Activo", "Activo", DataGridViewContentAlignment.MiddleCenter, False, True, False, False))
+                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("IDTurno", "ID", "IDTurno", DataGridViewContentAlignment.MiddleCenter))
+                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("Nombre", "Nombre", "Nombre", DataGridViewContentAlignment.MiddleLeft))
+                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_CheckBox("Activo", "Activo", "Activo", DataGridViewContentAlignment.MiddleCenter, False, True, False, False))
 
-                    .bindingsourceMain.DataSource = .FormDBContext.Turno.ToList
+                    .bindingsourceMain.DataSource = .dbcontext.Turno.ToList
                     .Show()
                 End With
 
@@ -158,11 +147,11 @@
             If Not formCursos Is Nothing Then
                 With formCursos
                     'AGREGO LAS COLUMNAS
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_TextBox("IDCurso", "ID", "IDCurso", DataGridViewContentAlignment.MiddleCenter))
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_ComboBox("IDAnio", "Año", "IDAnio", DataGridViewContentAlignment.MiddleCenter, .FormDBContext.Anio.ToList, "IDAnio", "Nombre"))
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_ComboBox("IDTurno", "Turno", "IDTurno", DataGridViewContentAlignment.MiddleCenter, .FormDBContext.Turno.ToList, "IDTurno", "Nombre"))
+                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("IDCurso", "ID", "IDCurso", DataGridViewContentAlignment.MiddleCenter))
+                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_ComboBox("IDAnio", "Año", "IDAnio", DataGridViewContentAlignment.MiddleCenter, .dbcontext.Anio.ToList, "IDAnio", "Nombre"))
+                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_ComboBox("IDTurno", "Turno", "IDTurno", DataGridViewContentAlignment.MiddleCenter, .dbcontext.Turno.ToList, "IDTurno", "Nombre"))
 
-                    .bindingsourceMain.DataSource = .FormDBContext.Curso.ToList
+                    .bindingsourceMain.DataSource = .dbcontext.Curso.ToList
                     .Show()
                 End With
 
@@ -179,11 +168,11 @@
             If Not formBancos Is Nothing Then
                 With formBancos
                     'AGREGO LAS COLUMNAS
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_TextBox("IDBanco", "ID", "IDBanco", DataGridViewContentAlignment.MiddleCenter))
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_TextBox("Nombre", "Nombre", "Nombre", DataGridViewContentAlignment.MiddleLeft))
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_CheckBox("Activo", "Activo", "Activo", DataGridViewContentAlignment.MiddleCenter, False, True, False, False))
+                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("IDBanco", "ID", "IDBanco", DataGridViewContentAlignment.MiddleCenter))
+                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("Nombre", "Nombre", "Nombre", DataGridViewContentAlignment.MiddleLeft))
+                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_CheckBox("Activo", "Activo", "Activo", DataGridViewContentAlignment.MiddleCenter, False, True, False, False))
 
-                    .bindingsourceMain.DataSource = .FormDBContext.Banco.ToList
+                    .bindingsourceMain.DataSource = .dbcontext.Banco.ToList
                     .Show()
                 End With
 
@@ -200,11 +189,11 @@
             If Not formRelacionTipo Is Nothing Then
                 With formRelacionTipo
                     'AGREGO LAS COLUMNAS
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_TextBox("IDRelacionTipo", "ID", "IDRelacionTipo", DataGridViewContentAlignment.MiddleCenter))
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_TextBox("Nombre", "Nombre", "Nombre", DataGridViewContentAlignment.MiddleLeft))
-                    .datagridviewMain.Columns.Add(CSM_DataGridView.CreateColumn_CheckBox("Activo", "Activo", "Activo", DataGridViewContentAlignment.MiddleCenter, False, True, False, False))
+                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("IDRelacionTipo", "ID", "IDRelacionTipo", DataGridViewContentAlignment.MiddleCenter))
+                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("Nombre", "Nombre", "Nombre", DataGridViewContentAlignment.MiddleLeft))
+                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_CheckBox("Activo", "Activo", "Activo", DataGridViewContentAlignment.MiddleCenter, False, True, False, False))
 
-                    .bindingsourceMain.DataSource = .FormDBContext.RelacionTipo.ToList
+                    .bindingsourceMain.DataSource = .dbcontext.RelacionTipo.ToList
                     .Show()
                 End With
 
@@ -263,7 +252,7 @@
         If Permisos.VerificarPermiso(Permisos.ENTIDAD) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CSM_Form.MDIChild_PositionAndSize(Me, CType(formEntidades, Form), Form_ClientSize)
+            CS_Form.MDIChild_PositionAndSize(Me, CType(formEntidades, Form), Form_ClientSize)
             formEntidades.Show()
             If formEntidades.WindowState = FormWindowState.Minimized Then
                 formEntidades.WindowState = FormWindowState.Normal
@@ -278,7 +267,7 @@
         If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CSM_Form.MDIChild_PositionAndSize(Me, CType(formEntidadesAnioLectivoCurso, Form), Form_ClientSize)
+            CS_Form.MDIChild_PositionAndSize(Me, CType(formEntidadesAnioLectivoCurso, Form), Form_ClientSize)
             formEntidadesAnioLectivoCurso.Show()
             If formEntidadesAnioLectivoCurso.WindowState = FormWindowState.Minimized Then
                 formEntidadesAnioLectivoCurso.WindowState = FormWindowState.Normal
@@ -293,7 +282,7 @@
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CSM_Form.MDIChild_PositionAndSize(Me, CType(formComprobantes, Form), Form_ClientSize)
+            CS_Form.MDIChild_PositionAndSize(Me, CType(formComprobantes, Form), Form_ClientSize)
             formComprobantes.Show()
             If formComprobantes.WindowState = FormWindowState.Minimized Then
                 formComprobantes.WindowState = FormWindowState.Normal
@@ -308,13 +297,13 @@
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE_GENERARLOTE) Then
             Me.Cursor = Cursors.WaitCursor
 
-            formGenerarLoteFacturas.MdiParent = Me
-            CSM_Form.CenterToParent(Me, CType(formGenerarLoteFacturas, Form))
-            formGenerarLoteFacturas.Show()
-            If formGenerarLoteFacturas.WindowState = FormWindowState.Minimized Then
-                formGenerarLoteFacturas.WindowState = FormWindowState.Normal
+            formComprobantesGenerarLote.MdiParent = Me
+            CS_Form.CenterToParent(Me, CType(formComprobantesGenerarLote, Form))
+            formComprobantesGenerarLote.Show()
+            If formComprobantesGenerarLote.WindowState = FormWindowState.Minimized Then
+                formComprobantesGenerarLote.WindowState = FormWindowState.Normal
             End If
-            formGenerarLoteFacturas.Focus()
+            formComprobantesGenerarLote.Focus()
 
             Me.Cursor = Cursors.Default
         End If
@@ -324,7 +313,7 @@
         'If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO) Then
         Me.Cursor = Cursors.WaitCursor
 
-        CSM_Form.MDIChild_PositionAndSize(Me, CType(formReportViewer, Form), Form_ClientSize)
+        CS_Form.MDIChild_PositionAndSize(Me, CType(formReportViewer, Form), Form_ClientSize)
         formReportViewer.reportviewerMain.LocalReport.ReportEmbeddedResource = My.Application.Info.AssemblyName & ".HermanosSinDescuento.rdlc"
         formReportViewer.reportviewerMain.LocalReport.Refresh()
 
@@ -339,20 +328,20 @@
     End Sub
 
     Private Sub Debug_AFIPWSHomologaciónLogin() Handles menuitemDebugAFIPWSHomologacionLogin.Click
-        CSM_AFIP_WS.Login(CSM_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION), "", CSM_AFIP.SERVICIO_FACTURACION_ECLECTRONICA, My.Settings.AFIP_WS_Certificado, My.Settings.AFIP_WS_ClavePrivada)
+        CS_AFIP_WS.Login(CS_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION), "", CS_AFIP_WS.SERVICIO_FACTURACION_ELECTRONICA, My.Settings.AFIP_WS_Certificado, My.Settings.AFIP_WS_ClavePrivada)
     End Sub
 
     Private Sub menuitemTransmitirComprobantesElectronicos_Click(sender As Object, e As EventArgs) Handles menuitemComprobantesTransmitirAFIP.Click
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIRAAFIP) Then
             Me.Cursor = Cursors.WaitCursor
 
-            formTransmitirComprobantesAFIP.MdiParent = Me
-            CSM_Form.CenterToParent(Me, CType(formTransmitirComprobantesAFIP, Form))
-            formTransmitirComprobantesAFIP.Show()
-            If formTransmitirComprobantesAFIP.WindowState = FormWindowState.Minimized Then
-                formTransmitirComprobantesAFIP.WindowState = FormWindowState.Normal
+            formComprobantesTransmitirAFIP.MdiParent = Me
+            CS_Form.CenterToParent(Me, CType(formComprobantesTransmitirAFIP, Form))
+            formComprobantesTransmitirAFIP.Show()
+            If formComprobantesTransmitirAFIP.WindowState = FormWindowState.Minimized Then
+                formComprobantesTransmitirAFIP.WindowState = FormWindowState.Normal
             End If
-            formTransmitirComprobantesAFIP.Focus()
+            formComprobantesTransmitirAFIP.Focus()
 
             Me.Cursor = Cursors.Default
         End If

@@ -1,5 +1,5 @@
 ﻿Public Class formEntidadesAnioLectivoCurso
-    Private dbcEntidadesAnioLectivoCurso As New CSColegioContext
+    Private dbcontext As New CSColegioContext(True)
     Private AnioLectivoCurso As AnioLectivoCurso
 
     Friend Sub RefreshData()
@@ -10,7 +10,7 @@
             datagridviewMain.AutoGenerateColumns = False
             datagridviewMain.DataSource = Nothing
         Else
-            AnioLectivoCurso = dbcEntidadesAnioLectivoCurso.AnioLectivoCurso.Where(Function(alc) alc.AnioLectivo = CShort(comboboxAnioLectivo.ComboBox.SelectedValue.ToString) And alc.IDCurso = CByte(comboboxCurso.ComboBox.SelectedValue.ToString)).First
+            AnioLectivoCurso = dbcontext.AnioLectivoCurso.Where(Function(alc) alc.AnioLectivo = CShort(comboboxAnioLectivo.ComboBox.SelectedValue.ToString) And alc.IDCurso = CByte(comboboxCurso.ComboBox.SelectedValue.ToString)).First
             If Not AnioLectivoCurso Is Nothing Then
                 datagridviewMain.AutoGenerateColumns = False
                 datagridviewMain.DataSource = AnioLectivoCurso.Entidades.OrderBy(Function(ent) ent.ApellidoNombre).ToList
@@ -35,7 +35,7 @@
     End Sub
 
     Private Sub formEntidadesAnioLectivoCurso_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        dbcEntidadesAnioLectivoCurso.Dispose()
+        dbcontext.Dispose()
     End Sub
 
     Private Sub formEntidades_Load() Handles Me.Load
@@ -64,14 +64,14 @@
         formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
         If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-            Dim EntidadNueva As Entidad = dbcEntidadesAnioLectivoCurso.Entidad.Find(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).Cells(formEntidadesSeleccionar.COLUMNA_IDENTIDAD).Value)
+            Dim EntidadNueva As Entidad = dbcontext.Entidad.Find(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).Cells(formEntidadesSeleccionar.COLUMNA_IDENTIDAD).Value)
             Try
                 Me.Cursor = Cursors.WaitCursor
                 AnioLectivoCurso.Entidades.Add(EntidadNueva)
-                dbcEntidadesAnioLectivoCurso.SaveChanges()
+                dbcontext.SaveChanges()
                 Me.Cursor = Cursors.Default
             Catch ex As Exception
-                CSM_Error.ProcessError(ex, "Error al agregar la Entidad al Curso.")
+                CS_Error.ProcessError(ex, "Error al agregar la Entidad al Curso.")
             End Try
             RefreshData()
         End If
@@ -88,10 +88,10 @@
                     Try
                         Me.Cursor = Cursors.WaitCursor
                         AnioLectivoCurso.Entidades.Remove(EntidadEliminar)
-                        dbcEntidadesAnioLectivoCurso.SaveChanges()
+                        dbcontext.SaveChanges()
                         Me.Cursor = Cursors.Default
                     Catch ex As Exception
-                        CSM_Error.ProcessError(ex, "Error al eliminar la Entidad del Curso.")
+                        CS_Error.ProcessError(ex, "Error al eliminar la Entidad del Curso.")
                     End Try
                     RefreshData()
                 End If

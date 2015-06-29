@@ -15,8 +15,8 @@
     Friend Sub RefreshData(Optional ByVal PositionIDEntidad As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
         Me.Cursor = Cursors.WaitCursor
 
-        Using dbcEntidadList As New CSColegioContext
-            listEntidadBase = dbcEntidadList.Entidad.ToList
+        Using dbcontext As New CSColegioContext(True)
+            listEntidadBase = dbcontext.Entidad.ToList
         End Using
 
         Me.Cursor = Cursors.Default
@@ -199,13 +199,13 @@
 
             With formEntidadVer
                 .MdiParent = formMDIMain
-                .EntidadCurrent = .FormDBContext.Entidad.Find(datagridviewMain.SelectedRows.Item(0).Cells(COLUMNA_IDENTIDAD).Value)
-                CSM_Form.CenterToParent(Me, CType(formEntidadVer, Form))
+                .EntidadCurrent = .dbcontext.Entidad.Find(datagridviewMain.SelectedRows.Item(0).Cells(COLUMNA_IDENTIDAD).Value)
+                CS_Form.CenterToParent(Me, CType(formEntidadVer, Form))
                 .buttonGuardar.Visible = False
                 .buttonCancelar.Visible = False
                 .InitializeFormAndControls()
                 .SetDataFromObjectToControls()
-                CSM_Form.ControlsChangeStateReadOnly(.Controls, True, True)
+                CS_Form.ControlsChangeStateReadOnly(.Controls, True, True)
                 .Show()
             End With
 
@@ -225,12 +225,12 @@
 
             With formEntidadAgregar
                 .MdiParent = formMDIMain
-                Dim EntidadAgregar = .FormDBContext.Entidad.Add(New Entidad)
+                Dim EntidadAgregar = .dbcontext.Entidad.Add(New Entidad)
                 With EntidadAgregar
-                    .IDCategoriaIVA = CSM_Parameter.GetIntegerAsByte(Parametros.DEFAULT_CATEGORIAIVA_ID)
-                    .DomicilioIDProvincia = CSM_Parameter.GetIntegerAsByte(Parametros.DEFAULT_PROVINCIA_ID)
-                    .DomicilioIDLocalidad = CSM_Parameter.GetIntegerAsShort(Parametros.DEFAULT_LOCALIDAD_ID)
-                    .DomicilioCodigoPostal = CSM_Parameter.GetString(Parametros.DEFAULT_CODIGOPOSTAL)
+                    .IDCategoriaIVA = CS_Parameter.GetIntegerAsByte(Parametros.DEFAULT_CATEGORIAIVA_ID)
+                    .DomicilioIDProvincia = CS_Parameter.GetIntegerAsByte(Parametros.DEFAULT_PROVINCIA_ID)
+                    .DomicilioIDLocalidad = CS_Parameter.GetIntegerAsShort(Parametros.DEFAULT_LOCALIDAD_ID)
+                    .DomicilioCodigoPostal = CS_Parameter.GetString(Parametros.DEFAULT_CODIGOPOSTAL)
                     .EsActivo = True
                     .IDUsuarioCreacion = pUsuario.IDUsuario
                     .FechaHoraCreacion = Now
@@ -238,7 +238,7 @@
                     .FechaHoraModificacion = .FechaHoraCreacion
                 End With
                 .EntidadCurrent = EntidadAgregar
-                CSM_Form.CenterToParent(Me, CType(formEntidadAgregar, Form))
+                CS_Form.CenterToParent(Me, CType(formEntidadAgregar, Form))
                 .buttonEditar.Visible = False
                 .buttonCerrar.Visible = False
                 .InitializeFormAndControls()
@@ -265,8 +265,8 @@
 
                 With formEntidadEditar
                     .MdiParent = formMDIMain
-                    .EntidadCurrent = .FormDBContext.Entidad.Find(datagridviewMain.SelectedRows.Item(0).Cells(COLUMNA_IDENTIDAD).Value)
-                    CSM_Form.CenterToParent(Me, CType(formEntidadEditar, Form))
+                    .EntidadCurrent = .dbcontext.Entidad.Find(datagridviewMain.SelectedRows.Item(0).Cells(COLUMNA_IDENTIDAD).Value)
+                    CS_Form.CenterToParent(Me, CType(formEntidadEditar, Form))
                     .buttonEditar.Visible = False
                     .buttonCerrar.Visible = False
                     .InitializeFormAndControls()
@@ -286,16 +286,18 @@
             MsgBox("No hay ninguna Entidad para eliminar.", vbInformation, My.Application.Info.Title)
         Else
             If Permisos.VerificarPermiso(Permisos.ENTIDAD_DELETE) Then
-                Using DBContextEliminar = New CSColegioContext
-                    Dim EntidadEliminar = DBContextEliminar.Entidad.Find(datagridviewMain.SelectedRows(0).Cells(COLUMNA_IDENTIDAD).Value)
-                    If MsgBox("Se eliminará la Entidad seleccionada." & vbCrLf & vbCrLf & EntidadEliminar.ApellidoNombre & vbCrLf & vbCrLf & "¿Confirma la eliminación definitiva?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
-                        Me.Cursor = Cursors.WaitCursor
-                        DBContextEliminar.Entidad.Remove(EntidadEliminar)
-                        DBContextEliminar.SaveChanges()
-                        RefreshData()
-                        Me.Cursor = Cursors.Default
-                    End If
-                End Using
+                Dim EntidadEliminar = CType(datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
+                If MsgBox("Se eliminará la Entidad seleccionada." & vbCrLf & vbCrLf & EntidadEliminar.ApellidoNombre & vbCrLf & vbCrLf & "¿Confirma la eliminación definitiva?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
+                    Me.Cursor = Cursors.WaitCursor
+
+                    Using dbcontext = New CSColegioContext(True)
+                        dbcontext.Entidad.Remove(EntidadEliminar)
+                        dbcontext.SaveChanges()
+                    End Using
+
+                    RefreshData()
+                    Me.Cursor = Cursors.Default
+                End If
             End If
         End If
     End Sub

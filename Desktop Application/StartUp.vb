@@ -1,7 +1,11 @@
 ﻿Module StartUp
-    Friend pUsuario As Usuario
+    ' Database stuff
+    Friend pDatabase As CS_Database
+    Friend pDBEFContext As CSColegioContext
 
-    Friend pCSColegioContext As CSColegioContext
+    Friend pPermisos As List(Of UsuarioGrupoPermiso)
+    Friend pParametros As List(Of Parametro)
+    Friend pUsuario As Usuario
 
     Friend Sub Main()
         Dim StartupTime As Date
@@ -23,13 +27,38 @@
         ' Muestro el SplashScreen y cambio el puntero del mouse para indicar que la aplicación está iniciando.
         formSplashScreen.Show()
         formSplashScreen.Cursor = Cursors.AppStarting
+        formSplashScreen.labelStatus.Text = "Obteniendo los parámetros de conexión a la Base de datos..."
         Application.DoEvents()
 
-        ' Creo un context global para leer los Parámetros y los Permisos
-        pCSColegioContext = New CSColegioContext
+        ' Obtengo el Connection String para las conexiones de ADO .NET
+        pDatabase = New CS_Database
+        pDatabase.ApplicationName = My.Application.Info.Title
+        pDatabase.DataSource = My.Settings.DBConnection_Datasource
+        pDatabase.InitialCatalog = My.Settings.DBConnection_Database
+        pDatabase.UserID = My.Settings.DBConnection_UserID
+        ' Desencripto la contraseña de la conexión a la base de datos que está en el archivo app.config
+        Dim rijndaelKey As CS_Encrypt_AES256_Enhanced = New CS_Encrypt_AES256_Enhanced(Constantes.ENCRYPTION_PASSWORD, Constantes.ENCRYPTION_VECTOR)
+        pDatabase.Password = rijndaelKey.Decrypt(My.Settings.DBConnection_Password)
+        rijndaelKey = Nothing
+        pDatabase.MultipleActiveResultsets = True
+        pDatabase.WorkstationID = My.Computer.Name
+        pDatabase.CreateConnectionString()
+
+        ' Obtengo el Connection String para las conexiones de Entity Framework
+        CSColegioContext.CreateConnectionString(My.Settings.DBConnection_Provider, pDatabase.ConnectionString)
+
+        ' Cargos los Parámetros desde la Base de datos
+        formSplashScreen.labelStatus.Text = "Cargando los parámetros desde la Base de datos..."
+        Application.DoEvents()
+        If Not MiscFunctions.LoadParameters() Then
+            formSplashScreen.Close()
+            formSplashScreen.Dispose()
+            TerminateApplication()
+            Exit Sub
+        End If
 
         ' Verifico que la Base de Datos corresponda a esta Aplicación a través del GUID guardado en los Parámetros
-        If CSM_Parameter.GetString(Parametros.APPLICATION_DATABASE_GUID) <> Constantes.APPLICATION_DATABASE_GUID Then
+        If CS_Parameter.GetString(Parametros.APPLICATION_DATABASE_GUID) <> Constantes.APPLICATION_DATABASE_GUID Then
             MsgBox("La Base de Datos especificada no corresponde a esta aplicación.", MsgBoxStyle.Critical, My.Application.Info.Title)
             formSplashScreen.Close()
             formSplashScreen.Dispose()
@@ -38,7 +67,7 @@
         End If
 
         ' Muestro el Nombre de la Compañía a la que está licenciada la Aplicación
-        formSplashScreen.labelLicensedTo.Text = CSM_Parameter.GetString(Parametros.LICENSE_COMPANY_NAME, "")
+        formSplashScreen.labelLicensedTo.Text = CS_Parameter.GetString(Parametros.LICENSE_COMPANY_NAME, "")
         Application.DoEvents()
 
         ' Tomo el tiempo de inicio para controlar los segundos mínimos que se debe mostrar el Splash Screen
@@ -51,8 +80,11 @@
         formMDIMain.Cursor = Cursors.AppStarting
         formMDIMain.Enabled = False
 
+        formSplashScreen.labelStatus.Text = "Todo completado."
+        Application.DoEvents()
+
         ' Espero el tiempo mínimo para mostrar el Splash Screen y después lo cierro
-        If Not CSM_Instance.IsRunningUnderIDE Then
+        If Not CS_Instance.IsRunningUnderIDE Then
             Do While Now.Subtract(StartupTime).Seconds < My.Settings.MinimumSplashScreenDisplaySeconds
                 Application.DoEvents()
             Loop
@@ -60,15 +92,12 @@
         formSplashScreen.Close()
         formSplashScreen.Dispose()
 
-        ' Si no se está ejecutando dentro del IDE de Visual Studio, se requiere que ingrese Usuario y Contraseña
-        If CSM_Instance.IsRunningUnderIDE Then
+        If CS_Instance.IsRunningUnderIDE Then
+            ' Como se está ejecutando dentro del IDE de Visual Studio, en lugar de pedir Usuario y contraseña, asumo que es el Administrador
             formMDIMain.menuitemDebugAFIPWSHabilitarRegistro.Checked = True
-            Using dbcUsuario As New CSColegioContext
-                Dim qryUsuarios = From u In dbcUsuario.Usuario
-                        Where u.IDUsuario = 1
-                        Select u
-                pUsuario = qryUsuarios.SingleOrDefault()
-                formMDIMain.ShowCurrentUserInfo()
+            Using dbcontext As New CSColegioContext(True)
+                pUsuario = dbcontext.Usuario.Find(1)
+                MiscFunctions.UserLoggedIn()
             End Using
         ElseIf Not formLogin.ShowDialog(formMDIMain) = DialogResult.OK Then
             Application.Exit()
@@ -88,7 +117,5 @@
     End Sub
 
     Friend Sub TerminateApplication()
-        pCSColegioContext.Dispose()
-        pCSColegioContext = Nothing
     End Sub
 End Module

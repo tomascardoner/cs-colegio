@@ -1,7 +1,7 @@
 ﻿Imports System.Drawing.Printing
 
-Public Class formGenerarLoteFacturas
-    Private dbcColegio As CSColegioContext
+Public Class formComprobantesGenerarLote
+    Private dbcontext As CSColegioContext
 
     Private listEntidadesSeleccionadasOk As List(Of Entidad)
     'Private listEntidadesSeleccionadasCorregir As IList(Of EntidadACorregir)
@@ -28,7 +28,7 @@ Public Class formGenerarLoteFacturas
     End Class
 
     Private Sub formGenerarLoteFacturas_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        dbcColegio.Dispose()
+        dbcontext.Dispose()
         listEntidadesSeleccionadasOk = Nothing
         listEntidadesSeleccionadasCorregir = Nothing
         listFacturas = Nothing
@@ -37,7 +37,7 @@ Public Class formGenerarLoteFacturas
     ' TODO: Verificar que no se facture 2 veces en el mismo período al mismo alumno
 
     Private Sub formGenerarLoteFacturas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        dbcColegio = New CSColegioContext
+        dbcontext = New CSColegioContext(True)
 
         AnioLectivo = Today.Year
         MesAFacturar = CByte(Today.Month)
@@ -45,7 +45,7 @@ Public Class formGenerarLoteFacturas
 
         FechaServicioDesde = New Date(AnioLectivo, MesAFacturar, 1)
         FechaServicioHasta = FechaServicioDesde.AddMonths(1).AddDays(-1)
-        FechaVencimiento = New Date(AnioLectivo, MesAFacturar, CSM_Parameter.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO_DIA))
+        FechaVencimiento = New Date(AnioLectivo, MesAFacturar, CS_Parameter.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO_DIA))
 
         FillTreeViewNiveles()
         FillTreeViewPadres()
@@ -69,7 +69,7 @@ Public Class formGenerarLoteFacturas
         Me.Cursor = Cursors.WaitCursor
 
         treeviewPaso1NivelCursoAlumno.BeginUpdate()
-        For Each NivelCurrent As Nivel In dbcColegio.Nivel.Where(Function(niv) niv.EsActivo = True)
+        For Each NivelCurrent As Nivel In dbcontext.Nivel.Where(Function(niv) niv.EsActivo = True)
             ' Agrego el nodo correspondiente al Nivel actual y agrego un nodo hijo que diga "cargando..." para cuando se expanda el nodo
             NewNode = New TreeNode(NivelCurrent.Nombre, {New TreeNode(NODO_CARGANDO_TEXTO)})
             NewNode.Checked = My.Settings.GenerarLoteFacturasPreseleccionarTodos
@@ -185,7 +185,7 @@ Public Class formGenerarLoteFacturas
         Me.Cursor = Cursors.WaitCursor
 
         treeviewPaso1PadresAlumnos.BeginUpdate()
-        For Each EntidadCurrent As Entidad In dbcColegio.Entidad.Where(Function(ent) ent.EsActivo = True And ent.TipoFamiliar And (ent.EntidadPadreHijas.Count > 0 Or ent.EntidadMadreHijas.Count > 0)).OrderBy(Function(ent) ent.ApellidoNombre)
+        For Each EntidadCurrent As Entidad In dbcontext.Entidad.Where(Function(ent) ent.EsActivo = True And ent.TipoFamiliar And (ent.EntidadPadreHijas.Count > 0 Or ent.EntidadMadreHijas.Count > 0)).OrderBy(Function(ent) ent.ApellidoNombre)
             ' Agrego el nodo correspondiente al Padre/Madre actual y agrego un nodo hijo que diga "cargando..." para cuando se expanda el nodo
             NewNode = New TreeNode(EntidadCurrent.ApellidoNombre, {New TreeNode(NODO_CARGANDO_TEXTO)})
             NewNode.Checked = My.Settings.GenerarLoteFacturasPreseleccionarTodos
@@ -457,7 +457,7 @@ Public Class formGenerarLoteFacturas
         PreviewForm.Document = printdocumentPaso2
         printdocumentPaso2.DefaultPageSettings.Landscape = True
         CType(PreviewForm, Form).StartPosition = FormStartPosition.Manual
-        CSM_Form.MDIChild_PositionAndSize(CType(formMDIMain, Form), CType(PreviewForm, Form), formMDIMain.Form_ClientSize)
+        CS_Form.MDIChild_PositionAndSize(CType(formMDIMain, Form), CType(PreviewForm, Form), formMDIMain.Form_ClientSize)
         PreviewForm.Show()
 
         Me.Cursor = Cursors.Default
@@ -509,7 +509,7 @@ Public Class formGenerarLoteFacturas
 
 #Region "Paso 3 - Generación"
     Private Sub GenerarComprobantes(ByVal LoteNombre As String)
-        Dim dbcGeneracion As New CSColegioContext
+        Dim dbcontext As New CSColegioContext(True)
 
         ' Parámetros
         Dim IDArticulo As Short
@@ -532,16 +532,16 @@ Public Class formGenerarLoteFacturas
         listFacturas = New List(Of ComprobanteCabecera)
 
         ' Cargo los parámetros en variables para reducir tiempo de procesamiento
-        IDArticulo = CSM_Parameter.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID)
-        ComprobanteEntidadMayusculas = CSM_Parameter.GetBoolean(Parametros.COMPROBANTE_ENTIDAD_MAYUSCULAS, False).Value
+        IDArticulo = CS_Parameter.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID)
+        ComprobanteEntidadMayusculas = CS_Parameter.GetBoolean(Parametros.COMPROBANTE_ENTIDAD_MAYUSCULAS, False).Value
         Fecha = System.DateTime.Now.Date
 
         ' Creo el Lote de Comprobantes
         With FacturaLote
-            If dbcGeneracion.ComprobanteLote.Count = 0 Then
+            If dbcontext.ComprobanteLote.Count = 0 Then
                 .IDComprobanteLote = 1
             Else
-                .IDComprobanteLote = dbcGeneracion.ComprobanteLote.Max(Function(cl) cl.IDComprobanteLote) + 1
+                .IDComprobanteLote = dbcontext.ComprobanteLote.Max(Function(cl) cl.IDComprobanteLote) + 1
             End If
             .FechaHora = Now
             .Nombre = LoteNombre
@@ -628,10 +628,10 @@ Public Class formGenerarLoteFacturas
         listFacturas.OrderBy(Function(cc) cc.IDComprobanteTipo)
 
         ' Obtengo el ID del último Comprobante cargado
-        If dbcGeneracion.ComprobanteCabecera.Count = 0 Then
+        If dbcontext.ComprobanteCabecera.Count = 0 Then
             NextID = 0
         Else
-            NextID = dbcGeneracion.ComprobanteCabecera.Max(Function(cc) cc.IDComprobante)
+            NextID = dbcontext.ComprobanteCabecera.Max(Function(cc) cc.IDComprobante)
         End If
 
         ' Recorro todas las Facturas generadas para aplicarles los ID y los Números de Comprobante
@@ -640,14 +640,14 @@ Public Class formGenerarLoteFacturas
                 NextID += 1
                 .IDComprobante = NextID
                 If ComprobanteTipo.IDComprobanteTipo <> .IDComprobanteTipo Then
-                    ComprobanteTipo = dbcGeneracion.ComprobanteTipo.Find(.IDComprobanteTipo)
+                    ComprobanteTipo = dbcontext.ComprobanteTipo.Find(.IDComprobanteTipo)
                     ComprobanteTipoPuntoVenta = ComprobanteTipo.ComprobanteTipoPuntoVenta.Where(Function(ctpv) ctpv.IDPuntoVenta = My.Settings.IDPuntoVenta).FirstOrDefault
                     If Not ComprobanteTipoPuntoVenta Is Nothing Then
                         PuntoVenta = ComprobanteTipoPuntoVenta.PuntoVenta
                     End If
 
                     ' Busco si ya hay un comprobante creado de este tipo para obtener el último número
-                    NextComprobanteNumero = dbcGeneracion.ComprobanteCabecera.Where(Function(cc) cc.IDComprobanteTipo = .IDComprobanteTipo).Max(Function(cc) cc.Numero)
+                    NextComprobanteNumero = dbcontext.ComprobanteCabecera.Where(Function(cc) cc.IDComprobanteTipo = .IDComprobanteTipo).Max(Function(cc) cc.Numero)
                     If NextComprobanteNumero Is Nothing Then
                         ' No hay ningún comprobante creado de este tipo, así que tomo el número inicial y le resto 1 porque después se lo sumo
                         NextComprobanteNumero = CStr(CInt(ComprobanteTipoPuntoVenta.NumeroInicio) - 1).PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
@@ -659,7 +659,7 @@ Public Class formGenerarLoteFacturas
             End With
         Next
 
-        dbcGeneracion.Dispose()
+        dbcontext.Dispose()
 
         datagridviewPaso3Cabecera.AutoGenerateColumns = False
         datagridviewPaso3Cabecera.DataSource = listFacturas
@@ -696,13 +696,13 @@ Public Class formGenerarLoteFacturas
                 .IDDocumentoTipo = EntidadCabecera.IDDocumentoTipo.Value
                 .DocumentoNumero = EntidadCabecera.DocumentoNumero
             Else
-                .IDDocumentoTipo = CSM_Parameter.GetIntegerAsByte(Parametros.CONSUMIDORFINAL_DOCUMENTOTIPO_ID)
-                .DocumentoNumero = CSM_Parameter.GetString(Parametros.CONSUMIDORFINAL_DOCUMENTONUMERO)
+                .IDDocumentoTipo = CS_Parameter.GetIntegerAsByte(Parametros.CONSUMIDORFINAL_DOCUMENTOTIPO_ID)
+                .DocumentoNumero = CS_Parameter.GetString(Parametros.CONSUMIDORFINAL_DOCUMENTONUMERO)
             End If
             .IDCategoriaIVA = EntidadCabecera.IDCategoriaIVA.Value
 
             ' Domicilio
-            .DomicilioCalleCompleto = MiscFunctions.ObtenerDomicilioCalleCompleto(EntidadCabecera.DomicilioCalle1, EntidadCabecera.DomicilioNumero, EntidadCabecera.DomicilioPiso, EntidadCabecera.DomicilioDepartamento, EntidadCabecera.DomicilioCalle2, EntidadCabecera.DomicilioCalle3)
+            .DomicilioCalleCompleto = EntidadCabecera.DomicilioCalleCompleto()
             .DomicilioCodigoPostal = EntidadCabecera.DomicilioCodigoPostal
             .DomicilioIDProvincia = EntidadCabecera.DomicilioIDProvincia
             .DomicilioIDLocalidad = EntidadCabecera.DomicilioIDLocalidad
@@ -767,18 +767,18 @@ Public Class formGenerarLoteFacturas
             Me.Cursor = Cursors.WaitCursor
             Application.DoEvents()
 
-            Using dbcGuardado As New CSColegioContext
-                dbcGuardado.ComprobanteLote.Add(FacturaLote)
-                dbcGuardado.ComprobanteCabecera.AddRange(listFacturas)
+            Using dbcontext As New CSColegioContext(True)
+                dbcontext.ComprobanteLote.Add(FacturaLote)
+                dbcontext.ComprobanteCabecera.AddRange(listFacturas)
 
-                dbcGuardado.SaveChanges()
+                dbcontext.SaveChanges()
             End Using
 
             Me.Cursor = Cursors.Default
             Return True
         Catch ex As Exception
             Me.Cursor = Cursors.Default
-            CSM_Error.ProcessError(ex, "Error al guardar las Facturas Generadas")
+            CS_Error.ProcessError(ex, "Error al guardar las Facturas Generadas")
             Return False
         End Try
     End Function
