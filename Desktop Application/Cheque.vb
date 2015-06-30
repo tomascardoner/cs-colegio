@@ -19,9 +19,9 @@ Partial Public Class Cheque
     Public Property FechaPago As Date
     Public Property Importe As Decimal
     Public Property CuentaBancaria As String
-    Public Property IDUsuarioCreacion As Byte
+    Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date
-    Public Property IDUsuarioModificacion As Byte
+    Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
 
     Public Overridable Property Banco As Banco

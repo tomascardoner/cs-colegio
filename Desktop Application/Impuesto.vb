@@ -17,9 +17,9 @@ Partial Public Class Impuesto
     Public Property BaseImponible As String
     Public Property MinimoNoImponible As Nullable(Of Decimal)
     Public Property EsActivo As Boolean
-    Public Property IDUsuarioCreacion As Byte
+    Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date
-    Public Property IDUsuarioModificacion As Byte
+    Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
 
     Public Overridable Property ComprobanteImpuesto As ICollection(Of ComprobanteImpuesto) = New HashSet(Of ComprobanteImpuesto)

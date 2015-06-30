@@ -14,9 +14,9 @@ Partial Public Class RelacionTipo
     Public Property IDRelacionTipo As Byte
     Public Property Nombre As String
     Public Property EsActivo As Boolean
-    Public Property IDUsuarioCreacion As Byte
+    Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date
-    Public Property IDUsuarioModificacion As Byte
+    Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
 
     Public Overridable Property EntidadEntidad As ICollection(Of EntidadEntidad) = New HashSet(Of EntidadEntidad)

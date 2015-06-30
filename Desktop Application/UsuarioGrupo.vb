@@ -14,9 +14,9 @@ Partial Public Class UsuarioGrupo
     Public Property IDUsuarioGrupo As Byte
     Public Property Nombre As String
     Public Property EsActivo As Boolean
-    Public Property IDUsuarioCreacion As Byte
+    Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date
-    Public Property IDUsuarioModificacion As Byte
+    Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
 
     Public Overridable Property Usuario As ICollection(Of Usuario) = New HashSet(Of Usuario)

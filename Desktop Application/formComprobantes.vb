@@ -193,8 +193,8 @@
     End Sub
 
     Friend Sub SetAppearance()
-        datagridviewMain.DefaultCellStyle.Font = My.Settings.GridsFont
-        datagridviewMain.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsFont
+        datagridviewMain.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewMain.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
     End Sub
 
     Private Sub formComprobantes_Load() Handles Me.Load

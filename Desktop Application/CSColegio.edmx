@@ -12,10 +12,11 @@
           <Property Name="IDAnio" Type="tinyint" Nullable="false" />
           <Property Name="IDNivel" Type="tinyint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDAnioSiguiente" Type="tinyint" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="AnioLectivoCurso">
@@ -37,9 +38,9 @@
           <Property Name="IDArticuloGrupo" Type="tinyint" Nullable="false" />
           <Property Name="IDConcepto" Type="tinyint" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="ArticuloGrupo">
@@ -50,9 +51,9 @@
           <Property Name="IDArticuloGrupo_Padre" Type="tinyint" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Banco">
@@ -63,9 +64,9 @@
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CUIT" Type="char" MaxLength="11" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="CategoriaIVA">
@@ -89,9 +90,9 @@
           <Property Name="FechaPago" Type="date" Nullable="false" />
           <Property Name="Importe" Type="money" Nullable="false" />
           <Property Name="CuentaBancaria" Type="varchar" MaxLength="20" />
-          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="ComprobanteCabecera">
@@ -122,14 +123,16 @@
           <Property Name="CAE" Type="char" MaxLength="14" />
           <Property Name="CAEVencimiento" Type="date" />
           <Property Name="IDComprobanteLote" Type="int" />
-          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioAnulacion" Type="tinyint" />
+          <Property Name="IDUsuarioAnulacion" Type="smallint" />
           <Property Name="FechaHoraAnulacion" Type="smalldatetime" />
-          <Property Name="IDUsuarioTransmision" Type="tinyint" />
+          <Property Name="IDUsuarioTransmision" Type="smallint" />
           <Property Name="FechaHoraTransmision" Type="smalldatetime" />
+          <Property Name="IDUsuarioEnvioEmail" Type="smallint" />
+          <Property Name="FechaHoraEnvioEmail" Type="smalldatetime" />
         </EntityType>
         <EntityType Name="ComprobanteDetalle">
           <Key>
@@ -167,9 +170,9 @@
           <Property Name="IDComprobanteLote" Type="int" Nullable="false" />
           <Property Name="FechaHora" Type="smalldatetime" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="ComprobanteTipo">
@@ -185,9 +188,9 @@
           <Property Name="EmisionElectronica" Type="bit" />
           <Property Name="ReporteNombre" Type="varchar" MaxLength="100" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="ComprobanteTipoPuntoVenta">
@@ -224,9 +227,9 @@
           <Property Name="IDTurno" Type="tinyint" Nullable="false" />
           <Property Name="Division" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Descuento">
@@ -290,9 +293,9 @@
           <Property Name="ExcluyeFacturaHasta" Type="date" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="Notas" Type="varchar(max)" />
-          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="EntidadAnioLectivoCurso">
@@ -312,10 +315,10 @@
           <Property Name="IDEntidadHija" Type="int" Nullable="false" />
           <Property Name="IDRelacionTipo" Type="tinyint" Nullable="false" />
           <Property Name="Notas" Type="varchar(max)" />
-          <Property Name="CreacionIDUsuario" Type="tinyint" Nullable="false" />
-          <Property Name="CreacionFechaHora" Type="smalldatetime" Nullable="false" />
-          <Property Name="ModificacionIDUsuario" Type="tinyint" Nullable="false" />
-          <Property Name="ModificacionFechaHora" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Impuesto">
           <Key>
@@ -327,9 +330,9 @@
           <Property Name="BaseImponible" Type="char" MaxLength="2" />
           <Property Name="MinimoNoImponible" Type="money" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="ImpuestoOtro">
@@ -355,7 +358,7 @@
             <PropertyRef Name="IDLog" />
           </Key>
           <Property Name="IDLog" Type="int" Nullable="false" />
-          <Property Name="IDUsuario" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuario" Type="smallint" Nullable="false" />
           <Property Name="Accion" Type="char" MaxLength="4" Nullable="false" />
           <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
         </EntityType>
@@ -368,9 +371,9 @@
           <Property Name="DetallaValores" Type="bit" Nullable="false" />
           <Property Name="EspecificaOtrosDatos" Type="bit" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Moneda">
@@ -404,9 +407,9 @@
           <Property Name="MedioPagoNumero" Type="varchar" MaxLength="20" />
           <Property Name="IDMovimiento_Categoria" Type="smallint" Nullable="false" />
           <Property Name="IDMovimientoGrupo" Type="smallint" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="MovimientoGrupo">
@@ -417,9 +420,9 @@
           <Property Name="IDMovimientoGrupo_Padre" Type="smallint" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Nivel">
@@ -429,9 +432,9 @@
           <Property Name="IDNivel" Type="tinyint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Parametro">
@@ -470,10 +473,29 @@
           <Property Name="IDRelacionTipo" Type="tinyint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reporte">
+          <Key>
+            <PropertyRef Name="IDReporte" />
+          </Key>
+          <Property Name="IDReporte" Type="smallint" Nullable="false" />
+          <Property Name="IDReporteGrupo" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Titulo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Archivo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="MostrarEnVisor" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReporteGrupo">
+          <Key>
+            <PropertyRef Name="IDReporteGrupo" />
+          </Key>
+          <Property Name="IDReporteGrupo" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Turno">
           <Key>
@@ -482,9 +504,9 @@
           <Property Name="IDTurno" Type="tinyint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="UnidadMedida">
@@ -500,16 +522,16 @@
           <Key>
             <PropertyRef Name="IDUsuario" />
           </Key>
-          <Property Name="IDUsuario" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuario" Type="smallint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Genero" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="IDUsuarioGrupo" Type="tinyint" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="UsuarioGrupo">
@@ -519,9 +541,9 @@
           <Property Name="IDUsuarioGrupo" Type="tinyint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
-          <Property Name="IDUsuarioModificacion" Type="tinyint" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="UsuarioGrupoPermiso">
@@ -920,6 +942,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ReporteGrupo__Reporte">
+          <End Role="ReporteGrupo" Type="Self.ReporteGrupo" Multiplicity="1" />
+          <End Role="Reporte" Type="Self.Reporte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReporteGrupo">
+              <PropertyRef Name="IDReporteGrupo" />
+            </Principal>
+            <Dependent Role="Reporte">
+              <PropertyRef Name="IDReporteGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Turno__Curso">
           <End Role="Turno" Type="Self.Turno" Multiplicity="1" />
           <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
@@ -992,6 +1026,8 @@
           <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PuntoVenta" EntityType="Self.PuntoVenta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelacionTipo" EntityType="Self.RelacionTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reporte" EntityType="Self.Reporte" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReporteGrupo" EntityType="Self.ReporteGrupo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Turno" EntityType="Self.Turno" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnidadMedida" EntityType="Self.UnidadMedida" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
@@ -1125,6 +1161,10 @@
             <End Role="PuntoVenta" EntitySet="PuntoVenta" />
             <End Role="ComprobanteTipoPuntoVenta" EntitySet="ComprobanteTipoPuntoVenta" />
           </AssociationSet>
+          <AssociationSet Name="FK__ReporteGrupo__Reporte" Association="Self.FK__ReporteGrupo__Reporte">
+            <End Role="ReporteGrupo" EntitySet="ReporteGrupo" />
+            <End Role="Reporte" EntitySet="Reporte" />
+          </AssociationSet>
           <AssociationSet Name="FK__Turno__Curso" Association="Self.FK__Turno__Curso">
             <End Role="Turno" EntitySet="Turno" />
             <End Role="Curso" EntitySet="Curso" />
@@ -1149,10 +1189,11 @@
           <Property Name="IDAnio" Type="Byte" Nullable="false" />
           <Property Name="IDNivel" Type="Byte" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDAnioSiguiente" Type="Byte" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Curso" Relationship="Self.FK__Anio__Curso" FromRole="Anio" ToRole="Curso" />
           <NavigationProperty Name="Nivel" Relationship="Self.FK__Nivel__Anio" FromRole="Anio" ToRole="Nivel" />
@@ -1165,9 +1206,9 @@
           <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IDArticuloGrupo" Type="Byte" Nullable="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ArticuloGrupo" Relationship="Self.FK__ArticuloGrupo__Articulo" FromRole="Articulo" ToRole="ArticuloGrupo" />
           <Property Name="IDConcepto" Type="Byte" Nullable="false" />
@@ -1181,9 +1222,9 @@
           <Property Name="IDArticuloGrupo_Padre" Type="Byte" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Articulo" Relationship="Self.FK__ArticuloGrupo__Articulo" FromRole="ArticuloGrupo" ToRole="Articulo" />
         </EntityType>
@@ -1195,9 +1236,9 @@
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CUIT" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Cheque" Relationship="Self.FK__Banco__Cheque" FromRole="Banco" ToRole="Cheque" />
         </EntityType>
@@ -1224,9 +1265,9 @@
           <Property Name="FechaPago" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Importe" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="CuentaBancaria" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Banco" Relationship="Self.FK__Banco__Cheque" FromRole="Cheque" ToRole="Banco" />
         </EntityType>
@@ -1239,9 +1280,9 @@
           <Property Name="IDTurno" Type="Byte" Nullable="false" />
           <Property Name="Division" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Anio" Relationship="Self.FK__Anio__Curso" FromRole="Curso" ToRole="Anio" />
           <NavigationProperty Name="Turno" Relationship="Self.FK__Turno__Curso" FromRole="Curso" ToRole="Turno" />
@@ -1301,9 +1342,9 @@
           <Property Name="ExcluyeFacturaHasta" Type="DateTime" Precision="0" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="CategoriaIVA" Relationship="Self.FK__CategoriaIVA__Entidad" FromRole="Entidad" ToRole="CategoriaIVA" />
           <NavigationProperty Name="DocumentoTipo" Relationship="Self.FK__DocumentoTipo__Entidad" FromRole="Entidad" ToRole="DocumentoTipo" />
@@ -1333,13 +1374,13 @@
           <Property Name="IDEntidadHija" Type="Int32" Nullable="false" />
           <Property Name="IDRelacionTipo" Type="Byte" Nullable="false" />
           <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CreacionIDUsuario" Type="Byte" Nullable="false" />
-          <Property Name="CreacionFechaHora" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ModificacionIDUsuario" Type="Byte" Nullable="false" />
-          <Property Name="ModificacionFechaHora" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="EntidadHija" Relationship="Self.FK__Entidad__EntidadEntidad__Hija" FromRole="EntidadEntidad" ToRole="Entidad" />
           <NavigationProperty Name="EntidadPadre" Relationship="Self.FK__Entidad__EntidadEntidad__Padre" FromRole="EntidadEntidad" ToRole="Entidad" />
           <NavigationProperty Name="RelacionTipo" Relationship="CSColegioModel.FK__RelacionTipo__EntidadEntidad" FromRole="EntidadEntidad" ToRole="RelacionTipo" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="Localidad">
           <Key>
@@ -1372,9 +1413,9 @@
           <Property Name="DetallaValores" Type="Boolean" Nullable="false" />
           <Property Name="EspecificaOtrosDatos" Type="Boolean" Nullable="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Movimiento" Relationship="Self.FK__MedioPago__Movimiento" FromRole="MedioPago" ToRole="Movimiento" />
         </EntityType>
@@ -1390,9 +1431,9 @@
           <Property Name="MedioPagoNumero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="IDMovimiento_Categoria" Type="Int16" Nullable="false" />
           <Property Name="IDMovimientoGrupo" Type="Int16" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="MedioPago" Relationship="Self.FK__MedioPago__Movimiento" FromRole="Movimiento" ToRole="MedioPago" />
           <NavigationProperty Name="MovimientoGrupo" Relationship="Self.FK__Movimiento_Categoria__Movimiento" FromRole="Movimiento" ToRole="MovimientoGrupo" />
@@ -1405,9 +1446,9 @@
           <Property Name="IDMovimientoGrupo_Padre" Type="Int16" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Movimiento" Relationship="Self.FK__Movimiento_Categoria__Movimiento" FromRole="MovimientoGrupo" ToRole="Movimiento" />
         </EntityType>
@@ -1418,9 +1459,9 @@
           <Property Name="IDNivel" Type="Byte" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Anio" Relationship="Self.FK__Nivel__Anio" FromRole="Nivel" ToRole="Anio" />
         </EntityType>
@@ -1452,9 +1493,9 @@
           <Property Name="IDRelacionTipo" Type="Byte" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="EntidadEntidad" Relationship="CSColegioModel.FK__RelacionTipo__EntidadEntidad" FromRole="RelacionTipo" ToRole="EntidadEntidad" />
         </EntityType>
@@ -1465,9 +1506,9 @@
           <Property Name="IDTurno" Type="Byte" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Curso" Relationship="Self.FK__Turno__Curso" FromRole="Turno" ToRole="Curso" />
         </EntityType>
@@ -1475,16 +1516,16 @@
           <Key>
             <PropertyRef Name="IDUsuario" />
           </Key>
-          <Property Name="IDUsuario" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuario" Type="Int16" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Genero" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="IDUsuarioGrupo" Type="Byte" Nullable="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="UsuarioGrupo" Relationship="Self.FK__UsuarioGrupo__Usuario" FromRole="Usuario" ToRole="UsuarioGrupo" />
           <NavigationProperty Name="EntidadesCreadas" Relationship="CSColegioModel.FK__Usuario__Entidad__Creacion" FromRole="Usuario" ToRole="Entidad" />
@@ -1497,9 +1538,9 @@
           <Property Name="IDUsuarioGrupo" Type="Byte" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__UsuarioGrupo__Usuario" FromRole="UsuarioGrupo" ToRole="Usuario" />
           <NavigationProperty Name="UsuarioGrupoPermiso" Relationship="CSColegioModel.FK__UsuarioGrupo__UsuarioGrupoPermiso" FromRole="UsuarioGrupo" ToRole="UsuarioGrupoPermiso" />
@@ -1866,6 +1907,12 @@
             <End Role="Entidad" EntitySet="Entidad" />
             <End Role="Entidad1" EntitySet="Entidad" />
           </AssociationSet>
+          <EntitySet Name="Reporte" EntityType="CSColegioModel.Reporte" />
+          <EntitySet Name="ReporteGrupo" EntityType="CSColegioModel.ReporteGrupo" />
+          <AssociationSet Name="FK__ReporteGrupo__Reporte" Association="CSColegioModel.FK__ReporteGrupo__Reporte">
+            <End Role="ReporteGrupo" EntitySet="ReporteGrupo" />
+            <End Role="Reporte" EntitySet="Reporte" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
           <Key>
@@ -1891,9 +1938,9 @@
           <Property Name="EmisionElectronica" Type="Boolean" />
           <Property Name="ReporteNombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ComprobanteCabecera" Relationship="CSColegioModel.FK__ComprobanteTipo__ComprobanteCabecera" FromRole="ComprobanteTipo" ToRole="ComprobanteCabecera" />
           <NavigationProperty Name="ComprobanteTipoPuntoVenta" Relationship="CSColegioModel.FK__ComprobanteTipo__ComprobanteTipoPuntoVenta" FromRole="ComprobanteTipo" ToRole="ComprobanteTipoPuntoVenta" />
@@ -1908,9 +1955,9 @@
           <Property Name="BaseImponible" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Name="MinimoNoImponible" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
-          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ComprobanteImpuesto" Relationship="CSColegioModel.FK__Impuesto__ComprobanteImpuesto" FromRole="Impuesto" ToRole="ComprobanteImpuesto" />
         </EntityType>
@@ -1954,9 +2001,9 @@
           <Property Name="CAE" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
           <Property Name="CAEVencimiento" Type="DateTime" Precision="0" />
           <Property Name="IDComprobanteLote" Type="Int32" />
-          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="CategoriaIVA" Relationship="CSColegioModel.FK__CategoriaIVA__ComprobanteCabecera" FromRole="ComprobanteCabecera" ToRole="CategoriaIVA" />
           <NavigationProperty Name="ComprobanteDetalle" Relationship="CSColegioModel.FK__ComprobanteCabecera__ComprobanteDetalle" FromRole="ComprobanteCabecera" ToRole="ComprobanteDetalle" />
@@ -1965,10 +2012,12 @@
           <NavigationProperty Name="Entidad" Relationship="CSColegioModel.FK__Entidad__ComprobanteCabecera" FromRole="ComprobanteCabecera" ToRole="Entidad" />
           <NavigationProperty Name="Localidad" Relationship="CSColegioModel.FK__Localidad__ComprobanteCabecera" FromRole="ComprobanteCabecera" ToRole="Localidad" />
           <NavigationProperty Name="ComprobanteLote" Relationship="CSColegioModel.FK__ComprobanteLote__ComprobanteCabecera" FromRole="ComprobanteCabecera" ToRole="ComprobanteLote" />
-          <Property Name="IDUsuarioAnulacion" Type="Byte" />
+          <Property Name="IDUsuarioAnulacion" Type="Int16" />
           <Property Name="FechaHoraAnulacion" Type="DateTime" Precision="0" />
-          <Property Name="IDUsuarioTransmision" Type="Byte" />
+          <Property Name="IDUsuarioTransmision" Type="Int16" />
           <Property Name="FechaHoraTransmision" Type="DateTime" Precision="0" />
+          <Property Name="IDUsuarioEnvioEmail" Type="Int16" />
+          <Property Name="FechaHoraEnvioEmail" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="ComprobanteDetalle">
           <Key>
@@ -2319,9 +2368,9 @@
           <Property Name="IDComprobanteLote" Type="Int32" Nullable="false" />
           <Property Name="FechaHora" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IDUsuarioCreacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IDUsuarioModificacion" Type="Byte" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ComprobanteCabecera" Relationship="CSColegioModel.FK__ComprobanteLote__ComprobanteCabecera" FromRole="ComprobanteLote" ToRole="ComprobanteCabecera" />
         </EntityType>
@@ -2382,6 +2431,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Reporte">
+          <Key>
+            <PropertyRef Name="IDReporte" />
+          </Key>
+          <Property Name="IDReporte" Type="Int16" Nullable="false" />
+          <Property Name="IDReporteGrupo" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Titulo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Archivo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MostrarEnVisor" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ReporteGrupo" Relationship="CSColegioModel.FK__ReporteGrupo__Reporte" FromRole="Reporte" ToRole="ReporteGrupo" />
+        </EntityType>
+        <EntityType Name="ReporteGrupo">
+          <Key>
+            <PropertyRef Name="IDReporteGrupo" />
+          </Key>
+          <Property Name="IDReporteGrupo" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Reporte" Relationship="CSColegioModel.FK__ReporteGrupo__Reporte" FromRole="ReporteGrupo" ToRole="Reporte" />
+        </EntityType>
+        <Association Name="FK__ReporteGrupo__Reporte">
+          <End Type="CSColegioModel.ReporteGrupo" Role="ReporteGrupo" Multiplicity="1" />
+          <End Type="CSColegioModel.Reporte" Role="Reporte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReporteGrupo">
+              <PropertyRef Name="IDReporteGrupo" />
+            </Principal>
+            <Dependent Role="Reporte">
+              <PropertyRef Name="IDReporteGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2391,6 +2473,7 @@
           <EntitySetMapping Name="Anio">
             <EntityTypeMapping TypeName="CSColegioModel.Anio">
               <MappingFragment StoreEntitySet="Anio">
+                <ScalarProperty Name="IDAnioSiguiente" ColumnName="IDAnioSiguiente" />
                 <ScalarProperty Name="IDAnio" ColumnName="IDAnio" />
                 <ScalarProperty Name="IDNivel" ColumnName="IDNivel" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -2550,15 +2633,15 @@
           <EntitySetMapping Name="EntidadEntidad">
             <EntityTypeMapping TypeName="CSColegioModel.EntidadEntidad">
               <MappingFragment StoreEntitySet="EntidadEntidad">
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
                 <ScalarProperty Name="IDEntidadPadre" ColumnName="IDEntidadPadre" />
                 <ScalarProperty Name="IDEntidadHija" ColumnName="IDEntidadHija" />
                 <ScalarProperty Name="IDRelacionTipo" ColumnName="IDRelacionTipo" />
                 <ScalarProperty Name="Notas" ColumnName="Notas" />
-                <ScalarProperty Name="CreacionIDUsuario" ColumnName="CreacionIDUsuario" />
-                <ScalarProperty Name="CreacionFechaHora" ColumnName="CreacionFechaHora" />
-                <ScalarProperty Name="ModificacionIDUsuario" ColumnName="ModificacionIDUsuario" />
-                <ScalarProperty Name="ModificacionFechaHora" ColumnName="ModificacionFechaHora" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Localidad">
@@ -2766,6 +2849,8 @@
           <EntitySetMapping Name="ComprobanteCabecera">
             <EntityTypeMapping TypeName="CSColegioModel.ComprobanteCabecera">
               <MappingFragment StoreEntitySet="ComprobanteCabecera">
+                <ScalarProperty Name="FechaHoraEnvioEmail" ColumnName="FechaHoraEnvioEmail" />
+                <ScalarProperty Name="IDUsuarioEnvioEmail" ColumnName="IDUsuarioEnvioEmail" />
                 <ScalarProperty Name="DomicilioCalleCompleto" ColumnName="DomicilioCalleCompleto" />
                 <ScalarProperty Name="ApellidoNombre" ColumnName="ApellidoNombre" />
                 <ScalarProperty Name="FechaEmision" ColumnName="FechaEmision" />
@@ -2944,6 +3029,27 @@
                 <ScalarProperty Name="Cotizacion" ColumnName="Cotizacion" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="IDMoneda" ColumnName="IDMoneda" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reporte">
+            <EntityTypeMapping TypeName="CSColegioModel.Reporte">
+              <MappingFragment StoreEntitySet="Reporte">
+                <ScalarProperty Name="Archivo" ColumnName="Archivo" />
+                <ScalarProperty Name="MostrarEnVisor" ColumnName="MostrarEnVisor" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDReporteGrupo" ColumnName="IDReporteGrupo" />
+                <ScalarProperty Name="IDReporte" ColumnName="IDReporte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReporteGrupo">
+            <EntityTypeMapping TypeName="CSColegioModel.ReporteGrupo">
+              <MappingFragment StoreEntitySet="ReporteGrupo">
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDReporteGrupo" ColumnName="IDReporteGrupo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

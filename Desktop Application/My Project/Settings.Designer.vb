@@ -102,12 +102,12 @@ Namespace My
             End Get
         End Property
         
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Microsoft Sans Serif, 11.25pt")>  _
-        Public ReadOnly Property GridsFont() As Global.System.Drawing.Font
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("Microsoft Sans Serif, 11.25pt")> _
+        Public ReadOnly Property GridsAndListsFont() As Global.System.Drawing.Font
             Get
-                Return CType(Me("GridsFont"),Global.System.Drawing.Font)
+                Return CType(Me("GridsAndListsFont"), Global.System.Drawing.Font)
             End Get
         End Property
         

@@ -15,10 +15,10 @@ Partial Public Class EntidadEntidad
     Public Property IDEntidadHija As Integer
     Public Property IDRelacionTipo As Byte
     Public Property Notas As String
-    Public Property CreacionIDUsuario As Byte
-    Public Property CreacionFechaHora As Date
-    Public Property ModificacionIDUsuario As Byte
-    Public Property ModificacionFechaHora As Date
+    Public Property IDUsuarioCreacion As Short
+    Public Property FechaHoraCreacion As Date
+    Public Property IDUsuarioModificacion As Short
+    Public Property FechaHoraModificacion As Date
 
     Public Overridable Property EntidadHija As Entidad
     Public Overridable Property EntidadPadre As Entidad

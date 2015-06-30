@@ -10,16 +10,11 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class ArticuloGrupo
-    Public Property IDArticuloGrupo As Byte
-    Public Property IDArticuloGrupo_Padre As Nullable(Of Byte)
+Partial Public Class ReporteGrupo
+    Public Property IDReporteGrupo As Byte
     Public Property Nombre As String
     Public Property EsActivo As Boolean
-    Public Property IDUsuarioCreacion As Short
-    Public Property FechaHoraCreacion As Date
-    Public Property IDUsuarioModificacion As Short
-    Public Property FechaHoraModificacion As Date
 
-    Public Overridable Property Articulo As ICollection(Of Articulo) = New HashSet(Of Articulo)
+    Public Overridable Property Reporte As ICollection(Of Reporte) = New HashSet(Of Reporte)
 
 End Class

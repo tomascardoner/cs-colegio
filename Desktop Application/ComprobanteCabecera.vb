@@ -35,14 +35,16 @@ Partial Public Class ComprobanteCabecera
     Public Property CAE As String
     Public Property CAEVencimiento As Nullable(Of Date)
     Public Property IDComprobanteLote As Nullable(Of Integer)
-    Public Property IDUsuarioCreacion As Byte
+    Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date
-    Public Property IDUsuarioModificacion As Byte
+    Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
-    Public Property IDUsuarioAnulacion As Nullable(Of Byte)
+    Public Property IDUsuarioAnulacion As Nullable(Of Short)
     Public Property FechaHoraAnulacion As Nullable(Of Date)
-    Public Property IDUsuarioTransmision As Nullable(Of Byte)
+    Public Property IDUsuarioTransmision As Nullable(Of Short)
     Public Property FechaHoraTransmision As Nullable(Of Date)
+    Public Property IDUsuarioEnvioEmail As Nullable(Of Short)
+    Public Property FechaHoraEnvioEmail As Nullable(Of Date)
 
     Public Overridable Property CategoriaIVA As CategoriaIVA
     Public Overridable Property ComprobanteDetalle As ICollection(Of ComprobanteDetalle) = New HashSet(Of ComprobanteDetalle)

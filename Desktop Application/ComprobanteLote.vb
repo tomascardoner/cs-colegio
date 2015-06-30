@@ -14,9 +14,9 @@ Partial Public Class ComprobanteLote
     Public Property IDComprobanteLote As Integer
     Public Property FechaHora As Date
     Public Property Nombre As String
-    Public Property IDUsuarioCreacion As Byte
+    Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date
-    Public Property IDUsuarioModificacion As Byte
+    Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
 
     Public Overridable Property ComprobanteCabecera As ICollection(Of ComprobanteCabecera) = New HashSet(Of ComprobanteCabecera)

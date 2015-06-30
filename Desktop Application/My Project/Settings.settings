@@ -17,7 +17,7 @@
     <Setting Name="ShowLastUserLoggedIn" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="GridsFont" Type="System.Drawing.Font" Scope="Application">
+    <Setting Name="GridsAndListsFont" Type="System.Drawing.Font" Scope="Application">
       <Value Profile="(Default)">Microsoft Sans Serif, 11.25pt</Value>
     </Setting>
     <Setting Name="SingleInstanceApplication" Type="System.Boolean" Scope="Application">

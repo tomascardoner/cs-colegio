@@ -30,7 +30,6 @@ Partial Class formComprobantes
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formComprobantes))
         Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
         Me.statusstripMain = New System.Windows.Forms.StatusStrip()
         Me.datagridviewMain = New System.Windows.Forms.DataGridView()
@@ -46,6 +45,8 @@ Partial Class formComprobantes
         Me.buttonAgregar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEliminar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonImprimir = New System.Windows.Forms.ToolStripSplitButton()
+        Me.menuitemImprimirPrevisualizar = New System.Windows.Forms.ToolStripMenuItem()
         Me.toolstripPeriodo = New System.Windows.Forms.ToolStrip()
         Me.labelPeriodo = New System.Windows.Forms.ToolStripLabel()
         Me.comboboxPeriodo = New System.Windows.Forms.ToolStripComboBox()
@@ -63,8 +64,6 @@ Partial Class formComprobantes
         Me.comboboxBuscarTipo = New System.Windows.Forms.ToolStripComboBox()
         Me.textboxBuscar = New System.Windows.Forms.ToolStripTextBox()
         Me.buttonBuscarBorrar = New System.Windows.Forms.ToolStripButton()
-        Me.buttonImprimir = New System.Windows.Forms.ToolStripSplitButton()
-        Me.menuitemImprimirPrevisualizar = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelToolbars.SuspendLayout()
@@ -245,6 +244,23 @@ Partial Class formComprobantes
         Me.buttonEliminar.Size = New System.Drawing.Size(86, 36)
         Me.buttonEliminar.Text = "Eliminar"
         '
+        'buttonImprimir
+        '
+        Me.buttonImprimir.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemImprimirPrevisualizar})
+        Me.buttonImprimir.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_PRINT_24
+        Me.buttonImprimir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonImprimir.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonImprimir.Name = "buttonImprimir"
+        Me.buttonImprimir.Size = New System.Drawing.Size(93, 36)
+        Me.buttonImprimir.Text = "Imprimir"
+        '
+        'menuitemImprimirPrevisualizar
+        '
+        Me.menuitemImprimirPrevisualizar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_PRINT_PREVIEW_24
+        Me.menuitemImprimirPrevisualizar.Name = "menuitemImprimirPrevisualizar"
+        Me.menuitemImprimirPrevisualizar.Size = New System.Drawing.Size(152, 22)
+        Me.menuitemImprimirPrevisualizar.Text = "Previsualizar"
+        '
         'toolstripPeriodo
         '
         Me.toolstripPeriodo.Dock = System.Windows.Forms.DockStyle.Fill
@@ -369,22 +385,6 @@ Partial Class formComprobantes
         Me.buttonBuscarBorrar.Name = "buttonBuscarBorrar"
         Me.buttonBuscarBorrar.Size = New System.Drawing.Size(23, 22)
         Me.buttonBuscarBorrar.ToolTipText = "Limpiar búsqueda"
-        '
-        'buttonImprimir
-        '
-        Me.buttonImprimir.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemImprimirPrevisualizar})
-        Me.buttonImprimir.Image = CType(resources.GetObject("buttonImprimir.Image"), System.Drawing.Image)
-        Me.buttonImprimir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonImprimir.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonImprimir.Name = "buttonImprimir"
-        Me.buttonImprimir.Size = New System.Drawing.Size(93, 36)
-        Me.buttonImprimir.Text = "Imprimir"
-        '
-        'menuitemImprimirPrevisualizar
-        '
-        Me.menuitemImprimirPrevisualizar.Name = "menuitemImprimirPrevisualizar"
-        Me.menuitemImprimirPrevisualizar.Size = New System.Drawing.Size(152, 22)
-        Me.menuitemImprimirPrevisualizar.Text = "Previsualizar"
         '
         'formComprobantes
         '

@@ -61,5 +61,7 @@ Partial Public Class CSColegioContext
     Public Overridable Property PuntoVenta() As DbSet(Of PuntoVenta)
     Public Overridable Property ComprobanteLote() As DbSet(Of ComprobanteLote)
     Public Overridable Property MonedaCotizacion() As DbSet(Of MonedaCotizacion)
+    Public Overridable Property Reporte() As DbSet(Of Reporte)
+    Public Overridable Property ReporteGrupo() As DbSet(Of ReporteGrupo)
 
 End Class

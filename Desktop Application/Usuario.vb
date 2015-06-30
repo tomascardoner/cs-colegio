@@ -11,16 +11,16 @@ Imports System
 Imports System.Collections.Generic
 
 Partial Public Class Usuario
-    Public Property IDUsuario As Byte
+    Public Property IDUsuario As Short
     Public Property Nombre As String
     Public Property Descripcion As String
     Public Property Password As String
     Public Property Genero As String
     Public Property IDUsuarioGrupo As Byte
     Public Property EsActivo As Boolean
-    Public Property IDUsuarioCreacion As Byte
+    Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date
-    Public Property IDUsuarioModificacion As Byte
+    Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
 
     Public Overridable Property UsuarioGrupo As UsuarioGrupo

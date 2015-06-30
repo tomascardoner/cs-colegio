@@ -38,6 +38,7 @@ Partial Class formMDIMain
         Me.menuitemDebugAFIPWSHabilitarRegistro = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSHomologacion = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSHomologacionLogin = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugAFIPWSHomologacionCompConsultar = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemVentana = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemVentanaMosaicoHorizontal = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemVentanaMosaicoVertical = New System.Windows.Forms.ToolStripMenuItem()
@@ -159,7 +160,7 @@ Partial Class formMDIMain
         '
         'menuitemDebugAFIPWSHomologacion
         '
-        Me.menuitemDebugAFIPWSHomologacion.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWSHomologacionLogin})
+        Me.menuitemDebugAFIPWSHomologacion.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWSHomologacionLogin, Me.menuitemDebugAFIPWSHomologacionCompConsultar})
         Me.menuitemDebugAFIPWSHomologacion.Name = "menuitemDebugAFIPWSHomologacion"
         Me.menuitemDebugAFIPWSHomologacion.Size = New System.Drawing.Size(220, 22)
         Me.menuitemDebugAFIPWSHomologacion.Text = "Homologación"
@@ -167,8 +168,14 @@ Partial Class formMDIMain
         'menuitemDebugAFIPWSHomologacionLogin
         '
         Me.menuitemDebugAFIPWSHomologacionLogin.Name = "menuitemDebugAFIPWSHomologacionLogin"
-        Me.menuitemDebugAFIPWSHomologacionLogin.Size = New System.Drawing.Size(104, 22)
+        Me.menuitemDebugAFIPWSHomologacionLogin.Size = New System.Drawing.Size(238, 22)
         Me.menuitemDebugAFIPWSHomologacionLogin.Text = "Login"
+        '
+        'menuitemDebugAFIPWSHomologacionCompConsultar
+        '
+        Me.menuitemDebugAFIPWSHomologacionCompConsultar.Name = "menuitemDebugAFIPWSHomologacionCompConsultar"
+        Me.menuitemDebugAFIPWSHomologacionCompConsultar.Size = New System.Drawing.Size(238, 22)
+        Me.menuitemDebugAFIPWSHomologacionCompConsultar.Text = "Consultar último comprobante"
         '
         'menuitemVentana
         '
@@ -433,4 +440,5 @@ Partial Class formMDIMain
     Friend WithEvents menuitemComprobantesTransmitirAFIP As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemComprobantesEnviarPorMail As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents buttonReportes As System.Windows.Forms.ToolStripButton
+    Friend WithEvents menuitemDebugAFIPWSHomologacionCompConsultar As System.Windows.Forms.ToolStripMenuItem
 End Class

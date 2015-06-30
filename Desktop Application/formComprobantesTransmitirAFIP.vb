@@ -132,7 +132,7 @@
         ' Leo los valores comunes a todas las facturas
         If My.Settings.AFIP_WS_ModoHomologacion Then
             WSAA_URL = CS_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION)
-            WSFEv1_URL = CS_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION)
+            WSFEv1_URL = CS_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION)
         Else
             WSAA_URL = CS_Parameter.GetString(Parametros.AFIP_WS_AA_PRODUCCION)
             WSFEv1_URL = CS_Parameter.GetString(Parametros.AFIP_WS_FE_PRODUCCION)
@@ -268,6 +268,8 @@
                 End If
             End If
         Next
+
+        MsgBox(String.Format("Se han transmitido exitosamente {0} Comprobantes a AFIP.", listComprobantes.Count), MsgBoxStyle.Information, My.Application.Info.Title)
 
         RefreshData()
         MostrarOcultarEstado(False)

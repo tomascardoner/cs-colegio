@@ -15,9 +15,9 @@ Partial Public Class Banco
     Public Property Nombre As String
     Public Property CUIT As String
     Public Property EsActivo As Boolean
-    Public Property IDUsuarioCreacion As Byte
+    Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date
-    Public Property IDUsuarioModificacion As Byte
+    Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
 
     Public Overridable Property Cheque As ICollection(Of Cheque) = New HashSet(Of Cheque)

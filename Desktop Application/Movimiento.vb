@@ -19,9 +19,9 @@ Partial Public Class Movimiento
     Public Property MedioPagoNumero As String
     Public Property IDMovimiento_Categoria As Short
     Public Property IDMovimientoGrupo As Short
-    Public Property IDUsuarioCreacion As Byte
+    Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date
-    Public Property IDUsuarioModificacion As Byte
+    Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
 
     Public Overridable Property MedioPago As MedioPago

@@ -1,5 +1,6 @@
 ﻿Public Class formMDIMain
     Friend Form_ClientSize As Size
+    Private AFIP_TicketAcceso_Homo As String
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Cambio el puntero del mouse para indicar que la aplicación está iniciando
@@ -309,10 +310,6 @@
         End If
     End Sub
 
-    Private Sub Debug_AFIPWSHomologaciónLogin() Handles menuitemDebugAFIPWSHomologacionLogin.Click
-        CS_AFIP_WS.Login(CS_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION), "", CS_AFIP_WS.SERVICIO_FACTURACION_ELECTRONICA, My.Settings.AFIP_WS_Certificado, My.Settings.AFIP_WS_ClavePrivada)
-    End Sub
-
     Private Sub menuitemTransmitirComprobantesElectronicos_Click(sender As Object, e As EventArgs) Handles menuitemComprobantesTransmitirAFIP.Click
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIRAAFIP) Then
             Me.Cursor = Cursors.WaitCursor
@@ -344,4 +341,23 @@
             Me.Cursor = Cursors.Default
         End If
     End Sub
+
+#Region "Debug"
+    Private Sub Debug_AFIPWSHomologacionLogin() Handles menuitemDebugAFIPWSHomologacionLogin.Click
+        AFIP_TicketAcceso_Homo = CS_AFIP_WS.Login(CS_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION), "", CS_AFIP_WS.SERVICIO_FACTURACION_ELECTRONICA, My.Settings.AFIP_WS_Certificado, My.Settings.AFIP_WS_ClavePrivada)
+    End Sub
+
+    Private Sub Debug_AFIPWSHomologacionObtenerUltimoComprobante(sender As Object, e As EventArgs) Handles menuitemDebugAFIPWSHomologacionCompConsultar.Click
+        Dim TipoComprobante As Short
+        Dim PuntoVenta As Short
+
+        If AFIP_TicketAcceso_Homo = "" Then
+            MsgBox("No hay un Ticket de Acceso válido." & vbCrLf & "¿Ya inició sesión en AFIP?", vbExclamation, My.Application.Info.Title)
+        Else
+            TipoComprobante = CShort(InputBox("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSHomologacionCompConsultar.Text))
+            PuntoVenta = CShort(InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSHomologacionCompConsultar.Text))
+            MsgBox("El Último Número de comprobante autorizado es: " & CS_AFIP_WS.ObtenerUltinoNumeroComprobante(AFIP_TicketAcceso_Homo, CS_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION), "", CS_Parameter.GetString(Parametros.EMPRESA_CUIT), TipoComprobante, PuntoVenta))
+        End If
+    End Sub
+#End Region
 End Class

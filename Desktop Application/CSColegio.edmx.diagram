@@ -54,7 +54,13 @@
         </AssociationConnector>
         <AssociationConnector Association="CSColegioModel.FK__Entidad__ComprobanteCabecera" />
         <AssociationConnector Association="CSColegioModel.FK__Localidad__ComprobanteCabecera" />
-        <AssociationConnector Association="CSColegioModel.FK__Usuario__Entidad__Creacion" ManuallyRouted="false" >
+        <AssociationConnector Association="CSColegioModel.FK__Usuario__Entidad__Creacion" ManuallyRouted="true" >
+          <ConnectorPoint PointX="4.75" PointY="11.835999348958334" />
+          <ConnectorPoint PointX="4.9975" PointY="63.211064671876656" />
+          <ConnectorPoint PointX="4.9975" PointY="9.7226871744791659" />
+          <ConnectorPoint PointX="5.2525" PointY="9.7226871744791659" />
+          <ConnectorPoint PointX="5.2525" PointY="500.35359679904514" />
+          <ConnectorPoint PointX="5.5" PointY="17.874166666666667" />
         </AssociationConnector>
         <AssociationConnector Association="CSColegioModel.FK__Usuario__Entidad__Modificacion" />
         <AssociationConnector Association="CSColegioModel.FK__RelacionTipo__EntidadEntidad" />
@@ -85,6 +91,9 @@
         </AssociationConnector>
         <EntityTypeShape EntityType="CSColegioModel.MonedaCotizacion" Width="1.5" PointX="20.375" PointY="7.75" />
         <AssociationConnector Association="CSColegioModel.FK__Entidad__EntidadTercero" />
+        <EntityTypeShape EntityType="CSColegioModel.Reporte" Width="1.5" PointX="18.625" PointY="20.875" />
+        <EntityTypeShape EntityType="CSColegioModel.ReporteGrupo" Width="1.5" PointX="16.375" PointY="21.125" />
+        <AssociationConnector Association="CSColegioModel.FK__ReporteGrupo__Reporte" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
