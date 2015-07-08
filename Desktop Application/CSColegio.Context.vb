@@ -63,5 +63,6 @@ Partial Public Class CSColegioContext
     Public Overridable Property MonedaCotizacion() As DbSet(Of MonedaCotizacion)
     Public Overridable Property Reporte() As DbSet(Of Reporte)
     Public Overridable Property ReporteGrupo() As DbSet(Of ReporteGrupo)
+    Public Overridable Property Feriado() As DbSet(Of Feriado)
 
 End Class

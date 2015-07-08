@@ -87,19 +87,19 @@
         Dim localList As List(Of ComprobanteTipo)
 
         ComboBoxControl.ValueMember = "IDComprobanteTipo"
-        ComboBoxControl.DisplayMember = "Nombre"
+        ComboBoxControl.DisplayMember = "NombreCompleto"
 
         Using dbcontext As New CSColegioContext(True)
             If OperacionTipo = "" Then
                 Dim qryList = From tbl In dbcontext.ComprobanteTipo
                               Where tbl.EsActivo
-                              Order By tbl.Nombre
+                              Order By tbl.NombreCompleto
 
                 localList = qryList.ToList
             Else
                 Dim qryList = From tbl In dbcontext.ComprobanteTipo
                               Where tbl.OperacionTipo = OperacionTipo And tbl.EsActivo
-                              Order By tbl.Nombre
+                              Order By tbl.NombreCompleto
 
                 localList = qryList.ToList
             End If
@@ -107,14 +107,14 @@
             If AgregarItem_Todos Then
                 Dim UnspecifiedItem As New ComprobanteTipo
                 UnspecifiedItem.IDComprobanteTipo = Byte.MaxValue
-                UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_ALL_MALE
+                UnspecifiedItem.NombreCompleto = My.Resources.STRING_ITEM_ALL_MALE
                 localList.Insert(0, UnspecifiedItem)
             End If
             If AgregarItem_NoEspecifica Then
-                Dim UnspecifiedItem As New ComprobanteTipo
-                UnspecifiedItem.IDComprobanteTipo = Byte.MinValue
-                UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
-                localList.Insert(0, UnspecifiedItem)
+                Dim AllItem As New ComprobanteTipo
+                AllItem.IDComprobanteTipo = Byte.MinValue
+                AllItem.NombreCompleto = My.Resources.STRING_ITEM_NON_SPECIFIED
+                localList.Insert(0, AllItem)
             End If
 
             ComboBoxControl.DataSource = localList

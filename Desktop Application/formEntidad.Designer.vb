@@ -66,6 +66,9 @@ Partial Class formEntidad
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim labelExcluyeCalculoInteres As System.Windows.Forms.Label
+        Dim labelFacturaIndividual As System.Windows.Forms.Label
+        Dim labelVarios As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formEntidad))
         Me.textboxApellido = New System.Windows.Forms.TextBox()
         Me.textboxIDEntidad = New System.Windows.Forms.TextBox()
@@ -159,6 +162,8 @@ Partial Class formEntidad
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
         Me.tooltipMain = New System.Windows.Forms.ToolTip(Me.components)
         Me.checkboxEsActivo = New System.Windows.Forms.CheckBox()
+        Me.checkboxExcluyeCalculoInteres = New System.Windows.Forms.CheckBox()
+        Me.checkboxFacturaIndividual = New System.Windows.Forms.CheckBox()
         labelApellido = New System.Windows.Forms.Label()
         labelIDEntidad = New System.Windows.Forms.Label()
         labelNombre = New System.Windows.Forms.Label()
@@ -189,6 +194,9 @@ Partial Class formEntidad
         labelNotas = New System.Windows.Forms.Label()
         labelExcluyeFacturaDesde = New System.Windows.Forms.Label()
         labelExcluyeFacturaHasta = New System.Windows.Forms.Label()
+        labelExcluyeCalculoInteres = New System.Windows.Forms.Label()
+        labelFacturaIndividual = New System.Windows.Forms.Label()
+        labelVarios = New System.Windows.Forms.Label()
         CType(Me.pictureboxMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabcontrolMain.SuspendLayout()
         Me.tabpageGeneral.SuspendLayout()
@@ -464,19 +472,19 @@ Partial Class formEntidad
         'labelExcluyeFacturaDesde
         '
         labelExcluyeFacturaDesde.AutoSize = True
-        labelExcluyeFacturaDesde.Location = New System.Drawing.Point(6, 149)
+        labelExcluyeFacturaDesde.Location = New System.Drawing.Point(6, 174)
         labelExcluyeFacturaDesde.Name = "labelExcluyeFacturaDesde"
         labelExcluyeFacturaDesde.Size = New System.Drawing.Size(95, 13)
-        labelExcluyeFacturaDesde.TabIndex = 10
+        labelExcluyeFacturaDesde.TabIndex = 15
         labelExcluyeFacturaDesde.Text = "No facturar desde:"
         '
         'labelExcluyeFacturaHasta
         '
         labelExcluyeFacturaHasta.AutoSize = True
-        labelExcluyeFacturaHasta.Location = New System.Drawing.Point(261, 149)
+        labelExcluyeFacturaHasta.Location = New System.Drawing.Point(261, 172)
         labelExcluyeFacturaHasta.Name = "labelExcluyeFacturaHasta"
         labelExcluyeFacturaHasta.Size = New System.Drawing.Size(36, 13)
-        labelExcluyeFacturaHasta.TabIndex = 12
+        labelExcluyeFacturaHasta.TabIndex = 17
         labelExcluyeFacturaHasta.Text = "hasta:"
         '
         'textboxApellido
@@ -902,6 +910,11 @@ Partial Class formEntidad
         '
         'tabpageExtra
         '
+        Me.tabpageExtra.Controls.Add(labelVarios)
+        Me.tabpageExtra.Controls.Add(Me.checkboxFacturaIndividual)
+        Me.tabpageExtra.Controls.Add(labelFacturaIndividual)
+        Me.tabpageExtra.Controls.Add(Me.checkboxExcluyeCalculoInteres)
+        Me.tabpageExtra.Controls.Add(labelExcluyeCalculoInteres)
         Me.tabpageExtra.Controls.Add(Me.panelEntidadTercero)
         Me.tabpageExtra.Controls.Add(Me.labelEntidadTercero)
         Me.tabpageExtra.Controls.Add(Me.datetimepickerExcluyeFacturaHasta)
@@ -979,24 +992,24 @@ Partial Class formEntidad
         'datetimepickerExcluyeFacturaHasta
         '
         Me.datetimepickerExcluyeFacturaHasta.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.datetimepickerExcluyeFacturaHasta.Location = New System.Drawing.Point(303, 146)
+        Me.datetimepickerExcluyeFacturaHasta.Location = New System.Drawing.Point(303, 169)
         Me.datetimepickerExcluyeFacturaHasta.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
         Me.datetimepickerExcluyeFacturaHasta.MinDate = New Date(2008, 1, 1, 0, 0, 0, 0)
         Me.datetimepickerExcluyeFacturaHasta.Name = "datetimepickerExcluyeFacturaHasta"
         Me.datetimepickerExcluyeFacturaHasta.ShowCheckBox = True
         Me.datetimepickerExcluyeFacturaHasta.Size = New System.Drawing.Size(148, 20)
-        Me.datetimepickerExcluyeFacturaHasta.TabIndex = 13
+        Me.datetimepickerExcluyeFacturaHasta.TabIndex = 18
         '
         'datetimepickerExcluyeFacturaDesde
         '
         Me.datetimepickerExcluyeFacturaDesde.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.datetimepickerExcluyeFacturaDesde.Location = New System.Drawing.Point(107, 146)
+        Me.datetimepickerExcluyeFacturaDesde.Location = New System.Drawing.Point(107, 169)
         Me.datetimepickerExcluyeFacturaDesde.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
         Me.datetimepickerExcluyeFacturaDesde.MinDate = New Date(2008, 1, 1, 0, 0, 0, 0)
         Me.datetimepickerExcluyeFacturaDesde.Name = "datetimepickerExcluyeFacturaDesde"
         Me.datetimepickerExcluyeFacturaDesde.ShowCheckBox = True
         Me.datetimepickerExcluyeFacturaDesde.Size = New System.Drawing.Size(148, 20)
-        Me.datetimepickerExcluyeFacturaDesde.TabIndex = 11
+        Me.datetimepickerExcluyeFacturaDesde.TabIndex = 16
         '
         'comboboxDescuento
         '
@@ -1481,6 +1494,51 @@ Partial Class formEntidad
         Me.checkboxEsActivo.TabIndex = 95
         Me.checkboxEsActivo.UseVisualStyleBackColor = True
         '
+        'checkboxExcluyeCalculoInteres
+        '
+        Me.checkboxExcluyeCalculoInteres.AutoSize = True
+        Me.checkboxExcluyeCalculoInteres.Location = New System.Drawing.Point(107, 148)
+        Me.checkboxExcluyeCalculoInteres.Name = "checkboxExcluyeCalculoInteres"
+        Me.checkboxExcluyeCalculoInteres.Size = New System.Drawing.Size(15, 14)
+        Me.checkboxExcluyeCalculoInteres.TabIndex = 11
+        Me.checkboxExcluyeCalculoInteres.UseVisualStyleBackColor = True
+        '
+        'labelExcluyeCalculoInteres
+        '
+        labelExcluyeCalculoInteres.AutoSize = True
+        labelExcluyeCalculoInteres.Location = New System.Drawing.Point(128, 148)
+        labelExcluyeCalculoInteres.Name = "labelExcluyeCalculoInteres"
+        labelExcluyeCalculoInteres.Size = New System.Drawing.Size(152, 13)
+        labelExcluyeCalculoInteres.TabIndex = 12
+        labelExcluyeCalculoInteres.Text = "Excluir del cálculo de intereses"
+        '
+        'checkboxFacturaIndividual
+        '
+        Me.checkboxFacturaIndividual.AutoSize = True
+        Me.checkboxFacturaIndividual.Location = New System.Drawing.Point(328, 148)
+        Me.checkboxFacturaIndividual.Name = "checkboxFacturaIndividual"
+        Me.checkboxFacturaIndividual.Size = New System.Drawing.Size(15, 14)
+        Me.checkboxFacturaIndividual.TabIndex = 13
+        Me.checkboxFacturaIndividual.UseVisualStyleBackColor = True
+        '
+        'labelFacturaIndividual
+        '
+        labelFacturaIndividual.AutoSize = True
+        labelFacturaIndividual.Location = New System.Drawing.Point(349, 148)
+        labelFacturaIndividual.Name = "labelFacturaIndividual"
+        labelFacturaIndividual.Size = New System.Drawing.Size(115, 13)
+        labelFacturaIndividual.TabIndex = 14
+        labelFacturaIndividual.Text = "Emitir factura individual"
+        '
+        'labelVarios
+        '
+        labelVarios.AutoSize = True
+        labelVarios.Location = New System.Drawing.Point(6, 148)
+        labelVarios.Name = "labelVarios"
+        labelVarios.Size = New System.Drawing.Size(39, 13)
+        labelVarios.TabIndex = 10
+        labelVarios.Text = "Varios:"
+        '
         'formEntidad
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1624,4 +1682,6 @@ Partial Class formEntidad
     Friend WithEvents buttonEntidadTercero As System.Windows.Forms.Button
     Friend WithEvents textboxEntidadTercero As System.Windows.Forms.TextBox
     Friend WithEvents labelEntidadTercero As System.Windows.Forms.Label
+    Friend WithEvents checkboxFacturaIndividual As System.Windows.Forms.CheckBox
+    Friend WithEvents checkboxExcluyeCalculoInteres As System.Windows.Forms.CheckBox
 End Class

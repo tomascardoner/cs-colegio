@@ -77,7 +77,7 @@ Partial Class formComprobantes
         'statuslabelMain
         '
         Me.statuslabelMain.Name = "statuslabelMain"
-        Me.statuslabelMain.Size = New System.Drawing.Size(807, 17)
+        Me.statuslabelMain.Size = New System.Drawing.Size(597, 17)
         Me.statuslabelMain.Spring = True
         Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -86,7 +86,7 @@ Partial Class formComprobantes
         Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statuslabelMain})
         Me.statusstripMain.Location = New System.Drawing.Point(0, 389)
         Me.statusstripMain.Name = "statusstripMain"
-        Me.statusstripMain.Size = New System.Drawing.Size(822, 22)
+        Me.statusstripMain.Size = New System.Drawing.Size(612, 22)
         Me.statusstripMain.TabIndex = 4
         '
         'datagridviewMain
@@ -103,14 +103,14 @@ Partial Class formComprobantes
         Me.datagridviewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipo, Me.columnPuntoVenta, Me.columnNumero, Me.columnFecha, Me.columnTitular, Me.columnImporteTotal, Me.columnCAE})
         Me.datagridviewMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.datagridviewMain.Location = New System.Drawing.Point(0, 64)
+        Me.datagridviewMain.Location = New System.Drawing.Point(0, 89)
         Me.datagridviewMain.MultiSelect = False
         Me.datagridviewMain.Name = "datagridviewMain"
         Me.datagridviewMain.ReadOnly = True
         Me.datagridviewMain.RowHeadersVisible = False
         Me.datagridviewMain.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewMain.Size = New System.Drawing.Size(822, 325)
+        Me.datagridviewMain.Size = New System.Drawing.Size(612, 300)
         Me.datagridviewMain.TabIndex = 0
         '
         'columnComprobanteTipo
@@ -204,7 +204,7 @@ Partial Class formComprobantes
         Me.panelToolbars.Dock = System.Windows.Forms.DockStyle.Top
         Me.panelToolbars.Location = New System.Drawing.Point(0, 0)
         Me.panelToolbars.Name = "panelToolbars"
-        Me.panelToolbars.Size = New System.Drawing.Size(822, 64)
+        Me.panelToolbars.Size = New System.Drawing.Size(612, 89)
         Me.panelToolbars.TabIndex = 0
         '
         'toolstripButtons
@@ -258,7 +258,7 @@ Partial Class formComprobantes
         '
         Me.menuitemImprimirPrevisualizar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_PRINT_PREVIEW_24
         Me.menuitemImprimirPrevisualizar.Name = "menuitemImprimirPrevisualizar"
-        Me.menuitemImprimirPrevisualizar.Size = New System.Drawing.Size(152, 22)
+        Me.menuitemImprimirPrevisualizar.Size = New System.Drawing.Size(139, 22)
         Me.menuitemImprimirPrevisualizar.Text = "Previsualizar"
         '
         'toolstripPeriodo
@@ -288,35 +288,35 @@ Partial Class formComprobantes
         Me.toolstripComprobanteTipo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripComprobanteTipo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripComprobanteTipo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelComprobanteTipo, Me.comboboxOperacionTipo, Me.comboboxComprobanteTipo})
-        Me.toolstripComprobanteTipo.Location = New System.Drawing.Point(471, 0)
+        Me.toolstripComprobanteTipo.Location = New System.Drawing.Point(0, 39)
         Me.toolstripComprobanteTipo.Name = "toolstripComprobanteTipo"
-        Me.toolstripComprobanteTipo.Size = New System.Drawing.Size(266, 39)
+        Me.toolstripComprobanteTipo.Size = New System.Drawing.Size(266, 25)
         Me.toolstripComprobanteTipo.TabIndex = 10
         '
         'labelComprobanteTipo
         '
         Me.labelComprobanteTipo.Name = "labelComprobanteTipo"
-        Me.labelComprobanteTipo.Size = New System.Drawing.Size(34, 36)
+        Me.labelComprobanteTipo.Size = New System.Drawing.Size(34, 22)
         Me.labelComprobanteTipo.Text = "Tipo:"
         '
         'comboboxOperacionTipo
         '
         Me.comboboxOperacionTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxOperacionTipo.Name = "comboboxOperacionTipo"
-        Me.comboboxOperacionTipo.Size = New System.Drawing.Size(75, 39)
+        Me.comboboxOperacionTipo.Size = New System.Drawing.Size(75, 25)
         '
         'comboboxComprobanteTipo
         '
         Me.comboboxComprobanteTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxComprobanteTipo.Name = "comboboxComprobanteTipo"
-        Me.comboboxComprobanteTipo.Size = New System.Drawing.Size(150, 39)
+        Me.comboboxComprobanteTipo.Size = New System.Drawing.Size(150, 25)
         '
         'toolstripTitular
         '
         Me.toolstripTitular.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripTitular.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripTitular.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelEntidad, Me.textboxEntidad, Me.buttonEntidad, Me.buttonEntidadBorrar})
-        Me.toolstripTitular.Location = New System.Drawing.Point(0, 39)
+        Me.toolstripTitular.Location = New System.Drawing.Point(266, 39)
         Me.toolstripTitular.Name = "toolstripTitular"
         Me.toolstripTitular.Size = New System.Drawing.Size(295, 25)
         Me.toolstripTitular.TabIndex = 7
@@ -354,7 +354,7 @@ Partial Class formComprobantes
         Me.toolstripBuscar.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripBuscar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripBuscar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelBuscar, Me.comboboxBuscarTipo, Me.textboxBuscar, Me.buttonBuscarBorrar})
-        Me.toolstripBuscar.Location = New System.Drawing.Point(295, 39)
+        Me.toolstripBuscar.Location = New System.Drawing.Point(0, 64)
         Me.toolstripBuscar.Name = "toolstripBuscar"
         Me.toolstripBuscar.Size = New System.Drawing.Size(296, 25)
         Me.toolstripBuscar.TabIndex = 9
@@ -390,7 +390,7 @@ Partial Class formComprobantes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(822, 411)
+        Me.ClientSize = New System.Drawing.Size(612, 411)
         Me.Controls.Add(Me.datagridviewMain)
         Me.Controls.Add(Me.panelToolbars)
         Me.Controls.Add(Me.statusstripMain)

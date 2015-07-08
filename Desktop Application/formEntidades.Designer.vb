@@ -263,7 +263,7 @@ Partial Class formEntidades
         Me.datagridviewMain.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewMain.Size = New System.Drawing.Size(781, 308)
-        Me.datagridviewMain.TabIndex = 2
+        Me.datagridviewMain.TabIndex = 0
         '
         'columnIDEntidad
         '
@@ -352,6 +352,7 @@ Partial Class formEntidades
         Me.Controls.Add(Me.statusstripMain)
         Me.Controls.Add(Me.toolstripMain)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.KeyPreview = True
         Me.Name = "formEntidades"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Entidades"

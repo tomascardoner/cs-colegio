@@ -54,6 +54,8 @@ Partial Public Class Entidad
     Public Property FechaHoraCreacion As Date
     Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
+    Public Property ExcluyeCalculoInteres As Boolean
+    Public Property FacturaIndividual As Boolean
 
     Public Overridable Property CategoriaIVA As CategoriaIVA
     Public Overridable Property DocumentoTipo As DocumentoTipo

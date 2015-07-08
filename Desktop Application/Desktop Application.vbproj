@@ -30,7 +30,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>Full</DebugType>
     <DefineDebug>true</DefineDebug>
@@ -248,6 +248,9 @@
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFrameworkExtension.vb" />
+    <Compile Include="Feriado.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
     <Compile Include="FillAndRefreshLists.vb" />
     <Compile Include="formCABGenerico.Designer.vb">
       <DependentUpon>formCABGenerico.vb</DependentUpon>
@@ -259,6 +262,12 @@
       <DependentUpon>formComprobante.vb</DependentUpon>
     </Compile>
     <Compile Include="formComprobante.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formComprobanteCobranza.Designer.vb">
+      <DependentUpon>formComprobanteCobranza.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formComprobanteCobranza.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formComprobantes.Designer.vb">
@@ -433,6 +442,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobante.resx">
       <DependentUpon>formComprobante.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formComprobanteCobranza.resx">
+      <DependentUpon>formComprobanteCobranza.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobantes.resx">
       <DependentUpon>formComprobantes.vb</DependentUpon>

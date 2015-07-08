@@ -116,6 +116,7 @@
           <Property Name="DomicilioCodigoPostal" Type="varchar" MaxLength="8" />
           <Property Name="DomicilioIDProvincia" Type="tinyint" />
           <Property Name="DomicilioIDLocalidad" Type="smallint" />
+          <Property Name="Leyenda" Type="varchar(max)" />
           <Property Name="ImporteNeto" Type="money" Nullable="false" />
           <Property Name="ImporteImpuesto" Type="money" Nullable="false" />
           <Property Name="ImporteTotal" Type="money" Nullable="false" />
@@ -184,6 +185,7 @@
           <Property Name="Sigla" Type="char" MaxLength="3" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Letra" Type="char" MaxLength="1" />
+          <Property Name="NombreCompleto" Type="varchar" MaxLength="54" StoreGeneratedPattern="Computed" />
           <Property Name="CodigoAFIP" Type="tinyint" Nullable="false" />
           <Property Name="EmisionElectronica" Type="bit" />
           <Property Name="ReporteNombre" Type="varchar" MaxLength="100" />
@@ -289,6 +291,8 @@
           <Property Name="EmitirFacturaA" Type="char" MaxLength="1" />
           <Property Name="IDEntidadTercero" Type="int" />
           <Property Name="IDDescuento" Type="tinyint" />
+          <Property Name="ExcluyeCalculoInteres" Type="bit" Nullable="false" />
+          <Property Name="FacturaIndividual" Type="bit" Nullable="false" />
           <Property Name="ExcluyeFacturaDesde" Type="date" />
           <Property Name="ExcluyeFacturaHasta" Type="date" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
@@ -319,6 +323,13 @@
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
           <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Feriado">
+          <Key>
+            <PropertyRef Name="Fecha" />
+          </Key>
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Motivo" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Impuesto">
           <Key>
@@ -1012,6 +1023,7 @@
           <EntitySet Name="Entidad" EntityType="Self.Entidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EntidadAnioLectivoCurso" EntityType="Self.EntidadAnioLectivoCurso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EntidadEntidad" EntityType="Self.EntidadEntidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Feriado" EntityType="Self.Feriado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Impuesto" EntityType="Self.Impuesto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImpuestoOtro" EntityType="Self.ImpuestoOtro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Localidad" EntityType="Self.Localidad" Schema="dbo" store:Type="Tables" />
@@ -1364,6 +1376,8 @@
           <NavigationProperty Name="FacturaDocumentoTipo" Relationship="CSColegioModel.FK__DocumentoTipo__Entidad__Factura" FromRole="Entidad" ToRole="DocumentoTipo" />
           <NavigationProperty Name="EntidadTerceroAlumnos" Relationship="CSColegioModel.FK__Entidad__EntidadTercero" FromRole="Entidad" ToRole="Entidad1" />
           <NavigationProperty Name="EntidadTercero" Relationship="CSColegioModel.FK__Entidad__EntidadTercero" FromRole="Entidad1" ToRole="Entidad" />
+          <Property Name="ExcluyeCalculoInteres" Type="Boolean" Nullable="false" />
+          <Property Name="FacturaIndividual" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="EntidadEntidad">
           <Key>
@@ -1913,6 +1927,7 @@
             <End Role="ReporteGrupo" EntitySet="ReporteGrupo" />
             <End Role="Reporte" EntitySet="Reporte" />
           </AssociationSet>
+          <EntitySet Name="Feriado" EntityType="CSColegioModel.Feriado" />
         </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
           <Key>
@@ -1944,6 +1959,7 @@
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ComprobanteCabecera" Relationship="CSColegioModel.FK__ComprobanteTipo__ComprobanteCabecera" FromRole="ComprobanteTipo" ToRole="ComprobanteCabecera" />
           <NavigationProperty Name="ComprobanteTipoPuntoVenta" Relationship="CSColegioModel.FK__ComprobanteTipo__ComprobanteTipoPuntoVenta" FromRole="ComprobanteTipo" ToRole="ComprobanteTipoPuntoVenta" />
+          <Property Name="NombreCompleto" Type="String" MaxLength="54" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Impuesto">
           <Key>
@@ -1994,6 +2010,7 @@
           <Property Name="DomicilioCodigoPostal" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="DomicilioIDProvincia" Type="Byte" />
           <Property Name="DomicilioIDLocalidad" Type="Int16" />
+          <Property Name="Leyenda" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ImporteNeto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="ImporteImpuesto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="ImporteTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
@@ -2464,6 +2481,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Feriado">
+          <Key>
+            <PropertyRef Name="Fecha" />
+          </Key>
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Motivo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2584,6 +2608,8 @@
           <EntitySetMapping Name="Entidad">
             <EntityTypeMapping TypeName="CSColegioModel.Entidad">
               <MappingFragment StoreEntitySet="Entidad">
+                <ScalarProperty Name="FacturaIndividual" ColumnName="FacturaIndividual" />
+                <ScalarProperty Name="ExcluyeCalculoInteres" ColumnName="ExcluyeCalculoInteres" />
                 <ScalarProperty Name="IDEntidadTercero" ColumnName="IDEntidadTercero" />
                 <ScalarProperty Name="EmitirFacturaA" ColumnName="EmitirFacturaA" />
                 <ScalarProperty Name="ExcluyeFacturaHasta" ColumnName="ExcluyeFacturaHasta" />
@@ -2814,6 +2840,7 @@
           <EntitySetMapping Name="ComprobanteTipo">
             <EntityTypeMapping TypeName="CSColegioModel.ComprobanteTipo">
               <MappingFragment StoreEntitySet="ComprobanteTipo">
+                <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
                 <ScalarProperty Name="ReporteNombre" ColumnName="ReporteNombre" />
                 <ScalarProperty Name="Letra" ColumnName="Letra" />
                 <ScalarProperty Name="EmisionElectronica" ColumnName="EmisionElectronica" />
@@ -2849,6 +2876,7 @@
           <EntitySetMapping Name="ComprobanteCabecera">
             <EntityTypeMapping TypeName="CSColegioModel.ComprobanteCabecera">
               <MappingFragment StoreEntitySet="ComprobanteCabecera">
+                <ScalarProperty Name="Leyenda" ColumnName="Leyenda" />
                 <ScalarProperty Name="FechaHoraEnvioEmail" ColumnName="FechaHoraEnvioEmail" />
                 <ScalarProperty Name="IDUsuarioEnvioEmail" ColumnName="IDUsuarioEnvioEmail" />
                 <ScalarProperty Name="DomicilioCalleCompleto" ColumnName="DomicilioCalleCompleto" />
@@ -3050,6 +3078,14 @@
                 <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IDReporteGrupo" ColumnName="IDReporteGrupo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Feriado">
+            <EntityTypeMapping TypeName="CSColegioModel.Feriado">
+              <MappingFragment StoreEntitySet="Feriado">
+                <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

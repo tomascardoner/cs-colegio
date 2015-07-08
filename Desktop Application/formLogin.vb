@@ -69,7 +69,7 @@
 
         UsuarioCurrent = dbcontext.Usuario.Where(Function(usr) usr.Nombre = textboxNombre.Text).FirstOrDefault
         If UsuarioCurrent Is Nothing Then
-            My.Application.Log.WriteEntry(String.Format("Se intentó iniciar sesión con el Usuario '{0}', pero es inexistente.", pUsuario.Nombre), TraceEventType.Warning)
+            My.Application.Log.WriteEntry(String.Format("Se intentó iniciar sesión con el Usuario '{0}', pero es inexistente.", textboxNombre.Text.Trim), TraceEventType.Warning)
             MsgBox("El Nombre de Usuario ingresado no existe.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
             textboxNombre.SelectAll()
             textboxNombre.Focus()
@@ -82,7 +82,7 @@
             Exit Sub
         End If
         If String.Compare(textboxPassword.Text, UsuarioCurrent.Password, False) <> 0 Then
-            My.Application.Log.WriteEntry(String.Format("Se intentó iniciar sesión con el Usuario '{0}', pero la Contraseña es incorrecta.", pUsuario.Nombre), TraceEventType.Warning)
+            My.Application.Log.WriteEntry(String.Format("Se intentó iniciar sesión con el Usuario '{0}', pero la Contraseña es incorrecta.", textboxNombre.Text.Trim), TraceEventType.Warning)
             MsgBox("La Contraseña ingresada es incorrecta.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
             textboxPassword.SelectAll()
             textboxPassword.Focus()

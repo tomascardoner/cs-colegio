@@ -28,6 +28,7 @@ Partial Public Class ComprobanteCabecera
     Public Property DomicilioCodigoPostal As String
     Public Property DomicilioIDProvincia As Nullable(Of Byte)
     Public Property DomicilioIDLocalidad As Nullable(Of Short)
+    Public Property Leyenda As String
     Public Property ImporteNeto As Decimal
     Public Property ImporteImpuesto As Decimal
     Public Property ImporteTotal As Decimal

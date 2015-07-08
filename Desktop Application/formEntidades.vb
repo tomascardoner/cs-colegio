@@ -51,7 +51,7 @@
                 ' Todos los Tipos de Entidad
                 If BusquedaAplicada Then
                     listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                       Where (ent.Apellido.ToLower.Contains(textboxBuscar.Text.ToLower.Trim) Or ent.Nombre.ToLower.Contains(textboxBuscar.Text.ToLower.Trim)) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo))
+                                       Where (ent.Apellido.ToLower.Contains(textboxBuscar.Text.ToLower.Trim) Or ((Not IsNothing(ent.Nombre)) AndAlso ent.Nombre.ToLower.Contains(textboxBuscar.Text.ToLower.Trim))) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo))
                                         Select ent).ToList
                 Else
                     listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
@@ -62,7 +62,7 @@
             Else
                 If BusquedaAplicada Then
                     listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                Where ((menuitemEntidadTipo_PersonalColegio.Checked And ent.TipoPersonalColegio) Or (menuitemEntidadTipo_Docente.Checked And ent.TipoDocente) Or (menuitemEntidadTipo_Alumno.Checked And ent.TipoAlumno) Or (menuitemEntidadTipo_Familiar.Checked And ent.TipoFamiliar) Or (menuitemEntidadTipo_Proveedor.Checked And ent.TipoProveedor)) And (ent.Apellido.ToLower.Contains(textboxBuscar.Text.ToLower.Trim) Or ent.Nombre.ToLower.Contains(textboxBuscar.Text.ToLower.Trim)) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo))
+                                Where ((menuitemEntidadTipo_PersonalColegio.Checked And ent.TipoPersonalColegio) Or (menuitemEntidadTipo_Docente.Checked And ent.TipoDocente) Or (menuitemEntidadTipo_Alumno.Checked And ent.TipoAlumno) Or (menuitemEntidadTipo_Familiar.Checked And ent.TipoFamiliar) Or (menuitemEntidadTipo_Proveedor.Checked And ent.TipoProveedor)) And (ent.Apellido.ToLower.Contains(textboxBuscar.Text.ToLower.Trim) Or ((Not IsNothing(ent.Nombre)) AndAlso ent.Nombre.ToLower.Contains(textboxBuscar.Text.ToLower.Trim))) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo))
                                 Select ent).ToList
                 Else
                     listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
@@ -118,6 +118,20 @@
     Friend Sub SetAppearance()
         datagridviewMain.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
         datagridviewMain.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+    End Sub
+
+    Private Sub formEntidades_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
+        If Not textboxBuscar.Focused Then
+            If Char.IsLetter(e.KeyChar) Then
+                For Each RowCurrent As DataGridViewRow In datagridviewMain.Rows
+                    If RowCurrent.Cells("columnApellido").Value.ToString.StartsWith(e.KeyChar, StringComparison.CurrentCultureIgnoreCase) Then
+                        RowCurrent.Cells("columnIDEntidad").Selected = True
+                        datagridviewMain.Focus()
+                        Exit For
+                    End If
+                Next
+            End If
+        End If
     End Sub
 
     Private Sub formEntidades_Load() Handles Me.Load
@@ -291,6 +305,7 @@
                     Me.Cursor = Cursors.WaitCursor
 
                     Using dbcontext = New CSColegioContext(True)
+                        dbcontext.Entidad.Attach(EntidadEliminar)
                         dbcontext.Entidad.Remove(EntidadEliminar)
                         dbcontext.SaveChanges()
                     End Using
