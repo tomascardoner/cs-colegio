@@ -10,20 +10,15 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class Cheque
-    Public Property IDCheque As Integer
-    Public Property IDBanco As Integer
-    Public Property Serie As String
-    Public Property Numero As String
-    Public Property Fecha As Date
-    Public Property FechaPago As Date
-    Public Property Importe As Decimal
-    Public Property CuentaBancaria As String
+Partial Public Class Caja
+    Public Property IDCaja As Byte
+    Public Property Nombre As String
+    Public Property IDBanco As Nullable(Of Short)
+    Public Property CuentaNumero As String
+    Public Property EsActivo As Boolean
     Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date
     Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
-
-    Public Overridable Property Banco As Banco
 
 End Class

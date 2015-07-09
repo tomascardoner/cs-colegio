@@ -10,13 +10,9 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class CategoriaIVA
-    Public Property IDCategoriaIVA As Byte
-    Public Property Nombre As String
-    Public Property VentaIDComprobanteTipo As Byte
-    Public Property EsActivo As Boolean
-
-    Public Overridable Property Entidad As ICollection(Of Entidad) = New HashSet(Of Entidad)
-    Public Overridable Property Comprobante As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
+Partial Public Class ComprobanteAplicado
+    Public Property IDComprobanteAplicante As Integer
+    Public Property IDComprobanteAplicado As Integer
+    Public Property Importe As Decimal
 
 End Class

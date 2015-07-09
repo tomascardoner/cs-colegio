@@ -27,7 +27,6 @@ Partial Public Class CSColegioContext
     Public Overridable Property ArticuloGrupo() As DbSet(Of ArticuloGrupo)
     Public Overridable Property Banco() As DbSet(Of Banco)
     Public Overridable Property CategoriaIVA() As DbSet(Of CategoriaIVA)
-    Public Overridable Property Cheque() As DbSet(Of Cheque)
     Public Overridable Property Curso() As DbSet(Of Curso)
     Public Overridable Property DocumentoTipo() As DbSet(Of DocumentoTipo)
     Public Overridable Property Entidad() As DbSet(Of Entidad)
@@ -47,7 +46,6 @@ Partial Public Class CSColegioContext
     Public Overridable Property ComprobanteImpuesto() As DbSet(Of ComprobanteImpuesto)
     Public Overridable Property ComprobanteTipo() As DbSet(Of ComprobanteTipo)
     Public Overridable Property Impuesto() As DbSet(Of Impuesto)
-    Public Overridable Property ComprobanteCabecera() As DbSet(Of ComprobanteCabecera)
     Public Overridable Property ComprobanteDetalle() As DbSet(Of ComprobanteDetalle)
     Public Overridable Property UsuarioGrupoPermiso() As DbSet(Of UsuarioGrupoPermiso)
     Public Overridable Property AnioLectivoCurso() As DbSet(Of AnioLectivoCurso)
@@ -64,5 +62,9 @@ Partial Public Class CSColegioContext
     Public Overridable Property Reporte() As DbSet(Of Reporte)
     Public Overridable Property ReporteGrupo() As DbSet(Of ReporteGrupo)
     Public Overridable Property Feriado() As DbSet(Of Feriado)
+    Public Overridable Property Caja() As DbSet(Of Caja)
+    Public Overridable Property Comprobante() As DbSet(Of Comprobante)
+    Public Overridable Property ComprobanteAplicado() As DbSet(Of ComprobanteAplicado)
+    Public Overridable Property ComprobanteMedioPago() As DbSet(Of ComprobanteMedioPago)
 
 End Class

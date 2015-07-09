@@ -32,36 +32,35 @@ Partial Class formComprobante
         Dim labelDomicilioProvincia As System.Windows.Forms.Label
         Dim labelDomicilioLocalidad As System.Windows.Forms.Label
         Dim labelDomicilioCodigoPostal As System.Windows.Forms.Label
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.panelPie = New System.Windows.Forms.FlowLayoutPanel()
-        Me.panelSubtotales = New System.Windows.Forms.Panel()
-        Me.textboxImporteTotal = New System.Windows.Forms.TextBox()
-        Me.labelImporteTotal = New System.Windows.Forms.Label()
-        Me.textboxImporteIVA = New System.Windows.Forms.TextBox()
-        Me.labelImporteIVA = New System.Windows.Forms.Label()
-        Me.textboxImporteImpuesto = New System.Windows.Forms.TextBox()
-        Me.labelImporteImpuesto = New System.Windows.Forms.Label()
-        Me.textboxImporteNeto = New System.Windows.Forms.TextBox()
-        Me.labelImporteNeto = New System.Windows.Forms.Label()
+        Dim labelFechaServicioDesde As System.Windows.Forms.Label
+        Dim labelFechaServicioHasta As System.Windows.Forms.Label
+        Dim labelDocumento As System.Windows.Forms.Label
+        Me.panelMain = New System.Windows.Forms.TableLayoutPanel()
         Me.panelCabecera = New System.Windows.Forms.FlowLayoutPanel()
         Me.panelIdentificacion = New System.Windows.Forms.Panel()
+        Me.textboxPuntoVenta = New System.Windows.Forms.TextBox()
+        Me.labelPuntoVenta = New System.Windows.Forms.Label()
         Me.comboboxComprobanteTipo = New System.Windows.Forms.ComboBox()
         Me.labelComprobanteTipo = New System.Windows.Forms.Label()
         Me.textboxComprobanteNumero = New System.Windows.Forms.TextBox()
         Me.labelComprobanteNumero = New System.Windows.Forms.Label()
-        Me.datetimepickerFecha = New System.Windows.Forms.DateTimePicker()
-        Me.labelFecha = New System.Windows.Forms.Label()
+        Me.datetimepickerFechaEmision = New System.Windows.Forms.DateTimePicker()
+        Me.labelFechaEmision = New System.Windows.Forms.Label()
         Me.textboxIDComprobante = New System.Windows.Forms.TextBox()
         Me.labelIDComprobante = New System.Windows.Forms.Label()
+        Me.panelFechas = New System.Windows.Forms.Panel()
+        Me.datetimepickerFechaServicioHasta = New System.Windows.Forms.DateTimePicker()
+        Me.datetimepickerFechaServicioDesde = New System.Windows.Forms.DateTimePicker()
+        Me.datetimepickerFechaVencimiento = New System.Windows.Forms.DateTimePicker()
+        Me.labelFechaVencimiento = New System.Windows.Forms.Label()
         Me.panelEntidad = New System.Windows.Forms.Panel()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.buttonEntidad = New System.Windows.Forms.Button()
         Me.textboxEntidad = New System.Windows.Forms.TextBox()
         Me.labelEntidad = New System.Windows.Forms.Label()
         Me.panelImpuesto = New System.Windows.Forms.Panel()
+        Me.comboboxDocumentoTipo = New System.Windows.Forms.ComboBox()
+        Me.textboxDocumentoNumero = New System.Windows.Forms.TextBox()
         Me.comboboxCategoriaIVA = New System.Windows.Forms.ComboBox()
-        Me.textboxCUIT = New System.Windows.Forms.TextBox()
-        Me.labelCUIT = New System.Windows.Forms.Label()
         Me.panelDomicilio = New System.Windows.Forms.Panel()
         Me.textboxDomicilioDepartamento = New System.Windows.Forms.TextBox()
         Me.textboxDomicilioPiso = New System.Windows.Forms.TextBox()
@@ -75,6 +74,18 @@ Partial Class formComprobante
         Me.panelLocalidad = New System.Windows.Forms.Panel()
         Me.comboboxDomicilioLocalidad = New System.Windows.Forms.ComboBox()
         Me.textboxDomicilioCodigoPostal = New System.Windows.Forms.TextBox()
+        Me.tabcontrolMain = New System.Windows.Forms.TabControl()
+        Me.tabpageDetalle = New System.Windows.Forms.TabPage()
+        Me.datagridviewDetalle = New System.Windows.Forms.DataGridView()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.panelPie = New System.Windows.Forms.FlowLayoutPanel()
+        Me.panelSubtotales = New System.Windows.Forms.Panel()
+        Me.textboxImporteTotal = New System.Windows.Forms.TextBox()
+        Me.labelImporteTotal = New System.Windows.Forms.Label()
+        Me.textboxImporteImpuesto = New System.Windows.Forms.TextBox()
+        Me.labelImporteImpuesto = New System.Windows.Forms.Label()
+        Me.textboxImporteNeto = New System.Windows.Forms.TextBox()
+        Me.labelImporteNeto = New System.Windows.Forms.Label()
         labelCategoriaIVA = New System.Windows.Forms.Label()
         labelDomicilioDepartamento = New System.Windows.Forms.Label()
         labelDomicilioPiso = New System.Windows.Forms.Label()
@@ -85,24 +96,30 @@ Partial Class formComprobante
         labelDomicilioProvincia = New System.Windows.Forms.Label()
         labelDomicilioLocalidad = New System.Windows.Forms.Label()
         labelDomicilioCodigoPostal = New System.Windows.Forms.Label()
-        Me.TableLayoutPanel1.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.panelPie.SuspendLayout()
-        Me.panelSubtotales.SuspendLayout()
+        labelFechaServicioDesde = New System.Windows.Forms.Label()
+        labelFechaServicioHasta = New System.Windows.Forms.Label()
+        labelDocumento = New System.Windows.Forms.Label()
+        Me.panelMain.SuspendLayout()
         Me.panelCabecera.SuspendLayout()
         Me.panelIdentificacion.SuspendLayout()
+        Me.panelFechas.SuspendLayout()
         Me.panelEntidad.SuspendLayout()
         Me.panelImpuesto.SuspendLayout()
         Me.panelDomicilio.SuspendLayout()
         Me.panelDomicilioExtra.SuspendLayout()
         Me.panelProvincia.SuspendLayout()
         Me.panelLocalidad.SuspendLayout()
+        Me.tabcontrolMain.SuspendLayout()
+        Me.tabpageDetalle.SuspendLayout()
+        CType(Me.datagridviewDetalle, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.panelPie.SuspendLayout()
+        Me.panelSubtotales.SuspendLayout()
         Me.SuspendLayout()
         '
         'labelCategoriaIVA
         '
         labelCategoriaIVA.AutoSize = True
-        labelCategoriaIVA.Location = New System.Drawing.Point(174, 6)
+        labelCategoriaIVA.Location = New System.Drawing.Point(303, 6)
         labelCategoriaIVA.Name = "labelCategoriaIVA"
         labelCategoriaIVA.Size = New System.Drawing.Size(92, 13)
         labelCategoriaIVA.TabIndex = 2
@@ -189,143 +206,58 @@ Partial Class formComprobante
         labelDomicilioCodigoPostal.TabIndex = 2
         labelDomicilioCodigoPostal.Text = "Cód. Post.:"
         '
-        'TableLayoutPanel1
+        'labelFechaServicioDesde
         '
-        Me.TableLayoutPanel1.AutoSize = True
-        Me.TableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.TableLayoutPanel1.ColumnCount = 1
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.DataGridView1, 0, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.panelPie, 0, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.panelCabecera, 0, 0)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 2
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1212, 514)
-        Me.TableLayoutPanel1.TabIndex = 2
+        labelFechaServicioDesde.AutoSize = True
+        labelFechaServicioDesde.Location = New System.Drawing.Point(251, 6)
+        labelFechaServicioDesde.Name = "labelFechaServicioDesde"
+        labelFechaServicioDesde.Size = New System.Drawing.Size(133, 13)
+        labelFechaServicioDesde.TabIndex = 2
+        labelFechaServicioDesde.Text = "Período Facturado Desde:"
         '
-        'DataGridView1
+        'labelFechaServicioHasta
         '
-        Me.DataGridView1.AllowUserToAddRows = False
-        Me.DataGridView1.AllowUserToDeleteRows = False
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.DataGridView1.Location = New System.Drawing.Point(3, 148)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.Size = New System.Drawing.Size(1206, 314)
-        Me.DataGridView1.TabIndex = 4
+        labelFechaServicioHasta.AutoSize = True
+        labelFechaServicioHasta.Location = New System.Drawing.Point(516, 6)
+        labelFechaServicioHasta.Name = "labelFechaServicioHasta"
+        labelFechaServicioHasta.Size = New System.Drawing.Size(38, 13)
+        labelFechaServicioHasta.TabIndex = 10
+        labelFechaServicioHasta.Text = "Hasta:"
         '
-        'panelPie
+        'labelDocumento
         '
-        Me.panelPie.AutoSize = True
-        Me.panelPie.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.panelPie.Controls.Add(Me.panelSubtotales)
-        Me.panelPie.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.panelPie.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.panelPie.Location = New System.Drawing.Point(3, 468)
-        Me.panelPie.Name = "panelPie"
-        Me.panelPie.Padding = New System.Windows.Forms.Padding(4)
-        Me.panelPie.Size = New System.Drawing.Size(1206, 43)
-        Me.panelPie.TabIndex = 3
+        labelDocumento.AutoSize = True
+        labelDocumento.Location = New System.Drawing.Point(3, 6)
+        labelDocumento.Name = "labelDocumento"
+        labelDocumento.Size = New System.Drawing.Size(65, 13)
+        labelDocumento.TabIndex = 14
+        labelDocumento.Text = "Documento:"
         '
-        'panelSubtotales
+        'panelMain
         '
-        Me.panelSubtotales.AutoSize = True
-        Me.panelSubtotales.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.panelSubtotales.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.panelSubtotales.Controls.Add(Me.textboxImporteTotal)
-        Me.panelSubtotales.Controls.Add(Me.labelImporteTotal)
-        Me.panelSubtotales.Controls.Add(Me.textboxImporteIVA)
-        Me.panelSubtotales.Controls.Add(Me.labelImporteIVA)
-        Me.panelSubtotales.Controls.Add(Me.textboxImporteImpuesto)
-        Me.panelSubtotales.Controls.Add(Me.labelImporteImpuesto)
-        Me.panelSubtotales.Controls.Add(Me.textboxImporteNeto)
-        Me.panelSubtotales.Controls.Add(Me.labelImporteNeto)
-        Me.panelSubtotales.Location = New System.Drawing.Point(546, 7)
-        Me.panelSubtotales.Name = "panelSubtotales"
-        Me.panelSubtotales.Size = New System.Drawing.Size(649, 29)
-        Me.panelSubtotales.TabIndex = 3
-        '
-        'textboxImporteTotal
-        '
-        Me.textboxImporteTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textboxImporteTotal.Location = New System.Drawing.Point(539, 2)
-        Me.textboxImporteTotal.Name = "textboxImporteTotal"
-        Me.textboxImporteTotal.Size = New System.Drawing.Size(105, 22)
-        Me.textboxImporteTotal.TabIndex = 7
-        Me.textboxImporteTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'labelImporteTotal
-        '
-        Me.labelImporteTotal.AutoSize = True
-        Me.labelImporteTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelImporteTotal.Location = New System.Drawing.Point(485, 5)
-        Me.labelImporteTotal.Name = "labelImporteTotal"
-        Me.labelImporteTotal.Size = New System.Drawing.Size(48, 16)
-        Me.labelImporteTotal.TabIndex = 6
-        Me.labelImporteTotal.Text = "Total:"
-        '
-        'textboxImporteIVA
-        '
-        Me.textboxImporteIVA.Location = New System.Drawing.Point(375, 3)
-        Me.textboxImporteIVA.Name = "textboxImporteIVA"
-        Me.textboxImporteIVA.Size = New System.Drawing.Size(80, 20)
-        Me.textboxImporteIVA.TabIndex = 5
-        Me.textboxImporteIVA.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'labelImporteIVA
-        '
-        Me.labelImporteIVA.AutoSize = True
-        Me.labelImporteIVA.Location = New System.Drawing.Point(342, 6)
-        Me.labelImporteIVA.Name = "labelImporteIVA"
-        Me.labelImporteIVA.Size = New System.Drawing.Size(27, 13)
-        Me.labelImporteIVA.TabIndex = 4
-        Me.labelImporteIVA.Text = "IVA:"
-        '
-        'textboxImporteImpuesto
-        '
-        Me.textboxImporteImpuesto.Location = New System.Drawing.Point(232, 3)
-        Me.textboxImporteImpuesto.Name = "textboxImporteImpuesto"
-        Me.textboxImporteImpuesto.Size = New System.Drawing.Size(80, 20)
-        Me.textboxImporteImpuesto.TabIndex = 3
-        Me.textboxImporteImpuesto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'labelImporteImpuesto
-        '
-        Me.labelImporteImpuesto.AutoSize = True
-        Me.labelImporteImpuesto.Location = New System.Drawing.Point(168, 6)
-        Me.labelImporteImpuesto.Name = "labelImporteImpuesto"
-        Me.labelImporteImpuesto.Size = New System.Drawing.Size(58, 13)
-        Me.labelImporteImpuesto.TabIndex = 2
-        Me.labelImporteImpuesto.Text = "Impuestos:"
-        '
-        'textboxImporteNeto
-        '
-        Me.textboxImporteNeto.Location = New System.Drawing.Point(58, 3)
-        Me.textboxImporteNeto.Name = "textboxImporteNeto"
-        Me.textboxImporteNeto.Size = New System.Drawing.Size(80, 20)
-        Me.textboxImporteNeto.TabIndex = 1
-        Me.textboxImporteNeto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'labelImporteNeto
-        '
-        Me.labelImporteNeto.AutoSize = True
-        Me.labelImporteNeto.Location = New System.Drawing.Point(3, 6)
-        Me.labelImporteNeto.Name = "labelImporteNeto"
-        Me.labelImporteNeto.Size = New System.Drawing.Size(49, 13)
-        Me.labelImporteNeto.TabIndex = 0
-        Me.labelImporteNeto.Text = "Subtotal:"
+        Me.panelMain.AutoSize = True
+        Me.panelMain.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelMain.ColumnCount = 1
+        Me.panelMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.panelMain.Controls.Add(Me.panelCabecera, 0, 0)
+        Me.panelMain.Controls.Add(Me.tabcontrolMain, 0, 1)
+        Me.panelMain.Controls.Add(Me.panelPie, 0, 2)
+        Me.panelMain.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.panelMain.Location = New System.Drawing.Point(0, 0)
+        Me.panelMain.Name = "panelMain"
+        Me.panelMain.RowCount = 3
+        Me.panelMain.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.panelMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.panelMain.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.panelMain.Size = New System.Drawing.Size(1212, 514)
+        Me.panelMain.TabIndex = 2
         '
         'panelCabecera
         '
         Me.panelCabecera.AutoSize = True
         Me.panelCabecera.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.panelCabecera.Controls.Add(Me.panelIdentificacion)
+        Me.panelCabecera.Controls.Add(Me.panelFechas)
         Me.panelCabecera.Controls.Add(Me.panelEntidad)
         Me.panelCabecera.Controls.Add(Me.panelImpuesto)
         Me.panelCabecera.Controls.Add(Me.panelDomicilio)
@@ -335,7 +267,7 @@ Partial Class formComprobante
         Me.panelCabecera.Dock = System.Windows.Forms.DockStyle.Fill
         Me.panelCabecera.Location = New System.Drawing.Point(3, 3)
         Me.panelCabecera.Name = "panelCabecera"
-        Me.panelCabecera.Size = New System.Drawing.Size(1206, 139)
+        Me.panelCabecera.Size = New System.Drawing.Size(1206, 172)
         Me.panelCabecera.TabIndex = 1
         '
         'panelIdentificacion
@@ -343,24 +275,43 @@ Partial Class formComprobante
         Me.panelIdentificacion.AutoSize = True
         Me.panelIdentificacion.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.panelIdentificacion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.panelIdentificacion.Controls.Add(Me.textboxPuntoVenta)
+        Me.panelIdentificacion.Controls.Add(Me.labelPuntoVenta)
         Me.panelIdentificacion.Controls.Add(Me.comboboxComprobanteTipo)
         Me.panelIdentificacion.Controls.Add(Me.labelComprobanteTipo)
         Me.panelIdentificacion.Controls.Add(Me.textboxComprobanteNumero)
         Me.panelIdentificacion.Controls.Add(Me.labelComprobanteNumero)
-        Me.panelIdentificacion.Controls.Add(Me.datetimepickerFecha)
-        Me.panelIdentificacion.Controls.Add(Me.labelFecha)
+        Me.panelIdentificacion.Controls.Add(Me.datetimepickerFechaEmision)
+        Me.panelIdentificacion.Controls.Add(Me.labelFechaEmision)
         Me.panelIdentificacion.Controls.Add(Me.textboxIDComprobante)
         Me.panelIdentificacion.Controls.Add(Me.labelIDComprobante)
         Me.panelIdentificacion.Location = New System.Drawing.Point(3, 3)
         Me.panelIdentificacion.Name = "panelIdentificacion"
-        Me.panelIdentificacion.Size = New System.Drawing.Size(661, 29)
+        Me.panelIdentificacion.Size = New System.Drawing.Size(740, 29)
         Me.panelIdentificacion.TabIndex = 0
+        '
+        'textboxPuntoVenta
+        '
+        Me.textboxPuntoVenta.Location = New System.Drawing.Point(370, 3)
+        Me.textboxPuntoVenta.MaxLength = 4
+        Me.textboxPuntoVenta.Name = "textboxPuntoVenta"
+        Me.textboxPuntoVenta.Size = New System.Drawing.Size(36, 20)
+        Me.textboxPuntoVenta.TabIndex = 9
+        '
+        'labelPuntoVenta
+        '
+        Me.labelPuntoVenta.AutoSize = True
+        Me.labelPuntoVenta.Location = New System.Drawing.Point(280, 6)
+        Me.labelPuntoVenta.Name = "labelPuntoVenta"
+        Me.labelPuntoVenta.Size = New System.Drawing.Size(84, 13)
+        Me.labelPuntoVenta.TabIndex = 8
+        Me.labelPuntoVenta.Text = "Punto de Venta:"
         '
         'comboboxComprobanteTipo
         '
         Me.comboboxComprobanteTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxComprobanteTipo.FormattingEnabled = True
-        Me.comboboxComprobanteTipo.Location = New System.Drawing.Point(171, 3)
+        Me.comboboxComprobanteTipo.Location = New System.Drawing.Point(152, 3)
         Me.comboboxComprobanteTipo.Name = "comboboxComprobanteTipo"
         Me.comboboxComprobanteTipo.Size = New System.Drawing.Size(122, 21)
         Me.comboboxComprobanteTipo.TabIndex = 3
@@ -368,7 +319,7 @@ Partial Class formComprobante
         'labelComprobanteTipo
         '
         Me.labelComprobanteTipo.AutoSize = True
-        Me.labelComprobanteTipo.Location = New System.Drawing.Point(134, 7)
+        Me.labelComprobanteTipo.Location = New System.Drawing.Point(110, 6)
         Me.labelComprobanteTipo.Name = "labelComprobanteTipo"
         Me.labelComprobanteTipo.Size = New System.Drawing.Size(31, 13)
         Me.labelComprobanteTipo.TabIndex = 2
@@ -376,39 +327,39 @@ Partial Class formComprobante
         '
         'textboxComprobanteNumero
         '
-        Me.textboxComprobanteNumero.Location = New System.Drawing.Point(376, 3)
-        Me.textboxComprobanteNumero.MaxLength = 13
+        Me.textboxComprobanteNumero.Location = New System.Drawing.Point(465, 3)
+        Me.textboxComprobanteNumero.MaxLength = 8
         Me.textboxComprobanteNumero.Name = "textboxComprobanteNumero"
-        Me.textboxComprobanteNumero.Size = New System.Drawing.Size(100, 20)
+        Me.textboxComprobanteNumero.Size = New System.Drawing.Size(60, 20)
         Me.textboxComprobanteNumero.TabIndex = 5
         '
         'labelComprobanteNumero
         '
         Me.labelComprobanteNumero.AutoSize = True
-        Me.labelComprobanteNumero.Location = New System.Drawing.Point(323, 6)
+        Me.labelComprobanteNumero.Location = New System.Drawing.Point(412, 6)
         Me.labelComprobanteNumero.Name = "labelComprobanteNumero"
         Me.labelComprobanteNumero.Size = New System.Drawing.Size(47, 13)
         Me.labelComprobanteNumero.TabIndex = 4
         Me.labelComprobanteNumero.Text = "Número:"
         '
-        'datetimepickerFecha
+        'datetimepickerFechaEmision
         '
-        Me.datetimepickerFecha.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.datetimepickerFecha.Location = New System.Drawing.Point(552, 3)
-        Me.datetimepickerFecha.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
-        Me.datetimepickerFecha.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
-        Me.datetimepickerFecha.Name = "datetimepickerFecha"
-        Me.datetimepickerFecha.Size = New System.Drawing.Size(104, 20)
-        Me.datetimepickerFecha.TabIndex = 7
+        Me.datetimepickerFechaEmision.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.datetimepickerFechaEmision.Location = New System.Drawing.Point(631, 3)
+        Me.datetimepickerFechaEmision.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
+        Me.datetimepickerFechaEmision.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
+        Me.datetimepickerFechaEmision.Name = "datetimepickerFechaEmision"
+        Me.datetimepickerFechaEmision.Size = New System.Drawing.Size(104, 20)
+        Me.datetimepickerFechaEmision.TabIndex = 7
         '
-        'labelFecha
+        'labelFechaEmision
         '
-        Me.labelFecha.AutoSize = True
-        Me.labelFecha.Location = New System.Drawing.Point(506, 6)
-        Me.labelFecha.Name = "labelFecha"
-        Me.labelFecha.Size = New System.Drawing.Size(40, 13)
-        Me.labelFecha.TabIndex = 6
-        Me.labelFecha.Text = "Fecha:"
+        Me.labelFechaEmision.AutoSize = True
+        Me.labelFechaEmision.Location = New System.Drawing.Point(531, 6)
+        Me.labelFechaEmision.Name = "labelFechaEmision"
+        Me.labelFechaEmision.Size = New System.Drawing.Size(94, 13)
+        Me.labelFechaEmision.TabIndex = 6
+        Me.labelFechaEmision.Text = "Fecha de Emisión:"
         '
         'textboxIDComprobante
         '
@@ -427,28 +378,86 @@ Partial Class formComprobante
         Me.labelIDComprobante.TabIndex = 0
         Me.labelIDComprobante.Text = "ID:"
         '
+        'panelFechas
+        '
+        Me.panelFechas.AutoSize = True
+        Me.panelFechas.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelFechas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.panelFechas.Controls.Add(Me.datetimepickerFechaServicioHasta)
+        Me.panelFechas.Controls.Add(labelFechaServicioHasta)
+        Me.panelFechas.Controls.Add(Me.datetimepickerFechaServicioDesde)
+        Me.panelFechas.Controls.Add(Me.datetimepickerFechaVencimiento)
+        Me.panelFechas.Controls.Add(labelFechaServicioDesde)
+        Me.panelFechas.Controls.Add(Me.labelFechaVencimiento)
+        Me.panelFechas.Location = New System.Drawing.Point(3, 38)
+        Me.panelFechas.Name = "panelFechas"
+        Me.panelFechas.Size = New System.Drawing.Size(685, 27)
+        Me.panelFechas.TabIndex = 7
+        '
+        'datetimepickerFechaServicioHasta
+        '
+        Me.datetimepickerFechaServicioHasta.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.datetimepickerFechaServicioHasta.Location = New System.Drawing.Point(560, 2)
+        Me.datetimepickerFechaServicioHasta.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
+        Me.datetimepickerFechaServicioHasta.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
+        Me.datetimepickerFechaServicioHasta.Name = "datetimepickerFechaServicioHasta"
+        Me.datetimepickerFechaServicioHasta.ShowCheckBox = True
+        Me.datetimepickerFechaServicioHasta.Size = New System.Drawing.Size(120, 20)
+        Me.datetimepickerFechaServicioHasta.TabIndex = 11
+        '
+        'datetimepickerFechaServicioDesde
+        '
+        Me.datetimepickerFechaServicioDesde.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.datetimepickerFechaServicioDesde.Location = New System.Drawing.Point(390, 2)
+        Me.datetimepickerFechaServicioDesde.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
+        Me.datetimepickerFechaServicioDesde.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
+        Me.datetimepickerFechaServicioDesde.Name = "datetimepickerFechaServicioDesde"
+        Me.datetimepickerFechaServicioDesde.ShowCheckBox = True
+        Me.datetimepickerFechaServicioDesde.Size = New System.Drawing.Size(120, 20)
+        Me.datetimepickerFechaServicioDesde.TabIndex = 9
+        '
+        'datetimepickerFechaVencimiento
+        '
+        Me.datetimepickerFechaVencimiento.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.datetimepickerFechaVencimiento.Location = New System.Drawing.Point(125, 2)
+        Me.datetimepickerFechaVencimiento.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
+        Me.datetimepickerFechaVencimiento.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
+        Me.datetimepickerFechaVencimiento.Name = "datetimepickerFechaVencimiento"
+        Me.datetimepickerFechaVencimiento.ShowCheckBox = True
+        Me.datetimepickerFechaVencimiento.Size = New System.Drawing.Size(120, 20)
+        Me.datetimepickerFechaVencimiento.TabIndex = 8
+        '
+        'labelFechaVencimiento
+        '
+        Me.labelFechaVencimiento.AutoSize = True
+        Me.labelFechaVencimiento.Location = New System.Drawing.Point(3, 6)
+        Me.labelFechaVencimiento.Name = "labelFechaVencimiento"
+        Me.labelFechaVencimiento.Size = New System.Drawing.Size(116, 13)
+        Me.labelFechaVencimiento.TabIndex = 0
+        Me.labelFechaVencimiento.Text = "Fecha de Vencimiento:"
+        '
         'panelEntidad
         '
         Me.panelEntidad.AutoSize = True
         Me.panelEntidad.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.panelEntidad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.panelEntidad.Controls.Add(Me.Button1)
+        Me.panelEntidad.Controls.Add(Me.buttonEntidad)
         Me.panelEntidad.Controls.Add(Me.textboxEntidad)
         Me.panelEntidad.Controls.Add(Me.labelEntidad)
-        Me.panelEntidad.Location = New System.Drawing.Point(3, 38)
+        Me.panelEntidad.Location = New System.Drawing.Point(3, 71)
         Me.panelEntidad.Name = "panelEntidad"
         Me.panelEntidad.Size = New System.Drawing.Size(565, 29)
         Me.panelEntidad.TabIndex = 1
         '
-        'Button1
+        'buttonEntidad
         '
-        Me.Button1.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_SEARCH_16
-        Me.Button1.Location = New System.Drawing.Point(538, 2)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(22, 22)
-        Me.Button1.TabIndex = 2
-        Me.Button1.Text = "…"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.buttonEntidad.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_SEARCH_16
+        Me.buttonEntidad.Location = New System.Drawing.Point(538, 2)
+        Me.buttonEntidad.Name = "buttonEntidad"
+        Me.buttonEntidad.Size = New System.Drawing.Size(22, 22)
+        Me.buttonEntidad.TabIndex = 2
+        Me.buttonEntidad.Text = "…"
+        Me.buttonEntidad.UseVisualStyleBackColor = True
         '
         'textboxEntidad
         '
@@ -472,40 +481,41 @@ Partial Class formComprobante
         Me.panelImpuesto.AutoSize = True
         Me.panelImpuesto.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.panelImpuesto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.panelImpuesto.Controls.Add(Me.comboboxDocumentoTipo)
+        Me.panelImpuesto.Controls.Add(Me.textboxDocumentoNumero)
+        Me.panelImpuesto.Controls.Add(labelDocumento)
         Me.panelImpuesto.Controls.Add(Me.comboboxCategoriaIVA)
         Me.panelImpuesto.Controls.Add(labelCategoriaIVA)
-        Me.panelImpuesto.Controls.Add(Me.textboxCUIT)
-        Me.panelImpuesto.Controls.Add(Me.labelCUIT)
-        Me.panelImpuesto.Location = New System.Drawing.Point(574, 38)
+        Me.panelImpuesto.Location = New System.Drawing.Point(574, 71)
         Me.panelImpuesto.Name = "panelImpuesto"
-        Me.panelImpuesto.Size = New System.Drawing.Size(477, 28)
+        Me.panelImpuesto.Size = New System.Drawing.Size(606, 28)
         Me.panelImpuesto.TabIndex = 2
+        '
+        'comboboxDocumentoTipo
+        '
+        Me.comboboxDocumentoTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxDocumentoTipo.FormattingEnabled = True
+        Me.comboboxDocumentoTipo.Location = New System.Drawing.Point(74, 2)
+        Me.comboboxDocumentoTipo.Name = "comboboxDocumentoTipo"
+        Me.comboboxDocumentoTipo.Size = New System.Drawing.Size(102, 21)
+        Me.comboboxDocumentoTipo.TabIndex = 15
+        '
+        'textboxDocumentoNumero
+        '
+        Me.textboxDocumentoNumero.Location = New System.Drawing.Point(182, 3)
+        Me.textboxDocumentoNumero.MaxLength = 11
+        Me.textboxDocumentoNumero.Name = "textboxDocumentoNumero"
+        Me.textboxDocumentoNumero.Size = New System.Drawing.Size(115, 20)
+        Me.textboxDocumentoNumero.TabIndex = 16
         '
         'comboboxCategoriaIVA
         '
         Me.comboboxCategoriaIVA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxCategoriaIVA.FormattingEnabled = True
-        Me.comboboxCategoriaIVA.Location = New System.Drawing.Point(272, 2)
+        Me.comboboxCategoriaIVA.Location = New System.Drawing.Point(401, 2)
         Me.comboboxCategoriaIVA.Name = "comboboxCategoriaIVA"
         Me.comboboxCategoriaIVA.Size = New System.Drawing.Size(200, 21)
         Me.comboboxCategoriaIVA.TabIndex = 3
-        '
-        'textboxCUIT
-        '
-        Me.textboxCUIT.Location = New System.Drawing.Point(44, 3)
-        Me.textboxCUIT.MaxLength = 11
-        Me.textboxCUIT.Name = "textboxCUIT"
-        Me.textboxCUIT.Size = New System.Drawing.Size(100, 20)
-        Me.textboxCUIT.TabIndex = 1
-        '
-        'labelCUIT
-        '
-        Me.labelCUIT.AutoSize = True
-        Me.labelCUIT.Location = New System.Drawing.Point(3, 6)
-        Me.labelCUIT.Name = "labelCUIT"
-        Me.labelCUIT.Size = New System.Drawing.Size(35, 13)
-        Me.labelCUIT.TabIndex = 0
-        Me.labelCUIT.Text = "CUIT:"
         '
         'panelDomicilio
         '
@@ -520,7 +530,7 @@ Partial Class formComprobante
         Me.panelDomicilio.Controls.Add(Me.textboxDomicilioNumero)
         Me.panelDomicilio.Controls.Add(labelDomicilioCalle1)
         Me.panelDomicilio.Controls.Add(Me.textboxDomicilioCalle1)
-        Me.panelDomicilio.Location = New System.Drawing.Point(3, 73)
+        Me.panelDomicilio.Location = New System.Drawing.Point(3, 106)
         Me.panelDomicilio.Name = "panelDomicilio"
         Me.panelDomicilio.Size = New System.Drawing.Size(632, 28)
         Me.panelDomicilio.TabIndex = 3
@@ -566,7 +576,7 @@ Partial Class formComprobante
         Me.panelDomicilioExtra.Controls.Add(Me.textboxDomicilioCalle3)
         Me.panelDomicilioExtra.Controls.Add(labelDomicilioCalle2)
         Me.panelDomicilioExtra.Controls.Add(Me.textboxDomicilioCalle2)
-        Me.panelDomicilioExtra.Location = New System.Drawing.Point(641, 73)
+        Me.panelDomicilioExtra.Location = New System.Drawing.Point(641, 106)
         Me.panelDomicilioExtra.Name = "panelDomicilioExtra"
         Me.panelDomicilioExtra.Size = New System.Drawing.Size(474, 28)
         Me.panelDomicilioExtra.TabIndex = 4
@@ -594,7 +604,7 @@ Partial Class formComprobante
         Me.panelProvincia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.panelProvincia.Controls.Add(Me.comboboxDomicilioProvincia)
         Me.panelProvincia.Controls.Add(labelDomicilioProvincia)
-        Me.panelProvincia.Location = New System.Drawing.Point(3, 107)
+        Me.panelProvincia.Location = New System.Drawing.Point(3, 140)
         Me.panelProvincia.Name = "panelProvincia"
         Me.panelProvincia.Size = New System.Drawing.Size(326, 29)
         Me.panelProvincia.TabIndex = 5
@@ -619,7 +629,7 @@ Partial Class formComprobante
         Me.panelLocalidad.Controls.Add(labelDomicilioLocalidad)
         Me.panelLocalidad.Controls.Add(labelDomicilioCodigoPostal)
         Me.panelLocalidad.Controls.Add(Me.textboxDomicilioCodigoPostal)
-        Me.panelLocalidad.Location = New System.Drawing.Point(335, 107)
+        Me.panelLocalidad.Location = New System.Drawing.Point(335, 140)
         Me.panelLocalidad.Name = "panelLocalidad"
         Me.panelLocalidad.Size = New System.Drawing.Size(473, 29)
         Me.panelLocalidad.TabIndex = 6
@@ -643,26 +653,150 @@ Partial Class formComprobante
         Me.textboxDomicilioCodigoPostal.Size = New System.Drawing.Size(50, 20)
         Me.textboxDomicilioCodigoPostal.TabIndex = 3
         '
+        'tabcontrolMain
+        '
+        Me.tabcontrolMain.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
+        Me.tabcontrolMain.Controls.Add(Me.tabpageDetalle)
+        Me.tabcontrolMain.Controls.Add(Me.TabPage2)
+        Me.tabcontrolMain.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tabcontrolMain.Location = New System.Drawing.Point(3, 181)
+        Me.tabcontrolMain.Name = "tabcontrolMain"
+        Me.tabcontrolMain.SelectedIndex = 0
+        Me.tabcontrolMain.Size = New System.Drawing.Size(1206, 281)
+        Me.tabcontrolMain.TabIndex = 5
+        '
+        'tabpageDetalle
+        '
+        Me.tabpageDetalle.Controls.Add(Me.datagridviewDetalle)
+        Me.tabpageDetalle.Location = New System.Drawing.Point(4, 25)
+        Me.tabpageDetalle.Name = "tabpageDetalle"
+        Me.tabpageDetalle.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabpageDetalle.Size = New System.Drawing.Size(1198, 252)
+        Me.tabpageDetalle.TabIndex = 0
+        Me.tabpageDetalle.Text = "Detalle"
+        Me.tabpageDetalle.UseVisualStyleBackColor = True
+        '
+        'datagridviewDetalle
+        '
+        Me.datagridviewDetalle.AllowUserToAddRows = False
+        Me.datagridviewDetalle.AllowUserToDeleteRows = False
+        Me.datagridviewDetalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.datagridviewDetalle.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.datagridviewDetalle.Location = New System.Drawing.Point(3, 3)
+        Me.datagridviewDetalle.Name = "datagridviewDetalle"
+        Me.datagridviewDetalle.ReadOnly = True
+        Me.datagridviewDetalle.Size = New System.Drawing.Size(1192, 246)
+        Me.datagridviewDetalle.TabIndex = 5
+        '
+        'TabPage2
+        '
+        Me.TabPage2.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(1198, 252)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "TabPage2"
+        Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'panelPie
+        '
+        Me.panelPie.AutoSize = True
+        Me.panelPie.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelPie.Controls.Add(Me.panelSubtotales)
+        Me.panelPie.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.panelPie.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
+        Me.panelPie.Location = New System.Drawing.Point(3, 468)
+        Me.panelPie.Name = "panelPie"
+        Me.panelPie.Padding = New System.Windows.Forms.Padding(4)
+        Me.panelPie.Size = New System.Drawing.Size(1206, 43)
+        Me.panelPie.TabIndex = 3
+        '
+        'panelSubtotales
+        '
+        Me.panelSubtotales.AutoSize = True
+        Me.panelSubtotales.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelSubtotales.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.panelSubtotales.Controls.Add(Me.textboxImporteTotal)
+        Me.panelSubtotales.Controls.Add(Me.labelImporteTotal)
+        Me.panelSubtotales.Controls.Add(Me.textboxImporteImpuesto)
+        Me.panelSubtotales.Controls.Add(Me.labelImporteImpuesto)
+        Me.panelSubtotales.Controls.Add(Me.textboxImporteNeto)
+        Me.panelSubtotales.Controls.Add(Me.labelImporteNeto)
+        Me.panelSubtotales.Location = New System.Drawing.Point(689, 7)
+        Me.panelSubtotales.Name = "panelSubtotales"
+        Me.panelSubtotales.Size = New System.Drawing.Size(506, 29)
+        Me.panelSubtotales.TabIndex = 3
+        '
+        'textboxImporteTotal
+        '
+        Me.textboxImporteTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textboxImporteTotal.Location = New System.Drawing.Point(396, 2)
+        Me.textboxImporteTotal.Name = "textboxImporteTotal"
+        Me.textboxImporteTotal.Size = New System.Drawing.Size(105, 22)
+        Me.textboxImporteTotal.TabIndex = 7
+        Me.textboxImporteTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'labelImporteTotal
+        '
+        Me.labelImporteTotal.AutoSize = True
+        Me.labelImporteTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelImporteTotal.Location = New System.Drawing.Point(342, 5)
+        Me.labelImporteTotal.Name = "labelImporteTotal"
+        Me.labelImporteTotal.Size = New System.Drawing.Size(48, 16)
+        Me.labelImporteTotal.TabIndex = 6
+        Me.labelImporteTotal.Text = "Total:"
+        '
+        'textboxImporteImpuesto
+        '
+        Me.textboxImporteImpuesto.Location = New System.Drawing.Point(232, 3)
+        Me.textboxImporteImpuesto.Name = "textboxImporteImpuesto"
+        Me.textboxImporteImpuesto.Size = New System.Drawing.Size(80, 20)
+        Me.textboxImporteImpuesto.TabIndex = 3
+        Me.textboxImporteImpuesto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'labelImporteImpuesto
+        '
+        Me.labelImporteImpuesto.AutoSize = True
+        Me.labelImporteImpuesto.Location = New System.Drawing.Point(168, 6)
+        Me.labelImporteImpuesto.Name = "labelImporteImpuesto"
+        Me.labelImporteImpuesto.Size = New System.Drawing.Size(58, 13)
+        Me.labelImporteImpuesto.TabIndex = 2
+        Me.labelImporteImpuesto.Text = "Impuestos:"
+        '
+        'textboxImporteNeto
+        '
+        Me.textboxImporteNeto.Location = New System.Drawing.Point(58, 3)
+        Me.textboxImporteNeto.Name = "textboxImporteNeto"
+        Me.textboxImporteNeto.Size = New System.Drawing.Size(80, 20)
+        Me.textboxImporteNeto.TabIndex = 1
+        Me.textboxImporteNeto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'labelImporteNeto
+        '
+        Me.labelImporteNeto.AutoSize = True
+        Me.labelImporteNeto.Location = New System.Drawing.Point(3, 6)
+        Me.labelImporteNeto.Name = "labelImporteNeto"
+        Me.labelImporteNeto.Size = New System.Drawing.Size(49, 13)
+        Me.labelImporteNeto.TabIndex = 0
+        Me.labelImporteNeto.Text = "Subtotal:"
+        '
         'formComprobante
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1212, 514)
-        Me.Controls.Add(Me.TableLayoutPanel1)
+        Me.Controls.Add(Me.panelMain)
         Me.MinimumSize = New System.Drawing.Size(690, 38)
         Me.Name = "formComprobante"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
-        Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.TableLayoutPanel1.PerformLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.panelPie.ResumeLayout(False)
-        Me.panelPie.PerformLayout()
-        Me.panelSubtotales.ResumeLayout(False)
-        Me.panelSubtotales.PerformLayout()
+        Me.panelMain.ResumeLayout(False)
+        Me.panelMain.PerformLayout()
         Me.panelCabecera.ResumeLayout(False)
         Me.panelCabecera.PerformLayout()
         Me.panelIdentificacion.ResumeLayout(False)
         Me.panelIdentificacion.PerformLayout()
+        Me.panelFechas.ResumeLayout(False)
+        Me.panelFechas.PerformLayout()
         Me.panelEntidad.ResumeLayout(False)
         Me.panelEntidad.PerformLayout()
         Me.panelImpuesto.ResumeLayout(False)
@@ -675,38 +809,40 @@ Partial Class formComprobante
         Me.panelProvincia.PerformLayout()
         Me.panelLocalidad.ResumeLayout(False)
         Me.panelLocalidad.PerformLayout()
+        Me.tabcontrolMain.ResumeLayout(False)
+        Me.tabpageDetalle.ResumeLayout(False)
+        CType(Me.datagridviewDetalle, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.panelPie.ResumeLayout(False)
+        Me.panelPie.PerformLayout()
+        Me.panelSubtotales.ResumeLayout(False)
+        Me.panelSubtotales.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
+    Friend WithEvents panelMain As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents panelCabecera As System.Windows.Forms.FlowLayoutPanel
+    Friend WithEvents panelIdentificacion As System.Windows.Forms.Panel
     Friend WithEvents panelPie As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents panelSubtotales As System.Windows.Forms.Panel
+    Friend WithEvents panelImpuesto As System.Windows.Forms.Panel
     Friend WithEvents textboxImporteTotal As System.Windows.Forms.TextBox
     Friend WithEvents labelImporteTotal As System.Windows.Forms.Label
-    Friend WithEvents textboxImporteIVA As System.Windows.Forms.TextBox
-    Friend WithEvents labelImporteIVA As System.Windows.Forms.Label
     Friend WithEvents textboxImporteImpuesto As System.Windows.Forms.TextBox
     Friend WithEvents labelImporteImpuesto As System.Windows.Forms.Label
     Friend WithEvents textboxImporteNeto As System.Windows.Forms.TextBox
     Friend WithEvents labelImporteNeto As System.Windows.Forms.Label
-    Friend WithEvents panelCabecera As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents panelIdentificacion As System.Windows.Forms.Panel
     Friend WithEvents textboxComprobanteNumero As System.Windows.Forms.TextBox
     Friend WithEvents labelComprobanteNumero As System.Windows.Forms.Label
-    Friend WithEvents datetimepickerFecha As System.Windows.Forms.DateTimePicker
-    Friend WithEvents labelFecha As System.Windows.Forms.Label
+    Friend WithEvents datetimepickerFechaEmision As System.Windows.Forms.DateTimePicker
+    Friend WithEvents labelFechaEmision As System.Windows.Forms.Label
     Friend WithEvents textboxIDComprobante As System.Windows.Forms.TextBox
     Friend WithEvents labelIDComprobante As System.Windows.Forms.Label
     Friend WithEvents panelEntidad As System.Windows.Forms.Panel
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents buttonEntidad As System.Windows.Forms.Button
     Friend WithEvents textboxEntidad As System.Windows.Forms.TextBox
     Friend WithEvents labelEntidad As System.Windows.Forms.Label
-    Friend WithEvents panelImpuesto As System.Windows.Forms.Panel
     Friend WithEvents comboboxCategoriaIVA As System.Windows.Forms.ComboBox
-    Friend WithEvents textboxCUIT As System.Windows.Forms.TextBox
-    Friend WithEvents labelCUIT As System.Windows.Forms.Label
     Friend WithEvents panelDomicilio As System.Windows.Forms.Panel
     Friend WithEvents textboxDomicilioDepartamento As System.Windows.Forms.TextBox
     Friend WithEvents textboxDomicilioPiso As System.Windows.Forms.TextBox
@@ -722,4 +858,17 @@ Partial Class formComprobante
     Friend WithEvents textboxDomicilioCodigoPostal As System.Windows.Forms.TextBox
     Friend WithEvents labelComprobanteTipo As System.Windows.Forms.Label
     Friend WithEvents comboboxComprobanteTipo As System.Windows.Forms.ComboBox
+    Friend WithEvents textboxPuntoVenta As System.Windows.Forms.TextBox
+    Friend WithEvents labelPuntoVenta As System.Windows.Forms.Label
+    Friend WithEvents panelFechas As System.Windows.Forms.Panel
+    Friend WithEvents datetimepickerFechaVencimiento As System.Windows.Forms.DateTimePicker
+    Friend WithEvents labelFechaVencimiento As System.Windows.Forms.Label
+    Friend WithEvents datetimepickerFechaServicioHasta As System.Windows.Forms.DateTimePicker
+    Friend WithEvents datetimepickerFechaServicioDesde As System.Windows.Forms.DateTimePicker
+    Friend WithEvents comboboxDocumentoTipo As System.Windows.Forms.ComboBox
+    Friend WithEvents textboxDocumentoNumero As System.Windows.Forms.TextBox
+    Friend WithEvents tabcontrolMain As System.Windows.Forms.TabControl
+    Friend WithEvents tabpageDetalle As System.Windows.Forms.TabPage
+    Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
+    Friend WithEvents datagridviewDetalle As System.Windows.Forms.DataGridView
 End Class

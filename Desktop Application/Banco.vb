@@ -11,7 +11,7 @@ Imports System
 Imports System.Collections.Generic
 
 Partial Public Class Banco
-    Public Property IDBanco As Integer
+    Public Property IDBanco As Short
     Public Property Nombre As String
     Public Property CUIT As String
     Public Property EsActivo As Boolean
@@ -20,6 +20,6 @@ Partial Public Class Banco
     Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
 
-    Public Overridable Property Cheque As ICollection(Of Cheque) = New HashSet(Of Cheque)
+    Public Overridable Property ComprobanteMedioPago As ICollection(Of ComprobanteMedioPago) = New HashSet(Of ComprobanteMedioPago)
 
 End Class

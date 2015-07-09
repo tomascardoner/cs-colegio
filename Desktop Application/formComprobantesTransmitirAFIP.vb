@@ -35,7 +35,7 @@
 
             Select Case comboboxCantidad.SelectedIndex
                 Case 0  ' Todos
-                    listComprobantes = (From cc In dbcontext.ComprobanteCabecera
+                    listComprobantes = (From cc In dbcontext.Comprobante
                                         Join cl In dbcontext.ComprobanteLote On cc.IDComprobanteLote Equals cl.IDComprobanteLote
                                         Join ct In dbcontext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                         Where ct.EmisionElectronica And cc.CAE Is Nothing
@@ -44,7 +44,7 @@
 
                 Case 1  ' Primer Lote pendiente
                     ' Busco el primer Lote a partir de los Comprobantes pendientes
-                    PrimerLotePendiente = (From cc In dbcontext.ComprobanteCabecera
+                    PrimerLotePendiente = (From cc In dbcontext.Comprobante
                                            Join cl In dbcontext.ComprobanteLote On cc.IDComprobanteLote Equals cl.IDComprobanteLote
                                            Join ct In dbcontext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                            Where ct.EmisionElectronica And cc.CAE Is Nothing
@@ -54,7 +54,7 @@
                     If PrimerLotePendiente Is Nothing Then
                         listComprobantes = Nothing
                     Else
-                        listComprobantes = (From cc In dbcontext.ComprobanteCabecera
+                        listComprobantes = (From cc In dbcontext.Comprobante
                                             Join cl In dbcontext.ComprobanteLote On cc.IDComprobanteLote Equals cl.IDComprobanteLote
                                             Join ct In dbcontext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                             Where cc.IDComprobanteLote = PrimerLotePendiente.IDComprobanteLote = ct.EmisionElectronica And cc.CAE Is Nothing
@@ -63,7 +63,7 @@
                     End If
 
                 Case 2 To 7 ' Cantidad de Comprobantes
-                    listComprobantes = (From cc In dbcontext.ComprobanteCabecera
+                    listComprobantes = (From cc In dbcontext.Comprobante
                                         Join cl In dbcontext.ComprobanteLote On cc.IDComprobanteLote Equals cl.IDComprobanteLote
                                         Join ct In dbcontext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                         Where ct.EmisionElectronica And cc.CAE Is Nothing
@@ -112,7 +112,7 @@
         Dim InternetProxy As String
         Dim CUIT_Emisor As String
         Dim GridDataRowActual As GridDataRow
-        Dim FacturaActual As ComprobanteCabecera
+        Dim FacturaActual As Comprobante
         Dim ArticuloActual As Articulo
         Dim MonedaLocal As Moneda
         Dim MonedaLocalCotizacion As MonedaCotizacion
@@ -176,7 +176,7 @@
             ' Hago que la grilla vaya mostrando la fila que se está procesando
             datagridviewComprobantes.CurrentCell = RowActual.Cells(0)
             GridDataRowActual = CType(RowActual.DataBoundItem, GridDataRow)
-            FacturaActual = dbcontext.ComprobanteCabecera.Find(GridDataRowActual.IDComprobante)
+            FacturaActual = dbcontext.Comprobante.Find(GridDataRowActual.IDComprobante)
             If Not FacturaActual Is Nothing Then
                 If Not FacturaActual.CAE Is Nothing Then
                     ' La Factura ya tiene un CAE asignado. Esto no debería pasar, excepto que otra instancia de la Aplicación haya obtenido el CAE mientras esta ventana estaba abierta
@@ -233,7 +233,7 @@
                         progressbarStatus.Value += 1
                         textboxStatus.Text &= "OK - CAE: " & ResultadoCAE.Numero
 
-                        dbcontext.ComprobanteCabecera.Attach(FacturaActual)
+                        dbcontext.Comprobante.Attach(FacturaActual)
 
                         FacturaActual.CAE = ResultadoCAE.Numero
                         FacturaActual.CAEVencimiento = ResultadoCAE.FechaVencimiento

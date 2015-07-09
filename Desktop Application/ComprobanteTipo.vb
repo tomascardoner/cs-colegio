@@ -25,8 +25,11 @@ Partial Public Class ComprobanteTipo
     Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
     Public Property NombreCompleto As String
+    Public Property UtilizaDetalle As Nullable(Of Boolean)
+    Public Property UtilizaAplicacion As Nullable(Of Boolean)
+    Public Property UtilizaMedioPago As Nullable(Of Boolean)
 
-    Public Overridable Property ComprobanteCabecera As ICollection(Of ComprobanteCabecera) = New HashSet(Of ComprobanteCabecera)
     Public Overridable Property ComprobanteTipoPuntoVenta As ICollection(Of ComprobanteTipoPuntoVenta) = New HashSet(Of ComprobanteTipoPuntoVenta)
+    Public Overridable Property Comprobante As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
 
 End Class

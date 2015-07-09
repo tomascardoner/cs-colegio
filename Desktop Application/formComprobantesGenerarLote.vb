@@ -7,7 +7,7 @@ Public Class formComprobantesGenerarLote
     Private listEntidadesSeleccionadasCorregir As List(Of EntidadACorregir)
 
     Private FacturaLote As New ComprobanteLote
-    Private listFacturas As List(Of ComprobanteCabecera)
+    Private listFacturas As List(Of Comprobante)
 
     Private AnioLectivo As Integer
     Private MesAFacturar As Byte
@@ -523,14 +523,14 @@ Public Class formComprobantesGenerarLote
         Dim PuntoVenta As New PuntoVenta
         Dim NextComprobanteNumero As String = ""
 
-        Dim FacturaCabecera As New ComprobanteCabecera
+        Dim FacturaCabecera As New Comprobante
         Dim FacturaDetalle As ComprobanteDetalle
 
         Dim Fecha As Date
 
         Me.Cursor = Cursors.WaitCursor
 
-        listFacturas = New List(Of ComprobanteCabecera)
+        listFacturas = New List(Of Comprobante)
 
         ' Cargo los parámetros en variables para reducir tiempo de procesamiento
         IDArticulo = CS_Parameter.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID)
@@ -705,14 +705,14 @@ Public Class formComprobantesGenerarLote
         listFacturas.OrderBy(Function(cc) cc.IDComprobanteTipo)
 
         ' Obtengo el ID del último Comprobante cargado
-        If dbcontext.ComprobanteCabecera.Count = 0 Then
+        If dbcontext.Comprobante.Count = 0 Then
             NextID = 0
         Else
-            NextID = dbcontext.ComprobanteCabecera.Max(Function(cc) cc.IDComprobante)
+            NextID = dbcontext.Comprobante.Max(Function(cc) cc.IDComprobante)
         End If
 
         ' Recorro todas las Facturas generadas para aplicarles los ID y los Números de Comprobante
-        For Each FacturaCabeceraActual As ComprobanteCabecera In listFacturas
+        For Each FacturaCabeceraActual As Comprobante In listFacturas
             With FacturaCabeceraActual
                 NextID += 1
                 .IDComprobante = NextID
@@ -724,7 +724,7 @@ Public Class formComprobantesGenerarLote
                     End If
 
                     ' Busco si ya hay un comprobante creado de este tipo para obtener el último número
-                    NextComprobanteNumero = dbcontext.ComprobanteCabecera.Where(Function(cc) cc.IDComprobanteTipo = .IDComprobanteTipo).Max(Function(cc) cc.Numero)
+                    NextComprobanteNumero = dbcontext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = .IDComprobanteTipo).Max(Function(cc) cc.Numero)
                     If NextComprobanteNumero Is Nothing Then
                         ' No hay ningún comprobante creado de este tipo, así que tomo el número inicial y le resto 1 porque después se lo sumo
                         NextComprobanteNumero = CStr(CInt(ComprobanteTipoPuntoVenta.NumeroInicio) - 1).PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
@@ -746,8 +746,8 @@ Public Class formComprobantesGenerarLote
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Function GenerarComprobanteCabecera(ByRef EntidadCabecera As Entidad, ByVal FechaEmision As Date, ByVal FechaVencimiento As Date, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDFacturaLote As Integer, ByVal ComprobanteEntidadMayusculas As Boolean) As ComprobanteCabecera
-        Dim FacturaCabecera As New ComprobanteCabecera
+    Private Function GenerarComprobanteCabecera(ByRef EntidadCabecera As Entidad, ByVal FechaEmision As Date, ByVal FechaVencimiento As Date, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDFacturaLote As Integer, ByVal ComprobanteEntidadMayusculas As Boolean) As Comprobante
+        Dim FacturaCabecera As New Comprobante
 
         With FacturaCabecera
             ' Cabecera
@@ -796,7 +796,7 @@ Public Class formComprobantesGenerarLote
         Return FacturaCabecera
     End Function
 
-    Private Function GenerarComprobanteDetalle(ByRef FacturaCabecera As ComprobanteCabecera, ByRef EntidadDetalle As Entidad, ByVal IDArticulo As Short) As ComprobanteDetalle
+    Private Function GenerarComprobanteDetalle(ByRef FacturaCabecera As Comprobante, ByRef EntidadDetalle As Entidad, ByVal IDArticulo As Short) As ComprobanteDetalle
         Dim FacturaDetalle As New ComprobanteDetalle
         Dim AnioLectivoCursoActual As AnioLectivoCurso
 
@@ -846,7 +846,7 @@ Public Class formComprobantesGenerarLote
 
             Using dbcontext As New CSColegioContext(True)
                 dbcontext.ComprobanteLote.Add(FacturaLote)
-                dbcontext.ComprobanteCabecera.AddRange(listFacturas)
+                dbcontext.Comprobante.AddRange(listFacturas)
 
                 dbcontext.SaveChanges()
             End Using
@@ -862,7 +862,7 @@ Public Class formComprobantesGenerarLote
 
     Private Sub Paso4MostrarDetalle() Handles datagridviewPaso3Cabecera.SelectionChanged
         datagridviewPaso3Detalle.AutoGenerateColumns = False
-        datagridviewPaso3Detalle.DataSource = CType(datagridviewPaso3Cabecera.SelectedRows(0).DataBoundItem, ComprobanteCabecera).ComprobanteDetalle.ToList
+        datagridviewPaso3Detalle.DataSource = CType(datagridviewPaso3Cabecera.SelectedRows(0).DataBoundItem, Comprobante).ComprobanteDetalle.ToList
     End Sub
 
     Private Sub buttonPaso3Anterior_Click() Handles buttonPaso3Anterior.Click

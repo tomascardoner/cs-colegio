@@ -62,7 +62,6 @@ Partial Public Class Entidad
     Public Overridable Property EntidadesPadres As ICollection(Of EntidadEntidad) = New HashSet(Of EntidadEntidad)
     Public Overridable Property EntidadesHijas As ICollection(Of EntidadEntidad) = New HashSet(Of EntidadEntidad)
     Public Overridable Property Localidad As Localidad
-    Public Overridable Property ComprobanteCabecera As ICollection(Of ComprobanteCabecera) = New HashSet(Of ComprobanteCabecera)
     Public Overridable Property UsuarioCreacion As Usuario
     Public Overridable Property UsuarioModificacion As Usuario
     Public Overridable Property EntidadMadreHijas As ICollection(Of Entidad) = New HashSet(Of Entidad)
@@ -75,5 +74,6 @@ Partial Public Class Entidad
     Public Overridable Property FacturaDocumentoTipo As DocumentoTipo
     Public Overridable Property EntidadTerceroAlumnos As ICollection(Of Entidad) = New HashSet(Of Entidad)
     Public Overridable Property EntidadTercero As Entidad
+    Public Overridable Property Comprobante As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
 
 End Class

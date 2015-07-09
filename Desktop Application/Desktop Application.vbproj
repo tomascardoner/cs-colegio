@@ -186,13 +186,16 @@
     <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_ValueTranslation.vb">
       <Link>CS_ValueTranslation.vb</Link>
     </Compile>
+    <Compile Include="Caja.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
     <Compile Include="CategoriaIVA.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
-    <Compile Include="Cheque.vb">
+    <Compile Include="Comprobante.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
-    <Compile Include="ComprobanteCabecera.vb">
+    <Compile Include="ComprobanteAplicado.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="ComprobanteDetalle.vb">
@@ -202,6 +205,9 @@
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="ComprobanteLote.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComprobanteMedioPago.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="ComprobanteTipo.vb">

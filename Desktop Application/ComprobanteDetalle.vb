@@ -26,8 +26,8 @@ Partial Public Class ComprobanteDetalle
     Public Property PrecioUnitarioFinal As Decimal
     Public Property PrecioTotal As Decimal
 
-    Public Overridable Property ComprobanteCabecera As ComprobanteCabecera
     Public Overridable Property AnioLectivoCurso As AnioLectivoCurso
     Public Overridable Property Entidad As Entidad
+    Public Overridable Property Comprobante As Comprobante
 
 End Class

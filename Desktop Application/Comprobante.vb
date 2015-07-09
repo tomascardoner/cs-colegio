@@ -10,7 +10,7 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class ComprobanteCabecera
+Partial Public Class Comprobante
     Public Property IDComprobante As Integer
     Public Property IDComprobanteTipo As Byte
     Public Property PuntoVenta As String
@@ -50,9 +50,12 @@ Partial Public Class ComprobanteCabecera
     Public Overridable Property CategoriaIVA As CategoriaIVA
     Public Overridable Property ComprobanteDetalle As ICollection(Of ComprobanteDetalle) = New HashSet(Of ComprobanteDetalle)
     Public Overridable Property ComprobanteImpuesto As ICollection(Of ComprobanteImpuesto) = New HashSet(Of ComprobanteImpuesto)
+    Public Overridable Property ComprobanteMedioPago As ICollection(Of ComprobanteMedioPago) = New HashSet(Of ComprobanteMedioPago)
+    Public Overridable Property ComprobanteLote As ComprobanteLote
     Public Overridable Property ComprobanteTipo As ComprobanteTipo
     Public Overridable Property Entidad As Entidad
     Public Overridable Property Localidad As Localidad
-    Public Overridable Property ComprobanteLote As ComprobanteLote
+    Public Overridable Property Comprobante1 As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
+    Public Overridable Property Comprobante2 As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
 
 End Class

@@ -13,8 +13,7 @@ Imports System.Collections.Generic
 Partial Public Class MedioPago
     Public Property IDMedioPago As Byte
     Public Property Nombre As String
-    Public Property DetallaValores As Boolean
-    Public Property EspecificaOtrosDatos As Boolean
+    Public Property Tipo As String
     Public Property EsActivo As Boolean
     Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date
@@ -22,5 +21,6 @@ Partial Public Class MedioPago
     Public Property FechaHoraModificacion As Date
 
     Public Overridable Property Movimiento As ICollection(Of Movimiento) = New HashSet(Of Movimiento)
+    Public Overridable Property ComprobanteMedioPago As ICollection(Of ComprobanteMedioPago) = New HashSet(Of ComprobanteMedioPago)
 
 End Class

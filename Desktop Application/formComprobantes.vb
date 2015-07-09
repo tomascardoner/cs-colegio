@@ -48,7 +48,7 @@
             Using dbcontext As New CSColegioContext(True)
                 'Dim listComprobantesBase As Data.Entity.Infrastructure.DbRawSqlQuery(Of GridRowData) = context.Database.SqlQuery(Of GridRowData)(SQLSelect & vbCrLf & SQLFrom & vbCrLf & SQLWhere, FechaDesde, FechaHasta)
 
-                listComprobantesBase = (From cc In dbcontext.ComprobanteCabecera
+                listComprobantesBase = (From cc In dbcontext.Comprobante
                                         Join ct In dbcontext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                         Where cc.FechaEmision >= FechaDesde And cc.FechaEmision <= FechaHasta
                                         Order By cc.FechaEmision, cc.IDComprobante

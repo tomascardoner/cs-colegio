@@ -16,6 +16,6 @@ Partial Public Class ComprobanteImpuesto
     Public Property IDImpuesto As Short
 
     Public Overridable Property Impuesto As Impuesto
-    Public Overridable Property ComprobanteCabecera As ComprobanteCabecera
+    Public Overridable Property Comprobante As Comprobante
 
 End Class
