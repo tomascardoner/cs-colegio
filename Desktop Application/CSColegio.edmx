@@ -220,12 +220,13 @@
           <Property Name="Sigla" Type="char" MaxLength="3" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Letra" Type="char" MaxLength="1" />
-          <Property Name="NombreCompleto" Type="varchar" MaxLength="54" StoreGeneratedPattern="Computed" />
+          <Property Name="NombreConLetra" Type="varchar" MaxLength="54" StoreGeneratedPattern="Computed" />
+          <Property Name="NombreCompleto" Type="varchar" MaxLength="63" StoreGeneratedPattern="Computed" />
           <Property Name="CodigoAFIP" Type="tinyint" Nullable="false" />
           <Property Name="EmisionElectronica" Type="bit" />
-          <Property Name="UtilizaDetalle" Type="bit" />
-          <Property Name="UtilizaAplicacion" Type="bit" />
-          <Property Name="UtilizaMedioPago" Type="bit" />
+          <Property Name="UtilizaDetalle" Type="bit" Nullable="false" />
+          <Property Name="UtilizaAplicacion" Type="bit" Nullable="false" />
+          <Property Name="UtilizaMedioPago" Type="bit" Nullable="false" />
           <Property Name="ReporteNombre" Type="varchar" MaxLength="100" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
@@ -2037,8 +2038,13 @@
           <Property Name="Sigla" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Letra" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="NombreConLetra" Type="String" MaxLength="54" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
+          <Property Name="NombreCompleto" Type="String" MaxLength="63" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
           <Property Name="CodigoAFIP" Type="Byte" Nullable="false" />
           <Property Name="EmisionElectronica" Type="Boolean" />
+          <Property Name="UtilizaDetalle" Type="Boolean" Nullable="false" />
+          <Property Name="UtilizaAplicacion" Type="Boolean" Nullable="false" />
+          <Property Name="UtilizaMedioPago" Type="Boolean" Nullable="false" />
           <Property Name="ReporteNombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
@@ -2046,10 +2052,6 @@
           <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ComprobanteTipoPuntoVenta" Relationship="CSColegioModel.FK__ComprobanteTipo__ComprobanteTipoPuntoVenta" FromRole="ComprobanteTipo" ToRole="ComprobanteTipoPuntoVenta" />
-          <Property Name="NombreCompleto" Type="String" MaxLength="54" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="UtilizaDetalle" Type="Boolean" />
-          <Property Name="UtilizaAplicacion" Type="Boolean" />
-          <Property Name="UtilizaMedioPago" Type="Boolean" />
           <NavigationProperty Name="Comprobante" Relationship="CSColegioModel.FK__ComprobanteTipo__Comprobante" FromRole="ComprobanteTipo" ToRole="Comprobante" />
         </EntityType>
         <EntityType Name="Impuesto">
@@ -3002,10 +3004,11 @@
           <EntitySetMapping Name="ComprobanteTipo">
             <EntityTypeMapping TypeName="CSColegioModel.ComprobanteTipo">
               <MappingFragment StoreEntitySet="ComprobanteTipo">
+                <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
+                <ScalarProperty Name="NombreConLetra" ColumnName="NombreConLetra" />
                 <ScalarProperty Name="UtilizaMedioPago" ColumnName="UtilizaMedioPago" />
                 <ScalarProperty Name="UtilizaAplicacion" ColumnName="UtilizaAplicacion" />
                 <ScalarProperty Name="UtilizaDetalle" ColumnName="UtilizaDetalle" />
-                <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
                 <ScalarProperty Name="ReporteNombre" ColumnName="ReporteNombre" />
                 <ScalarProperty Name="Letra" ColumnName="Letra" />
                 <ScalarProperty Name="EmisionElectronica" ColumnName="EmisionElectronica" />

@@ -71,7 +71,7 @@ Public Class formComprobantesGenerarLote
         For Each NivelCurrent As Nivel In dbcontext.Nivel.Where(Function(niv) niv.EsActivo = True)
             ' Agrego el nodo correspondiente al Nivel actual y agrego un nodo hijo que diga "cargando..." para cuando se expanda el nodo
             NewNode = New TreeNode(NivelCurrent.Nombre, {New TreeNode(NODO_CARGANDO_TEXTO)})
-            NewNode.Checked = My.Settings.GenerarLoteFacturasPreseleccionarTodos
+            NewNode.Checked = My.Settings.LoteComprobantes_PreseleccionarTodos
             NewNode.Tag = NivelCurrent
             treeviewPaso1NivelCursoAlumno.Nodes.Add(NewNode)
         Next
@@ -187,7 +187,7 @@ Public Class formComprobantesGenerarLote
         For Each EntidadCurrent As Entidad In dbcontext.Entidad.Where(Function(ent) ent.EsActivo = True And ent.TipoFamiliar And (ent.EntidadPadreHijas.Count > 0 Or ent.EntidadMadreHijas.Count > 0)).OrderBy(Function(ent) ent.ApellidoNombre)
             ' Agrego el nodo correspondiente al Padre/Madre actual y agrego un nodo hijo que diga "cargando..." para cuando se expanda el nodo
             NewNode = New TreeNode(EntidadCurrent.ApellidoNombre, {New TreeNode(NODO_CARGANDO_TEXTO)})
-            NewNode.Checked = My.Settings.GenerarLoteFacturasPreseleccionarTodos
+            NewNode.Checked = My.Settings.LoteComprobantes_PreseleccionarTodos
             NewNode.Tag = EntidadCurrent
             treeviewPaso1PadresAlumnos.Nodes.Add(NewNode)
         Next

@@ -47,6 +47,7 @@ Partial Class formComprobantes
         Me.buttonEliminar = New System.Windows.Forms.ToolStripButton()
         Me.buttonImprimir = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemImprimirPrevisualizar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.buttonEnviarEmail = New System.Windows.Forms.ToolStripButton()
         Me.toolstripPeriodo = New System.Windows.Forms.ToolStrip()
         Me.labelPeriodo = New System.Windows.Forms.ToolStripLabel()
         Me.comboboxPeriodo = New System.Windows.Forms.ToolStripComboBox()
@@ -77,7 +78,7 @@ Partial Class formComprobantes
         'statuslabelMain
         '
         Me.statuslabelMain.Name = "statuslabelMain"
-        Me.statuslabelMain.Size = New System.Drawing.Size(597, 17)
+        Me.statuslabelMain.Size = New System.Drawing.Size(981, 17)
         Me.statuslabelMain.Spring = True
         Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -86,7 +87,7 @@ Partial Class formComprobantes
         Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statuslabelMain})
         Me.statusstripMain.Location = New System.Drawing.Point(0, 389)
         Me.statusstripMain.Name = "statusstripMain"
-        Me.statusstripMain.Size = New System.Drawing.Size(612, 22)
+        Me.statusstripMain.Size = New System.Drawing.Size(996, 22)
         Me.statusstripMain.TabIndex = 4
         '
         'datagridviewMain
@@ -103,14 +104,14 @@ Partial Class formComprobantes
         Me.datagridviewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipo, Me.columnPuntoVenta, Me.columnNumero, Me.columnFecha, Me.columnTitular, Me.columnImporteTotal, Me.columnCAE})
         Me.datagridviewMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.datagridviewMain.Location = New System.Drawing.Point(0, 89)
+        Me.datagridviewMain.Location = New System.Drawing.Point(0, 64)
         Me.datagridviewMain.MultiSelect = False
         Me.datagridviewMain.Name = "datagridviewMain"
         Me.datagridviewMain.ReadOnly = True
         Me.datagridviewMain.RowHeadersVisible = False
         Me.datagridviewMain.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewMain.Size = New System.Drawing.Size(612, 300)
+        Me.datagridviewMain.Size = New System.Drawing.Size(996, 325)
         Me.datagridviewMain.TabIndex = 0
         '
         'columnComprobanteTipo
@@ -160,7 +161,7 @@ Partial Class formComprobantes
         'columnTitular
         '
         Me.columnTitular.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnTitular.DataPropertyName = "Titular"
+        Me.columnTitular.DataPropertyName = "EntidadNombre"
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         Me.columnTitular.DefaultCellStyle = DataGridViewCellStyle6
         Me.columnTitular.HeaderText = "Titular"
@@ -204,17 +205,17 @@ Partial Class formComprobantes
         Me.panelToolbars.Dock = System.Windows.Forms.DockStyle.Top
         Me.panelToolbars.Location = New System.Drawing.Point(0, 0)
         Me.panelToolbars.Name = "panelToolbars"
-        Me.panelToolbars.Size = New System.Drawing.Size(612, 89)
+        Me.panelToolbars.Size = New System.Drawing.Size(996, 64)
         Me.panelToolbars.TabIndex = 0
         '
         'toolstripButtons
         '
         Me.toolstripButtons.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripButtons.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.toolstripButtons.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAgregar, Me.buttonEditar, Me.buttonEliminar, Me.buttonImprimir})
+        Me.toolstripButtons.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAgregar, Me.buttonEditar, Me.buttonEliminar, Me.buttonImprimir, Me.buttonEnviarEmail})
         Me.toolstripButtons.Location = New System.Drawing.Point(0, 0)
         Me.toolstripButtons.Name = "toolstripButtons"
-        Me.toolstripButtons.Size = New System.Drawing.Size(340, 39)
+        Me.toolstripButtons.Size = New System.Drawing.Size(465, 39)
         Me.toolstripButtons.TabIndex = 1
         '
         'buttonAgregar
@@ -247,26 +248,35 @@ Partial Class formComprobantes
         'buttonImprimir
         '
         Me.buttonImprimir.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemImprimirPrevisualizar})
-        Me.buttonImprimir.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_PRINT_24
+        Me.buttonImprimir.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_PRINT_32
         Me.buttonImprimir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonImprimir.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonImprimir.Name = "buttonImprimir"
-        Me.buttonImprimir.Size = New System.Drawing.Size(93, 36)
+        Me.buttonImprimir.Size = New System.Drawing.Size(101, 36)
         Me.buttonImprimir.Text = "Imprimir"
         '
         'menuitemImprimirPrevisualizar
         '
-        Me.menuitemImprimirPrevisualizar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_PRINT_PREVIEW_24
+        Me.menuitemImprimirPrevisualizar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_PRINT_PREVIEW_32
+        Me.menuitemImprimirPrevisualizar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.menuitemImprimirPrevisualizar.Name = "menuitemImprimirPrevisualizar"
-        Me.menuitemImprimirPrevisualizar.Size = New System.Drawing.Size(139, 22)
+        Me.menuitemImprimirPrevisualizar.Size = New System.Drawing.Size(155, 38)
         Me.menuitemImprimirPrevisualizar.Text = "Previsualizar"
+        '
+        'buttonEnviarEmail
+        '
+        Me.buttonEnviarEmail.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_EMAIL_32
+        Me.buttonEnviarEmail.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonEnviarEmail.Name = "buttonEnviarEmail"
+        Me.buttonEnviarEmail.Size = New System.Drawing.Size(117, 36)
+        Me.buttonEnviarEmail.Text = "Enviar por e-mail"
         '
         'toolstripPeriodo
         '
         Me.toolstripPeriodo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripPeriodo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripPeriodo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelPeriodo, Me.comboboxPeriodo})
-        Me.toolstripPeriodo.Location = New System.Drawing.Point(340, 0)
+        Me.toolstripPeriodo.Location = New System.Drawing.Point(465, 0)
         Me.toolstripPeriodo.Name = "toolstripPeriodo"
         Me.toolstripPeriodo.Size = New System.Drawing.Size(131, 39)
         Me.toolstripPeriodo.TabIndex = 8
@@ -288,35 +298,35 @@ Partial Class formComprobantes
         Me.toolstripComprobanteTipo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripComprobanteTipo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripComprobanteTipo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelComprobanteTipo, Me.comboboxOperacionTipo, Me.comboboxComprobanteTipo})
-        Me.toolstripComprobanteTipo.Location = New System.Drawing.Point(0, 39)
+        Me.toolstripComprobanteTipo.Location = New System.Drawing.Point(596, 0)
         Me.toolstripComprobanteTipo.Name = "toolstripComprobanteTipo"
-        Me.toolstripComprobanteTipo.Size = New System.Drawing.Size(266, 25)
+        Me.toolstripComprobanteTipo.Size = New System.Drawing.Size(266, 39)
         Me.toolstripComprobanteTipo.TabIndex = 10
         '
         'labelComprobanteTipo
         '
         Me.labelComprobanteTipo.Name = "labelComprobanteTipo"
-        Me.labelComprobanteTipo.Size = New System.Drawing.Size(34, 22)
+        Me.labelComprobanteTipo.Size = New System.Drawing.Size(34, 36)
         Me.labelComprobanteTipo.Text = "Tipo:"
         '
         'comboboxOperacionTipo
         '
         Me.comboboxOperacionTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxOperacionTipo.Name = "comboboxOperacionTipo"
-        Me.comboboxOperacionTipo.Size = New System.Drawing.Size(75, 25)
+        Me.comboboxOperacionTipo.Size = New System.Drawing.Size(75, 39)
         '
         'comboboxComprobanteTipo
         '
         Me.comboboxComprobanteTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxComprobanteTipo.Name = "comboboxComprobanteTipo"
-        Me.comboboxComprobanteTipo.Size = New System.Drawing.Size(150, 25)
+        Me.comboboxComprobanteTipo.Size = New System.Drawing.Size(150, 39)
         '
         'toolstripTitular
         '
         Me.toolstripTitular.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripTitular.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripTitular.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelEntidad, Me.textboxEntidad, Me.buttonEntidad, Me.buttonEntidadBorrar})
-        Me.toolstripTitular.Location = New System.Drawing.Point(266, 39)
+        Me.toolstripTitular.Location = New System.Drawing.Point(0, 39)
         Me.toolstripTitular.Name = "toolstripTitular"
         Me.toolstripTitular.Size = New System.Drawing.Size(295, 25)
         Me.toolstripTitular.TabIndex = 7
@@ -354,7 +364,7 @@ Partial Class formComprobantes
         Me.toolstripBuscar.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripBuscar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripBuscar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelBuscar, Me.comboboxBuscarTipo, Me.textboxBuscar, Me.buttonBuscarBorrar})
-        Me.toolstripBuscar.Location = New System.Drawing.Point(0, 64)
+        Me.toolstripBuscar.Location = New System.Drawing.Point(295, 39)
         Me.toolstripBuscar.Name = "toolstripBuscar"
         Me.toolstripBuscar.Size = New System.Drawing.Size(296, 25)
         Me.toolstripBuscar.TabIndex = 9
@@ -390,7 +400,7 @@ Partial Class formComprobantes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(612, 411)
+        Me.ClientSize = New System.Drawing.Size(996, 411)
         Me.Controls.Add(Me.datagridviewMain)
         Me.Controls.Add(Me.panelToolbars)
         Me.Controls.Add(Me.statusstripMain)
@@ -441,6 +451,9 @@ Partial Class formComprobantes
     Friend WithEvents labelComprobanteTipo As System.Windows.Forms.ToolStripLabel
     Friend WithEvents comboboxComprobanteTipo As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents comboboxOperacionTipo As System.Windows.Forms.ToolStripComboBox
+    Friend WithEvents buttonImprimir As System.Windows.Forms.ToolStripSplitButton
+    Friend WithEvents menuitemImprimirPrevisualizar As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents buttonEnviarEmail As System.Windows.Forms.ToolStripButton
     Friend WithEvents columnComprobanteTipo As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnPuntoVenta As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnNumero As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -448,6 +461,4 @@ Partial Class formComprobantes
     Friend WithEvents columnTitular As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnCAE As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents buttonImprimir As System.Windows.Forms.ToolStripSplitButton
-    Friend WithEvents menuitemImprimirPrevisualizar As System.Windows.Forms.ToolStripMenuItem
 End Class

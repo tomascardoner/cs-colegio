@@ -16,7 +16,7 @@
     Friend Sub SetDataFromObjectToControls()
         With EntidadCurrent
             ' Datos del Encabezado
-            If EntidadCurrent.IDEntidad = 0 Then
+            If .IDEntidad = 0 Then
                 textboxIDEntidad.Text = My.Resources.STRING_ITEM_NEW_MALE
             Else
                 textboxIDEntidad.Text = String.Format(.IDEntidad.ToString, "G")

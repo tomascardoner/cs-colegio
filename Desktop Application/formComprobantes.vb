@@ -1,4 +1,6 @@
-﻿Public Class formComprobantes
+﻿Imports System.Net.Mail
+
+Public Class formComprobantes
     Private Class GridRowData
         Public Property IDComprobante As Integer
         Public Property OperacionTipo As String
@@ -7,7 +9,8 @@
         Public Property PuntoVenta As String
         Public Property Numero As String
         Public Property FechaEmision As Date
-        Public Property Titular As String
+        Public Property IDEntidad As Integer
+        Public Property EntidadNombre As String
         Public Property ImporteTotal As Decimal
         Public Property CAE As String
     End Class
@@ -25,7 +28,7 @@
     Private Const COLUMNA_PUNTOVENTA As String = "columnPuntoVenta"
     Private Const COLUMNA_NUMERO As String = "columnNumero"
     Private Const COLUMNA_FECHA As String = "columnFecha"
-    Private Const COLUMNA_TITULAR As String = "columnTitular"
+    Private Const COLUMNA_TITULAR As String = "columnEntidadNombre"
     Private Const COLUMNA_IMPORTETOTAL As String = "columnImporteTotal"
     Private Const COLUMNA_CAE As String = "columnCAE"
 
@@ -52,7 +55,7 @@
                                         Join ct In dbcontext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                         Where cc.FechaEmision >= FechaDesde And cc.FechaEmision <= FechaHasta
                                         Order By cc.FechaEmision, cc.IDComprobante
-                                        Select New GridRowData With {.IDComprobante = cc.IDComprobante, .OperacionTipo = ct.OperacionTipo, .IDComprobanteTipo = cc.IDComprobanteTipo, .ComprobanteTipoNombre = ct.Nombre, .PuntoVenta = cc.PuntoVenta, .Numero = cc.Numero, .FechaEmision = cc.FechaEmision, .Titular = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal, .CAE = cc.CAE}).ToList
+                                        Select New GridRowData With {.IDComprobante = cc.IDComprobante, .OperacionTipo = ct.OperacionTipo, .IDComprobanteTipo = cc.IDComprobanteTipo, .ComprobanteTipoNombre = ct.Nombre, .PuntoVenta = cc.PuntoVenta, .Numero = cc.Numero, .FechaEmision = cc.FechaEmision, .IDEntidad = cc.IDEntidad, .EntidadNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal, .CAE = cc.CAE}).ToList
             End Using
 
         Catch ex As Exception
@@ -96,7 +99,7 @@
                         Case 0
                             ' Búsqueda por Entidad Titular
                             listComprobantesFiltradaYOrdenada = (From comp In listComprobantesBase
-                                                                 Where comp.Titular.ToLower.Contains(textboxBuscar.Text.ToLower.Trim)).ToList
+                                                                 Where comp.EntidadNombre.ToLower.Contains(textboxBuscar.Text.ToLower.Trim)).ToList
                         Case 1
                             ' Búsqueda por Número de Comprobante
                             listComprobantesFiltradaYOrdenada = (From comp In listComprobantesBase
@@ -167,9 +170,9 @@
                 End If
             Case COLUMNA_TITULAR
                 If OrdenTipo = SortOrder.Ascending Then
-                    listComprobantesFiltradaYOrdenada = listComprobantesFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.Titular).ThenBy(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenBy(Function(dgrd) dgrd.PuntoVenta).ThenBy(Function(dgrd) dgrd.Numero).ToList
+                    listComprobantesFiltradaYOrdenada = listComprobantesFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.EntidadNombre).ThenBy(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenBy(Function(dgrd) dgrd.PuntoVenta).ThenBy(Function(dgrd) dgrd.Numero).ToList
                 Else
-                    listComprobantesFiltradaYOrdenada = listComprobantesFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.Titular).ThenByDescending(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenByDescending(Function(dgrd) dgrd.PuntoVenta).ThenByDescending(Function(dgrd) dgrd.Numero).ToList
+                    listComprobantesFiltradaYOrdenada = listComprobantesFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.EntidadNombre).ThenByDescending(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenByDescending(Function(dgrd) dgrd.PuntoVenta).ThenByDescending(Function(dgrd) dgrd.Numero).ToList
                 End If
             Case COLUMNA_IMPORTETOTAL
                 If OrdenTipo = SortOrder.Ascending Then
@@ -340,7 +343,7 @@
                 Dim Reporte As New CS_CrystalReport
                 If Reporte.OpenReport(My.Settings.ReportsPath & "\" & ComprobanteTipoActual.ReporteNombre) Then
                     If Reporte.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
-                        Reporte.RecordSelectionFormula = "{ComprobanteCabecera.IDComprobante} = " & CurrentRow.IDComprobante
+                        Reporte.RecordSelectionFormula = "{Comprobante.IDComprobante} = " & CurrentRow.IDComprobante
 
                         If sender.Equals(buttonImprimir) Then
                             Reporte.ReportObject.PrintToPrinter(1, False, 1, 100)
@@ -354,6 +357,178 @@
 
                 Me.Cursor = Cursors.Default
             End If
+        End If
+    End Sub
+
+    Private Sub buttonEnviarEmail_Click() Handles buttonEnviarEmail.Click
+        Dim CurrentRow As GridRowData
+        Dim ComprobanteTipoActual As ComprobanteTipo
+        Dim Titular As Entidad
+
+        If datagridviewMain.CurrentRow Is Nothing Then
+            MsgBox("No hay ningún Comprobante para enviar por e-mail.", vbInformation, My.Application.Info.Title)
+        Else
+            If Permisos.VerificarPermiso(Permisos.COMPROBANTE_PRINT) Then
+                If MsgBox("Se va a enviar por e-mail el Comprobante seleccionado." & vbCrLf & vbCrLf & "¿Desea continuar?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                    Exit Sub
+                End If
+
+                CurrentRow = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData)
+                Using dbcontext As New CSColegioContext(True)
+                    ComprobanteTipoActual = dbcontext.ComprobanteTipo.Find(CurrentRow.IDComprobanteTipo)
+                    Titular = dbcontext.Entidad.Find(CurrentRow.IDEntidad)
+                End Using
+
+                ' Verifico que sea un comprobante de venta y de emisión electrónica
+                If ComprobanteTipoActual.OperacionTipo <> Constantes.OPERACIONTIPO_VENTA Or Not ComprobanteTipoActual.EmisionElectronica Then
+                    MsgBox("Sólo se pueden enviar por e-mail, Comprobantes de Venta de Emisión Electrónica.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    Exit Sub
+                End If
+
+                ' Verifico que el Titular tenga especificada una dirección de e-mail
+                If Titular.Email1 Is Nothing And Titular.Email2 Is Nothing Then
+                    MsgBox("El Titular del Comprobante no tiene especificada ninguna dirección de e-mail.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    Exit Sub
+                End If
+
+                ' Verifico que tenga un CAE asignado, si es que corresponde
+                If CurrentRow.CAE = "" Then
+                    If MsgBox("El comprobante que está por enviar no tiene un C.A.E. asignado." & vbCrLf & "Esto puede ocurrir porque aún no fue enviado a AFIP o porque AFIP rechazó el comprobante." & vbCrLf & "Por este motivo, este comprobante no tiene validez legal." & vbCrLf & vbCrLf & "¿Desea imrimirlo de todos modos?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                        Exit Sub
+                    End If
+                End If
+
+                Me.Cursor = Cursors.WaitCursor
+
+                datagridviewMain.Enabled = False
+
+                Dim Reporte As New CS_CrystalReport
+                If Reporte.OpenReport(My.Settings.ReportsPath & "\" & ComprobanteTipoActual.ReporteNombre) Then
+                    If Reporte.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
+                        Reporte.RecordSelectionFormula = "{Comprobante.IDComprobante} = " & CurrentRow.IDComprobante
+
+                        Dim Asunto As String = String.Format(My.Settings.Comprobante_EnviarEmail_Subject, ComprobanteTipoActual.NombreConLetra, CurrentRow.PuntoVenta, CurrentRow.Numero)
+                        Dim Cuerpo As String = String.Format(My.Settings.Comprobante_EnvioEmail_Body, vbCrLf) & String.Format(My.Settings.Email_Signature, vbCrLf)
+
+                        Select My.Settings.LoteComprobantes_EnviarEmail_Metodo
+                            Case Constantes.EMAIL_CLIENT_NETDLL
+                                EnviarEmailPorNETClient(Titular, Asunto, Cuerpo, Reporte)
+                            Case Constantes.EMAIL_CLIENT_MSOUTLOOK
+                                EnviarEmailPorMSOutlook(Titular, Asunto, Cuerpo, Reporte)
+                            Case Constantes.EMAIL_CLIENT_CRYSTALREPORTSMAPI
+                                EnviarEmailPorCrystalReportsMAPI(Titular, Asunto, Cuerpo, Reporte)
+                        End Select
+                    End If
+                End If
+
+                datagridviewMain.Enabled = True
+
+                Me.Cursor = Cursors.Default
+            End If
+        End If
+    End Sub
+
+    Private Function EnviarEmailPorNETClient(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef Reporte As CS_CrystalReport) As Boolean
+        Dim mail As New MailMessage()
+        Dim smtp As New SmtpClient()
+
+        ' Establezco los recipientes
+        mail.From = New MailAddress(My.Settings.Email_Address, My.Settings.Email_DisplayName)
+        If Not Titular.Email1 Is Nothing Then
+            mail.To.Add(New MailAddress(Titular.Email1, Titular.ApellidoNombre))
+        End If
+        If Not Titular.Email2 Is Nothing Then
+            mail.To.Add(New MailAddress(Titular.Email2, Titular.ApellidoNombre))
+        End If
+
+        ' Establezco el contenido
+        mail.Subject = Asunto
+        mail.Body = Cuerpo
+
+        ' Establezco las opciones del Servidor SMTP
+        smtp.Host = My.Settings.Email_SMTP_Server
+        smtp.EnableSsl = My.Settings.Email_SMTP_UseSSL
+        smtp.Port = My.Settings.Email_SMTP_Port
+        smtp.Timeout = My.Settings.Email_SMTP_Timeout
+
+        Dim Decrypter As New CS_Encrypt_TripleDES(Constantes.ENCRYPTION_PASSWORD)
+        smtp.Credentials = New System.Net.NetworkCredential(My.Settings.Email_SMTP_Username, Decrypter.Decrypt(My.Settings.Email_SMTP_Password))
+        Decrypter = Nothing
+
+        ' Attachments
+        mail.Attachments.Add(New System.Net.Mail.Attachment(Reporte.ReportObject.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat), "FVC000100000545.pdf"))
+
+        ' Envío el e-mail
+        Try
+            smtp.Send(mail)
+            MsgBox("Se ha enviado el Comprobante por e-mail.", vbInformation, My.Application.Info.Title)
+            Return True
+        Catch ex As Exception
+            CS_Error.ProcessError(ex, "Error al enviar el e-mail.")
+            Return False
+        End Try
+    End Function
+
+    Private Function EnviarEmailPorMSOutlook(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef Reporte As CS_CrystalReport) As Boolean
+        MsgBox("Se ha enviado el Comprobante por e-mail.", vbInformation, My.Application.Info.Title)
+        Return True
+    End Function
+
+    Private Function EnviarEmailPorCrystalReportsMAPI(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef Reporte As CS_CrystalReport) As Boolean
+        'Preparo las opciones del mail
+        Dim mailOpts As New CrystalDecisions.Shared.MicrosoftMailDestinationOptions
+        If Not Titular.Email1 Is Nothing Then
+            mailOpts.MailToList = Titular.Email1
+        ElseIf Not Titular.Email2 Is Nothing Then
+            mailOpts.MailToList = Titular.Email2
+        End If
+        mailOpts.MailSubject = "Comprobante electronico"
+        mailOpts.MailMessage = "En el adjunto le enviamos el comprobante solicitado."
+
+        'Ahora preparo las opciones de exportación
+        Dim expopt As New CrystalDecisions.Shared.ExportOptions
+        expopt.ExportDestinationType = CrystalDecisions.Shared.ExportDestinationType.MicrosoftMail
+        expopt.ExportDestinationOptions = mailOpts
+        expopt.ExportFormatType = CrystalDecisions.Shared.ExportFormatType.PortableDocFormat
+
+        Try
+            Reporte.ReportObject.Export(expopt)
+            MsgBox("Se ha enviado el Comprobante por e-mail.", vbInformation, My.Application.Info.Title)
+            Return True
+        Catch ex As Exception
+            CS_Error.ProcessError(ex, "Error al exportar el reporte.")
+            Return False
+        End Try
+    End Function
+
+    Private Sub datagridviewMain_DoubleClick() Handles datagridviewMain.DoubleClick
+        Dim CurrentRow As GridRowData
+
+        If datagridviewMain.CurrentRow Is Nothing Then
+            MsgBox("No hay ningún Comporbante para ver.", vbInformation, My.Application.Info.Title)
+        Else
+            Me.Cursor = Cursors.WaitCursor
+
+            datagridviewMain.Enabled = False
+
+            CurrentRow = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData)
+
+            Dim formComprobanteVer As New formComprobante
+            With formComprobanteVer
+                .MdiParent = formMDIMain
+                .ComprobanteCurrent = .dbcontext.Comprobante.Find(CurrentRow.IDComprobante)
+                CS_Form.MDIChild_PositionAndSize(CType(formMDIMain, Form), CType(formComprobanteVer, Form), formMDIMain.Form_ClientSize)
+                '.buttonGuardar.Visible = False
+                '.buttonCancelar.Visible = False
+                .InitializeFormAndControls()
+                '.SetDataFromObjectToControls()
+                CS_Form.ControlsChangeStateReadOnly(.Controls, True, True)
+                .Show()
+            End With
+
+            datagridviewMain.Enabled = True
+
+            Me.Cursor = Cursors.Default
         End If
     End Sub
 End Class

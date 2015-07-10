@@ -16,18 +16,19 @@ Partial Public Class ComprobanteTipo
     Public Property Sigla As String
     Public Property Nombre As String
     Public Property Letra As String
+    Public Property NombreConLetra As String
+    Public Property NombreCompleto As String
     Public Property CodigoAFIP As Byte
     Public Property EmisionElectronica As Nullable(Of Boolean)
+    Public Property UtilizaDetalle As Boolean
+    Public Property UtilizaAplicacion As Boolean
+    Public Property UtilizaMedioPago As Boolean
     Public Property ReporteNombre As String
     Public Property EsActivo As Boolean
     Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date
     Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
-    Public Property NombreCompleto As String
-    Public Property UtilizaDetalle As Nullable(Of Boolean)
-    Public Property UtilizaAplicacion As Nullable(Of Boolean)
-    Public Property UtilizaMedioPago As Nullable(Of Boolean)
 
     Public Overridable Property ComprobanteTipoPuntoVenta As ICollection(Of ComprobanteTipoPuntoVenta) = New HashSet(Of ComprobanteTipoPuntoVenta)
     Public Overridable Property Comprobante As ICollection(Of Comprobante) = New HashSet(Of Comprobante)

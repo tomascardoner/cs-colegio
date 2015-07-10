@@ -42,7 +42,7 @@ Partial Class formComprobante
         Me.labelPuntoVenta = New System.Windows.Forms.Label()
         Me.comboboxComprobanteTipo = New System.Windows.Forms.ComboBox()
         Me.labelComprobanteTipo = New System.Windows.Forms.Label()
-        Me.textboxComprobanteNumero = New System.Windows.Forms.TextBox()
+        Me.textboxNumero = New System.Windows.Forms.TextBox()
         Me.labelComprobanteNumero = New System.Windows.Forms.Label()
         Me.datetimepickerFechaEmision = New System.Windows.Forms.DateTimePicker()
         Me.labelFechaEmision = New System.Windows.Forms.Label()
@@ -77,7 +77,9 @@ Partial Class formComprobante
         Me.tabcontrolMain = New System.Windows.Forms.TabControl()
         Me.tabpageDetalle = New System.Windows.Forms.TabPage()
         Me.datagridviewDetalle = New System.Windows.Forms.DataGridView()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.tabpageImpuestos = New System.Windows.Forms.TabPage()
+        Me.tabpageAplicaciones = New System.Windows.Forms.TabPage()
+        Me.tabpageAsociaciones = New System.Windows.Forms.TabPage()
         Me.panelPie = New System.Windows.Forms.FlowLayoutPanel()
         Me.panelSubtotales = New System.Windows.Forms.Panel()
         Me.textboxImporteTotal = New System.Windows.Forms.TextBox()
@@ -86,6 +88,12 @@ Partial Class formComprobante
         Me.labelImporteImpuesto = New System.Windows.Forms.Label()
         Me.textboxImporteNeto = New System.Windows.Forms.TextBox()
         Me.labelImporteNeto = New System.Windows.Forms.Label()
+        Me.toolstripMain = New System.Windows.Forms.ToolStrip()
+        Me.buttonCerrar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonCancelar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
+        Me.maskedtextboxDocumentoNumero = New System.Windows.Forms.MaskedTextBox()
         labelCategoriaIVA = New System.Windows.Forms.Label()
         labelDomicilioDepartamento = New System.Windows.Forms.Label()
         labelDomicilioPiso = New System.Windows.Forms.Label()
@@ -114,6 +122,7 @@ Partial Class formComprobante
         CType(Me.datagridviewDetalle, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelPie.SuspendLayout()
         Me.panelSubtotales.SuspendLayout()
+        Me.toolstripMain.SuspendLayout()
         Me.SuspendLayout()
         '
         'labelCategoriaIVA
@@ -243,13 +252,13 @@ Partial Class formComprobante
         Me.panelMain.Controls.Add(Me.tabcontrolMain, 0, 1)
         Me.panelMain.Controls.Add(Me.panelPie, 0, 2)
         Me.panelMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.panelMain.Location = New System.Drawing.Point(0, 0)
+        Me.panelMain.Location = New System.Drawing.Point(0, 39)
         Me.panelMain.Name = "panelMain"
         Me.panelMain.RowCount = 3
         Me.panelMain.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.panelMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.panelMain.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.panelMain.Size = New System.Drawing.Size(1212, 514)
+        Me.panelMain.Size = New System.Drawing.Size(1212, 475)
         Me.panelMain.TabIndex = 2
         '
         'panelCabecera
@@ -279,7 +288,7 @@ Partial Class formComprobante
         Me.panelIdentificacion.Controls.Add(Me.labelPuntoVenta)
         Me.panelIdentificacion.Controls.Add(Me.comboboxComprobanteTipo)
         Me.panelIdentificacion.Controls.Add(Me.labelComprobanteTipo)
-        Me.panelIdentificacion.Controls.Add(Me.textboxComprobanteNumero)
+        Me.panelIdentificacion.Controls.Add(Me.textboxNumero)
         Me.panelIdentificacion.Controls.Add(Me.labelComprobanteNumero)
         Me.panelIdentificacion.Controls.Add(Me.datetimepickerFechaEmision)
         Me.panelIdentificacion.Controls.Add(Me.labelFechaEmision)
@@ -287,12 +296,12 @@ Partial Class formComprobante
         Me.panelIdentificacion.Controls.Add(Me.labelIDComprobante)
         Me.panelIdentificacion.Location = New System.Drawing.Point(3, 3)
         Me.panelIdentificacion.Name = "panelIdentificacion"
-        Me.panelIdentificacion.Size = New System.Drawing.Size(740, 29)
+        Me.panelIdentificacion.Size = New System.Drawing.Size(777, 29)
         Me.panelIdentificacion.TabIndex = 0
         '
         'textboxPuntoVenta
         '
-        Me.textboxPuntoVenta.Location = New System.Drawing.Point(370, 3)
+        Me.textboxPuntoVenta.Location = New System.Drawing.Point(407, 3)
         Me.textboxPuntoVenta.MaxLength = 4
         Me.textboxPuntoVenta.Name = "textboxPuntoVenta"
         Me.textboxPuntoVenta.Size = New System.Drawing.Size(36, 20)
@@ -301,7 +310,7 @@ Partial Class formComprobante
         'labelPuntoVenta
         '
         Me.labelPuntoVenta.AutoSize = True
-        Me.labelPuntoVenta.Location = New System.Drawing.Point(280, 6)
+        Me.labelPuntoVenta.Location = New System.Drawing.Point(317, 6)
         Me.labelPuntoVenta.Name = "labelPuntoVenta"
         Me.labelPuntoVenta.Size = New System.Drawing.Size(84, 13)
         Me.labelPuntoVenta.TabIndex = 8
@@ -313,7 +322,7 @@ Partial Class formComprobante
         Me.comboboxComprobanteTipo.FormattingEnabled = True
         Me.comboboxComprobanteTipo.Location = New System.Drawing.Point(152, 3)
         Me.comboboxComprobanteTipo.Name = "comboboxComprobanteTipo"
-        Me.comboboxComprobanteTipo.Size = New System.Drawing.Size(122, 21)
+        Me.comboboxComprobanteTipo.Size = New System.Drawing.Size(159, 21)
         Me.comboboxComprobanteTipo.TabIndex = 3
         '
         'labelComprobanteTipo
@@ -325,18 +334,18 @@ Partial Class formComprobante
         Me.labelComprobanteTipo.TabIndex = 2
         Me.labelComprobanteTipo.Text = "Tipo:"
         '
-        'textboxComprobanteNumero
+        'textboxNumero
         '
-        Me.textboxComprobanteNumero.Location = New System.Drawing.Point(465, 3)
-        Me.textboxComprobanteNumero.MaxLength = 8
-        Me.textboxComprobanteNumero.Name = "textboxComprobanteNumero"
-        Me.textboxComprobanteNumero.Size = New System.Drawing.Size(60, 20)
-        Me.textboxComprobanteNumero.TabIndex = 5
+        Me.textboxNumero.Location = New System.Drawing.Point(502, 3)
+        Me.textboxNumero.MaxLength = 8
+        Me.textboxNumero.Name = "textboxNumero"
+        Me.textboxNumero.Size = New System.Drawing.Size(60, 20)
+        Me.textboxNumero.TabIndex = 5
         '
         'labelComprobanteNumero
         '
         Me.labelComprobanteNumero.AutoSize = True
-        Me.labelComprobanteNumero.Location = New System.Drawing.Point(412, 6)
+        Me.labelComprobanteNumero.Location = New System.Drawing.Point(449, 6)
         Me.labelComprobanteNumero.Name = "labelComprobanteNumero"
         Me.labelComprobanteNumero.Size = New System.Drawing.Size(47, 13)
         Me.labelComprobanteNumero.TabIndex = 4
@@ -345,7 +354,7 @@ Partial Class formComprobante
         'datetimepickerFechaEmision
         '
         Me.datetimepickerFechaEmision.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.datetimepickerFechaEmision.Location = New System.Drawing.Point(631, 3)
+        Me.datetimepickerFechaEmision.Location = New System.Drawing.Point(668, 3)
         Me.datetimepickerFechaEmision.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
         Me.datetimepickerFechaEmision.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
         Me.datetimepickerFechaEmision.Name = "datetimepickerFechaEmision"
@@ -355,7 +364,7 @@ Partial Class formComprobante
         'labelFechaEmision
         '
         Me.labelFechaEmision.AutoSize = True
-        Me.labelFechaEmision.Location = New System.Drawing.Point(531, 6)
+        Me.labelFechaEmision.Location = New System.Drawing.Point(568, 6)
         Me.labelFechaEmision.Name = "labelFechaEmision"
         Me.labelFechaEmision.Size = New System.Drawing.Size(94, 13)
         Me.labelFechaEmision.TabIndex = 6
@@ -486,6 +495,7 @@ Partial Class formComprobante
         Me.panelImpuesto.Controls.Add(labelDocumento)
         Me.panelImpuesto.Controls.Add(Me.comboboxCategoriaIVA)
         Me.panelImpuesto.Controls.Add(labelCategoriaIVA)
+        Me.panelImpuesto.Controls.Add(Me.maskedtextboxDocumentoNumero)
         Me.panelImpuesto.Location = New System.Drawing.Point(574, 71)
         Me.panelImpuesto.Name = "panelImpuesto"
         Me.panelImpuesto.Size = New System.Drawing.Size(606, 28)
@@ -657,12 +667,14 @@ Partial Class formComprobante
         '
         Me.tabcontrolMain.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.tabcontrolMain.Controls.Add(Me.tabpageDetalle)
-        Me.tabcontrolMain.Controls.Add(Me.TabPage2)
+        Me.tabcontrolMain.Controls.Add(Me.tabpageImpuestos)
+        Me.tabcontrolMain.Controls.Add(Me.tabpageAplicaciones)
+        Me.tabcontrolMain.Controls.Add(Me.tabpageAsociaciones)
         Me.tabcontrolMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tabcontrolMain.Location = New System.Drawing.Point(3, 181)
         Me.tabcontrolMain.Name = "tabcontrolMain"
         Me.tabcontrolMain.SelectedIndex = 0
-        Me.tabcontrolMain.Size = New System.Drawing.Size(1206, 281)
+        Me.tabcontrolMain.Size = New System.Drawing.Size(1206, 242)
         Me.tabcontrolMain.TabIndex = 5
         '
         'tabpageDetalle
@@ -671,7 +683,7 @@ Partial Class formComprobante
         Me.tabpageDetalle.Location = New System.Drawing.Point(4, 25)
         Me.tabpageDetalle.Name = "tabpageDetalle"
         Me.tabpageDetalle.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageDetalle.Size = New System.Drawing.Size(1198, 252)
+        Me.tabpageDetalle.Size = New System.Drawing.Size(1198, 213)
         Me.tabpageDetalle.TabIndex = 0
         Me.tabpageDetalle.Text = "Detalle"
         Me.tabpageDetalle.UseVisualStyleBackColor = True
@@ -685,18 +697,38 @@ Partial Class formComprobante
         Me.datagridviewDetalle.Location = New System.Drawing.Point(3, 3)
         Me.datagridviewDetalle.Name = "datagridviewDetalle"
         Me.datagridviewDetalle.ReadOnly = True
-        Me.datagridviewDetalle.Size = New System.Drawing.Size(1192, 246)
+        Me.datagridviewDetalle.Size = New System.Drawing.Size(1192, 207)
         Me.datagridviewDetalle.TabIndex = 5
         '
-        'TabPage2
+        'tabpageImpuestos
         '
-        Me.TabPage2.Location = New System.Drawing.Point(4, 25)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(1198, 252)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "TabPage2"
-        Me.TabPage2.UseVisualStyleBackColor = True
+        Me.tabpageImpuestos.Location = New System.Drawing.Point(4, 25)
+        Me.tabpageImpuestos.Name = "tabpageImpuestos"
+        Me.tabpageImpuestos.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabpageImpuestos.Size = New System.Drawing.Size(1198, 213)
+        Me.tabpageImpuestos.TabIndex = 1
+        Me.tabpageImpuestos.Text = "Impuestos"
+        Me.tabpageImpuestos.UseVisualStyleBackColor = True
+        '
+        'tabpageAplicaciones
+        '
+        Me.tabpageAplicaciones.Location = New System.Drawing.Point(4, 25)
+        Me.tabpageAplicaciones.Name = "tabpageAplicaciones"
+        Me.tabpageAplicaciones.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabpageAplicaciones.Size = New System.Drawing.Size(1198, 213)
+        Me.tabpageAplicaciones.TabIndex = 2
+        Me.tabpageAplicaciones.Text = "Aplicaciones"
+        Me.tabpageAplicaciones.UseVisualStyleBackColor = True
+        '
+        'tabpageAsociaciones
+        '
+        Me.tabpageAsociaciones.Location = New System.Drawing.Point(4, 25)
+        Me.tabpageAsociaciones.Name = "tabpageAsociaciones"
+        Me.tabpageAsociaciones.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabpageAsociaciones.Size = New System.Drawing.Size(1198, 213)
+        Me.tabpageAsociaciones.TabIndex = 3
+        Me.tabpageAsociaciones.Text = "Asociaciones"
+        Me.tabpageAsociaciones.UseVisualStyleBackColor = True
         '
         'panelPie
         '
@@ -705,7 +737,7 @@ Partial Class formComprobante
         Me.panelPie.Controls.Add(Me.panelSubtotales)
         Me.panelPie.Dock = System.Windows.Forms.DockStyle.Fill
         Me.panelPie.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.panelPie.Location = New System.Drawing.Point(3, 468)
+        Me.panelPie.Location = New System.Drawing.Point(3, 429)
         Me.panelPie.Name = "panelPie"
         Me.panelPie.Padding = New System.Windows.Forms.Padding(4)
         Me.panelPie.Size = New System.Drawing.Size(1206, 43)
@@ -780,12 +812,75 @@ Partial Class formComprobante
         Me.labelImporteNeto.TabIndex = 0
         Me.labelImporteNeto.Text = "Subtotal:"
         '
+        'toolstripMain
+        '
+        Me.toolstripMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonCerrar, Me.buttonEditar, Me.buttonCancelar, Me.buttonGuardar})
+        Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
+        Me.toolstripMain.Name = "toolstripMain"
+        Me.toolstripMain.Size = New System.Drawing.Size(1212, 39)
+        Me.toolstripMain.TabIndex = 3
+        '
+        'buttonCerrar
+        '
+        Me.buttonCerrar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.buttonCerrar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_CLOSE_32
+        Me.buttonCerrar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonCerrar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonCerrar.Name = "buttonCerrar"
+        Me.buttonCerrar.Size = New System.Drawing.Size(75, 36)
+        Me.buttonCerrar.Text = "Cerrar"
+        '
+        'buttonEditar
+        '
+        Me.buttonEditar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.buttonEditar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_EDIT_32
+        Me.buttonEditar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonEditar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonEditar.Name = "buttonEditar"
+        Me.buttonEditar.Size = New System.Drawing.Size(73, 36)
+        Me.buttonEditar.Text = "Editar"
+        '
+        'buttonCancelar
+        '
+        Me.buttonCancelar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.buttonCancelar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_CANCEL_32
+        Me.buttonCancelar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonCancelar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonCancelar.Name = "buttonCancelar"
+        Me.buttonCancelar.Size = New System.Drawing.Size(89, 36)
+        Me.buttonCancelar.Text = "Cancelar"
+        '
+        'buttonGuardar
+        '
+        Me.buttonGuardar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.buttonGuardar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_OK_32
+        Me.buttonGuardar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonGuardar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonGuardar.Name = "buttonGuardar"
+        Me.buttonGuardar.Size = New System.Drawing.Size(85, 36)
+        Me.buttonGuardar.Text = "Guardar"
+        '
+        'maskedtextboxDocumentoNumero
+        '
+        Me.maskedtextboxDocumentoNumero.AllowPromptAsInput = False
+        Me.maskedtextboxDocumentoNumero.AsciiOnly = True
+        Me.maskedtextboxDocumentoNumero.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
+        Me.maskedtextboxDocumentoNumero.HidePromptOnLeave = True
+        Me.maskedtextboxDocumentoNumero.Location = New System.Drawing.Point(182, 3)
+        Me.maskedtextboxDocumentoNumero.Mask = "00-00000000-0"
+        Me.maskedtextboxDocumentoNumero.Name = "maskedtextboxDocumentoNumero"
+        Me.maskedtextboxDocumentoNumero.Size = New System.Drawing.Size(115, 20)
+        Me.maskedtextboxDocumentoNumero.TabIndex = 17
+        Me.maskedtextboxDocumentoNumero.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
+        '
         'formComprobante
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1212, 514)
         Me.Controls.Add(Me.panelMain)
+        Me.Controls.Add(Me.toolstripMain)
         Me.MinimumSize = New System.Drawing.Size(690, 38)
         Me.Name = "formComprobante"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
@@ -816,6 +911,8 @@ Partial Class formComprobante
         Me.panelPie.PerformLayout()
         Me.panelSubtotales.ResumeLayout(False)
         Me.panelSubtotales.PerformLayout()
+        Me.toolstripMain.ResumeLayout(False)
+        Me.toolstripMain.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -832,7 +929,7 @@ Partial Class formComprobante
     Friend WithEvents labelImporteImpuesto As System.Windows.Forms.Label
     Friend WithEvents textboxImporteNeto As System.Windows.Forms.TextBox
     Friend WithEvents labelImporteNeto As System.Windows.Forms.Label
-    Friend WithEvents textboxComprobanteNumero As System.Windows.Forms.TextBox
+    Friend WithEvents textboxNumero As System.Windows.Forms.TextBox
     Friend WithEvents labelComprobanteNumero As System.Windows.Forms.Label
     Friend WithEvents datetimepickerFechaEmision As System.Windows.Forms.DateTimePicker
     Friend WithEvents labelFechaEmision As System.Windows.Forms.Label
@@ -869,6 +966,14 @@ Partial Class formComprobante
     Friend WithEvents textboxDocumentoNumero As System.Windows.Forms.TextBox
     Friend WithEvents tabcontrolMain As System.Windows.Forms.TabControl
     Friend WithEvents tabpageDetalle As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
+    Friend WithEvents tabpageImpuestos As System.Windows.Forms.TabPage
     Friend WithEvents datagridviewDetalle As System.Windows.Forms.DataGridView
+    Friend WithEvents tabpageAplicaciones As System.Windows.Forms.TabPage
+    Friend WithEvents tabpageAsociaciones As System.Windows.Forms.TabPage
+    Friend WithEvents toolstripMain As System.Windows.Forms.ToolStrip
+    Friend WithEvents buttonCerrar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents buttonEditar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents buttonCancelar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents buttonGuardar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents maskedtextboxDocumentoNumero As System.Windows.Forms.MaskedTextBox
 End Class

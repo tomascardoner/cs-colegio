@@ -45,10 +45,10 @@
         <AssociationConnector Association="CSColegioModel.FK__Impuesto__ComprobanteImpuesto" />
         <EntityTypeShape EntityType="CSColegioModel.ComprobanteDetalle" Width="1.5" PointX="13" PointY="10.75" />
         <AssociationConnector Association="CSColegioModel.FK__Usuario__Entidad__Creacion" ManuallyRouted="true" >
-          <ConnectorPoint PointX="4.75" PointY="9.9824942737207039" />
+          <ConnectorPoint PointX="4.75" PointY="9.9845439739007134" />
           <ConnectorPoint PointX="4.9975" PointY="9.7226871744791659" />
           <ConnectorPoint PointX="5.2525" PointY="9.7226871744791659" />
-          <ConnectorPoint PointX="5.5" PointY="11.78817656688355" />
+          <ConnectorPoint PointX="5.5" PointY="11.692151658673204" />
         </AssociationConnector>
         <AssociationConnector Association="CSColegioModel.FK__Usuario__Entidad__Modificacion" />
         <AssociationConnector Association="CSColegioModel.FK__RelacionTipo__EntidadEntidad" />

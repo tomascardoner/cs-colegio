@@ -37,9 +37,9 @@
         pDatabase.InitialCatalog = My.Settings.DBConnection_Database
         pDatabase.UserID = My.Settings.DBConnection_UserID
         ' Desencripto la contraseña de la conexión a la base de datos que está en el archivo app.config
-        Dim rijndaelKey As CS_Encrypt_AES256_Enhanced = New CS_Encrypt_AES256_Enhanced(Constantes.ENCRYPTION_PASSWORD, Constantes.ENCRYPTION_VECTOR)
-        pDatabase.Password = rijndaelKey.Decrypt(My.Settings.DBConnection_Password)
-        rijndaelKey = Nothing
+        Dim Decrypter As New CS_Encrypt_TripleDES(Constantes.ENCRYPTION_PASSWORD)
+        pDatabase.Password = Decrypter.Decrypt(My.Settings.DBConnection_Password)
+        Decrypter = Nothing
         pDatabase.MultipleActiveResultsets = True
         pDatabase.WorkstationID = My.Computer.Name
         pDatabase.CreateConnectionString()

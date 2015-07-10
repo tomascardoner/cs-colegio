@@ -39,4 +39,11 @@
     Friend Const OPERACIONTIPO_VENTA As String = "V"
 
     Friend Const COMPROBANTE_NUMERO_CARACTERES As Byte = 8
+
+    '//////////////////
+    '    E-MAIL
+    '//////////////////
+    Friend Const EMAIL_CLIENT_NETDLL As String = "NETCLIENT"
+    Friend Const EMAIL_CLIENT_MSOUTLOOK As String = "MSOUTLOOK"
+    Friend Const EMAIL_CLIENT_CRYSTALREPORTSMAPI As String = "CRYSTALMAPI"
 End Module
