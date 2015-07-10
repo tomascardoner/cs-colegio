@@ -518,10 +518,10 @@ Public Class formComprobantes
                 .MdiParent = formMDIMain
                 .ComprobanteCurrent = .dbcontext.Comprobante.Find(CurrentRow.IDComprobante)
                 CS_Form.MDIChild_PositionAndSize(CType(formMDIMain, Form), CType(formComprobanteVer, Form), formMDIMain.Form_ClientSize)
-                '.buttonGuardar.Visible = False
-                '.buttonCancelar.Visible = False
+                .buttonGuardar.Visible = False
+                .buttonCancelar.Visible = False
                 .InitializeFormAndControls()
-                '.SetDataFromObjectToControls()
+                .SetDataFromObjectToControls()
                 CS_Form.ControlsChangeStateReadOnly(.Controls, True, True)
                 .Show()
             End With

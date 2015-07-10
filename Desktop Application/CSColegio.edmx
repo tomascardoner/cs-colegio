@@ -1631,6 +1631,8 @@
           <NavigationProperty Name="UsuarioGrupo" Relationship="Self.FK__UsuarioGrupo__Usuario" FromRole="Usuario" ToRole="UsuarioGrupo" />
           <NavigationProperty Name="EntidadesCreadas" Relationship="CSColegioModel.FK__Usuario__Entidad__Creacion" FromRole="Usuario" ToRole="Entidad" />
           <NavigationProperty Name="EntidadesModificadas" Relationship="CSColegioModel.FK__Usuario__Entidad__Modificacion" FromRole="Usuario" ToRole="Entidad" />
+          <NavigationProperty Name="ComprobantesCreados" Relationship="CSColegioModel.FK__Usuario__Comprobante__Creacion" FromRole="Usuario" ToRole="Comprobante" />
+          <NavigationProperty Name="ComprobantesModificados" Relationship="CSColegioModel.FK__Usuario__Comprobante__Modificacion" FromRole="Usuario" ToRole="Comprobante" />
         </EntityType>
         <EntityType Name="UsuarioGrupo">
           <Key>
@@ -2016,6 +2018,14 @@
           <AssociationSet Name="ComprobanteAsociado" Association="CSColegioModel.ComprobanteAsociado">
             <End Role="Comprobante" EntitySet="Comprobante" />
             <End Role="Comprobante1" EntitySet="Comprobante" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Comprobante__Creacion" Association="CSColegioModel.FK__Usuario__Comprobante__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Comprobante__Modificacion" Association="CSColegioModel.FK__Usuario__Comprobante__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
@@ -2511,6 +2521,8 @@
           <NavigationProperty Name="Localidad" Relationship="CSColegioModel.FK__Localidad__Comprobante" FromRole="Comprobante" ToRole="Localidad" />
           <NavigationProperty Name="Comprobante1" Relationship="CSColegioModel.ComprobanteAsociado" FromRole="Comprobante" ToRole="Comprobante1" />
           <NavigationProperty Name="Comprobante2" Relationship="CSColegioModel.ComprobanteAsociado" FromRole="Comprobante1" ToRole="Comprobante" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__Comprobante__Creacion" FromRole="Comprobante" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__Comprobante__Modificacion" FromRole="Comprobante" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="ComprobanteAplicado">
           <Key>
@@ -2670,6 +2682,30 @@
         <Association Name="ComprobanteAsociado">
           <End Type="CSColegioModel.Comprobante" Role="Comprobante" Multiplicity="*" />
           <End Type="CSColegioModel.Comprobante" Role="Comprobante1" Multiplicity="*" />
+        </Association>
+        <Association Name="FK__Usuario__Comprobante__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Comprobante" Role="Comprobante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Comprobante">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Comprobante__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Comprobante" Role="Comprobante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Comprobante">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>

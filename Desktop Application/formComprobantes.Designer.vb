@@ -104,6 +104,7 @@ Partial Class formComprobantes
         Me.datagridviewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipo, Me.columnPuntoVenta, Me.columnNumero, Me.columnFecha, Me.columnTitular, Me.columnImporteTotal, Me.columnCAE})
         Me.datagridviewMain.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.datagridviewMain.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.datagridviewMain.Location = New System.Drawing.Point(0, 64)
         Me.datagridviewMain.MultiSelect = False
         Me.datagridviewMain.Name = "datagridviewMain"
@@ -134,7 +135,7 @@ Partial Class formComprobantes
         Me.columnPuntoVenta.HeaderText = "Punto de Venta"
         Me.columnPuntoVenta.Name = "columnPuntoVenta"
         Me.columnPuntoVenta.ReadOnly = True
-        Me.columnPuntoVenta.Width = 97
+        Me.columnPuntoVenta.Width = 106
         '
         'columnNumero
         '
@@ -180,7 +181,7 @@ Partial Class formComprobantes
         Me.columnImporteTotal.HeaderText = "Importe Total"
         Me.columnImporteTotal.Name = "columnImporteTotal"
         Me.columnImporteTotal.ReadOnly = True
-        Me.columnImporteTotal.Width = 87
+        Me.columnImporteTotal.Width = 94
         '
         'columnCAE
         '

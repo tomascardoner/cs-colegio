@@ -270,12 +270,6 @@
     <Compile Include="formComprobante.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formComprobanteCobranza.Designer.vb">
-      <DependentUpon>formComprobanteCobranza.vb</DependentUpon>
-    </Compile>
-    <Compile Include="formComprobanteCobranza.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="formComprobantes.Designer.vb">
       <DependentUpon>formComprobantes.vb</DependentUpon>
     </Compile>
@@ -448,9 +442,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobante.resx">
       <DependentUpon>formComprobante.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="formComprobanteCobranza.resx">
-      <DependentUpon>formComprobanteCobranza.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobantes.resx">
       <DependentUpon>formComprobantes.vb</DependentUpon>

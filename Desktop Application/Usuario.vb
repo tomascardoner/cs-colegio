@@ -26,5 +26,7 @@ Partial Public Class Usuario
     Public Overridable Property UsuarioGrupo As UsuarioGrupo
     Public Overridable Property EntidadesCreadas As ICollection(Of Entidad) = New HashSet(Of Entidad)
     Public Overridable Property EntidadesModificadas As ICollection(Of Entidad) = New HashSet(Of Entidad)
+    Public Overridable Property ComprobantesCreados As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
+    Public Overridable Property ComprobantesModificados As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
 
 End Class
