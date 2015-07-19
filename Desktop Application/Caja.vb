@@ -21,4 +21,7 @@ Partial Public Class Caja
     Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
 
+    Public Overridable Property ComprobanteMedioPago As ICollection(Of ComprobanteMedioPago) = New HashSet(Of ComprobanteMedioPago)
+    Public Overridable Property MedioPago As ICollection(Of MedioPago) = New HashSet(Of MedioPago)
+
 End Class

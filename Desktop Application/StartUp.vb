@@ -1,7 +1,7 @@
 ﻿Module StartUp
     ' Database stuff
     Friend pDatabase As CS_Database
-    Friend pDBEFContext As CSColegioContext
+    Friend pFillAndRefreshLists As FillAndRefreshLists
 
     Friend pPermisos As List(Of UsuarioGrupoPermiso)
     Friend pParametros As List(Of Parametro)
@@ -70,6 +70,9 @@
         formSplashScreen.labelLicensedTo.Text = CS_Parameter.GetString(Parametros.LICENSE_COMPANY_NAME, "")
         Application.DoEvents()
 
+        ' Preparo instancia de clase para llenar los ComboBox
+        pFillAndRefreshLists = New FillAndRefreshLists
+
         ' Tomo el tiempo de inicio para controlar los segundos mínimos que se debe mostrar el Splash Screen
         StartupTime = Now
 
@@ -117,5 +120,7 @@
     End Sub
 
     Friend Sub TerminateApplication()
+        pDatabase = Nothing
+        pFillAndRefreshLists = Nothing
     End Sub
 End Module

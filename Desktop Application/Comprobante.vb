@@ -16,7 +16,7 @@ Partial Public Class Comprobante
     Public Property PuntoVenta As String
     Public Property Numero As String
     Public Property FechaEmision As Date
-    Public Property FechaVencimiento As Date
+    Public Property FechaVencimiento As Nullable(Of Date)
     Public Property FechaServicioDesde As Nullable(Of Date)
     Public Property FechaServicioHasta As Nullable(Of Date)
     Public Property IDEntidad As Integer
@@ -29,13 +29,15 @@ Partial Public Class Comprobante
     Public Property DomicilioIDProvincia As Nullable(Of Byte)
     Public Property DomicilioIDLocalidad As Nullable(Of Short)
     Public Property Leyenda As String
-    Public Property ImporteNeto As Decimal
+    Public Property ImporteSubtotal As Decimal
     Public Property ImporteImpuesto As Decimal
     Public Property ImporteTotal As Decimal
     Public Property Notas As String
     Public Property CAE As String
     Public Property CAEVencimiento As Nullable(Of Date)
     Public Property IDComprobanteLote As Nullable(Of Integer)
+    Public Property PeriodoContableAnio As Nullable(Of Short)
+    Public Property PeriodoContableMes As Nullable(Of Byte)
     Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date
     Public Property IDUsuarioModificacion As Short
@@ -59,5 +61,7 @@ Partial Public Class Comprobante
     Public Overridable Property Comprobante2 As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
     Public Overridable Property UsuarioCreacion As Usuario
     Public Overridable Property UsuarioModificacion As Usuario
+    Public Overridable Property ComprobanteAplicado As ICollection(Of ComprobanteAplicado) = New HashSet(Of ComprobanteAplicado)
+    Public Overridable Property ComprobanteAplicado1 As ICollection(Of ComprobanteAplicado) = New HashSet(Of ComprobanteAplicado)
 
 End Class

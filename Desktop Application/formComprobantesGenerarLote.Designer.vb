@@ -51,7 +51,6 @@ Partial Class formComprobantesGenerarLote
         Me.buttonPaso1Siguiente = New System.Windows.Forms.Button()
         Me.labelPaso1Mensaje = New System.Windows.Forms.Label()
         Me.panelPaso2 = New System.Windows.Forms.Panel()
-        Me.buttonPaso2Print = New System.Windows.Forms.Button()
         Me.labelPaso2Pie = New System.Windows.Forms.Label()
         Me.datagridviewPaso2 = New System.Windows.Forms.DataGridView()
         Me.columnVerificacionIDEntidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -81,7 +80,6 @@ Partial Class formComprobantesGenerarLote
         Me.labelPaso3Titulo = New System.Windows.Forms.Label()
         Me.buttonPaso3Anterior = New System.Windows.Forms.Button()
         Me.buttonPaso3Finalizar = New System.Windows.Forms.Button()
-        Me.printdocumentPaso2 = New System.Drawing.Printing.PrintDocument()
         Me.panelPaso1.SuspendLayout()
         Me.tabcontrolMain.SuspendLayout()
         Me.tabpageNivelesCursosAlumnos.SuspendLayout()
@@ -272,7 +270,6 @@ Partial Class formComprobantesGenerarLote
         '
         'panelPaso2
         '
-        Me.panelPaso2.Controls.Add(Me.buttonPaso2Print)
         Me.panelPaso2.Controls.Add(Me.labelPaso2Pie)
         Me.panelPaso2.Controls.Add(Me.datagridviewPaso2)
         Me.panelPaso2.Controls.Add(Me.pictureboxPaso2)
@@ -284,15 +281,6 @@ Partial Class formComprobantesGenerarLote
         Me.panelPaso2.Name = "panelPaso2"
         Me.panelPaso2.Size = New System.Drawing.Size(611, 441)
         Me.panelPaso2.TabIndex = 1
-        '
-        'buttonPaso2Print
-        '
-        Me.buttonPaso2Print.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_PRINT_24
-        Me.buttonPaso2Print.Location = New System.Drawing.Point(282, 404)
-        Me.buttonPaso2Print.Name = "buttonPaso2Print"
-        Me.buttonPaso2Print.Size = New System.Drawing.Size(34, 34)
-        Me.buttonPaso2Print.TabIndex = 4
-        Me.buttonPaso2Print.UseVisualStyleBackColor = True
         '
         'labelPaso2Pie
         '
@@ -655,9 +643,6 @@ Partial Class formComprobantesGenerarLote
         Me.buttonPaso3Finalizar.Text = "Finalizar: Emisión"
         Me.buttonPaso3Finalizar.UseVisualStyleBackColor = True
         '
-        'printdocumentPaso2
-        '
-        '
         'formComprobantesGenerarLote
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -725,12 +710,10 @@ Partial Class formComprobantesGenerarLote
     Friend WithEvents labelPaso3Titulo As System.Windows.Forms.Label
     Friend WithEvents buttonPaso3Anterior As System.Windows.Forms.Button
     Friend WithEvents buttonPaso3Finalizar As System.Windows.Forms.Button
-    Friend WithEvents printdocumentPaso2 As System.Drawing.Printing.PrintDocument
     Friend WithEvents columnVerificacionIDEntidad As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnVerificacionApellido As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnVerificacionNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnCorreccionDescripcion As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents buttonPaso2Print As System.Windows.Forms.Button
     Friend WithEvents datagridviewPaso3Detalle As System.Windows.Forms.DataGridView
     Friend WithEvents columnDescripcion As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnPrecioTotal As System.Windows.Forms.DataGridViewTextBoxColumn

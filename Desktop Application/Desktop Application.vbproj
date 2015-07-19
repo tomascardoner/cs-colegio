@@ -130,6 +130,9 @@
     <Compile Include="Banco.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Control_ComboBox.vb">
+      <Link>CS_Control_ComboBox.vb</Link>
+    </Compile>
     <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_CrystalReports.vb">
       <Link>CS_CrystalReports.vb</Link>
     </Compile>
@@ -152,9 +155,6 @@
     </Compile>
     <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_AFIP_WS.vb">
       <Link>CS_AFIP_WS.vb</Link>
-    </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_ComboBox.vb">
-      <Link>CS_ComboBox.vb</Link>
     </Compile>
     <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_DataGridView.vb">
       <Link>CS_DataGridView.vb</Link>
@@ -190,6 +190,9 @@
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="CategoriaIVA.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Cheque.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="Comprobante.vb">
@@ -270,6 +273,12 @@
     <Compile Include="formComprobante.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formComprobanteMedioPago.Designer.vb">
+      <DependentUpon>formComprobanteMedioPago.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formComprobanteMedioPago.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formComprobantes.Designer.vb">
       <DependentUpon>formComprobantes.vb</DependentUpon>
     </Compile>
@@ -347,6 +356,12 @@
       <DependentUpon>formComprobantesTransmitirAFIP.vb</DependentUpon>
     </Compile>
     <Compile Include="formComprobantesTransmitirAFIP.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formTemp.Designer.vb">
+      <DependentUpon>formTemp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formTemp.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Impuesto.vb">
@@ -443,6 +458,9 @@
     <EmbeddedResource Include="formComprobante.resx">
       <DependentUpon>formComprobante.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formComprobanteMedioPago.resx">
+      <DependentUpon>formComprobanteMedioPago.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formComprobantes.resx">
       <DependentUpon>formComprobantes.vb</DependentUpon>
     </EmbeddedResource>
@@ -478,6 +496,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobantesTransmitirAFIP.resx">
       <DependentUpon>formComprobantesTransmitirAFIP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formTemp.resx">
+      <DependentUpon>formTemp.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

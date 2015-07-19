@@ -213,7 +213,7 @@
                         ' Fechas
                         .FechaServicioDesde = FacturaActual.FechaServicioDesde.Value
                         .FechaServicioHasta = FacturaActual.FechaServicioHasta.Value
-                        .FechaVencimientoPago = FacturaActual.FechaVencimiento
+                        .FechaVencimientoPago = FacturaActual.FechaVencimiento.Value
 
                         ' Moneda
                         .MonedaID = MonedaLocal.CodigoAFIP

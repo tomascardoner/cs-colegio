@@ -37,7 +37,7 @@ Partial Class formComprobantes
         Me.columnPuntoVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnNumero = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnFecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnTitular = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnEntidadNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnCAE = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.panelToolbars = New System.Windows.Forms.FlowLayoutPanel()
@@ -102,7 +102,7 @@ Partial Class formComprobantes
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
         Me.datagridviewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.datagridviewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipo, Me.columnPuntoVenta, Me.columnNumero, Me.columnFecha, Me.columnTitular, Me.columnImporteTotal, Me.columnCAE})
+        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipo, Me.columnPuntoVenta, Me.columnNumero, Me.columnFecha, Me.columnEntidadNombre, Me.columnImporteTotal, Me.columnCAE})
         Me.datagridviewMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.datagridviewMain.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.datagridviewMain.Location = New System.Drawing.Point(0, 64)
@@ -159,16 +159,16 @@ Partial Class formComprobantes
         Me.columnFecha.ReadOnly = True
         Me.columnFecha.Width = 62
         '
-        'columnTitular
+        'columnEntidadNombre
         '
-        Me.columnTitular.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnTitular.DataPropertyName = "EntidadNombre"
+        Me.columnEntidadNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnEntidadNombre.DataPropertyName = "EntidadNombre"
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnTitular.DefaultCellStyle = DataGridViewCellStyle6
-        Me.columnTitular.HeaderText = "Titular"
-        Me.columnTitular.Name = "columnTitular"
-        Me.columnTitular.ReadOnly = True
-        Me.columnTitular.Width = 61
+        Me.columnEntidadNombre.DefaultCellStyle = DataGridViewCellStyle6
+        Me.columnEntidadNombre.HeaderText = "Titular"
+        Me.columnEntidadNombre.Name = "columnEntidadNombre"
+        Me.columnEntidadNombre.ReadOnly = True
+        Me.columnEntidadNombre.Width = 61
         '
         'columnImporteTotal
         '
@@ -459,7 +459,7 @@ Partial Class formComprobantes
     Friend WithEvents columnPuntoVenta As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnNumero As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnFecha As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnTitular As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnEntidadNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnCAE As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

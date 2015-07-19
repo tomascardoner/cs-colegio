@@ -19,9 +19,12 @@ Partial Public Class ComprobanteTipo
     Public Property NombreConLetra As String
     Public Property NombreCompleto As String
     Public Property CodigoAFIP As Byte
+    Public Property MovimientoTipo As String
     Public Property EmisionElectronica As Nullable(Of Boolean)
     Public Property UtilizaDetalle As Boolean
+    Public Property UtilizaImpuesto As Boolean
     Public Property UtilizaAplicacion As Boolean
+    Public Property UtilizaAsociacion As Boolean
     Public Property UtilizaMedioPago As Boolean
     Public Property ReporteNombre As String
     Public Property EsActivo As Boolean

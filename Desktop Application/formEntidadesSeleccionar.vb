@@ -1,14 +1,16 @@
 ﻿Public Class formEntidadesSeleccionar
     Private listEntidadBase As List(Of Entidad)
     Private listEntidadFiltradaYOrdenada As List(Of Entidad)
+
     Private SkipFilterData As Boolean = False
     Private BusquedaAplicada As Boolean = False
+
     Private OrdenColumna As DataGridViewColumn
     Private OrdenTipo As SortOrder
 
     Friend Const COLUMNA_IDENTIDAD As String = "columnIDEntidad"
-    Friend Const COLUMNA_APELLIDO As String = "columnApellido"
-    Friend Const COLUMNA_NOMBRE As String = "columnNombre"
+    Private Const COLUMNA_APELLIDO As String = "columnApellido"
+    Private Const COLUMNA_NOMBRE As String = "columnNombre"
 
     Friend Sub RefreshData(Optional ByVal PositionIDEntidad As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
         Me.Cursor = Cursors.WaitCursor
@@ -123,6 +125,20 @@
         OrdenTipo = SortOrder.Ascending
 
         RefreshData()
+    End Sub
+
+    Private Sub formEntidadesSeleccionar_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
+        If Not textboxBuscar.Focused Then
+            If Char.IsLetter(e.KeyChar) Then
+                For Each RowCurrent As DataGridViewRow In datagridviewMain.Rows
+                    If RowCurrent.Cells(COLUMNA_APELLIDO).Value.ToString.StartsWith(e.KeyChar, StringComparison.CurrentCultureIgnoreCase) Then
+                        RowCurrent.Cells(COLUMNA_IDENTIDAD).Selected = True
+                        datagridviewMain.Focus()
+                        Exit For
+                    End If
+                Next
+            End If
+        End If
     End Sub
 
     Private Sub formEntidades_FormClosed() Handles Me.FormClosed

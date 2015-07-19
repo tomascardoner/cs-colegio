@@ -1,6 +1,8 @@
 ﻿Imports System.Net.Mail
 
 Public Class formComprobantes
+
+#Region "Declarations"
     Private Class GridRowData
         Public Property IDComprobante As Integer
         Public Property OperacionTipo As String
@@ -31,13 +33,42 @@ Public Class formComprobantes
     Private Const COLUMNA_TITULAR As String = "columnEntidadNombre"
     Private Const COLUMNA_IMPORTETOTAL As String = "columnImporteTotal"
     Private Const COLUMNA_CAE As String = "columnCAE"
+#End Region
 
+#Region "Form stuff"
+    Friend Sub SetAppearance()
+        datagridviewMain.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewMain.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+    End Sub
+
+    Private Sub formComprobantes_Load() Handles Me.Load
+        SetAppearance()
+
+        SkipFilterData = True
+
+        comboboxPeriodo.Items.AddRange({"Día:", "Semana:", "Mes:"})
+        comboboxPeriodo.SelectedIndex = 0
+
+        ' Tipos de Comprobantes
+        comboboxOperacionTipo.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, My.Resources.STRING_OPERACIONTIPO_COMPRA, My.Resources.STRING_OPERACIONTIPO_VENTA})
+        comboboxOperacionTipo.SelectedIndex = 0
+
+        comboboxBuscarTipo.Items.AddRange({"Titular:", "Número:"})
+        comboboxBuscarTipo.SelectedIndex = 1
+
+        SkipFilterData = False
+
+        OrdenColumna = columnFecha
+        OrdenTipo = SortOrder.Ascending
+
+        RefreshData()
+    End Sub
+#End Region
+
+#Region "Load and Set Data"
     Friend Sub RefreshData(Optional ByVal PositionIDComprobante As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
         Dim FechaDesde As Date
         Dim FechaHasta As Date
-        Dim SQLSelect As String
-        Dim SQLFrom As String
-        Dim SQLWhere As String
 
         Me.Cursor = Cursors.WaitCursor
 
@@ -45,14 +76,9 @@ Public Class formComprobantes
         FechaHasta = System.DateTime.Now
 
         Try
-            SQLSelect = "SELECT cc.IDComprobante, ct.OperacionTipo, cc.IDComprobanteTipo, ct.Nombre AS ComprobanteTipo, cc.PuntoVenta, cc.Numero, cc.Fecha, e.ApellidoNombre, cc.ImporteTotal, cc.CAE"
-            SQLFrom = "FROM (ComprobanteCabecera AS cc INNER JOIN ComprobanteTipo AS ct ON cc.IDComprobanteTipo = ct.IDComprobanteTipo) INNER JOIN Entidad AS e ON cc.IDEntidad = e.IDEntidad"
-            SQLWhere = "WHERE cc.Fecha BETWEEN @p0 AND @p1"
-            Using dbcontext As New CSColegioContext(True)
-                'Dim listComprobantesBase As Data.Entity.Infrastructure.DbRawSqlQuery(Of GridRowData) = context.Database.SqlQuery(Of GridRowData)(SQLSelect & vbCrLf & SQLFrom & vbCrLf & SQLWhere, FechaDesde, FechaHasta)
-
-                listComprobantesBase = (From cc In dbcontext.Comprobante
-                                        Join ct In dbcontext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
+            Using dbContext As New CSColegioContext(True)
+                listComprobantesBase = (From cc In dbContext.Comprobante
+                                        Join ct In dbContext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                         Where cc.FechaEmision >= FechaDesde And cc.FechaEmision <= FechaHasta
                                         Order By cc.FechaEmision, cc.IDComprobante
                                         Select New GridRowData With {.IDComprobante = cc.IDComprobante, .OperacionTipo = ct.OperacionTipo, .IDComprobanteTipo = cc.IDComprobanteTipo, .ComprobanteTipoNombre = ct.Nombre, .PuntoVenta = cc.PuntoVenta, .Numero = cc.Numero, .FechaEmision = cc.FechaEmision, .IDEntidad = cc.IDEntidad, .EntidadNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal, .CAE = cc.CAE}).ToList
@@ -79,8 +105,8 @@ Public Class formComprobantes
 
         If PositionIDComprobante <> 0 Then
             For Each CurrentRowChecked As DataGridViewRow In datagridviewMain.Rows
-                If CType(datagridviewMain.CurrentRow.DataBoundItem, GridRowData).IDComprobante = PositionIDComprobante Then
-                    datagridviewMain.CurrentCell = CurrentRowChecked.Cells(COLUMNA_TIPO)
+                If CType(CurrentRowChecked.DataBoundItem, GridRowData).IDComprobante = PositionIDComprobante Then
+                    datagridviewMain.CurrentCell = CurrentRowChecked.Cells(0)
                     Exit For
                 End If
             Next
@@ -194,39 +220,15 @@ Public Class formComprobantes
         ' Muestro el ícono de orden en la columna correspondiente
         OrdenColumna.HeaderCell.SortGlyphDirection = OrdenTipo
     End Sub
+#End Region
 
-    Friend Sub SetAppearance()
-        datagridviewMain.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
-        datagridviewMain.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
-    End Sub
-
-    Private Sub formComprobantes_Load() Handles Me.Load
-        SetAppearance()
-
-        SkipFilterData = True
-
-        comboboxPeriodo.Items.AddRange({"Día:", "Semana:", "Mes:"})
-        comboboxPeriodo.SelectedIndex = 0
-
-        ' Tipos de Comprobantes
-        comboboxOperacionTipo.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, My.Resources.STRING_OPERACIONTIPO_COMPRA, My.Resources.STRING_OPERACIONTIPO_VENTA})
-        comboboxOperacionTipo.SelectedIndex = 0
-
-        comboboxBuscarTipo.Items.AddRange({"Titular:", "Número:"})
-        comboboxBuscarTipo.SelectedIndex = 1
-
-        SkipFilterData = False
-
-        OrdenColumna = columnFecha
-        OrdenTipo = SortOrder.Ascending
-
-        RefreshData()
-    End Sub
-
+#Region "Controls behavior"
     Private Sub buttonEntidad_Click() Handles buttonEntidad.Click
         If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-            textboxEntidad.Text = CStr(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_APELLIDO).Value()) & CStr(IIf(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_NOMBRE).Value Is Nothing, "", ", " & CStr(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_NOMBRE).Value)))
-            textboxEntidad.Tag = CInt(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_IDENTIDAD).Value())
+            Dim EntidadSeleccionada As Entidad
+            EntidadSeleccionada = CType(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
+            textboxEntidad.Text = EntidadSeleccionada.ApellidoNombre
+            textboxEntidad.Tag = EntidadSeleccionada.IDEntidad
             FilterData()
         End If
         formEntidadesSeleccionar.Dispose()
@@ -302,10 +304,10 @@ Public Class formComprobantes
                 comboboxComprobanteTipo.Items.Clear()
                 comboboxComprobanteTipo.Enabled = False
             Case 1
-                FillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo.ComboBox, OPERACIONTIPO_COMPRA, True, False)
+                pFillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo.ComboBox, OPERACIONTIPO_COMPRA, True, False)
                 comboboxComprobanteTipo.Enabled = True
             Case 2
-                FillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo.ComboBox, OPERACIONTIPO_VENTA, True, False)
+                pFillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo.ComboBox, OPERACIONTIPO_VENTA, True, False)
                 comboboxComprobanteTipo.Enabled = True
         End Select
     End Sub
@@ -409,14 +411,15 @@ Public Class formComprobantes
 
                         Dim Asunto As String = String.Format(My.Settings.Comprobante_EnviarEmail_Subject, ComprobanteTipoActual.NombreConLetra, CurrentRow.PuntoVenta, CurrentRow.Numero)
                         Dim Cuerpo As String = String.Format(My.Settings.Comprobante_EnvioEmail_Body, vbCrLf) & String.Format(My.Settings.Email_Signature, vbCrLf)
+                        Dim AdjuntoNombre As String = ComprobanteTipoActual.Sigla.TrimEnd & CurrentRow.PuntoVenta & CurrentRow.Numero & ".pdf"
 
-                        Select My.Settings.LoteComprobantes_EnviarEmail_Metodo
+                        Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
                             Case Constantes.EMAIL_CLIENT_NETDLL
-                                EnviarEmailPorNETClient(Titular, Asunto, Cuerpo, Reporte)
+                                EnviarEmailPorNETClient(Titular, Asunto, Cuerpo, Reporte, AdjuntoNombre)
                             Case Constantes.EMAIL_CLIENT_MSOUTLOOK
-                                EnviarEmailPorMSOutlook(Titular, Asunto, Cuerpo, Reporte)
+                                EnviarEmailPorMSOutlook(Titular, Asunto, Cuerpo, Reporte, AdjuntoNombre)
                             Case Constantes.EMAIL_CLIENT_CRYSTALREPORTSMAPI
-                                EnviarEmailPorCrystalReportsMAPI(Titular, Asunto, Cuerpo, Reporte)
+                                EnviarEmailPorCrystalReportsMAPI(Titular, Asunto, Cuerpo, Reporte, AdjuntoNombre)
                         End Select
                     End If
                 End If
@@ -428,7 +431,122 @@ Public Class formComprobantes
         End If
     End Sub
 
-    Private Function EnviarEmailPorNETClient(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef Reporte As CS_CrystalReport) As Boolean
+    Private Sub GridChangeOrder(sender As Object, e As DataGridViewCellMouseEventArgs) Handles datagridviewMain.ColumnHeaderMouseClick
+        Dim ClickedColumn As DataGridViewColumn
+
+        ClickedColumn = CType(datagridviewMain.Columns(e.ColumnIndex), DataGridViewColumn)
+
+        If ClickedColumn Is OrdenColumna Then
+            ' La columna clickeada es la misma por la que ya estaba ordenado, así que cambio la dirección del orden
+            If OrdenTipo = SortOrder.Ascending Then
+                OrdenTipo = SortOrder.Descending
+            Else
+                OrdenTipo = SortOrder.Ascending
+            End If
+        Else
+            ' La columna clickeada es diferencte a la que ya estaba ordenada.
+            ' En primer lugar saco el ícono de orden de la columna vieja
+            If Not OrdenColumna Is Nothing Then
+                OrdenColumna.HeaderCell.SortGlyphDirection = SortOrder.None
+            End If
+
+            ' Ahora preparo todo para la nueva columna
+            OrdenTipo = SortOrder.Ascending
+            OrdenColumna = ClickedColumn
+        End If
+
+        OrderData()
+    End Sub
+#End Region
+
+#Region "Main Toolbar"
+    Private Sub Agregar_Click() Handles buttonAgregar.Click
+        If Permisos.VerificarPermiso(Permisos.COMPROBANTE_ADD) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            datagridviewMain.Enabled = False
+
+            formComprobante.LoadAndShow(True, Me, 0)
+
+            datagridviewMain.Enabled = True
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
+
+    Private Sub Editar_Click() Handles buttonEditar.Click
+        If datagridviewMain.CurrentRow Is Nothing Then
+            MsgBox("No hay ningún Comprobante para editar.", vbInformation, My.Application.Info.Title)
+        Else
+            If Permisos.VerificarPermiso(Permisos.COMPROBANTE_EDIT) Then
+                Me.Cursor = Cursors.WaitCursor
+
+                datagridviewMain.Enabled = False
+
+                formComprobante.LoadAndShow(True, Me, CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData).IDComprobante)
+
+                datagridviewMain.Enabled = True
+
+                Me.Cursor = Cursors.Default
+            End If
+        End If
+    End Sub
+
+    Private Sub Eliminar_Click() Handles buttonEliminar.Click
+        If datagridviewMain.CurrentRow Is Nothing Then
+            MsgBox("No hay ningún Comprobante para eliminar.", vbInformation, My.Application.Info.Title)
+        Else
+            If Permisos.VerificarPermiso(Permisos.COMPROBANTE_DELETE) Then
+
+                Dim CurrentRow As GridRowData = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData)
+
+                Using dbContext = New CSColegioContext(True)
+                    Dim ComprobanteEliminar = dbContext.Comprobante.Find(CurrentRow.IDComprobante)
+                    If ComprobanteEliminar.ComprobanteTipo.EmisionElectronica AndAlso Not ComprobanteEliminar.CAE Is Nothing Then
+                        MsgBox("No se puede eliminar este Comprobante porque es de Emisión Electrónica y ya tiene un CAE asignado.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                    Else
+                        Dim Mensaje As String
+                        Mensaje = String.Format("Se eliminará el Comprobante seleccionado.{0}{0}{1} N° {2}-{3}{0}{0}¿Confirma la eliminación definitiva?", vbCrLf, CurrentRow.ComprobanteTipoNombre, CurrentRow.PuntoVenta, CurrentRow.Numero)
+                        If MsgBox(Mensaje, CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
+
+                            Me.Cursor = Cursors.WaitCursor
+
+                            Try
+                                dbContext.Comprobante.Remove(ComprobanteEliminar)
+                                dbContext.SaveChanges()
+
+                            Catch ex As Exception
+                                CS_Error.ProcessError(ex, "Error al eliminar el Comprobante.")
+                            End Try
+
+                            RefreshData()
+                            Me.Cursor = Cursors.Default
+                        End If
+                    End If
+                End Using
+            End If
+        End If
+    End Sub
+
+    Private Sub Ver() Handles datagridviewMain.DoubleClick
+        If datagridviewMain.CurrentRow Is Nothing Then
+            MsgBox("No hay ningún Comporbante para ver.", vbInformation, My.Application.Info.Title)
+        Else
+            Me.Cursor = Cursors.WaitCursor
+
+            datagridviewMain.Enabled = False
+
+            formComprobante.LoadAndShow(False, Me, CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData).IDComprobante)
+
+            datagridviewMain.Enabled = True
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
+#End Region
+
+#Region "Extra Stuff"
+    Private Function EnviarEmailPorNETClient(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef Reporte As CS_CrystalReport, ByVal AdjuntoNombre As String) As Boolean
         Dim mail As New MailMessage()
         Dim smtp As New SmtpClient()
 
@@ -469,12 +587,12 @@ Public Class formComprobantes
         End Try
     End Function
 
-    Private Function EnviarEmailPorMSOutlook(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef Reporte As CS_CrystalReport) As Boolean
+    Private Function EnviarEmailPorMSOutlook(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef Reporte As CS_CrystalReport, ByVal AdjuntoNombre As String) As Boolean
         MsgBox("Se ha enviado el Comprobante por e-mail.", vbInformation, My.Application.Info.Title)
         Return True
     End Function
 
-    Private Function EnviarEmailPorCrystalReportsMAPI(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef Reporte As CS_CrystalReport) As Boolean
+    Private Function EnviarEmailPorCrystalReportsMAPI(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef Reporte As CS_CrystalReport, ByVal AdjuntoNombre As String) As Boolean
         'Preparo las opciones del mail
         Dim mailOpts As New CrystalDecisions.Shared.MicrosoftMailDestinationOptions
         If Not Titular.Email1 Is Nothing Then
@@ -500,35 +618,6 @@ Public Class formComprobantes
             Return False
         End Try
     End Function
+#End Region
 
-    Private Sub datagridviewMain_DoubleClick() Handles datagridviewMain.DoubleClick
-        Dim CurrentRow As GridRowData
-
-        If datagridviewMain.CurrentRow Is Nothing Then
-            MsgBox("No hay ningún Comporbante para ver.", vbInformation, My.Application.Info.Title)
-        Else
-            Me.Cursor = Cursors.WaitCursor
-
-            datagridviewMain.Enabled = False
-
-            CurrentRow = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData)
-
-            Dim formComprobanteVer As New formComprobante
-            With formComprobanteVer
-                .MdiParent = formMDIMain
-                .ComprobanteCurrent = .dbcontext.Comprobante.Find(CurrentRow.IDComprobante)
-                CS_Form.MDIChild_PositionAndSize(CType(formMDIMain, Form), CType(formComprobanteVer, Form), formMDIMain.Form_ClientSize)
-                .buttonGuardar.Visible = False
-                .buttonCancelar.Visible = False
-                .InitializeFormAndControls()
-                .SetDataFromObjectToControls()
-                CS_Form.ControlsChangeStateReadOnly(.Controls, True, True)
-                .Show()
-            End With
-
-            datagridviewMain.Enabled = True
-
-            Me.Cursor = Cursors.Default
-        End If
-    End Sub
 End Class

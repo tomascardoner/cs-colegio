@@ -1,18 +1,27 @@
 ﻿Public Class formEntidad
-    Friend dbcontext As New CSColegioContext(True)
+    Friend dbContext As New CSColegioContext(True)
     Friend EntidadCurrent As Entidad
 
+#Region "Form Lifetime"
     Friend Sub InitializeFormAndControls()
         ' Cargo los ComboBox
-        FillAndRefreshLists.DocumentoTipo(comboboxDocumentoTipo, True)
-        FillAndRefreshLists.DocumentoTipo(comboboxFacturaDocumentoTipo, True)
-        FillAndRefreshLists.Genero(comboboxGenero, True)
-        FillAndRefreshLists.CategoriaIVA(comboboxCategoriaIVA, True)
-        FillAndRefreshLists.Provincia(comboboxDomicilioProvincia, True)
-        FillAndRefreshLists.EmitirFacturaA(comboboxEmitirFacturaA, True)
-        FillAndRefreshLists.Descuento(comboboxDescuento, True)
+        pFillAndRefreshLists.DocumentoTipo(comboboxDocumentoTipo, True)
+        pFillAndRefreshLists.DocumentoTipo(comboboxFacturaDocumentoTipo, True)
+        pFillAndRefreshLists.Genero(comboboxGenero, True)
+        pFillAndRefreshLists.CategoriaIVA(comboboxCategoriaIVA, True)
+        pFillAndRefreshLists.Provincia(comboboxDomicilioProvincia, True)
+        pFillAndRefreshLists.EmitirFacturaA(comboboxEmitirFacturaA, True)
+        pFillAndRefreshLists.Descuento(comboboxDescuento, True)
     End Sub
 
+    Private Sub formEntidad_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        dbContext.Dispose()
+        dbContext = Nothing
+        EntidadCurrent = Nothing
+    End Sub
+#End Region
+
+#Region "Load and Set Data"
     Friend Sub SetDataFromObjectToControls()
         With EntidadCurrent
             ' Datos del Encabezado
@@ -31,21 +40,21 @@
             checkboxTipoAlumno.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoAlumno)
             checkboxTipoFamiliar.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoFamiliar)
             checkboxTipoProveedor.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoProveedor)
-            CS_ComboBox.SetSelectedValue(comboboxDocumentoTipo, SelectedItemOptions.ValueOrFirst, .IDDocumentoTipo, CByte(0))
+            CS_Control_ComboBox.SetSelectedValue(comboboxDocumentoTipo, SelectedItemOptions.ValueOrFirst, .IDDocumentoTipo, CByte(0))
             If CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
                 maskedtextboxDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DocumentoNumero)
             Else
                 textboxDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DocumentoNumero)
             End If
-            CS_ComboBox.SetSelectedValue(comboboxFacturaDocumentoTipo, SelectedItemOptions.ValueOrFirst, .FacturaIDDocumentoTipo, CByte(0))
+            CS_Control_ComboBox.SetSelectedValue(comboboxFacturaDocumentoTipo, SelectedItemOptions.ValueOrFirst, .FacturaIDDocumentoTipo, CByte(0))
             If CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
                 maskedtextboxFacturaDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.FacturaDocumentoNumero)
             Else
                 textboxFacturaDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.FacturaDocumentoNumero)
             End If
-            CS_ComboBox.SetSelectedValue(comboboxGenero, SelectedItemOptions.ValueOrFirst, .Genero, Constantes.GENERO_NOESPECIFICA)
+            CS_Control_ComboBox.SetSelectedValue(comboboxGenero, SelectedItemOptions.ValueOrFirst, .Genero, Constantes.GENERO_NOESPECIFICA)
             datetimepickerFechaNacimiento.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaNacimiento, datetimepickerFechaNacimiento)
-            CS_ComboBox.SetSelectedValue(comboboxCategoriaIVA, SelectedItemOptions.ValueOrFirst, .IDCategoriaIVA, 0)
+            CS_Control_ComboBox.SetSelectedValue(comboboxCategoriaIVA, SelectedItemOptions.ValueOrFirst, .IDCategoriaIVA, 0)
 
             ' Datos de la pestaña Contacto
             textboxTelefono1.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Telefono1)
@@ -59,8 +68,8 @@
             textboxDomicilioDepartamento.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioDepartamento)
             textboxDomicilioCalle2.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCalle2)
             textboxDomicilioCalle3.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCalle3)
-            CS_ComboBox.SetSelectedValue(comboboxDomicilioProvincia, SelectedItemOptions.Value, .DomicilioIDProvincia, Constantes.PROVINCIA_NOESPECIFICA)
-            CS_ComboBox.SetSelectedValue(comboboxDomicilioLocalidad, SelectedItemOptions.Value, .DomicilioIDLocalidad, 0)
+            CS_Control_ComboBox.SetSelectedValue(comboboxDomicilioProvincia, SelectedItemOptions.Value, .DomicilioIDProvincia, Constantes.PROVINCIA_NOESPECIFICA)
+            CS_Control_ComboBox.SetSelectedValue(comboboxDomicilioLocalidad, SelectedItemOptions.Value, .DomicilioIDLocalidad, 0)
             textboxDomicilioCodigoPostal.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCodigoPostal)
 
             ' Datos de la pestaña Padres y Facturación
@@ -68,17 +77,17 @@
                 textboxEntidadPadre.Text = ""
                 textboxEntidadPadre.Tag = Nothing
             Else
-                textboxEntidadPadre.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.EntidadPadre.ApellidoNombre)
+                textboxEntidadPadre.Text = .EntidadPadre.ApellidoNombre
                 textboxEntidadPadre.Tag = .EntidadPadre.IDEntidad
             End If
             If .EntidadMadre Is Nothing Then
                 textboxEntidadMadre.Text = ""
                 textboxEntidadMadre.Tag = Nothing
             Else
-                textboxEntidadMadre.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.EntidadMadre.ApellidoNombre)
+                textboxEntidadMadre.Text = .EntidadMadre.ApellidoNombre
                 textboxEntidadMadre.Tag = .EntidadMadre.IDEntidad
             End If
-            CS_ComboBox.SetSelectedValue(comboboxEmitirFacturaA, SelectedItemOptions.ValueOrFirst, .EmitirFacturaA, Constantes.EMITIRFACTURAA_NOESPECIFICA)
+            CS_Control_ComboBox.SetSelectedValue(comboboxEmitirFacturaA, SelectedItemOptions.ValueOrFirst, .EmitirFacturaA, Constantes.EMITIRFACTURAA_NOESPECIFICA)
             If .EntidadTercero Is Nothing OrElse (.EmitirFacturaA <> Constantes.EMITIRFACTURAA_TERCERO And .EmitirFacturaA <> Constantes.EMITIRFACTURAA_TODOS) Then
                 textboxEntidadTercero.Text = ""
                 textboxEntidadTercero.Tag = Nothing
@@ -87,11 +96,11 @@
                     textboxEntidadTercero.Text = ""
                     textboxEntidadTercero.Tag = Nothing
                 Else
-                    textboxEntidadTercero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.EntidadTercero.ApellidoNombre)
+                    textboxEntidadTercero.Text = .EntidadTercero.ApellidoNombre
                     textboxEntidadTercero.Tag = .EntidadTercero.IDEntidad
                 End If
             End If
-            CS_ComboBox.SetSelectedValue(comboboxDescuento, SelectedItemOptions.ValueOrFirst, .IDDescuento, 0)
+            CS_Control_ComboBox.SetSelectedValue(comboboxDescuento, SelectedItemOptions.ValueOrFirst, .IDDescuento, 0)
             checkboxExcluyeCalculoInteres.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.ExcluyeCalculoInteres)
             checkboxFacturaIndividual.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.FacturaIndividual)
             datetimepickerExcluyeFacturaDesde.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.ExcluyeFacturaDesde, datetimepickerExcluyeFacturaDesde)
@@ -206,7 +215,9 @@
             .Notas = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNotas.Text.Trim)
         End With
     End Sub
+#End Region
 
+#Region "Controls behavior"
     Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxIDEntidad.GotFocus, textboxApellido.GotFocus, textboxNombre.GotFocus, textboxDocumentoNumero.GotFocus, textboxTelefono1.GotFocus, textboxTelefono2.GotFocus, textboxTelefono3.GotFocus, textboxEmail1.GotFocus, textboxEmail2.GotFocus, textboxDomicilioCalle1.GotFocus, textboxDomicilioNumero.GotFocus, textboxDomicilioPiso.GotFocus, textboxDomicilioDepartamento.GotFocus, textboxDomicilioCodigoPostal.GotFocus
         CType(sender, TextBox).SelectAll()
     End Sub
@@ -237,9 +248,9 @@
         If comboboxDomicilioProvincia.SelectedValue Is Nothing Then
             comboboxDomicilioLocalidad.DataSource = Nothing
         Else
-            FillAndRefreshLists.Localidad(comboboxDomicilioLocalidad, CByte(comboboxDomicilioProvincia.SelectedValue), False)
+            pFillAndRefreshLists.Localidad(comboboxDomicilioLocalidad, CByte(comboboxDomicilioProvincia.SelectedValue), False)
             If CByte(comboboxDomicilioProvincia.SelectedValue) = CS_Parameter.GetIntegerAsByte(Parametros.DEFAULT_PROVINCIA_ID) Then
-                CS_ComboBox.SetSelectedValue(comboboxDomicilioLocalidad, SelectedItemOptions.ValueOrFirst, CS_Parameter.GetIntegerAsShort(Parametros.DEFAULT_LOCALIDAD_ID))
+                CS_Control_ComboBox.SetSelectedValue(comboboxDomicilioLocalidad, SelectedItemOptions.ValueOrFirst, CS_Parameter.GetIntegerAsShort(Parametros.DEFAULT_LOCALIDAD_ID))
             End If
         End If
     End Sub
@@ -250,6 +261,76 @@
         End If
     End Sub
 
+    Private Sub buttonEntidadPadre_Click(sender As Object, e As EventArgs) Handles buttonEntidadPadre.Click
+        formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = True
+        formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
+        If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+            Dim EntidadSeleccionada As Entidad
+            EntidadSeleccionada = CType(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
+            textboxEntidadPadre.Text = EntidadSeleccionada.ApellidoNombre
+            textboxEntidadPadre.Tag = EntidadSeleccionada.IDEntidad
+        End If
+        formEntidadesSeleccionar.Dispose()
+    End Sub
+
+    Private Sub buttonEntidadPadreBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadPadreBorrar.Click
+        textboxEntidadPadre.Text = ""
+        textboxEntidadPadre.Tag = Nothing
+    End Sub
+
+    Private Sub buttonEntidadMadre_Click(sender As Object, e As EventArgs) Handles buttonEntidadMadre.Click
+        formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = True
+        formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
+        If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+            Dim EntidadSeleccionada As Entidad
+            EntidadSeleccionada = CType(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
+            textboxEntidadMadre.Text = EntidadSeleccionada.ApellidoNombre
+            textboxEntidadMadre.Tag = EntidadSeleccionada.IDEntidad
+        End If
+        formEntidadesSeleccionar.Dispose()
+    End Sub
+
+    Private Sub buttonEntidadMadreBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadMadreBorrar.Click
+        textboxEntidadMadre.Text = ""
+        textboxEntidadMadre.Tag = Nothing
+    End Sub
+
+    Private Sub comboboxEmitirFacturaA_SelectedIndexChanged() Handles comboboxEmitirFacturaA.SelectedIndexChanged
+        If comboboxEmitirFacturaA.SelectedIndex > -1 Then
+            labelEntidadTercero.Visible = (comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.EMITIRFACTURAA_TERCERO Or comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.EMITIRFACTURAA_TODOS)
+            panelEntidadTercero.Visible = (comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.EMITIRFACTURAA_TERCERO Or comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.EMITIRFACTURAA_TODOS)
+        End If
+    End Sub
+
+    Private Sub buttonEntidadTercero_Click(sender As Object, e As EventArgs) Handles buttonEntidadTercero.Click
+        formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = True
+        formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
+        If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+            Dim EntidadSeleccionada As Entidad
+            EntidadSeleccionada = CType(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
+            textboxEntidadTercero.Text = EntidadSeleccionada.ApellidoNombre
+            textboxEntidadTercero.Tag = EntidadSeleccionada.IDEntidad
+        End If
+        formEntidadesSeleccionar.Dispose()
+    End Sub
+
+    Private Sub buttonEntidadTerceroBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadTerceroBorrar.Click
+        textboxEntidadTercero.Text = ""
+        textboxEntidadTercero.Tag = Nothing
+    End Sub
+
+#End Region
+
+#Region "Toolbar"
     Private Sub buttonEditar_Click() Handles buttonEditar.Click
         If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDIT) Then
             buttonGuardar.Visible = True
@@ -444,7 +525,7 @@
         ' Paso los datos desde los controles al Objecto de EF
         SetDataFromControlsToObject()
 
-        If dbcontext.ChangeTracker.HasChanges Then
+        If dbContext.ChangeTracker.HasChanges Then
 
             Me.Cursor = Cursors.WaitCursor
 
@@ -454,7 +535,7 @@
             Try
 
                 ' Guardo los cambios
-                dbcontext.SaveChanges()
+                dbContext.SaveChanges()
 
                 ' Refresco la lista de Entidades para mostrar los cambios
                 If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formEntidades") Then
@@ -474,7 +555,7 @@
     End Sub
 
     Private Sub buttonCancelar_Click() Handles buttonCancelar.Click
-        If dbcontext.ChangeTracker.HasChanges Then
+        If dbContext.ChangeTracker.HasChanges Then
             If MsgBox("Ha realizado cambios en los datos y seleccionó cancelar, los cambios se perderán." & vbCr & vbCr & "¿Confirma la pérdida de los cambios?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                 Me.Close()
             End If
@@ -482,66 +563,6 @@
             Me.Close()
         End If
     End Sub
-
-    Private Sub buttonEntidadPadre_Click(sender As Object, e As EventArgs) Handles buttonEntidadPadre.Click
-        formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
-        formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
-        formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
-        formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = True
-        formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
-        If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-            textboxEntidadPadre.Text = CStr(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_APELLIDO).Value()) & CStr(IIf(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_NOMBRE).Value Is Nothing, "", ", " & CStr(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_NOMBRE).Value)))
-            textboxEntidadPadre.Tag = CInt(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_IDENTIDAD).Value())
-        End If
-        formEntidadesSeleccionar.Dispose()
-    End Sub
-
-    Private Sub buttonEntidadPadreBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadPadreBorrar.Click
-        textboxEntidadPadre.Text = ""
-        textboxEntidadPadre.Tag = Nothing
-    End Sub
-
-    Private Sub buttonEntidadMadre_Click(sender As Object, e As EventArgs) Handles buttonEntidadMadre.Click
-        formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
-        formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
-        formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
-        formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = True
-        formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
-        If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-            textboxEntidadMadre.Text = CStr(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_APELLIDO).Value()) & CStr(IIf(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_NOMBRE).Value Is Nothing, "", ", " & CStr(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_NOMBRE).Value)))
-            textboxEntidadMadre.Tag = CInt(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_IDENTIDAD).Value())
-        End If
-        formEntidadesSeleccionar.Dispose()
-    End Sub
-
-    Private Sub buttonEntidadMadreBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadMadreBorrar.Click
-        textboxEntidadMadre.Text = ""
-        textboxEntidadMadre.Tag = Nothing
-    End Sub
-
-    Private Sub comboboxEmitirFacturaA_SelectedIndexChanged() Handles comboboxEmitirFacturaA.SelectedIndexChanged
-        If comboboxEmitirFacturaA.SelectedIndex > -1 Then
-            labelEntidadTercero.Visible = (comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.EMITIRFACTURAA_TERCERO Or comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.EMITIRFACTURAA_TODOS)
-            panelEntidadTercero.Visible = (comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.EMITIRFACTURAA_TERCERO Or comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.EMITIRFACTURAA_TODOS)
-        End If
-    End Sub
-
-    Private Sub buttonEntidadTercero_Click(sender As Object, e As EventArgs) Handles buttonEntidadTercero.Click
-        formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
-        formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
-        formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
-        formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = True
-        formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
-        If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-            textboxEntidadTercero.Text = CStr(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_APELLIDO).Value()) & CStr(IIf(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_NOMBRE).Value Is Nothing, "", ", " & CStr(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_NOMBRE).Value)))
-            textboxEntidadTercero.Tag = CInt(formEntidadesSeleccionar.datagridviewMain.SelectedRows.Item(0).Cells(formEntidadesSeleccionar.COLUMNA_IDENTIDAD).Value())
-        End If
-        formEntidadesSeleccionar.Dispose()
-    End Sub
-
-    Private Sub buttonEntidadTerceroBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadTerceroBorrar.Click
-        textboxEntidadTercero.Text = ""
-        textboxEntidadTercero.Tag = Nothing
-    End Sub
+#End Region
 
 End Class

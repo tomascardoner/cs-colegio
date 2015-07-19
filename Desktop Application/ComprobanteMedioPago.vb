@@ -14,21 +14,13 @@ Partial Public Class ComprobanteMedioPago
     Public Property IDComprobante As Integer
     Public Property Indice As Byte
     Public Property IDMedioPago As Byte
+    Public Property IDCaja As Byte
     Public Property Importe As Decimal
-    Public Property IDBanco As Nullable(Of Short)
-    Public Property Numero As String
-    Public Property FechaEmision As Nullable(Of Date)
-    Public Property FechaVencimiento As Nullable(Of Date)
-    Public Property NumeroCuenta As String
-    Public Property CUIT As String
-    Public Property Titular As String
-    Public Property CodigoPostal As String
-    Public Property FechaEgreso As Nullable(Of Date)
-    Public Property IDCaja As Nullable(Of Byte)
-    Public Property Estado As String
 
-    Public Overridable Property Banco As Banco
     Public Overridable Property Comprobante As Comprobante
     Public Overridable Property MedioPago As MedioPago
+    Public Overridable Property Caja As Caja
+    Public Overridable Property Cheque_Egreso As ICollection(Of Cheque) = New HashSet(Of Cheque)
+    Public Overridable Property Cheque_Ingreso As ICollection(Of Cheque) = New HashSet(Of Cheque)
 
 End Class

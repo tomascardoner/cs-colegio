@@ -124,8 +124,8 @@
         If Not textboxBuscar.Focused Then
             If Char.IsLetter(e.KeyChar) Then
                 For Each RowCurrent As DataGridViewRow In datagridviewMain.Rows
-                    If RowCurrent.Cells("columnApellido").Value.ToString.StartsWith(e.KeyChar, StringComparison.CurrentCultureIgnoreCase) Then
-                        RowCurrent.Cells("columnIDEntidad").Selected = True
+                    If RowCurrent.Cells(COLUMNA_APELLIDO).Value.ToString.StartsWith(e.KeyChar, StringComparison.CurrentCultureIgnoreCase) Then
+                        RowCurrent.Cells(COLUMNA_IDENTIDAD).Selected = True
                         datagridviewMain.Focus()
                         Exit For
                     End If
@@ -219,7 +219,7 @@
                 .buttonCancelar.Visible = False
                 .InitializeFormAndControls()
                 .SetDataFromObjectToControls()
-                CS_Form.ControlsChangeStateReadOnly(.Controls, True, True)
+                CS_Form.ControlsChangeStateReadOnly(.Controls, True, True, toolstripMain.Name)
                 .Show()
             End With
 

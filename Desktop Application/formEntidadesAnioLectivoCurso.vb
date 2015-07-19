@@ -41,15 +41,15 @@
     Private Sub formEntidades_Load() Handles Me.Load
         SetAppearance()
 
-        FillAndRefreshLists.AnioLectivo(comboboxAnioLectivo.ComboBox, SortOrder.Descending)
-        FillAndRefreshLists.Nivel(comboboxNivel.ComboBox, False)
+        pFillAndRefreshLists.AnioLectivo(comboboxAnioLectivo.ComboBox, SortOrder.Descending)
+        pFillAndRefreshLists.Nivel(comboboxNivel.ComboBox, False)
 
         RefreshData()
     End Sub
 
     Private Sub ComboBoxesChanged() Handles comboboxAnioLectivo.SelectedIndexChanged, comboboxNivel.SelectedIndexChanged
         If (Not comboboxAnioLectivo.SelectedItem Is Nothing) And (Not comboboxNivel.SelectedItem Is Nothing) Then
-            FillAndRefreshLists.CursoPorAnioLectivoYNivel(comboboxCurso.ComboBox, CInt(comboboxAnioLectivo.ComboBox.SelectedValue), CByte(comboboxNivel.ComboBox.SelectedValue))
+            pFillAndRefreshLists.CursoPorAnioLectivoYNivel(comboboxCurso.ComboBox, CInt(comboboxAnioLectivo.ComboBox.SelectedValue), CByte(comboboxNivel.ComboBox.SelectedValue))
         End If
     End Sub
 

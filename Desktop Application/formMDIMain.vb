@@ -12,6 +12,8 @@
         Me.Text = My.Application.Info.Title
 
         menuitemAyuda_AcercaDe.Text = "&Acerca de " & My.Application.Info.Title & "..."
+
+        formTemp.Show(Me)
     End Sub
 
     Private Sub formMDIMain_Resize() Handles Me.Resize
