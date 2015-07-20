@@ -449,7 +449,7 @@
         ' Emitir Factura A:
         Select Case CStr(comboboxEmitirFacturaA.SelectedValue)
             Case Constantes.EMITIRFACTURAA_NOESPECIFICA
-                If checkboxTipoAlumno.Checked AndAlso (((Not textboxEntidadPadre.Tag Is Nothing) And (EntidadCurrent.IDEntidadPadre Is Nothing)) Or ((Not textboxEntidadMadre.Tag Is Nothing) And (EntidadCurrent.IDEntidadMadre Is Nothing))) Then
+                If checkboxTipoAlumno.Checked AndAlso ((Not textboxEntidadPadre.Tag Is Nothing) And (Not textboxEntidadMadre.Tag Is Nothing)) Then
                     If MsgBox("Ha especificado el Padre y/o la Madre del Alumno, pero no especificó a quien se le facturará." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                         tabcontrolMain.SelectedTab = tabpageExtra
                         comboboxEmitirFacturaA.Focus()
@@ -470,6 +470,13 @@
                     textboxEntidadMadre.Focus()
                     Exit Sub
                 End If
+            Case Constantes.EMITIRFACTURAA_TERCERO
+                If textboxEntidadTercero.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpageExtra
+                    MsgBox("Si las facturas se emitirán a nombre de un Tercero, debe especificar el mismo.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadTercero.Focus()
+                    Exit Sub
+                End If
             Case Constantes.EMITIRFACTURAA_AMBOSPADRES
                 If textboxEntidadPadre.Tag Is Nothing And textboxEntidadMadre.Tag Is Nothing Then
                     tabcontrolMain.SelectedTab = tabpageExtra
@@ -487,7 +494,7 @@
                     textboxEntidadMadre.Focus()
                     Exit Sub
                 End If
-            Case Constantes.EMITIRFACTURAA_TERCERO, Constantes.EMITIRFACTURAA_TODOS
+            Case Constantes.EMITIRFACTURAA_TODOS
                 If textboxEntidadPadre.Tag Is Nothing And textboxEntidadMadre.Tag Is Nothing And textboxEntidadTercero.Tag Is Nothing Then
                     tabcontrolMain.SelectedTab = tabpageExtra
                     MsgBox("Si las facturas se emitirán a nombre de Todos (Padres y Tercero), debe especificarlos.", MsgBoxStyle.Information, My.Application.Info.Title)

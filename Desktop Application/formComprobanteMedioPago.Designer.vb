@@ -27,12 +27,12 @@ Partial Class formComprobanteMedioPago
         Me.comboboxCaja = New System.Windows.Forms.ComboBox()
         Me.labelCaja = New System.Windows.Forms.Label()
         Me.labelImporte = New System.Windows.Forms.Label()
-        Me.textboxImporte = New System.Windows.Forms.TextBox()
         Me.toolstripMain = New System.Windows.Forms.ToolStrip()
         Me.buttonCerrar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
         Me.buttonCancelar = New System.Windows.Forms.ToolStripButton()
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
+        Me.textboxImporte = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
         Me.toolstripMain.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -80,13 +80,6 @@ Partial Class formComprobanteMedioPago
         Me.labelImporte.Size = New System.Drawing.Size(45, 13)
         Me.labelImporte.TabIndex = 4
         Me.labelImporte.Text = "Importe:"
-        '
-        'textboxImporte
-        '
-        Me.textboxImporte.Location = New System.Drawing.Point(97, 101)
-        Me.textboxImporte.Name = "textboxImporte"
-        Me.textboxImporte.Size = New System.Drawing.Size(100, 20)
-        Me.textboxImporte.TabIndex = 5
         '
         'toolstripMain
         '
@@ -137,13 +130,23 @@ Partial Class formComprobanteMedioPago
         Me.buttonGuardar.Size = New System.Drawing.Size(85, 36)
         Me.buttonGuardar.Text = "Guardar"
         '
+        'textboxImporte
+        '
+        Me.textboxImporte.Location = New System.Drawing.Point(97, 101)
+        Me.textboxImporte.MaxLength = 15
+        Me.textboxImporte.Name = "textboxImporte"
+        Me.textboxImporte.Size = New System.Drawing.Size(100, 20)
+        Me.textboxImporte.TabIndex = 8
+        Me.textboxImporte.Text = "0"
+        Me.textboxImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
         'formComprobanteMedioPago
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(344, 139)
-        Me.Controls.Add(Me.toolstripMain)
         Me.Controls.Add(Me.textboxImporte)
+        Me.Controls.Add(Me.toolstripMain)
         Me.Controls.Add(Me.labelImporte)
         Me.Controls.Add(Me.comboboxCaja)
         Me.Controls.Add(Me.labelCaja)
@@ -166,10 +169,10 @@ Partial Class formComprobanteMedioPago
     Friend WithEvents comboboxCaja As System.Windows.Forms.ComboBox
     Friend WithEvents labelCaja As System.Windows.Forms.Label
     Friend WithEvents labelImporte As System.Windows.Forms.Label
-    Friend WithEvents textboxImporte As System.Windows.Forms.TextBox
     Friend WithEvents toolstripMain As System.Windows.Forms.ToolStrip
     Friend WithEvents buttonCerrar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonEditar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonCancelar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonGuardar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents textboxImporte As CSColegio.DesktopApplication.CS_Control_TextBox_Currency
 End Class

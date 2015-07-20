@@ -19,7 +19,7 @@
         Me.MdiParent = formMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
         ChangeMode()
-        buttonEditar.Visible = ParentEditMode
+        buttonEditar.Visible = (ParentEditMode And Not mEditMode)
         InitializeFormAndControls()
         SetDataFromObjectToControls()
         Me.Show()
@@ -35,7 +35,7 @@
         buttonEditar.Visible = Not mEditMode
         buttonCerrar.Visible = Not mEditMode
 
-        CS_Form.ControlsChangeStateReadOnly(Me.Controls, Not mEditMode, True, toolstripMain.Name)
+        CS_Form.ControlsChangeStateEnabled(Me.Controls, mEditMode, True, True, True, toolstripMain.Name)
     End Sub
 
     Friend Sub InitializeFormAndControls()

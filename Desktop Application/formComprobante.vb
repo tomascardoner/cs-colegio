@@ -307,26 +307,52 @@
 
             ' Habilito los Controles según corresponda
             panelFechas.Visible = mComprobanteTipoCurrent.UtilizaDetalle
-            'ShowOrHideTabPage(tabpageDetalle, mComprobanteTipoCurrent.UtilizaDetalle)
-            'ShowOrHideTabPage(tabpageImpuestos, mComprobanteTipoCurrent.UtilizaImpuesto)
-            'ShowOrHideTabPage(tabpageAplicaciones, mComprobanteTipoCurrent.UtilizaAplicacion)
-            'ShowOrHideTabPage(tabpageAsociaciones, mComprobanteTipoCurrent.UtilizaAsociacion)
-            'ShowOrHideTabPage(tabpageMediosPago, mComprobanteTipoCurrent.UtilizaMedioPago)
+
+            radiobuttonTabPageDetalle.Visible = mComprobanteTipoCurrent.UtilizaDetalle
+            panelDetalle.Visible = mComprobanteTipoCurrent.UtilizaDetalle
+
+            radiobuttonTabPageImpuestos.Visible = mComprobanteTipoCurrent.UtilizaImpuesto
+            panelImpuestos.Visible = mComprobanteTipoCurrent.UtilizaImpuesto
+            If mComprobanteTipoCurrent.UtilizaDetalle = False Then
+                radiobuttonTabPageImpuestos.Checked = True
+            End If
+
+            radiobuttonTabPageAplicaciones.Visible = mComprobanteTipoCurrent.UtilizaAplicacion
+            If mComprobanteTipoCurrent.UtilizaDetalle = False And mComprobanteTipoCurrent.UtilizaImpuesto = False Then
+                radiobuttonTabPageAplicaciones.Checked = True
+            End If
+
+            radiobuttonTabPageAsociaciones.Visible = mComprobanteTipoCurrent.UtilizaAsociacion
+            If mComprobanteTipoCurrent.UtilizaDetalle = False And mComprobanteTipoCurrent.UtilizaImpuesto = False And mComprobanteTipoCurrent.UtilizaAplicacion = False Then
+                radiobuttonTabPageAsociaciones.Checked = True
+            End If
+
+            radiobuttonTabPageMediosPago.Visible = mComprobanteTipoCurrent.UtilizaMedioPago
+            panelMediosPago.Visible = mComprobanteTipoCurrent.UtilizaMedioPago
+            If mComprobanteTipoCurrent.UtilizaDetalle = False And mComprobanteTipoCurrent.UtilizaImpuesto = False And mComprobanteTipoCurrent.UtilizaAplicacion = False And mComprobanteTipoCurrent.UtilizaAsociacion = False Then
+                radiobuttonTabPageMediosPago.Checked = True
+            End If
+
+            If mComprobanteTipoCurrent.UtilizaDetalle = False And mComprobanteTipoCurrent.UtilizaImpuesto = False And mComprobanteTipoCurrent.UtilizaAplicacion = False And mComprobanteTipoCurrent.UtilizaAsociacion = False And mComprobanteTipoCurrent.UtilizaMedioPago = False Then
+                radiobuttonTabPageNotasAuditoria.Checked = True
+            End If
         Else
             panelFechas.Visible = False
-            ShowOrHideTabPage(tabpageDetalle, False)
-            ShowOrHideTabPage(tabpageImpuestos, False)
-            ShowOrHideTabPage(tabpageAplicaciones, False)
-            ShowOrHideTabPage(tabpageAsociaciones, False)
-            ShowOrHideTabPage(tabpageMediosPago, False)
-        End If
-    End Sub
 
-    Private Sub ShowOrHideTabPage(ByRef TabPageCurrent As TabPage, ByVal MakeVisible As Boolean)
-        If MakeVisible Then
-            TabPageCurrent.Show()
-        Else
-            TabPageCurrent.Hide()
+            radiobuttonTabPageDetalle.Visible = False
+            panelDetalle.Visible = False
+
+            radiobuttonTabPageImpuestos.Visible = False
+            panelImpuestos.Visible = False
+
+            radiobuttonTabPageAplicaciones.Visible = False
+
+            radiobuttonTabPageAsociaciones.Visible = False
+
+            radiobuttonTabPageMediosPago.Visible = False
+            panelMediosPago.Visible = False
+
+            radiobuttonTabPageNotasAuditoria.Checked = True
         End If
     End Sub
 
@@ -346,6 +372,44 @@
 
     Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxIDComprobante.GotFocus, textboxPuntoVenta.GotFocus, textboxNumero.GotFocus, textboxEntidad.GotFocus, textboxImporteSubtotal.GotFocus, textboxImporteImpuesto.GotFocus, textboxImporteTotal.GotFocus
         CType(sender, TextBox).SelectAll()
+    End Sub
+
+    Private Sub TabPageDetalle_CheckedChanged(sender As Object, e As EventArgs) Handles radiobuttonTabPageDetalle.CheckedChanged
+        panelDetalle.Visible = radiobuttonTabPageDetalle.Checked
+        TabButtonChanged(radiobuttonTabPageDetalle)
+    End Sub
+
+    Private Sub TabPageImpuestos_CheckedChanged(sender As Object, e As EventArgs) Handles radiobuttonTabPageImpuestos.CheckedChanged
+        panelImpuestos.Visible = radiobuttonTabPageImpuestos.Checked
+        TabButtonChanged(radiobuttonTabPageImpuestos)
+    End Sub
+
+    Private Sub TabPageAplicaciones_CheckedChanged(sender As Object, e As EventArgs) Handles radiobuttonTabPageAplicaciones.CheckedChanged
+        'panelAplicaciones.Visible = radiobuttonTabPageAplicaciones.Checked
+        TabButtonChanged(radiobuttonTabPageAplicaciones)
+    End Sub
+
+    Private Sub TabPageAsociaciones_CheckedChanged(sender As Object, e As EventArgs) Handles radiobuttonTabPageAsociaciones.CheckedChanged
+        'panelAsociaciones.Visible = radiobuttonTabPageAsociaciones.Checked
+        TabButtonChanged(radiobuttonTabPageAsociaciones)
+    End Sub
+
+    Private Sub TabPageMediosPago_CheckedChanged(sender As Object, e As EventArgs) Handles radiobuttonTabPageMediosPago.CheckedChanged
+        panelMediosPago.Visible = radiobuttonTabPageMediosPago.Checked
+        TabButtonChanged(radiobuttonTabPageMediosPago)
+    End Sub
+
+    Private Sub TabPageNotasAuditoria_CheckedChanged(sender As Object, e As EventArgs) Handles radiobuttonTabPageNotasAuditoria.CheckedChanged
+        panelNotasAuditoria.Visible = radiobuttonTabPageNotasAuditoria.Checked
+        TabButtonChanged(radiobuttonTabPageNotasAuditoria)
+    End Sub
+
+    Private Sub TabButtonChanged(ByRef radiobuttonChanged As RadioButton)
+        If radiobuttonChanged.Checked Then
+            radiobuttonChanged.Font = New Font(radiobuttonChanged.Font, FontStyle.Bold)
+        Else
+            radiobuttonChanged.Font = New Font(radiobuttonChanged.Font, FontStyle.Regular)
+        End If
     End Sub
 #End Region
 
@@ -400,9 +464,15 @@
 
         ' Fecha - Corroborar con el Concepto de los artículos
         If ComprobanteTipoActual.EmisionElectronica AndAlso Math.Abs(datetimepickerFechaEmision.Value.CompareTo(DateAndTime.Today)) > ConceptoActual.FechaRangoDia Then
-            MsgBox(String.Format("La Fecha de Emisión no puede tener más de {0} días de diferencia con la Fecha actual.", ConceptoActual.FechaRangoDia))
+            MsgBox(String.Format("La Fecha de Emisión no puede tener más de {0} días de diferencia con la Fecha actual.", ConceptoActual.FechaRangoDia), MsgBoxStyle.Information, My.Application.Info.Title)
             datetimepickerFechaEmision.Focus()
             Exit Sub
+        End If
+        If Math.Abs(datetimepickerFechaEmision.Value.CompareTo(DateAndTime.Today)) > 30 Then
+            If MsgBox(String.Format("La Fecha de Emisión tiene más de {0} días de diferencia con la Fecha actual.", ConceptoActual.FechaRangoDia) & vbCrLf & vbCrLf & "¿Es correcto?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                datetimepickerFechaEmision.Focus()
+                Exit Sub
+            End If
         End If
 
         ' Fecha de Vencimiento
@@ -437,7 +507,7 @@
             textboxEntidad.Focus()
             Exit Sub
         End If
-        EntidadActual = dbcontext.Entidad.Find(textboxEntidad.Tag)
+        EntidadActual = dbContext.Entidad.Find(textboxEntidad.Tag)
         If Not EntidadActual.EmitirFacturaA Is Nothing Then
             If MsgBox("La Entidad seleccionada, tiene especificado que se le facture otra Entidad." & vbCrLf & vbCrLf & "¿Desea continuar de todos modos?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
                 Exit Sub
@@ -525,7 +595,7 @@
 #End Region
 
 #Region "Medio de Pago - Toolbar"
-    Private Sub MedioPago_Agregar(sender As Object, e As EventArgs) Handles buttonMediosPagoAgregar.Click
+    Private Sub MedioPago_Agregar() Handles buttonMediosPago_Agregar.Click
         Me.Cursor = Cursors.WaitCursor
 
         datagridviewMediosPago.Enabled = False
@@ -537,7 +607,7 @@
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub MedioPago_Editar() Handles buttonMediosPagoEditar.Click
+    Private Sub MedioPago_Editar() Handles buttonMediosPago_Editar.Click
         If datagridviewMediosPago.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Medio de Pago para editar.", vbInformation, My.Application.Info.Title)
         Else
@@ -553,7 +623,7 @@
         End If
     End Sub
 
-    Private Sub MedioPago_Eliminar() Handles buttonMediosPagoEliminar.Click
+    Private Sub MedioPago_Eliminar() Handles buttonMediosPago_Eliminar.Click
         If datagridviewMediosPago.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Medio de Pago para eliminar.", vbInformation, My.Application.Info.Title)
         Else
@@ -561,7 +631,7 @@
             GridRowData_MedioPago_Eliminar = CType(datagridviewMediosPago.SelectedRows(0).DataBoundItem, GridRowData_MedioPago)
 
             Dim Mensaje As String
-            Mensaje = String.Format("Se eliminará el Medio de Pago seleccionado.{0}{0}Medio de Pago: {1}{0}Caja: {2}{0}Importe: {3}{0}{0}¿Confirma la eliminación definitiva?", vbCrLf, GridRowData_MedioPago_Eliminar.MedioPagoNombre, GridRowData_MedioPago_Eliminar.CajaNombre, GridRowData_MedioPago_Eliminar.Importe)
+            Mensaje = String.Format("Se eliminará el Medio de Pago seleccionado.{0}{0}Medio de Pago: {1}{0}Caja: {2}{0}Importe: {3}{0}{0}¿Confirma la eliminación definitiva?", vbCrLf, GridRowData_MedioPago_Eliminar.MedioPagoNombre, GridRowData_MedioPago_Eliminar.CajaNombre, FormatCurrency(GridRowData_MedioPago_Eliminar.Importe))
             If MsgBox(Mensaje, CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                 Me.Cursor = Cursors.WaitCursor
 
