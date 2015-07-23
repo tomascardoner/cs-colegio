@@ -22,24 +22,16 @@ Partial Class formComprobantes
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
         Me.statusstripMain = New System.Windows.Forms.StatusStrip()
         Me.datagridviewMain = New System.Windows.Forms.DataGridView()
-        Me.columnComprobanteTipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnPuntoVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnNumero = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnFecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnEntidadNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnCAE = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.panelToolbars = New System.Windows.Forms.FlowLayoutPanel()
         Me.toolstripButtons = New System.Windows.Forms.ToolStrip()
         Me.buttonAgregar = New System.Windows.Forms.ToolStripButton()
@@ -47,6 +39,7 @@ Partial Class formComprobantes
         Me.buttonEliminar = New System.Windows.Forms.ToolStripButton()
         Me.buttonImprimir = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemImprimirPrevisualizar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemImprimirListadoDeComprobantes = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonEnviarEmail = New System.Windows.Forms.ToolStripButton()
         Me.toolstripPeriodo = New System.Windows.Forms.ToolStrip()
         Me.labelPeriodo = New System.Windows.Forms.ToolStripLabel()
@@ -55,6 +48,9 @@ Partial Class formComprobantes
         Me.labelComprobanteTipo = New System.Windows.Forms.ToolStripLabel()
         Me.comboboxOperacionTipo = New System.Windows.Forms.ToolStripComboBox()
         Me.comboboxComprobanteTipo = New System.Windows.Forms.ToolStripComboBox()
+        Me.toolstripComprobanteLote = New System.Windows.Forms.ToolStrip()
+        Me.labelComprobanteLote = New System.Windows.Forms.ToolStripLabel()
+        Me.comboboxComprobanteLote = New System.Windows.Forms.ToolStripComboBox()
         Me.toolstripTitular = New System.Windows.Forms.ToolStrip()
         Me.labelEntidad = New System.Windows.Forms.ToolStripLabel()
         Me.textboxEntidad = New System.Windows.Forms.ToolStripTextBox()
@@ -65,13 +61,19 @@ Partial Class formComprobantes
         Me.comboboxBuscarTipo = New System.Windows.Forms.ToolStripComboBox()
         Me.textboxBuscar = New System.Windows.Forms.ToolStripTextBox()
         Me.buttonBuscarBorrar = New System.Windows.Forms.ToolStripButton()
-        Me.menuitemImprimirListadoDeComprobantes = New System.Windows.Forms.ToolStripMenuItem()
+        Me.columnComprobanteTipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnNumeroCompleto = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnFecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnEntidadNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnCAE = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.statusstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelToolbars.SuspendLayout()
         Me.toolstripButtons.SuspendLayout()
         Me.toolstripPeriodo.SuspendLayout()
         Me.toolstripComprobanteTipo.SuspendLayout()
+        Me.toolstripComprobanteLote.SuspendLayout()
         Me.toolstripTitular.SuspendLayout()
         Me.toolstripBuscar.SuspendLayout()
         Me.SuspendLayout()
@@ -97,13 +99,13 @@ Partial Class formComprobantes
         Me.datagridviewMain.AllowUserToDeleteRows = False
         Me.datagridviewMain.AllowUserToOrderColumns = True
         Me.datagridviewMain.AllowUserToResizeRows = False
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.datagridviewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipo, Me.columnPuntoVenta, Me.columnNumero, Me.columnFecha, Me.columnEntidadNombre, Me.columnImporteTotal, Me.columnCAE})
+        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipo, Me.columnNumeroCompleto, Me.columnFecha, Me.columnEntidadNombre, Me.columnImporteTotal, Me.columnCAE})
         Me.datagridviewMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.datagridviewMain.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.datagridviewMain.Location = New System.Drawing.Point(0, 64)
@@ -116,85 +118,6 @@ Partial Class formComprobantes
         Me.datagridviewMain.Size = New System.Drawing.Size(996, 325)
         Me.datagridviewMain.TabIndex = 0
         '
-        'columnComprobanteTipo
-        '
-        Me.columnComprobanteTipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnComprobanteTipo.DataPropertyName = "ComprobanteTipoNombre"
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnComprobanteTipo.DefaultCellStyle = DataGridViewCellStyle10
-        Me.columnComprobanteTipo.HeaderText = "Tipo"
-        Me.columnComprobanteTipo.Name = "columnComprobanteTipo"
-        Me.columnComprobanteTipo.ReadOnly = True
-        Me.columnComprobanteTipo.Width = 53
-        '
-        'columnPuntoVenta
-        '
-        Me.columnPuntoVenta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnPuntoVenta.DataPropertyName = "PuntoVenta"
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnPuntoVenta.DefaultCellStyle = DataGridViewCellStyle11
-        Me.columnPuntoVenta.HeaderText = "Punto de Venta"
-        Me.columnPuntoVenta.Name = "columnPuntoVenta"
-        Me.columnPuntoVenta.ReadOnly = True
-        Me.columnPuntoVenta.Width = 97
-        '
-        'columnNumero
-        '
-        Me.columnNumero.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnNumero.DataPropertyName = "Numero"
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnNumero.DefaultCellStyle = DataGridViewCellStyle12
-        Me.columnNumero.HeaderText = "Número"
-        Me.columnNumero.Name = "columnNumero"
-        Me.columnNumero.ReadOnly = True
-        Me.columnNumero.Width = 69
-        '
-        'columnFecha
-        '
-        Me.columnFecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnFecha.DataPropertyName = "FechaEmision"
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnFecha.DefaultCellStyle = DataGridViewCellStyle13
-        Me.columnFecha.HeaderText = "Fecha"
-        Me.columnFecha.Name = "columnFecha"
-        Me.columnFecha.ReadOnly = True
-        Me.columnFecha.Width = 62
-        '
-        'columnEntidadNombre
-        '
-        Me.columnEntidadNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnEntidadNombre.DataPropertyName = "EntidadNombre"
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnEntidadNombre.DefaultCellStyle = DataGridViewCellStyle14
-        Me.columnEntidadNombre.HeaderText = "Titular"
-        Me.columnEntidadNombre.Name = "columnEntidadNombre"
-        Me.columnEntidadNombre.ReadOnly = True
-        Me.columnEntidadNombre.Width = 61
-        '
-        'columnImporteTotal
-        '
-        Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnImporteTotal.DataPropertyName = "ImporteTotal"
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle15.Format = "C2"
-        DataGridViewCellStyle15.NullValue = Nothing
-        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle15
-        Me.columnImporteTotal.HeaderText = "Importe Total"
-        Me.columnImporteTotal.Name = "columnImporteTotal"
-        Me.columnImporteTotal.ReadOnly = True
-        Me.columnImporteTotal.Width = 87
-        '
-        'columnCAE
-        '
-        Me.columnCAE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnCAE.DataPropertyName = "CAE"
-        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnCAE.DefaultCellStyle = DataGridViewCellStyle16
-        Me.columnCAE.HeaderText = "CAE"
-        Me.columnCAE.Name = "columnCAE"
-        Me.columnCAE.ReadOnly = True
-        Me.columnCAE.Width = 53
-        '
         'panelToolbars
         '
         Me.panelToolbars.AutoSize = True
@@ -202,6 +125,7 @@ Partial Class formComprobantes
         Me.panelToolbars.Controls.Add(Me.toolstripButtons)
         Me.panelToolbars.Controls.Add(Me.toolstripPeriodo)
         Me.panelToolbars.Controls.Add(Me.toolstripComprobanteTipo)
+        Me.panelToolbars.Controls.Add(Me.toolstripComprobanteLote)
         Me.panelToolbars.Controls.Add(Me.toolstripTitular)
         Me.panelToolbars.Controls.Add(Me.toolstripBuscar)
         Me.panelToolbars.Dock = System.Windows.Forms.DockStyle.Top
@@ -217,7 +141,7 @@ Partial Class formComprobantes
         Me.toolstripButtons.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAgregar, Me.buttonEditar, Me.buttonEliminar, Me.buttonImprimir, Me.buttonEnviarEmail})
         Me.toolstripButtons.Location = New System.Drawing.Point(0, 0)
         Me.toolstripButtons.Name = "toolstripButtons"
-        Me.toolstripButtons.Size = New System.Drawing.Size(496, 39)
+        Me.toolstripButtons.Size = New System.Drawing.Size(465, 39)
         Me.toolstripButtons.TabIndex = 1
         '
         'buttonAgregar
@@ -265,6 +189,12 @@ Partial Class formComprobantes
         Me.menuitemImprimirPrevisualizar.Size = New System.Drawing.Size(226, 38)
         Me.menuitemImprimirPrevisualizar.Text = "Previsualizar"
         '
+        'menuitemImprimirListadoDeComprobantes
+        '
+        Me.menuitemImprimirListadoDeComprobantes.Name = "menuitemImprimirListadoDeComprobantes"
+        Me.menuitemImprimirListadoDeComprobantes.Size = New System.Drawing.Size(226, 38)
+        Me.menuitemImprimirListadoDeComprobantes.Text = "Listado de Comprobantes"
+        '
         'buttonEnviarEmail
         '
         Me.buttonEnviarEmail.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_EMAIL_32
@@ -278,7 +208,7 @@ Partial Class formComprobantes
         Me.toolstripPeriodo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripPeriodo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripPeriodo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelPeriodo, Me.comboboxPeriodo})
-        Me.toolstripPeriodo.Location = New System.Drawing.Point(496, 0)
+        Me.toolstripPeriodo.Location = New System.Drawing.Point(465, 0)
         Me.toolstripPeriodo.Name = "toolstripPeriodo"
         Me.toolstripPeriodo.Size = New System.Drawing.Size(131, 39)
         Me.toolstripPeriodo.TabIndex = 8
@@ -300,7 +230,7 @@ Partial Class formComprobantes
         Me.toolstripComprobanteTipo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripComprobanteTipo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripComprobanteTipo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelComprobanteTipo, Me.comboboxOperacionTipo, Me.comboboxComprobanteTipo})
-        Me.toolstripComprobanteTipo.Location = New System.Drawing.Point(627, 0)
+        Me.toolstripComprobanteTipo.Location = New System.Drawing.Point(596, 0)
         Me.toolstripComprobanteTipo.Name = "toolstripComprobanteTipo"
         Me.toolstripComprobanteTipo.Size = New System.Drawing.Size(266, 39)
         Me.toolstripComprobanteTipo.TabIndex = 10
@@ -323,12 +253,34 @@ Partial Class formComprobantes
         Me.comboboxComprobanteTipo.Name = "comboboxComprobanteTipo"
         Me.comboboxComprobanteTipo.Size = New System.Drawing.Size(150, 39)
         '
+        'toolstripComprobanteLote
+        '
+        Me.toolstripComprobanteLote.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.toolstripComprobanteLote.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolstripComprobanteLote.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelComprobanteLote, Me.comboboxComprobanteLote})
+        Me.toolstripComprobanteLote.Location = New System.Drawing.Point(0, 39)
+        Me.toolstripComprobanteLote.Name = "toolstripComprobanteLote"
+        Me.toolstripComprobanteLote.Size = New System.Drawing.Size(158, 25)
+        Me.toolstripComprobanteLote.TabIndex = 11
+        '
+        'labelComprobanteLote
+        '
+        Me.labelComprobanteLote.Name = "labelComprobanteLote"
+        Me.labelComprobanteLote.Size = New System.Drawing.Size(33, 22)
+        Me.labelComprobanteLote.Text = "Lote:"
+        '
+        'comboboxComprobanteLote
+        '
+        Me.comboboxComprobanteLote.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxComprobanteLote.Name = "comboboxComprobanteLote"
+        Me.comboboxComprobanteLote.Size = New System.Drawing.Size(120, 25)
+        '
         'toolstripTitular
         '
         Me.toolstripTitular.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripTitular.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripTitular.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelEntidad, Me.textboxEntidad, Me.buttonEntidad, Me.buttonEntidadBorrar})
-        Me.toolstripTitular.Location = New System.Drawing.Point(0, 39)
+        Me.toolstripTitular.Location = New System.Drawing.Point(158, 39)
         Me.toolstripTitular.Name = "toolstripTitular"
         Me.toolstripTitular.Size = New System.Drawing.Size(295, 25)
         Me.toolstripTitular.TabIndex = 7
@@ -366,7 +318,7 @@ Partial Class formComprobantes
         Me.toolstripBuscar.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripBuscar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripBuscar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelBuscar, Me.comboboxBuscarTipo, Me.textboxBuscar, Me.buttonBuscarBorrar})
-        Me.toolstripBuscar.Location = New System.Drawing.Point(295, 39)
+        Me.toolstripBuscar.Location = New System.Drawing.Point(453, 39)
         Me.toolstripBuscar.Name = "toolstripBuscar"
         Me.toolstripBuscar.Size = New System.Drawing.Size(296, 25)
         Me.toolstripBuscar.TabIndex = 9
@@ -398,11 +350,73 @@ Partial Class formComprobantes
         Me.buttonBuscarBorrar.Size = New System.Drawing.Size(23, 22)
         Me.buttonBuscarBorrar.ToolTipText = "Limpiar búsqueda"
         '
-        'menuitemImprimirListadoDeComprobantes
+        'columnComprobanteTipo
         '
-        Me.menuitemImprimirListadoDeComprobantes.Name = "menuitemImprimirListadoDeComprobantes"
-        Me.menuitemImprimirListadoDeComprobantes.Size = New System.Drawing.Size(226, 38)
-        Me.menuitemImprimirListadoDeComprobantes.Text = "Listado de Comprobantes"
+        Me.columnComprobanteTipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnComprobanteTipo.DataPropertyName = "ComprobanteTipoNombre"
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnComprobanteTipo.DefaultCellStyle = DataGridViewCellStyle2
+        Me.columnComprobanteTipo.HeaderText = "Tipo"
+        Me.columnComprobanteTipo.Name = "columnComprobanteTipo"
+        Me.columnComprobanteTipo.ReadOnly = True
+        Me.columnComprobanteTipo.Width = 53
+        '
+        'columnNumeroCompleto
+        '
+        Me.columnNumeroCompleto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnNumeroCompleto.DataPropertyName = "NumeroCompleto"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnNumeroCompleto.DefaultCellStyle = DataGridViewCellStyle3
+        Me.columnNumeroCompleto.HeaderText = "Número"
+        Me.columnNumeroCompleto.Name = "columnNumeroCompleto"
+        Me.columnNumeroCompleto.ReadOnly = True
+        Me.columnNumeroCompleto.Width = 69
+        '
+        'columnFecha
+        '
+        Me.columnFecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnFecha.DataPropertyName = "FechaEmision"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnFecha.DefaultCellStyle = DataGridViewCellStyle4
+        Me.columnFecha.HeaderText = "Fecha"
+        Me.columnFecha.Name = "columnFecha"
+        Me.columnFecha.ReadOnly = True
+        Me.columnFecha.Width = 62
+        '
+        'columnEntidadNombre
+        '
+        Me.columnEntidadNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnEntidadNombre.DataPropertyName = "EntidadNombre"
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnEntidadNombre.DefaultCellStyle = DataGridViewCellStyle5
+        Me.columnEntidadNombre.HeaderText = "Titular"
+        Me.columnEntidadNombre.Name = "columnEntidadNombre"
+        Me.columnEntidadNombre.ReadOnly = True
+        Me.columnEntidadNombre.Width = 61
+        '
+        'columnImporteTotal
+        '
+        Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnImporteTotal.DataPropertyName = "ImporteTotal"
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle6.Format = "C2"
+        DataGridViewCellStyle6.NullValue = Nothing
+        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle6
+        Me.columnImporteTotal.HeaderText = "Importe Total"
+        Me.columnImporteTotal.Name = "columnImporteTotal"
+        Me.columnImporteTotal.ReadOnly = True
+        Me.columnImporteTotal.Width = 94
+        '
+        'columnCAE
+        '
+        Me.columnCAE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnCAE.DataPropertyName = "CAE"
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnCAE.DefaultCellStyle = DataGridViewCellStyle7
+        Me.columnCAE.HeaderText = "CAE"
+        Me.columnCAE.Name = "columnCAE"
+        Me.columnCAE.ReadOnly = True
+        Me.columnCAE.Width = 53
         '
         'formComprobantes
         '
@@ -426,6 +440,8 @@ Partial Class formComprobantes
         Me.toolstripPeriodo.PerformLayout()
         Me.toolstripComprobanteTipo.ResumeLayout(False)
         Me.toolstripComprobanteTipo.PerformLayout()
+        Me.toolstripComprobanteLote.ResumeLayout(False)
+        Me.toolstripComprobanteLote.PerformLayout()
         Me.toolstripTitular.ResumeLayout(False)
         Me.toolstripTitular.PerformLayout()
         Me.toolstripBuscar.ResumeLayout(False)
@@ -462,12 +478,14 @@ Partial Class formComprobantes
     Friend WithEvents buttonImprimir As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents menuitemImprimirPrevisualizar As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents buttonEnviarEmail As System.Windows.Forms.ToolStripButton
+    Friend WithEvents menuitemImprimirListadoDeComprobantes As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents toolstripComprobanteLote As System.Windows.Forms.ToolStrip
+    Friend WithEvents labelComprobanteLote As System.Windows.Forms.ToolStripLabel
+    Friend WithEvents comboboxComprobanteLote As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents columnComprobanteTipo As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnPuntoVenta As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnNumero As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnNumeroCompleto As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnFecha As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnEntidadNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnCAE As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents menuitemImprimirListadoDeComprobantes As System.Windows.Forms.ToolStripMenuItem
 End Class

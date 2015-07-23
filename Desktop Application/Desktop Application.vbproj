@@ -133,6 +133,10 @@
     <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Control_ComboBox.vb">
       <Link>CS_Control_ComboBox.vb</Link>
     </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Control_TabControl.vb">
+      <Link>CS_Control_TabControl.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Control_Textbox_Currency.vb">
       <Link>CS_Control_Textbox_Currency.vb</Link>
       <SubType>Component</SubType>
@@ -202,7 +206,7 @@
     <Compile Include="Comprobante.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
-    <Compile Include="ComprobanteAplicado.vb">
+    <Compile Include="ComprobanteAplicacion.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="ComprobanteDetalle.vb">
@@ -289,6 +293,12 @@
     <Compile Include="formComprobantes.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formComprobantesEnviarMail.Designer.vb">
+      <DependentUpon>formComprobantesEnviarMail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formComprobantesEnviarMail.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formEntidad.Designer.vb">
       <DependentUpon>formEntidad.vb</DependentUpon>
     </Compile>
@@ -360,6 +370,12 @@
       <DependentUpon>formComprobantesTransmitirAFIP.vb</DependentUpon>
     </Compile>
     <Compile Include="formComprobantesTransmitirAFIP.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formTest.Designer.vb">
+      <DependentUpon>formTest.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formTest.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Impuesto.vb">
@@ -462,6 +478,9 @@
     <EmbeddedResource Include="formComprobantes.resx">
       <DependentUpon>formComprobantes.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formComprobantesEnviarMail.resx">
+      <DependentUpon>formComprobantesEnviarMail.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formEntidad.resx">
       <DependentUpon>formEntidad.vb</DependentUpon>
     </EmbeddedResource>
@@ -494,6 +513,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobantesTransmitirAFIP.resx">
       <DependentUpon>formComprobantesTransmitirAFIP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formTest.resx">
+      <DependentUpon>formTest.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

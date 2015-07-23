@@ -1,6 +1,4 @@
-﻿Imports System.Net.Mail
-
-Public Class formComprobantes
+﻿Public Class formComprobantes
 
 #Region "Declarations"
     Private Class GridRowData
@@ -8,8 +6,8 @@ Public Class formComprobantes
         Public Property OperacionTipo As String
         Public Property IDComprobanteTipo As Byte
         Public Property ComprobanteTipoNombre As String
-        Public Property PuntoVenta As String
-        Public Property Numero As String
+        Public Property IDComprobanteLote As Integer?
+        Public Property NumeroCompleto As String
         Public Property FechaEmision As Date
         Public Property IDEntidad As Integer
         Public Property EntidadNombre As String
@@ -29,8 +27,7 @@ Public Class formComprobantes
     Private mOrdenTipo As SortOrder
 
     Private Const COLUMNA_TIPO As String = "columnTipo"
-    Private Const COLUMNA_PUNTOVENTA As String = "columnPuntoVenta"
-    Private Const COLUMNA_NUMERO As String = "columnNumero"
+    Private Const COLUMNA_NUMEROCOMPLETO As String = "columnNumeroCompleto"
     Private Const COLUMNA_FECHA As String = "columnFecha"
     Private Const COLUMNA_TITULAR As String = "columnEntidadNombre"
     Private Const COLUMNA_IMPORTETOTAL As String = "columnImporteTotal"
@@ -55,6 +52,9 @@ Public Class formComprobantes
         comboboxOperacionTipo.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, My.Resources.STRING_OPERACIONTIPO_COMPRA, My.Resources.STRING_OPERACIONTIPO_VENTA})
         comboboxOperacionTipo.SelectedIndex = 0
 
+        pFillAndRefreshLists.ComprobanteLote(comboboxComprobanteLote.ComboBox, True, False)
+
+        ' Buscar
         comboboxBuscarTipo.Items.AddRange({"Titular:", "Número:"})
         comboboxBuscarTipo.SelectedIndex = 1
 
@@ -85,7 +85,7 @@ Public Class formComprobantes
                                          Join ct In dbContext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                          Where cc.FechaEmision >= FechaDesde And cc.FechaEmision <= FechaHasta
                                          Order By cc.FechaEmision, cc.IDComprobante
-                                         Select New GridRowData With {.IDComprobante = cc.IDComprobante, .OperacionTipo = ct.OperacionTipo, .IDComprobanteTipo = cc.IDComprobanteTipo, .ComprobanteTipoNombre = ct.Nombre, .PuntoVenta = cc.PuntoVenta, .Numero = cc.Numero, .FechaEmision = cc.FechaEmision, .IDEntidad = cc.IDEntidad, .EntidadNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal, .CAE = cc.CAE}).ToList
+                                         Select New GridRowData With {.IDComprobante = cc.IDComprobante, .OperacionTipo = ct.OperacionTipo, .IDComprobanteTipo = cc.IDComprobanteTipo, .ComprobanteTipoNombre = ct.Nombre, .IDComprobanteLote = cc.IDComprobanteLote, .NumeroCompleto = cc.NumeroCompleto, .FechaEmision = cc.FechaEmision, .IDEntidad = cc.IDEntidad, .EntidadNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal, .CAE = cc.CAE}).ToList
             End Using
 
         Catch ex As Exception
@@ -138,6 +138,12 @@ Public Class formComprobantes
                     mlistComprobantesFiltradaYOrdenada = mlistComprobantesBase.Where(Function(comp) comp.IDComprobanteTipo = CByte(comboboxComprobanteTipo.ComboBox.SelectedValue)).ToList
                 End If
 
+                ' Aplico el filtro de Lotes, si corresponde
+                If comboboxComprobanteLote.SelectedIndex > 0 Then
+                    mReportSelectionFormula &= String.Format(" AND {{Comprobante.IDComprobanteLote}} = {0}", CType(comboboxComprobanteLote.SelectedItem, ComprobanteLote).IDComprobanteLote)
+                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.IDComprobanteLote.HasValue AndAlso comp.IDComprobanteLote.Value = CType(comboboxComprobanteLote.SelectedItem, ComprobanteLote).IDComprobanteLote).ToList
+                End If
+
                 ' Si hay una búsqueda aplicada, filtro por eso
                 If mBusquedaAplicada Then
                     Select Case comboboxBuscarTipo.SelectedIndex
@@ -148,7 +154,7 @@ Public Class formComprobantes
                         Case 1
                             ' Búsqueda por Número de Comprobante
                             mReportSelectionFormula &= String.Format(" AND InStr({{Comprobante.Numero}}, ""{0}"") > 0", textboxBuscar.Text.Trim)
-                            mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.Numero.Contains(textboxBuscar.Text.Trim)).ToList
+                            mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.NumeroCompleto.Contains(textboxBuscar.Text.Trim)).ToList
                     End Select
                 End If
 
@@ -184,45 +190,39 @@ Public Class formComprobantes
         Select Case mOrdenColumna.Name
             Case COLUMNA_TIPO
                 If mOrdenTipo = SortOrder.Ascending Then
-                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenBy(Function(dgrd) dgrd.PuntoVenta).ThenBy(Function(dgrd) dgrd.Numero).ToList
+                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenBy(Function(dgrd) dgrd.NumeroCompleto).ToList
                 Else
-                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenBy(Function(dgrd) dgrd.PuntoVenta).ThenBy(Function(dgrd) dgrd.Numero).ToList
+                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenBy(Function(dgrd) dgrd.NumeroCompleto).ToList
                 End If
-            Case COLUMNA_PUNTOVENTA
+            Case COLUMNA_NUMEROCOMPLETO
                 If mOrdenTipo = SortOrder.Ascending Then
-                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.PuntoVenta).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenBy(Function(dgrd) dgrd.Numero).ToList
+                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.NumeroCompleto).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ToList
                 Else
-                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.PuntoVenta).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenByDescending(Function(dgrd) dgrd.Numero).ToList
-                End If
-            Case COLUMNA_NUMERO
-                If mOrdenTipo = SortOrder.Ascending Then
-                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.Numero).ThenBy(Function(dgrd) dgrd.PuntoVenta).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ToList
-                Else
-                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.Numero).ThenByDescending(Function(dgrd) dgrd.PuntoVenta).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ToList
+                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.NumeroCompleto).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ToList
                 End If
             Case COLUMNA_FECHA
                 If mOrdenTipo = SortOrder.Ascending Then
-                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenBy(Function(dgrd) dgrd.PuntoVenta).ThenBy(Function(dgrd) dgrd.Numero).ToList
+                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenBy(Function(dgrd) dgrd.NumeroCompleto).ToList
                 Else
-                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenByDescending(Function(dgrd) dgrd.PuntoVenta).ThenByDescending(Function(dgrd) dgrd.Numero).ToList
+                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenByDescending(Function(dgrd) dgrd.NumeroCompleto).ToList
                 End If
             Case COLUMNA_TITULAR
                 If mOrdenTipo = SortOrder.Ascending Then
-                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.EntidadNombre).ThenBy(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenBy(Function(dgrd) dgrd.PuntoVenta).ThenBy(Function(dgrd) dgrd.Numero).ToList
+                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.EntidadNombre).ThenBy(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenBy(Function(dgrd) dgrd.NumeroCompleto).ToList
                 Else
-                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.EntidadNombre).ThenByDescending(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenByDescending(Function(dgrd) dgrd.PuntoVenta).ThenByDescending(Function(dgrd) dgrd.Numero).ToList
+                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.EntidadNombre).ThenByDescending(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenByDescending(Function(dgrd) dgrd.NumeroCompleto).ToList
                 End If
             Case COLUMNA_IMPORTETOTAL
                 If mOrdenTipo = SortOrder.Ascending Then
-                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.ImporteTotal).ThenBy(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenBy(Function(dgrd) dgrd.PuntoVenta).ThenBy(Function(dgrd) dgrd.Numero).ToList
+                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.ImporteTotal).ThenBy(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenBy(Function(dgrd) dgrd.NumeroCompleto).ToList
                 Else
-                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.ImporteTotal).ThenByDescending(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenByDescending(Function(dgrd) dgrd.PuntoVenta).ThenByDescending(Function(dgrd) dgrd.Numero).ToList
+                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.ImporteTotal).ThenByDescending(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenByDescending(Function(dgrd) dgrd.NumeroCompleto).ToList
                 End If
             Case COLUMNA_CAE
                 If mOrdenTipo = SortOrder.Ascending Then
-                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.CAE).ThenBy(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenBy(Function(dgrd) dgrd.PuntoVenta).ThenBy(Function(dgrd) dgrd.Numero).ToList
+                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.CAE).ThenBy(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenBy(Function(dgrd) dgrd.NumeroCompleto).ToList
                 Else
-                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.CAE).ThenByDescending(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenByDescending(Function(dgrd) dgrd.PuntoVenta).ThenByDescending(Function(dgrd) dgrd.Numero).ToList
+                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.CAE).ThenByDescending(Function(dgrd) dgrd.FechaEmision).ThenBy(Function(dgrd) dgrd.ComprobanteTipoNombre).ThenByDescending(Function(dgrd) dgrd.NumeroCompleto).ToList
                 End If
         End Select
 
@@ -235,6 +235,29 @@ Public Class formComprobantes
 #End Region
 
 #Region "Controls behavior"
+    Private Sub comboboxOperacionTipo_SelectedIndexChanged() Handles comboboxOperacionTipo.SelectedIndexChanged
+        Select Case comboboxOperacionTipo.SelectedIndex
+            Case -1, 0
+                comboboxComprobanteTipo.ComboBox.DataSource = Nothing
+                comboboxComprobanteTipo.Items.Clear()
+                comboboxComprobanteTipo.Enabled = False
+            Case 1
+                pFillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo.ComboBox, OPERACIONTIPO_COMPRA, True, False)
+                comboboxComprobanteTipo.Enabled = True
+            Case 2
+                pFillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo.ComboBox, OPERACIONTIPO_VENTA, True, False)
+                comboboxComprobanteTipo.Enabled = True
+        End Select
+    End Sub
+
+    Private Sub comboboxComprobanteTipo_SelectedIndexChanged() Handles comboboxComprobanteTipo.SelectedIndexChanged
+        FilterData()
+    End Sub
+
+    Private Sub comboboxComprobanteLote_SelectedIndexChanged() Handles comboboxComprobanteLote.SelectedIndexChanged
+        FilterData()
+    End Sub
+
     Private Sub buttonEntidad_Click() Handles buttonEntidad.Click
         If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
             Dim EntidadSeleccionada As Entidad
@@ -260,7 +283,7 @@ Public Class formComprobantes
                 textboxBuscar.MaxLength = 152
                 textboxBuscar.Width = 200
             Case 1
-                textboxBuscar.MaxLength = 8
+                textboxBuscar.MaxLength = 13
                 textboxBuscar.Width = 80
         End Select
     End Sub
@@ -291,7 +314,7 @@ Public Class formComprobantes
             End Select
             e.Handled = True
         ElseIf comboboxBuscarTipo.SelectedIndex = 1 Then
-            If (Not Char.IsDigit(e.KeyChar)) And e.KeyChar <> Chr(Keys.Back) And e.KeyChar <> Chr(Keys.Delete) Then
+            If (Not Char.IsDigit(e.KeyChar)) And e.KeyChar <> Chr(Keys.Back) And e.KeyChar <> Chr(Keys.Delete) And e.KeyChar <> Chr(Keys.Separator) Then
                 e.Handled = True
             End If
         End If
@@ -303,25 +326,6 @@ Public Class formComprobantes
             mBusquedaAplicada = False
             FilterData()
         End If
-    End Sub
-
-    Private Sub comboboxComprobanteTipo_SelectedIndexChanged() Handles comboboxComprobanteTipo.SelectedIndexChanged
-        FilterData()
-    End Sub
-
-    Private Sub comboboxOperacionTipo_SelectedIndexChanged() Handles comboboxOperacionTipo.SelectedIndexChanged
-        Select Case comboboxOperacionTipo.SelectedIndex
-            Case -1, 0
-                comboboxComprobanteTipo.ComboBox.DataSource = Nothing
-                comboboxComprobanteTipo.Items.Clear()
-                comboboxComprobanteTipo.Enabled = False
-            Case 1
-                pFillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo.ComboBox, OPERACIONTIPO_COMPRA, True, False)
-                comboboxComprobanteTipo.Enabled = True
-            Case 2
-                pFillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo.ComboBox, OPERACIONTIPO_VENTA, True, False)
-                comboboxComprobanteTipo.Enabled = True
-        End Select
     End Sub
 
     Private Sub Imprimir(sender As Object, e As EventArgs) Handles buttonImprimir.ButtonClick, menuitemImprimirPrevisualizar.Click
@@ -362,7 +366,7 @@ Public Class formComprobantes
                         If sender.Equals(buttonImprimir) Then
                             Reporte.ReportObject.PrintToPrinter(1, False, 1, 100)
                         Else
-                            MiscFunctions.PreviewCrystalReport(Reporte, CurrentRow.ComprobanteTipoNombre & " N° " & CurrentRow.PuntoVenta & "-" & CurrentRow.Numero)
+                            MiscFunctions.PreviewCrystalReport(Reporte, CurrentRow.ComprobanteTipoNombre & " N° " & CurrentRow.NumeroCompleto)
                         End If
                     End If
                 End If
@@ -418,7 +422,7 @@ Public Class formComprobantes
                     Titular = dbcontext.Entidad.Find(CurrentRow.IDEntidad)
                 End Using
 
-                ' Verifico que sea un comprobante de venta y de emisión electrónica
+                ' Verifico que sea un comprobante de venta
                 If ComprobanteTipoActual.OperacionTipo <> Constantes.OPERACIONTIPO_VENTA Then
                     MsgBox("Sólo se pueden enviar por e-mail, Comprobantes de Venta.", MsgBoxStyle.Information, My.Application.Info.Title)
                     Exit Sub
@@ -446,17 +450,23 @@ Public Class formComprobantes
                     If Reporte.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
                         Reporte.RecordSelectionFormula = "{Comprobante.IDComprobante} = " & CurrentRow.IDComprobante
 
-                        Dim Asunto As String = String.Format(My.Settings.Comprobante_EnviarEmail_Subject, ComprobanteTipoActual.NombreConLetra, CurrentRow.PuntoVenta, CurrentRow.Numero)
+                        Dim Asunto As String = String.Format(My.Settings.Comprobante_EnviarEmail_Subject, ComprobanteTipoActual.NombreConLetra, CurrentRow.NumeroCompleto)
                         Dim Cuerpo As String = String.Format(My.Settings.Comprobante_EnvioEmail_Body, vbCrLf) & String.Format(My.Settings.Email_Signature, vbCrLf)
-                        Dim AdjuntoNombre As String = ComprobanteTipoActual.Sigla.TrimEnd & CurrentRow.PuntoVenta & CurrentRow.Numero & ".pdf"
+                        Dim AdjuntoNombre As String = ComprobanteTipoActual.Sigla.TrimEnd & CurrentRow.NumeroCompleto & ".pdf"
 
                         Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
                             Case Constantes.EMAIL_CLIENT_NETDLL
-                                EnviarEmailPorNETClient(Titular, Asunto, Cuerpo, Reporte, AdjuntoNombre)
+                                If MiscFunctions.EnviarEmailPorNETClient(Titular, Asunto, Cuerpo, Reporte, AdjuntoNombre) Then
+                                    MsgBox("Se ha enviado el Comprobante por e-mail.", vbInformation, My.Application.Info.Title)
+                                End If
                             Case Constantes.EMAIL_CLIENT_MSOUTLOOK
-                                EnviarEmailPorMSOutlook(Titular, Asunto, Cuerpo, Reporte, AdjuntoNombre)
+                                If EnviarEmailPorMSOutlook(Titular, Asunto, Cuerpo, Reporte, AdjuntoNombre) Then
+                                    MsgBox("Se ha enviado el Comprobante por e-mail.", vbInformation, My.Application.Info.Title)
+                                End If
                             Case Constantes.EMAIL_CLIENT_CRYSTALREPORTSMAPI
-                                EnviarEmailPorCrystalReportsMAPI(Titular, Asunto, Cuerpo, Reporte, AdjuntoNombre)
+                                If EnviarEmailPorCrystalReportsMAPI(Titular, Asunto, Cuerpo, Reporte, AdjuntoNombre) Then
+                                    MsgBox("Se ha enviado el Comprobante por e-mail.", vbInformation, My.Application.Info.Title)
+                                End If
                         End Select
                     End If
                 End If
@@ -543,7 +553,7 @@ Public Class formComprobantes
                         MsgBox("No se puede eliminar este Comprobante porque es de Emisión Electrónica y ya tiene un CAE asignado.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                     Else
                         Dim Mensaje As String
-                        Mensaje = String.Format("Se eliminará el Comprobante seleccionado.{0}{0}{1} N° {2}-{3}{0}{0}¿Confirma la eliminación definitiva?", vbCrLf, CurrentRow.ComprobanteTipoNombre, CurrentRow.PuntoVenta, CurrentRow.Numero)
+                        Mensaje = String.Format("Se eliminará el Comprobante seleccionado.{0}{0}{1} N° {2}{0}{0}¿Confirma la eliminación definitiva?", vbCrLf, CurrentRow.ComprobanteTipoNombre, CurrentRow.NumeroCompleto)
                         If MsgBox(Mensaje, CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
 
                             Me.Cursor = Cursors.WaitCursor
@@ -580,81 +590,6 @@ Public Class formComprobantes
             Me.Cursor = Cursors.Default
         End If
     End Sub
-#End Region
-
-#Region "Extra Stuff"
-    Private Function EnviarEmailPorNETClient(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef Reporte As CS_CrystalReport, ByVal AdjuntoNombre As String) As Boolean
-        Dim mail As New MailMessage()
-        Dim smtp As New SmtpClient()
-
-        ' Establezco los recipientes
-        mail.From = New MailAddress(My.Settings.Email_Address, My.Settings.Email_DisplayName)
-        If Not Titular.Email1 Is Nothing Then
-            mail.To.Add(New MailAddress(Titular.Email1, Titular.ApellidoNombre))
-        End If
-        If Not Titular.Email2 Is Nothing Then
-            mail.To.Add(New MailAddress(Titular.Email2, Titular.ApellidoNombre))
-        End If
-
-        ' Establezco el contenido
-        mail.Subject = Asunto
-        mail.Body = Cuerpo
-
-        ' Establezco las opciones del Servidor SMTP
-        smtp.Host = My.Settings.Email_SMTP_Server
-        smtp.EnableSsl = My.Settings.Email_SMTP_UseSSL
-        smtp.Port = My.Settings.Email_SMTP_Port
-        smtp.Timeout = My.Settings.Email_SMTP_Timeout
-
-        Dim Decrypter As New CS_Encrypt_TripleDES(Constantes.ENCRYPTION_PASSWORD)
-        smtp.Credentials = New System.Net.NetworkCredential(My.Settings.Email_SMTP_Username, Decrypter.Decrypt(My.Settings.Email_SMTP_Password))
-        Decrypter = Nothing
-
-        ' Attachments
-        mail.Attachments.Add(New System.Net.Mail.Attachment(Reporte.ReportObject.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat), AdjuntoNombre))
-
-        ' Envío el e-mail
-        Try
-            smtp.Send(mail)
-            MsgBox("Se ha enviado el Comprobante por e-mail.", vbInformation, My.Application.Info.Title)
-            Return True
-        Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al enviar el e-mail.")
-            Return False
-        End Try
-    End Function
-
-    Private Function EnviarEmailPorMSOutlook(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef Reporte As CS_CrystalReport, ByVal AdjuntoNombre As String) As Boolean
-        MsgBox("Se ha enviado el Comprobante por e-mail.", vbInformation, My.Application.Info.Title)
-        Return True
-    End Function
-
-    Private Function EnviarEmailPorCrystalReportsMAPI(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef Reporte As CS_CrystalReport, ByVal AdjuntoNombre As String) As Boolean
-        'Preparo las opciones del mail
-        Dim mailOpts As New CrystalDecisions.Shared.MicrosoftMailDestinationOptions
-        If Not Titular.Email1 Is Nothing Then
-            mailOpts.MailToList = Titular.Email1
-        ElseIf Not Titular.Email2 Is Nothing Then
-            mailOpts.MailToList = Titular.Email2
-        End If
-        mailOpts.MailSubject = "Comprobante electronico"
-        mailOpts.MailMessage = "En el adjunto le enviamos el comprobante solicitado."
-
-        'Ahora preparo las opciones de exportación
-        Dim expopt As New CrystalDecisions.Shared.ExportOptions
-        expopt.ExportDestinationType = CrystalDecisions.Shared.ExportDestinationType.MicrosoftMail
-        expopt.ExportDestinationOptions = mailOpts
-        expopt.ExportFormatType = CrystalDecisions.Shared.ExportFormatType.PortableDocFormat
-
-        Try
-            Reporte.ReportObject.Export(expopt)
-            MsgBox("Se ha enviado el Comprobante por e-mail.", vbInformation, My.Application.Info.Title)
-            Return True
-        Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al exportar el reporte.")
-            Return False
-        End Try
-    End Function
 #End Region
 
 End Class

@@ -65,7 +65,7 @@ Partial Class formMDIMain
         Me.buttonComprobantes = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemComprobantesGenerarLoteFacturas = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesTransmitirAFIP = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemComprobantesEnviarPorMail = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemComprobantesEnviarMail = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonReportes = New System.Windows.Forms.ToolStripButton()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
@@ -334,7 +334,7 @@ Partial Class formMDIMain
         '
         'buttonComprobantes
         '
-        Me.buttonComprobantes.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemComprobantesGenerarLoteFacturas, Me.menuitemComprobantesTransmitirAFIP, Me.menuitemComprobantesEnviarPorMail})
+        Me.buttonComprobantes.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemComprobantesGenerarLoteFacturas, Me.menuitemComprobantesTransmitirAFIP, Me.menuitemComprobantesEnviarMail})
         Me.buttonComprobantes.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_COMPROBANTES_32
         Me.buttonComprobantes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonComprobantes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
@@ -355,11 +355,11 @@ Partial Class formMDIMain
         Me.menuitemComprobantesTransmitirAFIP.Size = New System.Drawing.Size(204, 22)
         Me.menuitemComprobantesTransmitirAFIP.Text = "Transmitir a AFIP"
         '
-        'menuitemComprobantesEnviarPorMail
+        'menuitemComprobantesEnviarMail
         '
-        Me.menuitemComprobantesEnviarPorMail.Name = "menuitemComprobantesEnviarPorMail"
-        Me.menuitemComprobantesEnviarPorMail.Size = New System.Drawing.Size(204, 22)
-        Me.menuitemComprobantesEnviarPorMail.Text = "Enviar por mail"
+        Me.menuitemComprobantesEnviarMail.Name = "menuitemComprobantesEnviarMail"
+        Me.menuitemComprobantesEnviarMail.Size = New System.Drawing.Size(204, 22)
+        Me.menuitemComprobantesEnviarMail.Text = "Enviar por e-mail"
         '
         'buttonReportes
         '
@@ -438,7 +438,7 @@ Partial Class formMDIMain
     Friend WithEvents menuitemDebugAFIPWSHomologacionLogin As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSHabilitarRegistro As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemComprobantesTransmitirAFIP As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemComprobantesEnviarPorMail As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemComprobantesEnviarMail As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents buttonReportes As System.Windows.Forms.ToolStripButton
     Friend WithEvents menuitemDebugAFIPWSHomologacionCompConsultar As System.Windows.Forms.ToolStripMenuItem
 End Class

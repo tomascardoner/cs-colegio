@@ -64,8 +64,8 @@ Partial Public Class CSColegioContext
     Public Overridable Property Feriado() As DbSet(Of Feriado)
     Public Overridable Property Caja() As DbSet(Of Caja)
     Public Overridable Property Comprobante() As DbSet(Of Comprobante)
-    Public Overridable Property ComprobanteAplicado() As DbSet(Of ComprobanteAplicado)
     Public Overridable Property ComprobanteMedioPago() As DbSet(Of ComprobanteMedioPago)
     Public Overridable Property Cheque() As DbSet(Of Cheque)
+    Public Overridable Property ComprobanteAplicacion() As DbSet(Of ComprobanteAplicacion)
 
 End Class

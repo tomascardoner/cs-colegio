@@ -33,8 +33,6 @@ Public Class formComprobantesGenerarLote
         listFacturas = Nothing
     End Sub
 
-    ' TODO: Verificar que no se facture 2 veces en el mismo período al mismo alumno
-
     Private Sub formGenerarLoteFacturas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         dbcontext = New CSColegioContext(True)
 
@@ -456,7 +454,7 @@ Public Class formComprobantesGenerarLote
     Private Sub buttonPaso2Siguiente_Click() Handles buttonPaso2Siguiente.Click
         Dim LoteNombre As String
 
-        LoteNombre = InputBox("Ingrese el nombre del Lote a Generar:", My.Application.Info.Title, String.Format("Período {0}/{1}", MesAFacturar, AnioLectivo))
+        LoteNombre = InputBox("Ingrese el nombre del Lote a Generar:", My.Application.Info.Title, String.Format("Período {0:00}/{1}", MesAFacturar, AnioLectivo))
 
         GenerarComprobantes(LoteNombre)
         MostrarPaneles(3)
@@ -674,12 +672,13 @@ Public Class formComprobantesGenerarLote
                 If ComprobanteTipo.IDComprobanteTipo <> .IDComprobanteTipo Then
                     ComprobanteTipo = dbcontext.ComprobanteTipo.Find(.IDComprobanteTipo)
                     ComprobanteTipoPuntoVenta = ComprobanteTipo.ComprobanteTipoPuntoVenta.Where(Function(ctpv) ctpv.IDPuntoVenta = My.Settings.IDPuntoVenta).FirstOrDefault
-                    If Not ComprobanteTipoPuntoVenta Is Nothing Then
-                        PuntoVenta = ComprobanteTipoPuntoVenta.PuntoVenta
+                    If ComprobanteTipoPuntoVenta Is Nothing Then
+                        Exit For
                     End If
+                    PuntoVenta = ComprobanteTipoPuntoVenta.PuntoVenta
 
                     ' Busco si ya hay un comprobante creado de este tipo para obtener el último número
-                    NextComprobanteNumero = dbcontext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = .IDComprobanteTipo And cc.PuntoVenta = .PuntoVenta).Max(Function(cc) cc.Numero)
+                    NextComprobanteNumero = dbcontext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = .IDComprobanteTipo And cc.PuntoVenta = PuntoVenta.Numero).Max(Function(cc) cc.Numero)
                     If NextComprobanteNumero Is Nothing Then
                         ' No hay ningún comprobante creado de este tipo, así que tomo el número inicial y le resto 1 porque después se lo sumo
                         NextComprobanteNumero = CStr(CInt(ComprobanteTipoPuntoVenta.NumeroInicio) - 1).PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
@@ -827,6 +826,7 @@ Public Class formComprobantesGenerarLote
     Private Sub buttonPaso3Finalizar_Click() Handles buttonPaso3Finalizar.Click
         If MsgBox("¿Confirma la Generación del Lote de Facturas?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
             If GuardarComprobantes() Then
+                MsgBox(String.Format("Se han generado {0} Facturas.", listFacturas.Count), MsgBoxStyle.Information, My.Application.Info.Title)
                 Me.Close()
             End If
         End If

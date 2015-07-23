@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class formComprobantesTransmitirAFIP
+Partial Class formComprobantesEnviarMail
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -24,12 +24,12 @@ Partial Class formComprobantesTransmitirAFIP
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.labelCantidad = New System.Windows.Forms.Label()
-        Me.comboboxCantidad = New System.Windows.Forms.ComboBox()
         Me.datagridviewComprobantes = New System.Windows.Forms.DataGridView()
-        Me.buttonTransmitir = New System.Windows.Forms.Button()
+        Me.comboboxComprobanteLote = New System.Windows.Forms.ComboBox()
+        Me.labelComprobanteLote = New System.Windows.Forms.Label()
         Me.statusstripMain = New System.Windows.Forms.StatusStrip()
         Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.buttonEnviar = New System.Windows.Forms.Button()
         Me.groupboxStatus = New System.Windows.Forms.GroupBox()
         Me.textboxStatus = New System.Windows.Forms.TextBox()
         Me.progressbarStatus = New System.Windows.Forms.ProgressBar()
@@ -42,24 +42,6 @@ Partial Class formComprobantesTransmitirAFIP
         Me.statusstripMain.SuspendLayout()
         Me.groupboxStatus.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'labelCantidad
-        '
-        Me.labelCantidad.AutoSize = True
-        Me.labelCantidad.Location = New System.Drawing.Point(12, 9)
-        Me.labelCantidad.Name = "labelCantidad"
-        Me.labelCantidad.Size = New System.Drawing.Size(180, 13)
-        Me.labelCantidad.TabIndex = 0
-        Me.labelCantidad.Text = "Cantidad de Comprobantes a Enviar:"
-        '
-        'comboboxCantidad
-        '
-        Me.comboboxCantidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.comboboxCantidad.FormattingEnabled = True
-        Me.comboboxCantidad.Location = New System.Drawing.Point(198, 6)
-        Me.comboboxCantidad.Name = "comboboxCantidad"
-        Me.comboboxCantidad.Size = New System.Drawing.Size(285, 21)
-        Me.comboboxCantidad.TabIndex = 1
         '
         'datagridviewComprobantes
         '
@@ -82,16 +64,25 @@ Partial Class formComprobantesTransmitirAFIP
         Me.datagridviewComprobantes.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewComprobantes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewComprobantes.Size = New System.Drawing.Size(668, 449)
-        Me.datagridviewComprobantes.TabIndex = 3
+        Me.datagridviewComprobantes.TabIndex = 11
         '
-        'buttonTransmitir
+        'comboboxComprobanteLote
         '
-        Me.buttonTransmitir.Location = New System.Drawing.Point(503, 6)
-        Me.buttonTransmitir.Name = "buttonTransmitir"
-        Me.buttonTransmitir.Size = New System.Drawing.Size(86, 21)
-        Me.buttonTransmitir.TabIndex = 2
-        Me.buttonTransmitir.Text = "Transmitir"
-        Me.buttonTransmitir.UseVisualStyleBackColor = True
+        Me.comboboxComprobanteLote.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxComprobanteLote.FormattingEnabled = True
+        Me.comboboxComprobanteLote.Location = New System.Drawing.Point(177, 6)
+        Me.comboboxComprobanteLote.Name = "comboboxComprobanteLote"
+        Me.comboboxComprobanteLote.Size = New System.Drawing.Size(242, 21)
+        Me.comboboxComprobanteLote.TabIndex = 9
+        '
+        'labelComprobanteLote
+        '
+        Me.labelComprobanteLote.AutoSize = True
+        Me.labelComprobanteLote.Location = New System.Drawing.Point(12, 9)
+        Me.labelComprobanteLote.Name = "labelComprobanteLote"
+        Me.labelComprobanteLote.Size = New System.Drawing.Size(159, 13)
+        Me.labelComprobanteLote.TabIndex = 8
+        Me.labelComprobanteLote.Text = "Lote de Comprobantes a Enviar:"
         '
         'statusstripMain
         '
@@ -99,7 +90,7 @@ Partial Class formComprobantesTransmitirAFIP
         Me.statusstripMain.Location = New System.Drawing.Point(0, 494)
         Me.statusstripMain.Name = "statusstripMain"
         Me.statusstripMain.Size = New System.Drawing.Size(692, 22)
-        Me.statusstripMain.TabIndex = 4
+        Me.statusstripMain.TabIndex = 12
         '
         'statuslabelMain
         '
@@ -107,6 +98,15 @@ Partial Class formComprobantesTransmitirAFIP
         Me.statuslabelMain.Size = New System.Drawing.Size(677, 17)
         Me.statuslabelMain.Spring = True
         Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'buttonEnviar
+        '
+        Me.buttonEnviar.Location = New System.Drawing.Point(425, 6)
+        Me.buttonEnviar.Name = "buttonEnviar"
+        Me.buttonEnviar.Size = New System.Drawing.Size(86, 21)
+        Me.buttonEnviar.TabIndex = 10
+        Me.buttonEnviar.Text = "Enviar"
+        Me.buttonEnviar.UseVisualStyleBackColor = True
         '
         'groupboxStatus
         '
@@ -116,9 +116,9 @@ Partial Class formComprobantesTransmitirAFIP
         Me.groupboxStatus.Location = New System.Drawing.Point(12, 350)
         Me.groupboxStatus.Name = "groupboxStatus"
         Me.groupboxStatus.Size = New System.Drawing.Size(668, 132)
-        Me.groupboxStatus.TabIndex = 7
+        Me.groupboxStatus.TabIndex = 13
         Me.groupboxStatus.TabStop = False
-        Me.groupboxStatus.Text = "Estado de la Transmisión:"
+        Me.groupboxStatus.Text = "Estado del envío:"
         Me.groupboxStatus.Visible = False
         '
         'textboxStatus
@@ -193,22 +193,22 @@ Partial Class formComprobantesTransmitirAFIP
         Me.columnImporteTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.columnImporteTotal.Width = 48
         '
-        'formComprobantesTransmitirAFIP
+        'formComprobantesEnviarMail
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(692, 516)
-        Me.Controls.Add(Me.groupboxStatus)
+        Me.Controls.Add(Me.comboboxComprobanteLote)
+        Me.Controls.Add(Me.labelComprobanteLote)
         Me.Controls.Add(Me.statusstripMain)
-        Me.Controls.Add(Me.buttonTransmitir)
+        Me.Controls.Add(Me.buttonEnviar)
+        Me.Controls.Add(Me.groupboxStatus)
         Me.Controls.Add(Me.datagridviewComprobantes)
-        Me.Controls.Add(Me.comboboxCantidad)
-        Me.Controls.Add(Me.labelCantidad)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
-        Me.Name = "formComprobantesTransmitirAFIP"
+        Me.Name = "formComprobantesEnviarMail"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
-        Me.Text = "Transmitir Comprobantes a AFIP"
+        Me.Text = "Enviar Lote de Comprobantes por e-mail"
         CType(Me.datagridviewComprobantes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.statusstripMain.ResumeLayout(False)
         Me.statusstripMain.PerformLayout()
@@ -218,15 +218,15 @@ Partial Class formComprobantesTransmitirAFIP
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents labelCantidad As System.Windows.Forms.Label
-    Friend WithEvents comboboxCantidad As System.Windows.Forms.ComboBox
     Friend WithEvents datagridviewComprobantes As System.Windows.Forms.DataGridView
-    Friend WithEvents buttonTransmitir As System.Windows.Forms.Button
+    Friend WithEvents comboboxComprobanteLote As System.Windows.Forms.ComboBox
+    Friend WithEvents labelComprobanteLote As System.Windows.Forms.Label
     Friend WithEvents statusstripMain As System.Windows.Forms.StatusStrip
     Friend WithEvents statuslabelMain As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents buttonEnviar As System.Windows.Forms.Button
     Friend WithEvents groupboxStatus As System.Windows.Forms.GroupBox
-    Friend WithEvents progressbarStatus As System.Windows.Forms.ProgressBar
     Friend WithEvents textboxStatus As System.Windows.Forms.TextBox
+    Friend WithEvents progressbarStatus As System.Windows.Forms.ProgressBar
     Friend WithEvents columnLote As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnComprobanteTipoNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnNumeroCompleto As System.Windows.Forms.DataGridViewTextBoxColumn

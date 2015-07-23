@@ -23,5 +23,6 @@ Partial Public Class Articulo
 
     Public Overridable Property ArticuloGrupo As ArticuloGrupo
     Public Overridable Property Concepto As Concepto
+    Public Overridable Property ComprobanteDetalle As ICollection(Of ComprobanteDetalle) = New HashSet(Of ComprobanteDetalle)
 
 End Class

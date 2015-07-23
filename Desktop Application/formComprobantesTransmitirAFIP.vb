@@ -7,18 +7,17 @@
         Public Property IDComprobanteLote As Integer
         Public Property LoteNombre As String
         Public Property ComprobanteTipoNombre As String
-        Public Property PuntoVenta As String
-        Public Property Numero As String
+        Public Property NumeroCompleto As String
         Public Property ApellidoNombre As String
         Public Property ImporteTotal As Decimal
     End Class
 
-    Private Sub formTransmitirComprobantesAFIP_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub formComprobantesTransmitirAFIP_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         buttonTransmitir.Enabled = False
         comboboxCantidad.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, "Lote (primero pendiente)", "100", "50", "20", "10", "5", "1"})
     End Sub
 
-    Private Sub formTransmitirComprobantesAFIP_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub formComprobantesTransmitirAFIP_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         dbcontext.Dispose()
     End Sub
 
@@ -39,8 +38,8 @@
                                         Join cl In dbcontext.ComprobanteLote On cc.IDComprobanteLote Equals cl.IDComprobanteLote
                                         Join ct In dbcontext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                         Where ct.EmisionElectronica And cc.CAE Is Nothing
-                                        Order By ct.Nombre, cc.PuntoVenta, cc.Numero
-                                        Select New GridDataRow With {.IDComprobante = cc.IDComprobante, .IDComprobanteLote = cc.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .PuntoVenta = cc.PuntoVenta, .Numero = cc.Numero, .ApellidoNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal}).ToList
+                                        Order By ct.Nombre, cc.NumeroCompleto
+                                        Select New GridDataRow With {.IDComprobante = cc.IDComprobante, .IDComprobanteLote = cc.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = cc.NumeroCompleto, .ApellidoNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal}).ToList
 
                 Case 1  ' Primer Lote pendiente
                     ' Busco el primer Lote a partir de los Comprobantes pendientes
@@ -59,7 +58,7 @@
                                             Join ct In dbcontext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                             Where cc.IDComprobanteLote = PrimerLotePendiente.IDComprobanteLote = ct.EmisionElectronica And cc.CAE Is Nothing
                                             Order By ct.Nombre, cc.PuntoVenta, cc.Numero
-                                            Select New GridDataRow With {.IDComprobante = cc.IDComprobante, .IDComprobanteLote = cc.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .PuntoVenta = cc.PuntoVenta, .Numero = cc.Numero, .ApellidoNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal}).ToList
+                                            Select New GridDataRow With {.IDComprobante = cc.IDComprobante, .IDComprobanteLote = cc.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = cc.NumeroCompleto, .ApellidoNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal}).ToList
                     End If
 
                 Case 2 To 7 ' Cantidad de Comprobantes
@@ -68,7 +67,7 @@
                                         Join ct In dbcontext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                         Where ct.EmisionElectronica And cc.CAE Is Nothing
                                         Order By ct.Nombre, cc.PuntoVenta, cc.Numero
-                                        Select New GridDataRow With {.IDComprobante = cc.IDComprobante, .IDComprobanteLote = cc.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .PuntoVenta = cc.PuntoVenta, .Numero = cc.Numero, .ApellidoNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal}).Take(CInt(comboboxCantidad.Text)).ToList
+                                        Select New GridDataRow With {.IDComprobante = cc.IDComprobante, .IDComprobanteLote = cc.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = cc.NumeroCompleto, .ApellidoNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal}).Take(CInt(comboboxCantidad.Text)).ToList
 
             End Select
 
@@ -140,19 +139,19 @@
 
         InternetProxy = CS_Parameter.GetString(Parametros.INTERNET_PROXY, "")
         CUIT_Emisor = CS_Parameter.GetString(Parametros.EMPRESA_CUIT)
-        ArticuloActual = dbContext.Articulo.Find(CS_Parameter.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID))
+        ArticuloActual = dbcontext.Articulo.Find(CS_Parameter.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID))
         If ArticuloActual Is Nothing Then
             Me.Cursor = Cursors.WaitCursor
             MsgBox("No se ha especificado el Artículo correspondiente a las cuotas mensuales.", vbExclamation, My.Application.Info.Title)
             Exit Sub
         End If
-        MonedaLocal = dbContext.Moneda.Find(CS_Parameter.GetIntegerAsShort(Parametros.DEFAULT_MONEDA_ID))
+        MonedaLocal = dbcontext.Moneda.Find(CS_Parameter.GetIntegerAsShort(Parametros.DEFAULT_MONEDA_ID))
         If MonedaLocal Is Nothing Then
             Me.Cursor = Cursors.WaitCursor
             MsgBox("No se ha especificado la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
             Exit Sub
         End If
-        MonedaLocalCotizacion = dbContext.MonedaCotizacion.Where(Function(mc) mc.IDMoneda = MonedaLocal.IDMoneda).FirstOrDefault
+        MonedaLocalCotizacion = dbcontext.MonedaCotizacion.Where(Function(mc) mc.IDMoneda = MonedaLocal.IDMoneda).FirstOrDefault
         If MonedaLocalCotizacion Is Nothing Then
             Me.Cursor = Cursors.WaitCursor
             MsgBox("No hay cotizaciones cargadas para la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
@@ -238,7 +237,7 @@
                         FacturaActual.CAE = ResultadoCAE.Numero
                         FacturaActual.CAEVencimiento = ResultadoCAE.FechaVencimiento
                         FacturaActual.IDUsuarioTransmision = pUsuario.IDUsuario
-                        FacturaActual.FechaHoraTransmision = Now
+                        FacturaActual.FechaHoraTransmision = DateTime.Now
 
                         dbcontext.SaveChanges()
                     Else

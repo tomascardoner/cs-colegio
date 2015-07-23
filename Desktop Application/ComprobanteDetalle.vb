@@ -29,5 +29,6 @@ Partial Public Class ComprobanteDetalle
     Public Overridable Property AnioLectivoCurso As AnioLectivoCurso
     Public Overridable Property Entidad As Entidad
     Public Overridable Property Comprobante As Comprobante
+    Public Overridable Property Articulo As Articulo
 
 End Class

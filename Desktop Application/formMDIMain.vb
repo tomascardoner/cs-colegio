@@ -327,6 +327,23 @@
 
     End Sub
 
+    Private Sub menuitemComprobantesEnviarMail_Click(sender As Object, e As EventArgs) Handles menuitemComprobantesEnviarMail.Click
+        If Permisos.VerificarPermiso(Permisos.COMPROBANTE_ENVIAREMAIL) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            formComprobantesEnviarMail.MdiParent = Me
+            CS_Form.CenterToParent(Me, CType(formComprobantesEnviarMail, Form))
+            formComprobantesEnviarMail.Show()
+            If formComprobantesEnviarMail.WindowState = FormWindowState.Minimized Then
+                formComprobantesEnviarMail.WindowState = FormWindowState.Normal
+            End If
+            formComprobantesEnviarMail.Focus()
+
+            Me.Cursor = Cursors.Default
+        End If
+
+    End Sub
+
     Private Sub buttonReportes_Click(sender As Object, e As EventArgs) Handles buttonReportes.Click
         If Permisos.VerificarPermiso(Permisos.REPORTE) Then
             Me.Cursor = Cursors.WaitCursor

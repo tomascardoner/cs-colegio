@@ -41,6 +41,18 @@
     Friend Const COMPROBANTE_PUNTOVENTA_CARACTERES As Byte = 4
     Friend Const COMPROBANTE_NUMERO_CARACTERES As Byte = 8
 
+    Friend Const COMPROBANTE_CONCEPTO_PRODUCTO As Byte = 1
+    Friend Const COMPROBANTE_CONCEPTO_SERVICIOS As Byte = 2
+    Friend Const COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS As Byte = 3
+
+    Friend Const MEDIOPAGO_TIPO_EFECTIVO As String = "EF"
+    Friend Const MEDIOPAGO_TIPO_CHEQUE As String = "CH"
+    Friend Const MEDIOPAGO_TIPO_DEPOSITOBANCARIO As String = "DB"
+    Friend Const MEDIOPAGO_TIPO_DEBITODIRECTO As String = "DD"
+    Friend Const MEDIOPAGO_TIPO_DEBITOAUTOMATICO As String = "DT"
+    Friend Const MEDIOPAGO_TIPO_TRANSFERENCIABANCARIA As String = "TB"
+
+
     '//////////////////
     '    E-MAIL
     '//////////////////

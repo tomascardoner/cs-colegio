@@ -17,7 +17,7 @@ Partial Public Class Cheque
     Public Property FechaVencimiento As Nullable(Of Date)
     Public Property Numero As String
     Public Property Importe As Decimal
-    Public Property NumeroCuenta As String
+    Public Property Cuenta As String
     Public Property CUIT As String
     Public Property Titular As String
     Public Property CodigoPostal As String

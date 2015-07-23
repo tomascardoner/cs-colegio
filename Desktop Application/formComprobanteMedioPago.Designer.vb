@@ -32,6 +32,13 @@ Partial Class formComprobanteMedioPago
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
         Me.buttonCancelar = New System.Windows.Forms.ToolStripButton()
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
+        Me.labelFechaHora = New System.Windows.Forms.Label()
+        Me.datetimepickerFecha = New System.Windows.Forms.DateTimePicker()
+        Me.datetimepickerHora = New System.Windows.Forms.DateTimePicker()
+        Me.labelNumero = New System.Windows.Forms.Label()
+        Me.textboxNumero = New System.Windows.Forms.TextBox()
+        Me.comboboxBanco = New System.Windows.Forms.ComboBox()
+        Me.labelBanco = New System.Windows.Forms.Label()
         Me.textboxImporte = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
         Me.toolstripMain.SuspendLayout()
         Me.SuspendLayout()
@@ -39,7 +46,7 @@ Partial Class formComprobanteMedioPago
         'labelMedioPago
         '
         Me.labelMedioPago.AutoSize = True
-        Me.labelMedioPago.Location = New System.Drawing.Point(9, 45)
+        Me.labelMedioPago.Location = New System.Drawing.Point(9, 52)
         Me.labelMedioPago.Name = "labelMedioPago"
         Me.labelMedioPago.Size = New System.Drawing.Size(82, 13)
         Me.labelMedioPago.TabIndex = 0
@@ -49,36 +56,36 @@ Partial Class formComprobanteMedioPago
         '
         Me.comboboxMedioPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxMedioPago.FormattingEnabled = True
-        Me.comboboxMedioPago.Location = New System.Drawing.Point(97, 42)
+        Me.comboboxMedioPago.Location = New System.Drawing.Point(97, 49)
         Me.comboboxMedioPago.Name = "comboboxMedioPago"
-        Me.comboboxMedioPago.Size = New System.Drawing.Size(178, 21)
+        Me.comboboxMedioPago.Size = New System.Drawing.Size(235, 21)
         Me.comboboxMedioPago.TabIndex = 1
         '
         'comboboxCaja
         '
         Me.comboboxCaja.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxCaja.FormattingEnabled = True
-        Me.comboboxCaja.Location = New System.Drawing.Point(97, 69)
+        Me.comboboxCaja.Location = New System.Drawing.Point(97, 195)
         Me.comboboxCaja.Name = "comboboxCaja"
-        Me.comboboxCaja.Size = New System.Drawing.Size(178, 21)
-        Me.comboboxCaja.TabIndex = 3
+        Me.comboboxCaja.Size = New System.Drawing.Size(235, 21)
+        Me.comboboxCaja.TabIndex = 10
         '
         'labelCaja
         '
         Me.labelCaja.AutoSize = True
-        Me.labelCaja.Location = New System.Drawing.Point(9, 72)
+        Me.labelCaja.Location = New System.Drawing.Point(9, 198)
         Me.labelCaja.Name = "labelCaja"
         Me.labelCaja.Size = New System.Drawing.Size(31, 13)
-        Me.labelCaja.TabIndex = 2
+        Me.labelCaja.TabIndex = 9
         Me.labelCaja.Text = "Caja:"
         '
         'labelImporte
         '
         Me.labelImporte.AutoSize = True
-        Me.labelImporte.Location = New System.Drawing.Point(9, 104)
+        Me.labelImporte.Location = New System.Drawing.Point(9, 230)
         Me.labelImporte.Name = "labelImporte"
         Me.labelImporte.Size = New System.Drawing.Size(45, 13)
-        Me.labelImporte.TabIndex = 4
+        Me.labelImporte.TabIndex = 11
         Me.labelImporte.Text = "Importe:"
         '
         'toolstripMain
@@ -88,7 +95,7 @@ Partial Class formComprobanteMedioPago
         Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
         Me.toolstripMain.Name = "toolstripMain"
         Me.toolstripMain.Size = New System.Drawing.Size(344, 39)
-        Me.toolstripMain.TabIndex = 7
+        Me.toolstripMain.TabIndex = 13
         '
         'buttonCerrar
         '
@@ -130,21 +137,91 @@ Partial Class formComprobanteMedioPago
         Me.buttonGuardar.Size = New System.Drawing.Size(85, 36)
         Me.buttonGuardar.Text = "Guardar"
         '
+        'labelFechaHora
+        '
+        Me.labelFechaHora.AutoSize = True
+        Me.labelFechaHora.Location = New System.Drawing.Point(9, 100)
+        Me.labelFechaHora.Name = "labelFechaHora"
+        Me.labelFechaHora.Size = New System.Drawing.Size(68, 13)
+        Me.labelFechaHora.TabIndex = 2
+        Me.labelFechaHora.Text = "Fecha/Hora:"
+        '
+        'datetimepickerFecha
+        '
+        Me.datetimepickerFecha.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.datetimepickerFecha.Location = New System.Drawing.Point(97, 96)
+        Me.datetimepickerFecha.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
+        Me.datetimepickerFecha.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
+        Me.datetimepickerFecha.Name = "datetimepickerFecha"
+        Me.datetimepickerFecha.Size = New System.Drawing.Size(110, 20)
+        Me.datetimepickerFecha.TabIndex = 3
+        '
+        'datetimepickerHora
+        '
+        Me.datetimepickerHora.Format = System.Windows.Forms.DateTimePickerFormat.Time
+        Me.datetimepickerHora.Location = New System.Drawing.Point(213, 96)
+        Me.datetimepickerHora.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
+        Me.datetimepickerHora.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
+        Me.datetimepickerHora.Name = "datetimepickerHora"
+        Me.datetimepickerHora.Size = New System.Drawing.Size(101, 20)
+        Me.datetimepickerHora.TabIndex = 4
+        '
+        'labelNumero
+        '
+        Me.labelNumero.AutoSize = True
+        Me.labelNumero.Location = New System.Drawing.Point(9, 125)
+        Me.labelNumero.Name = "labelNumero"
+        Me.labelNumero.Size = New System.Drawing.Size(47, 13)
+        Me.labelNumero.TabIndex = 5
+        Me.labelNumero.Text = "Número:"
+        '
+        'textboxNumero
+        '
+        Me.textboxNumero.Location = New System.Drawing.Point(97, 122)
+        Me.textboxNumero.MaxLength = 20
+        Me.textboxNumero.Name = "textboxNumero"
+        Me.textboxNumero.Size = New System.Drawing.Size(134, 20)
+        Me.textboxNumero.TabIndex = 6
+        '
+        'comboboxBanco
+        '
+        Me.comboboxBanco.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxBanco.FormattingEnabled = True
+        Me.comboboxBanco.Location = New System.Drawing.Point(97, 148)
+        Me.comboboxBanco.Name = "comboboxBanco"
+        Me.comboboxBanco.Size = New System.Drawing.Size(235, 21)
+        Me.comboboxBanco.TabIndex = 8
+        '
+        'labelBanco
+        '
+        Me.labelBanco.AutoSize = True
+        Me.labelBanco.Location = New System.Drawing.Point(9, 151)
+        Me.labelBanco.Name = "labelBanco"
+        Me.labelBanco.Size = New System.Drawing.Size(41, 13)
+        Me.labelBanco.TabIndex = 7
+        Me.labelBanco.Text = "Banco:"
+        '
         'textboxImporte
         '
-        Me.textboxImporte.Location = New System.Drawing.Point(97, 101)
+        Me.textboxImporte.Location = New System.Drawing.Point(97, 227)
         Me.textboxImporte.MaxLength = 15
         Me.textboxImporte.Name = "textboxImporte"
         Me.textboxImporte.Size = New System.Drawing.Size(100, 20)
-        Me.textboxImporte.TabIndex = 8
-        Me.textboxImporte.Text = "0"
+        Me.textboxImporte.TabIndex = 12
         Me.textboxImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'formComprobanteMedioPago
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(344, 139)
+        Me.ClientSize = New System.Drawing.Size(344, 259)
+        Me.Controls.Add(Me.comboboxBanco)
+        Me.Controls.Add(Me.labelBanco)
+        Me.Controls.Add(Me.textboxNumero)
+        Me.Controls.Add(Me.labelNumero)
+        Me.Controls.Add(Me.datetimepickerHora)
+        Me.Controls.Add(Me.datetimepickerFecha)
+        Me.Controls.Add(Me.labelFechaHora)
         Me.Controls.Add(Me.textboxImporte)
         Me.Controls.Add(Me.toolstripMain)
         Me.Controls.Add(Me.labelImporte)
@@ -175,4 +252,11 @@ Partial Class formComprobanteMedioPago
     Friend WithEvents buttonCancelar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonGuardar As System.Windows.Forms.ToolStripButton
     Friend WithEvents textboxImporte As CSColegio.DesktopApplication.CS_Control_TextBox_Currency
+    Friend WithEvents labelFechaHora As System.Windows.Forms.Label
+    Friend WithEvents datetimepickerFecha As System.Windows.Forms.DateTimePicker
+    Friend WithEvents datetimepickerHora As System.Windows.Forms.DateTimePicker
+    Friend WithEvents labelNumero As System.Windows.Forms.Label
+    Friend WithEvents textboxNumero As System.Windows.Forms.TextBox
+    Friend WithEvents comboboxBanco As System.Windows.Forms.ComboBox
+    Friend WithEvents labelBanco As System.Windows.Forms.Label
 End Class

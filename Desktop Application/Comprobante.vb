@@ -48,6 +48,7 @@ Partial Public Class Comprobante
     Public Property FechaHoraTransmision As Nullable(Of Date)
     Public Property IDUsuarioEnvioEmail As Nullable(Of Short)
     Public Property FechaHoraEnvioEmail As Nullable(Of Date)
+    Public Property NumeroCompleto As String
 
     Public Overridable Property CategoriaIVA As CategoriaIVA
     Public Overridable Property ComprobanteDetalle As ICollection(Of ComprobanteDetalle) = New HashSet(Of ComprobanteDetalle)
@@ -57,11 +58,11 @@ Partial Public Class Comprobante
     Public Overridable Property ComprobanteTipo As ComprobanteTipo
     Public Overridable Property Entidad As Entidad
     Public Overridable Property Localidad As Localidad
-    Public Overridable Property Comprobante1 As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
-    Public Overridable Property Comprobante2 As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
     Public Overridable Property UsuarioCreacion As Usuario
     Public Overridable Property UsuarioModificacion As Usuario
-    Public Overridable Property ComprobanteAplicado As ICollection(Of ComprobanteAplicado) = New HashSet(Of ComprobanteAplicado)
-    Public Overridable Property ComprobanteAplicado1 As ICollection(Of ComprobanteAplicado) = New HashSet(Of ComprobanteAplicado)
+    Public Overridable Property ComprobanteAplicado As ICollection(Of ComprobanteAplicacion) = New HashSet(Of ComprobanteAplicacion)
+    Public Overridable Property ComprobanteAplicante As ICollection(Of ComprobanteAplicacion) = New HashSet(Of ComprobanteAplicacion)
+    Public Overridable Property ComprobanteAsociante As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
+    Public Overridable Property ComprobanteAsociado As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
 
 End Class

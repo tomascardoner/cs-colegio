@@ -10,7 +10,7 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class ComprobanteAplicado
+Partial Public Class ComprobanteAplicacion
     Public Property IDComprobanteAplicante As Integer
     Public Property IDComprobanteAplicado As Integer
     Public Property Importe As Decimal

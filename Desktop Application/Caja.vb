@@ -14,7 +14,7 @@ Partial Public Class Caja
     Public Property IDCaja As Byte
     Public Property Nombre As String
     Public Property IDBanco As Nullable(Of Short)
-    Public Property CuentaNumero As String
+    Public Property Cuenta As String
     Public Property EsActivo As Boolean
     Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date

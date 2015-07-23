@@ -40,11 +40,31 @@
         ComboBoxControl.DataSource = localList
     End Sub
 
+    Friend Sub Banco(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
+        Dim listBancos As List(Of Banco)
+
+        ComboBoxControl.ValueMember = "IDBanco"
+        ComboBoxControl.DisplayMember = "Nombre"
+
+        listBancos = (From tbl In dbContext.Banco
+                      Where tbl.EsActivo
+                      Order By tbl.Nombre).ToList
+
+        If ShowUnspecifiedItem Then
+            Dim UnspecifiedItem As New Banco
+            UnspecifiedItem.IDBanco = 0
+            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+            listBancos.Insert(0, UnspecifiedItem)
+        End If
+
+        ComboBoxControl.DataSource = listBancos
+    End Sub
+
     Friend Sub Provincia(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
         ComboBoxControl.ValueMember = "IDProvincia"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Dim qryList = From tbl In dbcontext.Provincia
+        Dim qryList = From tbl In dbContext.Provincia
                           Order By tbl.Nombre
 
         Dim localList = qryList.ToList
@@ -275,28 +295,27 @@
     End Sub
 
     Friend Sub ComprobanteLote(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)
+        Dim listComprobanteLote As List(Of ComprobanteLote)
+
         ComboBoxControl.ValueMember = "IDComprobanteLote"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Dim qryList = From tbl In dbcontext.ComprobanteLote
-                      Order By tbl.FechaHora Descending
-
-        Dim localList = qryList.ToList
+        listComprobanteLote = dbContext.ComprobanteLote.OrderByDescending(Function(cl) cl.FechaHora).ToList
 
         If AgregarItem_Todos Then
             Dim Item_Todos As New ComprobanteLote
             Item_Todos.IDComprobanteLote = -1
             Item_Todos.Nombre = My.Resources.STRING_ITEM_ALL_MALE
-            localList.Insert(0, Item_Todos)
+            listComprobanteLote.Insert(0, Item_Todos)
         End If
         If AgregarItem_NoEspecifica Then
             Dim Item_NoEspecifica As New ComprobanteLote
             Item_NoEspecifica.IDComprobanteLote = 0
             Item_NoEspecifica.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
-            localList.Insert(0, Item_NoEspecifica)
+            listComprobanteLote.Insert(0, Item_NoEspecifica)
         End If
 
-        ComboBoxControl.DataSource = localList
+        ComboBoxControl.DataSource = listComprobanteLote
     End Sub
 
     Friend Sub MedioPago(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
@@ -335,6 +354,7 @@
             '              Where tbl.EsActivo AndAlso tbl  in tbl.MedioPago
             '              Order By tbl.Nombre
             'localList = qryList.ToList
+            localList = Nothing
         End If
 
         If ShowUnspecifiedItem Then

@@ -2,7 +2,7 @@
     Friend dbContext As New CSColegioContext(True)
     Friend EntidadCurrent As Entidad
 
-#Region "Form Lifetime"
+#Region "Form stuff"
     Friend Sub InitializeFormAndControls()
         ' Cargo los ComboBox
         pFillAndRefreshLists.DocumentoTipo(comboboxDocumentoTipo, True)
@@ -16,7 +16,6 @@
 
     Private Sub formEntidad_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         dbContext.Dispose()
-        dbContext = Nothing
         EntidadCurrent = Nothing
     End Sub
 #End Region
@@ -330,7 +329,7 @@
 
 #End Region
 
-#Region "Toolbar"
+#Region "Main Toolbar"
     Private Sub buttonEditar_Click() Handles buttonEditar.Click
         If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDIT) Then
             buttonGuardar.Visible = True
@@ -430,7 +429,7 @@
 
         ' Direcciones de Email
         If textboxEmail1.Text.Trim.Length > 0 Then
-            If Not CS_Email.IsValidEmail(textboxEmail1.Text.Trim) Then
+            If Not CS_Email.IsValidEmail(textboxEmail1.Text.Trim, CS_Parameter.GetString(Parametros.EMAIL_VALIDATION_REGULAREXPRESSION)) Then
                 tabcontrolMain.SelectedTab = tabpageContacto
                 MsgBox("La dirección de E-mail 1 es incorrecta.", vbInformation, My.Application.Info.Title)
                 textboxEmail1.Focus()
@@ -438,7 +437,7 @@
             End If
         End If
         If textboxEmail2.Text.Trim.Length > 0 Then
-            If Not CS_Email.IsValidEmail(textboxEmail2.Text.Trim) Then
+            If Not CS_Email.IsValidEmail(textboxEmail2.Text.Trim, CS_Parameter.GetString(Parametros.EMAIL_VALIDATION_REGULAREXPRESSION)) Then
                 tabcontrolMain.SelectedTab = tabpageContacto
                 MsgBox("La dirección de E-mail 2 es incorrecta.", vbInformation, My.Application.Info.Title)
                 textboxEmail2.Focus()

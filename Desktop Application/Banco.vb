@@ -21,5 +21,6 @@ Partial Public Class Banco
     Public Property FechaHoraModificacion As Date
 
     Public Overridable Property Cheque As ICollection(Of Cheque) = New HashSet(Of Cheque)
+    Public Overridable Property ComprobanteMedioPago As ICollection(Of ComprobanteMedioPago) = New HashSet(Of ComprobanteMedioPago)
 
 End Class

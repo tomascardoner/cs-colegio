@@ -102,7 +102,7 @@
       <Value Profile="(Default)">30000</Value>
     </Setting>
     <Setting Name="Comprobante_EnviarEmail_Subject" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">{0} N° {1}-{2}</Value>
+      <Value Profile="(Default)">{0} N° {1}</Value>
     </Setting>
     <Setting Name="Comprobante_EnvioEmail_Body" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Adjuntamos el Comprobante solicitado.{0}{0}Atentamente.</Value>

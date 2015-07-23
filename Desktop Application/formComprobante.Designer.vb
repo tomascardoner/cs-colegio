@@ -50,7 +50,6 @@ Partial Class formComprobante
         Me.columnDetalle_PrecioUnitarioDescuentoImporte = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnDetalle_PrecioTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.toolstripDetalle = New System.Windows.Forms.ToolStrip()
-        Me.buttonDetalle_Agregar = New System.Windows.Forms.ToolStripButton()
         Me.buttonDetalle_Editar = New System.Windows.Forms.ToolStripButton()
         Me.buttonDetalle_Eliminar = New System.Windows.Forms.ToolStripButton()
         Me.panelImpuestos = New System.Windows.Forms.Panel()
@@ -123,6 +122,7 @@ Partial Class formComprobante
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
         Me.buttonCancelar = New System.Windows.Forms.ToolStripButton()
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonDetalle_Agregar = New System.Windows.Forms.ToolStripButton()
         labelFechaServicioDesde = New System.Windows.Forms.Label()
         labelFechaServicioHasta = New System.Windows.Forms.Label()
         labelNotas = New System.Windows.Forms.Label()
@@ -336,15 +336,6 @@ Partial Class formComprobante
         Me.toolstripDetalle.Name = "toolstripDetalle"
         Me.toolstripDetalle.Size = New System.Drawing.Size(87, 279)
         Me.toolstripDetalle.TabIndex = 5
-        '
-        'buttonDetalle_Agregar
-        '
-        Me.buttonDetalle_Agregar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_ADD_32
-        Me.buttonDetalle_Agregar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonDetalle_Agregar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonDetalle_Agregar.Name = "buttonDetalle_Agregar"
-        Me.buttonDetalle_Agregar.Size = New System.Drawing.Size(84, 36)
-        Me.buttonDetalle_Agregar.Text = "Agregar"
         '
         'buttonDetalle_Editar
         '
@@ -1154,6 +1145,15 @@ Partial Class formComprobante
         Me.buttonGuardar.Size = New System.Drawing.Size(85, 36)
         Me.buttonGuardar.Text = "Guardar"
         '
+        'buttonDetalle_Agregar
+        '
+        Me.buttonDetalle_Agregar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_ADD_32
+        Me.buttonDetalle_Agregar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonDetalle_Agregar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonDetalle_Agregar.Name = "buttonDetalle_Agregar"
+        Me.buttonDetalle_Agregar.Size = New System.Drawing.Size(84, 36)
+        Me.buttonDetalle_Agregar.Text = "Agregar"
+        '
         'formComprobante
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1249,7 +1249,6 @@ Partial Class formComprobante
     Friend WithEvents columnDetalle_PrecioUnitarioDescuentoImporte As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnDetalle_PrecioTotal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents toolstripDetalle As System.Windows.Forms.ToolStrip
-    Friend WithEvents buttonDetalle_Agregar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonDetalle_Editar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonDetalle_Eliminar As System.Windows.Forms.ToolStripButton
     Friend WithEvents panelImpuestos As System.Windows.Forms.Panel
@@ -1288,4 +1287,5 @@ Partial Class formComprobante
     Friend WithEvents radiobuttonTabPageAsociaciones As System.Windows.Forms.RadioButton
     Friend WithEvents radiobuttonTabPageMediosPago As System.Windows.Forms.RadioButton
     Friend WithEvents radiobuttonTabPageNotasAuditoria As System.Windows.Forms.RadioButton
+    Friend WithEvents buttonDetalle_Agregar As System.Windows.Forms.ToolStripButton
 End Class
