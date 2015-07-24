@@ -1,6 +1,6 @@
 ﻿Module StartUp
     ' Database stuff
-    Friend pDatabase As CS_Database
+    Friend pDatabase As CS_Database_SQL
     Friend pFillAndRefreshLists As FillAndRefreshLists
 
     Friend pPermisos As List(Of UsuarioGrupoPermiso)
@@ -31,7 +31,7 @@
         Application.DoEvents()
 
         ' Obtengo el Connection String para las conexiones de ADO .NET
-        pDatabase = New CS_Database
+        pDatabase = New CS_Database_SQL
         pDatabase.ApplicationName = My.Application.Info.Title
         pDatabase.DataSource = My.Settings.DBConnection_Datasource
         pDatabase.InitialCatalog = My.Settings.DBConnection_Database

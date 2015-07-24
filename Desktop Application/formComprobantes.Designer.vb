@@ -61,7 +61,7 @@ Partial Class formComprobantes
         Me.comboboxBuscarTipo = New System.Windows.Forms.ToolStripComboBox()
         Me.textboxBuscar = New System.Windows.Forms.ToolStripTextBox()
         Me.buttonBuscarBorrar = New System.Windows.Forms.ToolStripButton()
-        Me.columnComprobanteTipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnTipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnNumeroCompleto = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnFecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnEntidadNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -105,7 +105,7 @@ Partial Class formComprobantes
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
         Me.datagridviewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.datagridviewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipo, Me.columnNumeroCompleto, Me.columnFecha, Me.columnEntidadNombre, Me.columnImporteTotal, Me.columnCAE})
+        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnTipo, Me.columnNumeroCompleto, Me.columnFecha, Me.columnEntidadNombre, Me.columnImporteTotal, Me.columnCAE})
         Me.datagridviewMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.datagridviewMain.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.datagridviewMain.Location = New System.Drawing.Point(0, 64)
@@ -350,16 +350,16 @@ Partial Class formComprobantes
         Me.buttonBuscarBorrar.Size = New System.Drawing.Size(23, 22)
         Me.buttonBuscarBorrar.ToolTipText = "Limpiar búsqueda"
         '
-        'columnComprobanteTipo
+        'columnTipo
         '
-        Me.columnComprobanteTipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnComprobanteTipo.DataPropertyName = "ComprobanteTipoNombre"
+        Me.columnTipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnTipo.DataPropertyName = "ComprobanteTipoNombre"
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnComprobanteTipo.DefaultCellStyle = DataGridViewCellStyle2
-        Me.columnComprobanteTipo.HeaderText = "Tipo"
-        Me.columnComprobanteTipo.Name = "columnComprobanteTipo"
-        Me.columnComprobanteTipo.ReadOnly = True
-        Me.columnComprobanteTipo.Width = 53
+        Me.columnTipo.DefaultCellStyle = DataGridViewCellStyle2
+        Me.columnTipo.HeaderText = "Tipo"
+        Me.columnTipo.Name = "columnTipo"
+        Me.columnTipo.ReadOnly = True
+        Me.columnTipo.Width = 53
         '
         'columnNumeroCompleto
         '
@@ -482,7 +482,7 @@ Partial Class formComprobantes
     Friend WithEvents toolstripComprobanteLote As System.Windows.Forms.ToolStrip
     Friend WithEvents labelComprobanteLote As System.Windows.Forms.ToolStripLabel
     Friend WithEvents comboboxComprobanteLote As System.Windows.Forms.ToolStripComboBox
-    Friend WithEvents columnComprobanteTipo As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnTipo As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnNumeroCompleto As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnFecha As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnEntidadNombre As System.Windows.Forms.DataGridViewTextBoxColumn

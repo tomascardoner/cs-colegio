@@ -304,11 +304,24 @@
                 If MsgBox("Se eliminará la Entidad seleccionada." & vbCrLf & vbCrLf & EntidadEliminar.ApellidoNombre & vbCrLf & vbCrLf & "¿Confirma la eliminación definitiva?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                     Me.Cursor = Cursors.WaitCursor
 
-                    Using dbcontext = New CSColegioContext(True)
-                        dbcontext.Entidad.Attach(EntidadEliminar)
-                        dbcontext.Entidad.Remove(EntidadEliminar)
-                        dbcontext.SaveChanges()
-                    End Using
+                    Try
+                        Using dbcontext = New CSColegioContext(True)
+                            dbcontext.Entidad.Attach(EntidadEliminar)
+                            dbcontext.Entidad.Remove(EntidadEliminar)
+                            dbcontext.SaveChanges()
+                        End Using
+
+                    Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
+                        Me.Cursor = Cursors.Default
+                        Select Case CS_Database_EF_SQL.TryDecodeDbUpdateException(dbuex)
+                            Case Errors.RelatedEntity
+                                MsgBox("No se puede eliminar la Entidad porque tiene datos relacionados.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                        End Select
+                        Exit Sub
+
+                    Catch ex As Exception
+                        CS_Error.ProcessError(ex, "Error al eliminar la Entidad.")
+                    End Try
 
                     RefreshData()
                     Me.Cursor = Cursors.Default

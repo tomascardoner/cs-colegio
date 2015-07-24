@@ -465,6 +465,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Error al guardar los cambios en la Base de Datos..
+        '''</summary>
+        Friend ReadOnly Property STRING_ERROR_SAVING_CHANGES() As String
+            Get
+                Return ResourceManager.GetString("STRING_ERROR_SAVING_CHANGES", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Femenino.
         '''</summary>
         Friend ReadOnly Property STRING_GENERO_FEMENINO() As String

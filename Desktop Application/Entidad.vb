@@ -46,16 +46,17 @@ Partial Public Class Entidad
     Public Property EmitirFacturaA As String
     Public Property IDEntidadTercero As Nullable(Of Integer)
     Public Property IDDescuento As Nullable(Of Byte)
+    Public Property ExcluyeCalculoInteres As Boolean
+    Public Property FacturaIndividual As Boolean
     Public Property ExcluyeFacturaDesde As Nullable(Of Date)
     Public Property ExcluyeFacturaHasta As Nullable(Of Date)
+    Public Property FacturaLeyenda As String
     Public Property EsActivo As Boolean
     Public Property Notas As String
     Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date
     Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
-    Public Property ExcluyeCalculoInteres As Boolean
-    Public Property FacturaIndividual As Boolean
 
     Public Overridable Property CategoriaIVA As CategoriaIVA
     Public Overridable Property DocumentoTipo As DocumentoTipo

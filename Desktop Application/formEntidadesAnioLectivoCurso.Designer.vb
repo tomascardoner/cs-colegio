@@ -22,10 +22,10 @@ Partial Class formEntidadesAnioLectivoCurso
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.toolstripMain = New System.Windows.Forms.ToolStrip()
         Me.labelAnioLectivo = New System.Windows.Forms.ToolStripLabel()
         Me.comboboxAnioLectivo = New System.Windows.Forms.ToolStripComboBox()
@@ -39,11 +39,11 @@ Partial Class formEntidadesAnioLectivoCurso
         Me.buttonAgregar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEliminar = New System.Windows.Forms.ToolStripButton()
         Me.datagridviewMain = New System.Windows.Forms.DataGridView()
-        Me.columnHijosIDEntidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnHijosApellido = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnHijosNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.statusstripMain = New System.Windows.Forms.StatusStrip()
         Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.columnIDEntidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnApellido = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.toolstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.statusstripMain.SuspendLayout()
@@ -134,16 +134,16 @@ Partial Class formEntidadesAnioLectivoCurso
         Me.datagridviewMain.AllowUserToDeleteRows = False
         Me.datagridviewMain.AllowUserToOrderColumns = True
         Me.datagridviewMain.AllowUserToResizeRows = False
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.datagridviewMain.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.datagridviewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnHijosIDEntidad, Me.columnHijosApellido, Me.columnHijosNombre})
+        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnIDEntidad, Me.columnApellido, Me.columnNombre})
         Me.datagridviewMain.Location = New System.Drawing.Point(0, 39)
         Me.datagridviewMain.MultiSelect = False
         Me.datagridviewMain.Name = "datagridviewMain"
@@ -153,39 +153,6 @@ Partial Class formEntidadesAnioLectivoCurso
         Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewMain.Size = New System.Drawing.Size(850, 282)
         Me.datagridviewMain.TabIndex = 1
-        '
-        'columnHijosIDEntidad
-        '
-        Me.columnHijosIDEntidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnHijosIDEntidad.DataPropertyName = "IDEntidad"
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.columnHijosIDEntidad.DefaultCellStyle = DataGridViewCellStyle10
-        Me.columnHijosIDEntidad.HeaderText = "N° Entidad"
-        Me.columnHijosIDEntidad.Name = "columnHijosIDEntidad"
-        Me.columnHijosIDEntidad.ReadOnly = True
-        Me.columnHijosIDEntidad.Width = 83
-        '
-        'columnHijosApellido
-        '
-        Me.columnHijosApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnHijosApellido.DataPropertyName = "Apellido"
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnHijosApellido.DefaultCellStyle = DataGridViewCellStyle11
-        Me.columnHijosApellido.HeaderText = "Apellido"
-        Me.columnHijosApellido.Name = "columnHijosApellido"
-        Me.columnHijosApellido.ReadOnly = True
-        Me.columnHijosApellido.Width = 69
-        '
-        'columnHijosNombre
-        '
-        Me.columnHijosNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnHijosNombre.DataPropertyName = "Nombre"
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnHijosNombre.DefaultCellStyle = DataGridViewCellStyle12
-        Me.columnHijosNombre.HeaderText = "Nombre"
-        Me.columnHijosNombre.Name = "columnHijosNombre"
-        Me.columnHijosNombre.ReadOnly = True
-        Me.columnHijosNombre.Width = 69
         '
         'statusstripMain
         '
@@ -201,6 +168,39 @@ Partial Class formEntidadesAnioLectivoCurso
         Me.statuslabelMain.Size = New System.Drawing.Size(835, 17)
         Me.statuslabelMain.Spring = True
         Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'columnIDEntidad
+        '
+        Me.columnIDEntidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnIDEntidad.DataPropertyName = "IDEntidad"
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.columnIDEntidad.DefaultCellStyle = DataGridViewCellStyle2
+        Me.columnIDEntidad.HeaderText = "N° Entidad"
+        Me.columnIDEntidad.Name = "columnIDEntidad"
+        Me.columnIDEntidad.ReadOnly = True
+        Me.columnIDEntidad.Width = 83
+        '
+        'columnApellido
+        '
+        Me.columnApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnApellido.DataPropertyName = "Apellido"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnApellido.DefaultCellStyle = DataGridViewCellStyle3
+        Me.columnApellido.HeaderText = "Apellido"
+        Me.columnApellido.Name = "columnApellido"
+        Me.columnApellido.ReadOnly = True
+        Me.columnApellido.Width = 69
+        '
+        'columnNombre
+        '
+        Me.columnNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnNombre.DataPropertyName = "Nombre"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnNombre.DefaultCellStyle = DataGridViewCellStyle4
+        Me.columnNombre.HeaderText = "Nombre"
+        Me.columnNombre.Name = "columnNombre"
+        Me.columnNombre.ReadOnly = True
+        Me.columnNombre.Width = 69
         '
         'formEntidadesAnioLectivoCurso
         '
@@ -232,12 +232,12 @@ Partial Class formEntidadesAnioLectivoCurso
     Friend WithEvents buttonAgregar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonEliminar As System.Windows.Forms.ToolStripButton
     Friend WithEvents datagridviewMain As System.Windows.Forms.DataGridView
-    Friend WithEvents columnHijosIDEntidad As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnHijosApellido As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnHijosNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents labelNivel As System.Windows.Forms.ToolStripLabel
     Friend WithEvents comboboxNivel As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents statusstripMain As System.Windows.Forms.StatusStrip
     Friend WithEvents statuslabelMain As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents columnIDEntidad As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnApellido As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnNombre As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

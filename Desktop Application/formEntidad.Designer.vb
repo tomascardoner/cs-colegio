@@ -57,6 +57,7 @@ Partial Class formEntidad
         Dim labelExcluyeCalculoInteres As System.Windows.Forms.Label
         Dim labelFacturaIndividual As System.Windows.Forms.Label
         Dim labelVarios As System.Windows.Forms.Label
+        Dim labelFacturaLeyenda As System.Windows.Forms.Label
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -111,6 +112,7 @@ Partial Class formEntidad
         Me.textboxTelefono2 = New System.Windows.Forms.TextBox()
         Me.textboxTelefono3 = New System.Windows.Forms.TextBox()
         Me.tabpageExtra = New System.Windows.Forms.TabPage()
+        Me.textboxFacturaLeyenda = New System.Windows.Forms.TextBox()
         Me.checkboxFacturaIndividual = New System.Windows.Forms.CheckBox()
         Me.checkboxExcluyeCalculoInteres = New System.Windows.Forms.CheckBox()
         Me.panelEntidadTercero = New System.Windows.Forms.Panel()
@@ -197,6 +199,7 @@ Partial Class formEntidad
         labelExcluyeCalculoInteres = New System.Windows.Forms.Label()
         labelFacturaIndividual = New System.Windows.Forms.Label()
         labelVarios = New System.Windows.Forms.Label()
+        labelFacturaLeyenda = New System.Windows.Forms.Label()
         CType(Me.pictureboxMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabcontrolMain.SuspendLayout()
         Me.tabpageGeneral.SuspendLayout()
@@ -514,6 +517,15 @@ Partial Class formEntidad
         labelVarios.TabIndex = 10
         labelVarios.Text = "Varios:"
         '
+        'labelFacturaLeyenda
+        '
+        labelFacturaLeyenda.AutoSize = True
+        labelFacturaLeyenda.Location = New System.Drawing.Point(6, 198)
+        labelFacturaLeyenda.Name = "labelFacturaLeyenda"
+        labelFacturaLeyenda.Size = New System.Drawing.Size(51, 13)
+        labelFacturaLeyenda.TabIndex = 19
+        labelFacturaLeyenda.Text = "Leyenda:"
+        '
         'textboxApellido
         '
         Me.textboxApellido.Location = New System.Drawing.Point(155, 77)
@@ -564,7 +576,7 @@ Partial Class formEntidad
         Me.tabcontrolMain.Location = New System.Drawing.Point(12, 138)
         Me.tabcontrolMain.Name = "tabcontrolMain"
         Me.tabcontrolMain.SelectedIndex = 0
-        Me.tabcontrolMain.Size = New System.Drawing.Size(514, 248)
+        Me.tabcontrolMain.Size = New System.Drawing.Size(514, 252)
         Me.tabcontrolMain.TabIndex = 7
         '
         'tabpageGeneral
@@ -597,7 +609,7 @@ Partial Class formEntidad
         Me.tabpageGeneral.Location = New System.Drawing.Point(4, 25)
         Me.tabpageGeneral.Name = "tabpageGeneral"
         Me.tabpageGeneral.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageGeneral.Size = New System.Drawing.Size(506, 219)
+        Me.tabpageGeneral.Size = New System.Drawing.Size(506, 223)
         Me.tabpageGeneral.TabIndex = 0
         Me.tabpageGeneral.Text = "General"
         Me.tabpageGeneral.UseVisualStyleBackColor = True
@@ -816,7 +828,7 @@ Partial Class formEntidad
         Me.tabpageContacto.Location = New System.Drawing.Point(4, 25)
         Me.tabpageContacto.Name = "tabpageContacto"
         Me.tabpageContacto.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageContacto.Size = New System.Drawing.Size(506, 219)
+        Me.tabpageContacto.Size = New System.Drawing.Size(506, 223)
         Me.tabpageContacto.TabIndex = 1
         Me.tabpageContacto.Text = "Contacto"
         Me.tabpageContacto.UseVisualStyleBackColor = True
@@ -937,6 +949,8 @@ Partial Class formEntidad
         '
         'tabpageExtra
         '
+        Me.tabpageExtra.Controls.Add(Me.textboxFacturaLeyenda)
+        Me.tabpageExtra.Controls.Add(labelFacturaLeyenda)
         Me.tabpageExtra.Controls.Add(labelVarios)
         Me.tabpageExtra.Controls.Add(Me.checkboxFacturaIndividual)
         Me.tabpageExtra.Controls.Add(labelFacturaIndividual)
@@ -959,10 +973,20 @@ Partial Class formEntidad
         Me.tabpageExtra.Location = New System.Drawing.Point(4, 25)
         Me.tabpageExtra.Name = "tabpageExtra"
         Me.tabpageExtra.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageExtra.Size = New System.Drawing.Size(506, 219)
+        Me.tabpageExtra.Size = New System.Drawing.Size(506, 223)
         Me.tabpageExtra.TabIndex = 2
         Me.tabpageExtra.Text = "Padres y Facturación"
         Me.tabpageExtra.UseVisualStyleBackColor = True
+        '
+        'textboxFacturaLeyenda
+        '
+        Me.textboxFacturaLeyenda.Location = New System.Drawing.Point(107, 195)
+        Me.textboxFacturaLeyenda.MaxLength = 0
+        Me.textboxFacturaLeyenda.Multiline = True
+        Me.textboxFacturaLeyenda.Name = "textboxFacturaLeyenda"
+        Me.textboxFacturaLeyenda.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.textboxFacturaLeyenda.Size = New System.Drawing.Size(393, 20)
+        Me.textboxFacturaLeyenda.TabIndex = 20
         '
         'checkboxFacturaIndividual
         '
@@ -1193,7 +1217,7 @@ Partial Class formEntidad
         Me.tabpageCursosAsistidos.Location = New System.Drawing.Point(4, 25)
         Me.tabpageCursosAsistidos.Name = "tabpageCursosAsistidos"
         Me.tabpageCursosAsistidos.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageCursosAsistidos.Size = New System.Drawing.Size(506, 219)
+        Me.tabpageCursosAsistidos.Size = New System.Drawing.Size(506, 223)
         Me.tabpageCursosAsistidos.TabIndex = 6
         Me.tabpageCursosAsistidos.Text = "Cursos Asistidos"
         Me.tabpageCursosAsistidos.UseVisualStyleBackColor = True
@@ -1219,7 +1243,7 @@ Partial Class formEntidad
         Me.datagridviewCursosAsistidos.RowHeadersVisible = False
         Me.datagridviewCursosAsistidos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewCursosAsistidos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewCursosAsistidos.Size = New System.Drawing.Size(500, 213)
+        Me.datagridviewCursosAsistidos.Size = New System.Drawing.Size(500, 217)
         Me.datagridviewCursosAsistidos.TabIndex = 5
         '
         'columnAnioLectivo
@@ -1279,7 +1303,7 @@ Partial Class formEntidad
         Me.tabpageHijos.Location = New System.Drawing.Point(4, 25)
         Me.tabpageHijos.Name = "tabpageHijos"
         Me.tabpageHijos.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageHijos.Size = New System.Drawing.Size(506, 219)
+        Me.tabpageHijos.Size = New System.Drawing.Size(506, 223)
         Me.tabpageHijos.TabIndex = 4
         Me.tabpageHijos.Text = "Hijos"
         Me.tabpageHijos.UseVisualStyleBackColor = True
@@ -1305,7 +1329,7 @@ Partial Class formEntidad
         Me.datagridviewHijos.RowHeadersVisible = False
         Me.datagridviewHijos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewHijos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewHijos.Size = New System.Drawing.Size(500, 213)
+        Me.datagridviewHijos.Size = New System.Drawing.Size(500, 217)
         Me.datagridviewHijos.TabIndex = 3
         '
         'columnHijosIDEntidad
@@ -1347,7 +1371,7 @@ Partial Class formEntidad
         Me.tabpageRelaciones.Location = New System.Drawing.Point(4, 25)
         Me.tabpageRelaciones.Name = "tabpageRelaciones"
         Me.tabpageRelaciones.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageRelaciones.Size = New System.Drawing.Size(506, 219)
+        Me.tabpageRelaciones.Size = New System.Drawing.Size(506, 223)
         Me.tabpageRelaciones.TabIndex = 5
         Me.tabpageRelaciones.Text = "Relaciones"
         Me.tabpageRelaciones.UseVisualStyleBackColor = True
@@ -1373,7 +1397,7 @@ Partial Class formEntidad
         Me.datagridviewRelaciones.RowHeadersVisible = False
         Me.datagridviewRelaciones.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewRelaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewRelaciones.Size = New System.Drawing.Size(500, 213)
+        Me.datagridviewRelaciones.Size = New System.Drawing.Size(500, 217)
         Me.datagridviewRelaciones.TabIndex = 4
         '
         'columnPadresIDEntidad
@@ -1431,7 +1455,7 @@ Partial Class formEntidad
         Me.tabpageNotasAuditoria.Location = New System.Drawing.Point(4, 25)
         Me.tabpageNotasAuditoria.Name = "tabpageNotasAuditoria"
         Me.tabpageNotasAuditoria.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageNotasAuditoria.Size = New System.Drawing.Size(506, 219)
+        Me.tabpageNotasAuditoria.Size = New System.Drawing.Size(506, 223)
         Me.tabpageNotasAuditoria.TabIndex = 7
         Me.tabpageNotasAuditoria.Text = "Notas y Auditoría"
         Me.tabpageNotasAuditoria.UseVisualStyleBackColor = True
@@ -1543,7 +1567,7 @@ Partial Class formEntidad
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(539, 399)
+        Me.ClientSize = New System.Drawing.Size(539, 404)
         Me.Controls.Add(Me.checkboxEsActivo)
         Me.Controls.Add(labelEsActivo)
         Me.Controls.Add(Me.toolstripMain)
@@ -1684,4 +1708,5 @@ Partial Class formEntidad
     Friend WithEvents labelEntidadTercero As System.Windows.Forms.Label
     Friend WithEvents checkboxFacturaIndividual As System.Windows.Forms.CheckBox
     Friend WithEvents checkboxExcluyeCalculoInteres As System.Windows.Forms.CheckBox
+    Friend WithEvents textboxFacturaLeyenda As System.Windows.Forms.TextBox
 End Class

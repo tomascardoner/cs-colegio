@@ -12,8 +12,10 @@ Imports System.Collections.Generic
 
 Partial Public Class Log
     Public Property IDLog As Integer
-    Public Property IDUsuario As Byte
+    Public Property IDUsuario As Short
     Public Property Accion As String
     Public Property Descripcion As String
+
+    Public Overridable Property Usuario As Usuario
 
 End Class

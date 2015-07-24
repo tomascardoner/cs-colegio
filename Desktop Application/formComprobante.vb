@@ -77,11 +77,14 @@
 
         ExceptControlsArray = {toolstripMain.Name, textboxIDComprobante.Name, textboxEntidad.Name, textboxFechaHoraCreacion.Name, textboxUsuarioCreacion.Name, textboxFechaHoraModificacion.Name, textboxUsuarioModificacion.Name}
         ExceptControlsString = String.Join(",", ExceptControlsArray)
-        If mEditMode And mComprobanteCurrent.IDComprobante > 0 Then
-            ExceptControlsString &= "," & comboboxComprobanteTipo.Name
-        End If
-        If mEditMode And mUtilizaNumerador Then
-            ExceptControlsString &= "," & textboxPuntoVenta.Name & "," & textboxNumero.Name
+        If mEditMode Then
+            If mComprobanteCurrent.IDComprobante > 0 Then
+                ExceptControlsString &= "," & comboboxComprobanteTipo.Name
+            End If
+            If mUtilizaNumerador Then
+                ExceptControlsString &= "," & textboxPuntoVenta.Name & "," & textboxNumero.Name
+            End If
+            ExceptControlsString &= "," & textboxImporteSubtotal.Name & "," & textboxImporteImpuesto.Name & "," & textboxImporteTotal.Name
         End If
         ExceptControlsArray = ExceptControlsString.Split(","c)
         CS_Form.ControlsChangeStateReadOnly(Me.Controls, Not mEditMode, True, ExceptControlsArray)
@@ -283,16 +286,13 @@
             If mComprobanteTipoPuntoVentaActual Is Nothing Then
                 ' No hay un numerador definido, habilito los campos de Punto de Venta y Numero
                 mUtilizaNumerador = False
-                textboxPuntoVenta.ReadOnly = False
-                textboxNumero.ReadOnly = False
+                ChangeMode()
                 textboxPuntoVenta.Text = ""
                 textboxNumero.Text = ""
             Else
                 ' Hay un numerador definido, así que busco el siguiente número, como para ir mostrándolo, aunque antes de grabar, puede volver a cambiar
                 mUtilizaNumerador = True
-                textboxPuntoVenta.ReadOnly = mEditMode
-                textboxNumero.ReadOnly = mEditMode
-
+                ChangeMode()
                 textboxPuntoVenta.Text = mComprobanteTipoPuntoVentaActual.PuntoVenta.Numero
                 ' Busco si ya hay un comprobante creado de este tipo para obtener el último número
                 NextComprobanteNumero = dbcontext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = mComprobanteTipoCurrent.IDComprobanteTipo And cc.PuntoVenta = mComprobanteTipoPuntoVentaActual.PuntoVenta.Numero).Max(Function(cc) cc.Numero)
@@ -566,18 +566,26 @@
                 ' Guardo los cambios
                 dbContext.SaveChanges()
 
-                ' Refresco la lista de Comprobantes para mostrar los cambios
-                If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formComprobantes") Then
-                    Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formComprobantes"), formComprobantes)
-                    formComprobantes.RefreshData(mComprobanteCurrent.IDComprobante)
-                    formComprobantes = Nothing
-                End If
+            Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
+                Me.Cursor = Cursors.Default
+                Select Case CS_Database_EF_SQL.TryDecodeDbUpdateException(dbuex)
+                    Case Errors.DuplicatedEntity
+                        MsgBox("No se pueden guardar los cambios porque ya existe un Comprobante con el mismo ID.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                End Select
+                Exit Sub
 
             Catch ex As Exception
                 Me.Cursor = Cursors.Default
-                CS_Error.ProcessError(ex, "Error al intentar guardar los cambios en la Base de Datos.")
+                CS_Error.ProcessError(ex, My.Resources.STRING_ERROR_SAVING_CHANGES)
                 Exit Sub
             End Try
+
+            ' Refresco la lista de Comprobantes para mostrar los cambios
+            If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formComprobantes") Then
+                Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formComprobantes"), formComprobantes)
+                formComprobantes.RefreshData(mComprobanteCurrent.IDComprobante)
+                formComprobantes = Nothing
+            End If
 
             If mComprobanteTipoCurrent.EmisionElectronica And mComprobanteCurrent.CAE Is Nothing Then
                 If MsgBox("Este Comprobante necesita ser autorizado en AFIP para tener validez." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
@@ -675,6 +683,7 @@
     Private Function TransmitirComprobante(ByRef ComprobanteATransmitir As Comprobante) As Boolean
         Dim LogPath As String = ""
         Dim LogFileName As String = ""
+        Dim Certificado As String
         Dim WSAA_URL As String
         Dim WSFEv1_URL As String
         Dim AFIP_TicketAcceso As String
@@ -703,9 +712,11 @@
 
         ' Leo los valores comunes a todas las facturas
         If My.Settings.AFIP_WS_ModoHomologacion Then
+            Certificado = My.Settings.AFIP_WS_Certificado_Homologacion
             WSAA_URL = CS_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION)
             WSFEv1_URL = CS_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION)
         Else
+            Certificado = My.Settings.AFIP_WS_Certificado_Produccion
             WSAA_URL = CS_Parameter.GetString(Parametros.AFIP_WS_AA_PRODUCCION)
             WSFEv1_URL = CS_Parameter.GetString(Parametros.AFIP_WS_FE_PRODUCCION)
         End If
@@ -727,7 +738,7 @@
         End If
 
         ' Intento realizar la Autenticación en el Servidor de AFIP
-        AFIP_TicketAcceso = CS_AFIP_WS.Login(WSAA_URL, InternetProxy, CS_AFIP_WS.SERVICIO_FACTURACION_ELECTRONICA, My.Settings.AFIP_WS_Certificado, My.Settings.AFIP_WS_ClavePrivada, LogPath, LogFileName)
+        AFIP_TicketAcceso = CS_AFIP_WS.Login(WSAA_URL, InternetProxy, CS_AFIP_WS.SERVICIO_FACTURACION_ELECTRONICA, My.Settings.AFIP_WS_Certificado_Homologacion, My.Settings.AFIP_WS_ClavePrivada, LogPath, LogFileName)
         If AFIP_TicketAcceso = "" Then
             Me.Cursor = Cursors.Default
             Return False

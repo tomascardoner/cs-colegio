@@ -12,6 +12,8 @@ Public Class formComprobantesGenerarLote
     Private AnioLectivo As Integer
     Private MesAFacturar As Byte
     Private MesAFacturarNombre As String
+
+    Private FechaEmision As Date
     Private FechaServicioDesde As Date
     Private FechaServicioHasta As Date
     Private FechaVencimiento As Date
@@ -40,9 +42,13 @@ Public Class formComprobantesGenerarLote
         MesAFacturar = CByte(Today.Month)
         MesAFacturarNombre = StrConv(MonthName(MesAFacturar), VbStrConv.ProperCase)
 
+        FechaEmision = DateTime.Today
         FechaServicioDesde = New Date(AnioLectivo, MesAFacturar, 1)
         FechaServicioHasta = FechaServicioDesde.AddMonths(1).AddDays(-1)
         FechaVencimiento = New Date(AnioLectivo, MesAFacturar, CS_Parameter.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO_DIA))
+        If FechaVencimiento.CompareTo(FechaEmision) < 0 Then
+            FechaVencimiento = FechaEmision
+        End If
 
         FillTreeViewNiveles()
         FillTreeViewPadres()
@@ -479,8 +485,6 @@ Public Class formComprobantesGenerarLote
         Dim FacturaCabecera As New Comprobante
         Dim FacturaDetalle As ComprobanteDetalle
 
-        Dim Fecha As Date
-
         Me.Cursor = Cursors.WaitCursor
 
         listFacturas = New List(Of Comprobante)
@@ -488,7 +492,6 @@ Public Class formComprobantesGenerarLote
         ' Cargo los parámetros en variables para reducir tiempo de procesamiento
         IDArticulo = CS_Parameter.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID)
         ComprobanteEntidadMayusculas = CS_Parameter.GetBoolean(Parametros.COMPROBANTE_ENTIDAD_MAYUSCULAS, False).Value
-        Fecha = System.DateTime.Now.Date
 
         ' Creo el Lote de Comprobantes
         With FacturaLote
@@ -510,7 +513,7 @@ Public Class formComprobantesGenerarLote
         For Each EntidadAlumno As Entidad In listEntidadesSeleccionadasOk
             If EntidadAlumno.EmitirFacturaA = Constantes.EMITIRFACTURAA_ALUMNO Then
                 ' Se factura directamente al Alumno, así que lo agrego a él mismo como Titular de la Factura y como Alumno
-                FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
+                FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno, FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, Nothing, ComprobanteEntidadMayusculas)
                 FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                 FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
                 FacturaCabecera.ImporteImpuesto = 0
@@ -525,7 +528,7 @@ Public Class formComprobantesGenerarLote
                 ' Se factura al Padre (entre otros posibles)
                 If EntidadAlumno.FacturaIndividual Then
                     ' El Alumno especifica que se le facture individualmente
-                    FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
+                    FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, EntidadAlumno.FacturaLeyenda, ComprobanteEntidadMayusculas)
                     FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                     FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
                     FacturaCabecera.ImporteImpuesto = 0
@@ -536,7 +539,7 @@ Public Class formComprobantesGenerarLote
                     FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.IDEntidadPadre.Value)
                     If FacturaCabecera Is Nothing Then
                         ' No existe la Factura, la creo.
-                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
+                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, EntidadAlumno.FacturaLeyenda, ComprobanteEntidadMayusculas)
                         FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                         FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
                         FacturaCabecera.ImporteImpuesto = 0
@@ -546,7 +549,7 @@ Public Class formComprobantesGenerarLote
                         ' Ya existe una Factura de ese Titular
                         If dbcontext.Entidad.Find(FacturaCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
                             ' El Alumno que ya está en la Factura especifica que se le facture individualmente
-                            FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
+                            FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, EntidadAlumno.FacturaLeyenda, ComprobanteEntidadMayusculas)
                             FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                             FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
                             FacturaCabecera.ImporteImpuesto = 0
@@ -555,6 +558,13 @@ Public Class formComprobantesGenerarLote
                         Else
                             ' No hay restricciones, así que sólo agrego un item al Detalle
                             FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
+                            If Not EntidadAlumno.FacturaLeyenda Is Nothing Then
+                                If FacturaCabecera.Leyenda Is Nothing Then
+                                    FacturaCabecera.Leyenda = EntidadAlumno.FacturaLeyenda
+                                Else
+                                    FacturaCabecera.Leyenda &= vbCrLf & EntidadAlumno.FacturaLeyenda
+                                End If
+                            End If
                             FacturaCabecera.ImporteSubtotal = FacturaCabecera.ImporteSubtotal + FacturaDetalle.PrecioTotal
                             FacturaCabecera.ImporteImpuesto = 0
                             FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteSubtotal
@@ -570,7 +580,7 @@ Public Class formComprobantesGenerarLote
                 ' Se factura a la Madre (entre otros posibles)
                 If EntidadAlumno.FacturaIndividual Then
                     ' El Alumno especifica que se le facture individualmente
-                    FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
+                    FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, EntidadAlumno.FacturaLeyenda, ComprobanteEntidadMayusculas)
                     FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                     FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
                     FacturaCabecera.ImporteImpuesto = 0
@@ -581,7 +591,7 @@ Public Class formComprobantesGenerarLote
                     FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.IDEntidadMadre.Value)
                     If FacturaCabecera Is Nothing Then
                         ' No existe la Factura, la creo.
-                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
+                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, EntidadAlumno.FacturaLeyenda, ComprobanteEntidadMayusculas)
                         FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                         FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
                         FacturaCabecera.ImporteImpuesto = 0
@@ -591,15 +601,22 @@ Public Class formComprobantesGenerarLote
                         ' Ya existe una Factura de ese Titular
                         If dbcontext.Entidad.Find(FacturaCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
                             ' El Alumno que ya está en la Factura especifica que se le facture individualmente
-                            FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
+                            FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, EntidadAlumno.FacturaLeyenda, ComprobanteEntidadMayusculas)
                             FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                             FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
                             FacturaCabecera.ImporteImpuesto = 0
                             FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteSubtotal
                             listFacturas.Add(FacturaCabecera)
                         Else
-                            ' Ya existem así que sólo agrego un item al Detalle
+                            ' No hay restricciones, así que sólo agrego un item al Detalle
                             FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
+                            If Not EntidadAlumno.FacturaLeyenda Is Nothing Then
+                                If FacturaCabecera.Leyenda Is Nothing Then
+                                    FacturaCabecera.Leyenda = EntidadAlumno.FacturaLeyenda
+                                Else
+                                    FacturaCabecera.Leyenda &= vbCrLf & EntidadAlumno.FacturaLeyenda
+                                End If
+                            End If
                             FacturaCabecera.ImporteSubtotal = FacturaCabecera.ImporteSubtotal + FacturaDetalle.PrecioTotal
                             FacturaCabecera.ImporteImpuesto = 0
                             FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteSubtotal
@@ -615,7 +632,7 @@ Public Class formComprobantesGenerarLote
                 ' Se factura a un Tercero (entre otros posibles)
                 If EntidadAlumno.FacturaIndividual Then
                     ' El Alumno especifica que se le facture individualmente
-                    FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadTercero, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
+                    FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadTercero, FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, EntidadAlumno.FacturaLeyenda, ComprobanteEntidadMayusculas)
                     FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                     FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
                     FacturaCabecera.ImporteImpuesto = 0
@@ -626,7 +643,7 @@ Public Class formComprobantesGenerarLote
                     FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = EntidadAlumno.IDEntidadTercero.Value)
                     If FacturaCabecera Is Nothing Then
                         ' No existe la Factura, la creo.
-                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadTercero, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
+                        FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadTercero, FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, EntidadAlumno.FacturaLeyenda, ComprobanteEntidadMayusculas)
                         FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                         FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
                         FacturaCabecera.ImporteImpuesto = 0
@@ -636,15 +653,22 @@ Public Class formComprobantesGenerarLote
                         ' Ya existe una Factura de ese Titular
                         If dbcontext.Entidad.Find(FacturaCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
                             ' El Alumno que ya está en la Factura especifica que se le facture individualmente
-                            FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadTercero, Fecha, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, ComprobanteEntidadMayusculas)
+                            FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadTercero, FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, EntidadAlumno.FacturaLeyenda, ComprobanteEntidadMayusculas)
                             FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
                             FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
                             FacturaCabecera.ImporteImpuesto = 0
                             FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteSubtotal
                             listFacturas.Add(FacturaCabecera)
                         Else
-                            ' Ya existem así que sólo agrego un item al Detalle
+                            ' No hay restricciones, así que sólo agrego un item al Detalle
                             FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, IDArticulo)
+                            If Not EntidadAlumno.FacturaLeyenda Is Nothing Then
+                                If FacturaCabecera.Leyenda Is Nothing Then
+                                    FacturaCabecera.Leyenda = EntidadAlumno.FacturaLeyenda
+                                Else
+                                    FacturaCabecera.Leyenda &= vbCrLf & EntidadAlumno.FacturaLeyenda
+                                End If
+                            End If
                             FacturaCabecera.ImporteSubtotal = FacturaCabecera.ImporteSubtotal + FacturaDetalle.PrecioTotal
                             FacturaCabecera.ImporteImpuesto = 0
                             FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteSubtotal
@@ -700,7 +724,7 @@ Public Class formComprobantesGenerarLote
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Function GenerarComprobanteCabecera(ByRef EntidadCabecera As Entidad, ByVal FechaEmision As Date, ByVal FechaVencimiento As Date, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDFacturaLote As Integer, ByVal ComprobanteEntidadMayusculas As Boolean) As Comprobante
+    Private Function GenerarComprobanteCabecera(ByRef EntidadCabecera As Entidad, ByVal FechaEmision As Date, ByVal FechaVencimiento As Date, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDFacturaLote As Integer, ByVal LeyendaAlumno As String, ByVal ComprobanteEntidadMayusculas As Boolean) As Comprobante
         Dim FacturaCabecera As New Comprobante
 
         With FacturaCabecera
@@ -739,6 +763,15 @@ Public Class formComprobantesGenerarLote
             .DomicilioIDLocalidad = EntidadCabecera.DomicilioIDLocalidad
 
             .IDComprobanteLote = IDFacturaLote
+
+            .Leyenda = EntidadCabecera.FacturaLeyenda
+            If Not LeyendaAlumno Is Nothing Then
+                If .Leyenda Is Nothing Then
+                    .Leyenda = LeyendaAlumno
+                Else
+                    .Leyenda &= vbCrLf & LeyendaAlumno
+                End If
+            End If
 
             ' Auditoría
             .IDUsuarioCreacion = pUsuario.IDUsuario

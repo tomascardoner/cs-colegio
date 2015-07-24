@@ -20,6 +20,13 @@ Partial Public Class ComprobanteMedioPago
     Public Property Numero As String
     Public Property IDBanco As Nullable(Of Short)
     Public Property Cuenta As String
+    Public Property FechaVencimiento As Nullable(Of Date)
+    Public Property CUIT As String
+    Public Property Titular As String
+    Public Property CodigoPostal As String
+    Public Property Estado As String
+    Public Property IDComprobanteEgreso As Nullable(Of Integer)
+    Public Property IndiceEgreso As Nullable(Of Byte)
 
     Public Overridable Property Comprobante As Comprobante
     Public Overridable Property MedioPago As MedioPago

@@ -15,6 +15,7 @@ Partial Public Class Comprobante
     Public Property IDComprobanteTipo As Byte
     Public Property PuntoVenta As String
     Public Property Numero As String
+    Public Property NumeroCompleto As String
     Public Property FechaEmision As Date
     Public Property FechaVencimiento As Nullable(Of Date)
     Public Property FechaServicioDesde As Nullable(Of Date)
@@ -48,7 +49,6 @@ Partial Public Class Comprobante
     Public Property FechaHoraTransmision As Nullable(Of Date)
     Public Property IDUsuarioEnvioEmail As Nullable(Of Short)
     Public Property FechaHoraEnvioEmail As Nullable(Of Date)
-    Public Property NumeroCompleto As String
 
     Public Overridable Property CategoriaIVA As CategoriaIVA
     Public Overridable Property ComprobanteDetalle As ICollection(Of ComprobanteDetalle) = New HashSet(Of ComprobanteDetalle)

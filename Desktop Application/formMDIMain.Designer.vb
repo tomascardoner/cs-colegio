@@ -67,6 +67,7 @@ Partial Class formMDIMain
         Me.menuitemComprobantesTransmitirAFIP = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesEnviarMail = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonReportes = New System.Windows.Forms.ToolStripButton()
+        Me.menuitemShowTestForm = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
@@ -138,7 +139,7 @@ Partial Class formMDIMain
         '
         'menuitemDebug
         '
-        Me.menuitemDebug.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWS})
+        Me.menuitemDebug.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWS, Me.menuitemShowTestForm})
         Me.menuitemDebug.Name = "menuitemDebug"
         Me.menuitemDebug.Size = New System.Drawing.Size(54, 20)
         Me.menuitemDebug.Text = "Debug"
@@ -371,6 +372,12 @@ Partial Class formMDIMain
         Me.buttonReportes.Size = New System.Drawing.Size(132, 36)
         Me.buttonReportes.Text = "Reportes"
         '
+        'menuitemShowTestForm
+        '
+        Me.menuitemShowTestForm.Name = "menuitemShowTestForm"
+        Me.menuitemShowTestForm.Size = New System.Drawing.Size(167, 22)
+        Me.menuitemShowTestForm.Text = "Show Test Form"
+        '
         'formMDIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -441,4 +448,5 @@ Partial Class formMDIMain
     Friend WithEvents menuitemComprobantesEnviarMail As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents buttonReportes As System.Windows.Forms.ToolStripButton
     Friend WithEvents menuitemDebugAFIPWSHomologacionCompConsultar As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemShowTestForm As System.Windows.Forms.ToolStripMenuItem
 End Class

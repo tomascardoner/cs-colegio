@@ -105,6 +105,7 @@
         <AssociationConnector Association="CSColegioModel.FK__Banco__ComprobanteMedioPago" />
         <AssociationConnector Association="CSColegioModel.ComprobanteTipoAsociacion" />
         <AssociationConnector Association="CSColegioModel.FK__Articulo__ComprobanteDetalle" />
+        <AssociationConnector Association="CSColegioModel.FK__Usuario__Log" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

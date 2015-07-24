@@ -2,6 +2,10 @@
     Private dbcontext As New CSColegioContext(True)
     Private AnioLectivoCurso As AnioLectivoCurso
 
+    Private Const COLUMNA_IDENTIDAD As String = "columnIDEntidad"
+    Private Const COLUMNA_APELLIDO As String = "columnApellido"
+    Private Const COLUMNA_NOMBRE As String = "columnNombre"
+
     Friend Sub RefreshData()
         Me.Cursor = Cursors.WaitCursor
 
@@ -69,11 +73,23 @@
                 Me.Cursor = Cursors.WaitCursor
                 AnioLectivoCurso.Entidades.Add(EntidadNueva)
                 dbcontext.SaveChanges()
+
+            Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
                 Me.Cursor = Cursors.Default
+                Select Case CS_Database_EF_SQL.TryDecodeDbUpdateException(dbuex)
+                    Case Errors.DuplicatedEntity
+                        MsgBox("No se puede agregar el Alumno al Curso porque ya está en el mismo.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                End Select
+                Exit Sub
+
             Catch ex As Exception
-                CS_Error.ProcessError(ex, "Error al agregar la Entidad al Curso.")
+                Me.Cursor = Cursors.Default
+                CS_Error.ProcessError(ex, "Error al agregar el Alumno al Curso.")
+                Exit Sub
             End Try
+
             RefreshData()
+            Me.Cursor = Cursors.Default
         End If
         formEntidadesSeleccionar.Dispose()
     End Sub
@@ -89,13 +105,51 @@
                         Me.Cursor = Cursors.WaitCursor
                         AnioLectivoCurso.Entidades.Remove(EntidadEliminar)
                         dbcontext.SaveChanges()
+
+                    Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
                         Me.Cursor = Cursors.Default
+                        Select Case CS_Database_EF_SQL.TryDecodeDbUpdateException(dbuex)
+                            Case Errors.RelatedEntity
+                                MsgBox("No se puede eliminar la Entidad del Curso porque tiene datos relacionados.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                        End Select
+                        Exit Sub
+
                     Catch ex As Exception
                         CS_Error.ProcessError(ex, "Error al eliminar la Entidad del Curso.")
                     End Try
+
                     RefreshData()
+                    Me.Cursor = Cursors.Default
                 End If
             End If
+        End If
+    End Sub
+
+    Private Sub datagridviewMain_DoubleClick() Handles datagridviewMain.DoubleClick
+        If datagridviewMain.CurrentRow Is Nothing Then
+            MsgBox("No hay ninguna Entidad para ver.", vbInformation, My.Application.Info.Title)
+        Else
+            Me.Cursor = Cursors.WaitCursor
+
+            datagridviewMain.Enabled = False
+
+            Dim formEntidadVer As New formEntidad
+
+            With formEntidadVer
+                .MdiParent = formMDIMain
+                .EntidadCurrent = .dbContext.Entidad.Find(datagridviewMain.SelectedRows.Item(0).Cells(COLUMNA_IDENTIDAD).Value)
+                CS_Form.CenterToParent(Me, CType(formEntidadVer, Form))
+                .buttonGuardar.Visible = False
+                .buttonCancelar.Visible = False
+                .InitializeFormAndControls()
+                .SetDataFromObjectToControls()
+                CS_Form.ControlsChangeStateReadOnly(.Controls, True, True, toolstripMain.Name)
+                .Show()
+            End With
+
+            datagridviewMain.Enabled = True
+
+            Me.Cursor = Cursors.Default
         End If
     End Sub
 End Class

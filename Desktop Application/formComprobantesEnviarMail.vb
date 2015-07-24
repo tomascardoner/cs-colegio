@@ -108,7 +108,7 @@
 
                     Dim Asunto As String = String.Format(My.Settings.Comprobante_EnviarEmail_Subject, ComprobanteActual.ComprobanteTipo.NombreConLetra, GridDataRowActual.NumeroCompleto)
                     Dim Cuerpo As String = String.Format(My.Settings.Comprobante_EnvioEmail_Body, vbCrLf) & String.Format(My.Settings.Email_Signature, vbCrLf)
-                    Dim AdjuntoNombre As String = ComprobanteActual.ComprobanteTipo.Sigla.TrimEnd & GridDataRowActual.NumeroCompleto & ".pdf"
+                    Dim AdjuntoNombre As String = String.Format("{0}-{1}.pdf", ComprobanteActual.ComprobanteTipo.Sigla.TrimEnd, ComprobanteActual.NumeroCompleto)
 
                     textboxStatus.Text &= vbCrLf & String.Format("Enviando la {0} N° {1} a {2}...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero, ComprobanteActual.Entidad.ApellidoNombre)
 

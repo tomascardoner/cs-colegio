@@ -104,6 +104,7 @@
             checkboxFacturaIndividual.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.FacturaIndividual)
             datetimepickerExcluyeFacturaDesde.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.ExcluyeFacturaDesde, datetimepickerExcluyeFacturaDesde)
             datetimepickerExcluyeFacturaHasta.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.ExcluyeFacturaHasta, datetimepickerExcluyeFacturaHasta)
+            textboxFacturaLeyenda.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.FacturaLeyenda)
 
             ' Datos de la pestaña Cursos Asistidos
             Dim listCursosAsistidos As New List(Of Object)
@@ -209,6 +210,7 @@
             .FacturaIndividual = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxFacturaIndividual.CheckState)
             .ExcluyeFacturaDesde = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerExcluyeFacturaDesde.Value, datetimepickerExcluyeFacturaDesde.Checked)
             .ExcluyeFacturaHasta = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerExcluyeFacturaHasta.Value, datetimepickerExcluyeFacturaHasta.Checked)
+            .FacturaLeyenda = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxFacturaLeyenda.Text)
 
             ' Datos de la pestaña Notas y Aditoría
             .Notas = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNotas.Text.Trim)
@@ -550,9 +552,17 @@
                     formEntidades = Nothing
                 End If
 
+            Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
+                Me.Cursor = Cursors.Default
+                Select Case CS_Database_EF_SQL.TryDecodeDbUpdateException(dbuex)
+                    Case Errors.DuplicatedEntity
+                        MsgBox("No se pueden guardar los cambios porque ya existe una Entidad con el mismo Apellido y Nombre.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                End Select
+                Exit Sub
+
             Catch ex As Exception
                 Me.Cursor = Cursors.Default
-                CS_Error.ProcessError(ex, "Error al intentar guardar los cambios a la Base de Datos.")
+                CS_Error.ProcessError(ex, My.Resources.STRING_ERROR_SAVING_CHANGES)
                 Exit Sub
             End Try
         End If

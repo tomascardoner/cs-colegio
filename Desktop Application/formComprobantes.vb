@@ -452,7 +452,7 @@
 
                         Dim Asunto As String = String.Format(My.Settings.Comprobante_EnviarEmail_Subject, ComprobanteTipoActual.NombreConLetra, CurrentRow.NumeroCompleto)
                         Dim Cuerpo As String = String.Format(My.Settings.Comprobante_EnvioEmail_Body, vbCrLf) & String.Format(My.Settings.Email_Signature, vbCrLf)
-                        Dim AdjuntoNombre As String = ComprobanteTipoActual.Sigla.TrimEnd & CurrentRow.NumeroCompleto & ".pdf"
+                        Dim AdjuntoNombre As String = String.Format("{0}-{1}.pdf", ComprobanteTipoActual.Sigla.TrimEnd, CurrentRow.NumeroCompleto)
 
                         Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
                             Case Constantes.EMAIL_CLIENT_NETDLL
@@ -561,6 +561,14 @@
                             Try
                                 dbContext.Comprobante.Remove(ComprobanteEliminar)
                                 dbContext.SaveChanges()
+
+                            Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
+                                Me.Cursor = Cursors.Default
+                                Select Case CS_Database_EF_SQL.TryDecodeDbUpdateException(dbuex)
+                                    Case Errors.RelatedEntity
+                                        MsgBox("No se puede eliminar el Comprobante porque tiene datos relacionados.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                                End Select
+                                Exit Sub
 
                             Catch ex As Exception
                                 CS_Error.ProcessError(ex, "Error al eliminar el Comprobante.")

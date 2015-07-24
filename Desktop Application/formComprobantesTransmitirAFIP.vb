@@ -101,6 +101,7 @@
     Private Sub TransmitirComprobantes()
         Dim LogPath As String = ""
         Dim LogFileName As String = ""
+        Dim Certificado As String
         Dim WSAA_URL As String
         Dim WSFEv1_URL As String
         Dim AFIP_TicketAcceso As String
@@ -130,9 +131,11 @@
 
         ' Leo los valores comunes a todas las facturas
         If My.Settings.AFIP_WS_ModoHomologacion Then
+            Certificado = My.Settings.AFIP_WS_Certificado_Homologacion
             WSAA_URL = CS_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION)
             WSFEv1_URL = CS_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION)
         Else
+            Certificado = My.Settings.AFIP_WS_Certificado_Produccion
             WSAA_URL = CS_Parameter.GetString(Parametros.AFIP_WS_AA_PRODUCCION)
             WSFEv1_URL = CS_Parameter.GetString(Parametros.AFIP_WS_FE_PRODUCCION)
         End If
@@ -162,7 +165,7 @@
         textboxStatus.Text = "Estableciendo conexión y autenticando con el Servidor de AFIP..."
 
         ' Intento realizar la Autenticación en el Servidor de AFIP
-        AFIP_TicketAcceso = CS_AFIP_WS.Login(WSAA_URL, InternetProxy, CS_AFIP_WS.SERVICIO_FACTURACION_ELECTRONICA, My.Settings.AFIP_WS_Certificado, My.Settings.AFIP_WS_ClavePrivada, LogPath, LogFileName)
+        AFIP_TicketAcceso = CS_AFIP_WS.Login(WSAA_URL, InternetProxy, CS_AFIP_WS.SERVICIO_FACTURACION_ELECTRONICA, Certificado, My.Settings.AFIP_WS_ClavePrivada, LogPath, LogFileName)
         If AFIP_TicketAcceso = "" Then
             MostrarOcultarEstado(False)
             Me.Cursor = Cursors.Default
