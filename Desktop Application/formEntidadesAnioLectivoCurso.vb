@@ -125,6 +125,37 @@
         End If
     End Sub
 
+    Private Sub Imprimir(sender As Object, e As EventArgs) Handles menuitemImprimirListadoCompleto.Click, menuitemImprimirListadoDelCurso.Click
+        If sender.Equals(menuitemImprimirListadoDelCurso) AndAlso datagridviewMain.CurrentRow Is Nothing Then
+            MsgBox("No hay ningún Alumno para imprimir.", vbInformation, My.Application.Info.Title)
+        Else
+            If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO_PRINT) Then
+                Me.Cursor = Cursors.WaitCursor
+
+                datagridviewMain.Enabled = False
+
+                Dim Reporte As New CS_CrystalReport
+                If Reporte.OpenReport(My.Settings.ReportsPath & "\AlumnosPorCurso.rpt") Then
+                    If Reporte.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
+
+                        If sender.Equals(menuitemImprimirListadoCompleto) Then
+                            Reporte.RecordSelectionFormula = String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0}", comboboxAnioLectivo.ComboBox.SelectedValue.ToString)
+                        ElseIf sender.Equals(menuitemImprimirListadoDelCurso) Then
+                            Reporte.RecordSelectionFormula = String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0} AND {{AnioLectivoCurso.IDCurso}} = {1}", comboboxAnioLectivo.ComboBox.SelectedValue.ToString, comboboxCurso.ComboBox.SelectedValue.ToString)
+                        End If
+
+                        MiscFunctions.PreviewCrystalReport(Reporte, "Listado de Alumnos por Curso")
+                    End If
+            End If
+
+            datagridviewMain.Enabled = True
+
+            Me.Cursor = Cursors.Default
+        End If
+        End If
+    End Sub
+
+
     Private Sub datagridviewMain_DoubleClick() Handles datagridviewMain.DoubleClick
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ninguna Entidad para ver.", vbInformation, My.Application.Info.Title)

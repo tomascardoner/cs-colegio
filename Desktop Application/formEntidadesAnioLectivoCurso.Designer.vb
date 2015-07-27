@@ -22,10 +22,10 @@ Partial Class formEntidadesAnioLectivoCurso
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.toolstripMain = New System.Windows.Forms.ToolStrip()
         Me.labelAnioLectivo = New System.Windows.Forms.ToolStripLabel()
         Me.comboboxAnioLectivo = New System.Windows.Forms.ToolStripComboBox()
@@ -39,11 +39,14 @@ Partial Class formEntidadesAnioLectivoCurso
         Me.buttonAgregar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEliminar = New System.Windows.Forms.ToolStripButton()
         Me.datagridviewMain = New System.Windows.Forms.DataGridView()
-        Me.statusstripMain = New System.Windows.Forms.StatusStrip()
-        Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
         Me.columnIDEntidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnApellido = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.statusstripMain = New System.Windows.Forms.StatusStrip()
+        Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.menuitemImprimir = New System.Windows.Forms.ToolStripSplitButton()
+        Me.menuitemImprimirListadoCompleto = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemImprimirListadoDelCurso = New System.Windows.Forms.ToolStripMenuItem()
         Me.toolstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.statusstripMain.SuspendLayout()
@@ -52,10 +55,10 @@ Partial Class formEntidadesAnioLectivoCurso
         'toolstripMain
         '
         Me.toolstripMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelAnioLectivo, Me.comboboxAnioLectivo, Me.ToolStripSeparator2, Me.labelNivel, Me.comboboxNivel, Me.ToolStripSeparator1, Me.labelCurso, Me.comboboxCurso, Me.ToolStripSeparator3, Me.buttonAgregar, Me.buttonEliminar})
+        Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelAnioLectivo, Me.comboboxAnioLectivo, Me.ToolStripSeparator2, Me.labelNivel, Me.comboboxNivel, Me.ToolStripSeparator1, Me.labelCurso, Me.comboboxCurso, Me.ToolStripSeparator3, Me.buttonAgregar, Me.buttonEliminar, Me.menuitemImprimir})
         Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
         Me.toolstripMain.Name = "toolstripMain"
-        Me.toolstripMain.Size = New System.Drawing.Size(850, 39)
+        Me.toolstripMain.Size = New System.Drawing.Size(896, 39)
         Me.toolstripMain.TabIndex = 0
         '
         'labelAnioLectivo
@@ -134,11 +137,11 @@ Partial Class formEntidadesAnioLectivoCurso
         Me.datagridviewMain.AllowUserToDeleteRows = False
         Me.datagridviewMain.AllowUserToOrderColumns = True
         Me.datagridviewMain.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
         Me.datagridviewMain.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -151,30 +154,15 @@ Partial Class formEntidadesAnioLectivoCurso
         Me.datagridviewMain.RowHeadersVisible = False
         Me.datagridviewMain.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewMain.Size = New System.Drawing.Size(850, 282)
+        Me.datagridviewMain.Size = New System.Drawing.Size(896, 282)
         Me.datagridviewMain.TabIndex = 1
-        '
-        'statusstripMain
-        '
-        Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statuslabelMain})
-        Me.statusstripMain.Location = New System.Drawing.Point(0, 324)
-        Me.statusstripMain.Name = "statusstripMain"
-        Me.statusstripMain.Size = New System.Drawing.Size(850, 22)
-        Me.statusstripMain.TabIndex = 2
-        '
-        'statuslabelMain
-        '
-        Me.statuslabelMain.Name = "statuslabelMain"
-        Me.statuslabelMain.Size = New System.Drawing.Size(835, 17)
-        Me.statuslabelMain.Spring = True
-        Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'columnIDEntidad
         '
         Me.columnIDEntidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnIDEntidad.DataPropertyName = "IDEntidad"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.columnIDEntidad.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.columnIDEntidad.DefaultCellStyle = DataGridViewCellStyle6
         Me.columnIDEntidad.HeaderText = "N° Entidad"
         Me.columnIDEntidad.Name = "columnIDEntidad"
         Me.columnIDEntidad.ReadOnly = True
@@ -184,8 +172,8 @@ Partial Class formEntidadesAnioLectivoCurso
         '
         Me.columnApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnApellido.DataPropertyName = "Apellido"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnApellido.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnApellido.DefaultCellStyle = DataGridViewCellStyle7
         Me.columnApellido.HeaderText = "Apellido"
         Me.columnApellido.Name = "columnApellido"
         Me.columnApellido.ReadOnly = True
@@ -195,18 +183,55 @@ Partial Class formEntidadesAnioLectivoCurso
         '
         Me.columnNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnNombre.DataPropertyName = "Nombre"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnNombre.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnNombre.DefaultCellStyle = DataGridViewCellStyle8
         Me.columnNombre.HeaderText = "Nombre"
         Me.columnNombre.Name = "columnNombre"
         Me.columnNombre.ReadOnly = True
         Me.columnNombre.Width = 69
         '
+        'statusstripMain
+        '
+        Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statuslabelMain})
+        Me.statusstripMain.Location = New System.Drawing.Point(0, 324)
+        Me.statusstripMain.Name = "statusstripMain"
+        Me.statusstripMain.Size = New System.Drawing.Size(896, 22)
+        Me.statusstripMain.TabIndex = 2
+        '
+        'statuslabelMain
+        '
+        Me.statuslabelMain.Name = "statuslabelMain"
+        Me.statuslabelMain.Size = New System.Drawing.Size(881, 17)
+        Me.statuslabelMain.Spring = True
+        Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'menuitemImprimir
+        '
+        Me.menuitemImprimir.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemImprimirListadoCompleto, Me.menuitemImprimirListadoDelCurso})
+        Me.menuitemImprimir.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_PRINT_32
+        Me.menuitemImprimir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.menuitemImprimir.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.menuitemImprimir.Name = "menuitemImprimir"
+        Me.menuitemImprimir.Size = New System.Drawing.Size(101, 36)
+        Me.menuitemImprimir.Text = "Imprimir"
+        '
+        'menuitemImprimirListadoCompleto
+        '
+        Me.menuitemImprimirListadoCompleto.Name = "menuitemImprimirListadoCompleto"
+        Me.menuitemImprimirListadoCompleto.Size = New System.Drawing.Size(168, 22)
+        Me.menuitemImprimirListadoCompleto.Text = "Listado Completo"
+        '
+        'menuitemImprimirListadoDelCurso
+        '
+        Me.menuitemImprimirListadoDelCurso.Name = "menuitemImprimirListadoDelCurso"
+        Me.menuitemImprimirListadoDelCurso.Size = New System.Drawing.Size(168, 22)
+        Me.menuitemImprimirListadoDelCurso.Text = "Listado del Curso"
+        '
         'formEntidadesAnioLectivoCurso
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(850, 346)
+        Me.ClientSize = New System.Drawing.Size(896, 346)
         Me.Controls.Add(Me.statusstripMain)
         Me.Controls.Add(Me.datagridviewMain)
         Me.Controls.Add(Me.toolstripMain)
@@ -240,4 +265,7 @@ Partial Class formEntidadesAnioLectivoCurso
     Friend WithEvents columnIDEntidad As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnApellido As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnNombre As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents menuitemImprimir As System.Windows.Forms.ToolStripSplitButton
+    Friend WithEvents menuitemImprimirListadoCompleto As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemImprimirListadoDelCurso As System.Windows.Forms.ToolStripMenuItem
 End Class

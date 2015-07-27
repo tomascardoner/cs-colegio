@@ -10,20 +10,17 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class Caja
+Partial Public Class Chequera
+    Public Property IDChequera As Short
     Public Property IDCaja As Byte
-    Public Property Nombre As String
-    Public Property IDBanco As Nullable(Of Short)
-    Public Property Cuenta As String
-    Public Property EsActivo As Boolean
+    Public Property Serie As String
+    Public Property NumeroDesde As Integer
+    Public Property NumeroHasta As Integer
     Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date
     Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
-    Public Property EmiteCheque As Boolean
 
-    Public Overridable Property ComprobanteMedioPago As ICollection(Of ComprobanteMedioPago) = New HashSet(Of ComprobanteMedioPago)
-    Public Overridable Property MedioPago As ICollection(Of MedioPago) = New HashSet(Of MedioPago)
-    Public Overridable Property Chequera As ICollection(Of Chequera) = New HashSet(Of Chequera)
+    Public Overridable Property Caja As Caja
 
 End Class

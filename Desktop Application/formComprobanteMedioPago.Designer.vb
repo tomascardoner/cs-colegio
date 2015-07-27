@@ -40,6 +40,11 @@ Partial Class formComprobanteMedioPago
         Me.comboboxBanco = New System.Windows.Forms.ComboBox()
         Me.labelBanco = New System.Windows.Forms.Label()
         Me.textboxImporte = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
+        Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
+        Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
+        Me.LineShape2 = New Microsoft.VisualBasic.PowerPacks.LineShape()
+        Me.textboxCuenta = New System.Windows.Forms.TextBox()
+        Me.labelCuenta = New System.Windows.Forms.Label()
         Me.toolstripMain.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -65,27 +70,27 @@ Partial Class formComprobanteMedioPago
         '
         Me.comboboxCaja.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxCaja.FormattingEnabled = True
-        Me.comboboxCaja.Location = New System.Drawing.Point(97, 195)
+        Me.comboboxCaja.Location = New System.Drawing.Point(97, 223)
         Me.comboboxCaja.Name = "comboboxCaja"
         Me.comboboxCaja.Size = New System.Drawing.Size(235, 21)
-        Me.comboboxCaja.TabIndex = 10
+        Me.comboboxCaja.TabIndex = 12
         '
         'labelCaja
         '
         Me.labelCaja.AutoSize = True
-        Me.labelCaja.Location = New System.Drawing.Point(9, 198)
+        Me.labelCaja.Location = New System.Drawing.Point(9, 226)
         Me.labelCaja.Name = "labelCaja"
         Me.labelCaja.Size = New System.Drawing.Size(31, 13)
-        Me.labelCaja.TabIndex = 9
+        Me.labelCaja.TabIndex = 11
         Me.labelCaja.Text = "Caja:"
         '
         'labelImporte
         '
         Me.labelImporte.AutoSize = True
-        Me.labelImporte.Location = New System.Drawing.Point(9, 230)
+        Me.labelImporte.Location = New System.Drawing.Point(9, 258)
         Me.labelImporte.Name = "labelImporte"
         Me.labelImporte.Size = New System.Drawing.Size(45, 13)
-        Me.labelImporte.TabIndex = 11
+        Me.labelImporte.TabIndex = 13
         Me.labelImporte.Text = "Importe:"
         '
         'toolstripMain
@@ -95,7 +100,7 @@ Partial Class formComprobanteMedioPago
         Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
         Me.toolstripMain.Name = "toolstripMain"
         Me.toolstripMain.Size = New System.Drawing.Size(344, 39)
-        Me.toolstripMain.TabIndex = 13
+        Me.toolstripMain.TabIndex = 15
         '
         'buttonCerrar
         '
@@ -203,18 +208,63 @@ Partial Class formComprobanteMedioPago
         '
         'textboxImporte
         '
-        Me.textboxImporte.Location = New System.Drawing.Point(97, 227)
+        Me.textboxImporte.Location = New System.Drawing.Point(97, 255)
         Me.textboxImporte.MaxLength = 15
         Me.textboxImporte.Name = "textboxImporte"
         Me.textboxImporte.Size = New System.Drawing.Size(100, 20)
-        Me.textboxImporte.TabIndex = 12
+        Me.textboxImporte.TabIndex = 14
         Me.textboxImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'ShapeContainer1
+        '
+        Me.ShapeContainer1.Location = New System.Drawing.Point(0, 0)
+        Me.ShapeContainer1.Margin = New System.Windows.Forms.Padding(0)
+        Me.ShapeContainer1.Name = "ShapeContainer1"
+        Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.LineShape2, Me.LineShape1})
+        Me.ShapeContainer1.Size = New System.Drawing.Size(344, 287)
+        Me.ShapeContainer1.TabIndex = 14
+        Me.ShapeContainer1.TabStop = False
+        '
+        'LineShape1
+        '
+        Me.LineShape1.Name = "LineShape1"
+        Me.LineShape1.X1 = 9
+        Me.LineShape1.X2 = 335
+        Me.LineShape1.Y1 = 82
+        Me.LineShape1.Y2 = 82
+        '
+        'LineShape2
+        '
+        Me.LineShape2.Name = "LineShape2"
+        Me.LineShape2.X1 = 9
+        Me.LineShape2.X2 = 335
+        Me.LineShape2.Y1 = 208
+        Me.LineShape2.Y2 = 208
+        '
+        'textboxCuenta
+        '
+        Me.textboxCuenta.Location = New System.Drawing.Point(97, 175)
+        Me.textboxCuenta.MaxLength = 20
+        Me.textboxCuenta.Name = "textboxCuenta"
+        Me.textboxCuenta.Size = New System.Drawing.Size(134, 20)
+        Me.textboxCuenta.TabIndex = 10
+        '
+        'labelCuenta
+        '
+        Me.labelCuenta.AutoSize = True
+        Me.labelCuenta.Location = New System.Drawing.Point(9, 178)
+        Me.labelCuenta.Name = "labelCuenta"
+        Me.labelCuenta.Size = New System.Drawing.Size(44, 13)
+        Me.labelCuenta.TabIndex = 9
+        Me.labelCuenta.Text = "Cuenta:"
         '
         'formComprobanteMedioPago
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(344, 259)
+        Me.ClientSize = New System.Drawing.Size(344, 287)
+        Me.Controls.Add(Me.textboxCuenta)
+        Me.Controls.Add(Me.labelCuenta)
         Me.Controls.Add(Me.comboboxBanco)
         Me.Controls.Add(Me.labelBanco)
         Me.Controls.Add(Me.textboxNumero)
@@ -229,6 +279,7 @@ Partial Class formComprobanteMedioPago
         Me.Controls.Add(Me.labelCaja)
         Me.Controls.Add(Me.comboboxMedioPago)
         Me.Controls.Add(Me.labelMedioPago)
+        Me.Controls.Add(Me.ShapeContainer1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.KeyPreview = True
         Me.MaximizeBox = False
@@ -259,4 +310,9 @@ Partial Class formComprobanteMedioPago
     Friend WithEvents textboxNumero As System.Windows.Forms.TextBox
     Friend WithEvents comboboxBanco As System.Windows.Forms.ComboBox
     Friend WithEvents labelBanco As System.Windows.Forms.Label
+    Friend WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
+    Friend WithEvents LineShape2 As Microsoft.VisualBasic.PowerPacks.LineShape
+    Friend WithEvents LineShape1 As Microsoft.VisualBasic.PowerPacks.LineShape
+    Friend WithEvents textboxCuenta As System.Windows.Forms.TextBox
+    Friend WithEvents labelCuenta As System.Windows.Forms.Label
 End Class

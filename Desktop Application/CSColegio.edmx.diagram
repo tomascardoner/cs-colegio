@@ -95,8 +95,6 @@
         <EntityTypeShape EntityType="CSColegioModel.Cheque" Width="2.25" PointX="28.75" PointY="13.625" />
         <AssociationConnector Association="CSColegioModel.FK__Banco__Cheque" />
         <AssociationConnector Association="CSColegioModel.FK__Caja__ComprobanteMedioPago" />
-        <AssociationConnector Association="CSColegioModel.FK__ComprobanteMedioPago__Cheque__Egreso" />
-        <AssociationConnector Association="CSColegioModel.FK__ComprobanteMedioPago__Cheque__Ingreso" />
         <AssociationConnector Association="CSColegioModel.MedioPagoCaja1" />
         <EntityTypeShape EntityType="CSColegioModel.ComprobanteAplicacion" Width="1.5" PointX="13" PointY="26.75" />
         <AssociationConnector Association="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicado" />
@@ -106,6 +104,10 @@
         <AssociationConnector Association="CSColegioModel.ComprobanteTipoAsociacion" />
         <AssociationConnector Association="CSColegioModel.FK__Articulo__ComprobanteDetalle" />
         <AssociationConnector Association="CSColegioModel.FK__Usuario__Log" />
+        <EntityTypeShape EntityType="CSColegioModel.ChequeMotivoRechazo" Width="1.5" PointX="21.375" PointY="14.75" />
+        <EntityTypeShape EntityType="CSColegioModel.Chequera" Width="1.5" PointX="23.625" PointY="18" />
+        <AssociationConnector Association="CSColegioModel.FK__Caja__Chequera" />
+        <AssociationConnector Association="CSColegioModel.FK__Cheque__ComprobanteMedioPago" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

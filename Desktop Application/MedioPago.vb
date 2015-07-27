@@ -13,7 +13,12 @@ Imports System.Collections.Generic
 Partial Public Class MedioPago
     Public Property IDMedioPago As Byte
     Public Property Nombre As String
-    Public Property Tipo As String
+    Public Property UtilizaBanco As Boolean
+    Public Property UtilizaFechaHora As Boolean
+    Public Property UtilizaNumero As Boolean
+    Public Property UtilizaCuenta As Boolean
+    Public Property UtilizaTitular As Boolean
+    Public Property UtilizaCheque As Boolean
     Public Property EsActivo As Boolean
     Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date

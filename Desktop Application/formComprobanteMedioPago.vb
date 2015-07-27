@@ -56,20 +56,31 @@
         With mComprobanteMedioPagoCurrent
             CS_Control_ComboBox.SetSelectedValue(comboboxMedioPago, SelectedItemOptions.Value, .IDMedioPago, CByte(0))
 
-            If mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEPOSITOBANCARIO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEBITODIRECTO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEBITOAUTOMATICO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_TRANSFERENCIABANCARIA Then
+            If mMedioPagoCurrent.UtilizaFechaHora Then
                 datetimepickerFecha.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaHora)
+                datetimepickerHora.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaHora)
+            Else
+                datetimepickerFecha.Value = DateTime.Now
+                datetimepickerHora.Value = DateTime.Now
+            End If
+            If mMedioPagoCurrent.UtilizaNumero Then
                 textboxNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Numero)
+            Else
+                textboxNumero.Text = ""
+            End If
+            If mMedioPagoCurrent.UtilizaBanco Then
                 CS_Control_ComboBox.SetSelectedValue(comboboxBanco, SelectedItemOptions.Value, .IDBanco, CShort(0))
             Else
-                datetimepickerFecha.Value = DateTime.Today
-                datetimepickerHora.Value = DateTime.Now
+                comboboxBanco.SelectedIndex = -1
+            End If
+            If mMedioPagoCurrent.UtilizaCuenta Then
+                textboxCuenta.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Cuenta)
+            Else
+                textboxCuenta.Text = ""
             End If
 
             CS_Control_ComboBox.SetSelectedValue(comboboxCaja, SelectedItemOptions.Value, .IDCaja, CByte(0))
-
-            If mMedioPagoCurrent.Tipo <> Constantes.MEDIOPAGO_TIPO_CHEQUE Then
-                textboxImporte.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.Importe)
-            End If
+            textboxImporte.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.Importe)
         End With
     End Sub
 
@@ -77,21 +88,31 @@
         With mComprobanteMedioPagoCurrent
             .IDMedioPago = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxMedioPago.SelectedValue, 0).Value
 
-            If mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEPOSITOBANCARIO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEBITODIRECTO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEBITOAUTOMATICO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_TRANSFERENCIABANCARIA Then
+            If mMedioPagoCurrent.UtilizaFechaHora Then
                 .FechaHora = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFecha.Value)
-                .Numero = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNumero.Text)
-                .IDBanco = CS_ValueTranslation.FromControlComboBoxToObjectShort(comboboxBanco.SelectedValue, 0).Value
+                '.FechaHora = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFecha.Value)
+                ' TODO - Fix fechahora
             Else
                 .FechaHora = Nothing
+            End If
+            If mMedioPagoCurrent.UtilizaNumero Then
+                .Numero = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNumero.Text)
+            Else
                 .Numero = Nothing
+            End If
+            If mMedioPagoCurrent.UtilizaBanco Then
+                .IDBanco = CS_ValueTranslation.FromControlComboBoxToObjectShort(comboboxBanco.SelectedValue, 0).Value
+            Else
                 .IDBanco = Nothing
+            End If
+            If mMedioPagoCurrent.UtilizaCuenta Then
+                .Cuenta = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxCuenta.Text)
+            Else
+                .Cuenta = Nothing
             End If
 
             .IDCaja = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxCaja.SelectedValue, 0).Value
-
-            If mMedioPagoCurrent.Tipo <> Constantes.MEDIOPAGO_TIPO_CHEQUE Then
-                .Importe = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporte.Text).Value
-            End If
+            .Importe = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporte.Text).Value
         End With
     End Sub
 #End Region
@@ -118,25 +139,25 @@
         If comboboxMedioPago.SelectedIndex > -1 Then
             mMedioPagoCurrent = CType(comboboxMedioPago.SelectedItem, MedioPago)
 
-            labelFechaHora.Visible = (mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEPOSITOBANCARIO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEBITODIRECTO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEBITOAUTOMATICO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_TRANSFERENCIABANCARIA)
-            datetimepickerFecha.Visible = (mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEPOSITOBANCARIO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEBITODIRECTO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEBITOAUTOMATICO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_TRANSFERENCIABANCARIA)
-            datetimepickerHora.Visible = (mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEPOSITOBANCARIO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEBITODIRECTO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEBITOAUTOMATICO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_TRANSFERENCIABANCARIA)
+            labelFechaHora.Visible = mMedioPagoCurrent.UtilizaFechaHora
+            datetimepickerFecha.Visible = mMedioPagoCurrent.UtilizaFechaHora
+            datetimepickerHora.Visible = mMedioPagoCurrent.UtilizaFechaHora
 
-            labelNumero.Visible = (mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEPOSITOBANCARIO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEBITODIRECTO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEBITOAUTOMATICO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_TRANSFERENCIABANCARIA)
-            textboxNumero.Visible = (mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEPOSITOBANCARIO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEBITODIRECTO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEBITOAUTOMATICO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_TRANSFERENCIABANCARIA)
+            labelNumero.Visible = mMedioPagoCurrent.UtilizaNumero
+            textboxNumero.Visible = mMedioPagoCurrent.UtilizaNumero
 
-            labelBanco.Visible = (mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEPOSITOBANCARIO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEBITODIRECTO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEBITOAUTOMATICO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_TRANSFERENCIABANCARIA)
-            comboboxBanco.Visible = (mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEPOSITOBANCARIO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEBITODIRECTO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_DEBITOAUTOMATICO Or mMedioPagoCurrent.Tipo = Constantes.MEDIOPAGO_TIPO_TRANSFERENCIABANCARIA)
+            labelBanco.Visible = mMedioPagoCurrent.UtilizaBanco
+            comboboxBanco.Visible = mMedioPagoCurrent.UtilizaBanco
 
-            labelImporte.Visible = (mMedioPagoCurrent.Tipo <> Constantes.MEDIOPAGO_TIPO_CHEQUE)
-            textboxImporte.Visible = (mMedioPagoCurrent.Tipo <> Constantes.MEDIOPAGO_TIPO_CHEQUE)
+            labelCuenta.Visible = mMedioPagoCurrent.UtilizaCuenta
+            textboxCuenta.Visible = mMedioPagoCurrent.UtilizaCuenta
 
             'pFillAndRefreshLists.Caja(comboboxCaja, CByte(comboboxMedioPago.SelectedValue), False)
             pFillAndRefreshLists.Caja(comboboxCaja, Nothing, False)
         End If
     End Sub
 
-    Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxNumero.GotFocus
+    Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxNumero.GotFocus, textboxCuenta.GotFocus
         CType(sender, TextBox).SelectAll()
     End Sub
 #End Region

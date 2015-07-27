@@ -27,17 +27,17 @@ Partial Class formComprobantesTransmitirAFIP
         Me.labelCantidad = New System.Windows.Forms.Label()
         Me.comboboxCantidad = New System.Windows.Forms.ComboBox()
         Me.datagridviewComprobantes = New System.Windows.Forms.DataGridView()
+        Me.columnLote = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnComprobanteTipoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnNumeroCompleto = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnApellidoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.buttonTransmitir = New System.Windows.Forms.Button()
         Me.statusstripMain = New System.Windows.Forms.StatusStrip()
         Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
         Me.groupboxStatus = New System.Windows.Forms.GroupBox()
         Me.textboxStatus = New System.Windows.Forms.TextBox()
         Me.progressbarStatus = New System.Windows.Forms.ProgressBar()
-        Me.columnLote = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnComprobanteTipoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnNumeroCompleto = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnApellidoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.datagridviewComprobantes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.statusstripMain.SuspendLayout()
         Me.groupboxStatus.SuspendLayout()
@@ -56,7 +56,7 @@ Partial Class formComprobantesTransmitirAFIP
         '
         Me.comboboxCantidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxCantidad.FormattingEnabled = True
-        Me.comboboxCantidad.Location = New System.Drawing.Point(198, 6)
+        Me.comboboxCantidad.Location = New System.Drawing.Point(210, 6)
         Me.comboboxCantidad.Name = "comboboxCantidad"
         Me.comboboxCantidad.Size = New System.Drawing.Size(285, 21)
         Me.comboboxCantidad.TabIndex = 1
@@ -83,6 +83,59 @@ Partial Class formComprobantesTransmitirAFIP
         Me.datagridviewComprobantes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewComprobantes.Size = New System.Drawing.Size(668, 449)
         Me.datagridviewComprobantes.TabIndex = 3
+        '
+        'columnLote
+        '
+        Me.columnLote.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnLote.DataPropertyName = "LoteNombre"
+        Me.columnLote.HeaderText = "Lote"
+        Me.columnLote.Name = "columnLote"
+        Me.columnLote.ReadOnly = True
+        Me.columnLote.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnLote.Width = 34
+        '
+        'columnComprobanteTipoNombre
+        '
+        Me.columnComprobanteTipoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnComprobanteTipoNombre.DataPropertyName = "ComprobanteTipoNombre"
+        Me.columnComprobanteTipoNombre.HeaderText = "Tipo"
+        Me.columnComprobanteTipoNombre.Name = "columnComprobanteTipoNombre"
+        Me.columnComprobanteTipoNombre.ReadOnly = True
+        Me.columnComprobanteTipoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnComprobanteTipoNombre.Width = 34
+        '
+        'columnNumeroCompleto
+        '
+        Me.columnNumeroCompleto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnNumeroCompleto.DataPropertyName = "NumeroCompleto"
+        Me.columnNumeroCompleto.HeaderText = "Comprobante N°"
+        Me.columnNumeroCompleto.Name = "columnNumeroCompleto"
+        Me.columnNumeroCompleto.ReadOnly = True
+        Me.columnNumeroCompleto.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnNumeroCompleto.Width = 82
+        '
+        'columnApellidoNombre
+        '
+        Me.columnApellidoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnApellidoNombre.DataPropertyName = "ApellidoNombre"
+        Me.columnApellidoNombre.HeaderText = "Apellido y Nombre"
+        Me.columnApellidoNombre.Name = "columnApellidoNombre"
+        Me.columnApellidoNombre.ReadOnly = True
+        Me.columnApellidoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnApellidoNombre.Width = 88
+        '
+        'columnImporteTotal
+        '
+        Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnImporteTotal.DataPropertyName = "ImporteTotal"
+        DataGridViewCellStyle2.Format = "C2"
+        DataGridViewCellStyle2.NullValue = "0"
+        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle2
+        Me.columnImporteTotal.HeaderText = "Importe"
+        Me.columnImporteTotal.Name = "columnImporteTotal"
+        Me.columnImporteTotal.ReadOnly = True
+        Me.columnImporteTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnImporteTotal.Width = 48
         '
         'buttonTransmitir
         '
@@ -139,59 +192,6 @@ Partial Class formComprobantesTransmitirAFIP
         Me.progressbarStatus.Name = "progressbarStatus"
         Me.progressbarStatus.Size = New System.Drawing.Size(660, 26)
         Me.progressbarStatus.TabIndex = 7
-        '
-        'columnLote
-        '
-        Me.columnLote.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnLote.DataPropertyName = "LoteNombre"
-        Me.columnLote.HeaderText = "Lote"
-        Me.columnLote.Name = "columnLote"
-        Me.columnLote.ReadOnly = True
-        Me.columnLote.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnLote.Width = 34
-        '
-        'columnComprobanteTipoNombre
-        '
-        Me.columnComprobanteTipoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnComprobanteTipoNombre.DataPropertyName = "ComprobanteTipoNombre"
-        Me.columnComprobanteTipoNombre.HeaderText = "Tipo"
-        Me.columnComprobanteTipoNombre.Name = "columnComprobanteTipoNombre"
-        Me.columnComprobanteTipoNombre.ReadOnly = True
-        Me.columnComprobanteTipoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnComprobanteTipoNombre.Width = 34
-        '
-        'columnNumeroCompleto
-        '
-        Me.columnNumeroCompleto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnNumeroCompleto.DataPropertyName = "NumeroCompleto"
-        Me.columnNumeroCompleto.HeaderText = "Comprobante N°"
-        Me.columnNumeroCompleto.Name = "columnNumeroCompleto"
-        Me.columnNumeroCompleto.ReadOnly = True
-        Me.columnNumeroCompleto.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnNumeroCompleto.Width = 82
-        '
-        'columnApellidoNombre
-        '
-        Me.columnApellidoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnApellidoNombre.DataPropertyName = "ApellidoNombre"
-        Me.columnApellidoNombre.HeaderText = "Apellido y Nombre"
-        Me.columnApellidoNombre.Name = "columnApellidoNombre"
-        Me.columnApellidoNombre.ReadOnly = True
-        Me.columnApellidoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnApellidoNombre.Width = 88
-        '
-        'columnImporteTotal
-        '
-        Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnImporteTotal.DataPropertyName = "ImporteTotal"
-        DataGridViewCellStyle2.Format = "C2"
-        DataGridViewCellStyle2.NullValue = "0"
-        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle2
-        Me.columnImporteTotal.HeaderText = "Importe"
-        Me.columnImporteTotal.Name = "columnImporteTotal"
-        Me.columnImporteTotal.ReadOnly = True
-        Me.columnImporteTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnImporteTotal.Width = 48
         '
         'formComprobantesTransmitirAFIP
         '
