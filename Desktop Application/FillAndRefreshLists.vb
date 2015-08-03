@@ -318,19 +318,56 @@
         ComboBoxControl.DataSource = listComprobanteLote
     End Sub
 
-    Friend Sub MedioPago(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
+    Friend Sub MedioPago(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean, ByVal EsChequeMostrar As Boolean, ByVal NoEsChequeMostrar As Boolean)
+        Dim listMediosPago As List(Of MedioPago)
+
         ComboBoxControl.ValueMember = "IDMedioPago"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Dim qryList = From tbl In dbContext.MedioPago
-                          Where tbl.EsActivo
-                          Order By tbl.Nombre
+        If EsChequeMostrar And NoEsChequeMostrar Then
+            listMediosPago = (From tbl In dbContext.MedioPago
+                              Where tbl.EsActivo
+                              Order By tbl.Nombre).ToList
+        ElseIf EsChequeMostrar Then
+            listMediosPago = (From tbl In dbContext.MedioPago
+                              Where tbl.EsActivo And tbl.EsCheque
+                              Order By tbl.Nombre).ToList
+        ElseIf NoEsChequeMostrar Then
+            listMediosPago = (From tbl In dbContext.MedioPago
+                              Where tbl.EsActivo And Not tbl.EsCheque
+                              Order By tbl.Nombre).ToList
+        Else
+            listMediosPago = Nothing
+        End If
 
-        Dim localList = qryList.ToList
         If ShowUnspecifiedItem Then
             Dim UnspecifiedItem As New MedioPago
             UnspecifiedItem.IDMedioPago = 0
             UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+            listMediosPago.Insert(0, UnspecifiedItem)
+        End If
+
+        ComboBoxControl.DataSource = listMediosPago
+    End Sub
+
+    Friend Sub ChequeMotivoRechazo(ByRef ComboBoxControl As ComboBox, ByVal MostrarNombreCompleto As Boolean, ByVal AgregarItem_Todos As Boolean)
+        Dim localList As List(Of ChequeMotivoRechazo)
+
+        ComboBoxControl.ValueMember = "IDChequeMotivoRechazo"
+
+        If MostrarNombreCompleto Then
+            ComboBoxControl.DisplayMember = "NombreCompleto"
+            localList = dbContext.ChequeMotivoRechazo.Where(Function(cmr) cmr.EsActivo).OrderBy(Function(cmr) cmr.NombreCompleto).ToList
+        Else
+            ComboBoxControl.DisplayMember = "Nombre"
+            localList = dbContext.ChequeMotivoRechazo.Where(Function(cmr) cmr.EsActivo).OrderBy(Function(cmr) cmr.Nombre).ToList
+        End If
+
+        If AgregarItem_Todos Then
+            Dim UnspecifiedItem As New ChequeMotivoRechazo
+            UnspecifiedItem.IDChequeMotivoRechazo = 0
+            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_ALL_MALE
+            UnspecifiedItem.NombreCompleto = My.Resources.STRING_ITEM_ALL_MALE
             localList.Insert(0, UnspecifiedItem)
         End If
 
@@ -344,17 +381,15 @@
         ComboBoxControl.DisplayMember = "Nombre"
 
         If IDMedioPago Is Nothing OrElse IDMedioPago = 0 Then
-            Dim qryList = From tbl In dbContext.Caja
-                          Where tbl.EsActivo
-                          Order By tbl.Nombre
-
-            localList = qryList.ToList
+            localList = (From c In dbContext.Caja
+                         Where c.EsActivo
+                         Order By c.Nombre).ToList
         Else
-            'Dim qryList = From tbl In dbContext.Caja
-            '              Where tbl.EsActivo AndAlso tbl  in tbl.MedioPago
-            '              Order By tbl.Nombre
-            'localList = qryList.ToList
-            localList = Nothing
+            localList = (From c In dbContext.Caja
+                         From mp In c.MedioPago
+                         Where c.EsActivo AndAlso mp.IDMedioPago = IDMedioPago
+                         Order By c.Nombre
+                         Select c).ToList
         End If
 
         If ShowUnspecifiedItem Then

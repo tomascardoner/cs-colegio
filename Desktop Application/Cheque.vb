@@ -14,7 +14,7 @@ Partial Public Class Cheque
     Public Property IDCheque As Integer
     Public Property IDBanco As Nullable(Of Short)
     Public Property FechaEmision As Nullable(Of Date)
-    Public Property FechaVencimiento As Nullable(Of Date)
+    Public Property FechaPago As Nullable(Of Date)
     Public Property Numero As String
     Public Property Importe As Decimal
     Public Property Cuenta As String

@@ -812,7 +812,7 @@ Public Class formComprobantesGenerarLote
                     .PrecioUnitarioDescuentoImporte = 0
                 Else
                     .PrecioUnitarioDescuentoPorcentaje = EntidadDetalle.Descuento.Porcentaje
-                    .PrecioUnitarioDescuentoImporte = .PrecioUnitario * .PrecioUnitarioDescuentoPorcentaje / 100
+                    .PrecioUnitarioDescuentoImporte = Decimal.Round(.PrecioUnitario * .PrecioUnitarioDescuentoPorcentaje / 100, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
                 End If
                 .PrecioUnitarioFinal = .PrecioUnitario - .PrecioUnitarioDescuentoImporte
                 .PrecioTotal = .PrecioUnitarioFinal

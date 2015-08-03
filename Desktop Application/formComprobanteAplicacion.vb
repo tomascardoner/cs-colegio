@@ -1,0 +1,158 @@
+﻿Public Class formComprobanteAplicacion
+
+#Region "Declarations"
+    Private mComprobanteActual As Comprobante
+    Private mComprobanteAplicacionActual As ComprobanteAplicacion
+
+    Private mEditMode As Boolean = False
+
+    Public Class GridRowData_Comprobante
+        Public Property IDComprobante As Integer
+        Public Property TipoNombre As String
+        Public Property NumeroCompleto As String
+        Public Property FechaEmision As Date
+        Public Property ImporteTotal As Decimal
+        Public Property ImporteSinAplicar As Decimal
+    End Class
+#End Region
+
+#Region "Form stuff"
+    Friend Sub LoadAndShow(ByVal ParentEditMode As Boolean, ByVal EditMode As Boolean, ByRef ParentForm As Form, ByRef ComprobanteActual As Comprobante, ByRef ComprobanteAplicacionActual As ComprobanteAplicacion)
+        mEditMode = EditMode
+
+        mComprobanteActual = ComprobanteActual
+        mComprobanteAplicacionActual = ComprobanteAplicacionActual
+
+        'Me.MdiParent = formMDIMain
+        CS_Form.CenterToParent(ParentForm, Me)
+        ChangeMode()
+        buttonEditar.Visible = (ParentEditMode And Not mEditMode)
+        InitializeFormAndControls()
+        SetDataFromObjectToControls()
+        Me.ShowDialog(ParentForm)
+        'If Me.WindowState = FormWindowState.Minimized Then
+        '    Me.WindowState = FormWindowState.Normal
+        'End If
+        'Me.Focus()
+    End Sub
+
+    Private Sub ChangeMode()
+        buttonGuardar.Visible = mEditMode
+        buttonCancelar.Visible = mEditMode
+        buttonEditar.Visible = Not mEditMode
+        buttonCerrar.Visible = Not mEditMode
+
+        CS_Form.ControlsChangeStateEnabled(Me.Controls, mEditMode, True, True, True, toolstripMain.Name)
+    End Sub
+
+    Friend Sub InitializeFormAndControls()
+        ' Cargo los ComboBox
+        FillList_Comprobante()
+    End Sub
+
+    Private Sub formEntidad_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        mComprobanteActual = Nothing
+        mComprobanteAplicacionActual = Nothing
+    End Sub
+#End Region
+
+#Region "Load and Set Data"
+    Friend Sub FillList_Comprobante()
+        Dim listComprobantes As List(Of GridRowData_Comprobante)
+
+        Using dbContext As New CSColegioContext(True)
+            listComprobantes = (From c In dbContext.Comprobante
+                                Where c.IDEntidad = mComprobanteActual.IDEntidad AndAlso c.ComprobantesAplicacion_Aplicantes.Count = 0
+                                Order By c.FechaEmision
+                                Select New GridRowData_Comprobante With {.IDComprobante = c.IDComprobante, .TipoNombre = c.ComprobanteTipo.NombreConLetra, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal}).ToList
+        End Using
+
+        datagridviewMain.AutoGenerateColumns = False
+        datagridviewMain.DataSource = listComprobantes
+    End Sub
+    Friend Sub SetDataFromObjectToControls()
+        With mComprobanteAplicacionActual
+            'CS_Control_ComboBox.SetSelectedValue(comboboxComprobanteAplicado, SelectedItemOptions.Value, .IDComprobanteAplicado, CInt(0))
+            textboxImporteAplicado.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.Importe)
+        End With
+    End Sub
+
+    Friend Sub SetDataFromControlsToObject()
+        With mComprobanteAplicacionActual
+            '.IDComprobanteAplicado = CS_ValueTranslation.FromControlComboBoxToObjectInteger(comboboxComprobanteAplicado.SelectedValue, 0).Value
+            .Importe = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteAplicado.Text).Value
+        End With
+    End Sub
+#End Region
+
+#Region "Controls behavior"
+    Private Sub FormKeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
+        Select Case e.KeyChar
+            Case Microsoft.VisualBasic.ChrW(Keys.Return)
+                If mEditMode Then
+                    buttonGuardar.PerformClick()
+                Else
+                    buttonCerrar.PerformClick()
+                End If
+            Case Microsoft.VisualBasic.ChrW(Keys.Escape)
+                If mEditMode Then
+                    buttonCancelar.PerformClick()
+                Else
+                    buttonCerrar.PerformClick()
+                End If
+        End Select
+    End Sub
+#End Region
+
+#Region "Main Toolbar"
+    Private Sub buttonEditar_Click() Handles buttonEditar.Click
+        mEditMode = True
+        ChangeMode()
+    End Sub
+
+    Private Sub buttonCerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
+        Me.Close()
+    End Sub
+
+    Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
+        If datagridviewMain.CurrentRow Is Nothing Then
+            MsgBox("No hay ningún Comprobante para aplicar.", vbInformation, My.Application.Info.Title)
+            datagridviewMain.Focus()
+            Exit Sub
+        End If
+        If textboxImporteAplicado.Text.Trim.Length = 0 Then
+            MsgBox("Debe ingresar el Importe a aplicar.", MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxImporteAplicado.Focus()
+            Exit Sub
+        End If
+        If Not CS_ValueTranslation.ValidateCurrency(textboxImporteAplicado.Text) Then
+            MsgBox("El Importe ingresado no es válido.", MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxImporteAplicado.Focus()
+            Exit Sub
+        End If
+        If CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteAplicado.Text).Value <= 0 Then
+            MsgBox("El Importe debe ser mayor a cero.", MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxImporteAplicado.Focus()
+            Exit Sub
+        End If
+
+        ' Si es un nuevo item, busco el próximo Indice y agrego el objeto nuevo a la colección del parent
+        If mComprobanteAplicacionActual.IDComprobanteAplicado = 0 Then
+            mComprobanteActual.ComprobantesAplicacion_Aplicados.Add(mComprobanteAplicacionActual)
+        End If
+
+        ' Paso los datos desde los controles al Objecto de EF
+        SetDataFromControlsToObject()
+
+        ' Refresco la lista para mostrar los cambios
+        If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formComprobante") Then
+            Dim formComprobante As formComprobante = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formComprobante"), formComprobante)
+            formComprobante.RefreshData_Aplicaciones(mComprobanteAplicacionActual.IDComprobanteAplicado)
+            formComprobante = Nothing
+        End If
+
+        Me.Close()
+    End Sub
+#End Region
+
+End Class

@@ -38,11 +38,24 @@ Partial Class formComprobante
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.panelMain = New System.Windows.Forms.TableLayoutPanel()
-        Me.panelTabs = New System.Windows.Forms.Panel()
-        Me.panelDetalle = New System.Windows.Forms.Panel()
+        Me.tabcontrolMain = New CSColegio.DesktopApplication.CS_Control_TabControl()
+        Me.tabpageDetalle = New System.Windows.Forms.TabPage()
         Me.datagridviewDetalle = New System.Windows.Forms.DataGridView()
         Me.columnDetalle_Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnDetalle_PrecioUnitario = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -50,9 +63,10 @@ Partial Class formComprobante
         Me.columnDetalle_PrecioUnitarioDescuentoImporte = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnDetalle_PrecioTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.toolstripDetalle = New System.Windows.Forms.ToolStrip()
+        Me.buttonDetalle_Agregar = New System.Windows.Forms.ToolStripButton()
         Me.buttonDetalle_Editar = New System.Windows.Forms.ToolStripButton()
         Me.buttonDetalle_Eliminar = New System.Windows.Forms.ToolStripButton()
-        Me.panelImpuestos = New System.Windows.Forms.Panel()
+        Me.tabpageImpuestos = New System.Windows.Forms.TabPage()
         Me.datagridviewImpuestos = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -63,7 +77,25 @@ Partial Class formComprobante
         Me.buttonImpuestos_Agregar = New System.Windows.Forms.ToolStripButton()
         Me.buttonImpuestos_Editar = New System.Windows.Forms.ToolStripButton()
         Me.buttonImpuestos_Eliminar = New System.Windows.Forms.ToolStripButton()
-        Me.panelMediosPago = New System.Windows.Forms.Panel()
+        Me.tabpageAplicaciones = New System.Windows.Forms.TabPage()
+        Me.datagridviewAplicaciones = New System.Windows.Forms.DataGridView()
+        Me.toolstripAplicaciones = New System.Windows.Forms.ToolStrip()
+        Me.buttonAplicacion_Agregar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonAplicacion_Editar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonAplicacion_Eliminar = New System.Windows.Forms.ToolStripButton()
+        Me.tabpageAsociaciones = New System.Windows.Forms.TabPage()
+        Me.datagridviewAsociaciones = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.toolstripAsociaciones = New System.Windows.Forms.ToolStrip()
+        Me.buttonAsociaciones_Agregar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonAsociaciones_Editar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonAsociaciones_Eliminar = New System.Windows.Forms.ToolStripButton()
+        Me.tabpageMediosPago = New System.Windows.Forms.TabPage()
         Me.datagridviewMediosPago = New System.Windows.Forms.DataGridView()
         Me.columnMedioPagos_MedioPagoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnMedioPagos_CajaNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -72,22 +104,16 @@ Partial Class formComprobante
         Me.columnMedioPagos_Numero = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnMedioPagos_FechaVencimiento = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.toolstripMediosPago = New System.Windows.Forms.ToolStrip()
-        Me.buttonMediosPago_Agregar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonMediosPago_AgregarOtro = New System.Windows.Forms.ToolStripButton()
+        Me.buttonMediosPago_AgregarCheque = New System.Windows.Forms.ToolStripButton()
         Me.buttonMediosPago_Editar = New System.Windows.Forms.ToolStripButton()
         Me.buttonMediosPago_Eliminar = New System.Windows.Forms.ToolStripButton()
-        Me.panelNotasAuditoria = New System.Windows.Forms.Panel()
+        Me.tabpageNotasAuditoria = New System.Windows.Forms.TabPage()
         Me.textboxNotas = New System.Windows.Forms.TextBox()
-        Me.textboxUsuarioModificacion = New System.Windows.Forms.TextBox()
+        Me.textboxFechaHoraCreacion = New System.Windows.Forms.TextBox()
         Me.textboxUsuarioCreacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraModificacion = New System.Windows.Forms.TextBox()
-        Me.textboxFechaHoraCreacion = New System.Windows.Forms.TextBox()
-        Me.panelTabButtons = New System.Windows.Forms.FlowLayoutPanel()
-        Me.radiobuttonTabPageDetalle = New System.Windows.Forms.RadioButton()
-        Me.radiobuttonTabPageImpuestos = New System.Windows.Forms.RadioButton()
-        Me.radiobuttonTabPageAplicaciones = New System.Windows.Forms.RadioButton()
-        Me.radiobuttonTabPageAsociaciones = New System.Windows.Forms.RadioButton()
-        Me.radiobuttonTabPageMediosPago = New System.Windows.Forms.RadioButton()
-        Me.radiobuttonTabPageNotasAuditoria = New System.Windows.Forms.RadioButton()
+        Me.textboxUsuarioModificacion = New System.Windows.Forms.TextBox()
         Me.panelCabecera = New System.Windows.Forms.FlowLayoutPanel()
         Me.panelIdentificacion = New System.Windows.Forms.Panel()
         Me.textboxPuntoVenta = New System.Windows.Forms.TextBox()
@@ -122,25 +148,34 @@ Partial Class formComprobante
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
         Me.buttonCancelar = New System.Windows.Forms.ToolStripButton()
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
-        Me.buttonDetalle_Agregar = New System.Windows.Forms.ToolStripButton()
+        Me.columnAplicaciones_Tipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnAplicaciones_NumeroCompleto = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnAplicaciones_Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnAplicaciones_ImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnAplicaciones_ImporteAplicado = New System.Windows.Forms.DataGridViewTextBoxColumn()
         labelFechaServicioDesde = New System.Windows.Forms.Label()
         labelFechaServicioHasta = New System.Windows.Forms.Label()
         labelNotas = New System.Windows.Forms.Label()
         labelModificacion = New System.Windows.Forms.Label()
         labelCreacion = New System.Windows.Forms.Label()
         Me.panelMain.SuspendLayout()
-        Me.panelTabs.SuspendLayout()
-        Me.panelDetalle.SuspendLayout()
+        Me.tabcontrolMain.SuspendLayout()
+        Me.tabpageDetalle.SuspendLayout()
         CType(Me.datagridviewDetalle, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.toolstripDetalle.SuspendLayout()
-        Me.panelImpuestos.SuspendLayout()
+        Me.tabpageImpuestos.SuspendLayout()
         CType(Me.datagridviewImpuestos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.toolstripImpuestos.SuspendLayout()
-        Me.panelMediosPago.SuspendLayout()
+        Me.tabpageAplicaciones.SuspendLayout()
+        CType(Me.datagridviewAplicaciones, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.toolstripAplicaciones.SuspendLayout()
+        Me.tabpageAsociaciones.SuspendLayout()
+        CType(Me.datagridviewAsociaciones, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.toolstripAsociaciones.SuspendLayout()
+        Me.tabpageMediosPago.SuspendLayout()
         CType(Me.datagridviewMediosPago, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.toolstripMediosPago.SuspendLayout()
-        Me.panelNotasAuditoria.SuspendLayout()
-        Me.panelTabButtons.SuspendLayout()
+        Me.tabpageNotasAuditoria.SuspendLayout()
         Me.panelCabecera.SuspendLayout()
         Me.panelIdentificacion.SuspendLayout()
         Me.panelFechas.SuspendLayout()
@@ -171,7 +206,7 @@ Partial Class formComprobante
         'labelNotas
         '
         labelNotas.AutoSize = True
-        labelNotas.Location = New System.Drawing.Point(3, 6)
+        labelNotas.Location = New System.Drawing.Point(6, 9)
         labelNotas.Name = "labelNotas"
         labelNotas.Size = New System.Drawing.Size(38, 13)
         labelNotas.TabIndex = 31
@@ -181,7 +216,7 @@ Partial Class formComprobante
         '
         labelModificacion.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         labelModificacion.AutoSize = True
-        labelModificacion.Location = New System.Drawing.Point(3, 259)
+        labelModificacion.Location = New System.Drawing.Point(6, 239)
         labelModificacion.Name = "labelModificacion"
         labelModificacion.Size = New System.Drawing.Size(102, 13)
         labelModificacion.TabIndex = 28
@@ -191,7 +226,7 @@ Partial Class formComprobante
         '
         labelCreacion.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         labelCreacion.AutoSize = True
-        labelCreacion.Location = New System.Drawing.Point(3, 233)
+        labelCreacion.Location = New System.Drawing.Point(6, 213)
         labelCreacion.Name = "labelCreacion"
         labelCreacion.Size = New System.Drawing.Size(52, 13)
         labelCreacion.TabIndex = 25
@@ -203,13 +238,13 @@ Partial Class formComprobante
         Me.panelMain.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.panelMain.ColumnCount = 1
         Me.panelMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.panelMain.Controls.Add(Me.panelTabs, 0, 1)
+        Me.panelMain.Controls.Add(Me.tabcontrolMain, 0, 1)
         Me.panelMain.Controls.Add(Me.panelCabecera, 0, 0)
         Me.panelMain.Controls.Add(Me.panelPie, 0, 2)
         Me.panelMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.panelMain.Location = New System.Drawing.Point(0, 39)
         Me.panelMain.Name = "panelMain"
-        Me.panelMain.RowCount = 3
+        Me.panelMain.RowCount = 4
         Me.panelMain.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.panelMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.panelMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
@@ -217,29 +252,31 @@ Partial Class formComprobante
         Me.panelMain.Size = New System.Drawing.Size(964, 475)
         Me.panelMain.TabIndex = 2
         '
-        'panelTabs
+        'tabcontrolMain
         '
-        Me.panelTabs.Controls.Add(Me.panelDetalle)
-        Me.panelTabs.Controls.Add(Me.panelImpuestos)
-        Me.panelTabs.Controls.Add(Me.panelMediosPago)
-        Me.panelTabs.Controls.Add(Me.panelNotasAuditoria)
-        Me.panelTabs.Controls.Add(Me.panelTabButtons)
-        Me.panelTabs.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.panelTabs.Location = New System.Drawing.Point(3, 114)
-        Me.panelTabs.Name = "panelTabs"
-        Me.panelTabs.Size = New System.Drawing.Size(958, 308)
-        Me.panelTabs.TabIndex = 9
+        Me.tabcontrolMain.Controls.Add(Me.tabpageDetalle)
+        Me.tabcontrolMain.Controls.Add(Me.tabpageImpuestos)
+        Me.tabcontrolMain.Controls.Add(Me.tabpageAplicaciones)
+        Me.tabcontrolMain.Controls.Add(Me.tabpageAsociaciones)
+        Me.tabcontrolMain.Controls.Add(Me.tabpageMediosPago)
+        Me.tabcontrolMain.Controls.Add(Me.tabpageNotasAuditoria)
+        Me.tabcontrolMain.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tabcontrolMain.Location = New System.Drawing.Point(3, 114)
+        Me.tabcontrolMain.Name = "tabcontrolMain"
+        Me.tabcontrolMain.SelectedIndex = 0
+        Me.tabcontrolMain.Size = New System.Drawing.Size(958, 288)
+        Me.tabcontrolMain.TabIndex = 8
         '
-        'panelDetalle
+        'tabpageDetalle
         '
-        Me.panelDetalle.Controls.Add(Me.datagridviewDetalle)
-        Me.panelDetalle.Controls.Add(Me.toolstripDetalle)
-        Me.panelDetalle.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.panelDetalle.Location = New System.Drawing.Point(0, 29)
-        Me.panelDetalle.Name = "panelDetalle"
-        Me.panelDetalle.Size = New System.Drawing.Size(958, 279)
-        Me.panelDetalle.TabIndex = 10
-        Me.panelDetalle.Visible = False
+        Me.tabpageDetalle.Controls.Add(Me.datagridviewDetalle)
+        Me.tabpageDetalle.Controls.Add(Me.toolstripDetalle)
+        Me.tabpageDetalle.Location = New System.Drawing.Point(4, 22)
+        Me.tabpageDetalle.Name = "tabpageDetalle"
+        Me.tabpageDetalle.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabpageDetalle.Size = New System.Drawing.Size(950, 262)
+        Me.tabpageDetalle.TabIndex = 0
+        Me.tabpageDetalle.Text = "Detalle"
         '
         'datagridviewDetalle
         '
@@ -255,14 +292,14 @@ Partial Class formComprobante
         Me.datagridviewDetalle.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnDetalle_Descripcion, Me.columnDetalle_PrecioUnitario, Me.columnDetalle_PrecioUnitarioDescuentoPorcentaje, Me.columnDetalle_PrecioUnitarioDescuentoImporte, Me.columnDetalle_PrecioTotal})
         Me.datagridviewDetalle.Dock = System.Windows.Forms.DockStyle.Fill
         Me.datagridviewDetalle.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.datagridviewDetalle.Location = New System.Drawing.Point(87, 0)
+        Me.datagridviewDetalle.Location = New System.Drawing.Point(90, 3)
         Me.datagridviewDetalle.MultiSelect = False
         Me.datagridviewDetalle.Name = "datagridviewDetalle"
         Me.datagridviewDetalle.ReadOnly = True
         Me.datagridviewDetalle.RowHeadersVisible = False
         Me.datagridviewDetalle.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewDetalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewDetalle.Size = New System.Drawing.Size(871, 279)
+        Me.datagridviewDetalle.Size = New System.Drawing.Size(857, 256)
         Me.datagridviewDetalle.TabIndex = 4
         '
         'columnDetalle_Descripcion
@@ -332,14 +369,25 @@ Partial Class formComprobante
         Me.toolstripDetalle.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripDetalle.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonDetalle_Agregar, Me.buttonDetalle_Editar, Me.buttonDetalle_Eliminar})
         Me.toolstripDetalle.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow
-        Me.toolstripDetalle.Location = New System.Drawing.Point(0, 0)
+        Me.toolstripDetalle.Location = New System.Drawing.Point(3, 3)
         Me.toolstripDetalle.Name = "toolstripDetalle"
-        Me.toolstripDetalle.Size = New System.Drawing.Size(87, 279)
+        Me.toolstripDetalle.Size = New System.Drawing.Size(87, 256)
         Me.toolstripDetalle.TabIndex = 5
+        '
+        'buttonDetalle_Agregar
+        '
+        Me.buttonDetalle_Agregar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_ADD_32
+        Me.buttonDetalle_Agregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.buttonDetalle_Agregar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonDetalle_Agregar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonDetalle_Agregar.Name = "buttonDetalle_Agregar"
+        Me.buttonDetalle_Agregar.Size = New System.Drawing.Size(84, 36)
+        Me.buttonDetalle_Agregar.Text = "Agregar"
         '
         'buttonDetalle_Editar
         '
         Me.buttonDetalle_Editar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_EDIT_32
+        Me.buttonDetalle_Editar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonDetalle_Editar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonDetalle_Editar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonDetalle_Editar.Name = "buttonDetalle_Editar"
@@ -349,22 +397,23 @@ Partial Class formComprobante
         'buttonDetalle_Eliminar
         '
         Me.buttonDetalle_Eliminar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_DELETE_32
+        Me.buttonDetalle_Eliminar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonDetalle_Eliminar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonDetalle_Eliminar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonDetalle_Eliminar.Name = "buttonDetalle_Eliminar"
         Me.buttonDetalle_Eliminar.Size = New System.Drawing.Size(84, 36)
         Me.buttonDetalle_Eliminar.Text = "Eliminar"
         '
-        'panelImpuestos
+        'tabpageImpuestos
         '
-        Me.panelImpuestos.Controls.Add(Me.datagridviewImpuestos)
-        Me.panelImpuestos.Controls.Add(Me.toolstripImpuestos)
-        Me.panelImpuestos.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.panelImpuestos.Location = New System.Drawing.Point(0, 29)
-        Me.panelImpuestos.Name = "panelImpuestos"
-        Me.panelImpuestos.Size = New System.Drawing.Size(958, 279)
-        Me.panelImpuestos.TabIndex = 9
-        Me.panelImpuestos.Visible = False
+        Me.tabpageImpuestos.Controls.Add(Me.datagridviewImpuestos)
+        Me.tabpageImpuestos.Controls.Add(Me.toolstripImpuestos)
+        Me.tabpageImpuestos.Location = New System.Drawing.Point(4, 22)
+        Me.tabpageImpuestos.Name = "tabpageImpuestos"
+        Me.tabpageImpuestos.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabpageImpuestos.Size = New System.Drawing.Size(950, 262)
+        Me.tabpageImpuestos.TabIndex = 1
+        Me.tabpageImpuestos.Text = "Impuestos"
         '
         'datagridviewImpuestos
         '
@@ -380,14 +429,14 @@ Partial Class formComprobante
         Me.datagridviewImpuestos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn7, Me.DataGridViewTextBoxColumn8, Me.DataGridViewTextBoxColumn9, Me.DataGridViewTextBoxColumn10})
         Me.datagridviewImpuestos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.datagridviewImpuestos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.datagridviewImpuestos.Location = New System.Drawing.Point(87, 0)
+        Me.datagridviewImpuestos.Location = New System.Drawing.Point(90, 3)
         Me.datagridviewImpuestos.MultiSelect = False
         Me.datagridviewImpuestos.Name = "datagridviewImpuestos"
         Me.datagridviewImpuestos.ReadOnly = True
         Me.datagridviewImpuestos.RowHeadersVisible = False
         Me.datagridviewImpuestos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewImpuestos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewImpuestos.Size = New System.Drawing.Size(871, 279)
+        Me.datagridviewImpuestos.Size = New System.Drawing.Size(857, 256)
         Me.datagridviewImpuestos.TabIndex = 7
         '
         'DataGridViewTextBoxColumn6
@@ -457,14 +506,15 @@ Partial Class formComprobante
         Me.toolstripImpuestos.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripImpuestos.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonImpuestos_Agregar, Me.buttonImpuestos_Editar, Me.buttonImpuestos_Eliminar})
         Me.toolstripImpuestos.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow
-        Me.toolstripImpuestos.Location = New System.Drawing.Point(0, 0)
+        Me.toolstripImpuestos.Location = New System.Drawing.Point(3, 3)
         Me.toolstripImpuestos.Name = "toolstripImpuestos"
-        Me.toolstripImpuestos.Size = New System.Drawing.Size(87, 279)
+        Me.toolstripImpuestos.Size = New System.Drawing.Size(87, 256)
         Me.toolstripImpuestos.TabIndex = 6
         '
         'buttonImpuestos_Agregar
         '
         Me.buttonImpuestos_Agregar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_ADD_32
+        Me.buttonImpuestos_Agregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonImpuestos_Agregar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonImpuestos_Agregar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonImpuestos_Agregar.Name = "buttonImpuestos_Agregar"
@@ -474,6 +524,7 @@ Partial Class formComprobante
         'buttonImpuestos_Editar
         '
         Me.buttonImpuestos_Editar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_EDIT_32
+        Me.buttonImpuestos_Editar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonImpuestos_Editar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonImpuestos_Editar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonImpuestos_Editar.Name = "buttonImpuestos_Editar"
@@ -483,45 +534,270 @@ Partial Class formComprobante
         'buttonImpuestos_Eliminar
         '
         Me.buttonImpuestos_Eliminar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_DELETE_32
+        Me.buttonImpuestos_Eliminar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonImpuestos_Eliminar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonImpuestos_Eliminar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonImpuestos_Eliminar.Name = "buttonImpuestos_Eliminar"
         Me.buttonImpuestos_Eliminar.Size = New System.Drawing.Size(84, 36)
         Me.buttonImpuestos_Eliminar.Text = "Eliminar"
         '
-        'panelMediosPago
+        'tabpageAplicaciones
         '
-        Me.panelMediosPago.Controls.Add(Me.datagridviewMediosPago)
-        Me.panelMediosPago.Controls.Add(Me.toolstripMediosPago)
-        Me.panelMediosPago.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.panelMediosPago.Location = New System.Drawing.Point(0, 29)
-        Me.panelMediosPago.Name = "panelMediosPago"
-        Me.panelMediosPago.Size = New System.Drawing.Size(958, 279)
-        Me.panelMediosPago.TabIndex = 8
-        Me.panelMediosPago.Visible = False
+        Me.tabpageAplicaciones.Controls.Add(Me.datagridviewAplicaciones)
+        Me.tabpageAplicaciones.Controls.Add(Me.toolstripAplicaciones)
+        Me.tabpageAplicaciones.Location = New System.Drawing.Point(4, 22)
+        Me.tabpageAplicaciones.Name = "tabpageAplicaciones"
+        Me.tabpageAplicaciones.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabpageAplicaciones.Size = New System.Drawing.Size(950, 262)
+        Me.tabpageAplicaciones.TabIndex = 2
+        Me.tabpageAplicaciones.Text = "Aplicaciones"
+        '
+        'datagridviewAplicaciones
+        '
+        Me.datagridviewAplicaciones.AllowUserToAddRows = False
+        Me.datagridviewAplicaciones.AllowUserToDeleteRows = False
+        Me.datagridviewAplicaciones.AllowUserToResizeRows = False
+        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewAplicaciones.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle11
+        Me.datagridviewAplicaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.datagridviewAplicaciones.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnAplicaciones_Tipo, Me.columnAplicaciones_NumeroCompleto, Me.columnAplicaciones_Fecha, Me.columnAplicaciones_ImporteTotal, Me.columnAplicaciones_ImporteAplicado})
+        Me.datagridviewAplicaciones.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.datagridviewAplicaciones.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.datagridviewAplicaciones.Location = New System.Drawing.Point(90, 3)
+        Me.datagridviewAplicaciones.MultiSelect = False
+        Me.datagridviewAplicaciones.Name = "datagridviewAplicaciones"
+        Me.datagridviewAplicaciones.ReadOnly = True
+        Me.datagridviewAplicaciones.RowHeadersVisible = False
+        Me.datagridviewAplicaciones.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        Me.datagridviewAplicaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.datagridviewAplicaciones.Size = New System.Drawing.Size(857, 256)
+        Me.datagridviewAplicaciones.TabIndex = 9
+        '
+        'toolstripAplicaciones
+        '
+        Me.toolstripAplicaciones.Dock = System.Windows.Forms.DockStyle.Left
+        Me.toolstripAplicaciones.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolstripAplicaciones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAplicacion_Agregar, Me.buttonAplicacion_Editar, Me.buttonAplicacion_Eliminar})
+        Me.toolstripAplicaciones.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow
+        Me.toolstripAplicaciones.Location = New System.Drawing.Point(3, 3)
+        Me.toolstripAplicaciones.Name = "toolstripAplicaciones"
+        Me.toolstripAplicaciones.Size = New System.Drawing.Size(87, 256)
+        Me.toolstripAplicaciones.TabIndex = 8
+        '
+        'buttonAplicacion_Agregar
+        '
+        Me.buttonAplicacion_Agregar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_ADD_32
+        Me.buttonAplicacion_Agregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.buttonAplicacion_Agregar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonAplicacion_Agregar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonAplicacion_Agregar.Name = "buttonAplicacion_Agregar"
+        Me.buttonAplicacion_Agregar.Size = New System.Drawing.Size(84, 36)
+        Me.buttonAplicacion_Agregar.Text = "Agregar"
+        '
+        'buttonAplicacion_Editar
+        '
+        Me.buttonAplicacion_Editar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_EDIT_32
+        Me.buttonAplicacion_Editar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.buttonAplicacion_Editar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonAplicacion_Editar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonAplicacion_Editar.Name = "buttonAplicacion_Editar"
+        Me.buttonAplicacion_Editar.Size = New System.Drawing.Size(84, 36)
+        Me.buttonAplicacion_Editar.Text = "Editar"
+        '
+        'buttonAplicacion_Eliminar
+        '
+        Me.buttonAplicacion_Eliminar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_DELETE_32
+        Me.buttonAplicacion_Eliminar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.buttonAplicacion_Eliminar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonAplicacion_Eliminar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonAplicacion_Eliminar.Name = "buttonAplicacion_Eliminar"
+        Me.buttonAplicacion_Eliminar.Size = New System.Drawing.Size(84, 36)
+        Me.buttonAplicacion_Eliminar.Text = "Eliminar"
+        '
+        'tabpageAsociaciones
+        '
+        Me.tabpageAsociaciones.Controls.Add(Me.datagridviewAsociaciones)
+        Me.tabpageAsociaciones.Controls.Add(Me.toolstripAsociaciones)
+        Me.tabpageAsociaciones.Location = New System.Drawing.Point(4, 22)
+        Me.tabpageAsociaciones.Name = "tabpageAsociaciones"
+        Me.tabpageAsociaciones.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabpageAsociaciones.Size = New System.Drawing.Size(950, 262)
+        Me.tabpageAsociaciones.TabIndex = 3
+        Me.tabpageAsociaciones.Text = "Asociaciones"
+        '
+        'datagridviewAsociaciones
+        '
+        Me.datagridviewAsociaciones.AllowUserToAddRows = False
+        Me.datagridviewAsociaciones.AllowUserToDeleteRows = False
+        Me.datagridviewAsociaciones.AllowUserToResizeRows = False
+        DataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewAsociaciones.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle17
+        Me.datagridviewAsociaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.datagridviewAsociaciones.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn11})
+        Me.datagridviewAsociaciones.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.datagridviewAsociaciones.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.datagridviewAsociaciones.Location = New System.Drawing.Point(90, 3)
+        Me.datagridviewAsociaciones.MultiSelect = False
+        Me.datagridviewAsociaciones.Name = "datagridviewAsociaciones"
+        Me.datagridviewAsociaciones.ReadOnly = True
+        Me.datagridviewAsociaciones.RowHeadersVisible = False
+        Me.datagridviewAsociaciones.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        Me.datagridviewAsociaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.datagridviewAsociaciones.Size = New System.Drawing.Size(857, 256)
+        Me.datagridviewAsociaciones.TabIndex = 11
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn1.DataPropertyName = "ComprobanteTipoNombre"
+        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle18
+        Me.DataGridViewTextBoxColumn1.HeaderText = "Tipo"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Width = 53
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn2.DataPropertyName = "NumeroCompleto"
+        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.DataGridViewTextBoxColumn2.DefaultCellStyle = DataGridViewCellStyle19
+        Me.DataGridViewTextBoxColumn2.HeaderText = "Número"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.Width = 69
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn3.DataPropertyName = "FechaEmision"
+        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.DataGridViewTextBoxColumn3.DefaultCellStyle = DataGridViewCellStyle20
+        Me.DataGridViewTextBoxColumn3.HeaderText = "Fecha"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        Me.DataGridViewTextBoxColumn3.Width = 62
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn4.DataPropertyName = "ImporteTotal"
+        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle21.Format = "C2"
+        DataGridViewCellStyle21.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn4.DefaultCellStyle = DataGridViewCellStyle21
+        Me.DataGridViewTextBoxColumn4.HeaderText = "Importe Total"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        Me.DataGridViewTextBoxColumn4.Width = 87
+        '
+        'DataGridViewTextBoxColumn5
+        '
+        Me.DataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn5.DataPropertyName = "ImportePendiente"
+        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle22.Format = "C2"
+        DataGridViewCellStyle22.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn5.DefaultCellStyle = DataGridViewCellStyle22
+        Me.DataGridViewTextBoxColumn5.HeaderText = "Importe sin aplicar"
+        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
+        Me.DataGridViewTextBoxColumn5.ReadOnly = True
+        Me.DataGridViewTextBoxColumn5.Width = 79
+        '
+        'DataGridViewTextBoxColumn11
+        '
+        Me.DataGridViewTextBoxColumn11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn11.DataPropertyName = "ImporteAplicado"
+        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle23.Format = "C2"
+        DataGridViewCellStyle23.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn11.DefaultCellStyle = DataGridViewCellStyle23
+        Me.DataGridViewTextBoxColumn11.HeaderText = "Importe aplicado"
+        Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
+        Me.DataGridViewTextBoxColumn11.ReadOnly = True
+        Me.DataGridViewTextBoxColumn11.Width = 101
+        '
+        'toolstripAsociaciones
+        '
+        Me.toolstripAsociaciones.Dock = System.Windows.Forms.DockStyle.Left
+        Me.toolstripAsociaciones.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolstripAsociaciones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAsociaciones_Agregar, Me.buttonAsociaciones_Editar, Me.buttonAsociaciones_Eliminar})
+        Me.toolstripAsociaciones.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow
+        Me.toolstripAsociaciones.Location = New System.Drawing.Point(3, 3)
+        Me.toolstripAsociaciones.Name = "toolstripAsociaciones"
+        Me.toolstripAsociaciones.Size = New System.Drawing.Size(87, 256)
+        Me.toolstripAsociaciones.TabIndex = 10
+        '
+        'buttonAsociaciones_Agregar
+        '
+        Me.buttonAsociaciones_Agregar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_ADD_32
+        Me.buttonAsociaciones_Agregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.buttonAsociaciones_Agregar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonAsociaciones_Agregar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonAsociaciones_Agregar.Name = "buttonAsociaciones_Agregar"
+        Me.buttonAsociaciones_Agregar.Size = New System.Drawing.Size(84, 36)
+        Me.buttonAsociaciones_Agregar.Text = "Agregar"
+        '
+        'buttonAsociaciones_Editar
+        '
+        Me.buttonAsociaciones_Editar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_EDIT_32
+        Me.buttonAsociaciones_Editar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.buttonAsociaciones_Editar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonAsociaciones_Editar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonAsociaciones_Editar.Name = "buttonAsociaciones_Editar"
+        Me.buttonAsociaciones_Editar.Size = New System.Drawing.Size(84, 36)
+        Me.buttonAsociaciones_Editar.Text = "Editar"
+        '
+        'buttonAsociaciones_Eliminar
+        '
+        Me.buttonAsociaciones_Eliminar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_DELETE_32
+        Me.buttonAsociaciones_Eliminar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.buttonAsociaciones_Eliminar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonAsociaciones_Eliminar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonAsociaciones_Eliminar.Name = "buttonAsociaciones_Eliminar"
+        Me.buttonAsociaciones_Eliminar.Size = New System.Drawing.Size(84, 36)
+        Me.buttonAsociaciones_Eliminar.Text = "Eliminar"
+        '
+        'tabpageMediosPago
+        '
+        Me.tabpageMediosPago.Controls.Add(Me.datagridviewMediosPago)
+        Me.tabpageMediosPago.Controls.Add(Me.toolstripMediosPago)
+        Me.tabpageMediosPago.Location = New System.Drawing.Point(4, 22)
+        Me.tabpageMediosPago.Name = "tabpageMediosPago"
+        Me.tabpageMediosPago.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabpageMediosPago.Size = New System.Drawing.Size(950, 262)
+        Me.tabpageMediosPago.TabIndex = 4
+        Me.tabpageMediosPago.Text = "Medios de Pago"
         '
         'datagridviewMediosPago
         '
         Me.datagridviewMediosPago.AllowUserToAddRows = False
         Me.datagridviewMediosPago.AllowUserToDeleteRows = False
         Me.datagridviewMediosPago.AllowUserToResizeRows = False
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewMediosPago.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewMediosPago.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle24
         Me.datagridviewMediosPago.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewMediosPago.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnMedioPagos_MedioPagoNombre, Me.columnMedioPagos_CajaNombre, Me.columnMedioPagos_Importe, Me.columnMedioPagos_BancoNombre, Me.columnMedioPagos_Numero, Me.columnMedioPagos_FechaVencimiento})
         Me.datagridviewMediosPago.Dock = System.Windows.Forms.DockStyle.Fill
         Me.datagridviewMediosPago.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.datagridviewMediosPago.Location = New System.Drawing.Point(87, 0)
+        Me.datagridviewMediosPago.Location = New System.Drawing.Point(133, 3)
         Me.datagridviewMediosPago.MultiSelect = False
         Me.datagridviewMediosPago.Name = "datagridviewMediosPago"
         Me.datagridviewMediosPago.ReadOnly = True
         Me.datagridviewMediosPago.RowHeadersVisible = False
         Me.datagridviewMediosPago.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewMediosPago.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewMediosPago.Size = New System.Drawing.Size(871, 279)
+        Me.datagridviewMediosPago.Size = New System.Drawing.Size(814, 256)
         Me.datagridviewMediosPago.TabIndex = 3
         '
         'columnMedioPagos_MedioPagoNombre
@@ -546,10 +822,10 @@ Partial Class formComprobante
         '
         Me.columnMedioPagos_Importe.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnMedioPagos_Importe.DataPropertyName = "Importe"
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle12.Format = "C2"
-        DataGridViewCellStyle12.NullValue = Nothing
-        Me.columnMedioPagos_Importe.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle25.Format = "C2"
+        DataGridViewCellStyle25.NullValue = Nothing
+        Me.columnMedioPagos_Importe.DefaultCellStyle = DataGridViewCellStyle25
         Me.columnMedioPagos_Importe.HeaderText = "Importe"
         Me.columnMedioPagos_Importe.Name = "columnMedioPagos_Importe"
         Me.columnMedioPagos_Importe.ReadOnly = True
@@ -577,8 +853,8 @@ Partial Class formComprobante
         '
         Me.columnMedioPagos_FechaVencimiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnMedioPagos_FechaVencimiento.DataPropertyName = "FechaVencimiento"
-        DataGridViewCellStyle13.Format = "d"
-        Me.columnMedioPagos_FechaVencimiento.DefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle26.Format = "d"
+        Me.columnMedioPagos_FechaVencimiento.DefaultCellStyle = DataGridViewCellStyle26
         Me.columnMedioPagos_FechaVencimiento.HeaderText = "Fecha de Vencimiento"
         Me.columnMedioPagos_FechaVencimiento.Name = "columnMedioPagos_FechaVencimiento"
         Me.columnMedioPagos_FechaVencimiento.ReadOnly = True
@@ -588,83 +864,96 @@ Partial Class formComprobante
         '
         Me.toolstripMediosPago.Dock = System.Windows.Forms.DockStyle.Left
         Me.toolstripMediosPago.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.toolstripMediosPago.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonMediosPago_Agregar, Me.buttonMediosPago_Editar, Me.buttonMediosPago_Eliminar})
+        Me.toolstripMediosPago.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonMediosPago_AgregarOtro, Me.buttonMediosPago_AgregarCheque, Me.buttonMediosPago_Editar, Me.buttonMediosPago_Eliminar})
         Me.toolstripMediosPago.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow
-        Me.toolstripMediosPago.Location = New System.Drawing.Point(0, 0)
+        Me.toolstripMediosPago.Location = New System.Drawing.Point(3, 3)
         Me.toolstripMediosPago.Name = "toolstripMediosPago"
-        Me.toolstripMediosPago.Size = New System.Drawing.Size(87, 279)
+        Me.toolstripMediosPago.Size = New System.Drawing.Size(130, 256)
         Me.toolstripMediosPago.TabIndex = 4
         '
-        'buttonMediosPago_Agregar
+        'buttonMediosPago_AgregarOtro
         '
-        Me.buttonMediosPago_Agregar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_ADD_32
-        Me.buttonMediosPago_Agregar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonMediosPago_Agregar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonMediosPago_Agregar.Name = "buttonMediosPago_Agregar"
-        Me.buttonMediosPago_Agregar.Size = New System.Drawing.Size(84, 36)
-        Me.buttonMediosPago_Agregar.Text = "Agregar"
+        Me.buttonMediosPago_AgregarOtro.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_ADD_32
+        Me.buttonMediosPago_AgregarOtro.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.buttonMediosPago_AgregarOtro.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonMediosPago_AgregarOtro.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonMediosPago_AgregarOtro.Name = "buttonMediosPago_AgregarOtro"
+        Me.buttonMediosPago_AgregarOtro.Size = New System.Drawing.Size(127, 36)
+        Me.buttonMediosPago_AgregarOtro.Text = "Agregar..."
+        '
+        'buttonMediosPago_AgregarCheque
+        '
+        Me.buttonMediosPago_AgregarCheque.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_ADD_32
+        Me.buttonMediosPago_AgregarCheque.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.buttonMediosPago_AgregarCheque.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonMediosPago_AgregarCheque.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonMediosPago_AgregarCheque.Name = "buttonMediosPago_AgregarCheque"
+        Me.buttonMediosPago_AgregarCheque.Size = New System.Drawing.Size(127, 36)
+        Me.buttonMediosPago_AgregarCheque.Text = "Agregar Cheque"
         '
         'buttonMediosPago_Editar
         '
         Me.buttonMediosPago_Editar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_EDIT_32
+        Me.buttonMediosPago_Editar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonMediosPago_Editar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonMediosPago_Editar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonMediosPago_Editar.Name = "buttonMediosPago_Editar"
-        Me.buttonMediosPago_Editar.Size = New System.Drawing.Size(84, 36)
+        Me.buttonMediosPago_Editar.Size = New System.Drawing.Size(127, 36)
         Me.buttonMediosPago_Editar.Text = "Editar"
         '
         'buttonMediosPago_Eliminar
         '
         Me.buttonMediosPago_Eliminar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_DELETE_32
+        Me.buttonMediosPago_Eliminar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonMediosPago_Eliminar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonMediosPago_Eliminar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonMediosPago_Eliminar.Name = "buttonMediosPago_Eliminar"
-        Me.buttonMediosPago_Eliminar.Size = New System.Drawing.Size(84, 36)
+        Me.buttonMediosPago_Eliminar.Size = New System.Drawing.Size(127, 36)
         Me.buttonMediosPago_Eliminar.Text = "Eliminar"
         '
-        'panelNotasAuditoria
+        'tabpageNotasAuditoria
         '
-        Me.panelNotasAuditoria.Controls.Add(labelNotas)
-        Me.panelNotasAuditoria.Controls.Add(Me.textboxNotas)
-        Me.panelNotasAuditoria.Controls.Add(Me.textboxUsuarioModificacion)
-        Me.panelNotasAuditoria.Controls.Add(Me.textboxUsuarioCreacion)
-        Me.panelNotasAuditoria.Controls.Add(Me.textboxFechaHoraModificacion)
-        Me.panelNotasAuditoria.Controls.Add(Me.textboxFechaHoraCreacion)
-        Me.panelNotasAuditoria.Controls.Add(labelModificacion)
-        Me.panelNotasAuditoria.Controls.Add(labelCreacion)
-        Me.panelNotasAuditoria.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.panelNotasAuditoria.Location = New System.Drawing.Point(0, 29)
-        Me.panelNotasAuditoria.Name = "panelNotasAuditoria"
-        Me.panelNotasAuditoria.Size = New System.Drawing.Size(958, 279)
-        Me.panelNotasAuditoria.TabIndex = 7
-        Me.panelNotasAuditoria.Visible = False
+        Me.tabpageNotasAuditoria.Controls.Add(labelNotas)
+        Me.tabpageNotasAuditoria.Controls.Add(Me.textboxNotas)
+        Me.tabpageNotasAuditoria.Controls.Add(labelCreacion)
+        Me.tabpageNotasAuditoria.Controls.Add(Me.textboxFechaHoraCreacion)
+        Me.tabpageNotasAuditoria.Controls.Add(Me.textboxUsuarioCreacion)
+        Me.tabpageNotasAuditoria.Controls.Add(labelModificacion)
+        Me.tabpageNotasAuditoria.Controls.Add(Me.textboxFechaHoraModificacion)
+        Me.tabpageNotasAuditoria.Controls.Add(Me.textboxUsuarioModificacion)
+        Me.tabpageNotasAuditoria.Location = New System.Drawing.Point(4, 22)
+        Me.tabpageNotasAuditoria.Name = "tabpageNotasAuditoria"
+        Me.tabpageNotasAuditoria.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabpageNotasAuditoria.Size = New System.Drawing.Size(950, 262)
+        Me.tabpageNotasAuditoria.TabIndex = 5
+        Me.tabpageNotasAuditoria.Text = "Notas y Auditoría"
         '
         'textboxNotas
         '
         Me.textboxNotas.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.textboxNotas.Location = New System.Drawing.Point(111, 3)
+        Me.textboxNotas.Location = New System.Drawing.Point(113, 6)
         Me.textboxNotas.MaxLength = 0
         Me.textboxNotas.Multiline = True
         Me.textboxNotas.Name = "textboxNotas"
-        Me.textboxNotas.Size = New System.Drawing.Size(844, 221)
+        Me.textboxNotas.Size = New System.Drawing.Size(831, 198)
         Me.textboxNotas.TabIndex = 32
         '
-        'textboxUsuarioModificacion
+        'textboxFechaHoraCreacion
         '
-        Me.textboxUsuarioModificacion.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.textboxUsuarioModificacion.Location = New System.Drawing.Point(238, 256)
-        Me.textboxUsuarioModificacion.MaxLength = 50
-        Me.textboxUsuarioModificacion.Name = "textboxUsuarioModificacion"
-        Me.textboxUsuarioModificacion.ReadOnly = True
-        Me.textboxUsuarioModificacion.Size = New System.Drawing.Size(259, 20)
-        Me.textboxUsuarioModificacion.TabIndex = 30
+        Me.textboxFechaHoraCreacion.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.textboxFechaHoraCreacion.Location = New System.Drawing.Point(113, 210)
+        Me.textboxFechaHoraCreacion.MaxLength = 0
+        Me.textboxFechaHoraCreacion.Name = "textboxFechaHoraCreacion"
+        Me.textboxFechaHoraCreacion.ReadOnly = True
+        Me.textboxFechaHoraCreacion.Size = New System.Drawing.Size(121, 20)
+        Me.textboxFechaHoraCreacion.TabIndex = 26
         '
         'textboxUsuarioCreacion
         '
         Me.textboxUsuarioCreacion.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.textboxUsuarioCreacion.Location = New System.Drawing.Point(238, 230)
+        Me.textboxUsuarioCreacion.Location = New System.Drawing.Point(240, 210)
         Me.textboxUsuarioCreacion.MaxLength = 50
         Me.textboxUsuarioCreacion.Name = "textboxUsuarioCreacion"
         Me.textboxUsuarioCreacion.ReadOnly = True
@@ -674,124 +963,22 @@ Partial Class formComprobante
         'textboxFechaHoraModificacion
         '
         Me.textboxFechaHoraModificacion.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.textboxFechaHoraModificacion.Location = New System.Drawing.Point(111, 256)
+        Me.textboxFechaHoraModificacion.Location = New System.Drawing.Point(113, 236)
         Me.textboxFechaHoraModificacion.MaxLength = 0
         Me.textboxFechaHoraModificacion.Name = "textboxFechaHoraModificacion"
         Me.textboxFechaHoraModificacion.ReadOnly = True
         Me.textboxFechaHoraModificacion.Size = New System.Drawing.Size(121, 20)
         Me.textboxFechaHoraModificacion.TabIndex = 29
         '
-        'textboxFechaHoraCreacion
+        'textboxUsuarioModificacion
         '
-        Me.textboxFechaHoraCreacion.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.textboxFechaHoraCreacion.Location = New System.Drawing.Point(111, 230)
-        Me.textboxFechaHoraCreacion.MaxLength = 0
-        Me.textboxFechaHoraCreacion.Name = "textboxFechaHoraCreacion"
-        Me.textboxFechaHoraCreacion.ReadOnly = True
-        Me.textboxFechaHoraCreacion.Size = New System.Drawing.Size(121, 20)
-        Me.textboxFechaHoraCreacion.TabIndex = 26
-        '
-        'panelTabButtons
-        '
-        Me.panelTabButtons.AutoSize = True
-        Me.panelTabButtons.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.panelTabButtons.Controls.Add(Me.radiobuttonTabPageDetalle)
-        Me.panelTabButtons.Controls.Add(Me.radiobuttonTabPageImpuestos)
-        Me.panelTabButtons.Controls.Add(Me.radiobuttonTabPageAplicaciones)
-        Me.panelTabButtons.Controls.Add(Me.radiobuttonTabPageAsociaciones)
-        Me.panelTabButtons.Controls.Add(Me.radiobuttonTabPageMediosPago)
-        Me.panelTabButtons.Controls.Add(Me.radiobuttonTabPageNotasAuditoria)
-        Me.panelTabButtons.Dock = System.Windows.Forms.DockStyle.Top
-        Me.panelTabButtons.Location = New System.Drawing.Point(0, 0)
-        Me.panelTabButtons.Name = "panelTabButtons"
-        Me.panelTabButtons.Size = New System.Drawing.Size(958, 29)
-        Me.panelTabButtons.TabIndex = 11
-        '
-        'radiobuttonTabPageDetalle
-        '
-        Me.radiobuttonTabPageDetalle.Appearance = System.Windows.Forms.Appearance.Button
-        Me.radiobuttonTabPageDetalle.AutoSize = True
-        Me.radiobuttonTabPageDetalle.BackColor = System.Drawing.SystemColors.Control
-        Me.radiobuttonTabPageDetalle.Checked = True
-        Me.radiobuttonTabPageDetalle.FlatAppearance.CheckedBackColor = System.Drawing.Color.White
-        Me.radiobuttonTabPageDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.radiobuttonTabPageDetalle.Location = New System.Drawing.Point(3, 3)
-        Me.radiobuttonTabPageDetalle.Name = "radiobuttonTabPageDetalle"
-        Me.radiobuttonTabPageDetalle.Size = New System.Drawing.Size(50, 23)
-        Me.radiobuttonTabPageDetalle.TabIndex = 2
-        Me.radiobuttonTabPageDetalle.TabStop = True
-        Me.radiobuttonTabPageDetalle.Text = "Detalle"
-        Me.radiobuttonTabPageDetalle.UseVisualStyleBackColor = False
-        '
-        'radiobuttonTabPageImpuestos
-        '
-        Me.radiobuttonTabPageImpuestos.Appearance = System.Windows.Forms.Appearance.Button
-        Me.radiobuttonTabPageImpuestos.AutoSize = True
-        Me.radiobuttonTabPageImpuestos.BackColor = System.Drawing.SystemColors.Control
-        Me.radiobuttonTabPageImpuestos.FlatAppearance.CheckedBackColor = System.Drawing.Color.White
-        Me.radiobuttonTabPageImpuestos.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.radiobuttonTabPageImpuestos.Location = New System.Drawing.Point(59, 3)
-        Me.radiobuttonTabPageImpuestos.Name = "radiobuttonTabPageImpuestos"
-        Me.radiobuttonTabPageImpuestos.Size = New System.Drawing.Size(65, 23)
-        Me.radiobuttonTabPageImpuestos.TabIndex = 3
-        Me.radiobuttonTabPageImpuestos.Text = "Impuestos"
-        Me.radiobuttonTabPageImpuestos.UseVisualStyleBackColor = False
-        '
-        'radiobuttonTabPageAplicaciones
-        '
-        Me.radiobuttonTabPageAplicaciones.Appearance = System.Windows.Forms.Appearance.Button
-        Me.radiobuttonTabPageAplicaciones.AutoSize = True
-        Me.radiobuttonTabPageAplicaciones.BackColor = System.Drawing.SystemColors.Control
-        Me.radiobuttonTabPageAplicaciones.FlatAppearance.CheckedBackColor = System.Drawing.Color.White
-        Me.radiobuttonTabPageAplicaciones.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.radiobuttonTabPageAplicaciones.Location = New System.Drawing.Point(130, 3)
-        Me.radiobuttonTabPageAplicaciones.Name = "radiobuttonTabPageAplicaciones"
-        Me.radiobuttonTabPageAplicaciones.Size = New System.Drawing.Size(77, 23)
-        Me.radiobuttonTabPageAplicaciones.TabIndex = 4
-        Me.radiobuttonTabPageAplicaciones.Text = "Aplicaciones"
-        Me.radiobuttonTabPageAplicaciones.UseVisualStyleBackColor = False
-        '
-        'radiobuttonTabPageAsociaciones
-        '
-        Me.radiobuttonTabPageAsociaciones.Appearance = System.Windows.Forms.Appearance.Button
-        Me.radiobuttonTabPageAsociaciones.AutoSize = True
-        Me.radiobuttonTabPageAsociaciones.BackColor = System.Drawing.SystemColors.Control
-        Me.radiobuttonTabPageAsociaciones.FlatAppearance.CheckedBackColor = System.Drawing.Color.White
-        Me.radiobuttonTabPageAsociaciones.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.radiobuttonTabPageAsociaciones.Location = New System.Drawing.Point(213, 3)
-        Me.radiobuttonTabPageAsociaciones.Name = "radiobuttonTabPageAsociaciones"
-        Me.radiobuttonTabPageAsociaciones.Size = New System.Drawing.Size(80, 23)
-        Me.radiobuttonTabPageAsociaciones.TabIndex = 5
-        Me.radiobuttonTabPageAsociaciones.Text = "Asociaciones"
-        Me.radiobuttonTabPageAsociaciones.UseVisualStyleBackColor = False
-        '
-        'radiobuttonTabPageMediosPago
-        '
-        Me.radiobuttonTabPageMediosPago.Appearance = System.Windows.Forms.Appearance.Button
-        Me.radiobuttonTabPageMediosPago.AutoSize = True
-        Me.radiobuttonTabPageMediosPago.BackColor = System.Drawing.SystemColors.Control
-        Me.radiobuttonTabPageMediosPago.FlatAppearance.CheckedBackColor = System.Drawing.Color.White
-        Me.radiobuttonTabPageMediosPago.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.radiobuttonTabPageMediosPago.Location = New System.Drawing.Point(299, 3)
-        Me.radiobuttonTabPageMediosPago.Name = "radiobuttonTabPageMediosPago"
-        Me.radiobuttonTabPageMediosPago.Size = New System.Drawing.Size(93, 23)
-        Me.radiobuttonTabPageMediosPago.TabIndex = 6
-        Me.radiobuttonTabPageMediosPago.Text = "Medios de pago"
-        Me.radiobuttonTabPageMediosPago.UseVisualStyleBackColor = False
-        '
-        'radiobuttonTabPageNotasAuditoria
-        '
-        Me.radiobuttonTabPageNotasAuditoria.Appearance = System.Windows.Forms.Appearance.Button
-        Me.radiobuttonTabPageNotasAuditoria.AutoSize = True
-        Me.radiobuttonTabPageNotasAuditoria.BackColor = System.Drawing.SystemColors.Control
-        Me.radiobuttonTabPageNotasAuditoria.FlatAppearance.CheckedBackColor = System.Drawing.Color.White
-        Me.radiobuttonTabPageNotasAuditoria.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.radiobuttonTabPageNotasAuditoria.Location = New System.Drawing.Point(398, 3)
-        Me.radiobuttonTabPageNotasAuditoria.Name = "radiobuttonTabPageNotasAuditoria"
-        Me.radiobuttonTabPageNotasAuditoria.Size = New System.Drawing.Size(99, 23)
-        Me.radiobuttonTabPageNotasAuditoria.TabIndex = 7
-        Me.radiobuttonTabPageNotasAuditoria.Text = "Notas y Auditoría"
-        Me.radiobuttonTabPageNotasAuditoria.UseVisualStyleBackColor = False
+        Me.textboxUsuarioModificacion.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.textboxUsuarioModificacion.Location = New System.Drawing.Point(240, 236)
+        Me.textboxUsuarioModificacion.MaxLength = 50
+        Me.textboxUsuarioModificacion.Name = "textboxUsuarioModificacion"
+        Me.textboxUsuarioModificacion.ReadOnly = True
+        Me.textboxUsuarioModificacion.Size = New System.Drawing.Size(259, 20)
+        Me.textboxUsuarioModificacion.TabIndex = 30
         '
         'panelCabecera
         '
@@ -901,11 +1088,12 @@ Partial Class formComprobante
         'textboxIDComprobante
         '
         Me.textboxIDComprobante.Location = New System.Drawing.Point(30, 3)
-        Me.textboxIDComprobante.MaxLength = 7
+        Me.textboxIDComprobante.MaxLength = 10
         Me.textboxIDComprobante.Name = "textboxIDComprobante"
         Me.textboxIDComprobante.ReadOnly = True
         Me.textboxIDComprobante.Size = New System.Drawing.Size(74, 20)
         Me.textboxIDComprobante.TabIndex = 1
+        Me.textboxIDComprobante.TabStop = False
         Me.textboxIDComprobante.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'labelIDComprobante
@@ -1021,7 +1209,7 @@ Partial Class formComprobante
         Me.panelPie.Controls.Add(Me.panelSubtotales)
         Me.panelPie.Dock = System.Windows.Forms.DockStyle.Fill
         Me.panelPie.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.panelPie.Location = New System.Drawing.Point(3, 428)
+        Me.panelPie.Location = New System.Drawing.Point(3, 408)
         Me.panelPie.Name = "panelPie"
         Me.panelPie.Padding = New System.Windows.Forms.Padding(4)
         Me.panelPie.Size = New System.Drawing.Size(958, 44)
@@ -1145,14 +1333,64 @@ Partial Class formComprobante
         Me.buttonGuardar.Size = New System.Drawing.Size(85, 36)
         Me.buttonGuardar.Text = "Guardar"
         '
-        'buttonDetalle_Agregar
+        'columnAplicaciones_Tipo
         '
-        Me.buttonDetalle_Agregar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_ADD_32
-        Me.buttonDetalle_Agregar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonDetalle_Agregar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonDetalle_Agregar.Name = "buttonDetalle_Agregar"
-        Me.buttonDetalle_Agregar.Size = New System.Drawing.Size(84, 36)
-        Me.buttonDetalle_Agregar.Text = "Agregar"
+        Me.columnAplicaciones_Tipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnAplicaciones_Tipo.DataPropertyName = "ComprobanteTipoNombre"
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnAplicaciones_Tipo.DefaultCellStyle = DataGridViewCellStyle12
+        Me.columnAplicaciones_Tipo.HeaderText = "Tipo"
+        Me.columnAplicaciones_Tipo.Name = "columnAplicaciones_Tipo"
+        Me.columnAplicaciones_Tipo.ReadOnly = True
+        Me.columnAplicaciones_Tipo.Width = 53
+        '
+        'columnAplicaciones_NumeroCompleto
+        '
+        Me.columnAplicaciones_NumeroCompleto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnAplicaciones_NumeroCompleto.DataPropertyName = "NumeroCompleto"
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnAplicaciones_NumeroCompleto.DefaultCellStyle = DataGridViewCellStyle13
+        Me.columnAplicaciones_NumeroCompleto.HeaderText = "Número"
+        Me.columnAplicaciones_NumeroCompleto.Name = "columnAplicaciones_NumeroCompleto"
+        Me.columnAplicaciones_NumeroCompleto.ReadOnly = True
+        Me.columnAplicaciones_NumeroCompleto.Width = 69
+        '
+        'columnAplicaciones_Fecha
+        '
+        Me.columnAplicaciones_Fecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnAplicaciones_Fecha.DataPropertyName = "FechaEmision"
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnAplicaciones_Fecha.DefaultCellStyle = DataGridViewCellStyle14
+        Me.columnAplicaciones_Fecha.HeaderText = "Fecha"
+        Me.columnAplicaciones_Fecha.Name = "columnAplicaciones_Fecha"
+        Me.columnAplicaciones_Fecha.ReadOnly = True
+        Me.columnAplicaciones_Fecha.Width = 62
+        '
+        'columnAplicaciones_ImporteTotal
+        '
+        Me.columnAplicaciones_ImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnAplicaciones_ImporteTotal.DataPropertyName = "ImporteTotal"
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle15.Format = "C2"
+        DataGridViewCellStyle15.NullValue = Nothing
+        Me.columnAplicaciones_ImporteTotal.DefaultCellStyle = DataGridViewCellStyle15
+        Me.columnAplicaciones_ImporteTotal.HeaderText = "Importe Total"
+        Me.columnAplicaciones_ImporteTotal.Name = "columnAplicaciones_ImporteTotal"
+        Me.columnAplicaciones_ImporteTotal.ReadOnly = True
+        Me.columnAplicaciones_ImporteTotal.Width = 94
+        '
+        'columnAplicaciones_ImporteAplicado
+        '
+        Me.columnAplicaciones_ImporteAplicado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnAplicaciones_ImporteAplicado.DataPropertyName = "ImporteAplicado"
+        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle16.Format = "C2"
+        DataGridViewCellStyle16.NullValue = Nothing
+        Me.columnAplicaciones_ImporteAplicado.DefaultCellStyle = DataGridViewCellStyle16
+        Me.columnAplicaciones_ImporteAplicado.HeaderText = "Importe aplicado"
+        Me.columnAplicaciones_ImporteAplicado.Name = "columnAplicaciones_ImporteAplicado"
+        Me.columnAplicaciones_ImporteAplicado.ReadOnly = True
+        Me.columnAplicaciones_ImporteAplicado.Width = 101
         '
         'formComprobante
         '
@@ -1167,27 +1405,34 @@ Partial Class formComprobante
         Me.Text = "Detalle del Comprobante"
         Me.panelMain.ResumeLayout(False)
         Me.panelMain.PerformLayout()
-        Me.panelTabs.ResumeLayout(False)
-        Me.panelTabs.PerformLayout()
-        Me.panelDetalle.ResumeLayout(False)
-        Me.panelDetalle.PerformLayout()
+        Me.tabcontrolMain.ResumeLayout(False)
+        Me.tabpageDetalle.ResumeLayout(False)
+        Me.tabpageDetalle.PerformLayout()
         CType(Me.datagridviewDetalle, System.ComponentModel.ISupportInitialize).EndInit()
         Me.toolstripDetalle.ResumeLayout(False)
         Me.toolstripDetalle.PerformLayout()
-        Me.panelImpuestos.ResumeLayout(False)
-        Me.panelImpuestos.PerformLayout()
+        Me.tabpageImpuestos.ResumeLayout(False)
+        Me.tabpageImpuestos.PerformLayout()
         CType(Me.datagridviewImpuestos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.toolstripImpuestos.ResumeLayout(False)
         Me.toolstripImpuestos.PerformLayout()
-        Me.panelMediosPago.ResumeLayout(False)
-        Me.panelMediosPago.PerformLayout()
+        Me.tabpageAplicaciones.ResumeLayout(False)
+        Me.tabpageAplicaciones.PerformLayout()
+        CType(Me.datagridviewAplicaciones, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.toolstripAplicaciones.ResumeLayout(False)
+        Me.toolstripAplicaciones.PerformLayout()
+        Me.tabpageAsociaciones.ResumeLayout(False)
+        Me.tabpageAsociaciones.PerformLayout()
+        CType(Me.datagridviewAsociaciones, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.toolstripAsociaciones.ResumeLayout(False)
+        Me.toolstripAsociaciones.PerformLayout()
+        Me.tabpageMediosPago.ResumeLayout(False)
+        Me.tabpageMediosPago.PerformLayout()
         CType(Me.datagridviewMediosPago, System.ComponentModel.ISupportInitialize).EndInit()
         Me.toolstripMediosPago.ResumeLayout(False)
         Me.toolstripMediosPago.PerformLayout()
-        Me.panelNotasAuditoria.ResumeLayout(False)
-        Me.panelNotasAuditoria.PerformLayout()
-        Me.panelTabButtons.ResumeLayout(False)
-        Me.panelTabButtons.PerformLayout()
+        Me.tabpageNotasAuditoria.ResumeLayout(False)
+        Me.tabpageNotasAuditoria.PerformLayout()
         Me.panelCabecera.ResumeLayout(False)
         Me.panelIdentificacion.ResumeLayout(False)
         Me.panelIdentificacion.PerformLayout()
@@ -1240,8 +1485,6 @@ Partial Class formComprobante
     Friend WithEvents buttonEditar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonCancelar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonGuardar As System.Windows.Forms.ToolStripButton
-    Friend WithEvents panelTabs As System.Windows.Forms.Panel
-    Friend WithEvents panelDetalle As System.Windows.Forms.Panel
     Friend WithEvents datagridviewDetalle As System.Windows.Forms.DataGridView
     Friend WithEvents columnDetalle_Descripcion As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnDetalle_PrecioUnitario As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -1251,7 +1494,6 @@ Partial Class formComprobante
     Friend WithEvents toolstripDetalle As System.Windows.Forms.ToolStrip
     Friend WithEvents buttonDetalle_Editar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonDetalle_Eliminar As System.Windows.Forms.ToolStripButton
-    Friend WithEvents panelImpuestos As System.Windows.Forms.Panel
     Friend WithEvents datagridviewImpuestos As System.Windows.Forms.DataGridView
     Friend WithEvents DataGridViewTextBoxColumn6 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn7 As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -1262,7 +1504,6 @@ Partial Class formComprobante
     Friend WithEvents buttonImpuestos_Agregar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonImpuestos_Editar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonImpuestos_Eliminar As System.Windows.Forms.ToolStripButton
-    Friend WithEvents panelMediosPago As System.Windows.Forms.Panel
     Friend WithEvents datagridviewMediosPago As System.Windows.Forms.DataGridView
     Friend WithEvents columnMedioPagos_MedioPagoNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnMedioPagos_CajaNombre As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -1270,22 +1511,43 @@ Partial Class formComprobante
     Friend WithEvents columnMedioPagos_BancoNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnMedioPagos_Numero As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnMedioPagos_FechaVencimiento As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents toolstripMediosPago As System.Windows.Forms.ToolStrip
-    Friend WithEvents buttonMediosPago_Agregar As System.Windows.Forms.ToolStripButton
-    Friend WithEvents buttonMediosPago_Editar As System.Windows.Forms.ToolStripButton
-    Friend WithEvents buttonMediosPago_Eliminar As System.Windows.Forms.ToolStripButton
-    Friend WithEvents panelNotasAuditoria As System.Windows.Forms.Panel
     Friend WithEvents textboxNotas As System.Windows.Forms.TextBox
     Friend WithEvents textboxUsuarioModificacion As System.Windows.Forms.TextBox
     Friend WithEvents textboxUsuarioCreacion As System.Windows.Forms.TextBox
     Friend WithEvents textboxFechaHoraModificacion As System.Windows.Forms.TextBox
     Friend WithEvents textboxFechaHoraCreacion As System.Windows.Forms.TextBox
-    Friend WithEvents panelTabButtons As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents radiobuttonTabPageDetalle As System.Windows.Forms.RadioButton
-    Friend WithEvents radiobuttonTabPageImpuestos As System.Windows.Forms.RadioButton
-    Friend WithEvents radiobuttonTabPageAplicaciones As System.Windows.Forms.RadioButton
-    Friend WithEvents radiobuttonTabPageAsociaciones As System.Windows.Forms.RadioButton
-    Friend WithEvents radiobuttonTabPageMediosPago As System.Windows.Forms.RadioButton
-    Friend WithEvents radiobuttonTabPageNotasAuditoria As System.Windows.Forms.RadioButton
     Friend WithEvents buttonDetalle_Agregar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents tabcontrolMain As CSColegio.DesktopApplication.CS_Control_TabControl
+    Friend WithEvents tabpageDetalle As System.Windows.Forms.TabPage
+    Friend WithEvents tabpageImpuestos As System.Windows.Forms.TabPage
+    Friend WithEvents tabpageAplicaciones As System.Windows.Forms.TabPage
+    Friend WithEvents tabpageAsociaciones As System.Windows.Forms.TabPage
+    Friend WithEvents tabpageMediosPago As System.Windows.Forms.TabPage
+    Friend WithEvents tabpageNotasAuditoria As System.Windows.Forms.TabPage
+    Friend WithEvents toolstripAplicaciones As System.Windows.Forms.ToolStrip
+    Friend WithEvents buttonAplicacion_Agregar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents buttonAplicacion_Editar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents buttonAplicacion_Eliminar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents datagridviewAplicaciones As System.Windows.Forms.DataGridView
+    Friend WithEvents datagridviewAsociaciones As System.Windows.Forms.DataGridView
+    Friend WithEvents DataGridViewTextBoxColumn1 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn2 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn3 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn4 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn5 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn11 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents toolstripAsociaciones As System.Windows.Forms.ToolStrip
+    Friend WithEvents buttonAsociaciones_Agregar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents buttonAsociaciones_Editar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents buttonAsociaciones_Eliminar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents toolstripMediosPago As System.Windows.Forms.ToolStrip
+    Friend WithEvents buttonMediosPago_AgregarOtro As System.Windows.Forms.ToolStripButton
+    Friend WithEvents buttonMediosPago_Editar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents buttonMediosPago_Eliminar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents buttonMediosPago_AgregarCheque As System.Windows.Forms.ToolStripButton
+    Friend WithEvents columnAplicaciones_Tipo As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnAplicaciones_NumeroCompleto As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnAplicaciones_Fecha As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnAplicaciones_ImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnAplicaciones_ImporteAplicado As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

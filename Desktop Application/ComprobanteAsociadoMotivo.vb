@@ -10,11 +10,8 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class ChequeMotivoRechazo
-    Public Property IDChequeMotivoRechazo As Byte
-    Public Property CodigoNACHA As String
+Partial Public Class ComprobanteAsociadoMotivo
+    Public Property IDComprobanteAsociadoMotivo As Byte
     Public Property Nombre As String
-    Public Property NombreCompleto As String
-    Public Property EsActivo As Boolean
 
 End Class

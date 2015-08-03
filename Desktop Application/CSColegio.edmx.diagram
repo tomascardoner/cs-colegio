@@ -40,7 +40,7 @@
         <AssociationConnector Association="CSColegioModel.FK__Movimiento_Categoria__Movimiento" ManuallyRouted="false" />
         <AssociationConnector Association="CSColegioModel.FK__UsuarioGrupo__Usuario" ManuallyRouted="false" />
         <EntityTypeShape EntityType="CSColegioModel.ComprobanteImpuesto" Width="1.875" PointX="13" PointY="8" />
-        <EntityTypeShape EntityType="CSColegioModel.ComprobanteTipo" Width="1.5" PointX="8.5" PointY="12.5" />
+        <EntityTypeShape EntityType="CSColegioModel.ComprobanteTipo" Width="2" PointX="7.25" PointY="11.875" />
         <EntityTypeShape EntityType="CSColegioModel.Impuesto" Width="1.5" PointX="10.75" PointY="2.5" />
         <AssociationConnector Association="CSColegioModel.FK__Impuesto__ComprobanteImpuesto" />
         <EntityTypeShape EntityType="CSColegioModel.ComprobanteDetalle" Width="1.5" PointX="13" PointY="10.75" />
@@ -79,7 +79,7 @@
         <AssociationConnector Association="CSColegioModel.FK__ReporteGrupo__Reporte" />
         <EntityTypeShape EntityType="CSColegioModel.Feriado" Width="1.5" PointX="0.75" PointY="21.75" />
         <EntityTypeShape EntityType="CSColegioModel.Caja" Width="1.5" PointX="21.375" PointY="17.75" />
-        <EntityTypeShape EntityType="CSColegioModel.Comprobante" Width="1.625" PointX="10.625" PointY="7" />
+        <EntityTypeShape EntityType="CSColegioModel.Comprobante" Width="2" PointX="10.625" PointY="7" />
         <EntityTypeShape EntityType="CSColegioModel.ComprobanteMedioPago" Width="1.5" PointX="24.875" PointY="10.125" />
         <AssociationConnector Association="CSColegioModel.FK__CategoriaIVA__Comprobante" />
         <AssociationConnector Association="CSColegioModel.FK__Comprobante__ComprobanteDetalle" />
@@ -96,9 +96,13 @@
         <AssociationConnector Association="CSColegioModel.FK__Banco__Cheque" />
         <AssociationConnector Association="CSColegioModel.FK__Caja__ComprobanteMedioPago" />
         <AssociationConnector Association="CSColegioModel.MedioPagoCaja1" />
-        <EntityTypeShape EntityType="CSColegioModel.ComprobanteAplicacion" Width="1.5" PointX="13" PointY="26.75" />
+        <EntityTypeShape EntityType="CSColegioModel.ComprobanteAplicacion" Width="2.75" PointX="13" PointY="26.75" />
         <AssociationConnector Association="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicado" />
-        <AssociationConnector Association="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicante" />
+        <AssociationConnector Association="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicante" ManuallyRouted="true" >
+          <ConnectorPoint PointX="10.66796875" PointY="18.018453776041667" />
+          <ConnectorPoint PointX="10.66796875" PointY="27.329773893229177" />
+          <ConnectorPoint PointX="13" PointY="27.329773893229177" />
+        </AssociationConnector>
         <AssociationConnector Association="CSColegioModel.ComprobanteAsociacion" />
         <AssociationConnector Association="CSColegioModel.FK__Banco__ComprobanteMedioPago" />
         <AssociationConnector Association="CSColegioModel.ComprobanteTipoAsociacion" />
@@ -108,6 +112,7 @@
         <EntityTypeShape EntityType="CSColegioModel.Chequera" Width="1.5" PointX="23.625" PointY="18" />
         <AssociationConnector Association="CSColegioModel.FK__Caja__Chequera" />
         <AssociationConnector Association="CSColegioModel.FK__Cheque__ComprobanteMedioPago" />
+        <EntityTypeShape EntityType="CSColegioModel.ComprobanteAsociadoMotivo" Width="2.25" PointX="22.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

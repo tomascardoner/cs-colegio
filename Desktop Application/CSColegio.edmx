@@ -100,7 +100,7 @@
           <Property Name="IDCheque" Type="int" Nullable="false" />
           <Property Name="IDBanco" Type="smallint" />
           <Property Name="FechaEmision" Type="date" />
-          <Property Name="FechaVencimiento" Type="date" />
+          <Property Name="FechaPago" Type="date" />
           <Property Name="Numero" Type="varchar" MaxLength="20" />
           <Property Name="Importe" Type="money" Nullable="false" />
           <Property Name="Cuenta" Type="varchar" MaxLength="20" />
@@ -115,7 +115,9 @@
             <PropertyRef Name="IDChequeMotivoRechazo" />
           </Key>
           <Property Name="IDChequeMotivoRechazo" Type="tinyint" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CodigoNACHA" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="NombreCompleto" Type="varchar" MaxLength="206" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Chequera">
@@ -191,6 +193,14 @@
           </Key>
           <Property Name="IDComprobante" Type="int" Nullable="false" />
           <Property Name="IDComprobanteAsociado" Type="int" Nullable="false" />
+          <Property Name="Motivo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ComprobanteAsociadoMotivo">
+          <Key>
+            <PropertyRef Name="IDComprobanteAsociadoMotivo" />
+          </Key>
+          <Property Name="IDComprobanteAsociadoMotivo" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="ComprobanteDetalle">
           <Key>
@@ -241,11 +251,10 @@
           <Property Name="IDComprobante" Type="int" Nullable="false" />
           <Property Name="Indice" Type="tinyint" Nullable="false" />
           <Property Name="IDMedioPago" Type="tinyint" Nullable="false" />
-          <Property Name="IDBanco" Type="smallint" />
           <Property Name="FechaHora" Type="smalldatetime" />
           <Property Name="Numero" Type="varchar" MaxLength="20" />
+          <Property Name="IDBanco" Type="smallint" />
           <Property Name="Cuenta" Type="varchar" MaxLength="20" />
-          <Property Name="CUIT" Type="char" MaxLength="11" />
           <Property Name="Titular" Type="varchar" MaxLength="100" />
           <Property Name="IDCheque" Type="int" />
           <Property Name="Importe" Type="money" Nullable="false" />
@@ -471,12 +480,12 @@
           </Key>
           <Property Name="IDMedioPago" Type="tinyint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EsCheque" Type="bit" Nullable="false" />
           <Property Name="UtilizaBanco" Type="bit" Nullable="false" />
           <Property Name="UtilizaFechaHora" Type="bit" Nullable="false" />
           <Property Name="UtilizaNumero" Type="bit" Nullable="false" />
           <Property Name="UtilizaCuenta" Type="bit" Nullable="false" />
           <Property Name="UtilizaTitular" Type="bit" Nullable="false" />
-          <Property Name="UtilizaCheque" Type="bit" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
@@ -1389,6 +1398,7 @@
           <EntitySet Name="Comprobante" EntityType="Self.Comprobante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteAplicacion" EntityType="Self.ComprobanteAplicacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteAsociacion" EntityType="Self.ComprobanteAsociacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComprobanteAsociadoMotivo" EntityType="Self.ComprobanteAsociadoMotivo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteDetalle" EntityType="Self.ComprobanteDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteImpuesto" EntityType="Self.ComprobanteImpuesto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteLote" EntityType="Self.ComprobanteLote" Schema="dbo" store:Type="Tables" />
@@ -1880,12 +1890,12 @@
           </Key>
           <Property Name="IDMedioPago" Type="Byte" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EsCheque" Type="Boolean" Nullable="false" />
           <Property Name="UtilizaBanco" Type="Boolean" Nullable="false" />
           <Property Name="UtilizaFechaHora" Type="Boolean" Nullable="false" />
           <Property Name="UtilizaNumero" Type="Boolean" Nullable="false" />
           <Property Name="UtilizaCuenta" Type="Boolean" Nullable="false" />
           <Property Name="UtilizaTitular" Type="Boolean" Nullable="false" />
-          <Property Name="UtilizaCheque" Type="Boolean" Nullable="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
@@ -2426,7 +2436,7 @@
           </AssociationSet>
           <AssociationSet Name="ComprobanteTipoAsociacion" Association="CSColegioModel.ComprobanteTipoAsociacion">
             <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
-            <End Role="ComprobanteTipo1" EntitySet="ComprobanteTipo" />
+            <End Role="ComprobanteTipoAsociado" EntitySet="ComprobanteTipo" />
           </AssociationSet>
           <AssociationSet Name="FK__Articulo__ComprobanteDetalle" Association="CSColegioModel.FK__Articulo__ComprobanteDetalle">
             <End Role="Articulo" EntitySet="Articulo" />
@@ -2446,6 +2456,7 @@
             <End Role="Cheque" EntitySet="Cheque" />
             <End Role="ComprobanteMedioPago" EntitySet="ComprobanteMedioPago" />
           </AssociationSet>
+          <EntitySet Name="ComprobanteAsociadoMotivo" EntityType="CSColegioModel.ComprobanteAsociadoMotivo" />
         </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
           <Key>
@@ -2485,8 +2496,8 @@
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ComprobanteTipoPuntoVenta" Relationship="CSColegioModel.FK__ComprobanteTipo__ComprobanteTipoPuntoVenta" FromRole="ComprobanteTipo" ToRole="ComprobanteTipoPuntoVenta" />
           <NavigationProperty Name="Comprobante" Relationship="CSColegioModel.FK__ComprobanteTipo__Comprobante" FromRole="ComprobanteTipo" ToRole="Comprobante" />
-          <NavigationProperty Name="ComprobanteTipo1" Relationship="CSColegioModel.ComprobanteTipoAsociacion" FromRole="ComprobanteTipo" ToRole="ComprobanteTipo1" />
-          <NavigationProperty Name="ComprobanteTipo2" Relationship="CSColegioModel.ComprobanteTipoAsociacion" FromRole="ComprobanteTipo1" ToRole="ComprobanteTipo" />
+          <NavigationProperty Name="ComprobanteTipoAsociadores" Relationship="CSColegioModel.ComprobanteTipoAsociacion" FromRole="ComprobanteTipo" ToRole="ComprobanteTipoAsociado" />
+          <NavigationProperty Name="ComprobanteTipoAsociados" Relationship="CSColegioModel.ComprobanteTipoAsociacion" FromRole="ComprobanteTipoAsociado" ToRole="ComprobanteTipo" />
         </EntityType>
         <EntityType Name="Impuesto">
           <Key>
@@ -2954,8 +2965,8 @@
           <NavigationProperty Name="Localidad" Relationship="CSColegioModel.FK__Localidad__Comprobante" FromRole="Comprobante" ToRole="Localidad" />
           <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__Comprobante__Creacion" FromRole="Comprobante" ToRole="Usuario" />
           <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__Comprobante__Modificacion" FromRole="Comprobante" ToRole="Usuario" />
-          <NavigationProperty Name="ComprobanteAplicado" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicado" FromRole="Comprobante" ToRole="ComprobanteAplicacion" />
-          <NavigationProperty Name="ComprobanteAplicante" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicante" FromRole="Comprobante" ToRole="ComprobanteAplicacion" />
+          <NavigationProperty Name="ComprobantesAplicacion_Aplicantes" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicado" FromRole="Comprobante" ToRole="ComprobanteAplicacion" />
+          <NavigationProperty Name="ComprobantesAplicacion_Aplicados" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicante" FromRole="Comprobante" ToRole="ComprobanteAplicacion" />
           <NavigationProperty Name="ComprobanteAsociante" Relationship="CSColegioModel.ComprobanteAsociacion" FromRole="Comprobante" ToRole="ComprobanteAsociado" />
           <NavigationProperty Name="ComprobanteAsociado" Relationship="CSColegioModel.ComprobanteAsociacion" FromRole="ComprobanteAsociado" ToRole="Comprobante" />
         </EntityType>
@@ -3122,7 +3133,7 @@
           <Property Name="IDCheque" Type="Int32" Nullable="false" />
           <Property Name="IDBanco" Type="Int16" />
           <Property Name="FechaEmision" Type="DateTime" Precision="0" />
-          <Property Name="FechaVencimiento" Type="DateTime" Precision="0" />
+          <Property Name="FechaPago" Type="DateTime" Precision="0" />
           <Property Name="Numero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Importe" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="Cuenta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -3170,8 +3181,8 @@
           <Property Name="IDComprobanteAplicante" Type="Int32" Nullable="false" />
           <Property Name="IDComprobanteAplicado" Type="Int32" Nullable="false" />
           <Property Name="Importe" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <NavigationProperty Name="Comprobante" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicado" FromRole="ComprobanteAplicacion" ToRole="Comprobante" />
-          <NavigationProperty Name="Comprobante1" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicante" FromRole="ComprobanteAplicacion" ToRole="Comprobante" />
+          <NavigationProperty Name="ComprobanteAplicado" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicado" FromRole="ComprobanteAplicacion" ToRole="Comprobante" />
+          <NavigationProperty Name="ComprobanteAplicante" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicante" FromRole="ComprobanteAplicacion" ToRole="Comprobante" />
         </EntityType>
         <Association Name="FK__Comprobante__ComprobanteAplicacion__Aplicado">
           <End Type="CSColegioModel.Comprobante" Role="Comprobante" Multiplicity="1" />
@@ -3215,7 +3226,7 @@
         </Association>
         <Association Name="ComprobanteTipoAsociacion">
           <End Type="CSColegioModel.ComprobanteTipo" Role="ComprobanteTipo" Multiplicity="*" />
-          <End Type="CSColegioModel.ComprobanteTipo" Role="ComprobanteTipo1" Multiplicity="*" />
+          <End Type="CSColegioModel.ComprobanteTipo" Role="ComprobanteTipoAsociado" Multiplicity="*" />
         </Association>
         <Association Name="FK__Articulo__ComprobanteDetalle">
           <End Type="CSColegioModel.Articulo" Role="Articulo" Multiplicity="1" />
@@ -3246,7 +3257,9 @@
             <PropertyRef Name="IDChequeMotivoRechazo" />
           </Key>
           <Property Name="IDChequeMotivoRechazo" Type="Byte" Nullable="false" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoNACHA" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NombreCompleto" Type="String" Nullable="false" MaxLength="206" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Chequera">
@@ -3288,6 +3301,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ComprobanteAsociadoMotivo">
+          <Key>
+            <PropertyRef Name="IDComprobanteAsociadoMotivo" />
+          </Key>
+          <Property Name="IDComprobanteAsociadoMotivo" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3476,7 +3496,7 @@
           <EntitySetMapping Name="MedioPago">
             <EntityTypeMapping TypeName="CSColegioModel.MedioPago">
               <MappingFragment StoreEntitySet="MedioPago">
-                <ScalarProperty Name="UtilizaCheque" ColumnName="UtilizaCheque" />
+                <ScalarProperty Name="EsCheque" ColumnName="EsCheque" />
                 <ScalarProperty Name="UtilizaTitular" ColumnName="UtilizaTitular" />
                 <ScalarProperty Name="UtilizaCuenta" ColumnName="UtilizaCuenta" />
                 <ScalarProperty Name="UtilizaNumero" ColumnName="UtilizaNumero" />
@@ -3923,6 +3943,7 @@
           <EntitySetMapping Name="Cheque">
             <EntityTypeMapping TypeName="CSColegioModel.Cheque">
               <MappingFragment StoreEntitySet="Cheque">
+                <ScalarProperty Name="FechaPago" ColumnName="FechaPago" />
                 <ScalarProperty Name="IDChequeMotivoRechazo" ColumnName="IDChequeMotivoRechazo" />
                 <ScalarProperty Name="Cuenta" ColumnName="Cuenta" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
@@ -3931,7 +3952,6 @@
                 <ScalarProperty Name="CUIT" ColumnName="CUIT" />
                 <ScalarProperty Name="Importe" ColumnName="Importe" />
                 <ScalarProperty Name="Numero" ColumnName="Numero" />
-                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
                 <ScalarProperty Name="FechaEmision" ColumnName="FechaEmision" />
                 <ScalarProperty Name="IDBanco" ColumnName="IDBanco" />
                 <ScalarProperty Name="IDCheque" ColumnName="IDCheque" />
@@ -3964,7 +3984,7 @@
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="ComprobanteTipoAsociacion" TypeName="CSColegioModel.ComprobanteTipoAsociacion" StoreEntitySet="ComprobanteTipoAsociacion">
-            <EndProperty Name="ComprobanteTipo1">
+            <EndProperty Name="ComprobanteTipoAsociado">
               <ScalarProperty Name="IDComprobanteTipo" ColumnName="IDComprobanteTipoAsociado" />
             </EndProperty>
             <EndProperty Name="ComprobanteTipo">
@@ -3974,6 +3994,8 @@
           <EntitySetMapping Name="ChequeMotivoRechazo">
             <EntityTypeMapping TypeName="CSColegioModel.ChequeMotivoRechazo">
               <MappingFragment StoreEntitySet="ChequeMotivoRechazo">
+                <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
+                <ScalarProperty Name="CodigoNACHA" ColumnName="CodigoNACHA" />
                 <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IDChequeMotivoRechazo" ColumnName="IDChequeMotivoRechazo" />
@@ -3992,6 +4014,14 @@
                 <ScalarProperty Name="Serie" ColumnName="Serie" />
                 <ScalarProperty Name="IDCaja" ColumnName="IDCaja" />
                 <ScalarProperty Name="IDChequera" ColumnName="IDChequera" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComprobanteAsociadoMotivo">
+            <EntityTypeMapping TypeName="CSColegioModel.ComprobanteAsociadoMotivo">
+              <MappingFragment StoreEntitySet="ComprobanteAsociadoMotivo">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDComprobanteAsociadoMotivo" ColumnName="IDComprobanteAsociadoMotivo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

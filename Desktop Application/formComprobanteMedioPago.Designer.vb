@@ -41,17 +41,19 @@ Partial Class formComprobanteMedioPago
         Me.labelBanco = New System.Windows.Forms.Label()
         Me.textboxImporte = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
         Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
-        Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
         Me.LineShape2 = New Microsoft.VisualBasic.PowerPacks.LineShape()
+        Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
         Me.textboxCuenta = New System.Windows.Forms.TextBox()
         Me.labelCuenta = New System.Windows.Forms.Label()
+        Me.textboxTitular = New System.Windows.Forms.TextBox()
+        Me.labelTitular = New System.Windows.Forms.Label()
         Me.toolstripMain.SuspendLayout()
         Me.SuspendLayout()
         '
         'labelMedioPago
         '
         Me.labelMedioPago.AutoSize = True
-        Me.labelMedioPago.Location = New System.Drawing.Point(9, 52)
+        Me.labelMedioPago.Location = New System.Drawing.Point(12, 53)
         Me.labelMedioPago.Name = "labelMedioPago"
         Me.labelMedioPago.Size = New System.Drawing.Size(82, 13)
         Me.labelMedioPago.TabIndex = 0
@@ -61,7 +63,7 @@ Partial Class formComprobanteMedioPago
         '
         Me.comboboxMedioPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxMedioPago.FormattingEnabled = True
-        Me.comboboxMedioPago.Location = New System.Drawing.Point(97, 49)
+        Me.comboboxMedioPago.Location = New System.Drawing.Point(97, 50)
         Me.comboboxMedioPago.Name = "comboboxMedioPago"
         Me.comboboxMedioPago.Size = New System.Drawing.Size(235, 21)
         Me.comboboxMedioPago.TabIndex = 1
@@ -70,27 +72,27 @@ Partial Class formComprobanteMedioPago
         '
         Me.comboboxCaja.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxCaja.FormattingEnabled = True
-        Me.comboboxCaja.Location = New System.Drawing.Point(97, 223)
+        Me.comboboxCaja.Location = New System.Drawing.Point(97, 236)
         Me.comboboxCaja.Name = "comboboxCaja"
         Me.comboboxCaja.Size = New System.Drawing.Size(235, 21)
-        Me.comboboxCaja.TabIndex = 12
+        Me.comboboxCaja.TabIndex = 14
         '
         'labelCaja
         '
         Me.labelCaja.AutoSize = True
-        Me.labelCaja.Location = New System.Drawing.Point(9, 226)
+        Me.labelCaja.Location = New System.Drawing.Point(12, 239)
         Me.labelCaja.Name = "labelCaja"
         Me.labelCaja.Size = New System.Drawing.Size(31, 13)
-        Me.labelCaja.TabIndex = 11
+        Me.labelCaja.TabIndex = 13
         Me.labelCaja.Text = "Caja:"
         '
         'labelImporte
         '
         Me.labelImporte.AutoSize = True
-        Me.labelImporte.Location = New System.Drawing.Point(9, 258)
+        Me.labelImporte.Location = New System.Drawing.Point(12, 266)
         Me.labelImporte.Name = "labelImporte"
         Me.labelImporte.Size = New System.Drawing.Size(45, 13)
-        Me.labelImporte.TabIndex = 13
+        Me.labelImporte.TabIndex = 15
         Me.labelImporte.Text = "Importe:"
         '
         'toolstripMain
@@ -100,7 +102,7 @@ Partial Class formComprobanteMedioPago
         Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
         Me.toolstripMain.Name = "toolstripMain"
         Me.toolstripMain.Size = New System.Drawing.Size(344, 39)
-        Me.toolstripMain.TabIndex = 15
+        Me.toolstripMain.TabIndex = 17
         '
         'buttonCerrar
         '
@@ -145,7 +147,7 @@ Partial Class formComprobanteMedioPago
         'labelFechaHora
         '
         Me.labelFechaHora.AutoSize = True
-        Me.labelFechaHora.Location = New System.Drawing.Point(9, 100)
+        Me.labelFechaHora.Location = New System.Drawing.Point(12, 94)
         Me.labelFechaHora.Name = "labelFechaHora"
         Me.labelFechaHora.Size = New System.Drawing.Size(68, 13)
         Me.labelFechaHora.TabIndex = 2
@@ -154,7 +156,7 @@ Partial Class formComprobanteMedioPago
         'datetimepickerFecha
         '
         Me.datetimepickerFecha.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.datetimepickerFecha.Location = New System.Drawing.Point(97, 96)
+        Me.datetimepickerFecha.Location = New System.Drawing.Point(97, 91)
         Me.datetimepickerFecha.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
         Me.datetimepickerFecha.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
         Me.datetimepickerFecha.Name = "datetimepickerFecha"
@@ -164,17 +166,18 @@ Partial Class formComprobanteMedioPago
         'datetimepickerHora
         '
         Me.datetimepickerHora.Format = System.Windows.Forms.DateTimePickerFormat.Time
-        Me.datetimepickerHora.Location = New System.Drawing.Point(213, 96)
+        Me.datetimepickerHora.Location = New System.Drawing.Point(213, 91)
         Me.datetimepickerHora.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
         Me.datetimepickerHora.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
         Me.datetimepickerHora.Name = "datetimepickerHora"
         Me.datetimepickerHora.Size = New System.Drawing.Size(101, 20)
         Me.datetimepickerHora.TabIndex = 4
+        Me.datetimepickerHora.Value = New Date(2015, 8, 1, 0, 0, 0, 0)
         '
         'labelNumero
         '
         Me.labelNumero.AutoSize = True
-        Me.labelNumero.Location = New System.Drawing.Point(9, 125)
+        Me.labelNumero.Location = New System.Drawing.Point(12, 120)
         Me.labelNumero.Name = "labelNumero"
         Me.labelNumero.Size = New System.Drawing.Size(47, 13)
         Me.labelNumero.TabIndex = 5
@@ -182,7 +185,7 @@ Partial Class formComprobanteMedioPago
         '
         'textboxNumero
         '
-        Me.textboxNumero.Location = New System.Drawing.Point(97, 122)
+        Me.textboxNumero.Location = New System.Drawing.Point(97, 117)
         Me.textboxNumero.MaxLength = 20
         Me.textboxNumero.Name = "textboxNumero"
         Me.textboxNumero.Size = New System.Drawing.Size(134, 20)
@@ -192,7 +195,7 @@ Partial Class formComprobanteMedioPago
         '
         Me.comboboxBanco.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxBanco.FormattingEnabled = True
-        Me.comboboxBanco.Location = New System.Drawing.Point(97, 148)
+        Me.comboboxBanco.Location = New System.Drawing.Point(97, 143)
         Me.comboboxBanco.Name = "comboboxBanco"
         Me.comboboxBanco.Size = New System.Drawing.Size(235, 21)
         Me.comboboxBanco.TabIndex = 8
@@ -200,7 +203,7 @@ Partial Class formComprobanteMedioPago
         'labelBanco
         '
         Me.labelBanco.AutoSize = True
-        Me.labelBanco.Location = New System.Drawing.Point(9, 151)
+        Me.labelBanco.Location = New System.Drawing.Point(12, 146)
         Me.labelBanco.Name = "labelBanco"
         Me.labelBanco.Size = New System.Drawing.Size(41, 13)
         Me.labelBanco.TabIndex = 7
@@ -208,11 +211,11 @@ Partial Class formComprobanteMedioPago
         '
         'textboxImporte
         '
-        Me.textboxImporte.Location = New System.Drawing.Point(97, 255)
+        Me.textboxImporte.Location = New System.Drawing.Point(97, 263)
         Me.textboxImporte.MaxLength = 15
         Me.textboxImporte.Name = "textboxImporte"
         Me.textboxImporte.Size = New System.Drawing.Size(100, 20)
-        Me.textboxImporte.TabIndex = 14
+        Me.textboxImporte.TabIndex = 16
         Me.textboxImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'ShapeContainer1
@@ -221,29 +224,29 @@ Partial Class formComprobanteMedioPago
         Me.ShapeContainer1.Margin = New System.Windows.Forms.Padding(0)
         Me.ShapeContainer1.Name = "ShapeContainer1"
         Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.LineShape2, Me.LineShape1})
-        Me.ShapeContainer1.Size = New System.Drawing.Size(344, 287)
+        Me.ShapeContainer1.Size = New System.Drawing.Size(344, 291)
         Me.ShapeContainer1.TabIndex = 14
         Me.ShapeContainer1.TabStop = False
-        '
-        'LineShape1
-        '
-        Me.LineShape1.Name = "LineShape1"
-        Me.LineShape1.X1 = 9
-        Me.LineShape1.X2 = 335
-        Me.LineShape1.Y1 = 82
-        Me.LineShape1.Y2 = 82
         '
         'LineShape2
         '
         Me.LineShape2.Name = "LineShape2"
-        Me.LineShape2.X1 = 9
+        Me.LineShape2.X1 = 12
         Me.LineShape2.X2 = 335
-        Me.LineShape2.Y1 = 208
-        Me.LineShape2.Y2 = 208
+        Me.LineShape2.Y1 = 226
+        Me.LineShape2.Y2 = 226
+        '
+        'LineShape1
+        '
+        Me.LineShape1.Name = "LineShape1"
+        Me.LineShape1.X1 = 12
+        Me.LineShape1.X2 = 335
+        Me.LineShape1.Y1 = 81
+        Me.LineShape1.Y2 = 81
         '
         'textboxCuenta
         '
-        Me.textboxCuenta.Location = New System.Drawing.Point(97, 175)
+        Me.textboxCuenta.Location = New System.Drawing.Point(97, 170)
         Me.textboxCuenta.MaxLength = 20
         Me.textboxCuenta.Name = "textboxCuenta"
         Me.textboxCuenta.Size = New System.Drawing.Size(134, 20)
@@ -252,17 +255,36 @@ Partial Class formComprobanteMedioPago
         'labelCuenta
         '
         Me.labelCuenta.AutoSize = True
-        Me.labelCuenta.Location = New System.Drawing.Point(9, 178)
+        Me.labelCuenta.Location = New System.Drawing.Point(12, 173)
         Me.labelCuenta.Name = "labelCuenta"
         Me.labelCuenta.Size = New System.Drawing.Size(44, 13)
         Me.labelCuenta.TabIndex = 9
         Me.labelCuenta.Text = "Cuenta:"
         '
+        'textboxTitular
+        '
+        Me.textboxTitular.Location = New System.Drawing.Point(97, 196)
+        Me.textboxTitular.MaxLength = 100
+        Me.textboxTitular.Name = "textboxTitular"
+        Me.textboxTitular.Size = New System.Drawing.Size(235, 20)
+        Me.textboxTitular.TabIndex = 12
+        '
+        'labelTitular
+        '
+        Me.labelTitular.AutoSize = True
+        Me.labelTitular.Location = New System.Drawing.Point(12, 199)
+        Me.labelTitular.Name = "labelTitular"
+        Me.labelTitular.Size = New System.Drawing.Size(39, 13)
+        Me.labelTitular.TabIndex = 11
+        Me.labelTitular.Text = "Titular:"
+        '
         'formComprobanteMedioPago
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(344, 287)
+        Me.ClientSize = New System.Drawing.Size(344, 291)
+        Me.Controls.Add(Me.textboxTitular)
+        Me.Controls.Add(Me.labelTitular)
         Me.Controls.Add(Me.textboxCuenta)
         Me.Controls.Add(Me.labelCuenta)
         Me.Controls.Add(Me.comboboxBanco)
@@ -283,6 +305,7 @@ Partial Class formComprobanteMedioPago
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.KeyPreview = True
         Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "formComprobanteMedioPago"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Detalle del Medio de Pago"
@@ -315,4 +338,6 @@ Partial Class formComprobanteMedioPago
     Friend WithEvents LineShape1 As Microsoft.VisualBasic.PowerPacks.LineShape
     Friend WithEvents textboxCuenta As System.Windows.Forms.TextBox
     Friend WithEvents labelCuenta As System.Windows.Forms.Label
+    Friend WithEvents textboxTitular As System.Windows.Forms.TextBox
+    Friend WithEvents labelTitular As System.Windows.Forms.Label
 End Class

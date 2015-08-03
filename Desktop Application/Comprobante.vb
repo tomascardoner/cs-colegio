@@ -60,8 +60,8 @@ Partial Public Class Comprobante
     Public Overridable Property Localidad As Localidad
     Public Overridable Property UsuarioCreacion As Usuario
     Public Overridable Property UsuarioModificacion As Usuario
-    Public Overridable Property ComprobanteAplicado As ICollection(Of ComprobanteAplicacion) = New HashSet(Of ComprobanteAplicacion)
-    Public Overridable Property ComprobanteAplicante As ICollection(Of ComprobanteAplicacion) = New HashSet(Of ComprobanteAplicacion)
+    Public Overridable Property ComprobantesAplicacion_Aplicantes As ICollection(Of ComprobanteAplicacion) = New HashSet(Of ComprobanteAplicacion)
+    Public Overridable Property ComprobantesAplicacion_Aplicados As ICollection(Of ComprobanteAplicacion) = New HashSet(Of ComprobanteAplicacion)
     Public Overridable Property ComprobanteAsociante As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
     Public Overridable Property ComprobanteAsociado As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
 

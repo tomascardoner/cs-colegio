@@ -42,4 +42,13 @@
             MyTab.HideTabPageByName(TabPage5.Name)
         End If
     End Sub
+
+    Private Sub formTest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        TextBox1.Text = CStr(DateTime.Now)
+        Timer1.Enabled = True
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        TextBox1.AppendText(vbCrLf & DateTime.Now)
+    End Sub
 End Class

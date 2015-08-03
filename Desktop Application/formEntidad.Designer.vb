@@ -537,7 +537,7 @@ Partial Class formEntidad
         'textboxIDEntidad
         '
         Me.textboxIDEntidad.Location = New System.Drawing.Point(155, 49)
-        Me.textboxIDEntidad.MaxLength = 8
+        Me.textboxIDEntidad.MaxLength = 10
         Me.textboxIDEntidad.Name = "textboxIDEntidad"
         Me.textboxIDEntidad.ReadOnly = True
         Me.textboxIDEntidad.Size = New System.Drawing.Size(72, 20)

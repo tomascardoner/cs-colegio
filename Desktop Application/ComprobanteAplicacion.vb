@@ -15,7 +15,7 @@ Partial Public Class ComprobanteAplicacion
     Public Property IDComprobanteAplicado As Integer
     Public Property Importe As Decimal
 
-    Public Overridable Property Comprobante As Comprobante
-    Public Overridable Property Comprobante1 As Comprobante
+    Public Overridable Property ComprobanteAplicado As Comprobante
+    Public Overridable Property ComprobanteAplicante As Comprobante
 
 End Class

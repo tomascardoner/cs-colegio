@@ -219,6 +219,9 @@
     <Compile Include="ComprobanteAplicacion.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="ComprobanteAsociadoMotivo.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
     <Compile Include="ComprobanteDetalle.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -285,10 +288,22 @@
     <Compile Include="formCABGenerico.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formCheque.Designer.vb">
+      <DependentUpon>formCheque.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formCheque.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formComprobante.Designer.vb">
       <DependentUpon>formComprobante.vb</DependentUpon>
     </Compile>
     <Compile Include="formComprobante.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formComprobanteAplicacion.Designer.vb">
+      <DependentUpon>formComprobanteAplicacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formComprobanteAplicacion.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formComprobanteMedioPago.Designer.vb">
@@ -479,8 +494,14 @@
     <EmbeddedResource Include="formCABGenerico.resx">
       <DependentUpon>formCABGenerico.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formCheque.resx">
+      <DependentUpon>formCheque.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formComprobante.resx">
       <DependentUpon>formComprobante.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formComprobanteAplicacion.resx">
+      <DependentUpon>formComprobanteAplicacion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobanteMedioPago.resx">
       <DependentUpon>formComprobanteMedioPago.vb</DependentUpon>

@@ -110,7 +110,7 @@
                     Dim Cuerpo As String = String.Format(My.Settings.Comprobante_EnvioEmail_Body, vbCrLf) & String.Format(My.Settings.Email_Signature, vbCrLf)
                     Dim AdjuntoNombre As String = String.Format("{0}-{1}.pdf", ComprobanteActual.ComprobanteTipo.Sigla.TrimEnd, ComprobanteActual.NumeroCompleto)
 
-                    textboxStatus.Text &= vbCrLf & String.Format("Enviando la {0} N° {1} a {2}...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero, ComprobanteActual.Entidad.ApellidoNombre)
+                    textboxStatus.AppendText(vbCrLf & String.Format("Enviando la {0} N° {1} a {2}...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero, ComprobanteActual.Entidad.ApellidoNombre))
 
                     Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
                         Case Constantes.EMAIL_CLIENT_NETDLL
@@ -134,12 +134,14 @@
 
                     dbContext.SaveChanges()
 
-                    textboxStatus.Text &= "OK"
+                    textboxStatus.AppendText("OK")
                 Else
-                    textboxStatus.Text &= vbCrLf & String.Format("El Titular de la {0} N° {1} ({2}) no especifica e-mail...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero, ComprobanteActual.Entidad.ApellidoNombre)
+                    textboxStatus.AppendText(vbCrLf & String.Format("El Titular de la {0} N° {1} ({2}) no especifica e-mail...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero, ComprobanteActual.Entidad.ApellidoNombre))
                 End If
             End If
         Next
+
+        MsgBox("Se han enviado los e-Mails.", MsgBoxStyle.Information, My.Application.Info.Title)
 
         RefreshData()
         MostrarOcultarEstado(False)

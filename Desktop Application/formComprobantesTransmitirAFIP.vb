@@ -172,7 +172,7 @@
             Exit Sub
         End If
 
-        textboxStatus.Text &= "OK"
+        textboxStatus.AppendText("OK")
 
         For Each RowActual As DataGridViewRow In datagridviewComprobantes.Rows
             ' Hago que la grilla vaya mostrando la fila que se está procesando
@@ -182,7 +182,7 @@
             If Not FacturaActual Is Nothing Then
                 If Not FacturaActual.CAE Is Nothing Then
                     ' La Factura ya tiene un CAE asignado. Esto no debería pasar, excepto que otra instancia de la Aplicación haya obtenido el CAE mientras esta ventana estaba abierta
-                    textboxStatus.Text &= vbCrLf & String.Format("La {0} N° {1} ya tiene una C.A.E. asignado, por lo tanto, no se trasnmitirá.", FacturaActual.ComprobanteTipo.Nombre, FacturaActual.Numero)
+                    textboxStatus.AppendText(vbCrLf & String.Format("La {0} N° {1} ya tiene una C.A.E. asignado, por lo tanto, no se trasnmitirá.", FacturaActual.ComprobanteTipo.Nombre, FacturaActual.Numero))
                 Else
                     AFIP_Factura = New CS_AFIP_WS.FacturaElectronicaCabecera
                     With AFIP_Factura
@@ -223,7 +223,7 @@
                     End With
 
                     ' Obtengo el CAE
-                    textboxStatus.Text &= vbCrLf & String.Format("Solicitando el C.A.E. para la {0} N° {1}...", FacturaActual.ComprobanteTipo.Nombre, FacturaActual.Numero)
+                    textboxStatus.AppendText(vbCrLf & String.Format("Solicitando el C.A.E. para la {0} N° {1}...", FacturaActual.ComprobanteTipo.Nombre, FacturaActual.Numero))
                     ResultadoCAE = CS_AFIP_WS.ObtenerCAEFacturaElectronica(AFIP_TicketAcceso, WSFEv1_URL, InternetProxy, CUIT_Emisor, AFIP_Factura, LogPath, LogFileName)
                     If ResultadoCAE Is Nothing Then
                         RefreshData()
@@ -233,7 +233,7 @@
                     End If
                     If ResultadoCAE.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_ACEPTADO Then
                         progressbarStatus.Value += 1
-                        textboxStatus.Text &= "OK - CAE: " & ResultadoCAE.Numero
+                        textboxStatus.AppendText("OK - CAE: " & ResultadoCAE.Numero)
 
                         dbcontext.Comprobante.Attach(FacturaActual)
 
@@ -244,7 +244,7 @@
 
                         dbcontext.SaveChanges()
                     Else
-                        textboxStatus.Text &= "RECHAZADO!!"
+                        textboxStatus.AppendText("RECHAZADO!!")
 
                         MensajeError = "Se Rechazó la Solicitud de CAE para la Factura Electrónica:"
                         MensajeError &= vbCrLf & vbCrLf

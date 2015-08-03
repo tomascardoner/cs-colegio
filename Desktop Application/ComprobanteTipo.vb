@@ -35,7 +35,7 @@ Partial Public Class ComprobanteTipo
 
     Public Overridable Property ComprobanteTipoPuntoVenta As ICollection(Of ComprobanteTipoPuntoVenta) = New HashSet(Of ComprobanteTipoPuntoVenta)
     Public Overridable Property Comprobante As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
-    Public Overridable Property ComprobanteTipo1 As ICollection(Of ComprobanteTipo) = New HashSet(Of ComprobanteTipo)
-    Public Overridable Property ComprobanteTipo2 As ICollection(Of ComprobanteTipo) = New HashSet(Of ComprobanteTipo)
+    Public Overridable Property ComprobanteTipoAsociadores As ICollection(Of ComprobanteTipo) = New HashSet(Of ComprobanteTipo)
+    Public Overridable Property ComprobanteTipoAsociados As ICollection(Of ComprobanteTipo) = New HashSet(Of ComprobanteTipo)
 
 End Class

@@ -1,9 +1,8 @@
-﻿Public Class formComprobanteMedioPago
+﻿Public Class formCheque
 
 #Region "Declarations"
     Private mComprobanteActual As Comprobante
     Private mComprobanteMedioPagoActual As ComprobanteMedioPago
-    Private mMedioPagoCurrent As MedioPago
 
     Private mEditMode As Boolean = False
 #End Region
@@ -34,92 +33,77 @@
         buttonEditar.Visible = Not mEditMode
         buttonCerrar.Visible = Not mEditMode
 
+        labelEstado.Visible = False
+        textboxEstado.Visible = False
+        labelMotivoRechazo.Visible = False
+        comboboxMotivoRechazo.Visible = False
+
         CS_Form.ControlsChangeStateEnabled(Me.Controls, mEditMode, True, True, True, toolstripMain.Name)
     End Sub
 
     Friend Sub InitializeFormAndControls()
         ' Cargo los ComboBox
-        pFillAndRefreshLists.MedioPago(comboboxMedioPago, False, False, True)
+        pFillAndRefreshLists.MedioPago(comboboxMedioPago, False, True, False)
         pFillAndRefreshLists.Banco(comboboxBanco, False)
+        pFillAndRefreshLists.ChequeMotivoRechazo(comboboxMotivoRechazo, True, False)
     End Sub
 
     Private Sub formEntidad_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         mComprobanteActual = Nothing
         mComprobanteMedioPagoActual = Nothing
-        mMedioPagoCurrent = Nothing
     End Sub
 #End Region
 
 #Region "Load and Set Data"
     Friend Sub SetDataFromObjectToControls()
         With mComprobanteMedioPagoActual
-            CS_Control_ComboBox.SetSelectedValue(comboboxMedioPago, SelectedItemOptions.Value, .IDMedioPago, CByte(0))
-
-            If mMedioPagoCurrent.UtilizaFechaHora Then
-                datetimepickerFecha.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaHora)
-                datetimepickerHora.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaHora)
+            CS_Control_ComboBox.SetSelectedValue(comboboxMedioPago, SelectedItemOptions.ValueOrFirstIfUnique, .IDMedioPago, CByte(0))
+            CS_Control_ComboBox.SetSelectedValue(comboboxCaja, SelectedItemOptions.ValueOrFirstIfUnique, .IDCaja, CByte(0))
+        End With
+        With mComprobanteMedioPagoActual.Cheque
+            If .IDCheque = 0 Then
+                textboxIDCheque.Text = My.Resources.STRING_ITEM_NEW_MALE
             Else
-                datetimepickerFecha.Value = DateTime.Today
-                datetimepickerHora.Value = DateTime.Now
+                textboxIDCheque.Text = String.Format(.IDCheque.ToString, "G")
             End If
-            If mMedioPagoCurrent.UtilizaNumero Then
-                textboxNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Numero)
-            Else
-                textboxNumero.Text = ""
-            End If
-            If mMedioPagoCurrent.UtilizaBanco Then
-                CS_Control_ComboBox.SetSelectedValue(comboboxBanco, SelectedItemOptions.Value, .IDBanco, CShort(0))
-            Else
-                comboboxBanco.SelectedIndex = -1
-            End If
-            If mMedioPagoCurrent.UtilizaCuenta Then
-                textboxCuenta.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Cuenta)
-            Else
-                textboxCuenta.Text = ""
-            End If
-            If mMedioPagoCurrent.UtilizaTitular Then
-                textboxTitular.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Titular)
-            Else
-                textboxTitular.Text = ""
-            End If
-
-            CS_Control_ComboBox.SetSelectedValue(comboboxCaja, SelectedItemOptions.Value, .IDCaja, CByte(0))
+            CS_Control_ComboBox.SetSelectedValue(comboboxBanco, SelectedItemOptions.Value, .IDBanco, CShort(0))
+            datetimepickerFechaEmision.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaEmision)
+            datetimepickerFechaPago.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaPago)
+            textboxNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Numero)
             textboxImporte.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.Importe)
+            textboxCuenta.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Cuenta)
+            maskedtextboxCUIT.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.CUIT)
+            textboxTitular.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Titular)
+            textboxCodigoPostal.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.CodigoPostal)
+
+            'textboxEstado.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Estado)
+            CS_Control_ComboBox.SetSelectedValue(comboboxMotivoRechazo, SelectedItemOptions.Value, .IDChequeMotivoRechazo, CShort(0))
         End With
     End Sub
 
     Friend Sub SetDataFromControlsToObject()
         With mComprobanteMedioPagoActual
             .IDMedioPago = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxMedioPago.SelectedValue, 0).Value
-
-            If mMedioPagoCurrent.UtilizaFechaHora Then
-                .FechaHora = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFecha.Value.Date + datetimepickerHora.Value.TimeOfDay)
-            Else
-                .FechaHora = Nothing
-            End If
-            If mMedioPagoCurrent.UtilizaNumero Then
-                .Numero = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNumero.Text)
-            Else
-                .Numero = Nothing
-            End If
-            If mMedioPagoCurrent.UtilizaBanco Then
-                .IDBanco = CS_ValueTranslation.FromControlComboBoxToObjectShort(comboboxBanco.SelectedValue, 0).Value
-            Else
-                .IDBanco = Nothing
-            End If
-            If mMedioPagoCurrent.UtilizaCuenta Then
-                .Cuenta = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxCuenta.Text)
-            Else
-                .Cuenta = Nothing
-            End If
-            If mMedioPagoCurrent.UtilizaTitular Then
-                .Titular = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxTitular.Text)
-            Else
-                .Titular = Nothing
-            End If
-
+            .Numero = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNumero.Text)
+            .IDBanco = CS_ValueTranslation.FromControlComboBoxToObjectShort(comboboxBanco.SelectedValue, 0).Value
+            .Cuenta = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxCuenta.Text)
+            .Titular = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxTitular.Text)
             .IDCaja = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxCaja.SelectedValue, 0).Value
             .Importe = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporte.Text).Value
+        End With
+        With mComprobanteMedioPagoActual.Cheque
+            .IDBanco = CS_ValueTranslation.FromControlComboBoxToObjectShort(comboboxBanco.SelectedValue, 0).Value
+            .FechaEmision = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFechaEmision.Value)
+            .FechaPago = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFechaPago.Value)
+            .Numero = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNumero.Text)
+            .Importe = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporte.Text).Value
+            .Cuenta = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxCuenta.Text)
+            .CUIT = CS_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxCUIT.Text)
+            .Titular = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxTitular.Text)
+            .CodigoPostal = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxCodigoPostal.Text)
+
+            '.Estado= CS_ValueTranslation.FromControlTextBoxToObjectString(textboxCuenta.Text)
+            '.IDChequeMotivoRechazo = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxMotivoRechazo.SelectedValue, 0).Value
         End With
     End Sub
 #End Region
@@ -144,42 +128,8 @@
 
     Private Sub MedioPago_Selected() Handles comboboxMedioPago.SelectedValueChanged
         If comboboxMedioPago.SelectedIndex > -1 Then
-            mMedioPagoCurrent = CType(comboboxMedioPago.SelectedItem, MedioPago)
-
-            labelFechaHora.Visible = mMedioPagoCurrent.UtilizaFechaHora
-            datetimepickerFecha.Visible = mMedioPagoCurrent.UtilizaFechaHora
-            datetimepickerHora.Visible = mMedioPagoCurrent.UtilizaFechaHora
-
-            labelNumero.Visible = mMedioPagoCurrent.UtilizaNumero
-            textboxNumero.Visible = mMedioPagoCurrent.UtilizaNumero
-
-            labelBanco.Visible = mMedioPagoCurrent.UtilizaBanco
-            comboboxBanco.Visible = mMedioPagoCurrent.UtilizaBanco
-
-            labelCuenta.Visible = mMedioPagoCurrent.UtilizaCuenta
-            textboxCuenta.Visible = mMedioPagoCurrent.UtilizaCuenta
-
-            labelTitular.Visible = mMedioPagoCurrent.UtilizaTitular
-            textboxTitular.Visible = mMedioPagoCurrent.UtilizaTitular
-
             pFillAndRefreshLists.Caja(comboboxCaja, CByte(comboboxMedioPago.SelectedValue), False)
         Else
-            labelFechaHora.Visible = False
-            datetimepickerFecha.Visible = False
-            datetimepickerHora.Visible = False
-
-            labelNumero.Visible = False
-            textboxNumero.Visible = False
-
-            labelBanco.Visible = False
-            comboboxBanco.Visible = False
-
-            labelCuenta.Visible = False
-            textboxCuenta.Visible = False
-
-            labelTitular.Visible = False
-            textboxTitular.Visible = False
-
             comboboxCaja.DataSource = Nothing
         End If
     End Sub
@@ -200,16 +150,18 @@
     End Sub
 
     Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
-        If comboboxMedioPago.SelectedIndex = -1 Then
-            MsgBox("Debe especificar el Medio de Pago.", MsgBoxStyle.Information, My.Application.Info.Title)
-            comboboxMedioPago.Focus()
+        If comboboxBanco.SelectedIndex = -1 Then
+            MsgBox("Debe especificar el Banco.", MsgBoxStyle.Information, My.Application.Info.Title)
+            comboboxBanco.Focus()
             Exit Sub
         End If
-        If comboboxCaja.SelectedIndex = -1 Then
-            MsgBox("Debe especificar la Caja.", MsgBoxStyle.Information, My.Application.Info.Title)
-            comboboxCaja.Focus()
+
+        If datetimepickerFechaPago.Value.CompareTo(datetimepickerFechaEmision.Value) < 0 Then
+            MsgBox("La Fecha de Pago, debe ser posterior o igual a la Fecha de Emisión.", MsgBoxStyle.Information, My.Application.Info.Title)
+            datetimepickerFechaPago.Focus()
             Exit Sub
         End If
+
         If textboxImporte.Text.Trim.Length = 0 Then
             MsgBox("Debe ingresar el Importe.", MsgBoxStyle.Information, My.Application.Info.Title)
             textboxImporte.Focus()
@@ -217,11 +169,6 @@
         End If
         If Not CS_ValueTranslation.ValidateCurrency(textboxImporte.Text) Then
             MsgBox("El Importe ingresado no es válido.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxImporte.Focus()
-            Exit Sub
-        End If
-        If CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporte.Text).Value <= 0 Then
-            MsgBox("El Importe debe ser mayor a cero.", MsgBoxStyle.Information, My.Application.Info.Title)
             textboxImporte.Focus()
             Exit Sub
         End If
@@ -235,6 +182,14 @@
             End If
             mComprobanteActual.ComprobanteMedioPago.Add(mComprobanteMedioPagoActual)
         End If
+        'If mChequeActual.IDCheque = 0 Then
+        '    If mChequeActual.Count = 0 Then
+        '        mComprobanteMedioPagoActual.Indice = 1
+        '    Else
+        '        mComprobanteMedioPagoActual.Indice = mComprobanteActual.ComprobanteMedioPago.Max(Function(cmp) cmp.Indice) + CByte(1)
+        '    End If
+        '    mComprobanteActual.ComprobanteMedioPago.Add(mComprobanteMedioPagoActual)
+        'End If
 
         ' Paso los datos desde los controles al Objecto de EF
         SetDataFromControlsToObject()
