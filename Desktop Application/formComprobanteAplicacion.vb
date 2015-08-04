@@ -2,6 +2,7 @@
 
 #Region "Declarations"
     Private mComprobanteActual As Comprobante
+    Private mComprobanteTipoActual As ComprobanteTipo
     Private mComprobanteAplicacionActual As ComprobanteAplicacion
 
     Private mEditMode As Boolean = False
@@ -17,10 +18,11 @@
 #End Region
 
 #Region "Form stuff"
-    Friend Sub LoadAndShow(ByVal ParentEditMode As Boolean, ByVal EditMode As Boolean, ByRef ParentForm As Form, ByRef ComprobanteActual As Comprobante, ByRef ComprobanteAplicacionActual As ComprobanteAplicacion)
+    Friend Sub LoadAndShow(ByVal ParentEditMode As Boolean, ByVal EditMode As Boolean, ByRef ParentForm As Form, ByRef ComprobanteActual As Comprobante, ByRef ComprobanteTipoActual As ComprobanteTipo, ByRef ComprobanteAplicacionActual As ComprobanteAplicacion)
         mEditMode = EditMode
 
         mComprobanteActual = ComprobanteActual
+        mComprobanteTipoActual = ComprobanteTipoActual
         mComprobanteAplicacionActual = ComprobanteAplicacionActual
 
         'Me.MdiParent = formMDIMain
@@ -62,7 +64,7 @@
 
         Using dbContext As New CSColegioContext(True)
             listComprobantes = (From c In dbContext.Comprobante
-                                Where c.IDEntidad = mComprobanteActual.IDEntidad AndAlso c.ComprobantesAplicacion_Aplicantes.Count = 0
+                                Where c.IDEntidad = mComprobanteActual.IDEntidad AndAlso c.ComprobanteTipo.OperacionTipo = mComprobanteTipoActual.OperacionTipo AndAlso c.IDComprobanteTipo <> mComprobanteActual.IDComprobanteTipo AndAlso c.ComprobantesAplicacion_Aplicantes.Count = 0
                                 Order By c.FechaEmision
                                 Select New GridRowData_Comprobante With {.IDComprobante = c.IDComprobante, .TipoNombre = c.ComprobanteTipo.NombreConLetra, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal}).ToList
         End Using
@@ -79,7 +81,7 @@
 
     Friend Sub SetDataFromControlsToObject()
         With mComprobanteAplicacionActual
-            '.IDComprobanteAplicado = CS_ValueTranslation.FromControlComboBoxToObjectInteger(comboboxComprobanteAplicado.SelectedValue, 0).Value
+            .IDComprobanteAplicado = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).IDComprobante
             .Importe = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteAplicado.Text).Value
         End With
     End Sub
@@ -101,6 +103,12 @@
                     buttonCerrar.PerformClick()
                 End If
         End Select
+    End Sub
+
+    Private Sub SeleccionarComprobante() Handles datagridviewMain.Click
+        If Not datagridviewMain.CurrentRow Is Nothing Then
+            textboxImporteAplicado.Text = FormatCurrency(CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).ImporteTotal)
+        End If
     End Sub
 #End Region
 
@@ -131,7 +139,7 @@
             Exit Sub
         End If
         If CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteAplicado.Text).Value <= 0 Then
-            MsgBox("El Importe debe ser mayor a cero.", MsgBoxStyle.Information, My.Application.Info.Title)
+            MsgBox("El Importe a aplicar debe ser mayor a cero.", MsgBoxStyle.Information, My.Application.Info.Title)
             textboxImporteAplicado.Focus()
             Exit Sub
         End If

@@ -1,10 +1,10 @@
 ﻿Public Class formComprobante
 
 #Region "Declarations"
-    Private dbContext As New CSColegioContext(True)
+    Private mdbContext As New CSColegioContext(True)
     Private mComprobanteActual As Comprobante
 
-    Private mComprobanteTipoCurrent As ComprobanteTipo
+    Private mComprobanteTipoActual As ComprobanteTipo
     Private mUtilizaNumerador As Boolean = False
     Private mComprobanteTipoPuntoVentaActual As ComprobanteTipoPuntoVenta
     Private mEntidad As Entidad
@@ -46,9 +46,9 @@
             ' Es Nuevo
             mComprobanteActual = New Comprobante
             mComprobanteActual.FechaEmision = DateAndTime.Today
-            dbContext.Comprobante.Add(mComprobanteActual)
+            mdbContext.Comprobante.Add(mComprobanteActual)
         Else
-            mComprobanteActual = dbContext.Comprobante.Find(IDComprobante)
+            mComprobanteActual = mdbContext.Comprobante.Find(IDComprobante)
         End If
 
         Me.MdiParent = formMDIMain
@@ -118,15 +118,21 @@
         datagridviewImpuestos.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
         datagridviewImpuestos.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
 
+        datagridviewAplicaciones.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewAplicaciones.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+
+        datagridviewAsociaciones.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewAsociaciones.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+
         datagridviewMediosPago.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
         datagridviewMediosPago.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
     End Sub
 
     Private Sub formComprobante_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        dbcontext.Dispose()
-        dbcontext = Nothing
+        mdbContext.Dispose()
+        mdbContext = Nothing
         mComprobanteActual = Nothing
-        mComprobanteTipoCurrent = Nothing
+        mComprobanteTipoActual = Nothing
         mComprobanteTipoPuntoVentaActual = Nothing
         mEntidad = Nothing
     End Sub
@@ -255,8 +261,8 @@
 
         Try
             listAplicaciones = (From ca In mComprobanteActual.ComprobantesAplicacion_Aplicados
-                                Join c In dbContext.Comprobante On ca.IDComprobanteAplicado Equals c.IDComprobante
-                                Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
+                                Join c In mdbContext.Comprobante On ca.IDComprobanteAplicado Equals c.IDComprobante
+                                Join ct In mdbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                 Select New GridRowData_Aplicacion With {.ComprobanteAplicacion = ca, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal, .ImporteAplicado = ca.Importe}).ToList
 
             datagridviewAplicaciones.AutoGenerateColumns = False
@@ -302,8 +308,8 @@
 
         Try
             listMediosPago = (From cmp In mComprobanteActual.ComprobanteMedioPago
-                              Join mp In dbContext.MedioPago On cmp.IDMedioPago Equals mp.IDMedioPago
-                              Join c In dbContext.Caja On cmp.IDCaja Equals c.IDCaja
+                              Join mp In mdbContext.MedioPago On cmp.IDMedioPago Equals mp.IDMedioPago
+                              Join c In mdbContext.Caja On cmp.IDCaja Equals c.IDCaja
                               Select New GridRowData_MedioPago With {.ComprobanteMedioPago = cmp, .MedioPago = mp, .MedioPagoNombre = mp.Nombre, .CajaNombre = c.Nombre, .Importe = cmp.Importe}).ToList
 
             datagridviewMediosPago.AutoGenerateColumns = False
@@ -340,10 +346,10 @@
         Dim NextComprobanteNumero As String
 
         If comboboxComprobanteTipo.SelectedIndex > -1 Then
-            mComprobanteTipoCurrent = CType(comboboxComprobanteTipo.SelectedItem, ComprobanteTipo)
+            mComprobanteTipoActual = CType(comboboxComprobanteTipo.SelectedItem, ComprobanteTipo)
 
             ' Verifico la asignación del número de comprobante
-            mComprobanteTipoPuntoVentaActual = mComprobanteTipoCurrent.ComprobanteTipoPuntoVenta.Where(Function(ctpv) ctpv.IDPuntoVenta = My.Settings.IDPuntoVenta).FirstOrDefault()
+            mComprobanteTipoPuntoVentaActual = mComprobanteTipoActual.ComprobanteTipoPuntoVenta.Where(Function(ctpv) ctpv.IDPuntoVenta = My.Settings.IDPuntoVenta).FirstOrDefault()
             If mComprobanteTipoPuntoVentaActual Is Nothing Then
                 ' No hay un numerador definido, habilito los campos de Punto de Venta y Numero
                 mUtilizaNumerador = False
@@ -355,7 +361,7 @@
                 If mComprobanteActual.IDComprobante = 0 Then
                     textboxPuntoVenta.Text = mComprobanteTipoPuntoVentaActual.PuntoVenta.Numero
                     ' Busco si ya hay un comprobante creado de este tipo para obtener el último número
-                    NextComprobanteNumero = dbContext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = mComprobanteTipoCurrent.IDComprobanteTipo And cc.PuntoVenta = mComprobanteTipoPuntoVentaActual.PuntoVenta.Numero).Max(Function(cc) cc.Numero)
+                    NextComprobanteNumero = mdbContext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = mComprobanteTipoActual.IDComprobanteTipo And cc.PuntoVenta = mComprobanteTipoPuntoVentaActual.PuntoVenta.Numero).Max(Function(cc) cc.Numero)
                     If NextComprobanteNumero Is Nothing Then
                         ' No hay ningún comprobante creado de este tipo, así que tomo el número inicial 
                         NextComprobanteNumero = mComprobanteTipoPuntoVentaActual.NumeroInicio.ToString.PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
@@ -367,33 +373,33 @@
             End If
 
             ' Habilito los Controles según corresponda
-            panelFechas.Visible = mComprobanteTipoCurrent.UtilizaDetalle
+            panelFechas.Visible = mComprobanteTipoActual.UtilizaDetalle
 
-            If mComprobanteTipoCurrent.UtilizaDetalle Then
+            If mComprobanteTipoActual.UtilizaDetalle Then
                 tabcontrolMain.ShowTabPageByName(tabpageDetalle.Name)
             Else
                 tabcontrolMain.HideTabPageByName(tabpageDetalle.Name)
             End If
 
-            If mComprobanteTipoCurrent.UtilizaImpuesto Then
+            If mComprobanteTipoActual.UtilizaImpuesto Then
                 tabcontrolMain.ShowTabPageByName(tabpageImpuestos.Name)
             Else
                 tabcontrolMain.HideTabPageByName(tabpageImpuestos.Name)
             End If
 
-            If mComprobanteTipoCurrent.UtilizaAplicacion Then
+            If mComprobanteTipoActual.UtilizaAplicacion Then
                 tabcontrolMain.ShowTabPageByName(tabpageAplicaciones.Name)
             Else
                 tabcontrolMain.HideTabPageByName(tabpageAplicaciones.Name)
             End If
 
-            If mComprobanteTipoCurrent.UtilizaAsociacion Then
+            If mComprobanteTipoActual.UtilizaAsociacion Then
                 tabcontrolMain.ShowTabPageByName(tabpageAsociaciones.Name)
             Else
                 tabcontrolMain.HideTabPageByName(tabpageAsociaciones.Name)
             End If
 
-            If mComprobanteTipoCurrent.UtilizaMedioPago Then
+            If mComprobanteTipoActual.UtilizaMedioPago Then
                 tabcontrolMain.ShowTabPageByName(tabpageMediosPago.Name)
             Else
                 tabcontrolMain.HideTabPageByName(tabpageMediosPago.Name)
@@ -430,9 +436,9 @@
         End If
         formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
-        formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = (mComprobanteTipoCurrent.OperacionTipo = Constantes.OPERACIONTIPO_VENTA)
-        formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = (mComprobanteTipoCurrent.OperacionTipo = Constantes.OPERACIONTIPO_VENTA)
-        formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = (mComprobanteTipoCurrent.OperacionTipo = Constantes.OPERACIONTIPO_COMPRA)
+        formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA)
+        formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA)
+        formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_COMPRA)
         If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
             mEntidad = CType(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
             textboxEntidad.Text = mEntidad.ApellidoNombre
@@ -540,7 +546,7 @@
             textboxEntidad.Focus()
             Exit Sub
         End If
-        EntidadActual = dbContext.Entidad.Find(textboxEntidad.Tag)
+        EntidadActual = mdbContext.Entidad.Find(textboxEntidad.Tag)
         If Not EntidadActual.EmitirFacturaA Is Nothing Then
             If MsgBox("La Entidad seleccionada, tiene especificado que se le facture otra Entidad." & vbCrLf & vbCrLf & "¿Desea continuar de todos modos?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
                 Exit Sub
@@ -571,7 +577,7 @@
             ' Si corresponde, recalculo el Número del Comprobante
             If mUtilizaNumerador Then
                 ' El Número de Comprobante es calculado automáticamente, así que lo verifico por si alguien agregó uno antes de grabar este
-                NextComprobanteNumero = dbContext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = mComprobanteTipoCurrent.IDComprobanteTipo And cc.PuntoVenta = mComprobanteTipoPuntoVentaActual.PuntoVenta.Numero).Max(Function(cc) cc.Numero)
+                NextComprobanteNumero = mdbContext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = mComprobanteTipoActual.IDComprobanteTipo And cc.PuntoVenta = mComprobanteTipoPuntoVentaActual.PuntoVenta.Numero).Max(Function(cc) cc.Numero)
                 If NextComprobanteNumero Is Nothing Then
                     ' No hay ningún comprobante creado de este tipo, así que tomo el número inicial 
                     NextComprobanteNumero = mComprobanteTipoPuntoVentaActual.NumeroInicio.ToString.PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
@@ -588,7 +594,7 @@
         ' Paso los datos desde los controles al Objecto de EF
         SetDataFromControlsToObject()
 
-        If dbContext.ChangeTracker.HasChanges Then
+        If mdbContext.ChangeTracker.HasChanges Then
 
             Me.Cursor = Cursors.WaitCursor
 
@@ -597,13 +603,17 @@
 
             Try
                 ' Guardo los cambios
-                dbContext.SaveChanges()
+                mdbContext.SaveChanges()
 
             Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
                 Me.Cursor = Cursors.Default
                 Select Case CS_Database_EF_SQL.TryDecodeDbUpdateException(dbuex)
                     Case Errors.DuplicatedEntity
                         MsgBox("No se pueden guardar los cambios porque ya existe un Comprobante con el mismo ID.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                    Case Errors.Unknown, Errors.NoDBError
+                        CS_Error.ProcessError(dbuex.GetBaseException, My.Resources.STRING_ERROR_SAVING_CHANGES)
+                    Case Else
+                        CS_Error.ProcessError(dbuex.GetBaseException, My.Resources.STRING_ERROR_SAVING_CHANGES)
                 End Select
                 Exit Sub
 
@@ -620,7 +630,7 @@
                 formComprobantes = Nothing
             End If
 
-            If mComprobanteTipoCurrent.EmisionElectronica AndAlso mComprobanteActual.CAE Is Nothing Then
+            If mComprobanteTipoActual.EmisionElectronica AndAlso mComprobanteActual.CAE Is Nothing Then
                 If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIRAAFIP) Then
                     If MsgBox("Este Comprobante necesita ser autorizado en AFIP para tener validez." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                         If TransmitirComprobante(mComprobanteActual) Then
@@ -635,7 +645,7 @@
     End Sub
 
     Private Sub buttonCancelar_Click() Handles buttonCancelar.Click
-        If dbContext.ChangeTracker.HasChanges Then
+        If mdbContext.ChangeTracker.HasChanges Then
             If MsgBox("Ha realizado cambios en los datos y seleccionó cancelar, los cambios se perderán." & vbCr & vbCr & "¿Confirma la pérdida de los cambios?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                 Me.Close()
             End If
@@ -660,31 +670,11 @@
         SetDataFromControlsToObject()
 
         Dim ComprobanteAplicacionNuevo As New ComprobanteAplicacion
-        formComprobanteAplicacion.LoadAndShow(True, True, Me, mComprobanteActual, ComprobanteAplicacionNuevo)
+        formComprobanteAplicacion.LoadAndShow(True, True, Me, mComprobanteActual, mComprobanteTipoActual, ComprobanteAplicacionNuevo)
 
         datagridviewAplicaciones.Enabled = True
 
         Me.Cursor = Cursors.Default
-    End Sub
-
-    Private Sub Aplicacion_Editar() Handles buttonAplicacion_Editar.Click
-        If datagridviewMediosPago.CurrentRow Is Nothing Then
-            MsgBox("No hay ninguna Aplicación para editar.", vbInformation, My.Application.Info.Title)
-        Else
-            Me.Cursor = Cursors.WaitCursor
-
-            datagridviewAplicaciones.Enabled = False
-
-            SetDataFromControlsToObject()
-
-            Dim ComprobanteAplicacionActual As ComprobanteAplicacion
-            ComprobanteAplicacionActual = CType(datagridviewMediosPago.SelectedRows(0).DataBoundItem, GridRowData_Aplicacion).ComprobanteAplicacion
-            formComprobanteAplicacion.LoadAndShow(True, True, Me, mComprobanteActual, ComprobanteAplicacionActual)
-
-            datagridviewAplicaciones.Enabled = True
-
-            Me.Cursor = Cursors.Default
-        End If
     End Sub
 
     Private Sub Aplicacion_Eliminar() Handles buttonAplicacion_Eliminar.Click
@@ -705,26 +695,6 @@
 
                 Me.Cursor = Cursors.Default
             End If
-        End If
-    End Sub
-
-    Private Sub Aplicacion_Ver() Handles datagridviewAplicaciones.DoubleClick
-        If datagridviewMediosPago.CurrentRow Is Nothing Then
-            MsgBox("No hay ningún Medio de Pago para ver.", vbInformation, My.Application.Info.Title)
-        Else
-            Me.Cursor = Cursors.WaitCursor
-
-            datagridviewAplicaciones.Enabled = False
-
-            SetDataFromControlsToObject()
-
-            Dim ComprobanteAplicacionActual As ComprobanteAplicacion
-            ComprobanteAplicacionActual = CType(datagridviewAplicaciones.SelectedRows(0).DataBoundItem, GridRowData_Aplicacion).ComprobanteAplicacion
-            formComprobanteAplicacion.LoadAndShow(mEditMode, False, Me, mComprobanteActual, ComprobanteAplicacionActual)
-
-            datagridviewAplicaciones.Enabled = True
-
-            Me.Cursor = Cursors.Default
         End If
     End Sub
 #End Region
@@ -754,7 +724,7 @@
         ChequeNuevo.FechaEmision = DateTime.Today
         ChequeNuevo.FechaPago = DateTime.Today
         ComprobanteMedioPagoNuevo.Cheque = ChequeNuevo
-        formCheque.LoadAndShow(True, True, Me, mComprobanteActual, ComprobanteMedioPagoNuevo)
+        formCheque.LoadAndShow(True, True, Me, mdbContext, mComprobanteActual, ComprobanteMedioPagoNuevo)
 
         datagridviewMediosPago.Enabled = True
 
@@ -776,7 +746,7 @@
             MedioPagoActual = CType(datagridviewMediosPago.SelectedRows(0).DataBoundItem, GridRowData_MedioPago).MedioPago
 
             If MedioPagoActual.EsCheque Then
-                formCheque.LoadAndShow(True, True, Me, mComprobanteActual, ComprobanteMedioPagoActual)
+                formCheque.LoadAndShow(True, True, Me, mdbContext, mComprobanteActual, ComprobanteMedioPagoActual)
             Else
                 formComprobanteMedioPago.LoadAndShow(True, True, Me, mComprobanteActual, ComprobanteMedioPagoActual)
             End If
@@ -823,7 +793,7 @@
             MedioPagoActual = CType(datagridviewMediosPago.SelectedRows(0).DataBoundItem, GridRowData_MedioPago).MedioPago
 
             If MedioPagoActual.EsCheque Then
-                formCheque.LoadAndShow(mEditMode, False, Me, mComprobanteActual, ComprobanteMedioPagoActual)
+                formCheque.LoadAndShow(mEditMode, False, Me, mdbContext, mComprobanteActual, ComprobanteMedioPagoActual)
             Else
                 formComprobanteMedioPago.LoadAndShow(mEditMode, False, Me, mComprobanteActual, ComprobanteMedioPagoActual)
             End If
@@ -880,13 +850,13 @@
         InternetProxy = CS_Parameter.GetString(Parametros.INTERNET_PROXY, "")
         CUIT_Emisor = CS_Parameter.GetString(Parametros.EMPRESA_CUIT)
 
-        MonedaLocal = dbContext.Moneda.Find(CS_Parameter.GetIntegerAsShort(Parametros.DEFAULT_MONEDA_ID))
+        MonedaLocal = mdbContext.Moneda.Find(CS_Parameter.GetIntegerAsShort(Parametros.DEFAULT_MONEDA_ID))
         If MonedaLocal Is Nothing Then
             Me.Cursor = Cursors.WaitCursor
             MsgBox("No se ha especificado la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
             Return False
         End If
-        MonedaLocalCotizacion = dbContext.MonedaCotizacion.Where(Function(mc) mc.IDMoneda = MonedaLocal.IDMoneda).FirstOrDefault
+        MonedaLocalCotizacion = mdbContext.MonedaCotizacion.Where(Function(mc) mc.IDMoneda = MonedaLocal.IDMoneda).FirstOrDefault
         If MonedaLocalCotizacion Is Nothing Then
             Me.Cursor = Cursors.WaitCursor
             MsgBox("No hay cotizaciones cargadas para la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
@@ -932,7 +902,7 @@
 
             ' Tipo de Comprobante
             If ComprobanteATransmitir.IDComprobanteTipo <> ComprobanteTipoActual.IDComprobanteTipo Then
-                ComprobanteTipoActual = dbContext.ComprobanteTipo.Find(ComprobanteATransmitir.IDComprobanteTipo)
+                ComprobanteTipoActual = mdbContext.ComprobanteTipo.Find(ComprobanteATransmitir.IDComprobanteTipo)
             End If
             .TipoComprobante = ComprobanteTipoActual.CodigoAFIP
 
@@ -971,7 +941,7 @@
             ComprobanteATransmitir.IDUsuarioTransmision = pUsuario.IDUsuario
             ComprobanteATransmitir.FechaHoraTransmision = Now
 
-            dbContext.SaveChanges()
+            mdbContext.SaveChanges()
 
             Me.Cursor = Cursors.Default
             Return True

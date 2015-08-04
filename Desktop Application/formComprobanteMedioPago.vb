@@ -40,7 +40,7 @@
     Friend Sub InitializeFormAndControls()
         ' Cargo los ComboBox
         pFillAndRefreshLists.MedioPago(comboboxMedioPago, False, False, True)
-        pFillAndRefreshLists.Banco(comboboxBanco, False)
+        pFillAndRefreshLists.Banco(comboboxBanco, True)
     End Sub
 
     Private Sub formEntidad_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -70,7 +70,7 @@
             If mMedioPagoCurrent.UtilizaBanco Then
                 CS_Control_ComboBox.SetSelectedValue(comboboxBanco, SelectedItemOptions.Value, .IDBanco, CShort(0))
             Else
-                comboboxBanco.SelectedIndex = -1
+                comboboxBanco.SelectedIndex = 0
             End If
             If mMedioPagoCurrent.UtilizaCuenta Then
                 textboxCuenta.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Cuenta)
@@ -103,7 +103,7 @@
                 .Numero = Nothing
             End If
             If mMedioPagoCurrent.UtilizaBanco Then
-                .IDBanco = CS_ValueTranslation.FromControlComboBoxToObjectShort(comboboxBanco.SelectedValue, 0).Value
+                .IDBanco = CS_ValueTranslation.FromControlComboBoxToObjectShort(comboboxBanco.SelectedValue, 0)
             Else
                 .IDBanco = Nothing
             End If

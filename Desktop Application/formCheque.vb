@@ -1,6 +1,7 @@
 ﻿Public Class formCheque
 
 #Region "Declarations"
+    Private mdbContext As CSColegioContext
     Private mComprobanteActual As Comprobante
     Private mComprobanteMedioPagoActual As ComprobanteMedioPago
 
@@ -8,9 +9,10 @@
 #End Region
 
 #Region "Form stuff"
-    Friend Sub LoadAndShow(ByVal ParentEditMode As Boolean, ByVal EditMode As Boolean, ByRef ParentForm As Form, ByRef ComprobanteActual As Comprobante, ByRef ComprobanteMedioPagoActual As ComprobanteMedioPago)
+    Friend Sub LoadAndShow(ByVal ParentEditMode As Boolean, ByVal EditMode As Boolean, ByRef ParentForm As Form, ByRef dbContext As CSColegioContext, ByRef ComprobanteActual As Comprobante, ByRef ComprobanteMedioPagoActual As ComprobanteMedioPago)
         mEditMode = EditMode
 
+        mdbContext = dbContext
         mComprobanteActual = ComprobanteActual
         mComprobanteMedioPagoActual = ComprobanteMedioPagoActual
 
@@ -182,14 +184,15 @@
             End If
             mComprobanteActual.ComprobanteMedioPago.Add(mComprobanteMedioPagoActual)
         End If
-        'If mChequeActual.IDCheque = 0 Then
-        '    If mChequeActual.Count = 0 Then
-        '        mComprobanteMedioPagoActual.Indice = 1
-        '    Else
-        '        mComprobanteMedioPagoActual.Indice = mComprobanteActual.ComprobanteMedioPago.Max(Function(cmp) cmp.Indice) + CByte(1)
-        '    End If
-        '    mComprobanteActual.ComprobanteMedioPago.Add(mComprobanteMedioPagoActual)
-        'End If
+        If mComprobanteMedioPagoActual.Cheque.IDCheque = 0 Then
+            mComprobanteMedioPagoActual.Cheque.Estado = Constantes.CHEQUE_ESTADO_ENCARTERA
+            If mdbContext.Cheque.Count = 0 Then
+                mComprobanteMedioPagoActual.Cheque.IDCheque = 1
+            Else
+                mComprobanteMedioPagoActual.Cheque.IDCheque = mdbContext.Cheque.Max(Function(chq) chq.IDCheque) + CInt(1)
+            End If
+            mComprobanteActual.ComprobanteMedioPago.Add(mComprobanteMedioPagoActual)
+        End If
 
         ' Paso los datos desde los controles al Objecto de EF
         SetDataFromControlsToObject()

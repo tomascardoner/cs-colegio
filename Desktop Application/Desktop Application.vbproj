@@ -219,7 +219,7 @@
     <Compile Include="ComprobanteAplicacion.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
-    <Compile Include="ComprobanteAsociadoMotivo.vb">
+    <Compile Include="ComprobanteAsociacionMotivo.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="ComprobanteDetalle.vb">

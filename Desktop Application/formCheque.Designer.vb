@@ -101,6 +101,7 @@ Partial Class formCheque
         '
         'textboxNumero
         '
+        Me.textboxNumero.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.textboxNumero.Location = New System.Drawing.Point(123, 196)
         Me.textboxNumero.MaxLength = 20
         Me.textboxNumero.Name = "textboxNumero"
@@ -291,6 +292,7 @@ Partial Class formCheque
         '
         'textboxCodigoPostal
         '
+        Me.textboxCodigoPostal.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.textboxCodigoPostal.Location = New System.Drawing.Point(123, 326)
         Me.textboxCodigoPostal.MaxLength = 8
         Me.textboxCodigoPostal.Name = "textboxCodigoPostal"

@@ -112,7 +112,7 @@
         <EntityTypeShape EntityType="CSColegioModel.Chequera" Width="1.5" PointX="23.625" PointY="18" />
         <AssociationConnector Association="CSColegioModel.FK__Caja__Chequera" />
         <AssociationConnector Association="CSColegioModel.FK__Cheque__ComprobanteMedioPago" />
-        <EntityTypeShape EntityType="CSColegioModel.ComprobanteAsociadoMotivo" Width="2.25" PointX="22.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CSColegioModel.ComprobanteAsociacionMotivo" Width="1.5" PointX="22.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

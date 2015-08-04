@@ -165,12 +165,14 @@ Partial Class formComprobanteMedioPago
         '
         'datetimepickerHora
         '
-        Me.datetimepickerHora.Format = System.Windows.Forms.DateTimePickerFormat.Time
+        Me.datetimepickerHora.CustomFormat = "HH:mm"
+        Me.datetimepickerHora.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.datetimepickerHora.Location = New System.Drawing.Point(213, 91)
         Me.datetimepickerHora.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
         Me.datetimepickerHora.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
         Me.datetimepickerHora.Name = "datetimepickerHora"
-        Me.datetimepickerHora.Size = New System.Drawing.Size(101, 20)
+        Me.datetimepickerHora.ShowUpDown = True
+        Me.datetimepickerHora.Size = New System.Drawing.Size(62, 20)
         Me.datetimepickerHora.TabIndex = 4
         Me.datetimepickerHora.Value = New Date(2015, 8, 1, 0, 0, 0, 0)
         '
@@ -185,6 +187,7 @@ Partial Class formComprobanteMedioPago
         '
         'textboxNumero
         '
+        Me.textboxNumero.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.textboxNumero.Location = New System.Drawing.Point(97, 117)
         Me.textboxNumero.MaxLength = 20
         Me.textboxNumero.Name = "textboxNumero"
@@ -247,9 +250,9 @@ Partial Class formComprobanteMedioPago
         'textboxCuenta
         '
         Me.textboxCuenta.Location = New System.Drawing.Point(97, 170)
-        Me.textboxCuenta.MaxLength = 20
+        Me.textboxCuenta.MaxLength = 30
         Me.textboxCuenta.Name = "textboxCuenta"
-        Me.textboxCuenta.Size = New System.Drawing.Size(134, 20)
+        Me.textboxCuenta.Size = New System.Drawing.Size(235, 20)
         Me.textboxCuenta.TabIndex = 10
         '
         'labelCuenta
@@ -263,6 +266,7 @@ Partial Class formComprobanteMedioPago
         '
         'textboxTitular
         '
+        Me.textboxTitular.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.textboxTitular.Location = New System.Drawing.Point(97, 196)
         Me.textboxTitular.MaxLength = 100
         Me.textboxTitular.Name = "textboxTitular"

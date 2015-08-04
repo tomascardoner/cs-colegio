@@ -10,8 +10,8 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class ComprobanteAsociadoMotivo
-    Public Property IDComprobanteAsociadoMotivo As Byte
+Partial Public Class ComprobanteAsociacionMotivo
+    Public Property IDComprobanteAsociacionMotivo As Byte
     Public Property Nombre As String
 
 End Class
