@@ -81,7 +81,7 @@
       <Value Profile="(Default)">Colegio Horizonte de Lobos - Administracion</Value>
     </Setting>
     <Setting Name="Email_Address" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">administracion@horizontedelobos.com.ar</Value>
+      <Value Profile="(Default)">tomascardoner@me.com</Value>
     </Setting>
     <Setting Name="Email_SMTP_Server" Type="System.String" Scope="Application">
       <Value Profile="(Default)">mail.horizontedelobos.com.ar</Value>
@@ -112,6 +112,9 @@
     </Setting>
     <Setting Name="AFIP_WS_Certificado_Produccion" Type="System.String" Scope="Application">
       <Value Profile="(Default)">C:\Users\Tomas\Dropbox\Colegio Horizonte\CS-Colegio\Certificados\administracion_produccion.crt</Value>
+    </Setting>
+    <Setting Name="Comprobante_EnviarEmail_Metodo" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">NETCLIENT</Value>
     </Setting>
   </Settings>
 </SettingsFile>

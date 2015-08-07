@@ -102,10 +102,14 @@
                 pUsuario = dbcontext.Usuario.Find(1)
                 MiscFunctions.UserLoggedIn()
             End Using
-        ElseIf Not formLogin.ShowDialog(formMDIMain) = DialogResult.OK Then
-            Application.Exit()
-            My.Application.Log.WriteEntry("La Aplicación ha finalizado porque el Usuario no ha iniciado sesión.", TraceEventType.Warning)
-            Exit Sub
+        Else
+            If Not formLogin.ShowDialog(formMDIMain) = DialogResult.OK Then
+                Application.Exit()
+                My.Application.Log.WriteEntry("La Aplicación ha finalizado porque el Usuario no ha iniciado sesión.", TraceEventType.Warning)
+                Exit Sub
+            End If
+            formLogin.Close()
+            formLogin.Dispose()
         End If
 
         ' Está todo listo. Cambio el puntero del mouse a modo normal y habilito el form MDI principal

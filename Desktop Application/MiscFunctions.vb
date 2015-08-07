@@ -28,11 +28,12 @@ Module MiscFunctions
         Select Case pUsuario.Genero
             Case Constantes.GENERO_MASCULINO
                 formMDIMain.labelUsuarioNombre.Image = My.Resources.Resources.IMAGE_USUARIO_HOMBRE_16
-            Case Constantes.GENERO_MASCULINO
+            Case Constantes.GENERO_FEMENINO
                 formMDIMain.labelUsuarioNombre.Image = My.Resources.Resources.IMAGE_USUARIO_MUJER_16
             Case Else
-                formMDIMain.labelUsuarioNombre.Text = pUsuario.Descripcion
+                formMDIMain.labelUsuarioNombre.Image = Nothing
         End Select
+        formMDIMain.labelUsuarioNombre.Text = pUsuario.Descripcion
 
         My.Application.Log.WriteEntry(String.Format("El Usuario '{0}' ha iniciado sesión.", pUsuario.Nombre), TraceEventType.Information)
     End Sub
@@ -104,8 +105,22 @@ Module MiscFunctions
     End Function
 
     Friend Function EnviarEmailPorMSOutlook(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef Reporte As CS_CrystalReport, ByVal AdjuntoNombre As String) As Boolean
-        ' TODO - Completar rutina de envío de e-mails a través de Microsoft Outlook
-        Return True
+        Dim mail As New CS_Office_Outlook_LateBinding.MailItem
+
+        If (Not Titular.Email1 Is Nothing) And (Not Titular.Email2 Is Nothing) Then
+            mail.To = Titular.Email1 & "; " & Titular.Email2
+        ElseIf Not Titular.Email1 Is Nothing Then
+            mail.To = Titular.Email1
+        ElseIf Not Titular.Email2 Is Nothing Then
+            mail.To = Titular.Email2
+        End If
+
+        mail.Subject = Asunto
+        mail.Body = Cuerpo
+
+        mail.Attachments.Add(New CS_Office_Outlook_LateBinding.Attachment(Reporte.ReportObject.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat), AdjuntoNombre))
+
+        Return CS_Office_Outlook_LateBinding.SendMail(My.Settings.Email_Address, mail)
     End Function
 
     Friend Function EnviarEmailPorCrystalReportsMAPI(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef Reporte As CS_CrystalReport, ByVal AdjuntoNombre As String) As Boolean

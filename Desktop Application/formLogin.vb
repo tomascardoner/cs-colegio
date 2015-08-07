@@ -1,9 +1,9 @@
 ﻿Public Class formLogin
-    Private Intentos As Byte = 0
-    Private dbcontext As CSColegioContext
+    Private mIntentos As Integer = 0
+    Private mdbContext As CSColegioContext
 
     Private Sub formLogin_Load() Handles Me.Load
-        dbcontext = New CSColegioContext(True)
+        mdbContext = New CSColegioContext(True)
 
         If My.Settings.ShowLastUserLoggedIn Then
             If My.Settings.LastUserLoggedIn <> "" Then
@@ -17,7 +17,7 @@
     End Sub
 
     Private Sub formLogin_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        dbcontext.Dispose()
+        mdbContext.Dispose()
     End Sub
 
     Private Sub textboxNombre_GotFocus() Handles textboxNombre.GotFocus
@@ -67,7 +67,7 @@
         ' Está todo OK, busco el Usuario en la Base de Datos
         Me.Cursor = Cursors.WaitCursor
 
-        UsuarioCurrent = dbcontext.Usuario.Where(Function(usr) usr.Nombre = textboxNombre.Text).FirstOrDefault
+        UsuarioCurrent = mdbContext.Usuario.Where(Function(usr) usr.Nombre = textboxNombre.Text).FirstOrDefault
         If UsuarioCurrent Is Nothing Then
             My.Application.Log.WriteEntry(String.Format("Se intentó iniciar sesión con el Usuario '{0}', pero es inexistente.", textboxNombre.Text.Trim), TraceEventType.Warning)
             MsgBox("El Nombre de Usuario ingresado no existe.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
@@ -75,8 +75,8 @@
             textboxNombre.Focus()
             UsuarioCurrent = Nothing
             Me.Cursor = Cursors.Default
-            Intentos = Intentos + CByte(1)
-            If Intentos > 3 Then
+            mIntentos += 1
+            If mIntentos > 3 Then
                 Me.DialogResult = Windows.Forms.DialogResult.Cancel
             End If
             Exit Sub
@@ -88,8 +88,8 @@
             textboxPassword.Focus()
             UsuarioCurrent = Nothing
             Me.Cursor = Cursors.Default
-            Intentos = Intentos + CByte(1)
-            If Intentos > 3 Then
+            mIntentos += 1
+            If mIntentos > 3 Then
                 Me.DialogResult = Windows.Forms.DialogResult.Cancel
             End If
             Exit Sub

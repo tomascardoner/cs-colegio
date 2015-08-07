@@ -189,6 +189,9 @@
     <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Instance.vb">
       <Link>CS_Instance.vb</Link>
     </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Office_Outlook_LateBinding.vb">
+      <Link>CS_Office_Outlook_LateBinding.vb</Link>
+    </Compile>
     <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Parameter.vb">
       <Link>CS_Parameter.vb</Link>
     </Compile>
@@ -217,6 +220,9 @@
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="ComprobanteAplicacion.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComprobanteAsociacion.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="ComprobanteAsociacionMotivo.vb">
@@ -304,6 +310,18 @@
       <DependentUpon>formComprobanteAplicacion.vb</DependentUpon>
     </Compile>
     <Compile Include="formComprobanteAplicacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formComprobanteAsociacion.Designer.vb">
+      <DependentUpon>formComprobanteAsociacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formComprobanteAsociacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formComprobanteDetalle.Designer.vb">
+      <DependentUpon>formComprobanteDetalle.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formComprobanteDetalle.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formComprobanteMedioPago.Designer.vb">
@@ -502,6 +520,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobanteAplicacion.resx">
       <DependentUpon>formComprobanteAplicacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formComprobanteAsociacion.resx">
+      <DependentUpon>formComprobanteAsociacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formComprobanteDetalle.resx">
+      <DependentUpon>formComprobanteDetalle.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobanteMedioPago.resx">
       <DependentUpon>formComprobanteMedioPago.vb</DependentUpon>

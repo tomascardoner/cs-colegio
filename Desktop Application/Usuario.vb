@@ -29,5 +29,6 @@ Partial Public Class Usuario
     Public Overridable Property ComprobantesCreados As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
     Public Overridable Property ComprobantesModificados As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
     Public Overridable Property Log As ICollection(Of Log) = New HashSet(Of Log)
+    Public Overridable Property Comprobante1 As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
 
 End Class

@@ -70,5 +70,6 @@ Partial Public Class CSColegioContext
     Public Overridable Property ChequeMotivoRechazo() As DbSet(Of ChequeMotivoRechazo)
     Public Overridable Property Chequera() As DbSet(Of Chequera)
     Public Overridable Property ComprobanteAsociacionMotivo() As DbSet(Of ComprobanteAsociacionMotivo)
+    Public Overridable Property ComprobanteAsociacion() As DbSet(Of ComprobanteAsociacion)
 
 End Class

@@ -406,76 +406,100 @@
     Private Sub buttonEnviarEmail_Click() Handles buttonEnviarEmail.Click
         Dim CurrentRow As GridRowData
         Dim ComprobanteTipoActual As ComprobanteTipo
+        Dim ComprobanteActual As Comprobante
         Dim Titular As Entidad
 
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Comprobante para enviar por e-mail.", vbInformation, My.Application.Info.Title)
         Else
             If Permisos.VerificarPermiso(Permisos.COMPROBANTE_PRINT) Then
-                If MsgBox("Se va a enviar por e-mail el Comprobante seleccionado." & vbCrLf & vbCrLf & "¿Desea continuar?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
-                    Exit Sub
-                End If
-
                 CurrentRow = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData)
-                Using dbcontext As New CSColegioContext(True)
-                    ComprobanteTipoActual = dbcontext.ComprobanteTipo.Find(CurrentRow.IDComprobanteTipo)
-                    Titular = dbcontext.Entidad.Find(CurrentRow.IDEntidad)
-                End Using
+                Using dbContext As New CSColegioContext(True)
+                    ComprobanteActual = dbContext.Comprobante.Find(CurrentRow.IDComprobante)
+                    ComprobanteTipoActual = dbContext.ComprobanteTipo.Find(CurrentRow.IDComprobanteTipo)
+                    Titular = dbContext.Entidad.Find(CurrentRow.IDEntidad)
 
-                ' Verifico que sea un comprobante de venta
-                If ComprobanteTipoActual.OperacionTipo <> Constantes.OPERACIONTIPO_VENTA Then
-                    MsgBox("Sólo se pueden enviar por e-mail, Comprobantes de Venta.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    Exit Sub
-                End If
-
-                ' Verifico que el Titular tenga especificada una dirección de e-mail
-                If Titular.Email1 Is Nothing And Titular.Email2 Is Nothing Then
-                    MsgBox("El Titular del Comprobante no tiene especificada ninguna dirección de e-mail.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    Exit Sub
-                End If
-
-                ' Verifico que tenga un CAE asignado, si es que corresponde
-                If ComprobanteTipoActual.EmisionElectronica AndAlso CurrentRow.CAE = "" Then
-                    If MsgBox("El comprobante que está por enviar no tiene un C.A.E. asignado." & vbCrLf & "Esto puede ocurrir porque aún no fue enviado a AFIP o porque AFIP rechazó el comprobante." & vbCrLf & "Por este motivo, este comprobante no tiene validez legal." & vbCrLf & vbCrLf & "¿Desea enviarlo de todos modos?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                    ' Verifico que sea un comprobante de venta
+                    If ComprobanteTipoActual.OperacionTipo <> Constantes.OPERACIONTIPO_VENTA Then
+                        MsgBox("Sólo se pueden enviar por e-mail, Comprobantes de Venta.", MsgBoxStyle.Information, My.Application.Info.Title)
                         Exit Sub
                     End If
-                End If
 
-                Me.Cursor = Cursors.WaitCursor
-
-                datagridviewMain.Enabled = False
-
-                Dim Reporte As New CS_CrystalReport
-                If Reporte.OpenReport(My.Settings.ReportsPath & "\" & ComprobanteTipoActual.ReporteNombre) Then
-                    If Reporte.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
-                        Reporte.RecordSelectionFormula = "{Comprobante.IDComprobante} = " & CurrentRow.IDComprobante
-
-                        Dim Asunto As String = String.Format(My.Settings.Comprobante_EnviarEmail_Subject, ComprobanteTipoActual.NombreConLetra, CurrentRow.NumeroCompleto)
-                        Dim Cuerpo As String = String.Format(My.Settings.Comprobante_EnvioEmail_Body, vbCrLf) & String.Format(My.Settings.Email_Signature, vbCrLf)
-                        Dim AdjuntoNombre As String = String.Format("{0}-{1}.pdf", ComprobanteTipoActual.Sigla.TrimEnd, CurrentRow.NumeroCompleto)
-
-                        Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
-                            Case Constantes.EMAIL_CLIENT_NETDLL
-                                If MiscFunctions.EnviarEmailPorNETClient(Titular, Asunto, Cuerpo, Reporte, AdjuntoNombre) Then
-                                    MsgBox("Se ha enviado el Comprobante por e-mail.", vbInformation, My.Application.Info.Title)
-                                End If
-                            Case Constantes.EMAIL_CLIENT_MSOUTLOOK
-                                If EnviarEmailPorMSOutlook(Titular, Asunto, Cuerpo, Reporte, AdjuntoNombre) Then
-                                    MsgBox("Se ha enviado el Comprobante por e-mail.", vbInformation, My.Application.Info.Title)
-                                End If
-                            Case Constantes.EMAIL_CLIENT_CRYSTALREPORTSMAPI
-                                If EnviarEmailPorCrystalReportsMAPI(Titular, Asunto, Cuerpo, Reporte, AdjuntoNombre) Then
-                                    MsgBox("Se ha enviado el Comprobante por e-mail.", vbInformation, My.Application.Info.Title)
-                                End If
-                        End Select
+                    ' Verifico que el Titular tenga especificada una dirección de e-mail
+                    If Titular.Email1 Is Nothing And Titular.Email2 Is Nothing Then
+                        MsgBox("El Titular del Comprobante no tiene especificada ninguna dirección de e-mail.", MsgBoxStyle.Information, My.Application.Info.Title)
+                        Exit Sub
                     End If
-                End If
+
+                    ' Verifico que tenga un CAE asignado, si es que corresponde
+                    If ComprobanteTipoActual.EmisionElectronica AndAlso CurrentRow.CAE = "" Then
+                        If MsgBox("El Comprobante que está por enviar no tiene un C.A.E. asignado." & vbCrLf & "Esto puede ocurrir porque aún no fue enviado a AFIP o porque AFIP rechazó el comprobante." & vbCrLf & "Por este motivo, este comprobante no tiene validez legal." & vbCrLf & vbCrLf & "¿Desea enviarlo de todos modos?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                            Exit Sub
+                        End If
+                    End If
+
+                    ' Verifico que no se haya enviado ya
+                    If Not ComprobanteActual.FechaHoraEnvioEmail Is Nothing Then
+                        If MsgBox(String.Format("El Comprobante que está por enviar, ya fue enviado el {1}.{0}{0}¿Desea enviarlo otra vez?", vbCrLf, ComprobanteActual.FechaHoraEnvioEmail.Value.ToShortDateString), CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                            Exit Sub
+                        End If
+                    End If
+
+                    If MsgBox("Se va a enviar por e-mail el Comprobante seleccionado." & vbCrLf & vbCrLf & "¿Desea continuar?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                        Exit Sub
+                    End If
+
+                    Me.Cursor = Cursors.WaitCursor
+
+                    datagridviewMain.Enabled = False
+
+                    Dim Reporte As New CS_CrystalReport
+                    If Reporte.OpenReport(My.Settings.ReportsPath & "\" & ComprobanteTipoActual.ReporteNombre) Then
+                        If Reporte.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
+                            Reporte.RecordSelectionFormula = "{Comprobante.IDComprobante} = " & CurrentRow.IDComprobante
+
+                            Dim Asunto As String = String.Format(My.Settings.Comprobante_EnviarEmail_Subject, ComprobanteTipoActual.NombreConLetra, CurrentRow.NumeroCompleto)
+                            Dim Cuerpo As String = String.Format(My.Settings.Comprobante_EnvioEmail_Body, vbCrLf) & String.Format(My.Settings.Email_Signature, vbCrLf)
+                            Dim AdjuntoNombre As String = String.Format("{0}-{1}.pdf", ComprobanteTipoActual.Sigla.TrimEnd, CurrentRow.NumeroCompleto)
+
+                            Select Case My.Settings.Comprobante_EnviarEmail_Metodo
+                                Case Constantes.EMAIL_CLIENT_NETDLL
+                                    If Not MiscFunctions.EnviarEmailPorNETClient(Titular, Asunto, Cuerpo, Reporte, AdjuntoNombre) Then
+                                        datagridviewMain.Enabled = True
+                                        Me.Cursor = Cursors.Default
+                                        Exit Sub
+                                    End If
+                                Case Constantes.EMAIL_CLIENT_MSOUTLOOK
+                                    If Not EnviarEmailPorMSOutlook(Titular, Asunto, Cuerpo, Reporte, AdjuntoNombre) Then
+                                        datagridviewMain.Enabled = True
+                                        Me.Cursor = Cursors.Default
+                                        Exit Sub
+                                    End If
+                                Case Constantes.EMAIL_CLIENT_CRYSTALREPORTSMAPI
+                                    If Not EnviarEmailPorCrystalReportsMAPI(Titular, Asunto, Cuerpo, Reporte, AdjuntoNombre) Then
+                                        datagridviewMain.Enabled = True
+                                        Me.Cursor = Cursors.Default
+                                        Exit Sub
+                                    End If
+                            End Select
+
+                            ComprobanteActual.IDUsuarioEnvioEmail = pUsuario.IDUsuario
+                            ComprobanteActual.FechaHoraEnvioEmail = DateTime.Now
+                            Try
+                                dbContext.SaveChanges()
+                            Catch ex As Exception
+                                CS_Error.ProcessError(ex, "Error al actualizar los datos de envío de e-mail del Comprobante.")
+                            End Try
+                            MsgBox("Se ha enviado el Comprobante por e-mail.", vbInformation, My.Application.Info.Title)
+                        End If
+                    End If
+                End Using
 
                 datagridviewMain.Enabled = True
 
                 Me.Cursor = Cursors.Default
             End If
-        End If
+            End If
     End Sub
 
     Private Sub GridChangeOrder(sender As Object, e As DataGridViewCellMouseEventArgs) Handles datagridviewMain.ColumnHeaderMouseClick
@@ -530,7 +554,17 @@
 
                 datagridviewMain.Enabled = False
 
-                formComprobante.LoadAndShow(True, Me, CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData).IDComprobante)
+                Dim CurrentRow As GridRowData = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData)
+
+                Using dbContext = New CSColegioContext(True)
+                    Dim ComprobanteActual As Comprobante = dbContext.Comprobante.Find(CurrentRow.IDComprobante)
+                    If ComprobanteActual.ComprobanteTipo.EmisionElectronica AndAlso Not ComprobanteActual.CAE Is Nothing Then
+                        Me.Cursor = Cursors.Default
+                        MsgBox("No se puede editar este Comprobante porque es de Emisión Electrónica y ya tiene un CAE asignado.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                    Else
+                        formComprobante.LoadAndShow(True, Me, CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData).IDComprobante)
+                    End If
+                End Using
 
                 datagridviewMain.Enabled = True
 
@@ -545,29 +579,29 @@
         Else
             If Permisos.VerificarPermiso(Permisos.COMPROBANTE_DELETE) Then
 
+                Me.Cursor = Cursors.WaitCursor
+
                 Dim CurrentRow As GridRowData = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData)
 
                 Using dbContext = New CSColegioContext(True)
-                    Dim ComprobanteEliminar = dbContext.Comprobante.Find(CurrentRow.IDComprobante)
-                    If ComprobanteEliminar.ComprobanteTipo.EmisionElectronica AndAlso Not ComprobanteEliminar.CAE Is Nothing Then
+                    Dim ComprobanteActual As Comprobante = dbContext.Comprobante.Find(CurrentRow.IDComprobante)
+                    If ComprobanteActual.ComprobanteTipo.EmisionElectronica AndAlso Not ComprobanteActual.CAE Is Nothing Then
                         MsgBox("No se puede eliminar este Comprobante porque es de Emisión Electrónica y ya tiene un CAE asignado.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                     Else
                         Dim Mensaje As String
                         Mensaje = String.Format("Se eliminará el Comprobante seleccionado.{0}{0}{1} N° {2}{0}{0}¿Confirma la eliminación definitiva?", vbCrLf, CurrentRow.ComprobanteTipoNombre, CurrentRow.NumeroCompleto)
                         If MsgBox(Mensaje, CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
 
-                            Me.Cursor = Cursors.WaitCursor
-
                             Try
-                                dbContext.Comprobante.Remove(ComprobanteEliminar)
+                                dbContext.Comprobante.Remove(ComprobanteActual)
                                 dbContext.SaveChanges()
 
                             Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
-                                Me.Cursor = Cursors.Default
                                 Select Case CS_Database_EF_SQL.TryDecodeDbUpdateException(dbuex)
                                     Case Errors.RelatedEntity
                                         MsgBox("No se puede eliminar el Comprobante porque tiene datos relacionados.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                                 End Select
+                                Me.Cursor = Cursors.Default
                                 Exit Sub
 
                             Catch ex As Exception
@@ -575,10 +609,11 @@
                             End Try
 
                             RefreshData()
-                            Me.Cursor = Cursors.Default
                         End If
                     End If
                 End Using
+
+                Me.Cursor = Cursors.Default
             End If
         End If
     End Sub

@@ -306,12 +306,12 @@ Partial Class formComprobanteMedioPago
         Me.Controls.Add(Me.comboboxMedioPago)
         Me.Controls.Add(Me.labelMedioPago)
         Me.Controls.Add(Me.ShapeContainer1)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "formComprobanteMedioPago"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Detalle del Medio de Pago"
         Me.toolstripMain.ResumeLayout(False)
         Me.toolstripMain.PerformLayout()

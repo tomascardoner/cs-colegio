@@ -19,7 +19,7 @@ Partial Public Class UsuarioGrupo
     Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
 
-    Public Overridable Property Usuario As ICollection(Of Usuario) = New HashSet(Of Usuario)
+    Public Overridable Property Usuarios As ICollection(Of Usuario) = New HashSet(Of Usuario)
     Public Overridable Property UsuarioGrupoPermiso As ICollection(Of UsuarioGrupoPermiso) = New HashSet(Of UsuarioGrupoPermiso)
 
 End Class

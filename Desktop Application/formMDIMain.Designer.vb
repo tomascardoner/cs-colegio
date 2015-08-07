@@ -39,6 +39,7 @@ Partial Class formMDIMain
         Me.menuitemDebugAFIPWSHomologacion = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSHomologacionLogin = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSHomologacionCompConsultar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemShowTestForm = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemVentana = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemVentanaMosaicoHorizontal = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemVentanaMosaicoVertical = New System.Windows.Forms.ToolStripMenuItem()
@@ -61,13 +62,12 @@ Partial Class formMDIMain
         Me.separatorRelacionTipo = New System.Windows.Forms.ToolStripSeparator()
         Me.menuitemRelacionTipo = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonEntidades = New System.Windows.Forms.ToolStripSplitButton()
-        Me.AñosLectivosYCursosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemEntidadesAniosLectivosYCursos = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonComprobantes = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemComprobantesGenerarLoteFacturas = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesTransmitirAFIP = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesEnviarMail = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonReportes = New System.Windows.Forms.ToolStripButton()
-        Me.menuitemShowTestForm = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
@@ -177,6 +177,12 @@ Partial Class formMDIMain
         Me.menuitemDebugAFIPWSHomologacionCompConsultar.Name = "menuitemDebugAFIPWSHomologacionCompConsultar"
         Me.menuitemDebugAFIPWSHomologacionCompConsultar.Size = New System.Drawing.Size(238, 22)
         Me.menuitemDebugAFIPWSHomologacionCompConsultar.Text = "Consultar último comprobante"
+        '
+        'menuitemShowTestForm
+        '
+        Me.menuitemShowTestForm.Name = "menuitemShowTestForm"
+        Me.menuitemShowTestForm.Size = New System.Drawing.Size(167, 22)
+        Me.menuitemShowTestForm.Text = "Show Test Form"
         '
         'menuitemVentana
         '
@@ -318,7 +324,7 @@ Partial Class formMDIMain
         '
         'buttonEntidades
         '
-        Me.buttonEntidades.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AñosLectivosYCursosToolStripMenuItem})
+        Me.buttonEntidades.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemEntidadesAniosLectivosYCursos})
         Me.buttonEntidades.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ENTIDADES_32
         Me.buttonEntidades.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonEntidades.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
@@ -327,11 +333,11 @@ Partial Class formMDIMain
         Me.buttonEntidades.Size = New System.Drawing.Size(132, 36)
         Me.buttonEntidades.Text = "Entidades"
         '
-        'AñosLectivosYCursosToolStripMenuItem
+        'menuitemEntidadesAniosLectivosYCursos
         '
-        Me.AñosLectivosYCursosToolStripMenuItem.Name = "AñosLectivosYCursosToolStripMenuItem"
-        Me.AñosLectivosYCursosToolStripMenuItem.Size = New System.Drawing.Size(195, 22)
-        Me.AñosLectivosYCursosToolStripMenuItem.Text = "Años Lectivos y Cursos"
+        Me.menuitemEntidadesAniosLectivosYCursos.Name = "menuitemEntidadesAniosLectivosYCursos"
+        Me.menuitemEntidadesAniosLectivosYCursos.Size = New System.Drawing.Size(195, 22)
+        Me.menuitemEntidadesAniosLectivosYCursos.Text = "Años Lectivos y Cursos"
         '
         'buttonComprobantes
         '
@@ -371,12 +377,6 @@ Partial Class formMDIMain
         Me.buttonReportes.Name = "buttonReportes"
         Me.buttonReportes.Size = New System.Drawing.Size(132, 36)
         Me.buttonReportes.Text = "Reportes"
-        '
-        'menuitemShowTestForm
-        '
-        Me.menuitemShowTestForm.Name = "menuitemShowTestForm"
-        Me.menuitemShowTestForm.Size = New System.Drawing.Size(167, 22)
-        Me.menuitemShowTestForm.Text = "Show Test Form"
         '
         'formMDIMain
         '
@@ -438,7 +438,7 @@ Partial Class formMDIMain
     Friend WithEvents buttonComprobantes As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents menuitemComprobantesGenerarLoteFacturas As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents buttonEntidades As System.Windows.Forms.ToolStripSplitButton
-    Friend WithEvents AñosLectivosYCursosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemEntidadesAniosLectivosYCursos As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebug As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWS As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSHomologacion As System.Windows.Forms.ToolStripMenuItem

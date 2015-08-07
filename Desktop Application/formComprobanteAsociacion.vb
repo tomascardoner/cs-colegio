@@ -1,9 +1,8 @@
-﻿Public Class formComprobanteAplicacion
-
+﻿Public Class formComprobanteAsociacion
 #Region "Declarations"
     Private mComprobanteActual As Comprobante
     Private mComprobanteTipoActual As ComprobanteTipo
-    Private mComprobanteAplicacionActual As ComprobanteAplicacion
+    Private mComprobanteAsociacionActual As ComprobanteAsociacion
 
     Private mEditMode As Boolean = False
 
@@ -13,17 +12,16 @@
         Public Property NumeroCompleto As String
         Public Property FechaEmision As Date
         Public Property ImporteTotal As Decimal
-        Public Property ImporteSinAplicar As Decimal
     End Class
 #End Region
 
 #Region "Form stuff"
-    Friend Sub LoadAndShow(ByVal ParentEditMode As Boolean, ByVal EditMode As Boolean, ByRef ParentForm As Form, ByRef ComprobanteActual As Comprobante, ByRef ComprobanteTipoActual As ComprobanteTipo, ByRef ComprobanteAplicacionActual As ComprobanteAplicacion)
+    Friend Sub LoadAndShow(ByVal ParentEditMode As Boolean, ByVal EditMode As Boolean, ByRef ParentForm As Form, ByRef ComprobanteActual As Comprobante, ByRef ComprobanteTipoActual As ComprobanteTipo, ByRef ComprobanteAsocacionActual As ComprobanteAsociacion)
         mEditMode = EditMode
 
         mComprobanteActual = ComprobanteActual
         mComprobanteTipoActual = ComprobanteTipoActual
-        mComprobanteAplicacionActual = ComprobanteAplicacionActual
+        mComprobanteAsociacionActual = ComprobanteAsocacionActual
 
         'Me.MdiParent = formMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
@@ -54,7 +52,7 @@
 
     Private Sub formEntidad_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         mComprobanteActual = Nothing
-        mComprobanteAplicacionActual = Nothing
+        mComprobanteAsociacionActual = Nothing
     End Sub
 #End Region
 
@@ -64,7 +62,7 @@
 
         Using dbContext As New CSColegioContext(True)
             listComprobantes = (From c In dbContext.Comprobante
-                                Where c.IDEntidad = mComprobanteActual.IDEntidad AndAlso c.ComprobanteTipo.OperacionTipo = mComprobanteTipoActual.OperacionTipo AndAlso c.IDComprobanteTipo <> mComprobanteActual.IDComprobanteTipo AndAlso c.ComprobanteAplicacion_Aplicantes.Count = 0
+                                Where c.IDEntidad = mComprobanteActual.IDEntidad AndAlso c.ComprobanteTipo.OperacionTipo = mComprobanteTipoActual.OperacionTipo AndAlso c.IDComprobanteTipo <> mComprobanteActual.IDComprobanteTipo
                                 Order By c.FechaEmision
                                 Select New GridRowData_Comprobante With {.IDComprobante = c.IDComprobante, .TipoNombre = c.ComprobanteTipo.NombreConLetra, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal}).ToList
         End Using
@@ -73,15 +71,15 @@
         datagridviewMain.DataSource = listComprobantes
     End Sub
     Friend Sub SetDataFromObjectToControls()
-        With mComprobanteAplicacionActual
-            textboxImporteAplicado.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.Importe)
+        With mComprobanteAsociacionActual
+            comboboxMotivo.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Motivo)
         End With
     End Sub
 
     Friend Sub SetDataFromControlsToObject()
-        With mComprobanteAplicacionActual
-            .IDComprobanteAplicado = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).IDComprobante
-            .Importe = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteAplicado.Text).Value
+        With mComprobanteAsociacionActual
+            .IDComprobanteAsociado = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).IDComprobante
+            .Motivo = CS_ValueTranslation.FromControlTextBoxToObjectString(comboboxMotivo.Text)
         End With
     End Sub
 #End Region
@@ -103,12 +101,6 @@
                 End If
         End Select
     End Sub
-
-    Private Sub SeleccionarComprobante() Handles datagridviewMain.Click
-        If Not datagridviewMain.CurrentRow Is Nothing Then
-            textboxImporteAplicado.Text = FormatCurrency(CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).ImporteTotal)
-        End If
-    End Sub
 #End Region
 
 #Region "Main Toolbar"
@@ -123,29 +115,19 @@
 
     Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
         If datagridviewMain.CurrentRow Is Nothing Then
-            MsgBox("No hay ningún Comprobante para aplicar.", vbInformation, My.Application.Info.Title)
+            MsgBox("No hay ningún Comprobante para asociar.", vbInformation, My.Application.Info.Title)
             datagridviewMain.Focus()
             Exit Sub
         End If
-        If textboxImporteAplicado.Text.Trim.Length = 0 Then
-            MsgBox("Debe ingresar el Importe a aplicar.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxImporteAplicado.Focus()
-            Exit Sub
-        End If
-        If Not CS_ValueTranslation.ValidateCurrency(textboxImporteAplicado.Text) Then
-            MsgBox("El Importe ingresado no es válido.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxImporteAplicado.Focus()
-            Exit Sub
-        End If
-        If CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteAplicado.Text).Value <= 0 Then
-            MsgBox("El Importe a aplicar debe ser mayor a cero.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxImporteAplicado.Focus()
+        If comboboxMotivo.Text.Trim.Length = 0 Then
+            MsgBox("Debe ingresar el Motivo de la Asociación.", MsgBoxStyle.Information, My.Application.Info.Title)
+            comboboxMotivo.Focus()
             Exit Sub
         End If
 
         ' Si es un nuevo item, busco el próximo Indice y agrego el objeto nuevo a la colección del parent
-        If mComprobanteAplicacionActual.IDComprobanteAplicado = 0 Then
-            mComprobanteActual.ComprobanteAplicacion_Aplicados.Add(mComprobanteAplicacionActual)
+        If mComprobanteAsociacionActual.IDComprobanteAsociado = 0 Then
+            mComprobanteActual.ComprobanteAsociacion_Asociados.Add(mComprobanteAsociacionActual)
         End If
 
         ' Paso los datos desde los controles al Objecto de EF
@@ -154,7 +136,7 @@
         ' Refresco la lista para mostrar los cambios
         If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formComprobante") Then
             Dim formComprobante As formComprobante = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formComprobante"), formComprobante)
-            formComprobante.RefreshData_Aplicaciones(mComprobanteAplicacionActual.IDComprobanteAplicado)
+            formComprobante.RefreshData_Asociaciones(mComprobanteAsociacionActual.IDComprobanteAsociado)
             formComprobante = Nothing
         End If
 

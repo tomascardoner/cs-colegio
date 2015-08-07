@@ -136,6 +136,7 @@
         End If
 
         ComboBoxControl.DataSource = localList
+        ComboBoxControl.SelectedIndex = -1
     End Sub
 
     Friend Sub Genero(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)

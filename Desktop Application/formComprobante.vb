@@ -9,6 +9,7 @@
     Private mComprobanteTipoPuntoVentaActual As ComprobanteTipoPuntoVenta
     Private mEntidad As Entidad
 
+    Private mIsLoading As Boolean = False
     Private mEditMode As Boolean = False
 
     Public Class GridRowData_Aplicacion
@@ -34,6 +35,7 @@
 
 #Region "Form stuff"
     Friend Sub LoadAndShow(ByVal EditMode As Boolean, ByRef ParentForm As Form, ByVal IDComprobante As Long)
+        mIsLoading = True
         mEditMode = EditMode
 
         ' Antes que nada, cierro las ventanas hijas que pudieran haber quedado abiertas
@@ -61,23 +63,28 @@
         End If
         Me.Focus()
 
+        mIsLoading = False
+
+        ChangeMode()
+
+        CambiarTipoComprobante()
+
         If IDComprobante > 0 Then
-            If mComprobanteActual.ComprobanteTipo.EmisionElectronica AndAlso Not mComprobanteActual.CAE Is Nothing Then
-                If mEditMode Then
-                    mEditMode = False
-                    ChangeMode()
-                    buttonEditar.Visible = False
-                    MsgBox("No se puede editar este Comprobante porque es de Emisión Electrónica y ya tiene un CAE asignado.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                Else
-                    buttonEditar.Visible = False
-                End If
+            If mComprobanteActual.ComprobanteTipo.EmisionElectronica.HasValue Then
+                buttonEditar.Visible = Not (mComprobanteActual.ComprobanteTipo.EmisionElectronica.Value And Not mComprobanteActual.CAE Is Nothing)
             End If
+        Else
+            comboboxComprobanteTipo.Enabled = True
         End If
     End Sub
 
     Private Sub ChangeMode()
         Dim ExceptControlsArray() As String
         Dim ExceptControlsString As String
+
+        If mIsLoading Then
+            Exit Sub
+        End If
 
         If comboboxComprobanteTipo.SelectedIndex = -1 Then
             CS_Form.ControlsChangeStateReadOnly(Me.Controls, True, True, toolstripMain.Name, comboboxComprobanteTipo.Name)
@@ -89,7 +96,7 @@
         buttonEditar.Visible = Not mEditMode
         buttonCerrar.Visible = Not mEditMode
 
-        ExceptControlsArray = {toolstripMain.Name, textboxIDComprobante.Name, textboxEntidad.Name, textboxFechaHoraCreacion.Name, textboxUsuarioCreacion.Name, textboxFechaHoraModificacion.Name, textboxUsuarioModificacion.Name}
+        ExceptControlsArray = {toolstripMain.Name, textboxIDComprobante.Name, textboxEntidad.Name, textboxFechaHoraCreacion.Name, textboxUsuarioCreacion.Name, textboxFechaHoraModificacion.Name, textboxUsuarioModificacion.Name, textboxUsuarioEnvioEmail.Name, textboxFechaHoraEnvioEmail.Name}
         ExceptControlsString = String.Join(",", ExceptControlsArray)
         If mEditMode Then
             If mComprobanteActual.IDComprobante > 0 Then
@@ -109,6 +116,8 @@
 
         ' Cargo los ComboBox
         pFillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo, Nothing, False, False)
+
+        CS_Form.ControlsChangeStateReadOnly(Me.Controls, True, True, toolstripMain.Name)
     End Sub
 
     Friend Sub SetAppearance()
@@ -170,17 +179,26 @@
 
             ' Datos de la pestaña Notas y Auditoría
             textboxNotas.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Notas)
-            textboxFechaHoraCreacion.Text = .FechaHoraCreacion.ToShortDateString & " " & .FechaHoraCreacion.ToShortTimeString
             If .UsuarioCreacion Is Nothing Then
+                textboxFechaHoraCreacion.Text = ""
                 textboxUsuarioCreacion.Text = ""
             Else
+                textboxFechaHoraCreacion.Text = .FechaHoraCreacion.ToShortDateString & " " & .FechaHoraCreacion.ToShortTimeString
                 textboxUsuarioCreacion.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.UsuarioCreacion.Descripcion)
             End If
-            textboxFechaHoraModificacion.Text = .FechaHoraModificacion.ToShortDateString & " " & .FechaHoraModificacion.ToShortTimeString
             If .UsuarioModificacion Is Nothing Then
+                textboxFechaHoraModificacion.Text = ""
                 textboxUsuarioModificacion.Text = ""
             Else
+                textboxFechaHoraModificacion.Text = .FechaHoraModificacion.ToShortDateString & " " & .FechaHoraModificacion.ToShortTimeString
                 textboxUsuarioModificacion.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.UsuarioModificacion.Descripcion)
+            End If
+            If .UsuarioEnvioEmail Is Nothing Then
+                textboxFechaHoraEnvioEmail.Text = ""
+                textboxUsuarioEnvioEmail.Text = ""
+            Else
+                textboxFechaHoraEnvioEmail.Text = .FechaHoraEnvioEmail.Value.ToShortDateString & " " & .FechaHoraEnvioEmail.Value.ToShortTimeString
+                textboxUsuarioEnvioEmail.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.UsuarioEnvioEmail.Descripcion)
             End If
 
             ' Datos del Pie - Importes Totales
@@ -260,7 +278,54 @@
         Me.Cursor = Cursors.WaitCursor
 
         Try
-            listAplicaciones = (From ca In mComprobanteActual.ComprobantesAplicacion_Aplicados
+            listAplicaciones = (From ca In mComprobanteActual.ComprobanteAplicacion_Aplicados
+                                Join c In mdbContext.Comprobante On ca.IDComprobanteAplicado Equals c.IDComprobante
+                                Join ct In mdbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
+                                Select New GridRowData_Aplicacion With {.ComprobanteAplicacion = ca, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal, .ImporteAplicado = ca.Importe}).ToList
+
+            datagridviewAplicaciones.AutoGenerateColumns = False
+            datagridviewAplicaciones.DataSource = listAplicaciones
+
+        Catch ex As Exception
+            CS_Error.ProcessError(ex, "Error al leer los Comprobantes aplicados.")
+            Me.Cursor = Cursors.Default
+            Exit Sub
+        End Try
+
+        For Each GridRowData_AplicacionActual As GridRowData_Aplicacion In listAplicaciones
+            Total += GridRowData_AplicacionActual.ImporteAplicado
+        Next
+        'textboxImporteSubtotal.Text = FormatCurrency(Total)
+        'textboxImporteTotal.Text = FormatCurrency(Total)
+
+        Me.Cursor = Cursors.Default
+
+        If PositionIDComprobanteAplicado <> 0 Then
+            For Each CurrentRowChecked As DataGridViewRow In datagridviewAplicaciones.Rows
+                If CType(datagridviewAplicaciones.CurrentRow.DataBoundItem, GridRowData_Aplicacion).ComprobanteAplicacion.IDComprobanteAplicado = PositionIDComprobanteAplicado Then
+                    datagridviewAplicaciones.CurrentCell = CurrentRowChecked.Cells(0)
+                    Exit For
+                End If
+            Next
+        End If
+    End Sub
+
+    Friend Sub RefreshData_Asociaciones(Optional ByVal PositionIDComprobanteAplicado As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
+        Dim listAplicaciones As List(Of GridRowData_Aplicacion)
+        Dim Total As Decimal = 0
+
+        If RestoreCurrentPosition Then
+            If datagridviewAplicaciones.CurrentRow Is Nothing Then
+                PositionIDComprobanteAplicado = 0
+            Else
+                PositionIDComprobanteAplicado = CType(datagridviewAplicaciones.CurrentRow.DataBoundItem, GridRowData_Aplicacion).ComprobanteAplicacion.IDComprobanteAplicado
+            End If
+        End If
+
+        Me.Cursor = Cursors.WaitCursor
+
+        Try
+            listAplicaciones = (From ca In mComprobanteActual.ComprobanteAplicacion_Aplicados
                                 Join c In mdbContext.Comprobante On ca.IDComprobanteAplicado Equals c.IDComprobante
                                 Join ct In mdbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                 Select New GridRowData_Aplicacion With {.ComprobanteAplicacion = ca, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal, .ImporteAplicado = ca.Importe}).ToList
@@ -342,79 +407,10 @@
 #End Region
 
 #Region "Controls behavior"
-    Private Sub comboboxComprobanteTipo_SelectedValueChanged(sender As Object, e As EventArgs) Handles comboboxComprobanteTipo.SelectedValueChanged
-        Dim NextComprobanteNumero As String
-
-        If comboboxComprobanteTipo.SelectedIndex > -1 Then
-            mComprobanteTipoActual = CType(comboboxComprobanteTipo.SelectedItem, ComprobanteTipo)
-
-            ' Verifico la asignación del número de comprobante
-            mComprobanteTipoPuntoVentaActual = mComprobanteTipoActual.ComprobanteTipoPuntoVenta.Where(Function(ctpv) ctpv.IDPuntoVenta = My.Settings.IDPuntoVenta).FirstOrDefault()
-            If mComprobanteTipoPuntoVentaActual Is Nothing Then
-                ' No hay un numerador definido, habilito los campos de Punto de Venta y Numero
-                mUtilizaNumerador = False
-                textboxPuntoVenta.Text = ""
-                textboxNumero.Text = ""
-            Else
-                ' Hay un numerador definido, así que si es un comprobante nuevo, busco el siguiente número, como para ir mostrándolo, aunque antes de grabar, puede volver a cambiar
-                mUtilizaNumerador = True
-                If mComprobanteActual.IDComprobante = 0 Then
-                    textboxPuntoVenta.Text = mComprobanteTipoPuntoVentaActual.PuntoVenta.Numero
-                    ' Busco si ya hay un comprobante creado de este tipo para obtener el último número
-                    NextComprobanteNumero = mdbContext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = mComprobanteTipoActual.IDComprobanteTipo And cc.PuntoVenta = mComprobanteTipoPuntoVentaActual.PuntoVenta.Numero).Max(Function(cc) cc.Numero)
-                    If NextComprobanteNumero Is Nothing Then
-                        ' No hay ningún comprobante creado de este tipo, así que tomo el número inicial 
-                        NextComprobanteNumero = mComprobanteTipoPuntoVentaActual.NumeroInicio.ToString.PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
-                    Else
-                        NextComprobanteNumero = CStr(CInt(NextComprobanteNumero) + 1).PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
-                    End If
-                    textboxNumero.Text = NextComprobanteNumero
-                End If
-            End If
-
-            ' Habilito los Controles según corresponda
-            panelFechas.Visible = mComprobanteTipoActual.UtilizaDetalle
-
-            If mComprobanteTipoActual.UtilizaDetalle Then
-                tabcontrolMain.ShowTabPageByName(tabpageDetalle.Name)
-            Else
-                tabcontrolMain.HideTabPageByName(tabpageDetalle.Name)
-            End If
-
-            If mComprobanteTipoActual.UtilizaImpuesto Then
-                tabcontrolMain.ShowTabPageByName(tabpageImpuestos.Name)
-            Else
-                tabcontrolMain.HideTabPageByName(tabpageImpuestos.Name)
-            End If
-
-            If mComprobanteTipoActual.UtilizaAplicacion Then
-                tabcontrolMain.ShowTabPageByName(tabpageAplicaciones.Name)
-            Else
-                tabcontrolMain.HideTabPageByName(tabpageAplicaciones.Name)
-            End If
-
-            If mComprobanteTipoActual.UtilizaAsociacion Then
-                tabcontrolMain.ShowTabPageByName(tabpageAsociaciones.Name)
-            Else
-                tabcontrolMain.HideTabPageByName(tabpageAsociaciones.Name)
-            End If
-
-            If mComprobanteTipoActual.UtilizaMedioPago Then
-                tabcontrolMain.ShowTabPageByName(tabpageMediosPago.Name)
-            Else
-                tabcontrolMain.HideTabPageByName(tabpageMediosPago.Name)
-            End If
-            ChangeMode()
-        Else
-            panelFechas.Visible = False
-            tabcontrolMain.HideTabPageByName(tabpageDetalle.Name)
-            tabcontrolMain.HideTabPageByName(tabpageImpuestos.Name)
-            tabcontrolMain.HideTabPageByName(tabpageAplicaciones.Name)
-            tabcontrolMain.HideTabPageByName(tabpageAsociaciones.Name)
-            tabcontrolMain.HideTabPageByName(tabpageMediosPago.Name)
-            ChangeMode()
+    Private Sub comboboxComprobanteTipo_SelectedValueChanged() Handles comboboxComprobanteTipo.SelectedValueChanged
+        If Not mIsLoading Then
+            CambiarTipoComprobante()
         End If
-        tabcontrolMain.SelectTab(0)
     End Sub
 
     Private Sub buttonEntidad_Click(sender As Object, e As EventArgs) Handles buttonEntidad.Click
@@ -689,7 +685,7 @@
             If MsgBox(Mensaje, CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                 Me.Cursor = Cursors.WaitCursor
 
-                mComprobanteActual.ComprobantesAplicacion_Aplicados.Remove(GridRowData_Aplicacion_Eliminar.ComprobanteAplicacion)
+                mComprobanteActual.ComprobanteAplicacion_Aplicados.Remove(GridRowData_Aplicacion_Eliminar.ComprobanteAplicacion)
 
                 RefreshData_MediosPago()
 
@@ -806,6 +802,79 @@
 #End Region
 
 #Region "Extra stuff"
+    Private Sub CambiarTipoComprobante()
+        Dim NextComprobanteNumero As String
+
+        If comboboxComprobanteTipo.SelectedIndex > -1 Then
+            mComprobanteTipoActual = CType(comboboxComprobanteTipo.SelectedItem, ComprobanteTipo)
+
+            ' Verifico la asignación del número de comprobante
+            mComprobanteTipoPuntoVentaActual = mComprobanteTipoActual.ComprobanteTipoPuntoVenta.Where(Function(ctpv) ctpv.IDPuntoVenta = My.Settings.IDPuntoVenta).FirstOrDefault()
+            If mComprobanteTipoPuntoVentaActual Is Nothing Then
+                ' No hay un numerador definido, habilito los campos de Punto de Venta y Numero
+                mUtilizaNumerador = False
+                textboxPuntoVenta.Text = ""
+                textboxNumero.Text = ""
+            Else
+                ' Hay un numerador definido, así que si es un comprobante nuevo, busco el siguiente número, como para ir mostrándolo, aunque antes de grabar, puede volver a cambiar
+                mUtilizaNumerador = True
+                If mComprobanteActual.IDComprobante = 0 Then
+                    textboxPuntoVenta.Text = mComprobanteTipoPuntoVentaActual.PuntoVenta.Numero
+                    ' Busco si ya hay un comprobante creado de este tipo para obtener el último número
+                    NextComprobanteNumero = mdbContext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = mComprobanteTipoActual.IDComprobanteTipo And cc.PuntoVenta = mComprobanteTipoPuntoVentaActual.PuntoVenta.Numero).Max(Function(cc) cc.Numero)
+                    If NextComprobanteNumero Is Nothing Then
+                        ' No hay ningún comprobante creado de este tipo, así que tomo el número inicial 
+                        NextComprobanteNumero = mComprobanteTipoPuntoVentaActual.NumeroInicio.ToString.PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
+                    Else
+                        NextComprobanteNumero = CStr(CInt(NextComprobanteNumero) + 1).PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
+                    End If
+                    textboxNumero.Text = NextComprobanteNumero
+                End If
+            End If
+
+            ' Habilito los Controles según corresponda
+            panelFechas.Visible = mComprobanteTipoActual.UtilizaDetalle
+
+            If mComprobanteTipoActual.UtilizaDetalle Then
+                tabcontrolMain.ShowTabPageByName(tabpageDetalle.Name)
+            Else
+                tabcontrolMain.HideTabPageByName(tabpageDetalle.Name)
+            End If
+
+            If mComprobanteTipoActual.UtilizaImpuesto Then
+                tabcontrolMain.ShowTabPageByName(tabpageImpuestos.Name)
+            Else
+                tabcontrolMain.HideTabPageByName(tabpageImpuestos.Name)
+            End If
+
+            If mComprobanteTipoActual.UtilizaAplicacion Then
+                tabcontrolMain.ShowTabPageByName(tabpageAplicaciones.Name)
+            Else
+                tabcontrolMain.HideTabPageByName(tabpageAplicaciones.Name)
+            End If
+
+            If mComprobanteTipoActual.UtilizaAsociacion Then
+                tabcontrolMain.ShowTabPageByName(tabpageAsociaciones.Name)
+            Else
+                tabcontrolMain.HideTabPageByName(tabpageAsociaciones.Name)
+            End If
+
+            If mComprobanteTipoActual.UtilizaMedioPago Then
+                tabcontrolMain.ShowTabPageByName(tabpageMediosPago.Name)
+            Else
+                tabcontrolMain.HideTabPageByName(tabpageMediosPago.Name)
+            End If
+        Else
+            panelFechas.Visible = False
+            tabcontrolMain.HideTabPageByName(tabpageDetalle.Name)
+            tabcontrolMain.HideTabPageByName(tabpageImpuestos.Name)
+            tabcontrolMain.HideTabPageByName(tabpageAplicaciones.Name)
+            tabcontrolMain.HideTabPageByName(tabpageAsociaciones.Name)
+            tabcontrolMain.HideTabPageByName(tabpageMediosPago.Name)
+        End If
+        tabcontrolMain.SelectTab(0)
+    End Sub
+
     Private Function TransmitirComprobante(ByRef ComprobanteATransmitir As Comprobante) As Boolean
         Dim LogPath As String = ""
         Dim LogFileName As String = ""

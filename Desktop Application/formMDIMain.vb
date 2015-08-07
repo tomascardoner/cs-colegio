@@ -1,7 +1,11 @@
 ﻿Public Class formMDIMain
+
+#Region "Declarations"
     Friend Form_ClientSize As Size
     Private AFIP_TicketAcceso_Homo As String
+#End Region
 
+#Region "Form stuff"
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Cambio el puntero del mouse para indicar que la aplicación está iniciando
         Me.Cursor = Cursors.AppStarting
@@ -35,12 +39,72 @@
         End If
         TerminateApplication()
     End Sub
+#End Region
 
+#Region "Menu Archivo"
     Private Sub menuitemArchivo_Salir_Click() Handles menuitemArchivo_Salir.Click
         Me.Close()
     End Sub
 
-#Region "Tablas"
+    Private Sub UsuarioCerrarSesion() Handles menuitemArchivo_CerrarSesion.Click
+        CerrarSesionUsuario()
+    End Sub
+#End Region
+
+#Region "Menu Debug"
+    Private Sub Debug_AFIPWSHomologacionLogin() Handles menuitemDebugAFIPWSHomologacionLogin.Click
+        AFIP_TicketAcceso_Homo = CS_AFIP_WS.Login(CS_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION), "", CS_AFIP_WS.SERVICIO_FACTURACION_ELECTRONICA, My.Settings.AFIP_WS_Certificado_Homologacion, My.Settings.AFIP_WS_ClavePrivada)
+    End Sub
+
+    Private Sub Debug_AFIPWSHomologacionObtenerUltimoComprobante(sender As Object, e As EventArgs) Handles menuitemDebugAFIPWSHomologacionCompConsultar.Click
+        Dim TipoComprobante As Short
+        Dim PuntoVenta As Short
+
+        If AFIP_TicketAcceso_Homo = "" Then
+            MsgBox("No hay un Ticket de Acceso válido." & vbCrLf & "¿Ya inició sesión en AFIP?", vbExclamation, My.Application.Info.Title)
+        Else
+            TipoComprobante = CShort(InputBox("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSHomologacionCompConsultar.Text))
+            PuntoVenta = CShort(InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSHomologacionCompConsultar.Text))
+            MsgBox("El Último Número de comprobante autorizado es: " & CS_AFIP_WS.ObtenerUltinoNumeroComprobante(AFIP_TicketAcceso_Homo, CS_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION), "", CS_Parameter.GetString(Parametros.EMPRESA_CUIT), TipoComprobante, PuntoVenta))
+        End If
+    End Sub
+
+    Private Sub menuitemShowTestForm_Click(sender As Object, e As EventArgs) Handles menuitemShowTestForm.Click
+        formTest.Show()
+    End Sub
+#End Region
+
+#Region "Menu Ventana"
+    Private Sub menuitemVentana_MosaicoHorizontal_Click() Handles menuitemVentanaMosaicoHorizontal.Click
+        Me.LayoutMdi(MdiLayout.TileHorizontal)
+    End Sub
+
+    Private Sub menuitemVentana_MosaicoVertical_Click() Handles menuitemVentanaMosaicoVertical.Click
+        Me.LayoutMdi(MdiLayout.TileVertical)
+    End Sub
+
+    Private Sub menuitemVentana_Cascada_Click() Handles menuitemVentanaCascada.Click
+        Me.LayoutMdi(MdiLayout.Cascade)
+    End Sub
+
+    Private Sub menuitemVentana_OrganizarIconos_Click() Handles menuitemVentanaOrganizarIconos.Click
+        Me.LayoutMdi(MdiLayout.ArrangeIcons)
+    End Sub
+
+    Private Sub menuitemVentana_EncajarEnVentana_Click() Handles menuitemVentanaEncajarEnVentana.Click
+        If Not Me.ActiveMdiChild Is Nothing Then
+            Me.ActiveMdiChild.Left = 0
+            Me.ActiveMdiChild.Top = 0
+            Me.ActiveMdiChild.Size = Form_ClientSize
+        End If
+    End Sub
+
+    Private Sub menuitemVentana_CerrarTodas_Click() Handles menuitemVentanaCerrarTodas.Click
+        CS_Form.MDIChild_CloseAll(Me)
+    End Sub
+#End Region
+
+#Region "Left Toolbar - Tablas"
     Private Function FormCABGenerico_CrearOMostrar(ByVal EntityNameSingular As String, ByVal EntityNamePlural As String) As formCABGenerico
         Dim FormCurrent As formCABGenerico
 
@@ -204,52 +268,8 @@
     End Sub
 #End Region
 
-#Region "Menu Ventana"
-    Private Sub menuitemVentana_MosaicoHorizontal_Click() Handles menuitemVentanaMosaicoHorizontal.Click
-        Me.LayoutMdi(MdiLayout.TileHorizontal)
-    End Sub
-
-    Private Sub menuitemVentana_MosaicoVertical_Click() Handles menuitemVentanaMosaicoVertical.Click
-        Me.LayoutMdi(MdiLayout.TileVertical)
-    End Sub
-
-    Private Sub menuitemVentana_Cascada_Click() Handles menuitemVentanaCascada.Click
-        Me.LayoutMdi(MdiLayout.Cascade)
-    End Sub
-
-    Private Sub menuitemVentana_OrganizarIconos_Click() Handles menuitemVentanaOrganizarIconos.Click
-        Me.LayoutMdi(MdiLayout.ArrangeIcons)
-    End Sub
-
-    Private Sub menuitemVentana_EncajarEnVentana_Click() Handles menuitemVentanaEncajarEnVentana.Click
-        If Not Me.ActiveMdiChild Is Nothing Then
-            Me.ActiveMdiChild.Left = 0
-            Me.ActiveMdiChild.Top = 0
-            Me.ActiveMdiChild.Size = Form_ClientSize
-        End If
-    End Sub
-
-    Private Sub menuitemVentana_CerrarTodas_Click() Handles menuitemVentanaCerrarTodas.Click
-        For Each FormCurrent As Form In Me.MdiChildren
-            FormCurrent.Close()
-        Next
-    End Sub
-#End Region
-
-    Private Sub UsuarioCerrarSesion() Handles menuitemArchivo_CerrarSesion.Click
-        If MsgBox("¿Desea cerrar la sesión del Usuario actual?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
-            labelUsuarioNombre.Image = Nothing
-            labelUsuarioNombre.Text = ""
-            pUsuario = Nothing
-            If Not formLogin.ShowDialog(Me) = DialogResult.OK Then
-                Application.Exit()
-                My.Application.Log.WriteEntry("La Aplicación ha finalizado porque el Usuario no ha iniciado sesión.", TraceEventType.Warning)
-                Exit Sub
-            End If
-        End If
-    End Sub
-
-    Private Sub buttonEntidades_Click() Handles buttonEntidades.ButtonClick
+#Region "Left Toolbar - Entidades"
+    Private Sub Entidades() Handles buttonEntidades.ButtonClick
         If Permisos.VerificarPermiso(Permisos.ENTIDAD) Then
             Me.Cursor = Cursors.WaitCursor
 
@@ -264,7 +284,7 @@
         End If
     End Sub
 
-    Private Sub AñosLectivosYCursosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AñosLectivosYCursosToolStripMenuItem.Click
+    Private Sub EntidadesAñosLectivosYCursos(sender As Object, e As EventArgs) Handles menuitemEntidadesAniosLectivosYCursos.Click
         If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO) Then
             Me.Cursor = Cursors.WaitCursor
 
@@ -278,8 +298,10 @@
             Me.Cursor = Cursors.Default
         End If
     End Sub
+#End Region
 
-    Private Sub buttonFacturar_ButtonClick() Handles buttonComprobantes.ButtonClick
+#Region "Left Toolbar - Comprobantes"
+    Private Sub Comprobantes() Handles buttonComprobantes.ButtonClick
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE) Then
             Me.Cursor = Cursors.WaitCursor
 
@@ -294,7 +316,7 @@
         End If
     End Sub
 
-    Private Sub menuitemFacturasGenerarLote_Click() Handles menuitemComprobantesGenerarLoteFacturas.Click
+    Private Sub ComprobantesGenerarLoteFacturas() Handles menuitemComprobantesGenerarLoteFacturas.Click
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE_GENERARLOTE) Then
             Me.Cursor = Cursors.WaitCursor
 
@@ -310,7 +332,7 @@
         End If
     End Sub
 
-    Private Sub menuitemTransmitirComprobantesElectronicos_Click(sender As Object, e As EventArgs) Handles menuitemComprobantesTransmitirAFIP.Click
+    Private Sub ComprobantesTransmitirAFIP(sender As Object, e As EventArgs) Handles menuitemComprobantesTransmitirAFIP.Click
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIRAAFIP) Then
             Me.Cursor = Cursors.WaitCursor
 
@@ -327,7 +349,7 @@
 
     End Sub
 
-    Private Sub menuitemComprobantesEnviarMail_Click(sender As Object, e As EventArgs) Handles menuitemComprobantesEnviarMail.Click
+    Private Sub ComprobantesEnviarMail(sender As Object, e As EventArgs) Handles menuitemComprobantesEnviarMail.Click
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE_ENVIAREMAIL) Then
             Me.Cursor = Cursors.WaitCursor
 
@@ -343,7 +365,9 @@
         End If
 
     End Sub
+#End Region
 
+#Region "Left Toolbar - Reportes"
     Private Sub buttonReportes_Click(sender As Object, e As EventArgs) Handles buttonReportes.Click
         If Permisos.VerificarPermiso(Permisos.REPORTE) Then
             Me.Cursor = Cursors.WaitCursor
@@ -358,28 +382,31 @@
             Me.Cursor = Cursors.Default
         End If
     End Sub
+#End Region
 
-#Region "Debug"
-    Private Sub Debug_AFIPWSHomologacionLogin() Handles menuitemDebugAFIPWSHomologacionLogin.Click
-        AFIP_TicketAcceso_Homo = CS_AFIP_WS.Login(CS_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION), "", CS_AFIP_WS.SERVICIO_FACTURACION_ELECTRONICA, My.Settings.AFIP_WS_Certificado_Homologacion, My.Settings.AFIP_WS_ClavePrivada)
+#Region "Controls behavior"
+    Private Sub labelUsuarioNombre_DoubleClick() Handles labelUsuarioNombre.MouseDown
+        CerrarSesionUsuario()
     End Sub
+#End Region
 
-    Private Sub Debug_AFIPWSHomologacionObtenerUltimoComprobante(sender As Object, e As EventArgs) Handles menuitemDebugAFIPWSHomologacionCompConsultar.Click
-        Dim TipoComprobante As Short
-        Dim PuntoVenta As Short
-
-        If AFIP_TicketAcceso_Homo = "" Then
-            MsgBox("No hay un Ticket de Acceso válido." & vbCrLf & "¿Ya inició sesión en AFIP?", vbExclamation, My.Application.Info.Title)
-        Else
-            TipoComprobante = CShort(InputBox("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSHomologacionCompConsultar.Text))
-            PuntoVenta = CShort(InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSHomologacionCompConsultar.Text))
-            MsgBox("El Último Número de comprobante autorizado es: " & CS_AFIP_WS.ObtenerUltinoNumeroComprobante(AFIP_TicketAcceso_Homo, CS_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION), "", CS_Parameter.GetString(Parametros.EMPRESA_CUIT), TipoComprobante, PuntoVenta))
+#Region "Extra stuff"
+    Private Sub CerrarSesionUsuario()
+        If MsgBox("¿Desea cerrar la sesión del Usuario actual?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
+            CS_Form.MDIChild_CloseAll(Me)
+            labelUsuarioNombre.Image = Nothing
+            labelUsuarioNombre.Text = ""
+            pUsuario = Nothing
+            If Not formLogin.ShowDialog(Me) = DialogResult.OK Then
+                Application.Exit()
+                My.Application.Log.WriteEntry("La Aplicación ha finalizado porque el Usuario no ha iniciado sesión.", TraceEventType.Warning)
+                Exit Sub
+            End If
+            formLogin.Close()
+            formLogin.Dispose()
         End If
     End Sub
 
-    Private Sub menuitemShowTestForm_Click(sender As Object, e As EventArgs) Handles menuitemShowTestForm.Click
-        formTest.Show()
-    End Sub
 #End Region
 
 End Class
