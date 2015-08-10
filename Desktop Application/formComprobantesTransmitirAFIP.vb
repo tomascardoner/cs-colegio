@@ -1,11 +1,9 @@
 ﻿Public Class formComprobantesTransmitirAFIP
-    Private dbcontext As New CSColegioContext(True)
+    Private dbContext As New CSColegioContext(True)
     Private listComprobantes As List(Of GridDataRow)
 
     Private Class GridDataRow
         Public Property IDComprobante As Integer
-        Public Property IDComprobanteLote As Integer
-        Public Property LoteNombre As String
         Public Property ComprobanteTipoNombre As String
         Public Property NumeroCompleto As String
         Public Property ApellidoNombre As String
@@ -14,7 +12,7 @@
 
     Private Sub formComprobantesTransmitirAFIP_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         buttonTransmitir.Enabled = False
-        comboboxCantidad.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, "Lote (primero pendiente)", "100", "50", "20", "10", "5", "1"})
+        comboboxCantidad.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, "500", "200", "100", "50", "20", "10", "5", "1"})
     End Sub
 
     Private Sub formComprobantesTransmitirAFIP_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -26,48 +24,24 @@
     End Sub
 
     Private Sub RefreshData()
-        Dim PrimerLotePendiente As ComprobanteLote
-
         Me.Cursor = Cursors.WaitCursor
 
         Try
 
             Select Case comboboxCantidad.SelectedIndex
                 Case 0  ' Todos
-                    listComprobantes = (From cc In dbcontext.Comprobante
-                                        Join cl In dbcontext.ComprobanteLote On cc.IDComprobanteLote Equals cl.IDComprobanteLote
-                                        Join ct In dbcontext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                        Where ct.EmisionElectronica And cc.CAE Is Nothing
-                                        Order By ct.Nombre, cc.NumeroCompleto
-                                        Select New GridDataRow With {.IDComprobante = cc.IDComprobante, .IDComprobanteLote = cc.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = cc.NumeroCompleto, .ApellidoNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal}).ToList
+                    listComprobantes = (From c In dbContext.Comprobante
+                                        Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
+                                        Where ct.EmisionElectronica And c.CAE Is Nothing
+                                        Order By ct.Nombre, c.NumeroCompleto
+                                        Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal}).ToList
 
-                Case 1  ' Primer Lote pendiente
-                    ' Busco el primer Lote a partir de los Comprobantes pendientes
-                    PrimerLotePendiente = (From cc In dbcontext.Comprobante
-                                           Join cl In dbcontext.ComprobanteLote On cc.IDComprobanteLote Equals cl.IDComprobanteLote
-                                           Join ct In dbcontext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                           Where ct.EmisionElectronica And cc.CAE Is Nothing
-                                           Order By cc.IDComprobanteLote
-                                           Select cl).FirstOrDefault
-
-                    If PrimerLotePendiente Is Nothing Then
-                        listComprobantes = Nothing
-                    Else
-                        listComprobantes = (From cc In dbcontext.Comprobante
-                                            Join cl In dbcontext.ComprobanteLote On cc.IDComprobanteLote Equals cl.IDComprobanteLote
-                                            Join ct In dbcontext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                            Where cc.IDComprobanteLote = PrimerLotePendiente.IDComprobanteLote = ct.EmisionElectronica And cc.CAE Is Nothing
-                                            Order By ct.Nombre, cc.PuntoVenta, cc.Numero
-                                            Select New GridDataRow With {.IDComprobante = cc.IDComprobante, .IDComprobanteLote = cc.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = cc.NumeroCompleto, .ApellidoNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal}).ToList
-                    End If
-
-                Case 2 To 7 ' Cantidad de Comprobantes
-                    listComprobantes = (From cc In dbcontext.Comprobante
-                                        Join cl In dbcontext.ComprobanteLote On cc.IDComprobanteLote Equals cl.IDComprobanteLote
-                                        Join ct In dbcontext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                        Where ct.EmisionElectronica And cc.CAE Is Nothing
-                                        Order By ct.Nombre, cc.PuntoVenta, cc.Numero
-                                        Select New GridDataRow With {.IDComprobante = cc.IDComprobante, .IDComprobanteLote = cc.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = cc.NumeroCompleto, .ApellidoNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal}).Take(CInt(comboboxCantidad.Text)).ToList
+                Case Is > 0 ' Cantidad de Comprobantes
+                    listComprobantes = (From c In dbContext.Comprobante
+                                        Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
+                                        Where ct.EmisionElectronica And c.CAE Is Nothing
+                                        Order By ct.Nombre, c.PuntoVenta, c.Numero
+                                        Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal}).Take(CInt(comboboxCantidad.Text)).ToList
 
             End Select
 
@@ -112,8 +86,8 @@
         Dim InternetProxy As String
         Dim CUIT_Emisor As String
         Dim GridDataRowActual As GridDataRow
-        Dim FacturaActual As Comprobante
-        Dim ArticuloActual As Articulo
+        Dim ComprobanteActual As Comprobante
+        Dim IDConcepto As Byte = 0
         Dim MonedaLocal As Moneda
         Dim MonedaLocalCotizacion As MonedaCotizacion
         Dim ComprobanteTipoActual As New ComprobanteTipo
@@ -142,13 +116,7 @@
 
         InternetProxy = CS_Parameter.GetString(Parametros.INTERNET_PROXY, "")
         CUIT_Emisor = CS_Parameter.GetString(Parametros.EMPRESA_CUIT)
-        ArticuloActual = dbcontext.Articulo.Find(CS_Parameter.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID))
-        If ArticuloActual Is Nothing Then
-            Me.Cursor = Cursors.WaitCursor
-            MsgBox("No se ha especificado el Artículo correspondiente a las cuotas mensuales.", vbExclamation, My.Application.Info.Title)
-            Exit Sub
-        End If
-        MonedaLocal = dbcontext.Moneda.Find(CS_Parameter.GetIntegerAsShort(Parametros.DEFAULT_MONEDA_ID))
+        MonedaLocal = dbContext.Moneda.Find(CS_Parameter.GetIntegerAsShort(Parametros.DEFAULT_MONEDA_ID))
         If MonedaLocal Is Nothing Then
             Me.Cursor = Cursors.WaitCursor
             MsgBox("No se ha especificado la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
@@ -178,81 +146,120 @@
             ' Hago que la grilla vaya mostrando la fila que se está procesando
             datagridviewComprobantes.CurrentCell = RowActual.Cells(0)
             GridDataRowActual = CType(RowActual.DataBoundItem, GridDataRow)
-            FacturaActual = dbcontext.Comprobante.Find(GridDataRowActual.IDComprobante)
-            If Not FacturaActual Is Nothing Then
-                If Not FacturaActual.CAE Is Nothing Then
+            ComprobanteActual = dbContext.Comprobante.Find(GridDataRowActual.IDComprobante)
+            If Not ComprobanteActual Is Nothing Then
+                If Not ComprobanteActual.CAE Is Nothing Then
                     ' La Factura ya tiene un CAE asignado. Esto no debería pasar, excepto que otra instancia de la Aplicación haya obtenido el CAE mientras esta ventana estaba abierta
-                    textboxStatus.AppendText(vbCrLf & String.Format("La {0} N° {1} ya tiene una C.A.E. asignado, por lo tanto, no se trasnmitirá.", FacturaActual.ComprobanteTipo.Nombre, FacturaActual.Numero))
+                    textboxStatus.AppendText(vbCrLf & String.Format("La {0} N° {1} ya tiene una C.A.E. asignado, por lo tanto, no se trasnmitirá.", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero))
                 Else
                     AFIP_Factura = New CS_AFIP_WS.FacturaElectronicaCabecera
                     With AFIP_Factura
-                        .Concepto = ArticuloActual.IDConcepto
+
+                        ' Todo esto es para determinar el Concepto a especificar en el pedido del CAE
+                        If ComprobanteTipoActual.UtilizaDetalle AndAlso ComprobanteActual.ComprobanteDetalle.Count > 0 Then
+                            For Each CDetalle As ComprobanteDetalle In ComprobanteActual.ComprobanteDetalle
+                                Select Case IDConcepto
+                                    Case CByte(0)
+                                        ' Es el primer Artículo, así que lo guardo
+                                        IDConcepto = CDetalle.Articulo.IDConcepto
+
+                                    Case CDetalle.Articulo.IDConcepto
+                                        ' Es el mismo Concepto que el/los Artículos anteriores, no hago nada
+
+                                    Case Else
+                                        If (IDConcepto = 1 Or IDConcepto = 2) And (CDetalle.Articulo.IDConcepto = 1 Or CDetalle.Articulo.IDConcepto = 2) Then
+                                            ' Hay Productos y Servicios, así que utilizo el Concepto correspondiente
+                                            IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS
+                                            Exit For
+                                        End If
+                                End Select
+                            Next
+                        Else
+                            IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO
+                        End If
+                        .Concepto = IDConcepto
 
                         ' Documento del Titular
-                        .TipoDocumento = CShort(FacturaActual.IDDocumentoTipo)
-                        .DocumentoNumero = CLng(FacturaActual.DocumentoNumero)
+                        .TipoDocumento = CShort(ComprobanteActual.IDDocumentoTipo)
+                        .DocumentoNumero = CLng(ComprobanteActual.DocumentoNumero)
 
                         ' Tipo de Comprobante
-                        If FacturaActual.IDComprobanteTipo <> ComprobanteTipoActual.IDComprobanteTipo Then
-                            ComprobanteTipoActual = dbcontext.ComprobanteTipo.Find(FacturaActual.IDComprobanteTipo)
+                        If ComprobanteActual.IDComprobanteTipo <> ComprobanteTipoActual.IDComprobanteTipo Then
+                            ComprobanteTipoActual = dbContext.ComprobanteTipo.Find(ComprobanteActual.IDComprobanteTipo)
                         End If
                         .TipoComprobante = ComprobanteTipoActual.CodigoAFIP
 
                         ' Datos de la Cabecera
-                        .PuntoVenta = CShort(FacturaActual.PuntoVenta)
-                        .ComprobanteDesde = CInt(FacturaActual.Numero)
-                        .ComprobanteHasta = CInt(FacturaActual.Numero)
-                        .ComprobanteFecha = FacturaActual.FechaEmision
+                        .PuntoVenta = CShort(ComprobanteActual.PuntoVenta)
+                        .ComprobanteDesde = CInt(ComprobanteActual.Numero)
+                        .ComprobanteHasta = CInt(ComprobanteActual.Numero)
+                        .ComprobanteFecha = ComprobanteActual.FechaEmision
 
                         ' Importes
-                        .ImporteTotal = FacturaActual.ImporteTotal
+                        .ImporteTotal = ComprobanteActual.ImporteTotal
                         .ImporteTotalConc = 0
-                        .ImporteNeto = FacturaActual.ImporteTotal
+                        .ImporteNeto = ComprobanteActual.ImporteTotal
                         .ImporteOperacionesExentas = 0
                         .ImporteTributos = 0
-                        .ImporteIVA = FacturaActual.ImporteImpuesto
+                        .ImporteIVA = ComprobanteActual.ImporteImpuesto
 
                         ' Fechas
-                        .FechaServicioDesde = FacturaActual.FechaServicioDesde.Value
-                        .FechaServicioHasta = FacturaActual.FechaServicioHasta.Value
-                        .FechaVencimientoPago = FacturaActual.FechaVencimiento.Value
+                        If ComprobanteActual.FechaServicioDesde.HasValue Then
+                            .FechaServicioDesde = ComprobanteActual.FechaServicioDesde.Value
+                        End If
+                        If ComprobanteActual.FechaServicioHasta.HasValue Then
+                            .FechaServicioHasta = ComprobanteActual.FechaServicioHasta.Value
+                        End If
+                        If ComprobanteActual.FechaVencimiento.HasValue Then
+                            .FechaVencimientoPago = ComprobanteActual.FechaVencimiento.Value
+                        End If
 
                         ' Moneda
                         .MonedaID = MonedaLocal.CodigoAFIP
                         .MonedaCotizacion = MonedaLocalCotizacion.Cotizacion
+
+                        ' Comprobantes Asociados
+                        For Each ComprobanteAsociacionActual As ComprobanteAsociacion In ComprobanteActual.ComprobanteAsociacion_Asociados
+                            Dim AFIP_ComprobanteAsociado As New ComprobanteAsociado
+                            AFIP_ComprobanteAsociado.TipoComprobante = ComprobanteAsociacionActual.ComprobanteAsociado.ComprobanteTipo.CodigoAFIP
+                            AFIP_ComprobanteAsociado.ComprobanteNumero = CInt(ComprobanteAsociacionActual.ComprobanteAsociado.Numero)
+                            AFIP_ComprobanteAsociado.PuntoVenta = CShort(ComprobanteAsociacionActual.ComprobanteAsociado.PuntoVenta)
+                            .ComprobantesAsociados.Add(AFIP_ComprobanteAsociado)
+                        Next
                     End With
 
                     ' Obtengo el CAE
-                    textboxStatus.AppendText(vbCrLf & String.Format("Solicitando el C.A.E. para la {0} N° {1}...", FacturaActual.ComprobanteTipo.Nombre, FacturaActual.Numero))
-                    ResultadoCAE = CS_AFIP_WS.ObtenerCAEFacturaElectronica(AFIP_TicketAcceso, WSFEv1_URL, InternetProxy, CUIT_Emisor, AFIP_Factura, LogPath, LogFileName)
+                    textboxStatus.AppendText(vbCrLf & String.Format("Solicitando el C.A.E. para la {0} N° {1}...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero))
+                    ResultadoCAE = CS_AFIP_WS.FacturaElectronica_ObtenerCAE(AFIP_TicketAcceso, WSFEv1_URL, InternetProxy, CUIT_Emisor, AFIP_Factura, LogPath, LogFileName)
                     If ResultadoCAE Is Nothing Then
                         RefreshData()
                         MostrarOcultarEstado(False)
                         Me.Cursor = Cursors.Default
                         Exit Sub
                     End If
+
                     If ResultadoCAE.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_ACEPTADO Then
                         progressbarStatus.Value += 1
                         textboxStatus.AppendText("OK - CAE: " & ResultadoCAE.Numero)
 
-                        dbcontext.Comprobante.Attach(FacturaActual)
+                        dbContext.Comprobante.Attach(ComprobanteActual)
 
-                        FacturaActual.CAE = ResultadoCAE.Numero
-                        FacturaActual.CAEVencimiento = ResultadoCAE.FechaVencimiento
-                        FacturaActual.IDUsuarioTransmision = pUsuario.IDUsuario
-                        FacturaActual.FechaHoraTransmision = DateTime.Now
+                        ComprobanteActual.CAE = ResultadoCAE.Numero
+                        ComprobanteActual.CAEVencimiento = ResultadoCAE.FechaVencimiento
+                        ComprobanteActual.IDUsuarioTransmision = pUsuario.IDUsuario
+                        ComprobanteActual.FechaHoraTransmision = DateTime.Now
 
-                        dbcontext.SaveChanges()
+                        dbContext.SaveChanges()
                     Else
                         textboxStatus.AppendText("RECHAZADO!!")
 
-                        MensajeError = "Se Rechazó la Solicitud de CAE para la Factura Electrónica:"
+                        MensajeError = "Se Rechazó la Solicitud de CAE para el Comprobante Electrónico:"
                         MensajeError &= vbCrLf & vbCrLf
-                        MensajeError &= "Factura N°: " & FacturaActual.Numero
+                        MensajeError &= String.Format("{0} N°: {1}", ComprobanteTipoActual.Nombre, ComprobanteActual.Numero)
                         MensajeError &= vbCrLf
-                        MensajeError &= "Titular:    " & FacturaActual.Entidad.ApellidoNombre
+                        MensajeError &= "Titular: " & ComprobanteActual.ApellidoNombre
                         MensajeError &= vbCrLf
-                        MensajeError &= "Importe:    " & FormatCurrency(FacturaActual.ImporteTotal)
+                        MensajeError &= "Importe: " & FormatCurrency(ComprobanteActual.ImporteTotal)
                         If ResultadoCAE.Observaciones <> "" Then
                             MensajeError &= vbCrLf & vbCrLf
                             MensajeError &= "Observaciones: " & ResultadoCAE.Observaciones

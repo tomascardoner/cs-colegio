@@ -23,192 +23,78 @@ Partial Class formTest
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.MyTab = New CSColegio.DesktopApplication.CS_Control_TabControl()
-        Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.TabPage4 = New System.Windows.Forms.TabPage()
-        Me.TabPage5 = New System.Windows.Forms.TabPage()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox4 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.MyTab.SuspendLayout()
-        Me.TabPage1.SuspendLayout()
+        Me.flowpanelMediosPago_Subtotal = New System.Windows.Forms.FlowLayoutPanel()
+        Me.panelMediosPago_Subtotal = New System.Windows.Forms.Panel()
+        Me.textboxMediosPago_Subtotal = New System.Windows.Forms.TextBox()
+        Me.labelMediosPago_Subtotal = New System.Windows.Forms.Label()
+        Me.flowpanelMediosPago_Subtotal.SuspendLayout()
+        Me.panelMediosPago_Subtotal.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'MyTab
-        '
-        Me.MyTab.Controls.Add(Me.TabPage1)
-        Me.MyTab.Controls.Add(Me.TabPage2)
-        Me.MyTab.Controls.Add(Me.TabPage3)
-        Me.MyTab.Controls.Add(Me.TabPage4)
-        Me.MyTab.Controls.Add(Me.TabPage5)
-        Me.MyTab.Location = New System.Drawing.Point(12, 12)
-        Me.MyTab.Name = "MyTab"
-        Me.MyTab.SelectedIndex = 0
-        Me.MyTab.Size = New System.Drawing.Size(829, 413)
-        Me.MyTab.TabIndex = 0
-        '
-        'TabPage1
-        '
-        Me.TabPage1.Controls.Add(Me.TextBox1)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(821, 387)
-        Me.TabPage1.TabIndex = 0
-        Me.TabPage1.Text = "TabPage1"
-        Me.TabPage1.UseVisualStyleBackColor = True
-        '
-        'TabPage2
-        '
-        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(821, 387)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "TabPage2"
-        Me.TabPage2.UseVisualStyleBackColor = True
-        '
-        'TabPage3
-        '
-        Me.TabPage3.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(821, 387)
-        Me.TabPage3.TabIndex = 2
-        Me.TabPage3.Text = "TabPage3"
-        Me.TabPage3.UseVisualStyleBackColor = True
-        '
-        'TabPage4
-        '
-        Me.TabPage4.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage4.Name = "TabPage4"
-        Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage4.Size = New System.Drawing.Size(821, 387)
-        Me.TabPage4.TabIndex = 3
-        Me.TabPage4.Text = "TabPage4"
-        Me.TabPage4.UseVisualStyleBackColor = True
-        '
-        'TabPage5
-        '
-        Me.TabPage5.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage5.Name = "TabPage5"
-        Me.TabPage5.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage5.Size = New System.Drawing.Size(821, 387)
-        Me.TabPage5.TabIndex = 4
-        Me.TabPage5.Text = "TabPage5"
-        Me.TabPage5.UseVisualStyleBackColor = True
-        '
-        'CheckBox1
-        '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Checked = True
-        Me.CheckBox1.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox1.Location = New System.Drawing.Point(16, 438)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(81, 17)
-        Me.CheckBox1.TabIndex = 0
-        Me.CheckBox1.Text = "CheckBox1"
-        Me.CheckBox1.UseVisualStyleBackColor = True
-        '
-        'CheckBox2
-        '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Checked = True
-        Me.CheckBox2.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox2.Location = New System.Drawing.Point(103, 438)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(81, 17)
-        Me.CheckBox2.TabIndex = 1
-        Me.CheckBox2.Text = "CheckBox2"
-        Me.CheckBox2.UseVisualStyleBackColor = True
-        '
-        'CheckBox3
-        '
-        Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Checked = True
-        Me.CheckBox3.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox3.Location = New System.Drawing.Point(190, 438)
-        Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(81, 17)
-        Me.CheckBox3.TabIndex = 2
-        Me.CheckBox3.Text = "CheckBox3"
-        Me.CheckBox3.UseVisualStyleBackColor = True
-        '
-        'CheckBox4
-        '
-        Me.CheckBox4.AutoSize = True
-        Me.CheckBox4.Checked = True
-        Me.CheckBox4.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox4.Location = New System.Drawing.Point(277, 438)
-        Me.CheckBox4.Name = "CheckBox4"
-        Me.CheckBox4.Size = New System.Drawing.Size(81, 17)
-        Me.CheckBox4.TabIndex = 3
-        Me.CheckBox4.Text = "CheckBox4"
-        Me.CheckBox4.UseVisualStyleBackColor = True
-        '
-        'CheckBox5
-        '
-        Me.CheckBox5.AutoSize = True
-        Me.CheckBox5.Checked = True
-        Me.CheckBox5.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox5.Location = New System.Drawing.Point(364, 438)
-        Me.CheckBox5.Name = "CheckBox5"
-        Me.CheckBox5.Size = New System.Drawing.Size(81, 17)
-        Me.CheckBox5.TabIndex = 4
-        Me.CheckBox5.Text = "CheckBox5"
-        Me.CheckBox5.UseVisualStyleBackColor = True
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(273, 96)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ReadOnly = True
-        Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.TextBox1.Size = New System.Drawing.Size(294, 78)
-        Me.TextBox1.TabIndex = 0
         '
         'Timer1
         '
         Me.Timer1.Interval = 1000
+        '
+        'flowpanelMediosPago_Subtotal
+        '
+        Me.flowpanelMediosPago_Subtotal.AutoSize = True
+        Me.flowpanelMediosPago_Subtotal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.flowpanelMediosPago_Subtotal.Controls.Add(Me.panelMediosPago_Subtotal)
+        Me.flowpanelMediosPago_Subtotal.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
+        Me.flowpanelMediosPago_Subtotal.Location = New System.Drawing.Point(191, 113)
+        Me.flowpanelMediosPago_Subtotal.Name = "flowpanelMediosPago_Subtotal"
+        Me.flowpanelMediosPago_Subtotal.Size = New System.Drawing.Size(149, 34)
+        Me.flowpanelMediosPago_Subtotal.TabIndex = 3
+        '
+        'panelMediosPago_Subtotal
+        '
+        Me.panelMediosPago_Subtotal.AutoSize = True
+        Me.panelMediosPago_Subtotal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelMediosPago_Subtotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.panelMediosPago_Subtotal.Controls.Add(Me.textboxMediosPago_Subtotal)
+        Me.panelMediosPago_Subtotal.Controls.Add(Me.labelMediosPago_Subtotal)
+        Me.panelMediosPago_Subtotal.Location = New System.Drawing.Point(3, 3)
+        Me.panelMediosPago_Subtotal.Name = "panelMediosPago_Subtotal"
+        Me.panelMediosPago_Subtotal.Size = New System.Drawing.Size(143, 28)
+        Me.panelMediosPago_Subtotal.TabIndex = 3
+        '
+        'textboxMediosPago_Subtotal
+        '
+        Me.textboxMediosPago_Subtotal.Location = New System.Drawing.Point(58, 3)
+        Me.textboxMediosPago_Subtotal.Name = "textboxMediosPago_Subtotal"
+        Me.textboxMediosPago_Subtotal.Size = New System.Drawing.Size(80, 20)
+        Me.textboxMediosPago_Subtotal.TabIndex = 1
+        Me.textboxMediosPago_Subtotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'labelMediosPago_Subtotal
+        '
+        Me.labelMediosPago_Subtotal.AutoSize = True
+        Me.labelMediosPago_Subtotal.Location = New System.Drawing.Point(3, 6)
+        Me.labelMediosPago_Subtotal.Name = "labelMediosPago_Subtotal"
+        Me.labelMediosPago_Subtotal.Size = New System.Drawing.Size(49, 13)
+        Me.labelMediosPago_Subtotal.TabIndex = 0
+        Me.labelMediosPago_Subtotal.Text = "Subtotal:"
         '
         'formTest
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(853, 467)
-        Me.Controls.Add(Me.CheckBox5)
-        Me.Controls.Add(Me.CheckBox4)
-        Me.Controls.Add(Me.CheckBox3)
-        Me.Controls.Add(Me.CheckBox2)
-        Me.Controls.Add(Me.CheckBox1)
-        Me.Controls.Add(Me.MyTab)
+        Me.Controls.Add(Me.flowpanelMediosPago_Subtotal)
         Me.Name = "formTest"
         Me.Text = "formTest"
-        Me.MyTab.ResumeLayout(False)
-        Me.TabPage1.ResumeLayout(False)
-        Me.TabPage1.PerformLayout()
+        Me.flowpanelMediosPago_Subtotal.ResumeLayout(False)
+        Me.flowpanelMediosPago_Subtotal.PerformLayout()
+        Me.panelMediosPago_Subtotal.ResumeLayout(False)
+        Me.panelMediosPago_Subtotal.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents MyTab As CSColegio.DesktopApplication.CS_Control_TabControl
-    Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage3 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage4 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage5 As System.Windows.Forms.TabPage
-    Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
-    Friend WithEvents CheckBox2 As System.Windows.Forms.CheckBox
-    Friend WithEvents CheckBox3 As System.Windows.Forms.CheckBox
-    Friend WithEvents CheckBox4 As System.Windows.Forms.CheckBox
-    Friend WithEvents CheckBox5 As System.Windows.Forms.CheckBox
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
     Friend WithEvents Timer1 As System.Windows.Forms.Timer
+    Friend WithEvents flowpanelMediosPago_Subtotal As System.Windows.Forms.FlowLayoutPanel
+    Friend WithEvents panelMediosPago_Subtotal As System.Windows.Forms.Panel
+    Friend WithEvents textboxMediosPago_Subtotal As System.Windows.Forms.TextBox
+    Friend WithEvents labelMediosPago_Subtotal As System.Windows.Forms.Label
 End Class

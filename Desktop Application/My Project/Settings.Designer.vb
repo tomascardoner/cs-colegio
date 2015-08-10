@@ -159,7 +159,8 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Tomas\Dropbox\Colegio Horizonte\CS-Colegio\Certificados\privada.key")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Tomas\Dropbox\Colegio Horizonte\CS-Colegio\Certificados\cardonersistemas"& _ 
+            ".key")>  _
         Public ReadOnly Property AFIP_WS_ClavePrivada() As String
             Get
                 Return CType(Me("AFIP_WS_ClavePrivada"),String)

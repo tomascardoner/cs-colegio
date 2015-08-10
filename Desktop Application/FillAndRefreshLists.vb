@@ -403,6 +403,17 @@
         ComboBoxControl.DataSource = localList
     End Sub
 
+    Friend Sub ComprobanteAsociacionMotivo(ByRef ComboBoxControl As ComboBox)
+        Dim listComprobanteAsociacionMotivo As List(Of ComprobanteAsociacionMotivo)
+
+        ComboBoxControl.ValueMember = "IDComprobanteAsociacionMotivo"
+        ComboBoxControl.DisplayMember = "Nombre"
+
+        listComprobanteAsociacionMotivo = dbContext.ComprobanteAsociacionMotivo.OrderBy(Function(cl) cl.Nombre).ToList
+
+        ComboBoxControl.DataSource = listComprobanteAsociacionMotivo
+    End Sub
+
     Public Sub New()
         dbContext = New CSColegioContext(True)
     End Sub

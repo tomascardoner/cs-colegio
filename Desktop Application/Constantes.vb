@@ -38,12 +38,16 @@
     Friend Const OPERACIONTIPO_COMPRA As String = "C"
     Friend Const OPERACIONTIPO_VENTA As String = "V"
 
+    Friend Const MOVIMIENTOTIPO_CREDITO As String = "C"
+    Friend Const MOVIMIENTOTIPO_DEBITO As String = "D"
+
     Friend Const COMPROBANTE_PUNTOVENTA_CARACTERES As Byte = 4
     Friend Const COMPROBANTE_NUMERO_CARACTERES As Byte = 8
 
     Friend Const COMPROBANTE_CONCEPTO_PRODUCTO As Byte = 1
     Friend Const COMPROBANTE_CONCEPTO_SERVICIOS As Byte = 2
     Friend Const COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS As Byte = 3
+    Friend Const COMPROBANTE_CONCEPTO_OTROS As Byte = 4
 
     Friend Const CHEQUE_ESTADO_ENCARTERA As String = "EC"
     Friend Const CHEQUE_ESTADO_ENTREGADO As String = "ET"

@@ -1,4 +1,5 @@
 ﻿Public Class formComprobanteAsociacion
+
 #Region "Declarations"
     Private mComprobanteActual As Comprobante
     Private mComprobanteTipoActual As ComprobanteTipo
@@ -47,6 +48,7 @@
 
     Friend Sub InitializeFormAndControls()
         ' Cargo los ComboBox
+        pFillAndRefreshLists.ComprobanteAsociacionMotivo(comboboxMotivo)
         FillList_Comprobante()
     End Sub
 
@@ -61,10 +63,12 @@
         Dim listComprobantes As List(Of GridRowData_Comprobante)
 
         Using dbContext As New CSColegioContext(True)
-            listComprobantes = (From c In dbContext.Comprobante
-                                Where c.IDEntidad = mComprobanteActual.IDEntidad AndAlso c.ComprobanteTipo.OperacionTipo = mComprobanteTipoActual.OperacionTipo AndAlso c.IDComprobanteTipo <> mComprobanteActual.IDComprobanteTipo
-                                Order By c.FechaEmision
-                                Select New GridRowData_Comprobante With {.IDComprobante = c.IDComprobante, .TipoNombre = c.ComprobanteTipo.NombreConLetra, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal}).ToList
+            listComprobantes = (From ct In dbContext.ComprobanteTipo
+                                From cta In ct.ComprobanteTipo_Asociantes
+                                From c In ct.Comprobante
+                                Where c.IDEntidad = mComprobanteActual.IDEntidad And ct.OperacionTipo = mComprobanteTipoActual.OperacionTipo And cta.IDComprobanteTipo = mComprobanteActual.IDComprobanteTipo
+                                Order By c.FechaEmision Descending
+                                Select New GridRowData_Comprobante With {.IDComprobante = c.IDComprobante, .TipoNombre = ct.NombreConLetra, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal}).ToList
         End Using
 
         datagridviewMain.AutoGenerateColumns = False

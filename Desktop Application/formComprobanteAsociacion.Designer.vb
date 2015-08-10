@@ -27,21 +27,19 @@ Partial Class formComprobanteAsociacion
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.toolstripMain = New System.Windows.Forms.ToolStrip()
         Me.buttonCerrar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
         Me.buttonCancelar = New System.Windows.Forms.ToolStripButton()
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
         Me.datagridviewMain = New System.Windows.Forms.DataGridView()
+        Me.labelMotivo = New System.Windows.Forms.Label()
+        Me.labelComprobanteAsociado = New System.Windows.Forms.Label()
+        Me.comboboxMotivo = New System.Windows.Forms.ComboBox()
         Me.columnTipoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnNumeroCompleto = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnFecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnImporteSinAplicar = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.labelMotivo = New System.Windows.Forms.Label()
-        Me.labelComprobanteAsociado = New System.Windows.Forms.Label()
-        Me.comboboxMotivo = New System.Windows.Forms.ComboBox()
         Me.toolstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -106,7 +104,7 @@ Partial Class formComprobanteAsociacion
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
         Me.datagridviewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.datagridviewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnTipoNombre, Me.columnNumeroCompleto, Me.columnFecha, Me.columnImporteTotal, Me.columnImporteSinAplicar})
+        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnTipoNombre, Me.columnNumeroCompleto, Me.columnFecha, Me.columnImporteTotal})
         Me.datagridviewMain.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.datagridviewMain.Location = New System.Drawing.Point(12, 101)
         Me.datagridviewMain.MultiSelect = False
@@ -117,6 +115,32 @@ Partial Class formComprobanteAsociacion
         Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewMain.Size = New System.Drawing.Size(417, 215)
         Me.datagridviewMain.TabIndex = 7
+        '
+        'labelMotivo
+        '
+        Me.labelMotivo.AutoSize = True
+        Me.labelMotivo.Location = New System.Drawing.Point(9, 53)
+        Me.labelMotivo.Name = "labelMotivo"
+        Me.labelMotivo.Size = New System.Drawing.Size(123, 13)
+        Me.labelMotivo.TabIndex = 8
+        Me.labelMotivo.Text = "Motivo de la Asociación:"
+        '
+        'labelComprobanteAsociado
+        '
+        Me.labelComprobanteAsociado.AutoSize = True
+        Me.labelComprobanteAsociado.Location = New System.Drawing.Point(9, 85)
+        Me.labelComprobanteAsociado.Name = "labelComprobanteAsociado"
+        Me.labelComprobanteAsociado.Size = New System.Drawing.Size(119, 13)
+        Me.labelComprobanteAsociado.TabIndex = 6
+        Me.labelComprobanteAsociado.Text = "Comprobante a asociar:"
+        '
+        'comboboxMotivo
+        '
+        Me.comboboxMotivo.FormattingEnabled = True
+        Me.comboboxMotivo.Location = New System.Drawing.Point(138, 50)
+        Me.comboboxMotivo.Name = "comboboxMotivo"
+        Me.comboboxMotivo.Size = New System.Drawing.Size(291, 21)
+        Me.comboboxMotivo.TabIndex = 9
         '
         'columnTipoNombre
         '
@@ -162,44 +186,7 @@ Partial Class formComprobanteAsociacion
         Me.columnImporteTotal.HeaderText = "Importe total"
         Me.columnImporteTotal.Name = "columnImporteTotal"
         Me.columnImporteTotal.ReadOnly = True
-        Me.columnImporteTotal.Width = 83
-        '
-        'columnImporteSinAplicar
-        '
-        Me.columnImporteSinAplicar.DataPropertyName = "ImporteSinAplicar"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle6.Format = "C2"
-        DataGridViewCellStyle6.NullValue = Nothing
-        Me.columnImporteSinAplicar.DefaultCellStyle = DataGridViewCellStyle6
-        Me.columnImporteSinAplicar.HeaderText = "Importe pendiente"
-        Me.columnImporteSinAplicar.Name = "columnImporteSinAplicar"
-        Me.columnImporteSinAplicar.ReadOnly = True
-        '
-        'labelMotivo
-        '
-        Me.labelMotivo.AutoSize = True
-        Me.labelMotivo.Location = New System.Drawing.Point(9, 53)
-        Me.labelMotivo.Name = "labelMotivo"
-        Me.labelMotivo.Size = New System.Drawing.Size(123, 13)
-        Me.labelMotivo.TabIndex = 8
-        Me.labelMotivo.Text = "Motivo de la Asociación:"
-        '
-        'labelComprobanteAsociado
-        '
-        Me.labelComprobanteAsociado.AutoSize = True
-        Me.labelComprobanteAsociado.Location = New System.Drawing.Point(9, 85)
-        Me.labelComprobanteAsociado.Name = "labelComprobanteAsociado"
-        Me.labelComprobanteAsociado.Size = New System.Drawing.Size(119, 13)
-        Me.labelComprobanteAsociado.TabIndex = 6
-        Me.labelComprobanteAsociado.Text = "Comprobante a asociar:"
-        '
-        'comboboxMotivo
-        '
-        Me.comboboxMotivo.FormattingEnabled = True
-        Me.comboboxMotivo.Location = New System.Drawing.Point(138, 50)
-        Me.comboboxMotivo.Name = "comboboxMotivo"
-        Me.comboboxMotivo.Size = New System.Drawing.Size(291, 21)
-        Me.comboboxMotivo.TabIndex = 9
+        Me.columnImporteTotal.Width = 90
         '
         'formComprobanteAsociacion
         '
@@ -230,12 +217,11 @@ Partial Class formComprobanteAsociacion
     Friend WithEvents buttonCancelar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonGuardar As System.Windows.Forms.ToolStripButton
     Friend WithEvents datagridviewMain As System.Windows.Forms.DataGridView
+    Friend WithEvents labelMotivo As System.Windows.Forms.Label
+    Friend WithEvents labelComprobanteAsociado As System.Windows.Forms.Label
+    Friend WithEvents comboboxMotivo As System.Windows.Forms.ComboBox
     Friend WithEvents columnTipoNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnNumeroCompleto As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnFecha As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnImporteSinAplicar As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents labelMotivo As System.Windows.Forms.Label
-    Friend WithEvents labelComprobanteAsociado As System.Windows.Forms.Label
-    Friend WithEvents comboboxMotivo As System.Windows.Forms.ComboBox
 End Class

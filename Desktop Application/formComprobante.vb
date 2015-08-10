@@ -15,10 +15,20 @@
     Public Class GridRowData_Aplicacion
         Public Property ComprobanteAplicacion As ComprobanteAplicacion
         Public Property ComprobanteTipoNombre As String
+        Public Property MovimientoTipo As String
         Public Property NumeroCompleto As String
         Public Property FechaEmision As Date
         Public Property ImporteTotal As Decimal
         Public Property ImporteAplicado As Decimal
+    End Class
+
+    Public Class GridRowData_Asociacion
+        Public Property ComprobanteAsociacion As ComprobanteAsociacion
+        Public Property Motivo As String
+        Public Property ComprobanteTipoNombre As String
+        Public Property NumeroCompleto As String
+        Public Property FechaEmision As Date
+        Public Property ImporteTotal As Decimal
     End Class
 
     Public Class GridRowData_MedioPago
@@ -70,8 +80,8 @@
         CambiarTipoComprobante()
 
         If IDComprobante > 0 Then
-            If mComprobanteActual.ComprobanteTipo.EmisionElectronica.HasValue Then
-                buttonEditar.Visible = Not (mComprobanteActual.ComprobanteTipo.EmisionElectronica.Value And Not mComprobanteActual.CAE Is Nothing)
+            If mComprobanteActual.ComprobanteTipo.EmisionElectronica.HasValue AndAlso mComprobanteActual.ComprobanteTipo.EmisionElectronica.Value Then
+                buttonEditar.Visible = (mEditMode = False And mComprobanteActual.CAE Is Nothing)
             End If
         Else
             comboboxComprobanteTipo.Enabled = True
@@ -86,17 +96,17 @@
             Exit Sub
         End If
 
-        If comboboxComprobanteTipo.SelectedIndex = -1 Then
-            CS_Form.ControlsChangeStateReadOnly(Me.Controls, True, True, toolstripMain.Name, comboboxComprobanteTipo.Name)
-            Exit Sub
-        End If
-
         buttonGuardar.Visible = mEditMode
         buttonCancelar.Visible = mEditMode
         buttonEditar.Visible = Not mEditMode
         buttonCerrar.Visible = Not mEditMode
 
-        ExceptControlsArray = {toolstripMain.Name, textboxIDComprobante.Name, textboxEntidad.Name, textboxFechaHoraCreacion.Name, textboxUsuarioCreacion.Name, textboxFechaHoraModificacion.Name, textboxUsuarioModificacion.Name, textboxUsuarioEnvioEmail.Name, textboxFechaHoraEnvioEmail.Name}
+        If comboboxComprobanteTipo.SelectedIndex = -1 Then
+            CS_Form.ControlsChangeStateReadOnly(Me.Controls, True, True, toolstripMain.Name, comboboxComprobanteTipo.Name)
+            Exit Sub
+        End If
+
+        ExceptControlsArray = {toolstripMain.Name, textboxIDComprobante.Name, textboxEntidad.Name, textboxDetalle_Subtotal.Name, textboxAplicaciones_Subtotal.Name, textboxImpuestos_Subtotal.Name, textboxMediosPago_Subtotal.Name, textboxFechaHoraCreacion.Name, textboxUsuarioCreacion.Name, textboxFechaHoraModificacion.Name, textboxUsuarioModificacion.Name, textboxUsuarioEnvioEmail.Name, textboxFechaHoraEnvioEmail.Name}
         ExceptControlsString = String.Join(",", ExceptControlsArray)
         If mEditMode Then
             If mComprobanteActual.IDComprobante > 0 Then
@@ -105,7 +115,10 @@
             If mUtilizaNumerador Then
                 ExceptControlsString &= "," & textboxPuntoVenta.Name & "," & textboxNumero.Name
             End If
-            ExceptControlsString &= "," & textboxImporteSubtotal.Name & "," & textboxImporteImpuesto.Name & "," & textboxImporteTotal.Name
+            If mComprobanteActual.IDComprobante > 0 AndAlso (mComprobanteActual.ComprobanteTipo.UtilizaDetalle Or mComprobanteActual.ComprobanteTipo.UtilizaMedioPago) Then
+                ExceptControlsString &= "," & textboxImporteSubtotal.Name
+            End If
+            ExceptControlsString &= "," & textboxImporteImpuesto.Name & "," & textboxImporteTotal.Name
         End If
         ExceptControlsArray = ExceptControlsString.Split(","c)
         CS_Form.ControlsChangeStateReadOnly(Me.Controls, Not mEditMode, True, ExceptControlsArray)
@@ -205,10 +218,19 @@
             textboxImporteSubtotal.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.ImporteSubtotal)
             textboxImporteImpuesto.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.ImporteImpuesto)
             textboxImporteTotal.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.ImporteTotal)
-        End With
 
-        RefreshData_Aplicaciones()
-        RefreshData_MediosPago()
+            If .IDComprobante > 0 Then
+                If mComprobanteActual.ComprobanteTipo.UtilizaAplicacion Then
+                    RefreshData_Aplicaciones()
+                End If
+                If mComprobanteActual.ComprobanteTipo.UtilizaAsociacion Then
+                    RefreshData_Asociaciones()
+                End If
+                If mComprobanteActual.ComprobanteTipo.UtilizaMedioPago Then
+                    RefreshData_MediosPago()
+                End If
+            End If
+        End With
     End Sub
 
     Friend Sub SetDataFromControlsToObject()
@@ -281,7 +303,7 @@
             listAplicaciones = (From ca In mComprobanteActual.ComprobanteAplicacion_Aplicados
                                 Join c In mdbContext.Comprobante On ca.IDComprobanteAplicado Equals c.IDComprobante
                                 Join ct In mdbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                Select New GridRowData_Aplicacion With {.ComprobanteAplicacion = ca, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal, .ImporteAplicado = ca.Importe}).ToList
+                                Select New GridRowData_Aplicacion With {.ComprobanteAplicacion = ca, .ComprobanteTipoNombre = ct.Nombre, .MovimientoTipo = ct.MovimientoTipo, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal, .ImporteAplicado = ca.Importe}).ToList
 
             datagridviewAplicaciones.AutoGenerateColumns = False
             datagridviewAplicaciones.DataSource = listAplicaciones
@@ -293,10 +315,14 @@
         End Try
 
         For Each GridRowData_AplicacionActual As GridRowData_Aplicacion In listAplicaciones
-            Total += GridRowData_AplicacionActual.ImporteAplicado
+            Select Case GridRowData_AplicacionActual.MovimientoTipo
+                Case Constantes.MOVIMIENTOTIPO_CREDITO
+                    Total += GridRowData_AplicacionActual.ImporteAplicado
+                Case Constantes.MOVIMIENTOTIPO_DEBITO
+                    Total -= GridRowData_AplicacionActual.ImporteAplicado
+            End Select
         Next
-        'textboxImporteSubtotal.Text = FormatCurrency(Total)
-        'textboxImporteTotal.Text = FormatCurrency(Total)
+        textboxAplicaciones_Subtotal.Text = FormatCurrency(Total)
 
         Me.Cursor = Cursors.Default
 
@@ -310,47 +336,40 @@
         End If
     End Sub
 
-    Friend Sub RefreshData_Asociaciones(Optional ByVal PositionIDComprobanteAplicado As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
-        Dim listAplicaciones As List(Of GridRowData_Aplicacion)
-        Dim Total As Decimal = 0
+    Friend Sub RefreshData_Asociaciones(Optional ByVal PositionIDComprobanteAsociado As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
+        Dim listAsociaciones As List(Of GridRowData_Asociacion)
 
         If RestoreCurrentPosition Then
-            If datagridviewAplicaciones.CurrentRow Is Nothing Then
-                PositionIDComprobanteAplicado = 0
+            If datagridviewAsociaciones.CurrentRow Is Nothing Then
+                PositionIDComprobanteAsociado = 0
             Else
-                PositionIDComprobanteAplicado = CType(datagridviewAplicaciones.CurrentRow.DataBoundItem, GridRowData_Aplicacion).ComprobanteAplicacion.IDComprobanteAplicado
+                PositionIDComprobanteAsociado = CType(datagridviewAsociaciones.CurrentRow.DataBoundItem, GridRowData_Asociacion).ComprobanteAsociacion.IDComprobanteAsociado
             End If
         End If
 
         Me.Cursor = Cursors.WaitCursor
 
         Try
-            listAplicaciones = (From ca In mComprobanteActual.ComprobanteAplicacion_Aplicados
-                                Join c In mdbContext.Comprobante On ca.IDComprobanteAplicado Equals c.IDComprobante
+            listAsociaciones = (From ca In mComprobanteActual.ComprobanteAsociacion_Asociados
+                                Join c In mdbContext.Comprobante On ca.IDComprobanteAsociado Equals c.IDComprobante
                                 Join ct In mdbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                Select New GridRowData_Aplicacion With {.ComprobanteAplicacion = ca, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal, .ImporteAplicado = ca.Importe}).ToList
+                                Select New GridRowData_Asociacion With {.ComprobanteAsociacion = ca, .Motivo = ca.Motivo, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal}).ToList
 
-            datagridviewAplicaciones.AutoGenerateColumns = False
-            datagridviewAplicaciones.DataSource = listAplicaciones
+            datagridviewAsociaciones.AutoGenerateColumns = False
+            datagridviewAsociaciones.DataSource = listAsociaciones
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al leer los Comprobantes aplicados.")
+            CS_Error.ProcessError(ex, "Error al leer los Comprobantes Asociados.")
             Me.Cursor = Cursors.Default
             Exit Sub
         End Try
 
-        For Each GridRowData_AplicacionActual As GridRowData_Aplicacion In listAplicaciones
-            Total += GridRowData_AplicacionActual.ImporteAplicado
-        Next
-        'textboxImporteSubtotal.Text = FormatCurrency(Total)
-        'textboxImporteTotal.Text = FormatCurrency(Total)
-
         Me.Cursor = Cursors.Default
 
-        If PositionIDComprobanteAplicado <> 0 Then
-            For Each CurrentRowChecked As DataGridViewRow In datagridviewAplicaciones.Rows
-                If CType(datagridviewAplicaciones.CurrentRow.DataBoundItem, GridRowData_Aplicacion).ComprobanteAplicacion.IDComprobanteAplicado = PositionIDComprobanteAplicado Then
-                    datagridviewAplicaciones.CurrentCell = CurrentRowChecked.Cells(0)
+        If PositionIDComprobanteAsociado <> 0 Then
+            For Each CurrentRowChecked As DataGridViewRow In datagridviewAsociaciones.Rows
+                If CType(datagridviewAsociaciones.CurrentRow.DataBoundItem, GridRowData_Asociacion).ComprobanteAsociacion.IDComprobanteAsociado = PositionIDComprobanteAsociado Then
+                    datagridviewAsociaciones.CurrentCell = CurrentRowChecked.Cells(0)
                     Exit For
                 End If
             Next
@@ -389,6 +408,7 @@
         For Each GridRowData_MedioPagoCurrent As GridRowData_MedioPago In listMediosPago
             Total += GridRowData_MedioPagoCurrent.Importe
         Next
+        textboxMediosPago_Subtotal.Text = FormatCurrency(Total)
         textboxImporteSubtotal.Text = FormatCurrency(Total)
         textboxImporteTotal.Text = FormatCurrency(Total)
 
@@ -445,6 +465,12 @@
 
     Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxIDComprobante.GotFocus, textboxPuntoVenta.GotFocus, textboxNumero.GotFocus, textboxEntidad.GotFocus, textboxImporteSubtotal.GotFocus, textboxImporteImpuesto.GotFocus, textboxImporteTotal.GotFocus
         CType(sender, TextBox).SelectAll()
+    End Sub
+
+    Private Sub textboxImporteSubtotal_TextChanged() Handles textboxImporteSubtotal.TextChanged
+        If mEditMode And Not textboxImporteSubtotal.ReadOnly Then
+            textboxImporteTotal.Text = FormatCurrency(textboxImporteSubtotal.Text)
+        End If
     End Sub
 #End Region
 
@@ -559,6 +585,33 @@
             Exit Sub
         End If
 
+        ' Importe Subtotal
+        If mComprobanteTipoActual.UtilizaDetalle = False And mComprobanteTipoActual.UtilizaMedioPago = False Then
+            If textboxImporteSubtotal.Text.Trim.Length = 0 Then
+                MsgBox("Debe ingresar el Subtotal del Comprobante.", MsgBoxStyle.Information, My.Application.Info.Title)
+                textboxImporteSubtotal.Focus()
+                Exit Sub
+            End If
+            If Not CS_ValueTranslation.ValidateCurrency(textboxImporteSubtotal.Text) Then
+                MsgBox("El Subtotal ingresado no es válido.", MsgBoxStyle.Information, My.Application.Info.Title)
+                textboxImporteSubtotal.Focus()
+                Exit Sub
+            End If
+            If CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteSubtotal.Text).Value <= 0 Then
+                MsgBox("El Subtotal debe ser mayor a cero.", MsgBoxStyle.Information, My.Application.Info.Title)
+                textboxImporteSubtotal.Focus()
+                Exit Sub
+            End If
+        End If
+
+        ' Subtotales de cada solapa
+        If mComprobanteTipoActual.UtilizaAplicacion Then
+            If textboxAplicaciones_Subtotal.Value > 0 AndAlso textboxAplicaciones_Subtotal.Value > textboxImporteSubtotal.Value Then
+                MsgBox("El Subtotal de los Comprobantes aplicados no puede ser mayor al Subtotal del Comprobante actual.", MsgBoxStyle.Information, My.Application.Info.Title)
+                Exit Sub
+            End If
+        End If
+
         ' Es un Comprobante Nuevo
         If mComprobanteActual.IDComprobante = 0 Then
             ' Calculo el nuevo ID
@@ -652,7 +705,7 @@
 #End Region
 
 #Region "Aplicación Toolbar"
-    Private Sub Aplicacion_Agregar() Handles buttonAplicacion_Agregar.Click
+    Private Sub Aplicacion_Agregar() Handles buttonAplicaciones_Agregar.Click
         If textboxEntidad.Tag Is Nothing Then
             MsgBox("Antes de poder agregar Aplicaciones, debe especificar la Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
             textboxEntidad.Focus()
@@ -673,7 +726,7 @@
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub Aplicacion_Eliminar() Handles buttonAplicacion_Eliminar.Click
+    Private Sub Aplicacion_Eliminar() Handles buttonAplicaciones_Eliminar.Click
         If datagridviewAplicaciones.CurrentRow Is Nothing Then
             MsgBox("No hay ninguna Aplicación para eliminar.", vbInformation, My.Application.Info.Title)
         Else
@@ -686,6 +739,50 @@
                 Me.Cursor = Cursors.WaitCursor
 
                 mComprobanteActual.ComprobanteAplicacion_Aplicados.Remove(GridRowData_Aplicacion_Eliminar.ComprobanteAplicacion)
+
+                RefreshData_Aplicaciones()
+
+                Me.Cursor = Cursors.Default
+            End If
+        End If
+    End Sub
+#End Region
+
+#Region "Asociación Toolbar"
+    Private Sub Asociacion_Agregar() Handles buttonAsociaciones_Agregar.Click
+        If textboxEntidad.Tag Is Nothing Then
+            MsgBox("Antes de poder agregar Asociaciones, debe especificar la Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxEntidad.Focus()
+            Exit Sub
+        End If
+
+        Me.Cursor = Cursors.WaitCursor
+
+        datagridviewAsociaciones.Enabled = False
+
+        SetDataFromControlsToObject()
+
+        Dim ComprobanteAsociacionNuevo As New ComprobanteAsociacion
+        formComprobanteAsociacion.LoadAndShow(True, True, Me, mComprobanteActual, mComprobanteTipoActual, ComprobanteAsociacionNuevo)
+
+        datagridviewAsociaciones.Enabled = True
+
+        Me.Cursor = Cursors.Default
+    End Sub
+
+    Private Sub Asociacion_Eliminar() Handles buttonAsociaciones_Eliminar.Click
+        If datagridviewAsociaciones.CurrentRow Is Nothing Then
+            MsgBox("No hay ninguna Aplicación para eliminar.", vbInformation, My.Application.Info.Title)
+        Else
+            Dim GridRowData_Asociacion_Eliminar As GridRowData_Asociacion
+            GridRowData_Asociacion_Eliminar = CType(datagridviewAsociaciones.SelectedRows(0).DataBoundItem, GridRowData_Asociacion)
+
+            Dim Mensaje As String
+            Mensaje = String.Format("Se eliminará la Aplicación seleccionada.{0}{0}Tipo de Comprobante: {1}{0}Número de Comprobante: {2}{0}Importe: {3}{0}{0}¿Confirma la eliminación definitiva?", vbCrLf, GridRowData_Asociacion_Eliminar.ComprobanteTipoNombre, GridRowData_Asociacion_Eliminar.NumeroCompleto, FormatCurrency(GridRowData_Asociacion_Eliminar.ImporteTotal))
+            If MsgBox(Mensaje, CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
+                Me.Cursor = Cursors.WaitCursor
+
+                mComprobanteActual.ComprobanteAsociacion_Asociados.Remove(GridRowData_Asociacion_Eliminar.ComprobanteAsociacion)
 
                 RefreshData_MediosPago()
 
@@ -833,6 +930,9 @@
             End If
 
             ' Habilito los Controles según corresponda
+            textboxPuntoVenta.TabStop = Not mUtilizaNumerador
+            textboxNumero.TabStop = Not mUtilizaNumerador
+
             panelFechas.Visible = mComprobanteTipoActual.UtilizaDetalle
 
             If mComprobanteTipoActual.UtilizaDetalle Then
@@ -873,6 +973,7 @@
             tabcontrolMain.HideTabPageByName(tabpageMediosPago.Name)
         End If
         tabcontrolMain.SelectTab(0)
+        ChangeMode()
     End Sub
 
     Private Function TransmitirComprobante(ByRef ComprobanteATransmitir As Comprobante) As Boolean
@@ -960,8 +1061,7 @@
                     End Select
                 Next
             Else
-                ' TODO - Buscar el concepto de los Comprobantes aplicados en caso de que corresponda
-                IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS
+                IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO
             End If
             .Concepto = IDConcepto
 
@@ -999,7 +1099,7 @@
             .MonedaCotizacion = MonedaLocalCotizacion.Cotizacion
         End With
 
-        ResultadoCAE = CS_AFIP_WS.ObtenerCAEFacturaElectronica(AFIP_TicketAcceso, WSFEv1_URL, InternetProxy, CUIT_Emisor, AFIP_Factura, LogPath, LogFileName)
+        ResultadoCAE = CS_AFIP_WS.FacturaElectronica_ObtenerCAE(AFIP_TicketAcceso, WSFEv1_URL, InternetProxy, CUIT_Emisor, AFIP_Factura, LogPath, LogFileName)
         If ResultadoCAE Is Nothing Then
             Me.Cursor = Cursors.Default
             Return False

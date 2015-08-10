@@ -13,7 +13,8 @@
         Public Property NumeroCompleto As String
         Public Property FechaEmision As Date
         Public Property ImporteTotal As Decimal
-        Public Property ImporteSinAplicar As Decimal
+        Public Property ImporteAplicado As Decimal?
+        Public Property ImporteSinAplicar As Decimal?
     End Class
 #End Region
 
@@ -64,9 +65,12 @@
 
         Using dbContext As New CSColegioContext(True)
             listComprobantes = (From c In dbContext.Comprobante
-                                Where c.IDEntidad = mComprobanteActual.IDEntidad AndAlso c.ComprobanteTipo.OperacionTipo = mComprobanteTipoActual.OperacionTipo AndAlso c.IDComprobanteTipo <> mComprobanteActual.IDComprobanteTipo AndAlso c.ComprobanteAplicacion_Aplicantes.Count = 0
-                                Order By c.FechaEmision
-                                Select New GridRowData_Comprobante With {.IDComprobante = c.IDComprobante, .TipoNombre = c.ComprobanteTipo.NombreConLetra, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal}).ToList
+                                Group Join ca In dbContext.ComprobanteAplicacion On c.IDComprobante Equals ca.IDComprobanteAplicado Into ComprobanteAplicacion_join = Group
+                                From ca In ComprobanteAplicacion_join.DefaultIfEmpty()
+                                Where c.IDEntidad = mComprobanteActual.IDEntidad And c.IDComprobanteTipo <> mComprobanteActual.IDComprobanteTipo And c.ComprobanteTipo.OperacionTipo = mComprobanteTipoActual.OperacionTipo
+                                Group New With {c, c.ComprobanteTipo, ca} By c.IDComprobante, c.ComprobanteTipo.NombreConLetra, c.NumeroCompleto, c.FechaEmision, c.ImporteTotal Into g = Group
+                                Where (ImporteTotal - If(CType(g.Sum(Function(p) p.ca.Importe), Decimal?) Is Nothing, 0, g.Sum(Function(p) p.ca.Importe))) > 0
+                                Select New GridRowData_Comprobante With {.IDComprobante = IDComprobante, .TipoNombre = NombreConLetra, .NumeroCompleto = NumeroCompleto, .FechaEmision = FechaEmision, .ImporteTotal = ImporteTotal, .ImporteAplicado = If(CType(g.Sum(Function(p) p.ca.Importe), Decimal?) Is Nothing, 0, g.Sum(Function(p) p.ca.Importe)), .ImporteSinAplicar = (ImporteTotal - If(CType(g.Sum(Function(p) p.ca.Importe), Decimal?) Is Nothing, 0, g.Sum(Function(p) p.ca.Importe)))}).ToList
         End Using
 
         datagridviewMain.AutoGenerateColumns = False
@@ -104,9 +108,9 @@
         End Select
     End Sub
 
-    Private Sub SeleccionarComprobante() Handles datagridviewMain.Click
+    Private Sub AplicarComprobante() Handles datagridviewMain.DoubleClick
         If Not datagridviewMain.CurrentRow Is Nothing Then
-            textboxImporteAplicado.Text = FormatCurrency(CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).ImporteTotal)
+            textboxImporteAplicado.Text = FormatCurrency(CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).ImporteSinAplicar)
         End If
     End Sub
 #End Region

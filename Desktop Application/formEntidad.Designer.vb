@@ -1048,6 +1048,7 @@ Partial Class formEntidad
         Me.textboxEntidadTercero.ReadOnly = True
         Me.textboxEntidadTercero.Size = New System.Drawing.Size(350, 20)
         Me.textboxEntidadTercero.TabIndex = 0
+        Me.textboxEntidadTercero.TabStop = False
         '
         'labelEntidadTercero
         '
@@ -1158,6 +1159,7 @@ Partial Class formEntidad
         Me.textboxEntidadMadre.ReadOnly = True
         Me.textboxEntidadMadre.Size = New System.Drawing.Size(350, 20)
         Me.textboxEntidadMadre.TabIndex = 0
+        Me.textboxEntidadMadre.TabStop = False
         '
         'panelEntidadPadre
         '
@@ -1201,6 +1203,7 @@ Partial Class formEntidad
         Me.textboxEntidadPadre.ReadOnly = True
         Me.textboxEntidadPadre.Size = New System.Drawing.Size(350, 20)
         Me.textboxEntidadPadre.TabIndex = 0
+        Me.textboxEntidadPadre.TabStop = False
         '
         'labelEntidadPadre
         '
