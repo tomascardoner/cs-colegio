@@ -222,10 +222,7 @@
     <Compile Include="ComprobanteAplicacion.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
-    <Compile Include="ComprobanteAsociacion.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ComprobanteAsociacionMotivo.vb">
+    <Compile Include="ComprobanteAplicacionMotivo.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="ComprobanteDetalle.vb">
@@ -310,12 +307,6 @@
       <DependentUpon>formComprobanteAplicacion.vb</DependentUpon>
     </Compile>
     <Compile Include="formComprobanteAplicacion.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="formComprobanteAsociacion.Designer.vb">
-      <DependentUpon>formComprobanteAsociacion.vb</DependentUpon>
-    </Compile>
-    <Compile Include="formComprobanteAsociacion.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formComprobanteDetalle.Designer.vb">
@@ -520,9 +511,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobanteAplicacion.resx">
       <DependentUpon>formComprobanteAplicacion.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="formComprobanteAsociacion.resx">
-      <DependentUpon>formComprobanteAsociacion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobanteDetalle.resx">
       <DependentUpon>formComprobanteDetalle.vb</DependentUpon>

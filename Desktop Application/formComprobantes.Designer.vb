@@ -42,6 +42,7 @@ Partial Class formComprobantes
         Me.toolstripButtons = New System.Windows.Forms.ToolStrip()
         Me.buttonAgregar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonAnular = New System.Windows.Forms.ToolStripButton()
         Me.buttonEliminar = New System.Windows.Forms.ToolStripButton()
         Me.buttonImprimir = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemImprimirPrevisualizar = New System.Windows.Forms.ToolStripMenuItem()
@@ -81,7 +82,7 @@ Partial Class formComprobantes
         'statuslabelMain
         '
         Me.statuslabelMain.Name = "statuslabelMain"
-        Me.statuslabelMain.Size = New System.Drawing.Size(981, 17)
+        Me.statuslabelMain.Size = New System.Drawing.Size(1017, 17)
         Me.statuslabelMain.Spring = True
         Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -90,7 +91,7 @@ Partial Class formComprobantes
         Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statuslabelMain})
         Me.statusstripMain.Location = New System.Drawing.Point(0, 389)
         Me.statusstripMain.Name = "statusstripMain"
-        Me.statusstripMain.Size = New System.Drawing.Size(996, 22)
+        Me.statusstripMain.Size = New System.Drawing.Size(1032, 22)
         Me.statusstripMain.TabIndex = 4
         '
         'datagridviewMain
@@ -114,7 +115,7 @@ Partial Class formComprobantes
         Me.datagridviewMain.RowHeadersVisible = False
         Me.datagridviewMain.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewMain.Size = New System.Drawing.Size(996, 325)
+        Me.datagridviewMain.Size = New System.Drawing.Size(1032, 325)
         Me.datagridviewMain.TabIndex = 0
         '
         'columnTipo
@@ -198,17 +199,17 @@ Partial Class formComprobantes
         Me.panelToolbars.Dock = System.Windows.Forms.DockStyle.Top
         Me.panelToolbars.Location = New System.Drawing.Point(0, 0)
         Me.panelToolbars.Name = "panelToolbars"
-        Me.panelToolbars.Size = New System.Drawing.Size(996, 64)
+        Me.panelToolbars.Size = New System.Drawing.Size(1032, 64)
         Me.panelToolbars.TabIndex = 0
         '
         'toolstripButtons
         '
         Me.toolstripButtons.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripButtons.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.toolstripButtons.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAgregar, Me.buttonEditar, Me.buttonEliminar, Me.buttonImprimir, Me.buttonEnviarEmail})
+        Me.toolstripButtons.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAgregar, Me.buttonEditar, Me.buttonAnular, Me.buttonEliminar, Me.buttonImprimir, Me.buttonEnviarEmail})
         Me.toolstripButtons.Location = New System.Drawing.Point(0, 0)
         Me.toolstripButtons.Name = "toolstripButtons"
-        Me.toolstripButtons.Size = New System.Drawing.Size(465, 39)
+        Me.toolstripButtons.Size = New System.Drawing.Size(559, 39)
         Me.toolstripButtons.TabIndex = 1
         '
         'buttonAgregar
@@ -228,6 +229,15 @@ Partial Class formComprobantes
         Me.buttonEditar.Name = "buttonEditar"
         Me.buttonEditar.Size = New System.Drawing.Size(73, 36)
         Me.buttonEditar.Text = "Editar"
+        '
+        'buttonAnular
+        '
+        Me.buttonAnular.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_CANCEL_32
+        Me.buttonAnular.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonAnular.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonAnular.Name = "buttonAnular"
+        Me.buttonAnular.Size = New System.Drawing.Size(78, 36)
+        Me.buttonAnular.Text = "Anular"
         '
         'buttonEliminar
         '
@@ -265,9 +275,10 @@ Partial Class formComprobantes
         'buttonEnviarEmail
         '
         Me.buttonEnviarEmail.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_EMAIL_32
+        Me.buttonEnviarEmail.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonEnviarEmail.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonEnviarEmail.Name = "buttonEnviarEmail"
-        Me.buttonEnviarEmail.Size = New System.Drawing.Size(117, 36)
+        Me.buttonEnviarEmail.Size = New System.Drawing.Size(133, 36)
         Me.buttonEnviarEmail.Text = "Enviar por e-mail"
         '
         'toolstripPeriodo
@@ -275,7 +286,7 @@ Partial Class formComprobantes
         Me.toolstripPeriodo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripPeriodo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripPeriodo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelPeriodo, Me.comboboxPeriodo})
-        Me.toolstripPeriodo.Location = New System.Drawing.Point(465, 0)
+        Me.toolstripPeriodo.Location = New System.Drawing.Point(559, 0)
         Me.toolstripPeriodo.Name = "toolstripPeriodo"
         Me.toolstripPeriodo.Size = New System.Drawing.Size(131, 39)
         Me.toolstripPeriodo.TabIndex = 8
@@ -297,7 +308,7 @@ Partial Class formComprobantes
         Me.toolstripComprobanteTipo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripComprobanteTipo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripComprobanteTipo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelComprobanteTipo, Me.comboboxOperacionTipo, Me.comboboxComprobanteTipo})
-        Me.toolstripComprobanteTipo.Location = New System.Drawing.Point(596, 0)
+        Me.toolstripComprobanteTipo.Location = New System.Drawing.Point(690, 0)
         Me.toolstripComprobanteTipo.Name = "toolstripComprobanteTipo"
         Me.toolstripComprobanteTipo.Size = New System.Drawing.Size(266, 39)
         Me.toolstripComprobanteTipo.TabIndex = 10
@@ -421,7 +432,7 @@ Partial Class formComprobantes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(996, 411)
+        Me.ClientSize = New System.Drawing.Size(1032, 411)
         Me.Controls.Add(Me.datagridviewMain)
         Me.Controls.Add(Me.panelToolbars)
         Me.Controls.Add(Me.statusstripMain)
@@ -487,4 +498,5 @@ Partial Class formComprobantes
     Friend WithEvents columnEntidadNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnCAE As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents buttonAnular As System.Windows.Forms.ToolStripButton
 End Class

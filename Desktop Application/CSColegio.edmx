@@ -186,23 +186,16 @@
           </Key>
           <Property Name="IDComprobanteAplicante" Type="int" Nullable="false" />
           <Property Name="IDComprobanteAplicado" Type="int" Nullable="false" />
+          <Property Name="IDComprobanteAplicacionMotivo" Type="tinyint" />
           <Property Name="Importe" Type="money" Nullable="false" />
         </EntityType>
-        <EntityType Name="ComprobanteAsociacion">
+        <EntityType Name="ComprobanteAplicacionMotivo">
           <Key>
-            <PropertyRef Name="IDComprobanteAsociante" />
-            <PropertyRef Name="IDComprobanteAsociado" />
+            <PropertyRef Name="IDComprobanteAplicacionMotivo" />
           </Key>
-          <Property Name="IDComprobanteAsociante" Type="int" Nullable="false" />
-          <Property Name="IDComprobanteAsociado" Type="int" Nullable="false" />
-          <Property Name="Motivo" Type="varchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="ComprobanteAsociacionMotivo">
-          <Key>
-            <PropertyRef Name="IDComprobanteAsociacionMotivo" />
-          </Key>
-          <Property Name="IDComprobanteAsociacionMotivo" Type="tinyint" Nullable="false" />
+          <Property Name="IDComprobanteAplicacionMotivo" Type="tinyint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AplicaImporteTotal" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ComprobanteDetalle">
           <Key>
@@ -212,12 +205,12 @@
           <Property Name="IDComprobante" Type="int" Nullable="false" />
           <Property Name="Indice" Type="tinyint" Nullable="false" />
           <Property Name="IDArticulo" Type="smallint" Nullable="false" />
-          <Property Name="IDEntidad" Type="int" />
-          <Property Name="IDAnioLectivoCurso" Type="smallint" />
-          <Property Name="CuotaMes" Type="tinyint" />
           <Property Name="Cantidad" Type="decimal" Precision="8" Scale="2" Nullable="false" />
           <Property Name="Unidad" Type="varchar" MaxLength="10" />
           <Property Name="Descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IDEntidad" Type="int" />
+          <Property Name="IDAnioLectivoCurso" Type="smallint" />
+          <Property Name="CuotaMes" Type="tinyint" />
           <Property Name="PrecioUnitario" Type="money" Nullable="false" />
           <Property Name="PrecioUnitarioDescuentoPorcentaje" Type="decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="PrecioUnitarioDescuentoImporte" Type="money" Nullable="false" />
@@ -279,7 +272,6 @@
           <Property Name="UtilizaDetalle" Type="bit" Nullable="false" />
           <Property Name="UtilizaImpuesto" Type="bit" Nullable="false" />
           <Property Name="UtilizaAplicacion" Type="bit" Nullable="false" />
-          <Property Name="UtilizaAsociacion" Type="bit" Nullable="false" />
           <Property Name="UtilizaMedioPago" Type="bit" Nullable="false" />
           <Property Name="ReporteNombre" Type="varchar" MaxLength="100" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
@@ -288,13 +280,13 @@
           <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="ComprobanteTipoAsociacion">
+        <EntityType Name="ComprobanteTipoAplicacion">
           <Key>
-            <PropertyRef Name="IDComprobanteTipoAsociante" />
-            <PropertyRef Name="IDComprobanteTipoAsociado" />
+            <PropertyRef Name="IDComprobanteTipoAplicante" />
+            <PropertyRef Name="IDComprobanteTipoAplicado" />
           </Key>
-          <Property Name="IDComprobanteTipoAsociante" Type="tinyint" Nullable="false" />
-          <Property Name="IDComprobanteTipoAsociado" Type="tinyint" Nullable="false" />
+          <Property Name="IDComprobanteTipoAplicante" Type="tinyint" Nullable="false" />
+          <Property Name="IDComprobanteTipoAplicado" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="ComprobanteTipoPuntoVenta">
           <Key>
@@ -862,32 +854,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Comprobante__ComprobanteAsociacion__Asociado">
-          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ComprobanteAsociacion" Type="Self.ComprobanteAsociacion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Comprobante">
-              <PropertyRef Name="IDComprobante" />
-            </Principal>
-            <Dependent Role="ComprobanteAsociacion">
-              <PropertyRef Name="IDComprobanteAsociado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Comprobante__ComprobanteAsociacion__Asociante">
-          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="1" />
-          <End Role="ComprobanteAsociacion" Type="Self.ComprobanteAsociacion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Comprobante">
-              <PropertyRef Name="IDComprobante" />
-            </Principal>
-            <Dependent Role="ComprobanteAsociacion">
-              <PropertyRef Name="IDComprobanteAsociante" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Comprobante__ComprobanteDetalle">
           <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -930,6 +896,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ComprobanteAplicacionMotivo__ComprobanteAplicacion">
+          <End Role="ComprobanteAplicacionMotivo" Type="Self.ComprobanteAplicacionMotivo" Multiplicity="0..1" />
+          <End Role="ComprobanteAplicacion" Type="Self.ComprobanteAplicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComprobanteAplicacionMotivo">
+              <PropertyRef Name="IDComprobanteAplicacionMotivo" />
+            </Principal>
+            <Dependent Role="ComprobanteAplicacion">
+              <PropertyRef Name="IDComprobanteAplicacionMotivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__ComprobanteLote__Comprobante">
           <End Role="ComprobanteLote" Type="Self.ComprobanteLote" Multiplicity="0..1" />
           <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="*" />
@@ -954,27 +932,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ComprobanteTipo__ComprobanteTipoAsociacion__Asociado">
+        <Association Name="FK__ComprobanteTipo__ComprobanteTipoAplicacion__Aplicado">
           <End Role="ComprobanteTipo" Type="Self.ComprobanteTipo" Multiplicity="1" />
-          <End Role="ComprobanteTipoAsociacion" Type="Self.ComprobanteTipoAsociacion" Multiplicity="*" />
+          <End Role="ComprobanteTipoAplicacion" Type="Self.ComprobanteTipoAplicacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ComprobanteTipo">
               <PropertyRef Name="IDComprobanteTipo" />
             </Principal>
-            <Dependent Role="ComprobanteTipoAsociacion">
-              <PropertyRef Name="IDComprobanteTipoAsociado" />
+            <Dependent Role="ComprobanteTipoAplicacion">
+              <PropertyRef Name="IDComprobanteTipoAplicado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ComprobanteTipo__ComprobanteTipoAsociacion__Asociante">
+        <Association Name="FK__ComprobanteTipo__ComprobanteTipoAplicacion__Aplicante">
           <End Role="ComprobanteTipo" Type="Self.ComprobanteTipo" Multiplicity="1" />
-          <End Role="ComprobanteTipoAsociacion" Type="Self.ComprobanteTipoAsociacion" Multiplicity="*" />
+          <End Role="ComprobanteTipoAplicacion" Type="Self.ComprobanteTipoAplicacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ComprobanteTipo">
               <PropertyRef Name="IDComprobanteTipo" />
             </Principal>
-            <Dependent Role="ComprobanteTipoAsociacion">
-              <PropertyRef Name="IDComprobanteTipoAsociante" />
+            <Dependent Role="ComprobanteTipoAplicacion">
+              <PropertyRef Name="IDComprobanteTipoAplicante" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1415,14 +1393,13 @@
           <EntitySet Name="Chequera" EntityType="Self.Chequera" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comprobante" EntityType="Self.Comprobante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteAplicacion" EntityType="Self.ComprobanteAplicacion" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ComprobanteAsociacion" EntityType="Self.ComprobanteAsociacion" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ComprobanteAsociacionMotivo" EntityType="Self.ComprobanteAsociacionMotivo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComprobanteAplicacionMotivo" EntityType="Self.ComprobanteAplicacionMotivo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteDetalle" EntityType="Self.ComprobanteDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteImpuesto" EntityType="Self.ComprobanteImpuesto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteLote" EntityType="Self.ComprobanteLote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteMedioPago" EntityType="Self.ComprobanteMedioPago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteTipo" EntityType="Self.ComprobanteTipo" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ComprobanteTipoAsociacion" EntityType="Self.ComprobanteTipoAsociacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComprobanteTipoAplicacion" EntityType="Self.ComprobanteTipoAplicacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteTipoPuntoVenta" EntityType="Self.ComprobanteTipoPuntoVenta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Concepto" EntityType="Self.Concepto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CondicionIVA" EntityType="Self.CondicionIVA" Schema="dbo" store:Type="Tables" />
@@ -1515,14 +1492,6 @@
             <End Role="Comprobante" EntitySet="Comprobante" />
             <End Role="ComprobanteAplicacion" EntitySet="ComprobanteAplicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Comprobante__ComprobanteAsociacion__Asociado" Association="Self.FK__Comprobante__ComprobanteAsociacion__Asociado">
-            <End Role="Comprobante" EntitySet="Comprobante" />
-            <End Role="ComprobanteAsociacion" EntitySet="ComprobanteAsociacion" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Comprobante__ComprobanteAsociacion__Asociante" Association="Self.FK__Comprobante__ComprobanteAsociacion__Asociante">
-            <End Role="Comprobante" EntitySet="Comprobante" />
-            <End Role="ComprobanteAsociacion" EntitySet="ComprobanteAsociacion" />
-          </AssociationSet>
           <AssociationSet Name="FK__Comprobante__ComprobanteDetalle" Association="Self.FK__Comprobante__ComprobanteDetalle">
             <End Role="Comprobante" EntitySet="Comprobante" />
             <End Role="ComprobanteDetalle" EntitySet="ComprobanteDetalle" />
@@ -1535,6 +1504,10 @@
             <End Role="Comprobante" EntitySet="Comprobante" />
             <End Role="ComprobanteMedioPago" EntitySet="ComprobanteMedioPago" />
           </AssociationSet>
+          <AssociationSet Name="FK__ComprobanteAplicacionMotivo__ComprobanteAplicacion" Association="Self.FK__ComprobanteAplicacionMotivo__ComprobanteAplicacion">
+            <End Role="ComprobanteAplicacionMotivo" EntitySet="ComprobanteAplicacionMotivo" />
+            <End Role="ComprobanteAplicacion" EntitySet="ComprobanteAplicacion" />
+          </AssociationSet>
           <AssociationSet Name="FK__ComprobanteLote__Comprobante" Association="Self.FK__ComprobanteLote__Comprobante">
             <End Role="ComprobanteLote" EntitySet="ComprobanteLote" />
             <End Role="Comprobante" EntitySet="Comprobante" />
@@ -1543,13 +1516,13 @@
             <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
             <End Role="Comprobante" EntitySet="Comprobante" />
           </AssociationSet>
-          <AssociationSet Name="FK__ComprobanteTipo__ComprobanteTipoAsociacion__Asociado" Association="Self.FK__ComprobanteTipo__ComprobanteTipoAsociacion__Asociado">
+          <AssociationSet Name="FK__ComprobanteTipo__ComprobanteTipoAplicacion__Aplicado" Association="Self.FK__ComprobanteTipo__ComprobanteTipoAplicacion__Aplicado">
             <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
-            <End Role="ComprobanteTipoAsociacion" EntitySet="ComprobanteTipoAsociacion" />
+            <End Role="ComprobanteTipoAplicacion" EntitySet="ComprobanteTipoAplicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__ComprobanteTipo__ComprobanteTipoAsociacion__Asociante" Association="Self.FK__ComprobanteTipo__ComprobanteTipoAsociacion__Asociante">
+          <AssociationSet Name="FK__ComprobanteTipo__ComprobanteTipoAplicacion__Aplicante" Association="Self.FK__ComprobanteTipo__ComprobanteTipoAplicacion__Aplicante">
             <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
-            <End Role="ComprobanteTipoAsociacion" EntitySet="ComprobanteTipoAsociacion" />
+            <End Role="ComprobanteTipoAplicacion" EntitySet="ComprobanteTipoAplicacion" />
           </AssociationSet>
           <AssociationSet Name="FK__ComprobanteTipo__ComprobanteTipoPuntoVenta" Association="Self.FK__ComprobanteTipo__ComprobanteTipoPuntoVenta">
             <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
@@ -2473,23 +2446,18 @@
             <End Role="Cheque" EntitySet="Cheque" />
             <End Role="ComprobanteMedioPago" EntitySet="ComprobanteMedioPago" />
           </AssociationSet>
-          <EntitySet Name="ComprobanteAsociacionMotivo" EntityType="CSColegioModel.ComprobanteAsociacionMotivo" />
           <AssociationSet Name="FK__Usuario__Comprobante__EnvioEmail" Association="CSColegioModel.FK__Usuario__Comprobante__EnvioEmail">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Comprobante" EntitySet="Comprobante" />
           </AssociationSet>
-          <AssociationSet Name="ComprobanteTipoAsociacion" Association="CSColegioModel.ComprobanteTipoAsociacion">
+          <EntitySet Name="ComprobanteAplicacionMotivo" EntityType="CSColegioModel.ComprobanteAplicacionMotivo" />
+          <AssociationSet Name="FK__ComprobanteAplicacionMotivo__ComprobanteAplicacion" Association="CSColegioModel.FK__ComprobanteAplicacionMotivo__ComprobanteAplicacion">
+            <End Role="ComprobanteAplicacionMotivo" EntitySet="ComprobanteAplicacionMotivo" />
+            <End Role="ComprobanteAplicacion" EntitySet="ComprobanteAplicacion" />
+          </AssociationSet>
+          <AssociationSet Name="ComprobanteTipoAplicacion" Association="CSColegioModel.ComprobanteTipoAplicacion">
             <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
             <End Role="ComprobanteTipo1" EntitySet="ComprobanteTipo" />
-          </AssociationSet>
-          <EntitySet Name="ComprobanteAsociacion" EntityType="CSColegioModel.ComprobanteAsociacion" />
-          <AssociationSet Name="FK__Comprobante__ComprobanteAsociacion__Asociado" Association="CSColegioModel.FK__Comprobante__ComprobanteAsociacion__Asociado">
-            <End Role="Comprobante" EntitySet="Comprobante" />
-            <End Role="ComprobanteAsociacion" EntitySet="ComprobanteAsociacion" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Comprobante__ComprobanteAsociacion__Asociante" Association="CSColegioModel.FK__Comprobante__ComprobanteAsociacion__Asociante">
-            <End Role="Comprobante" EntitySet="Comprobante" />
-            <End Role="ComprobanteAsociacion" EntitySet="ComprobanteAsociacion" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
@@ -2520,7 +2488,6 @@
           <Property Name="UtilizaDetalle" Type="Boolean" Nullable="false" />
           <Property Name="UtilizaImpuesto" Type="Boolean" Nullable="false" />
           <Property Name="UtilizaAplicacion" Type="Boolean" Nullable="false" />
-          <Property Name="UtilizaAsociacion" Type="Boolean" Nullable="false" />
           <Property Name="UtilizaMedioPago" Type="Boolean" Nullable="false" />
           <Property Name="ReporteNombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
@@ -2530,8 +2497,8 @@
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ComprobanteTipoPuntoVenta" Relationship="CSColegioModel.FK__ComprobanteTipo__ComprobanteTipoPuntoVenta" FromRole="ComprobanteTipo" ToRole="ComprobanteTipoPuntoVenta" />
           <NavigationProperty Name="Comprobante" Relationship="CSColegioModel.FK__ComprobanteTipo__Comprobante" FromRole="ComprobanteTipo" ToRole="Comprobante" />
-          <NavigationProperty Name="ComprobanteTipo_Asociantes" Relationship="CSColegioModel.ComprobanteTipoAsociacion" FromRole="ComprobanteTipo" ToRole="ComprobanteTipo1" />
-          <NavigationProperty Name="ComprobanteTipo_Asociados" Relationship="CSColegioModel.ComprobanteTipoAsociacion" FromRole="ComprobanteTipo1" ToRole="ComprobanteTipo" />
+          <NavigationProperty Name="ComprobanteTipo_Aplicados" Relationship="CSColegioModel.ComprobanteTipoAplicacion" FromRole="ComprobanteTipo" ToRole="ComprobanteTipo1" />
+          <NavigationProperty Name="ComprobanteTipo_Aplicantes" Relationship="CSColegioModel.ComprobanteTipoAplicacion" FromRole="ComprobanteTipo1" ToRole="ComprobanteTipo" />
           </EntityType>
         <EntityType Name="Impuesto">
           <Key>
@@ -3002,8 +2969,6 @@
           <NavigationProperty Name="ComprobanteAplicacion_Aplicantes" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicado" FromRole="Comprobante" ToRole="ComprobanteAplicacion" />
           <NavigationProperty Name="ComprobanteAplicacion_Aplicados" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicante" FromRole="Comprobante" ToRole="ComprobanteAplicacion" />
           <NavigationProperty Name="UsuarioEnvioEmail" Relationship="CSColegioModel.FK__Usuario__Comprobante__EnvioEmail" FromRole="Comprobante" ToRole="Usuario" />
-          <NavigationProperty Name="ComprobanteAsociacion_Asociantes" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAsociacion__Asociado" FromRole="Comprobante" ToRole="ComprobanteAsociacion" />
-          <NavigationProperty Name="ComprobanteAsociacion_Asociados" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAsociacion__Asociante" FromRole="Comprobante" ToRole="ComprobanteAsociacion" />
           </EntityType>
         <EntityType Name="ComprobanteMedioPago">
           <Key>
@@ -3218,6 +3183,8 @@
           <Property Name="Importe" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <NavigationProperty Name="ComprobanteAplicado" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicado" FromRole="ComprobanteAplicacion" ToRole="Comprobante" />
           <NavigationProperty Name="ComprobanteAplicante" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicante" FromRole="ComprobanteAplicacion" ToRole="Comprobante" />
+          <Property Name="IDComprobanteAplicacionMotivo" Type="Byte" />
+          <NavigationProperty Name="ComprobanteAplicacionMotivo" Relationship="CSColegioModel.FK__ComprobanteAplicacionMotivo__ComprobanteAplicacion" FromRole="ComprobanteAplicacion" ToRole="ComprobanteAplicacionMotivo" />
         </EntityType>
         <Association Name="FK__Comprobante__ComprobanteAplicacion__Aplicado">
           <End Type="CSColegioModel.Comprobante" Role="Comprobante" Multiplicity="1" />
@@ -3328,13 +3295,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ComprobanteAsociacionMotivo">
-          <Key>
-            <PropertyRef Name="IDComprobanteAsociacionMotivo" />
-          </Key>
-          <Property Name="IDComprobanteAsociacionMotivo" Type="Byte" Nullable="false" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <Association Name="FK__Usuario__Comprobante__EnvioEmail">
           <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="0..1" />
           <End Type="CSColegioModel.Comprobante" Role="Comprobante" Multiplicity="*" />
@@ -3347,46 +3307,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="ComprobanteTipoAsociacion">
+        <EntityType Name="ComprobanteAplicacionMotivo">
+          <Key>
+            <PropertyRef Name="IDComprobanteAplicacionMotivo" />
+          </Key>
+          <Property Name="IDComprobanteAplicacionMotivo" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AplicaImporteTotal" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ComprobanteAplicacion" Relationship="CSColegioModel.FK__ComprobanteAplicacionMotivo__ComprobanteAplicacion" FromRole="ComprobanteAplicacionMotivo" ToRole="ComprobanteAplicacion" />
+        </EntityType>
+        <Association Name="FK__ComprobanteAplicacionMotivo__ComprobanteAplicacion">
+          <End Type="CSColegioModel.ComprobanteAplicacionMotivo" Role="ComprobanteAplicacionMotivo" Multiplicity="0..1" />
+          <End Type="CSColegioModel.ComprobanteAplicacion" Role="ComprobanteAplicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComprobanteAplicacionMotivo">
+              <PropertyRef Name="IDComprobanteAplicacionMotivo" />
+            </Principal>
+            <Dependent Role="ComprobanteAplicacion">
+              <PropertyRef Name="IDComprobanteAplicacionMotivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ComprobanteTipoAplicacion">
           <End Type="CSColegioModel.ComprobanteTipo" Role="ComprobanteTipo" Multiplicity="*" />
           <End Type="CSColegioModel.ComprobanteTipo" Role="ComprobanteTipo1" Multiplicity="*" />
-        </Association>
-        <EntityType Name="ComprobanteAsociacion">
-          <Key>
-            <PropertyRef Name="IDComprobanteAsociante" />
-            <PropertyRef Name="IDComprobanteAsociado" />
-          </Key>
-          <Property Name="IDComprobanteAsociante" Type="Int32" Nullable="false" />
-          <Property Name="IDComprobanteAsociado" Type="Int32" Nullable="false" />
-          <Property Name="Motivo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ComprobanteAsociado" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAsociacion__Asociado" FromRole="ComprobanteAsociacion" ToRole="Comprobante" />
-          <NavigationProperty Name="ComprobanteAsociante" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAsociacion__Asociante" FromRole="ComprobanteAsociacion" ToRole="Comprobante" />
-        </EntityType>
-        <Association Name="FK__Comprobante__ComprobanteAsociacion__Asociado">
-          <End Type="CSColegioModel.Comprobante" Role="Comprobante" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="CSColegioModel.ComprobanteAsociacion" Role="ComprobanteAsociacion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Comprobante">
-              <PropertyRef Name="IDComprobante" />
-            </Principal>
-            <Dependent Role="ComprobanteAsociacion">
-              <PropertyRef Name="IDComprobanteAsociado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Comprobante__ComprobanteAsociacion__Asociante">
-          <End Type="CSColegioModel.Comprobante" Role="Comprobante" Multiplicity="1" />
-          <End Type="CSColegioModel.ComprobanteAsociacion" Role="ComprobanteAsociacion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Comprobante">
-              <PropertyRef Name="IDComprobante" />
-            </Principal>
-            <Dependent Role="ComprobanteAsociacion">
-              <PropertyRef Name="IDComprobanteAsociante" />
-            </Dependent>
-          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -3730,7 +3674,6 @@
             <EntityTypeMapping TypeName="CSColegioModel.ComprobanteTipo">
               <MappingFragment StoreEntitySet="ComprobanteTipo">
                 <ScalarProperty Name="UtilizaImpuesto" ColumnName="UtilizaImpuesto" />
-                <ScalarProperty Name="UtilizaAsociacion" ColumnName="UtilizaAsociacion" />
                 <ScalarProperty Name="MovimientoTipo" ColumnName="MovimientoTipo" />
                 <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
                 <ScalarProperty Name="NombreConLetra" ColumnName="NombreConLetra" />
@@ -4051,6 +3994,7 @@
           <EntitySetMapping Name="ComprobanteAplicacion">
             <EntityTypeMapping TypeName="CSColegioModel.ComprobanteAplicacion">
               <MappingFragment StoreEntitySet="ComprobanteAplicacion">
+                <ScalarProperty Name="IDComprobanteAplicacionMotivo" ColumnName="IDComprobanteAplicacionMotivo" />
                 <ScalarProperty Name="Importe" ColumnName="Importe" />
                 <ScalarProperty Name="IDComprobanteAplicado" ColumnName="IDComprobanteAplicado" />
                 <ScalarProperty Name="IDComprobanteAplicante" ColumnName="IDComprobanteAplicante" />
@@ -4083,32 +4027,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ComprobanteAsociacionMotivo">
-            <EntityTypeMapping TypeName="CSColegioModel.ComprobanteAsociacionMotivo">
-              <MappingFragment StoreEntitySet="ComprobanteAsociacionMotivo">
+          <EntitySetMapping Name="ComprobanteAplicacionMotivo">
+            <EntityTypeMapping TypeName="CSColegioModel.ComprobanteAplicacionMotivo">
+              <MappingFragment StoreEntitySet="ComprobanteAplicacionMotivo">
+                <ScalarProperty Name="AplicaImporteTotal" ColumnName="AplicaImporteTotal" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="IDComprobanteAsociacionMotivo" ColumnName="IDComprobanteAsociacionMotivo" />
+                <ScalarProperty Name="IDComprobanteAplicacionMotivo" ColumnName="IDComprobanteAplicacionMotivo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="ComprobanteTipoAsociacion" TypeName="CSColegioModel.ComprobanteTipoAsociacion" StoreEntitySet="ComprobanteTipoAsociacion">
+          <AssociationSetMapping Name="ComprobanteTipoAplicacion" TypeName="CSColegioModel.ComprobanteTipoAplicacion" StoreEntitySet="ComprobanteTipoAplicacion">
             <EndProperty Name="ComprobanteTipo1">
-              <ScalarProperty Name="IDComprobanteTipo" ColumnName="IDComprobanteTipoAsociante" />
+              <ScalarProperty Name="IDComprobanteTipo" ColumnName="IDComprobanteTipoAplicante" />
             </EndProperty>
             <EndProperty Name="ComprobanteTipo">
-              <ScalarProperty Name="IDComprobanteTipo" ColumnName="IDComprobanteTipoAsociado" />
+              <ScalarProperty Name="IDComprobanteTipo" ColumnName="IDComprobanteTipoAplicado" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="ComprobanteAsociacion">
-            <EntityTypeMapping TypeName="CSColegioModel.ComprobanteAsociacion">
-              <MappingFragment StoreEntitySet="ComprobanteAsociacion">
-                <ScalarProperty Name="Motivo" ColumnName="Motivo" />
-                <ScalarProperty Name="IDComprobanteAsociado" ColumnName="IDComprobanteAsociado" />
-                <ScalarProperty Name="IDComprobanteAsociante" ColumnName="IDComprobanteAsociante" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

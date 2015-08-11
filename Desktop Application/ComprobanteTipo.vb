@@ -24,7 +24,6 @@ Partial Public Class ComprobanteTipo
     Public Property UtilizaDetalle As Boolean
     Public Property UtilizaImpuesto As Boolean
     Public Property UtilizaAplicacion As Boolean
-    Public Property UtilizaAsociacion As Boolean
     Public Property UtilizaMedioPago As Boolean
     Public Property ReporteNombre As String
     Public Property EsActivo As Boolean
@@ -35,7 +34,7 @@ Partial Public Class ComprobanteTipo
 
     Public Overridable Property ComprobanteTipoPuntoVenta As ICollection(Of ComprobanteTipoPuntoVenta) = New HashSet(Of ComprobanteTipoPuntoVenta)
     Public Overridable Property Comprobante As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
-    Public Overridable Property ComprobanteTipo_Asociantes As ICollection(Of ComprobanteTipo) = New HashSet(Of ComprobanteTipo)
-    Public Overridable Property ComprobanteTipo_Asociados As ICollection(Of ComprobanteTipo) = New HashSet(Of ComprobanteTipo)
+    Public Overridable Property ComprobanteTipo_Aplicados As ICollection(Of ComprobanteTipo) = New HashSet(Of ComprobanteTipo)
+    Public Overridable Property ComprobanteTipo_Aplicantes As ICollection(Of ComprobanteTipo) = New HashSet(Of ComprobanteTipo)
 
 End Class

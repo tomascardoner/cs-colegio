@@ -14,8 +14,10 @@ Partial Public Class ComprobanteAplicacion
     Public Property IDComprobanteAplicante As Integer
     Public Property IDComprobanteAplicado As Integer
     Public Property Importe As Decimal
+    Public Property IDComprobanteAplicacionMotivo As Nullable(Of Byte)
 
     Public Overridable Property ComprobanteAplicado As Comprobante
     Public Overridable Property ComprobanteAplicante As Comprobante
+    Public Overridable Property ComprobanteAplicacionMotivo As ComprobanteAplicacionMotivo
 
 End Class

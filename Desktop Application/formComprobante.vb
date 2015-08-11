@@ -14,21 +14,13 @@
 
     Public Class GridRowData_Aplicacion
         Public Property ComprobanteAplicacion As ComprobanteAplicacion
+        Public Property Motivo As String
         Public Property ComprobanteTipoNombre As String
         Public Property MovimientoTipo As String
         Public Property NumeroCompleto As String
         Public Property FechaEmision As Date
         Public Property ImporteTotal As Decimal
         Public Property ImporteAplicado As Decimal
-    End Class
-
-    Public Class GridRowData_Asociacion
-        Public Property ComprobanteAsociacion As ComprobanteAsociacion
-        Public Property Motivo As String
-        Public Property ComprobanteTipoNombre As String
-        Public Property NumeroCompleto As String
-        Public Property FechaEmision As Date
-        Public Property ImporteTotal As Decimal
     End Class
 
     Public Class GridRowData_MedioPago
@@ -75,53 +67,40 @@
 
         mIsLoading = False
 
-        ChangeMode()
-
         CambiarTipoComprobante()
 
-        If IDComprobante > 0 Then
-            If mComprobanteActual.ComprobanteTipo.EmisionElectronica.HasValue AndAlso mComprobanteActual.ComprobanteTipo.EmisionElectronica.Value Then
-                buttonEditar.Visible = (mEditMode = False And mComprobanteActual.CAE Is Nothing)
-            End If
-        Else
-            comboboxComprobanteTipo.Enabled = True
-        End If
+        ChangeMode()
     End Sub
 
     Private Sub ChangeMode()
-        Dim ExceptControlsArray() As String
-        Dim ExceptControlsString As String
-
         If mIsLoading Then
             Exit Sub
         End If
 
         buttonGuardar.Visible = mEditMode
         buttonCancelar.Visible = mEditMode
-        buttonEditar.Visible = Not mEditMode
-        buttonCerrar.Visible = Not mEditMode
+        buttonEditar.Visible = (mEditMode = False And mComprobanteActual.CAE Is Nothing And mComprobanteActual.IDUsuarioAnulacion Is Nothing)
+        buttonCerrar.Visible = (mEditMode = False)
 
-        If comboboxComprobanteTipo.SelectedIndex = -1 Then
-            CS_Form.ControlsChangeStateReadOnly(Me.Controls, True, True, toolstripMain.Name, comboboxComprobanteTipo.Name)
-            Exit Sub
-        End If
+        comboboxComprobanteTipo.Enabled = (mEditMode And mComprobanteActual.ComprobanteDetalle.Count = 0 And mComprobanteActual.ComprobanteImpuesto.Count = 0 And mComprobanteActual.ComprobanteAplicacion_Aplicados.Count = 0 And mComprobanteActual.ComprobanteMedioPago.Count = 0)
+        textboxPuntoVenta.ReadOnly = (mUtilizaNumerador Or mEditMode = False)
+        textboxNumero.ReadOnly = (mUtilizaNumerador Or mEditMode = False)
+        datetimepickerFechaEmision.Enabled = mEditMode
 
-        ExceptControlsArray = {toolstripMain.Name, textboxIDComprobante.Name, textboxEntidad.Name, textboxDetalle_Subtotal.Name, textboxAplicaciones_Subtotal.Name, textboxImpuestos_Subtotal.Name, textboxMediosPago_Subtotal.Name, textboxFechaHoraCreacion.Name, textboxUsuarioCreacion.Name, textboxFechaHoraModificacion.Name, textboxUsuarioModificacion.Name, textboxUsuarioEnvioEmail.Name, textboxFechaHoraEnvioEmail.Name}
-        ExceptControlsString = String.Join(",", ExceptControlsArray)
-        If mEditMode Then
-            If mComprobanteActual.IDComprobante > 0 Then
-                ExceptControlsString &= "," & comboboxComprobanteTipo.Name
-            End If
-            If mUtilizaNumerador Then
-                ExceptControlsString &= "," & textboxPuntoVenta.Name & "," & textboxNumero.Name
-            End If
-            If mComprobanteActual.IDComprobante > 0 AndAlso (mComprobanteActual.ComprobanteTipo.UtilizaDetalle Or mComprobanteActual.ComprobanteTipo.UtilizaMedioPago) Then
-                ExceptControlsString &= "," & textboxImporteSubtotal.Name
-            End If
-            ExceptControlsString &= "," & textboxImporteImpuesto.Name & "," & textboxImporteTotal.Name
-        End If
-        ExceptControlsArray = ExceptControlsString.Split(","c)
-        CS_Form.ControlsChangeStateReadOnly(Me.Controls, Not mEditMode, True, ExceptControlsArray)
+        datetimepickerFechaServicioDesde.Enabled = mEditMode
+        datetimepickerFechaServicioHasta.Enabled = mEditMode
+        datetimepickerFechaVencimiento.Enabled = mEditMode
+
+        buttonEntidad.Enabled = (mEditMode And mComprobanteActual.ComprobanteAplicacion_Aplicados.Count = 0)
+
+        toolstripDetalle.Enabled = mEditMode
+        toolstripImpuestos.Enabled = mEditMode
+        toolstripAplicaciones.Enabled = (mEditMode And comboboxComprobanteTipo.SelectedIndex > -1)
+        toolstripMediosPago.Enabled = mEditMode
+
+        textboxNotas.ReadOnly = (mEditMode = False)
+
+        textboxImporteSubtotal.ReadOnly = (comboboxComprobanteTipo.SelectedIndex <> -1 AndAlso (mComprobanteTipoActual.UtilizaDetalle Or mComprobanteTipoActual.UtilizaMedioPago))
     End Sub
 
     Friend Sub InitializeFormAndControls()
@@ -129,8 +108,6 @@
 
         ' Cargo los ComboBox
         pFillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo, Nothing, False, False)
-
-        CS_Form.ControlsChangeStateReadOnly(Me.Controls, True, True, toolstripMain.Name)
     End Sub
 
     Friend Sub SetAppearance()
@@ -142,9 +119,6 @@
 
         datagridviewAplicaciones.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
         datagridviewAplicaciones.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
-
-        datagridviewAsociaciones.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
-        datagridviewAsociaciones.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
 
         datagridviewMediosPago.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
         datagridviewMediosPago.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
@@ -223,9 +197,6 @@
                 If mComprobanteActual.ComprobanteTipo.UtilizaAplicacion Then
                     RefreshData_Aplicaciones()
                 End If
-                If mComprobanteActual.ComprobanteTipo.UtilizaAsociacion Then
-                    RefreshData_Asociaciones()
-                End If
                 If mComprobanteActual.ComprobanteTipo.UtilizaMedioPago Then
                     RefreshData_MediosPago()
                 End If
@@ -303,7 +274,8 @@
             listAplicaciones = (From ca In mComprobanteActual.ComprobanteAplicacion_Aplicados
                                 Join c In mdbContext.Comprobante On ca.IDComprobanteAplicado Equals c.IDComprobante
                                 Join ct In mdbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                Select New GridRowData_Aplicacion With {.ComprobanteAplicacion = ca, .ComprobanteTipoNombre = ct.Nombre, .MovimientoTipo = ct.MovimientoTipo, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal, .ImporteAplicado = ca.Importe}).ToList
+                                Group Join cam In mdbContext.ComprobanteAplicacionMotivo On ca.IDComprobanteAplicacionMotivo Equals cam.IDComprobanteAplicacionMotivo Into g = Group
+                                Select New GridRowData_Aplicacion With {.ComprobanteAplicacion = ca, .Motivo = g.DefaultIfEmpty(New ComprobanteAplicacionMotivo).FirstOrDefault.Nombre, .ComprobanteTipoNombre = ct.Nombre, .MovimientoTipo = ct.MovimientoTipo, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal, .ImporteAplicado = ca.Importe}).ToList
 
             datagridviewAplicaciones.AutoGenerateColumns = False
             datagridviewAplicaciones.DataSource = listAplicaciones
@@ -334,46 +306,8 @@
                 End If
             Next
         End If
-    End Sub
 
-    Friend Sub RefreshData_Asociaciones(Optional ByVal PositionIDComprobanteAsociado As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
-        Dim listAsociaciones As List(Of GridRowData_Asociacion)
-
-        If RestoreCurrentPosition Then
-            If datagridviewAsociaciones.CurrentRow Is Nothing Then
-                PositionIDComprobanteAsociado = 0
-            Else
-                PositionIDComprobanteAsociado = CType(datagridviewAsociaciones.CurrentRow.DataBoundItem, GridRowData_Asociacion).ComprobanteAsociacion.IDComprobanteAsociado
-            End If
-        End If
-
-        Me.Cursor = Cursors.WaitCursor
-
-        Try
-            listAsociaciones = (From ca In mComprobanteActual.ComprobanteAsociacion_Asociados
-                                Join c In mdbContext.Comprobante On ca.IDComprobanteAsociado Equals c.IDComprobante
-                                Join ct In mdbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                Select New GridRowData_Asociacion With {.ComprobanteAsociacion = ca, .Motivo = ca.Motivo, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal}).ToList
-
-            datagridviewAsociaciones.AutoGenerateColumns = False
-            datagridviewAsociaciones.DataSource = listAsociaciones
-
-        Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al leer los Comprobantes Asociados.")
-            Me.Cursor = Cursors.Default
-            Exit Sub
-        End Try
-
-        Me.Cursor = Cursors.Default
-
-        If PositionIDComprobanteAsociado <> 0 Then
-            For Each CurrentRowChecked As DataGridViewRow In datagridviewAsociaciones.Rows
-                If CType(datagridviewAsociaciones.CurrentRow.DataBoundItem, GridRowData_Asociacion).ComprobanteAsociacion.IDComprobanteAsociado = PositionIDComprobanteAsociado Then
-                    datagridviewAsociaciones.CurrentCell = CurrentRowChecked.Cells(0)
-                    Exit For
-                End If
-            Next
-        End If
+        ChangeMode()
     End Sub
 
     Friend Sub RefreshData_MediosPago(Optional ByVal PositionIndice As Byte = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
@@ -430,6 +364,7 @@
     Private Sub comboboxComprobanteTipo_SelectedValueChanged() Handles comboboxComprobanteTipo.SelectedValueChanged
         If Not mIsLoading Then
             CambiarTipoComprobante()
+            ChangeMode()
         End If
     End Sub
 
@@ -444,10 +379,6 @@
         End If
         If datagridviewAplicaciones.Rows.Count > 0 Then
             MsgBox("No se puede cambiar la Entidad porque hay Aplicaciones cargadas.", MsgBoxStyle.Information, My.Application.Info.Title)
-            Exit Sub
-        End If
-        If datagridviewAsociaciones.Rows.Count > 0 Then
-            MsgBox("No se puede cambiar la Entidad porque hay Asociaciones cargadas.", MsgBoxStyle.Information, My.Application.Info.Title)
             Exit Sub
         End If
         formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
@@ -476,7 +407,7 @@
 
 #Region "Main Toolbar"
     Private Sub buttonEditar_Click() Handles buttonEditar.Click
-        If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDIT) Then
+        If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDITAR) Then
             mEditMode = True
             ChangeMode()
         End If
@@ -748,50 +679,6 @@
     End Sub
 #End Region
 
-#Region "Asociación Toolbar"
-    Private Sub Asociacion_Agregar() Handles buttonAsociaciones_Agregar.Click
-        If textboxEntidad.Tag Is Nothing Then
-            MsgBox("Antes de poder agregar Asociaciones, debe especificar la Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxEntidad.Focus()
-            Exit Sub
-        End If
-
-        Me.Cursor = Cursors.WaitCursor
-
-        datagridviewAsociaciones.Enabled = False
-
-        SetDataFromControlsToObject()
-
-        Dim ComprobanteAsociacionNuevo As New ComprobanteAsociacion
-        formComprobanteAsociacion.LoadAndShow(True, True, Me, mComprobanteActual, mComprobanteTipoActual, ComprobanteAsociacionNuevo)
-
-        datagridviewAsociaciones.Enabled = True
-
-        Me.Cursor = Cursors.Default
-    End Sub
-
-    Private Sub Asociacion_Eliminar() Handles buttonAsociaciones_Eliminar.Click
-        If datagridviewAsociaciones.CurrentRow Is Nothing Then
-            MsgBox("No hay ninguna Aplicación para eliminar.", vbInformation, My.Application.Info.Title)
-        Else
-            Dim GridRowData_Asociacion_Eliminar As GridRowData_Asociacion
-            GridRowData_Asociacion_Eliminar = CType(datagridviewAsociaciones.SelectedRows(0).DataBoundItem, GridRowData_Asociacion)
-
-            Dim Mensaje As String
-            Mensaje = String.Format("Se eliminará la Aplicación seleccionada.{0}{0}Tipo de Comprobante: {1}{0}Número de Comprobante: {2}{0}Importe: {3}{0}{0}¿Confirma la eliminación definitiva?", vbCrLf, GridRowData_Asociacion_Eliminar.ComprobanteTipoNombre, GridRowData_Asociacion_Eliminar.NumeroCompleto, FormatCurrency(GridRowData_Asociacion_Eliminar.ImporteTotal))
-            If MsgBox(Mensaje, CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
-                Me.Cursor = Cursors.WaitCursor
-
-                mComprobanteActual.ComprobanteAsociacion_Asociados.Remove(GridRowData_Asociacion_Eliminar.ComprobanteAsociacion)
-
-                RefreshData_MediosPago()
-
-                Me.Cursor = Cursors.Default
-            End If
-        End If
-    End Sub
-#End Region
-
 #Region "Medios de Pago Toolbar"
     Private Sub MedioPago_AgregarOtro() Handles buttonMediosPago_AgregarOtro.Click
         Me.Cursor = Cursors.WaitCursor
@@ -953,12 +840,6 @@
                 tabcontrolMain.HideTabPageByName(tabpageAplicaciones.Name)
             End If
 
-            If mComprobanteTipoActual.UtilizaAsociacion Then
-                tabcontrolMain.ShowTabPageByName(tabpageAsociaciones.Name)
-            Else
-                tabcontrolMain.HideTabPageByName(tabpageAsociaciones.Name)
-            End If
-
             If mComprobanteTipoActual.UtilizaMedioPago Then
                 tabcontrolMain.ShowTabPageByName(tabpageMediosPago.Name)
             Else
@@ -969,11 +850,9 @@
             tabcontrolMain.HideTabPageByName(tabpageDetalle.Name)
             tabcontrolMain.HideTabPageByName(tabpageImpuestos.Name)
             tabcontrolMain.HideTabPageByName(tabpageAplicaciones.Name)
-            tabcontrolMain.HideTabPageByName(tabpageAsociaciones.Name)
             tabcontrolMain.HideTabPageByName(tabpageMediosPago.Name)
         End If
         tabcontrolMain.SelectTab(0)
-        ChangeMode()
     End Sub
 
     Private Function TransmitirComprobante(ByRef ComprobanteATransmitir As Comprobante) As Boolean
@@ -997,7 +876,7 @@
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
 
-        If formMDIMain.menuitemDebugAFIPWSHabilitarRegistro.Checked Then
+        If My.Settings.AFIP_WS_LogEnabled Then
             LogPath = CS_SpecialFolders.ProcessString(My.Settings.AFIP_WS_LogFolder)
             If Not LogPath.EndsWith("\") Then
                 LogPath &= "\"
@@ -1090,9 +969,15 @@
             .ImporteIVA = ComprobanteATransmitir.ImporteImpuesto
 
             ' Fechas
-            .FechaServicioDesde = ComprobanteATransmitir.FechaServicioDesde.Value
-            .FechaServicioHasta = ComprobanteATransmitir.FechaServicioHasta.Value
-            .FechaVencimientoPago = ComprobanteATransmitir.FechaVencimiento.Value
+            If ComprobanteATransmitir.FechaServicioDesde.HasValue Then
+                .FechaServicioDesde = ComprobanteATransmitir.FechaServicioDesde.Value
+            End If
+            If ComprobanteATransmitir.FechaServicioHasta.HasValue Then
+                .FechaServicioHasta = ComprobanteATransmitir.FechaServicioHasta.Value
+            End If
+            If ComprobanteATransmitir.FechaVencimiento.HasValue Then
+                .FechaVencimientoPago = ComprobanteATransmitir.FechaVencimiento.Value
+            End If
 
             ' Moneda
             .MonedaID = MonedaLocal.CodigoAFIP

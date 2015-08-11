@@ -403,15 +403,28 @@
         ComboBoxControl.DataSource = localList
     End Sub
 
-    Friend Sub ComprobanteAsociacionMotivo(ByRef ComboBoxControl As ComboBox)
-        Dim listComprobanteAsociacionMotivo As List(Of ComprobanteAsociacionMotivo)
+    Friend Sub ComprobanteAplicacionMotivo(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)
+        Dim listComprobanteAplicacionMotivo As List(Of ComprobanteAplicacionMotivo)
 
-        ComboBoxControl.ValueMember = "IDComprobanteAsociacionMotivo"
+        ComboBoxControl.ValueMember = "IDComprobanteAplicacionMotivo"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        listComprobanteAsociacionMotivo = dbContext.ComprobanteAsociacionMotivo.OrderBy(Function(cl) cl.Nombre).ToList
+        listComprobanteAplicacionMotivo = dbContext.ComprobanteAplicacionMotivo.OrderBy(Function(cl) cl.Nombre).ToList
 
-        ComboBoxControl.DataSource = listComprobanteAsociacionMotivo
+        If AgregarItem_Todos Then
+            Dim Item_Todos As New ComprobanteAplicacionMotivo
+            Item_Todos.IDComprobanteAplicacionMotivo = 0
+            Item_Todos.Nombre = My.Resources.STRING_ITEM_ALL_MALE
+            listComprobanteAplicacionMotivo.Insert(0, Item_Todos)
+        End If
+        If AgregarItem_NoEspecifica Then
+            Dim Item_NoEspecifica As New ComprobanteAplicacionMotivo
+            Item_NoEspecifica.IDComprobanteAplicacionMotivo = 0
+            Item_NoEspecifica.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+            listComprobanteAplicacionMotivo.Insert(0, Item_NoEspecifica)
+        End If
+
+        ComboBoxControl.DataSource = listComprobanteAplicacionMotivo
     End Sub
 
     Public Sub New()

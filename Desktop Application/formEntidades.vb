@@ -230,7 +230,7 @@
     End Sub
 
     Private Sub buttonAgregar_Click() Handles buttonAgregar.Click
-        If Permisos.VerificarPermiso(Permisos.ENTIDAD_ADD) Then
+        If Permisos.VerificarPermiso(Permisos.ENTIDAD_AGREGAR) Then
             Me.Cursor = Cursors.WaitCursor
 
             datagridviewMain.Enabled = False
@@ -239,7 +239,7 @@
 
             With formEntidadAgregar
                 .MdiParent = formMDIMain
-                Dim EntidadAgregar = .dbcontext.Entidad.Add(New Entidad)
+                Dim EntidadAgregar = .dbContext.Entidad.Add(New Entidad)
                 With EntidadAgregar
                     .IDCategoriaIVA = CS_Parameter.GetIntegerAsByte(Parametros.DEFAULT_CATEGORIAIVA_ID)
                     .DomicilioIDProvincia = CS_Parameter.GetIntegerAsByte(Parametros.DEFAULT_PROVINCIA_ID)
@@ -270,7 +270,7 @@
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ninguna Entidad para editar.", vbInformation, My.Application.Info.Title)
         Else
-            If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDIT) Then
+            If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDITAR) Then
                 Me.Cursor = Cursors.WaitCursor
 
                 datagridviewMain.Enabled = False
@@ -279,7 +279,7 @@
 
                 With formEntidadEditar
                     .MdiParent = formMDIMain
-                    .EntidadCurrent = .dbcontext.Entidad.Find(datagridviewMain.SelectedRows.Item(0).Cells(COLUMNA_IDENTIDAD).Value)
+                    .EntidadCurrent = .dbContext.Entidad.Find(datagridviewMain.SelectedRows.Item(0).Cells(COLUMNA_IDENTIDAD).Value)
                     CS_Form.CenterToParent(Me, CType(formEntidadEditar, Form))
                     .buttonEditar.Visible = False
                     .buttonCerrar.Visible = False
@@ -299,7 +299,7 @@
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ninguna Entidad para eliminar.", vbInformation, My.Application.Info.Title)
         Else
-            If Permisos.VerificarPermiso(Permisos.ENTIDAD_DELETE) Then
+            If Permisos.VerificarPermiso(Permisos.ENTIDAD_ELIMINAR) Then
                 Dim EntidadEliminar = CType(datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
                 If MsgBox("Se eliminará la Entidad seleccionada." & vbCrLf & vbCrLf & EntidadEliminar.ApellidoNombre & vbCrLf & vbCrLf & "¿Confirma la eliminación definitiva?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                     Me.Cursor = Cursors.WaitCursor

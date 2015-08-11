@@ -62,43 +62,45 @@
     End Sub
 
     Private Sub buttonAgregar_Click() Handles buttonAgregar.Click
-        formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
-        formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
-        formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = True
-        formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = False
-        formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
-        If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-            Dim EntidadNueva As Entidad = dbcontext.Entidad.Find(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).Cells(formEntidadesSeleccionar.COLUMNA_IDENTIDAD).Value)
-            Try
-                Me.Cursor = Cursors.WaitCursor
-                AnioLectivoCurso.Entidades.Add(EntidadNueva)
-                dbcontext.SaveChanges()
+        If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO_AGREGAR) Then
+            formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
+            formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
+            formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = True
+            formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = False
+            formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
+            If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+                Dim EntidadNueva As Entidad = dbcontext.Entidad.Find(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).Cells(formEntidadesSeleccionar.COLUMNA_IDENTIDAD).Value)
+                Try
+                    Me.Cursor = Cursors.WaitCursor
+                    AnioLectivoCurso.Entidades.Add(EntidadNueva)
+                    dbcontext.SaveChanges()
 
-            Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
+                Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
+                    Me.Cursor = Cursors.Default
+                    Select Case CS_Database_EF_SQL.TryDecodeDbUpdateException(dbuex)
+                        Case Errors.DuplicatedEntity
+                            MsgBox("No se puede agregar el Alumno al Curso porque ya está en el mismo.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                    End Select
+                    Exit Sub
+
+                Catch ex As Exception
+                    Me.Cursor = Cursors.Default
+                    CS_Error.ProcessError(ex, "Error al agregar el Alumno al Curso.")
+                    Exit Sub
+                End Try
+
+                RefreshData()
                 Me.Cursor = Cursors.Default
-                Select Case CS_Database_EF_SQL.TryDecodeDbUpdateException(dbuex)
-                    Case Errors.DuplicatedEntity
-                        MsgBox("No se puede agregar el Alumno al Curso porque ya está en el mismo.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                End Select
-                Exit Sub
-
-            Catch ex As Exception
-                Me.Cursor = Cursors.Default
-                CS_Error.ProcessError(ex, "Error al agregar el Alumno al Curso.")
-                Exit Sub
-            End Try
-
-            RefreshData()
-            Me.Cursor = Cursors.Default
+            End If
+            formEntidadesSeleccionar.Dispose()
         End If
-        formEntidadesSeleccionar.Dispose()
     End Sub
 
     Private Sub buttonEliminar_Click() Handles buttonEliminar.Click
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ninguna Entidad para eliminar.", vbInformation, My.Application.Info.Title)
         Else
-            If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO_DELETE) Then
+            If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO_ELIMINAR) Then
                 Dim EntidadEliminar = CType(datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
                 If MsgBox("Se eliminará la Entidad seleccionada del Curso actual." & vbCrLf & vbCrLf & EntidadEliminar.ApellidoNombre & vbCrLf & vbCrLf & "¿Confirma la eliminación definitiva?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                     Try
@@ -129,7 +131,7 @@
         If sender.Equals(menuitemImprimirListadoDelCurso) AndAlso datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Alumno para imprimir.", vbInformation, My.Application.Info.Title)
         Else
-            If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO_PRINT) Then
+            If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO_IMPRIMIR) Then
                 Me.Cursor = Cursors.WaitCursor
 
                 datagridviewMain.Enabled = False
@@ -146,12 +148,12 @@
 
                         MiscFunctions.PreviewCrystalReport(Reporte, "Listado de Alumnos por Curso")
                     End If
+                End If
+
+                datagridviewMain.Enabled = True
+
+                Me.Cursor = Cursors.Default
             End If
-
-            datagridviewMain.Enabled = True
-
-            Me.Cursor = Cursors.Default
-        End If
         End If
     End Sub
 

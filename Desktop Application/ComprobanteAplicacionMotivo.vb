@@ -10,12 +10,11 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class ComprobanteAsociacion
-    Public Property IDComprobanteAsociante As Integer
-    Public Property IDComprobanteAsociado As Integer
-    Public Property Motivo As String
+Partial Public Class ComprobanteAplicacionMotivo
+    Public Property IDComprobanteAplicacionMotivo As Byte
+    Public Property Nombre As String
+    Public Property AplicaImporteTotal As Boolean
 
-    Public Overridable Property ComprobanteAsociado As Comprobante
-    Public Overridable Property ComprobanteAsociante As Comprobante
+    Public Overridable Property ComprobanteAplicacion As ICollection(Of ComprobanteAplicacion) = New HashSet(Of ComprobanteAplicacion)
 
 End Class

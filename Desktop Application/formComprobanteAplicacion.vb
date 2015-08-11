@@ -51,11 +51,13 @@
     Friend Sub InitializeFormAndControls()
         ' Cargo los ComboBox
         FillList_Comprobante()
+        pFillAndRefreshLists.ComprobanteAplicacionMotivo(comboboxMotivo, False, True)
     End Sub
 
     Private Sub formEntidad_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         mComprobanteActual = Nothing
         mComprobanteAplicacionActual = Nothing
+        Me.Dispose()
     End Sub
 #End Region
 
@@ -67,7 +69,7 @@
             listComprobantes = (From c In dbContext.Comprobante
                                 Group Join ca In dbContext.ComprobanteAplicacion On c.IDComprobante Equals ca.IDComprobanteAplicado Into ComprobanteAplicacion_join = Group
                                 From ca In ComprobanteAplicacion_join.DefaultIfEmpty()
-                                Where c.IDEntidad = mComprobanteActual.IDEntidad And c.IDComprobanteTipo <> mComprobanteActual.IDComprobanteTipo And c.ComprobanteTipo.OperacionTipo = mComprobanteTipoActual.OperacionTipo
+                                Where c.IDEntidad = mComprobanteActual.IDEntidad And c.IDUsuarioAnulacion Is Nothing And c.IDComprobanteTipo <> mComprobanteActual.IDComprobanteTipo And c.ComprobanteTipo.OperacionTipo = mComprobanteTipoActual.OperacionTipo
                                 Group New With {c, c.ComprobanteTipo, ca} By c.IDComprobante, c.ComprobanteTipo.NombreConLetra, c.NumeroCompleto, c.FechaEmision, c.ImporteTotal Into g = Group
                                 Where (ImporteTotal - If(CType(g.Sum(Function(p) p.ca.Importe), Decimal?) Is Nothing, 0, g.Sum(Function(p) p.ca.Importe))) > 0
                                 Select New GridRowData_Comprobante With {.IDComprobante = IDComprobante, .TipoNombre = NombreConLetra, .NumeroCompleto = NumeroCompleto, .FechaEmision = FechaEmision, .ImporteTotal = ImporteTotal, .ImporteAplicado = If(CType(g.Sum(Function(p) p.ca.Importe), Decimal?) Is Nothing, 0, g.Sum(Function(p) p.ca.Importe)), .ImporteSinAplicar = (ImporteTotal - If(CType(g.Sum(Function(p) p.ca.Importe), Decimal?) Is Nothing, 0, g.Sum(Function(p) p.ca.Importe)))}).ToList
@@ -78,13 +80,14 @@
     End Sub
     Friend Sub SetDataFromObjectToControls()
         With mComprobanteAplicacionActual
-            textboxImporteAplicado.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.Importe)
+            'textboxImporteAplicado.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.Importe)
         End With
     End Sub
 
     Friend Sub SetDataFromControlsToObject()
         With mComprobanteAplicacionActual
             .IDComprobanteAplicado = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).IDComprobante
+            .IDComprobanteAplicacionMotivo = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxMotivo.SelectedValue)
             .Importe = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteAplicado.Text).Value
         End With
     End Sub

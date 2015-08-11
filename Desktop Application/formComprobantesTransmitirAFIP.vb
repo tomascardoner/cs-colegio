@@ -32,14 +32,14 @@
                 Case 0  ' Todos
                     listComprobantes = (From c In dbContext.Comprobante
                                         Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                        Where ct.EmisionElectronica And c.CAE Is Nothing
+                                        Where ct.EmisionElectronica And c.CAE Is Nothing And c.IDUsuarioAnulacion Is Nothing
                                         Order By ct.Nombre, c.NumeroCompleto
                                         Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal}).ToList
 
                 Case Is > 0 ' Cantidad de Comprobantes
                     listComprobantes = (From c In dbContext.Comprobante
                                         Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                        Where ct.EmisionElectronica And c.CAE Is Nothing
+                                        Where ct.EmisionElectronica And c.CAE Is Nothing And c.IDUsuarioAnulacion Is Nothing
                                         Order By ct.Nombre, c.PuntoVenta, c.Numero
                                         Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal}).Take(CInt(comboboxCantidad.Text)).ToList
 
@@ -95,7 +95,7 @@
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
 
-        If formMDIMain.menuitemDebugAFIPWSHabilitarRegistro.Checked Then
+        If My.Settings.AFIP_WS_LogEnabled Then
             LogPath = CS_SpecialFolders.ProcessString(My.Settings.AFIP_WS_LogFolder)
             If Not LogPath.EndsWith("\") Then
                 LogPath &= "\"
@@ -218,12 +218,12 @@
                         .MonedaID = MonedaLocal.CodigoAFIP
                         .MonedaCotizacion = MonedaLocalCotizacion.Cotizacion
 
-                        ' Comprobantes Asociados
-                        For Each ComprobanteAsociacionActual As ComprobanteAsociacion In ComprobanteActual.ComprobanteAsociacion_Asociados
+                        ' Comprobantes Aplicados
+                        For Each ComprobanteAplicacionActual As ComprobanteAplicacion In ComprobanteActual.ComprobanteAplicacion_Aplicados
                             Dim AFIP_ComprobanteAsociado As New ComprobanteAsociado
-                            AFIP_ComprobanteAsociado.TipoComprobante = ComprobanteAsociacionActual.ComprobanteAsociado.ComprobanteTipo.CodigoAFIP
-                            AFIP_ComprobanteAsociado.ComprobanteNumero = CInt(ComprobanteAsociacionActual.ComprobanteAsociado.Numero)
-                            AFIP_ComprobanteAsociado.PuntoVenta = CShort(ComprobanteAsociacionActual.ComprobanteAsociado.PuntoVenta)
+                            AFIP_ComprobanteAsociado.TipoComprobante = ComprobanteAplicacionActual.ComprobanteAplicado.ComprobanteTipo.CodigoAFIP
+                            AFIP_ComprobanteAsociado.ComprobanteNumero = CInt(ComprobanteAplicacionActual.ComprobanteAplicado.Numero)
+                            AFIP_ComprobanteAsociado.PuntoVenta = CShort(ComprobanteAplicacionActual.ComprobanteAplicado.PuntoVenta)
                             .ComprobantesAsociados.Add(AFIP_ComprobanteAsociado)
                         Next
                     End With

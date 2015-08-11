@@ -35,7 +35,6 @@ Partial Class formMDIMain
         Me.menuitemArchivo_Salir = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebug = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWS = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemDebugAFIPWSHabilitarRegistro = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSHomologacion = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSHomologacionLogin = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSHomologacionCompConsultar = New System.Windows.Forms.ToolStripMenuItem()
@@ -147,23 +146,16 @@ Partial Class formMDIMain
         '
         'menuitemDebugAFIPWS
         '
-        Me.menuitemDebugAFIPWS.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWSHabilitarRegistro, Me.menuitemDebugAFIPWSHomologacion})
+        Me.menuitemDebugAFIPWS.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWSHomologacion})
         Me.menuitemDebugAFIPWS.Name = "menuitemDebugAFIPWS"
         Me.menuitemDebugAFIPWS.Size = New System.Drawing.Size(167, 22)
         Me.menuitemDebugAFIPWS.Text = "AFIP WebServices"
-        '
-        'menuitemDebugAFIPWSHabilitarRegistro
-        '
-        Me.menuitemDebugAFIPWSHabilitarRegistro.CheckOnClick = True
-        Me.menuitemDebugAFIPWSHabilitarRegistro.Name = "menuitemDebugAFIPWSHabilitarRegistro"
-        Me.menuitemDebugAFIPWSHabilitarRegistro.Size = New System.Drawing.Size(220, 22)
-        Me.menuitemDebugAFIPWSHabilitarRegistro.Text = "Habilitar registro en archivo"
         '
         'menuitemDebugAFIPWSHomologacion
         '
         Me.menuitemDebugAFIPWSHomologacion.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWSHomologacionLogin, Me.menuitemDebugAFIPWSHomologacionCompConsultar})
         Me.menuitemDebugAFIPWSHomologacion.Name = "menuitemDebugAFIPWSHomologacion"
-        Me.menuitemDebugAFIPWSHomologacion.Size = New System.Drawing.Size(220, 22)
+        Me.menuitemDebugAFIPWSHomologacion.Size = New System.Drawing.Size(154, 22)
         Me.menuitemDebugAFIPWSHomologacion.Text = "Homologación"
         '
         'menuitemDebugAFIPWSHomologacionLogin
@@ -443,7 +435,6 @@ Partial Class formMDIMain
     Friend WithEvents menuitemDebugAFIPWS As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSHomologacion As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSHomologacionLogin As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemDebugAFIPWSHabilitarRegistro As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemComprobantesTransmitirAFIP As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemComprobantesEnviarMail As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents buttonReportes As System.Windows.Forms.ToolStripButton

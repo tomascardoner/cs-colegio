@@ -107,12 +107,15 @@
         <EntityTypeShape EntityType="CSColegioModel.Chequera" Width="1.5" PointX="23.625" PointY="18" />
         <AssociationConnector Association="CSColegioModel.FK__Caja__Chequera" />
         <AssociationConnector Association="CSColegioModel.FK__Cheque__ComprobanteMedioPago" />
-        <EntityTypeShape EntityType="CSColegioModel.ComprobanteAsociacionMotivo" Width="3" PointX="22.375" PointY="3.75" />
         <AssociationConnector Association="CSColegioModel.FK__Usuario__Comprobante__EnvioEmail" />
-        <AssociationConnector Association="CSColegioModel.ComprobanteTipoAsociacion" />
-        <EntityTypeShape EntityType="CSColegioModel.ComprobanteAsociacion" Width="1.5" PointX="12.75" PointY="0.5" />
-        <AssociationConnector Association="CSColegioModel.FK__Comprobante__ComprobanteAsociacion__Asociado" />
-        <AssociationConnector Association="CSColegioModel.FK__Comprobante__ComprobanteAsociacion__Asociante" />
+        <EntityTypeShape EntityType="CSColegioModel.ComprobanteAplicacionMotivo" Width="1.5" PointX="22.375" PointY="0.875" />
+        <AssociationConnector Association="CSColegioModel.FK__ComprobanteAplicacionMotivo__ComprobanteAplicacion" />
+        <AssociationConnector Association="CSColegioModel.ComprobanteTipoAplicacion" ManuallyRouted="true" >
+          <ConnectorPoint PointX="7.9592307692307696" PointY="11.875" />
+          <ConnectorPoint PointX="7.9592307692307696" PointY="10.994455734610899" />
+          <ConnectorPoint PointX="8.554615384615385" PointY="10.994455734610899" />
+          <ConnectorPoint PointX="8.554615384615385" PointY="11.875" />
+        </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

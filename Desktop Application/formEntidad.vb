@@ -333,7 +333,7 @@
 
 #Region "Main Toolbar"
     Private Sub buttonEditar_Click() Handles buttonEditar.Click
-        If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDIT) Then
+        If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDITAR) Then
             buttonGuardar.Visible = True
             buttonCancelar.Visible = True
             buttonEditar.Visible = False

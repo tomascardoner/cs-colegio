@@ -40,7 +40,7 @@
                                     Join cl In dbContext.ComprobanteLote On cc.IDComprobanteLote Equals cl.IDComprobanteLote
                                     Join ct In dbContext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                     Join e In dbContext.Entidad On cc.IDEntidad Equals e.IDEntidad
-                                    Where cc.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And cc.FechaHoraEnvioEmail Is Nothing And ct.EmisionElectronica And (Not cc.CAE Is Nothing) And Not (e.Email1 Is Nothing And e.Email2 Is Nothing)
+                                    Where cc.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And cc.IDUsuarioAnulacion Is Nothing And cc.IDUsuarioEnvioEmail Is Nothing And ct.EmisionElectronica And (Not cc.CAE Is Nothing) And Not (e.Email1 Is Nothing And e.Email2 Is Nothing)
                                     Order By ct.Nombre, cc.NumeroCompleto
                                     Select New GridDataRow With {.IDComprobante = cc.IDComprobante, .IDComprobanteTipo = cc.IDComprobanteTipo, .IDComprobanteLote = cc.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = cc.NumeroCompleto, .IDEntidad = cc.IDEntidad, .ApellidoNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal}).ToList
             Else

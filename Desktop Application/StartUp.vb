@@ -97,7 +97,6 @@
 
         If CS_Instance.IsRunningUnderIDE Then
             ' Como se está ejecutando dentro del IDE de Visual Studio, en lugar de pedir Usuario y contraseña, asumo que es el Administrador
-            formMDIMain.menuitemDebugAFIPWSHabilitarRegistro.Checked = True
             Using dbcontext As New CSColegioContext(True)
                 pUsuario = dbcontext.Usuario.Find(1)
                 MiscFunctions.UserLoggedIn()
