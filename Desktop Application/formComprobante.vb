@@ -165,6 +165,7 @@
             datagridviewDetalle.DataSource = mComprobanteActual.ComprobanteDetalle.ToList
 
             ' Datos de la pestaña Notas y Auditoría
+            textboxLeyenda.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Leyenda)
             textboxNotas.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Notas)
             If .UsuarioCreacion Is Nothing Then
                 textboxFechaHoraCreacion.Text = ""
@@ -247,6 +248,7 @@
             .DomicilioIDLocalidad = mEntidad.DomicilioIDLocalidad
 
             ' Datos de la pestaña Notas y Aditoría
+            .Leyenda = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxLeyenda.Text.Trim)
             .Notas = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNotas.Text.Trim)
 
             ' Datos del Pie - Importes Totales

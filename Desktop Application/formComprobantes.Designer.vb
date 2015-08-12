@@ -50,7 +50,7 @@ Partial Class formComprobantes
         Me.buttonEnviarEmail = New System.Windows.Forms.ToolStripButton()
         Me.toolstripPeriodo = New System.Windows.Forms.ToolStrip()
         Me.labelPeriodo = New System.Windows.Forms.ToolStripLabel()
-        Me.comboboxPeriodo = New System.Windows.Forms.ToolStripComboBox()
+        Me.comboboxPeriodoTipo = New System.Windows.Forms.ToolStripComboBox()
         Me.toolstripComprobanteTipo = New System.Windows.Forms.ToolStrip()
         Me.labelComprobanteTipo = New System.Windows.Forms.ToolStripLabel()
         Me.comboboxOperacionTipo = New System.Windows.Forms.ToolStripComboBox()
@@ -68,6 +68,7 @@ Partial Class formComprobantes
         Me.comboboxBuscarTipo = New System.Windows.Forms.ToolStripComboBox()
         Me.textboxBuscar = New System.Windows.Forms.ToolStripTextBox()
         Me.buttonBuscarBorrar = New System.Windows.Forms.ToolStripButton()
+        Me.comboboxPeriodoValor = New System.Windows.Forms.ToolStripComboBox()
         Me.statusstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelToolbars.SuspendLayout()
@@ -285,10 +286,10 @@ Partial Class formComprobantes
         '
         Me.toolstripPeriodo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripPeriodo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.toolstripPeriodo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelPeriodo, Me.comboboxPeriodo})
+        Me.toolstripPeriodo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelPeriodo, Me.comboboxPeriodoTipo, Me.comboboxPeriodoValor})
         Me.toolstripPeriodo.Location = New System.Drawing.Point(559, 0)
         Me.toolstripPeriodo.Name = "toolstripPeriodo"
-        Me.toolstripPeriodo.Size = New System.Drawing.Size(131, 39)
+        Me.toolstripPeriodo.Size = New System.Drawing.Size(254, 39)
         Me.toolstripPeriodo.TabIndex = 8
         '
         'labelPeriodo
@@ -297,46 +298,46 @@ Partial Class formComprobantes
         Me.labelPeriodo.Size = New System.Drawing.Size(51, 36)
         Me.labelPeriodo.Text = "Período:"
         '
-        'comboboxPeriodo
+        'comboboxPeriodoTipo
         '
-        Me.comboboxPeriodo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.comboboxPeriodo.Name = "comboboxPeriodo"
-        Me.comboboxPeriodo.Size = New System.Drawing.Size(75, 39)
+        Me.comboboxPeriodoTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxPeriodoTipo.Name = "comboboxPeriodoTipo"
+        Me.comboboxPeriodoTipo.Size = New System.Drawing.Size(75, 39)
         '
         'toolstripComprobanteTipo
         '
         Me.toolstripComprobanteTipo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripComprobanteTipo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripComprobanteTipo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelComprobanteTipo, Me.comboboxOperacionTipo, Me.comboboxComprobanteTipo})
-        Me.toolstripComprobanteTipo.Location = New System.Drawing.Point(690, 0)
+        Me.toolstripComprobanteTipo.Location = New System.Drawing.Point(0, 39)
         Me.toolstripComprobanteTipo.Name = "toolstripComprobanteTipo"
-        Me.toolstripComprobanteTipo.Size = New System.Drawing.Size(266, 39)
+        Me.toolstripComprobanteTipo.Size = New System.Drawing.Size(266, 25)
         Me.toolstripComprobanteTipo.TabIndex = 10
         '
         'labelComprobanteTipo
         '
         Me.labelComprobanteTipo.Name = "labelComprobanteTipo"
-        Me.labelComprobanteTipo.Size = New System.Drawing.Size(34, 36)
+        Me.labelComprobanteTipo.Size = New System.Drawing.Size(34, 22)
         Me.labelComprobanteTipo.Text = "Tipo:"
         '
         'comboboxOperacionTipo
         '
         Me.comboboxOperacionTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxOperacionTipo.Name = "comboboxOperacionTipo"
-        Me.comboboxOperacionTipo.Size = New System.Drawing.Size(75, 39)
+        Me.comboboxOperacionTipo.Size = New System.Drawing.Size(75, 25)
         '
         'comboboxComprobanteTipo
         '
         Me.comboboxComprobanteTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxComprobanteTipo.Name = "comboboxComprobanteTipo"
-        Me.comboboxComprobanteTipo.Size = New System.Drawing.Size(150, 39)
+        Me.comboboxComprobanteTipo.Size = New System.Drawing.Size(150, 25)
         '
         'toolstripComprobanteLote
         '
         Me.toolstripComprobanteLote.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripComprobanteLote.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripComprobanteLote.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelComprobanteLote, Me.comboboxComprobanteLote})
-        Me.toolstripComprobanteLote.Location = New System.Drawing.Point(0, 39)
+        Me.toolstripComprobanteLote.Location = New System.Drawing.Point(266, 39)
         Me.toolstripComprobanteLote.Name = "toolstripComprobanteLote"
         Me.toolstripComprobanteLote.Size = New System.Drawing.Size(158, 25)
         Me.toolstripComprobanteLote.TabIndex = 11
@@ -358,7 +359,7 @@ Partial Class formComprobantes
         Me.toolstripTitular.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripTitular.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripTitular.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelEntidad, Me.textboxEntidad, Me.buttonEntidad, Me.buttonEntidadBorrar})
-        Me.toolstripTitular.Location = New System.Drawing.Point(158, 39)
+        Me.toolstripTitular.Location = New System.Drawing.Point(424, 39)
         Me.toolstripTitular.Name = "toolstripTitular"
         Me.toolstripTitular.Size = New System.Drawing.Size(295, 25)
         Me.toolstripTitular.TabIndex = 7
@@ -396,7 +397,7 @@ Partial Class formComprobantes
         Me.toolstripBuscar.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripBuscar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripBuscar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelBuscar, Me.comboboxBuscarTipo, Me.textboxBuscar, Me.buttonBuscarBorrar})
-        Me.toolstripBuscar.Location = New System.Drawing.Point(453, 39)
+        Me.toolstripBuscar.Location = New System.Drawing.Point(719, 39)
         Me.toolstripBuscar.Name = "toolstripBuscar"
         Me.toolstripBuscar.Size = New System.Drawing.Size(296, 25)
         Me.toolstripBuscar.TabIndex = 9
@@ -427,6 +428,12 @@ Partial Class formComprobantes
         Me.buttonBuscarBorrar.Name = "buttonBuscarBorrar"
         Me.buttonBuscarBorrar.Size = New System.Drawing.Size(23, 22)
         Me.buttonBuscarBorrar.ToolTipText = "Limpiar búsqueda"
+        '
+        'comboboxPeriodoValor
+        '
+        Me.comboboxPeriodoValor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxPeriodoValor.Name = "comboboxPeriodoValor"
+        Me.comboboxPeriodoValor.Size = New System.Drawing.Size(121, 39)
         '
         'formComprobantes
         '
@@ -480,7 +487,7 @@ Partial Class formComprobantes
     Friend WithEvents textboxBuscar As System.Windows.Forms.ToolStripTextBox
     Friend WithEvents buttonBuscarBorrar As System.Windows.Forms.ToolStripButton
     Friend WithEvents labelPeriodo As System.Windows.Forms.ToolStripLabel
-    Friend WithEvents comboboxPeriodo As System.Windows.Forms.ToolStripComboBox
+    Friend WithEvents comboboxPeriodoTipo As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents toolstripComprobanteTipo As System.Windows.Forms.ToolStrip
     Friend WithEvents labelComprobanteTipo As System.Windows.Forms.ToolStripLabel
     Friend WithEvents comboboxComprobanteTipo As System.Windows.Forms.ToolStripComboBox
@@ -499,4 +506,5 @@ Partial Class formComprobantes
     Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnCAE As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents buttonAnular As System.Windows.Forms.ToolStripButton
+    Friend WithEvents comboboxPeriodoValor As System.Windows.Forms.ToolStripComboBox
 End Class

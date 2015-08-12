@@ -46,8 +46,8 @@
 
         mSkipFilterData = True
 
-        comboboxPeriodo.Items.AddRange({"Día:", "Semana:", "Mes:"})
-        comboboxPeriodo.SelectedIndex = 0
+        comboboxPeriodoTipo.Items.AddRange({"Día:", "Semana:", "Mes:"})
+        comboboxPeriodoTipo.SelectedIndex = 0
 
         ' Tipos de Comprobantes
         comboboxOperacionTipo.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, My.Resources.STRING_OPERACIONTIPO_COMPRA, My.Resources.STRING_OPERACIONTIPO_VENTA})
@@ -57,7 +57,7 @@
 
         ' Buscar
         comboboxBuscarTipo.Items.AddRange({"Titular:", "Número:"})
-        comboboxBuscarTipo.SelectedIndex = 1
+        comboboxBuscarTipo.SelectedIndex = 0
 
         mSkipFilterData = False
 
@@ -75,8 +75,50 @@
 
         Me.Cursor = Cursors.WaitCursor
 
-        FechaDesde = System.DateTime.Today.AddMonths(-2)
-        FechaHasta = System.DateTime.Today
+        Select Case comboboxPeriodoTipo.SelectedIndex
+            Case 0  ' Día
+                Select Case comboboxPeriodoValor.SelectedIndex
+                    Case 0  ' Hoy
+                        FechaDesde = System.DateTime.Today
+                        FechaHasta = System.DateTime.Today
+                    Case 1  ' Ayer
+                        FechaDesde = System.DateTime.Today.AddDays(-1)
+                        FechaHasta = System.DateTime.Today.AddDays(-1)
+                    Case 2  ' Anteayer
+                        FechaDesde = System.DateTime.Today.AddDays(-2)
+                        FechaHasta = System.DateTime.Today.AddDays(-2)
+                    Case 3  ' Últimos 2
+                        FechaDesde = System.DateTime.Today.AddDays(-1)
+                        FechaHasta = System.DateTime.Today
+                    Case 4  ' Últimos 3
+                        FechaDesde = System.DateTime.Today.AddDays(-2)
+                        FechaHasta = System.DateTime.Today
+                End Select
+            Case 1  ' Semana
+                Select Case comboboxPeriodoValor.SelectedIndex
+                    Case 0  ' Actual
+                        FechaDesde = System.DateTime.Today.AddDays(-System.DateTime.Today.DayOfWeek)
+                        FechaHasta = System.DateTime.Today
+                    Case 1  ' Anterior
+                        FechaDesde = System.DateTime.Today.AddDays(-System.DateTime.Today.DayOfWeek - 7)
+                        FechaHasta = System.DateTime.Today.AddDays(-System.DateTime.Today.DayOfWeek - 1)
+                    Case 2  ' Últimas 2
+                        FechaDesde = System.DateTime.Today.AddDays(-System.DateTime.Today.DayOfWeek - 7)
+                        FechaHasta = System.DateTime.Today
+                End Select
+            Case 2  ' Mes
+                Select Case comboboxPeriodoValor.SelectedIndex
+                    Case 0  ' Actual
+                        FechaDesde = New Date(System.DateTime.Today.Year, System.DateTime.Today.Month, 1)
+                        FechaHasta = System.DateTime.Today
+                    Case 1  ' Anterior
+                        FechaDesde = New Date(System.DateTime.Today.Year, System.DateTime.Today.AddMonths(-1).Month, 1)
+                        FechaHasta = New Date(System.DateTime.Today.Year, System.DateTime.Today.AddMonths(-1).Month, New System.Globalization.GregorianCalendar().GetDaysInMonth(System.DateTime.Today.Year, System.DateTime.Today.AddMonths(-1).Month))
+                    Case 2  ' Últimos 2
+                        FechaDesde = New Date(System.DateTime.Today.Year, System.DateTime.Today.AddMonths(-1).Month, 1)
+                        FechaHasta = System.DateTime.Today
+                End Select
+        End Select
 
         Try
             mReportSelectionFormulaBase = String.Format("{{Comprobante.FechaEmision}} >= DateTime({0}, {1}, {2}) AND {{Comprobante.FechaEmision}} <= DateTime({3}, {4}, {5})", FechaDesde.Year, FechaDesde.Month, FechaDesde.Day, FechaHasta.Year, FechaHasta.Month, FechaHasta.Day)
@@ -236,6 +278,23 @@
 #End Region
 
 #Region "Controls behavior"
+    Private Sub PeriodoTipoSeleccionar() Handles comboboxPeriodoTipo.SelectedIndexChanged
+        comboboxPeriodoValor.Items.Clear()
+        Select Case comboboxPeriodoTipo.SelectedIndex
+            Case 0  ' Día
+                comboboxPeriodoValor.Items.AddRange({"Hoy", "Ayer", "Anteayer", "Últimos 2", "Últimos 3"})
+            Case 1  ' Semana
+                comboboxPeriodoValor.Items.AddRange({"Actual", "Anterior", "Últimas 2"})
+            Case 2  ' Mes
+                comboboxPeriodoValor.Items.AddRange({"Actual", "Anterior", "Últimos 2"})
+        End Select
+        comboboxPeriodoValor.SelectedIndex = 0
+    End Sub
+
+    Private Sub PeriodoValorSeleccionar() Handles comboboxPeriodoValor.SelectedIndexChanged
+        RefreshData()
+    End Sub
+
     Private Sub comboboxOperacionTipo_SelectedIndexChanged() Handles comboboxOperacionTipo.SelectedIndexChanged
         Select Case comboboxOperacionTipo.SelectedIndex
             Case -1, 0
