@@ -304,9 +304,11 @@
             Case 1
                 pFillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo.ComboBox, OPERACIONTIPO_COMPRA, True, False)
                 comboboxComprobanteTipo.Enabled = True
+                comboboxComprobanteTipo.SelectedIndex = 0
             Case 2
                 pFillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo.ComboBox, OPERACIONTIPO_VENTA, True, False)
                 comboboxComprobanteTipo.Enabled = True
+                comboboxComprobanteTipo.SelectedIndex = 0
         End Select
     End Sub
 

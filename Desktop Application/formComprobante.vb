@@ -100,7 +100,7 @@
 
         textboxNotas.ReadOnly = (mEditMode = False)
 
-        textboxImporteSubtotal.ReadOnly = (comboboxComprobanteTipo.SelectedIndex <> -1 AndAlso (mComprobanteTipoActual.UtilizaDetalle Or mComprobanteTipoActual.UtilizaMedioPago))
+        'textboxImporteTotal.ReadOnly = (comboboxComprobanteTipo.SelectedIndex <> -1 AndAlso (mComprobanteTipoActual.UtilizaDetalle Or mComprobanteTipoActual.UtilizaMedioPago))
     End Sub
 
     Friend Sub InitializeFormAndControls()
@@ -190,8 +190,10 @@
             End If
 
             ' Datos del Pie - Importes Totales
-            textboxImporteSubtotal.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.ImporteSubtotal)
-            textboxImporteImpuesto.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.ImporteImpuesto)
+            textboxDetalle_Subtotal.Text = FormatCurrency(0)
+            textboxImpuestos_Subtotal.Text = FormatCurrency(0)
+            textboxAplicaciones_Subtotal.Text = FormatCurrency(0)
+            textboxMediosPago_Subtotal.Text = FormatCurrency(0)
             textboxImporteTotal.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.ImporteTotal)
 
             If .IDComprobante > 0 Then
@@ -252,9 +254,9 @@
             .Notas = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNotas.Text.Trim)
 
             ' Datos del Pie - Importes Totales
-            .ImporteSubtotal = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteSubtotal.Text).Value
-            .ImporteImpuesto = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteImpuesto.Text).Value
             .ImporteTotal = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteTotal.Text).Value
+            .ImporteImpuesto = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImpuestos_Subtotal.Text).Value
+            .ImporteSubtotal = .ImporteTotal - .ImporteImpuesto
         End With
     End Sub
 
@@ -297,6 +299,9 @@
             End Select
         Next
         textboxAplicaciones_Subtotal.Text = FormatCurrency(Total)
+        If mComprobanteActual.ComprobanteTipo.UtilizaDetalle = False And mComprobanteActual.ComprobanteTipo.UtilizaMedioPago = False Then
+            textboxImporteTotal.Text = FormatCurrency(Total)
+        End If
 
         Me.Cursor = Cursors.Default
 
@@ -345,7 +350,6 @@
             Total += GridRowData_MedioPagoCurrent.Importe
         Next
         textboxMediosPago_Subtotal.Text = FormatCurrency(Total)
-        textboxImporteSubtotal.Text = FormatCurrency(Total)
         textboxImporteTotal.Text = FormatCurrency(Total)
 
         Me.Cursor = Cursors.Default
@@ -396,14 +400,8 @@
         formEntidadesSeleccionar.Dispose()
     End Sub
 
-    Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxIDComprobante.GotFocus, textboxPuntoVenta.GotFocus, textboxNumero.GotFocus, textboxEntidad.GotFocus, textboxImporteSubtotal.GotFocus, textboxImporteImpuesto.GotFocus, textboxImporteTotal.GotFocus
+    Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxIDComprobante.GotFocus, textboxPuntoVenta.GotFocus, textboxNumero.GotFocus, textboxEntidad.GotFocus, textboxImporteTotal.GotFocus
         CType(sender, TextBox).SelectAll()
-    End Sub
-
-    Private Sub textboxImporteSubtotal_TextChanged() Handles textboxImporteSubtotal.TextChanged
-        If mEditMode And Not textboxImporteSubtotal.ReadOnly Then
-            textboxImporteTotal.Text = FormatCurrency(textboxImporteSubtotal.Text)
-        End If
     End Sub
 #End Region
 
@@ -518,29 +516,29 @@
             Exit Sub
         End If
 
-        ' Importe Subtotal
+        ' Importe Total
         If mComprobanteTipoActual.UtilizaDetalle = False And mComprobanteTipoActual.UtilizaMedioPago = False Then
-            If textboxImporteSubtotal.Text.Trim.Length = 0 Then
-                MsgBox("Debe ingresar el Subtotal del Comprobante.", MsgBoxStyle.Information, My.Application.Info.Title)
-                textboxImporteSubtotal.Focus()
+            If textboxImporteTotal.Text.Trim.Length = 0 Then
+                MsgBox("Debe ingresar el Total del Comprobante.", MsgBoxStyle.Information, My.Application.Info.Title)
+                textboxImporteTotal.Focus()
                 Exit Sub
             End If
-            If Not CS_ValueTranslation.ValidateCurrency(textboxImporteSubtotal.Text) Then
-                MsgBox("El Subtotal ingresado no es válido.", MsgBoxStyle.Information, My.Application.Info.Title)
-                textboxImporteSubtotal.Focus()
+            If Not CS_ValueTranslation.ValidateCurrency(textboxImporteTotal.Text) Then
+                MsgBox("El Total ingresado no es válido.", MsgBoxStyle.Information, My.Application.Info.Title)
+                textboxImporteTotal.Focus()
                 Exit Sub
             End If
-            If CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteSubtotal.Text).Value <= 0 Then
-                MsgBox("El Subtotal debe ser mayor a cero.", MsgBoxStyle.Information, My.Application.Info.Title)
-                textboxImporteSubtotal.Focus()
+            If CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteTotal.Text).Value <= 0 Then
+                MsgBox("El Total debe ser mayor a cero.", MsgBoxStyle.Information, My.Application.Info.Title)
+                textboxImporteTotal.Focus()
                 Exit Sub
             End If
         End If
 
         ' Subtotales de cada solapa
         If mComprobanteTipoActual.UtilizaAplicacion Then
-            If textboxAplicaciones_Subtotal.Value > 0 AndAlso textboxAplicaciones_Subtotal.Value > textboxImporteSubtotal.Value Then
-                MsgBox("El Subtotal de los Comprobantes aplicados no puede ser mayor al Subtotal del Comprobante actual.", MsgBoxStyle.Information, My.Application.Info.Title)
+            If textboxAplicaciones_Subtotal.Value > 0 AndAlso textboxAplicaciones_Subtotal.Value > textboxImporteTotal.Value Then
+                MsgBox("El Subtotal de los Comprobantes aplicados no puede ser mayor al Total del Comprobante actual.", MsgBoxStyle.Information, My.Application.Info.Title)
                 Exit Sub
             End If
         End If
@@ -605,21 +603,21 @@
                 Exit Sub
             End Try
 
+            If mComprobanteTipoActual.EmisionElectronica AndAlso mComprobanteActual.CAE Is Nothing Then
+                If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIRAAFIP) Then
+                    If MsgBox("Este Comprobante necesita ser autorizado en AFIP para tener validez." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
+                        If TransmitirComprobante(mComprobanteActual) Then
+                            MsgBox("Se ha transmitido exitosamente el Comprobante a AFIP.", MsgBoxStyle.Information, My.Application.Info.Title)
+                        End If
+                    End If
+                End If
+            End If
+
             ' Refresco la lista de Comprobantes para mostrar los cambios
             If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formComprobantes") Then
                 Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formComprobantes"), formComprobantes)
                 formComprobantes.RefreshData(mComprobanteActual.IDComprobante)
                 formComprobantes = Nothing
-            End If
-
-            If mComprobanteTipoActual.EmisionElectronica AndAlso mComprobanteActual.CAE Is Nothing Then
-                If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIRAAFIP) Then
-                    If MsgBox("Este Comprobante necesita ser autorizado en AFIP para tener validez." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
-                        If TransmitirComprobante(mComprobanteActual) Then
-
-                        End If
-                    End If
-                End If
             End If
         End If
 
@@ -823,36 +821,44 @@
             textboxNumero.TabStop = Not mUtilizaNumerador
 
             panelFechas.Visible = mComprobanteTipoActual.UtilizaDetalle
-
             If mComprobanteTipoActual.UtilizaDetalle Then
                 tabcontrolMain.ShowTabPageByName(tabpageDetalle.Name)
+                panelDetalle_Subtotal.Visible = True
             Else
                 tabcontrolMain.HideTabPageByName(tabpageDetalle.Name)
+                panelDetalle_Subtotal.Visible = False
             End If
-
             If mComprobanteTipoActual.UtilizaImpuesto Then
                 tabcontrolMain.ShowTabPageByName(tabpageImpuestos.Name)
+                panelImpuestos_Subtotal.Visible = True
             Else
                 tabcontrolMain.HideTabPageByName(tabpageImpuestos.Name)
+                panelImpuestos_Subtotal.Visible = False
             End If
-
             If mComprobanteTipoActual.UtilizaAplicacion Then
                 tabcontrolMain.ShowTabPageByName(tabpageAplicaciones.Name)
+                panelAplicaciones_Subtotal.Visible = True
             Else
                 tabcontrolMain.HideTabPageByName(tabpageAplicaciones.Name)
+                panelAplicaciones_Subtotal.Visible = False
             End If
-
             If mComprobanteTipoActual.UtilizaMedioPago Then
                 tabcontrolMain.ShowTabPageByName(tabpageMediosPago.Name)
+                panelMediosPago_Subtotal.Visible = True
             Else
                 tabcontrolMain.HideTabPageByName(tabpageMediosPago.Name)
+                panelMediosPago_Subtotal.Visible = False
             End If
         Else
             panelFechas.Visible = False
             tabcontrolMain.HideTabPageByName(tabpageDetalle.Name)
+            panelDetalle_Subtotal.Visible = False
             tabcontrolMain.HideTabPageByName(tabpageImpuestos.Name)
+            panelImpuestos_Subtotal.Visible = False
             tabcontrolMain.HideTabPageByName(tabpageAplicaciones.Name)
+            panelAplicaciones_Subtotal.Visible = False
             tabcontrolMain.HideTabPageByName(tabpageMediosPago.Name)
+            panelMediosPago_Subtotal.Visible = False
         End If
         tabcontrolMain.SelectTab(0)
     End Sub
@@ -915,7 +921,7 @@
         End If
 
         ' Intento realizar la Autenticación en el Servidor de AFIP
-        AFIP_TicketAcceso = CS_AFIP_WS.Login(WSAA_URL, InternetProxy, CS_AFIP_WS.SERVICIO_FACTURACION_ELECTRONICA, My.Settings.AFIP_WS_Certificado_Homologacion, My.Settings.AFIP_WS_ClavePrivada, LogPath, LogFileName)
+        AFIP_TicketAcceso = CS_AFIP_WS.Login(WSAA_URL, InternetProxy, CS_AFIP_WS.SERVICIO_FACTURACION_ELECTRONICA, Certificado, My.Settings.AFIP_WS_ClavePrivada, LogPath, LogFileName)
         If AFIP_TicketAcceso = "" Then
             Me.Cursor = Cursors.Default
             Return False
