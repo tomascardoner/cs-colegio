@@ -8,7 +8,6 @@ Partial Class formEntidad
         Try
             If disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
-                dbcontext.Dispose()
             End If
         Finally
             MyBase.Dispose(disposing)
@@ -66,16 +65,21 @@ Partial Class formEntidad
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formEntidad))
         Me.textboxApellido = New System.Windows.Forms.TextBox()
         Me.textboxIDEntidad = New System.Windows.Forms.TextBox()
         Me.textboxNombre = New System.Windows.Forms.TextBox()
         Me.pictureboxMain = New System.Windows.Forms.PictureBox()
-        Me.tabcontrolMain = New System.Windows.Forms.TabControl()
+        Me.tabcontrolMain = New CSColegio.DesktopApplication.CS_Control_TabControl()
         Me.tabpageGeneral = New System.Windows.Forms.TabPage()
         Me.comboboxFacturaDocumentoTipo = New System.Windows.Forms.ComboBox()
         Me.textboxFacturaDocumentoNumero = New System.Windows.Forms.TextBox()
@@ -166,6 +170,12 @@ Partial Class formEntidad
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
         Me.tooltipMain = New System.Windows.Forms.ToolTip(Me.components)
         Me.checkboxEsActivo = New System.Windows.Forms.CheckBox()
+        Me.tabpageComprobantes = New System.Windows.Forms.TabPage()
+        Me.datagridviewComprobantes = New System.Windows.Forms.DataGridView()
+        Me.columnTipoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnNumeroCompleto = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnFecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         labelApellido = New System.Windows.Forms.Label()
         labelIDEntidad = New System.Windows.Forms.Label()
         labelNombre = New System.Windows.Forms.Label()
@@ -216,6 +226,8 @@ Partial Class formEntidad
         CType(Me.datagridviewRelaciones, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabpageNotasAuditoria.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
+        Me.tabpageComprobantes.SuspendLayout()
+        CType(Me.datagridviewComprobantes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'labelApellido
@@ -571,6 +583,7 @@ Partial Class formEntidad
         Me.tabcontrolMain.Controls.Add(Me.tabpageExtra)
         Me.tabcontrolMain.Controls.Add(Me.tabpageCursosAsistidos)
         Me.tabcontrolMain.Controls.Add(Me.tabpageHijos)
+        Me.tabcontrolMain.Controls.Add(Me.tabpageComprobantes)
         Me.tabcontrolMain.Controls.Add(Me.tabpageRelaciones)
         Me.tabcontrolMain.Controls.Add(Me.tabpageNotasAuditoria)
         Me.tabcontrolMain.Location = New System.Drawing.Point(12, 138)
@@ -1385,11 +1398,11 @@ Partial Class formEntidad
         Me.datagridviewRelaciones.AllowUserToDeleteRows = False
         Me.datagridviewRelaciones.AllowUserToOrderColumns = True
         Me.datagridviewRelaciones.AllowUserToResizeRows = False
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewRelaciones.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewRelaciones.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle14
         Me.datagridviewRelaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewRelaciones.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnPadresIDEntidad, Me.columnPadresApellido, Me.columnPadresNombre, Me.columnPadresRelacionTipo})
         Me.datagridviewRelaciones.Dock = System.Windows.Forms.DockStyle.Fill
@@ -1407,8 +1420,8 @@ Partial Class formEntidad
         '
         Me.columnPadresIDEntidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnPadresIDEntidad.DataPropertyName = "IDEntidad"
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.columnPadresIDEntidad.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.columnPadresIDEntidad.DefaultCellStyle = DataGridViewCellStyle15
         Me.columnPadresIDEntidad.HeaderText = "N° Entidad"
         Me.columnPadresIDEntidad.Name = "columnPadresIDEntidad"
         Me.columnPadresIDEntidad.ReadOnly = True
@@ -1418,8 +1431,8 @@ Partial Class formEntidad
         '
         Me.columnPadresApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnPadresApellido.DataPropertyName = "Apellido"
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnPadresApellido.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnPadresApellido.DefaultCellStyle = DataGridViewCellStyle16
         Me.columnPadresApellido.HeaderText = "Apellido"
         Me.columnPadresApellido.Name = "columnPadresApellido"
         Me.columnPadresApellido.ReadOnly = True
@@ -1429,8 +1442,8 @@ Partial Class formEntidad
         '
         Me.columnPadresNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnPadresNombre.DataPropertyName = "Nombre"
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnPadresNombre.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnPadresNombre.DefaultCellStyle = DataGridViewCellStyle17
         Me.columnPadresNombre.HeaderText = "Nombre"
         Me.columnPadresNombre.Name = "columnPadresNombre"
         Me.columnPadresNombre.ReadOnly = True
@@ -1566,6 +1579,86 @@ Partial Class formEntidad
         Me.checkboxEsActivo.TabIndex = 95
         Me.checkboxEsActivo.UseVisualStyleBackColor = True
         '
+        'tabpageComprobantes
+        '
+        Me.tabpageComprobantes.Controls.Add(Me.datagridviewComprobantes)
+        Me.tabpageComprobantes.Location = New System.Drawing.Point(4, 25)
+        Me.tabpageComprobantes.Name = "tabpageComprobantes"
+        Me.tabpageComprobantes.Size = New System.Drawing.Size(506, 223)
+        Me.tabpageComprobantes.TabIndex = 8
+        Me.tabpageComprobantes.Text = "Comprobantes"
+        Me.tabpageComprobantes.UseVisualStyleBackColor = True
+        '
+        'datagridviewComprobantes
+        '
+        Me.datagridviewComprobantes.AllowUserToAddRows = False
+        Me.datagridviewComprobantes.AllowUserToDeleteRows = False
+        Me.datagridviewComprobantes.AllowUserToResizeRows = False
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewComprobantes.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
+        Me.datagridviewComprobantes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.datagridviewComprobantes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnTipoNombre, Me.columnNumeroCompleto, Me.columnFecha, Me.columnImporteTotal})
+        Me.datagridviewComprobantes.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.datagridviewComprobantes.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.datagridviewComprobantes.Location = New System.Drawing.Point(0, 0)
+        Me.datagridviewComprobantes.MultiSelect = False
+        Me.datagridviewComprobantes.Name = "datagridviewComprobantes"
+        Me.datagridviewComprobantes.ReadOnly = True
+        Me.datagridviewComprobantes.RowHeadersVisible = False
+        Me.datagridviewComprobantes.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        Me.datagridviewComprobantes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.datagridviewComprobantes.Size = New System.Drawing.Size(506, 223)
+        Me.datagridviewComprobantes.TabIndex = 2
+        '
+        'columnTipoNombre
+        '
+        Me.columnTipoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnTipoNombre.DataPropertyName = "TipoNombre"
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnTipoNombre.DefaultCellStyle = DataGridViewCellStyle10
+        Me.columnTipoNombre.HeaderText = "Tipo"
+        Me.columnTipoNombre.Name = "columnTipoNombre"
+        Me.columnTipoNombre.ReadOnly = True
+        Me.columnTipoNombre.Width = 53
+        '
+        'columnNumeroCompleto
+        '
+        Me.columnNumeroCompleto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnNumeroCompleto.DataPropertyName = "NumeroCompleto"
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnNumeroCompleto.DefaultCellStyle = DataGridViewCellStyle11
+        Me.columnNumeroCompleto.HeaderText = "Número"
+        Me.columnNumeroCompleto.Name = "columnNumeroCompleto"
+        Me.columnNumeroCompleto.ReadOnly = True
+        Me.columnNumeroCompleto.Width = 69
+        '
+        'columnFecha
+        '
+        Me.columnFecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnFecha.DataPropertyName = "FechaEmision"
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnFecha.DefaultCellStyle = DataGridViewCellStyle12
+        Me.columnFecha.HeaderText = "Fecha"
+        Me.columnFecha.Name = "columnFecha"
+        Me.columnFecha.ReadOnly = True
+        Me.columnFecha.Width = 62
+        '
+        'columnImporteTotal
+        '
+        Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnImporteTotal.DataPropertyName = "ImporteTotal"
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle13.Format = "C2"
+        DataGridViewCellStyle13.NullValue = Nothing
+        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle13
+        Me.columnImporteTotal.HeaderText = "Importe total"
+        Me.columnImporteTotal.Name = "columnImporteTotal"
+        Me.columnImporteTotal.ReadOnly = True
+        Me.columnImporteTotal.Width = 90
+        '
         'formEntidad
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1613,6 +1706,8 @@ Partial Class formEntidad
         Me.tabpageNotasAuditoria.PerformLayout()
         Me.toolstripMain.ResumeLayout(False)
         Me.toolstripMain.PerformLayout()
+        Me.tabpageComprobantes.ResumeLayout(False)
+        CType(Me.datagridviewComprobantes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1621,7 +1716,6 @@ Partial Class formEntidad
     Friend WithEvents textboxIDEntidad As System.Windows.Forms.TextBox
     Friend WithEvents textboxNombre As System.Windows.Forms.TextBox
     Friend WithEvents pictureboxMain As System.Windows.Forms.PictureBox
-    Friend WithEvents tabcontrolMain As System.Windows.Forms.TabControl
     Friend WithEvents tabpageGeneral As System.Windows.Forms.TabPage
     Friend WithEvents tabpageContacto As System.Windows.Forms.TabPage
     Friend WithEvents textboxDocumentoNumero As System.Windows.Forms.TextBox
@@ -1712,4 +1806,11 @@ Partial Class formEntidad
     Friend WithEvents checkboxFacturaIndividual As System.Windows.Forms.CheckBox
     Friend WithEvents checkboxExcluyeCalculoInteres As System.Windows.Forms.CheckBox
     Friend WithEvents textboxFacturaLeyenda As System.Windows.Forms.TextBox
+    Friend WithEvents tabpageComprobantes As System.Windows.Forms.TabPage
+    Friend WithEvents tabcontrolMain As CSColegio.DesktopApplication.CS_Control_TabControl
+    Friend WithEvents datagridviewComprobantes As System.Windows.Forms.DataGridView
+    Friend WithEvents columnTipoNombre As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnNumeroCompleto As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnFecha As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

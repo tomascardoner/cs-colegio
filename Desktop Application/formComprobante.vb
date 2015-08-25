@@ -36,7 +36,7 @@
 #End Region
 
 #Region "Form stuff"
-    Friend Sub LoadAndShow(ByVal EditMode As Boolean, ByRef ParentForm As Form, ByVal IDComprobante As Long)
+    Friend Sub LoadAndShow(ByVal EditMode As Boolean, ByRef ParentForm As Form, ByVal IDComprobante As Integer)
         mIsLoading = True
         mEditMode = EditMode
 
@@ -58,6 +58,8 @@
         Me.MdiParent = formMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
+        CS_Control_ComboBox.SetSelectedValue(comboboxComprobanteTipo, SelectedItemOptions.Value, mComprobanteActual.IDComprobanteTipo)
+        CambiarTipoComprobante()
         SetDataFromObjectToControls()
         Me.Show()
         If Me.WindowState = FormWindowState.Minimized Then
@@ -66,8 +68,6 @@
         Me.Focus()
 
         mIsLoading = False
-
-        CambiarTipoComprobante()
 
         ChangeMode()
     End Sub
@@ -98,6 +98,7 @@
         toolstripAplicaciones.Enabled = (mEditMode And comboboxComprobanteTipo.SelectedIndex > -1)
         toolstripMediosPago.Enabled = mEditMode
 
+        textboxLeyenda.ReadOnly = (mEditMode = False)
         textboxNotas.ReadOnly = (mEditMode = False)
 
         'textboxImporteTotal.ReadOnly = (comboboxComprobanteTipo.SelectedIndex <> -1 AndAlso (mComprobanteTipoActual.UtilizaDetalle Or mComprobanteTipoActual.UtilizaMedioPago))
@@ -299,7 +300,7 @@
             End Select
         Next
         textboxAplicaciones_Subtotal.Text = FormatCurrency(Total)
-        If mComprobanteActual.ComprobanteTipo.UtilizaDetalle = False And mComprobanteActual.ComprobanteTipo.UtilizaMedioPago = False Then
+        If mComprobanteTipoActual.UtilizaDetalle = False And mComprobanteTipoActual.UtilizaMedioPago = False Then
             textboxImporteTotal.Text = FormatCurrency(Total)
         End If
 

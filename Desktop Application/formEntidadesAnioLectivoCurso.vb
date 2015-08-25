@@ -166,19 +166,7 @@
 
             datagridviewMain.Enabled = False
 
-            Dim formEntidadVer As New formEntidad
-
-            With formEntidadVer
-                .MdiParent = formMDIMain
-                .EntidadCurrent = .dbContext.Entidad.Find(datagridviewMain.SelectedRows.Item(0).Cells(COLUMNA_IDENTIDAD).Value)
-                CS_Form.CenterToParent(Me, CType(formEntidadVer, Form))
-                .buttonGuardar.Visible = False
-                .buttonCancelar.Visible = False
-                .InitializeFormAndControls()
-                .SetDataFromObjectToControls()
-                CS_Form.ControlsChangeStateReadOnly(.Controls, True, True, toolstripMain.Name)
-                .Show()
-            End With
+            formEntidad.LoadAndShow(False, Me, CInt(datagridviewMain.SelectedRows.Item(0).Cells(COLUMNA_IDENTIDAD).Value))
 
             datagridviewMain.Enabled = True
 

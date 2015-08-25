@@ -1,4 +1,6 @@
 ﻿Public Class formEntidades
+
+#Region "Declarations"
     Private listEntidadBase As List(Of Entidad)
     Private listEntidadFiltradaYOrdenada As List(Of Entidad)
 
@@ -11,7 +13,36 @@
     Private Const COLUMNA_IDENTIDAD As String = "columnIDEntidad"
     Private Const COLUMNA_APELLIDO As String = "columnApellido"
     Private Const COLUMNA_NOMBRE As String = "columnNombre"
+#End Region
 
+#Region "Form stuff"
+    Friend Sub SetAppearance()
+        datagridviewMain.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewMain.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+    End Sub
+
+    Private Sub formEntidades_Load() Handles Me.Load
+        SetAppearance()
+
+        SkipFilterData = True
+
+        comboboxActivo.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, My.Resources.STRING_YES, My.Resources.STRING_NO})
+        comboboxActivo.SelectedIndex = 1
+
+        SkipFilterData = False
+
+        OrdenColumna = columnApellido
+        OrdenTipo = SortOrder.Ascending
+
+        RefreshData()
+    End Sub
+
+    Private Sub formEntidades_FormClosed() Handles Me.FormClosed
+        listEntidadBase = Nothing
+    End Sub
+#End Region
+
+#Region "Load and Set Data"
     Friend Sub RefreshData(Optional ByVal PositionIDEntidad As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
         Me.Cursor = Cursors.WaitCursor
 
@@ -115,11 +146,9 @@
         OrdenColumna.HeaderCell.SortGlyphDirection = OrdenTipo
     End Sub
 
-    Friend Sub SetAppearance()
-        datagridviewMain.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
-        datagridviewMain.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
-    End Sub
+#End Region
 
+#Region "Controls behavior"
     Private Sub formEntidades_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
         If Not textboxBuscar.Focused Then
             If Char.IsLetter(e.KeyChar) Then
@@ -132,26 +161,6 @@
                 Next
             End If
         End If
-    End Sub
-
-    Private Sub formEntidades_Load() Handles Me.Load
-        SetAppearance()
-
-        SkipFilterData = True
-
-        comboboxActivo.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, My.Resources.STRING_YES, My.Resources.STRING_NO})
-        comboboxActivo.SelectedIndex = 1
-
-        SkipFilterData = False
-
-        OrdenColumna = columnApellido
-        OrdenTipo = SortOrder.Ascending
-
-        RefreshData()
-    End Sub
-
-    Private Sub formEntidades_FormClosed() Handles Me.FormClosed
-        listEntidadBase = Nothing
     End Sub
 
     Private Sub menuitemEntidadTipo_Click() Handles menuitemEntidadTipo_PersonalColegio.Click, menuitemEntidadTipo_Docente.Click, menuitemEntidadTipo_Alumno.Click, menuitemEntidadTipo_Familiar.Click, menuitemEntidadTipo_Proveedor.Click
@@ -201,135 +210,6 @@
         FilterData()
     End Sub
 
-    Private Sub datagridviewMain_DoubleClick() Handles datagridviewMain.DoubleClick
-        If datagridviewMain.CurrentRow Is Nothing Then
-            MsgBox("No hay ninguna Entidad para ver.", vbInformation, My.Application.Info.Title)
-        Else
-            Me.Cursor = Cursors.WaitCursor
-
-            datagridviewMain.Enabled = False
-
-            Dim formEntidadVer As New formEntidad
-
-            With formEntidadVer
-                .MdiParent = formMDIMain
-                .EntidadCurrent = .dbcontext.Entidad.Find(datagridviewMain.SelectedRows.Item(0).Cells(COLUMNA_IDENTIDAD).Value)
-                CS_Form.CenterToParent(Me, CType(formEntidadVer, Form))
-                .buttonGuardar.Visible = False
-                .buttonCancelar.Visible = False
-                .InitializeFormAndControls()
-                .SetDataFromObjectToControls()
-                CS_Form.ControlsChangeStateReadOnly(.Controls, True, True, toolstripMain.Name)
-                .Show()
-            End With
-
-            datagridviewMain.Enabled = True
-
-            Me.Cursor = Cursors.Default
-        End If
-    End Sub
-
-    Private Sub buttonAgregar_Click() Handles buttonAgregar.Click
-        If Permisos.VerificarPermiso(Permisos.ENTIDAD_AGREGAR) Then
-            Me.Cursor = Cursors.WaitCursor
-
-            datagridviewMain.Enabled = False
-
-            Dim formEntidadAgregar As New formEntidad
-
-            With formEntidadAgregar
-                .MdiParent = formMDIMain
-                Dim EntidadAgregar = .dbContext.Entidad.Add(New Entidad)
-                With EntidadAgregar
-                    .IDCategoriaIVA = CS_Parameter.GetIntegerAsByte(Parametros.DEFAULT_CATEGORIAIVA_ID)
-                    .DomicilioIDProvincia = CS_Parameter.GetIntegerAsByte(Parametros.DEFAULT_PROVINCIA_ID)
-                    .DomicilioIDLocalidad = CS_Parameter.GetIntegerAsShort(Parametros.DEFAULT_LOCALIDAD_ID)
-                    .DomicilioCodigoPostal = CS_Parameter.GetString(Parametros.DEFAULT_CODIGOPOSTAL)
-                    .EsActivo = True
-                    .IDUsuarioCreacion = pUsuario.IDUsuario
-                    .FechaHoraCreacion = Now
-                    .IDUsuarioModificacion = pUsuario.IDUsuario
-                    .FechaHoraModificacion = .FechaHoraCreacion
-                End With
-                .EntidadCurrent = EntidadAgregar
-                CS_Form.CenterToParent(Me, CType(formEntidadAgregar, Form))
-                .buttonEditar.Visible = False
-                .buttonCerrar.Visible = False
-                .InitializeFormAndControls()
-                .SetDataFromObjectToControls()
-                .Show()
-            End With
-
-            datagridviewMain.Enabled = True
-
-            Me.Cursor = Cursors.Default
-        End If
-    End Sub
-
-    Private Sub buttonEditar_Click() Handles buttonEditar.Click
-        If datagridviewMain.CurrentRow Is Nothing Then
-            MsgBox("No hay ninguna Entidad para editar.", vbInformation, My.Application.Info.Title)
-        Else
-            If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDITAR) Then
-                Me.Cursor = Cursors.WaitCursor
-
-                datagridviewMain.Enabled = False
-
-                Dim formEntidadEditar As New formEntidad
-
-                With formEntidadEditar
-                    .MdiParent = formMDIMain
-                    .EntidadCurrent = .dbContext.Entidad.Find(datagridviewMain.SelectedRows.Item(0).Cells(COLUMNA_IDENTIDAD).Value)
-                    CS_Form.CenterToParent(Me, CType(formEntidadEditar, Form))
-                    .buttonEditar.Visible = False
-                    .buttonCerrar.Visible = False
-                    .InitializeFormAndControls()
-                    .SetDataFromObjectToControls()
-                    .Show()
-                End With
-
-                datagridviewMain.Enabled = True
-
-                Me.Cursor = Cursors.Default
-            End If
-        End If
-    End Sub
-
-    Private Sub buttonEliminar_Click() Handles buttonEliminar.Click
-        If datagridviewMain.CurrentRow Is Nothing Then
-            MsgBox("No hay ninguna Entidad para eliminar.", vbInformation, My.Application.Info.Title)
-        Else
-            If Permisos.VerificarPermiso(Permisos.ENTIDAD_ELIMINAR) Then
-                Dim EntidadEliminar = CType(datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
-                If MsgBox("Se eliminará la Entidad seleccionada." & vbCrLf & vbCrLf & EntidadEliminar.ApellidoNombre & vbCrLf & vbCrLf & "¿Confirma la eliminación definitiva?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
-                    Me.Cursor = Cursors.WaitCursor
-
-                    Try
-                        Using dbcontext = New CSColegioContext(True)
-                            dbcontext.Entidad.Attach(EntidadEliminar)
-                            dbcontext.Entidad.Remove(EntidadEliminar)
-                            dbcontext.SaveChanges()
-                        End Using
-
-                    Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
-                        Me.Cursor = Cursors.Default
-                        Select Case CS_Database_EF_SQL.TryDecodeDbUpdateException(dbuex)
-                            Case Errors.RelatedEntity
-                                MsgBox("No se puede eliminar la Entidad porque tiene datos relacionados.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                        End Select
-                        Exit Sub
-
-                    Catch ex As Exception
-                        CS_Error.ProcessError(ex, "Error al eliminar la Entidad.")
-                    End Try
-
-                    RefreshData()
-                    Me.Cursor = Cursors.Default
-                End If
-            End If
-        End If
-    End Sub
-
     Private Sub GridChangeOrder(sender As Object, e As DataGridViewCellMouseEventArgs) Handles datagridviewMain.ColumnHeaderMouseClick
         Dim ClickedColumn As DataGridViewColumn
 
@@ -358,4 +238,96 @@
 
         OrderData()
     End Sub
+
+#End Region
+
+#Region "Main Toolbar"
+    Private Sub Agregar_Click() Handles buttonAgregar.Click
+        If Permisos.VerificarPermiso(Permisos.ENTIDAD_AGREGAR) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            datagridviewMain.Enabled = False
+
+            formEntidad.LoadAndShow(True, Me, 0)
+
+            datagridviewMain.Enabled = True
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
+
+    Private Sub Editar_Click() Handles buttonEditar.Click
+        If datagridviewMain.CurrentRow Is Nothing Then
+            MsgBox("No hay ninguna Entidad para editar.", vbInformation, My.Application.Info.Title)
+        Else
+            If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDITAR) Then
+                Me.Cursor = Cursors.WaitCursor
+
+                datagridviewMain.Enabled = False
+
+                formEntidad.LoadAndShow(True, Me, CType(datagridviewMain.SelectedRows(0).DataBoundItem, Entidad).IDEntidad)
+
+                datagridviewMain.Enabled = True
+
+                Me.Cursor = Cursors.Default
+            End If
+        End If
+    End Sub
+
+    Private Sub buttonEliminar_Click() Handles buttonEliminar.Click
+        If datagridviewMain.CurrentRow Is Nothing Then
+            MsgBox("No hay ninguna Entidad para eliminar.", vbInformation, My.Application.Info.Title)
+        Else
+            If Permisos.VerificarPermiso(Permisos.ENTIDAD_ELIMINAR) Then
+
+                Dim EntidadActual = CType(datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
+
+                If MsgBox("Se eliminará la Entidad seleccionada." & vbCrLf & vbCrLf & EntidadActual.ApellidoNombre & vbCrLf & vbCrLf & "¿Confirma la eliminación definitiva?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
+                    Me.Cursor = Cursors.WaitCursor
+
+                    Try
+                        Using dbContext = New CSColegioContext(True)
+                            dbContext.Entidad.Attach(EntidadActual)
+                            dbContext.Entidad.Remove(EntidadActual)
+                            dbContext.SaveChanges()
+                        End Using
+
+                    Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
+                        Me.Cursor = Cursors.Default
+                        Select Case CS_Database_EF_SQL.TryDecodeDbUpdateException(dbuex)
+                            Case Errors.RelatedEntity
+                                MsgBox("No se puede eliminar la Entidad porque tiene datos relacionados.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                        End Select
+                        Exit Sub
+
+                    Catch ex As Exception
+                        CS_Error.ProcessError(ex, "Error al eliminar la Entidad.")
+                    End Try
+
+                    RefreshData()
+
+                    Me.Cursor = Cursors.Default
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub Ver() Handles datagridviewMain.DoubleClick
+        If datagridviewMain.CurrentRow Is Nothing Then
+            MsgBox("No hay ninguna Entidad para ver.", vbInformation, My.Application.Info.Title)
+        Else
+            Me.Cursor = Cursors.WaitCursor
+
+            datagridviewMain.Enabled = False
+
+            formEntidad.LoadAndShow(False, Me, CType(datagridviewMain.SelectedRows(0).DataBoundItem, Entidad).IDEntidad)
+
+            datagridviewMain.Enabled = True
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
+
+#End Region
+
 End Class

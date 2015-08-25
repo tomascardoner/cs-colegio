@@ -1,9 +1,128 @@
 ﻿Public Class formEntidad
-    Friend dbContext As New CSColegioContext(True)
-    Friend EntidadCurrent As Entidad
+
+#Region "Declarations"
+    Private mdbContext As New CSColegioContext(True)
+    Private mEntidadActual As Entidad
+
+    Private mIsLoading As Boolean = False
+    Private mEditMode As Boolean = False
+
+    Public Class GridRowData_Comprobante
+        Public Property IDComprobante As Integer
+        Public Property TipoNombre As String
+        Public Property NumeroCompleto As String
+        Public Property FechaEmision As Date
+        Public Property ImporteTotal As Decimal
+    End Class
+#End Region
 
 #Region "Form stuff"
+    Friend Sub LoadAndShow(ByVal EditMode As Boolean, ByRef ParentForm As Form, ByVal IDEntidad As Integer)
+        mIsLoading = True
+        mEditMode = EditMode
+
+        If IDEntidad = 0 Then
+            ' Es Nuevo
+            mEntidadActual = New Entidad
+            With mEntidadActual
+                .IDCategoriaIVA = CS_Parameter.GetIntegerAsByte(Parametros.DEFAULT_CATEGORIAIVA_ID)
+                .DomicilioIDProvincia = CS_Parameter.GetIntegerAsByte(Parametros.DEFAULT_PROVINCIA_ID)
+                .DomicilioIDLocalidad = CS_Parameter.GetIntegerAsShort(Parametros.DEFAULT_LOCALIDAD_ID)
+                .DomicilioCodigoPostal = CS_Parameter.GetString(Parametros.DEFAULT_CODIGOPOSTAL)
+                .EsActivo = True
+                .IDUsuarioCreacion = pUsuario.IDUsuario
+                .FechaHoraCreacion = Now
+                .IDUsuarioModificacion = pUsuario.IDUsuario
+                .FechaHoraModificacion = .FechaHoraCreacion
+            End With
+            mdbContext.Entidad.Add(mEntidadActual)
+        Else
+            mEntidadActual = mdbContext.Entidad.Find(IDEntidad)
+        End If
+
+        Me.MdiParent = formMDIMain
+        CS_Form.CenterToParent(ParentForm, Me)
+        InitializeFormAndControls()
+        SetDataFromObjectToControls()
+        Me.Show()
+        If Me.WindowState = FormWindowState.Minimized Then
+            Me.WindowState = FormWindowState.Normal
+        End If
+        Me.Focus()
+
+        mIsLoading = False
+
+        ChangeMode()
+    End Sub
+
+    Private Sub ChangeMode()
+        If mIsLoading Then
+            Exit Sub
+        End If
+
+        buttonGuardar.Visible = mEditMode
+        buttonCancelar.Visible = mEditMode
+        buttonEditar.Visible = (mEditMode = False)
+        buttonCerrar.Visible = (mEditMode = False)
+
+        checkboxEsActivo.Enabled = mEditMode
+        textboxApellido.ReadOnly = (mEditMode = False)
+        textboxNombre.ReadOnly = (mEditMode = False)
+
+        ' General
+        checkboxTipoPersonalColegio.Enabled = mEditMode
+        checkboxTipoDocente.Enabled = mEditMode
+        checkboxTipoAlumno.Enabled = mEditMode
+        checkboxTipoFamiliar.Enabled = mEditMode
+        checkboxTipoProveedor.Enabled = mEditMode
+        comboboxDocumentoTipo.Enabled = mEditMode
+        textboxDocumentoNumero.ReadOnly = (mEditMode = False)
+        maskedtextboxDocumentoNumero.ReadOnly = (mEditMode = False)
+        comboboxFacturaDocumentoTipo.Enabled = mEditMode
+        textboxFacturaDocumentoNumero.ReadOnly = (mEditMode = False)
+        maskedtextboxFacturaDocumentoNumero.ReadOnly = (mEditMode = False)
+        comboboxGenero.Enabled = mEditMode
+        datetimepickerFechaNacimiento.Enabled = mEditMode
+        comboboxCategoriaIVA.Enabled = mEditMode
+
+        ' Contacto
+        textboxTelefono1.ReadOnly = (mEditMode = False)
+        textboxTelefono2.ReadOnly = (mEditMode = False)
+        textboxTelefono3.ReadOnly = (mEditMode = False)
+        textboxEmail1.ReadOnly = (mEditMode = False)
+        textboxEmail2.ReadOnly = (mEditMode = False)
+        textboxDomicilioCalle1.ReadOnly = (mEditMode = False)
+        textboxDomicilioNumero.ReadOnly = (mEditMode = False)
+        textboxDomicilioPiso.ReadOnly = (mEditMode = False)
+        textboxDomicilioDepartamento.ReadOnly = (mEditMode = False)
+        textboxDomicilioCalle2.ReadOnly = (mEditMode = False)
+        textboxDomicilioCalle3.ReadOnly = (mEditMode = False)
+        comboboxDomicilioProvincia.Enabled = mEditMode
+        comboboxDomicilioLocalidad.Enabled = mEditMode
+        textboxDomicilioCodigoPostal.ReadOnly = (mEditMode = False)
+
+        ' Padres y Facturación
+        buttonEntidadPadre.Enabled = mEditMode
+        buttonEntidadPadreBorrar.Enabled = mEditMode
+        buttonEntidadMadre.Enabled = mEditMode
+        buttonEntidadMadreBorrar.Enabled = mEditMode
+        comboboxEmitirFacturaA.Enabled = mEditMode
+        buttonEntidadTercero.Enabled = mEditMode
+        buttonEntidadTerceroBorrar.Enabled = mEditMode
+        comboboxDescuento.Enabled = mEditMode
+        checkboxExcluyeCalculoInteres.Enabled = mEditMode
+        checkboxFacturaIndividual.Enabled = mEditMode
+        datetimepickerExcluyeFacturaDesde.Enabled = mEditMode
+        datetimepickerExcluyeFacturaHasta.Enabled = mEditMode
+        textboxFacturaLeyenda.ReadOnly = (mEditMode = False)
+
+        ' Notas y Auditoría
+        textboxNotas.ReadOnly = (mEditMode = False)
+    End Sub
+
     Friend Sub InitializeFormAndControls()
+        SetAppearance()
+
         ' Cargo los ComboBox
         pFillAndRefreshLists.DocumentoTipo(comboboxDocumentoTipo, True)
         pFillAndRefreshLists.DocumentoTipo(comboboxFacturaDocumentoTipo, True)
@@ -14,15 +133,30 @@
         pFillAndRefreshLists.Descuento(comboboxDescuento, True)
     End Sub
 
+    Friend Sub SetAppearance()
+        datagridviewCursosAsistidos.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewCursosAsistidos.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+
+        datagridviewHijos.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewHijos.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+
+        datagridviewComprobantes.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewComprobantes.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+
+        datagridviewRelaciones.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewRelaciones.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+    End Sub
+
     Private Sub formEntidad_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        dbContext.Dispose()
-        EntidadCurrent = Nothing
+        mdbContext.Dispose()
+        mdbContext = Nothing
+        mEntidadActual = Nothing
     End Sub
 #End Region
 
 #Region "Load and Set Data"
     Friend Sub SetDataFromObjectToControls()
-        With EntidadCurrent
+        With mEntidadActual
             ' Datos del Encabezado
             If .IDEntidad = 0 Then
                 textboxIDEntidad.Text = My.Resources.STRING_ITEM_NEW_MALE
@@ -107,32 +241,16 @@
             textboxFacturaLeyenda.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.FacturaLeyenda)
 
             ' Datos de la pestaña Cursos Asistidos
-            Dim listCursosAsistidos As New List(Of Object)
-            For Each AnioLectivoCursoCurrent As AnioLectivoCurso In EntidadCurrent.AniosLectivosCursos.OrderByDescending(Function(alc) alc.AnioLectivo).ToList
-                listCursosAsistidos.Add(New With {.AnioLectivo = AnioLectivoCursoCurrent.AnioLectivo, .NivelNombre = AnioLectivoCursoCurrent.Curso.Anio.Nivel.Nombre, .AnioNombre = AnioLectivoCursoCurrent.Curso.Anio.Nombre, .TurnoNombre = AnioLectivoCursoCurrent.Curso.Turno.Nombre, .Division = AnioLectivoCursoCurrent.Curso.Division})
-            Next
-            datagridviewCursosAsistidos.DataSource = listCursosAsistidos
+            RefreshData_CursosAsistidos()
 
             ' Datos de la pestaña Hijos
-            Using dbcHijos As New CSColegioContext(True)
-                Dim qryHijos = From ent In dbcHijos.Entidad
-                               Where ent.IDEntidadPadre = .IDEntidad Or ent.IDEntidadMadre = .IDEntidad
-                               Select IDEntidad = ent.IDEntidad, Apellido = ent.Apellido, Nombre = ent.Nombre
-                datagridviewHijos.AutoGenerateColumns = False
-                datagridviewHijos.DataSource = qryHijos.ToList
-            End Using
+            RefreshData_Hijos()
+
+            ' Datos de la pestaña Comprobantes
+            RefreshData_Comprobantes()
 
             ' Datos de la pestaña Relaciones Padres
-            Using dbcRelaciones As New CSColegioContext(True)
-                Dim qryRelacionesPadres = From ent In dbcRelaciones.Entidad
-                                         Join entxent In dbcRelaciones.EntidadEntidad On ent.IDEntidad Equals entxent.IDEntidadPadre
-                                         Join reltip In dbcRelaciones.RelacionTipo On entxent.IDRelacionTipo Equals reltip.IDRelacionTipo
-                                         Where entxent.IDEntidadHija = .IDEntidad
-                                         Select IDEntidad = ent.IDEntidad, Apellido = ent.Apellido, Nombre = ent.Nombre, RelacionTipoNombre = reltip.Nombre
-
-                datagridviewRelaciones.AutoGenerateColumns = False
-                datagridviewRelaciones.DataSource = qryRelacionesPadres.ToList
-            End Using
+            'RefreshData_Relaciones()
 
             ' Datos de la pestaña Notas y Auditoría
             textboxNotas.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Notas)
@@ -152,7 +270,7 @@
     End Sub
 
     Friend Sub SetDataFromControlsToObject()
-        With EntidadCurrent
+        With mEntidadActual
             ' Datos del Encabezado
             .EsActivo = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxEsActivo.CheckState)
             .Apellido = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxApellido.Text)
@@ -215,6 +333,51 @@
             ' Datos de la pestaña Notas y Aditoría
             .Notas = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNotas.Text)
         End With
+    End Sub
+
+    Friend Sub RefreshData_CursosAsistidos()
+        Dim listCursosAsistidos As New List(Of Object)
+        For Each AnioLectivoCursoCurrent As AnioLectivoCurso In mEntidadActual.AniosLectivosCursos.OrderByDescending(Function(alc) alc.AnioLectivo).ToList
+            listCursosAsistidos.Add(New With {.AnioLectivo = AnioLectivoCursoCurrent.AnioLectivo, .NivelNombre = AnioLectivoCursoCurrent.Curso.Anio.Nivel.Nombre, .AnioNombre = AnioLectivoCursoCurrent.Curso.Anio.Nombre, .TurnoNombre = AnioLectivoCursoCurrent.Curso.Turno.Nombre, .Division = AnioLectivoCursoCurrent.Curso.Division})
+        Next
+        datagridviewCursosAsistidos.DataSource = listCursosAsistidos
+    End Sub
+
+    Friend Sub RefreshData_Hijos()
+        Using dbcHijos As New CSColegioContext(True)
+            Dim qryHijos = From ent In dbcHijos.Entidad
+                           Where ent.IDEntidadPadre = mEntidadActual.IDEntidad Or ent.IDEntidadMadre = mEntidadActual.IDEntidad
+                           Select IDEntidad = ent.IDEntidad, Apellido = ent.Apellido, Nombre = ent.Nombre
+            datagridviewHijos.AutoGenerateColumns = False
+            datagridviewHijos.DataSource = qryHijos.ToList
+        End Using
+    End Sub
+
+    Friend Sub RefreshData_Comprobantes()
+        Dim listComprobantes As List(Of GridRowData_Comprobante)
+
+        Using dbContext As New CSColegioContext(True)
+            listComprobantes = (From c In dbContext.Comprobante
+                                Where c.IDEntidad = mEntidadActual.IDEntidad And c.IDUsuarioAnulacion Is Nothing
+                                Order By c.FechaEmision Descending
+                                Select New GridRowData_Comprobante With {.IDComprobante = c.IDComprobante, .TipoNombre = c.ComprobanteTipo.NombreConLetra, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal}).ToList
+        End Using
+
+        datagridviewComprobantes.AutoGenerateColumns = False
+        datagridviewComprobantes.DataSource = listComprobantes
+    End Sub
+
+    Friend Sub RefreshData_Relaciones()
+        Using dbcRelaciones As New CSColegioContext(True)
+            Dim qryRelacionesPadres = From ent In dbcRelaciones.Entidad
+                                     Join entxent In dbcRelaciones.EntidadEntidad On ent.IDEntidad Equals entxent.IDEntidadPadre
+                                     Join reltip In dbcRelaciones.RelacionTipo On entxent.IDRelacionTipo Equals reltip.IDRelacionTipo
+                                     Where entxent.IDEntidadHija = mEntidadActual.IDEntidad
+                                     Select IDEntidad = ent.IDEntidad, Apellido = ent.Apellido, Nombre = ent.Nombre, RelacionTipoNombre = reltip.Nombre
+
+            datagridviewRelaciones.AutoGenerateColumns = False
+            datagridviewRelaciones.DataSource = qryRelacionesPadres.ToList
+        End Using
     End Sub
 #End Region
 
@@ -334,11 +497,8 @@
 #Region "Main Toolbar"
     Private Sub buttonEditar_Click() Handles buttonEditar.Click
         If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDITAR) Then
-            buttonGuardar.Visible = True
-            buttonCancelar.Visible = True
-            buttonEditar.Visible = False
-            buttonCerrar.Visible = False
-            CS_Form.ControlsChangeStateReadOnly(Me.Controls, False, True, textboxIDEntidad.Name, textboxEntidadPadre.Name, textboxEntidadMadre.Name, textboxEntidadTercero.Name, textboxFechaHoraCreacion.Name, textboxUsuarioCreacion.Name, textboxFechaHoraModificacion.Name, textboxUsuarioModificacion.Name)
+            mEditMode = True
+            ChangeMode()
         End If
     End Sub
 
@@ -520,12 +680,12 @@
         End Select
 
         ' Generar el ID de la Entidad nueva
-        If EntidadCurrent.IDEntidad = 0 Then
+        If mEntidadActual.IDEntidad = 0 Then
             Using dbcMaxID As New CSColegioContext(True)
                 If dbcMaxID.Entidad.Count = 0 Then
-                    EntidadCurrent.IDEntidad = 1
+                    mEntidadActual.IDEntidad = 1
                 Else
-                    EntidadCurrent.IDEntidad = dbcMaxID.Entidad.Max(Function(ent) ent.IDEntidad) + 1
+                    mEntidadActual.IDEntidad = dbcMaxID.Entidad.Max(Function(ent) ent.IDEntidad) + 1
                 End If
             End Using
         End If
@@ -533,22 +693,22 @@
         ' Paso los datos desde los controles al Objecto de EF
         SetDataFromControlsToObject()
 
-        If dbContext.ChangeTracker.HasChanges Then
+        If mdbContext.ChangeTracker.HasChanges Then
 
             Me.Cursor = Cursors.WaitCursor
 
-            EntidadCurrent.IDUsuarioModificacion = pUsuario.IDUsuario
-            EntidadCurrent.FechaHoraModificacion = Now
+            mEntidadActual.IDUsuarioModificacion = pUsuario.IDUsuario
+            mEntidadActual.FechaHoraModificacion = Now
 
             Try
 
                 ' Guardo los cambios
-                dbContext.SaveChanges()
+                mdbContext.SaveChanges()
 
                 ' Refresco la lista de Entidades para mostrar los cambios
                 If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formEntidades") Then
                     Dim formEntidades As formEntidades = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formEntidades"), formEntidades)
-                    formEntidades.RefreshData(EntidadCurrent.IDEntidad)
+                    formEntidades.RefreshData(mEntidadActual.IDEntidad)
                     formEntidades = Nothing
                 End If
 
@@ -571,12 +731,46 @@
     End Sub
 
     Private Sub buttonCancelar_Click() Handles buttonCancelar.Click
-        If dbContext.ChangeTracker.HasChanges Then
+        If mdbContext.ChangeTracker.HasChanges Then
             If MsgBox("Ha realizado cambios en los datos y seleccionó cancelar, los cambios se perderán." & vbCr & vbCr & "¿Confirma la pérdida de los cambios?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                 Me.Close()
             End If
         Else
             Me.Close()
+        End If
+    End Sub
+#End Region
+
+#Region "Extra stuff"
+    Private Sub HijoVer() Handles datagridviewHijos.DoubleClick
+        If datagridviewHijos.CurrentRow Is Nothing Then
+            MsgBox("No hay ningún Hijo para ver.", vbInformation, My.Application.Info.Title)
+        Else
+            Me.Cursor = Cursors.WaitCursor
+
+            datagridviewHijos.Enabled = False
+
+            Me.LoadAndShow(False, Me, CInt(datagridviewHijos.SelectedRows(0).Cells(0).Value))
+
+            datagridviewHijos.Enabled = True
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
+
+    Private Sub ComprobanteVer() Handles datagridviewComprobantes.DoubleClick
+        If datagridviewComprobantes.CurrentRow Is Nothing Then
+            MsgBox("No hay ningún Comprobante para ver.", vbInformation, My.Application.Info.Title)
+        Else
+            Me.Cursor = Cursors.WaitCursor
+
+            datagridviewComprobantes.Enabled = False
+
+            formComprobante.LoadAndShow(False, Me, CType(datagridviewComprobantes.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).IDComprobante)
+
+            datagridviewComprobantes.Enabled = True
+
+            Me.Cursor = Cursors.Default
         End If
     End Sub
 #End Region
