@@ -30,8 +30,6 @@ Partial Class formComprobante
         Dim labelCreacion As System.Windows.Forms.Label
         Dim labelModificacion As System.Windows.Forms.Label
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -46,17 +44,12 @@ Partial Class formComprobante
         Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.panelMain = New System.Windows.Forms.TableLayoutPanel()
         Me.tabcontrolMain = New CSColegio.DesktopApplication.CS_Control_TabControl()
         Me.tabpageDetalle = New System.Windows.Forms.TabPage()
         Me.datagridviewDetalle = New System.Windows.Forms.DataGridView()
-        Me.columnDetalle_Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnDetalle_PrecioUnitario = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnDetalle_PrecioUnitarioDescuentoPorcentaje = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnDetalle_PrecioUnitarioDescuentoImporte = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnDetalle_PrecioTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.toolstripDetalle = New System.Windows.Forms.ToolStrip()
         Me.buttonDetalle_Agregar = New System.Windows.Forms.ToolStripButton()
         Me.buttonDetalle_Editar = New System.Windows.Forms.ToolStripButton()
@@ -148,6 +141,9 @@ Partial Class formComprobante
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
         Me.buttonCancelar = New System.Windows.Forms.ToolStripButton()
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
+        Me.columnDetalle_Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnDetalle_PrecioUnitario = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnDetalle_PrecioTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         labelFechaServicioDesde = New System.Windows.Forms.Label()
         labelFechaServicioHasta = New System.Windows.Forms.Label()
         labelLeyenda = New System.Windows.Forms.Label()
@@ -305,7 +301,7 @@ Partial Class formComprobante
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
         Me.datagridviewDetalle.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.datagridviewDetalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.datagridviewDetalle.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnDetalle_Descripcion, Me.columnDetalle_PrecioUnitario, Me.columnDetalle_PrecioUnitarioDescuentoPorcentaje, Me.columnDetalle_PrecioUnitarioDescuentoImporte, Me.columnDetalle_PrecioTotal})
+        Me.datagridviewDetalle.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnDetalle_Descripcion, Me.columnDetalle_PrecioUnitario, Me.columnDetalle_PrecioTotal})
         Me.datagridviewDetalle.Dock = System.Windows.Forms.DockStyle.Fill
         Me.datagridviewDetalle.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.datagridviewDetalle.Location = New System.Drawing.Point(90, 3)
@@ -317,67 +313,6 @@ Partial Class formComprobante
         Me.datagridviewDetalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewDetalle.Size = New System.Drawing.Size(782, 276)
         Me.datagridviewDetalle.TabIndex = 4
-        '
-        'columnDetalle_Descripcion
-        '
-        Me.columnDetalle_Descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnDetalle_Descripcion.DataPropertyName = "Descripcion"
-        Me.columnDetalle_Descripcion.HeaderText = "Descripción"
-        Me.columnDetalle_Descripcion.Name = "columnDetalle_Descripcion"
-        Me.columnDetalle_Descripcion.ReadOnly = True
-        Me.columnDetalle_Descripcion.Width = 88
-        '
-        'columnDetalle_PrecioUnitario
-        '
-        Me.columnDetalle_PrecioUnitario.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnDetalle_PrecioUnitario.DataPropertyName = "PrecioUnitario"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle2.Format = "C2"
-        DataGridViewCellStyle2.NullValue = Nothing
-        Me.columnDetalle_PrecioUnitario.DefaultCellStyle = DataGridViewCellStyle2
-        Me.columnDetalle_PrecioUnitario.HeaderText = "Precio Unitario"
-        Me.columnDetalle_PrecioUnitario.Name = "columnDetalle_PrecioUnitario"
-        Me.columnDetalle_PrecioUnitario.ReadOnly = True
-        Me.columnDetalle_PrecioUnitario.Width = 101
-        '
-        'columnDetalle_PrecioUnitarioDescuentoPorcentaje
-        '
-        Me.columnDetalle_PrecioUnitarioDescuentoPorcentaje.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnDetalle_PrecioUnitarioDescuentoPorcentaje.DataPropertyName = "PrecioUnitarioDescuentoPorcentaje"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle3.Format = "0.00"
-        DataGridViewCellStyle3.NullValue = Nothing
-        Me.columnDetalle_PrecioUnitarioDescuentoPorcentaje.DefaultCellStyle = DataGridViewCellStyle3
-        Me.columnDetalle_PrecioUnitarioDescuentoPorcentaje.HeaderText = "% Descuento"
-        Me.columnDetalle_PrecioUnitarioDescuentoPorcentaje.Name = "columnDetalle_PrecioUnitarioDescuentoPorcentaje"
-        Me.columnDetalle_PrecioUnitarioDescuentoPorcentaje.ReadOnly = True
-        Me.columnDetalle_PrecioUnitarioDescuentoPorcentaje.Width = 95
-        '
-        'columnDetalle_PrecioUnitarioDescuentoImporte
-        '
-        Me.columnDetalle_PrecioUnitarioDescuentoImporte.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnDetalle_PrecioUnitarioDescuentoImporte.DataPropertyName = "PrecioUnitarioDescuentoImporte"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.Format = "C2"
-        DataGridViewCellStyle4.NullValue = Nothing
-        Me.columnDetalle_PrecioUnitarioDescuentoImporte.DefaultCellStyle = DataGridViewCellStyle4
-        Me.columnDetalle_PrecioUnitarioDescuentoImporte.HeaderText = "$ Descuento"
-        Me.columnDetalle_PrecioUnitarioDescuentoImporte.Name = "columnDetalle_PrecioUnitarioDescuentoImporte"
-        Me.columnDetalle_PrecioUnitarioDescuentoImporte.ReadOnly = True
-        Me.columnDetalle_PrecioUnitarioDescuentoImporte.Width = 93
-        '
-        'columnDetalle_PrecioTotal
-        '
-        Me.columnDetalle_PrecioTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnDetalle_PrecioTotal.DataPropertyName = "PrecioTotal"
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle5.Format = "C2"
-        DataGridViewCellStyle5.NullValue = Nothing
-        Me.columnDetalle_PrecioTotal.DefaultCellStyle = DataGridViewCellStyle5
-        Me.columnDetalle_PrecioTotal.HeaderText = "Subtotal"
-        Me.columnDetalle_PrecioTotal.Name = "columnDetalle_PrecioTotal"
-        Me.columnDetalle_PrecioTotal.ReadOnly = True
-        Me.columnDetalle_PrecioTotal.Width = 71
         '
         'toolstripDetalle
         '
@@ -427,7 +362,7 @@ Partial Class formComprobante
         Me.tabpageImpuestos.Location = New System.Drawing.Point(4, 22)
         Me.tabpageImpuestos.Name = "tabpageImpuestos"
         Me.tabpageImpuestos.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageImpuestos.Size = New System.Drawing.Size(988, 282)
+        Me.tabpageImpuestos.Size = New System.Drawing.Size(875, 282)
         Me.tabpageImpuestos.TabIndex = 1
         Me.tabpageImpuestos.Text = "Impuestos"
         '
@@ -436,11 +371,11 @@ Partial Class formComprobante
         Me.datagridviewImpuestos.AllowUserToAddRows = False
         Me.datagridviewImpuestos.AllowUserToDeleteRows = False
         Me.datagridviewImpuestos.AllowUserToResizeRows = False
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewImpuestos.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewImpuestos.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.datagridviewImpuestos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewImpuestos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn7, Me.DataGridViewTextBoxColumn8, Me.DataGridViewTextBoxColumn9, Me.DataGridViewTextBoxColumn10})
         Me.datagridviewImpuestos.Dock = System.Windows.Forms.DockStyle.Fill
@@ -452,7 +387,7 @@ Partial Class formComprobante
         Me.datagridviewImpuestos.RowHeadersVisible = False
         Me.datagridviewImpuestos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewImpuestos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewImpuestos.Size = New System.Drawing.Size(895, 276)
+        Me.datagridviewImpuestos.Size = New System.Drawing.Size(782, 276)
         Me.datagridviewImpuestos.TabIndex = 7
         '
         'DataGridViewTextBoxColumn6
@@ -468,10 +403,10 @@ Partial Class formComprobante
         '
         Me.DataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.DataGridViewTextBoxColumn7.DataPropertyName = "PrecioUnitario"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle7.Format = "C2"
-        DataGridViewCellStyle7.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn7.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle5.Format = "C2"
+        DataGridViewCellStyle5.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn7.DefaultCellStyle = DataGridViewCellStyle5
         Me.DataGridViewTextBoxColumn7.HeaderText = "Precio Unitario"
         Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
         Me.DataGridViewTextBoxColumn7.ReadOnly = True
@@ -481,10 +416,10 @@ Partial Class formComprobante
         '
         Me.DataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.DataGridViewTextBoxColumn8.DataPropertyName = "PrecioUnitarioDescuentoPorcentaje"
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle8.Format = "0.00"
-        DataGridViewCellStyle8.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn8.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle6.Format = "0.00"
+        DataGridViewCellStyle6.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn8.DefaultCellStyle = DataGridViewCellStyle6
         Me.DataGridViewTextBoxColumn8.HeaderText = "% Descuento"
         Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
         Me.DataGridViewTextBoxColumn8.ReadOnly = True
@@ -494,10 +429,10 @@ Partial Class formComprobante
         '
         Me.DataGridViewTextBoxColumn9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.DataGridViewTextBoxColumn9.DataPropertyName = "PrecioUnitarioDescuentoImporte"
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle9.Format = "C2"
-        DataGridViewCellStyle9.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn9.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle7.Format = "C2"
+        DataGridViewCellStyle7.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn9.DefaultCellStyle = DataGridViewCellStyle7
         Me.DataGridViewTextBoxColumn9.HeaderText = "$ Descuento"
         Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
         Me.DataGridViewTextBoxColumn9.ReadOnly = True
@@ -507,10 +442,10 @@ Partial Class formComprobante
         '
         Me.DataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.DataGridViewTextBoxColumn10.DataPropertyName = "PrecioTotal"
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle10.Format = "C2"
-        DataGridViewCellStyle10.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn10.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle8.Format = "C2"
+        DataGridViewCellStyle8.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn10.DefaultCellStyle = DataGridViewCellStyle8
         Me.DataGridViewTextBoxColumn10.HeaderText = "Subtotal"
         Me.DataGridViewTextBoxColumn10.Name = "DataGridViewTextBoxColumn10"
         Me.DataGridViewTextBoxColumn10.ReadOnly = True
@@ -564,7 +499,7 @@ Partial Class formComprobante
         Me.tabpageAplicaciones.Location = New System.Drawing.Point(4, 22)
         Me.tabpageAplicaciones.Name = "tabpageAplicaciones"
         Me.tabpageAplicaciones.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageAplicaciones.Size = New System.Drawing.Size(988, 282)
+        Me.tabpageAplicaciones.Size = New System.Drawing.Size(875, 282)
         Me.tabpageAplicaciones.TabIndex = 2
         Me.tabpageAplicaciones.Text = "Aplicaciones"
         '
@@ -573,11 +508,11 @@ Partial Class formComprobante
         Me.datagridviewAplicaciones.AllowUserToAddRows = False
         Me.datagridviewAplicaciones.AllowUserToDeleteRows = False
         Me.datagridviewAplicaciones.AllowUserToResizeRows = False
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewAplicaciones.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewAplicaciones.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
         Me.datagridviewAplicaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewAplicaciones.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnAplicaciones_Motivo, Me.columnAplicaciones_Tipo, Me.columnAplicaciones_NumeroCompleto, Me.columnAplicaciones_Fecha, Me.columnAplicaciones_ImporteTotal, Me.columnAplicaciones_ImporteAplicado})
         Me.datagridviewAplicaciones.Dock = System.Windows.Forms.DockStyle.Fill
@@ -589,7 +524,7 @@ Partial Class formComprobante
         Me.datagridviewAplicaciones.RowHeadersVisible = False
         Me.datagridviewAplicaciones.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewAplicaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewAplicaciones.Size = New System.Drawing.Size(872, 276)
+        Me.datagridviewAplicaciones.Size = New System.Drawing.Size(759, 276)
         Me.datagridviewAplicaciones.TabIndex = 9
         '
         'columnAplicaciones_Motivo
@@ -603,8 +538,8 @@ Partial Class formComprobante
         '
         Me.columnAplicaciones_Tipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnAplicaciones_Tipo.DataPropertyName = "ComprobanteTipoNombre"
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnAplicaciones_Tipo.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnAplicaciones_Tipo.DefaultCellStyle = DataGridViewCellStyle10
         Me.columnAplicaciones_Tipo.HeaderText = "Tipo"
         Me.columnAplicaciones_Tipo.Name = "columnAplicaciones_Tipo"
         Me.columnAplicaciones_Tipo.ReadOnly = True
@@ -614,8 +549,8 @@ Partial Class formComprobante
         '
         Me.columnAplicaciones_NumeroCompleto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnAplicaciones_NumeroCompleto.DataPropertyName = "NumeroCompleto"
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnAplicaciones_NumeroCompleto.DefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnAplicaciones_NumeroCompleto.DefaultCellStyle = DataGridViewCellStyle11
         Me.columnAplicaciones_NumeroCompleto.HeaderText = "Número"
         Me.columnAplicaciones_NumeroCompleto.Name = "columnAplicaciones_NumeroCompleto"
         Me.columnAplicaciones_NumeroCompleto.ReadOnly = True
@@ -625,8 +560,8 @@ Partial Class formComprobante
         '
         Me.columnAplicaciones_Fecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnAplicaciones_Fecha.DataPropertyName = "FechaEmision"
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnAplicaciones_Fecha.DefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnAplicaciones_Fecha.DefaultCellStyle = DataGridViewCellStyle12
         Me.columnAplicaciones_Fecha.HeaderText = "Fecha"
         Me.columnAplicaciones_Fecha.Name = "columnAplicaciones_Fecha"
         Me.columnAplicaciones_Fecha.ReadOnly = True
@@ -636,10 +571,10 @@ Partial Class formComprobante
         '
         Me.columnAplicaciones_ImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnAplicaciones_ImporteTotal.DataPropertyName = "ImporteTotal"
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle15.Format = "C2"
-        DataGridViewCellStyle15.NullValue = Nothing
-        Me.columnAplicaciones_ImporteTotal.DefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle13.Format = "C2"
+        DataGridViewCellStyle13.NullValue = Nothing
+        Me.columnAplicaciones_ImporteTotal.DefaultCellStyle = DataGridViewCellStyle13
         Me.columnAplicaciones_ImporteTotal.HeaderText = "Importe Total"
         Me.columnAplicaciones_ImporteTotal.Name = "columnAplicaciones_ImporteTotal"
         Me.columnAplicaciones_ImporteTotal.ReadOnly = True
@@ -649,10 +584,10 @@ Partial Class formComprobante
         '
         Me.columnAplicaciones_ImporteAplicado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnAplicaciones_ImporteAplicado.DataPropertyName = "ImporteAplicado"
-        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle16.Format = "C2"
-        DataGridViewCellStyle16.NullValue = Nothing
-        Me.columnAplicaciones_ImporteAplicado.DefaultCellStyle = DataGridViewCellStyle16
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle14.Format = "C2"
+        DataGridViewCellStyle14.NullValue = Nothing
+        Me.columnAplicaciones_ImporteAplicado.DefaultCellStyle = DataGridViewCellStyle14
         Me.columnAplicaciones_ImporteAplicado.HeaderText = "Importe aplicado"
         Me.columnAplicaciones_ImporteAplicado.Name = "columnAplicaciones_ImporteAplicado"
         Me.columnAplicaciones_ImporteAplicado.ReadOnly = True
@@ -706,7 +641,7 @@ Partial Class formComprobante
         Me.tabpageMediosPago.Location = New System.Drawing.Point(4, 22)
         Me.tabpageMediosPago.Name = "tabpageMediosPago"
         Me.tabpageMediosPago.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageMediosPago.Size = New System.Drawing.Size(988, 282)
+        Me.tabpageMediosPago.Size = New System.Drawing.Size(875, 282)
         Me.tabpageMediosPago.TabIndex = 4
         Me.tabpageMediosPago.Text = "Medios de Pago"
         '
@@ -715,11 +650,11 @@ Partial Class formComprobante
         Me.datagridviewMediosPago.AllowUserToAddRows = False
         Me.datagridviewMediosPago.AllowUserToDeleteRows = False
         Me.datagridviewMediosPago.AllowUserToResizeRows = False
-        DataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewMediosPago.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle17
+        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewMediosPago.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle15
         Me.datagridviewMediosPago.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewMediosPago.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnMedioPagos_MedioPagoNombre, Me.columnMedioPagos_CajaNombre, Me.columnMedioPagos_Importe, Me.columnMedioPagos_BancoNombre, Me.columnMedioPagos_Numero, Me.columnMedioPagos_FechaVencimiento})
         Me.datagridviewMediosPago.Dock = System.Windows.Forms.DockStyle.Fill
@@ -731,7 +666,7 @@ Partial Class formComprobante
         Me.datagridviewMediosPago.RowHeadersVisible = False
         Me.datagridviewMediosPago.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewMediosPago.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewMediosPago.Size = New System.Drawing.Size(852, 276)
+        Me.datagridviewMediosPago.Size = New System.Drawing.Size(739, 276)
         Me.datagridviewMediosPago.TabIndex = 3
         '
         'columnMedioPagos_MedioPagoNombre
@@ -756,10 +691,10 @@ Partial Class formComprobante
         '
         Me.columnMedioPagos_Importe.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnMedioPagos_Importe.DataPropertyName = "Importe"
-        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle18.Format = "C2"
-        DataGridViewCellStyle18.NullValue = Nothing
-        Me.columnMedioPagos_Importe.DefaultCellStyle = DataGridViewCellStyle18
+        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle16.Format = "C2"
+        DataGridViewCellStyle16.NullValue = Nothing
+        Me.columnMedioPagos_Importe.DefaultCellStyle = DataGridViewCellStyle16
         Me.columnMedioPagos_Importe.HeaderText = "Importe"
         Me.columnMedioPagos_Importe.Name = "columnMedioPagos_Importe"
         Me.columnMedioPagos_Importe.ReadOnly = True
@@ -787,8 +722,8 @@ Partial Class formComprobante
         '
         Me.columnMedioPagos_FechaVencimiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnMedioPagos_FechaVencimiento.DataPropertyName = "FechaVencimiento"
-        DataGridViewCellStyle19.Format = "d"
-        Me.columnMedioPagos_FechaVencimiento.DefaultCellStyle = DataGridViewCellStyle19
+        DataGridViewCellStyle17.Format = "d"
+        Me.columnMedioPagos_FechaVencimiento.DefaultCellStyle = DataGridViewCellStyle17
         Me.columnMedioPagos_FechaVencimiento.HeaderText = "Fecha de Vencimiento"
         Me.columnMedioPagos_FechaVencimiento.Name = "columnMedioPagos_FechaVencimiento"
         Me.columnMedioPagos_FechaVencimiento.ReadOnly = True
@@ -1404,6 +1339,41 @@ Partial Class formComprobante
         Me.buttonGuardar.Size = New System.Drawing.Size(85, 36)
         Me.buttonGuardar.Text = "Guardar"
         '
+        'columnDetalle_Descripcion
+        '
+        Me.columnDetalle_Descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnDetalle_Descripcion.DataPropertyName = "Descripcion"
+        Me.columnDetalle_Descripcion.HeaderText = "Descripción"
+        Me.columnDetalle_Descripcion.Name = "columnDetalle_Descripcion"
+        Me.columnDetalle_Descripcion.ReadOnly = True
+        Me.columnDetalle_Descripcion.Width = 88
+        '
+        'columnDetalle_PrecioUnitario
+        '
+        Me.columnDetalle_PrecioUnitario.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnDetalle_PrecioUnitario.DataPropertyName = "PrecioUnitario"
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle2.Format = "C2"
+        DataGridViewCellStyle2.NullValue = Nothing
+        Me.columnDetalle_PrecioUnitario.DefaultCellStyle = DataGridViewCellStyle2
+        Me.columnDetalle_PrecioUnitario.HeaderText = "Precio Unitario"
+        Me.columnDetalle_PrecioUnitario.Name = "columnDetalle_PrecioUnitario"
+        Me.columnDetalle_PrecioUnitario.ReadOnly = True
+        Me.columnDetalle_PrecioUnitario.Width = 101
+        '
+        'columnDetalle_PrecioTotal
+        '
+        Me.columnDetalle_PrecioTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnDetalle_PrecioTotal.DataPropertyName = "PrecioTotal"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle3.Format = "C2"
+        DataGridViewCellStyle3.NullValue = Nothing
+        Me.columnDetalle_PrecioTotal.DefaultCellStyle = DataGridViewCellStyle3
+        Me.columnDetalle_PrecioTotal.HeaderText = "Precio Total"
+        Me.columnDetalle_PrecioTotal.Name = "columnDetalle_PrecioTotal"
+        Me.columnDetalle_PrecioTotal.ReadOnly = True
+        Me.columnDetalle_PrecioTotal.Width = 89
+        '
         'formComprobante
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1497,11 +1467,6 @@ Partial Class formComprobante
     Friend WithEvents buttonCancelar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonGuardar As System.Windows.Forms.ToolStripButton
     Friend WithEvents datagridviewDetalle As System.Windows.Forms.DataGridView
-    Friend WithEvents columnDetalle_Descripcion As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnDetalle_PrecioUnitario As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnDetalle_PrecioUnitarioDescuentoPorcentaje As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnDetalle_PrecioUnitarioDescuentoImporte As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnDetalle_PrecioTotal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents toolstripDetalle As System.Windows.Forms.ToolStrip
     Friend WithEvents buttonDetalle_Editar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonDetalle_Eliminar As System.Windows.Forms.ToolStripButton
@@ -1565,4 +1530,7 @@ Partial Class formComprobante
     Friend WithEvents panelImpuestos_Subtotal As System.Windows.Forms.Panel
     Friend WithEvents textboxImpuestos_Subtotal As CSColegio.DesktopApplication.CS_Control_TextBox_Currency
     Friend WithEvents labelImpuestosSubtotal As System.Windows.Forms.Label
+    Friend WithEvents columnDetalle_Descripcion As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnDetalle_PrecioUnitario As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnDetalle_PrecioTotal As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

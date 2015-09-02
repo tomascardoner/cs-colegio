@@ -5,11 +5,13 @@
     Private mComprobanteMedioPagoActual As ComprobanteMedioPago
     Private mMedioPagoCurrent As MedioPago
 
+    Private mParentEditMode As Boolean = False
     Private mEditMode As Boolean = False
 #End Region
 
 #Region "Form stuff"
     Friend Sub LoadAndShow(ByVal ParentEditMode As Boolean, ByVal EditMode As Boolean, ByRef ParentForm As Form, ByRef ComprobanteActual As Comprobante, ByRef ComprobanteMedioPagoActual As ComprobanteMedioPago)
+        mParentEditMode = ParentEditMode
         mEditMode = EditMode
 
         mComprobanteActual = ComprobanteActual
@@ -17,10 +19,10 @@
 
         'Me.MdiParent = formMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
-        ChangeMode()
-        buttonEditar.Visible = (ParentEditMode And Not mEditMode)
         InitializeFormAndControls()
         SetDataFromObjectToControls()
+
+        ChangeMode()
         Me.ShowDialog(ParentForm)
         'If Me.WindowState = FormWindowState.Minimized Then
         '    Me.WindowState = FormWindowState.Normal
@@ -31,10 +33,18 @@
     Private Sub ChangeMode()
         buttonGuardar.Visible = mEditMode
         buttonCancelar.Visible = mEditMode
-        buttonEditar.Visible = Not mEditMode
+        buttonEditar.Visible = (mParentEditMode And Not mEditMode)
         buttonCerrar.Visible = Not mEditMode
 
-        CS_Form.ControlsChangeStateEnabled(Me.Controls, mEditMode, True, True, True, toolstripMain.Name)
+        comboboxMedioPago.Enabled = mEditMode
+        datetimepickerFecha.Enabled = mEditMode
+        datetimepickerHora.Enabled = mEditMode
+        textboxNumero.ReadOnly = (mEditMode = False)
+        comboboxBanco.Enabled = mEditMode
+        textboxCuenta.ReadOnly = (mEditMode = False)
+        textboxTitular.ReadOnly = (mEditMode = False)
+        comboboxCaja.Enabled = mEditMode
+        textboxImporte.ReadOnly = (mEditMode = False)
     End Sub
 
     Friend Sub InitializeFormAndControls()
@@ -43,7 +53,7 @@
         pFillAndRefreshLists.Banco(comboboxBanco, True)
     End Sub
 
-    Private Sub formEntidad_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub FormEnd(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         mComprobanteActual = Nothing
         mComprobanteMedioPagoActual = Nothing
         mMedioPagoCurrent = Nothing

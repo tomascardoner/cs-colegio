@@ -38,7 +38,6 @@
           <Property Name="Descripcion" Type="varchar" MaxLength="200" />
           <Property Name="IDArticuloGrupo" Type="tinyint" Nullable="false" />
           <Property Name="IDConcepto" Type="tinyint" Nullable="false" />
-          <Property Name="EspecificaAlumno" Type="bit" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
@@ -882,7 +881,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Comprobante__ComprobanteMedioPago__Ingreso">
+        <Association Name="FK__Comprobante__ComprobanteMedioPago">
           <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1500,7 +1499,7 @@
             <End Role="Comprobante" EntitySet="Comprobante" />
             <End Role="ComprobanteImpuesto" EntitySet="ComprobanteImpuesto" />
           </AssociationSet>
-          <AssociationSet Name="FK__Comprobante__ComprobanteMedioPago__Ingreso" Association="Self.FK__Comprobante__ComprobanteMedioPago__Ingreso">
+          <AssociationSet Name="FK__Comprobante__ComprobanteMedioPago" Association="Self.FK__Comprobante__ComprobanteMedioPago">
             <End Role="Comprobante" EntitySet="Comprobante" />
             <End Role="ComprobanteMedioPago" EntitySet="ComprobanteMedioPago" />
           </AssociationSet>
@@ -1694,7 +1693,6 @@
           <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="IDArticuloGrupo" Type="Byte" Nullable="false" />
           <Property Name="IDConcepto" Type="Byte" Nullable="false" />
-          <Property Name="EspecificaAlumno" Type="Boolean" Nullable="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
@@ -3356,7 +3354,6 @@
           <EntitySetMapping Name="Articulo">
             <EntityTypeMapping TypeName="CSColegioModel.Articulo">
               <MappingFragment StoreEntitySet="Articulo">
-                <ScalarProperty Name="EspecificaAlumno" ColumnName="EspecificaAlumno" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="IDConcepto" ColumnName="IDConcepto" />
                 <ScalarProperty Name="IDArticulo" ColumnName="IDArticulo" />

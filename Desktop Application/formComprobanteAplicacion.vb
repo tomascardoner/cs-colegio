@@ -5,6 +5,7 @@
     Private mComprobanteTipoActual As ComprobanteTipo
     Private mComprobanteAplicacionActual As ComprobanteAplicacion
 
+    Private mParentEditMode As Boolean = False
     Private mEditMode As Boolean = False
 
     Public Class GridRowData_Comprobante
@@ -20,6 +21,7 @@
 
 #Region "Form stuff"
     Friend Sub LoadAndShow(ByVal ParentEditMode As Boolean, ByVal EditMode As Boolean, ByRef ParentForm As Form, ByRef ComprobanteActual As Comprobante, ByRef ComprobanteTipoActual As ComprobanteTipo, ByRef ComprobanteAplicacionActual As ComprobanteAplicacion)
+        mParentEditMode = ParentEditMode
         mEditMode = EditMode
 
         mComprobanteActual = ComprobanteActual
@@ -28,10 +30,10 @@
 
         'Me.MdiParent = formMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
-        ChangeMode()
-        buttonEditar.Visible = (ParentEditMode And Not mEditMode)
         InitializeFormAndControls()
         SetDataFromObjectToControls()
+        ChangeMode()
+
         Me.ShowDialog(ParentForm)
         'If Me.WindowState = FormWindowState.Minimized Then
         '    Me.WindowState = FormWindowState.Normal
@@ -42,10 +44,11 @@
     Private Sub ChangeMode()
         buttonGuardar.Visible = mEditMode
         buttonCancelar.Visible = mEditMode
-        buttonEditar.Visible = Not mEditMode
+        buttonEditar.Visible = (mParentEditMode And Not mEditMode)
         buttonCerrar.Visible = Not mEditMode
 
-        CS_Form.ControlsChangeStateEnabled(Me.Controls, mEditMode, True, True, True, toolstripMain.Name)
+        comboboxMotivo.Enabled = mEditMode
+        textboxImporteAplicado.ReadOnly = (mEditMode = False)
     End Sub
 
     Friend Sub InitializeFormAndControls()

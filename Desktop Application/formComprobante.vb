@@ -159,6 +159,9 @@
                 mEntidad = .Entidad
                 textboxEntidad.Text = .Entidad.ApellidoNombre
                 textboxEntidad.Tag = .Entidad.IDEntidad
+            Else
+                textboxEntidad.Text = ""
+                textboxEntidad.Tag = Nothing
             End If
 
             ' Datos de la pestaña Detalle
@@ -259,6 +262,51 @@
             .ImporteImpuesto = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImpuestos_Subtotal.Text).Value
             .ImporteSubtotal = .ImporteTotal - .ImporteImpuesto
         End With
+    End Sub
+
+    Friend Sub RefreshData_Detalle(Optional ByVal PositionIndice As Byte = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
+        Dim Total As Decimal = 0
+
+        If RestoreCurrentPosition Then
+            If datagridviewAplicaciones.CurrentRow Is Nothing Then
+                PositionIndice = 0
+            Else
+                PositionIndice = CType(datagridviewDetalle.CurrentRow.DataBoundItem, ComprobanteDetalle).Indice
+            End If
+        End If
+
+        Me.Cursor = Cursors.WaitCursor
+
+        Try
+            datagridviewAplicaciones.AutoGenerateColumns = False
+            datagridviewAplicaciones.DataSource = mComprobanteActual.ComprobanteDetalle.ToList
+
+        Catch ex As Exception
+            CS_Error.ProcessError(ex, "Error al leer los Detalles.")
+            Me.Cursor = Cursors.Default
+            Exit Sub
+        End Try
+
+        For Each ComprobanteDetalleActual As ComprobanteDetalle In mComprobanteActual.ComprobanteDetalle
+            Total += ComprobanteDetalleActual.PrecioUnitarioFinal
+        Next
+        textboxDetalle_Subtotal.Text = FormatCurrency(Total)
+        If mComprobanteTipoActual.UtilizaDetalle Then
+            textboxImporteTotal.Text = FormatCurrency(Total)
+        End If
+
+        Me.Cursor = Cursors.Default
+
+        If PositionIndice <> 0 Then
+            For Each CurrentRowChecked As DataGridViewRow In datagridviewDetalle.Rows
+                If CType(datagridviewAplicaciones.CurrentRow.DataBoundItem, ComprobanteDetalle).Indice = PositionIndice Then
+                    datagridviewAplicaciones.CurrentCell = CurrentRowChecked.Cells(0)
+                    Exit For
+                End If
+            Next
+        End If
+
+        ChangeMode()
     End Sub
 
     Friend Sub RefreshData_Aplicaciones(Optional ByVal PositionIDComprobanteAplicado As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
@@ -395,8 +443,12 @@
         formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_COMPRA)
         If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
             mEntidad = CType(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
-            textboxEntidad.Text = mEntidad.ApellidoNombre
-            textboxEntidad.Tag = mEntidad.IDEntidad
+            If mEntidad.IDCategoriaIVA Is Nothing Then
+                MsgBox("La Entidad seleccionada no tiene especificada la Categoría de IVA.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+            Else
+                textboxEntidad.Text = mEntidad.ApellidoNombre
+                textboxEntidad.Tag = mEntidad.IDEntidad
+            End If
         End If
         formEntidadesSeleccionar.Dispose()
     End Sub
@@ -632,6 +684,70 @@
             End If
         Else
             Me.Close()
+        End If
+    End Sub
+#End Region
+
+#Region "Detalle Toolbar"
+    Private Sub Detalle_Agregar() Handles buttonDetalle_Agregar.Click
+        If textboxEntidad.Tag Is Nothing Then
+            MsgBox("Antes de poder agregar Detalles, debe especificar la Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxEntidad.Focus()
+            Exit Sub
+        End If
+
+        Me.Cursor = Cursors.WaitCursor
+
+        datagridviewDetalle.Enabled = False
+
+        SetDataFromControlsToObject()
+
+        Dim ComprobanteDetalleNuevo As New ComprobanteDetalle
+        formComprobanteDetalle.LoadAndShow(True, True, Me, mComprobanteActual, ComprobanteDetalleNuevo)
+
+        datagridviewDetalle.Enabled = True
+
+        Me.Cursor = Cursors.Default
+    End Sub
+
+    Private Sub Detalle_Editar() Handles buttonDetalle_Editar.Click
+        If datagridviewDetalle.CurrentRow Is Nothing Then
+            MsgBox("No hay ningún Detalle para editar.", vbInformation, My.Application.Info.Title)
+        Else
+            Me.Cursor = Cursors.WaitCursor
+
+            datagridviewDetalle.Enabled = False
+
+            Dim ComprobanteDetalleActual As ComprobanteDetalle
+
+            ComprobanteDetalleActual = CType(datagridviewDetalle.SelectedRows(0).DataBoundItem, ComprobanteDetalle)
+            formComprobanteDetalle.LoadAndShow(True, True, Me, mComprobanteActual, ComprobanteDetalleActual)
+
+            datagridviewDetalle.Enabled = True
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
+
+
+    Private Sub Detalle_Eliminar() Handles buttonDetalle_Eliminar.Click
+        If datagridviewDetalle.CurrentRow Is Nothing Then
+            MsgBox("No hay ningún Detalle para eliminar.", vbInformation, My.Application.Info.Title)
+        Else
+            Dim ComprobanteDetalleEliminar As ComprobanteDetalle
+            ComprobanteDetalleEliminar = CType(datagridviewDetalle.SelectedRows(0).DataBoundItem, ComprobanteDetalle)
+
+            Dim Mensaje As String
+            Mensaje = String.Format("Se eliminará el Detalle seleccionado.{0}{0}Descripción: {1}{0}Precio Unitario: {2}{0}Precio Total: {3}{0}{0}¿Confirma la eliminación definitiva?", vbCrLf, ComprobanteDetalleEliminar.Descripcion, FormatCurrency(ComprobanteDetalleEliminar.PrecioUnitario), FormatCurrency(ComprobanteDetalleEliminar.PrecioTotal))
+            If MsgBox(Mensaje, CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
+                Me.Cursor = Cursors.WaitCursor
+
+                mComprobanteActual.ComprobanteDetalle.Remove(ComprobanteDetalleEliminar)
+
+                RefreshData_Detalle()
+
+                Me.Cursor = Cursors.Default
+            End If
         End If
     End Sub
 #End Region
@@ -993,7 +1109,7 @@
             .MonedaCotizacion = MonedaLocalCotizacion.Cotizacion
         End With
 
-        ResultadoCAE = CS_AFIP_WS.FacturaElectronica_ObtenerCAE(AFIP_TicketAcceso, WSFEv1_URL, InternetProxy, CUIT_Emisor, AFIP_Factura, LogPath, LogFileName)
+        ResultadoCAE = CS_AFIP_WS.FacturaElectronica_ConectarYObtenerCAE(AFIP_TicketAcceso, WSFEv1_URL, InternetProxy, CUIT_Emisor, AFIP_Factura, LogPath, LogFileName)
         If ResultadoCAE Is Nothing Then
             Me.Cursor = Cursors.Default
             Return False

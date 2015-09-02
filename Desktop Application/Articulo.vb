@@ -16,7 +16,6 @@ Partial Public Class Articulo
     Public Property Descripcion As String
     Public Property IDArticuloGrupo As Byte
     Public Property IDConcepto As Byte
-    Public Property EspecificaAlumno As Boolean
     Public Property EsActivo As Boolean
     Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date

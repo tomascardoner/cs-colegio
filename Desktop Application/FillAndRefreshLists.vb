@@ -1,5 +1,16 @@
 ﻿Friend Class FillAndRefreshLists
+
+#Region "Declarations..."
     Friend dbContext As CSColegioContext
+
+    Public Class AnioLectivoCurso_ListItem
+        Public Property IDAnioLectivoCurso As Short
+        Public Property Descripcion As String
+        Public Property AnioLectivo As Short
+        Public Property ImporteMatricula As Decimal
+        Public Property ImporteCuota As Decimal
+    End Class
+#End Region
 
     Friend Sub DocumentoTipo(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
         ComboBoxControl.ValueMember = "IDDocumentoTipo"
@@ -82,7 +93,7 @@
         ComboBoxControl.ValueMember = "IDLocalidad"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Dim qryList = From tbl In dbcontext.Localidad
+        Dim qryList = From tbl In dbContext.Localidad
                           Where tbl.IDProvincia = IDProvincia
                           Order By tbl.Nombre
 
@@ -105,7 +116,7 @@
         If String.IsNullOrEmpty(OperacionTipo) Then
             ComboBoxControl.DisplayMember = "NombreCompleto"
 
-            Dim qryList = From tbl In dbcontext.ComprobanteTipo
+            Dim qryList = From tbl In dbContext.ComprobanteTipo
                           Where tbl.EsActivo
                           Order By tbl.NombreCompleto
 
@@ -113,7 +124,7 @@
         Else
             ComboBoxControl.DisplayMember = "NombreConLetra"
 
-            Dim qryList = From tbl In dbcontext.ComprobanteTipo
+            Dim qryList = From tbl In dbContext.ComprobanteTipo
                           Where tbl.OperacionTipo = OperacionTipo And tbl.EsActivo
                           Order By tbl.NombreConLetra
 
@@ -227,7 +238,7 @@
         ComboBoxControl.ValueMember = "IDDescuento"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Dim qryList = From tbl In dbcontext.Descuento
+        Dim qryList = From tbl In dbContext.Descuento
                           Where tbl.EsActivo
                           Order By tbl.Nombre
 
@@ -246,7 +257,7 @@
         ComboBoxControl.ValueMember = "AnioLectivo"
         ComboBoxControl.DisplayMember = "AnioLectivo"
 
-        Dim qryList = From tbl In dbcontext.AnioLectivoCurso
+        Dim qryList = From tbl In dbContext.AnioLectivoCurso
                           Select tbl.AnioLectivo
                           Distinct
 
@@ -261,7 +272,7 @@
         ComboBoxControl.ValueMember = "IDNivel"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Dim qryList = From tbl In dbcontext.Nivel
+        Dim qryList = From tbl In dbContext.Nivel
                           Where tbl.EsActivo
                           Order By tbl.Nombre
 
@@ -281,18 +292,29 @@
         ComboBoxControl.DisplayMember = "Descripcion"
 
         If IDNivel Is Nothing Then
-            Dim qryList = From tbl In dbcontext.AnioLectivoCurso
+            Dim qryList = From tbl In dbContext.AnioLectivoCurso
                           Where tbl.AnioLectivo = AnioLectivo
-                          Order By tbl.Curso.Anio.Nivel.Nombre, tbl.Curso.Anio.Nombre, tbl.Curso.Turno.Nombre, tbl.Curso.Division
+                          Order By tbl.AnioLectivo, tbl.Curso.Anio.Nivel.Nombre, tbl.Curso.Anio.Nombre, tbl.Curso.Turno.Nombre, tbl.Curso.Division
                           Select tbl.IDCurso, Descripcion = tbl.Curso.Anio.Nivel.Nombre & " - " & tbl.Curso.Anio.Nombre & " - " & tbl.Curso.Turno.Nombre & " - " & tbl.Curso.Division
             ComboBoxControl.DataSource = qryList.ToList
         Else
-            Dim qryList = From tbl In dbcontext.AnioLectivoCurso
+            Dim qryList = From tbl In dbContext.AnioLectivoCurso
                           Where tbl.AnioLectivo = AnioLectivo And tbl.Curso.Anio.IDNivel = IDNivel
-                          Order By tbl.Curso.Anio.Nombre, tbl.Curso.Turno.Nombre, tbl.Curso.Division
+                          Order By tbl.AnioLectivo, tbl.Curso.Anio.Nombre, tbl.Curso.Turno.Nombre, tbl.Curso.Division
                           Select tbl.IDCurso, Descripcion = tbl.Curso.Anio.Nombre & " - " & tbl.Curso.Turno.Nombre & " - " & tbl.Curso.Division
             ComboBoxControl.DataSource = qryList.ToList
         End If
+    End Sub
+
+    Friend Sub AnioLectivoCurso(ByRef ComboBoxControl As ComboBox, ByVal AnioLectivoDesde As Integer, ByVal AnioLectivoHasta As Integer)
+        ComboBoxControl.ValueMember = "IDAnioLectivoCurso"
+        ComboBoxControl.DisplayMember = "Descripcion"
+
+        Dim qryList = From tbl In dbContext.AnioLectivoCurso
+                          Where tbl.AnioLectivo >= AnioLectivoDesde And tbl.AnioLectivo <= AnioLectivoHasta
+                          Order By tbl.AnioLectivo, tbl.Curso.Anio.Nivel.Nombre, tbl.Curso.Anio.Nombre, tbl.Curso.Turno.Nombre, tbl.Curso.Division
+                          Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = tbl.IDAnioLectivoCurso, .Descripcion = tbl.AnioLectivo.ToString & " - " & tbl.Curso.Anio.Nivel.Nombre & " - " & tbl.Curso.Anio.Nombre & " - " & tbl.Curso.Turno.Nombre & " - " & tbl.Curso.Division, .AnioLectivo = tbl.AnioLectivo, .ImporteMatricula = tbl.ImporteMatricula, .ImporteCuota = tbl.ImporteCuota}
+        ComboBoxControl.DataSource = qryList.ToList
     End Sub
 
     Friend Sub ComprobanteLote(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)
@@ -425,6 +447,30 @@
         End If
 
         ComboBoxControl.DataSource = listComprobanteAplicacionMotivo
+    End Sub
+
+    Friend Sub Articulo(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)
+        Dim listArticulos As List(Of Articulo)
+
+        ComboBoxControl.ValueMember = "IDArticulo"
+        ComboBoxControl.DisplayMember = "Nombre"
+
+        listArticulos = dbContext.Articulo.OrderBy(Function(cl) cl.Nombre).ToList
+
+        If AgregarItem_Todos Then
+            Dim Item_Todos As New Articulo
+            Item_Todos.IDArticulo = 0
+            Item_Todos.Nombre = My.Resources.STRING_ITEM_ALL_MALE
+            listArticulos.Insert(0, Item_Todos)
+        End If
+        If AgregarItem_NoEspecifica Then
+            Dim Item_NoEspecifica As New Articulo
+            Item_NoEspecifica.IDArticulo = 0
+            Item_NoEspecifica.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+            listArticulos.Insert(0, Item_NoEspecifica)
+        End If
+
+        ComboBoxControl.DataSource = listArticulos
     End Sub
 
     Public Sub New()

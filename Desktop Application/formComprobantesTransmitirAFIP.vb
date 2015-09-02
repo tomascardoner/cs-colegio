@@ -75,11 +75,13 @@
     Private Sub TransmitirComprobantes()
         Dim LogPath As String = ""
         Dim LogFileName As String = ""
+
         Dim Certificado As String
         Dim WSAA_URL As String
         Dim WSFEv1_URL As String
         Dim AFIP_TicketAcceso As String
         Dim AFIP_Factura As CS_AFIP_WS.FacturaElectronicaCabecera
+        Dim ConexionFacturaElectronica As Object
         Dim ResultadoCAE As CS_AFIP_WS.ResultadoCAE
         Dim MensajeError As String
 
@@ -154,6 +156,10 @@
                 Else
                     AFIP_Factura = New CS_AFIP_WS.FacturaElectronicaCabecera
                     With AFIP_Factura
+                        ' Cargo el Tipo de Comprobante si es distinto al anterior
+                        If ComprobanteActual.IDComprobanteTipo <> ComprobanteTipoActual.IDComprobanteTipo Then
+                            ComprobanteTipoActual = dbContext.ComprobanteTipo.Find(ComprobanteActual.IDComprobanteTipo)
+                        End If
 
                         ' Todo esto es para determinar el Concepto a especificar en el pedido del CAE
                         If ComprobanteTipoActual.UtilizaDetalle AndAlso ComprobanteActual.ComprobanteDetalle.Count > 0 Then
@@ -184,9 +190,6 @@
                         .DocumentoNumero = CLng(ComprobanteActual.DocumentoNumero)
 
                         ' Tipo de Comprobante
-                        If ComprobanteActual.IDComprobanteTipo <> ComprobanteTipoActual.IDComprobanteTipo Then
-                            ComprobanteTipoActual = dbContext.ComprobanteTipo.Find(ComprobanteActual.IDComprobanteTipo)
-                        End If
                         .TipoComprobante = ComprobanteTipoActual.CodigoAFIP
 
                         ' Datos de la Cabecera
@@ -228,9 +231,22 @@
                         Next
                     End With
 
+                    ' Conecto al Servicio de Factura Electrónica
+                    If ConexionFacturaElectronica Is Nothing Then
+                        textboxStatus.AppendText(vbCrLf & "Creando conexión al Servicio de Factura Electrónica...")
+                        ConexionFacturaElectronica = CS_AFIP_WS.FacturaElectronica_Conectar(AFIP_TicketAcceso, WSFEv1_URL, InternetProxy, CUIT_Emisor, LogPath, LogFileName)
+                        If ConexionFacturaElectronica Is Nothing Then
+                            RefreshData()
+                            MostrarOcultarEstado(False)
+                            Me.Cursor = Cursors.Default
+                            Exit Sub
+                        End If
+                        textboxStatus.AppendText("OK")
+                    End If
+
                     ' Obtengo el CAE
                     textboxStatus.AppendText(vbCrLf & String.Format("Solicitando el C.A.E. para la {0} N° {1}...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero))
-                    ResultadoCAE = CS_AFIP_WS.FacturaElectronica_ObtenerCAE(AFIP_TicketAcceso, WSFEv1_URL, InternetProxy, CUIT_Emisor, AFIP_Factura, LogPath, LogFileName)
+                    ResultadoCAE = CS_AFIP_WS.FacturaElectronica_ObtenerCAE(ConexionFacturaElectronica, AFIP_Factura, LogPath, LogFileName)
                     If ResultadoCAE Is Nothing Then
                         RefreshData()
                         MostrarOcultarEstado(False)
