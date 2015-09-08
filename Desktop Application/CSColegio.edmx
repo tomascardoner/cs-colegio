@@ -146,6 +146,7 @@
           <Property Name="NumeroCompleto" Type="varchar" MaxLength="13" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="FechaEmision" Type="date" Nullable="false" />
           <Property Name="FechaVencimiento" Type="date" />
+          <Property Name="IDConcepto" Type="tinyint" />
           <Property Name="FechaServicioDesde" Type="date" />
           <Property Name="FechaServicioHasta" Type="date" />
           <Property Name="IDEntidad" Type="int" Nullable="false" />
@@ -979,6 +980,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Concepto__Comprobante">
+          <End Role="Concepto" Type="Self.Concepto" Multiplicity="0..1" />
+          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concepto">
+              <PropertyRef Name="IDConcepto" />
+            </Principal>
+            <Dependent Role="Comprobante">
+              <PropertyRef Name="IDConcepto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Curso__CursoAnioLectivo">
           <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
           <End Role="AnioLectivoCurso" Type="Self.AnioLectivoCurso" Multiplicity="*" />
@@ -1530,6 +1543,10 @@
           <AssociationSet Name="FK__Concepto__Articulo" Association="Self.FK__Concepto__Articulo">
             <End Role="Concepto" EntitySet="Concepto" />
             <End Role="Articulo" EntitySet="Articulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Concepto__Comprobante" Association="Self.FK__Concepto__Comprobante">
+            <End Role="Concepto" EntitySet="Concepto" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
           </AssociationSet>
           <AssociationSet Name="FK__Curso__CursoAnioLectivo" Association="Self.FK__Curso__CursoAnioLectivo">
             <End Role="Curso" EntitySet="Curso" />
@@ -2457,6 +2474,10 @@
             <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
             <End Role="ComprobanteTipo1" EntitySet="ComprobanteTipo" />
           </AssociationSet>
+          <AssociationSet Name="FK__Concepto__Comprobante" Association="CSColegioModel.FK__Concepto__Comprobante">
+            <End Role="Concepto" EntitySet="Concepto" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
           <Key>
@@ -2669,6 +2690,7 @@
           <Property Name="FechaRangoDia" Type="Byte" Nullable="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Articulo" Relationship="CSColegioModel.FK__Concepto__Articulo" FromRole="Concepto" ToRole="Articulo" />
+          <NavigationProperty Name="Comprobante" Relationship="CSColegioModel.FK__Concepto__Comprobante" FromRole="Concepto" ToRole="Comprobante" />
         </EntityType>
         <EntityType Name="CondicionIVA">
           <Key>
@@ -2923,6 +2945,7 @@
           <Property Name="NumeroCompleto" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="FechaEmision" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="FechaVencimiento" Type="DateTime" Precision="0" />
+          <Property Name="IDConcepto" Type="Byte" />
           <Property Name="FechaServicioDesde" Type="DateTime" Precision="0" />
           <Property Name="FechaServicioHasta" Type="DateTime" Precision="0" />
           <Property Name="IDEntidad" Type="Int32" Nullable="false" />
@@ -2967,6 +2990,7 @@
           <NavigationProperty Name="ComprobanteAplicacion_Aplicantes" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicado" FromRole="Comprobante" ToRole="ComprobanteAplicacion" />
           <NavigationProperty Name="ComprobanteAplicacion_Aplicados" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicante" FromRole="Comprobante" ToRole="ComprobanteAplicacion" />
           <NavigationProperty Name="UsuarioEnvioEmail" Relationship="CSColegioModel.FK__Usuario__Comprobante__EnvioEmail" FromRole="Comprobante" ToRole="Usuario" />
+          <NavigationProperty Name="Concepto" Relationship="CSColegioModel.FK__Concepto__Comprobante" FromRole="Comprobante" ToRole="Concepto" />
           </EntityType>
         <EntityType Name="ComprobanteMedioPago">
           <Key>
@@ -3329,6 +3353,18 @@
         <Association Name="ComprobanteTipoAplicacion">
           <End Type="CSColegioModel.ComprobanteTipo" Role="ComprobanteTipo" Multiplicity="*" />
           <End Type="CSColegioModel.ComprobanteTipo" Role="ComprobanteTipo1" Multiplicity="*" />
+        </Association>
+        <Association Name="FK__Concepto__Comprobante">
+          <End Type="CSColegioModel.Concepto" Role="Concepto" Multiplicity="0..1" />
+          <End Type="CSColegioModel.Comprobante" Role="Comprobante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concepto">
+              <PropertyRef Name="IDConcepto" />
+            </Principal>
+            <Dependent Role="Comprobante">
+              <PropertyRef Name="IDConcepto" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -3904,6 +3940,7 @@
           <EntitySetMapping Name="Comprobante">
             <EntityTypeMapping TypeName="CSColegioModel.Comprobante">
               <MappingFragment StoreEntitySet="Comprobante">
+                <ScalarProperty Name="IDConcepto" ColumnName="IDConcepto" />
                 <ScalarProperty Name="NumeroCompleto" ColumnName="NumeroCompleto" />
                 <ScalarProperty Name="ImporteSubtotal" ColumnName="ImporteSubtotal" />
                 <ScalarProperty Name="PeriodoContableMes" ColumnName="PeriodoContableMes" />

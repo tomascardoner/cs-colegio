@@ -43,15 +43,15 @@ Partial Class formComprobanteDetalle
         Me.textboxDescripcion = New System.Windows.Forms.TextBox()
         Me.labelDescripcion = New System.Windows.Forms.Label()
         Me.labelPrecioUnitario = New System.Windows.Forms.Label()
-        Me.textboxPrecioUnitario = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
         Me.labelPrecioUnitarioDescuentoPorcentaje = New System.Windows.Forms.Label()
-        Me.textboxPrecioUnitarioDescuentoImporte = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
         Me.labelPrecioUnitarioDescuentoImporte = New System.Windows.Forms.Label()
-        Me.textboxPrecioUnitarioFinal = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
         Me.labelPrecioUnitarioFinal = New System.Windows.Forms.Label()
-        Me.textboxPrecioTotal = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
         Me.labelPrecioTotal = New System.Windows.Forms.Label()
         Me.textboxPrecioUnitarioDescuentoPorcentaje = New System.Windows.Forms.TextBox()
+        Me.textboxPrecioTotal = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
+        Me.textboxPrecioUnitarioFinal = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
+        Me.textboxPrecioUnitarioDescuentoImporte = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
+        Me.textboxPrecioUnitario = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
         Me.toolstripMain.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -125,66 +125,66 @@ Partial Class formComprobanteDetalle
         'buttonEntidad
         '
         Me.buttonEntidad.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_SEARCH_16
-        Me.buttonEntidad.Location = New System.Drawing.Point(440, 155)
+        Me.buttonEntidad.Location = New System.Drawing.Point(440, 129)
         Me.buttonEntidad.Name = "buttonEntidad"
         Me.buttonEntidad.Size = New System.Drawing.Size(22, 22)
-        Me.buttonEntidad.TabIndex = 10
+        Me.buttonEntidad.TabIndex = 8
         Me.buttonEntidad.Text = "…"
         Me.buttonEntidad.UseVisualStyleBackColor = True
         '
         'textboxEntidad
         '
-        Me.textboxEntidad.Location = New System.Drawing.Point(123, 156)
+        Me.textboxEntidad.Location = New System.Drawing.Point(123, 130)
         Me.textboxEntidad.MaxLength = 150
         Me.textboxEntidad.Name = "textboxEntidad"
         Me.textboxEntidad.ReadOnly = True
         Me.textboxEntidad.Size = New System.Drawing.Size(317, 20)
-        Me.textboxEntidad.TabIndex = 9
+        Me.textboxEntidad.TabIndex = 7
         Me.textboxEntidad.TabStop = False
         '
         'labelEntidad
         '
         Me.labelEntidad.AutoSize = True
-        Me.labelEntidad.Location = New System.Drawing.Point(12, 159)
+        Me.labelEntidad.Location = New System.Drawing.Point(12, 133)
         Me.labelEntidad.Name = "labelEntidad"
         Me.labelEntidad.Size = New System.Drawing.Size(45, 13)
-        Me.labelEntidad.TabIndex = 8
+        Me.labelEntidad.TabIndex = 6
         Me.labelEntidad.Text = "Alumno:"
         '
         'comboboxAnioLectivoCurso
         '
         Me.comboboxAnioLectivoCurso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxAnioLectivoCurso.FormattingEnabled = True
-        Me.comboboxAnioLectivoCurso.Location = New System.Drawing.Point(123, 183)
+        Me.comboboxAnioLectivoCurso.Location = New System.Drawing.Point(123, 157)
         Me.comboboxAnioLectivoCurso.Name = "comboboxAnioLectivoCurso"
         Me.comboboxAnioLectivoCurso.Size = New System.Drawing.Size(339, 21)
-        Me.comboboxAnioLectivoCurso.TabIndex = 12
+        Me.comboboxAnioLectivoCurso.TabIndex = 10
         '
         'labelAnioLectivoCurso
         '
         Me.labelAnioLectivoCurso.AutoSize = True
-        Me.labelAnioLectivoCurso.Location = New System.Drawing.Point(12, 186)
+        Me.labelAnioLectivoCurso.Location = New System.Drawing.Point(12, 160)
         Me.labelAnioLectivoCurso.Name = "labelAnioLectivoCurso"
         Me.labelAnioLectivoCurso.Size = New System.Drawing.Size(105, 13)
-        Me.labelAnioLectivoCurso.TabIndex = 11
+        Me.labelAnioLectivoCurso.TabIndex = 9
         Me.labelAnioLectivoCurso.Text = "Año Lectivo y Curso:"
         '
         'comboboxCuotaMes
         '
         Me.comboboxCuotaMes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxCuotaMes.FormattingEnabled = True
-        Me.comboboxCuotaMes.Location = New System.Drawing.Point(123, 210)
+        Me.comboboxCuotaMes.Location = New System.Drawing.Point(123, 184)
         Me.comboboxCuotaMes.Name = "comboboxCuotaMes"
         Me.comboboxCuotaMes.Size = New System.Drawing.Size(144, 21)
-        Me.comboboxCuotaMes.TabIndex = 14
+        Me.comboboxCuotaMes.TabIndex = 12
         '
         'labelCuotaMes
         '
         Me.labelCuotaMes.AutoSize = True
-        Me.labelCuotaMes.Location = New System.Drawing.Point(12, 213)
+        Me.labelCuotaMes.Location = New System.Drawing.Point(12, 187)
         Me.labelCuotaMes.Name = "labelCuotaMes"
         Me.labelCuotaMes.Size = New System.Drawing.Size(67, 13)
-        Me.labelCuotaMes.TabIndex = 13
+        Me.labelCuotaMes.TabIndex = 11
         Me.labelCuotaMes.Text = "Cuota - Mes:"
         '
         'labelCantidad
@@ -224,20 +224,21 @@ Partial Class formComprobanteDetalle
         '
         'textboxDescripcion
         '
-        Me.textboxDescripcion.Location = New System.Drawing.Point(123, 130)
+        Me.textboxDescripcion.Location = New System.Drawing.Point(123, 211)
         Me.textboxDescripcion.MaxLength = 100
         Me.textboxDescripcion.Name = "textboxDescripcion"
         Me.textboxDescripcion.ReadOnly = True
         Me.textboxDescripcion.Size = New System.Drawing.Size(339, 20)
-        Me.textboxDescripcion.TabIndex = 7
+        Me.textboxDescripcion.TabIndex = 14
+        Me.textboxDescripcion.TabStop = False
         '
         'labelDescripcion
         '
         Me.labelDescripcion.AutoSize = True
-        Me.labelDescripcion.Location = New System.Drawing.Point(12, 133)
+        Me.labelDescripcion.Location = New System.Drawing.Point(12, 214)
         Me.labelDescripcion.Name = "labelDescripcion"
         Me.labelDescripcion.Size = New System.Drawing.Size(66, 13)
-        Me.labelDescripcion.TabIndex = 6
+        Me.labelDescripcion.TabIndex = 13
         Me.labelDescripcion.Text = "Descripción:"
         '
         'labelPrecioUnitario
@@ -249,15 +250,6 @@ Partial Class formComprobanteDetalle
         Me.labelPrecioUnitario.TabIndex = 15
         Me.labelPrecioUnitario.Text = "Precio Unitario:"
         '
-        'textboxPrecioUnitario
-        '
-        Me.textboxPrecioUnitario.Location = New System.Drawing.Point(123, 237)
-        Me.textboxPrecioUnitario.MaxLength = 15
-        Me.textboxPrecioUnitario.Name = "textboxPrecioUnitario"
-        Me.textboxPrecioUnitario.Size = New System.Drawing.Size(100, 20)
-        Me.textboxPrecioUnitario.TabIndex = 16
-        Me.textboxPrecioUnitario.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
         'labelPrecioUnitarioDescuentoPorcentaje
         '
         Me.labelPrecioUnitarioDescuentoPorcentaje.AutoSize = True
@@ -266,15 +258,6 @@ Partial Class formComprobanteDetalle
         Me.labelPrecioUnitarioDescuentoPorcentaje.Size = New System.Drawing.Size(73, 13)
         Me.labelPrecioUnitarioDescuentoPorcentaje.TabIndex = 17
         Me.labelPrecioUnitarioDescuentoPorcentaje.Text = "% Descuento:"
-        '
-        'textboxPrecioUnitarioDescuentoImporte
-        '
-        Me.textboxPrecioUnitarioDescuentoImporte.Location = New System.Drawing.Point(123, 289)
-        Me.textboxPrecioUnitarioDescuentoImporte.MaxLength = 15
-        Me.textboxPrecioUnitarioDescuentoImporte.Name = "textboxPrecioUnitarioDescuentoImporte"
-        Me.textboxPrecioUnitarioDescuentoImporte.Size = New System.Drawing.Size(100, 20)
-        Me.textboxPrecioUnitarioDescuentoImporte.TabIndex = 20
-        Me.textboxPrecioUnitarioDescuentoImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'labelPrecioUnitarioDescuentoImporte
         '
@@ -285,16 +268,6 @@ Partial Class formComprobanteDetalle
         Me.labelPrecioUnitarioDescuentoImporte.TabIndex = 19
         Me.labelPrecioUnitarioDescuentoImporte.Text = "Importe Descuento:"
         '
-        'textboxPrecioUnitarioFinal
-        '
-        Me.textboxPrecioUnitarioFinal.Location = New System.Drawing.Point(123, 315)
-        Me.textboxPrecioUnitarioFinal.MaxLength = 15
-        Me.textboxPrecioUnitarioFinal.Name = "textboxPrecioUnitarioFinal"
-        Me.textboxPrecioUnitarioFinal.ReadOnly = True
-        Me.textboxPrecioUnitarioFinal.Size = New System.Drawing.Size(100, 20)
-        Me.textboxPrecioUnitarioFinal.TabIndex = 22
-        Me.textboxPrecioUnitarioFinal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
         'labelPrecioUnitarioFinal
         '
         Me.labelPrecioUnitarioFinal.AutoSize = True
@@ -303,16 +276,6 @@ Partial Class formComprobanteDetalle
         Me.labelPrecioUnitarioFinal.Size = New System.Drawing.Size(104, 13)
         Me.labelPrecioUnitarioFinal.TabIndex = 21
         Me.labelPrecioUnitarioFinal.Text = "Precio Unitario Final:"
-        '
-        'textboxPrecioTotal
-        '
-        Me.textboxPrecioTotal.Location = New System.Drawing.Point(123, 341)
-        Me.textboxPrecioTotal.MaxLength = 15
-        Me.textboxPrecioTotal.Name = "textboxPrecioTotal"
-        Me.textboxPrecioTotal.ReadOnly = True
-        Me.textboxPrecioTotal.Size = New System.Drawing.Size(100, 20)
-        Me.textboxPrecioTotal.TabIndex = 24
-        Me.textboxPrecioTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'labelPrecioTotal
         '
@@ -332,6 +295,46 @@ Partial Class formComprobanteDetalle
         Me.textboxPrecioUnitarioDescuentoPorcentaje.TabIndex = 18
         Me.textboxPrecioUnitarioDescuentoPorcentaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
+        'textboxPrecioTotal
+        '
+        Me.textboxPrecioTotal.Location = New System.Drawing.Point(123, 341)
+        Me.textboxPrecioTotal.MaxLength = 15
+        Me.textboxPrecioTotal.Name = "textboxPrecioTotal"
+        Me.textboxPrecioTotal.ReadOnly = True
+        Me.textboxPrecioTotal.Size = New System.Drawing.Size(100, 20)
+        Me.textboxPrecioTotal.TabIndex = 24
+        Me.textboxPrecioTotal.TabStop = False
+        Me.textboxPrecioTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'textboxPrecioUnitarioFinal
+        '
+        Me.textboxPrecioUnitarioFinal.Location = New System.Drawing.Point(123, 315)
+        Me.textboxPrecioUnitarioFinal.MaxLength = 15
+        Me.textboxPrecioUnitarioFinal.Name = "textboxPrecioUnitarioFinal"
+        Me.textboxPrecioUnitarioFinal.ReadOnly = True
+        Me.textboxPrecioUnitarioFinal.Size = New System.Drawing.Size(100, 20)
+        Me.textboxPrecioUnitarioFinal.TabIndex = 22
+        Me.textboxPrecioUnitarioFinal.TabStop = False
+        Me.textboxPrecioUnitarioFinal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'textboxPrecioUnitarioDescuentoImporte
+        '
+        Me.textboxPrecioUnitarioDescuentoImporte.Location = New System.Drawing.Point(123, 289)
+        Me.textboxPrecioUnitarioDescuentoImporte.MaxLength = 15
+        Me.textboxPrecioUnitarioDescuentoImporte.Name = "textboxPrecioUnitarioDescuentoImporte"
+        Me.textboxPrecioUnitarioDescuentoImporte.Size = New System.Drawing.Size(100, 20)
+        Me.textboxPrecioUnitarioDescuentoImporte.TabIndex = 20
+        Me.textboxPrecioUnitarioDescuentoImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'textboxPrecioUnitario
+        '
+        Me.textboxPrecioUnitario.Location = New System.Drawing.Point(123, 237)
+        Me.textboxPrecioUnitario.MaxLength = 15
+        Me.textboxPrecioUnitario.Name = "textboxPrecioUnitario"
+        Me.textboxPrecioUnitario.Size = New System.Drawing.Size(100, 20)
+        Me.textboxPrecioUnitario.TabIndex = 16
+        Me.textboxPrecioUnitario.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
         'formComprobanteDetalle
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -347,8 +350,8 @@ Partial Class formComprobanteDetalle
         Me.Controls.Add(Me.labelPrecioUnitarioDescuentoPorcentaje)
         Me.Controls.Add(Me.textboxPrecioUnitario)
         Me.Controls.Add(Me.labelPrecioUnitario)
-        Me.Controls.Add(Me.textboxDescripcion)
         Me.Controls.Add(Me.labelDescripcion)
+        Me.Controls.Add(Me.textboxDescripcion)
         Me.Controls.Add(Me.textboxUnidad)
         Me.Controls.Add(Me.labelUnidad)
         Me.Controls.Add(Me.textboxCantidad)

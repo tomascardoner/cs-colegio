@@ -18,6 +18,7 @@ Partial Public Class Comprobante
     Public Property NumeroCompleto As String
     Public Property FechaEmision As Date
     Public Property FechaVencimiento As Nullable(Of Date)
+    Public Property IDConcepto As Nullable(Of Byte)
     Public Property FechaServicioDesde As Nullable(Of Date)
     Public Property FechaServicioHasta As Nullable(Of Date)
     Public Property IDEntidad As Integer
@@ -63,5 +64,6 @@ Partial Public Class Comprobante
     Public Overridable Property ComprobanteAplicacion_Aplicantes As ICollection(Of ComprobanteAplicacion) = New HashSet(Of ComprobanteAplicacion)
     Public Overridable Property ComprobanteAplicacion_Aplicados As ICollection(Of ComprobanteAplicacion) = New HashSet(Of ComprobanteAplicacion)
     Public Overridable Property UsuarioEnvioEmail As Usuario
+    Public Overridable Property Concepto As Concepto
 
 End Class

@@ -151,6 +151,7 @@
         mdbContext.Dispose()
         mdbContext = Nothing
         mEntidadActual = Nothing
+        Me.Dispose()
     End Sub
 #End Region
 

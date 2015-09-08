@@ -306,15 +306,26 @@
         End If
     End Sub
 
-    Friend Sub AnioLectivoCurso(ByRef ComboBoxControl As ComboBox, ByVal AnioLectivoDesde As Integer, ByVal AnioLectivoHasta As Integer)
+    Friend Sub AnioLectivoCurso(ByRef ComboBoxControl As ComboBox, ByVal AnioLectivoDesde As Integer, ByVal AnioLectivoHasta As Integer, Optional ByVal IDEntidad As Integer? = Nothing)
+        Dim listAnioLectivoCursos As List(Of AnioLectivoCurso_ListItem)
+
         ComboBoxControl.ValueMember = "IDAnioLectivoCurso"
         ComboBoxControl.DisplayMember = "Descripcion"
 
-        Dim qryList = From tbl In dbContext.AnioLectivoCurso
-                          Where tbl.AnioLectivo >= AnioLectivoDesde And tbl.AnioLectivo <= AnioLectivoHasta
-                          Order By tbl.AnioLectivo, tbl.Curso.Anio.Nivel.Nombre, tbl.Curso.Anio.Nombre, tbl.Curso.Turno.Nombre, tbl.Curso.Division
-                          Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = tbl.IDAnioLectivoCurso, .Descripcion = tbl.AnioLectivo.ToString & " - " & tbl.Curso.Anio.Nivel.Nombre & " - " & tbl.Curso.Anio.Nombre & " - " & tbl.Curso.Turno.Nombre & " - " & tbl.Curso.Division, .AnioLectivo = tbl.AnioLectivo, .ImporteMatricula = tbl.ImporteMatricula, .ImporteCuota = tbl.ImporteCuota}
-        ComboBoxControl.DataSource = qryList.ToList
+        If IDEntidad Is Nothing Then
+            listAnioLectivoCursos = (From alc In dbContext.AnioLectivoCurso
+                                     Where alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
+                                     Order By alc.AnioLectivo, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
+                                     Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.AnioLectivo.ToString & " - " & alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo, .ImporteMatricula = alc.ImporteMatricula, .ImporteCuota = alc.ImporteCuota}).ToList
+        Else
+            listAnioLectivoCursos = (From e In dbContext.Entidad
+                                     From alc In e.AniosLectivosCursos
+                                     Where e.IDEntidad = IDEntidad And alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
+                                     Order By alc.AnioLectivo, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
+                                     Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.AnioLectivo.ToString & " - " & alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo, .ImporteMatricula = alc.ImporteMatricula, .ImporteCuota = alc.ImporteCuota}).ToList
+        End If
+
+        ComboBoxControl.DataSource = listAnioLectivoCursos
     End Sub
 
     Friend Sub ComprobanteLote(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)

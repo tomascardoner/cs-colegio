@@ -81,7 +81,7 @@
         Dim WSFEv1_URL As String
         Dim AFIP_TicketAcceso As String
         Dim AFIP_Factura As CS_AFIP_WS.FacturaElectronicaCabecera
-        Dim ConexionFacturaElectronica As Object
+        Dim ConexionFacturaElectronica As Object = Nothing
         Dim ResultadoCAE As CS_AFIP_WS.ResultadoCAE
         Dim MensajeError As String
 
@@ -89,7 +89,6 @@
         Dim CUIT_Emisor As String
         Dim GridDataRowActual As GridDataRow
         Dim ComprobanteActual As Comprobante
-        Dim IDConcepto As Byte = 0
         Dim MonedaLocal As Moneda
         Dim MonedaLocalCotizacion As MonedaCotizacion
         Dim ComprobanteTipoActual As New ComprobanteTipo
@@ -162,28 +161,7 @@
                         End If
 
                         ' Todo esto es para determinar el Concepto a especificar en el pedido del CAE
-                        If ComprobanteTipoActual.UtilizaDetalle AndAlso ComprobanteActual.ComprobanteDetalle.Count > 0 Then
-                            For Each CDetalle As ComprobanteDetalle In ComprobanteActual.ComprobanteDetalle
-                                Select Case IDConcepto
-                                    Case CByte(0)
-                                        ' Es el primer Artículo, así que lo guardo
-                                        IDConcepto = CDetalle.Articulo.IDConcepto
-
-                                    Case CDetalle.Articulo.IDConcepto
-                                        ' Es el mismo Concepto que el/los Artículos anteriores, no hago nada
-
-                                    Case Else
-                                        If (IDConcepto = 1 Or IDConcepto = 2) And (CDetalle.Articulo.IDConcepto = 1 Or CDetalle.Articulo.IDConcepto = 2) Then
-                                            ' Hay Productos y Servicios, así que utilizo el Concepto correspondiente
-                                            IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS
-                                            Exit For
-                                        End If
-                                End Select
-                            Next
-                        Else
-                            IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO
-                        End If
-                        .Concepto = IDConcepto
+                        .Concepto = CShort(ComprobanteActual.IDConcepto.Value)
 
                         ' Documento del Titular
                         .TipoDocumento = CShort(ComprobanteActual.IDDocumentoTipo)

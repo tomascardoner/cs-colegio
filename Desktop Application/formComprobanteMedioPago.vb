@@ -57,6 +57,7 @@
         mComprobanteActual = Nothing
         mComprobanteMedioPagoActual = Nothing
         mMedioPagoCurrent = Nothing
+        Me.Dispose()
     End Sub
 #End Region
 

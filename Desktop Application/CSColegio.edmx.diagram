@@ -116,6 +116,7 @@
           <ConnectorPoint PointX="8.554615384615385" PointY="10.994455734610899" />
           <ConnectorPoint PointX="8.554615384615385" PointY="11.875" />
         </AssociationConnector>
+        <AssociationConnector Association="CSColegioModel.FK__Concepto__Comprobante" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

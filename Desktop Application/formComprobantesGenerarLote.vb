@@ -1,6 +1,8 @@
 ﻿Imports System.Drawing.Printing
 
 Public Class formComprobantesGenerarLote
+
+#Region "Declarations"
     Private dbcontext As CSColegioContext
 
     Private listEntidadesSeleccionadasOk As List(Of Entidad)
@@ -28,13 +30,9 @@ Public Class formComprobantesGenerarLote
         Public Property CorreccionDescripcion As String
     End Class
 
-    Private Sub formGenerarLoteFacturas_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        dbcontext.Dispose()
-        listEntidadesSeleccionadasOk = Nothing
-        listEntidadesSeleccionadasCorregir = Nothing
-        listFacturas = Nothing
-    End Sub
+#End Region
 
+#Region "Form stuff"
     Private Sub formGenerarLoteFacturas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         dbcontext = New CSColegioContext(True)
 
@@ -58,12 +56,23 @@ Public Class formComprobantesGenerarLote
         MostrarPaneles(1)
     End Sub
 
+    Private Sub formGenerarLoteFacturas_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        dbcontext.Dispose()
+        listEntidadesSeleccionadasOk = Nothing
+        listEntidadesSeleccionadasCorregir = Nothing
+        listFacturas = Nothing
+    End Sub
+
+#End Region
+
+#Region "Extra stuff"
     Private Sub MostrarPaneles(ByVal Paso As Byte)
         panelPaso1.Visible = (Paso = 1)
         panelPaso2.Visible = (Paso = 2)
         panelPaso3.Visible = (Paso = 3)
         Application.DoEvents()
     End Sub
+#End Region
 
 #Region "Paso 1 - Selección - TreeView de Niveles - Cursos - Alumnos"
     Private Sub FillTreeViewNiveles()
@@ -495,10 +504,10 @@ Public Class formComprobantesGenerarLote
 
         ' Creo el Lote de Comprobantes
         With FacturaLote
-            If dbcontext.ComprobanteLote.Count = 0 Then
+            If dbContext.ComprobanteLote.Count = 0 Then
                 .IDComprobanteLote = 1
             Else
-                .IDComprobanteLote = dbcontext.ComprobanteLote.Max(Function(cl) cl.IDComprobanteLote) + 1
+                .IDComprobanteLote = dbContext.ComprobanteLote.Max(Function(cl) cl.IDComprobanteLote) + 1
             End If
             .FechaHora = Now
             .Nombre = LoteNombre
@@ -547,7 +556,7 @@ Public Class formComprobantesGenerarLote
                         listFacturas.Add(FacturaCabecera)
                     Else
                         ' Ya existe una Factura de ese Titular
-                        If dbcontext.Entidad.Find(FacturaCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
+                        If dbContext.Entidad.Find(FacturaCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
                             ' El Alumno que ya está en la Factura especifica que se le facture individualmente
                             FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, EntidadAlumno.FacturaLeyenda, ComprobanteEntidadMayusculas)
                             FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, ArticuloActual)
@@ -599,7 +608,7 @@ Public Class formComprobantesGenerarLote
                         listFacturas.Add(FacturaCabecera)
                     Else
                         ' Ya existe una Factura de ese Titular
-                        If dbcontext.Entidad.Find(FacturaCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
+                        If dbContext.Entidad.Find(FacturaCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
                             ' El Alumno que ya está en la Factura especifica que se le facture individualmente
                             FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, EntidadAlumno.FacturaLeyenda, ComprobanteEntidadMayusculas)
                             FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, ArticuloActual)
@@ -651,7 +660,7 @@ Public Class formComprobantesGenerarLote
                         listFacturas.Add(FacturaCabecera)
                     Else
                         ' Ya existe una Factura de ese Titular
-                        If dbcontext.Entidad.Find(FacturaCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
+                        If dbContext.Entidad.Find(FacturaCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
                             ' El Alumno que ya está en la Factura especifica que se le facture individualmente
                             FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadTercero, FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, FacturaLote.IDComprobanteLote, EntidadAlumno.FacturaLeyenda, ComprobanteEntidadMayusculas)
                             FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, ArticuloActual)
@@ -682,10 +691,10 @@ Public Class formComprobantesGenerarLote
         listFacturas.OrderBy(Function(cc) cc.IDComprobanteTipo)
 
         ' Obtengo el ID del último Comprobante cargado
-        If dbcontext.Comprobante.Count = 0 Then
+        If dbContext.Comprobante.Count = 0 Then
             NextID = 0
         Else
-            NextID = dbcontext.Comprobante.Max(Function(cc) cc.IDComprobante)
+            NextID = dbContext.Comprobante.Max(Function(cc) cc.IDComprobante)
         End If
 
         ' Recorro todas las Facturas generadas para aplicarles los ID y los Números de Comprobante
@@ -694,7 +703,7 @@ Public Class formComprobantesGenerarLote
                 NextID += 1
                 .IDComprobante = NextID
                 If ComprobanteTipo.IDComprobanteTipo <> .IDComprobanteTipo Then
-                    ComprobanteTipo = dbcontext.ComprobanteTipo.Find(.IDComprobanteTipo)
+                    ComprobanteTipo = dbContext.ComprobanteTipo.Find(.IDComprobanteTipo)
                     ComprobanteTipoPuntoVenta = ComprobanteTipo.ComprobanteTipoPuntoVenta.Where(Function(ctpv) ctpv.IDPuntoVenta = My.Settings.IDPuntoVenta).FirstOrDefault
                     If ComprobanteTipoPuntoVenta Is Nothing Then
                         Exit For
@@ -702,7 +711,7 @@ Public Class formComprobantesGenerarLote
                     PuntoVenta = ComprobanteTipoPuntoVenta.PuntoVenta
 
                     ' Busco si ya hay un comprobante creado de este tipo para obtener el último número
-                    NextComprobanteNumero = dbcontext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = .IDComprobanteTipo And cc.PuntoVenta = PuntoVenta.Numero).Max(Function(cc) cc.Numero)
+                    NextComprobanteNumero = dbContext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = .IDComprobanteTipo And cc.PuntoVenta = PuntoVenta.Numero).Max(Function(cc) cc.Numero)
                     If NextComprobanteNumero Is Nothing Then
                         ' No hay ningún comprobante creado de este tipo, así que tomo el número inicial y le resto 1 porque después se lo sumo
                         NextComprobanteNumero = CStr(CInt(ComprobanteTipoPuntoVenta.NumeroInicio) - 1).PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
@@ -714,7 +723,7 @@ Public Class formComprobantesGenerarLote
             End With
         Next
 
-        dbcontext.Dispose()
+        dbContext.Dispose()
 
         datagridviewPaso3Cabecera.AutoGenerateColumns = False
         datagridviewPaso3Cabecera.DataSource = listFacturas
@@ -732,6 +741,7 @@ Public Class formComprobantesGenerarLote
             .IDComprobanteTipo = EntidadCabecera.CategoriaIVA.VentaIDComprobanteTipo
             .FechaEmision = FechaEmision
             .FechaVencimiento = FechaVencimiento
+            .IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS
             .FechaServicioDesde = FechaServicioDesde
             .FechaServicioHasta = FechaServicioHasta
 

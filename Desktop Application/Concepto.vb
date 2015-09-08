@@ -17,5 +17,6 @@ Partial Public Class Concepto
     Public Property EsActivo As Boolean
 
     Public Overridable Property Articulo As ICollection(Of Articulo) = New HashSet(Of Articulo)
+    Public Overridable Property Comprobante As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
 
 End Class

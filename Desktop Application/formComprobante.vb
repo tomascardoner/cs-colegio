@@ -7,6 +7,7 @@
     Private mComprobanteTipoActual As ComprobanteTipo
     Private mUtilizaNumerador As Boolean = False
     Private mComprobanteTipoPuntoVentaActual As ComprobanteTipoPuntoVenta
+    Private mConceptoActual As New Concepto
     Private mEntidad As Entidad
 
     Private mIsLoading As Boolean = False
@@ -132,6 +133,7 @@
         mComprobanteTipoActual = Nothing
         mComprobanteTipoPuntoVentaActual = Nothing
         mEntidad = Nothing
+        Me.Dispose()
     End Sub
 #End Region
 
@@ -268,7 +270,7 @@
         Dim Total As Decimal = 0
 
         If RestoreCurrentPosition Then
-            If datagridviewAplicaciones.CurrentRow Is Nothing Then
+            If datagridviewDetalle.CurrentRow Is Nothing Then
                 PositionIndice = 0
             Else
                 PositionIndice = CType(datagridviewDetalle.CurrentRow.DataBoundItem, ComprobanteDetalle).Indice
@@ -278,8 +280,8 @@
         Me.Cursor = Cursors.WaitCursor
 
         Try
-            datagridviewAplicaciones.AutoGenerateColumns = False
-            datagridviewAplicaciones.DataSource = mComprobanteActual.ComprobanteDetalle.ToList
+            datagridviewDetalle.AutoGenerateColumns = False
+            datagridviewDetalle.DataSource = mComprobanteActual.ComprobanteDetalle.ToList
 
         Catch ex As Exception
             CS_Error.ProcessError(ex, "Error al leer los Detalles.")
@@ -299,8 +301,8 @@
 
         If PositionIndice <> 0 Then
             For Each CurrentRowChecked As DataGridViewRow In datagridviewDetalle.Rows
-                If CType(datagridviewAplicaciones.CurrentRow.DataBoundItem, ComprobanteDetalle).Indice = PositionIndice Then
-                    datagridviewAplicaciones.CurrentCell = CurrentRowChecked.Cells(0)
+                If CType(datagridviewDetalle.CurrentRow.DataBoundItem, ComprobanteDetalle).Indice = PositionIndice Then
+                    datagridviewDetalle.CurrentCell = CurrentRowChecked.Cells(0)
                     Exit For
                 End If
             Next
@@ -472,8 +474,9 @@
 
     Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
         Dim ComprobanteTipoActual As ComprobanteTipo
-        Dim ConceptoActual As New Concepto
         Dim EntidadActual As Entidad
+        Dim ArticuloActual As Articulo
+
         Dim NextComprobanteNumero As String
 
         If comboboxComprobanteTipo.SelectedIndex = -1 Then
@@ -507,14 +510,41 @@
             Exit Sub
         End If
 
+        ' Obtengo el Concepto del Comprobante
+        If ComprobanteTipoActual.UtilizaDetalle AndAlso ComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso ComprobanteTipoActual.EmisionElectronica Then
+            If mComprobanteActual.ComprobanteDetalle.Count > 0 Then
+                For Each CDetalle As ComprobanteDetalle In mComprobanteActual.ComprobanteDetalle
+                    ArticuloActual = mdbContext.Articulo.Find(CDetalle.IDArticulo)
+                    Select Case mConceptoActual.IDConcepto
+                        Case CByte(0)
+                            ' Es el primer Artículo, así que lo guardo
+                            mConceptoActual = mdbContext.Concepto.Find(ArticuloActual.IDConcepto)
+                        Case ArticuloActual.IDConcepto
+                            ' Es el mismo Concepto que el/los Artículos anteriores, no hago nada
+
+                        Case Else
+                            If (mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) And (ArticuloActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or ArticuloActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) Then
+                                ' Hay Productos y Servicios, así que utilizo el Concepto correspondiente
+                                mConceptoActual = mdbContext.Concepto.Find(Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS)
+                                Exit For
+                            End If
+                    End Select
+                Next
+            Else
+                mConceptoActual = mdbContext.Concepto.Find(Constantes.COMPROBANTE_CONCEPTO_PRODUCTO)
+            End If
+        Else
+            mConceptoActual = New Concepto
+        End If
+
         ' Fecha - Corroborar con el Concepto de los artículos
-        If ComprobanteTipoActual.EmisionElectronica AndAlso Math.Abs(datetimepickerFechaEmision.Value.CompareTo(DateAndTime.Today)) > ConceptoActual.FechaRangoDia Then
-            MsgBox(String.Format("La Fecha de Emisión no puede tener más de {0} días de diferencia con la Fecha actual.", ConceptoActual.FechaRangoDia), MsgBoxStyle.Information, My.Application.Info.Title)
+        If ComprobanteTipoActual.UtilizaDetalle AndAlso ComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso ComprobanteTipoActual.EmisionElectronica AndAlso Math.Abs(datetimepickerFechaEmision.Value.CompareTo(DateAndTime.Today)) > mConceptoActual.FechaRangoDia Then
+            MsgBox(String.Format("La Fecha de Emisión no puede tener más de {0} días de diferencia con la Fecha actual.", mConceptoActual.FechaRangoDia), MsgBoxStyle.Information, My.Application.Info.Title)
             datetimepickerFechaEmision.Focus()
             Exit Sub
         End If
         If Math.Abs(datetimepickerFechaEmision.Value.CompareTo(DateAndTime.Today)) > 30 Then
-            If MsgBox(String.Format("La Fecha de Emisión tiene más de {0} días de diferencia con la Fecha actual.", ConceptoActual.FechaRangoDia) & vbCrLf & vbCrLf & "¿Es correcto?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+            If MsgBox(String.Format("La Fecha de Emisión tiene más de {0} días de diferencia con la Fecha actual.", mConceptoActual.FechaRangoDia) & vbCrLf & vbCrLf & "¿Es correcto?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
                 datetimepickerFechaEmision.Focus()
                 Exit Sub
             End If
@@ -528,7 +558,7 @@
         End If
 
         ' Fechas de Servicio
-        If ComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso ComprobanteTipoActual.EmisionElectronica AndAlso (ConceptoActual.IDConcepto = 2 Or ConceptoActual.IDConcepto = 3) Then
+        If ComprobanteTipoActual.UtilizaDetalle AndAlso ComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso ComprobanteTipoActual.EmisionElectronica AndAlso (mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS Or mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS) Then
             If Not datetimepickerFechaServicioDesde.Checked Then
                 MsgBox("Por estar facturando Servicios, debe especificar la Fecha del Período Facturado Desde.", MsgBoxStyle.Information, My.Application.Info.Title)
                 datetimepickerFechaServicioDesde.Focus()
@@ -626,6 +656,11 @@
 
         ' Paso los datos desde los controles al Objecto de EF
         SetDataFromControlsToObject()
+        If mConceptoActual.IDConcepto = 0 Then
+            mComprobanteActual.IDConcepto = Nothing
+        Else
+            mComprobanteActual.IDConcepto = mConceptoActual.IDConcepto
+        End If
 
         If mdbContext.ChangeTracker.HasChanges Then
 
@@ -996,6 +1031,7 @@
         Dim MonedaLocal As Moneda
         Dim MonedaLocalCotizacion As MonedaCotizacion
         Dim ComprobanteTipoActual As New ComprobanteTipo
+        Dim ArticuloActual As Articulo
         Dim IDConcepto As Byte = 0
 
         Me.Cursor = Cursors.WaitCursor
@@ -1048,16 +1084,16 @@
         With AFIP_Factura
             If ComprobanteATransmitir.ComprobanteDetalle.Count > 0 Then
                 For Each CDetalle As ComprobanteDetalle In ComprobanteATransmitir.ComprobanteDetalle
+                    ArticuloActual = mdbContext.Articulo.Find(CDetalle.IDArticulo)
                     Select Case IDConcepto
                         Case CByte(0)
                             ' Es el primer Artículo, así que lo guardo
-                            IDConcepto = CDetalle.Articulo.IDConcepto
-
-                        Case CDetalle.Articulo.IDConcepto
+                            IDConcepto = ArticuloActual.IDConcepto
+                        Case ArticuloActual.IDConcepto
                             ' Es el mismo Concepto que el/los Artículos anteriores, no hago nada
 
                         Case Else
-                            If (IDConcepto = 1 Or IDConcepto = 2) And (CDetalle.Articulo.IDConcepto = 1 Or CDetalle.Articulo.IDConcepto = 2) Then
+                            If (IDConcepto = 1 Or IDConcepto = 2) And (ArticuloActual.IDConcepto = 1 Or ArticuloActual.IDConcepto = 2) Then
                                 ' Hay Productos y Servicios, así que utilizo el Concepto correspondiente
                                 IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS
                                 Exit For

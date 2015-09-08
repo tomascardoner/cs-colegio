@@ -51,6 +51,8 @@ Partial Class formComprobantes
         Me.toolstripPeriodo = New System.Windows.Forms.ToolStrip()
         Me.labelPeriodo = New System.Windows.Forms.ToolStripLabel()
         Me.comboboxPeriodoTipo = New System.Windows.Forms.ToolStripComboBox()
+        Me.comboboxPeriodoValor = New System.Windows.Forms.ToolStripComboBox()
+        Me.labelPeriodoFechaY = New System.Windows.Forms.ToolStripLabel()
         Me.toolstripComprobanteTipo = New System.Windows.Forms.ToolStrip()
         Me.labelComprobanteTipo = New System.Windows.Forms.ToolStripLabel()
         Me.comboboxOperacionTipo = New System.Windows.Forms.ToolStripComboBox()
@@ -68,7 +70,6 @@ Partial Class formComprobantes
         Me.comboboxBuscarTipo = New System.Windows.Forms.ToolStripComboBox()
         Me.textboxBuscar = New System.Windows.Forms.ToolStripTextBox()
         Me.buttonBuscarBorrar = New System.Windows.Forms.ToolStripButton()
-        Me.comboboxPeriodoValor = New System.Windows.Forms.ToolStripComboBox()
         Me.statusstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelToolbars.SuspendLayout()
@@ -286,10 +287,10 @@ Partial Class formComprobantes
         '
         Me.toolstripPeriodo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripPeriodo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.toolstripPeriodo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelPeriodo, Me.comboboxPeriodoTipo, Me.comboboxPeriodoValor})
+        Me.toolstripPeriodo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelPeriodo, Me.comboboxPeriodoTipo, Me.comboboxPeriodoValor, Me.labelPeriodoFechaY})
         Me.toolstripPeriodo.Location = New System.Drawing.Point(559, 0)
         Me.toolstripPeriodo.Name = "toolstripPeriodo"
-        Me.toolstripPeriodo.Size = New System.Drawing.Size(254, 39)
+        Me.toolstripPeriodo.Size = New System.Drawing.Size(300, 39)
         Me.toolstripPeriodo.TabIndex = 8
         '
         'labelPeriodo
@@ -303,6 +304,18 @@ Partial Class formComprobantes
         Me.comboboxPeriodoTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxPeriodoTipo.Name = "comboboxPeriodoTipo"
         Me.comboboxPeriodoTipo.Size = New System.Drawing.Size(75, 39)
+        '
+        'comboboxPeriodoValor
+        '
+        Me.comboboxPeriodoValor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxPeriodoValor.Name = "comboboxPeriodoValor"
+        Me.comboboxPeriodoValor.Size = New System.Drawing.Size(121, 39)
+        '
+        'labelPeriodoFechaY
+        '
+        Me.labelPeriodoFechaY.Name = "labelPeriodoFechaY"
+        Me.labelPeriodoFechaY.Size = New System.Drawing.Size(13, 36)
+        Me.labelPeriodoFechaY.Text = "y"
         '
         'toolstripComprobanteTipo
         '
@@ -429,12 +442,6 @@ Partial Class formComprobantes
         Me.buttonBuscarBorrar.Size = New System.Drawing.Size(23, 22)
         Me.buttonBuscarBorrar.ToolTipText = "Limpiar búsqueda"
         '
-        'comboboxPeriodoValor
-        '
-        Me.comboboxPeriodoValor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.comboboxPeriodoValor.Name = "comboboxPeriodoValor"
-        Me.comboboxPeriodoValor.Size = New System.Drawing.Size(121, 39)
-        '
         'formComprobantes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -507,4 +514,5 @@ Partial Class formComprobantes
     Friend WithEvents columnCAE As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents buttonAnular As System.Windows.Forms.ToolStripButton
     Friend WithEvents comboboxPeriodoValor As System.Windows.Forms.ToolStripComboBox
+    Friend WithEvents labelPeriodoFechaY As System.Windows.Forms.ToolStripLabel
 End Class
