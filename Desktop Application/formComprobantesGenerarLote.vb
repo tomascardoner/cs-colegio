@@ -796,9 +796,12 @@ Public Class formComprobantesGenerarLote
     Private Function GenerarComprobanteDetalle(ByRef FacturaCabecera As Comprobante, ByRef EntidadDetalle As Entidad, ByRef ArticuloActual As Articulo) As ComprobanteDetalle
         Dim FacturaDetalle As New ComprobanteDetalle
         Dim AnioLectivoCursoActual As AnioLectivoCurso
+        Dim AnioLectivoCursoImporteActual As AnioLectivoCursoImporte
 
         AnioLectivoCursoActual = EntidadDetalle.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = AnioLectivo).FirstOrDefault
-        If Not AnioLectivoCursoActual Is Nothing Then
+        AnioLectivoCursoImporteActual = AnioLectivoCursoActual.AnioLectivoCursoImporte.Where(Function(alci) alci.MesInicial <= MesAFacturar).OrderByDescending(Function(alci) alci.MesInicial).FirstOrDefault
+
+        If Not AnioLectivoCursoImporteActual Is Nothing Then
             With FacturaDetalle
                 .Indice = CByte(FacturaCabecera.ComprobanteDetalle.Count + 1)
                 .IDArticulo = ArticuloActual.IDArticulo
@@ -811,11 +814,11 @@ Public Class formComprobantesGenerarLote
                 ' Precios
                 Select Case EntidadDetalle.EmitirFacturaA
                     Case Constantes.EMITIRFACTURAA_ALUMNO, Constantes.EMITIRFACTURAA_PADRE, Constantes.EMITIRFACTURAA_MADRE, Constantes.EMITIRFACTURAA_TERCERO
-                        .PrecioUnitario = AnioLectivoCursoActual.ImporteCuota
+                        .PrecioUnitario = AnioLectivoCursoImporteActual.ImporteCuota
                     Case Constantes.EMITIRFACTURAA_AMBOSPADRES
-                        .PrecioUnitario = Decimal.Round(AnioLectivoCursoActual.ImporteCuota / 2, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
+                        .PrecioUnitario = Decimal.Round(AnioLectivoCursoImporteActual.ImporteCuota / 2, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
                     Case Constantes.EMITIRFACTURAA_TODOS
-                        .PrecioUnitario = Decimal.Round(AnioLectivoCursoActual.ImporteCuota / 3, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
+                        .PrecioUnitario = Decimal.Round(AnioLectivoCursoImporteActual.ImporteCuota / 3, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
                 End Select
                 If EntidadDetalle.IDDescuento Is Nothing Then
                     .PrecioUnitarioDescuentoPorcentaje = 0

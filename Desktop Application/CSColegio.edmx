@@ -26,6 +26,14 @@
           <Property Name="IDAnioLectivoCurso" Type="smallint" Nullable="false" />
           <Property Name="AnioLectivo" Type="smallint" Nullable="false" />
           <Property Name="IDCurso" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AnioLectivoCursoImporte">
+          <Key>
+            <PropertyRef Name="IDAnioLectivoCurso" />
+            <PropertyRef Name="MesInicial" />
+          </Key>
+          <Property Name="IDAnioLectivoCurso" Type="smallint" Nullable="false" />
+          <Property Name="MesInicial" Type="tinyint" Nullable="false" />
           <Property Name="ImporteMatricula" Type="money" Nullable="false" />
           <Property Name="ImporteCuota" Type="money" Nullable="false" />
         </EntityType>
@@ -510,8 +518,9 @@
             <PropertyRef Name="Fecha" />
           </Key>
           <Property Name="IDMoneda" Type="smallint" Nullable="false" />
-          <Property Name="Fecha" Type="smalldatetime" Nullable="false" />
-          <Property Name="Cotizacion" Type="money" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="CotizacionCompra" Type="money" Nullable="false" />
+          <Property Name="CotizacionVenta" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="Movimiento">
           <Key>
@@ -681,6 +690,18 @@
             </Principal>
             <Dependent Role="Curso">
               <PropertyRef Name="IDAnio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AnioLectivoCurso__AnioLectivoCursoImporte">
+          <End Role="AnioLectivoCurso" Type="Self.AnioLectivoCurso" Multiplicity="1" />
+          <End Role="AnioLectivoCursoImporte" Type="Self.AnioLectivoCursoImporte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnioLectivoCurso">
+              <PropertyRef Name="IDAnioLectivoCurso" />
+            </Principal>
+            <Dependent Role="AnioLectivoCursoImporte">
+              <PropertyRef Name="IDAnioLectivoCurso" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1395,6 +1416,7 @@
         <EntityContainer Name="CSColegioModelStoreContainer">
           <EntitySet Name="Anio" EntityType="Self.Anio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AnioLectivoCurso" EntityType="Self.AnioLectivoCurso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AnioLectivoCursoImporte" EntityType="Self.AnioLectivoCursoImporte" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Articulo" EntityType="Self.Articulo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ArticuloGrupo" EntityType="Self.ArticuloGrupo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Banco" EntityType="Self.Banco" Schema="dbo" store:Type="Tables" />
@@ -1447,6 +1469,10 @@
           <AssociationSet Name="FK__Anio__Curso" Association="Self.FK__Anio__Curso">
             <End Role="Anio" EntitySet="Anio" />
             <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AnioLectivoCurso__AnioLectivoCursoImporte" Association="Self.FK__AnioLectivoCurso__AnioLectivoCursoImporte">
+            <End Role="AnioLectivoCurso" EntitySet="AnioLectivoCurso" />
+            <End Role="AnioLectivoCursoImporte" EntitySet="AnioLectivoCursoImporte" />
           </AssociationSet>
           <AssociationSet Name="FK__AnioLectivoCurso__ComprobanteDetalle" Association="Self.FK__AnioLectivoCurso__ComprobanteDetalle">
             <End Role="AnioLectivoCurso" EntitySet="AnioLectivoCurso" />
@@ -2478,6 +2504,11 @@
             <End Role="Concepto" EntitySet="Concepto" />
             <End Role="Comprobante" EntitySet="Comprobante" />
           </AssociationSet>
+          <EntitySet Name="AnioLectivoCursoImporte" EntityType="CSColegioModel.AnioLectivoCursoImporte" />
+          <AssociationSet Name="FK__AnioLectivoCurso__AnioLectivoCursoImporte" Association="CSColegioModel.FK__AnioLectivoCurso__AnioLectivoCursoImporte">
+            <End Role="AnioLectivoCurso" EntitySet="AnioLectivoCurso" />
+            <End Role="AnioLectivoCursoImporte" EntitySet="AnioLectivoCursoImporte" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
           <Key>
@@ -2659,11 +2690,10 @@
           <Property Name="IDAnioLectivoCurso" Type="Int16" Nullable="false" />
           <Property Name="AnioLectivo" Type="Int16" Nullable="false" />
           <Property Name="IDCurso" Type="Byte" Nullable="false" />
-          <Property Name="ImporteMatricula" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="ImporteCuota" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <NavigationProperty Name="Entidades" Relationship="CSColegioModel.EntidadAnioLectivoCurso" FromRole="AnioLectivoCurso" ToRole="Entidad" />
           <NavigationProperty Name="Curso" Relationship="CSColegioModel.FK__Curso__AnioLectivoCurso" FromRole="AnioLectivoCurso" ToRole="Curso" />
           <NavigationProperty Name="ComprobanteDetalle" Relationship="CSColegioModel.FK__AnioLectivoCurso__ComprobanteDetalle" FromRole="AnioLectivoCurso" ToRole="ComprobanteDetalle" />
+          <NavigationProperty Name="AnioLectivoCursoImporte" Relationship="CSColegioModel.FK__AnioLectivoCurso__AnioLectivoCursoImporte" FromRole="AnioLectivoCurso" ToRole="AnioLectivoCursoImporte" />
         </EntityType>
         <Association Name="EntidadAnioLectivoCurso">
           <End Type="CSColegioModel.AnioLectivoCurso" Role="AnioLectivoCurso" Multiplicity="*" />
@@ -2862,7 +2892,8 @@
           </Key>
           <Property Name="IDMoneda" Type="Int16" Nullable="false" />
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Cotizacion" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="CotizacionCompra" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="CotizacionVenta" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
         </EntityType>
         <Association Name="FK__Entidad__EntidadTercero">
           <End Type="CSColegioModel.Entidad" Role="Entidad" Multiplicity="0..1" />
@@ -3366,6 +3397,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AnioLectivoCursoImporte">
+          <Key>
+            <PropertyRef Name="IDAnioLectivoCurso" />
+            <PropertyRef Name="MesInicial" />
+          </Key>
+          <Property Name="IDAnioLectivoCurso" Type="Int16" Nullable="false" />
+          <Property Name="MesInicial" Type="Byte" Nullable="false" />
+          <Property Name="ImporteMatricula" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="ImporteCuota" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="AnioLectivoCurso" Relationship="CSColegioModel.FK__AnioLectivoCurso__AnioLectivoCursoImporte" FromRole="AnioLectivoCursoImporte" ToRole="AnioLectivoCurso" />
+        </EntityType>
+        <Association Name="FK__AnioLectivoCurso__AnioLectivoCursoImporte">
+          <End Type="CSColegioModel.AnioLectivoCurso" Role="AnioLectivoCurso" Multiplicity="1" />
+          <End Type="CSColegioModel.AnioLectivoCursoImporte" Role="AnioLectivoCursoImporte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnioLectivoCurso">
+              <PropertyRef Name="IDAnioLectivoCurso" />
+            </Principal>
+            <Dependent Role="AnioLectivoCursoImporte">
+              <PropertyRef Name="IDAnioLectivoCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3776,8 +3830,6 @@
           <EntitySetMapping Name="AnioLectivoCurso">
             <EntityTypeMapping TypeName="CSColegioModel.AnioLectivoCurso">
               <MappingFragment StoreEntitySet="AnioLectivoCurso">
-                <ScalarProperty Name="ImporteCuota" ColumnName="ImporteCuota" />
-                <ScalarProperty Name="ImporteMatricula" ColumnName="ImporteMatricula" />
                 <ScalarProperty Name="IDCurso" ColumnName="IDCurso" />
                 <ScalarProperty Name="AnioLectivo" ColumnName="AnioLectivo" />
                 <ScalarProperty Name="IDAnioLectivoCurso" ColumnName="IDAnioLectivoCurso" />
@@ -3886,7 +3938,8 @@
           <EntitySetMapping Name="MonedaCotizacion">
             <EntityTypeMapping TypeName="CSColegioModel.MonedaCotizacion">
               <MappingFragment StoreEntitySet="MonedaCotizacion">
-                <ScalarProperty Name="Cotizacion" ColumnName="Cotizacion" />
+                <ScalarProperty Name="CotizacionVenta" ColumnName="CotizacionVenta" />
+                <ScalarProperty Name="CotizacionCompra" ColumnName="CotizacionCompra" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="IDMoneda" ColumnName="IDMoneda" />
               </MappingFragment>
@@ -4078,6 +4131,16 @@
               <ScalarProperty Name="IDComprobanteTipo" ColumnName="IDComprobanteTipoAplicado" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="AnioLectivoCursoImporte">
+            <EntityTypeMapping TypeName="CSColegioModel.AnioLectivoCursoImporte">
+              <MappingFragment StoreEntitySet="AnioLectivoCursoImporte">
+                <ScalarProperty Name="ImporteCuota" ColumnName="ImporteCuota" />
+                <ScalarProperty Name="ImporteMatricula" ColumnName="ImporteMatricula" />
+                <ScalarProperty Name="MesInicial" ColumnName="MesInicial" />
+                <ScalarProperty Name="IDAnioLectivoCurso" ColumnName="IDAnioLectivoCurso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -18,10 +18,10 @@
 
         'Me.MdiParent = formMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
-        ChangeMode()
-        buttonEditar.Visible = (ParentEditMode And Not mEditMode)
         InitializeFormAndControls()
         SetDataFromObjectToControls()
+        ChangeMode()
+
         Me.ShowDialog(ParentForm)
         'If Me.WindowState = FormWindowState.Minimized Then
         '    Me.WindowState = FormWindowState.Normal
@@ -53,6 +53,7 @@
     Private Sub formEntidad_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         mComprobanteActual = Nothing
         mComprobanteMedioPagoActual = Nothing
+        Me.Dispose()
     End Sub
 #End Region
 
@@ -175,21 +176,42 @@
             Exit Sub
         End If
 
+        ' Si es un nuevo cheque...
+        If mComprobanteMedioPagoActual.Cheque.IDCheque = 0 Then
+            Dim IDChequeMaxEnObjeto As Integer
+            Dim IDChequeMaxEnBaseDatos As Integer
+
+            mComprobanteMedioPagoActual.Cheque.Estado = Constantes.CHEQUE_ESTADO_ENCARTERA
+            ' Obtengo el máximo ID en la base de datos
+            If mdbContext.Cheque.Count = 0 Then
+                ' No hay ningún cheque cargado aún en la base de datos
+                IDChequeMaxEnBaseDatos = 0
+            Else
+                ' Hay cheques en la base de datos
+                IDChequeMaxEnBaseDatos = mdbContext.Cheque.Max(Function(chq) chq.IDCheque)
+            End If
+            ' Obtengo el máximo ID en los Medios de Pago del Comprobante actual
+            If mComprobanteActual.ComprobanteMedioPago.Where(Function(cmp) cmp.IDCheque.HasValue).Count = 0 Then
+                ' No hay ningún cheque cargado en los Medios de Pago del Comprobante actual
+                IDChequeMaxEnObjeto = 0
+            Else
+                ' Ya hay algún cheque cargado en los Medios de Pago del Comprobante actual
+                IDChequeMaxEnObjeto = mComprobanteActual.ComprobanteMedioPago.Where(Function(cmp) cmp.IDCheque.HasValue).Max(Function(cmp) cmp.Cheque.IDCheque)
+            End If
+            ' Asigno el ID que corresponda
+            If IDChequeMaxEnObjeto > IDChequeMaxEnBaseDatos Then
+                mComprobanteMedioPagoActual.Cheque.IDCheque = IDChequeMaxEnObjeto + CInt(1)
+            Else
+                mComprobanteMedioPagoActual.Cheque.IDCheque = IDChequeMaxEnBaseDatos + CInt(1)
+            End If
+            mComprobanteMedioPagoActual.IDCheque = mComprobanteMedioPagoActual.Cheque.IDCheque
+        End If
         ' Si es un nuevo item, busco el próximo Indice y agrego el objeto nuevo a la colección del parent
         If mComprobanteMedioPagoActual.Indice = 0 Then
             If mComprobanteActual.ComprobanteMedioPago.Count = 0 Then
                 mComprobanteMedioPagoActual.Indice = 1
             Else
                 mComprobanteMedioPagoActual.Indice = mComprobanteActual.ComprobanteMedioPago.Max(Function(cmp) cmp.Indice) + CByte(1)
-            End If
-            mComprobanteActual.ComprobanteMedioPago.Add(mComprobanteMedioPagoActual)
-        End If
-        If mComprobanteMedioPagoActual.Cheque.IDCheque = 0 Then
-            mComprobanteMedioPagoActual.Cheque.Estado = Constantes.CHEQUE_ESTADO_ENCARTERA
-            If mdbContext.Cheque.Count = 0 Then
-                mComprobanteMedioPagoActual.Cheque.IDCheque = 1
-            Else
-                mComprobanteMedioPagoActual.Cheque.IDCheque = mdbContext.Cheque.Max(Function(chq) chq.IDCheque) + CInt(1)
             End If
             mComprobanteActual.ComprobanteMedioPago.Add(mComprobanteMedioPagoActual)
         End If

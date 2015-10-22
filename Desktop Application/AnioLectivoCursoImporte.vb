@@ -10,10 +10,12 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class MonedaCotizacion
-    Public Property IDMoneda As Short
-    Public Property Fecha As Date
-    Public Property CotizacionCompra As Decimal
-    Public Property CotizacionVenta As Decimal
+Partial Public Class AnioLectivoCursoImporte
+    Public Property IDAnioLectivoCurso As Short
+    Public Property MesInicial As Byte
+    Public Property ImporteMatricula As Decimal
+    Public Property ImporteCuota As Decimal
+
+    Public Overridable Property AnioLectivoCurso As AnioLectivoCurso
 
 End Class

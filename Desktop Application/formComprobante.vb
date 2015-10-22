@@ -10,6 +10,9 @@
     Private mConceptoActual As New Concepto
     Private mEntidad As Entidad
 
+    Private mIDArticuloMatricula As Short
+    Private mIDArticuloMensual As Short
+
     Private mIsLoading As Boolean = False
     Private mEditMode As Boolean = False
 
@@ -107,6 +110,9 @@
 
     Friend Sub InitializeFormAndControls()
         SetAppearance()
+
+        mIDArticuloMatricula = CS_Parameter.GetIntegerAsShort(Parametros.CUOTA_MATRICULA_ARTICULO_ID)
+        mIDArticuloMensual = CS_Parameter.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID)
 
         ' Cargo los ComboBox
         pFillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo, Nothing, False, False)
@@ -473,7 +479,6 @@
     End Sub
 
     Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
-        Dim ComprobanteTipoActual As ComprobanteTipo
         Dim EntidadActual As Entidad
         Dim ArticuloActual As Articulo
 
@@ -484,7 +489,6 @@
             comboboxComprobanteTipo.Focus()
             Exit Sub
         End If
-        ComprobanteTipoActual = CType(comboboxComprobanteTipo.SelectedItem, ComprobanteTipo)
 
         ' Punto de Venta
         If textboxPuntoVenta.Text.Trim.Length = 0 Then
@@ -511,7 +515,7 @@
         End If
 
         ' Obtengo el Concepto del Comprobante
-        If ComprobanteTipoActual.UtilizaDetalle AndAlso ComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso ComprobanteTipoActual.EmisionElectronica Then
+        If mComprobanteTipoActual.UtilizaDetalle AndAlso mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso mComprobanteTipoActual.EmisionElectronica Then
             If mComprobanteActual.ComprobanteDetalle.Count > 0 Then
                 For Each CDetalle As ComprobanteDetalle In mComprobanteActual.ComprobanteDetalle
                     ArticuloActual = mdbContext.Articulo.Find(CDetalle.IDArticulo)
@@ -538,7 +542,7 @@
         End If
 
         ' Fecha - Corroborar con el Concepto de los artículos
-        If ComprobanteTipoActual.UtilizaDetalle AndAlso ComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso ComprobanteTipoActual.EmisionElectronica AndAlso Math.Abs(datetimepickerFechaEmision.Value.CompareTo(DateAndTime.Today)) > mConceptoActual.FechaRangoDia Then
+        If mComprobanteTipoActual.UtilizaDetalle AndAlso mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso mComprobanteTipoActual.EmisionElectronica AndAlso Math.Abs(datetimepickerFechaEmision.Value.CompareTo(DateAndTime.Today)) > mConceptoActual.FechaRangoDia Then
             MsgBox(String.Format("La Fecha de Emisión no puede tener más de {0} días de diferencia con la Fecha actual.", mConceptoActual.FechaRangoDia), MsgBoxStyle.Information, My.Application.Info.Title)
             datetimepickerFechaEmision.Focus()
             Exit Sub
@@ -558,7 +562,7 @@
         End If
 
         ' Fechas de Servicio
-        If ComprobanteTipoActual.UtilizaDetalle AndAlso ComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso ComprobanteTipoActual.EmisionElectronica AndAlso (mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS Or mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS) Then
+        If mComprobanteTipoActual.UtilizaDetalle AndAlso mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso mComprobanteTipoActual.EmisionElectronica AndAlso (mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS Or mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS) Then
             If Not datetimepickerFechaServicioDesde.Checked Then
                 MsgBox("Por estar facturando Servicios, debe especificar la Fecha del Período Facturado Desde.", MsgBoxStyle.Information, My.Application.Info.Title)
                 datetimepickerFechaServicioDesde.Focus()
@@ -740,6 +744,8 @@
         Dim ComprobanteDetalleNuevo As New ComprobanteDetalle
         formComprobanteDetalle.LoadAndShow(True, True, Me, mComprobanteActual, ComprobanteDetalleNuevo)
 
+        EstablecerFechasSegunDetalle()
+
         datagridviewDetalle.Enabled = True
 
         Me.Cursor = Cursors.Default
@@ -757,6 +763,8 @@
 
             ComprobanteDetalleActual = CType(datagridviewDetalle.SelectedRows(0).DataBoundItem, ComprobanteDetalle)
             formComprobanteDetalle.LoadAndShow(True, True, Me, mComprobanteActual, ComprobanteDetalleActual)
+
+            EstablecerFechasSegunDetalle()
 
             datagridviewDetalle.Enabled = True
 
@@ -778,6 +786,9 @@
                 Me.Cursor = Cursors.WaitCursor
 
                 mComprobanteActual.ComprobanteDetalle.Remove(ComprobanteDetalleEliminar)
+
+
+                EstablecerFechasSegunDetalle()
 
                 RefreshData_Detalle()
 
@@ -1015,6 +1026,37 @@
         tabcontrolMain.SelectTab(0)
     End Sub
 
+    Private Sub EstablecerFechasSegunDetalle()
+        Dim AnioLectivoCursoActual As AnioLectivoCurso
+
+        If mComprobanteTipoActual.UtilizaDetalle AndAlso mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso mComprobanteTipoActual.EmisionElectronica Then
+            For Each DetalleActual As ComprobanteDetalle In mComprobanteActual.ComprobanteDetalle
+                Select Case DetalleActual.IDArticulo
+                    Case mIDArticuloMatricula
+                        Using dbContext As New CSColegioContext(True)
+                            AnioLectivoCursoActual = dbContext.AnioLectivoCurso.Find(DetalleActual.IDAnioLectivoCurso)
+                        End Using
+                        If datetimepickerFechaServicioDesde.Checked = False Or datetimepickerFechaServicioDesde.Value > New Date(AnioLectivoCursoActual.AnioLectivo, 1, 1) Then
+                            datetimepickerFechaServicioDesde.Value = New Date(AnioLectivoCursoActual.AnioLectivo, 1, 1)
+                        End If
+                        If datetimepickerFechaServicioHasta.Checked = False Or datetimepickerFechaServicioHasta.Value < New Date(AnioLectivoCursoActual.AnioLectivo, 12, 31) Then
+                            datetimepickerFechaServicioHasta.Value = New Date(AnioLectivoCursoActual.AnioLectivo, 12, 31)
+                        End If
+                    Case mIDArticuloMensual
+                        Using dbContext As New CSColegioContext(True)
+                            AnioLectivoCursoActual = dbContext.AnioLectivoCurso.Find(DetalleActual.IDAnioLectivoCurso)
+                        End Using
+                        If datetimepickerFechaServicioDesde.Checked = False Or datetimepickerFechaServicioDesde.Value > New Date(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value, 1) Then
+                            datetimepickerFechaServicioDesde.Value = New Date(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value, 1)
+                        End If
+                        If datetimepickerFechaServicioHasta.Checked = False Or datetimepickerFechaServicioHasta.Value < New Date(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value, Date.DaysInMonth(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value)) Then
+                            datetimepickerFechaServicioHasta.Value = New Date(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value, Date.DaysInMonth(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value))
+                        End If
+                End Select
+            Next
+        End If
+    End Sub
+
     Private Function TransmitirComprobante(ByRef ComprobanteATransmitir As Comprobante) As Boolean
         Dim LogPath As String = ""
         Dim LogFileName As String = ""
@@ -1142,7 +1184,7 @@
 
             ' Moneda
             .MonedaID = MonedaLocal.CodigoAFIP
-            .MonedaCotizacion = MonedaLocalCotizacion.Cotizacion
+            .MonedaCotizacion = MonedaLocalCotizacion.CotizacionVenta
         End With
 
         ResultadoCAE = CS_AFIP_WS.FacturaElectronica_ConectarYObtenerCAE(AFIP_TicketAcceso, WSFEv1_URL, InternetProxy, CUIT_Emisor, AFIP_Factura, LogPath, LogFileName)

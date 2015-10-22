@@ -7,8 +7,6 @@
         Public Property IDAnioLectivoCurso As Short
         Public Property Descripcion As String
         Public Property AnioLectivo As Short
-        Public Property ImporteMatricula As Decimal
-        Public Property ImporteCuota As Decimal
     End Class
 #End Region
 
@@ -315,14 +313,14 @@
         If IDEntidad Is Nothing Then
             listAnioLectivoCursos = (From alc In dbContext.AnioLectivoCurso
                                      Where alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
-                                     Order By alc.AnioLectivo, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
-                                     Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.AnioLectivo.ToString & " - " & alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo, .ImporteMatricula = alc.ImporteMatricula, .ImporteCuota = alc.ImporteCuota}).ToList
+                                     Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
+                                     Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.AnioLectivo.ToString & " - " & alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo}).ToList
         Else
             listAnioLectivoCursos = (From e In dbContext.Entidad
                                      From alc In e.AniosLectivosCursos
                                      Where e.IDEntidad = IDEntidad And alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
-                                     Order By alc.AnioLectivo, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
-                                     Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.AnioLectivo.ToString & " - " & alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo, .ImporteMatricula = alc.ImporteMatricula, .ImporteCuota = alc.ImporteCuota}).ToList
+                                     Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
+                                     Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.AnioLectivo.ToString & " - " & alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo}).ToList
         End If
 
         ComboBoxControl.DataSource = listAnioLectivoCursos

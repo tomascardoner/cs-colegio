@@ -122,6 +122,9 @@
     <Compile Include="AnioLectivoCurso.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="AnioLectivoCursoImporte.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
     <Compile Include="Articulo.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>

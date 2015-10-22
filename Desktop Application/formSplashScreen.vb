@@ -1,5 +1,6 @@
 ﻿Public Class formSplashScreen
     Private Sub SplashScreen_Load() Handles MyBase.Load
+        Me.Text = My.Application.Info.Title
         labelCompanyName.Text = My.Application.Info.CompanyName
         labelAppTitle.Text = My.Application.Info.Title
         labelLicensedTo.Text = ""

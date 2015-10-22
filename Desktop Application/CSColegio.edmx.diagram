@@ -117,6 +117,8 @@
           <ConnectorPoint PointX="8.554615384615385" PointY="11.875" />
         </AssociationConnector>
         <AssociationConnector Association="CSColegioModel.FK__Concepto__Comprobante" />
+        <EntityTypeShape EntityType="CSColegioModel.AnioLectivoCursoImporte" Width="1.5" PointX="10.875" PointY="30.75" />
+        <AssociationConnector Association="CSColegioModel.FK__AnioLectivoCurso__AnioLectivoCursoImporte" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

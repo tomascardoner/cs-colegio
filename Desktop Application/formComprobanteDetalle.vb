@@ -94,9 +94,9 @@
             End If
             If (Not mArticuloActual Is Nothing) AndAlso mArticuloActual.IDArticulo = mIDArticuloMensual Then
                 If .CuotaMes.HasValue Then
-                    comboboxCuotaMes.SelectedIndex = .CuotaMes.Value
+                    comboboxCuotaMes.SelectedIndex = .CuotaMes.Value - 1
                 Else
-                    comboboxCuotaMes.SelectedIndex = 0
+                    comboboxCuotaMes.SelectedIndex = -1
                 End If
             Else
                 comboboxCuotaMes.SelectedIndex = -1
@@ -124,7 +124,7 @@
                 .IDAnioLectivoCurso = Nothing
             End If
             If mArticuloActual.IDArticulo = mIDArticuloMensual Then
-                .CuotaMes = CByte(IIf(comboboxCuotaMes.SelectedIndex = 0, Nothing, comboboxCuotaMes.SelectedIndex))
+                .CuotaMes = CByte(IIf(comboboxCuotaMes.SelectedIndex = -1, Nothing, comboboxCuotaMes.SelectedIndex + 1))
             Else
                 .CuotaMes = Nothing
             End If
@@ -196,6 +196,7 @@
 
     Private Sub CuotaMes_Selected() Handles comboboxCuotaMes.SelectedIndexChanged
         EstablecerDescripcion()
+        EstablecerPrecioUnitario()
     End Sub
 
     Private Sub PrecioUnitario_TextChanged() Handles textboxPrecioUnitario.TextChanged
@@ -207,6 +208,7 @@
             If CS_ValueTranslation.ValidateCurrency(textboxPrecioUnitario.Text) Then
                 If CS_ValueTranslation.ValidateDecimal(textboxPrecioUnitarioDescuentoPorcentaje.Text) Then
                     textboxPrecioUnitarioDescuentoImporte.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxPrecioUnitario.Text) * CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxPrecioUnitarioDescuentoPorcentaje.Text) / 100)
+                    PrecioUnitarioDescuentoImporte_TextChanged()
                 End If
             End If
         End If
@@ -385,7 +387,7 @@
     End Sub
 
     Private Sub EstablecerDescripcion()
-        If (Not mArticuloActual Is Nothing) AndAlso (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual) And (Not mEntidad Is Nothing) And (Not comboboxAnioLectivoCurso.SelectedItem Is Nothing) And comboboxCuotaMes.SelectedIndex > -1 Then
+        If (Not mArticuloActual Is Nothing) AndAlso (mArticuloActual.IDArticulo = mIDArticuloMatricula Or (mArticuloActual.IDArticulo = mIDArticuloMensual And comboboxCuotaMes.SelectedIndex > -1)) And (Not mEntidad Is Nothing) And (Not comboboxAnioLectivoCurso.SelectedItem Is Nothing) Then
             textboxDescripcion.Text = String.Format(mArticuloActual.Descripcion, vbCrLf, mArticuloActual.Nombre, mEntidad.IDEntidad, mEntidad.Apellido, mEntidad.Nombre, mEntidad.ApellidoNombre, CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).AnioLectivo, comboboxCuotaMes.Text)
         Else
             textboxDescripcion.Text = ""
@@ -393,14 +395,33 @@
     End Sub
 
     Private Sub EstablecerPrecioUnitario()
+        Dim AnioLectivoCursoActual As AnioLectivoCurso
+        Dim AnioLectivoCursoImporteActual As AnioLectivoCursoImporte
         Dim PrecioUnitario As Decimal
 
         If (Not mArticuloActual Is Nothing) AndAlso (Not textboxEntidad.Tag Is Nothing) AndAlso (Not comboboxAnioLectivoCurso.SelectedItem Is Nothing) Then
-            If mArticuloActual.IDArticulo = mIDArticuloMatricula Then
-                PrecioUnitario = CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).ImporteMatricula
-            ElseIf mArticuloActual.IDArticulo = mIDArticuloMensual Then
-                PrecioUnitario = CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).ImporteCuota
-            End If
+            Select Case mArticuloActual.IDArticulo
+                Case mIDArticuloMatricula
+                    ' MATRÍCULA
+                    Using dbContext As New CSColegioContext(True)
+                        AnioLectivoCursoActual = dbContext.AnioLectivoCurso.Find(CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).IDAnioLectivoCurso)
+                        AnioLectivoCursoImporteActual = AnioLectivoCursoActual.AnioLectivoCursoImporte.Where(Function(alci) alci.MesInicial <= Month(DateAndTime.Today)).OrderByDescending(Function(alci) alci.MesInicial).FirstOrDefault
+                    End Using
+                    If Not AnioLectivoCursoImporteActual Is Nothing Then
+                        PrecioUnitario = AnioLectivoCursoImporteActual.ImporteMatricula
+                    End If
+                Case mIDArticuloMensual
+                    ' CUOTA MENSUAL
+                    If comboboxCuotaMes.SelectedIndex > -1 Then
+                        Using dbContext As New CSColegioContext(True)
+                            AnioLectivoCursoActual = dbContext.AnioLectivoCurso.Find(CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).IDAnioLectivoCurso)
+                            AnioLectivoCursoImporteActual = AnioLectivoCursoActual.AnioLectivoCursoImporte.Where(Function(alci) alci.MesInicial <= CByte(comboboxCuotaMes.SelectedIndex + 1)).OrderByDescending(Function(alci) alci.MesInicial).FirstOrDefault
+                        End Using
+                        If Not AnioLectivoCursoImporteActual Is Nothing Then
+                            PrecioUnitario = AnioLectivoCursoImporteActual.ImporteCuota
+                        End If
+                    End If
+            End Select
             textboxPrecioUnitario.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(PrecioUnitario)
             If Not mEntidad.IDDescuento Is Nothing Then
                 textboxPrecioUnitarioDescuentoPorcentaje.Text = CS_ValueTranslation.FromObjectPercentToControlTextBox(mEntidad.Descuento.Porcentaje)

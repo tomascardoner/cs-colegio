@@ -160,7 +160,7 @@
                             ComprobanteTipoActual = dbContext.ComprobanteTipo.Find(ComprobanteActual.IDComprobanteTipo)
                         End If
 
-                        ' Todo esto es para determinar el Concepto a especificar en el pedido del CAE
+                        ' Esto es para determinar el Concepto a especificar en el pedido del CAE
                         .Concepto = CShort(ComprobanteActual.IDConcepto.Value)
 
                         ' Documento del Titular
@@ -197,7 +197,7 @@
 
                         ' Moneda
                         .MonedaID = MonedaLocal.CodigoAFIP
-                        .MonedaCotizacion = MonedaLocalCotizacion.Cotizacion
+                        .MonedaCotizacion = MonedaLocalCotizacion.CotizacionVenta
 
                         ' Comprobantes Aplicados
                         For Each ComprobanteAplicacionActual As ComprobanteAplicacion In ComprobanteActual.ComprobanteAplicacion_Aplicados
