@@ -46,8 +46,9 @@ Partial Public Class Entidad
     Public Property EmitirFacturaA As String
     Public Property IDEntidadTercero As Nullable(Of Integer)
     Public Property IDDescuento As Nullable(Of Byte)
-    Public Property ExcluyeCalculoInteres As Boolean
+    Public Property ComprobanteNoEnviarEmail As Boolean
     Public Property FacturaIndividual As Boolean
+    Public Property ExcluyeCalculoInteres As Boolean
     Public Property ExcluyeFacturaDesde As Nullable(Of Date)
     Public Property ExcluyeFacturaHasta As Nullable(Of Date)
     Public Property FacturaLeyenda As String

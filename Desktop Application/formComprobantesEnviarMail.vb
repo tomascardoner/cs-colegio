@@ -1,4 +1,6 @@
 ﻿Public Class formComprobantesEnviarMail
+
+#Region "Declarations"
     Private dbContext As New CSColegioContext(True)
     Private listComprobantes As List(Of GridDataRow)
 
@@ -13,6 +15,8 @@
         Public Property ApellidoNombre As String
         Public Property ImporteTotal As Decimal
     End Class
+
+#End Region
 
     Private Sub formComprobantesEnviarMail_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         buttonEnviar.Enabled = False
@@ -36,11 +40,20 @@
 
             If comboboxComprobanteLote.SelectedIndex > -1 Then
                 ComprobanteLoteActual = CType(comboboxComprobanteLote.SelectedItem, ComprobanteLote)
+
+                ' Muestro los comprobantes que cumplan las siguientes condiciones:
+                '   - pertenezcan al Lote seleccionado
+                '   - no estén anulados
+                '   - no hayan sido enviados por e-mail anteriormente
+                '   - son de emisión electrónica
+                '   - tienen una C.A.E. asignado
+                '   - el titular tiene asignada una dirección de e-mail
+                '   - el titular no especifica que no se le envíen los e-mails
                 listComprobantes = (From cc In dbContext.Comprobante
                                     Join cl In dbContext.ComprobanteLote On cc.IDComprobanteLote Equals cl.IDComprobanteLote
                                     Join ct In dbContext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                     Join e In dbContext.Entidad On cc.IDEntidad Equals e.IDEntidad
-                                    Where cc.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And cc.IDUsuarioAnulacion Is Nothing And cc.IDUsuarioEnvioEmail Is Nothing And ct.EmisionElectronica And (Not cc.CAE Is Nothing) And Not (e.Email1 Is Nothing And e.Email2 Is Nothing)
+                                    Where cc.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And cc.IDUsuarioAnulacion Is Nothing And cc.IDUsuarioEnvioEmail Is Nothing And ct.EmisionElectronica And (Not cc.CAE Is Nothing) And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And (Not e.ComprobanteNoEnviarEmail)
                                     Order By ct.Nombre, cc.NumeroCompleto
                                     Select New GridDataRow With {.IDComprobante = cc.IDComprobante, .IDComprobanteTipo = cc.IDComprobanteTipo, .IDComprobanteLote = cc.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = cc.NumeroCompleto, .IDEntidad = cc.IDEntidad, .ApellidoNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal}).ToList
             Else

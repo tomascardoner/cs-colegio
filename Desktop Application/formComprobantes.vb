@@ -719,7 +719,7 @@
                 CurrentRow = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData)
 
                 If CurrentRow.Anulado Then
-                    MsgBox("No se puede anular este Comprobante porque ya está anulado.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                    MsgBox("No se puede enviar por e-mail este Comprobante porque está anulado.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 Else
 
                     Using dbContext As New CSColegioContext(True)
@@ -729,7 +729,7 @@
 
                         ' Verifico que sea un comprobante de venta
                         If ComprobanteTipoActual.OperacionTipo <> Constantes.OPERACIONTIPO_VENTA Then
-                            MsgBox("Sólo se pueden enviar por e-mail, Comprobantes de Venta.", MsgBoxStyle.Information, My.Application.Info.Title)
+                            MsgBox("Sólo se pueden enviar por e-mail los Comprobantes de Venta.", MsgBoxStyle.Information, My.Application.Info.Title)
                             Exit Sub
                         End If
 
@@ -737,6 +737,13 @@
                         If Titular.Email1 Is Nothing And Titular.Email2 Is Nothing Then
                             MsgBox("El Titular del Comprobante no tiene especificada ninguna dirección de e-mail.", MsgBoxStyle.Information, My.Application.Info.Title)
                             Exit Sub
+                        End If
+
+                        ' Verifico que el Titular no especifique que no se le envíen por e-mail
+                        If Titular.ComprobanteNoEnviarEmail Then
+                            If MsgBox("El Titular del Comprobante especificó que no se le envíen los Comprobantes por e-mail." & vbCrLf & vbCrLf & "¿Desea enviarlo de todos modos?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                                Exit Sub
+                            End If
                         End If
 
                         ' Verifico que tenga un CAE asignado, si es que corresponde

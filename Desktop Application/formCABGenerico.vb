@@ -1,7 +1,7 @@
 ﻿Option Strict Off
 
 Public Class formCABGenerico
-    Friend dbcontext As New CSColegioContext(True)
+    Friend dbContext As New CSColegioContext(True)
     Friend EntityDBSet As System.Data.Entity.DbSet
 
     Friend EntityNameSingular As String
@@ -25,10 +25,10 @@ Public Class formCABGenerico
     End Sub
 
     Private Sub formCABGenerico_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        If dbcontext.ChangeTracker.HasChanges Then
+        If dbContext.ChangeTracker.HasChanges Then
             If MsgBox("Se han realizado cambios a los datos." & vbCr & "¿Desea guardarlos?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                 Me.Cursor = Cursors.WaitCursor
-                dbcontext.SaveChanges()
+                dbContext.SaveChanges()
                 Me.Cursor = Cursors.Default
             End If
         End If
@@ -53,6 +53,6 @@ Public Class formCABGenerico
     End Function
 
     Private Sub bindingnavigatorSaveItem_Click(sender As Object, e As EventArgs) Handles bindingnavigatorSaveItem.Click
-        dbcontext.SaveChanges()
+        dbContext.SaveChanges()
     End Sub
 End Class

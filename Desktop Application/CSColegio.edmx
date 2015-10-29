@@ -393,8 +393,9 @@
           <Property Name="EmitirFacturaA" Type="char" MaxLength="1" />
           <Property Name="IDEntidadTercero" Type="int" />
           <Property Name="IDDescuento" Type="tinyint" />
-          <Property Name="ExcluyeCalculoInteres" Type="bit" Nullable="false" />
+          <Property Name="ComprobanteNoEnviarEmail" Type="bit" Nullable="false" />
           <Property Name="FacturaIndividual" Type="bit" Nullable="false" />
+          <Property Name="ExcluyeCalculoInteres" Type="bit" Nullable="false" />
           <Property Name="ExcluyeFacturaDesde" Type="date" />
           <Property Name="ExcluyeFacturaHasta" Type="date" />
           <Property Name="FacturaLeyenda" Type="varchar(max)" />
@@ -1852,8 +1853,9 @@
           <Property Name="EmitirFacturaA" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="IDEntidadTercero" Type="Int32" />
           <Property Name="IDDescuento" Type="Byte" />
-          <Property Name="ExcluyeCalculoInteres" Type="Boolean" Nullable="false" />
+          <Property Name="ComprobanteNoEnviarEmail" Type="Boolean" Nullable="false" />
           <Property Name="FacturaIndividual" Type="Boolean" Nullable="false" />
+          <Property Name="ExcluyeCalculoInteres" Type="Boolean" Nullable="false" />
           <Property Name="ExcluyeFacturaDesde" Type="DateTime" Precision="0" />
           <Property Name="ExcluyeFacturaHasta" Type="DateTime" Precision="0" />
           <Property Name="FacturaLeyenda" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -3523,6 +3525,7 @@
           <EntitySetMapping Name="Entidad">
             <EntityTypeMapping TypeName="CSColegioModel.Entidad">
               <MappingFragment StoreEntitySet="Entidad">
+                <ScalarProperty Name="ComprobanteNoEnviarEmail" ColumnName="ComprobanteNoEnviarEmail" />
                 <ScalarProperty Name="FacturaLeyenda" ColumnName="FacturaLeyenda" />
                 <ScalarProperty Name="FacturaIndividual" ColumnName="FacturaIndividual" />
                 <ScalarProperty Name="ExcluyeCalculoInteres" ColumnName="ExcluyeCalculoInteres" />

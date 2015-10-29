@@ -222,6 +222,7 @@
                 textboxEntidadMadre.Tag = .EntidadMadre.IDEntidad
             End If
             CS_Control_ComboBox.SetSelectedValue(comboboxEmitirFacturaA, SelectedItemOptions.ValueOrFirst, .EmitirFacturaA, Constantes.EMITIRFACTURAA_NOESPECIFICA)
+            checkboxComprobanteNoEnviarEmail.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.ComprobanteNoEnviarEmail)
             If .EntidadTercero Is Nothing OrElse (.EmitirFacturaA <> Constantes.EMITIRFACTURAA_TERCERO And .EmitirFacturaA <> Constantes.EMITIRFACTURAA_TODOS) Then
                 textboxEntidadTercero.Text = ""
                 textboxEntidadTercero.Tag = Nothing
@@ -235,8 +236,8 @@
                 End If
             End If
             CS_Control_ComboBox.SetSelectedValue(comboboxDescuento, SelectedItemOptions.ValueOrFirst, .IDDescuento, 0)
-            checkboxExcluyeCalculoInteres.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.ExcluyeCalculoInteres)
             checkboxFacturaIndividual.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.FacturaIndividual)
+            checkboxExcluyeCalculoInteres.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.ExcluyeCalculoInteres)
             datetimepickerExcluyeFacturaDesde.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.ExcluyeFacturaDesde, datetimepickerExcluyeFacturaDesde)
             datetimepickerExcluyeFacturaHasta.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.ExcluyeFacturaHasta, datetimepickerExcluyeFacturaHasta)
             textboxFacturaLeyenda.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.FacturaLeyenda)
@@ -319,14 +320,15 @@
             .IDEntidadPadre = CS_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadPadre.Tag)
             .IDEntidadMadre = CS_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadMadre.Tag)
             .EmitirFacturaA = CS_ValueTranslation.FromControlComboBoxToObjectString(comboboxEmitirFacturaA.SelectedValue, Constantes.EMITIRFACTURAA_NOESPECIFICA)
+            .ComprobanteNoEnviarEmail = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxComprobanteNoEnviarEmail.CheckState)
             If .EmitirFacturaA = Constantes.EMITIRFACTURAA_TERCERO Or .EmitirFacturaA = Constantes.EMITIRFACTURAA_TODOS Then
                 .IDEntidadTercero = CS_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadTercero.Tag)
             Else
                 .IDEntidadTercero = Nothing
             End If
             .IDDescuento = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxDescuento.SelectedValue, 0)
-            .ExcluyeCalculoInteres = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxExcluyeCalculoInteres.CheckState)
             .FacturaIndividual = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxFacturaIndividual.CheckState)
+            .ExcluyeCalculoInteres = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxExcluyeCalculoInteres.CheckState)
             .ExcluyeFacturaDesde = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerExcluyeFacturaDesde.Value, datetimepickerExcluyeFacturaDesde.Checked)
             .ExcluyeFacturaHasta = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerExcluyeFacturaHasta.Value, datetimepickerExcluyeFacturaHasta.Checked)
             .FacturaLeyenda = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxFacturaLeyenda.Text)
