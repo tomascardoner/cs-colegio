@@ -19,15 +19,24 @@
     End Sub
 
     Private Sub formMDIMain_Resize() Handles Me.Resize
-        'OBTENGO LAS MEDIDAS DEL CLIENT AREA DEL FORM MDI
-        Form_ClientSize = New Size(Me.ClientSize.Width - toolstripMain.Width - My.Settings.MDIFormMargin, Me.ClientSize.Height - menustripMain.Height - statusstripMain.Height - My.Settings.MDIFormMargin)
+        If Not Me.WindowState = FormWindowState.Minimized Then
 
-        'HAGO UN RESIZE DE TODOS LOS CHILDS QUE ESTÉN ABIERTOS
-        For Each FormCurrent As Form In Me.MdiChildren
-            If FormCurrent.FormBorderStyle = Windows.Forms.FormBorderStyle.Sizable Then
-                FormCurrent.Size = Form_ClientSize
-            End If
-        Next
+            'OBTENGO LAS MEDIDAS DEL CLIENT AREA DEL FORM MDI
+            Form_ClientSize = New Size(Me.ClientSize.Width - toolstripMain.Width - My.Settings.MDIFormMargin, Me.ClientSize.Height - menustripMain.Height - statusstripMain.Height - My.Settings.MDIFormMargin)
+
+            'HAGO UN RESIZE DE TODOS LOS CHILDS QUE ESTÉN ABIERTOS
+            For Each FormCurrent As Form In Me.MdiChildren
+                If FormCurrent.FormBorderStyle = Windows.Forms.FormBorderStyle.Sizable Then
+                    If FormCurrent.Name = "formComprobante" Then
+                        CS_Form.MDIChild_CenterToClientArea(Me, FormCurrent, Form_ClientSize)
+                    Else
+                        CS_Form.MDIChild_PositionAndSizeToFit(Me, FormCurrent, Form_ClientSize)
+                    End If
+                Else
+                    CS_Form.MDIChild_CenterToClientArea(Me, FormCurrent, Form_ClientSize)
+                End If
+            Next
+        End If
     End Sub
 
     Private Sub MDIMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
@@ -114,7 +123,7 @@
 
             FormCurrent = New formCABGenerico()
 
-            CS_Form.MDIChild_PositionAndSize(Me, CType(FormCurrent, Form), Form_ClientSize)
+            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(FormCurrent, Form), Form_ClientSize)
             FormCurrent.EntityNameSingular = EntityNameSingular
             FormCurrent.EntityNamePlural = EntityNamePlural
             Return FormCurrent
@@ -273,7 +282,7 @@
         If Permisos.VerificarPermiso(Permisos.ENTIDAD) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_PositionAndSize(Me, CType(formEntidades, Form), Form_ClientSize)
+            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formEntidades, Form), Form_ClientSize)
             formEntidades.Show()
             If formEntidades.WindowState = FormWindowState.Minimized Then
                 formEntidades.WindowState = FormWindowState.Normal
@@ -288,7 +297,7 @@
         If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_PositionAndSize(Me, CType(formEntidadesAnioLectivoCurso, Form), Form_ClientSize)
+            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formEntidadesAnioLectivoCurso, Form), Form_ClientSize)
             formEntidadesAnioLectivoCurso.Show()
             If formEntidadesAnioLectivoCurso.WindowState = FormWindowState.Minimized Then
                 formEntidadesAnioLectivoCurso.WindowState = FormWindowState.Normal
@@ -305,7 +314,7 @@
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_PositionAndSize(Me, CType(formComprobantes, Form), Form_ClientSize)
+            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formComprobantes, Form), Form_ClientSize)
             formComprobantes.Show()
             If formComprobantes.WindowState = FormWindowState.Minimized Then
                 formComprobantes.WindowState = FormWindowState.Normal
@@ -372,7 +381,7 @@
         If Permisos.VerificarPermiso(Permisos.REPORTE) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_PositionAndSize(Me, CType(formReportes, Form), Form_ClientSize)
+            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formReportes, Form), Form_ClientSize)
             formReportes.Show()
             If formReportes.WindowState = FormWindowState.Minimized Then
                 formReportes.WindowState = FormWindowState.Normal

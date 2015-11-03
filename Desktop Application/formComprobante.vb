@@ -446,9 +446,11 @@
         End If
         formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
-        formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA)
-        formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA)
-        formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_COMPRA)
+        If Not mComprobanteTipoActual Is Nothing Then
+            formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA)
+            formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA)
+            formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_COMPRA)
+        End If
         If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
             mEntidad = CType(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
             If mEntidad.IDCategoriaIVA Is Nothing Then
@@ -459,6 +461,30 @@
             End If
         End If
         formEntidadesSeleccionar.Dispose()
+    End Sub
+
+    Private Sub EntidadVerSaldo() Handles buttonEntidadVerSaldo.Click
+        If textboxEntidad.Tag Is Nothing Then
+            MsgBox("Para ver el Saldo, antes debe especificar la Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxEntidad.Focus()
+            Exit Sub
+        End If
+
+        Using dbContext As New CSColegioContext(True)
+            Dim EntidadActual As Entidad
+
+            Dim Debitos As Decimal
+            Dim Creditos As Decimal
+            Dim SaldoActual As Decimal
+
+            EntidadActual = dbContext.Entidad.Find(mEntidad.IDEntidad)
+
+            Debitos = EntidadActual.Comprobante.Where(Function(c) c.IDUsuarioAnulacion Is Nothing And c.ComprobanteTipo.MovimientoTipo = "D").Sum(Function(c) c.ImporteTotal)
+            Creditos = EntidadActual.Comprobante.Where(Function(c) c.IDUsuarioAnulacion Is Nothing And c.ComprobanteTipo.MovimientoTipo = "C").Sum(Function(c) c.ImporteTotal)
+            SaldoActual = Debitos - Creditos
+
+            MsgBox(String.Format("El Saldo actual es: {0}", FormatCurrency(SaldoActual)), MsgBoxStyle.Information, My.Application.Info.Title)
+        End Using
     End Sub
 
     Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxIDComprobante.GotFocus, textboxPuntoVenta.GotFocus, textboxNumero.GotFocus, textboxEntidad.GotFocus, textboxImporteTotal.GotFocus
