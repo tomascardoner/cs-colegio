@@ -10,15 +10,15 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class Reporte
+Partial Public Class ReporteParametro
     Public Property IDReporte As Short
-    Public Property IDReporteGrupo As Byte
+    Public Property IDParametro As String
     Public Property Nombre As String
-    Public Property Titulo As String
-    Public Property Archivo As String
-    Public Property MostrarEnVisor As Boolean
+    Public Property Tipo As String
+    Public Property Requerido As Boolean
+    Public Property RequeridoLeyenda As String
+    Public Property Orden As Nullable(Of Byte)
 
-    Public Overridable Property ReporteGrupo As ReporteGrupo
-    Public Overridable Property ReporteParametro As ICollection(Of ReporteParametro) = New HashSet(Of ReporteParametro)
+    Public Overridable Property Reporte As Reporte
 
 End Class

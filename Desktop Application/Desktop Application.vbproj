@@ -145,9 +145,6 @@
       <Link>CS_Control_Textbox_Currency.vb</Link>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_CrystalReports.vb">
-      <Link>CS_CrystalReports.vb</Link>
-    </Compile>
     <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Database_EF_SQL.vb">
       <Link>CS_Database_EF_SQL.vb</Link>
     </Compile>
@@ -384,16 +381,16 @@
     <Compile Include="formReportes.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formReportViewer.Designer.vb">
-      <DependentUpon>formReportViewer.vb</DependentUpon>
+    <Compile Include="formReportesParametro.Designer.vb">
+      <DependentUpon>formReportesParametro.vb</DependentUpon>
     </Compile>
-    <Compile Include="formReportViewer.vb">
+    <Compile Include="formReportesParametro.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formReportViewerCR.Designer.vb">
-      <DependentUpon>formReportViewerCR.vb</DependentUpon>
+    <Compile Include="formReportesVisor.Designer.vb">
+      <DependentUpon>formReportesVisor.vb</DependentUpon>
     </Compile>
-    <Compile Include="formReportViewerCR.vb">
+    <Compile Include="formReportesVisor.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formSplashScreen.vb">
@@ -407,12 +404,6 @@
       <DependentUpon>formComprobantesTransmitirAFIP.vb</DependentUpon>
     </Compile>
     <Compile Include="formComprobantesTransmitirAFIP.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="formTest.Designer.vb">
-      <DependentUpon>formTest.vb</DependentUpon>
-    </Compile>
-    <Compile Include="formTest.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Impuesto.vb">
@@ -479,6 +470,9 @@
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="ReporteGrupo.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteParametro.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="StartUp.vb" />
@@ -551,17 +545,14 @@
     <EmbeddedResource Include="formReportes.resx">
       <DependentUpon>formReportes.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formReportViewer.resx">
-      <DependentUpon>formReportViewer.vb</DependentUpon>
+    <EmbeddedResource Include="formReportesParametro.resx">
+      <DependentUpon>formReportesParametro.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formReportViewerCR.resx">
-      <DependentUpon>formReportViewerCR.vb</DependentUpon>
+    <EmbeddedResource Include="formReportesVisor.resx">
+      <DependentUpon>formReportesVisor.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobantesTransmitirAFIP.resx">
       <DependentUpon>formComprobantesTransmitirAFIP.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="formTest.resx">
-      <DependentUpon>formTest.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

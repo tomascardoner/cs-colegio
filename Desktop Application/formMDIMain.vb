@@ -77,10 +77,6 @@
             MsgBox("El Último Número de comprobante autorizado es: " & CS_AFIP_WS.FacturaElectronica_ConectarYObtenerUltimoNumeroComprobante(AFIP_TicketAcceso_Homo, CS_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION), "", CS_Parameter.GetString(Parametros.EMPRESA_CUIT), TipoComprobante, PuntoVenta))
         End If
     End Sub
-
-    Private Sub menuitemShowTestForm_Click(sender As Object, e As EventArgs) Handles menuitemShowTestForm.Click
-        formTest.Show()
-    End Sub
 #End Region
 
 #Region "Menu Ventana"

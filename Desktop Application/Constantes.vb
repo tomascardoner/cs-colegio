@@ -66,4 +66,20 @@
     Friend Const EMAIL_CLIENT_NETDLL As String = "NETCLIENT"
     Friend Const EMAIL_CLIENT_MSOUTLOOK As String = "MSOUTLOOK"
     Friend Const EMAIL_CLIENT_CRYSTALREPORTSMAPI As String = "CRYSTALMAPI"
+
+    '///////////////////////////////////
+    '    PARÁMETROS DE LOS REPORTES
+    '///////////////////////////////////
+    Friend Const REPORTE_PARAMETRO_ENTIDAD As String = "ENTI"
+    Friend Const REPORTE_PARAMETRO_ENTIDAD_PERSONALCOLEGIO As String = "ENPC"
+    Friend Const REPORTE_PARAMETRO_ENTIDAD_DOCENTE As String = "ENDO"
+    Friend Const REPORTE_PARAMETRO_ENTIDAD_ALUMNO As String = "ENAL"
+    Friend Const REPORTE_PARAMETRO_ENTIDAD_FAMILIAR As String = "ENFA"
+    Friend Const REPORTE_PARAMETRO_ENTIDAD_PROVEEDOR As String = "ENPR"
+
+    Friend Const REPORTE_PARAMETRO_TIPO_DATETIME As String = "DATI"
+    Friend Const REPORTE_PARAMETRO_TIPO_DATE As String = "DATE"
+    Friend Const REPORTE_PARAMETRO_TIPO_TIME As String = "TIME"
+    Friend Const REPORTE_PARAMETRO_TIPO_YEAR_MONTH_FROM As String = "YMFR"
+    Friend Const REPORTE_PARAMETRO_TIPO_YEAR_MONTH_TO As String = "YMTO"
 End Module

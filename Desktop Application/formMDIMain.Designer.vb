@@ -38,7 +38,6 @@ Partial Class formMDIMain
         Me.menuitemDebugAFIPWSHomologacion = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSHomologacionLogin = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSHomologacionCompConsultar = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemShowTestForm = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemVentana = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemVentanaMosaicoHorizontal = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemVentanaMosaicoVertical = New System.Windows.Forms.ToolStripMenuItem()
@@ -138,7 +137,7 @@ Partial Class formMDIMain
         '
         'menuitemDebug
         '
-        Me.menuitemDebug.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWS, Me.menuitemShowTestForm})
+        Me.menuitemDebug.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWS})
         Me.menuitemDebug.Name = "menuitemDebug"
         Me.menuitemDebug.Size = New System.Drawing.Size(54, 20)
         Me.menuitemDebug.Text = "Debug"
@@ -169,12 +168,6 @@ Partial Class formMDIMain
         Me.menuitemDebugAFIPWSHomologacionCompConsultar.Name = "menuitemDebugAFIPWSHomologacionCompConsultar"
         Me.menuitemDebugAFIPWSHomologacionCompConsultar.Size = New System.Drawing.Size(238, 22)
         Me.menuitemDebugAFIPWSHomologacionCompConsultar.Text = "Consultar último comprobante"
-        '
-        'menuitemShowTestForm
-        '
-        Me.menuitemShowTestForm.Name = "menuitemShowTestForm"
-        Me.menuitemShowTestForm.Size = New System.Drawing.Size(167, 22)
-        Me.menuitemShowTestForm.Text = "Show Test Form"
         '
         'menuitemVentana
         '
@@ -439,5 +432,4 @@ Partial Class formMDIMain
     Friend WithEvents menuitemComprobantesEnviarMail As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents buttonReportes As System.Windows.Forms.ToolStripButton
     Friend WithEvents menuitemDebugAFIPWSHomologacionCompConsultar As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemShowTestForm As System.Windows.Forms.ToolStripMenuItem
 End Class

@@ -1,15 +1,15 @@
 ﻿Imports System.Net.Mail
 
 Module MiscFunctions
-    Friend Sub PreviewCrystalReport(ByRef Reporte As CS_CrystalReport, ByVal WindowText As String)
-        Dim VisorReporte As New formReportViewerCR
+    Friend Sub PreviewCrystalReport(ByRef ReporteActual As Reporte, ByVal WindowText As String)
+        Dim VisorReporte As New formReportesVisor
 
         formMDIMain.Cursor = Cursors.WaitCursor
 
         CS_Form.MDIChild_PositionAndSizeToFit(CType(formMDIMain, Form), CType(VisorReporte, Form), formMDIMain.Form_ClientSize)
         With VisorReporte
             .Text = WindowText
-            .CRViewerMain.ReportSource = Reporte.ReportObject
+            .CRViewerMain.ReportSource = ReporteActual.ReportObject
             .Show()
             If .WindowState = FormWindowState.Minimized Then
                 .WindowState = FormWindowState.Normal
@@ -62,7 +62,7 @@ Module MiscFunctions
         End Try
     End Function
 
-    Friend Function EnviarEmailPorNETClient(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef Reporte As CS_CrystalReport, ByVal AdjuntoNombre As String) As Boolean
+    Friend Function EnviarEmailPorNETClient(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef ReporteActual As Reporte, ByVal AdjuntoNombre As String) As Boolean
         Dim mail As New MailMessage()
         Dim smtp As New SmtpClient()
 
@@ -90,7 +90,7 @@ Module MiscFunctions
         Decrypter = Nothing
 
         ' Attachments
-        mail.Attachments.Add(New System.Net.Mail.Attachment(Reporte.ReportObject.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat), AdjuntoNombre))
+        mail.Attachments.Add(New System.Net.Mail.Attachment(ReporteActual.ReportObject.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat), AdjuntoNombre))
 
         ' Envío el e-mail
         Try
@@ -104,7 +104,7 @@ Module MiscFunctions
         End Try
     End Function
 
-    Friend Function EnviarEmailPorMSOutlook(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef Reporte As CS_CrystalReport, ByVal AdjuntoNombre As String) As Boolean
+    Friend Function EnviarEmailPorMSOutlook(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef ReporteActual As Reporte, ByVal AdjuntoNombre As String) As Boolean
         Dim mail As New CS_Office_Outlook_LateBinding.MailItem
 
         If (Not Titular.Email1 Is Nothing) And (Not Titular.Email2 Is Nothing) Then
@@ -118,12 +118,12 @@ Module MiscFunctions
         mail.Subject = Asunto
         mail.Body = Cuerpo
 
-        mail.Attachments.Add(New CS_Office_Outlook_LateBinding.Attachment(Reporte.ReportObject.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat), AdjuntoNombre))
+        mail.Attachments.Add(New CS_Office_Outlook_LateBinding.Attachment(ReporteActual.ReportObject.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat), AdjuntoNombre))
 
         Return CS_Office_Outlook_LateBinding.SendMail(My.Settings.Email_Address, mail)
     End Function
 
-    Friend Function EnviarEmailPorCrystalReportsMAPI(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef Reporte As CS_CrystalReport, ByVal AdjuntoNombre As String) As Boolean
+    Friend Function EnviarEmailPorCrystalReportsMAPI(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef ReporteActual As Reporte, ByVal AdjuntoNombre As String) As Boolean
         'Preparo las opciones del mail
         Dim mailOpts As New CrystalDecisions.Shared.MicrosoftMailDestinationOptions
         If Not Titular.Email1 Is Nothing Then
@@ -141,7 +141,7 @@ Module MiscFunctions
         expopt.ExportFormatType = CrystalDecisions.Shared.ExportFormatType.PortableDocFormat
 
         Try
-            Reporte.ReportObject.Export(expopt)
+            ReporteActual.ReportObject.Export(expopt)
             Return True
 
         Catch ex As Exception

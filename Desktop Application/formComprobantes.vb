@@ -660,15 +660,15 @@
 
                     datagridviewMain.Enabled = False
 
-                    Dim Reporte As New CS_CrystalReport
-                    If Reporte.OpenReport(My.Settings.ReportsPath & "\" & ComprobanteTipoActual.ReporteNombre) Then
-                        If Reporte.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
-                            Reporte.RecordSelectionFormula = "{Comprobante.IDComprobante} = " & CurrentRow.IDComprobante
+                    Dim ReporteActual As New Reporte
+                    If ReporteActual.Open(My.Settings.ReportsPath & "\" & ComprobanteTipoActual.ReporteNombre) Then
+                        If ReporteActual.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
+                            ReporteActual.RecordSelectionFormula = "{Comprobante.IDComprobante} = " & CurrentRow.IDComprobante
 
                             If sender.Equals(buttonImprimir) Then
-                                Reporte.ReportObject.PrintToPrinter(1, False, 1, 100)
+                                ReporteActual.ReportObject.PrintToPrinter(1, False, 1, 100)
                             Else
-                                MiscFunctions.PreviewCrystalReport(Reporte, CurrentRow.ComprobanteTipoNombre & " N° " & CurrentRow.NumeroCompleto)
+                                MiscFunctions.PreviewCrystalReport(ReporteActual, CurrentRow.ComprobanteTipoNombre & " N° " & CurrentRow.NumeroCompleto)
                             End If
                         End If
                     End If
@@ -690,12 +690,12 @@
 
                 datagridviewMain.Enabled = False
 
-                Dim Reporte As New CS_CrystalReport
-                If Reporte.OpenReport(My.Settings.ReportsPath & "\Comprobantes.rpt") Then
-                    If Reporte.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
-                        Reporte.RecordSelectionFormula = mReportSelectionFormula
+                Dim ReporteActual As New Reporte
+                If ReporteActual.Open(My.Settings.ReportsPath & "\Comprobantes.rpt") Then
+                    If ReporteActual.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
+                        ReporteActual.RecordSelectionFormula = mReportSelectionFormula
 
-                        MiscFunctions.PreviewCrystalReport(Reporte, "Listado de Comprobantes")
+                        MiscFunctions.PreviewCrystalReport(ReporteActual, "Listado de Comprobantes")
                     End If
                 End If
 
@@ -768,10 +768,10 @@
 
                         datagridviewMain.Enabled = False
 
-                        Dim Reporte As New CS_CrystalReport
-                        If Reporte.OpenReport(My.Settings.ReportsPath & "\" & ComprobanteTipoActual.ReporteNombre) Then
-                            If Reporte.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
-                                Reporte.RecordSelectionFormula = "{Comprobante.IDComprobante} = " & CurrentRow.IDComprobante
+                        Dim ReporteActual As New Reporte
+                        If ReporteActual.Open(My.Settings.ReportsPath & "\" & ComprobanteTipoActual.ReporteNombre) Then
+                            If ReporteActual.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
+                                ReporteActual.RecordSelectionFormula = "{Comprobante.IDComprobante} = " & CurrentRow.IDComprobante
 
                                 Dim Asunto As String = String.Format(My.Settings.Comprobante_EnviarEmail_Subject, ComprobanteTipoActual.NombreConLetra, CurrentRow.NumeroCompleto)
                                 Dim Cuerpo As String = String.Format(My.Settings.Comprobante_EnvioEmail_Body, vbCrLf) & String.Format(My.Settings.Email_Signature, vbCrLf)
@@ -779,19 +779,19 @@
 
                                 Select Case My.Settings.Comprobante_EnviarEmail_Metodo
                                     Case Constantes.EMAIL_CLIENT_NETDLL
-                                        If Not MiscFunctions.EnviarEmailPorNETClient(Titular, Asunto, Cuerpo, Reporte, AdjuntoNombre) Then
+                                        If Not MiscFunctions.EnviarEmailPorNETClient(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre) Then
                                             datagridviewMain.Enabled = True
                                             Me.Cursor = Cursors.Default
                                             Exit Sub
                                         End If
                                     Case Constantes.EMAIL_CLIENT_MSOUTLOOK
-                                        If Not EnviarEmailPorMSOutlook(Titular, Asunto, Cuerpo, Reporte, AdjuntoNombre) Then
+                                        If Not EnviarEmailPorMSOutlook(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre) Then
                                             datagridviewMain.Enabled = True
                                             Me.Cursor = Cursors.Default
                                             Exit Sub
                                         End If
                                     Case Constantes.EMAIL_CLIENT_CRYSTALREPORTSMAPI
-                                        If Not EnviarEmailPorCrystalReportsMAPI(Titular, Asunto, Cuerpo, Reporte, AdjuntoNombre) Then
+                                        If Not EnviarEmailPorCrystalReportsMAPI(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre) Then
                                             datagridviewMain.Enabled = True
                                             Me.Cursor = Cursors.Default
                                             Exit Sub

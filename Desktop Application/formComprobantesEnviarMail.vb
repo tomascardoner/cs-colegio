@@ -91,7 +91,7 @@
         Dim GridDataRowActual As GridDataRow
         Dim ComprobanteActual As Comprobante
         Dim IDComprobanteTipo As Byte
-        Dim Reporte As New CS_CrystalReport
+        Dim ReporteActual As New Reporte
 
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
@@ -109,16 +109,16 @@
                 If (Not ComprobanteActual.Entidad.Email1 Is Nothing) Or (Not ComprobanteActual.Entidad.Email2 Is Nothing) Then
                     If IDComprobanteTipo <> ComprobanteActual.IDComprobanteTipo Then
                         IDComprobanteTipo = ComprobanteActual.IDComprobanteTipo
-                        Reporte = New CS_CrystalReport
-                        If Not Reporte.OpenReport(My.Settings.ReportsPath & "\" & ComprobanteActual.ComprobanteTipo.ReporteNombre) Then
+                        ReporteActual = New Reporte
+                        If Not ReporteActual.Open(My.Settings.ReportsPath & "\" & ComprobanteActual.ComprobanteTipo.ReporteNombre) Then
                             Exit For
                         End If
-                        If Not Reporte.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
+                        If Not ReporteActual.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
                             Exit For
                         End If
                     End If
-                    Reporte.RecordSelectionFormula = "{Comprobante.IDComprobante} = " & ComprobanteActual.IDComprobante
-                    Reporte.ReportObject.Refresh()
+                    ReporteActual.RecordSelectionFormula = "{Comprobante.IDComprobante} = " & ComprobanteActual.IDComprobante
+                    ReporteActual.ReportObject.Refresh()
 
                     Dim Asunto As String = String.Format(My.Settings.Comprobante_EnviarEmail_Subject, ComprobanteActual.ComprobanteTipo.NombreConLetra, GridDataRowActual.NumeroCompleto)
                     Dim Cuerpo As String = String.Format(My.Settings.Comprobante_EnvioEmail_Body, vbCrLf) & String.Format(My.Settings.Email_Signature, vbCrLf)
@@ -128,15 +128,15 @@
 
                     Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
                         Case Constantes.EMAIL_CLIENT_NETDLL
-                            If Not MiscFunctions.EnviarEmailPorNETClient(ComprobanteActual.Entidad, Asunto, Cuerpo, Reporte, AdjuntoNombre) Then
+                            If Not MiscFunctions.EnviarEmailPorNETClient(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre) Then
                                 Exit For
                             End If
                         Case Constantes.EMAIL_CLIENT_MSOUTLOOK
-                            If Not MiscFunctions.EnviarEmailPorMSOutlook(ComprobanteActual.Entidad, Asunto, Cuerpo, Reporte, AdjuntoNombre) Then
+                            If Not MiscFunctions.EnviarEmailPorMSOutlook(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre) Then
                                 Exit For
                             End If
                         Case Constantes.EMAIL_CLIENT_CRYSTALREPORTSMAPI
-                            If Not MiscFunctions.EnviarEmailPorCrystalReportsMAPI(ComprobanteActual.Entidad, Asunto, Cuerpo, Reporte, AdjuntoNombre) Then
+                            If Not MiscFunctions.EnviarEmailPorCrystalReportsMAPI(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre) Then
                                 Exit For
                             End If
                     End Select

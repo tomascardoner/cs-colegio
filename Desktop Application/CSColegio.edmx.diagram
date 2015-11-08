@@ -119,6 +119,8 @@
         <AssociationConnector Association="CSColegioModel.FK__Concepto__Comprobante" />
         <EntityTypeShape EntityType="CSColegioModel.AnioLectivoCursoImporte" Width="1.5" PointX="10.875" PointY="30.75" />
         <AssociationConnector Association="CSColegioModel.FK__AnioLectivoCurso__AnioLectivoCursoImporte" />
+        <EntityTypeShape EntityType="CSColegioModel.ReporteParametro" Width="1.5" PointX="3.375" PointY="22.75" />
+        <AssociationConnector Association="CSColegioModel.FK__Reporte__ReporteParametro" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

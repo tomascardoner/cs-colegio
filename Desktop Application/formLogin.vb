@@ -16,6 +16,12 @@
         End If
     End Sub
 
+    Private Sub formLogin_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
+        If e.KeyChar = ChrW(Keys.Return) Then
+            buttonAceptar_Click()
+        End If
+    End Sub
+
     Private Sub formLogin_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         mdbContext.Dispose()
     End Sub
@@ -107,5 +113,9 @@
         Me.Cursor = Cursors.Default
 
         Me.DialogResult = Windows.Forms.DialogResult.OK
+    End Sub
+
+    Private Sub buttonCancelar_Click(sender As Object, e As EventArgs) Handles buttonCancelar.Click
+        Me.DialogResult = Windows.Forms.DialogResult.Cancel
     End Sub
 End Class

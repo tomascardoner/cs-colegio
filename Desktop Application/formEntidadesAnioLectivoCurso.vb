@@ -136,17 +136,17 @@
 
                 datagridviewMain.Enabled = False
 
-                Dim Reporte As New CS_CrystalReport
-                If Reporte.OpenReport(My.Settings.ReportsPath & "\AlumnosPorCurso.rpt") Then
-                    If Reporte.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
+                Dim ReporteActual As New Reporte
+                If ReporteActual.Open(My.Settings.ReportsPath & "\AlumnosPorCurso.rpt") Then
+                    If ReporteActual.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
 
                         If sender.Equals(menuitemImprimirListadoCompleto) Then
-                            Reporte.RecordSelectionFormula = String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0}", comboboxAnioLectivo.ComboBox.SelectedValue.ToString)
+                            ReporteActual.RecordSelectionFormula = String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0}", comboboxAnioLectivo.ComboBox.SelectedValue.ToString)
                         ElseIf sender.Equals(menuitemImprimirListadoDelCurso) Then
-                            Reporte.RecordSelectionFormula = String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0} AND {{AnioLectivoCurso.IDCurso}} = {1}", comboboxAnioLectivo.ComboBox.SelectedValue.ToString, comboboxCurso.ComboBox.SelectedValue.ToString)
+                            ReporteActual.RecordSelectionFormula = String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0} AND {{AnioLectivoCurso.IDCurso}} = {1}", comboboxAnioLectivo.ComboBox.SelectedValue.ToString, comboboxCurso.ComboBox.SelectedValue.ToString)
                         End If
 
-                        MiscFunctions.PreviewCrystalReport(Reporte, "Listado de Alumnos por Curso")
+                        MiscFunctions.PreviewCrystalReport(ReporteActual, "Listado de Alumnos por Curso")
                     End If
                 End If
 

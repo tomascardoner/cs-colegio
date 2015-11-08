@@ -625,6 +625,19 @@
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="ReporteParametro">
+          <Key>
+            <PropertyRef Name="IDReporte" />
+            <PropertyRef Name="IDParametro" />
+          </Key>
+          <Property Name="IDReporte" Type="smallint" Nullable="false" />
+          <Property Name="IDParametro" Type="char" MaxLength="50" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tipo" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="Requerido" Type="bit" Nullable="false" />
+          <Property Name="RequeridoLeyenda" Type="varchar" MaxLength="200" />
+          <Property Name="Orden" Type="tinyint" />
+        </EntityType>
         <EntityType Name="Turno">
           <Key>
             <PropertyRef Name="IDTurno" />
@@ -1294,6 +1307,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Reporte__ReporteParametro">
+          <End Role="Reporte" Type="Self.Reporte" Multiplicity="1" />
+          <End Role="ReporteParametro" Type="Self.ReporteParametro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reporte">
+              <PropertyRef Name="IDReporte" />
+            </Principal>
+            <Dependent Role="ReporteParametro">
+              <PropertyRef Name="IDReporte" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__ReporteGrupo__Reporte">
           <End Role="ReporteGrupo" Type="Self.ReporteGrupo" Multiplicity="1" />
           <End Role="Reporte" Type="Self.Reporte" Multiplicity="*" />
@@ -1462,6 +1487,7 @@
           <EntitySet Name="RelacionTipo" EntityType="Self.RelacionTipo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reporte" EntityType="Self.Reporte" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReporteGrupo" EntityType="Self.ReporteGrupo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReporteParametro" EntityType="Self.ReporteParametro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Turno" EntityType="Self.Turno" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnidadMedida" EntityType="Self.UnidadMedida" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
@@ -1666,6 +1692,10 @@
           <AssociationSet Name="FK__RelacionTipo__EntidadEntidad" Association="Self.FK__RelacionTipo__EntidadEntidad">
             <End Role="RelacionTipo" EntitySet="RelacionTipo" />
             <End Role="EntidadEntidad" EntitySet="EntidadEntidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reporte__ReporteParametro" Association="Self.FK__Reporte__ReporteParametro">
+            <End Role="Reporte" EntitySet="Reporte" />
+            <End Role="ReporteParametro" EntitySet="ReporteParametro" />
           </AssociationSet>
           <AssociationSet Name="FK__ReporteGrupo__Reporte" Association="Self.FK__ReporteGrupo__Reporte">
             <End Role="ReporteGrupo" EntitySet="ReporteGrupo" />
@@ -2511,6 +2541,11 @@
             <End Role="AnioLectivoCurso" EntitySet="AnioLectivoCurso" />
             <End Role="AnioLectivoCursoImporte" EntitySet="AnioLectivoCursoImporte" />
           </AssociationSet>
+          <EntitySet Name="ReporteParametro" EntityType="CSColegioModel.ReporteParametro" />
+          <AssociationSet Name="FK__Reporte__ReporteParametro" Association="CSColegioModel.FK__Reporte__ReporteParametro">
+            <End Role="Reporte" EntitySet="Reporte" />
+            <End Role="ReporteParametro" EntitySet="ReporteParametro" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
           <Key>
@@ -2920,6 +2955,7 @@
           <Property Name="Archivo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="MostrarEnVisor" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ReporteGrupo" Relationship="CSColegioModel.FK__ReporteGrupo__Reporte" FromRole="Reporte" ToRole="ReporteGrupo" />
+          <NavigationProperty Name="ReporteParametro" Relationship="CSColegioModel.FK__Reporte__ReporteParametro" FromRole="Reporte" ToRole="ReporteParametro" />
         </EntityType>
         <EntityType Name="ReporteGrupo">
           <Key>
@@ -3419,6 +3455,32 @@
             </Principal>
             <Dependent Role="AnioLectivoCursoImporte">
               <PropertyRef Name="IDAnioLectivoCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ReporteParametro">
+          <Key>
+            <PropertyRef Name="IDReporte" />
+            <PropertyRef Name="IDParametro" />
+          </Key>
+          <Property Name="IDReporte" Type="Int16" Nullable="false" />
+          <Property Name="IDParametro" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Tipo" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="Requerido" Type="Boolean" Nullable="false" />
+          <Property Name="RequeridoLeyenda" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Orden" Type="Byte" />
+          <NavigationProperty Name="Reporte" Relationship="CSColegioModel.FK__Reporte__ReporteParametro" FromRole="ReporteParametro" ToRole="Reporte" />
+        </EntityType>
+        <Association Name="FK__Reporte__ReporteParametro">
+          <End Type="CSColegioModel.Reporte" Role="Reporte" Multiplicity="1" />
+          <End Type="CSColegioModel.ReporteParametro" Role="ReporteParametro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reporte">
+              <PropertyRef Name="IDReporte" />
+            </Principal>
+            <Dependent Role="ReporteParametro">
+              <PropertyRef Name="IDReporte" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4141,6 +4203,19 @@
                 <ScalarProperty Name="ImporteMatricula" ColumnName="ImporteMatricula" />
                 <ScalarProperty Name="MesInicial" ColumnName="MesInicial" />
                 <ScalarProperty Name="IDAnioLectivoCurso" ColumnName="IDAnioLectivoCurso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReporteParametro">
+            <EntityTypeMapping TypeName="CSColegioModel.ReporteParametro">
+              <MappingFragment StoreEntitySet="ReporteParametro">
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
+                <ScalarProperty Name="RequeridoLeyenda" ColumnName="RequeridoLeyenda" />
+                <ScalarProperty Name="Requerido" ColumnName="Requerido" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDParametro" ColumnName="IDParametro" />
+                <ScalarProperty Name="IDReporte" ColumnName="IDReporte" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
