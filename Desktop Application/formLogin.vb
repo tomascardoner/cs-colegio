@@ -19,6 +19,8 @@
     Private Sub formLogin_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
         If e.KeyChar = ChrW(Keys.Return) Then
             buttonAceptar_Click()
+        ElseIf e.KeyChar = ChrW(Keys.Escape) Then
+            buttonCancelar_Click()
         End If
     End Sub
 
@@ -115,7 +117,7 @@
         Me.DialogResult = Windows.Forms.DialogResult.OK
     End Sub
 
-    Private Sub buttonCancelar_Click(sender As Object, e As EventArgs) Handles buttonCancelar.Click
+    Private Sub buttonCancelar_Click() Handles buttonCancelar.Click
         Me.DialogResult = Windows.Forms.DialogResult.Cancel
     End Sub
 End Class

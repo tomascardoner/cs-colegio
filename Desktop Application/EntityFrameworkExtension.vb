@@ -123,7 +123,12 @@ Partial Public Class Reporte
                                         End If
                                     Case ParameterValueKind.DateTimeParameter, ParameterValueKind.DateParameter, ParameterValueKind.TimeParameter
                                         If ParametroActual.Valor Is Nothing Then
-                                            .CurrentValues.AddValue(New Date(9999, 1, 1))
+                                            Select Case .ParameterType
+                                                Case ParameterType.ReportParameter
+                                                    .CurrentValues.AddValue(New Date(9999, 1, 1))
+                                                Case ParameterType.StoreProcedureParameter
+                                                    .CurrentValues.AddValue(Nothing)
+                                            End Select
                                         Else
                                             Select Case ParametroActual.Tipo
                                                 Case Constantes.REPORTE_PARAMETRO_TIPO_DATETIME

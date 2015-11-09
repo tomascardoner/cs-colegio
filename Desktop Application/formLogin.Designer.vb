@@ -85,7 +85,7 @@ Partial Class formLogin
         Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonCancelar, Me.buttonAceptar})
         Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
         Me.toolstripMain.Name = "toolstripMain"
-        Me.toolstripMain.Size = New System.Drawing.Size(306, 39)
+        Me.toolstripMain.Size = New System.Drawing.Size(310, 39)
         Me.toolstripMain.TabIndex = 4
         '
         'buttonCancelar
@@ -112,7 +112,7 @@ Partial Class formLogin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(306, 122)
+        Me.ClientSize = New System.Drawing.Size(310, 125)
         Me.ControlBox = False
         Me.Controls.Add(Me.toolstripMain)
         Me.Controls.Add(Me.textboxPassword)
@@ -122,6 +122,7 @@ Partial Class formLogin
         Me.Controls.Add(Me.pictureboxMain)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.KeyPreview = True
         Me.Name = "formLogin"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Inicio de sesión"
