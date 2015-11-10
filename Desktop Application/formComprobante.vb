@@ -453,6 +453,13 @@
         End If
         If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
             mEntidad = CType(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
+            Using dbContext As New CSColegioContext(True)
+                Dim EntidadMovimientos As Entidad
+                EntidadMovimientos = dbContext.Entidad.Find(mEntidad.IDEntidad)
+                If EntidadMovimientos.Comprobante.Count = 0 Then
+                    MsgBox("La Entidad seleccionada no tiene Movimientos generados en su cuenta.", MsgBoxStyle.Information, My.Application.Info.Title)
+                End If
+            End Using
             If mEntidad.IDCategoriaIVA Is Nothing Then
                 MsgBox("La Entidad seleccionada no tiene especificada la Categoría de IVA.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
             Else
@@ -589,6 +596,11 @@
 
         ' Fechas de Servicio
         If mComprobanteTipoActual.UtilizaDetalle AndAlso mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso mComprobanteTipoActual.EmisionElectronica AndAlso (mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS Or mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS) Then
+            If Not datetimepickerFechaVencimiento.Checked Then
+                MsgBox("Por estar facturando Servicios, debe especificar la Fecha de Vencimiento.", MsgBoxStyle.Information, My.Application.Info.Title)
+                datetimepickerFechaVencimiento.Focus()
+                Exit Sub
+            End If
             If Not datetimepickerFechaServicioDesde.Checked Then
                 MsgBox("Por estar facturando Servicios, debe especificar la Fecha del Período Facturado Desde.", MsgBoxStyle.Information, My.Application.Info.Title)
                 datetimepickerFechaServicioDesde.Focus()
@@ -1062,6 +1074,9 @@
                         Using dbContext As New CSColegioContext(True)
                             AnioLectivoCursoActual = dbContext.AnioLectivoCurso.Find(DetalleActual.IDAnioLectivoCurso)
                         End Using
+                        If datetimepickerFechaVencimiento.Checked = False Then
+                            datetimepickerFechaVencimiento.Value = DateAndTime.Today
+                        End If
                         If datetimepickerFechaServicioDesde.Checked = False Or datetimepickerFechaServicioDesde.Value > New Date(AnioLectivoCursoActual.AnioLectivo, 1, 1) Then
                             datetimepickerFechaServicioDesde.Value = New Date(AnioLectivoCursoActual.AnioLectivo, 1, 1)
                         End If
@@ -1072,6 +1087,9 @@
                         Using dbContext As New CSColegioContext(True)
                             AnioLectivoCursoActual = dbContext.AnioLectivoCurso.Find(DetalleActual.IDAnioLectivoCurso)
                         End Using
+                        If datetimepickerFechaVencimiento.Checked = False Then
+                            datetimepickerFechaVencimiento.Value = DateAndTime.Today
+                        End If
                         If datetimepickerFechaServicioDesde.Checked = False Or datetimepickerFechaServicioDesde.Value > New Date(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value, 1) Then
                             datetimepickerFechaServicioDesde.Value = New Date(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value, 1)
                         End If

@@ -18,27 +18,28 @@
 
 #End Region
 
+#Region "Form stuff"
     Private Sub formComprobantesEnviarMail_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         buttonEnviar.Enabled = False
         pFillAndRefreshLists.ComprobanteLote(comboboxComprobanteLote, False, False)
+        comboboxCantidad.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, "500", "200", "100", "50", "20", "10", "5", "1"})
+        comboboxCantidad.SelectedIndex = 2
     End Sub
 
     Private Sub formComprobantesEnviarMail_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         dbContext.Dispose()
     End Sub
+#End Region
 
-    Private Sub comboboxComprobanteLote_SelectedIndexChanged(sender As Object, e As EventArgs) Handles comboboxComprobanteLote.SelectedIndexChanged
-        RefreshData()
-    End Sub
-
-    Private Sub RefreshData()
+#Region "Load and Set Data"
+    Private Sub RefreshData() Handles comboboxComprobanteLote.SelectedIndexChanged, comboboxCantidad.SelectedIndexChanged
         Dim ComprobanteLoteActual As ComprobanteLote
 
         Me.Cursor = Cursors.WaitCursor
 
         Try
 
-            If comboboxComprobanteLote.SelectedIndex > -1 Then
+            If comboboxComprobanteLote.SelectedIndex > -1 AndAlso comboboxCantidad.SelectedIndex > -1 Then
                 ComprobanteLoteActual = CType(comboboxComprobanteLote.SelectedItem, ComprobanteLote)
 
                 ' Muestro los comprobantes que cumplan las siguientes condiciones:
@@ -49,13 +50,35 @@
                 '   - tienen una C.A.E. asignado
                 '   - el titular tiene asignada una dirección de e-mail
                 '   - el titular no especifica que no se le envíen los e-mails
-                listComprobantes = (From cc In dbContext.Comprobante
-                                    Join cl In dbContext.ComprobanteLote On cc.IDComprobanteLote Equals cl.IDComprobanteLote
-                                    Join ct In dbContext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                    Join e In dbContext.Entidad On cc.IDEntidad Equals e.IDEntidad
-                                    Where cc.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And cc.IDUsuarioAnulacion Is Nothing And cc.IDUsuarioEnvioEmail Is Nothing And ct.EmisionElectronica And (Not cc.CAE Is Nothing) And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And (Not e.ComprobanteNoEnviarEmail)
-                                    Order By ct.Nombre, cc.NumeroCompleto
-                                    Select New GridDataRow With {.IDComprobante = cc.IDComprobante, .IDComprobanteTipo = cc.IDComprobanteTipo, .IDComprobanteLote = cc.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = cc.NumeroCompleto, .IDEntidad = cc.IDEntidad, .ApellidoNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal}).ToList
+                Select Case comboboxCantidad.SelectedIndex
+                    Case 0  ' Todos
+                        listComprobantes = (From cc In dbContext.Comprobante
+                                            Join cl In dbContext.ComprobanteLote On cc.IDComprobanteLote Equals cl.IDComprobanteLote
+                                            Join ct In dbContext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
+                                            Join e In dbContext.Entidad On cc.IDEntidad Equals e.IDEntidad
+                                            Where cc.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And cc.IDUsuarioAnulacion Is Nothing And cc.IDUsuarioEnvioEmail Is Nothing And ct.EmisionElectronica And (Not cc.CAE Is Nothing) And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And (Not e.ComprobanteNoEnviarEmail)
+                                            Order By ct.Nombre, cc.NumeroCompleto
+                                            Select New GridDataRow With {.IDComprobante = cc.IDComprobante, .IDComprobanteTipo = cc.IDComprobanteTipo, .IDComprobanteLote = cc.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = cc.NumeroCompleto, .IDEntidad = cc.IDEntidad, .ApellidoNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal}).ToList
+
+                    Case Is > 0 ' Cantidad de Comprobantes
+                        listComprobantes = (From cc In dbContext.Comprobante
+                                            Join cl In dbContext.ComprobanteLote On cc.IDComprobanteLote Equals cl.IDComprobanteLote
+                                            Join ct In dbContext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
+                                            Join e In dbContext.Entidad On cc.IDEntidad Equals e.IDEntidad
+                                            Where cc.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And cc.IDUsuarioAnulacion Is Nothing And cc.IDUsuarioEnvioEmail Is Nothing And ct.EmisionElectronica And (Not cc.CAE Is Nothing) And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And (Not e.ComprobanteNoEnviarEmail)
+                                            Order By ct.Nombre, cc.NumeroCompleto
+                                            Select New GridDataRow With {.IDComprobante = cc.IDComprobante, .IDComprobanteTipo = cc.IDComprobanteTipo, .IDComprobanteLote = cc.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = cc.NumeroCompleto, .IDEntidad = cc.IDEntidad, .ApellidoNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal}).Take(CInt(comboboxCantidad.Text)).ToList
+                End Select
+
+                Select Case listComprobantes.Count
+                    Case 0
+                        statuslabelMain.Text = String.Format("No hay Comprobantes para mostrar.")
+                    Case 1
+                        statuslabelMain.Text = String.Format("Se muestra 1 Comprobante.")
+                    Case Else
+                        statuslabelMain.Text = String.Format("Se muestran {0} Comprobantes.", listComprobantes.Count)
+                End Select
+
             Else
                 listComprobantes = Nothing
             End If
@@ -63,30 +86,35 @@
             datagridviewComprobantes.AutoGenerateColumns = False
             datagridviewComprobantes.DataSource = listComprobantes
 
-            Select Case listComprobantes.Count
-                Case 0
-                    statuslabelMain.Text = String.Format("No hay Comprobantes para mostrar.")
-                Case 1
-                    statuslabelMain.Text = String.Format("Se muestra 1 Comprobante.")
-                Case Else
-                    statuslabelMain.Text = String.Format("Se muestran {0} Comprobantes.", listComprobantes.Count)
-            End Select
-
         Catch ex As Exception
             CS_Error.ProcessError(ex, "Error al obtener la lista de Comprobantes.")
         End Try
 
         Me.Cursor = Cursors.Default
 
-        buttonEnviar.Enabled = (listComprobantes.Count > 0)
-    End Sub
-
-    Private Sub buttonEnviar_Click(sender As Object, e As EventArgs) Handles buttonEnviar.Click
-        If listComprobantes.Count > 0 Then
-            EnviarComprobantes()
+        If listComprobantes Is Nothing Then
+            buttonEnviar.Enabled = False
+        Else
+            buttonEnviar.Enabled = (listComprobantes.Count > 0)
         End If
     End Sub
 
+#End Region
+
+#Region "Controls behavior"
+    Private Sub buttonEnviar_Click(sender As Object, e As EventArgs) Handles buttonEnviar.Click
+        If listComprobantes.Count > 0 Then
+            If listComprobantes.Count > My.Settings.Email_MaxPerHour Then
+                If MsgBox(String.Format("Está por enviar {0} Comprobantes por e-mail.{2}Tenga en cuenta que por cuestiones de seguridad (para evitar el spam), los servidores actuales no permiten enviar más de {1} e-mails por hora.{2}{2}¿Desea continuar de todos modos?", listComprobantes.Count, My.Settings.Email_MaxPerHour, vbCrLf), CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                    Exit Sub
+                End If
+            End If
+            EnviarComprobantes()
+        End If
+    End Sub
+#End Region
+
+#Region "Extra stuff"
     Private Sub EnviarComprobantes()
         Dim GridDataRowActual As GridDataRow
         Dim ComprobanteActual As Comprobante
@@ -173,4 +201,7 @@
         End If
         groupboxStatus.Visible = Mostrar
     End Sub
+
+#End Region
+
 End Class

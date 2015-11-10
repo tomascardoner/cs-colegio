@@ -281,7 +281,6 @@ Public Class formComprobantesGenerarLote
         listEntidadesSeleccionadasCorregir = New List(Of EntidadACorregir)
 
         'Antes que nada verifico que no haya Alumnos que están en más de un curso a la vez
-        ''dbcontext.Database.ExecuteSqlCommand("", qq)
 
         If tabcontrolMain.SelectedTab Is tabpageNivelesCursosAlumnos Then
             ' La selección está hecha por Niveles - Cursos - Alumnos
@@ -367,9 +366,7 @@ Public Class formComprobantesGenerarLote
         If EntidadActual.EmitirFacturaA Is Nothing Then
             CorregirEntidad = True
             CorreccionDescripcion &= "No está especificado a quién se le factura." & vbCrLf
-
         Else
-
             If EntidadActual.EmitirFacturaA = Constantes.EMITIRFACTURAA_ALUMNO Then
                 ' Se le factura al Alumno
                 If EntidadActual.IDCategoriaIVA Is Nothing Then
@@ -440,12 +437,30 @@ Public Class formComprobantesGenerarLote
             listEntidadesSeleccionadasCorregir.Add(New EntidadACorregir With {.IDEntidad = EntidadActual.IDEntidad, .Apellido = EntidadActual.Apellido, .Nombre = EntidadActual.Nombre, .ApellidoNombre = EntidadActual.ApellidoNombre, .CorreccionDescripcion = CorreccionDescripcion})
         Else
             ' La Entidad está verificada, pero antes de agregarla, verifico que no tenga exclusión de facturación
-            If (Not EntidadActual.ExcluyeFacturaDesde Is Nothing) AndAlso EntidadActual.ExcluyeFacturaDesde.Value.CompareTo(FechaServicioHasta) < 0 Then
-                ' Está dentro de la exclusión, así que no lo agrego a la lista
-            ElseIf (Not EntidadActual.ExcluyeFacturaHasta Is Nothing) AndAlso EntidadActual.ExcluyeFacturaHasta.Value.CompareTo(FechaServicioDesde) > 0 Then
-                ' Está dentro de la exclusión, así que no lo agrego a la lista
+            ' Verifico primero la exclusión Desde
+            If Not EntidadActual.ExcluyeFacturaDesde Is Nothing Then
+                ' Especifica exclusión Desde, así que la verifico
+                If EntidadActual.ExcluyeFacturaDesde.Value.CompareTo(FechaServicioHasta) < 0 Then
+                    ' Está dentro de la exclusión Desde, así que verifico la exclusión Hasta
+                    If EntidadActual.ExcluyeFacturaHasta Is Nothing Then
+                        ' No especifica exclusión Hasta, por lo tanto, se excluye (no lo agrego a la lista)
+                    ElseIf EntidadActual.ExcluyeFacturaHasta.Value.CompareTo(FechaServicioDesde) > 0 Then
+                        ' Está dentro de la exclusión Hasta, por lo tanto, se excluye (no lo agrego a la lista)
+                    Else
+                        ' Está fuera de la exclusión, así que lo agrego
+                        listEntidadesSeleccionadasOk.Add(EntidadActual)
+                    End If
+                End If
+            ElseIf Not EntidadActual.ExcluyeFacturaHasta Is Nothing Then
+                ' Especifica exclusión Hasta, así que la verifico
+                If EntidadActual.ExcluyeFacturaHasta.Value.CompareTo(FechaServicioDesde) > 0 Then
+                    ' Está dentro de la exclusión, así que no lo agrego a la lista
+                Else
+                    ' Está fuera de la exclusión, así que lo agrego a la lista
+                    listEntidadesSeleccionadasOk.Add(EntidadActual)
+                End If
             Else
-                ' Está fuera de la exclusión, asi que lo agrego
+                ' No especifica ninguna exclusión, así que lo agrego a la lista
                 listEntidadesSeleccionadasOk.Add(EntidadActual)
             End If
         End If
@@ -862,7 +877,9 @@ Public Class formComprobantesGenerarLote
 
     Private Sub Paso4MostrarDetalle() Handles datagridviewPaso3Cabecera.SelectionChanged
         datagridviewPaso3Detalle.AutoGenerateColumns = False
-        datagridviewPaso3Detalle.DataSource = CType(datagridviewPaso3Cabecera.SelectedRows(0).DataBoundItem, Comprobante).ComprobanteDetalle.ToList
+        If datagridviewPaso3Cabecera.SelectedRows.Count > 0 Then
+            datagridviewPaso3Detalle.DataSource = CType(datagridviewPaso3Cabecera.SelectedRows(0).DataBoundItem, Comprobante).ComprobanteDetalle.ToList
+        End If
     End Sub
 
     Private Sub buttonPaso3Anterior_Click() Handles buttonPaso3Anterior.Click

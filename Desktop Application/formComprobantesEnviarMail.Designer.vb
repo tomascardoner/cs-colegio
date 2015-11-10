@@ -22,9 +22,14 @@ Partial Class formComprobantesEnviarMail
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.datagridviewComprobantes = New System.Windows.Forms.DataGridView()
+        Me.columnLote = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnComprobanteTipoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnNumeroCompleto = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnApellidoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.comboboxComprobanteLote = New System.Windows.Forms.ComboBox()
         Me.labelComprobanteLote = New System.Windows.Forms.Label()
         Me.statusstripMain = New System.Windows.Forms.StatusStrip()
@@ -33,11 +38,8 @@ Partial Class formComprobantesEnviarMail
         Me.groupboxStatus = New System.Windows.Forms.GroupBox()
         Me.textboxStatus = New System.Windows.Forms.TextBox()
         Me.progressbarStatus = New System.Windows.Forms.ProgressBar()
-        Me.columnLote = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnComprobanteTipoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnNumeroCompleto = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnApellidoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.comboboxCantidad = New System.Windows.Forms.ComboBox()
+        Me.labelCantidad = New System.Windows.Forms.Label()
         CType(Me.datagridviewComprobantes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.statusstripMain.SuspendLayout()
         Me.groupboxStatus.SuspendLayout()
@@ -48,11 +50,11 @@ Partial Class formComprobantesEnviarMail
         Me.datagridviewComprobantes.AllowUserToAddRows = False
         Me.datagridviewComprobantes.AllowUserToDeleteRows = False
         Me.datagridviewComprobantes.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewComprobantes.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewComprobantes.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.datagridviewComprobantes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewComprobantes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewComprobantes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnLote, Me.columnComprobanteTipoNombre, Me.columnNumeroCompleto, Me.columnApellidoNombre, Me.columnImporteTotal})
@@ -64,81 +66,7 @@ Partial Class formComprobantesEnviarMail
         Me.datagridviewComprobantes.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewComprobantes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewComprobantes.Size = New System.Drawing.Size(668, 449)
-        Me.datagridviewComprobantes.TabIndex = 11
-        '
-        'comboboxComprobanteLote
-        '
-        Me.comboboxComprobanteLote.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.comboboxComprobanteLote.FormattingEnabled = True
-        Me.comboboxComprobanteLote.Location = New System.Drawing.Point(177, 6)
-        Me.comboboxComprobanteLote.Name = "comboboxComprobanteLote"
-        Me.comboboxComprobanteLote.Size = New System.Drawing.Size(242, 21)
-        Me.comboboxComprobanteLote.TabIndex = 9
-        '
-        'labelComprobanteLote
-        '
-        Me.labelComprobanteLote.AutoSize = True
-        Me.labelComprobanteLote.Location = New System.Drawing.Point(12, 9)
-        Me.labelComprobanteLote.Name = "labelComprobanteLote"
-        Me.labelComprobanteLote.Size = New System.Drawing.Size(159, 13)
-        Me.labelComprobanteLote.TabIndex = 8
-        Me.labelComprobanteLote.Text = "Lote de Comprobantes a Enviar:"
-        '
-        'statusstripMain
-        '
-        Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statuslabelMain})
-        Me.statusstripMain.Location = New System.Drawing.Point(0, 494)
-        Me.statusstripMain.Name = "statusstripMain"
-        Me.statusstripMain.Size = New System.Drawing.Size(692, 22)
-        Me.statusstripMain.TabIndex = 12
-        '
-        'statuslabelMain
-        '
-        Me.statuslabelMain.Name = "statuslabelMain"
-        Me.statuslabelMain.Size = New System.Drawing.Size(677, 17)
-        Me.statuslabelMain.Spring = True
-        Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'buttonEnviar
-        '
-        Me.buttonEnviar.Location = New System.Drawing.Point(425, 6)
-        Me.buttonEnviar.Name = "buttonEnviar"
-        Me.buttonEnviar.Size = New System.Drawing.Size(86, 21)
-        Me.buttonEnviar.TabIndex = 10
-        Me.buttonEnviar.Text = "Enviar"
-        Me.buttonEnviar.UseVisualStyleBackColor = True
-        '
-        'groupboxStatus
-        '
-        Me.groupboxStatus.Controls.Add(Me.textboxStatus)
-        Me.groupboxStatus.Controls.Add(Me.progressbarStatus)
-        Me.groupboxStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.groupboxStatus.Location = New System.Drawing.Point(12, 350)
-        Me.groupboxStatus.Name = "groupboxStatus"
-        Me.groupboxStatus.Size = New System.Drawing.Size(668, 132)
-        Me.groupboxStatus.TabIndex = 13
-        Me.groupboxStatus.TabStop = False
-        Me.groupboxStatus.Text = "Estado del envío:"
-        Me.groupboxStatus.Visible = False
-        '
-        'textboxStatus
-        '
-        Me.textboxStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textboxStatus.Location = New System.Drawing.Point(7, 54)
-        Me.textboxStatus.MaxLength = 0
-        Me.textboxStatus.Multiline = True
-        Me.textboxStatus.Name = "textboxStatus"
-        Me.textboxStatus.ReadOnly = True
-        Me.textboxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.textboxStatus.Size = New System.Drawing.Size(655, 71)
-        Me.textboxStatus.TabIndex = 8
-        '
-        'progressbarStatus
-        '
-        Me.progressbarStatus.Location = New System.Drawing.Point(3, 21)
-        Me.progressbarStatus.Name = "progressbarStatus"
-        Me.progressbarStatus.Size = New System.Drawing.Size(660, 26)
-        Me.progressbarStatus.TabIndex = 7
+        Me.datagridviewComprobantes.TabIndex = 5
         '
         'columnLote
         '
@@ -184,20 +112,114 @@ Partial Class formComprobantesEnviarMail
         '
         Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnImporteTotal.DataPropertyName = "ImporteTotal"
-        DataGridViewCellStyle2.Format = "C2"
-        DataGridViewCellStyle2.NullValue = "0"
-        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle4.Format = "C2"
+        DataGridViewCellStyle4.NullValue = "0"
+        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle4
         Me.columnImporteTotal.HeaderText = "Importe"
         Me.columnImporteTotal.Name = "columnImporteTotal"
         Me.columnImporteTotal.ReadOnly = True
         Me.columnImporteTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.columnImporteTotal.Width = 48
         '
+        'comboboxComprobanteLote
+        '
+        Me.comboboxComprobanteLote.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxComprobanteLote.FormattingEnabled = True
+        Me.comboboxComprobanteLote.Location = New System.Drawing.Point(177, 6)
+        Me.comboboxComprobanteLote.Name = "comboboxComprobanteLote"
+        Me.comboboxComprobanteLote.Size = New System.Drawing.Size(242, 21)
+        Me.comboboxComprobanteLote.TabIndex = 1
+        '
+        'labelComprobanteLote
+        '
+        Me.labelComprobanteLote.AutoSize = True
+        Me.labelComprobanteLote.Location = New System.Drawing.Point(12, 9)
+        Me.labelComprobanteLote.Name = "labelComprobanteLote"
+        Me.labelComprobanteLote.Size = New System.Drawing.Size(159, 13)
+        Me.labelComprobanteLote.TabIndex = 0
+        Me.labelComprobanteLote.Text = "Lote de Comprobantes a Enviar:"
+        '
+        'statusstripMain
+        '
+        Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statuslabelMain})
+        Me.statusstripMain.Location = New System.Drawing.Point(0, 494)
+        Me.statusstripMain.Name = "statusstripMain"
+        Me.statusstripMain.Size = New System.Drawing.Size(692, 22)
+        Me.statusstripMain.TabIndex = 7
+        '
+        'statuslabelMain
+        '
+        Me.statuslabelMain.Name = "statuslabelMain"
+        Me.statuslabelMain.Size = New System.Drawing.Size(677, 17)
+        Me.statuslabelMain.Spring = True
+        Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'buttonEnviar
+        '
+        Me.buttonEnviar.Location = New System.Drawing.Point(594, 6)
+        Me.buttonEnviar.Name = "buttonEnviar"
+        Me.buttonEnviar.Size = New System.Drawing.Size(86, 21)
+        Me.buttonEnviar.TabIndex = 4
+        Me.buttonEnviar.Text = "Enviar"
+        Me.buttonEnviar.UseVisualStyleBackColor = True
+        '
+        'groupboxStatus
+        '
+        Me.groupboxStatus.Controls.Add(Me.textboxStatus)
+        Me.groupboxStatus.Controls.Add(Me.progressbarStatus)
+        Me.groupboxStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.groupboxStatus.Location = New System.Drawing.Point(12, 350)
+        Me.groupboxStatus.Name = "groupboxStatus"
+        Me.groupboxStatus.Size = New System.Drawing.Size(668, 132)
+        Me.groupboxStatus.TabIndex = 6
+        Me.groupboxStatus.TabStop = False
+        Me.groupboxStatus.Text = "Estado del envío:"
+        Me.groupboxStatus.Visible = False
+        '
+        'textboxStatus
+        '
+        Me.textboxStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textboxStatus.Location = New System.Drawing.Point(7, 54)
+        Me.textboxStatus.MaxLength = 0
+        Me.textboxStatus.Multiline = True
+        Me.textboxStatus.Name = "textboxStatus"
+        Me.textboxStatus.ReadOnly = True
+        Me.textboxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.textboxStatus.Size = New System.Drawing.Size(655, 71)
+        Me.textboxStatus.TabIndex = 1
+        '
+        'progressbarStatus
+        '
+        Me.progressbarStatus.Location = New System.Drawing.Point(3, 21)
+        Me.progressbarStatus.Name = "progressbarStatus"
+        Me.progressbarStatus.Size = New System.Drawing.Size(660, 26)
+        Me.progressbarStatus.TabIndex = 0
+        '
+        'comboboxCantidad
+        '
+        Me.comboboxCantidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxCantidad.FormattingEnabled = True
+        Me.comboboxCantidad.Location = New System.Drawing.Point(490, 6)
+        Me.comboboxCantidad.Name = "comboboxCantidad"
+        Me.comboboxCantidad.Size = New System.Drawing.Size(90, 21)
+        Me.comboboxCantidad.TabIndex = 3
+        '
+        'labelCantidad
+        '
+        Me.labelCantidad.AutoSize = True
+        Me.labelCantidad.Location = New System.Drawing.Point(432, 10)
+        Me.labelCantidad.Name = "labelCantidad"
+        Me.labelCantidad.Size = New System.Drawing.Size(52, 13)
+        Me.labelCantidad.TabIndex = 2
+        Me.labelCantidad.Text = "Cantidad:"
+        '
         'formComprobantesEnviarMail
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(692, 516)
+        Me.Controls.Add(Me.labelCantidad)
+        Me.Controls.Add(Me.comboboxCantidad)
         Me.Controls.Add(Me.comboboxComprobanteLote)
         Me.Controls.Add(Me.labelComprobanteLote)
         Me.Controls.Add(Me.statusstripMain)
@@ -232,4 +254,6 @@ Partial Class formComprobantesEnviarMail
     Friend WithEvents columnNumeroCompleto As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnApellidoNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents comboboxCantidad As System.Windows.Forms.ComboBox
+    Friend WithEvents labelCantidad As System.Windows.Forms.Label
 End Class

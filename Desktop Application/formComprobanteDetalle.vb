@@ -82,9 +82,13 @@
             textboxDescripcion.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Descripcion)
 
             If (Not mArticuloActual Is Nothing) AndAlso (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual) Then
-                If Not .Entidad Is Nothing Then
-                    textboxEntidad.Text = .Entidad.ApellidoNombre
-                    textboxEntidad.Tag = .Entidad.IDEntidad
+                If Not .IDEntidad Is Nothing Then
+                    Using dbContext As New CSColegioContext(True)
+                        mEntidad = dbContext.Entidad.Find(.IDEntidad)
+                    End Using
+                    textboxEntidad.Text = mEntidad.ApellidoNombre
+                    textboxEntidad.Tag = mEntidad.IDEntidad
+                    EstablecerAnioLectivoCurso()
                 End If
                 CS_Control_ComboBox.SetSelectedValue(comboboxAnioLectivoCurso, SelectedItemOptions.Value, .IDAnioLectivoCurso, CShort(0))
             Else
@@ -114,14 +118,15 @@
             .IDArticulo = CS_ValueTranslation.FromControlComboBoxToObjectShort(comboboxArticulo.SelectedValue).Value
             .Cantidad = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxCantidad.Text).Value
             .Unidad = CS_ValueTranslation.FromControlComboBoxToObjectString(textboxUnidad.Text)
-            .Descripcion = CS_ValueTranslation.FromControlComboBoxToObjectString(textboxDescripcion.Text)
 
             If mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual Then
                 .IDEntidad = CS_ValueTranslation.FromControlTagToObjectInteger(textboxEntidad.Tag)
                 .IDAnioLectivoCurso = CS_ValueTranslation.FromControlComboBoxToObjectShort(comboboxAnioLectivoCurso.SelectedValue)
+                .Descripcion = CS_ValueTranslation.FromControlComboBoxToObjectString(textboxDescripcion.Text)
             Else
                 .IDEntidad = Nothing
                 .IDAnioLectivoCurso = Nothing
+                .Descripcion = comboboxArticulo.Text
             End If
             If mArticuloActual.IDArticulo = mIDArticuloMensual Then
                 .CuotaMes = CByte(IIf(comboboxCuotaMes.SelectedIndex = -1, Nothing, comboboxCuotaMes.SelectedIndex + 1))
@@ -381,7 +386,11 @@
             If mArticuloActual.IDArticulo = mIDArticuloMatricula Then
                 pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year + 1, mEntidad.IDEntidad)
             ElseIf mArticuloActual.IDArticulo = mIDArticuloMensual Then
-                pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year, mEntidad.IDEntidad)
+                If Permisos.VerificarPermiso(Permisos.COMPROBANTE_DETALLE_PERMITE_CUOTAANIOSIGUIENTE) Then
+                    pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year + 1, mEntidad.IDEntidad)
+                Else
+                    pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year, mEntidad.IDEntidad)
+                End If
             End If
         End If
     End Sub

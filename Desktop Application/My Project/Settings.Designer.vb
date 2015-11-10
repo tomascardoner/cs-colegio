@@ -412,6 +412,15 @@ Namespace My
                 Return CType(Me("AFIP_WS_LogEnabled"),Boolean)
             End Get
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("200")>  _
+        Public ReadOnly Property Email_MaxPerHour() As Short
+            Get
+                Return CType(Me("Email_MaxPerHour"),Short)
+            End Get
+        End Property
     End Class
 End Namespace
 
