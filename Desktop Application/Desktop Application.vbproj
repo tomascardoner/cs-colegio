@@ -145,6 +145,10 @@
       <Link>CS_Control_Textbox_Currency.vb</Link>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Control_Textbox_Number.vb">
+      <Link>CS_Control_Textbox_Number.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Database_EF_SQL.vb">
       <Link>CS_Database_EF_SQL.vb</Link>
     </Compile>

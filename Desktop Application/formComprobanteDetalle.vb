@@ -386,7 +386,7 @@
             If mArticuloActual.IDArticulo = mIDArticuloMatricula Then
                 pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year + 1, mEntidad.IDEntidad)
             ElseIf mArticuloActual.IDArticulo = mIDArticuloMensual Then
-                If Permisos.VerificarPermiso(Permisos.COMPROBANTE_DETALLE_PERMITE_CUOTAANIOSIGUIENTE) Then
+                If Permisos.VerificarPermiso(Permisos.COMPROBANTE_DETALLE_PERMITE_CUOTAANIOSIGUIENTE, False) Then
                     pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year + 1, mEntidad.IDEntidad)
                 Else
                     pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year, mEntidad.IDEntidad)
@@ -448,4 +448,7 @@
 
 #End Region
 
+    Private Sub AnioLectivoCurso_Selected(sender As Object, e As EventArgs) Handles comboboxAnioLectivoCurso.SelectedValueChanged
+
+    End Sub
 End Class

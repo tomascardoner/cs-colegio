@@ -17,6 +17,11 @@ Partial Public Class ReporteParametro
     Public Property Tipo As String
     Public Property Requerido As Boolean
     Public Property RequeridoLeyenda As String
+    Public Property ValorPredeterminadoNumeroEntero As Nullable(Of Integer)
+    Public Property ValorPredeterminadoNumeroDecimal As Nullable(Of Decimal)
+    Public Property ValorPredeterminadoMoneda As Nullable(Of Decimal)
+    Public Property ValorPredeterminadoFechaHora As Nullable(Of Date)
+    Public Property ValorPredeterminadoSiNo As Nullable(Of Boolean)
     Public Property Orden As Nullable(Of Byte)
 
     Public Overridable Property Reporte As Reporte

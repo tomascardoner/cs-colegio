@@ -121,7 +121,7 @@ Partial Class formReportes
         'columnNombre
         '
         Me.columnNombre.Text = "Nombre"
-        Me.columnNombre.Width = 220
+        Me.columnNombre.Width = 300
         '
         'columnRequerido
         '

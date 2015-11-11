@@ -636,6 +636,11 @@
           <Property Name="Tipo" Type="char" MaxLength="4" Nullable="false" />
           <Property Name="Requerido" Type="bit" Nullable="false" />
           <Property Name="RequeridoLeyenda" Type="varchar" MaxLength="200" />
+          <Property Name="ValorPredeterminadoNumeroEntero" Type="int" />
+          <Property Name="ValorPredeterminadoNumeroDecimal" Type="decimal" Precision="18" Scale="9" />
+          <Property Name="ValorPredeterminadoMoneda" Type="money" />
+          <Property Name="ValorPredeterminadoFechaHora" Type="smalldatetime" />
+          <Property Name="ValorPredeterminadoSiNo" Type="bit" />
           <Property Name="Orden" Type="tinyint" />
         </EntityType>
         <EntityType Name="Turno">
@@ -890,9 +895,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Comprobante__ComprobanteDetalle">
-          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="1" />
           <End Role="ComprobanteDetalle" Type="Self.ComprobanteDetalle" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comprobante">
@@ -904,9 +907,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Comprobante__ComprobanteImpuesto">
-          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="1" />
           <End Role="ComprobanteImpuesto" Type="Self.ComprobanteImpuesto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comprobante">
@@ -3469,8 +3470,13 @@
           <Property Name="Tipo" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
           <Property Name="Requerido" Type="Boolean" Nullable="false" />
           <Property Name="RequeridoLeyenda" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Orden" Type="Byte" />
           <NavigationProperty Name="Reporte" Relationship="CSColegioModel.FK__Reporte__ReporteParametro" FromRole="ReporteParametro" ToRole="Reporte" />
+          <Property Name="ValorPredeterminadoNumeroEntero" Type="Int32" />
+          <Property Name="ValorPredeterminadoNumeroDecimal" Type="Decimal" Precision="18" Scale="9" />
+          <Property Name="ValorPredeterminadoMoneda" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ValorPredeterminadoFechaHora" Type="DateTime" Precision="0" />
+          <Property Name="ValorPredeterminadoSiNo" Type="Boolean" />
+          <Property Name="Orden" Type="Byte" />
         </EntityType>
         <Association Name="FK__Reporte__ReporteParametro">
           <End Type="CSColegioModel.Reporte" Role="Reporte" Multiplicity="1" />
@@ -4209,6 +4215,11 @@
           <EntitySetMapping Name="ReporteParametro">
             <EntityTypeMapping TypeName="CSColegioModel.ReporteParametro">
               <MappingFragment StoreEntitySet="ReporteParametro">
+                <ScalarProperty Name="ValorPredeterminadoSiNo" ColumnName="ValorPredeterminadoSiNo" />
+                <ScalarProperty Name="ValorPredeterminadoFechaHora" ColumnName="ValorPredeterminadoFechaHora" />
+                <ScalarProperty Name="ValorPredeterminadoMoneda" ColumnName="ValorPredeterminadoMoneda" />
+                <ScalarProperty Name="ValorPredeterminadoNumeroDecimal" ColumnName="ValorPredeterminadoNumeroDecimal" />
+                <ScalarProperty Name="ValorPredeterminadoNumeroEntero" ColumnName="ValorPredeterminadoNumeroEntero" />
                 <ScalarProperty Name="Orden" ColumnName="Orden" />
                 <ScalarProperty Name="RequeridoLeyenda" ColumnName="RequeridoLeyenda" />
                 <ScalarProperty Name="Requerido" ColumnName="Requerido" />

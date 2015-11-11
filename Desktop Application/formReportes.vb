@@ -71,19 +71,24 @@
             listviewParametros.BeginUpdate()
             ReporteActual = CType(treeviewReportes.SelectedNode.Tag, Reporte)
             For Each ParametroActual As ReporteParametro In ReporteActual.ReporteParametro.OrderBy(Function(rp) rp.Orden)
-                ' Agrego el Parámetro
-                ParametroListViewItem = New ListViewItem(ParametroActual.Nombre)
-                ParametroListViewItem.Tag = ParametroActual.IDParametro
-                If ParametroActual.Requerido Then
-                    ParametroListViewItem.SubItems.Add("Sí")
-                Else
-                    ParametroListViewItem.SubItems.Add("No")
-                End If
-                If ParametroActual.Valor Is Nothing Then
-                    ParametroListViewItem.SubItems.Add("")
-                Else
-                    ParametroListViewItem.SubItems.Add(ParametroActual.ValorParaMostrar)
-                End If
+
+                With ParametroActual
+                    ' Agrego el Parámetro
+
+                    ParametroListViewItem = New ListViewItem(.Nombre)
+                    ParametroListViewItem.Tag = .IDParametro
+                    If .Requerido Then
+                        ParametroListViewItem.SubItems.Add("Sí")
+                    Else
+                        ParametroListViewItem.SubItems.Add("No")
+                    End If
+
+                    If VarType(.Valor) = vbEmpty Then
+                        ParametroListViewItem.SubItems.Add("")
+                    Else
+                        ParametroListViewItem.SubItems.Add(.ValorParaMostrar)
+                    End If
+                End With
 
                 listviewParametros.Items.Add(ParametroListViewItem)
             Next
@@ -118,15 +123,15 @@
                         Dim EntidadSeleccionada As Entidad
 
                         EntidadSeleccionada = CType(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
-                        ParametroActual.ValorParaMostrar = EntidadSeleccionada.ApellidoNombre
                         ParametroActual.Valor = EntidadSeleccionada.IDEntidad
+                        ParametroActual.ValorParaMostrar = EntidadSeleccionada.ApellidoNombre
                         ListViewItemActual.SubItems(2).Text = ParametroActual.ValorParaMostrar
 
                         EntidadSeleccionada = Nothing
                     End If
                     formEntidadesSeleccionar.Dispose()
 
-                Case Constantes.REPORTE_PARAMETRO_TIPO_DATE
+                Case Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_INTEGER, Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_DECIMAL, Constantes.REPORTE_PARAMETRO_TIPO_MONEY, Constantes.REPORTE_PARAMETRO_TIPO_DATETIME, Constantes.REPORTE_PARAMETRO_TIPO_DATE, Constantes.REPORTE_PARAMETRO_TIPO_TIME, Constantes.REPORTE_PARAMETRO_TIPO_SINO
                     formReportesParametro.SetAppearance(ParametroActual, ListViewItemActual.Text)
                     If formReportesParametro.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
                         ListViewItemActual.SubItems(2).Text = ParametroActual.ValorParaMostrar
@@ -148,7 +153,6 @@
             ListViewItemActual = listviewParametros.SelectedItems(0)
 
             ParametroActual.Valor = Nothing
-            ParametroActual.ValorParaMostrar = ""
             ListViewItemActual.SubItems(2).Text = ""
         End If
     End Sub

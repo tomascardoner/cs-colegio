@@ -27,6 +27,8 @@ Partial Class formReportesParametro
         Me.buttonAceptar = New System.Windows.Forms.ToolStripButton()
         Me.labelValor = New System.Windows.Forms.Label()
         Me.datetimepickerValor = New System.Windows.Forms.DateTimePicker()
+        Me.textboxMoney = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
+        Me.textboxNumber = New CSColegio.DesktopApplication.CS_Control_TextBox_Number()
         Me.toolstripMain.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -78,11 +80,27 @@ Partial Class formReportesParametro
         Me.datetimepickerValor.Size = New System.Drawing.Size(120, 20)
         Me.datetimepickerValor.TabIndex = 31
         '
+        'textboxMoney
+        '
+        Me.textboxMoney.Location = New System.Drawing.Point(61, 65)
+        Me.textboxMoney.Name = "textboxMoney"
+        Me.textboxMoney.Size = New System.Drawing.Size(120, 20)
+        Me.textboxMoney.TabIndex = 32
+        '
+        'textboxNumber
+        '
+        Me.textboxNumber.Location = New System.Drawing.Point(61, 65)
+        Me.textboxNumber.Name = "textboxNumber"
+        Me.textboxNumber.Size = New System.Drawing.Size(100, 20)
+        Me.textboxNumber.TabIndex = 33
+        '
         'formReportesParametro
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(268, 105)
+        Me.Controls.Add(Me.textboxNumber)
+        Me.Controls.Add(Me.textboxMoney)
         Me.Controls.Add(Me.datetimepickerValor)
         Me.Controls.Add(Me.labelValor)
         Me.Controls.Add(Me.toolstripMain)
@@ -103,4 +121,6 @@ Partial Class formReportesParametro
     Friend WithEvents buttonAceptar As System.Windows.Forms.ToolStripButton
     Friend WithEvents labelValor As System.Windows.Forms.Label
     Friend WithEvents datetimepickerValor As System.Windows.Forms.DateTimePicker
+    Friend WithEvents textboxMoney As CSColegio.DesktopApplication.CS_Control_TextBox_Currency
+    Friend WithEvents textboxNumber As CSColegio.DesktopApplication.CS_Control_TextBox_Number
 End Class

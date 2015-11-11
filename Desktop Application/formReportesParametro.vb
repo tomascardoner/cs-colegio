@@ -6,10 +6,15 @@
 
         mParametroActual = ParametroActual
 
+        textboxMoney.Visible = (mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_MONEY)
         datetimepickerValor.Visible = (mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_DATE Or mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_DATETIME)
 
         If Not mParametroActual.Valor Is Nothing Then
             Select Case mParametroActual.Tipo
+                Case Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_INTEGER, Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_DECIMAL
+                    textboxNumber.Text = CStr(mParametroActual.Valor)
+                Case Constantes.REPORTE_PARAMETRO_TIPO_MONEY
+                    textboxMoney.Text = CStr(mParametroActual.Valor)
                 Case Constantes.REPORTE_PARAMETRO_TIPO_DATE
                     datetimepickerValor.Value = CDate(mParametroActual.Valor)
             End Select
@@ -18,9 +23,12 @@
 
     Private Sub buttonAceptar_Click(sender As Object, e As EventArgs) Handles buttonAceptar.Click
         Select Case mParametroActual.Tipo
+            Case Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_INTEGER, Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_DECIMAL
+                mParametroActual.Valor = textboxNumber.Value
+            Case Constantes.REPORTE_PARAMETRO_TIPO_MONEY
+                mParametroActual.Valor = textboxMoney.Value
             Case Constantes.REPORTE_PARAMETRO_TIPO_DATE
                 mParametroActual.Valor = datetimepickerValor.Value
-                mParametroActual.ValorParaMostrar = FormatDateTime(datetimepickerValor.Value, DateFormat.LongDate)
         End Select
 
         Me.DialogResult = Windows.Forms.DialogResult.OK
