@@ -23,15 +23,15 @@ Partial Class formComprobantesGenerarLote
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.panelPaso1 = New System.Windows.Forms.Panel()
         Me.lalbelPaso1Pie = New System.Windows.Forms.Label()
         Me.tabcontrolMain = New System.Windows.Forms.TabControl()
@@ -80,6 +80,8 @@ Partial Class formComprobantesGenerarLote
         Me.labelPaso3Titulo = New System.Windows.Forms.Label()
         Me.buttonPaso3Anterior = New System.Windows.Forms.Button()
         Me.buttonPaso3Finalizar = New System.Windows.Forms.Button()
+        Me.datetimepickerFechaVencimiento = New System.Windows.Forms.DateTimePicker()
+        Me.labelFechaVencimiento = New System.Windows.Forms.Label()
         Me.panelPaso1.SuspendLayout()
         Me.tabcontrolMain.SuspendLayout()
         Me.tabpageNivelesCursosAlumnos.SuspendLayout()
@@ -270,6 +272,8 @@ Partial Class formComprobantesGenerarLote
         '
         'panelPaso2
         '
+        Me.panelPaso2.Controls.Add(Me.datetimepickerFechaVencimiento)
+        Me.panelPaso2.Controls.Add(Me.labelFechaVencimiento)
         Me.panelPaso2.Controls.Add(Me.labelPaso2Pie)
         Me.panelPaso2.Controls.Add(Me.datagridviewPaso2)
         Me.panelPaso2.Controls.Add(Me.pictureboxPaso2)
@@ -280,7 +284,7 @@ Partial Class formComprobantesGenerarLote
         Me.panelPaso2.Location = New System.Drawing.Point(12, 12)
         Me.panelPaso2.Name = "panelPaso2"
         Me.panelPaso2.Size = New System.Drawing.Size(611, 441)
-        Me.panelPaso2.TabIndex = 1
+        Me.panelPaso2.TabIndex = 0
         '
         'labelPaso2Pie
         '
@@ -298,11 +302,11 @@ Partial Class formComprobantesGenerarLote
         Me.datagridviewPaso2.AllowUserToDeleteRows = False
         Me.datagridviewPaso2.AllowUserToOrderColumns = True
         Me.datagridviewPaso2.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewPaso2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewPaso2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle10
         Me.datagridviewPaso2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -322,8 +326,8 @@ Partial Class formComprobantesGenerarLote
         '
         Me.columnVerificacionIDEntidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnVerificacionIDEntidad.DataPropertyName = "IDEntidad"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.columnVerificacionIDEntidad.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.columnVerificacionIDEntidad.DefaultCellStyle = DataGridViewCellStyle11
         Me.columnVerificacionIDEntidad.HeaderText = "N° Entidad"
         Me.columnVerificacionIDEntidad.Name = "columnVerificacionIDEntidad"
         Me.columnVerificacionIDEntidad.ReadOnly = True
@@ -333,8 +337,8 @@ Partial Class formComprobantesGenerarLote
         '
         Me.columnVerificacionApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnVerificacionApellido.DataPropertyName = "Apellido"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnVerificacionApellido.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnVerificacionApellido.DefaultCellStyle = DataGridViewCellStyle12
         Me.columnVerificacionApellido.HeaderText = "Apellido"
         Me.columnVerificacionApellido.Name = "columnVerificacionApellido"
         Me.columnVerificacionApellido.ReadOnly = True
@@ -344,8 +348,8 @@ Partial Class formComprobantesGenerarLote
         '
         Me.columnVerificacionNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnVerificacionNombre.DataPropertyName = "Nombre"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnVerificacionNombre.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnVerificacionNombre.DefaultCellStyle = DataGridViewCellStyle13
         Me.columnVerificacionNombre.HeaderText = "Nombre"
         Me.columnVerificacionNombre.Name = "columnVerificacionNombre"
         Me.columnVerificacionNombre.ReadOnly = True
@@ -355,8 +359,8 @@ Partial Class formComprobantesGenerarLote
         '
         Me.columnCorreccionDescripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnCorreccionDescripcion.DataPropertyName = "CorreccionDescripcion"
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.columnCorreccionDescripcion.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.columnCorreccionDescripcion.DefaultCellStyle = DataGridViewCellStyle14
         Me.columnCorreccionDescripcion.HeaderText = "Descripción del problema"
         Me.columnCorreccionDescripcion.Name = "columnCorreccionDescripcion"
         Me.columnCorreccionDescripcion.ReadOnly = True
@@ -402,7 +406,7 @@ Partial Class formComprobantesGenerarLote
         Me.buttonPaso2Anterior.Location = New System.Drawing.Point(322, 404)
         Me.buttonPaso2Anterior.Name = "buttonPaso2Anterior"
         Me.buttonPaso2Anterior.Size = New System.Drawing.Size(140, 34)
-        Me.buttonPaso2Anterior.TabIndex = 5
+        Me.buttonPaso2Anterior.TabIndex = 3
         Me.buttonPaso2Anterior.Text = "Paso 1: Selección"
         Me.buttonPaso2Anterior.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.buttonPaso2Anterior.UseVisualStyleBackColor = True
@@ -415,7 +419,7 @@ Partial Class formComprobantesGenerarLote
         Me.buttonPaso2Siguiente.Location = New System.Drawing.Point(468, 404)
         Me.buttonPaso2Siguiente.Name = "buttonPaso2Siguiente"
         Me.buttonPaso2Siguiente.Size = New System.Drawing.Size(140, 34)
-        Me.buttonPaso2Siguiente.TabIndex = 6
+        Me.buttonPaso2Siguiente.TabIndex = 4
         Me.buttonPaso2Siguiente.Text = "Paso 3: Confirmación"
         Me.buttonPaso2Siguiente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonPaso2Siguiente.UseVisualStyleBackColor = True
@@ -433,18 +437,18 @@ Partial Class formComprobantesGenerarLote
         Me.panelPaso3.Location = New System.Drawing.Point(12, 12)
         Me.panelPaso3.Name = "panelPaso3"
         Me.panelPaso3.Size = New System.Drawing.Size(611, 441)
-        Me.panelPaso3.TabIndex = 2
+        Me.panelPaso3.TabIndex = 0
         '
         'datagridviewPaso3Detalle
         '
         Me.datagridviewPaso3Detalle.AllowUserToAddRows = False
         Me.datagridviewPaso3Detalle.AllowUserToDeleteRows = False
         Me.datagridviewPaso3Detalle.AllowUserToResizeRows = False
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewPaso3Detalle.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewPaso3Detalle.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle15
         Me.datagridviewPaso3Detalle.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewPaso3Detalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewPaso3Detalle.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnDescripcion, Me.columnPrecioTotal})
@@ -456,7 +460,7 @@ Partial Class formComprobantesGenerarLote
         Me.datagridviewPaso3Detalle.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewPaso3Detalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewPaso3Detalle.Size = New System.Drawing.Size(605, 100)
-        Me.datagridviewPaso3Detalle.TabIndex = 111
+        Me.datagridviewPaso3Detalle.TabIndex = 1
         '
         'columnDescripcion
         '
@@ -472,9 +476,9 @@ Partial Class formComprobantesGenerarLote
         '
         Me.columnPrecioTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnPrecioTotal.DataPropertyName = "PrecioTotal"
-        DataGridViewCellStyle7.Format = "C2"
-        DataGridViewCellStyle7.NullValue = "0"
-        Me.columnPrecioTotal.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle16.Format = "C2"
+        DataGridViewCellStyle16.NullValue = "0"
+        Me.columnPrecioTotal.DefaultCellStyle = DataGridViewCellStyle16
         Me.columnPrecioTotal.HeaderText = "Precio"
         Me.columnPrecioTotal.Name = "columnPrecioTotal"
         Me.columnPrecioTotal.ReadOnly = True
@@ -486,11 +490,11 @@ Partial Class formComprobantesGenerarLote
         Me.datagridviewPaso3Cabecera.AllowUserToAddRows = False
         Me.datagridviewPaso3Cabecera.AllowUserToDeleteRows = False
         Me.datagridviewPaso3Cabecera.AllowUserToResizeRows = False
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewPaso3Cabecera.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewPaso3Cabecera.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle17
         Me.datagridviewPaso3Cabecera.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewPaso3Cabecera.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewPaso3Cabecera.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnPuntoVenta, Me.columnNumero, Me.columnApellidoNombre, Me.columnDocumentoNumero, Me.columnCategoriaIVANombre, Me.columnImporteTotal})
@@ -502,7 +506,7 @@ Partial Class formComprobantesGenerarLote
         Me.datagridviewPaso3Cabecera.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewPaso3Cabecera.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewPaso3Cabecera.Size = New System.Drawing.Size(605, 208)
-        Me.datagridviewPaso3Cabecera.TabIndex = 110
+        Me.datagridviewPaso3Cabecera.TabIndex = 0
         '
         'columnComprobanteTipoNombre
         '
@@ -568,9 +572,9 @@ Partial Class formComprobantesGenerarLote
         '
         Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnImporteTotal.DataPropertyName = "ImporteTotal"
-        DataGridViewCellStyle9.Format = "C2"
-        DataGridViewCellStyle9.NullValue = "0"
-        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle18.Format = "C2"
+        DataGridViewCellStyle18.NullValue = "0"
+        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle18
         Me.columnImporteTotal.HeaderText = "Importe"
         Me.columnImporteTotal.Name = "columnImporteTotal"
         Me.columnImporteTotal.ReadOnly = True
@@ -643,11 +647,35 @@ Partial Class formComprobantesGenerarLote
         Me.buttonPaso3Finalizar.Text = "Finalizar: Emisión"
         Me.buttonPaso3Finalizar.UseVisualStyleBackColor = True
         '
+        'datetimepickerFechaVencimiento
+        '
+        Me.datetimepickerFechaVencimiento.Checked = False
+        Me.datetimepickerFechaVencimiento.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.datetimepickerFechaVencimiento.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.datetimepickerFechaVencimiento.Location = New System.Drawing.Point(250, 53)
+        Me.datetimepickerFechaVencimiento.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
+        Me.datetimepickerFechaVencimiento.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
+        Me.datetimepickerFechaVencimiento.Name = "datetimepickerFechaVencimiento"
+        Me.datetimepickerFechaVencimiento.ShowCheckBox = True
+        Me.datetimepickerFechaVencimiento.Size = New System.Drawing.Size(139, 22)
+        Me.datetimepickerFechaVencimiento.TabIndex = 1
+        Me.datetimepickerFechaVencimiento.Value = New Date(2015, 1, 1, 0, 0, 0, 0)
+        '
+        'labelFechaVencimiento
+        '
+        Me.labelFechaVencimiento.AutoSize = True
+        Me.labelFechaVencimiento.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelFechaVencimiento.Location = New System.Drawing.Point(57, 58)
+        Me.labelFechaVencimiento.Name = "labelFechaVencimiento"
+        Me.labelFechaVencimiento.Size = New System.Drawing.Size(166, 16)
+        Me.labelFechaVencimiento.TabIndex = 0
+        Me.labelFechaVencimiento.Text = "Fecha de Vencimiento:"
+        '
         'formComprobantesGenerarLote
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(635, 465)
+        Me.ClientSize = New System.Drawing.Size(636, 465)
         Me.Controls.Add(Me.panelPaso1)
         Me.Controls.Add(Me.panelPaso2)
         Me.Controls.Add(Me.panelPaso3)
@@ -725,4 +753,6 @@ Partial Class formComprobantesGenerarLote
     Friend WithEvents columnDocumentoNumero As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnCategoriaIVANombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents datetimepickerFechaVencimiento As System.Windows.Forms.DateTimePicker
+    Friend WithEvents labelFechaVencimiento As System.Windows.Forms.Label
 End Class

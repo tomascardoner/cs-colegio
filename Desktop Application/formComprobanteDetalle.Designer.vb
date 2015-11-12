@@ -29,9 +29,8 @@ Partial Class formComprobanteDetalle
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
         Me.labelArticulo = New System.Windows.Forms.Label()
         Me.comboboxArticulo = New System.Windows.Forms.ComboBox()
-        Me.buttonEntidad = New System.Windows.Forms.Button()
-        Me.textboxEntidad = New System.Windows.Forms.TextBox()
-        Me.labelEntidad = New System.Windows.Forms.Label()
+        Me.buttonAlumno = New System.Windows.Forms.Button()
+        Me.labelAlumno = New System.Windows.Forms.Label()
         Me.comboboxAnioLectivoCurso = New System.Windows.Forms.ComboBox()
         Me.labelAnioLectivoCurso = New System.Windows.Forms.Label()
         Me.comboboxCuotaMes = New System.Windows.Forms.ComboBox()
@@ -52,6 +51,7 @@ Partial Class formComprobanteDetalle
         Me.textboxPrecioUnitarioFinal = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
         Me.textboxPrecioUnitarioDescuentoImporte = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
         Me.textboxPrecioUnitario = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
+        Me.comboboxAlumno = New System.Windows.Forms.ComboBox()
         Me.toolstripMain.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -122,34 +122,24 @@ Partial Class formComprobanteDetalle
         Me.comboboxArticulo.Size = New System.Drawing.Size(339, 21)
         Me.comboboxArticulo.TabIndex = 1
         '
-        'buttonEntidad
+        'buttonAlumno
         '
-        Me.buttonEntidad.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_SEARCH_16
-        Me.buttonEntidad.Location = New System.Drawing.Point(440, 129)
-        Me.buttonEntidad.Name = "buttonEntidad"
-        Me.buttonEntidad.Size = New System.Drawing.Size(22, 22)
-        Me.buttonEntidad.TabIndex = 8
-        Me.buttonEntidad.Text = "…"
-        Me.buttonEntidad.UseVisualStyleBackColor = True
+        Me.buttonAlumno.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_SEARCH_16
+        Me.buttonAlumno.Location = New System.Drawing.Point(440, 129)
+        Me.buttonAlumno.Name = "buttonAlumno"
+        Me.buttonAlumno.Size = New System.Drawing.Size(22, 23)
+        Me.buttonAlumno.TabIndex = 8
+        Me.buttonAlumno.Text = "…"
+        Me.buttonAlumno.UseVisualStyleBackColor = True
         '
-        'textboxEntidad
+        'labelAlumno
         '
-        Me.textboxEntidad.Location = New System.Drawing.Point(123, 130)
-        Me.textboxEntidad.MaxLength = 150
-        Me.textboxEntidad.Name = "textboxEntidad"
-        Me.textboxEntidad.ReadOnly = True
-        Me.textboxEntidad.Size = New System.Drawing.Size(317, 20)
-        Me.textboxEntidad.TabIndex = 7
-        Me.textboxEntidad.TabStop = False
-        '
-        'labelEntidad
-        '
-        Me.labelEntidad.AutoSize = True
-        Me.labelEntidad.Location = New System.Drawing.Point(12, 133)
-        Me.labelEntidad.Name = "labelEntidad"
-        Me.labelEntidad.Size = New System.Drawing.Size(45, 13)
-        Me.labelEntidad.TabIndex = 6
-        Me.labelEntidad.Text = "Alumno:"
+        Me.labelAlumno.AutoSize = True
+        Me.labelAlumno.Location = New System.Drawing.Point(12, 133)
+        Me.labelAlumno.Name = "labelAlumno"
+        Me.labelAlumno.Size = New System.Drawing.Size(45, 13)
+        Me.labelAlumno.TabIndex = 6
+        Me.labelAlumno.Text = "Alumno:"
         '
         'comboboxAnioLectivoCurso
         '
@@ -335,11 +325,21 @@ Partial Class formComprobanteDetalle
         Me.textboxPrecioUnitario.TabIndex = 16
         Me.textboxPrecioUnitario.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
+        'comboboxAlumno
+        '
+        Me.comboboxAlumno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxAlumno.FormattingEnabled = True
+        Me.comboboxAlumno.Location = New System.Drawing.Point(123, 130)
+        Me.comboboxAlumno.Name = "comboboxAlumno"
+        Me.comboboxAlumno.Size = New System.Drawing.Size(317, 21)
+        Me.comboboxAlumno.TabIndex = 7
+        '
         'formComprobanteDetalle
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(476, 374)
+        Me.Controls.Add(Me.comboboxAlumno)
         Me.Controls.Add(Me.textboxPrecioUnitarioDescuentoPorcentaje)
         Me.Controls.Add(Me.textboxPrecioTotal)
         Me.Controls.Add(Me.labelPrecioTotal)
@@ -360,9 +360,8 @@ Partial Class formComprobanteDetalle
         Me.Controls.Add(Me.labelCuotaMes)
         Me.Controls.Add(Me.comboboxAnioLectivoCurso)
         Me.Controls.Add(Me.labelAnioLectivoCurso)
-        Me.Controls.Add(Me.buttonEntidad)
-        Me.Controls.Add(Me.textboxEntidad)
-        Me.Controls.Add(Me.labelEntidad)
+        Me.Controls.Add(Me.buttonAlumno)
+        Me.Controls.Add(Me.labelAlumno)
         Me.Controls.Add(Me.comboboxArticulo)
         Me.Controls.Add(Me.labelArticulo)
         Me.Controls.Add(Me.toolstripMain)
@@ -385,9 +384,8 @@ Partial Class formComprobanteDetalle
     Friend WithEvents buttonGuardar As System.Windows.Forms.ToolStripButton
     Friend WithEvents labelArticulo As System.Windows.Forms.Label
     Friend WithEvents comboboxArticulo As System.Windows.Forms.ComboBox
-    Friend WithEvents buttonEntidad As System.Windows.Forms.Button
-    Friend WithEvents textboxEntidad As System.Windows.Forms.TextBox
-    Friend WithEvents labelEntidad As System.Windows.Forms.Label
+    Friend WithEvents buttonAlumno As System.Windows.Forms.Button
+    Friend WithEvents labelAlumno As System.Windows.Forms.Label
     Friend WithEvents comboboxAnioLectivoCurso As System.Windows.Forms.ComboBox
     Friend WithEvents labelAnioLectivoCurso As System.Windows.Forms.Label
     Friend WithEvents comboboxCuotaMes As System.Windows.Forms.ComboBox
@@ -408,4 +406,5 @@ Partial Class formComprobanteDetalle
     Friend WithEvents textboxPrecioTotal As CSColegio.DesktopApplication.CS_Control_TextBox_Currency
     Friend WithEvents labelPrecioTotal As System.Windows.Forms.Label
     Friend WithEvents textboxPrecioUnitarioDescuentoPorcentaje As System.Windows.Forms.TextBox
+    Friend WithEvents comboboxAlumno As System.Windows.Forms.ComboBox
 End Class

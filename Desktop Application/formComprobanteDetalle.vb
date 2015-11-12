@@ -12,6 +12,8 @@
     Private mEditMode As Boolean = False
 
     Private mCambiandoDescuento As Boolean = False
+
+    Private mLoading As Boolean
 #End Region
 
 #Region "Form stuff"
@@ -44,7 +46,7 @@
         comboboxArticulo.Enabled = mEditMode
         textboxCantidad.ReadOnly = (mEditMode = False)
         textboxUnidad.ReadOnly = (mEditMode = False)
-        buttonEntidad.Enabled = mEditMode
+        buttonAlumno.Enabled = mEditMode
         comboboxAnioLectivoCurso.Enabled = mEditMode
         comboboxCuotaMes.Enabled = mEditMode
         textboxPrecioUnitario.ReadOnly = (mEditMode = False)
@@ -82,18 +84,21 @@
             textboxDescripcion.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Descripcion)
 
             If (Not mArticuloActual Is Nothing) AndAlso (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual) Then
-                If Not .IDEntidad Is Nothing Then
-                    Using dbContext As New CSColegioContext(True)
-                        mEntidad = dbContext.Entidad.Find(.IDEntidad)
-                    End Using
-                    textboxEntidad.Text = mEntidad.ApellidoNombre
-                    textboxEntidad.Tag = mEntidad.IDEntidad
-                    EstablecerAnioLectivoCurso()
+                CargarAlumnos(mComprobanteActual.IDEntidad, .IDEntidad)
+                If .IDEntidad Is Nothing Then
+                    If comboboxAlumno.Items.Count = 1 Then
+                        comboboxAlumno.SelectedIndex = 0
+                    End If
+                Else
+                    comboboxAlumno.SelectedValue = .IDEntidad
+                    If comboboxAlumno.Items.Count = 1 Then
+                        comboboxAlumno.SelectedIndex = 0
+                    End If
+                    'EstablecerAnioLectivoCurso()
                 End If
                 CS_Control_ComboBox.SetSelectedValue(comboboxAnioLectivoCurso, SelectedItemOptions.Value, .IDAnioLectivoCurso, CShort(0))
             Else
-                textboxEntidad.Text = ""
-                textboxEntidad.Tag = Nothing
+                comboboxAlumno.SelectedIndex = -1
                 comboboxAnioLectivoCurso.SelectedIndex = -1
             End If
             If (Not mArticuloActual Is Nothing) AndAlso mArticuloActual.IDArticulo = mIDArticuloMensual Then
@@ -120,7 +125,7 @@
             .Unidad = CS_ValueTranslation.FromControlComboBoxToObjectString(textboxUnidad.Text)
 
             If mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual Then
-                .IDEntidad = CS_ValueTranslation.FromControlTagToObjectInteger(textboxEntidad.Tag)
+                .IDEntidad = CS_ValueTranslation.FromControlComboBoxToObjectInteger(comboboxAlumno.SelectedValue)
                 .IDAnioLectivoCurso = CS_ValueTranslation.FromControlComboBoxToObjectShort(comboboxAnioLectivoCurso.SelectedValue)
                 .Descripcion = CS_ValueTranslation.FromControlComboBoxToObjectString(textboxDescripcion.Text)
             Else
@@ -171,21 +176,34 @@
         CalcularPrecioFinal()
     End Sub
 
-    Private Sub Entidad_Click(sender As Object, e As EventArgs) Handles buttonEntidad.Click
+    Private Sub Alumno_Changed() Handles comboboxAlumno.SelectedIndexChanged
+        If Not mLoading Then
+            If comboboxAlumno.SelectedIndex > -1 Then
+                mEntidad = CType(comboboxAlumno.SelectedItem, Entidad)
+                If mEntidad.IDDescuento Is Nothing Then
+                    textboxPrecioUnitarioDescuentoPorcentaje.Text = CS_ValueTranslation.FromObjectPercentToControlTextBox(0)
+                    'textboxPrecioUnitarioDescuentoImporte.Text = "0"
+                Else
+                    textboxPrecioUnitarioDescuentoPorcentaje.Text = CS_ValueTranslation.FromObjectPercentToControlTextBox(mEntidad.Descuento.Porcentaje)
+                End If
+            End If
+            EstablecerAnioLectivoCurso()
+            EstablecerDescripcion()
+            EstablecerPrecioUnitario()
+        End If
+    End Sub
+
+    Private Sub Entidad_Click(sender As Object, e As EventArgs) Handles buttonAlumno.Click
         formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = True
         formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
         If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-            Using dbContext As New CSColegioContext(True)
-                mEntidad = dbContext.Entidad.Find(CType(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).DataBoundItem, Entidad).IDEntidad)
-                If Not mEntidad.IDDescuento Is Nothing Then
-                    mEntidad.Descuento.ToString()
-                End If
-            End Using
-            textboxEntidad.Tag = mEntidad.IDEntidad
-            textboxEntidad.Text = mEntidad.ApellidoNombre
+            mLoading = True
+            CargarAlumnos(mComprobanteActual.IDEntidad, CType(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).DataBoundItem, Entidad).IDEntidad)
+            mLoading = False
+            comboboxAlumno.SelectedValue = CType(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).DataBoundItem, Entidad).IDEntidad
         End If
         formEntidadesSeleccionar.Dispose()
 
@@ -275,9 +293,9 @@
         End If
 
         If mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual Then
-            If textboxEntidad.Tag Is Nothing Then
+            If comboboxAlumno.SelectedIndex = -1 Then
                 MsgBox("Debe especificar el Alumno.", MsgBoxStyle.Information, My.Application.Info.Title)
-                buttonEntidad.Focus()
+                buttonAlumno.Focus()
                 Exit Sub
             End If
             If comboboxAnioLectivoCurso.SelectedIndex = -1 Then
@@ -336,6 +354,32 @@
 #End Region
 
 #Region "Extra stuff"
+    Private Sub CargarAlumnos(ByVal IDEntidadPadre As Integer, ByVal IDEntidadActual As Integer?)
+        Dim listAlumnos As List(Of Entidad)
+
+        mLoading = True
+
+        comboboxAlumno.ValueMember = "IDEntidad"
+        comboboxAlumno.DisplayMember = "ApellidoNombre"
+
+        Using dbContext As New CSColegioContext(True)
+            If IDEntidadActual Is Nothing Then
+                listAlumnos = (From e In dbContext.Entidad.Include("Descuento")
+                               Where e.EsActivo AndAlso e.TipoAlumno AndAlso (e.IDEntidadPadre = IDEntidadPadre Or e.IDEntidadMadre = IDEntidadPadre Or e.IDEntidadTercero = IDEntidadPadre)
+                               Order By e.ApellidoNombre).ToList
+            Else
+                listAlumnos = (From e In dbContext.Entidad.Include("Descuento")
+                               Where e.EsActivo AndAlso e.TipoAlumno AndAlso ((e.IDEntidadPadre = IDEntidadPadre Or e.IDEntidadMadre = IDEntidadPadre Or e.IDEntidadTercero = IDEntidadPadre) Or e.IDEntidad = IDEntidadActual)
+                               Order By e.ApellidoNombre).ToList
+            End If
+        End Using
+
+        comboboxAlumno.DataSource = listAlumnos
+        comboboxAlumno.SelectedValue = 0
+
+        mLoading = False
+    End Sub
+
     Private Sub CambiarArticulo()
         If comboboxArticulo.SelectedIndex > -1 Then
             mArticuloActual = CType(comboboxArticulo.SelectedItem, Articulo)
@@ -350,9 +394,9 @@
             labelDescripcion.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
             textboxDescripcion.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
 
-            labelEntidad.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
-            textboxEntidad.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
-            buttonEntidad.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
+            labelAlumno.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
+            comboboxAlumno.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
+            buttonAlumno.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
 
             labelAnioLectivoCurso.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
             comboboxAnioLectivoCurso.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
@@ -366,9 +410,9 @@
             labelDescripcion.Visible = False
             textboxDescripcion.Visible = False
 
-            labelEntidad.Visible = False
-            textboxEntidad.Visible = False
-            buttonEntidad.Visible = False
+            labelAlumno.Visible = False
+            comboboxAlumno.Visible = False
+            buttonAlumno.Visible = False
 
             labelAnioLectivoCurso.Visible = False
             comboboxAnioLectivoCurso.Visible = False
@@ -408,7 +452,7 @@
         Dim AnioLectivoCursoImporteActual As AnioLectivoCursoImporte
         Dim PrecioUnitario As Decimal
 
-        If (Not mArticuloActual Is Nothing) AndAlso (Not textboxEntidad.Tag Is Nothing) AndAlso (Not comboboxAnioLectivoCurso.SelectedItem Is Nothing) Then
+        If (Not mArticuloActual Is Nothing) AndAlso (Not comboboxAlumno.SelectedIndex = -1) AndAlso (Not comboboxAnioLectivoCurso.SelectedItem Is Nothing) Then
             Select Case mArticuloActual.IDArticulo
                 Case mIDArticuloMatricula
                     ' MATRÍCULA
@@ -432,9 +476,6 @@
                     End If
             End Select
             textboxPrecioUnitario.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(PrecioUnitario)
-            If Not mEntidad.IDDescuento Is Nothing Then
-                textboxPrecioUnitarioDescuentoPorcentaje.Text = CS_ValueTranslation.FromObjectPercentToControlTextBox(mEntidad.Descuento.Porcentaje)
-            End If
         End If
     End Sub
 
@@ -448,7 +489,4 @@
 
 #End Region
 
-    Private Sub AnioLectivoCurso_Selected(sender As Object, e As EventArgs) Handles comboboxAnioLectivoCurso.SelectedValueChanged
-
-    End Sub
 End Class
