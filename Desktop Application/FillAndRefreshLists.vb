@@ -161,7 +161,7 @@
 
             If ShowUnspecifiedItem Then
                 datarowRow = .NewRow
-                datarowRow("IDGenero") = Constantes.GENERO_NOESPECIFICA
+                datarowRow("IDGenero") = Constantes.ENTIDAD_GENERO_NOESPECIFICA
                 datarowRow("Nombre") = My.Resources.STRING_ITEM_NON_SPECIFIED
                 datatableGeneros.Rows.Add(datarowRow)
             End If
@@ -180,7 +180,47 @@
         ComboBoxControl.DataSource = datatableGeneros
     End Sub
 
-    Friend Sub EmitirFacturaA(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
+    Friend Sub Entidad_ComprobanteEnviarEmail(ByRef ComboBoxControl As ComboBox)
+        Dim datatableComprobanteEnviarEmail As New DataTable("ComprobanteEnviarEmail")
+        Dim datarowRow As DataRow
+
+        ComboBoxControl.ValueMember = "IDComprobanteEnviarEmail"
+        ComboBoxControl.DisplayMember = "Nombre"
+
+        With datatableComprobanteEnviarEmail
+            .Columns.Add("IDComprobanteEnviarEmail", System.Type.GetType("System.String"))
+            .Columns.Add("Nombre", System.Type.GetType("System.String"))
+
+            datarowRow = .NewRow
+            datarowRow("IDComprobanteEnviarEmail") = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_CUALQUIERA
+            datarowRow("Nombre") = My.Resources.STRING_ENTIDAD_COMPROBANTE_ENVIAREMAIL_CUALQUIERA
+            .Rows.Add(datarowRow)
+
+            datarowRow = .NewRow
+            datarowRow("IDComprobanteEnviarEmail") = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO
+            datarowRow("Nombre") = My.Resources.STRING_ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO
+            .Rows.Add(datarowRow)
+
+            datarowRow = .NewRow
+            datarowRow("IDComprobanteEnviarEmail") = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_AMBAS
+            datarowRow("Nombre") = My.Resources.STRING_ENTIDAD_COMPROBANTE_ENVIAREMAIL_AMBAS
+            .Rows.Add(datarowRow)
+
+            datarowRow = .NewRow
+            datarowRow("IDComprobanteEnviarEmail") = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL1
+            datarowRow("Nombre") = My.Resources.STRING_ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL1
+            .Rows.Add(datarowRow)
+
+            datarowRow = .NewRow
+            datarowRow("IDComprobanteEnviarEmail") = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2
+            datarowRow("Nombre") = My.Resources.STRING_ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2
+            .Rows.Add(datarowRow)
+        End With
+
+        ComboBoxControl.DataSource = datatableComprobanteEnviarEmail
+    End Sub
+
+    Friend Sub Entidad_EmitirFacturaA(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
         Dim datatableEntidadFactura As New DataTable("EntidadFactura")
         Dim datarowRow As DataRow
 
@@ -193,40 +233,40 @@
 
             If ShowUnspecifiedItem Then
                 datarowRow = .NewRow
-                datarowRow("IDEmitirFacturaA") = Constantes.EMITIRFACTURAA_NOESPECIFICA
+                datarowRow("IDEmitirFacturaA") = Constantes.ENTIDAD_EMITIRFACTURAA_NOESPECIFICA
                 datarowRow("Nombre") = My.Resources.STRING_ITEM_NON_SPECIFIED
-                datatableEntidadFactura.Rows.Add(datarowRow)
+                .Rows.Add(datarowRow)
             End If
 
             datarowRow = .NewRow
-            datarowRow("IDEmitirFacturaA") = Constantes.EMITIRFACTURAA_PADRE
-            datarowRow("Nombre") = My.Resources.STRING_EMITIRFACTURAA_PADRE
-            datatableEntidadFactura.Rows.Add(datarowRow)
+            datarowRow("IDEmitirFacturaA") = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE
+            datarowRow("Nombre") = My.Resources.STRING_ENTIDAD_EMITIRFACTURAA_PADRE
+            .Rows.Add(datarowRow)
 
             datarowRow = .NewRow
-            datarowRow("IDEmitirFacturaA") = Constantes.EMITIRFACTURAA_MADRE
-            datarowRow("Nombre") = My.Resources.STRING_EMITIRFACTURAA_MADRE
-            datatableEntidadFactura.Rows.Add(datarowRow)
+            datarowRow("IDEmitirFacturaA") = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE
+            datarowRow("Nombre") = My.Resources.STRING_ENTIDAD_EMITIRFACTURAA_MADRE
+            .Rows.Add(datarowRow)
 
             datarowRow = .NewRow
-            datarowRow("IDEmitirFacturaA") = Constantes.EMITIRFACTURAA_AMBOSPADRES
-            datarowRow("Nombre") = My.Resources.STRING_EMITIRFACTURAA_AMBOSPADRES
-            datatableEntidadFactura.Rows.Add(datarowRow)
+            datarowRow("IDEmitirFacturaA") = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES
+            datarowRow("Nombre") = My.Resources.STRING_ENTIDAD_EMITIRFACTURAA_AMBOSPADRES
+            .Rows.Add(datarowRow)
 
             datarowRow = .NewRow
-            datarowRow("IDEmitirFacturaA") = Constantes.EMITIRFACTURAA_TERCERO
-            datarowRow("Nombre") = My.Resources.STRING_EMITIRFACTURAA_TERCERO
-            datatableEntidadFactura.Rows.Add(datarowRow)
+            datarowRow("IDEmitirFacturaA") = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO
+            datarowRow("Nombre") = My.Resources.STRING_ENTIDAD_EMITIRFACTURAA_TERCERO
+            .Rows.Add(datarowRow)
 
             datarowRow = .NewRow
-            datarowRow("IDEmitirFacturaA") = Constantes.EMITIRFACTURAA_TODOS
-            datarowRow("Nombre") = My.Resources.STRING_EMITIRFACTURAA_TODOS
-            datatableEntidadFactura.Rows.Add(datarowRow)
+            datarowRow("IDEmitirFacturaA") = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS
+            datarowRow("Nombre") = My.Resources.STRING_ENTIDAD_EMITIRFACTURAA_TODOS
+            .Rows.Add(datarowRow)
 
             datarowRow = .NewRow
-            datarowRow("IDEmitirFacturaA") = Constantes.EMITIRFACTURAA_ALUMNO
-            datarowRow("Nombre") = My.Resources.STRING_EMITIRFACTURAA_ALUMNO
-            datatableEntidadFactura.Rows.Add(datarowRow)
+            datarowRow("IDEmitirFacturaA") = Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO
+            datarowRow("Nombre") = My.Resources.STRING_ENTIDAD_EMITIRFACTURAA_ALUMNO
+            .Rows.Add(datarowRow)
         End With
 
         ComboBoxControl.DataSource = datatableEntidadFactura
@@ -237,8 +277,8 @@
         ComboBoxControl.DisplayMember = "Nombre"
 
         Dim qryList = From tbl In dbContext.Descuento
-                          Where tbl.EsActivo
-                          Order By tbl.Nombre
+                      Where tbl.EsActivo
+                      Order By tbl.Nombre
 
         Dim localList = qryList.ToList
         If ShowUnspecifiedItem Then

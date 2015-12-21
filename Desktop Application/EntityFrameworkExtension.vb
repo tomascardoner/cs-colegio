@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Entity
-Imports System.Data.EntityClient
+Imports System.Data.Entity.Core.EntityClient
 Imports CrystalDecisions.CrystalReports.Engine
 Imports CrystalDecisions.Shared
 

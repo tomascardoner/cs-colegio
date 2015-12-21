@@ -57,7 +57,6 @@ Partial Class formEntidad
         Dim labelNotas As System.Windows.Forms.Label
         Dim labelModificacion As System.Windows.Forms.Label
         Dim labelCreacion As System.Windows.Forms.Label
-        Dim labelComprobanteNoEnviarEmail As System.Windows.Forms.Label
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -75,6 +74,7 @@ Partial Class formEntidad
         Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim labelComprobanteEnviarEmail As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formEntidad))
         Me.textboxApellido = New System.Windows.Forms.TextBox()
         Me.textboxIDEntidad = New System.Windows.Forms.TextBox()
@@ -124,7 +124,6 @@ Partial Class formEntidad
         Me.textboxTelefono2 = New System.Windows.Forms.TextBox()
         Me.textboxTelefono3 = New System.Windows.Forms.TextBox()
         Me.tabpageExtra = New System.Windows.Forms.TabPage()
-        Me.checkboxComprobanteNoEnviarEmail = New System.Windows.Forms.CheckBox()
         Me.textboxFacturaLeyenda = New System.Windows.Forms.TextBox()
         Me.checkboxFacturaIndividual = New System.Windows.Forms.CheckBox()
         Me.checkboxExcluyeCalculoInteres = New System.Windows.Forms.CheckBox()
@@ -178,6 +177,7 @@ Partial Class formEntidad
         Me.textboxUsuarioCreacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraModificacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraCreacion = New System.Windows.Forms.TextBox()
+        Me.comboboxComprobanteEnviarEmail = New System.Windows.Forms.ComboBox()
         labelApellido = New System.Windows.Forms.Label()
         labelIDEntidad = New System.Windows.Forms.Label()
         labelNombre = New System.Windows.Forms.Label()
@@ -212,7 +212,7 @@ Partial Class formEntidad
         labelNotas = New System.Windows.Forms.Label()
         labelModificacion = New System.Windows.Forms.Label()
         labelCreacion = New System.Windows.Forms.Label()
-        labelComprobanteNoEnviarEmail = New System.Windows.Forms.Label()
+        labelComprobanteEnviarEmail = New System.Windows.Forms.Label()
         CType(Me.pictureboxMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.toolstripMain.SuspendLayout()
         Me.tabcontrolMain.SuspendLayout()
@@ -328,82 +328,82 @@ Partial Class formEntidad
         'labelDomicilioCalle3
         '
         labelDomicilioCalle3.AutoSize = True
-        labelDomicilioCalle3.Location = New System.Drawing.Point(266, 160)
+        labelDomicilioCalle3.Location = New System.Drawing.Point(266, 186)
         labelDomicilioCalle3.Name = "labelDomicilioCalle3"
         labelDomicilioCalle3.Size = New System.Drawing.Size(42, 13)
-        labelDomicilioCalle3.TabIndex = 20
+        labelDomicilioCalle3.TabIndex = 22
         labelDomicilioCalle3.Text = "Calle 3:"
         '
         'labelDomicilioCalle2
         '
         labelDomicilioCalle2.AutoSize = True
-        labelDomicilioCalle2.Location = New System.Drawing.Point(6, 160)
+        labelDomicilioCalle2.Location = New System.Drawing.Point(6, 186)
         labelDomicilioCalle2.Name = "labelDomicilioCalle2"
         labelDomicilioCalle2.Size = New System.Drawing.Size(42, 13)
-        labelDomicilioCalle2.TabIndex = 18
+        labelDomicilioCalle2.TabIndex = 20
         labelDomicilioCalle2.Text = "Calle 2:"
         '
         'labelDomicilioCalle1
         '
         labelDomicilioCalle1.AutoSize = True
-        labelDomicilioCalle1.Location = New System.Drawing.Point(6, 108)
+        labelDomicilioCalle1.Location = New System.Drawing.Point(6, 134)
         labelDomicilioCalle1.Name = "labelDomicilioCalle1"
         labelDomicilioCalle1.Size = New System.Drawing.Size(33, 13)
-        labelDomicilioCalle1.TabIndex = 10
+        labelDomicilioCalle1.TabIndex = 12
         labelDomicilioCalle1.Text = "Calle:"
         '
         'labelDomicilioCodigoPostal
         '
         labelDomicilioCodigoPostal.AutoSize = True
-        labelDomicilioCodigoPostal.Location = New System.Drawing.Point(384, 213)
+        labelDomicilioCodigoPostal.Location = New System.Drawing.Point(384, 239)
         labelDomicilioCodigoPostal.Name = "labelDomicilioCodigoPostal"
         labelDomicilioCodigoPostal.Size = New System.Drawing.Size(59, 13)
-        labelDomicilioCodigoPostal.TabIndex = 26
+        labelDomicilioCodigoPostal.TabIndex = 28
         labelDomicilioCodigoPostal.Text = "Cód. Post.:"
         '
         'labelDomicilioDepartamento
         '
         labelDomicilioDepartamento.AutoSize = True
-        labelDomicilioDepartamento.Location = New System.Drawing.Point(220, 134)
+        labelDomicilioDepartamento.Location = New System.Drawing.Point(220, 160)
         labelDomicilioDepartamento.Name = "labelDomicilioDepartamento"
         labelDomicilioDepartamento.Size = New System.Drawing.Size(54, 13)
-        labelDomicilioDepartamento.TabIndex = 16
+        labelDomicilioDepartamento.TabIndex = 18
         labelDomicilioDepartamento.Text = "Dto/Ofic.:"
         '
         'labelDomicilioLocalidad
         '
         labelDomicilioLocalidad.AutoSize = True
-        labelDomicilioLocalidad.Location = New System.Drawing.Point(6, 213)
+        labelDomicilioLocalidad.Location = New System.Drawing.Point(6, 239)
         labelDomicilioLocalidad.Name = "labelDomicilioLocalidad"
         labelDomicilioLocalidad.Size = New System.Drawing.Size(56, 13)
-        labelDomicilioLocalidad.TabIndex = 24
+        labelDomicilioLocalidad.TabIndex = 26
         labelDomicilioLocalidad.Text = "Localidad:"
         '
         'labelDomicilioProvincia
         '
         labelDomicilioProvincia.AutoSize = True
-        labelDomicilioProvincia.Location = New System.Drawing.Point(6, 186)
+        labelDomicilioProvincia.Location = New System.Drawing.Point(6, 212)
         labelDomicilioProvincia.Name = "labelDomicilioProvincia"
         labelDomicilioProvincia.Size = New System.Drawing.Size(54, 13)
-        labelDomicilioProvincia.TabIndex = 22
+        labelDomicilioProvincia.TabIndex = 24
         labelDomicilioProvincia.Text = "Provincia:"
         '
         'labelDomicilioNumero
         '
         labelDomicilioNumero.AutoSize = True
-        labelDomicilioNumero.Location = New System.Drawing.Point(6, 134)
+        labelDomicilioNumero.Location = New System.Drawing.Point(6, 160)
         labelDomicilioNumero.Name = "labelDomicilioNumero"
         labelDomicilioNumero.Size = New System.Drawing.Size(47, 13)
-        labelDomicilioNumero.TabIndex = 12
+        labelDomicilioNumero.TabIndex = 14
         labelDomicilioNumero.Text = "Número:"
         '
         'labelDomicilioPiso
         '
         labelDomicilioPiso.AutoSize = True
-        labelDomicilioPiso.Location = New System.Drawing.Point(128, 134)
+        labelDomicilioPiso.Location = New System.Drawing.Point(128, 160)
         labelDomicilioPiso.Name = "labelDomicilioPiso"
         labelDomicilioPiso.Size = New System.Drawing.Size(30, 13)
-        labelDomicilioPiso.TabIndex = 14
+        labelDomicilioPiso.TabIndex = 16
         labelDomicilioPiso.Text = "Piso:"
         '
         'labelEmail1
@@ -541,15 +541,6 @@ Partial Class formEntidad
         labelCreacion.TabIndex = 9
         labelCreacion.Text = "Creación:"
         '
-        'labelComprobanteNoEnviarEmail
-        '
-        labelComprobanteNoEnviarEmail.AutoSize = True
-        labelComprobanteNoEnviarEmail.Location = New System.Drawing.Point(305, 67)
-        labelComprobanteNoEnviarEmail.Name = "labelComprobanteNoEnviarEmail"
-        labelComprobanteNoEnviarEmail.Size = New System.Drawing.Size(83, 13)
-        labelComprobanteNoEnviarEmail.TabIndex = 5
-        labelComprobanteNoEnviarEmail.Text = "No enviar e-mail"
-        '
         'textboxApellido
         '
         Me.textboxApellido.Location = New System.Drawing.Point(155, 77)
@@ -677,8 +668,8 @@ Partial Class formEntidad
         Me.tabcontrolMain.Location = New System.Drawing.Point(12, 138)
         Me.tabcontrolMain.Name = "tabcontrolMain"
         Me.tabcontrolMain.SelectedIndex = 0
-        Me.tabcontrolMain.Size = New System.Drawing.Size(514, 273)
-        Me.tabcontrolMain.TabIndex = 7
+        Me.tabcontrolMain.Size = New System.Drawing.Size(514, 293)
+        Me.tabcontrolMain.TabIndex = 0
         '
         'tabpageGeneral
         '
@@ -710,7 +701,7 @@ Partial Class formEntidad
         Me.tabpageGeneral.Location = New System.Drawing.Point(4, 25)
         Me.tabpageGeneral.Name = "tabpageGeneral"
         Me.tabpageGeneral.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageGeneral.Size = New System.Drawing.Size(506, 244)
+        Me.tabpageGeneral.Size = New System.Drawing.Size(506, 264)
         Me.tabpageGeneral.TabIndex = 0
         Me.tabpageGeneral.Text = "General"
         Me.tabpageGeneral.UseVisualStyleBackColor = True
@@ -880,6 +871,8 @@ Partial Class formEntidad
         '
         'tabpageContacto
         '
+        Me.tabpageContacto.Controls.Add(Me.comboboxComprobanteEnviarEmail)
+        Me.tabpageContacto.Controls.Add(labelComprobanteEnviarEmail)
         Me.tabpageContacto.Controls.Add(labelDomicilioCalle3)
         Me.tabpageContacto.Controls.Add(labelDomicilioCalle2)
         Me.tabpageContacto.Controls.Add(Me.textboxDomicilioCalle3)
@@ -911,84 +904,84 @@ Partial Class formEntidad
         Me.tabpageContacto.Location = New System.Drawing.Point(4, 25)
         Me.tabpageContacto.Name = "tabpageContacto"
         Me.tabpageContacto.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageContacto.Size = New System.Drawing.Size(506, 244)
+        Me.tabpageContacto.Size = New System.Drawing.Size(506, 264)
         Me.tabpageContacto.TabIndex = 1
         Me.tabpageContacto.Text = "Contacto"
         Me.tabpageContacto.UseVisualStyleBackColor = True
         '
         'textboxDomicilioCalle3
         '
-        Me.textboxDomicilioCalle3.Location = New System.Drawing.Point(330, 157)
+        Me.textboxDomicilioCalle3.Location = New System.Drawing.Point(330, 183)
         Me.textboxDomicilioCalle3.MaxLength = 50
         Me.textboxDomicilioCalle3.Name = "textboxDomicilioCalle3"
         Me.textboxDomicilioCalle3.Size = New System.Drawing.Size(170, 20)
-        Me.textboxDomicilioCalle3.TabIndex = 21
+        Me.textboxDomicilioCalle3.TabIndex = 23
         '
         'textboxDomicilioCalle2
         '
-        Me.textboxDomicilioCalle2.Location = New System.Drawing.Point(72, 157)
+        Me.textboxDomicilioCalle2.Location = New System.Drawing.Point(72, 183)
         Me.textboxDomicilioCalle2.MaxLength = 50
         Me.textboxDomicilioCalle2.Name = "textboxDomicilioCalle2"
         Me.textboxDomicilioCalle2.Size = New System.Drawing.Size(170, 20)
-        Me.textboxDomicilioCalle2.TabIndex = 19
+        Me.textboxDomicilioCalle2.TabIndex = 21
         '
         'comboboxDomicilioLocalidad
         '
         Me.comboboxDomicilioLocalidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxDomicilioLocalidad.FormattingEnabled = True
-        Me.comboboxDomicilioLocalidad.Location = New System.Drawing.Point(72, 210)
+        Me.comboboxDomicilioLocalidad.Location = New System.Drawing.Point(72, 236)
         Me.comboboxDomicilioLocalidad.Name = "comboboxDomicilioLocalidad"
         Me.comboboxDomicilioLocalidad.Size = New System.Drawing.Size(258, 21)
-        Me.comboboxDomicilioLocalidad.TabIndex = 25
+        Me.comboboxDomicilioLocalidad.TabIndex = 27
         '
         'comboboxDomicilioProvincia
         '
         Me.comboboxDomicilioProvincia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxDomicilioProvincia.FormattingEnabled = True
-        Me.comboboxDomicilioProvincia.Location = New System.Drawing.Point(72, 183)
+        Me.comboboxDomicilioProvincia.Location = New System.Drawing.Point(72, 209)
         Me.comboboxDomicilioProvincia.Name = "comboboxDomicilioProvincia"
         Me.comboboxDomicilioProvincia.Size = New System.Drawing.Size(258, 21)
-        Me.comboboxDomicilioProvincia.TabIndex = 23
+        Me.comboboxDomicilioProvincia.TabIndex = 25
         '
         'textboxDomicilioCalle1
         '
-        Me.textboxDomicilioCalle1.Location = New System.Drawing.Point(72, 105)
+        Me.textboxDomicilioCalle1.Location = New System.Drawing.Point(72, 131)
         Me.textboxDomicilioCalle1.MaxLength = 100
         Me.textboxDomicilioCalle1.Name = "textboxDomicilioCalle1"
         Me.textboxDomicilioCalle1.Size = New System.Drawing.Size(258, 20)
-        Me.textboxDomicilioCalle1.TabIndex = 11
+        Me.textboxDomicilioCalle1.TabIndex = 13
         '
         'textboxDomicilioCodigoPostal
         '
-        Me.textboxDomicilioCodigoPostal.Location = New System.Drawing.Point(450, 210)
+        Me.textboxDomicilioCodigoPostal.Location = New System.Drawing.Point(450, 236)
         Me.textboxDomicilioCodigoPostal.MaxLength = 8
         Me.textboxDomicilioCodigoPostal.Name = "textboxDomicilioCodigoPostal"
         Me.textboxDomicilioCodigoPostal.Size = New System.Drawing.Size(50, 20)
-        Me.textboxDomicilioCodigoPostal.TabIndex = 27
+        Me.textboxDomicilioCodigoPostal.TabIndex = 29
         '
         'textboxDomicilioDepartamento
         '
-        Me.textboxDomicilioDepartamento.Location = New System.Drawing.Point(280, 131)
+        Me.textboxDomicilioDepartamento.Location = New System.Drawing.Point(280, 157)
         Me.textboxDomicilioDepartamento.MaxLength = 10
         Me.textboxDomicilioDepartamento.Name = "textboxDomicilioDepartamento"
         Me.textboxDomicilioDepartamento.Size = New System.Drawing.Size(50, 20)
-        Me.textboxDomicilioDepartamento.TabIndex = 17
+        Me.textboxDomicilioDepartamento.TabIndex = 19
         '
         'textboxDomicilioNumero
         '
-        Me.textboxDomicilioNumero.Location = New System.Drawing.Point(72, 131)
+        Me.textboxDomicilioNumero.Location = New System.Drawing.Point(72, 157)
         Me.textboxDomicilioNumero.MaxLength = 10
         Me.textboxDomicilioNumero.Name = "textboxDomicilioNumero"
         Me.textboxDomicilioNumero.Size = New System.Drawing.Size(50, 20)
-        Me.textboxDomicilioNumero.TabIndex = 13
+        Me.textboxDomicilioNumero.TabIndex = 15
         '
         'textboxDomicilioPiso
         '
-        Me.textboxDomicilioPiso.Location = New System.Drawing.Point(164, 131)
+        Me.textboxDomicilioPiso.Location = New System.Drawing.Point(164, 157)
         Me.textboxDomicilioPiso.MaxLength = 10
         Me.textboxDomicilioPiso.Name = "textboxDomicilioPiso"
         Me.textboxDomicilioPiso.Size = New System.Drawing.Size(50, 20)
-        Me.textboxDomicilioPiso.TabIndex = 15
+        Me.textboxDomicilioPiso.TabIndex = 17
         '
         'textboxEmail1
         '
@@ -1032,8 +1025,6 @@ Partial Class formEntidad
         '
         'tabpageExtra
         '
-        Me.tabpageExtra.Controls.Add(Me.checkboxComprobanteNoEnviarEmail)
-        Me.tabpageExtra.Controls.Add(labelComprobanteNoEnviarEmail)
         Me.tabpageExtra.Controls.Add(Me.textboxFacturaLeyenda)
         Me.tabpageExtra.Controls.Add(labelFacturaLeyenda)
         Me.tabpageExtra.Controls.Add(labelVarios)
@@ -1058,19 +1049,10 @@ Partial Class formEntidad
         Me.tabpageExtra.Location = New System.Drawing.Point(4, 25)
         Me.tabpageExtra.Name = "tabpageExtra"
         Me.tabpageExtra.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageExtra.Size = New System.Drawing.Size(506, 244)
+        Me.tabpageExtra.Size = New System.Drawing.Size(506, 264)
         Me.tabpageExtra.TabIndex = 2
         Me.tabpageExtra.Text = "Padres y Facturación"
         Me.tabpageExtra.UseVisualStyleBackColor = True
-        '
-        'checkboxComprobanteNoEnviarEmail
-        '
-        Me.checkboxComprobanteNoEnviarEmail.AutoSize = True
-        Me.checkboxComprobanteNoEnviarEmail.Location = New System.Drawing.Point(284, 67)
-        Me.checkboxComprobanteNoEnviarEmail.Name = "checkboxComprobanteNoEnviarEmail"
-        Me.checkboxComprobanteNoEnviarEmail.Size = New System.Drawing.Size(15, 14)
-        Me.checkboxComprobanteNoEnviarEmail.TabIndex = 4
-        Me.checkboxComprobanteNoEnviarEmail.UseVisualStyleBackColor = True
         '
         'textboxFacturaLeyenda
         '
@@ -1682,11 +1664,29 @@ Partial Class formEntidad
         Me.textboxFechaHoraCreacion.Size = New System.Drawing.Size(121, 20)
         Me.textboxFechaHoraCreacion.TabIndex = 10
         '
+        'comboboxComprobanteEnviarEmail
+        '
+        Me.comboboxComprobanteEnviarEmail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxComprobanteEnviarEmail.FormattingEnabled = True
+        Me.comboboxComprobanteEnviarEmail.Location = New System.Drawing.Point(131, 95)
+        Me.comboboxComprobanteEnviarEmail.Name = "comboboxComprobanteEnviarEmail"
+        Me.comboboxComprobanteEnviarEmail.Size = New System.Drawing.Size(351, 21)
+        Me.comboboxComprobanteEnviarEmail.TabIndex = 11
+        '
+        'labelComprobanteEnviarEmail
+        '
+        labelComprobanteEnviarEmail.AutoSize = True
+        labelComprobanteEnviarEmail.Location = New System.Drawing.Point(6, 98)
+        labelComprobanteEnviarEmail.Name = "labelComprobanteEnviarEmail"
+        labelComprobanteEnviarEmail.Size = New System.Drawing.Size(119, 13)
+        labelComprobanteEnviarEmail.TabIndex = 10
+        labelComprobanteEnviarEmail.Text = "Enviar comprobantes a:"
+        '
         'formEntidad
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(539, 423)
+        Me.ClientSize = New System.Drawing.Size(539, 442)
         Me.Controls.Add(Me.checkboxEsActivo)
         Me.Controls.Add(labelEsActivo)
         Me.Controls.Add(Me.toolstripMain)
@@ -1836,5 +1836,6 @@ Partial Class formEntidad
     Friend WithEvents columnNumeroCompleto As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnFecha As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents checkboxComprobanteNoEnviarEmail As System.Windows.Forms.CheckBox
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents comboboxComprobanteEnviarEmail As ComboBox
 End Class

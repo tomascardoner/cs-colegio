@@ -368,7 +368,7 @@ Public Class formComprobantesGenerarLote
             CorregirEntidad = True
             CorreccionDescripcion &= "No está especificado a quién se le factura." & vbCrLf
         Else
-            If EntidadActual.EmitirFacturaA = Constantes.EMITIRFACTURAA_ALUMNO Then
+            If EntidadActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO Then
                 ' Se le factura al Alumno
                 If EntidadActual.IDCategoriaIVA Is Nothing Then
                     CorregirEntidad = True
@@ -380,7 +380,7 @@ Public Class formComprobantesGenerarLote
                 End If
             End If
 
-            If EntidadActual.EmitirFacturaA = Constantes.EMITIRFACTURAA_PADRE Or EntidadActual.EmitirFacturaA = Constantes.EMITIRFACTURAA_AMBOSPADRES Or EntidadActual.EmitirFacturaA = Constantes.EMITIRFACTURAA_TODOS Then
+            If EntidadActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE Or EntidadActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or EntidadActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                 ' Se le factura al Padre (entre otros)
                 If EntidadActual.IDEntidadPadre Is Nothing Then
                     CorregirEntidad = True
@@ -397,7 +397,7 @@ Public Class formComprobantesGenerarLote
                 End If
             End If
 
-            If EntidadActual.EmitirFacturaA = Constantes.EMITIRFACTURAA_MADRE Or EntidadActual.EmitirFacturaA = Constantes.EMITIRFACTURAA_AMBOSPADRES Or EntidadActual.EmitirFacturaA = Constantes.EMITIRFACTURAA_TODOS Then
+            If EntidadActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE Or EntidadActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or EntidadActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                 ' Se le factura a la Madre (entre otros)
                 If EntidadActual.IDEntidadMadre Is Nothing Then
                     CorregirEntidad = True
@@ -414,7 +414,7 @@ Public Class formComprobantesGenerarLote
                 End If
             End If
 
-            If EntidadActual.EmitirFacturaA = Constantes.EMITIRFACTURAA_TERCERO Or EntidadActual.EmitirFacturaA = Constantes.EMITIRFACTURAA_TODOS Then
+            If EntidadActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or EntidadActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                 ' Se le factura a Otro (entre otros)
                 If EntidadActual.IDEntidadTercero Is Nothing Then
                     CorregirEntidad = True
@@ -550,7 +550,7 @@ Public Class formComprobantesGenerarLote
         End With
 
         For Each EntidadAlumno As Entidad In listEntidadesSeleccionadasOk
-            If EntidadAlumno.EmitirFacturaA = Constantes.EMITIRFACTURAA_ALUMNO Then
+            If EntidadAlumno.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO Then
                 ' Se factura directamente al Alumno, así que lo agrego a él mismo como Titular de la Factura y como Alumno
                 FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno, FacturaLote.IDComprobanteLote, Nothing, ComprobanteEntidadMayusculas)
                 FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, ArticuloActual)
@@ -563,7 +563,7 @@ Public Class formComprobantesGenerarLote
             '//////////////////////////////////////////////////////
             ' FACTURAR AL PADRE
             '//////////////////////////////////////////////////////
-            If EntidadAlumno.EmitirFacturaA = Constantes.EMITIRFACTURAA_PADRE Or EntidadAlumno.EmitirFacturaA = Constantes.EMITIRFACTURAA_AMBOSPADRES Or EntidadAlumno.EmitirFacturaA = Constantes.EMITIRFACTURAA_TODOS Then
+            If EntidadAlumno.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE Or EntidadAlumno.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or EntidadAlumno.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                 ' Se factura al Padre (entre otros posibles)
                 If EntidadAlumno.FacturaIndividual Then
                     ' El Alumno especifica que se le facture individualmente
@@ -615,7 +615,7 @@ Public Class formComprobantesGenerarLote
             '//////////////////////////////////////////////////////
             ' FACTURAR A LA MADRE
             '//////////////////////////////////////////////////////
-            If EntidadAlumno.EmitirFacturaA = Constantes.EMITIRFACTURAA_MADRE Or EntidadAlumno.EmitirFacturaA = Constantes.EMITIRFACTURAA_AMBOSPADRES Or EntidadAlumno.EmitirFacturaA = Constantes.EMITIRFACTURAA_TODOS Then
+            If EntidadAlumno.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE Or EntidadAlumno.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or EntidadAlumno.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                 ' Se factura a la Madre (entre otros posibles)
                 If EntidadAlumno.FacturaIndividual Then
                     ' El Alumno especifica que se le facture individualmente
@@ -667,7 +667,7 @@ Public Class formComprobantesGenerarLote
             '//////////////////////////////////////////////////////
             ' FACTURAR A UN TERCERO
             '//////////////////////////////////////////////////////
-            If EntidadAlumno.EmitirFacturaA = Constantes.EMITIRFACTURAA_TERCERO Or EntidadAlumno.EmitirFacturaA = Constantes.EMITIRFACTURAA_TODOS Then
+            If EntidadAlumno.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or EntidadAlumno.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                 ' Se factura a un Tercero (entre otros posibles)
                 If EntidadAlumno.FacturaIndividual Then
                     ' El Alumno especifica que se le facture individualmente
@@ -843,11 +843,11 @@ Public Class formComprobantesGenerarLote
 
                 ' Precios
                 Select Case EntidadDetalle.EmitirFacturaA
-                    Case Constantes.EMITIRFACTURAA_ALUMNO, Constantes.EMITIRFACTURAA_PADRE, Constantes.EMITIRFACTURAA_MADRE, Constantes.EMITIRFACTURAA_TERCERO
+                    Case Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO, Constantes.ENTIDAD_EMITIRFACTURAA_PADRE, Constantes.ENTIDAD_EMITIRFACTURAA_MADRE, Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO
                         .PrecioUnitario = AnioLectivoCursoImporteActual.ImporteCuota
-                    Case Constantes.EMITIRFACTURAA_AMBOSPADRES
+                    Case Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES
                         .PrecioUnitario = Decimal.Round(AnioLectivoCursoImporteActual.ImporteCuota / 2, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
-                    Case Constantes.EMITIRFACTURAA_TODOS
+                    Case Constantes.ENTIDAD_EMITIRFACTURAA_TODOS
                         .PrecioUnitario = Decimal.Round(AnioLectivoCursoImporteActual.ImporteCuota / 3, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
                 End Select
                 If EntidadDetalle.IDDescuento Is Nothing Then

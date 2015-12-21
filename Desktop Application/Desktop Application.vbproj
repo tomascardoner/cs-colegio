@@ -76,27 +76,31 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
-    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
-    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
-    <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="Microsoft.VisualBasic.PowerPacks, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -259,11 +263,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CSColegio.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="CSColegio.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CSColegio.edmx</DependentUpon>
-    </Compile>
     <Compile Include="CSColegio.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -365,6 +364,12 @@
       <DependentUpon>formComprobantesGenerarLote.vb</DependentUpon>
     </Compile>
     <Compile Include="formComprobantesGenerarLote.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formForTest.Designer.vb">
+      <DependentUpon>formForTest.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formForTest.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formLogin.Designer.vb">
@@ -540,6 +545,9 @@
     <EmbeddedResource Include="formComprobantesGenerarLote.resx">
       <DependentUpon>formComprobantesGenerarLote.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formForTest.resx">
+      <DependentUpon>formForTest.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formLogin.resx">
       <DependentUpon>formLogin.vb</DependentUpon>
     </EmbeddedResource>
@@ -569,11 +577,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <EntityDeploy Include="CSColegio.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CSColegio.Designer.vb</LastGenOutput>
-    </EntityDeploy>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="CSColegio.edmx" />
     <None Include="CSColegio.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CSColegio.edmx</DependentUpon>
@@ -599,6 +606,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\5_Resized.jpg" />
     <None Include="Resources\Printer24.png" />
     <None Include="Resources\printer-icon %285%29.png" />
@@ -616,7 +624,6 @@
     <None Include="Resources\Move Next %28Arrow%29 Green24.png" />
     <None Include="Resources\invoice-icon %2812%29.png" />
     <None Include="Resources\invoice-icon %2813%29.png" />
-    <None Include="packages.config" />
     <None Include="Resources\Search-icon %288%29.png" />
     <None Include="Resources\Actions-view-pim-contacts-icon %285%29.png" />
     <None Include="Resources\Actions-dialog-close-icon %286%29.png" />

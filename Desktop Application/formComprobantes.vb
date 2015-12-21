@@ -651,9 +651,8 @@
 
                     ' Verifico que tenga un CAE asignado, si es que corresponde
                     If ComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso ComprobanteTipoActual.EmisionElectronica AndAlso CurrentRow.CAE = "" Then
-                        If MsgBox("El comprobante que está por imprimir no tiene un C.A.E. asignado." & vbCrLf & "Esto puede ocurrir porque aún no fue enviado a AFIP o porque AFIP rechazó el comprobante." & vbCrLf & "Por este motivo, este comprobante no tiene validez legal." & vbCrLf & vbCrLf & "¿Desea imprimirlo de todos modos?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
-                            Exit Sub
-                        End If
+                        MsgBox("El comprobante que desea imprimir no tiene un C.A.E. asignado." & vbCrLf & "Esto puede ocurrir porque aún no fue enviado a AFIP o porque AFIP rechazó el comprobante." & vbCrLf & "Por este motivo, este comprobante no tiene validez legal.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                        Exit Sub
                     End If
 
                     Me.Cursor = Cursors.WaitCursor
@@ -733,24 +732,23 @@
                             Exit Sub
                         End If
 
+                        ' Verifico que el Titular no especifique que no se le envíen por e-mail
+                        If Titular.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO Then
+                            If MsgBox("El Titular del Comprobante especificó que no se le envíen los Comprobantes por e-mail." & vbCrLf & vbCrLf & "¿Desea enviarlo de todos modos?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                                Exit Sub
+                            End If
+                        End If
+
                         ' Verifico que el Titular tenga especificada una dirección de e-mail
                         If Titular.Email1 Is Nothing And Titular.Email2 Is Nothing Then
                             MsgBox("El Titular del Comprobante no tiene especificada ninguna dirección de e-mail.", MsgBoxStyle.Information, My.Application.Info.Title)
                             Exit Sub
                         End If
 
-                        ' Verifico que el Titular no especifique que no se le envíen por e-mail
-                        If Titular.ComprobanteNoEnviarEmail Then
-                            If MsgBox("El Titular del Comprobante especificó que no se le envíen los Comprobantes por e-mail." & vbCrLf & vbCrLf & "¿Desea enviarlo de todos modos?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
-                                Exit Sub
-                            End If
-                        End If
-
                         ' Verifico que tenga un CAE asignado, si es que corresponde
                         If ComprobanteTipoActual.EmisionElectronica AndAlso CurrentRow.CAE = "" Then
-                            If MsgBox("El Comprobante que está por enviar no tiene un C.A.E. asignado." & vbCrLf & "Esto puede ocurrir porque aún no fue enviado a AFIP o porque AFIP rechazó el comprobante." & vbCrLf & "Por este motivo, este comprobante no tiene validez legal." & vbCrLf & vbCrLf & "¿Desea enviarlo de todos modos?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
-                                Exit Sub
-                            End If
+                            MsgBox("El Comprobante que está intentando enviar no tiene un C.A.E. asignado." & vbCrLf & "Esto puede ocurrir porque aún no fue enviado a AFIP o porque AFIP rechazó el comprobante." & vbCrLf & "Por este motivo, este comprobante no tiene validez legal.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                            Exit Sub
                         End If
 
                         ' Verifico que no se haya enviado ya
@@ -779,19 +777,19 @@
 
                                 Select Case My.Settings.Comprobante_EnviarEmail_Metodo
                                     Case Constantes.EMAIL_CLIENT_NETDLL
-                                        If Not MiscFunctions.EnviarEmailPorNETClient(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre) Then
+                                        If MiscFunctions.EnviarEmailPorNETClient(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, True) = -1 Then
                                             datagridviewMain.Enabled = True
                                             Me.Cursor = Cursors.Default
                                             Exit Sub
                                         End If
                                     Case Constantes.EMAIL_CLIENT_MSOUTLOOK
-                                        If Not EnviarEmailPorMSOutlook(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre) Then
+                                        If MiscFunctions.EnviarEmailPorMSOutlook(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, True) = -1 Then
                                             datagridviewMain.Enabled = True
                                             Me.Cursor = Cursors.Default
                                             Exit Sub
                                         End If
                                     Case Constantes.EMAIL_CLIENT_CRYSTALREPORTSMAPI
-                                        If Not EnviarEmailPorCrystalReportsMAPI(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre) Then
+                                        If MiscFunctions.EnviarEmailPorCrystalReportsMAPI(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, True) = -1 Then
                                             datagridviewMain.Enabled = True
                                             Me.Cursor = Cursors.Default
                                             Exit Sub

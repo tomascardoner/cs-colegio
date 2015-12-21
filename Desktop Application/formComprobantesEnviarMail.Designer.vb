@@ -125,7 +125,7 @@ Partial Class formComprobantesEnviarMail
         '
         Me.comboboxComprobanteLote.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxComprobanteLote.FormattingEnabled = True
-        Me.comboboxComprobanteLote.Location = New System.Drawing.Point(177, 6)
+        Me.comboboxComprobanteLote.Location = New System.Drawing.Point(135, 6)
         Me.comboboxComprobanteLote.Name = "comboboxComprobanteLote"
         Me.comboboxComprobanteLote.Size = New System.Drawing.Size(242, 21)
         Me.comboboxComprobanteLote.TabIndex = 1
@@ -135,9 +135,9 @@ Partial Class formComprobantesEnviarMail
         Me.labelComprobanteLote.AutoSize = True
         Me.labelComprobanteLote.Location = New System.Drawing.Point(12, 9)
         Me.labelComprobanteLote.Name = "labelComprobanteLote"
-        Me.labelComprobanteLote.Size = New System.Drawing.Size(159, 13)
+        Me.labelComprobanteLote.Size = New System.Drawing.Size(117, 13)
         Me.labelComprobanteLote.TabIndex = 0
-        Me.labelComprobanteLote.Text = "Lote de Comprobantes a Enviar:"
+        Me.labelComprobanteLote.Text = "Lote de Comprobantes:"
         '
         'statusstripMain
         '
@@ -156,9 +156,9 @@ Partial Class formComprobantesEnviarMail
         '
         'buttonEnviar
         '
-        Me.buttonEnviar.Location = New System.Drawing.Point(594, 6)
+        Me.buttonEnviar.Location = New System.Drawing.Point(618, 6)
         Me.buttonEnviar.Name = "buttonEnviar"
-        Me.buttonEnviar.Size = New System.Drawing.Size(86, 21)
+        Me.buttonEnviar.Size = New System.Drawing.Size(62, 21)
         Me.buttonEnviar.TabIndex = 4
         Me.buttonEnviar.Text = "Enviar"
         Me.buttonEnviar.UseVisualStyleBackColor = True
@@ -190,16 +190,16 @@ Partial Class formComprobantesEnviarMail
         '
         'progressbarStatus
         '
-        Me.progressbarStatus.Location = New System.Drawing.Point(3, 21)
+        Me.progressbarStatus.Location = New System.Drawing.Point(7, 21)
         Me.progressbarStatus.Name = "progressbarStatus"
-        Me.progressbarStatus.Size = New System.Drawing.Size(660, 26)
+        Me.progressbarStatus.Size = New System.Drawing.Size(656, 26)
         Me.progressbarStatus.TabIndex = 0
         '
         'comboboxCantidad
         '
         Me.comboboxCantidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxCantidad.FormattingEnabled = True
-        Me.comboboxCantidad.Location = New System.Drawing.Point(490, 6)
+        Me.comboboxCantidad.Location = New System.Drawing.Point(509, 6)
         Me.comboboxCantidad.Name = "comboboxCantidad"
         Me.comboboxCantidad.Size = New System.Drawing.Size(90, 21)
         Me.comboboxCantidad.TabIndex = 3
@@ -207,11 +207,11 @@ Partial Class formComprobantesEnviarMail
         'labelCantidad
         '
         Me.labelCantidad.AutoSize = True
-        Me.labelCantidad.Location = New System.Drawing.Point(432, 10)
+        Me.labelCantidad.Location = New System.Drawing.Point(401, 9)
         Me.labelCantidad.Name = "labelCantidad"
-        Me.labelCantidad.Size = New System.Drawing.Size(52, 13)
+        Me.labelCantidad.Size = New System.Drawing.Size(102, 13)
         Me.labelCantidad.TabIndex = 2
-        Me.labelCantidad.Text = "Cantidad:"
+        Me.labelCantidad.Text = "Cantidad de e-mails:"
         '
         'formComprobantesEnviarMail
         '

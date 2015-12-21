@@ -21,19 +21,25 @@
     '//////////////////
     '    VARIOS
     '//////////////////
-    Friend Const GENERO_NOESPECIFICA As String = "-"
-    Friend Const GENERO_MASCULINO As String = "M"
-    Friend Const GENERO_FEMENINO As String = "F"
+    Friend Const ENTIDAD_GENERO_NOESPECIFICA As String = "-"
+    Friend Const ENTIDAD_GENERO_MASCULINO As String = "M"
+    Friend Const ENTIDAD_GENERO_FEMENINO As String = "F"
 
     Friend Const PROVINCIA_NOESPECIFICA As Byte = 255
 
-    Friend Const EMITIRFACTURAA_NOESPECIFICA As String = "-"
-    Friend Const EMITIRFACTURAA_PADRE As String = "P"
-    Friend Const EMITIRFACTURAA_MADRE As String = "M"
-    Friend Const EMITIRFACTURAA_AMBOSPADRES As String = "2"
-    Friend Const EMITIRFACTURAA_TERCERO As String = "T"
-    Friend Const EMITIRFACTURAA_TODOS As String = "3"
-    Friend Const EMITIRFACTURAA_ALUMNO As String = "A"
+    Friend Const ENTIDAD_EMITIRFACTURAA_NOESPECIFICA As String = "-"
+    Friend Const ENTIDAD_EMITIRFACTURAA_PADRE As String = "P"
+    Friend Const ENTIDAD_EMITIRFACTURAA_MADRE As String = "M"
+    Friend Const ENTIDAD_EMITIRFACTURAA_AMBOSPADRES As String = "2"
+    Friend Const ENTIDAD_EMITIRFACTURAA_TERCERO As String = "T"
+    Friend Const ENTIDAD_EMITIRFACTURAA_TODOS As String = "3"
+    Friend Const ENTIDAD_EMITIRFACTURAA_ALUMNO As String = "A"
+
+    Friend Const ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO As String = "N"
+    Friend Const ENTIDAD_COMPROBANTE_ENVIAREMAIL_CUALQUIERA As String = "C"
+    Friend Const ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL1 As String = "1"
+    Friend Const ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2 As String = "2"
+    Friend Const ENTIDAD_COMPROBANTE_ENVIAREMAIL_AMBAS As String = "A"
 
     Friend Const OPERACIONTIPO_COMPRA As String = "C"
     Friend Const OPERACIONTIPO_VENTA As String = "V"

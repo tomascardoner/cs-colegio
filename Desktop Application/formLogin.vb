@@ -48,7 +48,7 @@
         End If
 
         If textboxNombre.TextLength < 4 Then
-            MsgBox("El Nombre del Usuario debe contener al menos 4 carcateres.", vbInformation, My.Application.Info.Title)
+            MsgBox("El Nombre del Usuario debe contener al menos 4 caracteres.", vbInformation, My.Application.Info.Title)
             textboxNombre.Focus()
             Exit Sub
         End If

@@ -22,8 +22,8 @@
     Private Sub formComprobantesEnviarMail_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         buttonEnviar.Enabled = False
         pFillAndRefreshLists.ComprobanteLote(comboboxComprobanteLote, False, False)
-        comboboxCantidad.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, "500", "200", "100", "50", "20", "10", "5", "1"})
-        comboboxCantidad.SelectedIndex = 2
+        comboboxCantidad.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, "500", "200", "150", "100", "50", "20", "10", "5", "1"})
+        comboboxCantidad.SelectedIndex = 3
     End Sub
 
     Private Sub formComprobantesEnviarMail_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -32,7 +32,7 @@
 #End Region
 
 #Region "Load and Set Data"
-    Private Sub RefreshData() Handles comboboxComprobanteLote.SelectedIndexChanged, comboboxCantidad.SelectedIndexChanged
+    Private Sub RefreshData() Handles comboboxComprobanteLote.SelectedIndexChanged
         Dim ComprobanteLoteActual As ComprobanteLote
 
         Me.Cursor = Cursors.WaitCursor
@@ -50,25 +50,13 @@
                 '   - tienen una C.A.E. asignado
                 '   - el titular tiene asignada una dirección de e-mail
                 '   - el titular no especifica que no se le envíen los e-mails
-                Select Case comboboxCantidad.SelectedIndex
-                    Case 0  ' Todos
-                        listComprobantes = (From cc In dbContext.Comprobante
-                                            Join cl In dbContext.ComprobanteLote On cc.IDComprobanteLote Equals cl.IDComprobanteLote
-                                            Join ct In dbContext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                            Join e In dbContext.Entidad On cc.IDEntidad Equals e.IDEntidad
-                                            Where cc.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And cc.IDUsuarioAnulacion Is Nothing And cc.IDUsuarioEnvioEmail Is Nothing And ct.EmisionElectronica And (Not cc.CAE Is Nothing) And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And (Not e.ComprobanteNoEnviarEmail)
-                                            Order By ct.Nombre, cc.NumeroCompleto
-                                            Select New GridDataRow With {.IDComprobante = cc.IDComprobante, .IDComprobanteTipo = cc.IDComprobanteTipo, .IDComprobanteLote = cc.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = cc.NumeroCompleto, .IDEntidad = cc.IDEntidad, .ApellidoNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal}).ToList
-
-                    Case Is > 0 ' Cantidad de Comprobantes
-                        listComprobantes = (From cc In dbContext.Comprobante
-                                            Join cl In dbContext.ComprobanteLote On cc.IDComprobanteLote Equals cl.IDComprobanteLote
-                                            Join ct In dbContext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                            Join e In dbContext.Entidad On cc.IDEntidad Equals e.IDEntidad
-                                            Where cc.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And cc.IDUsuarioAnulacion Is Nothing And cc.IDUsuarioEnvioEmail Is Nothing And ct.EmisionElectronica And (Not cc.CAE Is Nothing) And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And (Not e.ComprobanteNoEnviarEmail)
-                                            Order By ct.Nombre, cc.NumeroCompleto
-                                            Select New GridDataRow With {.IDComprobante = cc.IDComprobante, .IDComprobanteTipo = cc.IDComprobanteTipo, .IDComprobanteLote = cc.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = cc.NumeroCompleto, .IDEntidad = cc.IDEntidad, .ApellidoNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal}).Take(CInt(comboboxCantidad.Text)).ToList
-                End Select
+                listComprobantes = (From cc In dbContext.Comprobante
+                                    Join cl In dbContext.ComprobanteLote On cc.IDComprobanteLote Equals cl.IDComprobanteLote
+                                    Join ct In dbContext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
+                                    Join e In dbContext.Entidad On cc.IDEntidad Equals e.IDEntidad
+                                    Where cc.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And cc.IDUsuarioAnulacion Is Nothing And cc.IDUsuarioEnvioEmail Is Nothing And ct.EmisionElectronica And (Not cc.CAE Is Nothing) And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And (Not e.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO)
+                                    Order By ct.Nombre, cc.NumeroCompleto
+                                    Select New GridDataRow With {.IDComprobante = cc.IDComprobante, .IDComprobanteTipo = cc.IDComprobanteTipo, .IDComprobanteLote = cc.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = cc.NumeroCompleto, .IDEntidad = cc.IDEntidad, .ApellidoNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal}).ToList
 
                 Select Case listComprobantes.Count
                     Case 0
@@ -78,7 +66,6 @@
                     Case Else
                         statuslabelMain.Text = String.Format("Se muestran {0} Comprobantes.", listComprobantes.Count)
                 End Select
-
             Else
                 listComprobantes = Nothing
             End If
@@ -120,6 +107,8 @@
         Dim ComprobanteActual As Comprobante
         Dim IDComprobanteTipo As Byte
         Dim ReporteActual As New Reporte
+        Dim Result As Integer
+        Dim MailCount As Integer = 0
 
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
@@ -152,21 +141,27 @@
                     Dim Cuerpo As String = String.Format(My.Settings.Comprobante_EnvioEmail_Body, vbCrLf) & String.Format(My.Settings.Email_Signature, vbCrLf)
                     Dim AdjuntoNombre As String = String.Format("{0}-{1}.pdf", ComprobanteActual.ComprobanteTipo.Sigla.TrimEnd, ComprobanteActual.NumeroCompleto)
 
-                    textboxStatus.AppendText(vbCrLf & String.Format("Enviando la {0} N° {1} a {2}...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero, ComprobanteActual.Entidad.ApellidoNombre))
+                    textboxStatus.AppendText(vbCrLf & String.Format("Enviando {0} N° {1} a {2}...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero, ComprobanteActual.Entidad.ApellidoNombre))
 
                     Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
                         Case Constantes.EMAIL_CLIENT_NETDLL
-                            If Not MiscFunctions.EnviarEmailPorNETClient(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre) Then
+                            Result = MiscFunctions.EnviarEmailPorNETClient(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
+                            If Result = -1 Then
                                 Exit For
                             End If
+                            MailCount += Result
                         Case Constantes.EMAIL_CLIENT_MSOUTLOOK
-                            If Not MiscFunctions.EnviarEmailPorMSOutlook(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre) Then
+                            Result = MiscFunctions.EnviarEmailPorMSOutlook(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
+                            If Result = -1 Then
                                 Exit For
                             End If
+                            MailCount += Result
                         Case Constantes.EMAIL_CLIENT_CRYSTALREPORTSMAPI
-                            If Not MiscFunctions.EnviarEmailPorCrystalReportsMAPI(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre) Then
+                            Result = MiscFunctions.EnviarEmailPorCrystalReportsMAPI(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
+                            If Result = -1 Then
                                 Exit For
                             End If
+                            MailCount += Result
                     End Select
 
                     dbContext.Comprobante.Attach(ComprobanteActual)
@@ -177,14 +172,17 @@
                     dbContext.SaveChanges()
 
                     textboxStatus.AppendText("OK")
+
+                    If comboboxCantidad.SelectedIndex > 0 AndAlso MailCount >= CInt(comboboxCantidad.Text) Then
+                        Exit For
+                    End If
                 Else
-                    textboxStatus.AppendText(vbCrLf & String.Format("El Titular de la {0} N° {1} ({2}) no especifica e-mail...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero, ComprobanteActual.Entidad.ApellidoNombre))
+                    textboxStatus.AppendText(vbCrLf & String.Format("El Titular de {0} N° {1} ({2}) no especifica e-mail...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero, ComprobanteActual.Entidad.ApellidoNombre))
                 End If
             End If
         Next
 
-        MsgBox("Se han enviado los e-Mails.", MsgBoxStyle.Information, My.Application.Info.Title)
-
+        MsgBox(String.Format("Se han enviado {0} e-mails.", MailCount), MsgBoxStyle.Information, My.Application.Info.Title)
         RefreshData()
         MostrarOcultarEstado(False)
         Me.Cursor = Cursors.Default

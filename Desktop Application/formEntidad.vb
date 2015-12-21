@@ -91,6 +91,7 @@
         textboxTelefono3.ReadOnly = (mEditMode = False)
         textboxEmail1.ReadOnly = (mEditMode = False)
         textboxEmail2.ReadOnly = (mEditMode = False)
+        comboboxComprobanteEnviarEmail.Enabled = mEditMode
         textboxDomicilioCalle1.ReadOnly = (mEditMode = False)
         textboxDomicilioNumero.ReadOnly = (mEditMode = False)
         textboxDomicilioPiso.ReadOnly = (mEditMode = False)
@@ -128,8 +129,9 @@
         pFillAndRefreshLists.DocumentoTipo(comboboxFacturaDocumentoTipo, True)
         pFillAndRefreshLists.Genero(comboboxGenero, True)
         pFillAndRefreshLists.CategoriaIVA(comboboxCategoriaIVA, True)
+        pFillAndRefreshLists.Entidad_ComprobanteEnviarEmail(comboboxComprobanteEnviarEmail)
         pFillAndRefreshLists.Provincia(comboboxDomicilioProvincia, True)
-        pFillAndRefreshLists.EmitirFacturaA(comboboxEmitirFacturaA, True)
+        pFillAndRefreshLists.Entidad_EmitirFacturaA(comboboxEmitirFacturaA, True)
         pFillAndRefreshLists.Descuento(comboboxDescuento, True)
     End Sub
 
@@ -186,7 +188,7 @@
             Else
                 textboxFacturaDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.FacturaDocumentoNumero)
             End If
-            CS_Control_ComboBox.SetSelectedValue(comboboxGenero, SelectedItemOptions.ValueOrFirst, .Genero, Constantes.GENERO_NOESPECIFICA)
+            CS_Control_ComboBox.SetSelectedValue(comboboxGenero, SelectedItemOptions.ValueOrFirst, .Genero, Constantes.ENTIDAD_GENERO_NOESPECIFICA)
             datetimepickerFechaNacimiento.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaNacimiento, datetimepickerFechaNacimiento)
             CS_Control_ComboBox.SetSelectedValue(comboboxCategoriaIVA, SelectedItemOptions.ValueOrFirst, .IDCategoriaIVA, 0)
 
@@ -196,6 +198,7 @@
             textboxTelefono3.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Telefono3)
             textboxEmail1.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Email1)
             textboxEmail2.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Email2)
+            CS_Control_ComboBox.SetSelectedValue(comboboxComprobanteEnviarEmail, SelectedItemOptions.ValueOrFirst, .ComprobanteEnviarEmail, Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_CUALQUIERA)
             textboxDomicilioCalle1.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCalle1)
             textboxDomicilioNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioNumero)
             textboxDomicilioPiso.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioPiso)
@@ -221,9 +224,8 @@
                 textboxEntidadMadre.Text = .EntidadMadre.ApellidoNombre
                 textboxEntidadMadre.Tag = .EntidadMadre.IDEntidad
             End If
-            CS_Control_ComboBox.SetSelectedValue(comboboxEmitirFacturaA, SelectedItemOptions.ValueOrFirst, .EmitirFacturaA, Constantes.EMITIRFACTURAA_NOESPECIFICA)
-            checkboxComprobanteNoEnviarEmail.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.ComprobanteNoEnviarEmail)
-            If .EntidadTercero Is Nothing OrElse (.EmitirFacturaA <> Constantes.EMITIRFACTURAA_TERCERO And .EmitirFacturaA <> Constantes.EMITIRFACTURAA_TODOS) Then
+            CS_Control_ComboBox.SetSelectedValue(comboboxEmitirFacturaA, SelectedItemOptions.ValueOrFirst, .EmitirFacturaA, Constantes.ENTIDAD_EMITIRFACTURAA_NOESPECIFICA)
+            If .EntidadTercero Is Nothing OrElse (.EmitirFacturaA <> Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO And .EmitirFacturaA <> Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) Then
                 textboxEntidadTercero.Text = ""
                 textboxEntidadTercero.Tag = Nothing
             Else
@@ -296,7 +298,7 @@
             Else
                 .FacturaDocumentoNumero = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxFacturaDocumentoNumero.Text)
             End If
-            .Genero = CS_ValueTranslation.FromControlComboBoxToObjectString(comboboxGenero.SelectedValue, Constantes.GENERO_NOESPECIFICA)
+            .Genero = CS_ValueTranslation.FromControlComboBoxToObjectString(comboboxGenero.SelectedValue, Constantes.ENTIDAD_GENERO_NOESPECIFICA)
             .FechaNacimiento = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFechaNacimiento.Value, datetimepickerFechaNacimiento.Checked)
             .IDCategoriaIVA = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxCategoriaIVA.SelectedValue, 0)
 
@@ -306,6 +308,7 @@
             .Telefono3 = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxTelefono3.Text)
             .Email1 = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxEmail1.Text)
             .Email2 = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxEmail2.Text)
+            .ComprobanteEnviarEmail = CS_ValueTranslation.FromControlComboBoxToObjectString(comboboxComprobanteEnviarEmail.SelectedValue)
             .DomicilioCalle1 = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioCalle1.Text)
             .DomicilioNumero = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioNumero.Text)
             .DomicilioPiso = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioPiso.Text)
@@ -319,9 +322,8 @@
             ' Datos de la pestaña Padres y Facturación
             .IDEntidadPadre = CS_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadPadre.Tag)
             .IDEntidadMadre = CS_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadMadre.Tag)
-            .EmitirFacturaA = CS_ValueTranslation.FromControlComboBoxToObjectString(comboboxEmitirFacturaA.SelectedValue, Constantes.EMITIRFACTURAA_NOESPECIFICA)
-            .ComprobanteNoEnviarEmail = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxComprobanteNoEnviarEmail.CheckState)
-            If .EmitirFacturaA = Constantes.EMITIRFACTURAA_TERCERO Or .EmitirFacturaA = Constantes.EMITIRFACTURAA_TODOS Then
+            .EmitirFacturaA = CS_ValueTranslation.FromControlComboBoxToObjectString(comboboxEmitirFacturaA.SelectedValue, Constantes.ENTIDAD_EMITIRFACTURAA_NOESPECIFICA)
+            If .EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or .EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                 .IDEntidadTercero = CS_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadTercero.Tag)
             Else
                 .IDEntidadTercero = Nothing
@@ -470,8 +472,8 @@
 
     Private Sub comboboxEmitirFacturaA_SelectedIndexChanged() Handles comboboxEmitirFacturaA.SelectedIndexChanged
         If comboboxEmitirFacturaA.SelectedIndex > -1 Then
-            labelEntidadTercero.Visible = (comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.EMITIRFACTURAA_TERCERO Or comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.EMITIRFACTURAA_TODOS)
-            panelEntidadTercero.Visible = (comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.EMITIRFACTURAA_TERCERO Or comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.EMITIRFACTURAA_TODOS)
+            labelEntidadTercero.Visible = (comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS)
+            panelEntidadTercero.Visible = (comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS)
         End If
     End Sub
 
@@ -612,7 +614,7 @@
 
         ' Emitir Factura A:
         Select Case CStr(comboboxEmitirFacturaA.SelectedValue)
-            Case Constantes.EMITIRFACTURAA_NOESPECIFICA
+            Case Constantes.ENTIDAD_EMITIRFACTURAA_NOESPECIFICA
                 If checkboxTipoAlumno.Checked AndAlso ((Not textboxEntidadPadre.Tag Is Nothing) And (Not textboxEntidadMadre.Tag Is Nothing)) Then
                     If MsgBox("Ha especificado el Padre y/o la Madre del Alumno, pero no especificó a quien se le facturará." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                         tabcontrolMain.SelectedTab = tabpageExtra
@@ -620,28 +622,28 @@
                         Exit Sub
                     End If
                 End If
-            Case Constantes.EMITIRFACTURAA_PADRE
+            Case Constantes.ENTIDAD_EMITIRFACTURAA_PADRE
                 If textboxEntidadPadre.Tag Is Nothing Then
                     tabcontrolMain.SelectedTab = tabpageExtra
                     MsgBox("Si las facturas se emitirán a nombre del Padre / Tutor, debe especificar el mismo.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadPadre.Focus()
                     Exit Sub
                 End If
-            Case Constantes.EMITIRFACTURAA_MADRE
+            Case Constantes.ENTIDAD_EMITIRFACTURAA_MADRE
                 If textboxEntidadMadre.Tag Is Nothing Then
                     tabcontrolMain.SelectedTab = tabpageExtra
                     MsgBox("Si las facturas se emitirán a nombre de la Madre / Tutora, debe especificar la misma.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadMadre.Focus()
                     Exit Sub
                 End If
-            Case Constantes.EMITIRFACTURAA_TERCERO
+            Case Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO
                 If textboxEntidadTercero.Tag Is Nothing Then
                     tabcontrolMain.SelectedTab = tabpageExtra
                     MsgBox("Si las facturas se emitirán a nombre de un Tercero, debe especificar el mismo.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadTercero.Focus()
                     Exit Sub
                 End If
-            Case Constantes.EMITIRFACTURAA_AMBOSPADRES
+            Case Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES
                 If textboxEntidadPadre.Tag Is Nothing And textboxEntidadMadre.Tag Is Nothing Then
                     tabcontrolMain.SelectedTab = tabpageExtra
                     MsgBox("Si las facturas se emitirán a nombre de ambos Padres, debe especificarlos.", MsgBoxStyle.Information, My.Application.Info.Title)
@@ -658,7 +660,7 @@
                     textboxEntidadMadre.Focus()
                     Exit Sub
                 End If
-            Case Constantes.EMITIRFACTURAA_TODOS
+            Case Constantes.ENTIDAD_EMITIRFACTURAA_TODOS
                 If textboxEntidadPadre.Tag Is Nothing And textboxEntidadMadre.Tag Is Nothing And textboxEntidadTercero.Tag Is Nothing Then
                     tabcontrolMain.SelectedTab = tabpageExtra
                     MsgBox("Si las facturas se emitirán a nombre de Todos (Padres y Tercero), debe especificarlos.", MsgBoxStyle.Information, My.Application.Info.Title)
@@ -775,6 +777,10 @@
 
             Me.Cursor = Cursors.Default
         End If
+    End Sub
+
+    Private Sub comboboxEmitirFacturaA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles comboboxEmitirFacturaA.SelectedIndexChanged
+
     End Sub
 #End Region
 

@@ -32,6 +32,7 @@ Partial Public Class Entidad
     Public Property Telefono3 As String
     Public Property Email1 As String
     Public Property Email2 As String
+    Public Property ComprobanteEnviarEmail As String
     Public Property DomicilioCalle1 As String
     Public Property DomicilioNumero As String
     Public Property DomicilioPiso As String
@@ -46,7 +47,6 @@ Partial Public Class Entidad
     Public Property EmitirFacturaA As String
     Public Property IDEntidadTercero As Nullable(Of Integer)
     Public Property IDDescuento As Nullable(Of Byte)
-    Public Property ComprobanteNoEnviarEmail As Boolean
     Public Property FacturaIndividual As Boolean
     Public Property ExcluyeCalculoInteres As Boolean
     Public Property ExcluyeFacturaDesde As Nullable(Of Date)

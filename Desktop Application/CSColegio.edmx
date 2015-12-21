@@ -379,6 +379,7 @@
           <Property Name="Telefono3" Type="varchar" MaxLength="50" />
           <Property Name="Email1" Type="varchar" MaxLength="50" />
           <Property Name="Email2" Type="varchar" MaxLength="50" />
+          <Property Name="ComprobanteEnviarEmail" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="DomicilioCalle1" Type="varchar" MaxLength="100" />
           <Property Name="DomicilioNumero" Type="varchar" MaxLength="10" />
           <Property Name="DomicilioPiso" Type="varchar" MaxLength="10" />
@@ -393,7 +394,6 @@
           <Property Name="EmitirFacturaA" Type="char" MaxLength="1" />
           <Property Name="IDEntidadTercero" Type="int" />
           <Property Name="IDDescuento" Type="tinyint" />
-          <Property Name="ComprobanteNoEnviarEmail" Type="bit" Nullable="false" />
           <Property Name="FacturaIndividual" Type="bit" Nullable="false" />
           <Property Name="ExcluyeCalculoInteres" Type="bit" Nullable="false" />
           <Property Name="ExcluyeFacturaDesde" Type="date" />
@@ -1870,6 +1870,7 @@
           <Property Name="Telefono3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Email1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Email2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ComprobanteEnviarEmail" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="DomicilioCalle1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DomicilioNumero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="DomicilioPiso" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
@@ -1884,7 +1885,6 @@
           <Property Name="EmitirFacturaA" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="IDEntidadTercero" Type="Int32" />
           <Property Name="IDDescuento" Type="Byte" />
-          <Property Name="ComprobanteNoEnviarEmail" Type="Boolean" Nullable="false" />
           <Property Name="FacturaIndividual" Type="Boolean" Nullable="false" />
           <Property Name="ExcluyeCalculoInteres" Type="Boolean" Nullable="false" />
           <Property Name="ExcluyeFacturaDesde" Type="DateTime" Precision="0" />
@@ -3593,7 +3593,7 @@
           <EntitySetMapping Name="Entidad">
             <EntityTypeMapping TypeName="CSColegioModel.Entidad">
               <MappingFragment StoreEntitySet="Entidad">
-                <ScalarProperty Name="ComprobanteNoEnviarEmail" ColumnName="ComprobanteNoEnviarEmail" />
+                <ScalarProperty Name="ComprobanteEnviarEmail" ColumnName="ComprobanteEnviarEmail" />
                 <ScalarProperty Name="FacturaLeyenda" ColumnName="FacturaLeyenda" />
                 <ScalarProperty Name="FacturaIndividual" ColumnName="FacturaIndividual" />
                 <ScalarProperty Name="ExcluyeCalculoInteres" ColumnName="ExcluyeCalculoInteres" />

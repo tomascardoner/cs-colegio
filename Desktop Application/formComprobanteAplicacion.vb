@@ -153,6 +153,12 @@
             Exit Sub
         End If
 
+        If CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteAplicado.Text).Value > CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).ImporteSinAplicar Then
+            MsgBox("El Importe a aplicar no puede ser mayor que el Importe pendiente.", MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxImporteAplicado.Focus()
+            Exit Sub
+        End If
+
         ' Si es un nuevo item, busco el próximo Indice y agrego el objeto nuevo a la colección del parent
         If mComprobanteAplicacionActual.IDComprobanteAplicado = 0 Then
             mComprobanteActual.ComprobanteAplicacion_Aplicados.Add(mComprobanteAplicacionActual)

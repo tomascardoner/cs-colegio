@@ -79,6 +79,7 @@
         ' Muestro el form MDI principal
         formMDIMain.Show()
         ' TODO - Arreglar problema de que el Splash Screen queda tapado por el form MDI
+        formSplashScreen.Focus()
 
         formMDIMain.Cursor = Cursors.AppStarting
         formMDIMain.Enabled = False
