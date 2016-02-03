@@ -336,6 +336,12 @@
     <Compile Include="formComprobantesEnviarMail.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formComprobantesTransmitirPagomiscuentas.Designer.vb">
+      <DependentUpon>formComprobantesTransmitirPagomiscuentas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formComprobantesTransmitirPagomiscuentas.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formEntidad.Designer.vb">
       <DependentUpon>formEntidad.vb</DependentUpon>
     </Compile>
@@ -530,6 +536,9 @@
     <EmbeddedResource Include="formComprobantesEnviarMail.resx">
       <DependentUpon>formComprobantesEnviarMail.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formComprobantesTransmitirPagomiscuentas.resx">
+      <DependentUpon>formComprobantesTransmitirPagomiscuentas.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formEntidad.resx">
       <DependentUpon>formEntidad.vb</DependentUpon>
     </EmbeddedResource>
@@ -619,6 +628,8 @@
     <None Include="Resources\document-print-preview %287%29.png" />
     <None Include="Resources\Mail-icon %287%29.png" />
     <None Include="Resources\Mail-icon %286%29.png" />
+    <None Include="Resources\AFIP.jpg" />
+    <None Include="Resources\PagoMisCuentas.jpg" />
     <Content Include="school_48_32_16.ico" />
     <None Include="Resources\Move Previous %28Arrow%29 Red24.png" />
     <None Include="Resources\Move Next %28Arrow%29 Green24.png" />

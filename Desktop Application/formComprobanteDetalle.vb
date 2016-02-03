@@ -145,6 +145,142 @@
             .PrecioTotal = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxPrecioTotal.Text).Value
         End With
     End Sub
+
+    Private Sub CargarAlumnos(ByVal IDEntidadPadre As Integer, ByVal IDEntidadActual As Integer?)
+        Dim listAlumnos As List(Of Entidad)
+
+        mLoading = True
+
+        comboboxAlumno.ValueMember = "IDEntidad"
+        comboboxAlumno.DisplayMember = "ApellidoNombre"
+
+        Using dbContext As New CSColegioContext(True)
+            If IDEntidadActual Is Nothing Then
+                listAlumnos = (From e In dbContext.Entidad.Include("Descuento")
+                               Where e.EsActivo AndAlso e.TipoAlumno AndAlso (((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) And e.IDEntidadPadre = IDEntidadPadre) Or ((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) And e.IDEntidadMadre = IDEntidadPadre) Or ((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) And e.IDEntidadTercero = IDEntidadPadre))
+                               Order By e.ApellidoNombre).ToList
+            Else
+                listAlumnos = (From e In dbContext.Entidad.Include("Descuento")
+                               Where e.EsActivo AndAlso e.TipoAlumno AndAlso (((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) And e.IDEntidadPadre = IDEntidadPadre) Or ((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) And e.IDEntidadMadre = IDEntidadPadre) Or ((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) And e.IDEntidadTercero = IDEntidadPadre) Or e.IDEntidad = IDEntidadActual)
+                               Order By e.ApellidoNombre).ToList
+            End If
+        End Using
+
+        comboboxAlumno.DataSource = listAlumnos
+        comboboxAlumno.SelectedValue = 0
+
+        mLoading = False
+    End Sub
+
+    Private Sub CambiarArticulo()
+        If comboboxArticulo.SelectedIndex > -1 Then
+            mArticuloActual = CType(comboboxArticulo.SelectedItem, Articulo)
+
+            textboxCantidad.ReadOnly = (mEditMode = False Or mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
+            textboxUnidad.ReadOnly = (mEditMode = False Or mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
+            If mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual Then
+                textboxCantidad.Text = "1"
+                textboxUnidad.Text = ""
+            End If
+
+            labelDescripcion.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
+            textboxDescripcion.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
+
+            labelAlumno.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
+            comboboxAlumno.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
+            buttonAlumno.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
+
+            labelAnioLectivoCurso.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
+            comboboxAnioLectivoCurso.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
+
+            labelCuotaMes.Visible = (mArticuloActual.IDArticulo = mIDArticuloMensual)
+            comboboxCuotaMes.Visible = (mArticuloActual.IDArticulo = mIDArticuloMensual)
+        Else
+            textboxCantidad.ReadOnly = True
+            textboxUnidad.ReadOnly = True
+
+            labelDescripcion.Visible = False
+            textboxDescripcion.Visible = False
+
+            labelAlumno.Visible = False
+            comboboxAlumno.Visible = False
+            buttonAlumno.Visible = False
+
+            labelAnioLectivoCurso.Visible = False
+            comboboxAnioLectivoCurso.Visible = False
+            comboboxAnioLectivoCurso.DataSource = Nothing
+
+            labelCuotaMes.Visible = False
+            comboboxCuotaMes.Visible = False
+        End If
+    End Sub
+
+    Private Sub EstablecerAnioLectivoCurso()
+        If mEntidad Is Nothing Then
+            comboboxAnioLectivoCurso.DataSource = Nothing
+        Else
+            If mArticuloActual.IDArticulo = mIDArticuloMatricula Then
+                pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year + 1, mEntidad.IDEntidad)
+            ElseIf mArticuloActual.IDArticulo = mIDArticuloMensual Then
+                If Permisos.VerificarPermiso(Permisos.COMPROBANTE_DETALLE_PERMITE_CUOTAANIOANTERIORYSIGUIENTE, False) Then
+                    pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year - 1, Today.Year + 1, mEntidad.IDEntidad)
+                ElseIf Permisos.VerificarPermiso(Permisos.COMPROBANTE_DETALLE_PERMITE_CUOTAANIOSIGUIENTE, False) Then
+                    pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year + 1, mEntidad.IDEntidad)
+                Else
+                    pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year, mEntidad.IDEntidad)
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub EstablecerDescripcion()
+        If (Not mArticuloActual Is Nothing) AndAlso (mArticuloActual.IDArticulo = mIDArticuloMatricula Or (mArticuloActual.IDArticulo = mIDArticuloMensual And comboboxCuotaMes.SelectedIndex > -1)) And (Not mEntidad Is Nothing) And (Not comboboxAnioLectivoCurso.SelectedItem Is Nothing) Then
+            textboxDescripcion.Text = String.Format(mArticuloActual.Descripcion, vbCrLf, mArticuloActual.Nombre, mEntidad.IDEntidad, mEntidad.Apellido, mEntidad.Nombre, mEntidad.ApellidoNombre, CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).AnioLectivo, comboboxCuotaMes.Text)
+        Else
+            textboxDescripcion.Text = ""
+        End If
+    End Sub
+
+    Private Sub EstablecerPrecioUnitario()
+        Dim AnioLectivoCursoActual As AnioLectivoCurso
+        Dim AnioLectivoCursoImporteActual As AnioLectivoCursoImporte
+        Dim PrecioUnitario As Decimal
+
+        If (Not mArticuloActual Is Nothing) AndAlso (Not comboboxAlumno.SelectedIndex = -1) AndAlso (Not comboboxAnioLectivoCurso.SelectedItem Is Nothing) Then
+            Select Case mArticuloActual.IDArticulo
+                Case mIDArticuloMatricula
+                    ' MATRÍCULA
+                    Using dbContext As New CSColegioContext(True)
+                        AnioLectivoCursoActual = dbContext.AnioLectivoCurso.Find(CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).IDAnioLectivoCurso)
+                        AnioLectivoCursoImporteActual = AnioLectivoCursoActual.AnioLectivoCursoImporte.Where(Function(alci) alci.MesInicial <= Month(DateAndTime.Today)).OrderByDescending(Function(alci) alci.MesInicial).FirstOrDefault
+                    End Using
+                    If Not AnioLectivoCursoImporteActual Is Nothing Then
+                        PrecioUnitario = AnioLectivoCursoImporteActual.ImporteMatricula
+                    End If
+                Case mIDArticuloMensual
+                    ' CUOTA MENSUAL
+                    If comboboxCuotaMes.SelectedIndex > -1 Then
+                        Using dbContext As New CSColegioContext(True)
+                            AnioLectivoCursoActual = dbContext.AnioLectivoCurso.Find(CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).IDAnioLectivoCurso)
+                            AnioLectivoCursoImporteActual = AnioLectivoCursoActual.AnioLectivoCursoImporte.Where(Function(alci) alci.MesInicial <= CByte(comboboxCuotaMes.SelectedIndex + 1)).OrderByDescending(Function(alci) alci.MesInicial).FirstOrDefault
+                        End Using
+                        If Not AnioLectivoCursoImporteActual Is Nothing Then
+                            PrecioUnitario = AnioLectivoCursoImporteActual.ImporteCuota
+                        End If
+                    End If
+            End Select
+            textboxPrecioUnitario.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(PrecioUnitario)
+        End If
+    End Sub
+
+    Private Sub CalcularPrecioFinal()
+        If CS_ValueTranslation.ValidateCurrency(textboxPrecioUnitarioFinal.Text) Then
+            If CS_ValueTranslation.ValidateDecimal(textboxCantidad.Text) Then
+                textboxPrecioTotal.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxCantidad.Text) * CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxPrecioUnitarioFinal.Text))
+            End If
+        End If
+    End Sub
+
 #End Region
 
 #Region "Controls behavior"
@@ -349,142 +485,6 @@
         End If
 
         Me.Close()
-    End Sub
-
-#End Region
-
-#Region "Extra stuff"
-    Private Sub CargarAlumnos(ByVal IDEntidadPadre As Integer, ByVal IDEntidadActual As Integer?)
-        Dim listAlumnos As List(Of Entidad)
-
-        mLoading = True
-
-        comboboxAlumno.ValueMember = "IDEntidad"
-        comboboxAlumno.DisplayMember = "ApellidoNombre"
-
-        Using dbContext As New CSColegioContext(True)
-            If IDEntidadActual Is Nothing Then
-                listAlumnos = (From e In dbContext.Entidad.Include("Descuento")
-                               Where e.EsActivo AndAlso e.TipoAlumno AndAlso (e.IDEntidadPadre = IDEntidadPadre Or e.IDEntidadMadre = IDEntidadPadre Or e.IDEntidadTercero = IDEntidadPadre)
-                               Order By e.ApellidoNombre).ToList
-            Else
-                listAlumnos = (From e In dbContext.Entidad.Include("Descuento")
-                               Where e.EsActivo AndAlso e.TipoAlumno AndAlso ((e.IDEntidadPadre = IDEntidadPadre Or e.IDEntidadMadre = IDEntidadPadre Or e.IDEntidadTercero = IDEntidadPadre) Or e.IDEntidad = IDEntidadActual)
-                               Order By e.ApellidoNombre).ToList
-            End If
-        End Using
-
-        comboboxAlumno.DataSource = listAlumnos
-        comboboxAlumno.SelectedValue = 0
-
-        mLoading = False
-    End Sub
-
-    Private Sub CambiarArticulo()
-        If comboboxArticulo.SelectedIndex > -1 Then
-            mArticuloActual = CType(comboboxArticulo.SelectedItem, Articulo)
-
-            textboxCantidad.ReadOnly = (mEditMode = False Or mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
-            textboxUnidad.ReadOnly = (mEditMode = False Or mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
-            If mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual Then
-                textboxCantidad.Text = "1"
-                textboxUnidad.Text = ""
-            End If
-
-            labelDescripcion.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
-            textboxDescripcion.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
-
-            labelAlumno.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
-            comboboxAlumno.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
-            buttonAlumno.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
-
-            labelAnioLectivoCurso.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
-            comboboxAnioLectivoCurso.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
-
-            labelCuotaMes.Visible = (mArticuloActual.IDArticulo = mIDArticuloMensual)
-            comboboxCuotaMes.Visible = (mArticuloActual.IDArticulo = mIDArticuloMensual)
-        Else
-            textboxCantidad.ReadOnly = True
-            textboxUnidad.ReadOnly = True
-
-            labelDescripcion.Visible = False
-            textboxDescripcion.Visible = False
-
-            labelAlumno.Visible = False
-            comboboxAlumno.Visible = False
-            buttonAlumno.Visible = False
-
-            labelAnioLectivoCurso.Visible = False
-            comboboxAnioLectivoCurso.Visible = False
-            comboboxAnioLectivoCurso.DataSource = Nothing
-
-            labelCuotaMes.Visible = False
-            comboboxCuotaMes.Visible = False
-        End If
-    End Sub
-
-    Private Sub EstablecerAnioLectivoCurso()
-        If mEntidad Is Nothing Then
-            comboboxAnioLectivoCurso.DataSource = Nothing
-        Else
-            If mArticuloActual.IDArticulo = mIDArticuloMatricula Then
-                pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year + 1, mEntidad.IDEntidad)
-            ElseIf mArticuloActual.IDArticulo = mIDArticuloMensual Then
-                If Permisos.VerificarPermiso(Permisos.COMPROBANTE_DETALLE_PERMITE_CUOTAANIOSIGUIENTE, False) Then
-                    pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year + 1, mEntidad.IDEntidad)
-                Else
-                    pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year, mEntidad.IDEntidad)
-                End If
-            End If
-        End If
-    End Sub
-
-    Private Sub EstablecerDescripcion()
-        If (Not mArticuloActual Is Nothing) AndAlso (mArticuloActual.IDArticulo = mIDArticuloMatricula Or (mArticuloActual.IDArticulo = mIDArticuloMensual And comboboxCuotaMes.SelectedIndex > -1)) And (Not mEntidad Is Nothing) And (Not comboboxAnioLectivoCurso.SelectedItem Is Nothing) Then
-            textboxDescripcion.Text = String.Format(mArticuloActual.Descripcion, vbCrLf, mArticuloActual.Nombre, mEntidad.IDEntidad, mEntidad.Apellido, mEntidad.Nombre, mEntidad.ApellidoNombre, CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).AnioLectivo, comboboxCuotaMes.Text)
-        Else
-            textboxDescripcion.Text = ""
-        End If
-    End Sub
-
-    Private Sub EstablecerPrecioUnitario()
-        Dim AnioLectivoCursoActual As AnioLectivoCurso
-        Dim AnioLectivoCursoImporteActual As AnioLectivoCursoImporte
-        Dim PrecioUnitario As Decimal
-
-        If (Not mArticuloActual Is Nothing) AndAlso (Not comboboxAlumno.SelectedIndex = -1) AndAlso (Not comboboxAnioLectivoCurso.SelectedItem Is Nothing) Then
-            Select Case mArticuloActual.IDArticulo
-                Case mIDArticuloMatricula
-                    ' MATRÍCULA
-                    Using dbContext As New CSColegioContext(True)
-                        AnioLectivoCursoActual = dbContext.AnioLectivoCurso.Find(CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).IDAnioLectivoCurso)
-                        AnioLectivoCursoImporteActual = AnioLectivoCursoActual.AnioLectivoCursoImporte.Where(Function(alci) alci.MesInicial <= Month(DateAndTime.Today)).OrderByDescending(Function(alci) alci.MesInicial).FirstOrDefault
-                    End Using
-                    If Not AnioLectivoCursoImporteActual Is Nothing Then
-                        PrecioUnitario = AnioLectivoCursoImporteActual.ImporteMatricula
-                    End If
-                Case mIDArticuloMensual
-                    ' CUOTA MENSUAL
-                    If comboboxCuotaMes.SelectedIndex > -1 Then
-                        Using dbContext As New CSColegioContext(True)
-                            AnioLectivoCursoActual = dbContext.AnioLectivoCurso.Find(CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).IDAnioLectivoCurso)
-                            AnioLectivoCursoImporteActual = AnioLectivoCursoActual.AnioLectivoCursoImporte.Where(Function(alci) alci.MesInicial <= CByte(comboboxCuotaMes.SelectedIndex + 1)).OrderByDescending(Function(alci) alci.MesInicial).FirstOrDefault
-                        End Using
-                        If Not AnioLectivoCursoImporteActual Is Nothing Then
-                            PrecioUnitario = AnioLectivoCursoImporteActual.ImporteCuota
-                        End If
-                    End If
-            End Select
-            textboxPrecioUnitario.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(PrecioUnitario)
-        End If
-    End Sub
-
-    Private Sub CalcularPrecioFinal()
-        If CS_ValueTranslation.ValidateCurrency(textboxPrecioUnitarioFinal.Text) Then
-            If CS_ValueTranslation.ValidateDecimal(textboxCantidad.Text) Then
-                textboxPrecioTotal.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxCantidad.Text) * CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxPrecioUnitarioFinal.Text))
-            End If
-        End If
     End Sub
 
 #End Region

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class formComprobantesTransmitirAFIP
+Partial Class formComprobantesTransmitirPagomiscuentas
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,8 +22,9 @@ Partial Class formComprobantesTransmitirAFIP
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formComprobantesTransmitirPagomiscuentas))
         Me.labelCantidad = New System.Windows.Forms.Label()
         Me.comboboxCantidad = New System.Windows.Forms.ComboBox()
         Me.datagridviewComprobantes = New System.Windows.Forms.DataGridView()
@@ -47,7 +48,7 @@ Partial Class formComprobantesTransmitirAFIP
         'labelCantidad
         '
         Me.labelCantidad.AutoSize = True
-        Me.labelCantidad.Location = New System.Drawing.Point(12, 30)
+        Me.labelCantidad.Location = New System.Drawing.Point(12, 21)
         Me.labelCantidad.Name = "labelCantidad"
         Me.labelCantidad.Size = New System.Drawing.Size(180, 13)
         Me.labelCantidad.TabIndex = 0
@@ -57,7 +58,7 @@ Partial Class formComprobantesTransmitirAFIP
         '
         Me.comboboxCantidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxCantidad.FormattingEnabled = True
-        Me.comboboxCantidad.Location = New System.Drawing.Point(210, 27)
+        Me.comboboxCantidad.Location = New System.Drawing.Point(210, 18)
         Me.comboboxCantidad.Name = "comboboxCantidad"
         Me.comboboxCantidad.Size = New System.Drawing.Size(75, 21)
         Me.comboboxCantidad.TabIndex = 1
@@ -67,22 +68,22 @@ Partial Class formComprobantesTransmitirAFIP
         Me.datagridviewComprobantes.AllowUserToAddRows = False
         Me.datagridviewComprobantes.AllowUserToDeleteRows = False
         Me.datagridviewComprobantes.AllowUserToResizeRows = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewComprobantes.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewComprobantes.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.datagridviewComprobantes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewComprobantes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewComprobantes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnNumeroCompleto, Me.columnApellidoNombre, Me.columnImporteTotal})
-        Me.datagridviewComprobantes.Location = New System.Drawing.Point(12, 74)
+        Me.datagridviewComprobantes.Location = New System.Drawing.Point(12, 63)
         Me.datagridviewComprobantes.MultiSelect = False
         Me.datagridviewComprobantes.Name = "datagridviewComprobantes"
         Me.datagridviewComprobantes.ReadOnly = True
         Me.datagridviewComprobantes.RowHeadersVisible = False
         Me.datagridviewComprobantes.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewComprobantes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewComprobantes.Size = New System.Drawing.Size(668, 408)
+        Me.datagridviewComprobantes.Size = New System.Drawing.Size(668, 419)
         Me.datagridviewComprobantes.TabIndex = 3
         '
         'columnComprobanteTipoNombre
@@ -119,9 +120,9 @@ Partial Class formComprobantesTransmitirAFIP
         '
         Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnImporteTotal.DataPropertyName = "ImporteTotal"
-        DataGridViewCellStyle4.Format = "C2"
-        DataGridViewCellStyle4.NullValue = "0"
-        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.Format = "C2"
+        DataGridViewCellStyle2.NullValue = "0"
+        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle2
         Me.columnImporteTotal.HeaderText = "Importe"
         Me.columnImporteTotal.Name = "columnImporteTotal"
         Me.columnImporteTotal.ReadOnly = True
@@ -130,7 +131,7 @@ Partial Class formComprobantesTransmitirAFIP
         '
         'buttonTransmitir
         '
-        Me.buttonTransmitir.Location = New System.Drawing.Point(291, 27)
+        Me.buttonTransmitir.Location = New System.Drawing.Point(291, 18)
         Me.buttonTransmitir.Name = "buttonTransmitir"
         Me.buttonTransmitir.Size = New System.Drawing.Size(86, 21)
         Me.buttonTransmitir.TabIndex = 2
@@ -186,17 +187,17 @@ Partial Class formComprobantesTransmitirAFIP
         '
         'pictureboxLogo
         '
-        Me.pictureboxLogo.BackColor = System.Drawing.Color.Black
+        Me.pictureboxLogo.BackColor = System.Drawing.Color.White
         Me.pictureboxLogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.pictureboxLogo.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_LOGO_AFIP
+        Me.pictureboxLogo.Image = CType(resources.GetObject("pictureboxLogo.Image"), System.Drawing.Image)
         Me.pictureboxLogo.Location = New System.Drawing.Point(395, 6)
         Me.pictureboxLogo.Name = "pictureboxLogo"
-        Me.pictureboxLogo.Size = New System.Drawing.Size(190, 62)
-        Me.pictureboxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        Me.pictureboxLogo.TabIndex = 8
+        Me.pictureboxLogo.Size = New System.Drawing.Size(285, 51)
+        Me.pictureboxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pictureboxLogo.TabIndex = 9
         Me.pictureboxLogo.TabStop = False
         '
-        'formComprobantesTransmitirAFIP
+        'formComprobantesTransmitirPagomiscuentas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -210,9 +211,9 @@ Partial Class formComprobantesTransmitirAFIP
         Me.Controls.Add(Me.labelCantidad)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
-        Me.Name = "formComprobantesTransmitirAFIP"
+        Me.Name = "formComprobantesTransmitirPagomiscuentas"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
-        Me.Text = "Transmitir Comprobantes a AFIP"
+        Me.Text = "Transmitir Comprobantes a PagoMisCuentas"
         CType(Me.datagridviewComprobantes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.statusstripMain.ResumeLayout(False)
         Me.statusstripMain.PerformLayout()

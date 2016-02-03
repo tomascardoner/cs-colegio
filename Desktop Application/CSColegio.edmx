@@ -182,10 +182,12 @@
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
           <Property Name="IDUsuarioAnulacion" Type="smallint" />
           <Property Name="FechaHoraAnulacion" Type="smalldatetime" />
-          <Property Name="IDUsuarioTransmision" Type="smallint" />
-          <Property Name="FechaHoraTransmision" Type="smalldatetime" />
+          <Property Name="IDUsuarioTransmisionAFIP" Type="smallint" />
+          <Property Name="FechaHoraTransmisionAFIP" Type="smalldatetime" />
           <Property Name="IDUsuarioEnvioEmail" Type="smallint" />
           <Property Name="FechaHoraEnvioEmail" Type="smalldatetime" />
+          <Property Name="IDUsuarioTransmisionPagomiscuentas" Type="smalldatetime" />
+          <Property Name="FechaHoraTransmisionPagomiscuentas" Type="smallint" />
         </EntityType>
         <EntityType Name="ComprobanteAplicacion">
           <Key>
@@ -379,7 +381,6 @@
           <Property Name="Telefono3" Type="varchar" MaxLength="50" />
           <Property Name="Email1" Type="varchar" MaxLength="50" />
           <Property Name="Email2" Type="varchar" MaxLength="50" />
-          <Property Name="ComprobanteEnviarEmail" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="DomicilioCalle1" Type="varchar" MaxLength="100" />
           <Property Name="DomicilioNumero" Type="varchar" MaxLength="10" />
           <Property Name="DomicilioPiso" Type="varchar" MaxLength="10" />
@@ -394,6 +395,7 @@
           <Property Name="EmitirFacturaA" Type="char" MaxLength="1" />
           <Property Name="IDEntidadTercero" Type="int" />
           <Property Name="IDDescuento" Type="tinyint" />
+          <Property Name="ComprobanteEnviarEmail" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="FacturaIndividual" Type="bit" Nullable="false" />
           <Property Name="ExcluyeCalculoInteres" Type="bit" Nullable="false" />
           <Property Name="ExcluyeFacturaDesde" Type="date" />
@@ -3043,8 +3045,8 @@
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IDUsuarioAnulacion" Type="Int16" />
           <Property Name="FechaHoraAnulacion" Type="DateTime" Precision="0" />
-          <Property Name="IDUsuarioTransmision" Type="Int16" />
-          <Property Name="FechaHoraTransmision" Type="DateTime" Precision="0" />
+          <Property Name="IDUsuarioTransmisionAFIP" Type="Int16" />
+          <Property Name="FechaHoraTransmisionAFIP" Type="DateTime" Precision="0" />
           <Property Name="IDUsuarioEnvioEmail" Type="Int16" />
           <Property Name="FechaHoraEnvioEmail" Type="DateTime" Precision="0" />
           <NavigationProperty Name="CategoriaIVA" Relationship="CSColegioModel.FK__CategoriaIVA__Comprobante" FromRole="Comprobante" ToRole="CategoriaIVA" />
@@ -3061,6 +3063,8 @@
           <NavigationProperty Name="ComprobanteAplicacion_Aplicados" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicante" FromRole="Comprobante" ToRole="ComprobanteAplicacion" />
           <NavigationProperty Name="UsuarioEnvioEmail" Relationship="CSColegioModel.FK__Usuario__Comprobante__EnvioEmail" FromRole="Comprobante" ToRole="Usuario" />
           <NavigationProperty Name="Concepto" Relationship="CSColegioModel.FK__Concepto__Comprobante" FromRole="Comprobante" ToRole="Concepto" />
+          <Property Name="IDUsuarioTransmisionPagomiscuentas" Type="DateTime" Precision="0" />
+          <Property Name="FechaHoraTransmisionPagomiscuentas" Type="Int16" />
           </EntityType>
         <EntityType Name="ComprobanteMedioPago">
           <Key>
@@ -4064,6 +4068,10 @@
           <EntitySetMapping Name="Comprobante">
             <EntityTypeMapping TypeName="CSColegioModel.Comprobante">
               <MappingFragment StoreEntitySet="Comprobante">
+                <ScalarProperty Name="FechaHoraTransmisionPagomiscuentas" ColumnName="FechaHoraTransmisionPagomiscuentas" />
+                <ScalarProperty Name="IDUsuarioTransmisionPagomiscuentas" ColumnName="IDUsuarioTransmisionPagomiscuentas" />
+                <ScalarProperty Name="FechaHoraTransmisionAFIP" ColumnName="FechaHoraTransmisionAFIP" />
+                <ScalarProperty Name="IDUsuarioTransmisionAFIP" ColumnName="IDUsuarioTransmisionAFIP" />
                 <ScalarProperty Name="IDConcepto" ColumnName="IDConcepto" />
                 <ScalarProperty Name="NumeroCompleto" ColumnName="NumeroCompleto" />
                 <ScalarProperty Name="ImporteSubtotal" ColumnName="ImporteSubtotal" />
@@ -4071,8 +4079,6 @@
                 <ScalarProperty Name="PeriodoContableAnio" ColumnName="PeriodoContableAnio" />
                 <ScalarProperty Name="FechaHoraEnvioEmail" ColumnName="FechaHoraEnvioEmail" />
                 <ScalarProperty Name="IDUsuarioEnvioEmail" ColumnName="IDUsuarioEnvioEmail" />
-                <ScalarProperty Name="FechaHoraTransmision" ColumnName="FechaHoraTransmision" />
-                <ScalarProperty Name="IDUsuarioTransmision" ColumnName="IDUsuarioTransmision" />
                 <ScalarProperty Name="FechaHoraAnulacion" ColumnName="FechaHoraAnulacion" />
                 <ScalarProperty Name="IDUsuarioAnulacion" ColumnName="IDUsuarioAnulacion" />
                 <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />

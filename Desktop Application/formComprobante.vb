@@ -734,7 +734,7 @@
             End Try
 
             If mComprobanteTipoActual.EmisionElectronica AndAlso mComprobanteActual.CAE Is Nothing Then
-                If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIRAAFIP) Then
+                If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIR_AFIP) Then
                     If MsgBox("Este Comprobante necesita ser autorizado en AFIP para tener validez." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                         If TransmitirComprobante(mComprobanteActual) Then
                             MsgBox("Se ha transmitido exitosamente el Comprobante a AFIP.", MsgBoxStyle.Information, My.Application.Info.Title)
@@ -1239,8 +1239,8 @@
         If ResultadoCAE.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_ACEPTADO Then
             ComprobanteATransmitir.CAE = ResultadoCAE.Numero
             ComprobanteATransmitir.CAEVencimiento = ResultadoCAE.FechaVencimiento
-            ComprobanteATransmitir.IDUsuarioTransmision = pUsuario.IDUsuario
-            ComprobanteATransmitir.FechaHoraTransmision = Now
+            ComprobanteATransmitir.IDUsuarioTransmisionAFIP = pUsuario.IDUsuario
+            ComprobanteATransmitir.FechaHoraTransmisionAFIP = Now
 
             mdbContext.SaveChanges()
 

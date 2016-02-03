@@ -1,4 +1,6 @@
 ﻿Public Class formComprobantesTransmitirAFIP
+
+#Region "Declarations"
     Private dbContext As New CSColegioContext(True)
     Private listComprobantes As List(Of GridDataRow)
 
@@ -9,20 +11,20 @@
         Public Property ApellidoNombre As String
         Public Property ImporteTotal As Decimal
     End Class
+#End Region
 
+#Region "Form stuff"
     Private Sub formComprobantesTransmitirAFIP_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         buttonTransmitir.Enabled = False
         comboboxCantidad.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, "500", "200", "100", "50", "20", "10", "5", "1"})
     End Sub
 
     Private Sub formComprobantesTransmitirAFIP_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        dbcontext.Dispose()
+        dbContext.Dispose()
     End Sub
+#End Region
 
-    Private Sub comboboxLote_SelectedIndexChanged(sender As Object, e As EventArgs) Handles comboboxCantidad.SelectedIndexChanged
-        RefreshData()
-    End Sub
-
+#Region "Load and Set Data"
     Private Sub RefreshData()
         Me.Cursor = Cursors.WaitCursor
 
@@ -66,12 +68,21 @@
         buttonTransmitir.Enabled = (listComprobantes.Count > 0)
     End Sub
 
+#End Region
+
+#Region "Controls behavior"
+    Private Sub comboboxLote_SelectedIndexChanged(sender As Object, e As EventArgs) Handles comboboxCantidad.SelectedIndexChanged
+        RefreshData()
+    End Sub
+
     Private Sub buttonTransmitir_Click(sender As Object, e As EventArgs) Handles buttonTransmitir.Click
         If listComprobantes.Count > 0 Then
             TransmitirComprobantes()
         End If
     End Sub
+#End Region
 
+#Region "Extra stuff"
     Private Sub TransmitirComprobantes()
         Dim LogPath As String = ""
         Dim LogFileName As String = ""
@@ -123,7 +134,7 @@
             MsgBox("No se ha especificado la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
             Exit Sub
         End If
-        MonedaLocalCotizacion = dbcontext.MonedaCotizacion.Where(Function(mc) mc.IDMoneda = MonedaLocal.IDMoneda).FirstOrDefault
+        MonedaLocalCotizacion = dbContext.MonedaCotizacion.Where(Function(mc) mc.IDMoneda = MonedaLocal.IDMoneda).FirstOrDefault
         If MonedaLocalCotizacion Is Nothing Then
             Me.Cursor = Cursors.WaitCursor
             MsgBox("No hay cotizaciones cargadas para la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
@@ -240,8 +251,8 @@
 
                         ComprobanteActual.CAE = ResultadoCAE.Numero
                         ComprobanteActual.CAEVencimiento = ResultadoCAE.FechaVencimiento
-                        ComprobanteActual.IDUsuarioTransmision = pUsuario.IDUsuario
-                        ComprobanteActual.FechaHoraTransmision = DateTime.Now
+                        ComprobanteActual.IDUsuarioTransmisionAFIP = pUsuario.IDUsuario
+                        ComprobanteActual.FechaHoraTransmisionAFIP = DateTime.Now
 
                         dbContext.SaveChanges()
                     Else
@@ -290,4 +301,7 @@
         End If
         groupboxStatus.Visible = Mostrar
     End Sub
+
+#End Region
+
 End Class

@@ -343,7 +343,7 @@
     End Sub
 
     Private Sub ComprobantesTransmitirAFIP(sender As Object, e As EventArgs) Handles menuitemComprobantesTransmitirAFIP.Click
-        If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIRAAFIP) Then
+        If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIR_AFIP) Then
             Me.Cursor = Cursors.WaitCursor
 
             formComprobantesTransmitirAFIP.MdiParent = Me
@@ -356,7 +356,6 @@
 
             Me.Cursor = Cursors.Default
         End If
-
     End Sub
 
     Private Sub ComprobantesEnviarMail(sender As Object, e As EventArgs) Handles menuitemComprobantesEnviarMail.Click
@@ -374,6 +373,22 @@
             Me.Cursor = Cursors.Default
         End If
 
+    End Sub
+
+    Private Sub ComprobantesTransmitirPagomiscuentas() Handles menuitemComprobantesTransmitirPagomiscuentas.Click
+        If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIR_PAGOMISCUENTAS) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            formComprobantesTransmitirPagomiscuentas.MdiParent = Me
+            CS_Form.CenterToParent(Me, CType(formComprobantesTransmitirPagomiscuentas, Form))
+            formComprobantesTransmitirPagomiscuentas.Show()
+            If formComprobantesTransmitirPagomiscuentas.WindowState = FormWindowState.Minimized Then
+                formComprobantesTransmitirPagomiscuentas.WindowState = FormWindowState.Normal
+            End If
+            formComprobantesTransmitirPagomiscuentas.Focus()
+
+            Me.Cursor = Cursors.Default
+        End If
     End Sub
 #End Region
 

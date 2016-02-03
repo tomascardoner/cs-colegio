@@ -122,5 +122,8 @@
     <Setting Name="Email_MaxPerHour" Type="System.Int16" Scope="Application">
       <Value Profile="(Default)">200</Value>
     </Setting>
+    <Setting Name="Exchange_Outbound_Folder" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">%ApplicationFolder%\Exchange\Outbound</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

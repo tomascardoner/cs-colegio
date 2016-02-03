@@ -145,7 +145,6 @@
         ' Muestro el ícono de orden en la columna correspondiente
         OrdenColumna.HeaderCell.SortGlyphDirection = OrdenTipo
     End Sub
-
 #End Region
 
 #Region "Controls behavior"

@@ -163,18 +163,18 @@
                 datarowRow = .NewRow
                 datarowRow("IDGenero") = Constantes.ENTIDAD_GENERO_NOESPECIFICA
                 datarowRow("Nombre") = My.Resources.STRING_ITEM_NON_SPECIFIED
-                datatableGeneros.Rows.Add(datarowRow)
+                .Rows.Add(datarowRow)
             End If
 
             datarowRow = .NewRow
             datarowRow("IDGenero") = "M"
             datarowRow("Nombre") = My.Resources.STRING_GENERO_MASCULINO
-            datatableGeneros.Rows.Add(datarowRow)
+            .Rows.Add(datarowRow)
 
             datarowRow = .NewRow
             datarowRow("IDGenero") = "F"
             datarowRow("Nombre") = My.Resources.STRING_GENERO_FEMENINO
-            datatableGeneros.Rows.Add(datarowRow)
+            .Rows.Add(datarowRow)
         End With
 
         ComboBoxControl.DataSource = datatableGeneros

@@ -57,6 +57,7 @@ Partial Class formEntidad
         Dim labelNotas As System.Windows.Forms.Label
         Dim labelModificacion As System.Windows.Forms.Label
         Dim labelCreacion As System.Windows.Forms.Label
+        Dim labelComprobanteEnviarEmail As System.Windows.Forms.Label
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -74,7 +75,6 @@ Partial Class formEntidad
         Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim labelComprobanteEnviarEmail As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formEntidad))
         Me.textboxApellido = New System.Windows.Forms.TextBox()
         Me.textboxIDEntidad = New System.Windows.Forms.TextBox()
@@ -109,6 +109,7 @@ Partial Class formEntidad
         Me.maskedtextboxDocumentoNumero = New System.Windows.Forms.MaskedTextBox()
         Me.maskedtextboxFacturaDocumentoNumero = New System.Windows.Forms.MaskedTextBox()
         Me.tabpageContacto = New System.Windows.Forms.TabPage()
+        Me.comboboxComprobanteEnviarEmail = New System.Windows.Forms.ComboBox()
         Me.textboxDomicilioCalle3 = New System.Windows.Forms.TextBox()
         Me.textboxDomicilioCalle2 = New System.Windows.Forms.TextBox()
         Me.comboboxDomicilioLocalidad = New System.Windows.Forms.ComboBox()
@@ -177,7 +178,6 @@ Partial Class formEntidad
         Me.textboxUsuarioCreacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraModificacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraCreacion = New System.Windows.Forms.TextBox()
-        Me.comboboxComprobanteEnviarEmail = New System.Windows.Forms.ComboBox()
         labelApellido = New System.Windows.Forms.Label()
         labelIDEntidad = New System.Windows.Forms.Label()
         labelNombre = New System.Windows.Forms.Label()
@@ -236,7 +236,7 @@ Partial Class formEntidad
         'labelApellido
         '
         labelApellido.AutoSize = True
-        labelApellido.Location = New System.Drawing.Point(75, 80)
+        labelApellido.Location = New System.Drawing.Point(73, 80)
         labelApellido.Name = "labelApellido"
         labelApellido.Size = New System.Drawing.Size(52, 13)
         labelApellido.TabIndex = 3
@@ -254,7 +254,7 @@ Partial Class formEntidad
         'labelNombre
         '
         labelNombre.AutoSize = True
-        labelNombre.Location = New System.Drawing.Point(75, 108)
+        labelNombre.Location = New System.Drawing.Point(73, 106)
         labelNombre.Name = "labelNombre"
         labelNombre.Size = New System.Drawing.Size(52, 13)
         labelNombre.TabIndex = 5
@@ -540,6 +540,15 @@ Partial Class formEntidad
         labelCreacion.Size = New System.Drawing.Size(52, 13)
         labelCreacion.TabIndex = 9
         labelCreacion.Text = "Creación:"
+        '
+        'labelComprobanteEnviarEmail
+        '
+        labelComprobanteEnviarEmail.AutoSize = True
+        labelComprobanteEnviarEmail.Location = New System.Drawing.Point(6, 98)
+        labelComprobanteEnviarEmail.Name = "labelComprobanteEnviarEmail"
+        labelComprobanteEnviarEmail.Size = New System.Drawing.Size(119, 13)
+        labelComprobanteEnviarEmail.TabIndex = 10
+        labelComprobanteEnviarEmail.Text = "Enviar comprobantes a:"
         '
         'textboxApellido
         '
@@ -908,6 +917,15 @@ Partial Class formEntidad
         Me.tabpageContacto.TabIndex = 1
         Me.tabpageContacto.Text = "Contacto"
         Me.tabpageContacto.UseVisualStyleBackColor = True
+        '
+        'comboboxComprobanteEnviarEmail
+        '
+        Me.comboboxComprobanteEnviarEmail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxComprobanteEnviarEmail.FormattingEnabled = True
+        Me.comboboxComprobanteEnviarEmail.Location = New System.Drawing.Point(131, 95)
+        Me.comboboxComprobanteEnviarEmail.Name = "comboboxComprobanteEnviarEmail"
+        Me.comboboxComprobanteEnviarEmail.Size = New System.Drawing.Size(351, 21)
+        Me.comboboxComprobanteEnviarEmail.TabIndex = 11
         '
         'textboxDomicilioCalle3
         '
@@ -1296,7 +1314,7 @@ Partial Class formEntidad
         Me.tabpageCursosAsistidos.Location = New System.Drawing.Point(4, 25)
         Me.tabpageCursosAsistidos.Name = "tabpageCursosAsistidos"
         Me.tabpageCursosAsistidos.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageCursosAsistidos.Size = New System.Drawing.Size(506, 244)
+        Me.tabpageCursosAsistidos.Size = New System.Drawing.Size(506, 264)
         Me.tabpageCursosAsistidos.TabIndex = 6
         Me.tabpageCursosAsistidos.Text = "Cursos Asistidos"
         Me.tabpageCursosAsistidos.UseVisualStyleBackColor = True
@@ -1322,7 +1340,7 @@ Partial Class formEntidad
         Me.datagridviewCursosAsistidos.RowHeadersVisible = False
         Me.datagridviewCursosAsistidos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewCursosAsistidos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewCursosAsistidos.Size = New System.Drawing.Size(500, 238)
+        Me.datagridviewCursosAsistidos.Size = New System.Drawing.Size(500, 258)
         Me.datagridviewCursosAsistidos.TabIndex = 5
         '
         'columnAnioLectivo
@@ -1382,7 +1400,7 @@ Partial Class formEntidad
         Me.tabpageHijos.Location = New System.Drawing.Point(4, 25)
         Me.tabpageHijos.Name = "tabpageHijos"
         Me.tabpageHijos.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageHijos.Size = New System.Drawing.Size(506, 244)
+        Me.tabpageHijos.Size = New System.Drawing.Size(506, 264)
         Me.tabpageHijos.TabIndex = 4
         Me.tabpageHijos.Text = "Hijos"
         Me.tabpageHijos.UseVisualStyleBackColor = True
@@ -1408,7 +1426,7 @@ Partial Class formEntidad
         Me.datagridviewHijos.RowHeadersVisible = False
         Me.datagridviewHijos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewHijos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewHijos.Size = New System.Drawing.Size(500, 238)
+        Me.datagridviewHijos.Size = New System.Drawing.Size(500, 258)
         Me.datagridviewHijos.TabIndex = 3
         '
         'columnHijosIDEntidad
@@ -1449,7 +1467,7 @@ Partial Class formEntidad
         Me.tabpageComprobantes.Controls.Add(Me.datagridviewComprobantes)
         Me.tabpageComprobantes.Location = New System.Drawing.Point(4, 25)
         Me.tabpageComprobantes.Name = "tabpageComprobantes"
-        Me.tabpageComprobantes.Size = New System.Drawing.Size(506, 244)
+        Me.tabpageComprobantes.Size = New System.Drawing.Size(506, 264)
         Me.tabpageComprobantes.TabIndex = 8
         Me.tabpageComprobantes.Text = "Comprobantes"
         Me.tabpageComprobantes.UseVisualStyleBackColor = True
@@ -1475,7 +1493,7 @@ Partial Class formEntidad
         Me.datagridviewComprobantes.RowHeadersVisible = False
         Me.datagridviewComprobantes.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewComprobantes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewComprobantes.Size = New System.Drawing.Size(506, 244)
+        Me.datagridviewComprobantes.Size = New System.Drawing.Size(506, 264)
         Me.datagridviewComprobantes.TabIndex = 2
         '
         'columnTipoNombre
@@ -1530,7 +1548,7 @@ Partial Class formEntidad
         Me.tabpageRelaciones.Location = New System.Drawing.Point(4, 25)
         Me.tabpageRelaciones.Name = "tabpageRelaciones"
         Me.tabpageRelaciones.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageRelaciones.Size = New System.Drawing.Size(506, 244)
+        Me.tabpageRelaciones.Size = New System.Drawing.Size(506, 264)
         Me.tabpageRelaciones.TabIndex = 5
         Me.tabpageRelaciones.Text = "Relaciones"
         Me.tabpageRelaciones.UseVisualStyleBackColor = True
@@ -1556,7 +1574,7 @@ Partial Class formEntidad
         Me.datagridviewRelaciones.RowHeadersVisible = False
         Me.datagridviewRelaciones.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewRelaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewRelaciones.Size = New System.Drawing.Size(500, 238)
+        Me.datagridviewRelaciones.Size = New System.Drawing.Size(500, 258)
         Me.datagridviewRelaciones.TabIndex = 4
         '
         'columnPadresIDEntidad
@@ -1614,7 +1632,7 @@ Partial Class formEntidad
         Me.tabpageNotasAuditoria.Location = New System.Drawing.Point(4, 25)
         Me.tabpageNotasAuditoria.Name = "tabpageNotasAuditoria"
         Me.tabpageNotasAuditoria.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageNotasAuditoria.Size = New System.Drawing.Size(506, 244)
+        Me.tabpageNotasAuditoria.Size = New System.Drawing.Size(506, 264)
         Me.tabpageNotasAuditoria.TabIndex = 7
         Me.tabpageNotasAuditoria.Text = "Notas y Auditoría"
         Me.tabpageNotasAuditoria.UseVisualStyleBackColor = True
@@ -1663,24 +1681,6 @@ Partial Class formEntidad
         Me.textboxFechaHoraCreacion.ReadOnly = True
         Me.textboxFechaHoraCreacion.Size = New System.Drawing.Size(121, 20)
         Me.textboxFechaHoraCreacion.TabIndex = 10
-        '
-        'comboboxComprobanteEnviarEmail
-        '
-        Me.comboboxComprobanteEnviarEmail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.comboboxComprobanteEnviarEmail.FormattingEnabled = True
-        Me.comboboxComprobanteEnviarEmail.Location = New System.Drawing.Point(131, 95)
-        Me.comboboxComprobanteEnviarEmail.Name = "comboboxComprobanteEnviarEmail"
-        Me.comboboxComprobanteEnviarEmail.Size = New System.Drawing.Size(351, 21)
-        Me.comboboxComprobanteEnviarEmail.TabIndex = 11
-        '
-        'labelComprobanteEnviarEmail
-        '
-        labelComprobanteEnviarEmail.AutoSize = True
-        labelComprobanteEnviarEmail.Location = New System.Drawing.Point(6, 98)
-        labelComprobanteEnviarEmail.Name = "labelComprobanteEnviarEmail"
-        labelComprobanteEnviarEmail.Size = New System.Drawing.Size(119, 13)
-        labelComprobanteEnviarEmail.TabIndex = 10
-        labelComprobanteEnviarEmail.Text = "Enviar comprobantes a:"
         '
         'formEntidad
         '

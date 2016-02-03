@@ -38,6 +38,7 @@ Partial Class formMDIMain
         Me.menuitemDebugAFIPWSHomologacion = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSHomologacionLogin = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSHomologacionCompConsultar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TestFormToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemVentana = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemVentanaMosaicoHorizontal = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemVentanaMosaicoVertical = New System.Windows.Forms.ToolStripMenuItem()
@@ -65,8 +66,9 @@ Partial Class formMDIMain
         Me.menuitemComprobantesGenerarLoteFacturas = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesTransmitirAFIP = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesEnviarMail = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.menuitemComprobantesTransmitirPagomiscuentas = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonReportes = New System.Windows.Forms.ToolStripButton()
-        Me.TestFormToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
@@ -170,11 +172,17 @@ Partial Class formMDIMain
         Me.menuitemDebugAFIPWSHomologacionCompConsultar.Size = New System.Drawing.Size(238, 22)
         Me.menuitemDebugAFIPWSHomologacionCompConsultar.Text = "Consultar último comprobante"
         '
+        'TestFormToolStripMenuItem
+        '
+        Me.TestFormToolStripMenuItem.Name = "TestFormToolStripMenuItem"
+        Me.TestFormToolStripMenuItem.Size = New System.Drawing.Size(167, 22)
+        Me.TestFormToolStripMenuItem.Text = "Test Form"
+        '
         'menuitemVentana
         '
         Me.menuitemVentana.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemVentanaMosaicoHorizontal, Me.menuitemVentanaMosaicoVertical, Me.menuitemVentanaCascada, Me.menuitemVentanaOrganizarIconos, Me.menuitemVentanaSeparadorCerrarTodas, Me.menuitemVentanaCerrarTodas, Me.menuitemVentanaEncajarEnVentana, Me.menuitemVentanaSeparadorListaVentanas})
         Me.menuitemVentana.Name = "menuitemVentana"
-        Me.menuitemVentana.Size = New System.Drawing.Size(62, 20)
+        Me.menuitemVentana.Size = New System.Drawing.Size(61, 20)
         Me.menuitemVentana.Text = "&Ventana"
         '
         'menuitemVentanaMosaicoHorizontal
@@ -327,7 +335,7 @@ Partial Class formMDIMain
         '
         'buttonComprobantes
         '
-        Me.buttonComprobantes.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemComprobantesGenerarLoteFacturas, Me.menuitemComprobantesTransmitirAFIP, Me.menuitemComprobantesEnviarMail})
+        Me.buttonComprobantes.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemComprobantesGenerarLoteFacturas, Me.menuitemComprobantesTransmitirAFIP, Me.menuitemComprobantesEnviarMail, Me.ToolStripMenuItem1, Me.menuitemComprobantesTransmitirPagomiscuentas})
         Me.buttonComprobantes.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_COMPROBANTES_32
         Me.buttonComprobantes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonComprobantes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
@@ -339,20 +347,31 @@ Partial Class formMDIMain
         'menuitemComprobantesGenerarLoteFacturas
         '
         Me.menuitemComprobantesGenerarLoteFacturas.Name = "menuitemComprobantesGenerarLoteFacturas"
-        Me.menuitemComprobantesGenerarLoteFacturas.Size = New System.Drawing.Size(204, 22)
+        Me.menuitemComprobantesGenerarLoteFacturas.Size = New System.Drawing.Size(228, 22)
         Me.menuitemComprobantesGenerarLoteFacturas.Text = "Generar Lote de Facturas"
         '
         'menuitemComprobantesTransmitirAFIP
         '
         Me.menuitemComprobantesTransmitirAFIP.Name = "menuitemComprobantesTransmitirAFIP"
-        Me.menuitemComprobantesTransmitirAFIP.Size = New System.Drawing.Size(204, 22)
+        Me.menuitemComprobantesTransmitirAFIP.Size = New System.Drawing.Size(228, 22)
         Me.menuitemComprobantesTransmitirAFIP.Text = "Transmitir a AFIP"
         '
         'menuitemComprobantesEnviarMail
         '
         Me.menuitemComprobantesEnviarMail.Name = "menuitemComprobantesEnviarMail"
-        Me.menuitemComprobantesEnviarMail.Size = New System.Drawing.Size(204, 22)
+        Me.menuitemComprobantesEnviarMail.Size = New System.Drawing.Size(228, 22)
         Me.menuitemComprobantesEnviarMail.Text = "Enviar por e-mail"
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(225, 6)
+        '
+        'menuitemComprobantesTransmitirPagomiscuentas
+        '
+        Me.menuitemComprobantesTransmitirPagomiscuentas.Name = "menuitemComprobantesTransmitirPagomiscuentas"
+        Me.menuitemComprobantesTransmitirPagomiscuentas.Size = New System.Drawing.Size(228, 22)
+        Me.menuitemComprobantesTransmitirPagomiscuentas.Text = "Transmitir a PagoMisCuentas"
         '
         'buttonReportes
         '
@@ -363,12 +382,6 @@ Partial Class formMDIMain
         Me.buttonReportes.Name = "buttonReportes"
         Me.buttonReportes.Size = New System.Drawing.Size(132, 36)
         Me.buttonReportes.Text = "Reportes"
-        '
-        'TestFormToolStripMenuItem
-        '
-        Me.TestFormToolStripMenuItem.Name = "TestFormToolStripMenuItem"
-        Me.TestFormToolStripMenuItem.Size = New System.Drawing.Size(167, 22)
-        Me.TestFormToolStripMenuItem.Text = "Test Form"
         '
         'formMDIMain
         '
@@ -440,4 +453,6 @@ Partial Class formMDIMain
     Friend WithEvents buttonReportes As System.Windows.Forms.ToolStripButton
     Friend WithEvents menuitemDebugAFIPWSHomologacionCompConsultar As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TestFormToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents menuitemComprobantesTransmitirPagomiscuentas As System.Windows.Forms.ToolStripMenuItem
 End Class

@@ -421,6 +421,15 @@ Namespace My
                 Return CType(Me("Email_MaxPerHour"),Short)
             End Get
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("%ApplicationFolder%\Exchange\Outbound")> _
+        Public ReadOnly Property Exchange_Outbound_Folder() As String
+            Get
+                Return CType(Me("Exchange_Outbound_Folder"), String)
+            End Get
+        End Property
     End Class
 End Namespace
 

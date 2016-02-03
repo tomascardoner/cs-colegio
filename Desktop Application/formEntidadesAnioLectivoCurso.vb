@@ -1,11 +1,35 @@
 ﻿Public Class formEntidadesAnioLectivoCurso
+
+#Region "Declarations"
     Private dbcontext As New CSColegioContext(True)
     Private AnioLectivoCurso As AnioLectivoCurso
 
     Private Const COLUMNA_IDENTIDAD As String = "columnIDEntidad"
     Private Const COLUMNA_APELLIDO As String = "columnApellido"
     Private Const COLUMNA_NOMBRE As String = "columnNombre"
+#End Region
 
+#Region "Form stuff"
+    Private Sub formEntidades_Load() Handles Me.Load
+        SetAppearance()
+
+        pFillAndRefreshLists.AnioLectivo(comboboxAnioLectivo.ComboBox, SortOrder.Descending)
+        pFillAndRefreshLists.Nivel(comboboxNivel.ComboBox, False)
+
+        RefreshData()
+    End Sub
+
+    Friend Sub SetAppearance()
+        datagridviewMain.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewMain.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+    End Sub
+
+    Private Sub formEntidadesAnioLectivoCurso_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        dbcontext.Dispose()
+    End Sub
+#End Region
+
+#Region "Load and Set Data"
     Friend Sub RefreshData()
         Me.Cursor = Cursors.WaitCursor
 
@@ -33,24 +57,9 @@
         Me.Cursor = Cursors.Default
     End Sub
 
-    Friend Sub SetAppearance()
-        datagridviewMain.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
-        datagridviewMain.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
-    End Sub
+#End Region
 
-    Private Sub formEntidadesAnioLectivoCurso_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        dbcontext.Dispose()
-    End Sub
-
-    Private Sub formEntidades_Load() Handles Me.Load
-        SetAppearance()
-
-        pFillAndRefreshLists.AnioLectivo(comboboxAnioLectivo.ComboBox, SortOrder.Descending)
-        pFillAndRefreshLists.Nivel(comboboxNivel.ComboBox, False)
-
-        RefreshData()
-    End Sub
-
+#Region "Controls behavior"
     Private Sub ComboBoxesChanged() Handles comboboxAnioLectivo.SelectedIndexChanged, comboboxNivel.SelectedIndexChanged
         If (Not comboboxAnioLectivo.SelectedItem Is Nothing) And (Not comboboxNivel.SelectedItem Is Nothing) Then
             pFillAndRefreshLists.CursoPorAnioLectivoYNivel(comboboxCurso.ComboBox, CInt(comboboxAnioLectivo.ComboBox.SelectedValue), CByte(comboboxNivel.ComboBox.SelectedValue))
@@ -61,6 +70,24 @@
         RefreshData()
     End Sub
 
+    Private Sub datagridviewMain_DoubleClick() Handles datagridviewMain.DoubleClick
+        If datagridviewMain.CurrentRow Is Nothing Then
+            MsgBox("No hay ninguna Entidad para ver.", vbInformation, My.Application.Info.Title)
+        Else
+            Me.Cursor = Cursors.WaitCursor
+
+            datagridviewMain.Enabled = False
+
+            formEntidad.LoadAndShow(False, Me, CInt(datagridviewMain.SelectedRows.Item(0).Cells(COLUMNA_IDENTIDAD).Value))
+
+            datagridviewMain.Enabled = True
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
+#End Region
+
+#Region "Main Toolbar"
     Private Sub buttonAgregar_Click() Handles buttonAgregar.Click
         If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO_AGREGAR) Then
             formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
@@ -156,21 +183,6 @@
             End If
         End If
     End Sub
+#End Region
 
-
-    Private Sub datagridviewMain_DoubleClick() Handles datagridviewMain.DoubleClick
-        If datagridviewMain.CurrentRow Is Nothing Then
-            MsgBox("No hay ninguna Entidad para ver.", vbInformation, My.Application.Info.Title)
-        Else
-            Me.Cursor = Cursors.WaitCursor
-
-            datagridviewMain.Enabled = False
-
-            formEntidad.LoadAndShow(False, Me, CInt(datagridviewMain.SelectedRows.Item(0).Cells(COLUMNA_IDENTIDAD).Value))
-
-            datagridviewMain.Enabled = True
-
-            Me.Cursor = Cursors.Default
-        End If
-    End Sub
 End Class
