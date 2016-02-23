@@ -3,6 +3,7 @@
 #Region "Declarations"
     Private dbContext As New CSColegioContext(True)
     Private listComprobantes As List(Of GridDataRow)
+    Private mCancelar As Boolean
 
     Private Class GridDataRow
         Public Property IDComprobante As Integer
@@ -32,14 +33,14 @@
 #End Region
 
 #Region "Load and Set Data"
-    Private Sub RefreshData() Handles comboboxComprobanteLote.SelectedIndexChanged
+    Private Sub RefreshData()
         Dim ComprobanteLoteActual As ComprobanteLote
 
         Me.Cursor = Cursors.WaitCursor
 
         Try
 
-            If comboboxComprobanteLote.SelectedIndex > -1 AndAlso comboboxCantidad.SelectedIndex > -1 Then
+            If Not comboboxComprobanteLote.SelectedValue Is Nothing Then
                 ComprobanteLoteActual = CType(comboboxComprobanteLote.SelectedItem, ComprobanteLote)
 
                 ' Muestro los comprobantes que cumplan las siguientes condiciones:
@@ -89,15 +90,31 @@
 #End Region
 
 #Region "Controls behavior"
-    Private Sub buttonEnviar_Click(sender As Object, e As EventArgs) Handles buttonEnviar.Click
+    Private Sub CambiarLote() Handles comboboxComprobanteLote.SelectedIndexChanged
+        RefreshData()
+    End Sub
+
+    Private Sub Enviar_Click(sender As Object, e As EventArgs) Handles buttonEnviar.Click
         If listComprobantes.Count > 0 Then
-            If listComprobantes.Count > My.Settings.Email_MaxPerHour Then
-                If MsgBox(String.Format("Está por enviar {0} Comprobantes por e-mail.{2}Tenga en cuenta que por cuestiones de seguridad (para evitar el spam), los servidores actuales no permiten enviar más de {1} e-mails por hora.{2}{2}¿Desea continuar de todos modos?", listComprobantes.Count, My.Settings.Email_MaxPerHour, vbCrLf), CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
-                    Exit Sub
+            If My.Settings.Email_MaxPerHour > 0 Then
+                If comboboxCantidad.SelectedIndex = 0 Then
+                    If MsgBox(String.Format("Está por enviar Todos los Comprobantes por e-mail.{2}Tenga en cuenta que por cuestiones de seguridad (para evitar el spam), los servidores actuales no permiten enviar más de {1} e-mails por hora.{2}{2}¿Desea continuar de todos modos?", comboboxCantidad.SelectedText, My.Settings.Email_MaxPerHour, vbCrLf), CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                        Exit Sub
+                    End If
+                Else
+                    If CShort(comboboxCantidad.Text) >= My.Settings.Email_MaxPerHour Then
+                        If MsgBox(String.Format("Está por enviar {0} e-mails.{2}Tenga en cuenta que por cuestiones de seguridad (para evitar el spam), los servidores actuales no permiten enviar más de {1} e-mails por hora.{2}{2}¿Desea continuar de todos modos?", comboboxCantidad.Text, My.Settings.Email_MaxPerHour, vbCrLf), CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                            Exit Sub
+                        End If
+                    End If
                 End If
             End If
             EnviarComprobantes()
         End If
+    End Sub
+
+    Private Sub Cancelar_Click() Handles buttonCancelar.Click
+        mCancelar = True
     End Sub
 #End Region
 
@@ -113,8 +130,9 @@
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
 
-        textboxStatus.Text = "Iniciando el envío de Comprobantes..."
         MostrarOcultarEstado(True)
+        mCancelar = False
+        textboxStatus.Text = "Iniciando el envío de Comprobantes..."
 
         For Each RowActual As DataGridViewRow In datagridviewComprobantes.Rows
             ' Hago que la grilla vaya mostrando la fila que se está procesando
@@ -173,22 +191,33 @@
 
                     textboxStatus.AppendText("OK")
 
-                    If comboboxCantidad.SelectedIndex > 0 AndAlso MailCount >= CInt(comboboxCantidad.Text) Then
+                    If comboboxCantidad.SelectedIndex > 0 AndAlso MailCount >= CShort(comboboxCantidad.Text) Then
                         Exit For
                     End If
                 Else
                     textboxStatus.AppendText(vbCrLf & String.Format("El Titular de {0} N° {1} ({2}) no especifica e-mail...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero, ComprobanteActual.Entidad.ApellidoNombre))
                 End If
             End If
-        Next
 
-        MsgBox(String.Format("Se han enviado {0} e-mails.", MailCount), MsgBoxStyle.Information, My.Application.Info.Title)
+            ' Verifico que no se cancele el Envío
+            Application.DoEvents()
+            If mCancelar Then
+                Exit For
+            End If
+        Next
+        If mCancelar Then
+            MsgBox(String.Format("Se ha cancelado el envío de e-mails.{1}Se enviaron {0} e-mails.", MailCount, vbCrLf), MsgBoxStyle.Information, My.Application.Info.Title)
+        Else
+            MsgBox(String.Format("Se han enviado {0} e-mails.", MailCount, vbCrLf), MsgBoxStyle.Information, My.Application.Info.Title)
+        End If
         RefreshData()
         MostrarOcultarEstado(False)
         Me.Cursor = Cursors.Default
     End Sub
 
     Private Sub MostrarOcultarEstado(ByVal Mostrar As Boolean)
+        buttonEnviar.Visible = Not Mostrar
+        buttonCancelar.Visible = Mostrar
         If Mostrar Then
             datagridviewComprobantes.Height = 311
             progressbarStatus.Maximum = listComprobantes.Count

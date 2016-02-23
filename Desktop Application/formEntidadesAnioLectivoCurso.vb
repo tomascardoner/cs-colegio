@@ -14,7 +14,7 @@
         SetAppearance()
 
         pFillAndRefreshLists.AnioLectivo(comboboxAnioLectivo.ComboBox, SortOrder.Descending)
-        pFillAndRefreshLists.Nivel(comboboxNivel.ComboBox, False)
+        pFillAndRefreshLists.Nivel(comboboxNivel.ComboBox, False, False)
 
         RefreshData()
     End Sub

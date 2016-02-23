@@ -133,19 +133,19 @@ Public Class formComprobantesTransmitirPagomiscuentas
                 If Not ComprobanteActual Is Nothing Then
                     ' Detalle
                     DetalleTextStream = "5"                                                                 ' Código de Registro
-                    DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString.PadLeft(6, "0"c) & StrDup(13, " "c)      ' Número de Referencia
-                    DetalleTextStream &= ComprobanteActual.NumeroCompleto.ToString.PadLeft(20, "0"c)        ' Id. Factura
+                    DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString.PadRight(19, " "c)    ' Número de Referencia
+                    DetalleTextStream &= ComprobanteActual.NumeroCompleto.ToString.PadRight(20, " "c)       ' Id. Factura
                     DetalleTextStream &= "0"                                                                ' Código de Moneda
                     DetalleTextStream &= ComprobanteActual.FechaEmision.ToString("yyyyMMdd")                ' Fecha 1er. vencimiento
                     DetalleTextStream &= ComprobanteActual.ImporteTotal.ToString("000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 1er. vencimiento
-                    DetalleTextStream &= StrDup(8, " "c)                                                    ' Fecha 2do. vencimiento
+                    DetalleTextStream &= StrDup(8, "0"c)                                                    ' Fecha 2do. vencimiento
                     DetalleTextStream &= StrDup(11, "0"c)                                                   ' Importe 2do. vencimiento
-                    DetalleTextStream &= StrDup(8, " "c)                                                    ' Fecha 3er. vencimiento
+                    DetalleTextStream &= StrDup(8, "0"c)                                                    ' Fecha 3er. vencimiento
                     DetalleTextStream &= StrDup(11, "0"c)                                                   ' Importe 3er. vencimiento
                     DetalleTextStream &= StrDup(19, "0"c)                                                   ' Filler
-                    DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString.PadLeft(6, "0"c) & StrDup(13, " "c)      ' Número de Referencia anterior
-                    DetalleTextStream &= (ComprobanteActual.ComprobanteTipo.NombreConLetra & " " & ComprobanteActual.NumeroCompleto).PadLeft(40, " "c)          ' Mensaje Ticket
-                    DetalleTextStream &= (ComprobanteActual.ComprobanteTipo.Sigla & ComprobanteActual.PuntoVenta & ComprobanteActual.Numero).PadLeft(15, " "c)  ' Mensaje Pantalla
+                    DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString.PadRight(19, " "c)    ' Número de Referencia anterior
+                    DetalleTextStream &= (ComprobanteActual.ComprobanteTipo.NombreConLetra.ToUpper.Replace("""", "") & " " & ComprobanteActual.NumeroCompleto).PadRight(40, " "c) ' Mensaje Ticket
+                    DetalleTextStream &= (ComprobanteActual.ComprobanteTipo.Sigla & ComprobanteActual.PuntoVenta & ComprobanteActual.Numero).PadRight(15, " "c) ' Mensaje Pantalla
                     DetalleTextStream &= StrDup(60, " "c)                                                   ' Código de barras
                     DetalleTextStream &= StrDup(29, "0"c)                                                   ' Filler
                     outputFile.WriteLine(DetalleTextStream)
@@ -158,9 +158,9 @@ Public Class formComprobantesTransmitirPagomiscuentas
             ' Tariler
             TrailerTextStream = "9"                                                                             ' Código de Registro
             TrailerTextStream &= "400"                                                                          ' Código Prisma
-            TrailerTextStream &= CS_Parameter.GetIntegerAsShort(Parametros.EMPRESA_PRISMA_NUMERO).ToString.PadRight(4, "0"c)        ' Código Empresa Prisma
+            TrailerTextStream &= CS_Parameter.GetIntegerAsShort(Parametros.EMPRESA_PRISMA_NUMERO).ToString.PadLeft(4, "0"c)     ' Código Empresa Prisma
             TrailerTextStream &= DateTime.Today.ToString("yyyyMMdd")                                            ' Fecha de generación del archivo
-            TrailerTextStream &= DetalleCount.ToString.PadRight(7, "0"c)                                        ' Cantidad de regostros de detalle
+            TrailerTextStream &= DetalleCount.ToString.PadLeft(7, "0"c)                                         ' Cantidad de registros de detalle
             TrailerTextStream &= StrDup(7, "0"c)                                                                ' Filler
             TrailerTextStream &= DetalleImporteTotal.ToString("00000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")      ' Total Importe 1er. vencimiento
             TrailerTextStream &= StrDup(234, "0"c)                                                              ' Filler

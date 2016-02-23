@@ -67,7 +67,10 @@ Partial Class formMDIMain
         Me.menuitemComprobantesTransmitirAFIP = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesEnviarMail = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.menuitemComprobantesTransmitirPagomiscuentas = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemComprobantesExportar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemComprobantesExportarPagomiscuentas = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DébitoDirectoSantanderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RapipagoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonReportes = New System.Windows.Forms.ToolStripButton()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
@@ -335,7 +338,7 @@ Partial Class formMDIMain
         '
         'buttonComprobantes
         '
-        Me.buttonComprobantes.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemComprobantesGenerarLoteFacturas, Me.menuitemComprobantesTransmitirAFIP, Me.menuitemComprobantesEnviarMail, Me.ToolStripMenuItem1, Me.menuitemComprobantesTransmitirPagomiscuentas})
+        Me.buttonComprobantes.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemComprobantesGenerarLoteFacturas, Me.menuitemComprobantesTransmitirAFIP, Me.menuitemComprobantesEnviarMail, Me.ToolStripMenuItem1, Me.menuitemComprobantesExportar})
         Me.buttonComprobantes.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_COMPROBANTES_32
         Me.buttonComprobantes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonComprobantes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
@@ -347,31 +350,52 @@ Partial Class formMDIMain
         'menuitemComprobantesGenerarLoteFacturas
         '
         Me.menuitemComprobantesGenerarLoteFacturas.Name = "menuitemComprobantesGenerarLoteFacturas"
-        Me.menuitemComprobantesGenerarLoteFacturas.Size = New System.Drawing.Size(228, 22)
+        Me.menuitemComprobantesGenerarLoteFacturas.Size = New System.Drawing.Size(220, 38)
         Me.menuitemComprobantesGenerarLoteFacturas.Text = "Generar Lote de Facturas"
         '
         'menuitemComprobantesTransmitirAFIP
         '
         Me.menuitemComprobantesTransmitirAFIP.Name = "menuitemComprobantesTransmitirAFIP"
-        Me.menuitemComprobantesTransmitirAFIP.Size = New System.Drawing.Size(228, 22)
+        Me.menuitemComprobantesTransmitirAFIP.Size = New System.Drawing.Size(220, 38)
         Me.menuitemComprobantesTransmitirAFIP.Text = "Transmitir a AFIP"
         '
         'menuitemComprobantesEnviarMail
         '
         Me.menuitemComprobantesEnviarMail.Name = "menuitemComprobantesEnviarMail"
-        Me.menuitemComprobantesEnviarMail.Size = New System.Drawing.Size(228, 22)
+        Me.menuitemComprobantesEnviarMail.Size = New System.Drawing.Size(220, 38)
         Me.menuitemComprobantesEnviarMail.Text = "Enviar por e-mail"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(225, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(217, 6)
         '
-        'menuitemComprobantesTransmitirPagomiscuentas
+        'menuitemComprobantesExportar
         '
-        Me.menuitemComprobantesTransmitirPagomiscuentas.Name = "menuitemComprobantesTransmitirPagomiscuentas"
-        Me.menuitemComprobantesTransmitirPagomiscuentas.Size = New System.Drawing.Size(228, 22)
-        Me.menuitemComprobantesTransmitirPagomiscuentas.Text = "Transmitir a PagoMisCuentas"
+        Me.menuitemComprobantesExportar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemComprobantesExportarPagomiscuentas, Me.DébitoDirectoSantanderToolStripMenuItem, Me.RapipagoToolStripMenuItem})
+        Me.menuitemComprobantesExportar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_EXPORT_32
+        Me.menuitemComprobantesExportar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.menuitemComprobantesExportar.Name = "menuitemComprobantesExportar"
+        Me.menuitemComprobantesExportar.Size = New System.Drawing.Size(220, 38)
+        Me.menuitemComprobantesExportar.Text = "Exportar archivos para..."
+        '
+        'menuitemComprobantesExportarPagomiscuentas
+        '
+        Me.menuitemComprobantesExportarPagomiscuentas.Name = "menuitemComprobantesExportarPagomiscuentas"
+        Me.menuitemComprobantesExportarPagomiscuentas.Size = New System.Drawing.Size(206, 22)
+        Me.menuitemComprobantesExportarPagomiscuentas.Text = "PagoMisCuentas"
+        '
+        'DébitoDirectoSantanderToolStripMenuItem
+        '
+        Me.DébitoDirectoSantanderToolStripMenuItem.Name = "DébitoDirectoSantanderToolStripMenuItem"
+        Me.DébitoDirectoSantanderToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
+        Me.DébitoDirectoSantanderToolStripMenuItem.Text = "Débito Directo Santander"
+        '
+        'RapipagoToolStripMenuItem
+        '
+        Me.RapipagoToolStripMenuItem.Name = "RapipagoToolStripMenuItem"
+        Me.RapipagoToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
+        Me.RapipagoToolStripMenuItem.Text = "Rapipago"
         '
         'buttonReportes
         '
@@ -454,5 +478,8 @@ Partial Class formMDIMain
     Friend WithEvents menuitemDebugAFIPWSHomologacionCompConsultar As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TestFormToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents menuitemComprobantesTransmitirPagomiscuentas As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemComprobantesExportar As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemComprobantesExportarPagomiscuentas As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents DébitoDirectoSantanderToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents RapipagoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

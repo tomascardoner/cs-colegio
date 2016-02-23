@@ -294,6 +294,12 @@
     <Compile Include="formCABGenerico.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formAnio.Designer.vb">
+      <DependentUpon>formAnio.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formAnio.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formCheque.Designer.vb">
       <DependentUpon>formCheque.vb</DependentUpon>
     </Compile>
@@ -322,6 +328,12 @@
       <DependentUpon>formComprobanteMedioPago.vb</DependentUpon>
     </Compile>
     <Compile Include="formComprobanteMedioPago.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formAnios.Designer.vb">
+      <DependentUpon>formAnios.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formAnios.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formComprobantes.Designer.vb">
@@ -515,6 +527,9 @@
     <EmbeddedResource Include="formCABGenerico.resx">
       <DependentUpon>formCABGenerico.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formAnio.resx">
+      <DependentUpon>formAnio.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formCheque.resx">
       <DependentUpon>formCheque.vb</DependentUpon>
     </EmbeddedResource>
@@ -529,6 +544,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobanteMedioPago.resx">
       <DependentUpon>formComprobanteMedioPago.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formAnios.resx">
+      <DependentUpon>formAnios.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobantes.resx">
       <DependentUpon>formComprobantes.vb</DependentUpon>
@@ -630,6 +648,8 @@
     <None Include="Resources\Mail-icon %286%29.png" />
     <None Include="Resources\AFIP.jpg" />
     <None Include="Resources\PagoMisCuentas.jpg" />
+    <None Include="Resources\export-icon_16.png" />
+    <None Include="Resources\export-icon_32.png" />
     <Content Include="school_48_32_16.ico" />
     <None Include="Resources\Move Previous %28Arrow%29 Red24.png" />
     <None Include="Resources\Move Next %28Arrow%29 Green24.png" />

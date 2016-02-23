@@ -161,35 +161,17 @@
     End Sub
 
     Private Sub menuitemAnio_Click() Handles menuitemAnio.Click
-        Dim formAnios As formCABGenerico
-
         If Permisos.VerificarPermiso(Permisos.ANIO) Then
-            formAnios = FormCABGenerico_CrearOMostrar("Año", "Años")
-            If Not formAnios Is Nothing Then
-                With formAnios
-                    'AGREGO LOS FILTROS
-                    'Dim toolstripFiltroNivel As ToolStrip = .AddToolbar("FiltroNivel")
-                    'Dim labelFiltroNivel As New ToolStripLabel("Nivel:")
-                    'toolstripFiltroNivel.Items.Add(labelFiltroNivel)
-                    'Dim comboboxFiltroNivel As New ToolStripComboBox("comboboxFiltroNivel")
-                    'comboboxFiltroNivel.DropDownStyle = ComboBoxStyle.DropDownList
-                    'comboboxFiltroNivel.ComboBox.DataSource = .dbcontext.Nivel.ToList()
-                    'comboboxFiltroNivel.ComboBox.ValueMember = "IDNivel"
-                    'comboboxFiltroNivel.ComboBox.DisplayMember = "Nombre"
-                    'toolstripFiltroNivel.Items.Add(comboboxFiltroNivel)
+            Me.Cursor = Cursors.WaitCursor
 
-                    'AGREGO LAS COLUMNAS
-                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("IDAnio", "Año", "IDAnio", DataGridViewContentAlignment.MiddleCenter))
-                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_ComboBox("IDNivel", "Nivel", "IDNivel", DataGridViewContentAlignment.MiddleCenter, .dbcontext.Nivel.ToList, "IDNivel", "Nombre"))
-                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("Nombre", "Nombre", "Nombre", DataGridViewContentAlignment.MiddleLeft))
-                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_CheckBox("Activo", "Activo", "Activo", DataGridViewContentAlignment.MiddleCenter, False, True, False, False))
-
-                    .bindingsourceMain.DataSource = .dbcontext.Anio.ToList
-                    .Show()
-                End With
-
-                Me.Cursor = Cursors.Default
+            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formAnios, Form), Form_ClientSize)
+            formAnios.Show()
+            If formAnios.WindowState = FormWindowState.Minimized Then
+                formAnios.WindowState = FormWindowState.Normal
             End If
+            formAnios.Focus()
+
+            Me.Cursor = Cursors.Default
         End If
     End Sub
 
@@ -375,8 +357,8 @@
 
     End Sub
 
-    Private Sub ComprobantesTransmitirPagomiscuentas() Handles menuitemComprobantesTransmitirPagomiscuentas.Click
-        If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIR_PAGOMISCUENTAS) Then
+    Private Sub ComprobantesExportarPagomiscuentas() Handles menuitemComprobantesExportarPagomiscuentas.Click
+        If Permisos.VerificarPermiso(Permisos.COMPROBANTE_EXPORTAR_PAGOMISCUENTAS) Then
             Me.Cursor = Cursors.WaitCursor
 
             formComprobantesTransmitirPagomiscuentas.MdiParent = Me

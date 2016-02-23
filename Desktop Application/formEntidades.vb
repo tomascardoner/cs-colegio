@@ -166,7 +166,7 @@
         FilterData()
     End Sub
 
-    Private Sub menuitemMarcarYDesmarcarTodo_Click(sender As Object, e As EventArgs) Handles menuitemMarcarTodos.Click, menuitemDesmarcarTodos.Click
+    Private Sub menuitemMarcarYDesmarcarTodo_Click(sender As Object, e As EventArgs)
         SkipFilterData = True
 
         menuitemEntidadTipo_PersonalColegio.Checked = (CType(sender, ToolStripMenuItem) Is menuitemMarcarTodos)
@@ -184,7 +184,7 @@
         textboxBuscar.SelectAll()
     End Sub
 
-    Private Sub textboxBuscar_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textboxBuscar.KeyPress
+    Private Sub textboxBuscar_KeyPress(sender As Object, e As KeyPressEventArgs)
         If e.KeyChar = ChrW(Keys.Return) Then
             If textboxBuscar.Text.Trim.Length < 3 Then
                 MsgBox("Se deben especificar al menos 3 letras para buscar.", MsgBoxStyle.Information, My.Application.Info.Title)

@@ -50,7 +50,7 @@
         pFillAndRefreshLists.ChequeMotivoRechazo(comboboxMotivoRechazo, True, False)
     End Sub
 
-    Private Sub formEntidad_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub Me_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         mComprobanteActual = Nothing
         mComprobanteMedioPagoActual = Nothing
         Me.Dispose()

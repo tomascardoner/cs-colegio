@@ -8,7 +8,45 @@
         Public Property Descripcion As String
         Public Property AnioLectivo As Short
     End Class
+
+    Public Class Anio_ListItem
+        Public Property IDAnio As Byte
+        Public Property Descripcion As String
+    End Class
 #End Region
+
+    Friend Sub Anio(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean, ByVal IncluyeNivelEnNombre As Boolean, Optional ByVal Excluye_IDAnio As Byte = 0)
+        Dim listAnios As List(Of Anio_ListItem)
+
+        ComboBoxControl.ValueMember = "IDAnio"
+        ComboBoxControl.DisplayMember = "Descripcion"
+
+        If IncluyeNivelEnNombre Then
+            listAnios = (From a In dbContext.Anio
+                         Join n In dbContext.Nivel On a.IDNivel Equals n.IDNivel
+                         Where a.EsActivo And a.IDAnio <> Excluye_IDAnio
+                         Select New Anio_ListItem With {.IDAnio = a.IDAnio, .Descripcion = n.Nombre & " - " & a.Nombre}).ToList
+        Else
+            listAnios = (From a In dbContext.Anio
+                         Where a.EsActivo And a.IDAnio <> Excluye_IDAnio
+                         Select New Anio_ListItem With {.IDAnio = a.IDAnio, .Descripcion = a.Nombre}).ToList
+        End If
+
+        If AgregarItem_Todos Then
+            Dim Item_Todos As New Anio_ListItem
+            Item_Todos.IDAnio = 0
+            Item_Todos.Descripcion = My.Resources.STRING_ITEM_ALL_MALE
+            listAnios.Insert(0, Item_Todos)
+        End If
+        If AgregarItem_NoEspecifica Then
+            Dim Item_NoEspecifica As New Anio_ListItem
+            Item_NoEspecifica.IDAnio = 0
+            Item_NoEspecifica.Descripcion = My.Resources.STRING_ITEM_NON_SPECIFIED
+            listAnios.Insert(0, Item_NoEspecifica)
+        End If
+
+        ComboBoxControl.DataSource = listAnios
+    End Sub
 
     Friend Sub DocumentoTipo(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
         ComboBoxControl.ValueMember = "IDDocumentoTipo"
@@ -130,18 +168,18 @@
         End If
 
         If AgregarItem_Todos Then
-            Dim UnspecifiedItem As New ComprobanteTipo
-            UnspecifiedItem.IDComprobanteTipo = Byte.MaxValue
-            UnspecifiedItem.NombreConLetra = My.Resources.STRING_ITEM_ALL_MALE
-            UnspecifiedItem.NombreCompleto = My.Resources.STRING_ITEM_ALL_MALE
-            localList.Insert(0, UnspecifiedItem)
+            Dim AllItem As New ComprobanteTipo
+            AllItem.IDComprobanteTipo = Byte.MaxValue
+            AllItem.NombreConLetra = My.Resources.STRING_ITEM_ALL_MALE
+            AllItem.NombreCompleto = My.Resources.STRING_ITEM_ALL_MALE
+            localList.Insert(0, AllItem)
         End If
         If AgregarItem_NoEspecifica Then
-            Dim AllItem As New ComprobanteTipo
-            AllItem.IDComprobanteTipo = Byte.MinValue
-            AllItem.NombreConLetra = My.Resources.STRING_ITEM_NON_SPECIFIED
-            AllItem.NombreCompleto = My.Resources.STRING_ITEM_NON_SPECIFIED
-            localList.Insert(0, AllItem)
+            Dim UnspecifiedItem As New ComprobanteTipo
+            UnspecifiedItem.IDComprobanteTipo = Byte.MinValue
+            UnspecifiedItem.NombreConLetra = My.Resources.STRING_ITEM_NON_SPECIFIED
+            UnspecifiedItem.NombreCompleto = My.Resources.STRING_ITEM_NON_SPECIFIED
+            localList.Insert(0, UnspecifiedItem)
         End If
 
         ComboBoxControl.DataSource = localList
@@ -306,7 +344,7 @@
         End If
     End Sub
 
-    Friend Sub Nivel(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
+    Friend Sub Nivel(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)
         ComboBoxControl.ValueMember = "IDNivel"
         ComboBoxControl.DisplayMember = "Nombre"
 
@@ -315,11 +353,17 @@
                           Order By tbl.Nombre
 
         Dim localList = qryList.ToList
-        If ShowUnspecifiedItem Then
-            Dim UnspecifiedItem As New Nivel
-            UnspecifiedItem.IDNivel = 0
-            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
-            localList.Insert(0, UnspecifiedItem)
+        If AgregarItem_Todos Then
+            Dim Item_Todos As New Nivel
+            Item_Todos.IDNivel = 0
+            Item_Todos.Nombre = My.Resources.STRING_ITEM_ALL_MALE
+            localList.Insert(0, Item_Todos)
+        End If
+        If AgregarItem_NoEspecifica Then
+            Dim Item_NoEspecifica As New Nivel
+            Item_NoEspecifica.IDNivel = 0
+            Item_NoEspecifica.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+            localList.Insert(0, Item_NoEspecifica)
         End If
 
         ComboBoxControl.DataSource = localList

@@ -22,8 +22,8 @@ Partial Class formComprobantesTransmitirPagomiscuentas
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formComprobantesTransmitirPagomiscuentas))
         Me.labelCantidad = New System.Windows.Forms.Label()
         Me.comboboxCantidad = New System.Windows.Forms.ComboBox()
@@ -35,13 +35,9 @@ Partial Class formComprobantesTransmitirPagomiscuentas
         Me.buttonTransmitir = New System.Windows.Forms.Button()
         Me.statusstripMain = New System.Windows.Forms.StatusStrip()
         Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.groupboxStatus = New System.Windows.Forms.GroupBox()
-        Me.textboxStatus = New System.Windows.Forms.TextBox()
-        Me.progressbarStatus = New System.Windows.Forms.ProgressBar()
         Me.pictureboxLogo = New System.Windows.Forms.PictureBox()
         CType(Me.datagridviewComprobantes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.statusstripMain.SuspendLayout()
-        Me.groupboxStatus.SuspendLayout()
         CType(Me.pictureboxLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -68,11 +64,11 @@ Partial Class formComprobantesTransmitirPagomiscuentas
         Me.datagridviewComprobantes.AllowUserToAddRows = False
         Me.datagridviewComprobantes.AllowUserToDeleteRows = False
         Me.datagridviewComprobantes.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewComprobantes.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewComprobantes.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.datagridviewComprobantes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewComprobantes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewComprobantes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnNumeroCompleto, Me.columnApellidoNombre, Me.columnImporteTotal})
@@ -120,9 +116,9 @@ Partial Class formComprobantesTransmitirPagomiscuentas
         '
         Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnImporteTotal.DataPropertyName = "ImporteTotal"
-        DataGridViewCellStyle2.Format = "C2"
-        DataGridViewCellStyle2.NullValue = "0"
-        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle4.Format = "C2"
+        DataGridViewCellStyle4.NullValue = "0"
+        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle4
         Me.columnImporteTotal.HeaderText = "Importe"
         Me.columnImporteTotal.Name = "columnImporteTotal"
         Me.columnImporteTotal.ReadOnly = True
@@ -153,38 +149,6 @@ Partial Class formComprobantesTransmitirPagomiscuentas
         Me.statuslabelMain.Spring = True
         Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'groupboxStatus
-        '
-        Me.groupboxStatus.Controls.Add(Me.textboxStatus)
-        Me.groupboxStatus.Controls.Add(Me.progressbarStatus)
-        Me.groupboxStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.groupboxStatus.Location = New System.Drawing.Point(12, 350)
-        Me.groupboxStatus.Name = "groupboxStatus"
-        Me.groupboxStatus.Size = New System.Drawing.Size(668, 132)
-        Me.groupboxStatus.TabIndex = 7
-        Me.groupboxStatus.TabStop = False
-        Me.groupboxStatus.Text = "Estado de la Transmisión:"
-        Me.groupboxStatus.Visible = False
-        '
-        'textboxStatus
-        '
-        Me.textboxStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textboxStatus.Location = New System.Drawing.Point(7, 54)
-        Me.textboxStatus.MaxLength = 0
-        Me.textboxStatus.Multiline = True
-        Me.textboxStatus.Name = "textboxStatus"
-        Me.textboxStatus.ReadOnly = True
-        Me.textboxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.textboxStatus.Size = New System.Drawing.Size(655, 71)
-        Me.textboxStatus.TabIndex = 8
-        '
-        'progressbarStatus
-        '
-        Me.progressbarStatus.Location = New System.Drawing.Point(3, 21)
-        Me.progressbarStatus.Name = "progressbarStatus"
-        Me.progressbarStatus.Size = New System.Drawing.Size(660, 26)
-        Me.progressbarStatus.TabIndex = 7
-        '
         'pictureboxLogo
         '
         Me.pictureboxLogo.BackColor = System.Drawing.Color.White
@@ -203,22 +167,20 @@ Partial Class formComprobantesTransmitirPagomiscuentas
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(692, 516)
         Me.Controls.Add(Me.pictureboxLogo)
-        Me.Controls.Add(Me.groupboxStatus)
         Me.Controls.Add(Me.statusstripMain)
         Me.Controls.Add(Me.buttonTransmitir)
         Me.Controls.Add(Me.datagridviewComprobantes)
         Me.Controls.Add(Me.comboboxCantidad)
         Me.Controls.Add(Me.labelCantidad)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "formComprobantesTransmitirPagomiscuentas"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
-        Me.Text = "Transmitir Comprobantes a PagoMisCuentas"
+        Me.Text = "Exportar archivo de Comprobantes para envío a PagoMisCuentas"
         CType(Me.datagridviewComprobantes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.statusstripMain.ResumeLayout(False)
         Me.statusstripMain.PerformLayout()
-        Me.groupboxStatus.ResumeLayout(False)
-        Me.groupboxStatus.PerformLayout()
         CType(Me.pictureboxLogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -230,9 +192,6 @@ Partial Class formComprobantesTransmitirPagomiscuentas
     Friend WithEvents buttonTransmitir As System.Windows.Forms.Button
     Friend WithEvents statusstripMain As System.Windows.Forms.StatusStrip
     Friend WithEvents statuslabelMain As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents groupboxStatus As System.Windows.Forms.GroupBox
-    Friend WithEvents progressbarStatus As System.Windows.Forms.ProgressBar
-    Friend WithEvents textboxStatus As System.Windows.Forms.TextBox
     Friend WithEvents columnComprobanteTipoNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnNumeroCompleto As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnApellidoNombre As System.Windows.Forms.DataGridViewTextBoxColumn

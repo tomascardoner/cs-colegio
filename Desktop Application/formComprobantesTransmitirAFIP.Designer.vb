@@ -38,6 +38,7 @@ Partial Class formComprobantesTransmitirAFIP
         Me.textboxStatus = New System.Windows.Forms.TextBox()
         Me.progressbarStatus = New System.Windows.Forms.ProgressBar()
         Me.pictureboxLogo = New System.Windows.Forms.PictureBox()
+        Me.buttonCancelar = New System.Windows.Forms.Button()
         CType(Me.datagridviewComprobantes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.statusstripMain.SuspendLayout()
         Me.groupboxStatus.SuspendLayout()
@@ -196,6 +197,15 @@ Partial Class formComprobantesTransmitirAFIP
         Me.pictureboxLogo.TabIndex = 8
         Me.pictureboxLogo.TabStop = False
         '
+        'buttonCancelar
+        '
+        Me.buttonCancelar.Location = New System.Drawing.Point(291, 26)
+        Me.buttonCancelar.Name = "buttonCancelar"
+        Me.buttonCancelar.Size = New System.Drawing.Size(86, 21)
+        Me.buttonCancelar.TabIndex = 9
+        Me.buttonCancelar.Text = "Cancelar"
+        Me.buttonCancelar.UseVisualStyleBackColor = True
+        '
         'formComprobantesTransmitirAFIP
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -208,6 +218,7 @@ Partial Class formComprobantesTransmitirAFIP
         Me.Controls.Add(Me.datagridviewComprobantes)
         Me.Controls.Add(Me.comboboxCantidad)
         Me.Controls.Add(Me.labelCantidad)
+        Me.Controls.Add(Me.buttonCancelar)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.Name = "formComprobantesTransmitirAFIP"
@@ -237,4 +248,5 @@ Partial Class formComprobantesTransmitirAFIP
     Friend WithEvents columnApellidoNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents pictureboxLogo As System.Windows.Forms.PictureBox
+    Friend WithEvents buttonCancelar As System.Windows.Forms.Button
 End Class

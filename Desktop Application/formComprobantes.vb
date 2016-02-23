@@ -613,7 +613,7 @@
 
     Private Sub Ver() Handles datagridviewMain.DoubleClick
         If datagridviewMain.CurrentRow Is Nothing Then
-            MsgBox("No hay ningún Comporbante para ver.", vbInformation, My.Application.Info.Title)
+            MsgBox("No hay ningún Comprobante para ver.", vbInformation, My.Application.Info.Title)
         Else
             Me.Cursor = Cursors.WaitCursor
 

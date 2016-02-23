@@ -22,8 +22,8 @@ Partial Class formComprobantesEnviarMail
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.datagridviewComprobantes = New System.Windows.Forms.DataGridView()
         Me.columnLote = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnComprobanteTipoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -40,6 +40,7 @@ Partial Class formComprobantesEnviarMail
         Me.progressbarStatus = New System.Windows.Forms.ProgressBar()
         Me.comboboxCantidad = New System.Windows.Forms.ComboBox()
         Me.labelCantidad = New System.Windows.Forms.Label()
+        Me.buttonCancelar = New System.Windows.Forms.Button()
         CType(Me.datagridviewComprobantes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.statusstripMain.SuspendLayout()
         Me.groupboxStatus.SuspendLayout()
@@ -50,11 +51,11 @@ Partial Class formComprobantesEnviarMail
         Me.datagridviewComprobantes.AllowUserToAddRows = False
         Me.datagridviewComprobantes.AllowUserToDeleteRows = False
         Me.datagridviewComprobantes.AllowUserToResizeRows = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewComprobantes.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewComprobantes.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.datagridviewComprobantes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewComprobantes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewComprobantes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnLote, Me.columnComprobanteTipoNombre, Me.columnNumeroCompleto, Me.columnApellidoNombre, Me.columnImporteTotal})
@@ -112,9 +113,9 @@ Partial Class formComprobantesEnviarMail
         '
         Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnImporteTotal.DataPropertyName = "ImporteTotal"
-        DataGridViewCellStyle4.Format = "C2"
-        DataGridViewCellStyle4.NullValue = "0"
-        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.Format = "C2"
+        DataGridViewCellStyle2.NullValue = "0"
+        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle2
         Me.columnImporteTotal.HeaderText = "Importe"
         Me.columnImporteTotal.Name = "columnImporteTotal"
         Me.columnImporteTotal.ReadOnly = True
@@ -213,6 +214,15 @@ Partial Class formComprobantesEnviarMail
         Me.labelCantidad.TabIndex = 2
         Me.labelCantidad.Text = "Cantidad de e-mails:"
         '
+        'buttonCancelar
+        '
+        Me.buttonCancelar.Location = New System.Drawing.Point(618, 6)
+        Me.buttonCancelar.Name = "buttonCancelar"
+        Me.buttonCancelar.Size = New System.Drawing.Size(62, 21)
+        Me.buttonCancelar.TabIndex = 10
+        Me.buttonCancelar.Text = "Cancelar"
+        Me.buttonCancelar.UseVisualStyleBackColor = True
+        '
         'formComprobantesEnviarMail
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -226,6 +236,7 @@ Partial Class formComprobantesEnviarMail
         Me.Controls.Add(Me.buttonEnviar)
         Me.Controls.Add(Me.groupboxStatus)
         Me.Controls.Add(Me.datagridviewComprobantes)
+        Me.Controls.Add(Me.buttonCancelar)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.Name = "formComprobantesEnviarMail"
@@ -256,4 +267,5 @@ Partial Class formComprobantesEnviarMail
     Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents comboboxCantidad As System.Windows.Forms.ComboBox
     Friend WithEvents labelCantidad As System.Windows.Forms.Label
+    Friend WithEvents buttonCancelar As System.Windows.Forms.Button
 End Class

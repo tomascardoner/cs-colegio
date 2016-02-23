@@ -23,32 +23,15 @@ Partial Class formEntidades
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formEntidades))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.toolstripMain = New System.Windows.Forms.ToolStrip()
+        Me.toolstripButtons = New System.Windows.Forms.ToolStrip()
         Me.buttonAgregar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEliminar = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.dropdownbuttonEntidadTipos = New System.Windows.Forms.ToolStripDropDownButton()
-        Me.menuitemEntidadTipo_PersonalColegio = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemEntidadTipo_Docente = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemEntidadTipo_Alumno = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemEntidadTipo_Familiar = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemEntidadTipo_Proveedor = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.menuitemMarcarTodos = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemDesmarcarTodos = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.labelBuscar = New System.Windows.Forms.ToolStripLabel()
-        Me.textboxBuscar = New System.Windows.Forms.ToolStripTextBox()
-        Me.buttonBuscarBorrar = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
-        Me.labelActivo = New System.Windows.Forms.ToolStripLabel()
-        Me.comboboxActivo = New System.Windows.Forms.ToolStripComboBox()
         Me.statusstripMain = New System.Windows.Forms.StatusStrip()
         Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
         Me.datagridviewMain = New System.Windows.Forms.DataGridView()
@@ -61,21 +44,44 @@ Partial Class formEntidades
         Me.columnTipoFamiliar = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.columnTipoProveedor = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.bindingsourceMain = New System.Windows.Forms.BindingSource(Me.components)
-        Me.toolstripMain.SuspendLayout()
+        Me.toolstripEntidadTipo = New System.Windows.Forms.ToolStrip()
+        Me.panelToolbars = New System.Windows.Forms.FlowLayoutPanel()
+        Me.dropdownbuttonEntidadTipos = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.menuitemEntidadTipo_PersonalColegio = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemEntidadTipo_Docente = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemEntidadTipo_Alumno = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemEntidadTipo_Familiar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemEntidadTipo_Proveedor = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.menuitemMarcarTodos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDesmarcarTodos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.toolstripBuscar = New System.Windows.Forms.ToolStrip()
+        Me.toolstripActivo = New System.Windows.Forms.ToolStrip()
+        Me.labelBuscar = New System.Windows.Forms.ToolStripLabel()
+        Me.textboxBuscar = New System.Windows.Forms.ToolStripTextBox()
+        Me.buttonBuscarBorrar = New System.Windows.Forms.ToolStripButton()
+        Me.labelActivo = New System.Windows.Forms.ToolStripLabel()
+        Me.comboboxActivo = New System.Windows.Forms.ToolStripComboBox()
+        Me.toolstripButtons.SuspendLayout()
         Me.statusstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.bindingsourceMain, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.toolstripEntidadTipo.SuspendLayout()
+        Me.panelToolbars.SuspendLayout()
+        Me.toolstripBuscar.SuspendLayout()
+        Me.toolstripActivo.SuspendLayout()
         Me.SuspendLayout()
         '
-        'toolstripMain
+        'toolstripButtons
         '
-        Me.toolstripMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAgregar, Me.buttonEditar, Me.buttonEliminar, Me.ToolStripSeparator1, Me.dropdownbuttonEntidadTipos, Me.ToolStripSeparator3, Me.labelBuscar, Me.textboxBuscar, Me.buttonBuscarBorrar, Me.ToolStripSeparator4, Me.labelActivo, Me.comboboxActivo})
-        Me.toolstripMain.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
-        Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
-        Me.toolstripMain.Name = "toolstripMain"
-        Me.toolstripMain.Size = New System.Drawing.Size(781, 39)
-        Me.toolstripMain.TabIndex = 0
+        Me.toolstripButtons.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.toolstripButtons.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolstripButtons.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAgregar, Me.buttonEditar, Me.buttonEliminar})
+        Me.toolstripButtons.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
+        Me.toolstripButtons.Location = New System.Drawing.Point(0, 0)
+        Me.toolstripButtons.Name = "toolstripButtons"
+        Me.toolstripButtons.Size = New System.Drawing.Size(247, 39)
+        Me.toolstripButtons.TabIndex = 0
         '
         'buttonAgregar
         '
@@ -104,10 +110,148 @@ Partial Class formEntidades
         Me.buttonEliminar.Size = New System.Drawing.Size(86, 36)
         Me.buttonEliminar.Text = "Eliminar"
         '
-        'ToolStripSeparator1
+        'statusstripMain
         '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 39)
+        Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statuslabelMain})
+        Me.statusstripMain.Location = New System.Drawing.Point(0, 347)
+        Me.statusstripMain.Name = "statusstripMain"
+        Me.statusstripMain.Size = New System.Drawing.Size(1061, 22)
+        Me.statusstripMain.TabIndex = 1
+        '
+        'statuslabelMain
+        '
+        Me.statuslabelMain.Name = "statuslabelMain"
+        Me.statuslabelMain.Size = New System.Drawing.Size(1046, 17)
+        Me.statuslabelMain.Spring = True
+        Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'datagridviewMain
+        '
+        Me.datagridviewMain.AllowUserToAddRows = False
+        Me.datagridviewMain.AllowUserToDeleteRows = False
+        Me.datagridviewMain.AllowUserToOrderColumns = True
+        Me.datagridviewMain.AllowUserToResizeRows = False
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
+        Me.datagridviewMain.AutoGenerateColumns = False
+        Me.datagridviewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnIDEntidad, Me.columnApellido, Me.columnNombre, Me.columnTipoPersonalColegio, Me.columnTipoDocente, Me.columnTipoAlumno, Me.columnTipoFamiliar, Me.columnTipoProveedor})
+        Me.datagridviewMain.DataSource = Me.bindingsourceMain
+        Me.datagridviewMain.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.datagridviewMain.Location = New System.Drawing.Point(0, 39)
+        Me.datagridviewMain.MultiSelect = False
+        Me.datagridviewMain.Name = "datagridviewMain"
+        Me.datagridviewMain.ReadOnly = True
+        Me.datagridviewMain.RowHeadersVisible = False
+        Me.datagridviewMain.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.datagridviewMain.Size = New System.Drawing.Size(1061, 308)
+        Me.datagridviewMain.TabIndex = 0
+        '
+        'columnIDEntidad
+        '
+        Me.columnIDEntidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnIDEntidad.DataPropertyName = "IDEntidad"
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.columnIDEntidad.DefaultCellStyle = DataGridViewCellStyle6
+        Me.columnIDEntidad.HeaderText = "N° Entidad"
+        Me.columnIDEntidad.Name = "columnIDEntidad"
+        Me.columnIDEntidad.ReadOnly = True
+        Me.columnIDEntidad.Width = 83
+        '
+        'columnApellido
+        '
+        Me.columnApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnApellido.DataPropertyName = "Apellido"
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnApellido.DefaultCellStyle = DataGridViewCellStyle7
+        Me.columnApellido.HeaderText = "Apellidos"
+        Me.columnApellido.Name = "columnApellido"
+        Me.columnApellido.ReadOnly = True
+        Me.columnApellido.Width = 74
+        '
+        'columnNombre
+        '
+        Me.columnNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnNombre.DataPropertyName = "Nombre"
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnNombre.DefaultCellStyle = DataGridViewCellStyle8
+        Me.columnNombre.HeaderText = "Nombres"
+        Me.columnNombre.Name = "columnNombre"
+        Me.columnNombre.ReadOnly = True
+        Me.columnNombre.Width = 74
+        '
+        'columnTipoPersonalColegio
+        '
+        Me.columnTipoPersonalColegio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnTipoPersonalColegio.DataPropertyName = "TipoPersonalColegio"
+        Me.columnTipoPersonalColegio.HeaderText = "Personal"
+        Me.columnTipoPersonalColegio.Name = "columnTipoPersonalColegio"
+        Me.columnTipoPersonalColegio.ReadOnly = True
+        Me.columnTipoPersonalColegio.Width = 54
+        '
+        'columnTipoDocente
+        '
+        Me.columnTipoDocente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnTipoDocente.DataPropertyName = "TipoDocente"
+        Me.columnTipoDocente.HeaderText = "Docente"
+        Me.columnTipoDocente.Name = "columnTipoDocente"
+        Me.columnTipoDocente.ReadOnly = True
+        Me.columnTipoDocente.Width = 54
+        '
+        'columnTipoAlumno
+        '
+        Me.columnTipoAlumno.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnTipoAlumno.DataPropertyName = "TipoAlumno"
+        Me.columnTipoAlumno.HeaderText = "Alumno"
+        Me.columnTipoAlumno.Name = "columnTipoAlumno"
+        Me.columnTipoAlumno.ReadOnly = True
+        Me.columnTipoAlumno.Width = 48
+        '
+        'columnTipoFamiliar
+        '
+        Me.columnTipoFamiliar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnTipoFamiliar.DataPropertyName = "TipoFamiliar"
+        Me.columnTipoFamiliar.HeaderText = "Familiar"
+        Me.columnTipoFamiliar.Name = "columnTipoFamiliar"
+        Me.columnTipoFamiliar.ReadOnly = True
+        Me.columnTipoFamiliar.Width = 48
+        '
+        'columnTipoProveedor
+        '
+        Me.columnTipoProveedor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnTipoProveedor.DataPropertyName = "TipoProveedor"
+        Me.columnTipoProveedor.HeaderText = "Proveedor"
+        Me.columnTipoProveedor.Name = "columnTipoProveedor"
+        Me.columnTipoProveedor.ReadOnly = True
+        Me.columnTipoProveedor.Width = 62
+        '
+        'toolstripEntidadTipo
+        '
+        Me.toolstripEntidadTipo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.toolstripEntidadTipo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolstripEntidadTipo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.dropdownbuttonEntidadTipos})
+        Me.toolstripEntidadTipo.Location = New System.Drawing.Point(247, 0)
+        Me.toolstripEntidadTipo.Name = "toolstripEntidadTipo"
+        Me.toolstripEntidadTipo.Size = New System.Drawing.Size(111, 39)
+        Me.toolstripEntidadTipo.TabIndex = 1
+        '
+        'panelToolbars
+        '
+        Me.panelToolbars.AutoSize = True
+        Me.panelToolbars.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelToolbars.Controls.Add(Me.toolstripButtons)
+        Me.panelToolbars.Controls.Add(Me.toolstripEntidadTipo)
+        Me.panelToolbars.Controls.Add(Me.toolstripBuscar)
+        Me.panelToolbars.Controls.Add(Me.toolstripActivo)
+        Me.panelToolbars.Dock = System.Windows.Forms.DockStyle.Top
+        Me.panelToolbars.Location = New System.Drawing.Point(0, 0)
+        Me.panelToolbars.Name = "panelToolbars"
+        Me.panelToolbars.Size = New System.Drawing.Size(1061, 39)
+        Me.panelToolbars.TabIndex = 2
         '
         'dropdownbuttonEntidadTipos
         '
@@ -181,10 +325,25 @@ Partial Class formEntidades
         Me.menuitemDesmarcarTodos.Size = New System.Drawing.Size(163, 22)
         Me.menuitemDesmarcarTodos.Text = "Desmarcar todos"
         '
-        'ToolStripSeparator3
+        'toolstripBuscar
         '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 39)
+        Me.toolstripBuscar.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.toolstripBuscar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolstripBuscar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelBuscar, Me.textboxBuscar, Me.buttonBuscarBorrar})
+        Me.toolstripBuscar.Location = New System.Drawing.Point(358, 0)
+        Me.toolstripBuscar.Name = "toolstripBuscar"
+        Me.toolstripBuscar.Size = New System.Drawing.Size(193, 39)
+        Me.toolstripBuscar.TabIndex = 2
+        '
+        'toolstripActivo
+        '
+        Me.toolstripActivo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.toolstripActivo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolstripActivo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelActivo, Me.comboboxActivo})
+        Me.toolstripActivo.Location = New System.Drawing.Point(551, 0)
+        Me.toolstripActivo.Name = "toolstripActivo"
+        Me.toolstripActivo.Size = New System.Drawing.Size(157, 39)
+        Me.toolstripActivo.TabIndex = 3
         '
         'labelBuscar
         '
@@ -207,11 +366,6 @@ Partial Class formEntidades
         Me.buttonBuscarBorrar.Size = New System.Drawing.Size(23, 36)
         Me.buttonBuscarBorrar.ToolTipText = "Limpiar búsqueda"
         '
-        'ToolStripSeparator4
-        '
-        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(6, 39)
-        '
         'labelActivo
         '
         Me.labelActivo.Name = "labelActivo"
@@ -224,149 +378,38 @@ Partial Class formEntidades
         Me.comboboxActivo.Name = "comboboxActivo"
         Me.comboboxActivo.Size = New System.Drawing.Size(75, 39)
         '
-        'statusstripMain
-        '
-        Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statuslabelMain})
-        Me.statusstripMain.Location = New System.Drawing.Point(0, 347)
-        Me.statusstripMain.Name = "statusstripMain"
-        Me.statusstripMain.Size = New System.Drawing.Size(781, 22)
-        Me.statusstripMain.TabIndex = 1
-        '
-        'statuslabelMain
-        '
-        Me.statuslabelMain.Name = "statuslabelMain"
-        Me.statuslabelMain.Size = New System.Drawing.Size(766, 17)
-        Me.statuslabelMain.Spring = True
-        Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'datagridviewMain
-        '
-        Me.datagridviewMain.AllowUserToAddRows = False
-        Me.datagridviewMain.AllowUserToDeleteRows = False
-        Me.datagridviewMain.AllowUserToOrderColumns = True
-        Me.datagridviewMain.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
-        Me.datagridviewMain.AutoGenerateColumns = False
-        Me.datagridviewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnIDEntidad, Me.columnApellido, Me.columnNombre, Me.columnTipoPersonalColegio, Me.columnTipoDocente, Me.columnTipoAlumno, Me.columnTipoFamiliar, Me.columnTipoProveedor})
-        Me.datagridviewMain.DataSource = Me.bindingsourceMain
-        Me.datagridviewMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.datagridviewMain.Location = New System.Drawing.Point(0, 39)
-        Me.datagridviewMain.MultiSelect = False
-        Me.datagridviewMain.Name = "datagridviewMain"
-        Me.datagridviewMain.ReadOnly = True
-        Me.datagridviewMain.RowHeadersVisible = False
-        Me.datagridviewMain.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
-        Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewMain.Size = New System.Drawing.Size(781, 308)
-        Me.datagridviewMain.TabIndex = 0
-        '
-        'columnIDEntidad
-        '
-        Me.columnIDEntidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnIDEntidad.DataPropertyName = "IDEntidad"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.columnIDEntidad.DefaultCellStyle = DataGridViewCellStyle2
-        Me.columnIDEntidad.HeaderText = "N° Entidad"
-        Me.columnIDEntidad.Name = "columnIDEntidad"
-        Me.columnIDEntidad.ReadOnly = True
-        Me.columnIDEntidad.Width = 83
-        '
-        'columnApellido
-        '
-        Me.columnApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnApellido.DataPropertyName = "Apellido"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnApellido.DefaultCellStyle = DataGridViewCellStyle3
-        Me.columnApellido.HeaderText = "Apellidos"
-        Me.columnApellido.Name = "columnApellido"
-        Me.columnApellido.ReadOnly = True
-        Me.columnApellido.Width = 74
-        '
-        'columnNombre
-        '
-        Me.columnNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnNombre.DataPropertyName = "Nombre"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnNombre.DefaultCellStyle = DataGridViewCellStyle4
-        Me.columnNombre.HeaderText = "Nombres"
-        Me.columnNombre.Name = "columnNombre"
-        Me.columnNombre.ReadOnly = True
-        Me.columnNombre.Width = 74
-        '
-        'columnTipoPersonalColegio
-        '
-        Me.columnTipoPersonalColegio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnTipoPersonalColegio.DataPropertyName = "TipoPersonalColegio"
-        Me.columnTipoPersonalColegio.HeaderText = "Personal"
-        Me.columnTipoPersonalColegio.Name = "columnTipoPersonalColegio"
-        Me.columnTipoPersonalColegio.ReadOnly = True
-        Me.columnTipoPersonalColegio.Width = 54
-        '
-        'columnTipoDocente
-        '
-        Me.columnTipoDocente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnTipoDocente.DataPropertyName = "TipoDocente"
-        Me.columnTipoDocente.HeaderText = "Docente"
-        Me.columnTipoDocente.Name = "columnTipoDocente"
-        Me.columnTipoDocente.ReadOnly = True
-        Me.columnTipoDocente.Width = 54
-        '
-        'columnTipoAlumno
-        '
-        Me.columnTipoAlumno.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnTipoAlumno.DataPropertyName = "TipoAlumno"
-        Me.columnTipoAlumno.HeaderText = "Alumno"
-        Me.columnTipoAlumno.Name = "columnTipoAlumno"
-        Me.columnTipoAlumno.ReadOnly = True
-        Me.columnTipoAlumno.Width = 48
-        '
-        'columnTipoFamiliar
-        '
-        Me.columnTipoFamiliar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnTipoFamiliar.DataPropertyName = "TipoFamiliar"
-        Me.columnTipoFamiliar.HeaderText = "Familiar"
-        Me.columnTipoFamiliar.Name = "columnTipoFamiliar"
-        Me.columnTipoFamiliar.ReadOnly = True
-        Me.columnTipoFamiliar.Width = 48
-        '
-        'columnTipoProveedor
-        '
-        Me.columnTipoProveedor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnTipoProveedor.DataPropertyName = "TipoProveedor"
-        Me.columnTipoProveedor.HeaderText = "Proveedor"
-        Me.columnTipoProveedor.Name = "columnTipoProveedor"
-        Me.columnTipoProveedor.ReadOnly = True
-        Me.columnTipoProveedor.Width = 62
-        '
         'formEntidades
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(781, 369)
+        Me.ClientSize = New System.Drawing.Size(1061, 369)
         Me.Controls.Add(Me.datagridviewMain)
+        Me.Controls.Add(Me.panelToolbars)
         Me.Controls.Add(Me.statusstripMain)
-        Me.Controls.Add(Me.toolstripMain)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Name = "formEntidades"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Entidades"
-        Me.toolstripMain.ResumeLayout(False)
-        Me.toolstripMain.PerformLayout()
+        Me.toolstripButtons.ResumeLayout(False)
+        Me.toolstripButtons.PerformLayout()
         Me.statusstripMain.ResumeLayout(False)
         Me.statusstripMain.PerformLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.bindingsourceMain, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.toolstripEntidadTipo.ResumeLayout(False)
+        Me.toolstripEntidadTipo.PerformLayout()
+        Me.panelToolbars.ResumeLayout(False)
+        Me.panelToolbars.PerformLayout()
+        Me.toolstripBuscar.ResumeLayout(False)
+        Me.toolstripBuscar.PerformLayout()
+        Me.toolstripActivo.ResumeLayout(False)
+        Me.toolstripActivo.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents toolstripMain As System.Windows.Forms.ToolStrip
+    Friend WithEvents toolstripButtons As System.Windows.Forms.ToolStrip
     Friend WithEvents buttonAgregar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonEditar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonEliminar As System.Windows.Forms.ToolStripButton
@@ -374,7 +417,16 @@ Partial Class formEntidades
     Friend WithEvents statuslabelMain As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents datagridviewMain As System.Windows.Forms.DataGridView
     Friend WithEvents bindingsourceMain As System.Windows.Forms.BindingSource
-    Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents columnIDEntidad As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnApellido As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnNombre As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnTipoPersonalColegio As System.Windows.Forms.DataGridViewCheckBoxColumn
+    Friend WithEvents columnTipoDocente As System.Windows.Forms.DataGridViewCheckBoxColumn
+    Friend WithEvents columnTipoAlumno As System.Windows.Forms.DataGridViewCheckBoxColumn
+    Friend WithEvents columnTipoFamiliar As System.Windows.Forms.DataGridViewCheckBoxColumn
+    Friend WithEvents columnTipoProveedor As System.Windows.Forms.DataGridViewCheckBoxColumn
+    Friend WithEvents toolstripEntidadTipo As System.Windows.Forms.ToolStrip
+    Friend WithEvents panelToolbars As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents dropdownbuttonEntidadTipos As System.Windows.Forms.ToolStripDropDownButton
     Friend WithEvents menuitemEntidadTipo_PersonalColegio As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemEntidadTipo_Docente As System.Windows.Forms.ToolStripMenuItem
@@ -384,19 +436,11 @@ Partial Class formEntidades
     Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents menuitemMarcarTodos As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDesmarcarTodos As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents toolstripBuscar As System.Windows.Forms.ToolStrip
+    Friend WithEvents toolstripActivo As System.Windows.Forms.ToolStrip
     Friend WithEvents labelBuscar As System.Windows.Forms.ToolStripLabel
     Friend WithEvents textboxBuscar As System.Windows.Forms.ToolStripTextBox
     Friend WithEvents buttonBuscarBorrar As System.Windows.Forms.ToolStripButton
-    Friend WithEvents ToolStripSeparator4 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents labelActivo As System.Windows.Forms.ToolStripLabel
     Friend WithEvents comboboxActivo As System.Windows.Forms.ToolStripComboBox
-    Friend WithEvents columnIDEntidad As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnApellido As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnNombre As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnTipoPersonalColegio As System.Windows.Forms.DataGridViewCheckBoxColumn
-    Friend WithEvents columnTipoDocente As System.Windows.Forms.DataGridViewCheckBoxColumn
-    Friend WithEvents columnTipoAlumno As System.Windows.Forms.DataGridViewCheckBoxColumn
-    Friend WithEvents columnTipoFamiliar As System.Windows.Forms.DataGridViewCheckBoxColumn
-    Friend WithEvents columnTipoProveedor As System.Windows.Forms.DataGridViewCheckBoxColumn
 End Class

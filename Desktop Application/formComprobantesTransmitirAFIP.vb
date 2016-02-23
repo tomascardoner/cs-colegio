@@ -3,6 +3,7 @@
 #Region "Declarations"
     Private dbContext As New CSColegioContext(True)
     Private listComprobantes As List(Of GridDataRow)
+    Private mCancelar As Boolean
 
     Private Class GridDataRow
         Public Property IDComprobante As Integer
@@ -75,10 +76,14 @@
         RefreshData()
     End Sub
 
-    Private Sub buttonTransmitir_Click(sender As Object, e As EventArgs) Handles buttonTransmitir.Click
+    Private Sub Transmitir_Click(sender As Object, e As EventArgs) Handles buttonTransmitir.Click
         If listComprobantes.Count > 0 Then
             TransmitirComprobantes()
         End If
+    End Sub
+
+    Private Sub Cancelar_Click() Handles buttonCancelar.Click
+        mCancelar = True
     End Sub
 #End Region
 
@@ -142,6 +147,7 @@
         End If
 
         MostrarOcultarEstado(True)
+        mCancelar = False
         textboxStatus.Text = "Estableciendo conexión y autenticando con el Servidor de AFIP..."
 
         ' Intento realizar la Autenticación en el Servidor de AFIP
@@ -279,11 +285,21 @@
                         Me.Cursor = Cursors.Default
                         Exit Sub
                     End If
+
                 End If
             End If
-        Next
 
-        MsgBox(String.Format("Se han transmitido exitosamente {0} Comprobantes a AFIP.", listComprobantes.Count), MsgBoxStyle.Information, My.Application.Info.Title)
+            ' Verifico que no se cancele la Transmisión
+            Application.DoEvents()
+            If mCancelar Then
+                Exit For
+            End If
+        Next
+        If mCancelar Then
+            MsgBox(String.Format("Se ha cancelado la transmisión.{1}Se transmitieron exitosamente {0} Comprobantes a AFIP.", listComprobantes.Count, vbCrLf), MsgBoxStyle.Information, My.Application.Info.Title)
+        Else
+            MsgBox(String.Format("Se han transmitido exitosamente {0} Comprobantes a AFIP.", listComprobantes.Count, vbCrLf), MsgBoxStyle.Information, My.Application.Info.Title)
+        End If
 
         RefreshData()
         MostrarOcultarEstado(False)
@@ -291,6 +307,8 @@
     End Sub
 
     Private Sub MostrarOcultarEstado(ByVal Mostrar As Boolean)
+        buttonTransmitir.Visible = Not Mostrar
+        buttonCancelar.Visible = Mostrar
         If Mostrar Then
             datagridviewComprobantes.Height = 311
             progressbarStatus.Maximum = listComprobantes.Count
@@ -301,7 +319,6 @@
         End If
         groupboxStatus.Visible = Mostrar
     End Sub
-
 #End Region
 
 End Class
