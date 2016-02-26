@@ -15,7 +15,7 @@
     End Class
 #End Region
 
-    Friend Sub Anio(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean, ByVal IncluyeNivelEnNombre As Boolean, Optional ByVal Excluye_IDAnio As Byte = 0)
+    Friend Sub Anio(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean, ByVal IncluyeNivelEnNombre As Boolean, Optional ByVal Excluye_IDAnio As Byte = 0, Optional ByVal IDNivel As Byte = 0)
         Dim listAnios As List(Of Anio_ListItem)
 
         ComboBoxControl.ValueMember = "IDAnio"
@@ -24,11 +24,11 @@
         If IncluyeNivelEnNombre Then
             listAnios = (From a In dbContext.Anio
                          Join n In dbContext.Nivel On a.IDNivel Equals n.IDNivel
-                         Where a.EsActivo And a.IDAnio <> Excluye_IDAnio
+                         Where a.EsActivo And a.IDAnio <> Excluye_IDAnio And (IDNivel = 0 Or a.IDNivel = IDNivel)
                          Select New Anio_ListItem With {.IDAnio = a.IDAnio, .Descripcion = n.Nombre & " - " & a.Nombre}).ToList
         Else
             listAnios = (From a In dbContext.Anio
-                         Where a.EsActivo And a.IDAnio <> Excluye_IDAnio
+                         Where a.EsActivo And a.IDAnio <> Excluye_IDAnio And (IDNivel = 0 Or a.IDNivel = IDNivel)
                          Select New Anio_ListItem With {.IDAnio = a.IDAnio, .Descripcion = a.Nombre}).ToList
         End If
 
@@ -362,6 +362,31 @@
         If AgregarItem_NoEspecifica Then
             Dim Item_NoEspecifica As New Nivel
             Item_NoEspecifica.IDNivel = 0
+            Item_NoEspecifica.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+            localList.Insert(0, Item_NoEspecifica)
+        End If
+
+        ComboBoxControl.DataSource = localList
+    End Sub
+
+    Friend Sub Turno(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)
+        ComboBoxControl.ValueMember = "IDTurno"
+        ComboBoxControl.DisplayMember = "Nombre"
+
+        Dim qryList = From tbl In dbContext.Turno
+                          Where tbl.EsActivo
+                          Order By tbl.Nombre
+
+        Dim localList = qryList.ToList
+        If AgregarItem_Todos Then
+            Dim Item_Todos As New Turno
+            Item_Todos.IDTurno = 0
+            Item_Todos.Nombre = My.Resources.STRING_ITEM_ALL_MALE
+            localList.Insert(0, Item_Todos)
+        End If
+        If AgregarItem_NoEspecifica Then
+            Dim Item_NoEspecifica As New Turno
+            Item_NoEspecifica.IDTurno = 0
             Item_NoEspecifica.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
             localList.Insert(0, Item_NoEspecifica)
         End If

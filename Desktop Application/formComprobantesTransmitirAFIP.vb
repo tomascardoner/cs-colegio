@@ -182,7 +182,7 @@
 
                         ' Documento del Titular
                         .TipoDocumento = CShort(ComprobanteActual.IDDocumentoTipo)
-                        .DocumentoNumero = CLng(ComprobanteActual.DocumentoNumero)
+                        .DocumentoNumero = CLng(CS_ValueTranslation.FromStringToOnlyDigitsString(ComprobanteActual.DocumentoNumero))
 
                         ' Tipo de Comprobante
                         .TipoComprobante = ComprobanteTipoActual.CodigoAFIP

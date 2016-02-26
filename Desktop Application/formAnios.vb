@@ -27,7 +27,7 @@
         datagridviewMain.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
     End Sub
 
-    Private Sub formAnios_Load() Handles Me.Load
+    Private Sub Me_Load() Handles Me.Load
         SetAppearance()
 
         mSkipFilterData = True
@@ -47,16 +47,17 @@
 #End Region
 
 #Region "Load and Set Data"
-    Friend Sub RefreshData(Optional ByVal PositionIDAnio As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
+    Friend Sub RefreshData(Optional ByVal PositionIDAnio As Byte = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
 
         Me.Cursor = Cursors.WaitCursor
 
         Try
             Using dbContext As New CSColegioContext(True)
                 mlistAniosBase = (From a In dbContext.Anio
-                                  Join n In dbContext.Nivel On a.IDNivel Equals n.IDNivel
-                                  Order By n.Nombre, a.Nombre
-                                  Select New GridRowData With {.IDAnio = a.IDAnio, .IDNivel = a.IDNivel, .Nivel = n.Nombre, .Nombre = a.Nombre, .AnioSiguiente = "", .EsActivo = a.EsActivo}).ToList
+                                  Group Join AnioSiguiente In dbContext.Anio On New With {.IDAnioSiguiente = CByte(a.IDAnioSiguiente)} Equals New With {.IDAnioSiguiente = AnioSiguiente.IDAnio} Into AnioSiguiente_join = Group
+                                  From AnioSiguiente In AnioSiguiente_join.DefaultIfEmpty()
+                                  Order By a.Nivel.Nombre, a.Nombre
+                                  Select New GridRowData With {.IDAnio = a.IDAnio, .IDNivel = a.IDNivel, .Nivel = a.Nivel.Nombre, .Nombre = a.Nombre, .AnioSiguiente = AnioSiguiente.Nombre, .EsActivo = a.EsActivo}).ToList
             End Using
 
         Catch ex As Exception
@@ -101,7 +102,7 @@
                 ' Filtro por Nivel
                 If comboboxNivel.SelectedIndex > 0 Then
                     mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AND ").ToString & String.Format("{{Anio.IDNivel}} = {0}", CByte(comboboxNivel.ComboBox.SelectedValue))
-                    mlistAniosFiltradaYOrdenada = mlistAniosBase.Where(Function(a) a.IDNivel = CByte(comboboxNivel.ComboBox.SelectedValue)).ToList
+                    mlistAniosFiltradaYOrdenada = mlistAniosFiltradaYOrdenada.Where(Function(a) a.IDNivel = CByte(comboboxNivel.ComboBox.SelectedValue)).ToList
                 End If
 
                 'Filtro por Activo
@@ -109,10 +110,10 @@
                     Case 0      ' Todos
                     Case 1      ' Sí
                         mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AND ").ToString & "{Anio.EsActivo} = 1"
-                        mlistAniosFiltradaYOrdenada = mlistAniosBase.Where(Function(a) a.EsActivo).ToList
+                        mlistAniosFiltradaYOrdenada = mlistAniosFiltradaYOrdenada.Where(Function(a) a.EsActivo).ToList
                     Case 2      ' No
                         mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AND ").ToString & "{Anio.EsActivo} = 0"
-                        mlistAniosFiltradaYOrdenada = mlistAniosBase.Where(Function(a) Not a.EsActivo).ToList
+                        mlistAniosFiltradaYOrdenada = mlistAniosFiltradaYOrdenada.Where(Function(a) Not a.EsActivo).ToList
                 End Select
 
                 Select Case mlistAniosFiltradaYOrdenada.Count
@@ -256,7 +257,7 @@
                 Using dbContext = New CSColegioContext(True)
                     Dim AnioActual As Anio = dbContext.Anio.Find(CurrentRow.IDAnio)
                     Dim Mensaje As String
-                    Mensaje = String.Format("Se eliminará el Año seleccionado.{0}{0}{1} - {2}{0}{0}¿Confirma la eliminación definitiva?", vbCrLf, CurrentRow.Nombre, CurrentRow.Nombre)
+                    Mensaje = String.Format("Se eliminará el Año seleccionado.{0}{0}{1} - {2}{0}{0}¿Confirma la eliminación definitiva?", vbCrLf, CurrentRow.Nivel, CurrentRow.Nombre)
                     If MsgBox(Mensaje, CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
 
                         Try

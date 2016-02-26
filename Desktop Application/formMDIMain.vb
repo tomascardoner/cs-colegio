@@ -139,28 +139,7 @@
         End If
     End Function
 
-    Private Sub menuitemNivel_Click() Handles menuitemNivel.Click
-        Dim formNiveles As formCABGenerico
-
-        If Permisos.VerificarPermiso(Permisos.NIVEL) Then
-            formNiveles = FormCABGenerico_CrearOMostrar("Nivel", "Niveles")
-            If Not formNiveles Is Nothing Then
-                With formNiveles
-                    'AGREGO LAS COLUMNAS
-                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("IDNivel", "ID", "IDNivel", DataGridViewContentAlignment.MiddleCenter))
-                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("Nombre", "Nombre", "Nombre", DataGridViewContentAlignment.MiddleLeft))
-                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_CheckBox("Activo", "Activo", "Activo", DataGridViewContentAlignment.MiddleCenter, False, True, False, False))
-
-                    .bindingsourceMain.DataSource = .dbcontext.Nivel.ToList
-                    .Show()
-                End With
-
-                Me.Cursor = Cursors.Default
-            End If
-        End If
-    End Sub
-
-    Private Sub menuitemAnio_Click() Handles menuitemAnio.Click
+    Private Sub menuitemAnios_Click() Handles menuitemAnios.Click
         If Permisos.VerificarPermiso(Permisos.ANIO) Then
             Me.Cursor = Cursors.WaitCursor
 
@@ -175,49 +154,22 @@
         End If
     End Sub
 
-    Private Sub menuitemTurno_Click() Handles menuitemTurno.Click
-        Dim formTurnos As formCABGenerico
-
-        If Permisos.VerificarPermiso(Permisos.TURNO) Then
-            formTurnos = FormCABGenerico_CrearOMostrar("Turno", "Turnos")
-            If Not formTurnos Is Nothing Then
-                With formTurnos
-                    'AGREGO LAS COLUMNAS
-                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("IDTurno", "ID", "IDTurno", DataGridViewContentAlignment.MiddleCenter))
-                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("Nombre", "Nombre", "Nombre", DataGridViewContentAlignment.MiddleLeft))
-                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_CheckBox("Activo", "Activo", "Activo", DataGridViewContentAlignment.MiddleCenter, False, True, False, False))
-
-                    .bindingsourceMain.DataSource = .dbcontext.Turno.ToList
-                    .Show()
-                End With
-
-                Me.Cursor = Cursors.Default
-            End If
-        End If
-    End Sub
-
     Private Sub menuitemCursos_Click() Handles menuitemCursos.Click
-        Dim formCursos As formCABGenerico
-
         If Permisos.VerificarPermiso(Permisos.CURSO) Then
-            formCursos = FormCABGenerico_CrearOMostrar("Curso", "Cursos")
-            If Not formCursos Is Nothing Then
-                With formCursos
-                    'AGREGO LAS COLUMNAS
-                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("IDCurso", "ID", "IDCurso", DataGridViewContentAlignment.MiddleCenter))
-                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_ComboBox("IDAnio", "Año", "IDAnio", DataGridViewContentAlignment.MiddleCenter, .dbcontext.Anio.ToList, "IDAnio", "Nombre"))
-                    .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_ComboBox("IDTurno", "Turno", "IDTurno", DataGridViewContentAlignment.MiddleCenter, .dbcontext.Turno.ToList, "IDTurno", "Nombre"))
+            Me.Cursor = Cursors.WaitCursor
 
-                    .bindingsourceMain.DataSource = .dbcontext.Curso.ToList
-                    .Show()
-                End With
-
-                Me.Cursor = Cursors.Default
+            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formCursos, Form), Form_ClientSize)
+            formCursos.Show()
+            If formCursos.WindowState = FormWindowState.Minimized Then
+                formCursos.WindowState = FormWindowState.Normal
             End If
+            formCursos.Focus()
+
+            Me.Cursor = Cursors.Default
         End If
     End Sub
 
-    Private Sub menuitemBanco_Click() Handles menuitemBanco.Click
+    Private Sub menuitemBancos_Click() Handles menuitemBancos.Click
         Dim formBancos As formCABGenerico
 
         If Permisos.VerificarPermiso(Permisos.BANCO) Then
@@ -229,7 +181,7 @@
                     .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("Nombre", "Nombre", "Nombre", DataGridViewContentAlignment.MiddleLeft))
                     .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_CheckBox("Activo", "Activo", "Activo", DataGridViewContentAlignment.MiddleCenter, False, True, False, False))
 
-                    .bindingsourceMain.DataSource = .dbcontext.Banco.ToList
+                    .bindingsourceMain.DataSource = .dbContext.Banco.ToList
                     .Show()
                 End With
 
@@ -238,7 +190,7 @@
         End If
     End Sub
 
-    Private Sub menuitemRelacionTipo_Click() Handles menuitemRelacionTipo.Click
+    Private Sub menuitemRelacionTipos_Click() Handles menuitemRelacionTipos.Click
         Dim formRelacionTipo As formCABGenerico
 
         If Permisos.VerificarPermiso(Permisos.RELACIONTIPO) Then
@@ -250,7 +202,7 @@
                     .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("Nombre", "Nombre", "Nombre", DataGridViewContentAlignment.MiddleLeft))
                     .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_CheckBox("Activo", "Activo", "Activo", DataGridViewContentAlignment.MiddleCenter, False, True, False, False))
 
-                    .bindingsourceMain.DataSource = .dbcontext.RelacionTipo.ToList
+                    .bindingsourceMain.DataSource = .dbContext.RelacionTipo.ToList
                     .Show()
                 End With
 

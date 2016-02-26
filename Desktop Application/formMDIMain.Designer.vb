@@ -52,14 +52,12 @@ Partial Class formMDIMain
         Me.menuitemAyuda_AcercaDe = New System.Windows.Forms.ToolStripMenuItem()
         Me.toolstripMain = New System.Windows.Forms.ToolStrip()
         Me.dropdownbuttonTablas = New System.Windows.Forms.ToolStripDropDownButton()
-        Me.menuitemNivel = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemAnio = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemTurno = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemAnios = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemCursos = New System.Windows.Forms.ToolStripMenuItem()
-        Me.separatorBanco = New System.Windows.Forms.ToolStripSeparator()
-        Me.menuitemBanco = New System.Windows.Forms.ToolStripMenuItem()
-        Me.separatorRelacionTipo = New System.Windows.Forms.ToolStripSeparator()
-        Me.menuitemRelacionTipo = New System.Windows.Forms.ToolStripMenuItem()
+        Me.separatorBancos = New System.Windows.Forms.ToolStripSeparator()
+        Me.menuitemBancos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.separatorRelacionTipos = New System.Windows.Forms.ToolStripSeparator()
+        Me.menuitemRelacionTipos = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonEntidades = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemEntidadesAniosLectivosYCursos = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonComprobantes = New System.Windows.Forms.ToolStripSplitButton()
@@ -264,7 +262,7 @@ Partial Class formMDIMain
         '
         'dropdownbuttonTablas
         '
-        Me.dropdownbuttonTablas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemNivel, Me.menuitemAnio, Me.menuitemTurno, Me.menuitemCursos, Me.separatorBanco, Me.menuitemBanco, Me.separatorRelacionTipo, Me.menuitemRelacionTipo})
+        Me.dropdownbuttonTablas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemAnios, Me.menuitemCursos, Me.separatorBancos, Me.menuitemBancos, Me.separatorRelacionTipos, Me.menuitemRelacionTipos})
         Me.dropdownbuttonTablas.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_TABLAS_32
         Me.dropdownbuttonTablas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.dropdownbuttonTablas.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
@@ -273,23 +271,11 @@ Partial Class formMDIMain
         Me.dropdownbuttonTablas.Size = New System.Drawing.Size(132, 36)
         Me.dropdownbuttonTablas.Text = "Tablas"
         '
-        'menuitemNivel
+        'menuitemAnios
         '
-        Me.menuitemNivel.Name = "menuitemNivel"
-        Me.menuitemNivel.Size = New System.Drawing.Size(167, 22)
-        Me.menuitemNivel.Text = "Niveles"
-        '
-        'menuitemAnio
-        '
-        Me.menuitemAnio.Name = "menuitemAnio"
-        Me.menuitemAnio.Size = New System.Drawing.Size(167, 22)
-        Me.menuitemAnio.Text = "Años"
-        '
-        'menuitemTurno
-        '
-        Me.menuitemTurno.Name = "menuitemTurno"
-        Me.menuitemTurno.Size = New System.Drawing.Size(167, 22)
-        Me.menuitemTurno.Text = "Turnos"
+        Me.menuitemAnios.Name = "menuitemAnios"
+        Me.menuitemAnios.Size = New System.Drawing.Size(167, 22)
+        Me.menuitemAnios.Text = "Años"
         '
         'menuitemCursos
         '
@@ -297,27 +283,27 @@ Partial Class formMDIMain
         Me.menuitemCursos.Size = New System.Drawing.Size(167, 22)
         Me.menuitemCursos.Text = "Cursos"
         '
-        'separatorBanco
+        'separatorBancos
         '
-        Me.separatorBanco.Name = "separatorBanco"
-        Me.separatorBanco.Size = New System.Drawing.Size(164, 6)
+        Me.separatorBancos.Name = "separatorBancos"
+        Me.separatorBancos.Size = New System.Drawing.Size(164, 6)
         '
-        'menuitemBanco
+        'menuitemBancos
         '
-        Me.menuitemBanco.Name = "menuitemBanco"
-        Me.menuitemBanco.Size = New System.Drawing.Size(167, 22)
-        Me.menuitemBanco.Text = "Bancos"
+        Me.menuitemBancos.Name = "menuitemBancos"
+        Me.menuitemBancos.Size = New System.Drawing.Size(167, 22)
+        Me.menuitemBancos.Text = "Bancos"
         '
-        'separatorRelacionTipo
+        'separatorRelacionTipos
         '
-        Me.separatorRelacionTipo.Name = "separatorRelacionTipo"
-        Me.separatorRelacionTipo.Size = New System.Drawing.Size(164, 6)
+        Me.separatorRelacionTipos.Name = "separatorRelacionTipos"
+        Me.separatorRelacionTipos.Size = New System.Drawing.Size(164, 6)
         '
-        'menuitemRelacionTipo
+        'menuitemRelacionTipos
         '
-        Me.menuitemRelacionTipo.Name = "menuitemRelacionTipo"
-        Me.menuitemRelacionTipo.Size = New System.Drawing.Size(167, 22)
-        Me.menuitemRelacionTipo.Text = "Tipos de Relación"
+        Me.menuitemRelacionTipos.Name = "menuitemRelacionTipos"
+        Me.menuitemRelacionTipos.Size = New System.Drawing.Size(167, 22)
+        Me.menuitemRelacionTipos.Text = "Tipos de Relación"
         '
         'buttonEntidades
         '
@@ -455,14 +441,12 @@ Partial Class formMDIMain
     Friend WithEvents menuitemAyuda_AcercaDe As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents toolstripMain As System.Windows.Forms.ToolStrip
     Friend WithEvents dropdownbuttonTablas As System.Windows.Forms.ToolStripDropDownButton
-    Friend WithEvents menuitemAnio As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemTurno As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemAnios As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemCursos As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents separatorBanco As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents menuitemBanco As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents separatorRelacionTipo As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents menuitemRelacionTipo As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemNivel As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents separatorBancos As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents menuitemBancos As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents separatorRelacionTipos As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents menuitemRelacionTipos As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemVentanaSeparadorListaVentanas As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents buttonComprobantes As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents menuitemComprobantesGenerarLoteFacturas As System.Windows.Forms.ToolStripMenuItem

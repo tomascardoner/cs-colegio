@@ -184,7 +184,7 @@
         textboxBuscar.SelectAll()
     End Sub
 
-    Private Sub textboxBuscar_KeyPress(sender As Object, e As KeyPressEventArgs)
+    Private Sub textboxBuscar_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textboxBuscar.KeyPress
         If e.KeyChar = ChrW(Keys.Return) Then
             If textboxBuscar.Text.Trim.Length < 3 Then
                 MsgBox("Se deben especificar al menos 3 letras para buscar.", MsgBoxStyle.Information, My.Application.Info.Title)

@@ -1193,7 +1193,7 @@
 
             ' Documento del Titular
             .TipoDocumento = CShort(ComprobanteATransmitir.IDDocumentoTipo)
-            .DocumentoNumero = CLng(ComprobanteATransmitir.DocumentoNumero)
+            .DocumentoNumero = CLng(CS_ValueTranslation.FromStringToOnlyDigitsString(ComprobanteATransmitir.DocumentoNumero))
 
             ' Tipo de Comprobante
             If ComprobanteATransmitir.IDComprobanteTipo <> ComprobanteTipoActual.IDComprobanteTipo Then

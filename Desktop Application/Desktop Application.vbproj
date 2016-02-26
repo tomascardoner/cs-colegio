@@ -288,6 +288,18 @@
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="FillAndRefreshLists.vb" />
+    <Compile Include="formCurso.Designer.vb">
+      <DependentUpon>formCurso.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formCurso.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formCursos.Designer.vb">
+      <DependentUpon>formCursos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formCursos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formCABGenerico.Designer.vb">
       <DependentUpon>formCABGenerico.vb</DependentUpon>
     </Compile>
@@ -523,6 +535,12 @@
     <EmbeddedResource Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_ErrorMessageBox.resx">
       <Link>CS_ErrorMessageBox.resx</Link>
       <DependentUpon>CS_ErrorMessageBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formCurso.resx">
+      <DependentUpon>formCurso.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formCursos.resx">
+      <DependentUpon>formCursos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formCABGenerico.resx">
       <DependentUpon>formCABGenerico.vb</DependentUpon>
