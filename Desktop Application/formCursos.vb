@@ -199,7 +199,7 @@
 
 #Region "Controls behavior"
     Private Sub comboboxNivel_SelectedIndexChanged() Handles comboboxNivel.SelectedIndexChanged
-        pFillAndRefreshLists.Anio(comboboxAnio.ComboBox, True, False, False, 0, CByte(comboboxNivel.ComboBox.SelectedValue))
+        pFillAndRefreshLists.Anio(comboboxAnio.ComboBox, True, False, CByte(comboboxNivel.ComboBox.SelectedValue) = 0, 0, CByte(comboboxNivel.ComboBox.SelectedValue))
         FilterData()
     End Sub
 

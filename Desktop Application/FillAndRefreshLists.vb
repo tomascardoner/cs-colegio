@@ -13,6 +13,11 @@
         Public Property IDAnio As Byte
         Public Property Descripcion As String
     End Class
+
+    Public Class Curso_ListItem
+        Public Property IDCurso As Byte
+        Public Property Descripcion As String
+    End Class
 #End Region
 
     Friend Sub Anio(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean, ByVal IncluyeNivelEnNombre As Boolean, Optional ByVal Excluye_IDAnio As Byte = 0, Optional ByVal IDNivel As Byte = 0)
@@ -46,6 +51,45 @@
         End If
 
         ComboBoxControl.DataSource = listAnios
+    End Sub
+
+    Friend Sub Curso(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean, ByVal IncluyeNivelEnNombre As Boolean, Optional ByVal IDNivel As Byte = 0)
+        Dim listCursos As List(Of Curso_ListItem)
+
+        ComboBoxControl.ValueMember = "IDCurso"
+        ComboBoxControl.DisplayMember = "Descripcion"
+
+        If IncluyeNivelEnNombre Then
+            listCursos = (From c In dbContext.Curso
+                          Join a In dbContext.Anio On a.IDAnio Equals c.IDAnio
+                          Join n In dbContext.Nivel On n.IDNivel Equals a.IDNivel
+                          Join t In dbContext.Turno On c.IDTurno Equals t.IDTurno
+                          Order By n.Nombre, a.Nombre, t.Nombre, c.Division
+                          Where a.EsActivo And (IDNivel = 0 Or a.IDNivel = IDNivel)
+                          Select New Curso_ListItem With {.IDCurso = c.IDCurso, .Descripcion = n.Nombre & " - " & a.Nombre & " - " & t.Nombre & " - " & c.Division}).ToList
+        Else
+            listCursos = (From c In dbContext.Curso
+                          Join a In dbContext.Anio On a.IDAnio Equals c.IDAnio
+                          Join t In dbContext.Turno On c.IDTurno Equals t.IDTurno
+                          Order By a.Nombre, t.Nombre, c.Division
+                          Where a.EsActivo And (IDNivel = 0 Or a.IDNivel = IDNivel)
+                          Select New Curso_ListItem With {.IDCurso = c.IDCurso, .Descripcion = a.Nombre & " - " & t.Nombre & " - " & c.Division}).ToList
+        End If
+
+        If AgregarItem_Todos Then
+            Dim Item_Todos As New Curso_ListItem
+            Item_Todos.IDCurso = 0
+            Item_Todos.Descripcion = My.Resources.STRING_ITEM_ALL_MALE
+            listCursos.Insert(0, Item_Todos)
+        End If
+        If AgregarItem_NoEspecifica Then
+            Dim Item_NoEspecifica As New Curso_ListItem
+            Item_NoEspecifica.IDCurso = 0
+            Item_NoEspecifica.Descripcion = My.Resources.STRING_ITEM_NON_SPECIFIED
+            listCursos.Insert(0, Item_NoEspecifica)
+        End If
+
+        ComboBoxControl.DataSource = listCursos
     End Sub
 
     Friend Sub DocumentoTipo(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
@@ -329,18 +373,35 @@
         ComboBoxControl.DataSource = localList
     End Sub
 
-    Friend Sub AnioLectivo(ByRef ComboBoxControl As ComboBox, Optional ByVal Orden As SortOrder = SortOrder.Ascending)
-        ComboBoxControl.ValueMember = "AnioLectivo"
-        ComboBoxControl.DisplayMember = "AnioLectivo"
+    Friend Sub AnioLectivo(ByRef ComboBoxControl As ComboBox, ByVal LeerDesdeBaseDeDatos As Boolean, Optional ByVal Orden As SortOrder = SortOrder.Ascending)
+        If LeerDesdeBaseDeDatos Then
+            ComboBoxControl.ValueMember = "AnioLectivo"
+            ComboBoxControl.DisplayMember = "AnioLectivo"
 
-        Dim qryList = From tbl In dbContext.AnioLectivoCurso
-                          Select tbl.AnioLectivo
-                          Distinct
+            Dim qryList = (From alc In dbContext.AnioLectivoCurso
+                           Order By alc.AnioLectivo
+                           Select alc.AnioLectivo
+                           Distinct).ToList
 
-        If Orden = SortOrder.Descending Then
-            ComboBoxControl.DataSource = qryList.OrderByDescending(Function(al) al).ToList
+            If Orden = SortOrder.Ascending Then
+                ComboBoxControl.DataSource = qryList.OrderBy(Function(al) al).ToList
+            Else
+                ComboBoxControl.DataSource = qryList.OrderByDescending(Function(al) al).ToList
+            End If
         Else
-            ComboBoxControl.DataSource = qryList.OrderBy(Function(al) al).ToList
+            Dim FechaInicioActividad As Date
+
+            ' Cargo de acuerdo a la Fecha de Inicio de Actividades o al Año actual, en su defecto
+            FechaInicioActividad = CS_Parameter.GetDate(Parametros.EMPRESA_INICIO_ACTIVIDAD, DateTime.Today).Value
+            If Orden = SortOrder.Ascending Then
+                For AnioActual As Integer = FechaInicioActividad.Year To DateTime.Today.AddYears(1).Year
+                    ComboBoxControl.Items.Add(AnioActual.ToString)
+                Next
+            Else
+                For AnioActual As Integer = DateTime.Today.AddYears(1).Year To FechaInicioActividad.Year Step -1
+                    ComboBoxControl.Items.Add(AnioActual.ToString)
+                Next
+            End If
         End If
     End Sub
 

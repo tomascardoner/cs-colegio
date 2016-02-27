@@ -13,7 +13,7 @@
     Private Sub formEntidades_Load() Handles Me.Load
         SetAppearance()
 
-        pFillAndRefreshLists.AnioLectivo(comboboxAnioLectivo.ComboBox, SortOrder.Descending)
+        pFillAndRefreshLists.AnioLectivo(comboboxAnioLectivo.ComboBox, True, SortOrder.Descending)
         pFillAndRefreshLists.Nivel(comboboxNivel.ComboBox, False, False)
 
         RefreshData()

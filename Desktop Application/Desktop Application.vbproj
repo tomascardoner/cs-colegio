@@ -288,10 +288,28 @@
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="FillAndRefreshLists.vb" />
+    <Compile Include="formAnioLectivoCursoCopiar.Designer.vb">
+      <DependentUpon>formAnioLectivoCursoCopiar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formAnioLectivoCursoCopiar.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formAnioLectivoCurso.Designer.vb">
+      <DependentUpon>formAnioLectivoCurso.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formAnioLectivoCurso.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formCurso.Designer.vb">
       <DependentUpon>formCurso.vb</DependentUpon>
     </Compile>
     <Compile Include="formCurso.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formAniosLectivosCursos.Designer.vb">
+      <DependentUpon>formAniosLectivosCursos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formAniosLectivosCursos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formCursos.Designer.vb">
@@ -536,8 +554,17 @@
       <Link>CS_ErrorMessageBox.resx</Link>
       <DependentUpon>CS_ErrorMessageBox.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formAnioLectivoCursoCopiar.resx">
+      <DependentUpon>formAnioLectivoCursoCopiar.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formAnioLectivoCurso.resx">
+      <DependentUpon>formAnioLectivoCurso.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formCurso.resx">
       <DependentUpon>formCurso.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formAniosLectivosCursos.resx">
+      <DependentUpon>formAniosLectivosCursos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formCursos.resx">
       <DependentUpon>formCursos.vb</DependentUpon>
@@ -668,6 +695,7 @@
     <None Include="Resources\PagoMisCuentas.jpg" />
     <None Include="Resources\export-icon_16.png" />
     <None Include="Resources\export-icon_32.png" />
+    <None Include="Resources\Actions-edit-copy-icon_32.png" />
     <Content Include="school_48_32_16.ico" />
     <None Include="Resources\Move Previous %28Arrow%29 Red24.png" />
     <None Include="Resources\Move Next %28Arrow%29 Green24.png" />
