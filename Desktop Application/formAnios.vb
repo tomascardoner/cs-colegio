@@ -56,8 +56,7 @@
                 mlistAniosBase = (From a In dbContext.Anio
                                   Group Join AnioSiguiente In dbContext.Anio On New With {.IDAnioSiguiente = CByte(a.IDAnioSiguiente)} Equals New With {.IDAnioSiguiente = AnioSiguiente.IDAnio} Into AnioSiguiente_join = Group
                                   From AnioSiguiente In AnioSiguiente_join.DefaultIfEmpty()
-                                  Order By a.Nivel.Nombre, a.Nombre
-                                  Select New GridRowData With {.IDAnio = a.IDAnio, .IDNivel = a.IDNivel, .Nivel = a.Nivel.Nombre, .Nombre = a.Nombre, .AnioSiguiente = AnioSiguiente.Nombre, .EsActivo = a.EsActivo}).ToList
+                                  Select New GridRowData With {.IDAnio = a.IDAnio, .IDNivel = a.IDNivel, .Nivel = a.Nivel.Nombre, .Nombre = a.Nombre, .AnioSiguiente = AnioSiguiente.Nivel.Nombre & " - " & AnioSiguiente.Nombre, .EsActivo = a.EsActivo}).ToList
             End Using
 
         Catch ex As Exception
@@ -232,10 +231,7 @@
                 datagridviewMain.Enabled = False
 
                 Dim CurrentRow As GridRowData = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData)
-                Using dbContext = New CSColegioContext(True)
-                    Dim AnioActual As Anio = dbContext.Anio.Find(CurrentRow.IDAnio)
-                    formAnio.LoadAndShow(True, Me, CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData).IDAnio)
-                End Using
+                formAnio.LoadAndShow(True, Me, CurrentRow.IDAnio)
 
                 datagridviewMain.Enabled = True
 
@@ -293,7 +289,8 @@
 
             datagridviewMain.Enabled = False
 
-            formAnio.LoadAndShow(False, Me, CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData).IDAnio)
+            Dim CurrentRow As GridRowData = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData)
+            formAnio.LoadAndShow(False, Me, CurrentRow.IDAnio)
 
             datagridviewMain.Enabled = True
 

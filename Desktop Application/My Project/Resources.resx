@@ -238,7 +238,7 @@
   <data name="STRING_NO" xml:space="preserve">
     <value>No</value>
   </data>
-  <data name="STRING_ITEM_NON_SPECIFIED" xml:space="preserve">
+  <data name="STRING_ITEM_NOT_SPECIFIED" xml:space="preserve">
     <value>«No especifica»</value>
   </data>
   <data name="STRING_ITEM_COMPLETE_FEMALE" xml:space="preserve">

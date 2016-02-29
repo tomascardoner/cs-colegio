@@ -184,6 +184,21 @@
         End If
     End Sub
 
+    Private Sub menuitemAniosLectivosCursosImportes_Click() Handles menuitemAniosLectivosCursosImportes.Click
+        If Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCURSOIMPORTE) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formAniosLectivosCursosImportes, Form), Form_ClientSize)
+            formAniosLectivosCursosImportes.Show()
+            If formAniosLectivosCursosImportes.WindowState = FormWindowState.Minimized Then
+                formAniosLectivosCursosImportes.WindowState = FormWindowState.Normal
+            End If
+            formAniosLectivosCursosImportes.Focus()
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
+
     Private Sub menuitemBancos_Click() Handles menuitemBancos.Click
         Dim formBancos As formCABGenerico
 

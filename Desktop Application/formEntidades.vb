@@ -264,7 +264,8 @@
 
                 datagridviewMain.Enabled = False
 
-                formEntidad.LoadAndShow(True, Me, CType(datagridviewMain.SelectedRows(0).DataBoundItem, Entidad).IDEntidad)
+                Dim EntidadActual = CType(datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
+                formEntidad.LoadAndShow(True, Me, EntidadActual.IDEntidad)
 
                 datagridviewMain.Enabled = True
 
@@ -319,7 +320,8 @@
 
             datagridviewMain.Enabled = False
 
-            formEntidad.LoadAndShow(False, Me, CType(datagridviewMain.SelectedRows(0).DataBoundItem, Entidad).IDEntidad)
+            Dim EntidadActual = CType(datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
+            formEntidad.LoadAndShow(False, Me, EntidadActual.IDEntidad)
 
             datagridviewMain.Enabled = True
 

@@ -220,14 +220,14 @@
             comboboxAnioLectivoCurso.DataSource = Nothing
         Else
             If mArticuloActual.IDArticulo = mIDArticuloMatricula Then
-                pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year + 1, mEntidad.IDEntidad)
+                pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year + 1, True, mEntidad.IDEntidad)
             ElseIf mArticuloActual.IDArticulo = mIDArticuloMensual Then
                 If Permisos.VerificarPermiso(Permisos.COMPROBANTE_DETALLE_PERMITE_CUOTAANIOANTERIORYSIGUIENTE, False) Then
-                    pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year - 1, Today.Year + 1, mEntidad.IDEntidad)
+                    pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year - 1, Today.Year + 1, True, mEntidad.IDEntidad)
                 ElseIf Permisos.VerificarPermiso(Permisos.COMPROBANTE_DETALLE_PERMITE_CUOTAANIOSIGUIENTE, False) Then
-                    pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year + 1, mEntidad.IDEntidad)
+                    pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year + 1, True, mEntidad.IDEntidad)
                 Else
-                    pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year, mEntidad.IDEntidad)
+                    pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year, True, mEntidad.IDEntidad)
                 End If
             End If
         End If
@@ -252,7 +252,7 @@
                     ' MATRÍCULA
                     Using dbContext As New CSColegioContext(True)
                         AnioLectivoCursoActual = dbContext.AnioLectivoCurso.Find(CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).IDAnioLectivoCurso)
-                        AnioLectivoCursoImporteActual = AnioLectivoCursoActual.AnioLectivoCursoImporte.Where(Function(alci) alci.MesInicial <= Month(DateAndTime.Today)).OrderByDescending(Function(alci) alci.MesInicial).FirstOrDefault
+                        AnioLectivoCursoImporteActual = AnioLectivoCursoActual.AnioLectivoCursoImporte.Where(Function(alci) alci.MesInicio <= Month(DateAndTime.Today)).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
                     End Using
                     If Not AnioLectivoCursoImporteActual Is Nothing Then
                         PrecioUnitario = AnioLectivoCursoImporteActual.ImporteMatricula
@@ -262,7 +262,7 @@
                     If comboboxCuotaMes.SelectedIndex > -1 Then
                         Using dbContext As New CSColegioContext(True)
                             AnioLectivoCursoActual = dbContext.AnioLectivoCurso.Find(CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).IDAnioLectivoCurso)
-                            AnioLectivoCursoImporteActual = AnioLectivoCursoActual.AnioLectivoCursoImporte.Where(Function(alci) alci.MesInicial <= CByte(comboboxCuotaMes.SelectedIndex + 1)).OrderByDescending(Function(alci) alci.MesInicial).FirstOrDefault
+                            AnioLectivoCursoImporteActual = AnioLectivoCursoActual.AnioLectivoCursoImporte.Where(Function(alci) alci.MesInicio <= CByte(comboboxCuotaMes.SelectedIndex + 1)).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
                         End Using
                         If Not AnioLectivoCursoImporteActual Is Nothing Then
                             PrecioUnitario = AnioLectivoCursoImporteActual.ImporteCuota

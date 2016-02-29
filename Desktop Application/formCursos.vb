@@ -61,7 +61,6 @@
                                    Join a In dbContext.Anio On a.IDAnio Equals c.IDAnio
                                    Join n In dbContext.Nivel On n.IDNivel Equals a.IDNivel
                                    Join t In dbContext.Turno On c.IDTurno Equals t.IDTurno
-                                   Order By n.Nombre, a.Nombre, t.Nombre, c.Division
                                    Select New GridRowData With {.IDCurso = c.IDCurso, .IDNivel = a.IDNivel, .Nivel = n.Nombre, .IDAnio = a.IDAnio, .Anio = a.Nombre, .IDTurno = c.IDTurno, .Turno = t.Nombre, .Division = c.Division, .EsActivo = a.EsActivo}).ToList
             End Using
 
@@ -260,10 +259,7 @@
                 datagridviewMain.Enabled = False
 
                 Dim CurrentRow As GridRowData = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData)
-                Using dbContext = New CSColegioContext(True)
-                    Dim CursoActual As Anio = dbContext.Anio.Find(CurrentRow.IDCurso)
-                    formCurso.LoadAndShow(True, Me, CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData).IDCurso)
-                End Using
+                formCurso.LoadAndShow(True, Me, CurrentRow.IDCurso)
 
                 datagridviewMain.Enabled = True
 
@@ -321,7 +317,8 @@
 
             datagridviewMain.Enabled = False
 
-            formCurso.LoadAndShow(False, Me, CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData).IDCurso)
+            Dim CurrentRow As GridRowData = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData)
+            formCurso.LoadAndShow(False, Me, CurrentRow.IDCurso)
 
             datagridviewMain.Enabled = True
 

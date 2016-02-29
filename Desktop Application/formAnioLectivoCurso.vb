@@ -163,8 +163,8 @@
                 ' Guardo los cambios
                 mdbContext.SaveChanges()
 
-                ' Refresco la lista de Entidades para mostrar los cambios
-                If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formCursos") Then
+                ' Refresco la lista de Cursos de Años Lectivos para mostrar los cambios
+                If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formAniosLectivosCursos") Then
                     Dim formAniosLectivosCursos As formAniosLectivosCursos = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formAniosLectivosCursos"), formAniosLectivosCursos)
                     formAniosLectivosCursos.RefreshData(mAnioLectivoCursoActual.IDAnioLectivoCurso)
                     formAniosLectivosCursos = Nothing

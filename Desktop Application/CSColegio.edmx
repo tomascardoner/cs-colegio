@@ -30,10 +30,10 @@
         <EntityType Name="AnioLectivoCursoImporte">
           <Key>
             <PropertyRef Name="IDAnioLectivoCurso" />
-            <PropertyRef Name="MesInicial" />
+            <PropertyRef Name="MesInicio" />
           </Key>
           <Property Name="IDAnioLectivoCurso" Type="smallint" Nullable="false" />
-          <Property Name="MesInicial" Type="tinyint" Nullable="false" />
+          <Property Name="MesInicio" Type="tinyint" Nullable="false" />
           <Property Name="ImporteMatricula" Type="money" Nullable="false" />
           <Property Name="ImporteCuota" Type="money" Nullable="false" />
         </EntityType>
@@ -186,8 +186,8 @@
           <Property Name="FechaHoraTransmisionAFIP" Type="smalldatetime" />
           <Property Name="IDUsuarioEnvioEmail" Type="smallint" />
           <Property Name="FechaHoraEnvioEmail" Type="smalldatetime" />
-          <Property Name="IDUsuarioTransmisionPagomiscuentas" Type="smalldatetime" />
-          <Property Name="FechaHoraTransmisionPagomiscuentas" Type="smallint" />
+          <Property Name="IDUsuarioTransmisionPagomiscuentas" Type="smallint" />
+          <Property Name="FechaHoraTransmisionPagomiscuentas" Type="smalldatetime" />
         </EntityType>
         <EntityType Name="ComprobanteAplicacion">
           <Key>
@@ -715,7 +715,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__AnioLectivoCurso__AnioLectivoCursoImporte">
-          <End Role="AnioLectivoCurso" Type="Self.AnioLectivoCurso" Multiplicity="1" />
+          <End Role="AnioLectivoCurso" Type="Self.AnioLectivoCurso" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="AnioLectivoCursoImporte" Type="Self.AnioLectivoCursoImporte" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AnioLectivoCurso">
@@ -3063,8 +3065,8 @@
           <NavigationProperty Name="ComprobanteAplicacion_Aplicados" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicante" FromRole="Comprobante" ToRole="ComprobanteAplicacion" />
           <NavigationProperty Name="UsuarioEnvioEmail" Relationship="CSColegioModel.FK__Usuario__Comprobante__EnvioEmail" FromRole="Comprobante" ToRole="Usuario" />
           <NavigationProperty Name="Concepto" Relationship="CSColegioModel.FK__Concepto__Comprobante" FromRole="Comprobante" ToRole="Concepto" />
-          <Property Name="IDUsuarioTransmisionPagomiscuentas" Type="DateTime" Precision="0" />
-          <Property Name="FechaHoraTransmisionPagomiscuentas" Type="Int16" />
+          <Property Name="IDUsuarioTransmisionPagomiscuentas" Type="Int16" />
+          <Property Name="FechaHoraTransmisionPagomiscuentas" Type="DateTime" />
           </EntityType>
         <EntityType Name="ComprobanteMedioPago">
           <Key>
@@ -3443,10 +3445,10 @@
         <EntityType Name="AnioLectivoCursoImporte">
           <Key>
             <PropertyRef Name="IDAnioLectivoCurso" />
-            <PropertyRef Name="MesInicial" />
+            <PropertyRef Name="MesInicio" />
           </Key>
           <Property Name="IDAnioLectivoCurso" Type="Int16" Nullable="false" />
-          <Property Name="MesInicial" Type="Byte" Nullable="false" />
+          <Property Name="MesInicio" Type="Byte" Nullable="false" />
           <Property Name="ImporteMatricula" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="ImporteCuota" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <NavigationProperty Name="AnioLectivoCurso" Relationship="CSColegioModel.FK__AnioLectivoCurso__AnioLectivoCursoImporte" FromRole="AnioLectivoCursoImporte" ToRole="AnioLectivoCurso" />
@@ -4211,9 +4213,9 @@
           <EntitySetMapping Name="AnioLectivoCursoImporte">
             <EntityTypeMapping TypeName="CSColegioModel.AnioLectivoCursoImporte">
               <MappingFragment StoreEntitySet="AnioLectivoCursoImporte">
+                <ScalarProperty Name="MesInicio" ColumnName="MesInicio" />
                 <ScalarProperty Name="ImporteCuota" ColumnName="ImporteCuota" />
                 <ScalarProperty Name="ImporteMatricula" ColumnName="ImporteMatricula" />
-                <ScalarProperty Name="MesInicial" ColumnName="MesInicial" />
                 <ScalarProperty Name="IDAnioLectivoCurso" ColumnName="IDAnioLectivoCurso" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -649,15 +649,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to «No especifica».
-        '''</summary>
-        Friend ReadOnly Property STRING_ITEM_NON_SPECIFIED() As String
-            Get
-                Return ResourceManager.GetString("STRING_ITEM_NON_SPECIFIED", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to ----------.
         '''</summary>
         Friend ReadOnly Property STRING_ITEM_NONE_CHARS10() As String
@@ -665,7 +656,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("STRING_ITEM_NONE_CHARS10", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to --.
         '''</summary>
@@ -674,7 +665,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("STRING_ITEM_NONE_CHARS2", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to --------------------.
         '''</summary>
@@ -683,7 +674,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("STRING_ITEM_NONE_CHARS20", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to -----.
         '''</summary>
@@ -692,7 +683,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("STRING_ITEM_NONE_CHARS5", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to «Ninguno».
         '''</summary>
@@ -701,7 +692,7 @@ Namespace My.Resources
                 Return ResourceManager.GetString("STRING_ITEM_NONE_FEMALE", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to «Ninguna».
         '''</summary>
@@ -710,7 +701,16 @@ Namespace My.Resources
                 Return ResourceManager.GetString("STRING_ITEM_NONE_MALE", resourceCulture)
             End Get
         End Property
-        
+
+        '''<summary>
+        '''  Looks up a localized string similar to «No especifica».
+        '''</summary>
+        Friend ReadOnly Property STRING_ITEM_NOT_SPECIFIED() As String
+            Get
+                Return ResourceManager.GetString("STRING_ITEM_NOT_SPECIFIED", resourceCulture)
+            End Get
+        End Property
+
         '''<summary>
         '''  Looks up a localized string similar to «.
         '''</summary>

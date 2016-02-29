@@ -12,7 +12,7 @@ Imports System.Collections.Generic
 
 Partial Public Class AnioLectivoCursoImporte
     Public Property IDAnioLectivoCurso As Short
-    Public Property MesInicial As Byte
+    Public Property MesInicio As Byte
     Public Property ImporteMatricula As Decimal
     Public Property ImporteCuota As Decimal
 

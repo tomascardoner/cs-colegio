@@ -829,7 +829,7 @@ Public Class formComprobantesGenerarLote
         Dim AnioLectivoCursoImporteActual As AnioLectivoCursoImporte
 
         AnioLectivoCursoActual = EntidadDetalle.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = AnioLectivo).FirstOrDefault
-        AnioLectivoCursoImporteActual = AnioLectivoCursoActual.AnioLectivoCursoImporte.Where(Function(alci) alci.MesInicial <= MesAFacturar).OrderByDescending(Function(alci) alci.MesInicial).FirstOrDefault
+        AnioLectivoCursoImporteActual = AnioLectivoCursoActual.AnioLectivoCursoImporte.Where(Function(alci) alci.MesInicio <= MesAFacturar).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
 
         If Not AnioLectivoCursoImporteActual Is Nothing Then
             With FacturaDetalle

@@ -46,50 +46,11 @@
         If AgregarItem_NoEspecifica Then
             Dim Item_NoEspecifica As New Anio_ListItem
             Item_NoEspecifica.IDAnio = 0
-            Item_NoEspecifica.Descripcion = My.Resources.STRING_ITEM_NON_SPECIFIED
+            Item_NoEspecifica.Descripcion = My.Resources.STRING_ITEM_NOT_SPECIFIED
             listAnios.Insert(0, Item_NoEspecifica)
         End If
 
         ComboBoxControl.DataSource = listAnios
-    End Sub
-
-    Friend Sub Curso(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean, ByVal IncluyeNivelEnNombre As Boolean, Optional ByVal IDNivel As Byte = 0)
-        Dim listCursos As List(Of Curso_ListItem)
-
-        ComboBoxControl.ValueMember = "IDCurso"
-        ComboBoxControl.DisplayMember = "Descripcion"
-
-        If IncluyeNivelEnNombre Then
-            listCursos = (From c In dbContext.Curso
-                          Join a In dbContext.Anio On a.IDAnio Equals c.IDAnio
-                          Join n In dbContext.Nivel On n.IDNivel Equals a.IDNivel
-                          Join t In dbContext.Turno On c.IDTurno Equals t.IDTurno
-                          Order By n.Nombre, a.Nombre, t.Nombre, c.Division
-                          Where a.EsActivo And (IDNivel = 0 Or a.IDNivel = IDNivel)
-                          Select New Curso_ListItem With {.IDCurso = c.IDCurso, .Descripcion = n.Nombre & " - " & a.Nombre & " - " & t.Nombre & " - " & c.Division}).ToList
-        Else
-            listCursos = (From c In dbContext.Curso
-                          Join a In dbContext.Anio On a.IDAnio Equals c.IDAnio
-                          Join t In dbContext.Turno On c.IDTurno Equals t.IDTurno
-                          Order By a.Nombre, t.Nombre, c.Division
-                          Where a.EsActivo And (IDNivel = 0 Or a.IDNivel = IDNivel)
-                          Select New Curso_ListItem With {.IDCurso = c.IDCurso, .Descripcion = a.Nombre & " - " & t.Nombre & " - " & c.Division}).ToList
-        End If
-
-        If AgregarItem_Todos Then
-            Dim Item_Todos As New Curso_ListItem
-            Item_Todos.IDCurso = 0
-            Item_Todos.Descripcion = My.Resources.STRING_ITEM_ALL_MALE
-            listCursos.Insert(0, Item_Todos)
-        End If
-        If AgregarItem_NoEspecifica Then
-            Dim Item_NoEspecifica As New Curso_ListItem
-            Item_NoEspecifica.IDCurso = 0
-            Item_NoEspecifica.Descripcion = My.Resources.STRING_ITEM_NON_SPECIFIED
-            listCursos.Insert(0, Item_NoEspecifica)
-        End If
-
-        ComboBoxControl.DataSource = listCursos
     End Sub
 
     Friend Sub DocumentoTipo(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
@@ -104,7 +65,7 @@
         If ShowUnspecifiedItem Then
             Dim UnspecifiedItem As New DocumentoTipo
             UnspecifiedItem.IDDocumentoTipo = 0
-            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NOT_SPECIFIED
             UnspecifiedItem.VerificaModulo11 = False
             localList.Insert(0, UnspecifiedItem)
         End If
@@ -124,7 +85,7 @@
         If ShowUnspecifiedItem Then
             Dim UnspecifiedItem As New CategoriaIVA
             UnspecifiedItem.IDCategoriaIVA = 0
-            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NOT_SPECIFIED
             localList.Insert(0, UnspecifiedItem)
         End If
 
@@ -144,7 +105,7 @@
         If ShowUnspecifiedItem Then
             Dim UnspecifiedItem As New Banco
             UnspecifiedItem.IDBanco = 0
-            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NOT_SPECIFIED
             listBancos.Insert(0, UnspecifiedItem)
         End If
 
@@ -162,7 +123,7 @@
         If ShowUnspecifiedItem Then
             Dim UnspecifiedItem As New Provincia
             UnspecifiedItem.IDProvincia = Constantes.PROVINCIA_NOESPECIFICA
-            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NOT_SPECIFIED
             localList.Insert(0, UnspecifiedItem)
         End If
 
@@ -181,7 +142,7 @@
         If ShowUnspecifiedItem Then
             Dim UnspecifiedItem As New Localidad
             UnspecifiedItem.IDLocalidad = 0
-            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NOT_SPECIFIED
             localList.Insert(0, UnspecifiedItem)
         End If
 
@@ -221,8 +182,8 @@
         If AgregarItem_NoEspecifica Then
             Dim UnspecifiedItem As New ComprobanteTipo
             UnspecifiedItem.IDComprobanteTipo = Byte.MinValue
-            UnspecifiedItem.NombreConLetra = My.Resources.STRING_ITEM_NON_SPECIFIED
-            UnspecifiedItem.NombreCompleto = My.Resources.STRING_ITEM_NON_SPECIFIED
+            UnspecifiedItem.NombreConLetra = My.Resources.STRING_ITEM_NOT_SPECIFIED
+            UnspecifiedItem.NombreCompleto = My.Resources.STRING_ITEM_NOT_SPECIFIED
             localList.Insert(0, UnspecifiedItem)
         End If
 
@@ -244,7 +205,7 @@
             If ShowUnspecifiedItem Then
                 datarowRow = .NewRow
                 datarowRow("IDGenero") = Constantes.ENTIDAD_GENERO_NOESPECIFICA
-                datarowRow("Nombre") = My.Resources.STRING_ITEM_NON_SPECIFIED
+                datarowRow("Nombre") = My.Resources.STRING_ITEM_NOT_SPECIFIED
                 .Rows.Add(datarowRow)
             End If
 
@@ -316,7 +277,7 @@
             If ShowUnspecifiedItem Then
                 datarowRow = .NewRow
                 datarowRow("IDEmitirFacturaA") = Constantes.ENTIDAD_EMITIRFACTURAA_NOESPECIFICA
-                datarowRow("Nombre") = My.Resources.STRING_ITEM_NON_SPECIFIED
+                datarowRow("Nombre") = My.Resources.STRING_ITEM_NOT_SPECIFIED
                 .Rows.Add(datarowRow)
             End If
 
@@ -366,7 +327,7 @@
         If ShowUnspecifiedItem Then
             Dim UnspecifiedItem As New Descuento
             UnspecifiedItem.IDDescuento = 0
-            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NOT_SPECIFIED
             localList.Insert(0, UnspecifiedItem)
         End If
 
@@ -405,6 +366,21 @@
         End If
     End Sub
 
+    Friend Sub Mes(ByRef ComboBoxControl As ComboBox, ByVal MostrarNombreDelMes As Boolean, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)
+        If MostrarNombreDelMes Then
+            ComboBoxControl.Items.AddRange({"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"})
+        Else
+            ComboBoxControl.Items.AddRange({1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12})
+        End If
+
+        If AgregarItem_Todos Then
+            ComboBoxControl.Items.Insert(0, My.Resources.STRING_ITEM_ALL_MALE)
+        End If
+        If AgregarItem_NoEspecifica Then
+            ComboBoxControl.Items.Insert(0, My.Resources.STRING_ITEM_NOT_SPECIFIED)
+        End If
+    End Sub
+
     Friend Sub Nivel(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)
         ComboBoxControl.ValueMember = "IDNivel"
         ComboBoxControl.DisplayMember = "Nombre"
@@ -423,7 +399,7 @@
         If AgregarItem_NoEspecifica Then
             Dim Item_NoEspecifica As New Nivel
             Item_NoEspecifica.IDNivel = 0
-            Item_NoEspecifica.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+            Item_NoEspecifica.Nombre = My.Resources.STRING_ITEM_NOT_SPECIFIED
             localList.Insert(0, Item_NoEspecifica)
         End If
 
@@ -448,11 +424,50 @@
         If AgregarItem_NoEspecifica Then
             Dim Item_NoEspecifica As New Turno
             Item_NoEspecifica.IDTurno = 0
-            Item_NoEspecifica.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+            Item_NoEspecifica.Nombre = My.Resources.STRING_ITEM_NOT_SPECIFIED
             localList.Insert(0, Item_NoEspecifica)
         End If
 
         ComboBoxControl.DataSource = localList
+    End Sub
+
+    Friend Sub Curso(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean, ByVal IncluyeNivelEnNombre As Boolean, Optional ByVal IDNivel As Byte = 0)
+        Dim listCursos As List(Of Curso_ListItem)
+
+        ComboBoxControl.ValueMember = "IDCurso"
+        ComboBoxControl.DisplayMember = "Descripcion"
+
+        If IncluyeNivelEnNombre Then
+            listCursos = (From c In dbContext.Curso
+                          Join a In dbContext.Anio On a.IDAnio Equals c.IDAnio
+                          Join n In dbContext.Nivel On n.IDNivel Equals a.IDNivel
+                          Join t In dbContext.Turno On c.IDTurno Equals t.IDTurno
+                          Order By n.Nombre, a.Nombre, t.Nombre, c.Division
+                          Where a.EsActivo And (IDNivel = 0 Or a.IDNivel = IDNivel)
+                          Select New Curso_ListItem With {.IDCurso = c.IDCurso, .Descripcion = n.Nombre & " - " & a.Nombre & " - " & t.Nombre & " - " & c.Division}).ToList
+        Else
+            listCursos = (From c In dbContext.Curso
+                          Join a In dbContext.Anio On a.IDAnio Equals c.IDAnio
+                          Join t In dbContext.Turno On c.IDTurno Equals t.IDTurno
+                          Order By a.Nombre, t.Nombre, c.Division
+                          Where a.EsActivo And (IDNivel = 0 Or a.IDNivel = IDNivel)
+                          Select New Curso_ListItem With {.IDCurso = c.IDCurso, .Descripcion = a.Nombre & " - " & t.Nombre & " - " & c.Division}).ToList
+        End If
+
+        If AgregarItem_Todos Then
+            Dim Item_Todos As New Curso_ListItem
+            Item_Todos.IDCurso = 0
+            Item_Todos.Descripcion = My.Resources.STRING_ITEM_ALL_MALE
+            listCursos.Insert(0, Item_Todos)
+        End If
+        If AgregarItem_NoEspecifica Then
+            Dim Item_NoEspecifica As New Curso_ListItem
+            Item_NoEspecifica.IDCurso = 0
+            Item_NoEspecifica.Descripcion = My.Resources.STRING_ITEM_NOT_SPECIFIED
+            listCursos.Insert(0, Item_NoEspecifica)
+        End If
+
+        ComboBoxControl.DataSource = listCursos
     End Sub
 
     Friend Sub CursoPorAnioLectivoYNivel(ByRef ComboBoxControl As ComboBox, ByVal AnioLectivo As Integer, Optional ByVal IDNivel As Byte? = Nothing)
@@ -474,23 +489,38 @@
         End If
     End Sub
 
-    Friend Sub AnioLectivoCurso(ByRef ComboBoxControl As ComboBox, ByVal AnioLectivoDesde As Integer, ByVal AnioLectivoHasta As Integer, Optional ByVal IDEntidad As Integer? = Nothing)
+    Friend Sub AnioLectivoCurso(ByRef ComboBoxControl As ComboBox, ByVal AnioLectivoDesde As Integer, ByVal AnioLectivoHasta As Integer, ByVal IncluyeAnioLectivoEnDescripcion As Boolean, Optional ByVal IDEntidad As Integer? = Nothing)
         Dim listAnioLectivoCursos As List(Of AnioLectivoCurso_ListItem)
 
         ComboBoxControl.ValueMember = "IDAnioLectivoCurso"
         ComboBoxControl.DisplayMember = "Descripcion"
 
-        If IDEntidad Is Nothing Then
-            listAnioLectivoCursos = (From alc In dbContext.AnioLectivoCurso
-                                     Where alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
-                                     Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
-                                     Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.AnioLectivo.ToString & " - " & alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo}).ToList
+        If IncluyeAnioLectivoEnDescripcion Then
+            If IDEntidad Is Nothing Then
+                listAnioLectivoCursos = (From alc In dbContext.AnioLectivoCurso
+                                         Where alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
+                                         Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
+                                         Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.AnioLectivo.ToString & " - " & alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo}).ToList
+            Else
+                listAnioLectivoCursos = (From e In dbContext.Entidad
+                                         From alc In e.AniosLectivosCursos
+                                         Where e.IDEntidad = IDEntidad And alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
+                                         Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
+                                         Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.AnioLectivo.ToString & " - " & alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo}).ToList
+            End If
         Else
-            listAnioLectivoCursos = (From e In dbContext.Entidad
-                                     From alc In e.AniosLectivosCursos
-                                     Where e.IDEntidad = IDEntidad And alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
-                                     Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
-                                     Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.AnioLectivo.ToString & " - " & alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo}).ToList
+            If IDEntidad Is Nothing Then
+                listAnioLectivoCursos = (From alc In dbContext.AnioLectivoCurso
+                                         Where alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
+                                         Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
+                                         Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo}).ToList
+            Else
+                listAnioLectivoCursos = (From e In dbContext.Entidad
+                                         From alc In e.AniosLectivosCursos
+                                         Where e.IDEntidad = IDEntidad And alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
+                                         Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
+                                         Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo}).ToList
+            End If
         End If
 
         ComboBoxControl.DataSource = listAnioLectivoCursos
@@ -513,7 +543,7 @@
         If AgregarItem_NoEspecifica Then
             Dim Item_NoEspecifica As New ComprobanteLote
             Item_NoEspecifica.IDComprobanteLote = 0
-            Item_NoEspecifica.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+            Item_NoEspecifica.Nombre = My.Resources.STRING_ITEM_NOT_SPECIFIED
             listComprobanteLote.Insert(0, Item_NoEspecifica)
         End If
 
@@ -545,7 +575,7 @@
         If ShowUnspecifiedItem Then
             Dim UnspecifiedItem As New MedioPago
             UnspecifiedItem.IDMedioPago = 0
-            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NOT_SPECIFIED
             listMediosPago.Insert(0, UnspecifiedItem)
         End If
 
@@ -597,7 +627,7 @@
         If ShowUnspecifiedItem Then
             Dim UnspecifiedItem As New Caja
             UnspecifiedItem.IDCaja = 0
-            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NOT_SPECIFIED
             localList.Insert(0, UnspecifiedItem)
         End If
 
@@ -621,7 +651,7 @@
         If AgregarItem_NoEspecifica Then
             Dim Item_NoEspecifica As New ComprobanteAplicacionMotivo
             Item_NoEspecifica.IDComprobanteAplicacionMotivo = 0
-            Item_NoEspecifica.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+            Item_NoEspecifica.Nombre = My.Resources.STRING_ITEM_NOT_SPECIFIED
             listComprobanteAplicacionMotivo.Insert(0, Item_NoEspecifica)
         End If
 
@@ -645,7 +675,7 @@
         If AgregarItem_NoEspecifica Then
             Dim Item_NoEspecifica As New Articulo
             Item_NoEspecifica.IDArticulo = 0
-            Item_NoEspecifica.Nombre = My.Resources.STRING_ITEM_NON_SPECIFIED
+            Item_NoEspecifica.Nombre = My.Resources.STRING_ITEM_NOT_SPECIFIED
             listArticulos.Insert(0, Item_NoEspecifica)
         End If
 
