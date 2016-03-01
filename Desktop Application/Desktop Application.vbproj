@@ -288,6 +288,12 @@
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="FillAndRefreshLists.vb" />
+    <Compile Include="formAnioLectivoCursoImporteGenerar.Designer.vb">
+      <DependentUpon>formAnioLectivoCursoImporteGenerar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formAnioLectivoCursoImporteGenerar.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formAnioLectivoCursoImporte.Designer.vb">
       <DependentUpon>formAnioLectivoCursoImporte.vb</DependentUpon>
     </Compile>
@@ -565,6 +571,9 @@
     <EmbeddedResource Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_ErrorMessageBox.resx">
       <Link>CS_ErrorMessageBox.resx</Link>
       <DependentUpon>CS_ErrorMessageBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formAnioLectivoCursoImporteGenerar.resx">
+      <DependentUpon>formAnioLectivoCursoImporteGenerar.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formAnioLectivoCursoImporte.resx">
       <DependentUpon>formAnioLectivoCursoImporte.vb</DependentUpon>
