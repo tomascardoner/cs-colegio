@@ -1,4 +1,6 @@
 ﻿Public Class formEntidadesSeleccionar
+
+#Region "Declarations"
     Private listEntidadBase As List(Of Entidad)
     Private listEntidadFiltradaYOrdenada As List(Of Entidad)
 
@@ -11,7 +13,37 @@
     Friend Const COLUMNA_IDENTIDAD As String = "columnIDEntidad"
     Private Const COLUMNA_APELLIDO As String = "columnApellido"
     Private Const COLUMNA_NOMBRE As String = "columnNombre"
+#End Region
 
+#Region "Form stuff"
+    Friend Sub SetAppearance()
+        datagridviewMain.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewMain.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+    End Sub
+
+    Private Sub formEntidadesSeleccionar_Load() Handles Me.Load
+        SetAppearance()
+
+        SkipFilterData = True
+
+        comboboxActivo.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, My.Resources.STRING_YES, My.Resources.STRING_NO})
+        comboboxActivo.SelectedIndex = 1
+
+        SkipFilterData = False
+
+        OrdenColumna = columnApellido
+        OrdenTipo = SortOrder.Ascending
+
+        RefreshData()
+    End Sub
+
+    Private Sub formEntidades_FormClosed() Handles Me.FormClosed
+        listEntidadBase = Nothing
+    End Sub
+
+#End Region
+
+#Region "Load and Set Data"
     Friend Sub RefreshData(Optional ByVal PositionIDEntidad As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
         Me.Cursor = Cursors.WaitCursor
 
@@ -51,7 +83,7 @@
                 'TODOS LOS TIPOS DE ENTIDAD SELECCIONADOS
                 If BusquedaAplicada Then
                     listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                       Where (ent.Apellido.ToLower.Contains(textboxBuscar.Text.ToLower.Trim) Or ent.Nombre.ToLower.Contains(textboxBuscar.Text.ToLower.Trim)) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo))
+                                       Where ent.ApellidoNombre.ToLower.Contains(textboxBuscar.Text.ToLower.Trim) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo))
                                         Select ent).ToList
                 Else
                     listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
@@ -62,7 +94,7 @@
             Else
                 If BusquedaAplicada Then
                     listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                Where ((menuitemEntidadTipo_PersonalColegio.Checked And ent.TipoPersonalColegio) Or (menuitemEntidadTipo_Docente.Checked And ent.TipoDocente) Or (menuitemEntidadTipo_Alumno.Checked And ent.TipoAlumno) Or (menuitemEntidadTipo_Familiar.Checked And ent.TipoFamiliar) Or (menuitemEntidadTipo_Proveedor.Checked And ent.TipoProveedor)) And (ent.Apellido.ToLower.Contains(textboxBuscar.Text.ToLower.Trim) Or ent.Nombre.ToLower.Contains(textboxBuscar.Text.ToLower.Trim)) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo))
+                                Where ((menuitemEntidadTipo_PersonalColegio.Checked And ent.TipoPersonalColegio) Or (menuitemEntidadTipo_Docente.Checked And ent.TipoDocente) Or (menuitemEntidadTipo_Alumno.Checked And ent.TipoAlumno) Or (menuitemEntidadTipo_Familiar.Checked And ent.TipoFamiliar) Or (menuitemEntidadTipo_Proveedor.Checked And ent.TipoProveedor)) And ent.ApellidoNombre.ToLower.Contains(textboxBuscar.Text.ToLower.Trim) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo))
                                 Select ent).ToList
                 Else
                     listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
@@ -106,27 +138,9 @@
         OrdenColumna.HeaderCell.SortGlyphDirection = OrdenTipo
     End Sub
 
-    Friend Sub SetAppearance()
-        datagridviewMain.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
-        datagridviewMain.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
-    End Sub
+#End Region
 
-    Private Sub formEntidadesSeleccionar_Load() Handles Me.Load
-        SetAppearance()
-
-        SkipFilterData = True
-
-        comboboxActivo.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, My.Resources.STRING_YES, My.Resources.STRING_NO})
-        comboboxActivo.SelectedIndex = 1
-
-        SkipFilterData = False
-
-        OrdenColumna = columnApellido
-        OrdenTipo = SortOrder.Ascending
-
-        RefreshData()
-    End Sub
-
+#Region "Controls behavior"
     Private Sub formEntidadesSeleccionar_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
         If Not textboxBuscar.Focused Then
             If Char.IsLetter(e.KeyChar) Then
@@ -139,10 +153,6 @@
                 Next
             End If
         End If
-    End Sub
-
-    Private Sub formEntidades_FormClosed() Handles Me.FormClosed
-        listEntidadBase = Nothing
     End Sub
 
     Private Sub menuitemEntidadTipo_Click() Handles menuitemEntidadTipo_PersonalColegio.Click, menuitemEntidadTipo_Docente.Click, menuitemEntidadTipo_Alumno.Click, menuitemEntidadTipo_Familiar.Click, menuitemEntidadTipo_Proveedor.Click
@@ -220,7 +230,9 @@
 
         OrderData()
     End Sub
+#End Region
 
+#Region "Main Toolbar"
     Private Sub Seleccionar() Handles datagridviewMain.DoubleClick, buttonSeleccionar.Click
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ninguna Entidad para seleccionar.", vbInformation, My.Application.Info.Title)
@@ -240,4 +252,6 @@
             Cancelar()
         End If
     End Sub
+#End Region
+
 End Class

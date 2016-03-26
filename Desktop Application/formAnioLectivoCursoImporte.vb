@@ -50,8 +50,6 @@
         buttonEditar.Visible = (mEditMode = False)
         buttonCerrar.Visible = (mEditMode = False)
 
-        comboboxAnioLectivo.Enabled = (mEditMode And mAnioLectivoCursoImporteActual.IDAnioLectivoCurso = 0)
-        comboboxCurso.Enabled = (mEditMode And mAnioLectivoCursoImporteActual.IDAnioLectivoCurso = 0)
         comboboxMesInicio.Enabled = (mEditMode And mAnioLectivoCursoImporteActual.IDAnioLectivoCurso = 0)
         textboxImporteMatricula.ReadOnly = Not mEditMode
         textboxImporteCuota.ReadOnly = Not mEditMode
@@ -61,8 +59,6 @@
         SetAppearance()
 
         ' Cargo los ComboBox
-        pFillAndRefreshLists.AnioLectivo(comboboxAnioLectivo, True, SortOrder.Ascending)
-        AnioLectivoChange()
         pFillAndRefreshLists.Mes(comboboxMesInicio, True, False, False)
     End Sub
 
@@ -81,12 +77,8 @@
 #Region "Load and Set Data"
     Friend Sub SetDataFromObjectToControls()
         With mAnioLectivoCursoImporteActual
-            If .IDAnioLectivoCurso = 0 Then
-                comboboxAnioLectivo.SelectedIndex = comboboxAnioLectivo.FindStringExact(DateTime.Today.Year.ToString)
-            Else
-                comboboxAnioLectivo.SelectedIndex = comboboxAnioLectivo.FindStringExact(.AnioLectivoCurso.AnioLectivo.ToString)
-            End If
-            CS_Control_ComboBox.SetSelectedValue(comboboxCurso, SelectedItemOptions.Value, .IDAnioLectivoCurso)
+            textboxAnioLectivo.Text = .AnioLectivoCurso.AnioLectivo.ToString
+            textboxCurso.Text = .AnioLectivoCurso.Curso.Anio.Nombre & " - " & .AnioLectivoCurso.Curso.Turno.Nombre & " - " & .AnioLectivoCurso.Curso.Division
             comboboxMesInicio.SelectedIndex = .MesInicio - 1
             textboxImporteMatricula.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.ImporteMatricula)
             textboxImporteCuota.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.ImporteCuota)
@@ -95,7 +87,6 @@
 
     Friend Sub SetDataFromControlsToObject()
         With mAnioLectivoCursoImporteActual
-            .IDAnioLectivoCurso = CS_ValueTranslation.FromControlComboBoxToObjectShort(comboboxCurso.SelectedValue).Value
             .MesInicio = CByte(comboboxMesInicio.SelectedIndex + 1)
             .ImporteMatricula = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteMatricula.Text).Value
             .ImporteCuota = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteCuota.Text).Value
@@ -104,11 +95,6 @@
 #End Region
 
 #Region "Controls behavior"
-    Private Sub AnioLectivoChange() Handles comboboxAnioLectivo.SelectedValueChanged
-        If Not comboboxAnioLectivo.SelectedValue Is Nothing Then
-            pFillAndRefreshLists.AnioLectivoCurso(comboboxCurso, CShort(comboboxAnioLectivo.SelectedValue), CShort(comboboxAnioLectivo.SelectedValue), False)
-        End If
-    End Sub
 
     Private Sub FormKeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
         Select Case e.KeyChar
@@ -145,11 +131,6 @@
     End Sub
 
     Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
-        If comboboxCurso.SelectedIndex = -1 Then
-            MsgBox("Debe especificar el Curso.", MsgBoxStyle.Information, My.Application.Info.Title)
-            comboboxCurso.Focus()
-            Exit Sub
-        End If
         If comboboxMesInicio.SelectedIndex = -1 Then
             MsgBox("Debe especificar el Mes de Inicio.", MsgBoxStyle.Information, My.Application.Info.Title)
             comboboxMesInicio.Focus()
@@ -178,10 +159,10 @@
                 mdbContext.SaveChanges()
 
                 ' Refresco la lista de Importes de Cursos de Años Lectivos para mostrar los cambios
-                If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formAniosLectivosCursosImportes") Then
-                    Dim formAniosLectivosCursosImportes As formAniosLectivosCursosImportes = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formAniosLectivosCursosImportes"), formAniosLectivosCursosImportes)
-                    formAniosLectivosCursosImportes.RefreshData(mAnioLectivoCursoImporteActual.IDAnioLectivoCurso, mAnioLectivoCursoImporteActual.MesInicio, True)
-                    formAniosLectivosCursosImportes = Nothing
+                If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formAnioLectivoCursoImportes") Then
+                    Dim formAnioLectivoCursoImportes As formAnioLectivoCursoImportes = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formAnioLectivoCursoImportes"), formAnioLectivoCursoImportes)
+                    formAnioLectivoCursoImportes.RefreshData(mAnioLectivoCursoImporteActual.MesInicio, True)
+                    formAnioLectivoCursoImportes = Nothing
                 End If
 
             Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException

@@ -288,6 +288,12 @@
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="FillAndRefreshLists.vb" />
+    <Compile Include="formAboutBox.Designer.vb">
+      <DependentUpon>formAboutBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formAboutBox.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formAnioLectivoCursoImporteGenerar.Designer.vb">
       <DependentUpon>formAnioLectivoCursoImporteGenerar.vb</DependentUpon>
     </Compile>
@@ -312,10 +318,10 @@
     <Compile Include="formAnioLectivoCurso.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formAniosLectivosCursosImportes.Designer.vb">
-      <DependentUpon>formAniosLectivosCursosImportes.vb</DependentUpon>
+    <Compile Include="formAnioLectivoCursoImportes.Designer.vb">
+      <DependentUpon>formAnioLectivoCursoImportes.vb</DependentUpon>
     </Compile>
-    <Compile Include="formAniosLectivosCursosImportes.vb">
+    <Compile Include="formAnioLectivoCursoImportes.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formCurso.Designer.vb">
@@ -572,6 +578,9 @@
       <Link>CS_ErrorMessageBox.resx</Link>
       <DependentUpon>CS_ErrorMessageBox.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formAboutBox.resx">
+      <DependentUpon>formAboutBox.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formAnioLectivoCursoImporteGenerar.resx">
       <DependentUpon>formAnioLectivoCursoImporteGenerar.vb</DependentUpon>
     </EmbeddedResource>
@@ -584,8 +593,8 @@
     <EmbeddedResource Include="formAnioLectivoCurso.resx">
       <DependentUpon>formAnioLectivoCurso.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formAniosLectivosCursosImportes.resx">
-      <DependentUpon>formAniosLectivosCursosImportes.vb</DependentUpon>
+    <EmbeddedResource Include="formAnioLectivoCursoImportes.resx">
+      <DependentUpon>formAnioLectivoCursoImportes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formCurso.resx">
       <DependentUpon>formCurso.vb</DependentUpon>

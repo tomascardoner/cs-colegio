@@ -1836,6 +1836,5 @@ Partial Class formEntidad
     Friend WithEvents columnNumeroCompleto As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnFecha As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents comboboxComprobanteEnviarEmail As ComboBox
 End Class

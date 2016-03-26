@@ -114,6 +114,13 @@
     End Sub
 #End Region
 
+#Region "Menu Ayuda"
+    Private Sub menuitemAyuda_AcercaDe_Click(sender As Object, e As EventArgs) Handles menuitemAyuda_AcercaDe.Click
+        formAboutBox.ShowDialog(Me)
+    End Sub
+
+#End Region
+
 #Region "Left Toolbar - Tablas"
     Private Function FormCABGenerico_CrearOMostrar(ByVal EntityNameSingular As String, ByVal EntityNamePlural As String) As formCABGenerico
         Dim FormCurrent As formCABGenerico
@@ -179,21 +186,6 @@
                 formAniosLectivosCursos.WindowState = FormWindowState.Normal
             End If
             formAniosLectivosCursos.Focus()
-
-            Me.Cursor = Cursors.Default
-        End If
-    End Sub
-
-    Private Sub menuitemAniosLectivosCursosImportes_Click() Handles menuitemAniosLectivosCursosImportes.Click
-        If Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCURSOIMPORTE) Then
-            Me.Cursor = Cursors.WaitCursor
-
-            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formAniosLectivosCursosImportes, Form), Form_ClientSize)
-            formAniosLectivosCursosImportes.Show()
-            If formAniosLectivosCursosImportes.WindowState = FormWindowState.Minimized Then
-                formAniosLectivosCursosImportes.WindowState = FormWindowState.Normal
-            End If
-            formAniosLectivosCursosImportes.Focus()
 
             Me.Cursor = Cursors.Default
         End If

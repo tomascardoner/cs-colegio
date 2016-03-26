@@ -458,11 +458,17 @@
             textboxPrecioUnitario.Focus()
             Exit Sub
         End If
-        If CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxPrecioUnitario.Text).Value <= 0 Then
-            MsgBox("El Importe debe ser mayor a cero.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxPrecioUnitario.Focus()
-            Exit Sub
-        End If
+
+        '##########################################
+        ' Update by: Tomas Cardoner
+        ' Date: 13/03/2016
+        ' Description: Commented for no cero checking to allow a General discount item without amount, and only applied in discount field
+        'If CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxPrecioUnitario.Text).Value <= 0 Then
+        '    MsgBox("El Importe debe ser mayor a cero.", MsgBoxStyle.Information, My.Application.Info.Title)
+        '    textboxPrecioUnitario.Focus()
+        '    Exit Sub
+        'End If
+        '##########################################
 
         ' Si es un nuevo item, busco el próximo Indice y agrego el objeto nuevo a la colección del parent
         If mComprobanteDetalleActual.Indice = 0 Then

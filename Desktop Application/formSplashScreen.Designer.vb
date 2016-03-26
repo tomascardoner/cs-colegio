@@ -26,10 +26,10 @@ Partial Class formSplashScreen
         Me.labelAppTitle = New System.Windows.Forms.Label()
         Me.labelCompanyName = New System.Windows.Forms.Label()
         Me.labelCopyright = New System.Windows.Forms.Label()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.pictureboxIcon = New System.Windows.Forms.PictureBox()
         Me.labelLicensedTo = New System.Windows.Forms.Label()
         Me.labelStatus = New System.Windows.Forms.Label()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pictureboxIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'labelAppTitle
@@ -68,16 +68,16 @@ Partial Class formSplashScreen
         Me.labelCopyright.Text = "Copyright"
         Me.labelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'PictureBox1
+        'pictureboxIcon
         '
-        Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox1.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_SENAL_ESCUELA_152
-        Me.PictureBox1.Location = New System.Drawing.Point(396, 141)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(90, 96)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.PictureBox1.TabIndex = 3
-        Me.PictureBox1.TabStop = False
+        Me.pictureboxIcon.BackColor = System.Drawing.Color.Transparent
+        Me.pictureboxIcon.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_SENAL_ESCUELA_152
+        Me.pictureboxIcon.Location = New System.Drawing.Point(396, 141)
+        Me.pictureboxIcon.Name = "pictureboxIcon"
+        Me.pictureboxIcon.Size = New System.Drawing.Size(90, 96)
+        Me.pictureboxIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pictureboxIcon.TabIndex = 3
+        Me.pictureboxIcon.TabStop = False
         '
         'labelLicensedTo
         '
@@ -113,7 +113,7 @@ Partial Class formSplashScreen
         Me.ControlBox = False
         Me.Controls.Add(Me.labelStatus)
         Me.Controls.Add(Me.labelLicensedTo)
-        Me.Controls.Add(Me.PictureBox1)
+        Me.Controls.Add(Me.pictureboxIcon)
         Me.Controls.Add(Me.labelCopyright)
         Me.Controls.Add(Me.labelCompanyName)
         Me.Controls.Add(Me.labelAppTitle)
@@ -123,14 +123,14 @@ Partial Class formSplashScreen
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "App.Title"
         Me.TopMost = True
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pictureboxIcon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents labelAppTitle As System.Windows.Forms.Label
     Friend WithEvents labelCompanyName As System.Windows.Forms.Label
     Friend WithEvents labelCopyright As System.Windows.Forms.Label
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
+    Friend WithEvents pictureboxIcon As System.Windows.Forms.PictureBox
     Friend WithEvents labelLicensedTo As System.Windows.Forms.Label
     Friend WithEvents labelStatus As System.Windows.Forms.Label
 

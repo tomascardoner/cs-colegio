@@ -29,14 +29,14 @@ Partial Class formAnioLectivoCursoImporte
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
         Me.buttonCerrar = New System.Windows.Forms.ToolStripButton()
         Me.toolstripMain = New System.Windows.Forms.ToolStrip()
-        Me.comboboxMesInicio = New System.Windows.Forms.ComboBox()
         Me.labelMesInicio = New System.Windows.Forms.Label()
         Me.labelImporteMatricula = New System.Windows.Forms.Label()
         Me.labelImporteCuota = New System.Windows.Forms.Label()
         Me.textboxImporteCuota = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
         Me.textboxImporteMatricula = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
-        Me.comboboxCurso = New System.Windows.Forms.ComboBox()
-        Me.comboboxAnioLectivo = New System.Windows.Forms.ComboBox()
+        Me.textboxAnioLectivo = New System.Windows.Forms.TextBox()
+        Me.textboxCurso = New System.Windows.Forms.TextBox()
+        Me.comboboxMesInicio = New System.Windows.Forms.ComboBox()
         Me.toolstripMain.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -107,15 +107,6 @@ Partial Class formAnioLectivoCursoImporte
         Me.toolstripMain.Size = New System.Drawing.Size(429, 39)
         Me.toolstripMain.TabIndex = 10
         '
-        'comboboxMesInicio
-        '
-        Me.comboboxMesInicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.comboboxMesInicio.FormattingEnabled = True
-        Me.comboboxMesInicio.Location = New System.Drawing.Point(111, 112)
-        Me.comboboxMesInicio.Name = "comboboxMesInicio"
-        Me.comboboxMesInicio.Size = New System.Drawing.Size(120, 21)
-        Me.comboboxMesInicio.TabIndex = 5
-        '
         'labelMesInicio
         '
         Me.labelMesInicio.AutoSize = True
@@ -161,37 +152,49 @@ Partial Class formAnioLectivoCursoImporte
         Me.textboxImporteMatricula.TabIndex = 7
         Me.textboxImporteMatricula.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'comboboxCurso
+        'textboxAnioLectivo
         '
-        Me.comboboxCurso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.comboboxCurso.FormattingEnabled = True
-        Me.comboboxCurso.Location = New System.Drawing.Point(111, 85)
-        Me.comboboxCurso.Name = "comboboxCurso"
-        Me.comboboxCurso.Size = New System.Drawing.Size(300, 21)
-        Me.comboboxCurso.TabIndex = 3
+        Me.textboxAnioLectivo.Location = New System.Drawing.Point(111, 58)
+        Me.textboxAnioLectivo.MaxLength = 10
+        Me.textboxAnioLectivo.Name = "textboxAnioLectivo"
+        Me.textboxAnioLectivo.ReadOnly = True
+        Me.textboxAnioLectivo.Size = New System.Drawing.Size(50, 20)
+        Me.textboxAnioLectivo.TabIndex = 1
+        Me.textboxAnioLectivo.TabStop = False
+        Me.textboxAnioLectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'comboboxAnioLectivo
+        'textboxCurso
         '
-        Me.comboboxAnioLectivo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.comboboxAnioLectivo.FormattingEnabled = True
-        Me.comboboxAnioLectivo.Location = New System.Drawing.Point(111, 58)
-        Me.comboboxAnioLectivo.Name = "comboboxAnioLectivo"
-        Me.comboboxAnioLectivo.Size = New System.Drawing.Size(59, 21)
-        Me.comboboxAnioLectivo.TabIndex = 1
+        Me.textboxCurso.Location = New System.Drawing.Point(111, 85)
+        Me.textboxCurso.MaxLength = 10
+        Me.textboxCurso.Name = "textboxCurso"
+        Me.textboxCurso.ReadOnly = True
+        Me.textboxCurso.Size = New System.Drawing.Size(306, 20)
+        Me.textboxCurso.TabIndex = 3
+        Me.textboxCurso.TabStop = False
+        '
+        'comboboxMesInicio
+        '
+        Me.comboboxMesInicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxMesInicio.FormattingEnabled = True
+        Me.comboboxMesInicio.Location = New System.Drawing.Point(111, 112)
+        Me.comboboxMesInicio.Name = "comboboxMesInicio"
+        Me.comboboxMesInicio.Size = New System.Drawing.Size(118, 21)
+        Me.comboboxMesInicio.TabIndex = 5
         '
         'formAnioLectivoCursoImporte
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(429, 201)
-        Me.Controls.Add(Me.comboboxCurso)
-        Me.Controls.Add(Me.comboboxAnioLectivo)
+        Me.Controls.Add(Me.comboboxMesInicio)
+        Me.Controls.Add(Me.textboxCurso)
+        Me.Controls.Add(Me.textboxAnioLectivo)
         Me.Controls.Add(Me.labelImporteCuota)
         Me.Controls.Add(Me.textboxImporteCuota)
         Me.Controls.Add(Me.textboxImporteMatricula)
         Me.Controls.Add(Me.labelImporteMatricula)
         Me.Controls.Add(Me.labelMesInicio)
-        Me.Controls.Add(Me.comboboxMesInicio)
         Me.Controls.Add(Me.labelAnioLectivo)
         Me.Controls.Add(Me.labelCurso)
         Me.Controls.Add(Me.toolstripMain)
@@ -214,12 +217,12 @@ Partial Class formAnioLectivoCursoImporte
     Friend WithEvents buttonEditar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonCerrar As System.Windows.Forms.ToolStripButton
     Friend WithEvents toolstripMain As System.Windows.Forms.ToolStrip
-    Friend WithEvents comboboxMesInicio As System.Windows.Forms.ComboBox
     Friend WithEvents labelMesInicio As System.Windows.Forms.Label
     Friend WithEvents textboxImporteMatricula As CSColegio.DesktopApplication.CS_Control_TextBox_Currency
     Friend WithEvents labelImporteMatricula As System.Windows.Forms.Label
     Friend WithEvents textboxImporteCuota As CSColegio.DesktopApplication.CS_Control_TextBox_Currency
     Friend WithEvents labelImporteCuota As System.Windows.Forms.Label
-    Friend WithEvents comboboxCurso As System.Windows.Forms.ComboBox
-    Friend WithEvents comboboxAnioLectivo As System.Windows.Forms.ComboBox
+    Friend WithEvents textboxAnioLectivo As System.Windows.Forms.TextBox
+    Friend WithEvents textboxCurso As System.Windows.Forms.TextBox
+    Friend WithEvents comboboxMesInicio As System.Windows.Forms.ComboBox
 End Class

@@ -297,6 +297,29 @@
         End If
     End Sub
 
+    Private Sub Importes_Click() Handles buttonImportes.Click
+        If datagridviewMain.CurrentRow Is Nothing Then
+            MsgBox("No hay ningún Curso de Año Lectivo para ver los Importes.", vbInformation, My.Application.Info.Title)
+        Else
+            If Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCURSOIMPORTE) Then
+                Me.Cursor = Cursors.WaitCursor
+
+                datagridviewMain.Enabled = False
+
+                Dim CurrentRow As GridRowData = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData)
+
+                Using dbContext = New CSColegioContext(True)
+                    Dim AnioLectivoCursoActual As AnioLectivoCurso = dbContext.AnioLectivoCurso.Find(CurrentRow.IDAnioLectivoCurso)
+                    formAnioLectivoCursoImportes.LoadAndShow(AnioLectivoCursoActual)
+                End Using
+
+                datagridviewMain.Enabled = True
+
+                Me.Cursor = Cursors.Default
+            End If
+        End If
+    End Sub
+
     Private Sub Copiar_Click() Handles buttonCopiarAnioLectivo.Click
         If Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCURSO_AGREGAR) Then
             Me.Cursor = Cursors.WaitCursor

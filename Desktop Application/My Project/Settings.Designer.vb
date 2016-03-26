@@ -422,12 +422,12 @@ Namespace My
             End Get
         End Property
         
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("%ApplicationFolder%\Exchange\Outbound")> _
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("%ApplicationFolder%\Exchange\Outbound")>  _
         Public ReadOnly Property Exchange_Outbound_Folder() As String
             Get
-                Return CType(Me("Exchange_Outbound_Folder"), String)
+                Return CType(Me("Exchange_Outbound_Folder"),String)
             End Get
         End Property
     End Class

@@ -66,12 +66,12 @@ Partial Class formReportes
         '
         Me.buttonSiguiente.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.buttonSiguiente.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_NEXT_24
-        Me.buttonSiguiente.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.buttonSiguiente.Location = New System.Drawing.Point(446, 342)
         Me.buttonSiguiente.Name = "buttonSiguiente"
         Me.buttonSiguiente.Size = New System.Drawing.Size(120, 44)
         Me.buttonSiguiente.TabIndex = 1
         Me.buttonSiguiente.Text = "Siguiente"
+        Me.buttonSiguiente.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
         Me.buttonSiguiente.UseVisualStyleBackColor = True
         '
         'panelParametros
@@ -138,12 +138,12 @@ Partial Class formReportes
         '
         Me.buttonAnterior.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.buttonAnterior.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_PREVIOUS_24
-        Me.buttonAnterior.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonAnterior.Location = New System.Drawing.Point(0, 342)
         Me.buttonAnterior.Name = "buttonAnterior"
         Me.buttonAnterior.Size = New System.Drawing.Size(120, 44)
         Me.buttonAnterior.TabIndex = 1
         Me.buttonAnterior.Text = "Anterior"
+        Me.buttonAnterior.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.buttonAnterior.UseVisualStyleBackColor = True
         '
         'buttonPrevisualizar
