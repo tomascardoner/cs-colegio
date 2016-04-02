@@ -5,6 +5,7 @@
 
     Friend pPermisos As List(Of UsuarioGrupoPermiso)
     Friend pParametros As List(Of Parametro)
+    Friend pLicensedTo As String
     Friend pUsuario As Usuario
 
     Friend Sub Main()
@@ -37,9 +38,9 @@
         pDatabase.InitialCatalog = My.Settings.DBConnection_Database
         pDatabase.UserID = My.Settings.DBConnection_UserID
         ' Desencripto la contraseña de la conexión a la base de datos que está en el archivo app.config
-        Dim Decrypter As New CS_Encrypt_TripleDES(Constantes.ENCRYPTION_PASSWORD)
-        pDatabase.Password = Decrypter.Decrypt(My.Settings.DBConnection_Password)
-        Decrypter = Nothing
+        Dim PasswordDecrypter As New CS_Encrypt_TripleDES(Constantes.ENCRYPTION_PASSWORD)
+        pDatabase.Password = PasswordDecrypter.Decrypt(My.Settings.DBConnection_Password)
+        PasswordDecrypter = Nothing
         pDatabase.MultipleActiveResultsets = True
         pDatabase.WorkstationID = My.Computer.Name
         pDatabase.CreateConnectionString()
@@ -67,7 +68,10 @@
         End If
 
         ' Muestro el Nombre de la Compañía a la que está licenciada la Aplicación
-        formSplashScreen.labelLicensedTo.Text = CS_Parameter.GetString(Parametros.LICENSE_COMPANY_NAME, "")
+        Dim LicenseDecrypter As New CS_Encrypt_TripleDES(Constantes.ENCRYPTION_PASSWORD)
+        pLicensedTo = LicenseDecrypter.Decrypt(CS_Parameter.GetString(Parametros.LICENSE_COMPANY_NAME, ""))
+        LicenseDecrypter = Nothing
+        formSplashScreen.labelLicensedTo.Text = pLicensedTo
         Application.DoEvents()
 
         ' Preparo instancia de clase para llenar los ComboBox
@@ -124,5 +128,9 @@
     Friend Sub TerminateApplication()
         pDatabase = Nothing
         pFillAndRefreshLists = Nothing
+        pPermisos = Nothing
+        pParametros = Nothing
+        pLicensedTo = Nothing
+        pUsuario = Nothing
     End Sub
 End Module

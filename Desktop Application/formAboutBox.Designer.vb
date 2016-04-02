@@ -15,9 +15,9 @@ Partial Class formAboutBox
     End Sub
 
     Friend WithEvents labelApplicationTitle As System.Windows.Forms.Label
-    Friend WithEvents LabelVersion As System.Windows.Forms.Label
+    Friend WithEvents labelVersion As System.Windows.Forms.Label
     Friend WithEvents OKButton As System.Windows.Forms.Button
-    Friend WithEvents LabelCopyright As System.Windows.Forms.Label
+    Friend WithEvents labelCopyright As System.Windows.Forms.Label
 
     'Required by the Windows Form Designer
     Private components As System.ComponentModel.IContainer
@@ -28,8 +28,8 @@ Partial Class formAboutBox
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.labelApplicationTitle = New System.Windows.Forms.Label()
-        Me.LabelVersion = New System.Windows.Forms.Label()
-        Me.LabelCopyright = New System.Windows.Forms.Label()
+        Me.labelVersion = New System.Windows.Forms.Label()
+        Me.labelCopyright = New System.Windows.Forms.Label()
         Me.OKButton = New System.Windows.Forms.Button()
         Me.listviewPropiedades = New System.Windows.Forms.ListView()
         Me.columnPropiedad = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -51,24 +51,24 @@ Partial Class formAboutBox
         Me.labelApplicationTitle.Text = "Application Title"
         Me.labelApplicationTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'LabelVersion
+        'labelVersion
         '
-        Me.LabelVersion.Location = New System.Drawing.Point(111, 41)
-        Me.LabelVersion.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
-        Me.LabelVersion.Name = "LabelVersion"
-        Me.LabelVersion.Size = New System.Drawing.Size(319, 18)
-        Me.LabelVersion.TabIndex = 0
-        Me.LabelVersion.Text = "Version"
-        Me.LabelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.labelVersion.Location = New System.Drawing.Point(111, 41)
+        Me.labelVersion.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
+        Me.labelVersion.Name = "labelVersion"
+        Me.labelVersion.Size = New System.Drawing.Size(319, 18)
+        Me.labelVersion.TabIndex = 0
+        Me.labelVersion.Text = "Version"
+        Me.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'LabelCopyright
+        'labelCopyright
         '
-        Me.LabelCopyright.Location = New System.Drawing.Point(111, 70)
-        Me.LabelCopyright.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
-        Me.LabelCopyright.Name = "LabelCopyright"
-        Me.LabelCopyright.Size = New System.Drawing.Size(319, 38)
-        Me.LabelCopyright.TabIndex = 0
-        Me.LabelCopyright.Text = "Copyright"
+        Me.labelCopyright.Location = New System.Drawing.Point(111, 70)
+        Me.labelCopyright.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
+        Me.labelCopyright.Name = "labelCopyright"
+        Me.labelCopyright.Size = New System.Drawing.Size(319, 38)
+        Me.labelCopyright.TabIndex = 0
+        Me.labelCopyright.Text = "Copyright"
         '
         'OKButton
         '
@@ -138,8 +138,8 @@ Partial Class formAboutBox
         Me.Controls.Add(Me.labelLicensedTo)
         Me.Controls.Add(Me.pictureboxIcon)
         Me.Controls.Add(Me.labelApplicationTitle)
-        Me.Controls.Add(Me.LabelVersion)
-        Me.Controls.Add(Me.LabelCopyright)
+        Me.Controls.Add(Me.labelVersion)
+        Me.Controls.Add(Me.labelCopyright)
         Me.Controls.Add(Me.listviewPropiedades)
         Me.Controls.Add(Me.OKButton)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
