@@ -2,9 +2,10 @@
 
     Private Sub formAboutBox_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Text = String.Format("Acerca de {0}", My.Application.Info.Title)
-        Me.labelApplicationTitle.Text = My.Application.Info.Title
-        Me.LabelVersion.Text = String.Format("Version {0}", My.Application.Info.Version.ToString)
-        Me.LabelCopyright.Text = My.Application.Info.Copyright
+        labelApplicationTitle.Text = My.Application.Info.Title
+        LabelVersion.Text = String.Format("Version {0}", My.Application.Info.Version.ToString)
+        LabelCopyright.Text = My.Application.Info.Copyright
+        labelLicensedTo.Text = CS_Parameter.GetString(Parametros.LICENSE_COMPANY_NAME, "")
 
         ' Propiedades
         Dim NewItem As ListViewItem

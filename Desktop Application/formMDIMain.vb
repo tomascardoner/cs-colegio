@@ -61,11 +61,6 @@
 #End Region
 
 #Region "Menu Debug"
-    Private Sub TestFormToolStripMenuItem_Click() Handles TestFormToolStripMenuItem.Click
-        formForTest.MdiParent = Me
-        formForTest.Show()
-    End Sub
-
     Private Sub Debug_AFIPWSHomologacionLogin() Handles menuitemDebugAFIPWSHomologacionLogin.Click
         AFIP_TicketAcceso_Homo = CS_AFIP_WS.Login(CS_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION), "", CS_AFIP_WS.SERVICIO_FACTURACION_ELECTRONICA, My.Settings.AFIP_WS_Certificado_Homologacion, My.Settings.AFIP_WS_ClavePrivada)
     End Sub

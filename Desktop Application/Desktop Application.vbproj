@@ -438,12 +438,6 @@
     <Compile Include="formComprobantesGenerarLote.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formForTest.Designer.vb">
-      <DependentUpon>formForTest.vb</DependentUpon>
-    </Compile>
-    <Compile Include="formForTest.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="formLogin.Designer.vb">
       <DependentUpon>formLogin.vb</DependentUpon>
     </Compile>
@@ -652,9 +646,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobantesGenerarLote.resx">
       <DependentUpon>formComprobantesGenerarLote.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="formForTest.resx">
-      <DependentUpon>formForTest.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formLogin.resx">
       <DependentUpon>formLogin.vb</DependentUpon>

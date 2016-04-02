@@ -210,12 +210,12 @@
             End If
 
             datarowRow = .NewRow
-            datarowRow("IDGenero") = "M"
+            datarowRow("IDGenero") = Constantes.ENTIDAD_GENERO_MASCULINO
             datarowRow("Nombre") = My.Resources.STRING_GENERO_MASCULINO
             .Rows.Add(datarowRow)
 
             datarowRow = .NewRow
-            datarowRow("IDGenero") = "F"
+            datarowRow("IDGenero") = Constantes.ENTIDAD_GENERO_FEMENINO
             datarowRow("Nombre") = My.Resources.STRING_GENERO_FEMENINO
             .Rows.Add(datarowRow)
         End With
