@@ -810,7 +810,6 @@
         End If
     End Sub
 
-
     Private Sub Detalle_Eliminar() Handles buttonDetalle_Eliminar.Click
         If datagridviewDetalle.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Detalle para eliminar.", vbInformation, My.Application.Info.Title)
@@ -832,6 +831,27 @@
 
                 Me.Cursor = Cursors.Default
             End If
+        End If
+    End Sub
+
+    Private Sub Detalle_Ver() Handles datagridviewDetalle.DoubleClick
+        If datagridviewDetalle.CurrentRow Is Nothing Then
+            MsgBox("No hay ningún Detalle para ver.", vbInformation, My.Application.Info.Title)
+        Else
+            Me.Cursor = Cursors.WaitCursor
+
+            datagridviewDetalle.Enabled = False
+
+            Dim ComprobanteDetalleActual As ComprobanteDetalle
+
+            ComprobanteDetalleActual = CType(datagridviewDetalle.SelectedRows(0).DataBoundItem, ComprobanteDetalle)
+            formComprobanteDetalle.LoadAndShow(mEditMode, False, Me, mComprobanteActual, ComprobanteDetalleActual)
+
+            EstablecerFechasSegunDetalle()
+
+            datagridviewDetalle.Enabled = True
+
+            Me.Cursor = Cursors.Default
         End If
     End Sub
 #End Region
@@ -984,6 +1004,7 @@
             Me.Cursor = Cursors.Default
         End If
     End Sub
+
 #End Region
 
 #Region "Extra stuff"
