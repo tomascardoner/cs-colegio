@@ -1200,7 +1200,7 @@
                             ' Es el mismo Concepto que el/los Artículos anteriores, no hago nada
 
                         Case Else
-                            If (IDConcepto = 1 Or IDConcepto = 2) And (ArticuloActual.IDConcepto = 1 Or ArticuloActual.IDConcepto = 2) Then
+                            If (IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) And (ArticuloActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or ArticuloActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) Then
                                 ' Hay Productos y Servicios, así que utilizo el Concepto correspondiente
                                 IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS
                                 Exit For

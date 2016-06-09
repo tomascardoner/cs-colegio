@@ -31,10 +31,12 @@ Partial Public Class Entidad
             DomicilioCompleto = DomicilioCalle1
             If Not DomicilioCalle1 Is Nothing Then
                 If Not DomicilioNumero Is Nothing Then
-                    If DomicilioNumero.TrimStart.ToUpper.StartsWith("RUTA ") Then
+                    If DomicilioCalle1.TrimStart.ToUpper.StartsWith("RUTA ") Then
                         DomicilioCompleto &= " Km. " & DomicilioNumero
-                    ElseIf DomicilioNumero.TrimStart.ToUpper.StartsWith("CALLE ") Then
+                    ElseIf DomicilioCalle1.TrimStart.ToUpper.StartsWith("CALLE ") Then
                         DomicilioCompleto &= " N° " & DomicilioNumero
+                    ElseIf IsNumeric(DomicilioCalle1.Trim) Then
+                        DomicilioCompleto = "Calle " & DomicilioCalle1.Trim & " N° " & DomicilioNumero
                     Else
                         DomicilioCompleto &= " " & DomicilioNumero
                     End If

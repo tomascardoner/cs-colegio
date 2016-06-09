@@ -51,7 +51,7 @@
       <Value Profile="(Default)">%DateTimeUniversalNoSlashes%.log</Value>
     </Setting>
     <Setting Name="AFIP_WS_ModoHomologacion" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="ReportsPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">C:\Users\Tomas\Dropbox\Cardoner Sistemas\CS-Colegio\Reportes</Value>
@@ -63,7 +63,7 @@
       <Value Profile="(Default)">localhost</Value>
     </Setting>
     <Setting Name="DBConnection_Database" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">CSColegio</Value>
+      <Value Profile="(Default)">CSColegio_Real</Value>
     </Setting>
     <Setting Name="DBConnection_UserID" Type="System.String" Scope="Application">
       <Value Profile="(Default)">sa</Value>

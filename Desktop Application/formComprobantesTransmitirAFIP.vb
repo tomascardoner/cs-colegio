@@ -109,6 +109,9 @@
         Dim MonedaLocalCotizacion As MonedaCotizacion
         Dim ComprobanteTipoActual As New ComprobanteTipo
 
+        Dim ArticuloActual As Articulo
+        Dim IDConcepto As Byte = 0
+
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
 
@@ -178,7 +181,28 @@
                         End If
 
                         ' Esto es para determinar el Concepto a especificar en el pedido del CAE
-                        .Concepto = CShort(ComprobanteActual.IDConcepto.Value)
+                        If ComprobanteActual.ComprobanteDetalle.Count > 0 Then
+                            For Each CDetalle As ComprobanteDetalle In ComprobanteActual.ComprobanteDetalle
+                                ArticuloActual = dbContext.Articulo.Find(CDetalle.IDArticulo)
+                                Select Case IDConcepto
+                                    Case CByte(0)
+                                        ' Es el primer Artículo, así que lo guardo
+                                        IDConcepto = ArticuloActual.IDConcepto
+                                    Case ArticuloActual.IDConcepto
+                                        ' Es el mismo Concepto que el/los Artículos anteriores, no hago nada
+
+                                    Case Else
+                                        If (IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) And (ArticuloActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or ArticuloActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) Then
+                                            ' Hay Productos y Servicios, así que utilizo el Concepto correspondiente
+                                            IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS
+                                            Exit For
+                                        End If
+                                End Select
+                            Next
+                        Else
+                            IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO
+                        End If
+                        .Concepto = IDConcepto
 
                         ' Documento del Titular
                         .TipoDocumento = CShort(ComprobanteActual.IDDocumentoTipo)
@@ -285,7 +309,6 @@
                         Me.Cursor = Cursors.Default
                         Exit Sub
                     End If
-
                 End If
             End If
 

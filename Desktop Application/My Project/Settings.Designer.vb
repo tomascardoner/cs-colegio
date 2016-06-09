@@ -205,7 +205,7 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
         Public ReadOnly Property AFIP_WS_ModoHomologacion() As Boolean
             Get
                 Return CType(Me("AFIP_WS_ModoHomologacion"),Boolean)
@@ -241,7 +241,7 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("CSColegio")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("CSColegio_Real")>  _
         Public ReadOnly Property DBConnection_Database() As String
             Get
                 Return CType(Me("DBConnection_Database"),String)
