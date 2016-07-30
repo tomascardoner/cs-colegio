@@ -6,7 +6,7 @@ Module MiscFunctions
 
         formMDIMain.Cursor = Cursors.WaitCursor
 
-        CS_Form.MDIChild_PositionAndSizeToFit(CType(formMDIMain, Form), CType(VisorReporte, Form), formMDIMain.Form_ClientSize)
+        CS_Form.MDIChild_PositionAndSizeToFit(CType(formMDIMain, Form), CType(VisorReporte, Form))
         With VisorReporte
             .Text = WindowText
             .CRViewerMain.ReportSource = ReporteActual.ReportObject

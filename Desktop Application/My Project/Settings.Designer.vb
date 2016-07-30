@@ -72,15 +72,6 @@ Namespace My
             End Get
         End Property
         
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("4")>  _
-        Public ReadOnly Property MDIFormMargin() As Integer
-            Get
-                Return CType(Me("MDIFormMargin"),Integer)
-            End Get
-        End Property
-        
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("")>  _
@@ -241,7 +232,7 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("CSColegio_Real")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("CSColegio")>  _
         Public ReadOnly Property DBConnection_Database() As String
             Get
                 Return CType(Me("DBConnection_Database"),String)
@@ -424,11 +415,32 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("%ApplicationFolder%\Exchange\Outbound")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("%ApplicationFolder%\Intercambio\Salida")>  _
         Public ReadOnly Property Exchange_Outbound_Folder() As String
             Get
                 Return CType(Me("Exchange_Outbound_Folder"),String)
             End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Santander_ADDI")>  _
+        Public ReadOnly Property Exchange_Outbound_Santander_ADDI_SubFolder() As String
+            Get
+                Return CType(Me("Exchange_Outbound_Santander_ADDI_SubFolder"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("PagoMisCuentas")>  _
+        Public Property Exchange_Outbound_PagoMisCuentas_SubFolder() As String
+            Get
+                Return CType(Me("Exchange_Outbound_PagoMisCuentas_SubFolder"),String)
+            End Get
+            Set
+                Me("Exchange_Outbound_PagoMisCuentas_SubFolder") = value
+            End Set
         End Property
     End Class
 End Namespace

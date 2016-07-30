@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class formComprobantesTransmitirPagomiscuentas
+Partial Class formComprobantesTransmitirSantanderDebitoDirecto
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -24,7 +24,7 @@ Partial Class formComprobantesTransmitirPagomiscuentas
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formComprobantesTransmitirPagomiscuentas))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formComprobantesTransmitirSantanderDebitoDirecto))
         Me.datagridviewComprobantes = New System.Windows.Forms.DataGridView()
         Me.columnComprobanteTipoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnNumeroCompleto = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -139,11 +139,11 @@ Partial Class formComprobantesTransmitirPagomiscuentas
         '
         Me.pictureboxLogo.BackColor = System.Drawing.Color.White
         Me.pictureboxLogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.pictureboxLogo.Image = CType(resources.GetObject("pictureboxLogo.Image"), System.Drawing.Image)
-        Me.pictureboxLogo.Location = New System.Drawing.Point(527, 7)
+        Me.pictureboxLogo.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_LOGO_SANTANDER
+        Me.pictureboxLogo.Location = New System.Drawing.Point(682, 7)
         Me.pictureboxLogo.Margin = New System.Windows.Forms.Padding(4)
         Me.pictureboxLogo.Name = "pictureboxLogo"
-        Me.pictureboxLogo.Size = New System.Drawing.Size(379, 62)
+        Me.pictureboxLogo.Size = New System.Drawing.Size(225, 61)
         Me.pictureboxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pictureboxLogo.TabIndex = 9
         Me.pictureboxLogo.TabStop = False
@@ -156,7 +156,7 @@ Partial Class formComprobantesTransmitirPagomiscuentas
         Me.comboboxComprobanteLote.Margin = New System.Windows.Forms.Padding(4)
         Me.comboboxComprobanteLote.Name = "comboboxComprobanteLote"
         Me.comboboxComprobanteLote.Size = New System.Drawing.Size(374, 24)
-        Me.comboboxComprobanteLote.TabIndex = 13
+        Me.comboboxComprobanteLote.TabIndex = 11
         '
         'labelComprobanteLote
         '
@@ -165,10 +165,10 @@ Partial Class formComprobantesTransmitirPagomiscuentas
         Me.labelComprobanteLote.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelComprobanteLote.Name = "labelComprobanteLote"
         Me.labelComprobanteLote.Size = New System.Drawing.Size(40, 17)
-        Me.labelComprobanteLote.TabIndex = 12
+        Me.labelComprobanteLote.TabIndex = 10
         Me.labelComprobanteLote.Text = "Lote:"
         '
-        'formComprobantesTransmitirPagomiscuentas
+        'formComprobantesTransmitirSantanderDebitoDirecto
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -183,9 +183,9 @@ Partial Class formComprobantesTransmitirPagomiscuentas
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
-        Me.Name = "formComprobantesTransmitirPagomiscuentas"
+        Me.Name = "formComprobantesTransmitirSantanderDebitoDirecto"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
-        Me.Text = "Exportar archivo de Comprobantes para envío a PagoMisCuentas"
+        Me.Text = "Exportar archivo de Comprobantes para envío a Banco Santander - Débito Directo"
         CType(Me.datagridviewComprobantes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.statusstripMain.ResumeLayout(False)
         Me.statusstripMain.PerformLayout()

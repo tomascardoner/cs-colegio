@@ -117,6 +117,12 @@
         datetimepickerExcluyeFacturaHasta.Enabled = mEditMode
         textboxFacturaLeyenda.ReadOnly = (mEditMode = False)
 
+        ' Débito Automático
+        radiobuttonDebitoAutomatico_Tipo_Ninguno.Enabled = mEditMode
+        radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Enabled = mEditMode
+        radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.Enabled = mEditMode
+        maskedtextboxDebitoAutomatico_CBU.ReadOnly = (mEditMode = False)
+
         ' Notas y Auditoría
         textboxNotas.ReadOnly = (mEditMode = False)
     End Sub
@@ -244,6 +250,19 @@
             datetimepickerExcluyeFacturaHasta.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.ExcluyeFacturaHasta, datetimepickerExcluyeFacturaHasta)
             textboxFacturaLeyenda.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.FacturaLeyenda)
 
+            ' Datos de la pestaña Débito Automático
+            Select Case .DebitoAutomaticoTipo
+                Case Nothing
+                    radiobuttonDebitoAutomatico_Tipo_Ninguno.Checked = True
+                    maskedtextboxDebitoAutomatico_CBU.Text = ""
+                Case Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO
+                    radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Checked = True
+                    maskedtextboxDebitoAutomatico_CBU.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DebitoAutomaticoCBU)
+                Case Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_TARJETACREDITO
+                    radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.Checked = True
+                    maskedtextboxDebitoAutomatico_CBU.Text = ""
+            End Select
+
             ' Datos de la pestaña Cursos Asistidos
             RefreshData_CursosAsistidos()
 
@@ -335,6 +354,18 @@
             .ExcluyeFacturaHasta = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerExcluyeFacturaHasta.Value, datetimepickerExcluyeFacturaHasta.Checked)
             .FacturaLeyenda = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxFacturaLeyenda.Text)
 
+            ' Datos de la pestaña Débito Automático
+            If radiobuttonDebitoAutomatico_Tipo_Ninguno.Checked Then
+                .DebitoAutomaticoTipo = Nothing
+                .DebitoAutomaticoCBU = Nothing
+            ElseIf radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Checked Then
+                .DebitoAutomaticoTipo = Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO
+                .DebitoAutomaticoCBU = CS_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxDebitoAutomatico_CBU.Text)
+            ElseIf radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.Checked Then
+                .DebitoAutomaticoTipo = Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_TARJETACREDITO
+                .DebitoAutomaticoCBU = Nothing
+            End If
+
             ' Datos de la pestaña Notas y Aditoría
             .Notas = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNotas.Text)
         End With
@@ -391,7 +422,7 @@
         CType(sender, TextBox).SelectAll()
     End Sub
 
-    Private Sub MaskedTextBoxs_GotFocus(sender As Object, e As EventArgs) Handles maskedtextboxDocumentoNumero.GotFocus
+    Private Sub MaskedTextBoxs_GotFocus(sender As Object, e As EventArgs) Handles maskedtextboxDocumentoNumero.GotFocus, maskedtextboxFacturaDocumentoNumero.GotFocus, maskedtextboxDebitoAutomatico_CBU.GotFocus
         CType(sender, MaskedTextBox).SelectAll()
     End Sub
 
@@ -497,6 +528,10 @@
         textboxEntidadTercero.Tag = Nothing
     End Sub
 
+    Private Sub DebitoAutomaticoTipo_CheckedChanged(sender As Object, e As EventArgs) Handles radiobuttonDebitoAutomatico_Tipo_Ninguno.CheckedChanged, radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.CheckedChanged, radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.CheckedChanged
+        labelDebitoAutomatico_CBU.visible = (CType(sender, RadioButton) Is radiobuttonDebitoAutomatico_Tipo_DebitoDirecto)
+        maskedtextboxDebitoAutomatico_CBU.Visible = (CType(sender, RadioButton) Is radiobuttonDebitoAutomatico_Tipo_DebitoDirecto)
+    End Sub
 #End Region
 
 #Region "Main Toolbar"
@@ -617,72 +652,88 @@
             Case Constantes.ENTIDAD_EMITIRFACTURAA_NOESPECIFICA
                 If checkboxTipoAlumno.Checked AndAlso ((Not textboxEntidadPadre.Tag Is Nothing) And (Not textboxEntidadMadre.Tag Is Nothing)) Then
                     If MsgBox("Ha especificado el Padre y/o la Madre del Alumno, pero no especificó a quien se le facturará." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
-                        tabcontrolMain.SelectedTab = tabpageExtra
+                        tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
                         comboboxEmitirFacturaA.Focus()
                         Exit Sub
                     End If
                 End If
             Case Constantes.ENTIDAD_EMITIRFACTURAA_PADRE
                 If textboxEntidadPadre.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpageExtra
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
                     MsgBox("Si las facturas se emitirán a nombre del Padre / Tutor, debe especificar el mismo.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadPadre.Focus()
                     Exit Sub
                 End If
             Case Constantes.ENTIDAD_EMITIRFACTURAA_MADRE
                 If textboxEntidadMadre.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpageExtra
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
                     MsgBox("Si las facturas se emitirán a nombre de la Madre / Tutora, debe especificar la misma.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadMadre.Focus()
                     Exit Sub
                 End If
             Case Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO
                 If textboxEntidadTercero.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpageExtra
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
                     MsgBox("Si las facturas se emitirán a nombre de un Tercero, debe especificar el mismo.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadTercero.Focus()
                     Exit Sub
                 End If
             Case Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES
                 If textboxEntidadPadre.Tag Is Nothing And textboxEntidadMadre.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpageExtra
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
                     MsgBox("Si las facturas se emitirán a nombre de ambos Padres, debe especificarlos.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadPadre.Focus()
                     Exit Sub
                 ElseIf textboxEntidadPadre.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpageExtra
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
                     MsgBox("Si las facturas se emitirán a nombre de ambos Padres, debe especificar el Padre.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadPadre.Focus()
                     Exit Sub
                 ElseIf textboxEntidadMadre.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpageExtra
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
                     MsgBox("Si las facturas se emitirán a nombre de ambos Padres, debe especificar la Madre.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadMadre.Focus()
                     Exit Sub
                 End If
             Case Constantes.ENTIDAD_EMITIRFACTURAA_TODOS
                 If textboxEntidadPadre.Tag Is Nothing And textboxEntidadMadre.Tag Is Nothing And textboxEntidadTercero.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpageExtra
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
                     MsgBox("Si las facturas se emitirán a nombre de Todos (Padres y Tercero), debe especificarlos.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadPadre.Focus()
                     Exit Sub
                 ElseIf textboxEntidadPadre.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpageExtra
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
                     MsgBox("Si las facturas se emitirán a nombre de Todos (Padres y Tercero), debe especificar el Padre.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadPadre.Focus()
                     Exit Sub
                 ElseIf textboxEntidadMadre.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpageExtra
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
                     MsgBox("Si las facturas se emitirán a nombre de Todos (Padres y Tercero), debe especificar la Madre.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadMadre.Focus()
                     Exit Sub
                 ElseIf textboxEntidadTercero.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpageExtra
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
                     MsgBox("Si las facturas se emitirán a nombre de Todos (Padres y Tercero), debe especificar el Tercero.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadTercero.Focus()
                     Exit Sub
                 End If
         End Select
+
+        ' Débito Directo
+        If radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Checked Then
+            If maskedtextboxDebitoAutomatico_CBU.Text = "" Then
+                tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
+                MsgBox("Debe especificar el CBU en el cual realizar el Débito Directo.", MsgBoxStyle.Information, My.Application.Info.Title)
+                maskedtextboxDebitoAutomatico_CBU.Focus()
+                Exit Sub
+            End If
+            If maskedtextboxDebitoAutomatico_CBU.Text.Length < 22 Then
+                tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
+                MsgBox("Debe completar todos los dígitos del CBU en el cual realizar el Débito Directo.", MsgBoxStyle.Information, My.Application.Info.Title)
+                maskedtextboxDebitoAutomatico_CBU.Focus()
+                Exit Sub
+            End If
+        End If
 
         ' Generar el ID de la Entidad nueva
         If mEntidadActual.IDEntidad = 0 Then

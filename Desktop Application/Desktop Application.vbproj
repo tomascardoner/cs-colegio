@@ -73,7 +73,7 @@
     <ApplicationIcon>school_48_32_16.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
@@ -322,6 +322,12 @@
       <DependentUpon>formAnioLectivoCursoImportes.vb</DependentUpon>
     </Compile>
     <Compile Include="formAnioLectivoCursoImportes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formComprobantesTransmitirSantanderDebitoDirecto.Designer.vb">
+      <DependentUpon>formComprobantesTransmitirSantanderDebitoDirecto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formComprobantesTransmitirSantanderDebitoDirecto.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formCurso.Designer.vb">
@@ -590,6 +596,9 @@
     <EmbeddedResource Include="formAnioLectivoCursoImportes.resx">
       <DependentUpon>formAnioLectivoCursoImportes.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formComprobantesTransmitirSantanderDebitoDirecto.resx">
+      <DependentUpon>formComprobantesTransmitirSantanderDebitoDirecto.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formCurso.resx">
       <DependentUpon>formCurso.vb</DependentUpon>
     </EmbeddedResource>
@@ -680,6 +689,7 @@
       <SubType>Designer</SubType>
     </None>
     <EntityDeploy Include="CSColegio.edmx" />
+    <None Include="app.manifest" />
     <None Include="CSColegio.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CSColegio.edmx</DependentUpon>
@@ -723,6 +733,7 @@
     <None Include="Resources\export-icon_16.png" />
     <None Include="Resources\export-icon_32.png" />
     <None Include="Resources\Actions-edit-copy-icon_32.png" />
+    <None Include="Resources\Santander.jpg" />
     <Content Include="school_48_32_16.ico" />
     <None Include="Resources\Move Previous %28Arrow%29 Red24.png" />
     <None Include="Resources\Move Next %28Arrow%29 Green24.png" />

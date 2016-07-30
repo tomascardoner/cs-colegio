@@ -52,6 +52,8 @@ Partial Public Class Entidad
     Public Property ExcluyeFacturaDesde As Nullable(Of Date)
     Public Property ExcluyeFacturaHasta As Nullable(Of Date)
     Public Property FacturaLeyenda As String
+    Public Property DebitoAutomaticoTipo As String
+    Public Property DebitoAutomaticoCBU As String
     Public Property EsActivo As Boolean
     Public Property Notas As String
     Public Property IDUsuarioCreacion As Short

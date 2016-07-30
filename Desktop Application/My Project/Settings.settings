@@ -8,9 +8,6 @@
     <Setting Name="MinimumSplashScreenDisplaySeconds" Type="System.Byte" Scope="Application">
       <Value Profile="(Default)">5</Value>
     </Setting>
-    <Setting Name="MDIFormMargin" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">4</Value>
-    </Setting>
     <Setting Name="LastUserLoggedIn" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
@@ -63,7 +60,7 @@
       <Value Profile="(Default)">localhost</Value>
     </Setting>
     <Setting Name="DBConnection_Database" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">CSColegio_Real</Value>
+      <Value Profile="(Default)">CSColegio</Value>
     </Setting>
     <Setting Name="DBConnection_UserID" Type="System.String" Scope="Application">
       <Value Profile="(Default)">sa</Value>
@@ -123,7 +120,13 @@
       <Value Profile="(Default)">200</Value>
     </Setting>
     <Setting Name="Exchange_Outbound_Folder" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">%ApplicationFolder%\Exchange\Outbound</Value>
+      <Value Profile="(Default)">%ApplicationFolder%\Intercambio\Salida</Value>
+    </Setting>
+    <Setting Name="Exchange_Outbound_Santander_ADDI_SubFolder" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Santander_ADDI</Value>
+    </Setting>
+    <Setting Name="Exchange_Outbound_PagoMisCuentas_SubFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">PagoMisCuentas</Value>
     </Setting>
   </Settings>
 </SettingsFile>

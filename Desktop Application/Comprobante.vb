@@ -50,8 +50,6 @@ Partial Public Class Comprobante
     Public Property FechaHoraTransmisionAFIP As Nullable(Of Date)
     Public Property IDUsuarioEnvioEmail As Nullable(Of Short)
     Public Property FechaHoraEnvioEmail As Nullable(Of Date)
-    Public Property IDUsuarioTransmisionPagomiscuentas As Nullable(Of Short)
-    Public Property FechaHoraTransmisionPagomiscuentas As Nullable(Of Date)
 
     Public Overridable Property CategoriaIVA As CategoriaIVA
     Public Overridable Property ComprobanteDetalle As ICollection(Of ComprobanteDetalle) = New HashSet(Of ComprobanteDetalle)

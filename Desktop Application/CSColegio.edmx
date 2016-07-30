@@ -186,8 +186,6 @@
           <Property Name="FechaHoraTransmisionAFIP" Type="smalldatetime" />
           <Property Name="IDUsuarioEnvioEmail" Type="smallint" />
           <Property Name="FechaHoraEnvioEmail" Type="smalldatetime" />
-          <Property Name="IDUsuarioTransmisionPagomiscuentas" Type="smallint" />
-          <Property Name="FechaHoraTransmisionPagomiscuentas" Type="smalldatetime" />
         </EntityType>
         <EntityType Name="ComprobanteAplicacion">
           <Key>
@@ -401,6 +399,8 @@
           <Property Name="ExcluyeFacturaDesde" Type="date" />
           <Property Name="ExcluyeFacturaHasta" Type="date" />
           <Property Name="FacturaLeyenda" Type="varchar(max)" />
+          <Property Name="DebitoAutomaticoTipo" Type="char" MaxLength="1" />
+          <Property Name="DebitoAutomaticoCBU" Type="char" MaxLength="22" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="Notas" Type="varchar(max)" />
           <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
@@ -1894,6 +1894,8 @@
           <Property Name="ExcluyeFacturaDesde" Type="DateTime" Precision="0" />
           <Property Name="ExcluyeFacturaHasta" Type="DateTime" Precision="0" />
           <Property Name="FacturaLeyenda" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DebitoAutomaticoTipo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="DebitoAutomaticoCBU" Type="String" MaxLength="22" FixedLength="true" Unicode="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
@@ -3065,8 +3067,6 @@
           <NavigationProperty Name="ComprobanteAplicacion_Aplicados" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicante" FromRole="Comprobante" ToRole="ComprobanteAplicacion" />
           <NavigationProperty Name="UsuarioEnvioEmail" Relationship="CSColegioModel.FK__Usuario__Comprobante__EnvioEmail" FromRole="Comprobante" ToRole="Usuario" />
           <NavigationProperty Name="Concepto" Relationship="CSColegioModel.FK__Concepto__Comprobante" FromRole="Comprobante" ToRole="Concepto" />
-          <Property Name="IDUsuarioTransmisionPagomiscuentas" Type="Int16" />
-          <Property Name="FechaHoraTransmisionPagomiscuentas" Type="DateTime" />
           </EntityType>
         <EntityType Name="ComprobanteMedioPago">
           <Key>
@@ -3599,6 +3599,8 @@
           <EntitySetMapping Name="Entidad">
             <EntityTypeMapping TypeName="CSColegioModel.Entidad">
               <MappingFragment StoreEntitySet="Entidad">
+                <ScalarProperty Name="DebitoAutomaticoCBU" ColumnName="DebitoAutomaticoCBU" />
+                <ScalarProperty Name="DebitoAutomaticoTipo" ColumnName="DebitoAutomaticoTipo" />
                 <ScalarProperty Name="ComprobanteEnviarEmail" ColumnName="ComprobanteEnviarEmail" />
                 <ScalarProperty Name="FacturaLeyenda" ColumnName="FacturaLeyenda" />
                 <ScalarProperty Name="FacturaIndividual" ColumnName="FacturaIndividual" />
@@ -4070,8 +4072,6 @@
           <EntitySetMapping Name="Comprobante">
             <EntityTypeMapping TypeName="CSColegioModel.Comprobante">
               <MappingFragment StoreEntitySet="Comprobante">
-                <ScalarProperty Name="FechaHoraTransmisionPagomiscuentas" ColumnName="FechaHoraTransmisionPagomiscuentas" />
-                <ScalarProperty Name="IDUsuarioTransmisionPagomiscuentas" ColumnName="IDUsuarioTransmisionPagomiscuentas" />
                 <ScalarProperty Name="FechaHoraTransmisionAFIP" ColumnName="FechaHoraTransmisionAFIP" />
                 <ScalarProperty Name="IDUsuarioTransmisionAFIP" ColumnName="IDUsuarioTransmisionAFIP" />
                 <ScalarProperty Name="IDConcepto" ColumnName="IDConcepto" />

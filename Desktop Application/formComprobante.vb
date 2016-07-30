@@ -81,6 +81,7 @@
             Exit Sub
         End If
 
+        buttonTransmitirComprobante.Visible = (mEditMode = False And mComprobanteActual.CAE Is Nothing And mComprobanteActual.IDUsuarioAnulacion Is Nothing)
         buttonGuardar.Visible = mEditMode
         buttonCancelar.Visible = mEditMode
         buttonEditar.Visible = (mEditMode = False And mComprobanteActual.CAE Is Nothing And mComprobanteActual.IDUsuarioAnulacion Is Nothing)
@@ -752,6 +753,21 @@
         End If
 
         Me.Close()
+    End Sub
+
+    Private Sub TransmitirComprobanteAFIP() Handles buttonTransmitirComprobante.Click
+        If Not mComprobanteActual Is Nothing Then
+            If mComprobanteTipoActual.EmisionElectronica AndAlso mComprobanteActual.CAE Is Nothing Then
+                If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIR_AFIP) Then
+                    If MsgBox("Este Comprobante necesita ser autorizado en AFIP para tener validez." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
+                        If TransmitirComprobante(mComprobanteActual) Then
+                            MsgBox("Se ha transmitido exitosamente el Comprobante a AFIP.", MsgBoxStyle.Information, My.Application.Info.Title)
+                            buttonTransmitirComprobante.Visible = False
+                        End If
+                    End If
+                End If
+            End If
+        End If
     End Sub
 
     Private Sub buttonCancelar_Click() Handles buttonCancelar.Click

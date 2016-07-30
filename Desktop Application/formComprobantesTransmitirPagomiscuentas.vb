@@ -17,8 +17,8 @@ Public Class formComprobantesTransmitirPagomiscuentas
 
 #Region "Form stuff"
     Private Sub formComprobantesTransmitirPagomiscuentas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        buttonTransmitir.Enabled = False
-        comboboxCantidad.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, "500", "200", "100", "50", "20", "10", "5", "1"})
+        buttonExportar.Enabled = False
+        pFillAndRefreshLists.ComprobanteLote(comboboxComprobanteLote, False, False)
     End Sub
 
     Private Sub formComprobantesTransmitirPagomiscuentas_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -28,38 +28,36 @@ Public Class formComprobantesTransmitirPagomiscuentas
 
 #Region "Load and Set Data"
     Private Sub RefreshData()
+        Dim ComprobanteLoteActual As ComprobanteLote
+
         Me.Cursor = Cursors.WaitCursor
 
         Try
 
-            Select Case comboboxCantidad.SelectedIndex
-                Case 0  ' Todos
-                    listComprobantes = (From c In dbContext.Comprobante
-                                        Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                        Where ct.EmisionElectronica And c.CAE IsNot Nothing And c.IDUsuarioTransmisionPagomiscuentas Is Nothing And c.IDUsuarioAnulacion Is Nothing
-                                        Order By ct.Nombre, c.NumeroCompleto
-                                        Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal}).ToList
+            If Not comboboxComprobanteLote.SelectedValue Is Nothing Then
+                ComprobanteLoteActual = CType(comboboxComprobanteLote.SelectedItem, ComprobanteLote)
 
-                Case Is > 0 ' Cantidad de Comprobantes
-                    listComprobantes = (From c In dbContext.Comprobante
-                                        Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                        Where ct.EmisionElectronica And c.CAE IsNot Nothing And c.IDUsuarioTransmisionPagomiscuentas Is Nothing And c.IDUsuarioAnulacion Is Nothing
-                                        Order By ct.Nombre, c.PuntoVenta, c.Numero
-                                        Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal}).Take(CInt(comboboxCantidad.Text)).ToList
+                listComprobantes = (From c In dbContext.Comprobante
+                                    Join cl In dbContext.ComprobanteLote On c.IDComprobanteLote Equals cl.IDComprobanteLote
+                                    Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
+                                    Where c.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And ct.EmisionElectronica And c.CAE IsNot Nothing And c.IDUsuarioAnulacion Is Nothing
+                                    Order By ct.Nombre, c.NumeroCompleto
+                                    Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal}).ToList
 
-            End Select
+                Select Case listComprobantes.Count
+                    Case 0
+                        statuslabelMain.Text = String.Format("No hay Comprobantes para mostrar.")
+                    Case 1
+                        statuslabelMain.Text = String.Format("Se muestra 1 Comprobante.")
+                    Case Else
+                        statuslabelMain.Text = String.Format("Se muestran {0} Comprobantes.", listComprobantes.Count)
+                End Select
+            Else
+                listComprobantes = Nothing
+            End If
 
             datagridviewComprobantes.AutoGenerateColumns = False
             datagridviewComprobantes.DataSource = listComprobantes
-
-            Select Case listComprobantes.Count
-                Case 0
-                    statuslabelMain.Text = String.Format("No hay Comprobantes para mostrar.")
-                Case 1
-                    statuslabelMain.Text = String.Format("Se muestra 1 Comprobante.")
-                Case Else
-                    statuslabelMain.Text = String.Format("Se muestran {0} Comprobantes.", listComprobantes.Count)
-            End Select
 
         Catch ex As Exception
             CS_Error.ProcessError(ex, "Error al obtener la lista de Comprobantes.")
@@ -67,30 +65,34 @@ Public Class formComprobantesTransmitirPagomiscuentas
 
         Me.Cursor = Cursors.Default
 
-        buttonTransmitir.Enabled = (listComprobantes.Count > 0)
+        If listComprobantes Is Nothing Then
+            buttonExportar.Enabled = False
+        Else
+            buttonExportar.Enabled = (listComprobantes.Count > 0)
+        End If
     End Sub
 
 #End Region
 
 #Region "Controls behavior"
-    Private Sub comboboxLote_SelectedIndexChanged(sender As Object, e As EventArgs) Handles comboboxCantidad.SelectedIndexChanged
+    Private Sub CambiarLote() Handles comboboxComprobanteLote.SelectedIndexChanged
         RefreshData()
     End Sub
 
-    Private Sub buttonTransmitir_Click(sender As Object, e As EventArgs) Handles buttonTransmitir.Click
+    Private Sub buttonTransmitir_Click(sender As Object, e As EventArgs) Handles buttonExportar.Click
         If listComprobantes.Count > 0 Then
             If CS_Parameter.GetIntegerAsShort(Parametros.EMPRESA_PRISMA_NUMERO) = 0 Then
                 MsgBox("No está especificado el Número de Empresa otorgado por PRISMA.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 Exit Sub
             End If
 
-            TransmitirComprobantes()
+            ExportarComprobantes()
         End If
     End Sub
 #End Region
 
 #Region "Extra stuff"
-    Private Function TransmitirComprobantes() As Boolean
+    Private Function ExportarComprobantes() As Boolean
         Dim HeaderTextStream As String
         Dim DetalleTextStream As String
         Dim TrailerTextStream As String
@@ -103,11 +105,15 @@ Public Class formComprobantesTransmitirPagomiscuentas
         Dim FolderName As String
         Dim FileName As String
 
-        Foldername = CS_SpecialFolders.ProcessString(My.Settings.Exchange_Outbound_Folder)
+        ' Obtengo y verifico si existe la carpeta de destino de los archivos a exportar
+        FolderName = CS_SpecialFolders.ProcessString(My.Settings.Exchange_Outbound_Folder)
         If Not Foldername.EndsWith("\") Then
             Foldername &= "\"
         End If
-        FolderName &= "PagoMisCuentas\"
+        FolderName &= My.Settings.Exchange_Outbound_PagoMisCuentas_SubFolder
+        If Not FolderName.EndsWith("\") Then
+            FolderName &= "\"
+        End If
         If Not Directory.Exists(FolderName) Then
             Directory.CreateDirectory(FolderName)
         End If
@@ -136,7 +142,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
                     DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString.PadRight(19, " "c)    ' Número de Referencia
                     DetalleTextStream &= ComprobanteActual.NumeroCompleto.ToString.PadRight(20, " "c)       ' Id. Factura
                     DetalleTextStream &= "0"                                                                ' Código de Moneda
-                    DetalleTextStream &= ComprobanteActual.FechaEmision.ToString("yyyyMMdd")                ' Fecha 1er. vencimiento
+                    DetalleTextStream &= ComprobanteActual.FechaVencimiento.Value.ToString("yyyyMMdd")      ' Fecha 1er. vencimiento
                     DetalleTextStream &= ComprobanteActual.ImporteTotal.ToString("000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 1er. vencimiento
                     DetalleTextStream &= StrDup(8, "0"c)                                                    ' Fecha 2do. vencimiento
                     DetalleTextStream &= StrDup(11, "0"c)                                                   ' Importe 2do. vencimiento
@@ -168,7 +174,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
 
         End Using
 
-        MsgBox(String.Format("Se ha generado exitosamente el archivo de intercambio con PagoMisCuentas, conteniendo {0} Comprobantes.", listComprobantes.Count), MsgBoxStyle.Information, My.Application.Info.Title)
+        MsgBox(String.Format("Se ha generado exitosamente el archivo de intercambio con PagoMisCuentas, conteniendo {0} Comprobantes.", DetalleCount), MsgBoxStyle.Information, My.Application.Info.Title)
 
         RefreshData()
 

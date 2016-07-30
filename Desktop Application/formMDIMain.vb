@@ -22,7 +22,7 @@
         If Not Me.WindowState = FormWindowState.Minimized Then
 
             'OBTENGO LAS MEDIDAS DEL CLIENT AREA DEL FORM MDI
-            Form_ClientSize = New Size(Me.ClientSize.Width - toolstripMain.Width - My.Settings.MDIFormMargin, Me.ClientSize.Height - menustripMain.Height - statusstripMain.Height - My.Settings.MDIFormMargin)
+            Form_ClientSize = New Size(Me.ClientSize.Width - toolstripMain.Width, Me.ClientSize.Height - menustripMain.Height - statusstripMain.Height)
 
             'HAGO UN RESIZE DE TODOS LOS CHILDS QUE ESTÉN ABIERTOS
             For Each FormCurrent As Form In Me.MdiChildren
@@ -30,7 +30,7 @@
                     If FormCurrent.Name = "formComprobante" Then
                         CS_Form.MDIChild_CenterToClientArea(Me, FormCurrent, Form_ClientSize)
                     Else
-                        CS_Form.MDIChild_PositionAndSizeToFit(Me, FormCurrent, Form_ClientSize)
+                        CS_Form.MDIChild_PositionAndSizeToFit(Me, FormCurrent)
                     End If
                 Else
                     CS_Form.MDIChild_CenterToClientArea(Me, FormCurrent, Form_ClientSize)
@@ -126,7 +126,7 @@
 
             FormCurrent = New formCABGenerico()
 
-            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(FormCurrent, Form), Form_ClientSize)
+            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(FormCurrent, Form))
             FormCurrent.EntityNameSingular = EntityNameSingular
             FormCurrent.EntityNamePlural = EntityNamePlural
             Return FormCurrent
@@ -145,7 +145,7 @@
         If Permisos.VerificarPermiso(Permisos.ANIO) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formAnios, Form), Form_ClientSize)
+            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formAnios, Form))
             formAnios.Show()
             If formAnios.WindowState = FormWindowState.Minimized Then
                 formAnios.WindowState = FormWindowState.Normal
@@ -160,7 +160,7 @@
         If Permisos.VerificarPermiso(Permisos.CURSO) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formCursos, Form), Form_ClientSize)
+            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formCursos, Form))
             formCursos.Show()
             If formCursos.WindowState = FormWindowState.Minimized Then
                 formCursos.WindowState = FormWindowState.Normal
@@ -175,7 +175,7 @@
         If Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCURSO) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formAniosLectivosCursos, Form), Form_ClientSize)
+            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formAniosLectivosCursos, Form))
             formAniosLectivosCursos.Show()
             If formAniosLectivosCursos.WindowState = FormWindowState.Minimized Then
                 formAniosLectivosCursos.WindowState = FormWindowState.Normal
@@ -234,7 +234,7 @@
         If Permisos.VerificarPermiso(Permisos.ENTIDAD) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formEntidades, Form), Form_ClientSize)
+            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formEntidades, Form))
             formEntidades.Show()
             If formEntidades.WindowState = FormWindowState.Minimized Then
                 formEntidades.WindowState = FormWindowState.Normal
@@ -249,7 +249,7 @@
         If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formEntidadesAnioLectivoCurso, Form), Form_ClientSize)
+            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formEntidadesAnioLectivoCurso, Form))
             formEntidadesAnioLectivoCurso.Show()
             If formEntidadesAnioLectivoCurso.WindowState = FormWindowState.Minimized Then
                 formEntidadesAnioLectivoCurso.WindowState = FormWindowState.Normal
@@ -266,7 +266,7 @@
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formComprobantes, Form), Form_ClientSize)
+            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formComprobantes, Form))
             formComprobantes.Show()
             If formComprobantes.WindowState = FormWindowState.Minimized Then
                 formComprobantes.WindowState = FormWindowState.Normal
@@ -341,6 +341,22 @@
             Me.Cursor = Cursors.Default
         End If
     End Sub
+
+    Private Sub ComprobantesExportarSantanderDebitoDirecto() Handles menuitemComprobantesExportarSantanderDebitoDirecto.Click
+        If Permisos.VerificarPermiso(Permisos.COMPROBANTE_EXPORTAR_SANTANDERDEBITODIRECTO) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            formComprobantesTransmitirSantanderDebitoDirecto.MdiParent = Me
+            CS_Form.CenterToParent(Me, CType(formComprobantesTransmitirSantanderDebitoDirecto, Form))
+            formComprobantesTransmitirSantanderDebitoDirecto.Show()
+            If formComprobantesTransmitirSantanderDebitoDirecto.WindowState = FormWindowState.Minimized Then
+                formComprobantesTransmitirSantanderDebitoDirecto.WindowState = FormWindowState.Normal
+            End If
+            formComprobantesTransmitirSantanderDebitoDirecto.Focus()
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
 #End Region
 
 #Region "Left Toolbar - Reportes"
@@ -348,7 +364,7 @@
         If Permisos.VerificarPermiso(Permisos.REPORTE) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formReportes, Form), Form_ClientSize)
+            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formReportes, Form))
             formReportes.Show()
             If formReportes.WindowState = FormWindowState.Minimized Then
                 formReportes.WindowState = FormWindowState.Normal

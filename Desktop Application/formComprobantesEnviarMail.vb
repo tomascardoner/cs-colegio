@@ -51,13 +51,13 @@
                 '   - tienen una C.A.E. asignado
                 '   - el titular tiene asignada una dirección de e-mail
                 '   - el titular no especifica que no se le envíen los e-mails
-                listComprobantes = (From cc In dbContext.Comprobante
-                                    Join cl In dbContext.ComprobanteLote On cc.IDComprobanteLote Equals cl.IDComprobanteLote
-                                    Join ct In dbContext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                    Join e In dbContext.Entidad On cc.IDEntidad Equals e.IDEntidad
-                                    Where cc.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And cc.IDUsuarioAnulacion Is Nothing And cc.IDUsuarioEnvioEmail Is Nothing And ct.EmisionElectronica And (Not cc.CAE Is Nothing) And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And (Not e.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO)
-                                    Order By ct.Nombre, cc.NumeroCompleto
-                                    Select New GridDataRow With {.IDComprobante = cc.IDComprobante, .IDComprobanteTipo = cc.IDComprobanteTipo, .IDComprobanteLote = cc.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = cc.NumeroCompleto, .IDEntidad = cc.IDEntidad, .ApellidoNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal}).ToList
+                listComprobantes = (From c In dbContext.Comprobante
+                                    Join cl In dbContext.ComprobanteLote On c.IDComprobanteLote Equals cl.IDComprobanteLote
+                                    Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
+                                    Join e In dbContext.Entidad On c.IDEntidad Equals e.IDEntidad
+                                    Where c.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And c.IDUsuarioAnulacion Is Nothing And c.IDUsuarioEnvioEmail Is Nothing And ct.EmisionElectronica And (Not c.CAE Is Nothing) And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And (Not e.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO)
+                                    Order By ct.Nombre, c.NumeroCompleto
+                                    Select New GridDataRow With {.IDComprobante = c.IDComprobante, .IDComprobanteTipo = c.IDComprobanteTipo, .IDComprobanteLote = c.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .IDEntidad = c.IDEntidad, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal}).ToList
 
                 Select Case listComprobantes.Count
                     Case 0
