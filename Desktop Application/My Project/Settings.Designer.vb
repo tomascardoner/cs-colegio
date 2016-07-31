@@ -442,6 +442,18 @@ Namespace My
                 Me("Exchange_Outbound_PagoMisCuentas_SubFolder") = value
             End Set
         End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("Santander_Piryp")> _
+        Public Property Exchange_Outbound_Santander_Piryp_SubFolder() As String
+            Get
+                Return CType(Me("Exchange_Outbound_Santander_Piryp_SubFolder"), String)
+            End Get
+            Set(value As String)
+                Me("Exchange_Outbound_Santander_Piryp_SubFolder") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

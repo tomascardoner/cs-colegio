@@ -128,5 +128,8 @@
     <Setting Name="Exchange_Outbound_PagoMisCuentas_SubFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">PagoMisCuentas</Value>
     </Setting>
+    <Setting Name="Exchange_Outbound_Santander_Piryp_SubFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Santander_Piryp</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

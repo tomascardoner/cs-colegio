@@ -357,6 +357,22 @@
             Me.Cursor = Cursors.Default
         End If
     End Sub
+
+    Private Sub ComprobantesExportarSantanderRecaudacionPorCaja() Handles menuitemComprobantesExportarSantanderRecaudacionPorCaja.Click
+        If Permisos.VerificarPermiso(Permisos.COMPROBANTE_EXPORTAR_SANTANDERRECAUDACIONPORCAJA) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            formComprobantesTransmitirSantanderRecaudacionPorCaja.MdiParent = Me
+            CS_Form.CenterToParent(Me, CType(formComprobantesTransmitirSantanderRecaudacionPorCaja, Form))
+            formComprobantesTransmitirSantanderRecaudacionPorCaja.Show()
+            If formComprobantesTransmitirSantanderRecaudacionPorCaja.WindowState = FormWindowState.Minimized Then
+                formComprobantesTransmitirSantanderRecaudacionPorCaja.WindowState = FormWindowState.Normal
+            End If
+            formComprobantesTransmitirSantanderRecaudacionPorCaja.Focus()
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
 #End Region
 
 #Region "Left Toolbar - Reportes"

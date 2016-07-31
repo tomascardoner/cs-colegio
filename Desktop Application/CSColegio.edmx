@@ -645,6 +645,22 @@
           <Property Name="ValorPredeterminadoSiNo" Type="bit" />
           <Property Name="Orden" Type="tinyint" />
         </EntityType>
+        <EntityType Name="TarjetaCredito">
+          <Key>
+            <PropertyRef Name="IDTarjetaCredito" />
+          </Key>
+          <Property Name="IDTarjetaCredito" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TarjetaCreditoBanco">
+          <Key>
+            <PropertyRef Name="IDTarjetaCreditoBanco" />
+          </Key>
+          <Property Name="IDTarjetaCreditoBanco" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Turno">
           <Key>
             <PropertyRef Name="IDTurno" />
@@ -1493,6 +1509,8 @@
           <EntitySet Name="Reporte" EntityType="Self.Reporte" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReporteGrupo" EntityType="Self.ReporteGrupo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReporteParametro" EntityType="Self.ReporteParametro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TarjetaCredito" EntityType="Self.TarjetaCredito" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TarjetaCreditoBanco" EntityType="Self.TarjetaCreditoBanco" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Turno" EntityType="Self.Turno" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnidadMedida" EntityType="Self.UnidadMedida" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
@@ -2553,6 +2571,8 @@
             <End Role="Reporte" EntitySet="Reporte" />
             <End Role="ReporteParametro" EntitySet="ReporteParametro" />
           </AssociationSet>
+          <EntitySet Name="TarjetaCredito" EntityType="CSColegioModel.TarjetaCredito" />
+          <EntitySet Name="TarjetaCreditoBanco" EntityType="CSColegioModel.TarjetaCreditoBanco" />
           </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
           <Key>
@@ -3496,6 +3516,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TarjetaCredito">
+          <Key>
+            <PropertyRef Name="IDTarjetaCredito" />
+          </Key>
+          <Property Name="IDTarjetaCredito" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TarjetaCreditoBanco">
+          <Key>
+            <PropertyRef Name="IDTarjetaCreditoBanco" />
+          </Key>
+          <Property Name="IDTarjetaCreditoBanco" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4235,6 +4271,24 @@
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IDParametro" ColumnName="IDParametro" />
                 <ScalarProperty Name="IDReporte" ColumnName="IDReporte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TarjetaCredito">
+            <EntityTypeMapping TypeName="CSColegioModel.TarjetaCredito">
+              <MappingFragment StoreEntitySet="TarjetaCredito">
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDTarjetaCredito" ColumnName="IDTarjetaCredito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TarjetaCreditoBanco">
+            <EntityTypeMapping TypeName="CSColegioModel.TarjetaCreditoBanco">
+              <MappingFragment StoreEntitySet="TarjetaCreditoBanco">
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDTarjetaCreditoBanco" ColumnName="IDTarjetaCreditoBanco" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

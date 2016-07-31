@@ -121,6 +121,8 @@
         <AssociationConnector Association="CSColegioModel.FK__AnioLectivoCurso__AnioLectivoCursoImporte" />
         <EntityTypeShape EntityType="CSColegioModel.ReporteParametro" Width="1.5" PointX="3.375" PointY="22.75" />
         <AssociationConnector Association="CSColegioModel.FK__Reporte__ReporteParametro" />
+        <EntityTypeShape EntityType="CSColegioModel.TarjetaCredito" Width="1.5" PointX="5.375" PointY="22.75" />
+        <EntityTypeShape EntityType="CSColegioModel.TarjetaCreditoBanco" Width="1.5" PointX="22.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

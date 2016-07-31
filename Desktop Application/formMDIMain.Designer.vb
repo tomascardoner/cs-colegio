@@ -70,6 +70,7 @@ Partial Class formMDIMain
         Me.menuitemComprobantesExportarSantanderDebitoDirecto = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesExportarRapipago = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonReportes = New System.Windows.Forms.ToolStripButton()
+        Me.menuitemComprobantesExportarSantanderRecaudacionPorCaja = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
@@ -363,7 +364,7 @@ Partial Class formMDIMain
         '
         'menuitemComprobantesExportar
         '
-        Me.menuitemComprobantesExportar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemComprobantesExportarPagomiscuentas, Me.menuitemComprobantesExportarSantanderDebitoDirecto, Me.menuitemComprobantesExportarRapipago})
+        Me.menuitemComprobantesExportar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemComprobantesExportarPagomiscuentas, Me.menuitemComprobantesExportarSantanderDebitoDirecto, Me.menuitemComprobantesExportarSantanderRecaudacionPorCaja, Me.menuitemComprobantesExportarRapipago})
         Me.menuitemComprobantesExportar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_EXPORT_32
         Me.menuitemComprobantesExportar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.menuitemComprobantesExportar.Name = "menuitemComprobantesExportar"
@@ -373,19 +374,19 @@ Partial Class formMDIMain
         'menuitemComprobantesExportarPagomiscuentas
         '
         Me.menuitemComprobantesExportarPagomiscuentas.Name = "menuitemComprobantesExportarPagomiscuentas"
-        Me.menuitemComprobantesExportarPagomiscuentas.Size = New System.Drawing.Size(309, 26)
+        Me.menuitemComprobantesExportarPagomiscuentas.Size = New System.Drawing.Size(353, 26)
         Me.menuitemComprobantesExportarPagomiscuentas.Text = "PagoMisCuentas"
         '
         'menuitemComprobantesExportarSantanderDebitoDirecto
         '
         Me.menuitemComprobantesExportarSantanderDebitoDirecto.Name = "menuitemComprobantesExportarSantanderDebitoDirecto"
-        Me.menuitemComprobantesExportarSantanderDebitoDirecto.Size = New System.Drawing.Size(309, 26)
+        Me.menuitemComprobantesExportarSantanderDebitoDirecto.Size = New System.Drawing.Size(353, 26)
         Me.menuitemComprobantesExportarSantanderDebitoDirecto.Text = "Banco Santander - Débito Directo"
         '
         'menuitemComprobantesExportarRapipago
         '
         Me.menuitemComprobantesExportarRapipago.Name = "menuitemComprobantesExportarRapipago"
-        Me.menuitemComprobantesExportarRapipago.Size = New System.Drawing.Size(309, 26)
+        Me.menuitemComprobantesExportarRapipago.Size = New System.Drawing.Size(353, 26)
         Me.menuitemComprobantesExportarRapipago.Text = "Rapipago"
         '
         'buttonReportes
@@ -398,6 +399,12 @@ Partial Class formMDIMain
         Me.buttonReportes.Size = New System.Drawing.Size(156, 36)
         Me.buttonReportes.Text = "Reportes"
         '
+        'menuitemComprobantesExportarSantanderRecaudacionPorCaja
+        '
+        Me.menuitemComprobantesExportarSantanderRecaudacionPorCaja.Name = "menuitemComprobantesExportarSantanderRecaudacionPorCaja"
+        Me.menuitemComprobantesExportarSantanderRecaudacionPorCaja.Size = New System.Drawing.Size(353, 26)
+        Me.menuitemComprobantesExportarSantanderRecaudacionPorCaja.Text = "Banco Santander - Recaudación Por Caja"
+        '
         'formMDIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -409,7 +416,7 @@ Partial Class formMDIMain
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.IsMdiContainer = True
         Me.MainMenuStrip = Me.menustripMain
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "formMDIMain"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show
         Me.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds
@@ -472,4 +479,5 @@ Partial Class formMDIMain
     Friend WithEvents menuitemComprobantesExportarSantanderDebitoDirecto As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemComprobantesExportarRapipago As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemAniosLectivosCursos As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemComprobantesExportarSantanderRecaudacionPorCaja As System.Windows.Forms.ToolStripMenuItem
 End Class

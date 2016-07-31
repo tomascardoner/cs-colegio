@@ -1,6 +1,6 @@
 ﻿Imports System.IO
 
-Public Class formComprobantesTransmitirSantanderDebitoDirecto
+Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
 
 #Region "Declarations"
     Private dbContext As New CSColegioContext(True)
@@ -41,7 +41,7 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
                                     Join cl In dbContext.ComprobanteLote On c.IDComprobanteLote Equals cl.IDComprobanteLote
                                     Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                     Join e In dbContext.Entidad On c.IDEntidad Equals e.IDEntidad
-                                    Where c.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And ct.EmisionElectronica And c.CAE IsNot Nothing And c.IDUsuarioAnulacion Is Nothing And e.DebitoAutomaticoTipo = Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO
+                                    Where c.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And ct.EmisionElectronica And c.CAE IsNot Nothing And c.IDUsuarioAnulacion Is Nothing
                                     Order By ct.Nombre, c.NumeroCompleto
                                     Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal}).ToList
 
@@ -94,7 +94,6 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
 
 #Region "Extra stuff"
     Private Function ExportarComprobantes() As Boolean
-        Dim HeaderTextStream As String = ""
         Dim DetalleTextStream As String = ""
 
         Dim GridDataRowActual As GridDataRow
@@ -110,7 +109,7 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
         If Not FolderName.EndsWith("\") Then
             FolderName &= "\"
         End If
-        FolderName &= My.Settings.Exchange_Outbound_Santander_ADDI_SubFolder
+        FolderName &= My.Settings.Exchange_Outbound_Santander_Piryp_SubFolder
         If Not FolderName.EndsWith("\") Then
             FolderName &= "\"
         End If
@@ -118,7 +117,7 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
             Directory.CreateDirectory(FolderName)
         End If
 
-        FileName = CS_File.RemoveInvalidFileNameChars(String.Format("Lote - {0}.deb", comboboxComprobanteLote.Text))
+        FileName = CS_File.RemoveInvalidFileNameChars(String.Format("Lote - {0}.txt", comboboxComprobanteLote.Text))
 
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
@@ -130,16 +129,29 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
                 ComprobanteActual = dbContext.Comprobante.Find(GridDataRowActual.IDComprobante)
                 If Not ComprobanteActual Is Nothing Then
                     ' Detalle
-                    DetalleTextStream &= "11"                                                               ' Tipo de Registro
-                    DetalleTextStream &= CS_Parameter.GetString(Parametros.EMPRESA_ADDI_CODIGOSERVICIO).PadRight(10, " "c)  ' Código de Servicio
-                    DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString.PadRight(22, " "c)    ' Número de Partida
-                    DetalleTextStream &= ComprobanteActual.Entidad.DebitoAutomaticoCBU                      ' CBU
+                    DetalleTextStream &= ComprobanteActual.ComprobanteTipo.Sigla.Substring(0, 2)            ' Tipo de Comprobante
+                    DetalleTextStream &= ComprobanteActual.NumeroCompleto.PadRight(15, " "c)                ' Nro. Comprobante
+                    DetalleTextStream &= "0000"                                                             ' Nro. Cuota
+                    DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString.PadRight(15, " "c)    ' Nro. Cliente Empresa
+                    DetalleTextStream &= ComprobanteActual.ApellidoNombre.PadRight(30, " "c).Substring(0, 30)   ' Nombre Cliente
+                    DetalleTextStream &= StrDup(11, "0"c)                                                   ' CUIT Cliente
                     DetalleTextStream &= ComprobanteActual.FechaVencimiento.Value.ToString("yyyyMMdd")      ' Fecha 1er. vencimiento
-                    DetalleTextStream &= ComprobanteActual.ImporteTotal.ToString("00000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 1er. vencimiento
-                    DetalleTextStream &= (ComprobanteActual.ComprobanteTipo.Sigla & ComprobanteActual.PuntoVenta & ComprobanteActual.Numero).PadRight(15, " "c)       ' Identificación Débito
-                    DetalleTextStream &= ComprobanteActual.ApellidoNombre.PadRight(30, " "c).Substring(0, 30)   ' Nombre del Adherente
-                    DetalleTextStream &= " "                                                                ' Filler
-                    DetalleTextStream &= ComprobanteActual.IDComprobante.ToString.PadRight(50, " "c)        ' Referencia Empresa
+                    DetalleTextStream &= ComprobanteActual.ImporteTotal.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 1er. vencimiento
+                    DetalleTextStream &= "0"                                                                ' Moneda
+                    DetalleTextStream &= "     "                                                            ' Filler
+                    DetalleTextStream &= ComprobanteActual.IDComprobante.ToString.PadRight(30, " "c)        ' Referencia Empresa
+                    DetalleTextStream &= "00000000"                                                         ' Fecha 2do. vencimiento
+                    DetalleTextStream &= StrDup(15, "0"c)                                                   ' Importe 2do. vencimiento
+                    DetalleTextStream &= "00000000"                                                         ' Fecha Vto. Punitorios
+                    DetalleTextStream &= "0000000"                                                          ' TNA
+                    DetalleTextStream &= "S"                                                                ' Publica con Nro. Cliente Empresa
+                    DetalleTextStream &= "00000000"                                                         ' Fecha Pronto Pago
+                    DetalleTextStream &= StrDup(15, "0"c)                                                   ' Importe Pronto Pago
+                    DetalleTextStream &= StrDup(18, " "c)                                                   ' Observacion 1
+                    DetalleTextStream &= StrDup(15, " "c)                                                   ' Observacion 2
+                    DetalleTextStream &= StrDup(15, " "c)                                                   ' Observacion 3
+                    DetalleTextStream &= "0000"                                                             ' Cantidad Cuotas
+                    DetalleTextStream &= StrDup(49, " "c)                                                   ' Filler
 
                     DetalleTextStream &= vbCrLf
 
@@ -148,17 +160,11 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
                 End If
             Next
 
-            ' Header
-            HeaderTextStream = "10"                                                                             ' Tipo de Registro
-            HeaderTextStream &= DateTime.Today.ToString("yyyyMMdd")                                             ' Fecha de generación del archivo
-            HeaderTextStream &= DetalleCount.ToString.PadLeft(5, "0"c)                                          ' Cantidad de registros de detalle
-            HeaderTextStream &= DetalleImporteTotal.ToString("00000000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")      ' Total Importe
-
             ' Exporto todo al archivo
-            outputFile.WriteLine(HeaderTextStream & vbCrLf & DetalleTextStream)
+            outputFile.WriteLine(DetalleTextStream)
         End Using
 
-        MsgBox(String.Format("Se ha generado exitosamente el archivo de intercambio con Banco Santander - Débito Directo, conteniendo {0} Comprobantes.", DetalleCount), MsgBoxStyle.Information, My.Application.Info.Title)
+        MsgBox(String.Format("Se ha generado exitosamente el archivo de intercambio con Banco Santander - Recaudación Por Caja, conteniendo {0} Comprobantes.", DetalleCount), MsgBoxStyle.Information, My.Application.Info.Title)
 
         RefreshData()
 

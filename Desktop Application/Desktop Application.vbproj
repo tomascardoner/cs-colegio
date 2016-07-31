@@ -324,6 +324,12 @@
     <Compile Include="formAnioLectivoCursoImportes.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formComprobantesTransmitirSantanderRecaudacionPorCaja.Designer.vb">
+      <DependentUpon>formComprobantesTransmitirSantanderRecaudacionPorCaja.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formComprobantesTransmitirSantanderRecaudacionPorCaja.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formComprobantesTransmitirSantanderDebitoDirecto.Designer.vb">
       <DependentUpon>formComprobantesTransmitirSantanderDebitoDirecto.vb</DependentUpon>
     </Compile>
@@ -557,6 +563,12 @@
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="StartUp.vb" />
+    <Compile Include="TarjetaCredito.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TarjetaCreditoBanco.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
     <Compile Include="Turno.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -595,6 +607,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formAnioLectivoCursoImportes.resx">
       <DependentUpon>formAnioLectivoCursoImportes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formComprobantesTransmitirSantanderRecaudacionPorCaja.resx">
+      <DependentUpon>formComprobantesTransmitirSantanderRecaudacionPorCaja.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobantesTransmitirSantanderDebitoDirecto.resx">
       <DependentUpon>formComprobantesTransmitirSantanderDebitoDirecto.vb</DependentUpon>
