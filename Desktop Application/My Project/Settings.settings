@@ -122,14 +122,17 @@
     <Setting Name="Exchange_Outbound_Folder" Type="System.String" Scope="Application">
       <Value Profile="(Default)">%ApplicationFolder%\Intercambio\Salida</Value>
     </Setting>
-    <Setting Name="Exchange_Outbound_Santander_ADDI_SubFolder" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Santander_ADDI</Value>
+    <Setting Name="Exchange_Outbound_Santander_ADDI_Folder" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">%ProgramFilesX86%\ADDISQL\Importar</Value>
     </Setting>
     <Setting Name="Exchange_Outbound_PagoMisCuentas_SubFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">PagoMisCuentas</Value>
     </Setting>
-    <Setting Name="Exchange_Outbound_Santander_Piryp_SubFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Santander_Piryp</Value>
+    <Setting Name="Exchange_Outbound_Santander_Piryp_Folder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">%ProgramFilesX86%\Piryp\Importar</Value>
+    </Setting>
+    <Setting Name="Exchange_Inbound_Santander_ADDI_Folder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">%ProgramFilesX86%\ADDISQL\Exportar</Value>
     </Setting>
   </Settings>
 </SettingsFile>

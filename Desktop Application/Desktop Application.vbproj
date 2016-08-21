@@ -120,6 +120,9 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\..\..\..\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_String.vb">
+      <Link>CS_String.vb</Link>
+    </Compile>
     <Compile Include="Anio.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -322,6 +325,12 @@
       <DependentUpon>formAnioLectivoCursoImportes.vb</DependentUpon>
     </Compile>
     <Compile Include="formAnioLectivoCursoImportes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formComprobantesRecibirSantanderDebitoDirecto.Designer.vb">
+      <DependentUpon>formComprobantesRecibirSantanderDebitoDirecto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formComprobantesRecibirSantanderDebitoDirecto.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formComprobantesTransmitirSantanderRecaudacionPorCaja.Designer.vb">
@@ -607,6 +616,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formAnioLectivoCursoImportes.resx">
       <DependentUpon>formAnioLectivoCursoImportes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formComprobantesRecibirSantanderDebitoDirecto.resx">
+      <DependentUpon>formComprobantesRecibirSantanderDebitoDirecto.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobantesTransmitirSantanderRecaudacionPorCaja.resx">
       <DependentUpon>formComprobantesTransmitirSantanderRecaudacionPorCaja.vb</DependentUpon>

@@ -114,9 +114,19 @@ Public Class formComprobantesTransmitirPagomiscuentas
         If Not FolderName.EndsWith("\") Then
             FolderName &= "\"
         End If
-        If Not Directory.Exists(FolderName) Then
-            Directory.CreateDirectory(FolderName)
-        End If
+
+        Try
+            If Not My.Computer.FileSystem.DirectoryExists(FolderName) Then
+                My.Computer.FileSystem.CreateDirectory(FolderName)
+            End If
+
+        Catch avex As AccessViolationException
+            MsgBox("La aplicación no tiene permisos para acceder o crear la carpeta especificada.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+            Return False
+
+        Catch ex As Exception
+            CS_Error.ProcessError(ex, "Error el acceder o crear la carpeta especificada.")
+        End Try
 
         FileName = "FAC" & CS_Parameter.GetIntegerAsShort(Parametros.EMPRESA_PRISMA_NUMERO).ToString.PadRight(4, "0"c) & "." & DateTime.Today.ToString("ddMMyy")
 

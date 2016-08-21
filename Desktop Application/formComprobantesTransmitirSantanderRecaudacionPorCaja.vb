@@ -109,7 +109,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
         If Not FolderName.EndsWith("\") Then
             FolderName &= "\"
         End If
-        FolderName &= My.Settings.Exchange_Outbound_Santander_Piryp_SubFolder
+        FolderName &= My.Settings.Exchange_Outbound_Santander_Piryp_Folder
         If Not FolderName.EndsWith("\") Then
             FolderName &= "\"
         End If

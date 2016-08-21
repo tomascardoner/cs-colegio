@@ -23,15 +23,15 @@ Partial Class formComprobantesGenerarLote
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.panelPaso1 = New System.Windows.Forms.Panel()
         Me.lalbelPaso1Pie = New System.Windows.Forms.Label()
         Me.tabcontrolMain = New System.Windows.Forms.TabControl()
@@ -51,6 +51,8 @@ Partial Class formComprobantesGenerarLote
         Me.buttonPaso1Siguiente = New System.Windows.Forms.Button()
         Me.labelPaso1Mensaje = New System.Windows.Forms.Label()
         Me.panelPaso2 = New System.Windows.Forms.Panel()
+        Me.datetimepickerFechaVencimiento = New System.Windows.Forms.DateTimePicker()
+        Me.labelFechaVencimiento = New System.Windows.Forms.Label()
         Me.labelPaso2Pie = New System.Windows.Forms.Label()
         Me.datagridviewPaso2 = New System.Windows.Forms.DataGridView()
         Me.columnVerificacionIDEntidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -80,8 +82,6 @@ Partial Class formComprobantesGenerarLote
         Me.labelPaso3Titulo = New System.Windows.Forms.Label()
         Me.buttonPaso3Anterior = New System.Windows.Forms.Button()
         Me.buttonPaso3Finalizar = New System.Windows.Forms.Button()
-        Me.datetimepickerFechaVencimiento = New System.Windows.Forms.DateTimePicker()
-        Me.labelFechaVencimiento = New System.Windows.Forms.Label()
         Me.panelPaso1.SuspendLayout()
         Me.tabcontrolMain.SuspendLayout()
         Me.tabpageNivelesCursosAlumnos.SuspendLayout()
@@ -107,18 +107,20 @@ Partial Class formComprobantesGenerarLote
         Me.panelPaso1.Controls.Add(Me.buttonPaso1Cancelar)
         Me.panelPaso1.Controls.Add(Me.buttonPaso1Siguiente)
         Me.panelPaso1.Controls.Add(Me.labelPaso1Mensaje)
-        Me.panelPaso1.Location = New System.Drawing.Point(12, 12)
+        Me.panelPaso1.Location = New System.Drawing.Point(16, 15)
+        Me.panelPaso1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.panelPaso1.Name = "panelPaso1"
-        Me.panelPaso1.Size = New System.Drawing.Size(611, 441)
+        Me.panelPaso1.Size = New System.Drawing.Size(815, 543)
         Me.panelPaso1.TabIndex = 0
         '
         'lalbelPaso1Pie
         '
         Me.lalbelPaso1Pie.AutoSize = True
         Me.lalbelPaso1Pie.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lalbelPaso1Pie.Location = New System.Drawing.Point(7, 413)
+        Me.lalbelPaso1Pie.Location = New System.Drawing.Point(9, 508)
+        Me.lalbelPaso1Pie.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lalbelPaso1Pie.Name = "lalbelPaso1Pie"
-        Me.lalbelPaso1Pie.Size = New System.Drawing.Size(31, 16)
+        Me.lalbelPaso1Pie.Size = New System.Drawing.Size(36, 20)
         Me.lalbelPaso1Pie.TabIndex = 3
         Me.lalbelPaso1Pie.Text = "Pie"
         '
@@ -129,19 +131,21 @@ Partial Class formComprobantesGenerarLote
         Me.tabcontrolMain.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.tabcontrolMain.Controls.Add(Me.tabpageNivelesCursosAlumnos)
         Me.tabcontrolMain.Controls.Add(Me.tabpagePadresAlumnos)
-        Me.tabcontrolMain.Location = New System.Drawing.Point(3, 84)
+        Me.tabcontrolMain.Location = New System.Drawing.Point(4, 103)
+        Me.tabcontrolMain.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabcontrolMain.Name = "tabcontrolMain"
         Me.tabcontrolMain.SelectedIndex = 0
-        Me.tabcontrolMain.Size = New System.Drawing.Size(605, 321)
+        Me.tabcontrolMain.Size = New System.Drawing.Size(807, 395)
         Me.tabcontrolMain.TabIndex = 2
         '
         'tabpageNivelesCursosAlumnos
         '
         Me.tabpageNivelesCursosAlumnos.Controls.Add(Me.treeviewPaso1NivelCursoAlumno)
-        Me.tabpageNivelesCursosAlumnos.Location = New System.Drawing.Point(4, 25)
+        Me.tabpageNivelesCursosAlumnos.Location = New System.Drawing.Point(4, 28)
+        Me.tabpageNivelesCursosAlumnos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabpageNivelesCursosAlumnos.Name = "tabpageNivelesCursosAlumnos"
-        Me.tabpageNivelesCursosAlumnos.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageNivelesCursosAlumnos.Size = New System.Drawing.Size(597, 292)
+        Me.tabpageNivelesCursosAlumnos.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabpageNivelesCursosAlumnos.Size = New System.Drawing.Size(799, 363)
         Me.tabpageNivelesCursosAlumnos.TabIndex = 0
         Me.tabpageNivelesCursosAlumnos.Text = "Niveles - Cursos - Alumnos"
         Me.tabpageNivelesCursosAlumnos.UseVisualStyleBackColor = True
@@ -151,36 +155,39 @@ Partial Class formComprobantesGenerarLote
         Me.treeviewPaso1NivelCursoAlumno.CheckBoxes = True
         Me.treeviewPaso1NivelCursoAlumno.ContextMenuStrip = Me.contextmenuNivelCursoAlumno
         Me.treeviewPaso1NivelCursoAlumno.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.treeviewPaso1NivelCursoAlumno.Location = New System.Drawing.Point(3, 3)
+        Me.treeviewPaso1NivelCursoAlumno.Location = New System.Drawing.Point(4, 4)
+        Me.treeviewPaso1NivelCursoAlumno.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.treeviewPaso1NivelCursoAlumno.Name = "treeviewPaso1NivelCursoAlumno"
-        Me.treeviewPaso1NivelCursoAlumno.Size = New System.Drawing.Size(591, 286)
+        Me.treeviewPaso1NivelCursoAlumno.Size = New System.Drawing.Size(791, 355)
         Me.treeviewPaso1NivelCursoAlumno.TabIndex = 0
         '
         'contextmenuNivelCursoAlumno
         '
+        Me.contextmenuNivelCursoAlumno.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.contextmenuNivelCursoAlumno.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemNivelCursoAlumnoMarcarTodos, Me.menuitemNivelCursoAlumnoDesmarcarTodos})
         Me.contextmenuNivelCursoAlumno.Name = "contextmenuMain"
-        Me.contextmenuNivelCursoAlumno.Size = New System.Drawing.Size(164, 48)
+        Me.contextmenuNivelCursoAlumno.Size = New System.Drawing.Size(198, 56)
         '
         'menuitemNivelCursoAlumnoMarcarTodos
         '
         Me.menuitemNivelCursoAlumnoMarcarTodos.Name = "menuitemNivelCursoAlumnoMarcarTodos"
-        Me.menuitemNivelCursoAlumnoMarcarTodos.Size = New System.Drawing.Size(163, 22)
+        Me.menuitemNivelCursoAlumnoMarcarTodos.Size = New System.Drawing.Size(197, 26)
         Me.menuitemNivelCursoAlumnoMarcarTodos.Text = "Marcar todos"
         '
         'menuitemNivelCursoAlumnoDesmarcarTodos
         '
         Me.menuitemNivelCursoAlumnoDesmarcarTodos.Name = "menuitemNivelCursoAlumnoDesmarcarTodos"
-        Me.menuitemNivelCursoAlumnoDesmarcarTodos.Size = New System.Drawing.Size(163, 22)
+        Me.menuitemNivelCursoAlumnoDesmarcarTodos.Size = New System.Drawing.Size(197, 26)
         Me.menuitemNivelCursoAlumnoDesmarcarTodos.Text = "Desmarcar todos"
         '
         'tabpagePadresAlumnos
         '
         Me.tabpagePadresAlumnos.Controls.Add(Me.treeviewPaso1PadresAlumnos)
-        Me.tabpagePadresAlumnos.Location = New System.Drawing.Point(4, 25)
+        Me.tabpagePadresAlumnos.Location = New System.Drawing.Point(4, 28)
+        Me.tabpagePadresAlumnos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabpagePadresAlumnos.Name = "tabpagePadresAlumnos"
-        Me.tabpagePadresAlumnos.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpagePadresAlumnos.Size = New System.Drawing.Size(597, 292)
+        Me.tabpagePadresAlumnos.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabpagePadresAlumnos.Size = New System.Drawing.Size(799, 363)
         Me.tabpagePadresAlumnos.TabIndex = 1
         Me.tabpagePadresAlumnos.Text = "Padres - Alumnos"
         Me.tabpagePadresAlumnos.UseVisualStyleBackColor = True
@@ -190,33 +197,36 @@ Partial Class formComprobantesGenerarLote
         Me.treeviewPaso1PadresAlumnos.CheckBoxes = True
         Me.treeviewPaso1PadresAlumnos.ContextMenuStrip = Me.contextmenuPadreAlumno
         Me.treeviewPaso1PadresAlumnos.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.treeviewPaso1PadresAlumnos.Location = New System.Drawing.Point(3, 3)
+        Me.treeviewPaso1PadresAlumnos.Location = New System.Drawing.Point(4, 4)
+        Me.treeviewPaso1PadresAlumnos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.treeviewPaso1PadresAlumnos.Name = "treeviewPaso1PadresAlumnos"
-        Me.treeviewPaso1PadresAlumnos.Size = New System.Drawing.Size(591, 286)
+        Me.treeviewPaso1PadresAlumnos.Size = New System.Drawing.Size(791, 355)
         Me.treeviewPaso1PadresAlumnos.TabIndex = 0
         '
         'contextmenuPadreAlumno
         '
+        Me.contextmenuPadreAlumno.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.contextmenuPadreAlumno.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemPadreAlumnoMarcarTodos, Me.menuitemPadreAlumnoDesmarcarTodos})
         Me.contextmenuPadreAlumno.Name = "contextmenuMain"
-        Me.contextmenuPadreAlumno.Size = New System.Drawing.Size(164, 48)
+        Me.contextmenuPadreAlumno.Size = New System.Drawing.Size(198, 56)
         '
         'menuitemPadreAlumnoMarcarTodos
         '
         Me.menuitemPadreAlumnoMarcarTodos.Name = "menuitemPadreAlumnoMarcarTodos"
-        Me.menuitemPadreAlumnoMarcarTodos.Size = New System.Drawing.Size(163, 22)
+        Me.menuitemPadreAlumnoMarcarTodos.Size = New System.Drawing.Size(197, 26)
         Me.menuitemPadreAlumnoMarcarTodos.Text = "Marcar todos"
         '
         'menuitemPadreAlumnoDesmarcarTodos
         '
         Me.menuitemPadreAlumnoDesmarcarTodos.Name = "menuitemPadreAlumnoDesmarcarTodos"
-        Me.menuitemPadreAlumnoDesmarcarTodos.Size = New System.Drawing.Size(163, 22)
+        Me.menuitemPadreAlumnoDesmarcarTodos.Size = New System.Drawing.Size(197, 26)
         Me.menuitemPadreAlumnoDesmarcarTodos.Text = "Desmarcar todos"
         '
         'pictureboxPaso1
         '
         Me.pictureboxPaso1.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_COMPROBANTE_48
-        Me.pictureboxPaso1.Location = New System.Drawing.Point(3, 20)
+        Me.pictureboxPaso1.Location = New System.Drawing.Point(4, 25)
+        Me.pictureboxPaso1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.pictureboxPaso1.Name = "pictureboxPaso1"
         Me.pictureboxPaso1.Size = New System.Drawing.Size(48, 48)
         Me.pictureboxPaso1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
@@ -229,17 +239,19 @@ Partial Class formComprobantesGenerarLote
         Me.labelPaso1Titulo.Dock = System.Windows.Forms.DockStyle.Top
         Me.labelPaso1Titulo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.labelPaso1Titulo.Location = New System.Drawing.Point(0, 0)
+        Me.labelPaso1Titulo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelPaso1Titulo.Name = "labelPaso1Titulo"
-        Me.labelPaso1Titulo.Size = New System.Drawing.Size(138, 17)
+        Me.labelPaso1Titulo.Size = New System.Drawing.Size(161, 20)
         Me.labelPaso1Titulo.TabIndex = 0
         Me.labelPaso1Titulo.Text = "Paso 1: Selección"
         '
         'buttonPaso1Cancelar
         '
         Me.buttonPaso1Cancelar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonPaso1Cancelar.Location = New System.Drawing.Point(387, 404)
+        Me.buttonPaso1Cancelar.Location = New System.Drawing.Point(516, 497)
+        Me.buttonPaso1Cancelar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.buttonPaso1Cancelar.Name = "buttonPaso1Cancelar"
-        Me.buttonPaso1Cancelar.Size = New System.Drawing.Size(75, 34)
+        Me.buttonPaso1Cancelar.Size = New System.Drawing.Size(100, 42)
         Me.buttonPaso1Cancelar.TabIndex = 4
         Me.buttonPaso1Cancelar.Text = "Cancelar"
         Me.buttonPaso1Cancelar.UseVisualStyleBackColor = True
@@ -249,9 +261,10 @@ Partial Class formComprobantesGenerarLote
         Me.buttonPaso1Siguiente.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.buttonPaso1Siguiente.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_NEXT_24
         Me.buttonPaso1Siguiente.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.buttonPaso1Siguiente.Location = New System.Drawing.Point(468, 404)
+        Me.buttonPaso1Siguiente.Location = New System.Drawing.Point(624, 497)
+        Me.buttonPaso1Siguiente.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.buttonPaso1Siguiente.Name = "buttonPaso1Siguiente"
-        Me.buttonPaso1Siguiente.Size = New System.Drawing.Size(140, 34)
+        Me.buttonPaso1Siguiente.Size = New System.Drawing.Size(187, 42)
         Me.buttonPaso1Siguiente.TabIndex = 5
         Me.buttonPaso1Siguiente.Text = "Paso 2: Verificación"
         Me.buttonPaso1Siguiente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -262,9 +275,10 @@ Partial Class formComprobantesGenerarLote
         Me.labelPaso1Mensaje.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.labelPaso1Mensaje.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelPaso1Mensaje.Location = New System.Drawing.Point(57, 20)
+        Me.labelPaso1Mensaje.Location = New System.Drawing.Point(76, 25)
+        Me.labelPaso1Mensaje.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelPaso1Mensaje.Name = "labelPaso1Mensaje"
-        Me.labelPaso1Mensaje.Size = New System.Drawing.Size(551, 61)
+        Me.labelPaso1Mensaje.Size = New System.Drawing.Size(735, 75)
         Me.labelPaso1Mensaje.TabIndex = 1
         Me.labelPaso1Mensaje.Text = "Este asistente le permitirá generar un lote de facturas para un período determina" & _
     "do. Seleccione lo que desee facturar o continúe sin cambiar nada para facturar a" & _
@@ -281,18 +295,46 @@ Partial Class formComprobantesGenerarLote
         Me.panelPaso2.Controls.Add(Me.labelPaso2Titulo)
         Me.panelPaso2.Controls.Add(Me.buttonPaso2Anterior)
         Me.panelPaso2.Controls.Add(Me.buttonPaso2Siguiente)
-        Me.panelPaso2.Location = New System.Drawing.Point(12, 12)
+        Me.panelPaso2.Location = New System.Drawing.Point(16, 15)
+        Me.panelPaso2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.panelPaso2.Name = "panelPaso2"
-        Me.panelPaso2.Size = New System.Drawing.Size(611, 441)
+        Me.panelPaso2.Size = New System.Drawing.Size(815, 543)
         Me.panelPaso2.TabIndex = 0
+        '
+        'datetimepickerFechaVencimiento
+        '
+        Me.datetimepickerFechaVencimiento.Checked = False
+        Me.datetimepickerFechaVencimiento.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.datetimepickerFechaVencimiento.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.datetimepickerFechaVencimiento.Location = New System.Drawing.Point(333, 65)
+        Me.datetimepickerFechaVencimiento.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.datetimepickerFechaVencimiento.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
+        Me.datetimepickerFechaVencimiento.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
+        Me.datetimepickerFechaVencimiento.Name = "datetimepickerFechaVencimiento"
+        Me.datetimepickerFechaVencimiento.ShowCheckBox = True
+        Me.datetimepickerFechaVencimiento.Size = New System.Drawing.Size(184, 26)
+        Me.datetimepickerFechaVencimiento.TabIndex = 1
+        Me.datetimepickerFechaVencimiento.Value = New Date(2015, 1, 1, 0, 0, 0, 0)
+        '
+        'labelFechaVencimiento
+        '
+        Me.labelFechaVencimiento.AutoSize = True
+        Me.labelFechaVencimiento.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelFechaVencimiento.Location = New System.Drawing.Point(76, 71)
+        Me.labelFechaVencimiento.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.labelFechaVencimiento.Name = "labelFechaVencimiento"
+        Me.labelFechaVencimiento.Size = New System.Drawing.Size(201, 20)
+        Me.labelFechaVencimiento.TabIndex = 0
+        Me.labelFechaVencimiento.Text = "Fecha de Vencimiento:"
         '
         'labelPaso2Pie
         '
         Me.labelPaso2Pie.AutoSize = True
         Me.labelPaso2Pie.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelPaso2Pie.Location = New System.Drawing.Point(7, 413)
+        Me.labelPaso2Pie.Location = New System.Drawing.Point(9, 508)
+        Me.labelPaso2Pie.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelPaso2Pie.Name = "labelPaso2Pie"
-        Me.labelPaso2Pie.Size = New System.Drawing.Size(31, 16)
+        Me.labelPaso2Pie.Size = New System.Drawing.Size(36, 20)
         Me.labelPaso2Pie.TabIndex = 3
         Me.labelPaso2Pie.Text = "Pie"
         '
@@ -302,74 +344,76 @@ Partial Class formComprobantesGenerarLote
         Me.datagridviewPaso2.AllowUserToDeleteRows = False
         Me.datagridviewPaso2.AllowUserToOrderColumns = True
         Me.datagridviewPaso2.AllowUserToResizeRows = False
-        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewPaso2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewPaso2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.datagridviewPaso2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.datagridviewPaso2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewPaso2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnVerificacionIDEntidad, Me.columnVerificacionApellido, Me.columnVerificacionNombre, Me.columnCorreccionDescripcion})
-        Me.datagridviewPaso2.Location = New System.Drawing.Point(3, 84)
+        Me.datagridviewPaso2.Location = New System.Drawing.Point(4, 103)
+        Me.datagridviewPaso2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.datagridviewPaso2.MultiSelect = False
         Me.datagridviewPaso2.Name = "datagridviewPaso2"
         Me.datagridviewPaso2.ReadOnly = True
         Me.datagridviewPaso2.RowHeadersVisible = False
         Me.datagridviewPaso2.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewPaso2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewPaso2.Size = New System.Drawing.Size(605, 314)
+        Me.datagridviewPaso2.Size = New System.Drawing.Size(807, 386)
         Me.datagridviewPaso2.TabIndex = 2
         '
         'columnVerificacionIDEntidad
         '
         Me.columnVerificacionIDEntidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnVerificacionIDEntidad.DataPropertyName = "IDEntidad"
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.columnVerificacionIDEntidad.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.columnVerificacionIDEntidad.DefaultCellStyle = DataGridViewCellStyle2
         Me.columnVerificacionIDEntidad.HeaderText = "N° Entidad"
         Me.columnVerificacionIDEntidad.Name = "columnVerificacionIDEntidad"
         Me.columnVerificacionIDEntidad.ReadOnly = True
-        Me.columnVerificacionIDEntidad.Width = 77
+        Me.columnVerificacionIDEntidad.Width = 97
         '
         'columnVerificacionApellido
         '
         Me.columnVerificacionApellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnVerificacionApellido.DataPropertyName = "Apellido"
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnVerificacionApellido.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnVerificacionApellido.DefaultCellStyle = DataGridViewCellStyle3
         Me.columnVerificacionApellido.HeaderText = "Apellido"
         Me.columnVerificacionApellido.Name = "columnVerificacionApellido"
         Me.columnVerificacionApellido.ReadOnly = True
-        Me.columnVerificacionApellido.Width = 69
+        Me.columnVerificacionApellido.Width = 87
         '
         'columnVerificacionNombre
         '
         Me.columnVerificacionNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnVerificacionNombre.DataPropertyName = "Nombre"
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnVerificacionNombre.DefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnVerificacionNombre.DefaultCellStyle = DataGridViewCellStyle4
         Me.columnVerificacionNombre.HeaderText = "Nombre"
         Me.columnVerificacionNombre.Name = "columnVerificacionNombre"
         Me.columnVerificacionNombre.ReadOnly = True
-        Me.columnVerificacionNombre.Width = 69
+        Me.columnVerificacionNombre.Width = 87
         '
         'columnCorreccionDescripcion
         '
         Me.columnCorreccionDescripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnCorreccionDescripcion.DataPropertyName = "CorreccionDescripcion"
-        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.columnCorreccionDescripcion.DefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.columnCorreccionDescripcion.DefaultCellStyle = DataGridViewCellStyle5
         Me.columnCorreccionDescripcion.HeaderText = "Descripción del problema"
         Me.columnCorreccionDescripcion.Name = "columnCorreccionDescripcion"
         Me.columnCorreccionDescripcion.ReadOnly = True
-        Me.columnCorreccionDescripcion.Width = 99
+        Me.columnCorreccionDescripcion.Width = 127
         '
         'pictureboxPaso2
         '
         Me.pictureboxPaso2.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_COMPROBANTE_48
-        Me.pictureboxPaso2.Location = New System.Drawing.Point(3, 20)
+        Me.pictureboxPaso2.Location = New System.Drawing.Point(4, 25)
+        Me.pictureboxPaso2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.pictureboxPaso2.Name = "pictureboxPaso2"
         Me.pictureboxPaso2.Size = New System.Drawing.Size(48, 48)
         Me.pictureboxPaso2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
@@ -381,9 +425,10 @@ Partial Class formComprobantesGenerarLote
         Me.labelPaso2Mensaje.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.labelPaso2Mensaje.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelPaso2Mensaje.Location = New System.Drawing.Point(57, 17)
+        Me.labelPaso2Mensaje.Location = New System.Drawing.Point(76, 21)
+        Me.labelPaso2Mensaje.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelPaso2Mensaje.Name = "labelPaso2Mensaje"
-        Me.labelPaso2Mensaje.Size = New System.Drawing.Size(551, 51)
+        Me.labelPaso2Mensaje.Size = New System.Drawing.Size(735, 63)
         Me.labelPaso2Mensaje.TabIndex = 1
         Me.labelPaso2Mensaje.Text = "Las siguientes Entidades tienen algún tipo de problema que hay que corregir."
         '
@@ -393,8 +438,9 @@ Partial Class formComprobantesGenerarLote
         Me.labelPaso2Titulo.Dock = System.Windows.Forms.DockStyle.Top
         Me.labelPaso2Titulo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.labelPaso2Titulo.Location = New System.Drawing.Point(0, 0)
+        Me.labelPaso2Titulo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelPaso2Titulo.Name = "labelPaso2Titulo"
-        Me.labelPaso2Titulo.Size = New System.Drawing.Size(153, 17)
+        Me.labelPaso2Titulo.Size = New System.Drawing.Size(179, 20)
         Me.labelPaso2Titulo.TabIndex = 0
         Me.labelPaso2Titulo.Text = "Paso 2: Verificación"
         '
@@ -403,9 +449,10 @@ Partial Class formComprobantesGenerarLote
         Me.buttonPaso2Anterior.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.buttonPaso2Anterior.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_PREVIOUS_24
         Me.buttonPaso2Anterior.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.buttonPaso2Anterior.Location = New System.Drawing.Point(322, 404)
+        Me.buttonPaso2Anterior.Location = New System.Drawing.Point(429, 497)
+        Me.buttonPaso2Anterior.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.buttonPaso2Anterior.Name = "buttonPaso2Anterior"
-        Me.buttonPaso2Anterior.Size = New System.Drawing.Size(140, 34)
+        Me.buttonPaso2Anterior.Size = New System.Drawing.Size(187, 42)
         Me.buttonPaso2Anterior.TabIndex = 3
         Me.buttonPaso2Anterior.Text = "Paso 1: Selección"
         Me.buttonPaso2Anterior.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -416,9 +463,10 @@ Partial Class formComprobantesGenerarLote
         Me.buttonPaso2Siguiente.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.buttonPaso2Siguiente.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_NEXT_24
         Me.buttonPaso2Siguiente.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.buttonPaso2Siguiente.Location = New System.Drawing.Point(468, 404)
+        Me.buttonPaso2Siguiente.Location = New System.Drawing.Point(624, 497)
+        Me.buttonPaso2Siguiente.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.buttonPaso2Siguiente.Name = "buttonPaso2Siguiente"
-        Me.buttonPaso2Siguiente.Size = New System.Drawing.Size(140, 34)
+        Me.buttonPaso2Siguiente.Size = New System.Drawing.Size(187, 42)
         Me.buttonPaso2Siguiente.TabIndex = 4
         Me.buttonPaso2Siguiente.Text = "Paso 3: Confirmación"
         Me.buttonPaso2Siguiente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -434,9 +482,10 @@ Partial Class formComprobantesGenerarLote
         Me.panelPaso3.Controls.Add(Me.labelPaso3Titulo)
         Me.panelPaso3.Controls.Add(Me.buttonPaso3Anterior)
         Me.panelPaso3.Controls.Add(Me.buttonPaso3Finalizar)
-        Me.panelPaso3.Location = New System.Drawing.Point(12, 12)
+        Me.panelPaso3.Location = New System.Drawing.Point(16, 15)
+        Me.panelPaso3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.panelPaso3.Name = "panelPaso3"
-        Me.panelPaso3.Size = New System.Drawing.Size(611, 441)
+        Me.panelPaso3.Size = New System.Drawing.Size(815, 543)
         Me.panelPaso3.TabIndex = 0
         '
         'datagridviewPaso3Detalle
@@ -444,22 +493,23 @@ Partial Class formComprobantesGenerarLote
         Me.datagridviewPaso3Detalle.AllowUserToAddRows = False
         Me.datagridviewPaso3Detalle.AllowUserToDeleteRows = False
         Me.datagridviewPaso3Detalle.AllowUserToResizeRows = False
-        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewPaso3Detalle.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewPaso3Detalle.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
         Me.datagridviewPaso3Detalle.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewPaso3Detalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewPaso3Detalle.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnDescripcion, Me.columnPrecioTotal})
-        Me.datagridviewPaso3Detalle.Location = New System.Drawing.Point(3, 298)
+        Me.datagridviewPaso3Detalle.Location = New System.Drawing.Point(4, 367)
+        Me.datagridviewPaso3Detalle.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.datagridviewPaso3Detalle.MultiSelect = False
         Me.datagridviewPaso3Detalle.Name = "datagridviewPaso3Detalle"
         Me.datagridviewPaso3Detalle.ReadOnly = True
         Me.datagridviewPaso3Detalle.RowHeadersVisible = False
         Me.datagridviewPaso3Detalle.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewPaso3Detalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewPaso3Detalle.Size = New System.Drawing.Size(605, 100)
+        Me.datagridviewPaso3Detalle.Size = New System.Drawing.Size(807, 123)
         Me.datagridviewPaso3Detalle.TabIndex = 1
         '
         'columnDescripcion
@@ -470,42 +520,43 @@ Partial Class formComprobantesGenerarLote
         Me.columnDescripcion.Name = "columnDescripcion"
         Me.columnDescripcion.ReadOnly = True
         Me.columnDescripcion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnDescripcion.Width = 69
+        Me.columnDescripcion.Width = 88
         '
         'columnPrecioTotal
         '
         Me.columnPrecioTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnPrecioTotal.DataPropertyName = "PrecioTotal"
-        DataGridViewCellStyle16.Format = "C2"
-        DataGridViewCellStyle16.NullValue = "0"
-        Me.columnPrecioTotal.DefaultCellStyle = DataGridViewCellStyle16
+        DataGridViewCellStyle7.Format = "C2"
+        DataGridViewCellStyle7.NullValue = "0"
+        Me.columnPrecioTotal.DefaultCellStyle = DataGridViewCellStyle7
         Me.columnPrecioTotal.HeaderText = "Precio"
         Me.columnPrecioTotal.Name = "columnPrecioTotal"
         Me.columnPrecioTotal.ReadOnly = True
         Me.columnPrecioTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnPrecioTotal.Width = 43
+        Me.columnPrecioTotal.Width = 54
         '
         'datagridviewPaso3Cabecera
         '
         Me.datagridviewPaso3Cabecera.AllowUserToAddRows = False
         Me.datagridviewPaso3Cabecera.AllowUserToDeleteRows = False
         Me.datagridviewPaso3Cabecera.AllowUserToResizeRows = False
-        DataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewPaso3Cabecera.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle17
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewPaso3Cabecera.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle8
         Me.datagridviewPaso3Cabecera.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewPaso3Cabecera.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewPaso3Cabecera.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnPuntoVenta, Me.columnNumero, Me.columnApellidoNombre, Me.columnDocumentoNumero, Me.columnCategoriaIVANombre, Me.columnImporteTotal})
-        Me.datagridviewPaso3Cabecera.Location = New System.Drawing.Point(3, 84)
+        Me.datagridviewPaso3Cabecera.Location = New System.Drawing.Point(4, 103)
+        Me.datagridviewPaso3Cabecera.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.datagridviewPaso3Cabecera.MultiSelect = False
         Me.datagridviewPaso3Cabecera.Name = "datagridviewPaso3Cabecera"
         Me.datagridviewPaso3Cabecera.ReadOnly = True
         Me.datagridviewPaso3Cabecera.RowHeadersVisible = False
         Me.datagridviewPaso3Cabecera.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewPaso3Cabecera.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewPaso3Cabecera.Size = New System.Drawing.Size(605, 208)
+        Me.datagridviewPaso3Cabecera.Size = New System.Drawing.Size(807, 256)
         Me.datagridviewPaso3Cabecera.TabIndex = 0
         '
         'columnComprobanteTipoNombre
@@ -516,7 +567,7 @@ Partial Class formComprobantesGenerarLote
         Me.columnComprobanteTipoNombre.Name = "columnComprobanteTipoNombre"
         Me.columnComprobanteTipoNombre.ReadOnly = True
         Me.columnComprobanteTipoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnComprobanteTipoNombre.Width = 34
+        Me.columnComprobanteTipoNombre.Width = 42
         '
         'columnPuntoVenta
         '
@@ -526,7 +577,7 @@ Partial Class formComprobantesGenerarLote
         Me.columnPuntoVenta.Name = "columnPuntoVenta"
         Me.columnPuntoVenta.ReadOnly = True
         Me.columnPuntoVenta.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnPuntoVenta.Width = 65
+        Me.columnPuntoVenta.Width = 83
         '
         'columnNumero
         '
@@ -536,7 +587,7 @@ Partial Class formComprobantesGenerarLote
         Me.columnNumero.Name = "columnNumero"
         Me.columnNumero.ReadOnly = True
         Me.columnNumero.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnNumero.Width = 58
+        Me.columnNumero.Width = 74
         '
         'columnApellidoNombre
         '
@@ -546,7 +597,7 @@ Partial Class formComprobantesGenerarLote
         Me.columnApellidoNombre.Name = "columnApellidoNombre"
         Me.columnApellidoNombre.ReadOnly = True
         Me.columnApellidoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnApellidoNombre.Width = 88
+        Me.columnApellidoNombre.Width = 116
         '
         'columnDocumentoNumero
         '
@@ -556,7 +607,7 @@ Partial Class formComprobantesGenerarLote
         Me.columnDocumentoNumero.Name = "columnDocumentoNumero"
         Me.columnDocumentoNumero.ReadOnly = True
         Me.columnDocumentoNumero.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnDocumentoNumero.Width = 75
+        Me.columnDocumentoNumero.Width = 95
         '
         'columnCategoriaIVANombre
         '
@@ -566,35 +617,37 @@ Partial Class formComprobantesGenerarLote
         Me.columnCategoriaIVANombre.Name = "columnCategoriaIVANombre"
         Me.columnCategoriaIVANombre.ReadOnly = True
         Me.columnCategoriaIVANombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnCategoriaIVANombre.Width = 30
+        Me.columnCategoriaIVANombre.Width = 35
         '
         'columnImporteTotal
         '
         Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnImporteTotal.DataPropertyName = "ImporteTotal"
-        DataGridViewCellStyle18.Format = "C2"
-        DataGridViewCellStyle18.NullValue = "0"
-        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle18
+        DataGridViewCellStyle9.Format = "C2"
+        DataGridViewCellStyle9.NullValue = "0"
+        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle9
         Me.columnImporteTotal.HeaderText = "Importe"
         Me.columnImporteTotal.Name = "columnImporteTotal"
         Me.columnImporteTotal.ReadOnly = True
         Me.columnImporteTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnImporteTotal.Width = 48
+        Me.columnImporteTotal.Width = 61
         '
         'labelPaso3Pie
         '
         Me.labelPaso3Pie.AutoSize = True
         Me.labelPaso3Pie.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelPaso3Pie.Location = New System.Drawing.Point(7, 413)
+        Me.labelPaso3Pie.Location = New System.Drawing.Point(9, 508)
+        Me.labelPaso3Pie.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelPaso3Pie.Name = "labelPaso3Pie"
-        Me.labelPaso3Pie.Size = New System.Drawing.Size(31, 16)
+        Me.labelPaso3Pie.Size = New System.Drawing.Size(36, 20)
         Me.labelPaso3Pie.TabIndex = 3
         Me.labelPaso3Pie.Text = "Pie"
         '
         'pictureboxPaso3
         '
         Me.pictureboxPaso3.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_COMPROBANTE_48
-        Me.pictureboxPaso3.Location = New System.Drawing.Point(5, 20)
+        Me.pictureboxPaso3.Location = New System.Drawing.Point(7, 25)
+        Me.pictureboxPaso3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.pictureboxPaso3.Name = "pictureboxPaso3"
         Me.pictureboxPaso3.Size = New System.Drawing.Size(48, 48)
         Me.pictureboxPaso3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
@@ -606,9 +659,10 @@ Partial Class formComprobantesGenerarLote
         Me.labelPaso3Mensaje.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.labelPaso3Mensaje.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelPaso3Mensaje.Location = New System.Drawing.Point(59, 20)
+        Me.labelPaso3Mensaje.Location = New System.Drawing.Point(79, 25)
+        Me.labelPaso3Mensaje.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelPaso3Mensaje.Name = "labelPaso3Mensaje"
-        Me.labelPaso3Mensaje.Size = New System.Drawing.Size(549, 61)
+        Me.labelPaso3Mensaje.Size = New System.Drawing.Size(732, 75)
         Me.labelPaso3Mensaje.TabIndex = 1
         Me.labelPaso3Mensaje.Text = "A continuación, se muestran las Facturas que se generarán con su correspondiente " & _
     "detalle."
@@ -619,8 +673,9 @@ Partial Class formComprobantesGenerarLote
         Me.labelPaso3Titulo.Dock = System.Windows.Forms.DockStyle.Top
         Me.labelPaso3Titulo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.labelPaso3Titulo.Location = New System.Drawing.Point(0, 0)
+        Me.labelPaso3Titulo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelPaso3Titulo.Name = "labelPaso3Titulo"
-        Me.labelPaso3Titulo.Size = New System.Drawing.Size(162, 17)
+        Me.labelPaso3Titulo.Size = New System.Drawing.Size(190, 20)
         Me.labelPaso3Titulo.TabIndex = 0
         Me.labelPaso3Titulo.Text = "Paso 3: Confirmación"
         '
@@ -629,9 +684,10 @@ Partial Class formComprobantesGenerarLote
         Me.buttonPaso3Anterior.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.buttonPaso3Anterior.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_PREVIOUS_24
         Me.buttonPaso3Anterior.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.buttonPaso3Anterior.Location = New System.Drawing.Point(322, 404)
+        Me.buttonPaso3Anterior.Location = New System.Drawing.Point(429, 497)
+        Me.buttonPaso3Anterior.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.buttonPaso3Anterior.Name = "buttonPaso3Anterior"
-        Me.buttonPaso3Anterior.Size = New System.Drawing.Size(140, 34)
+        Me.buttonPaso3Anterior.Size = New System.Drawing.Size(187, 42)
         Me.buttonPaso3Anterior.TabIndex = 4
         Me.buttonPaso3Anterior.Text = "Paso 2: Verificación"
         Me.buttonPaso3Anterior.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -640,46 +696,24 @@ Partial Class formComprobantesGenerarLote
         'buttonPaso3Finalizar
         '
         Me.buttonPaso3Finalizar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonPaso3Finalizar.Location = New System.Drawing.Point(468, 404)
+        Me.buttonPaso3Finalizar.Location = New System.Drawing.Point(624, 497)
+        Me.buttonPaso3Finalizar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.buttonPaso3Finalizar.Name = "buttonPaso3Finalizar"
-        Me.buttonPaso3Finalizar.Size = New System.Drawing.Size(140, 34)
+        Me.buttonPaso3Finalizar.Size = New System.Drawing.Size(187, 42)
         Me.buttonPaso3Finalizar.TabIndex = 5
         Me.buttonPaso3Finalizar.Text = "Finalizar: Emisión"
         Me.buttonPaso3Finalizar.UseVisualStyleBackColor = True
         '
-        'datetimepickerFechaVencimiento
-        '
-        Me.datetimepickerFechaVencimiento.Checked = False
-        Me.datetimepickerFechaVencimiento.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.datetimepickerFechaVencimiento.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.datetimepickerFechaVencimiento.Location = New System.Drawing.Point(250, 53)
-        Me.datetimepickerFechaVencimiento.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
-        Me.datetimepickerFechaVencimiento.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
-        Me.datetimepickerFechaVencimiento.Name = "datetimepickerFechaVencimiento"
-        Me.datetimepickerFechaVencimiento.ShowCheckBox = True
-        Me.datetimepickerFechaVencimiento.Size = New System.Drawing.Size(139, 22)
-        Me.datetimepickerFechaVencimiento.TabIndex = 1
-        Me.datetimepickerFechaVencimiento.Value = New Date(2015, 1, 1, 0, 0, 0, 0)
-        '
-        'labelFechaVencimiento
-        '
-        Me.labelFechaVencimiento.AutoSize = True
-        Me.labelFechaVencimiento.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelFechaVencimiento.Location = New System.Drawing.Point(57, 58)
-        Me.labelFechaVencimiento.Name = "labelFechaVencimiento"
-        Me.labelFechaVencimiento.Size = New System.Drawing.Size(166, 16)
-        Me.labelFechaVencimiento.TabIndex = 0
-        Me.labelFechaVencimiento.Text = "Fecha de Vencimiento:"
-        '
         'formComprobantesGenerarLote
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(636, 465)
+        Me.ClientSize = New System.Drawing.Size(848, 572)
         Me.Controls.Add(Me.panelPaso1)
         Me.Controls.Add(Me.panelPaso2)
         Me.Controls.Add(Me.panelPaso3)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.Name = "formComprobantesGenerarLote"
         Me.ShowIcon = False

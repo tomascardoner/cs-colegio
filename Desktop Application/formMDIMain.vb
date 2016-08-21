@@ -373,6 +373,38 @@
             Me.Cursor = Cursors.Default
         End If
     End Sub
+
+    Private Sub ComprobantesImportarSantanderDebitoDirecto() Handles menuitemComprobantesImportarSantanderDebitoDirecto.Click
+        If Permisos.VerificarPermiso(Permisos.COMPROBANTE_IMPORTAR_SANTANDERDEBITODIRECTO) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            formComprobantesRecibirSantanderDebitoDirecto.MdiParent = Me
+            CS_Form.CenterToParent(Me, CType(formComprobantesRecibirSantanderDebitoDirecto, Form))
+            formComprobantesRecibirSantanderDebitoDirecto.Show()
+            If formComprobantesRecibirSantanderDebitoDirecto.WindowState = FormWindowState.Minimized Then
+                formComprobantesRecibirSantanderDebitoDirecto.WindowState = FormWindowState.Normal
+            End If
+            formComprobantesRecibirSantanderDebitoDirecto.Focus()
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
+
+    Private Sub ComprobantesImportarSantanderRecaudacionPorCaja() Handles menuitemComprobantesImportarSantanderRecaudacionPorCaja.Click
+        If Permisos.VerificarPermiso(Permisos.COMPROBANTE_IMPORTAR_SANTANDERRECAUDACIONPORCAJA) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            'formComprobantesRecibirirSantanderRecaudacionPorCaja.MdiParent = Me
+            'CS_Form.CenterToParent(Me, CType(formComprobantesRecibirirSantanderRecaudacionPorCaja, Form))
+            'formComprobantesRecibirirSantanderRecaudacionPorCaja.Show()
+            'If formComprobantesRecibirirSantanderRecaudacionPorCaja.WindowState = FormWindowState.Minimized Then
+            '    formComprobantesRecibirirSantanderRecaudacionPorCaja.WindowState = FormWindowState.Normal
+            'End If
+            'formComprobantesRecibirirSantanderRecaudacionPorCaja.Focus()
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
 #End Region
 
 #Region "Left Toolbar - Reportes"

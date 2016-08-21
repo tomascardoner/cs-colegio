@@ -110,7 +110,7 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
         If Not FolderName.EndsWith("\") Then
             FolderName &= "\"
         End If
-        FolderName &= My.Settings.Exchange_Outbound_Santander_ADDI_SubFolder
+        FolderName &= My.Settings.Exchange_Outbound_Santander_ADDI_Folder
         If Not FolderName.EndsWith("\") Then
             FolderName &= "\"
         End If
