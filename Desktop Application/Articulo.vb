@@ -15,7 +15,6 @@ Partial Public Class Articulo
     Public Property Nombre As String
     Public Property Descripcion As String
     Public Property IDArticuloGrupo As Byte
-    Public Property IDConcepto As Byte
     Public Property EsActivo As Boolean
     Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date
@@ -23,7 +22,7 @@ Partial Public Class Articulo
     Public Property FechaHoraModificacion As Date
 
     Public Overridable Property ArticuloGrupo As ArticuloGrupo
-    Public Overridable Property Concepto As Concepto
     Public Overridable Property ComprobanteDetalle As ICollection(Of ComprobanteDetalle) = New HashSet(Of ComprobanteDetalle)
+    Public Overridable Property ArticuloTalle As ICollection(Of ArticuloTalle) = New HashSet(Of ArticuloTalle)
 
 End Class

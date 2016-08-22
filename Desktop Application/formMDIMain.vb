@@ -245,7 +245,7 @@
         End If
     End Sub
 
-    Private Sub EntidadesAñosLectivosYCursos(sender As Object, e As EventArgs) Handles menuitemEntidadesAniosLectivosYCursos.Click
+    Private Sub EntidadesAniosLectivosYCursos(sender As Object, e As EventArgs) Handles menuitemEntidadesAniosLectivosYCursos.Click
         If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO) Then
             Me.Cursor = Cursors.WaitCursor
 
@@ -255,6 +255,22 @@
                 formEntidadesAnioLectivoCurso.WindowState = FormWindowState.Normal
             End If
             formEntidadesAnioLectivoCurso.Focus()
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
+
+    Private Sub EntidadesAnioLectivoCursoInscripcion(sender As Object, e As EventArgs) Handles menuitemEntidadesAnioLectivoCursoInscripcion.Click
+        If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO_AGREGAR) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            formEntidadInscripcion.MdiParent = Me
+            CS_Form.CenterToParent(Me, CType(formEntidadInscripcion, Form))
+            formEntidadInscripcion.Show()
+            If formEntidadInscripcion.WindowState = FormWindowState.Minimized Then
+                formEntidadInscripcion.WindowState = FormWindowState.Normal
+            End If
+            formEntidadInscripcion.Focus()
 
             Me.Cursor = Cursors.Default
         End If

@@ -22,7 +22,7 @@ Partial Class formComprobantesRecibirSantanderDebitoDirecto
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.panelPaso1 = New System.Windows.Forms.Panel()
         Me.buttonPaso1Cancelar = New System.Windows.Forms.Button()
         Me.buttonPaso1Siguiente = New System.Windows.Forms.Button()
@@ -39,7 +39,7 @@ Partial Class formComprobantesRecibirSantanderDebitoDirecto
         Me.textboxCantidadRegistros = New System.Windows.Forms.TextBox()
         Me.labelCantidadRegistros = New System.Windows.Forms.Label()
         Me.textboxFechaEmision = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.labelPaso2 = New System.Windows.Forms.Label()
         Me.labelFechaEmision = New System.Windows.Forms.Label()
         Me.buttonPaso2Siguiente = New System.Windows.Forms.Button()
         Me.buttonPaso2Anterior = New System.Windows.Forms.Button()
@@ -166,7 +166,7 @@ Partial Class formComprobantesRecibirSantanderDebitoDirecto
         Me.panelPaso2.Controls.Add(Me.textboxCantidadRegistros)
         Me.panelPaso2.Controls.Add(Me.labelCantidadRegistros)
         Me.panelPaso2.Controls.Add(Me.textboxFechaEmision)
-        Me.panelPaso2.Controls.Add(Me.Label1)
+        Me.panelPaso2.Controls.Add(Me.labelPaso2)
         Me.panelPaso2.Controls.Add(Me.labelFechaEmision)
         Me.panelPaso2.Controls.Add(Me.buttonPaso2Siguiente)
         Me.panelPaso2.Controls.Add(Me.buttonPaso2Anterior)
@@ -218,15 +218,15 @@ Partial Class formComprobantesRecibirSantanderDebitoDirecto
         Me.textboxFechaEmision.Size = New System.Drawing.Size(112, 22)
         Me.textboxFechaEmision.TabIndex = 8
         '
-        'Label1
+        'labelPaso2
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(3, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(234, 20)
-        Me.Label1.TabIndex = 7
-        Me.Label1.Text = "Paso 2: Verificar los datos"
+        Me.labelPaso2.AutoSize = True
+        Me.labelPaso2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelPaso2.Location = New System.Drawing.Point(3, 0)
+        Me.labelPaso2.Name = "labelPaso2"
+        Me.labelPaso2.Size = New System.Drawing.Size(234, 20)
+        Me.labelPaso2.TabIndex = 7
+        Me.labelPaso2.Text = "Paso 2: Verificar los datos"
         '
         'labelFechaEmision
         '
@@ -270,11 +270,11 @@ Partial Class formComprobantesRecibirSantanderDebitoDirecto
         Me.datagridviewPaso3Cabecera.AllowUserToAddRows = False
         Me.datagridviewPaso3Cabecera.AllowUserToDeleteRows = False
         Me.datagridviewPaso3Cabecera.AllowUserToResizeRows = False
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewPaso3Cabecera.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewPaso3Cabecera.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.datagridviewPaso3Cabecera.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewPaso3Cabecera.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewPaso3Cabecera.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnPuntoVenta, Me.columnNumero, Me.columnApellidoNombre, Me.columnDocumentoNumero, Me.columnCategoriaIVANombre})
@@ -383,7 +383,7 @@ Partial Class formComprobantesRecibirSantanderDebitoDirecto
     Friend WithEvents datagridviewPaso3Cabecera As System.Windows.Forms.DataGridView
     Friend WithEvents buttonPaso2Anterior As System.Windows.Forms.Button
     Friend WithEvents buttonPaso2Siguiente As System.Windows.Forms.Button
-    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents labelPaso2 As System.Windows.Forms.Label
     Friend WithEvents labelFechaEmision As System.Windows.Forms.Label
     Friend WithEvents textboxFechaEmision As System.Windows.Forms.TextBox
     Friend WithEvents textboxCantidadRegistros As System.Windows.Forms.TextBox

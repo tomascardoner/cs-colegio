@@ -138,6 +138,9 @@
     <Compile Include="ArticuloGrupo.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="ArticuloTalle.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
     <Compile Include="Banco.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -459,6 +462,12 @@
     <Compile Include="formComprobantesGenerarLote.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formEntidadInscripcion.Designer.vb">
+      <DependentUpon>formEntidadInscripcion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formEntidadInscripcion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formLogin.Designer.vb">
       <DependentUpon>formLogin.vb</DependentUpon>
     </Compile>
@@ -682,6 +691,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobantesGenerarLote.resx">
       <DependentUpon>formComprobantesGenerarLote.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formEntidadInscripcion.resx">
+      <DependentUpon>formEntidadInscripcion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formLogin.resx">
       <DependentUpon>formLogin.vb</DependentUpon>

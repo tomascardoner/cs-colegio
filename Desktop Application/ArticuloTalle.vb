@@ -10,13 +10,12 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class Concepto
-    Public Property IDConcepto As Byte
+Partial Public Class ArticuloTalle
+    Public Property IDArticulo As Short
+    Public Property IDTalle As Short
     Public Property Nombre As String
-    Public Property FechaRangoDia As Byte
     Public Property EsActivo As Boolean
 
-    Public Overridable Property Comprobante As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
-    Public Overridable Property ArticuloGrupo As ICollection(Of ArticuloGrupo) = New HashSet(Of ArticuloGrupo)
+    Public Overridable Property Articulo As Articulo
 
 End Class

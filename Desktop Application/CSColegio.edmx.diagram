@@ -69,7 +69,6 @@
         <AssociationConnector Association="CSColegioModel.FK__ComprobanteTipo__ComprobanteTipoPuntoVenta" />
         <AssociationConnector Association="CSColegioModel.FK__PuntoVenta__ComprobanteTipoPuntoVenta" />
         <EntityTypeShape EntityType="CSColegioModel.ComprobanteLote" Width="2.375" PointX="19.625" PointY="3.625" />
-        <AssociationConnector Association="CSColegioModel.FK__Concepto__Articulo" />
         <AssociationConnector Association="CSColegioModel.FK__DocumentoTipo__Entidad__Factura" ManuallyRouted="false" >
         </AssociationConnector>
         <EntityTypeShape EntityType="CSColegioModel.MonedaCotizacion" Width="1.5" PointX="20.375" PointY="7.75" />
@@ -123,6 +122,9 @@
         <AssociationConnector Association="CSColegioModel.FK__Reporte__ReporteParametro" />
         <EntityTypeShape EntityType="CSColegioModel.TarjetaCredito" Width="1.5" PointX="5.375" PointY="22.75" />
         <EntityTypeShape EntityType="CSColegioModel.TarjetaCreditoBanco" Width="1.5" PointX="22.375" PointY="7.75" />
+        <AssociationConnector Association="CSColegioModel.FK__Concepto__ArticuloGrupo" />
+        <EntityTypeShape EntityType="CSColegioModel.ArticuloTalle" Width="1.5" PointX="20.25" PointY="25.125" />
+        <AssociationConnector Association="CSColegioModel.FK__Articulo__ArticuloTalle" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

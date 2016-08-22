@@ -60,6 +60,7 @@ Partial Class formMDIMain
         Me.menuitemRelacionTipos = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonEntidades = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemEntidadesAniosLectivosYCursos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemEntidadesAnioLectivoCursoInscripcion = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonComprobantes = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemComprobantesGenerarLoteFacturas = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesTransmitirAFIP = New System.Windows.Forms.ToolStripMenuItem()
@@ -318,7 +319,7 @@ Partial Class formMDIMain
         '
         'buttonEntidades
         '
-        Me.buttonEntidades.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemEntidadesAniosLectivosYCursos})
+        Me.buttonEntidades.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemEntidadesAniosLectivosYCursos, Me.menuitemEntidadesAnioLectivoCursoInscripcion})
         Me.buttonEntidades.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ENTIDADES_32
         Me.buttonEntidades.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonEntidades.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
@@ -330,8 +331,14 @@ Partial Class formMDIMain
         'menuitemEntidadesAniosLectivosYCursos
         '
         Me.menuitemEntidadesAniosLectivosYCursos.Name = "menuitemEntidadesAniosLectivosYCursos"
-        Me.menuitemEntidadesAniosLectivosYCursos.Size = New System.Drawing.Size(232, 26)
+        Me.menuitemEntidadesAniosLectivosYCursos.Size = New System.Drawing.Size(305, 26)
         Me.menuitemEntidadesAniosLectivosYCursos.Text = "Años Lectivos y Cursos"
+        '
+        'menuitemEntidadesAnioLectivoCursoInscripcion
+        '
+        Me.menuitemEntidadesAnioLectivoCursoInscripcion.Name = "menuitemEntidadesAnioLectivoCursoInscripcion"
+        Me.menuitemEntidadesAnioLectivoCursoInscripcion.Size = New System.Drawing.Size(305, 26)
+        Me.menuitemEntidadesAnioLectivoCursoInscripcion.Text = "Inscripción al Año Lectivo y Curso"
         '
         'buttonComprobantes
         '
@@ -523,4 +530,5 @@ Partial Class formMDIMain
     Friend WithEvents menuitemComprobantesImportarSantanderRecaudacionPorCaja As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemComprobantesImportarRapipago As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemComprbantesImportarPagomiscuentas As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemEntidadesAnioLectivoCursoInscripcion As System.Windows.Forms.ToolStripMenuItem
 End Class

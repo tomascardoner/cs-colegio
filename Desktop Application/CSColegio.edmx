@@ -45,7 +45,6 @@
           <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="200" />
           <Property Name="IDArticuloGrupo" Type="tinyint" Nullable="false" />
-          <Property Name="IDConcepto" Type="tinyint" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
@@ -59,11 +58,26 @@
           <Property Name="IDArticuloGrupo" Type="tinyint" Nullable="false" />
           <Property Name="IDArticuloGrupo_Padre" Type="tinyint" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDConcepto" Type="tinyint" Nullable="false" />
+          <Property Name="EsRegistrable" Type="bit" Nullable="false" />
+          <Property Name="EsStockeable" Type="bit" Nullable="false" />
+          <Property Name="UtilizaColor" Type="bit" Nullable="false" />
+          <Property Name="UtilizaTalle" Type="bit" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
           <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ArticuloTalle">
+          <Key>
+            <PropertyRef Name="IDArticulo" />
+            <PropertyRef Name="IDTalle" />
+          </Key>
+          <Property Name="IDArticulo" Type="smallint" Nullable="false" />
+          <Property Name="IDTalle" Type="smallint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Banco">
           <Key>
@@ -768,6 +782,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Articulo__ArticuloTalle">
+          <End Role="Articulo" Type="Self.Articulo" Multiplicity="1" />
+          <End Role="ArticuloTalle" Type="Self.ArticuloTalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulo">
+              <PropertyRef Name="IDArticulo" />
+            </Principal>
+            <Dependent Role="ArticuloTalle">
+              <PropertyRef Name="IDArticulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Articulo__ComprobanteDetalle">
           <End Role="Articulo" Type="Self.Articulo" Multiplicity="1" />
           <End Role="ComprobanteDetalle" Type="Self.ComprobanteDetalle" Multiplicity="*" />
@@ -1024,14 +1050,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Concepto__Articulo">
+        <Association Name="FK__Concepto__ArticuloGrupo">
           <End Role="Concepto" Type="Self.Concepto" Multiplicity="1" />
-          <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
+          <End Role="ArticuloGrupo" Type="Self.ArticuloGrupo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Concepto">
               <PropertyRef Name="IDConcepto" />
             </Principal>
-            <Dependent Role="Articulo">
+            <Dependent Role="ArticuloGrupo">
               <PropertyRef Name="IDConcepto" />
             </Dependent>
           </ReferentialConstraint>
@@ -1466,6 +1492,7 @@
           <EntitySet Name="AnioLectivoCursoImporte" EntityType="Self.AnioLectivoCursoImporte" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Articulo" EntityType="Self.Articulo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ArticuloGrupo" EntityType="Self.ArticuloGrupo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArticuloTalle" EntityType="Self.ArticuloTalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Banco" EntityType="Self.Banco" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Caja" EntityType="Self.Caja" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CategoriaIVA" EntityType="Self.CategoriaIVA" Schema="dbo" store:Type="Tables" />
@@ -1531,6 +1558,10 @@
           <AssociationSet Name="FK__AnioLectivoCurso__EntidadAnioLectivoCurso" Association="Self.FK__AnioLectivoCurso__EntidadAnioLectivoCurso">
             <End Role="AnioLectivoCurso" EntitySet="AnioLectivoCurso" />
             <End Role="EntidadAnioLectivoCurso" EntitySet="EntidadAnioLectivoCurso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Articulo__ArticuloTalle" Association="Self.FK__Articulo__ArticuloTalle">
+            <End Role="Articulo" EntitySet="Articulo" />
+            <End Role="ArticuloTalle" EntitySet="ArticuloTalle" />
           </AssociationSet>
           <AssociationSet Name="FK__Articulo__ComprobanteDetalle" Association="Self.FK__Articulo__ComprobanteDetalle">
             <End Role="Articulo" EntitySet="Articulo" />
@@ -1616,9 +1647,9 @@
             <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
             <End Role="ComprobanteTipoPuntoVenta" EntitySet="ComprobanteTipoPuntoVenta" />
           </AssociationSet>
-          <AssociationSet Name="FK__Concepto__Articulo" Association="Self.FK__Concepto__Articulo">
+          <AssociationSet Name="FK__Concepto__ArticuloGrupo" Association="Self.FK__Concepto__ArticuloGrupo">
             <End Role="Concepto" EntitySet="Concepto" />
-            <End Role="Articulo" EntitySet="Articulo" />
+            <End Role="ArticuloGrupo" EntitySet="ArticuloGrupo" />
           </AssociationSet>
           <AssociationSet Name="FK__Concepto__Comprobante" Association="Self.FK__Concepto__Comprobante">
             <End Role="Concepto" EntitySet="Concepto" />
@@ -1789,15 +1820,14 @@
           <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="IDArticuloGrupo" Type="Byte" Nullable="false" />
-          <Property Name="IDConcepto" Type="Byte" Nullable="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ArticuloGrupo" Relationship="Self.FK__ArticuloGrupo__Articulo" FromRole="Articulo" ToRole="ArticuloGrupo" />
-          <NavigationProperty Name="Concepto" Relationship="CSColegioModel.FK__Concepto__Articulo" FromRole="Articulo" ToRole="Concepto" />
           <NavigationProperty Name="ComprobanteDetalle" Relationship="CSColegioModel.FK__Articulo__ComprobanteDetalle" FromRole="Articulo" ToRole="ComprobanteDetalle" />
+          <NavigationProperty Name="ArticuloTalle" Relationship="CSColegioModel.FK__Articulo__ArticuloTalle" FromRole="Articulo" ToRole="ArticuloTalle" />
         </EntityType>
         <EntityType Name="ArticuloGrupo">
           <Key>
@@ -1812,6 +1842,12 @@
           <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Articulo" Relationship="Self.FK__ArticuloGrupo__Articulo" FromRole="ArticuloGrupo" ToRole="Articulo" />
+          <Property Name="IDConcepto" Type="Byte" Nullable="false" />
+          <Property Name="EsRegistrable" Type="Boolean" Nullable="false" />
+          <Property Name="EsStockeable" Type="Boolean" Nullable="false" />
+          <Property Name="UtilizaColor" Type="Boolean" Nullable="false" />
+          <Property Name="UtilizaTalle" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Concepto" Relationship="CSColegioModel.FK__Concepto__ArticuloGrupo" FromRole="ArticuloGrupo" ToRole="Concepto" />
         </EntityType>
         <EntityType Name="Banco">
           <Key>
@@ -2433,10 +2469,6 @@
             <End Role="ComprobanteTipoPuntoVenta" EntitySet="ComprobanteTipoPuntoVenta" />
           </AssociationSet>
           <EntitySet Name="ComprobanteLote" EntityType="CSColegioModel.ComprobanteLote" />
-          <AssociationSet Name="FK__Concepto__Articulo" Association="CSColegioModel.FK__Concepto__Articulo">
-            <End Role="Concepto" EntitySet="Concepto" />
-            <End Role="Articulo" EntitySet="Articulo" />
-          </AssociationSet>
           <AssociationSet Name="FK__DocumentoTipo__Entidad__Factura" Association="CSColegioModel.FK__DocumentoTipo__Entidad__Factura">
             <End Role="DocumentoTipo" EntitySet="DocumentoTipo" />
             <End Role="Entidad" EntitySet="Entidad" />
@@ -2573,6 +2605,15 @@
           </AssociationSet>
           <EntitySet Name="TarjetaCredito" EntityType="CSColegioModel.TarjetaCredito" />
           <EntitySet Name="TarjetaCreditoBanco" EntityType="CSColegioModel.TarjetaCreditoBanco" />
+          <AssociationSet Name="FK__Concepto__ArticuloGrupo" Association="CSColegioModel.FK__Concepto__ArticuloGrupo">
+            <End Role="Concepto" EntitySet="Concepto" />
+            <End Role="ArticuloGrupo" EntitySet="ArticuloGrupo" />
+          </AssociationSet>
+          <EntitySet Name="ArticuloTalle" EntityType="CSColegioModel.ArticuloTalle" />
+          <AssociationSet Name="FK__Articulo__ArticuloTalle" Association="CSColegioModel.FK__Articulo__ArticuloTalle">
+            <End Role="Articulo" EntitySet="Articulo" />
+            <End Role="ArticuloTalle" EntitySet="ArticuloTalle" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
           <Key>
@@ -2783,8 +2824,8 @@
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FechaRangoDia" Type="Byte" Nullable="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Articulo" Relationship="CSColegioModel.FK__Concepto__Articulo" FromRole="Concepto" ToRole="Articulo" />
           <NavigationProperty Name="Comprobante" Relationship="CSColegioModel.FK__Concepto__Comprobante" FromRole="Concepto" ToRole="Comprobante" />
+          <NavigationProperty Name="ArticuloGrupo" Relationship="CSColegioModel.FK__Concepto__ArticuloGrupo" FromRole="Concepto" ToRole="ArticuloGrupo" />
         </EntityType>
         <EntityType Name="CondicionIVA">
           <Key>
@@ -2925,18 +2966,6 @@
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Comprobante" Relationship="CSColegioModel.FK__ComprobanteLote__Comprobante" FromRole="ComprobanteLote" ToRole="Comprobante" />
         </EntityType>
-        <Association Name="FK__Concepto__Articulo">
-          <End Type="CSColegioModel.Concepto" Role="Concepto" Multiplicity="1" />
-          <End Type="CSColegioModel.Articulo" Role="Articulo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Concepto">
-              <PropertyRef Name="IDConcepto" />
-            </Principal>
-            <Dependent Role="Articulo">
-              <PropertyRef Name="IDConcepto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__DocumentoTipo__Entidad__Factura">
           <End Type="CSColegioModel.DocumentoTipo" Role="DocumentoTipo" Multiplicity="0..1" />
           <End Type="CSColegioModel.Entidad" Role="Entidad" Multiplicity="*" />
@@ -3532,6 +3561,41 @@
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
         </EntityType>
+        <Association Name="FK__Concepto__ArticuloGrupo">
+          <End Type="CSColegioModel.Concepto" Role="Concepto" Multiplicity="1" />
+          <End Type="CSColegioModel.ArticuloGrupo" Role="ArticuloGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concepto">
+              <PropertyRef Name="IDConcepto" />
+            </Principal>
+            <Dependent Role="ArticuloGrupo">
+              <PropertyRef Name="IDConcepto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ArticuloTalle">
+          <Key>
+            <PropertyRef Name="IDArticulo" />
+            <PropertyRef Name="IDTalle" />
+          </Key>
+          <Property Name="IDArticulo" Type="Int16" Nullable="false" />
+          <Property Name="IDTalle" Type="Int16" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Articulo" Relationship="CSColegioModel.FK__Articulo__ArticuloTalle" FromRole="ArticuloTalle" ToRole="Articulo" />
+        </EntityType>
+        <Association Name="FK__Articulo__ArticuloTalle">
+          <End Type="CSColegioModel.Articulo" Role="Articulo" Multiplicity="1" />
+          <End Type="CSColegioModel.ArticuloTalle" Role="ArticuloTalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulo">
+              <PropertyRef Name="IDArticulo" />
+            </Principal>
+            <Dependent Role="ArticuloTalle">
+              <PropertyRef Name="IDArticulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3557,7 +3621,6 @@
             <EntityTypeMapping TypeName="CSColegioModel.Articulo">
               <MappingFragment StoreEntitySet="Articulo">
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="IDConcepto" ColumnName="IDConcepto" />
                 <ScalarProperty Name="IDArticulo" ColumnName="IDArticulo" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IDArticuloGrupo" ColumnName="IDArticuloGrupo" />
@@ -3572,6 +3635,11 @@
           <EntitySetMapping Name="ArticuloGrupo">
             <EntityTypeMapping TypeName="CSColegioModel.ArticuloGrupo">
               <MappingFragment StoreEntitySet="ArticuloGrupo">
+                <ScalarProperty Name="UtilizaTalle" ColumnName="UtilizaTalle" />
+                <ScalarProperty Name="UtilizaColor" ColumnName="UtilizaColor" />
+                <ScalarProperty Name="EsStockeable" ColumnName="EsStockeable" />
+                <ScalarProperty Name="EsRegistrable" ColumnName="EsRegistrable" />
+                <ScalarProperty Name="IDConcepto" ColumnName="IDConcepto" />
                 <ScalarProperty Name="IDArticuloGrupo" ColumnName="IDArticuloGrupo" />
                 <ScalarProperty Name="IDArticuloGrupo_Padre" ColumnName="IDArticuloGrupo_Padre" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -4289,6 +4357,16 @@
                 <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IDTarjetaCreditoBanco" ColumnName="IDTarjetaCreditoBanco" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArticuloTalle">
+            <EntityTypeMapping TypeName="CSColegioModel.ArticuloTalle">
+              <MappingFragment StoreEntitySet="ArticuloTalle">
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDTalle" ColumnName="IDTalle" />
+                <ScalarProperty Name="IDArticulo" ColumnName="IDArticulo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

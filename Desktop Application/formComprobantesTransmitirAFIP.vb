@@ -187,12 +187,12 @@
                                 Select Case IDConcepto
                                     Case CByte(0)
                                         ' Es el primer Artículo, así que lo guardo
-                                        IDConcepto = ArticuloActual.IDConcepto
-                                    Case ArticuloActual.IDConcepto
+                                        IDConcepto = ArticuloActual.ArticuloGrupo.IDConcepto
+                                    Case ArticuloActual.ArticuloGrupo.IDConcepto
                                         ' Es el mismo Concepto que el/los Artículos anteriores, no hago nada
 
                                     Case Else
-                                        If (IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) And (ArticuloActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or ArticuloActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) Then
+                                        If (IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) And (ArticuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or ArticuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) Then
                                             ' Hay Productos y Servicios, así que utilizo el Concepto correspondiente
                                             IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS
                                             Exit For

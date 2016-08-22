@@ -19,7 +19,13 @@ Partial Public Class ArticuloGrupo
     Public Property FechaHoraCreacion As Date
     Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
+    Public Property IDConcepto As Byte
+    Public Property EsRegistrable As Boolean
+    Public Property EsStockeable As Boolean
+    Public Property UtilizaColor As Boolean
+    Public Property UtilizaTalle As Boolean
 
     Public Overridable Property Articulo As ICollection(Of Articulo) = New HashSet(Of Articulo)
+    Public Overridable Property Concepto As Concepto
 
 End Class

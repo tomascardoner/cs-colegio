@@ -556,12 +556,12 @@
                     Select Case mConceptoActual.IDConcepto
                         Case CByte(0)
                             ' Es el primer Artículo, así que lo guardo
-                            mConceptoActual = mdbContext.Concepto.Find(ArticuloActual.IDConcepto)
-                        Case ArticuloActual.IDConcepto
+                            mConceptoActual = mdbContext.Concepto.Find(ArticuloActual.ArticuloGrupo.IDConcepto)
+                        Case ArticuloActual.ArticuloGrupo.IDConcepto
                             ' Es el mismo Concepto que el/los Artículos anteriores, no hago nada
 
                         Case Else
-                            If (mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) And (ArticuloActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or ArticuloActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) Then
+                            If (mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) And (ArticuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or ArticuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) Then
                                 ' Hay Productos y Servicios, así que utilizo el Concepto correspondiente
                                 mConceptoActual = mdbContext.Concepto.Find(Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS)
                                 Exit For
@@ -1211,12 +1211,12 @@
                     Select Case IDConcepto
                         Case CByte(0)
                             ' Es el primer Artículo, así que lo guardo
-                            IDConcepto = ArticuloActual.IDConcepto
-                        Case ArticuloActual.IDConcepto
+                            IDConcepto = ArticuloActual.ArticuloGrupo.IDConcepto
+                        Case ArticuloActual.ArticuloGrupo.IDConcepto
                             ' Es el mismo Concepto que el/los Artículos anteriores, no hago nada
 
                         Case Else
-                            If (IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) And (ArticuloActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or ArticuloActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) Then
+                            If (IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) And (ArticuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or ArticuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) Then
                                 ' Hay Productos y Servicios, así que utilizo el Concepto correspondiente
                                 IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS
                                 Exit For
@@ -1286,11 +1286,11 @@
         Else
             MensajeError = "Se Rechazó la Solicitud de CAE para la Factura Electrónica:"
             MensajeError &= vbCrLf & vbCrLf
-            MensajeError &= "Factura N°: " & ComprobanteATransmitir.Numero
+            MensajeError &= "Factura N°: " & ComprobanteATransmitir.NumeroCompleto
             MensajeError &= vbCrLf
-            MensajeError &= "Titular:    " & ComprobanteATransmitir.Entidad.ApellidoNombre
+            MensajeError &= "Titular: " & ComprobanteATransmitir.Entidad.ApellidoNombre
             MensajeError &= vbCrLf
-            MensajeError &= "Importe:    " & FormatCurrency(ComprobanteATransmitir.ImporteTotal)
+            MensajeError &= "Importe: " & FormatCurrency(ComprobanteATransmitir.ImporteTotal)
             If ResultadoCAE.Observaciones <> "" Then
                 MensajeError &= vbCrLf & vbCrLf
                 MensajeError &= "Observaciones: " & ResultadoCAE.Observaciones

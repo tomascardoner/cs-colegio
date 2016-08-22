@@ -46,6 +46,7 @@
         comboboxArticulo.Enabled = mEditMode
         textboxCantidad.ReadOnly = (mEditMode = False)
         textboxUnidad.ReadOnly = (mEditMode = False)
+        comboboxAlumno.Enabled = mEditMode
         buttonAlumno.Enabled = mEditMode
         comboboxAnioLectivoCurso.Enabled = mEditMode
         comboboxCuotaMes.Enabled = mEditMode
@@ -83,19 +84,21 @@
             textboxUnidad.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Unidad)
             textboxDescripcion.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Descripcion)
 
-            If (Not mArticuloActual Is Nothing) AndAlso (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual) Then
-                CargarAlumnos(mComprobanteActual.IDEntidad, .IDEntidad)
-                If .IDEntidad Is Nothing Then
-                    If comboboxAlumno.Items.Count = 1 Then
-                        comboboxAlumno.SelectedIndex = 0
-                    End If
-                Else
-                    comboboxAlumno.SelectedValue = .IDEntidad
-                    If comboboxAlumno.Items.Count = 1 Then
-                        comboboxAlumno.SelectedIndex = 0
-                    End If
-                    'EstablecerAnioLectivoCurso()
+            ' Cargo los alumnos en el ComboBox
+            CargarAlumnos(mComprobanteActual.IDEntidad, .IDEntidad)
+            If .IDEntidad Is Nothing Then
+                If comboboxAlumno.Items.Count = 1 Then
+                    comboboxAlumno.SelectedIndex = 0
                 End If
+            Else
+                comboboxAlumno.SelectedValue = .IDEntidad
+                If comboboxAlumno.Items.Count = 1 Then
+                    comboboxAlumno.SelectedIndex = 0
+                End If
+                'EstablecerAnioLectivoCurso()
+            End If
+
+            If (Not mArticuloActual Is Nothing) AndAlso (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual) Then
                 CS_Control_ComboBox.SetSelectedValue(comboboxAnioLectivoCurso, SelectedItemOptions.Value, .IDAnioLectivoCurso, CShort(0))
             Else
                 comboboxAlumno.SelectedIndex = -1

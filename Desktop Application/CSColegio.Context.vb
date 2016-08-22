@@ -74,5 +74,6 @@ Partial Public Class CSColegioContext
     Public Overridable Property ReporteParametro() As DbSet(Of ReporteParametro)
     Public Overridable Property TarjetaCredito() As DbSet(Of TarjetaCredito)
     Public Overridable Property TarjetaCreditoBanco() As DbSet(Of TarjetaCreditoBanco)
+    Public Overridable Property ArticuloTalle() As DbSet(Of ArticuloTalle)
 
 End Class
