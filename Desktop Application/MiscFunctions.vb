@@ -62,7 +62,7 @@ Module MiscFunctions
         End Try
     End Function
 
-    Friend Function EnviarEmailPorNETClient(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef ReporteActual As Reporte, ByVal AdjuntoNombre As String, ByVal ForzarEnvio As Boolean) As Integer
+    Friend Function EnviarEmailPorNETClient(ByRef Titular As Entidad, ByVal Asunto As String, ByVal CuerpoEnHTML As Boolean, ByVal Cuerpo As String, ByRef AdjuntoReporte As Reporte, ByVal AdjuntoNombre As String, ByVal AdjuntoArchivo As String, ByVal ForzarEnvio As Boolean) As Integer
         Dim mail As New MailMessage()
         Dim smtp As New SmtpClient()
         Dim MailCount As Integer = 0
@@ -115,6 +115,7 @@ Module MiscFunctions
 
         ' Establezco el contenido
         mail.Subject = Asunto
+        mail.IsBodyHtml = CuerpoEnHTML
         mail.Body = Cuerpo
 
         ' Establezco las opciones del Servidor SMTP
@@ -128,7 +129,12 @@ Module MiscFunctions
         Decrypter = Nothing
 
         ' Attachments
-        mail.Attachments.Add(New System.Net.Mail.Attachment(ReporteActual.ReportObject.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat), AdjuntoNombre))
+        If Not AdjuntoReporte Is Nothing Then
+            mail.Attachments.Add(New System.Net.Mail.Attachment(AdjuntoReporte.ReportObject.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat), AdjuntoNombre))
+        End If
+        If AdjuntoArchivo <> "" Then
+            mail.Attachments.Add(New System.Net.Mail.Attachment(AdjuntoArchivo))
+        End If
 
         ' Envío el e-mail
         Try

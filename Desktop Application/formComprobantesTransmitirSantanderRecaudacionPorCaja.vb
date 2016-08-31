@@ -122,7 +122,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
 
-        Using outputFile As New StreamWriter(FolderName & FileName)
+        Using outputFile As New StreamWriter(FolderName & FileName, False, New System.Text.UnicodeEncoding)
 
             For Each RowActual As DataGridViewRow In datagridviewComprobantes.Rows
                 GridDataRowActual = CType(RowActual.DataBoundItem, GridDataRow)

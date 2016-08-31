@@ -106,11 +106,7 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
         Dim FileName As String
 
         ' Obtengo y verifico si existe la carpeta de destino de los archivos a exportar
-        FolderName = CS_SpecialFolders.ProcessString(My.Settings.Exchange_Outbound_Folder)
-        If Not FolderName.EndsWith("\") Then
-            FolderName &= "\"
-        End If
-        FolderName &= My.Settings.Exchange_Outbound_Santander_ADDI_Folder
+        FolderName = CS_SpecialFolders.ProcessString(My.Settings.Exchange_Outbound_Santander_ADDI_Folder)
         If Not FolderName.EndsWith("\") Then
             FolderName &= "\"
         End If
@@ -132,7 +128,7 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
                     ' Detalle
                     DetalleTextStream &= "11"                                                               ' Tipo de Registro
                     DetalleTextStream &= CS_Parameter.GetString(Parametros.EMPRESA_ADDI_CODIGOSERVICIO).PadRight(10, " "c)  ' Código de Servicio
-                    DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString.PadRight(22, " "c)    ' Número de Partida
+                    DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString("000000").PadRight(22, " "c)          ' Número de Partida
                     DetalleTextStream &= ComprobanteActual.Entidad.DebitoAutomaticoCBU                      ' CBU
                     DetalleTextStream &= ComprobanteActual.FechaVencimiento.Value.ToString("yyyyMMdd")      ' Fecha 1er. vencimiento
                     DetalleTextStream &= ComprobanteActual.ImporteTotal.ToString("00000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 1er. vencimiento

@@ -163,7 +163,7 @@
 
                     Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
                         Case Constantes.EMAIL_CLIENT_NETDLL
-                            Result = MiscFunctions.EnviarEmailPorNETClient(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
+                            Result = MiscFunctions.EnviarEmailPorNETClient(ComprobanteActual.Entidad, Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", False)
                             If Result = -1 Then
                                 Exit For
                             End If

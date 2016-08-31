@@ -777,7 +777,7 @@
 
                                 Select Case My.Settings.Comprobante_EnviarEmail_Metodo
                                     Case Constantes.EMAIL_CLIENT_NETDLL
-                                        If MiscFunctions.EnviarEmailPorNETClient(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, True) = -1 Then
+                                        If MiscFunctions.EnviarEmailPorNETClient(Titular, Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", True) = -1 Then
                                             datagridviewMain.Enabled = True
                                             Me.Cursor = Cursors.Default
                                             Exit Sub

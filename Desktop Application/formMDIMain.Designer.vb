@@ -77,6 +77,7 @@ Partial Class formMDIMain
         Me.menuitemComprobantesImportarSantanderRecaudacionPorCaja = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesImportarRapipago = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonReportes = New System.Windows.Forms.ToolStripButton()
+        Me.menuitemDebugEnviarEmailNewsletter = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
@@ -209,7 +210,7 @@ Partial Class formMDIMain
         '
         'menuitemDebug
         '
-        Me.menuitemDebug.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWS})
+        Me.menuitemDebug.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWS, Me.menuitemDebugEnviarEmailNewsletter})
         Me.menuitemDebug.Name = "menuitemDebug"
         Me.menuitemDebug.Size = New System.Drawing.Size(66, 24)
         Me.menuitemDebug.Text = "Debug"
@@ -219,7 +220,7 @@ Partial Class formMDIMain
         '
         Me.menuitemDebugAFIPWS.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWSHomologacion})
         Me.menuitemDebugAFIPWS.Name = "menuitemDebugAFIPWS"
-        Me.menuitemDebugAFIPWS.Size = New System.Drawing.Size(200, 26)
+        Me.menuitemDebugAFIPWS.Size = New System.Drawing.Size(246, 26)
         Me.menuitemDebugAFIPWS.Text = "AFIP WebServices"
         '
         'menuitemDebugAFIPWSHomologacion
@@ -450,6 +451,12 @@ Partial Class formMDIMain
         Me.buttonReportes.Size = New System.Drawing.Size(156, 36)
         Me.buttonReportes.Text = "Reportes"
         '
+        'menuitemDebugEnviarEmailNewsletter
+        '
+        Me.menuitemDebugEnviarEmailNewsletter.Name = "menuitemDebugEnviarEmailNewsletter"
+        Me.menuitemDebugEnviarEmailNewsletter.Size = New System.Drawing.Size(246, 26)
+        Me.menuitemDebugEnviarEmailNewsletter.Text = "Enviar e-mail Newsletter"
+        '
         'formMDIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -531,4 +538,5 @@ Partial Class formMDIMain
     Friend WithEvents menuitemComprobantesImportarRapipago As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemComprbantesImportarPagomiscuentas As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemEntidadesAnioLectivoCursoInscripcion As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDebugEnviarEmailNewsletter As System.Windows.Forms.ToolStripMenuItem
 End Class

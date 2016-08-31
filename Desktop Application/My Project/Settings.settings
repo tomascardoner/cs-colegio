@@ -125,14 +125,17 @@
     <Setting Name="Exchange_Outbound_Santander_ADDI_Folder" Type="System.String" Scope="Application">
       <Value Profile="(Default)">%ProgramFilesX86%\ADDISQL\Importar</Value>
     </Setting>
-    <Setting Name="Exchange_Outbound_PagoMisCuentas_SubFolder" Type="System.String" Scope="User">
+    <Setting Name="Exchange_Outbound_PagoMisCuentas_SubFolder" Type="System.String" Scope="Application">
       <Value Profile="(Default)">PagoMisCuentas</Value>
     </Setting>
-    <Setting Name="Exchange_Outbound_Santander_Piryp_Folder" Type="System.String" Scope="User">
+    <Setting Name="Exchange_Outbound_Santander_Piryp_Folder" Type="System.String" Scope="Application">
       <Value Profile="(Default)">%ProgramFilesX86%\Piryp\Importar</Value>
     </Setting>
-    <Setting Name="Exchange_Inbound_Santander_ADDI_Folder" Type="System.String" Scope="User">
+    <Setting Name="Exchange_Inbound_Santander_ADDI_Folder" Type="System.String" Scope="Application">
       <Value Profile="(Default)">%ProgramFilesX86%\ADDISQL\Exportar</Value>
+    </Setting>
+    <Setting Name="Newsletter_Folder" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Users\Tomas\Dropbox\Colegio Horizonte\Compartidos Administración\Newsletters</Value>
     </Setting>
   </Settings>
 </SettingsFile>

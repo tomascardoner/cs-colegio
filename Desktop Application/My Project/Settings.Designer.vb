@@ -431,40 +431,40 @@ Namespace My
             End Get
         End Property
         
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("PagoMisCuentas")>  _
-        Public Property Exchange_Outbound_PagoMisCuentas_SubFolder() As String
+        Public ReadOnly Property Exchange_Outbound_PagoMisCuentas_SubFolder() As String
             Get
                 Return CType(Me("Exchange_Outbound_PagoMisCuentas_SubFolder"),String)
             End Get
-            Set
-                Me("Exchange_Outbound_PagoMisCuentas_SubFolder") = value
-            End Set
         End Property
         
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("%ProgramFilesX86%\Piryp\Importar")>  _
-        Public Property Exchange_Outbound_Santander_Piryp_Folder() As String
+        Public ReadOnly Property Exchange_Outbound_Santander_Piryp_Folder() As String
             Get
                 Return CType(Me("Exchange_Outbound_Santander_Piryp_Folder"),String)
             End Get
-            Set
-                Me("Exchange_Outbound_Santander_Piryp_Folder") = value
-            End Set
         End Property
         
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("%ProgramFilesX86%\ADDISQL\Exportar")>  _
-        Public Property Exchange_Inbound_Santander_ADDI_Folder() As String
+        Public ReadOnly Property Exchange_Inbound_Santander_ADDI_Folder() As String
             Get
                 Return CType(Me("Exchange_Inbound_Santander_ADDI_Folder"),String)
             End Get
-            Set
-                Me("Exchange_Inbound_Santander_ADDI_Folder") = value
-            End Set
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Tomas\Dropbox\Colegio Horizonte\Compartidos Administración\Newsletters")>  _
+        Public ReadOnly Property Newsletter_Folder() As String
+            Get
+                Return CType(Me("Newsletter_Folder"),String)
+            End Get
         End Property
     End Class
 End Namespace

@@ -257,6 +257,12 @@
     <Compile Include="ComprobanteTipoPuntoVenta.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Comunicacion.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComunicacionEntidad.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
     <Compile Include="Concepto.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>

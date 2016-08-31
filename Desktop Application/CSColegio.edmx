@@ -319,6 +319,31 @@
           <Property Name="IDPuntoVenta" Type="tinyint" Nullable="false" />
           <Property Name="NumeroInicio" Type="char" MaxLength="8" Nullable="false" />
         </EntityType>
+        <EntityType Name="Comunicacion">
+          <Key>
+            <PropertyRef Name="IDComunicacion" />
+          </Key>
+          <Property Name="IDComunicacion" Type="smallint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Asunto" Type="varchar" MaxLength="100" />
+          <Property Name="CuerpoMensaje" Type="varchar(max)" />
+          <Property Name="ArchivoAdjunto" Type="varchar" MaxLength="1000" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="Notas" Type="varchar(max)" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ComunicacionEntidad">
+          <Key>
+            <PropertyRef Name="IDComunicacion" />
+            <PropertyRef Name="IDEntidad" />
+          </Key>
+          <Property Name="IDComunicacion" Type="smallint" Nullable="false" />
+          <Property Name="IDEntidad" Type="int" Nullable="false" />
+          <Property Name="FechaHoraEnvioEmail" Type="smalldatetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Concepto">
           <Key>
             <PropertyRef Name="IDConcepto" />
@@ -1050,6 +1075,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Comunicacion__ComunicacionEntidad">
+          <End Role="Comunicacion" Type="Self.Comunicacion" Multiplicity="1" />
+          <End Role="ComunicacionEntidad" Type="Self.ComunicacionEntidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comunicacion">
+              <PropertyRef Name="IDComunicacion" />
+            </Principal>
+            <Dependent Role="ComunicacionEntidad">
+              <PropertyRef Name="IDComunicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Concepto__ArticuloGrupo">
           <End Role="Concepto" Type="Self.Concepto" Multiplicity="1" />
           <End Role="ArticuloGrupo" Type="Self.ArticuloGrupo" Multiplicity="*" />
@@ -1142,6 +1179,18 @@
               <PropertyRef Name="IDEntidad" />
             </Principal>
             <Dependent Role="ComprobanteDetalle">
+              <PropertyRef Name="IDEntidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entidad__ComunicacionEntidad">
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="1" />
+          <End Role="ComunicacionEntidad" Type="Self.ComunicacionEntidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="IDEntidad" />
+            </Principal>
+            <Dependent Role="ComunicacionEntidad">
               <PropertyRef Name="IDEntidad" />
             </Dependent>
           </ReferentialConstraint>
@@ -1426,6 +1475,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Usuario__Comunicacion__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Comunicacion" Type="Self.Comunicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Comunicacion">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Comunicacion__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Comunicacion" Type="Self.Comunicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Comunicacion">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Usuario__Entidad__Creacion">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Entidad" Type="Self.Entidad" Multiplicity="*" />
@@ -1509,6 +1582,8 @@
           <EntitySet Name="ComprobanteTipo" EntityType="Self.ComprobanteTipo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteTipoAplicacion" EntityType="Self.ComprobanteTipoAplicacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteTipoPuntoVenta" EntityType="Self.ComprobanteTipoPuntoVenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comunicacion" EntityType="Self.Comunicacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComunicacionEntidad" EntityType="Self.ComunicacionEntidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Concepto" EntityType="Self.Concepto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CondicionIVA" EntityType="Self.CondicionIVA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
@@ -1647,6 +1722,10 @@
             <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
             <End Role="ComprobanteTipoPuntoVenta" EntitySet="ComprobanteTipoPuntoVenta" />
           </AssociationSet>
+          <AssociationSet Name="FK__Comunicacion__ComunicacionEntidad" Association="Self.FK__Comunicacion__ComunicacionEntidad">
+            <End Role="Comunicacion" EntitySet="Comunicacion" />
+            <End Role="ComunicacionEntidad" EntitySet="ComunicacionEntidad" />
+          </AssociationSet>
           <AssociationSet Name="FK__Concepto__ArticuloGrupo" Association="Self.FK__Concepto__ArticuloGrupo">
             <End Role="Concepto" EntitySet="Concepto" />
             <End Role="ArticuloGrupo" EntitySet="ArticuloGrupo" />
@@ -1678,6 +1757,10 @@
           <AssociationSet Name="FK__Entidad__ComprobanteDetalle" Association="Self.FK__Entidad__ComprobanteDetalle">
             <End Role="Entidad" EntitySet="Entidad" />
             <End Role="ComprobanteDetalle" EntitySet="ComprobanteDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entidad__ComunicacionEntidad" Association="Self.FK__Entidad__ComunicacionEntidad">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="ComunicacionEntidad" EntitySet="ComunicacionEntidad" />
           </AssociationSet>
           <AssociationSet Name="FK__Entidad__EntidadAnioLectivoCurso" Association="Self.FK__Entidad__EntidadAnioLectivoCurso">
             <End Role="Entidad" EntitySet="Entidad" />
@@ -1770,6 +1853,14 @@
           <AssociationSet Name="FK__Usuario__Comprobante__Modificacion" Association="Self.FK__Usuario__Comprobante__Modificacion">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Comprobante" EntitySet="Comprobante" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Comunicacion__Creacion" Association="Self.FK__Usuario__Comunicacion__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Comunicacion" EntitySet="Comunicacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Comunicacion__Modificacion" Association="Self.FK__Usuario__Comunicacion__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Comunicacion" EntitySet="Comunicacion" />
           </AssociationSet>
           <AssociationSet Name="FK__Usuario__Entidad__Creacion" Association="Self.FK__Usuario__Entidad__Creacion">
             <End Role="Usuario" EntitySet="Usuario" />
@@ -1974,6 +2065,7 @@
           <NavigationProperty Name="EntidadTerceroAlumnos" Relationship="CSColegioModel.FK__Entidad__EntidadTercero" FromRole="Entidad" ToRole="Entidad1" />
           <NavigationProperty Name="EntidadTercero" Relationship="CSColegioModel.FK__Entidad__EntidadTercero" FromRole="Entidad1" ToRole="Entidad" />
           <NavigationProperty Name="Comprobante" Relationship="CSColegioModel.FK__Entidad__Comprobante" FromRole="Entidad" ToRole="Comprobante" />
+          <NavigationProperty Name="ComunicacionEntidad" Relationship="CSColegioModel.FK__Entidad__ComunicacionEntidad" FromRole="Entidad" ToRole="ComunicacionEntidad" />
         </EntityType>
         <EntityType Name="EntidadEntidad">
           <Key>
@@ -2150,7 +2242,9 @@
           <NavigationProperty Name="ComprobantesCreados" Relationship="CSColegioModel.FK__Usuario__Comprobante__Creacion" FromRole="Usuario" ToRole="Comprobante" />
           <NavigationProperty Name="ComprobantesModificados" Relationship="CSColegioModel.FK__Usuario__Comprobante__Modificacion" FromRole="Usuario" ToRole="Comprobante" />
           <NavigationProperty Name="Log" Relationship="CSColegioModel.FK__Usuario__Log" FromRole="Usuario" ToRole="Log" />
-          <NavigationProperty Name="Comprobante1" Relationship="CSColegioModel.FK__Usuario__Comprobante__EnvioEmail" FromRole="Usuario" ToRole="Comprobante" />
+          <NavigationProperty Name="ComprobantesEnviados" Relationship="CSColegioModel.FK__Usuario__Comprobante__EnvioEmail" FromRole="Usuario" ToRole="Comprobante" />
+          <NavigationProperty Name="ComunicacionesCreadas" Relationship="CSColegioModel.FK__Usuario__Comunicacion__Creacion" FromRole="Usuario" ToRole="Comunicacion" />
+          <NavigationProperty Name="ComunicacionesModificadas" Relationship="CSColegioModel.FK__Usuario__Comunicacion__Modificacion" FromRole="Usuario" ToRole="Comunicacion" />
         </EntityType>
         <EntityType Name="UsuarioGrupo">
           <Key>
@@ -2613,6 +2707,24 @@
           <AssociationSet Name="FK__Articulo__ArticuloTalle" Association="CSColegioModel.FK__Articulo__ArticuloTalle">
             <End Role="Articulo" EntitySet="Articulo" />
             <End Role="ArticuloTalle" EntitySet="ArticuloTalle" />
+          </AssociationSet>
+          <EntitySet Name="Comunicacion" EntityType="CSColegioModel.Comunicacion" />
+          <EntitySet Name="ComunicacionEntidad" EntityType="CSColegioModel.ComunicacionEntidad" />
+          <AssociationSet Name="FK__Comunicacion__ComunicacionEntidad" Association="CSColegioModel.FK__Comunicacion__ComunicacionEntidad">
+            <End Role="Comunicacion" EntitySet="Comunicacion" />
+            <End Role="ComunicacionEntidad" EntitySet="ComunicacionEntidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Comunicacion__Creacion" Association="CSColegioModel.FK__Usuario__Comunicacion__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Comunicacion" EntitySet="Comunicacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Comunicacion__Modificacion" Association="CSColegioModel.FK__Usuario__Comunicacion__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Comunicacion" EntitySet="Comunicacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entidad__ComunicacionEntidad" Association="CSColegioModel.FK__Entidad__ComunicacionEntidad">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="ComunicacionEntidad" EntitySet="ComunicacionEntidad" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
@@ -3596,6 +3708,84 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Comunicacion">
+          <Key>
+            <PropertyRef Name="IDComunicacion" />
+          </Key>
+          <Property Name="IDComunicacion" Type="Int16" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Asunto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CuerpoMensaje" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ArchivoAdjunto" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ComunicacionEntidad" Relationship="CSColegioModel.FK__Comunicacion__ComunicacionEntidad" FromRole="Comunicacion" ToRole="ComunicacionEntidad" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__Comunicacion__Creacion" FromRole="Comunicacion" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__Comunicacion__Modificacion" FromRole="Comunicacion" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="ComunicacionEntidad">
+          <Key>
+            <PropertyRef Name="IDComunicacion" />
+            <PropertyRef Name="IDEntidad" />
+          </Key>
+          <Property Name="IDComunicacion" Type="Int16" Nullable="false" />
+          <Property Name="IDEntidad" Type="Int32" Nullable="false" />
+          <Property Name="FechaHoraEnvioEmail" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Comunicacion" Relationship="CSColegioModel.FK__Comunicacion__ComunicacionEntidad" FromRole="ComunicacionEntidad" ToRole="Comunicacion" />
+          <NavigationProperty Name="Entidad" Relationship="CSColegioModel.FK__Entidad__ComunicacionEntidad" FromRole="ComunicacionEntidad" ToRole="Entidad" />
+        </EntityType>
+        <Association Name="FK__Comunicacion__ComunicacionEntidad">
+          <End Type="CSColegioModel.Comunicacion" Role="Comunicacion" Multiplicity="1" />
+          <End Type="CSColegioModel.ComunicacionEntidad" Role="ComunicacionEntidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comunicacion">
+              <PropertyRef Name="IDComunicacion" />
+            </Principal>
+            <Dependent Role="ComunicacionEntidad">
+              <PropertyRef Name="IDComunicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Comunicacion__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Comunicacion" Role="Comunicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Comunicacion">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Comunicacion__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Comunicacion" Role="Comunicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Comunicacion">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entidad__ComunicacionEntidad">
+          <End Type="CSColegioModel.Entidad" Role="Entidad" Multiplicity="1" />
+          <End Type="CSColegioModel.ComunicacionEntidad" Role="ComunicacionEntidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="IDEntidad" />
+            </Principal>
+            <Dependent Role="ComunicacionEntidad">
+              <PropertyRef Name="IDEntidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4367,6 +4557,32 @@
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IDTalle" ColumnName="IDTalle" />
                 <ScalarProperty Name="IDArticulo" ColumnName="IDArticulo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comunicacion">
+            <EntityTypeMapping TypeName="CSColegioModel.Comunicacion">
+              <MappingFragment StoreEntitySet="Comunicacion">
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="Notas" ColumnName="Notas" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="ArchivoAdjunto" ColumnName="ArchivoAdjunto" />
+                <ScalarProperty Name="CuerpoMensaje" ColumnName="CuerpoMensaje" />
+                <ScalarProperty Name="Asunto" ColumnName="Asunto" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDComunicacion" ColumnName="IDComunicacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComunicacionEntidad">
+            <EntityTypeMapping TypeName="CSColegioModel.ComunicacionEntidad">
+              <MappingFragment StoreEntitySet="ComunicacionEntidad">
+                <ScalarProperty Name="FechaHoraEnvioEmail" ColumnName="FechaHoraEnvioEmail" />
+                <ScalarProperty Name="IDEntidad" ColumnName="IDEntidad" />
+                <ScalarProperty Name="IDComunicacion" ColumnName="IDComunicacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -125,6 +125,12 @@
         <AssociationConnector Association="CSColegioModel.FK__Concepto__ArticuloGrupo" />
         <EntityTypeShape EntityType="CSColegioModel.ArticuloTalle" Width="1.5" PointX="20.25" PointY="25.125" />
         <AssociationConnector Association="CSColegioModel.FK__Articulo__ArticuloTalle" />
+        <EntityTypeShape EntityType="CSColegioModel.Comunicacion" Width="1.5" PointX="5.125" PointY="27.625" />
+        <EntityTypeShape EntityType="CSColegioModel.ComunicacionEntidad" Width="1.5" PointX="13.75" PointY="23.25" />
+        <AssociationConnector Association="CSColegioModel.FK__Comunicacion__ComunicacionEntidad" />
+        <AssociationConnector Association="CSColegioModel.FK__Usuario__Comunicacion__Creacion" />
+        <AssociationConnector Association="CSColegioModel.FK__Usuario__Comunicacion__Modificacion" />
+        <AssociationConnector Association="CSColegioModel.FK__Entidad__ComunicacionEntidad" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
