@@ -26,6 +26,8 @@
             mEntidadActual = New Entidad
             With mEntidadActual
                 .IDCategoriaIVA = CS_Parameter.GetIntegerAsByte(Parametros.DEFAULT_CATEGORIAIVA_ID)
+                .VerificarEmail1 = False
+                .VerificarEmail2 = False
                 .DomicilioIDProvincia = CS_Parameter.GetIntegerAsByte(Parametros.DEFAULT_PROVINCIA_ID)
                 .DomicilioIDLocalidad = CS_Parameter.GetIntegerAsShort(Parametros.DEFAULT_LOCALIDAD_ID)
                 .DomicilioCodigoPostal = CS_Parameter.GetString(Parametros.DEFAULT_CODIGOPOSTAL)
@@ -90,7 +92,9 @@
         textboxTelefono2.ReadOnly = (mEditMode = False)
         textboxTelefono3.ReadOnly = (mEditMode = False)
         textboxEmail1.ReadOnly = (mEditMode = False)
+        checkboxVerificarEmail1.Enabled = mEditMode
         textboxEmail2.ReadOnly = (mEditMode = False)
+        checkboxVerificarEmail2.Enabled = mEditMode
         comboboxComprobanteEnviarEmail.Enabled = mEditMode
         textboxDomicilioCalle1.ReadOnly = (mEditMode = False)
         textboxDomicilioNumero.ReadOnly = (mEditMode = False)
@@ -203,7 +207,9 @@
             textboxTelefono2.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Telefono2)
             textboxTelefono3.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Telefono3)
             textboxEmail1.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Email1)
+            checkboxVerificarEmail1.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.VerificarEmail1)
             textboxEmail2.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Email2)
+            checkboxVerificarEmail2.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.VerificarEmail2)
             CS_Control_ComboBox.SetSelectedValue(comboboxComprobanteEnviarEmail, SelectedItemOptions.ValueOrFirst, .ComprobanteEnviarEmail, Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_CUALQUIERA)
             textboxDomicilioCalle1.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCalle1)
             textboxDomicilioNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioNumero)
@@ -326,7 +332,9 @@
             .Telefono2 = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxTelefono2.Text)
             .Telefono3 = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxTelefono3.Text)
             .Email1 = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxEmail1.Text)
+            .VerificarEmail1 = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxVerificarEmail1.CheckState)
             .Email2 = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxEmail2.Text)
+            .VerificarEmail2 = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxVerificarEmail2.CheckState)
             .ComprobanteEnviarEmail = CS_ValueTranslation.FromControlComboBoxToObjectString(comboboxComprobanteEnviarEmail.SelectedValue)
             .DomicilioCalle1 = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioCalle1.Text)
             .DomicilioNumero = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxDomicilioNumero.Text)

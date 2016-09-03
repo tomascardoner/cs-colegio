@@ -78,21 +78,6 @@
         End If
     End Sub
 
-    Private Sub menuitemDebugEnviarEmailNewsletter_Click(sender As Object, e As EventArgs) Handles menuitemDebugEnviarEmailNewsletter.Click
-        Dim EntidadActual As Entidad
-        Dim MessageBody As String
-
-        Using dbc As New CSColegioContext(True)
-            EntidadActual = dbc.Entidad.Find(277)
-        End Using
-
-        Using inputFile As New System.IO.StreamReader("C:\Users\Tomas\Dropbox\Colegio Horizonte\Compartidos Administración\Newsletters\2016-09\newsletter_1_sept2016.html")
-            MessageBody = inputFile.ReadToEnd
-        End Using
-
-        MiscFunctions.EnviarEmailPorNETClient(EntidadActual, "Newsletter Nro. 1 - Septiembre 2016", True, MessageBody, Nothing, "", "C:\Users\Tomas\Dropbox\Colegio Horizonte\Compartidos Administración\Newsletters\2016-09\agenda_2016-09.pdf", False)
-    End Sub
-
 #End Region
 
 #Region "Menu Ventana"
@@ -355,7 +340,6 @@
 
             Me.Cursor = Cursors.Default
         End If
-
     End Sub
 
     Private Sub ComprobantesExportarPagomiscuentas() Handles menuitemComprobantesExportarPagomiscuentas.Click
@@ -433,6 +417,24 @@
             '    formComprobantesRecibirirSantanderRecaudacionPorCaja.WindowState = FormWindowState.Normal
             'End If
             'formComprobantesRecibirirSantanderRecaudacionPorCaja.Focus()
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
+#End Region
+
+#Region "Left Toolbar - Comunicaciones"
+    Private Sub Comunicaciones(sender As Object, e As EventArgs) Handles menuitemComunicacionesEnviarMail.Click
+        If Permisos.VerificarPermiso(Permisos.COMUNICACION_ENVIAREMAIL) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            formComunicacionesEnviarMail.MdiParent = Me
+            CS_Form.CenterToParent(Me, CType(formComunicacionesEnviarMail, Form))
+            formComunicacionesEnviarMail.Show()
+            If formComunicacionesEnviarMail.WindowState = FormWindowState.Minimized Then
+                formComunicacionesEnviarMail.WindowState = FormWindowState.Normal
+            End If
+            formComunicacionesEnviarMail.Focus()
 
             Me.Cursor = Cursors.Default
         End If

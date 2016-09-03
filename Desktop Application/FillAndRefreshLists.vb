@@ -664,7 +664,7 @@
         ComboBoxControl.ValueMember = "IDArticulo"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        listArticulos = dbContext.Articulo.OrderBy(Function(cl) cl.Nombre).ToList
+        listArticulos = dbContext.Articulo.Where(Function(cl) cl.EsActivo).OrderBy(Function(cl) cl.Nombre).ToList
 
         If AgregarItem_Todos Then
             Dim Item_Todos As New Articulo
@@ -680,6 +680,30 @@
         End If
 
         ComboBoxControl.DataSource = listArticulos
+    End Sub
+
+    Friend Sub Comunicacion(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)
+        Dim listComunicaciones As List(Of Comunicacion)
+
+        ComboBoxControl.ValueMember = "IDComunicacion"
+        ComboBoxControl.DisplayMember = "Nombre"
+
+        listComunicaciones = dbContext.Comunicacion.Where(Function(cl) cl.EsActivo).OrderBy(Function(cl) cl.Nombre).ToList
+
+        If AgregarItem_Todos Then
+            Dim Item_Todos As New Comunicacion
+            Item_Todos.IDComunicacion = 0
+            Item_Todos.Nombre = My.Resources.STRING_ITEM_ALL_FEMALE
+            listComunicaciones.Insert(0, Item_Todos)
+        End If
+        If AgregarItem_NoEspecifica Then
+            Dim Item_NoEspecifica As New Comunicacion
+            Item_NoEspecifica.IDComunicacion = 0
+            Item_NoEspecifica.Nombre = My.Resources.STRING_ITEM_NOT_SPECIFIED
+            listComunicaciones.Insert(0, Item_NoEspecifica)
+        End If
+
+        ComboBoxControl.DataSource = listComunicaciones
     End Sub
 
     Public Sub New()

@@ -14,6 +14,7 @@ Partial Public Class Comunicacion
     Public Property IDComunicacion As Short
     Public Property Nombre As String
     Public Property Asunto As String
+    Public Property CuerpoMensajeEsHTML As Boolean
     Public Property CuerpoMensaje As String
     Public Property ArchivoAdjunto As String
     Public Property EsActivo As Boolean

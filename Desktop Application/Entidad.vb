@@ -31,7 +31,9 @@ Partial Public Class Entidad
     Public Property Telefono2 As String
     Public Property Telefono3 As String
     Public Property Email1 As String
+    Public Property VerificarEmail1 As Boolean
     Public Property Email2 As String
+    Public Property VerificarEmail2 As Boolean
     Public Property ComprobanteEnviarEmail As String
     Public Property DomicilioCalle1 As String
     Public Property DomicilioNumero As String

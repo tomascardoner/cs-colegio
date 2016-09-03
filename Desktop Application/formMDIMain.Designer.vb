@@ -47,6 +47,7 @@ Partial Class formMDIMain
         Me.menuitemDebugAFIPWSHomologacion = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSHomologacionLogin = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSHomologacionCompConsultar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugEnviarEmailNewsletter = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemAyuda = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemAyuda_AcercaDe = New System.Windows.Forms.ToolStripMenuItem()
         Me.toolstripMain = New System.Windows.Forms.ToolStrip()
@@ -72,12 +73,13 @@ Partial Class formMDIMain
         Me.menuitemComprobantesExportarSantanderRecaudacionPorCaja = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesExportarRapipago = New System.Windows.Forms.ToolStripMenuItem()
         Me.ImportarArchivosDeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemComprbantesImportarPagomiscuentas = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemComprobantesImportarPagomiscuentas = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesImportarSantanderDebitoDirecto = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesImportarSantanderRecaudacionPorCaja = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesImportarRapipago = New System.Windows.Forms.ToolStripMenuItem()
+        Me.buttonComunicaciones = New System.Windows.Forms.ToolStripSplitButton()
+        Me.menuitemComunicacionesEnviarMail = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonReportes = New System.Windows.Forms.ToolStripButton()
-        Me.menuitemDebugEnviarEmailNewsletter = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
@@ -242,6 +244,12 @@ Partial Class formMDIMain
         Me.menuitemDebugAFIPWSHomologacionCompConsultar.Size = New System.Drawing.Size(287, 26)
         Me.menuitemDebugAFIPWSHomologacionCompConsultar.Text = "Consultar último comprobante"
         '
+        'menuitemDebugEnviarEmailNewsletter
+        '
+        Me.menuitemDebugEnviarEmailNewsletter.Name = "menuitemDebugEnviarEmailNewsletter"
+        Me.menuitemDebugEnviarEmailNewsletter.Size = New System.Drawing.Size(246, 26)
+        Me.menuitemDebugEnviarEmailNewsletter.Text = "Enviar e-mail Newsletter"
+        '
         'menuitemAyuda
         '
         Me.menuitemAyuda.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemAyuda_AcercaDe})
@@ -260,10 +268,10 @@ Partial Class formMDIMain
         Me.toolstripMain.AllowMerge = False
         Me.toolstripMain.Dock = System.Windows.Forms.DockStyle.Left
         Me.toolstripMain.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.dropdownbuttonTablas, Me.buttonEntidades, Me.buttonComprobantes, Me.buttonReportes})
+        Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.dropdownbuttonTablas, Me.buttonEntidades, Me.buttonComprobantes, Me.buttonComunicaciones, Me.buttonReportes})
         Me.toolstripMain.Location = New System.Drawing.Point(0, 28)
         Me.toolstripMain.Name = "toolstripMain"
-        Me.toolstripMain.Size = New System.Drawing.Size(159, 608)
+        Me.toolstripMain.Size = New System.Drawing.Size(169, 608)
         Me.toolstripMain.TabIndex = 1
         Me.toolstripMain.Text = "Principal"
         '
@@ -275,7 +283,7 @@ Partial Class formMDIMain
         Me.dropdownbuttonTablas.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.dropdownbuttonTablas.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.dropdownbuttonTablas.Name = "dropdownbuttonTablas"
-        Me.dropdownbuttonTablas.Size = New System.Drawing.Size(156, 36)
+        Me.dropdownbuttonTablas.Size = New System.Drawing.Size(166, 36)
         Me.dropdownbuttonTablas.Text = "Tablas"
         '
         'menuitemAnios
@@ -326,7 +334,7 @@ Partial Class formMDIMain
         Me.buttonEntidades.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonEntidades.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonEntidades.Name = "buttonEntidades"
-        Me.buttonEntidades.Size = New System.Drawing.Size(156, 36)
+        Me.buttonEntidades.Size = New System.Drawing.Size(166, 36)
         Me.buttonEntidades.Text = "Entidades"
         '
         'menuitemEntidadesAniosLectivosYCursos
@@ -349,7 +357,7 @@ Partial Class formMDIMain
         Me.buttonComprobantes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonComprobantes.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonComprobantes.Name = "buttonComprobantes"
-        Me.buttonComprobantes.Size = New System.Drawing.Size(156, 36)
+        Me.buttonComprobantes.Size = New System.Drawing.Size(166, 36)
         Me.buttonComprobantes.Text = "Comprobantes"
         '
         'menuitemComprobantesGenerarLoteFacturas
@@ -410,18 +418,18 @@ Partial Class formMDIMain
         '
         'ImportarArchivosDeToolStripMenuItem
         '
-        Me.ImportarArchivosDeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemComprbantesImportarPagomiscuentas, Me.menuitemComprobantesImportarSantanderDebitoDirecto, Me.menuitemComprobantesImportarSantanderRecaudacionPorCaja, Me.menuitemComprobantesImportarRapipago})
+        Me.ImportarArchivosDeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemComprobantesImportarPagomiscuentas, Me.menuitemComprobantesImportarSantanderDebitoDirecto, Me.menuitemComprobantesImportarSantanderRecaudacionPorCaja, Me.menuitemComprobantesImportarRapipago})
         Me.ImportarArchivosDeToolStripMenuItem.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_IMPORT_32
         Me.ImportarArchivosDeToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.ImportarArchivosDeToolStripMenuItem.Name = "ImportarArchivosDeToolStripMenuItem"
         Me.ImportarArchivosDeToolStripMenuItem.Size = New System.Drawing.Size(259, 38)
         Me.ImportarArchivosDeToolStripMenuItem.Text = "Importar archivos de..."
         '
-        'menuitemComprbantesImportarPagomiscuentas
+        'menuitemComprobantesImportarPagomiscuentas
         '
-        Me.menuitemComprbantesImportarPagomiscuentas.Name = "menuitemComprbantesImportarPagomiscuentas"
-        Me.menuitemComprbantesImportarPagomiscuentas.Size = New System.Drawing.Size(353, 26)
-        Me.menuitemComprbantesImportarPagomiscuentas.Text = "PagoMisCuentas"
+        Me.menuitemComprobantesImportarPagomiscuentas.Name = "menuitemComprobantesImportarPagomiscuentas"
+        Me.menuitemComprobantesImportarPagomiscuentas.Size = New System.Drawing.Size(353, 26)
+        Me.menuitemComprobantesImportarPagomiscuentas.Text = "PagoMisCuentas"
         '
         'menuitemComprobantesImportarSantanderDebitoDirecto
         '
@@ -441,6 +449,23 @@ Partial Class formMDIMain
         Me.menuitemComprobantesImportarRapipago.Size = New System.Drawing.Size(353, 26)
         Me.menuitemComprobantesImportarRapipago.Text = "Rapipago"
         '
+        'buttonComunicaciones
+        '
+        Me.buttonComunicaciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemComunicacionesEnviarMail})
+        Me.buttonComunicaciones.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_EMAIL_32
+        Me.buttonComunicaciones.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.buttonComunicaciones.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonComunicaciones.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonComunicaciones.Name = "buttonComunicaciones"
+        Me.buttonComunicaciones.Size = New System.Drawing.Size(166, 36)
+        Me.buttonComunicaciones.Text = "Comunicaciones"
+        '
+        'menuitemComunicacionesEnviarMail
+        '
+        Me.menuitemComunicacionesEnviarMail.Name = "menuitemComunicacionesEnviarMail"
+        Me.menuitemComunicacionesEnviarMail.Size = New System.Drawing.Size(198, 26)
+        Me.menuitemComunicacionesEnviarMail.Text = "Enviar por e-mail"
+        '
         'buttonReportes
         '
         Me.buttonReportes.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_REPORTES_32
@@ -448,14 +473,8 @@ Partial Class formMDIMain
         Me.buttonReportes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonReportes.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonReportes.Name = "buttonReportes"
-        Me.buttonReportes.Size = New System.Drawing.Size(156, 36)
+        Me.buttonReportes.Size = New System.Drawing.Size(166, 36)
         Me.buttonReportes.Text = "Reportes"
-        '
-        'menuitemDebugEnviarEmailNewsletter
-        '
-        Me.menuitemDebugEnviarEmailNewsletter.Name = "menuitemDebugEnviarEmailNewsletter"
-        Me.menuitemDebugEnviarEmailNewsletter.Size = New System.Drawing.Size(246, 26)
-        Me.menuitemDebugEnviarEmailNewsletter.Text = "Enviar e-mail Newsletter"
         '
         'formMDIMain
         '
@@ -536,7 +555,9 @@ Partial Class formMDIMain
     Friend WithEvents menuitemComprobantesImportarSantanderDebitoDirecto As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemComprobantesImportarSantanderRecaudacionPorCaja As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemComprobantesImportarRapipago As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemComprbantesImportarPagomiscuentas As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemComprobantesImportarPagomiscuentas As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemEntidadesAnioLectivoCursoInscripcion As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugEnviarEmailNewsletter As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents buttonComunicaciones As System.Windows.Forms.ToolStripSplitButton
+    Friend WithEvents menuitemComunicacionesEnviarMail As System.Windows.Forms.ToolStripMenuItem
 End Class

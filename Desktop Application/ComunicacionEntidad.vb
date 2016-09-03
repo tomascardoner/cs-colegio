@@ -14,8 +14,10 @@ Partial Public Class ComunicacionEntidad
     Public Property IDComunicacion As Short
     Public Property IDEntidad As Integer
     Public Property FechaHoraEnvioEmail As Date
+    Public Property IDUsuarioEnvioEmail As Short
 
     Public Overridable Property Comunicacion As Comunicacion
     Public Overridable Property Entidad As Entidad
+    Public Overridable Property UsuarioEnvioEmail As Usuario
 
 End Class

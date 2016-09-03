@@ -326,6 +326,7 @@
           <Property Name="IDComunicacion" Type="smallint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Asunto" Type="varchar" MaxLength="100" />
+          <Property Name="CuerpoMensajeEsHTML" Type="bit" Nullable="false" />
           <Property Name="CuerpoMensaje" Type="varchar(max)" />
           <Property Name="ArchivoAdjunto" Type="varchar" MaxLength="1000" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
@@ -342,6 +343,7 @@
           </Key>
           <Property Name="IDComunicacion" Type="smallint" Nullable="false" />
           <Property Name="IDEntidad" Type="int" Nullable="false" />
+          <Property Name="IDUsuarioEnvioEmail" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraEnvioEmail" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Concepto">
@@ -417,7 +419,9 @@
           <Property Name="Telefono2" Type="varchar" MaxLength="50" />
           <Property Name="Telefono3" Type="varchar" MaxLength="50" />
           <Property Name="Email1" Type="varchar" MaxLength="50" />
+          <Property Name="VerificarEmail1" Type="bit" Nullable="false" />
           <Property Name="Email2" Type="varchar" MaxLength="50" />
+          <Property Name="VerificarEmail2" Type="bit" Nullable="false" />
           <Property Name="DomicilioCalle1" Type="varchar" MaxLength="100" />
           <Property Name="DomicilioNumero" Type="varchar" MaxLength="10" />
           <Property Name="DomicilioPiso" Type="varchar" MaxLength="10" />
@@ -1499,6 +1503,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Usuario__ComunicacionEntidad">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ComunicacionEntidad" Type="Self.ComunicacionEntidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ComunicacionEntidad">
+              <PropertyRef Name="IDUsuarioEnvioEmail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Usuario__Entidad__Creacion">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Entidad" Type="Self.Entidad" Multiplicity="*" />
@@ -1862,6 +1878,10 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Comunicacion" EntitySet="Comunicacion" />
           </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ComunicacionEntidad" Association="Self.FK__Usuario__ComunicacionEntidad">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ComunicacionEntidad" EntitySet="ComunicacionEntidad" />
+          </AssociationSet>
           <AssociationSet Name="FK__Usuario__Entidad__Creacion" Association="Self.FK__Usuario__Entidad__Creacion">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Entidad" EntitySet="Entidad" />
@@ -2018,7 +2038,9 @@
           <Property Name="Telefono2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Telefono3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Email1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VerificarEmail1" Type="Boolean" Nullable="false" />
           <Property Name="Email2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VerificarEmail2" Type="Boolean" Nullable="false" />
           <Property Name="ComprobanteEnviarEmail" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="DomicilioCalle1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DomicilioNumero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
@@ -2245,6 +2267,7 @@
           <NavigationProperty Name="ComprobantesEnviados" Relationship="CSColegioModel.FK__Usuario__Comprobante__EnvioEmail" FromRole="Usuario" ToRole="Comprobante" />
           <NavigationProperty Name="ComunicacionesCreadas" Relationship="CSColegioModel.FK__Usuario__Comunicacion__Creacion" FromRole="Usuario" ToRole="Comunicacion" />
           <NavigationProperty Name="ComunicacionesModificadas" Relationship="CSColegioModel.FK__Usuario__Comunicacion__Modificacion" FromRole="Usuario" ToRole="Comunicacion" />
+          <NavigationProperty Name="ComunicacionesEntidadesEnviadas" Relationship="CSColegioModel.FK__Usuario__ComunicacionEntidad" FromRole="Usuario" ToRole="ComunicacionEntidad" />
         </EntityType>
         <EntityType Name="UsuarioGrupo">
           <Key>
@@ -2724,6 +2747,10 @@
           </AssociationSet>
           <AssociationSet Name="FK__Entidad__ComunicacionEntidad" Association="CSColegioModel.FK__Entidad__ComunicacionEntidad">
             <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="ComunicacionEntidad" EntitySet="ComunicacionEntidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ComunicacionEntidad" Association="CSColegioModel.FK__Usuario__ComunicacionEntidad">
+            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="ComunicacionEntidad" EntitySet="ComunicacionEntidad" />
           </AssociationSet>
           </EntityContainer>
@@ -3715,6 +3742,7 @@
           <Property Name="IDComunicacion" Type="Int16" Nullable="false" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Asunto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CuerpoMensajeEsHTML" Type="Boolean" Nullable="false" />
           <Property Name="CuerpoMensaje" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ArchivoAdjunto" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
@@ -3737,6 +3765,8 @@
           <Property Name="FechaHoraEnvioEmail" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Comunicacion" Relationship="CSColegioModel.FK__Comunicacion__ComunicacionEntidad" FromRole="ComunicacionEntidad" ToRole="Comunicacion" />
           <NavigationProperty Name="Entidad" Relationship="CSColegioModel.FK__Entidad__ComunicacionEntidad" FromRole="ComunicacionEntidad" ToRole="Entidad" />
+          <Property Name="IDUsuarioEnvioEmail" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="UsuarioEnvioEmail" Relationship="CSColegioModel.FK__Usuario__ComunicacionEntidad" FromRole="ComunicacionEntidad" ToRole="Usuario" />
         </EntityType>
         <Association Name="FK__Comunicacion__ComunicacionEntidad">
           <End Type="CSColegioModel.Comunicacion" Role="Comunicacion" Multiplicity="1" />
@@ -3783,6 +3813,18 @@
             </Principal>
             <Dependent Role="ComunicacionEntidad">
               <PropertyRef Name="IDEntidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ComunicacionEntidad">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.ComunicacionEntidad" Role="ComunicacionEntidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ComunicacionEntidad">
+              <PropertyRef Name="IDUsuarioEnvioEmail" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3893,6 +3935,8 @@
           <EntitySetMapping Name="Entidad">
             <EntityTypeMapping TypeName="CSColegioModel.Entidad">
               <MappingFragment StoreEntitySet="Entidad">
+                <ScalarProperty Name="VerificarEmail2" ColumnName="VerificarEmail2" />
+                <ScalarProperty Name="VerificarEmail1" ColumnName="VerificarEmail1" />
                 <ScalarProperty Name="DebitoAutomaticoCBU" ColumnName="DebitoAutomaticoCBU" />
                 <ScalarProperty Name="DebitoAutomaticoTipo" ColumnName="DebitoAutomaticoTipo" />
                 <ScalarProperty Name="ComprobanteEnviarEmail" ColumnName="ComprobanteEnviarEmail" />
@@ -4563,6 +4607,7 @@
           <EntitySetMapping Name="Comunicacion">
             <EntityTypeMapping TypeName="CSColegioModel.Comunicacion">
               <MappingFragment StoreEntitySet="Comunicacion">
+                <ScalarProperty Name="CuerpoMensajeEsHTML" ColumnName="CuerpoMensajeEsHTML" />
                 <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
                 <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
                 <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
@@ -4580,6 +4625,7 @@
           <EntitySetMapping Name="ComunicacionEntidad">
             <EntityTypeMapping TypeName="CSColegioModel.ComunicacionEntidad">
               <MappingFragment StoreEntitySet="ComunicacionEntidad">
+                <ScalarProperty Name="IDUsuarioEnvioEmail" ColumnName="IDUsuarioEnvioEmail" />
                 <ScalarProperty Name="FechaHoraEnvioEmail" ColumnName="FechaHoraEnvioEmail" />
                 <ScalarProperty Name="IDEntidad" ColumnName="IDEntidad" />
                 <ScalarProperty Name="IDComunicacion" ColumnName="IDComunicacion" />

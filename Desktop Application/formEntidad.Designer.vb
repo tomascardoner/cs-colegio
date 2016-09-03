@@ -23,43 +23,42 @@ Partial Class formEntidad
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.labelApellido = New System.Windows.Forms.Label()
-        Me.labelIDEntidad = New System.Windows.Forms.Label()
-        Me.labelNombre = New System.Windows.Forms.Label()
-        Me.labelEsActivo = New System.Windows.Forms.Label()
-        Me.labelFacturaDocumento = New System.Windows.Forms.Label()
-        Me.labelTipo = New System.Windows.Forms.Label()
-        Me.labelCategoriaIVA = New System.Windows.Forms.Label()
-        Me.labelFechaNacimiento = New System.Windows.Forms.Label()
-        Me.labelGenero = New System.Windows.Forms.Label()
-        Me.labelDocumento = New System.Windows.Forms.Label()
-        Me.labelComprobanteEnviarEmail = New System.Windows.Forms.Label()
-        Me.labelDomicilioCalle3 = New System.Windows.Forms.Label()
-        Me.labelDomicilioCalle2 = New System.Windows.Forms.Label()
-        Me.labelDomicilioCalle1 = New System.Windows.Forms.Label()
-        Me.labelDomicilioCodigoPostal = New System.Windows.Forms.Label()
-        Me.labelDomicilioDepartamento = New System.Windows.Forms.Label()
-        Me.labelDomicilioLocalidad = New System.Windows.Forms.Label()
-        Me.labelDomicilioProvincia = New System.Windows.Forms.Label()
-        Me.labelDomicilioNumero = New System.Windows.Forms.Label()
-        Me.labelDomicilioPiso = New System.Windows.Forms.Label()
-        Me.labelEmail1 = New System.Windows.Forms.Label()
-        Me.labelEmail2 = New System.Windows.Forms.Label()
-        Me.labelTelefono1 = New System.Windows.Forms.Label()
-        Me.labelTelefono2 = New System.Windows.Forms.Label()
-        Me.labelTelefono3 = New System.Windows.Forms.Label()
-        Me.labelFacturaLeyenda = New System.Windows.Forms.Label()
-        Me.labelVarios = New System.Windows.Forms.Label()
-        Me.labelFacturaIndividual = New System.Windows.Forms.Label()
-        Me.labelExcluyeCalculoInteres = New System.Windows.Forms.Label()
-        Me.labelExcluyeFacturaHasta = New System.Windows.Forms.Label()
-        Me.labelExcluyeFacturaDesde = New System.Windows.Forms.Label()
-        Me.labelDescuento = New System.Windows.Forms.Label()
-        Me.labelDebitoAutomatico_CBU = New System.Windows.Forms.Label()
-        Me.labelDebitoAutomatico_Tipo = New System.Windows.Forms.Label()
-        Me.labelNotas = New System.Windows.Forms.Label()
-        Me.labelModificacion = New System.Windows.Forms.Label()
-        Me.labelCreacion = New System.Windows.Forms.Label()
+        Dim labelApellido As System.Windows.Forms.Label
+        Dim labelIDEntidad As System.Windows.Forms.Label
+        Dim labelNombre As System.Windows.Forms.Label
+        Dim labelEsActivo As System.Windows.Forms.Label
+        Dim labelFacturaDocumento As System.Windows.Forms.Label
+        Dim labelTipo As System.Windows.Forms.Label
+        Dim labelCategoriaIVA As System.Windows.Forms.Label
+        Dim labelFechaNacimiento As System.Windows.Forms.Label
+        Dim labelGenero As System.Windows.Forms.Label
+        Dim labelDocumento As System.Windows.Forms.Label
+        Dim labelComprobanteEnviarEmail As System.Windows.Forms.Label
+        Dim labelDomicilioCalle3 As System.Windows.Forms.Label
+        Dim labelDomicilioCalle2 As System.Windows.Forms.Label
+        Dim labelDomicilioCalle1 As System.Windows.Forms.Label
+        Dim labelDomicilioCodigoPostal As System.Windows.Forms.Label
+        Dim labelDomicilioDepartamento As System.Windows.Forms.Label
+        Dim labelDomicilioLocalidad As System.Windows.Forms.Label
+        Dim labelDomicilioProvincia As System.Windows.Forms.Label
+        Dim labelDomicilioNumero As System.Windows.Forms.Label
+        Dim labelDomicilioPiso As System.Windows.Forms.Label
+        Dim labelEmail1 As System.Windows.Forms.Label
+        Dim labelEmail2 As System.Windows.Forms.Label
+        Dim labelTelefono1 As System.Windows.Forms.Label
+        Dim labelTelefono2 As System.Windows.Forms.Label
+        Dim labelTelefono3 As System.Windows.Forms.Label
+        Dim labelFacturaLeyenda As System.Windows.Forms.Label
+        Dim labelVarios As System.Windows.Forms.Label
+        Dim labelFacturaIndividual As System.Windows.Forms.Label
+        Dim labelExcluyeCalculoInteres As System.Windows.Forms.Label
+        Dim labelExcluyeFacturaHasta As System.Windows.Forms.Label
+        Dim labelExcluyeFacturaDesde As System.Windows.Forms.Label
+        Dim labelDescuento As System.Windows.Forms.Label
+        Dim labelDebitoAutomatico_Tipo As System.Windows.Forms.Label
+        Dim labelNotas As System.Windows.Forms.Label
+        Dim labelModificacion As System.Windows.Forms.Label
+        Dim labelCreacion As System.Windows.Forms.Label
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -151,10 +150,10 @@ Partial Class formEntidad
         Me.textboxEntidadPadre = New System.Windows.Forms.TextBox()
         Me.labelEntidadPadre = New System.Windows.Forms.Label()
         Me.tabpageDebitoAutomatico = New System.Windows.Forms.TabPage()
-        Me.maskedtextboxDebitoAutomatico_CBU = New System.Windows.Forms.MaskedTextBox()
         Me.radiobuttonDebitoAutomatico_Tipo_Ninguno = New System.Windows.Forms.RadioButton()
-        Me.radiobuttonDebitoAutomatico_Tipo_TarjetaCredito = New System.Windows.Forms.RadioButton()
         Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto = New System.Windows.Forms.RadioButton()
+        Me.radiobuttonDebitoAutomatico_Tipo_TarjetaCredito = New System.Windows.Forms.RadioButton()
+        Me.maskedtextboxDebitoAutomatico_CBU = New System.Windows.Forms.MaskedTextBox()
         Me.tabpageCursosAsistidos = New System.Windows.Forms.TabPage()
         Me.datagridviewCursosAsistidos = New System.Windows.Forms.DataGridView()
         Me.columnAnioLectivo = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -185,6 +184,45 @@ Partial Class formEntidad
         Me.textboxUsuarioCreacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraModificacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraCreacion = New System.Windows.Forms.TextBox()
+        Me.checkboxVerificarEmail1 = New System.Windows.Forms.CheckBox()
+        Me.checkboxVerificarEmail2 = New System.Windows.Forms.CheckBox()
+        labelApellido = New System.Windows.Forms.Label()
+        labelIDEntidad = New System.Windows.Forms.Label()
+        labelNombre = New System.Windows.Forms.Label()
+        labelEsActivo = New System.Windows.Forms.Label()
+        labelFacturaDocumento = New System.Windows.Forms.Label()
+        labelTipo = New System.Windows.Forms.Label()
+        labelCategoriaIVA = New System.Windows.Forms.Label()
+        labelFechaNacimiento = New System.Windows.Forms.Label()
+        labelGenero = New System.Windows.Forms.Label()
+        labelDocumento = New System.Windows.Forms.Label()
+        labelComprobanteEnviarEmail = New System.Windows.Forms.Label()
+        labelDomicilioCalle3 = New System.Windows.Forms.Label()
+        labelDomicilioCalle2 = New System.Windows.Forms.Label()
+        labelDomicilioCalle1 = New System.Windows.Forms.Label()
+        labelDomicilioCodigoPostal = New System.Windows.Forms.Label()
+        labelDomicilioDepartamento = New System.Windows.Forms.Label()
+        labelDomicilioLocalidad = New System.Windows.Forms.Label()
+        labelDomicilioProvincia = New System.Windows.Forms.Label()
+        labelDomicilioNumero = New System.Windows.Forms.Label()
+        labelDomicilioPiso = New System.Windows.Forms.Label()
+        labelEmail1 = New System.Windows.Forms.Label()
+        labelEmail2 = New System.Windows.Forms.Label()
+        labelTelefono1 = New System.Windows.Forms.Label()
+        labelTelefono2 = New System.Windows.Forms.Label()
+        labelTelefono3 = New System.Windows.Forms.Label()
+        labelFacturaLeyenda = New System.Windows.Forms.Label()
+        labelVarios = New System.Windows.Forms.Label()
+        labelFacturaIndividual = New System.Windows.Forms.Label()
+        labelExcluyeCalculoInteres = New System.Windows.Forms.Label()
+        labelExcluyeFacturaHasta = New System.Windows.Forms.Label()
+        labelExcluyeFacturaDesde = New System.Windows.Forms.Label()
+        labelDescuento = New System.Windows.Forms.Label()
+        Me.labelDebitoAutomatico_CBU = New System.Windows.Forms.Label()
+        labelDebitoAutomatico_Tipo = New System.Windows.Forms.Label()
+        labelNotas = New System.Windows.Forms.Label()
+        labelModificacion = New System.Windows.Forms.Label()
+        labelCreacion = New System.Windows.Forms.Label()
         CType(Me.pictureboxMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.toolstripMain.SuspendLayout()
         Me.tabcontrolMain.SuspendLayout()
@@ -208,375 +246,375 @@ Partial Class formEntidad
         '
         'labelApellido
         '
-        Me.labelApellido.AutoSize = True
-        Me.labelApellido.Location = New System.Drawing.Point(97, 98)
-        Me.labelApellido.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelApellido.Name = "labelApellido"
-        Me.labelApellido.Size = New System.Drawing.Size(69, 17)
-        Me.labelApellido.TabIndex = 3
-        Me.labelApellido.Text = "Apellidos:"
+        labelApellido.AutoSize = True
+        labelApellido.Location = New System.Drawing.Point(97, 98)
+        labelApellido.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelApellido.Name = "labelApellido"
+        labelApellido.Size = New System.Drawing.Size(69, 17)
+        labelApellido.TabIndex = 3
+        labelApellido.Text = "Apellidos:"
         '
         'labelIDEntidad
         '
-        Me.labelIDEntidad.AutoSize = True
-        Me.labelIDEntidad.Location = New System.Drawing.Point(97, 64)
-        Me.labelIDEntidad.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelIDEntidad.Name = "labelIDEntidad"
-        Me.labelIDEntidad.Size = New System.Drawing.Size(100, 17)
-        Me.labelIDEntidad.TabIndex = 1
-        Me.labelIDEntidad.Text = "N° de Entidad:"
+        labelIDEntidad.AutoSize = True
+        labelIDEntidad.Location = New System.Drawing.Point(97, 64)
+        labelIDEntidad.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelIDEntidad.Name = "labelIDEntidad"
+        labelIDEntidad.Size = New System.Drawing.Size(100, 17)
+        labelIDEntidad.TabIndex = 1
+        labelIDEntidad.Text = "N° de Entidad:"
         '
         'labelNombre
         '
-        Me.labelNombre.AutoSize = True
-        Me.labelNombre.Location = New System.Drawing.Point(97, 130)
-        Me.labelNombre.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelNombre.Name = "labelNombre"
-        Me.labelNombre.Size = New System.Drawing.Size(69, 17)
-        Me.labelNombre.TabIndex = 5
-        Me.labelNombre.Text = "Nombres:"
+        labelNombre.AutoSize = True
+        labelNombre.Location = New System.Drawing.Point(97, 130)
+        labelNombre.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelNombre.Name = "labelNombre"
+        labelNombre.Size = New System.Drawing.Size(69, 17)
+        labelNombre.TabIndex = 5
+        labelNombre.Text = "Nombres:"
         '
         'labelEsActivo
         '
-        Me.labelEsActivo.AutoSize = True
-        Me.labelEsActivo.Location = New System.Drawing.Point(364, 64)
-        Me.labelEsActivo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelEsActivo.Name = "labelEsActivo"
-        Me.labelEsActivo.Size = New System.Drawing.Size(50, 17)
-        Me.labelEsActivo.TabIndex = 94
-        Me.labelEsActivo.Text = "Activo:"
+        labelEsActivo.AutoSize = True
+        labelEsActivo.Location = New System.Drawing.Point(364, 64)
+        labelEsActivo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelEsActivo.Name = "labelEsActivo"
+        labelEsActivo.Size = New System.Drawing.Size(50, 17)
+        labelEsActivo.TabIndex = 94
+        labelEsActivo.Text = "Activo:"
         '
         'labelFacturaDocumento
         '
-        Me.labelFacturaDocumento.AutoSize = True
-        Me.labelFacturaDocumento.Location = New System.Drawing.Point(8, 217)
-        Me.labelFacturaDocumento.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelFacturaDocumento.Name = "labelFacturaDocumento"
-        Me.labelFacturaDocumento.Size = New System.Drawing.Size(174, 17)
-        Me.labelFacturaDocumento.TabIndex = 21
-        Me.labelFacturaDocumento.Text = "Documento para Facturar:"
+        labelFacturaDocumento.AutoSize = True
+        labelFacturaDocumento.Location = New System.Drawing.Point(8, 217)
+        labelFacturaDocumento.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelFacturaDocumento.Name = "labelFacturaDocumento"
+        labelFacturaDocumento.Size = New System.Drawing.Size(174, 17)
+        labelFacturaDocumento.TabIndex = 21
+        labelFacturaDocumento.Text = "Documento para Facturar:"
         Me.tooltipMain.SetToolTip(labelFacturaDocumento, "Ingrese el Número de Documento sin utilizar puntos.")
         '
         'labelTipo
         '
-        Me.labelTipo.AutoSize = True
-        Me.labelTipo.Location = New System.Drawing.Point(8, 12)
-        Me.labelTipo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelTipo.Name = "labelTipo"
-        Me.labelTipo.Size = New System.Drawing.Size(40, 17)
-        Me.labelTipo.TabIndex = 0
-        Me.labelTipo.Text = "Tipo:"
+        labelTipo.AutoSize = True
+        labelTipo.Location = New System.Drawing.Point(8, 12)
+        labelTipo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelTipo.Name = "labelTipo"
+        labelTipo.Size = New System.Drawing.Size(40, 17)
+        labelTipo.TabIndex = 0
+        labelTipo.Text = "Tipo:"
         '
         'labelCategoriaIVA
         '
-        Me.labelCategoriaIVA.AutoSize = True
-        Me.labelCategoriaIVA.Location = New System.Drawing.Point(8, 183)
-        Me.labelCategoriaIVA.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelCategoriaIVA.Name = "labelCategoriaIVA"
-        Me.labelCategoriaIVA.Size = New System.Drawing.Size(118, 17)
-        Me.labelCategoriaIVA.TabIndex = 19
-        Me.labelCategoriaIVA.Text = "Categoría de IVA:"
+        labelCategoriaIVA.AutoSize = True
+        labelCategoriaIVA.Location = New System.Drawing.Point(8, 183)
+        labelCategoriaIVA.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelCategoriaIVA.Name = "labelCategoriaIVA"
+        labelCategoriaIVA.Size = New System.Drawing.Size(118, 17)
+        labelCategoriaIVA.TabIndex = 19
+        labelCategoriaIVA.Text = "Categoría de IVA:"
         '
         'labelFechaNacimiento
         '
-        Me.labelFechaNacimiento.AutoSize = True
-        Me.labelFechaNacimiento.Location = New System.Drawing.Point(8, 98)
-        Me.labelFechaNacimiento.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelFechaNacimiento.Name = "labelFechaNacimiento"
-        Me.labelFechaNacimiento.Size = New System.Drawing.Size(145, 17)
-        Me.labelFechaNacimiento.TabIndex = 13
-        Me.labelFechaNacimiento.Text = "Fecha de Nacimiento:"
+        labelFechaNacimiento.AutoSize = True
+        labelFechaNacimiento.Location = New System.Drawing.Point(8, 98)
+        labelFechaNacimiento.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelFechaNacimiento.Name = "labelFechaNacimiento"
+        labelFechaNacimiento.Size = New System.Drawing.Size(145, 17)
+        labelFechaNacimiento.TabIndex = 13
+        labelFechaNacimiento.Text = "Fecha de Nacimiento:"
         '
         'labelGenero
         '
-        Me.labelGenero.AutoSize = True
-        Me.labelGenero.Location = New System.Drawing.Point(8, 65)
-        Me.labelGenero.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelGenero.Name = "labelGenero"
-        Me.labelGenero.Size = New System.Drawing.Size(60, 17)
-        Me.labelGenero.TabIndex = 11
-        Me.labelGenero.Text = "Género:"
+        labelGenero.AutoSize = True
+        labelGenero.Location = New System.Drawing.Point(8, 65)
+        labelGenero.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelGenero.Name = "labelGenero"
+        labelGenero.Size = New System.Drawing.Size(60, 17)
+        labelGenero.TabIndex = 11
+        labelGenero.Text = "Género:"
         '
         'labelDocumento
         '
-        Me.labelDocumento.AutoSize = True
-        Me.labelDocumento.Location = New System.Drawing.Point(8, 130)
-        Me.labelDocumento.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelDocumento.Name = "labelDocumento"
-        Me.labelDocumento.Size = New System.Drawing.Size(84, 17)
-        Me.labelDocumento.TabIndex = 15
-        Me.labelDocumento.Text = "Documento:"
+        labelDocumento.AutoSize = True
+        labelDocumento.Location = New System.Drawing.Point(8, 130)
+        labelDocumento.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelDocumento.Name = "labelDocumento"
+        labelDocumento.Size = New System.Drawing.Size(84, 17)
+        labelDocumento.TabIndex = 15
+        labelDocumento.Text = "Documento:"
         Me.tooltipMain.SetToolTip(labelDocumento, "Ingrese el Número de Documento sin utilizar puntos.")
         '
         'labelComprobanteEnviarEmail
         '
-        Me.labelComprobanteEnviarEmail.AutoSize = True
-        Me.labelComprobanteEnviarEmail.Location = New System.Drawing.Point(8, 121)
-        Me.labelComprobanteEnviarEmail.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelComprobanteEnviarEmail.Name = "labelComprobanteEnviarEmail"
-        Me.labelComprobanteEnviarEmail.Size = New System.Drawing.Size(158, 17)
-        Me.labelComprobanteEnviarEmail.TabIndex = 10
-        Me.labelComprobanteEnviarEmail.Text = "Enviar comprobantes a:"
+        labelComprobanteEnviarEmail.AutoSize = True
+        labelComprobanteEnviarEmail.Location = New System.Drawing.Point(8, 121)
+        labelComprobanteEnviarEmail.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelComprobanteEnviarEmail.Name = "labelComprobanteEnviarEmail"
+        labelComprobanteEnviarEmail.Size = New System.Drawing.Size(158, 17)
+        labelComprobanteEnviarEmail.TabIndex = 10
+        labelComprobanteEnviarEmail.Text = "Enviar comprobantes a:"
         '
         'labelDomicilioCalle3
         '
-        Me.labelDomicilioCalle3.AutoSize = True
-        Me.labelDomicilioCalle3.Location = New System.Drawing.Point(355, 229)
-        Me.labelDomicilioCalle3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelDomicilioCalle3.Name = "labelDomicilioCalle3"
-        Me.labelDomicilioCalle3.Size = New System.Drawing.Size(55, 17)
-        Me.labelDomicilioCalle3.TabIndex = 22
-        Me.labelDomicilioCalle3.Text = "Calle 3:"
+        labelDomicilioCalle3.AutoSize = True
+        labelDomicilioCalle3.Location = New System.Drawing.Point(355, 229)
+        labelDomicilioCalle3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelDomicilioCalle3.Name = "labelDomicilioCalle3"
+        labelDomicilioCalle3.Size = New System.Drawing.Size(55, 17)
+        labelDomicilioCalle3.TabIndex = 22
+        labelDomicilioCalle3.Text = "Calle 3:"
         '
         'labelDomicilioCalle2
         '
-        Me.labelDomicilioCalle2.AutoSize = True
-        Me.labelDomicilioCalle2.Location = New System.Drawing.Point(8, 229)
-        Me.labelDomicilioCalle2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelDomicilioCalle2.Name = "labelDomicilioCalle2"
-        Me.labelDomicilioCalle2.Size = New System.Drawing.Size(55, 17)
-        Me.labelDomicilioCalle2.TabIndex = 20
-        Me.labelDomicilioCalle2.Text = "Calle 2:"
+        labelDomicilioCalle2.AutoSize = True
+        labelDomicilioCalle2.Location = New System.Drawing.Point(8, 229)
+        labelDomicilioCalle2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelDomicilioCalle2.Name = "labelDomicilioCalle2"
+        labelDomicilioCalle2.Size = New System.Drawing.Size(55, 17)
+        labelDomicilioCalle2.TabIndex = 20
+        labelDomicilioCalle2.Text = "Calle 2:"
         '
         'labelDomicilioCalle1
         '
-        Me.labelDomicilioCalle1.AutoSize = True
-        Me.labelDomicilioCalle1.Location = New System.Drawing.Point(8, 165)
-        Me.labelDomicilioCalle1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelDomicilioCalle1.Name = "labelDomicilioCalle1"
-        Me.labelDomicilioCalle1.Size = New System.Drawing.Size(43, 17)
-        Me.labelDomicilioCalle1.TabIndex = 12
-        Me.labelDomicilioCalle1.Text = "Calle:"
+        labelDomicilioCalle1.AutoSize = True
+        labelDomicilioCalle1.Location = New System.Drawing.Point(8, 165)
+        labelDomicilioCalle1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelDomicilioCalle1.Name = "labelDomicilioCalle1"
+        labelDomicilioCalle1.Size = New System.Drawing.Size(43, 17)
+        labelDomicilioCalle1.TabIndex = 12
+        labelDomicilioCalle1.Text = "Calle:"
         '
         'labelDomicilioCodigoPostal
         '
-        Me.labelDomicilioCodigoPostal.AutoSize = True
-        Me.labelDomicilioCodigoPostal.Location = New System.Drawing.Point(512, 294)
-        Me.labelDomicilioCodigoPostal.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelDomicilioCodigoPostal.Name = "labelDomicilioCodigoPostal"
-        Me.labelDomicilioCodigoPostal.Size = New System.Drawing.Size(77, 17)
-        Me.labelDomicilioCodigoPostal.TabIndex = 28
-        Me.labelDomicilioCodigoPostal.Text = "Cód. Post.:"
+        labelDomicilioCodigoPostal.AutoSize = True
+        labelDomicilioCodigoPostal.Location = New System.Drawing.Point(512, 294)
+        labelDomicilioCodigoPostal.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelDomicilioCodigoPostal.Name = "labelDomicilioCodigoPostal"
+        labelDomicilioCodigoPostal.Size = New System.Drawing.Size(77, 17)
+        labelDomicilioCodigoPostal.TabIndex = 28
+        labelDomicilioCodigoPostal.Text = "Cód. Post.:"
         '
         'labelDomicilioDepartamento
         '
-        Me.labelDomicilioDepartamento.AutoSize = True
-        Me.labelDomicilioDepartamento.Location = New System.Drawing.Point(293, 197)
-        Me.labelDomicilioDepartamento.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelDomicilioDepartamento.Name = "labelDomicilioDepartamento"
-        Me.labelDomicilioDepartamento.Size = New System.Drawing.Size(67, 17)
-        Me.labelDomicilioDepartamento.TabIndex = 18
-        Me.labelDomicilioDepartamento.Text = "Dto/Ofic.:"
+        labelDomicilioDepartamento.AutoSize = True
+        labelDomicilioDepartamento.Location = New System.Drawing.Point(293, 197)
+        labelDomicilioDepartamento.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelDomicilioDepartamento.Name = "labelDomicilioDepartamento"
+        labelDomicilioDepartamento.Size = New System.Drawing.Size(67, 17)
+        labelDomicilioDepartamento.TabIndex = 18
+        labelDomicilioDepartamento.Text = "Dto/Ofic.:"
         '
         'labelDomicilioLocalidad
         '
-        Me.labelDomicilioLocalidad.AutoSize = True
-        Me.labelDomicilioLocalidad.Location = New System.Drawing.Point(8, 294)
-        Me.labelDomicilioLocalidad.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelDomicilioLocalidad.Name = "labelDomicilioLocalidad"
-        Me.labelDomicilioLocalidad.Size = New System.Drawing.Size(73, 17)
-        Me.labelDomicilioLocalidad.TabIndex = 26
-        Me.labelDomicilioLocalidad.Text = "Localidad:"
+        labelDomicilioLocalidad.AutoSize = True
+        labelDomicilioLocalidad.Location = New System.Drawing.Point(8, 294)
+        labelDomicilioLocalidad.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelDomicilioLocalidad.Name = "labelDomicilioLocalidad"
+        labelDomicilioLocalidad.Size = New System.Drawing.Size(73, 17)
+        labelDomicilioLocalidad.TabIndex = 26
+        labelDomicilioLocalidad.Text = "Localidad:"
         '
         'labelDomicilioProvincia
         '
-        Me.labelDomicilioProvincia.AutoSize = True
-        Me.labelDomicilioProvincia.Location = New System.Drawing.Point(8, 261)
-        Me.labelDomicilioProvincia.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelDomicilioProvincia.Name = "labelDomicilioProvincia"
-        Me.labelDomicilioProvincia.Size = New System.Drawing.Size(70, 17)
-        Me.labelDomicilioProvincia.TabIndex = 24
-        Me.labelDomicilioProvincia.Text = "Provincia:"
+        labelDomicilioProvincia.AutoSize = True
+        labelDomicilioProvincia.Location = New System.Drawing.Point(8, 261)
+        labelDomicilioProvincia.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelDomicilioProvincia.Name = "labelDomicilioProvincia"
+        labelDomicilioProvincia.Size = New System.Drawing.Size(70, 17)
+        labelDomicilioProvincia.TabIndex = 24
+        labelDomicilioProvincia.Text = "Provincia:"
         '
         'labelDomicilioNumero
         '
-        Me.labelDomicilioNumero.AutoSize = True
-        Me.labelDomicilioNumero.Location = New System.Drawing.Point(8, 197)
-        Me.labelDomicilioNumero.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelDomicilioNumero.Name = "labelDomicilioNumero"
-        Me.labelDomicilioNumero.Size = New System.Drawing.Size(62, 17)
-        Me.labelDomicilioNumero.TabIndex = 14
-        Me.labelDomicilioNumero.Text = "Número:"
+        labelDomicilioNumero.AutoSize = True
+        labelDomicilioNumero.Location = New System.Drawing.Point(8, 197)
+        labelDomicilioNumero.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelDomicilioNumero.Name = "labelDomicilioNumero"
+        labelDomicilioNumero.Size = New System.Drawing.Size(62, 17)
+        labelDomicilioNumero.TabIndex = 14
+        labelDomicilioNumero.Text = "Número:"
         '
         'labelDomicilioPiso
         '
-        Me.labelDomicilioPiso.AutoSize = True
-        Me.labelDomicilioPiso.Location = New System.Drawing.Point(171, 197)
-        Me.labelDomicilioPiso.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelDomicilioPiso.Name = "labelDomicilioPiso"
-        Me.labelDomicilioPiso.Size = New System.Drawing.Size(39, 17)
-        Me.labelDomicilioPiso.TabIndex = 16
-        Me.labelDomicilioPiso.Text = "Piso:"
+        labelDomicilioPiso.AutoSize = True
+        labelDomicilioPiso.Location = New System.Drawing.Point(171, 197)
+        labelDomicilioPiso.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelDomicilioPiso.Name = "labelDomicilioPiso"
+        labelDomicilioPiso.Size = New System.Drawing.Size(39, 17)
+        labelDomicilioPiso.TabIndex = 16
+        labelDomicilioPiso.Text = "Piso:"
         '
         'labelEmail1
         '
-        Me.labelEmail1.AutoSize = True
-        Me.labelEmail1.Location = New System.Drawing.Point(8, 89)
-        Me.labelEmail1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelEmail1.Name = "labelEmail1"
-        Me.labelEmail1.Size = New System.Drawing.Size(63, 17)
-        Me.labelEmail1.TabIndex = 6
-        Me.labelEmail1.Text = "E-mail 1:"
+        labelEmail1.AutoSize = True
+        labelEmail1.Location = New System.Drawing.Point(8, 89)
+        labelEmail1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelEmail1.Name = "labelEmail1"
+        labelEmail1.Size = New System.Drawing.Size(63, 17)
+        labelEmail1.TabIndex = 6
+        labelEmail1.Text = "E-mail 1:"
         '
         'labelEmail2
         '
-        Me.labelEmail2.AutoSize = True
-        Me.labelEmail2.Location = New System.Drawing.Point(355, 89)
-        Me.labelEmail2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelEmail2.Name = "labelEmail2"
-        Me.labelEmail2.Size = New System.Drawing.Size(63, 17)
-        Me.labelEmail2.TabIndex = 8
-        Me.labelEmail2.Text = "E-mail 2:"
+        labelEmail2.AutoSize = True
+        labelEmail2.Location = New System.Drawing.Point(355, 89)
+        labelEmail2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelEmail2.Name = "labelEmail2"
+        labelEmail2.Size = New System.Drawing.Size(63, 17)
+        labelEmail2.TabIndex = 8
+        labelEmail2.Text = "E-mail 2:"
         '
         'labelTelefono1
         '
-        Me.labelTelefono1.AutoSize = True
-        Me.labelTelefono1.Location = New System.Drawing.Point(8, 12)
-        Me.labelTelefono1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelTelefono1.Name = "labelTelefono1"
-        Me.labelTelefono1.Size = New System.Drawing.Size(76, 17)
-        Me.labelTelefono1.TabIndex = 0
-        Me.labelTelefono1.Text = "Teléfono1:"
+        labelTelefono1.AutoSize = True
+        labelTelefono1.Location = New System.Drawing.Point(8, 12)
+        labelTelefono1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelTelefono1.Name = "labelTelefono1"
+        labelTelefono1.Size = New System.Drawing.Size(76, 17)
+        labelTelefono1.TabIndex = 0
+        labelTelefono1.Text = "Teléfono1:"
         '
         'labelTelefono2
         '
-        Me.labelTelefono2.AutoSize = True
-        Me.labelTelefono2.Location = New System.Drawing.Point(355, 12)
-        Me.labelTelefono2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelTelefono2.Name = "labelTelefono2"
-        Me.labelTelefono2.Size = New System.Drawing.Size(76, 17)
-        Me.labelTelefono2.TabIndex = 2
-        Me.labelTelefono2.Text = "Teléfono2:"
+        labelTelefono2.AutoSize = True
+        labelTelefono2.Location = New System.Drawing.Point(355, 12)
+        labelTelefono2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelTelefono2.Name = "labelTelefono2"
+        labelTelefono2.Size = New System.Drawing.Size(76, 17)
+        labelTelefono2.TabIndex = 2
+        labelTelefono2.Text = "Teléfono2:"
         '
         'labelTelefono3
         '
-        Me.labelTelefono3.AutoSize = True
-        Me.labelTelefono3.Location = New System.Drawing.Point(8, 44)
-        Me.labelTelefono3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelTelefono3.Name = "labelTelefono3"
-        Me.labelTelefono3.Size = New System.Drawing.Size(76, 17)
-        Me.labelTelefono3.TabIndex = 4
-        Me.labelTelefono3.Text = "Teléfono3:"
+        labelTelefono3.AutoSize = True
+        labelTelefono3.Location = New System.Drawing.Point(8, 44)
+        labelTelefono3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelTelefono3.Name = "labelTelefono3"
+        labelTelefono3.Size = New System.Drawing.Size(76, 17)
+        labelTelefono3.TabIndex = 4
+        labelTelefono3.Text = "Teléfono3:"
         '
         'labelFacturaLeyenda
         '
-        Me.labelFacturaLeyenda.AutoSize = True
-        Me.labelFacturaLeyenda.Location = New System.Drawing.Point(8, 244)
-        Me.labelFacturaLeyenda.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelFacturaLeyenda.Name = "labelFacturaLeyenda"
-        Me.labelFacturaLeyenda.Size = New System.Drawing.Size(119, 17)
-        Me.labelFacturaLeyenda.TabIndex = 18
-        Me.labelFacturaLeyenda.Text = "Leyenda Factura:"
+        labelFacturaLeyenda.AutoSize = True
+        labelFacturaLeyenda.Location = New System.Drawing.Point(8, 244)
+        labelFacturaLeyenda.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelFacturaLeyenda.Name = "labelFacturaLeyenda"
+        labelFacturaLeyenda.Size = New System.Drawing.Size(119, 17)
+        labelFacturaLeyenda.TabIndex = 18
+        labelFacturaLeyenda.Text = "Leyenda Factura:"
         '
         'labelVarios
         '
-        Me.labelVarios.AutoSize = True
-        Me.labelVarios.Location = New System.Drawing.Point(8, 182)
-        Me.labelVarios.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelVarios.Name = "labelVarios"
-        Me.labelVarios.Size = New System.Drawing.Size(52, 17)
-        Me.labelVarios.TabIndex = 9
-        Me.labelVarios.Text = "Varios:"
+        labelVarios.AutoSize = True
+        labelVarios.Location = New System.Drawing.Point(8, 182)
+        labelVarios.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelVarios.Name = "labelVarios"
+        labelVarios.Size = New System.Drawing.Size(52, 17)
+        labelVarios.TabIndex = 9
+        labelVarios.Text = "Varios:"
         '
         'labelFacturaIndividual
         '
-        Me.labelFacturaIndividual.AutoSize = True
-        Me.labelFacturaIndividual.Location = New System.Drawing.Point(171, 182)
-        Me.labelFacturaIndividual.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelFacturaIndividual.Name = "labelFacturaIndividual"
-        Me.labelFacturaIndividual.Size = New System.Drawing.Size(154, 17)
-        Me.labelFacturaIndividual.TabIndex = 11
-        Me.labelFacturaIndividual.Text = "Emitir factura individual"
+        labelFacturaIndividual.AutoSize = True
+        labelFacturaIndividual.Location = New System.Drawing.Point(171, 182)
+        labelFacturaIndividual.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelFacturaIndividual.Name = "labelFacturaIndividual"
+        labelFacturaIndividual.Size = New System.Drawing.Size(154, 17)
+        labelFacturaIndividual.TabIndex = 11
+        labelFacturaIndividual.Text = "Emitir factura individual"
         '
         'labelExcluyeCalculoInteres
         '
-        Me.labelExcluyeCalculoInteres.AutoSize = True
-        Me.labelExcluyeCalculoInteres.Location = New System.Drawing.Point(407, 182)
-        Me.labelExcluyeCalculoInteres.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelExcluyeCalculoInteres.Name = "labelExcluyeCalculoInteres"
-        Me.labelExcluyeCalculoInteres.Size = New System.Drawing.Size(202, 17)
-        Me.labelExcluyeCalculoInteres.TabIndex = 13
-        Me.labelExcluyeCalculoInteres.Text = "Excluir del cálculo de intereses"
+        labelExcluyeCalculoInteres.AutoSize = True
+        labelExcluyeCalculoInteres.Location = New System.Drawing.Point(407, 182)
+        labelExcluyeCalculoInteres.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelExcluyeCalculoInteres.Name = "labelExcluyeCalculoInteres"
+        labelExcluyeCalculoInteres.Size = New System.Drawing.Size(202, 17)
+        labelExcluyeCalculoInteres.TabIndex = 13
+        labelExcluyeCalculoInteres.Text = "Excluir del cálculo de intereses"
         '
         'labelExcluyeFacturaHasta
         '
-        Me.labelExcluyeFacturaHasta.AutoSize = True
-        Me.labelExcluyeFacturaHasta.Location = New System.Drawing.Point(348, 212)
-        Me.labelExcluyeFacturaHasta.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelExcluyeFacturaHasta.Name = "labelExcluyeFacturaHasta"
-        Me.labelExcluyeFacturaHasta.Size = New System.Drawing.Size(47, 17)
-        Me.labelExcluyeFacturaHasta.TabIndex = 16
-        Me.labelExcluyeFacturaHasta.Text = "hasta:"
+        labelExcluyeFacturaHasta.AutoSize = True
+        labelExcluyeFacturaHasta.Location = New System.Drawing.Point(348, 212)
+        labelExcluyeFacturaHasta.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelExcluyeFacturaHasta.Name = "labelExcluyeFacturaHasta"
+        labelExcluyeFacturaHasta.Size = New System.Drawing.Size(47, 17)
+        labelExcluyeFacturaHasta.TabIndex = 16
+        labelExcluyeFacturaHasta.Text = "hasta:"
         '
         'labelExcluyeFacturaDesde
         '
-        Me.labelExcluyeFacturaDesde.AutoSize = True
-        Me.labelExcluyeFacturaDesde.Location = New System.Drawing.Point(8, 214)
-        Me.labelExcluyeFacturaDesde.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelExcluyeFacturaDesde.Name = "labelExcluyeFacturaDesde"
-        Me.labelExcluyeFacturaDesde.Size = New System.Drawing.Size(126, 17)
-        Me.labelExcluyeFacturaDesde.TabIndex = 14
-        Me.labelExcluyeFacturaDesde.Text = "No facturar desde:"
+        labelExcluyeFacturaDesde.AutoSize = True
+        labelExcluyeFacturaDesde.Location = New System.Drawing.Point(8, 214)
+        labelExcluyeFacturaDesde.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelExcluyeFacturaDesde.Name = "labelExcluyeFacturaDesde"
+        labelExcluyeFacturaDesde.Size = New System.Drawing.Size(126, 17)
+        labelExcluyeFacturaDesde.TabIndex = 14
+        labelExcluyeFacturaDesde.Text = "No facturar desde:"
         '
         'labelDescuento
         '
-        Me.labelDescuento.AutoSize = True
-        Me.labelDescuento.Location = New System.Drawing.Point(8, 150)
-        Me.labelDescuento.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelDescuento.Name = "labelDescuento"
-        Me.labelDescuento.Size = New System.Drawing.Size(80, 17)
-        Me.labelDescuento.TabIndex = 7
-        Me.labelDescuento.Text = "Descuento:"
+        labelDescuento.AutoSize = True
+        labelDescuento.Location = New System.Drawing.Point(8, 150)
+        labelDescuento.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelDescuento.Name = "labelDescuento"
+        labelDescuento.Size = New System.Drawing.Size(80, 17)
+        labelDescuento.TabIndex = 7
+        labelDescuento.Text = "Descuento:"
         '
         'labelDebitoAutomatico_CBU
         '
-        Me.labelDebitoAutomatico_CBU.AutoSize = True
-        Me.labelDebitoAutomatico_CBU.Location = New System.Drawing.Point(8, 53)
-        Me.labelDebitoAutomatico_CBU.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelDebitoAutomatico_CBU.Name = "labelDebitoAutomatico_CBU"
-        Me.labelDebitoAutomatico_CBU.Size = New System.Drawing.Size(40, 17)
-        Me.labelDebitoAutomatico_CBU.TabIndex = 5
-        Me.labelDebitoAutomatico_CBU.Text = "CBU:"
+        labelDebitoAutomatico_CBU.AutoSize = True
+        labelDebitoAutomatico_CBU.Location = New System.Drawing.Point(8, 53)
+        labelDebitoAutomatico_CBU.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelDebitoAutomatico_CBU.Name = "labelDebitoAutomatico_CBU"
+        labelDebitoAutomatico_CBU.Size = New System.Drawing.Size(40, 17)
+        labelDebitoAutomatico_CBU.TabIndex = 5
+        labelDebitoAutomatico_CBU.Text = "CBU:"
         '
         'labelDebitoAutomatico_Tipo
         '
-        Me.labelDebitoAutomatico_Tipo.AutoSize = True
-        Me.labelDebitoAutomatico_Tipo.Location = New System.Drawing.Point(7, 12)
-        Me.labelDebitoAutomatico_Tipo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelDebitoAutomatico_Tipo.Name = "labelDebitoAutomatico_Tipo"
-        Me.labelDebitoAutomatico_Tipo.Size = New System.Drawing.Size(40, 17)
-        Me.labelDebitoAutomatico_Tipo.TabIndex = 1
-        Me.labelDebitoAutomatico_Tipo.Text = "Tipo:"
+        labelDebitoAutomatico_Tipo.AutoSize = True
+        labelDebitoAutomatico_Tipo.Location = New System.Drawing.Point(7, 12)
+        labelDebitoAutomatico_Tipo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelDebitoAutomatico_Tipo.Name = "labelDebitoAutomatico_Tipo"
+        labelDebitoAutomatico_Tipo.Size = New System.Drawing.Size(40, 17)
+        labelDebitoAutomatico_Tipo.TabIndex = 1
+        labelDebitoAutomatico_Tipo.Text = "Tipo:"
         '
         'labelNotas
         '
-        Me.labelNotas.AutoSize = True
-        Me.labelNotas.Location = New System.Drawing.Point(8, 11)
-        Me.labelNotas.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelNotas.Name = "labelNotas"
-        Me.labelNotas.Size = New System.Drawing.Size(49, 17)
-        Me.labelNotas.TabIndex = 15
-        Me.labelNotas.Text = "Notas:"
+        labelNotas.AutoSize = True
+        labelNotas.Location = New System.Drawing.Point(8, 11)
+        labelNotas.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelNotas.Name = "labelNotas"
+        labelNotas.Size = New System.Drawing.Size(49, 17)
+        labelNotas.TabIndex = 15
+        labelNotas.Text = "Notas:"
         '
         'labelModificacion
         '
-        Me.labelModificacion.AutoSize = True
-        Me.labelModificacion.Location = New System.Drawing.Point(8, 241)
-        Me.labelModificacion.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelModificacion.Name = "labelModificacion"
-        Me.labelModificacion.Size = New System.Drawing.Size(133, 17)
-        Me.labelModificacion.TabIndex = 12
-        Me.labelModificacion.Text = "Ultima Modificación:"
+        labelModificacion.AutoSize = True
+        labelModificacion.Location = New System.Drawing.Point(8, 241)
+        labelModificacion.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelModificacion.Name = "labelModificacion"
+        labelModificacion.Size = New System.Drawing.Size(133, 17)
+        labelModificacion.TabIndex = 12
+        labelModificacion.Text = "Ultima Modificación:"
         '
         'labelCreacion
         '
-        Me.labelCreacion.AutoSize = True
-        Me.labelCreacion.Location = New System.Drawing.Point(8, 214)
-        Me.labelCreacion.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelCreacion.Name = "labelCreacion"
-        Me.labelCreacion.Size = New System.Drawing.Size(68, 17)
-        Me.labelCreacion.TabIndex = 9
-        Me.labelCreacion.Text = "Creación:"
+        labelCreacion.AutoSize = True
+        labelCreacion.Location = New System.Drawing.Point(8, 214)
+        labelCreacion.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        labelCreacion.Name = "labelCreacion"
+        labelCreacion.Size = New System.Drawing.Size(68, 17)
+        labelCreacion.TabIndex = 9
+        labelCreacion.Text = "Creación:"
         '
         'textboxApellido
         '
@@ -722,27 +760,27 @@ Partial Class formEntidad
         '
         Me.tabpageGeneral.Controls.Add(Me.comboboxFacturaDocumentoTipo)
         Me.tabpageGeneral.Controls.Add(Me.textboxFacturaDocumentoNumero)
-        Me.tabpageGeneral.Controls.Add(Me.labelFacturaDocumento)
+        Me.tabpageGeneral.Controls.Add(labelFacturaDocumento)
         Me.tabpageGeneral.Controls.Add(Me.labelTipoProveedor)
         Me.tabpageGeneral.Controls.Add(Me.labelTipoFamiliar)
         Me.tabpageGeneral.Controls.Add(Me.labelTipoAlumno)
         Me.tabpageGeneral.Controls.Add(Me.labelTipoDocente)
         Me.tabpageGeneral.Controls.Add(Me.labelTipoPersonalColegio)
-        Me.tabpageGeneral.Controls.Add(Me.labelTipo)
+        Me.tabpageGeneral.Controls.Add(labelTipo)
         Me.tabpageGeneral.Controls.Add(Me.checkboxTipoAlumno)
         Me.tabpageGeneral.Controls.Add(Me.checkboxTipoDocente)
         Me.tabpageGeneral.Controls.Add(Me.checkboxTipoFamiliar)
         Me.tabpageGeneral.Controls.Add(Me.checkboxTipoPersonalColegio)
         Me.tabpageGeneral.Controls.Add(Me.checkboxTipoProveedor)
         Me.tabpageGeneral.Controls.Add(Me.comboboxCategoriaIVA)
-        Me.tabpageGeneral.Controls.Add(Me.labelCategoriaIVA)
-        Me.tabpageGeneral.Controls.Add(Me.labelFechaNacimiento)
+        Me.tabpageGeneral.Controls.Add(labelCategoriaIVA)
+        Me.tabpageGeneral.Controls.Add(labelFechaNacimiento)
         Me.tabpageGeneral.Controls.Add(Me.datetimepickerFechaNacimiento)
         Me.tabpageGeneral.Controls.Add(Me.comboboxGenero)
-        Me.tabpageGeneral.Controls.Add(Me.labelGenero)
+        Me.tabpageGeneral.Controls.Add(labelGenero)
         Me.tabpageGeneral.Controls.Add(Me.comboboxDocumentoTipo)
         Me.tabpageGeneral.Controls.Add(Me.textboxDocumentoNumero)
-        Me.tabpageGeneral.Controls.Add(Me.labelDocumento)
+        Me.tabpageGeneral.Controls.Add(labelDocumento)
         Me.tabpageGeneral.Controls.Add(Me.maskedtextboxDocumentoNumero)
         Me.tabpageGeneral.Controls.Add(Me.maskedtextboxFacturaDocumentoNumero)
         Me.tabpageGeneral.Location = New System.Drawing.Point(4, 28)
@@ -936,35 +974,37 @@ Partial Class formEntidad
         '
         'tabpageContacto
         '
+        Me.tabpageContacto.Controls.Add(Me.checkboxVerificarEmail2)
+        Me.tabpageContacto.Controls.Add(Me.checkboxVerificarEmail1)
         Me.tabpageContacto.Controls.Add(Me.comboboxComprobanteEnviarEmail)
-        Me.tabpageContacto.Controls.Add(Me.labelComprobanteEnviarEmail)
-        Me.tabpageContacto.Controls.Add(Me.labelDomicilioCalle3)
-        Me.tabpageContacto.Controls.Add(Me.labelDomicilioCalle2)
+        Me.tabpageContacto.Controls.Add(labelComprobanteEnviarEmail)
+        Me.tabpageContacto.Controls.Add(labelDomicilioCalle3)
+        Me.tabpageContacto.Controls.Add(labelDomicilioCalle2)
         Me.tabpageContacto.Controls.Add(Me.textboxDomicilioCalle3)
         Me.tabpageContacto.Controls.Add(Me.textboxDomicilioCalle2)
         Me.tabpageContacto.Controls.Add(Me.comboboxDomicilioLocalidad)
         Me.tabpageContacto.Controls.Add(Me.comboboxDomicilioProvincia)
-        Me.tabpageContacto.Controls.Add(Me.labelDomicilioCalle1)
+        Me.tabpageContacto.Controls.Add(labelDomicilioCalle1)
         Me.tabpageContacto.Controls.Add(Me.textboxDomicilioCalle1)
-        Me.tabpageContacto.Controls.Add(Me.labelDomicilioCodigoPostal)
+        Me.tabpageContacto.Controls.Add(labelDomicilioCodigoPostal)
         Me.tabpageContacto.Controls.Add(Me.textboxDomicilioCodigoPostal)
-        Me.tabpageContacto.Controls.Add(Me.labelDomicilioDepartamento)
+        Me.tabpageContacto.Controls.Add(labelDomicilioDepartamento)
         Me.tabpageContacto.Controls.Add(Me.textboxDomicilioDepartamento)
-        Me.tabpageContacto.Controls.Add(Me.labelDomicilioLocalidad)
-        Me.tabpageContacto.Controls.Add(Me.labelDomicilioProvincia)
-        Me.tabpageContacto.Controls.Add(Me.labelDomicilioNumero)
+        Me.tabpageContacto.Controls.Add(labelDomicilioLocalidad)
+        Me.tabpageContacto.Controls.Add(labelDomicilioProvincia)
+        Me.tabpageContacto.Controls.Add(labelDomicilioNumero)
         Me.tabpageContacto.Controls.Add(Me.textboxDomicilioNumero)
-        Me.tabpageContacto.Controls.Add(Me.labelDomicilioPiso)
+        Me.tabpageContacto.Controls.Add(labelDomicilioPiso)
         Me.tabpageContacto.Controls.Add(Me.textboxDomicilioPiso)
-        Me.tabpageContacto.Controls.Add(Me.labelEmail1)
+        Me.tabpageContacto.Controls.Add(labelEmail1)
         Me.tabpageContacto.Controls.Add(Me.textboxEmail1)
-        Me.tabpageContacto.Controls.Add(Me.labelEmail2)
+        Me.tabpageContacto.Controls.Add(labelEmail2)
         Me.tabpageContacto.Controls.Add(Me.textboxEmail2)
-        Me.tabpageContacto.Controls.Add(Me.labelTelefono1)
+        Me.tabpageContacto.Controls.Add(labelTelefono1)
         Me.tabpageContacto.Controls.Add(Me.textboxTelefono1)
-        Me.tabpageContacto.Controls.Add(Me.labelTelefono2)
+        Me.tabpageContacto.Controls.Add(labelTelefono2)
         Me.tabpageContacto.Controls.Add(Me.textboxTelefono2)
-        Me.tabpageContacto.Controls.Add(Me.labelTelefono3)
+        Me.tabpageContacto.Controls.Add(labelTelefono3)
         Me.tabpageContacto.Controls.Add(Me.textboxTelefono3)
         Me.tabpageContacto.Location = New System.Drawing.Point(4, 28)
         Me.tabpageContacto.Margin = New System.Windows.Forms.Padding(4)
@@ -1074,7 +1114,7 @@ Partial Class formEntidad
         Me.textboxEmail1.Margin = New System.Windows.Forms.Padding(4)
         Me.textboxEmail1.MaxLength = 50
         Me.textboxEmail1.Name = "textboxEmail1"
-        Me.textboxEmail1.Size = New System.Drawing.Size(225, 22)
+        Me.textboxEmail1.Size = New System.Drawing.Size(200, 22)
         Me.textboxEmail1.TabIndex = 7
         '
         'textboxEmail2
@@ -1083,7 +1123,7 @@ Partial Class formEntidad
         Me.textboxEmail2.Margin = New System.Windows.Forms.Padding(4)
         Me.textboxEmail2.MaxLength = 50
         Me.textboxEmail2.Name = "textboxEmail2"
-        Me.textboxEmail2.Size = New System.Drawing.Size(225, 22)
+        Me.textboxEmail2.Size = New System.Drawing.Size(202, 22)
         Me.textboxEmail2.TabIndex = 9
         '
         'textboxTelefono1
@@ -1116,20 +1156,20 @@ Partial Class formEntidad
         'tabpagePadresYFacturacion
         '
         Me.tabpagePadresYFacturacion.Controls.Add(Me.textboxFacturaLeyenda)
-        Me.tabpagePadresYFacturacion.Controls.Add(Me.labelFacturaLeyenda)
-        Me.tabpagePadresYFacturacion.Controls.Add(Me.labelVarios)
+        Me.tabpagePadresYFacturacion.Controls.Add(labelFacturaLeyenda)
+        Me.tabpagePadresYFacturacion.Controls.Add(labelVarios)
         Me.tabpagePadresYFacturacion.Controls.Add(Me.checkboxFacturaIndividual)
-        Me.tabpagePadresYFacturacion.Controls.Add(Me.labelFacturaIndividual)
+        Me.tabpagePadresYFacturacion.Controls.Add(labelFacturaIndividual)
         Me.tabpagePadresYFacturacion.Controls.Add(Me.checkboxExcluyeCalculoInteres)
-        Me.tabpagePadresYFacturacion.Controls.Add(Me.labelExcluyeCalculoInteres)
+        Me.tabpagePadresYFacturacion.Controls.Add(labelExcluyeCalculoInteres)
         Me.tabpagePadresYFacturacion.Controls.Add(Me.panelEntidadTercero)
         Me.tabpagePadresYFacturacion.Controls.Add(Me.labelEntidadTercero)
         Me.tabpagePadresYFacturacion.Controls.Add(Me.datetimepickerExcluyeFacturaHasta)
-        Me.tabpagePadresYFacturacion.Controls.Add(Me.labelExcluyeFacturaHasta)
+        Me.tabpagePadresYFacturacion.Controls.Add(labelExcluyeFacturaHasta)
         Me.tabpagePadresYFacturacion.Controls.Add(Me.datetimepickerExcluyeFacturaDesde)
-        Me.tabpagePadresYFacturacion.Controls.Add(Me.labelExcluyeFacturaDesde)
+        Me.tabpagePadresYFacturacion.Controls.Add(labelExcluyeFacturaDesde)
         Me.tabpagePadresYFacturacion.Controls.Add(Me.comboboxDescuento)
-        Me.tabpagePadresYFacturacion.Controls.Add(Me.labelDescuento)
+        Me.tabpagePadresYFacturacion.Controls.Add(labelDescuento)
         Me.tabpagePadresYFacturacion.Controls.Add(Me.comboboxEmitirFacturaA)
         Me.tabpagePadresYFacturacion.Controls.Add(Me.labelEmitirFacturaA)
         Me.tabpagePadresYFacturacion.Controls.Add(Me.labelEntidadMadre)
@@ -1420,19 +1460,6 @@ Partial Class formEntidad
         Me.tabpageDebitoAutomatico.Text = "Débito Automático"
         Me.tabpageDebitoAutomatico.UseVisualStyleBackColor = True
         '
-        'maskedtextboxDebitoAutomatico_CBU
-        '
-        Me.maskedtextboxDebitoAutomatico_CBU.AllowPromptAsInput = False
-        Me.maskedtextboxDebitoAutomatico_CBU.AsciiOnly = True
-        Me.maskedtextboxDebitoAutomatico_CBU.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        Me.maskedtextboxDebitoAutomatico_CBU.HidePromptOnLeave = True
-        Me.maskedtextboxDebitoAutomatico_CBU.Location = New System.Drawing.Point(80, 50)
-        Me.maskedtextboxDebitoAutomatico_CBU.Mask = "0000000-0 0000000000000-0"
-        Me.maskedtextboxDebitoAutomatico_CBU.Name = "maskedtextboxDebitoAutomatico_CBU"
-        Me.maskedtextboxDebitoAutomatico_CBU.Size = New System.Drawing.Size(203, 22)
-        Me.maskedtextboxDebitoAutomatico_CBU.TabIndex = 6
-        Me.maskedtextboxDebitoAutomatico_CBU.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
         'radiobuttonDebitoAutomatico_Tipo_Ninguno
         '
         Me.radiobuttonDebitoAutomatico_Tipo_Ninguno.AutoSize = True
@@ -1444,6 +1471,18 @@ Partial Class formEntidad
         Me.radiobuttonDebitoAutomatico_Tipo_Ninguno.TabStop = True
         Me.radiobuttonDebitoAutomatico_Tipo_Ninguno.Text = "Ninguno"
         Me.radiobuttonDebitoAutomatico_Tipo_Ninguno.UseVisualStyleBackColor = True
+        '
+        'radiobuttonDebitoAutomatico_Tipo_DebitoDirecto
+        '
+        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.AutoSize = True
+        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Checked = True
+        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Location = New System.Drawing.Point(206, 10)
+        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Name = "radiobuttonDebitoAutomatico_Tipo_DebitoDirecto"
+        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Size = New System.Drawing.Size(141, 21)
+        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.TabIndex = 3
+        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.TabStop = True
+        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Text = "Directo en cuenta"
+        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.UseVisualStyleBackColor = True
         '
         'radiobuttonDebitoAutomatico_Tipo_TarjetaCredito
         '
@@ -1457,17 +1496,18 @@ Partial Class formEntidad
         Me.radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.Text = "Tarjeta de crédito"
         Me.radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.UseVisualStyleBackColor = True
         '
-        'radiobuttonDebitoAutomatico_Tipo_DebitoDirecto
+        'maskedtextboxDebitoAutomatico_CBU
         '
-        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.AutoSize = True
-        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Checked = True
-        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Location = New System.Drawing.Point(206, 10)
-        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Name = "radiobuttonDebitoAutomatico_Tipo_DebitoDirecto"
-        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Size = New System.Drawing.Size(141, 21)
-        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.TabIndex = 3
-        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.TabStop = True
-        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Text = "Directo en cuenta"
-        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.UseVisualStyleBackColor = True
+        Me.maskedtextboxDebitoAutomatico_CBU.AllowPromptAsInput = False
+        Me.maskedtextboxDebitoAutomatico_CBU.AsciiOnly = True
+        Me.maskedtextboxDebitoAutomatico_CBU.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
+        Me.maskedtextboxDebitoAutomatico_CBU.HidePromptOnLeave = True
+        Me.maskedtextboxDebitoAutomatico_CBU.Location = New System.Drawing.Point(80, 50)
+        Me.maskedtextboxDebitoAutomatico_CBU.Mask = "0000000-0 0000000000000-0"
+        Me.maskedtextboxDebitoAutomatico_CBU.Name = "maskedtextboxDebitoAutomatico_CBU"
+        Me.maskedtextboxDebitoAutomatico_CBU.Size = New System.Drawing.Size(203, 22)
+        Me.maskedtextboxDebitoAutomatico_CBU.TabIndex = 6
+        Me.maskedtextboxDebitoAutomatico_CBU.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'tabpageCursosAsistidos
         '
@@ -1857,11 +1897,33 @@ Partial Class formEntidad
         Me.textboxFechaHoraCreacion.Size = New System.Drawing.Size(160, 22)
         Me.textboxFechaHoraCreacion.TabIndex = 10
         '
+        'checkboxVerificarEmail1
+        '
+        Me.checkboxVerificarEmail1.AutoSize = True
+        Me.checkboxVerificarEmail1.Location = New System.Drawing.Point(303, 89)
+        Me.checkboxVerificarEmail1.Name = "checkboxVerificarEmail1"
+        Me.checkboxVerificarEmail1.Size = New System.Drawing.Size(18, 17)
+        Me.checkboxVerificarEmail1.TabIndex = 8
+        Me.checkboxVerificarEmail1.TabStop = False
+        Me.tooltipMain.SetToolTip(Me.checkboxVerificarEmail1, "Verificar")
+        Me.checkboxVerificarEmail1.UseVisualStyleBackColor = True
+        '
+        'checkboxVerificarEmail2
+        '
+        Me.checkboxVerificarEmail2.AutoSize = True
+        Me.checkboxVerificarEmail2.Location = New System.Drawing.Point(647, 89)
+        Me.checkboxVerificarEmail2.Name = "checkboxVerificarEmail2"
+        Me.checkboxVerificarEmail2.Size = New System.Drawing.Size(18, 17)
+        Me.checkboxVerificarEmail2.TabIndex = 10
+        Me.checkboxVerificarEmail2.TabStop = False
+        Me.tooltipMain.SetToolTip(Me.checkboxVerificarEmail2, "Verificar")
+        Me.checkboxVerificarEmail2.UseVisualStyleBackColor = True
+        '
         'formEntidad
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(719, 544)
+        Me.ClientSize = New System.Drawing.Size(719, 545)
         Me.Controls.Add(Me.checkboxEsActivo)
         Me.Controls.Add(labelEsActivo)
         Me.Controls.Add(Me.toolstripMain)
@@ -1911,59 +1973,39 @@ Partial Class formEntidad
         Me.tabpageNotasAuditoria.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
+
     End Sub
 
-    Friend WithEvents labelApellido As System.Windows.Forms.Label
     Friend WithEvents textboxApellido As System.Windows.Forms.TextBox
-    Friend WithEvents labelIDEntidad As System.Windows.Forms.Label
     Friend WithEvents textboxIDEntidad As System.Windows.Forms.TextBox
-    Friend WithEvents labelNombre As System.Windows.Forms.Label
     Friend WithEvents textboxNombre As System.Windows.Forms.TextBox
     Friend WithEvents pictureboxMain As System.Windows.Forms.PictureBox
     Friend WithEvents tabpageGeneral As System.Windows.Forms.TabPage
     Friend WithEvents tabpageContacto As System.Windows.Forms.TabPage
-    Friend WithEvents labelDocumento As System.Windows.Forms.Label
     Friend WithEvents textboxDocumentoNumero As System.Windows.Forms.TextBox
     Friend WithEvents comboboxDocumentoTipo As System.Windows.Forms.ComboBox
-    Friend WithEvents labelGenero As System.Windows.Forms.Label
     Friend WithEvents comboboxGenero As System.Windows.Forms.ComboBox
-    Friend WithEvents labelFechaNacimiento As System.Windows.Forms.Label
     Friend WithEvents datetimepickerFechaNacimiento As System.Windows.Forms.DateTimePicker
-    Friend WithEvents labelCategoriaIVA As System.Windows.Forms.Label
     Friend WithEvents comboboxCategoriaIVA As System.Windows.Forms.ComboBox
-    Friend WithEvents labelDomicilioCalle1 As System.Windows.Forms.Label
     Friend WithEvents textboxDomicilioCalle1 As System.Windows.Forms.TextBox
-    Friend WithEvents labelDomicilioCodigoPostal As System.Windows.Forms.Label
     Friend WithEvents textboxDomicilioCodigoPostal As System.Windows.Forms.TextBox
-    Friend WithEvents labelDomicilioDepartamento As System.Windows.Forms.Label
     Friend WithEvents textboxDomicilioDepartamento As System.Windows.Forms.TextBox
-    Friend WithEvents labelDomicilioNumero As System.Windows.Forms.Label
     Friend WithEvents textboxDomicilioNumero As System.Windows.Forms.TextBox
-    Friend WithEvents labelDomicilioPiso As System.Windows.Forms.Label
     Friend WithEvents textboxDomicilioPiso As System.Windows.Forms.TextBox
-    Friend WithEvents labelEmail1 As System.Windows.Forms.Label
     Friend WithEvents textboxEmail1 As System.Windows.Forms.TextBox
-    Friend WithEvents labelEmail2 As System.Windows.Forms.Label
     Friend WithEvents textboxEmail2 As System.Windows.Forms.TextBox
-    Friend WithEvents labelTelefono1 As System.Windows.Forms.Label
     Friend WithEvents textboxTelefono1 As System.Windows.Forms.TextBox
-    Friend WithEvents labelTelefono2 As System.Windows.Forms.Label
     Friend WithEvents textboxTelefono2 As System.Windows.Forms.TextBox
-    Friend WithEvents labelTelefono3 As System.Windows.Forms.Label
     Friend WithEvents textboxTelefono3 As System.Windows.Forms.TextBox
     Friend WithEvents tabpagePadresYFacturacion As System.Windows.Forms.TabPage
-    Friend WithEvents labelDomicilioProvincia As System.Windows.Forms.Label
     Friend WithEvents comboboxDomicilioProvincia As System.Windows.Forms.ComboBox
-    Friend WithEvents labelDomicilioLocalidad As System.Windows.Forms.Label
     Friend WithEvents comboboxDomicilioLocalidad As System.Windows.Forms.ComboBox
     Friend WithEvents checkboxTipoAlumno As System.Windows.Forms.CheckBox
     Friend WithEvents checkboxTipoDocente As System.Windows.Forms.CheckBox
     Friend WithEvents checkboxTipoFamiliar As System.Windows.Forms.CheckBox
     Friend WithEvents checkboxTipoPersonalColegio As System.Windows.Forms.CheckBox
     Friend WithEvents checkboxTipoProveedor As System.Windows.Forms.CheckBox
-    Friend WithEvents labelDomicilioCalle3 As System.Windows.Forms.Label
     Friend WithEvents textboxDomicilioCalle3 As System.Windows.Forms.TextBox
-    Friend WithEvents labelDomicilioCalle2 As System.Windows.Forms.Label
     Friend WithEvents textboxDomicilioCalle2 As System.Windows.Forms.TextBox
     Friend WithEvents tabpageHijos As System.Windows.Forms.TabPage
     Friend WithEvents datagridviewHijos As System.Windows.Forms.DataGridView
@@ -1995,9 +2037,7 @@ Partial Class formEntidad
     Friend WithEvents comboboxEmitirFacturaA As System.Windows.Forms.ComboBox
     Friend WithEvents labelEmitirFacturaA As System.Windows.Forms.Label
     Friend WithEvents tabpageNotasAuditoria As System.Windows.Forms.TabPage
-    Friend WithEvents labelModificacion As System.Windows.Forms.Label
     Friend WithEvents textboxUsuarioModificacion As System.Windows.Forms.TextBox
-    Friend WithEvents labelCreacion As System.Windows.Forms.Label
     Friend WithEvents textboxUsuarioCreacion As System.Windows.Forms.TextBox
     Friend WithEvents textboxFechaHoraModificacion As System.Windows.Forms.TextBox
     Friend WithEvents textboxFechaHoraCreacion As System.Windows.Forms.TextBox
@@ -2009,37 +2049,27 @@ Partial Class formEntidad
     Friend WithEvents columnAnioNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnTurnoNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnDivision As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents labelTipo As System.Windows.Forms.Label
     Friend WithEvents labelTipoProveedor As System.Windows.Forms.Label
     Friend WithEvents labelTipoFamiliar As System.Windows.Forms.Label
     Friend WithEvents labelTipoAlumno As System.Windows.Forms.Label
     Friend WithEvents labelTipoDocente As System.Windows.Forms.Label
     Friend WithEvents labelTipoPersonalColegio As System.Windows.Forms.Label
-    Friend WithEvents labelDescuento As System.Windows.Forms.Label
+	Friend WithEvents labelDebitoAutomatico_CBU As System.Windows.Forms.Label
     Friend WithEvents comboboxDescuento As System.Windows.Forms.ComboBox
-    Friend WithEvents labelEsActivo As System.Windows.Forms.Label
     Friend WithEvents checkboxEsActivo As System.Windows.Forms.CheckBox
-    Friend WithEvents labelFacturaDocumento As System.Windows.Forms.Label
     Friend WithEvents comboboxFacturaDocumentoTipo As System.Windows.Forms.ComboBox
     Friend WithEvents textboxFacturaDocumentoNumero As System.Windows.Forms.TextBox
     Friend WithEvents maskedtextboxFacturaDocumentoNumero As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents labelNotas As System.Windows.Forms.Label
     Friend WithEvents textboxNotas As System.Windows.Forms.TextBox
-    Friend WithEvents labelExcluyeFacturaDesde As System.Windows.Forms.Label
     Friend WithEvents datetimepickerExcluyeFacturaDesde As System.Windows.Forms.DateTimePicker
-    Friend WithEvents labelExcluyeFacturaHasta As System.Windows.Forms.Label
     Friend WithEvents datetimepickerExcluyeFacturaHasta As System.Windows.Forms.DateTimePicker
     Friend WithEvents panelEntidadTercero As System.Windows.Forms.Panel
     Friend WithEvents buttonEntidadTerceroBorrar As System.Windows.Forms.Button
     Friend WithEvents buttonEntidadTercero As System.Windows.Forms.Button
     Friend WithEvents textboxEntidadTercero As System.Windows.Forms.TextBox
     Friend WithEvents labelEntidadTercero As System.Windows.Forms.Label
-    Friend WithEvents labelVarios As System.Windows.Forms.Label
-    Friend WithEvents labelFacturaIndividual As System.Windows.Forms.Label
     Friend WithEvents checkboxFacturaIndividual As System.Windows.Forms.CheckBox
-    Friend WithEvents labelExcluyeCalculoInteres As System.Windows.Forms.Label
     Friend WithEvents checkboxExcluyeCalculoInteres As System.Windows.Forms.CheckBox
-    Friend WithEvents labelFacturaLeyenda As System.Windows.Forms.Label
     Friend WithEvents textboxFacturaLeyenda As System.Windows.Forms.TextBox
     Friend WithEvents tabpageComprobantes As System.Windows.Forms.TabPage
     Friend WithEvents tabcontrolMain As CSColegio.DesktopApplication.CS_Control_TabControl
@@ -2048,13 +2078,12 @@ Partial Class formEntidad
     Friend WithEvents columnNumeroCompleto As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnFecha As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents labelComprobanteEnviarEmail As System.Windows.Forms.Label
     Friend WithEvents comboboxComprobanteEnviarEmail As ComboBox
     Friend WithEvents tabpageDebitoAutomatico As System.Windows.Forms.TabPage
-    Friend WithEvents labelDebitoAutomatico_Tipo As System.Windows.Forms.Label
     Friend WithEvents radiobuttonDebitoAutomatico_Tipo_DebitoDirecto As System.Windows.Forms.RadioButton
     Friend WithEvents radiobuttonDebitoAutomatico_Tipo_Ninguno As System.Windows.Forms.RadioButton
     Friend WithEvents radiobuttonDebitoAutomatico_Tipo_TarjetaCredito As System.Windows.Forms.RadioButton
-    Friend WithEvents labelDebitoAutomatico_CBU As System.Windows.Forms.Label
     Friend WithEvents maskedtextboxDebitoAutomatico_CBU As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents checkboxVerificarEmail2 As System.Windows.Forms.CheckBox
+    Friend WithEvents checkboxVerificarEmail1 As System.Windows.Forms.CheckBox
 End Class
