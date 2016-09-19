@@ -35,9 +35,10 @@ Partial Class formEntidadesSeleccionar
         Me.menuitemEntidadTipo_Alumno = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemEntidadTipo_Familiar = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemEntidadTipo_Proveedor = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.menuitemMarcarTodo = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemDesmarcarTodo = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemEntidadTipo_Otro = New System.Windows.Forms.ToolStripMenuItem()
+        Me.separatorMarcarTodos = New System.Windows.Forms.ToolStripSeparator()
+        Me.menuitemMarcarTodos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDesmarcarTodos = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.labelBuscar = New System.Windows.Forms.ToolStripLabel()
         Me.textboxBuscar = New System.Windows.Forms.ToolStripTextBox()
@@ -61,20 +62,21 @@ Partial Class formEntidadesSeleccionar
         'toolstripMain
         '
         Me.toolstripMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolstripMain.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.dropdownbuttonEntidadTipos, Me.ToolStripSeparator3, Me.labelBuscar, Me.textboxBuscar, Me.buttonBuscarBorrar, Me.ToolStripSeparator4, Me.labelActivo, Me.comboboxActivo, Me.ToolStripSeparator1, Me.buttonSeleccionar, Me.buttonCancelar})
         Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
         Me.toolstripMain.Name = "toolstripMain"
-        Me.toolstripMain.Size = New System.Drawing.Size(631, 39)
+        Me.toolstripMain.Size = New System.Drawing.Size(873, 39)
         Me.toolstripMain.TabIndex = 1
         '
         'dropdownbuttonEntidadTipos
         '
         Me.dropdownbuttonEntidadTipos.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.dropdownbuttonEntidadTipos.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemEntidadTipo_PersonalColegio, Me.menuitemEntidadTipo_Docente, Me.menuitemEntidadTipo_Alumno, Me.menuitemEntidadTipo_Familiar, Me.menuitemEntidadTipo_Proveedor, Me.ToolStripSeparator2, Me.menuitemMarcarTodo, Me.menuitemDesmarcarTodo})
+        Me.dropdownbuttonEntidadTipos.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemEntidadTipo_PersonalColegio, Me.menuitemEntidadTipo_Docente, Me.menuitemEntidadTipo_Alumno, Me.menuitemEntidadTipo_Familiar, Me.menuitemEntidadTipo_Proveedor, Me.menuitemEntidadTipo_Otro, Me.separatorMarcarTodos, Me.menuitemMarcarTodos, Me.menuitemDesmarcarTodos})
         Me.dropdownbuttonEntidadTipos.Image = CType(resources.GetObject("dropdownbuttonEntidadTipos.Image"), System.Drawing.Image)
         Me.dropdownbuttonEntidadTipos.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.dropdownbuttonEntidadTipos.Name = "dropdownbuttonEntidadTipos"
-        Me.dropdownbuttonEntidadTipos.Size = New System.Drawing.Size(108, 36)
+        Me.dropdownbuttonEntidadTipos.Size = New System.Drawing.Size(135, 36)
         Me.dropdownbuttonEntidadTipos.Text = "Tipos de Entidad"
         '
         'menuitemEntidadTipo_PersonalColegio
@@ -83,7 +85,7 @@ Partial Class formEntidadesSeleccionar
         Me.menuitemEntidadTipo_PersonalColegio.CheckOnClick = True
         Me.menuitemEntidadTipo_PersonalColegio.CheckState = System.Windows.Forms.CheckState.Checked
         Me.menuitemEntidadTipo_PersonalColegio.Name = "menuitemEntidadTipo_PersonalColegio"
-        Me.menuitemEntidadTipo_PersonalColegio.Size = New System.Drawing.Size(163, 22)
+        Me.menuitemEntidadTipo_PersonalColegio.Size = New System.Drawing.Size(197, 26)
         Me.menuitemEntidadTipo_PersonalColegio.Text = "Personal"
         '
         'menuitemEntidadTipo_Docente
@@ -92,7 +94,7 @@ Partial Class formEntidadesSeleccionar
         Me.menuitemEntidadTipo_Docente.CheckOnClick = True
         Me.menuitemEntidadTipo_Docente.CheckState = System.Windows.Forms.CheckState.Checked
         Me.menuitemEntidadTipo_Docente.Name = "menuitemEntidadTipo_Docente"
-        Me.menuitemEntidadTipo_Docente.Size = New System.Drawing.Size(163, 22)
+        Me.menuitemEntidadTipo_Docente.Size = New System.Drawing.Size(197, 26)
         Me.menuitemEntidadTipo_Docente.Text = "Docente"
         '
         'menuitemEntidadTipo_Alumno
@@ -101,7 +103,7 @@ Partial Class formEntidadesSeleccionar
         Me.menuitemEntidadTipo_Alumno.CheckOnClick = True
         Me.menuitemEntidadTipo_Alumno.CheckState = System.Windows.Forms.CheckState.Checked
         Me.menuitemEntidadTipo_Alumno.Name = "menuitemEntidadTipo_Alumno"
-        Me.menuitemEntidadTipo_Alumno.Size = New System.Drawing.Size(163, 22)
+        Me.menuitemEntidadTipo_Alumno.Size = New System.Drawing.Size(197, 26)
         Me.menuitemEntidadTipo_Alumno.Text = "Alumno"
         '
         'menuitemEntidadTipo_Familiar
@@ -110,7 +112,7 @@ Partial Class formEntidadesSeleccionar
         Me.menuitemEntidadTipo_Familiar.CheckOnClick = True
         Me.menuitemEntidadTipo_Familiar.CheckState = System.Windows.Forms.CheckState.Checked
         Me.menuitemEntidadTipo_Familiar.Name = "menuitemEntidadTipo_Familiar"
-        Me.menuitemEntidadTipo_Familiar.Size = New System.Drawing.Size(163, 22)
+        Me.menuitemEntidadTipo_Familiar.Size = New System.Drawing.Size(197, 26)
         Me.menuitemEntidadTipo_Familiar.Text = "Familiar"
         '
         'menuitemEntidadTipo_Proveedor
@@ -119,25 +121,34 @@ Partial Class formEntidadesSeleccionar
         Me.menuitemEntidadTipo_Proveedor.CheckOnClick = True
         Me.menuitemEntidadTipo_Proveedor.CheckState = System.Windows.Forms.CheckState.Checked
         Me.menuitemEntidadTipo_Proveedor.Name = "menuitemEntidadTipo_Proveedor"
-        Me.menuitemEntidadTipo_Proveedor.Size = New System.Drawing.Size(163, 22)
+        Me.menuitemEntidadTipo_Proveedor.Size = New System.Drawing.Size(197, 26)
         Me.menuitemEntidadTipo_Proveedor.Text = "Proveedor"
         '
-        'ToolStripSeparator2
+        'menuitemEntidadTipo_Otro
         '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(160, 6)
+        Me.menuitemEntidadTipo_Otro.Checked = True
+        Me.menuitemEntidadTipo_Otro.CheckOnClick = True
+        Me.menuitemEntidadTipo_Otro.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.menuitemEntidadTipo_Otro.Name = "menuitemEntidadTipo_Otro"
+        Me.menuitemEntidadTipo_Otro.Size = New System.Drawing.Size(197, 26)
+        Me.menuitemEntidadTipo_Otro.Text = "Otro"
         '
-        'menuitemMarcarTodo
+        'separatorMarcarTodos
         '
-        Me.menuitemMarcarTodo.Name = "menuitemMarcarTodo"
-        Me.menuitemMarcarTodo.Size = New System.Drawing.Size(163, 22)
-        Me.menuitemMarcarTodo.Text = "Marcar todos"
+        Me.separatorMarcarTodos.Name = "separatorMarcarTodos"
+        Me.separatorMarcarTodos.Size = New System.Drawing.Size(194, 6)
         '
-        'menuitemDesmarcarTodo
+        'menuitemMarcarTodos
         '
-        Me.menuitemDesmarcarTodo.Name = "menuitemDesmarcarTodo"
-        Me.menuitemDesmarcarTodo.Size = New System.Drawing.Size(163, 22)
-        Me.menuitemDesmarcarTodo.Text = "Desmarcar todos"
+        Me.menuitemMarcarTodos.Name = "menuitemMarcarTodos"
+        Me.menuitemMarcarTodos.Size = New System.Drawing.Size(197, 26)
+        Me.menuitemMarcarTodos.Text = "Marcar todos"
+        '
+        'menuitemDesmarcarTodos
+        '
+        Me.menuitemDesmarcarTodos.Name = "menuitemDesmarcarTodos"
+        Me.menuitemDesmarcarTodos.Size = New System.Drawing.Size(197, 26)
+        Me.menuitemDesmarcarTodos.Text = "Desmarcar todos"
         '
         'ToolStripSeparator3
         '
@@ -147,14 +158,14 @@ Partial Class formEntidadesSeleccionar
         'labelBuscar
         '
         Me.labelBuscar.Name = "labelBuscar"
-        Me.labelBuscar.Size = New System.Drawing.Size(45, 36)
+        Me.labelBuscar.Size = New System.Drawing.Size(55, 36)
         Me.labelBuscar.Text = "Buscar:"
         '
         'textboxBuscar
         '
         Me.textboxBuscar.MaxLength = 100
         Me.textboxBuscar.Name = "textboxBuscar"
-        Me.textboxBuscar.Size = New System.Drawing.Size(120, 39)
+        Me.textboxBuscar.Size = New System.Drawing.Size(159, 39)
         '
         'buttonBuscarBorrar
         '
@@ -162,7 +173,7 @@ Partial Class formEntidadesSeleccionar
         Me.buttonBuscarBorrar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_CLOSE_16
         Me.buttonBuscarBorrar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonBuscarBorrar.Name = "buttonBuscarBorrar"
-        Me.buttonBuscarBorrar.Size = New System.Drawing.Size(23, 36)
+        Me.buttonBuscarBorrar.Size = New System.Drawing.Size(24, 36)
         Me.buttonBuscarBorrar.ToolTipText = "Limpiar búsqueda"
         '
         'ToolStripSeparator4
@@ -173,14 +184,14 @@ Partial Class formEntidadesSeleccionar
         'labelActivo
         '
         Me.labelActivo.Name = "labelActivo"
-        Me.labelActivo.Size = New System.Drawing.Size(41, 36)
+        Me.labelActivo.Size = New System.Drawing.Size(51, 36)
         Me.labelActivo.Text = "Activo"
         '
         'comboboxActivo
         '
         Me.comboboxActivo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxActivo.Name = "comboboxActivo"
-        Me.comboboxActivo.Size = New System.Drawing.Size(75, 39)
+        Me.comboboxActivo.Size = New System.Drawing.Size(99, 39)
         '
         'ToolStripSeparator1
         '
@@ -193,7 +204,7 @@ Partial Class formEntidadesSeleccionar
         Me.buttonSeleccionar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonSeleccionar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonSeleccionar.Name = "buttonSeleccionar"
-        Me.buttonSeleccionar.Size = New System.Drawing.Size(103, 36)
+        Me.buttonSeleccionar.Size = New System.Drawing.Size(121, 36)
         Me.buttonSeleccionar.Text = "Seleccionar"
         '
         'buttonCancelar
@@ -202,7 +213,7 @@ Partial Class formEntidadesSeleccionar
         Me.buttonCancelar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonCancelar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonCancelar.Name = "buttonCancelar"
-        Me.buttonCancelar.Size = New System.Drawing.Size(89, 36)
+        Me.buttonCancelar.Size = New System.Drawing.Size(102, 36)
         Me.buttonCancelar.Text = "Cancelar"
         '
         'datagridviewMain
@@ -222,13 +233,14 @@ Partial Class formEntidadesSeleccionar
         Me.datagridviewMain.DataSource = Me.bindingsourceMain
         Me.datagridviewMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.datagridviewMain.Location = New System.Drawing.Point(0, 39)
+        Me.datagridviewMain.Margin = New System.Windows.Forms.Padding(4)
         Me.datagridviewMain.MultiSelect = False
         Me.datagridviewMain.Name = "datagridviewMain"
         Me.datagridviewMain.ReadOnly = True
         Me.datagridviewMain.RowHeadersVisible = False
         Me.datagridviewMain.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewMain.Size = New System.Drawing.Size(631, 482)
+        Me.datagridviewMain.Size = New System.Drawing.Size(873, 602)
         Me.datagridviewMain.TabIndex = 0
         '
         'columnIDEntidad
@@ -240,7 +252,7 @@ Partial Class formEntidadesSeleccionar
         Me.columnIDEntidad.HeaderText = "N° Entidad"
         Me.columnIDEntidad.Name = "columnIDEntidad"
         Me.columnIDEntidad.ReadOnly = True
-        Me.columnIDEntidad.Width = 83
+        Me.columnIDEntidad.Width = 105
         '
         'columnApellido
         '
@@ -251,7 +263,7 @@ Partial Class formEntidadesSeleccionar
         Me.columnApellido.HeaderText = "Apellidos"
         Me.columnApellido.Name = "columnApellido"
         Me.columnApellido.ReadOnly = True
-        Me.columnApellido.Width = 74
+        Me.columnApellido.Width = 94
         '
         'columnNombre
         '
@@ -262,18 +274,19 @@ Partial Class formEntidadesSeleccionar
         Me.columnNombre.HeaderText = "Nombres"
         Me.columnNombre.Name = "columnNombre"
         Me.columnNombre.ReadOnly = True
-        Me.columnNombre.Width = 74
+        Me.columnNombre.Width = 94
         '
         'formEntidadesSeleccionar
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(631, 521)
+        Me.ClientSize = New System.Drawing.Size(873, 641)
         Me.ControlBox = False
         Me.Controls.Add(Me.datagridviewMain)
         Me.Controls.Add(Me.toolstripMain)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.KeyPreview = True
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "formEntidadesSeleccionar"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Seleccione una Entidad"
@@ -292,9 +305,9 @@ Partial Class formEntidadesSeleccionar
     Friend WithEvents menuitemEntidadTipo_Alumno As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemEntidadTipo_Familiar As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemEntidadTipo_Proveedor As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents menuitemMarcarTodo As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemDesmarcarTodo As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents separatorMarcarTodos As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents menuitemMarcarTodos As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDesmarcarTodos As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents labelBuscar As System.Windows.Forms.ToolStripLabel
     Friend WithEvents textboxBuscar As System.Windows.Forms.ToolStripTextBox
@@ -310,4 +323,5 @@ Partial Class formEntidadesSeleccionar
     Friend WithEvents buttonCancelar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonSeleccionar As System.Windows.Forms.ToolStripButton
     Friend WithEvents bindingsourceMain As System.Windows.Forms.BindingSource
+    Friend WithEvents menuitemEntidadTipo_Otro As System.Windows.Forms.ToolStripMenuItem
 End Class

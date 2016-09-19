@@ -381,12 +381,12 @@
         End If
     End Sub
 
-    Friend Sub Nivel(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)
+    Friend Sub Nivel(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean, Optional ByVal IDNivelMinimo As Byte = 0)
         ComboBoxControl.ValueMember = "IDNivel"
         ComboBoxControl.DisplayMember = "Nombre"
 
         Dim qryList = From tbl In dbContext.Nivel
-                          Where tbl.EsActivo
+                          Where tbl.EsActivo And tbl.IDNivel >= IDNivelMinimo
                           Order By tbl.Nombre
 
         Dim localList = qryList.ToList
@@ -431,7 +431,7 @@
         ComboBoxControl.DataSource = localList
     End Sub
 
-    Friend Sub Curso(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean, ByVal IncluyeNivelEnNombre As Boolean, Optional ByVal IDNivel As Byte = 0)
+    Friend Sub Curso(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean, ByVal IncluyeNivelEnNombre As Boolean, Optional ByVal IDNivel As Byte = 0, Optional ByVal IDAnioMinimo As Byte = 0)
         Dim listCursos As List(Of Curso_ListItem)
 
         ComboBoxControl.ValueMember = "IDCurso"
@@ -443,14 +443,14 @@
                           Join n In dbContext.Nivel On n.IDNivel Equals a.IDNivel
                           Join t In dbContext.Turno On c.IDTurno Equals t.IDTurno
                           Order By n.Nombre, a.Nombre, t.Nombre, c.Division
-                          Where a.EsActivo And (IDNivel = 0 Or a.IDNivel = IDNivel)
+                          Where a.EsActivo And (IDNivel = 0 Or a.IDNivel = IDNivel) And a.IDAnio >= IDAnioMinimo
                           Select New Curso_ListItem With {.IDCurso = c.IDCurso, .Descripcion = n.Nombre & " - " & a.Nombre & " - " & t.Nombre & " - " & c.Division}).ToList
         Else
             listCursos = (From c In dbContext.Curso
                           Join a In dbContext.Anio On a.IDAnio Equals c.IDAnio
                           Join t In dbContext.Turno On c.IDTurno Equals t.IDTurno
                           Order By a.Nombre, t.Nombre, c.Division
-                          Where a.EsActivo And (IDNivel = 0 Or a.IDNivel = IDNivel)
+                          Where a.EsActivo And (IDNivel = 0 Or a.IDNivel = IDNivel) And a.IDAnio >= IDAnioMinimo
                           Select New Curso_ListItem With {.IDCurso = c.IDCurso, .Descripcion = a.Nombre & " - " & t.Nombre & " - " & c.Division}).ToList
         End If
 

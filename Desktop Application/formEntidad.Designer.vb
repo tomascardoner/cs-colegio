@@ -89,15 +89,20 @@ Partial Class formEntidad
         Me.tooltipMain = New System.Windows.Forms.ToolTip(Me.components)
         Me.textboxFacturaDocumentoNumero = New System.Windows.Forms.TextBox()
         Me.textboxDocumentoNumero = New System.Windows.Forms.TextBox()
+        Me.checkboxVerificarEmail2 = New System.Windows.Forms.CheckBox()
+        Me.checkboxVerificarEmail1 = New System.Windows.Forms.CheckBox()
         Me.checkboxEsActivo = New System.Windows.Forms.CheckBox()
         Me.tabcontrolMain = New CSColegio.DesktopApplication.CS_Control_TabControl()
         Me.tabpageGeneral = New System.Windows.Forms.TabPage()
+        Me.labelTipoOtro = New System.Windows.Forms.Label()
+        Me.checkboxTipoOtro = New System.Windows.Forms.CheckBox()
         Me.comboboxFacturaDocumentoTipo = New System.Windows.Forms.ComboBox()
         Me.labelTipoProveedor = New System.Windows.Forms.Label()
         Me.labelTipoFamiliar = New System.Windows.Forms.Label()
         Me.labelTipoAlumno = New System.Windows.Forms.Label()
         Me.labelTipoDocente = New System.Windows.Forms.Label()
         Me.labelTipoPersonalColegio = New System.Windows.Forms.Label()
+        Me.labelDebitoAutomatico_CBU = New System.Windows.Forms.Label()
         Me.checkboxTipoAlumno = New System.Windows.Forms.CheckBox()
         Me.checkboxTipoDocente = New System.Windows.Forms.CheckBox()
         Me.checkboxTipoFamiliar = New System.Windows.Forms.CheckBox()
@@ -184,8 +189,6 @@ Partial Class formEntidad
         Me.textboxUsuarioCreacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraModificacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraCreacion = New System.Windows.Forms.TextBox()
-        Me.checkboxVerificarEmail1 = New System.Windows.Forms.CheckBox()
-        Me.checkboxVerificarEmail2 = New System.Windows.Forms.CheckBox()
         labelApellido = New System.Windows.Forms.Label()
         labelIDEntidad = New System.Windows.Forms.Label()
         labelNombre = New System.Windows.Forms.Label()
@@ -218,7 +221,6 @@ Partial Class formEntidad
         labelExcluyeFacturaHasta = New System.Windows.Forms.Label()
         labelExcluyeFacturaDesde = New System.Windows.Forms.Label()
         labelDescuento = New System.Windows.Forms.Label()
-        Me.labelDebitoAutomatico_CBU = New System.Windows.Forms.Label()
         labelDebitoAutomatico_Tipo = New System.Windows.Forms.Label()
         labelNotas = New System.Windows.Forms.Label()
         labelModificacion = New System.Windows.Forms.Label()
@@ -247,17 +249,17 @@ Partial Class formEntidad
         'labelApellido
         '
         labelApellido.AutoSize = True
-        labelApellido.Location = New System.Drawing.Point(97, 98)
+        labelApellido.Location = New System.Drawing.Point(72, 95)
         labelApellido.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         labelApellido.Name = "labelApellido"
-        labelApellido.Size = New System.Drawing.Size(69, 17)
+        labelApellido.Size = New System.Drawing.Size(164, 17)
         labelApellido.TabIndex = 3
-        labelApellido.Text = "Apellidos:"
+        labelApellido.Text = "Apellidos / Razón Social:"
         '
         'labelIDEntidad
         '
         labelIDEntidad.AutoSize = True
-        labelIDEntidad.Location = New System.Drawing.Point(97, 64)
+        labelIDEntidad.Location = New System.Drawing.Point(72, 64)
         labelIDEntidad.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         labelIDEntidad.Name = "labelIDEntidad"
         labelIDEntidad.Size = New System.Drawing.Size(100, 17)
@@ -267,7 +269,7 @@ Partial Class formEntidad
         'labelNombre
         '
         labelNombre.AutoSize = True
-        labelNombre.Location = New System.Drawing.Point(97, 130)
+        labelNombre.Location = New System.Drawing.Point(72, 130)
         labelNombre.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         labelNombre.Name = "labelNombre"
         labelNombre.Size = New System.Drawing.Size(69, 17)
@@ -277,7 +279,7 @@ Partial Class formEntidad
         'labelEsActivo
         '
         labelEsActivo.AutoSize = True
-        labelEsActivo.Location = New System.Drawing.Point(364, 64)
+        labelEsActivo.Location = New System.Drawing.Point(424, 64)
         labelEsActivo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         labelEsActivo.Name = "labelEsActivo"
         labelEsActivo.Size = New System.Drawing.Size(50, 17)
@@ -287,18 +289,18 @@ Partial Class formEntidad
         'labelFacturaDocumento
         '
         labelFacturaDocumento.AutoSize = True
-        labelFacturaDocumento.Location = New System.Drawing.Point(8, 217)
+        labelFacturaDocumento.Location = New System.Drawing.Point(8, 242)
         labelFacturaDocumento.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         labelFacturaDocumento.Name = "labelFacturaDocumento"
         labelFacturaDocumento.Size = New System.Drawing.Size(174, 17)
-        labelFacturaDocumento.TabIndex = 21
+        labelFacturaDocumento.TabIndex = 23
         labelFacturaDocumento.Text = "Documento para Facturar:"
         Me.tooltipMain.SetToolTip(labelFacturaDocumento, "Ingrese el Número de Documento sin utilizar puntos.")
         '
         'labelTipo
         '
         labelTipo.AutoSize = True
-        labelTipo.Location = New System.Drawing.Point(8, 12)
+        labelTipo.Location = New System.Drawing.Point(8, 23)
         labelTipo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         labelTipo.Name = "labelTipo"
         labelTipo.Size = New System.Drawing.Size(40, 17)
@@ -308,41 +310,41 @@ Partial Class formEntidad
         'labelCategoriaIVA
         '
         labelCategoriaIVA.AutoSize = True
-        labelCategoriaIVA.Location = New System.Drawing.Point(8, 183)
+        labelCategoriaIVA.Location = New System.Drawing.Point(8, 208)
         labelCategoriaIVA.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         labelCategoriaIVA.Name = "labelCategoriaIVA"
         labelCategoriaIVA.Size = New System.Drawing.Size(118, 17)
-        labelCategoriaIVA.TabIndex = 19
+        labelCategoriaIVA.TabIndex = 21
         labelCategoriaIVA.Text = "Categoría de IVA:"
         '
         'labelFechaNacimiento
         '
         labelFechaNacimiento.AutoSize = True
-        labelFechaNacimiento.Location = New System.Drawing.Point(8, 98)
+        labelFechaNacimiento.Location = New System.Drawing.Point(8, 123)
         labelFechaNacimiento.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         labelFechaNacimiento.Name = "labelFechaNacimiento"
         labelFechaNacimiento.Size = New System.Drawing.Size(145, 17)
-        labelFechaNacimiento.TabIndex = 13
+        labelFechaNacimiento.TabIndex = 15
         labelFechaNacimiento.Text = "Fecha de Nacimiento:"
         '
         'labelGenero
         '
         labelGenero.AutoSize = True
-        labelGenero.Location = New System.Drawing.Point(8, 65)
+        labelGenero.Location = New System.Drawing.Point(8, 90)
         labelGenero.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         labelGenero.Name = "labelGenero"
         labelGenero.Size = New System.Drawing.Size(60, 17)
-        labelGenero.TabIndex = 11
+        labelGenero.TabIndex = 13
         labelGenero.Text = "Género:"
         '
         'labelDocumento
         '
         labelDocumento.AutoSize = True
-        labelDocumento.Location = New System.Drawing.Point(8, 130)
+        labelDocumento.Location = New System.Drawing.Point(8, 155)
         labelDocumento.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         labelDocumento.Name = "labelDocumento"
         labelDocumento.Size = New System.Drawing.Size(84, 17)
-        labelDocumento.TabIndex = 15
+        labelDocumento.TabIndex = 17
         labelDocumento.Text = "Documento:"
         Me.tooltipMain.SetToolTip(labelDocumento, "Ingrese el Número de Documento sin utilizar puntos.")
         '
@@ -566,16 +568,6 @@ Partial Class formEntidad
         labelDescuento.TabIndex = 7
         labelDescuento.Text = "Descuento:"
         '
-        'labelDebitoAutomatico_CBU
-        '
-        labelDebitoAutomatico_CBU.AutoSize = True
-        labelDebitoAutomatico_CBU.Location = New System.Drawing.Point(8, 53)
-        labelDebitoAutomatico_CBU.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        labelDebitoAutomatico_CBU.Name = "labelDebitoAutomatico_CBU"
-        labelDebitoAutomatico_CBU.Size = New System.Drawing.Size(40, 17)
-        labelDebitoAutomatico_CBU.TabIndex = 5
-        labelDebitoAutomatico_CBU.Text = "CBU:"
-        '
         'labelDebitoAutomatico_Tipo
         '
         labelDebitoAutomatico_Tipo.AutoSize = True
@@ -618,16 +610,16 @@ Partial Class formEntidad
         '
         'textboxApellido
         '
-        Me.textboxApellido.Location = New System.Drawing.Point(207, 95)
+        Me.textboxApellido.Location = New System.Drawing.Point(244, 95)
         Me.textboxApellido.Margin = New System.Windows.Forms.Padding(4)
         Me.textboxApellido.MaxLength = 100
         Me.textboxApellido.Name = "textboxApellido"
-        Me.textboxApellido.Size = New System.Drawing.Size(493, 22)
+        Me.textboxApellido.Size = New System.Drawing.Size(456, 22)
         Me.textboxApellido.TabIndex = 4
         '
         'textboxIDEntidad
         '
-        Me.textboxIDEntidad.Location = New System.Drawing.Point(207, 60)
+        Me.textboxIDEntidad.Location = New System.Drawing.Point(244, 61)
         Me.textboxIDEntidad.Margin = New System.Windows.Forms.Padding(4)
         Me.textboxIDEntidad.MaxLength = 10
         Me.textboxIDEntidad.Name = "textboxIDEntidad"
@@ -639,7 +631,7 @@ Partial Class formEntidad
         '
         'textboxNombre
         '
-        Me.textboxNombre.Location = New System.Drawing.Point(207, 127)
+        Me.textboxNombre.Location = New System.Drawing.Point(244, 127)
         Me.textboxNombre.Margin = New System.Windows.Forms.Padding(4)
         Me.textboxNombre.MaxLength = 50
         Me.textboxNombre.Name = "textboxNombre"
@@ -709,28 +701,50 @@ Partial Class formEntidad
         '
         'textboxFacturaDocumentoNumero
         '
-        Me.textboxFacturaDocumentoNumero.Location = New System.Drawing.Point(333, 212)
+        Me.textboxFacturaDocumentoNumero.Location = New System.Drawing.Point(333, 237)
         Me.textboxFacturaDocumentoNumero.Margin = New System.Windows.Forms.Padding(4)
         Me.textboxFacturaDocumentoNumero.MaxLength = 11
         Me.textboxFacturaDocumentoNumero.Name = "textboxFacturaDocumentoNumero"
         Me.textboxFacturaDocumentoNumero.Size = New System.Drawing.Size(152, 22)
-        Me.textboxFacturaDocumentoNumero.TabIndex = 23
+        Me.textboxFacturaDocumentoNumero.TabIndex = 25
         Me.tooltipMain.SetToolTip(Me.textboxFacturaDocumentoNumero, "Ingrese el Número de Documento sin utilizar puntos.")
         '
         'textboxDocumentoNumero
         '
-        Me.textboxDocumentoNumero.Location = New System.Drawing.Point(333, 128)
+        Me.textboxDocumentoNumero.Location = New System.Drawing.Point(333, 153)
         Me.textboxDocumentoNumero.Margin = New System.Windows.Forms.Padding(4)
         Me.textboxDocumentoNumero.MaxLength = 11
         Me.textboxDocumentoNumero.Name = "textboxDocumentoNumero"
         Me.textboxDocumentoNumero.Size = New System.Drawing.Size(152, 22)
-        Me.textboxDocumentoNumero.TabIndex = 17
+        Me.textboxDocumentoNumero.TabIndex = 19
         Me.tooltipMain.SetToolTip(Me.textboxDocumentoNumero, "Ingrese el Número de Documento sin utilizar puntos.")
+        '
+        'checkboxVerificarEmail2
+        '
+        Me.checkboxVerificarEmail2.AutoSize = True
+        Me.checkboxVerificarEmail2.Location = New System.Drawing.Point(647, 89)
+        Me.checkboxVerificarEmail2.Name = "checkboxVerificarEmail2"
+        Me.checkboxVerificarEmail2.Size = New System.Drawing.Size(18, 17)
+        Me.checkboxVerificarEmail2.TabIndex = 10
+        Me.checkboxVerificarEmail2.TabStop = False
+        Me.tooltipMain.SetToolTip(Me.checkboxVerificarEmail2, "Verificar")
+        Me.checkboxVerificarEmail2.UseVisualStyleBackColor = True
+        '
+        'checkboxVerificarEmail1
+        '
+        Me.checkboxVerificarEmail1.AutoSize = True
+        Me.checkboxVerificarEmail1.Location = New System.Drawing.Point(303, 89)
+        Me.checkboxVerificarEmail1.Name = "checkboxVerificarEmail1"
+        Me.checkboxVerificarEmail1.Size = New System.Drawing.Size(18, 17)
+        Me.checkboxVerificarEmail1.TabIndex = 8
+        Me.checkboxVerificarEmail1.TabStop = False
+        Me.tooltipMain.SetToolTip(Me.checkboxVerificarEmail1, "Verificar")
+        Me.checkboxVerificarEmail1.UseVisualStyleBackColor = True
         '
         'checkboxEsActivo
         '
         Me.checkboxEsActivo.AutoSize = True
-        Me.checkboxEsActivo.Location = New System.Drawing.Point(425, 64)
+        Me.checkboxEsActivo.Location = New System.Drawing.Point(485, 64)
         Me.checkboxEsActivo.Margin = New System.Windows.Forms.Padding(4)
         Me.checkboxEsActivo.Name = "checkboxEsActivo"
         Me.checkboxEsActivo.Size = New System.Drawing.Size(18, 17)
@@ -758,6 +772,8 @@ Partial Class formEntidad
         '
         'tabpageGeneral
         '
+        Me.tabpageGeneral.Controls.Add(Me.labelTipoOtro)
+        Me.tabpageGeneral.Controls.Add(Me.checkboxTipoOtro)
         Me.tabpageGeneral.Controls.Add(Me.comboboxFacturaDocumentoTipo)
         Me.tabpageGeneral.Controls.Add(Me.textboxFacturaDocumentoNumero)
         Me.tabpageGeneral.Controls.Add(labelFacturaDocumento)
@@ -792,20 +808,40 @@ Partial Class formEntidad
         Me.tabpageGeneral.Text = "General"
         Me.tabpageGeneral.UseVisualStyleBackColor = True
         '
+        'labelTipoOtro
+        '
+        Me.labelTipoOtro.AutoSize = True
+        Me.labelTipoOtro.Location = New System.Drawing.Point(474, 38)
+        Me.labelTipoOtro.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.labelTipoOtro.Name = "labelTipoOtro"
+        Me.labelTipoOtro.Size = New System.Drawing.Size(36, 17)
+        Me.labelTipoOtro.TabIndex = 12
+        Me.labelTipoOtro.Text = "Otro"
+        '
+        'checkboxTipoOtro
+        '
+        Me.checkboxTipoOtro.AutoSize = True
+        Me.checkboxTipoOtro.Location = New System.Drawing.Point(454, 38)
+        Me.checkboxTipoOtro.Margin = New System.Windows.Forms.Padding(4)
+        Me.checkboxTipoOtro.Name = "checkboxTipoOtro"
+        Me.checkboxTipoOtro.Size = New System.Drawing.Size(18, 17)
+        Me.checkboxTipoOtro.TabIndex = 11
+        Me.checkboxTipoOtro.UseVisualStyleBackColor = True
+        '
         'comboboxFacturaDocumentoTipo
         '
         Me.comboboxFacturaDocumentoTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxFacturaDocumentoTipo.FormattingEnabled = True
-        Me.comboboxFacturaDocumentoTipo.Location = New System.Drawing.Point(189, 212)
+        Me.comboboxFacturaDocumentoTipo.Location = New System.Drawing.Point(189, 237)
         Me.comboboxFacturaDocumentoTipo.Margin = New System.Windows.Forms.Padding(4)
         Me.comboboxFacturaDocumentoTipo.Name = "comboboxFacturaDocumentoTipo"
         Me.comboboxFacturaDocumentoTipo.Size = New System.Drawing.Size(135, 24)
-        Me.comboboxFacturaDocumentoTipo.TabIndex = 22
+        Me.comboboxFacturaDocumentoTipo.TabIndex = 24
         '
         'labelTipoProveedor
         '
         Me.labelTipoProveedor.AutoSize = True
-        Me.labelTipoProveedor.Location = New System.Drawing.Point(580, 11)
+        Me.labelTipoProveedor.Location = New System.Drawing.Point(359, 37)
         Me.labelTipoProveedor.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelTipoProveedor.Name = "labelTipoProveedor"
         Me.labelTipoProveedor.Size = New System.Drawing.Size(74, 17)
@@ -815,7 +851,7 @@ Partial Class formEntidad
         'labelTipoFamiliar
         '
         Me.labelTipoFamiliar.AutoSize = True
-        Me.labelTipoFamiliar.Location = New System.Drawing.Point(487, 11)
+        Me.labelTipoFamiliar.Location = New System.Drawing.Point(207, 36)
         Me.labelTipoFamiliar.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelTipoFamiliar.Name = "labelTipoFamiliar"
         Me.labelTipoFamiliar.Size = New System.Drawing.Size(57, 17)
@@ -825,7 +861,7 @@ Partial Class formEntidad
         'labelTipoAlumno
         '
         Me.labelTipoAlumno.AutoSize = True
-        Me.labelTipoAlumno.Location = New System.Drawing.Point(393, 11)
+        Me.labelTipoAlumno.Location = New System.Drawing.Point(474, 11)
         Me.labelTipoAlumno.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelTipoAlumno.Name = "labelTipoAlumno"
         Me.labelTipoAlumno.Size = New System.Drawing.Size(55, 17)
@@ -835,7 +871,7 @@ Partial Class formEntidad
         'labelTipoDocente
         '
         Me.labelTipoDocente.AutoSize = True
-        Me.labelTipoDocente.Location = New System.Drawing.Point(292, 11)
+        Me.labelTipoDocente.Location = New System.Drawing.Point(359, 11)
         Me.labelTipoDocente.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelTipoDocente.Name = "labelTipoDocente"
         Me.labelTipoDocente.Size = New System.Drawing.Size(61, 17)
@@ -845,7 +881,7 @@ Partial Class formEntidad
         'labelTipoPersonalColegio
         '
         Me.labelTipoPersonalColegio.AutoSize = True
-        Me.labelTipoPersonalColegio.Location = New System.Drawing.Point(140, 11)
+        Me.labelTipoPersonalColegio.Location = New System.Drawing.Point(207, 11)
         Me.labelTipoPersonalColegio.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelTipoPersonalColegio.Name = "labelTipoPersonalColegio"
         Me.labelTipoPersonalColegio.Size = New System.Drawing.Size(115, 17)
@@ -855,7 +891,7 @@ Partial Class formEntidad
         'checkboxTipoAlumno
         '
         Me.checkboxTipoAlumno.AutoSize = True
-        Me.checkboxTipoAlumno.Location = New System.Drawing.Point(373, 11)
+        Me.checkboxTipoAlumno.Location = New System.Drawing.Point(454, 11)
         Me.checkboxTipoAlumno.Margin = New System.Windows.Forms.Padding(4)
         Me.checkboxTipoAlumno.Name = "checkboxTipoAlumno"
         Me.checkboxTipoAlumno.Size = New System.Drawing.Size(18, 17)
@@ -865,7 +901,7 @@ Partial Class formEntidad
         'checkboxTipoDocente
         '
         Me.checkboxTipoDocente.AutoSize = True
-        Me.checkboxTipoDocente.Location = New System.Drawing.Point(272, 11)
+        Me.checkboxTipoDocente.Location = New System.Drawing.Point(339, 11)
         Me.checkboxTipoDocente.Margin = New System.Windows.Forms.Padding(4)
         Me.checkboxTipoDocente.Name = "checkboxTipoDocente"
         Me.checkboxTipoDocente.Size = New System.Drawing.Size(18, 17)
@@ -875,7 +911,7 @@ Partial Class formEntidad
         'checkboxTipoFamiliar
         '
         Me.checkboxTipoFamiliar.AutoSize = True
-        Me.checkboxTipoFamiliar.Location = New System.Drawing.Point(467, 11)
+        Me.checkboxTipoFamiliar.Location = New System.Drawing.Point(187, 36)
         Me.checkboxTipoFamiliar.Margin = New System.Windows.Forms.Padding(4)
         Me.checkboxTipoFamiliar.Name = "checkboxTipoFamiliar"
         Me.checkboxTipoFamiliar.Size = New System.Drawing.Size(18, 17)
@@ -885,7 +921,7 @@ Partial Class formEntidad
         'checkboxTipoPersonalColegio
         '
         Me.checkboxTipoPersonalColegio.AutoSize = True
-        Me.checkboxTipoPersonalColegio.Location = New System.Drawing.Point(120, 11)
+        Me.checkboxTipoPersonalColegio.Location = New System.Drawing.Point(187, 11)
         Me.checkboxTipoPersonalColegio.Margin = New System.Windows.Forms.Padding(4)
         Me.checkboxTipoPersonalColegio.Name = "checkboxTipoPersonalColegio"
         Me.checkboxTipoPersonalColegio.Size = New System.Drawing.Size(18, 17)
@@ -895,7 +931,7 @@ Partial Class formEntidad
         'checkboxTipoProveedor
         '
         Me.checkboxTipoProveedor.AutoSize = True
-        Me.checkboxTipoProveedor.Location = New System.Drawing.Point(560, 11)
+        Me.checkboxTipoProveedor.Location = New System.Drawing.Point(339, 37)
         Me.checkboxTipoProveedor.Margin = New System.Windows.Forms.Padding(4)
         Me.checkboxTipoProveedor.Name = "checkboxTipoProveedor"
         Me.checkboxTipoProveedor.Size = New System.Drawing.Size(18, 17)
@@ -906,43 +942,43 @@ Partial Class formEntidad
         '
         Me.comboboxCategoriaIVA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxCategoriaIVA.FormattingEnabled = True
-        Me.comboboxCategoriaIVA.Location = New System.Drawing.Point(189, 180)
+        Me.comboboxCategoriaIVA.Location = New System.Drawing.Point(189, 205)
         Me.comboboxCategoriaIVA.Margin = New System.Windows.Forms.Padding(4)
         Me.comboboxCategoriaIVA.Name = "comboboxCategoriaIVA"
         Me.comboboxCategoriaIVA.Size = New System.Drawing.Size(265, 24)
-        Me.comboboxCategoriaIVA.TabIndex = 20
+        Me.comboboxCategoriaIVA.TabIndex = 22
         '
         'datetimepickerFechaNacimiento
         '
         Me.datetimepickerFechaNacimiento.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.datetimepickerFechaNacimiento.Location = New System.Drawing.Point(189, 95)
+        Me.datetimepickerFechaNacimiento.Location = New System.Drawing.Point(189, 120)
         Me.datetimepickerFechaNacimiento.Margin = New System.Windows.Forms.Padding(4)
         Me.datetimepickerFechaNacimiento.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
         Me.datetimepickerFechaNacimiento.MinDate = New Date(1910, 1, 1, 0, 0, 0, 0)
         Me.datetimepickerFechaNacimiento.Name = "datetimepickerFechaNacimiento"
         Me.datetimepickerFechaNacimiento.ShowCheckBox = True
         Me.datetimepickerFechaNacimiento.Size = New System.Drawing.Size(196, 22)
-        Me.datetimepickerFechaNacimiento.TabIndex = 14
+        Me.datetimepickerFechaNacimiento.TabIndex = 16
         '
         'comboboxGenero
         '
         Me.comboboxGenero.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxGenero.FormattingEnabled = True
-        Me.comboboxGenero.Location = New System.Drawing.Point(189, 62)
+        Me.comboboxGenero.Location = New System.Drawing.Point(189, 87)
         Me.comboboxGenero.Margin = New System.Windows.Forms.Padding(4)
         Me.comboboxGenero.Name = "comboboxGenero"
         Me.comboboxGenero.Size = New System.Drawing.Size(135, 24)
-        Me.comboboxGenero.TabIndex = 12
+        Me.comboboxGenero.TabIndex = 14
         '
         'comboboxDocumentoTipo
         '
         Me.comboboxDocumentoTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxDocumentoTipo.FormattingEnabled = True
-        Me.comboboxDocumentoTipo.Location = New System.Drawing.Point(189, 127)
+        Me.comboboxDocumentoTipo.Location = New System.Drawing.Point(189, 152)
         Me.comboboxDocumentoTipo.Margin = New System.Windows.Forms.Padding(4)
         Me.comboboxDocumentoTipo.Name = "comboboxDocumentoTipo"
         Me.comboboxDocumentoTipo.Size = New System.Drawing.Size(135, 24)
-        Me.comboboxDocumentoTipo.TabIndex = 16
+        Me.comboboxDocumentoTipo.TabIndex = 18
         '
         'maskedtextboxDocumentoNumero
         '
@@ -950,12 +986,12 @@ Partial Class formEntidad
         Me.maskedtextboxDocumentoNumero.AsciiOnly = True
         Me.maskedtextboxDocumentoNumero.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         Me.maskedtextboxDocumentoNumero.HidePromptOnLeave = True
-        Me.maskedtextboxDocumentoNumero.Location = New System.Drawing.Point(333, 128)
+        Me.maskedtextboxDocumentoNumero.Location = New System.Drawing.Point(333, 153)
         Me.maskedtextboxDocumentoNumero.Margin = New System.Windows.Forms.Padding(4)
         Me.maskedtextboxDocumentoNumero.Mask = "00-00000000-0"
         Me.maskedtextboxDocumentoNumero.Name = "maskedtextboxDocumentoNumero"
         Me.maskedtextboxDocumentoNumero.Size = New System.Drawing.Size(152, 22)
-        Me.maskedtextboxDocumentoNumero.TabIndex = 18
+        Me.maskedtextboxDocumentoNumero.TabIndex = 20
         Me.maskedtextboxDocumentoNumero.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'maskedtextboxFacturaDocumentoNumero
@@ -964,12 +1000,12 @@ Partial Class formEntidad
         Me.maskedtextboxFacturaDocumentoNumero.AsciiOnly = True
         Me.maskedtextboxFacturaDocumentoNumero.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         Me.maskedtextboxFacturaDocumentoNumero.HidePromptOnLeave = True
-        Me.maskedtextboxFacturaDocumentoNumero.Location = New System.Drawing.Point(333, 212)
+        Me.maskedtextboxFacturaDocumentoNumero.Location = New System.Drawing.Point(333, 237)
         Me.maskedtextboxFacturaDocumentoNumero.Margin = New System.Windows.Forms.Padding(4)
         Me.maskedtextboxFacturaDocumentoNumero.Mask = "00-00000000-0"
         Me.maskedtextboxFacturaDocumentoNumero.Name = "maskedtextboxFacturaDocumentoNumero"
         Me.maskedtextboxFacturaDocumentoNumero.Size = New System.Drawing.Size(152, 22)
-        Me.maskedtextboxFacturaDocumentoNumero.TabIndex = 24
+        Me.maskedtextboxFacturaDocumentoNumero.TabIndex = 26
         Me.maskedtextboxFacturaDocumentoNumero.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'tabpageContacto
@@ -1446,11 +1482,11 @@ Partial Class formEntidad
         '
         'tabpageDebitoAutomatico
         '
+        Me.tabpageDebitoAutomatico.Controls.Add(labelDebitoAutomatico_CBU)
         Me.tabpageDebitoAutomatico.Controls.Add(labelDebitoAutomatico_Tipo)
         Me.tabpageDebitoAutomatico.Controls.Add(Me.radiobuttonDebitoAutomatico_Tipo_Ninguno)
         Me.tabpageDebitoAutomatico.Controls.Add(Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto)
         Me.tabpageDebitoAutomatico.Controls.Add(Me.radiobuttonDebitoAutomatico_Tipo_TarjetaCredito)
-        Me.tabpageDebitoAutomatico.Controls.Add(labelDebitoAutomatico_CBU)
         Me.tabpageDebitoAutomatico.Controls.Add(Me.maskedtextboxDebitoAutomatico_CBU)
         Me.tabpageDebitoAutomatico.Location = New System.Drawing.Point(4, 28)
         Me.tabpageDebitoAutomatico.Name = "tabpageDebitoAutomatico"
@@ -1459,6 +1495,15 @@ Partial Class formEntidad
         Me.tabpageDebitoAutomatico.TabIndex = 9
         Me.tabpageDebitoAutomatico.Text = "Débito Automático"
         Me.tabpageDebitoAutomatico.UseVisualStyleBackColor = True
+        '
+        'labelDebitoAutomatico_CBU
+        '
+        labelDebitoAutomatico_CBU.AutoSize = True
+        labelDebitoAutomatico_CBU.Location = New System.Drawing.Point(7, 53)
+        labelDebitoAutomatico_CBU.Name = "labelDebitoAutomatico_CBU"
+        labelDebitoAutomatico_CBU.Size = New System.Drawing.Size(52, 17)
+        labelDebitoAutomatico_CBU.TabIndex = 96
+        labelDebitoAutomatico_CBU.Text = "C.B.U.:"
         '
         'radiobuttonDebitoAutomatico_Tipo_Ninguno
         '
@@ -1897,28 +1942,6 @@ Partial Class formEntidad
         Me.textboxFechaHoraCreacion.Size = New System.Drawing.Size(160, 22)
         Me.textboxFechaHoraCreacion.TabIndex = 10
         '
-        'checkboxVerificarEmail1
-        '
-        Me.checkboxVerificarEmail1.AutoSize = True
-        Me.checkboxVerificarEmail1.Location = New System.Drawing.Point(303, 89)
-        Me.checkboxVerificarEmail1.Name = "checkboxVerificarEmail1"
-        Me.checkboxVerificarEmail1.Size = New System.Drawing.Size(18, 17)
-        Me.checkboxVerificarEmail1.TabIndex = 8
-        Me.checkboxVerificarEmail1.TabStop = False
-        Me.tooltipMain.SetToolTip(Me.checkboxVerificarEmail1, "Verificar")
-        Me.checkboxVerificarEmail1.UseVisualStyleBackColor = True
-        '
-        'checkboxVerificarEmail2
-        '
-        Me.checkboxVerificarEmail2.AutoSize = True
-        Me.checkboxVerificarEmail2.Location = New System.Drawing.Point(647, 89)
-        Me.checkboxVerificarEmail2.Name = "checkboxVerificarEmail2"
-        Me.checkboxVerificarEmail2.Size = New System.Drawing.Size(18, 17)
-        Me.checkboxVerificarEmail2.TabIndex = 10
-        Me.checkboxVerificarEmail2.TabStop = False
-        Me.tooltipMain.SetToolTip(Me.checkboxVerificarEmail2, "Verificar")
-        Me.checkboxVerificarEmail2.UseVisualStyleBackColor = True
-        '
         'formEntidad
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -2054,7 +2077,7 @@ Partial Class formEntidad
     Friend WithEvents labelTipoAlumno As System.Windows.Forms.Label
     Friend WithEvents labelTipoDocente As System.Windows.Forms.Label
     Friend WithEvents labelTipoPersonalColegio As System.Windows.Forms.Label
-	Friend WithEvents labelDebitoAutomatico_CBU As System.Windows.Forms.Label
+    Friend WithEvents labelDebitoAutomatico_CBU As System.Windows.Forms.Label
     Friend WithEvents comboboxDescuento As System.Windows.Forms.ComboBox
     Friend WithEvents checkboxEsActivo As System.Windows.Forms.CheckBox
     Friend WithEvents comboboxFacturaDocumentoTipo As System.Windows.Forms.ComboBox
@@ -2086,4 +2109,6 @@ Partial Class formEntidad
     Friend WithEvents maskedtextboxDebitoAutomatico_CBU As System.Windows.Forms.MaskedTextBox
     Friend WithEvents checkboxVerificarEmail2 As System.Windows.Forms.CheckBox
     Friend WithEvents checkboxVerificarEmail1 As System.Windows.Forms.CheckBox
+    Friend WithEvents labelTipoOtro As System.Windows.Forms.Label
+    Friend WithEvents checkboxTipoOtro As System.Windows.Forms.CheckBox
 End Class

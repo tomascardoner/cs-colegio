@@ -39,7 +39,7 @@
 
                 ' Muestro las Entidades a las que no se les ha enviado la Comunicación seleccionada
 
-                If checkboxTipoPersonalColegio.Checked And checkboxTipoDocente.Checked And checkboxTipoAlumno.Checked And checkboxTipoFamiliar.Checked And checkboxTipoProveedor.Checked Then
+                If checkboxTipoPersonalColegio.Checked And checkboxTipoDocente.Checked And checkboxTipoAlumno.Checked And checkboxTipoFamiliar.Checked And checkboxTipoProveedor.Checked And checkboxTipoOtro.Checked Then
                     listEntidades = (From e In dbContext.Entidad
                                      Group Join ComunicacionEntidad In dbContext.ComunicacionEntidad On e.IDEntidad Equals ComunicacionEntidad.IDEntidad Into Entidad_ComunicacionEntidad_Join = Group
                                      From ComunicacionEntidad In Entidad_ComunicacionEntidad_Join.DefaultIfEmpty()
@@ -50,7 +50,7 @@
                     listEntidades = (From e In dbContext.Entidad
                                      Group Join ComunicacionEntidad In dbContext.ComunicacionEntidad On e.IDEntidad Equals ComunicacionEntidad.IDEntidad Into Entidad_ComunicacionEntidad_Join = Group
                                      From ComunicacionEntidad In Entidad_ComunicacionEntidad_Join.DefaultIfEmpty()
-                                     Where e.EsActivo And ((checkboxTipoPersonalColegio.Checked And e.TipoPersonalColegio) Or (checkboxTipoDocente.Checked And e.TipoDocente) Or (checkboxTipoAlumno.Checked And e.TipoAlumno) Or (checkboxTipoFamiliar.Checked And e.TipoFamiliar) Or (checkboxTipoProveedor.Checked And e.TipoProveedor)) And (Not e.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO) And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And ComunicacionEntidad Is Nothing
+                                     Where e.EsActivo And ((checkboxTipoPersonalColegio.Checked And e.TipoPersonalColegio) Or (checkboxTipoDocente.Checked And e.TipoDocente) Or (checkboxTipoAlumno.Checked And e.TipoAlumno) Or (checkboxTipoFamiliar.Checked And e.TipoFamiliar) Or (checkboxTipoProveedor.Checked And e.TipoProveedor) Or (checkboxTipoOtro.Checked And e.TipoOtro)) And (Not e.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO) And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And ComunicacionEntidad Is Nothing
                                      Order By e.ApellidoNombre
                                      Select e).ToList
                 End If
@@ -90,7 +90,7 @@
         RefreshData()
     End Sub
 
-    Private Sub CambiarTipoEntidad() Handles checkboxTipoPersonalColegio.CheckedChanged, checkboxTipoDocente.CheckedChanged, checkboxTipoAlumno.CheckedChanged, checkboxTipoFamiliar.CheckedChanged, checkboxTipoProveedor.CheckedChanged
+    Private Sub CambiarTipoEntidad() Handles checkboxTipoPersonalColegio.CheckedChanged, checkboxTipoDocente.CheckedChanged, checkboxTipoAlumno.CheckedChanged, checkboxTipoFamiliar.CheckedChanged, checkboxTipoProveedor.CheckedChanged, checkboxTipoOtro.CheckedChanged
         RefreshData()
     End Sub
 

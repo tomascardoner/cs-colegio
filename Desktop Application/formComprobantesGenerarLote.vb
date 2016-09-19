@@ -103,7 +103,7 @@ Public Class formComprobantesGenerarLote
         treeviewPaso1NivelCursoAlumno.BeginUpdate()
         NodoNivel.Nodes.RemoveAt(0)
         NivelCurrent = CType(NodoNivel.Tag, Nivel)
-        For Each AnioCurrent As Anio In NivelCurrent.Anio.Where(Function(ani) ani.EsActivo = True)
+        For Each AnioCurrent As Anio In NivelCurrent.Anios.Where(Function(ani) ani.EsActivo = True)
             ' Agrego el nodo correspondiente al Año actual
             NewNode = New TreeNode(AnioCurrent.Nombre, {New TreeNode(NODO_CARGANDO_TEXTO)})
             NewNode.Checked = NodoNivel.Checked
@@ -276,6 +276,9 @@ Public Class formComprobantesGenerarLote
 
 #Region "Paso 2 - Verificación"
     Private Sub VerificarEntidades()
+        Dim EntidadActual As Entidad
+        Dim CorreccionDescripcion As String
+
         Me.Cursor = Cursors.WaitCursor
 
         listEntidadesSeleccionadasOk = New List(Of Entidad)
@@ -317,7 +320,13 @@ Public Class formComprobantesGenerarLote
                         End If
                         For Each TreeNodeEntidad As TreeNode In TreeNodeCurso.Nodes
                             If TreeNodeEntidad.Checked Then
-                                VerificarEntidad(CType(TreeNodeEntidad.Tag, Entidad))
+                                EntidadActual = CType(TreeNodeEntidad.Tag, Entidad)
+                                CorreccionDescripcion = ""
+                                If MiscFunctions.Entidad_VerificarParaEmitirComprobante(EntidadActual, AnioLectivo, False, FechaServicioDesde, FechaServicioHasta, False, CorreccionDescripcion) Then
+                                    listEntidadesSeleccionadasOk.Add(EntidadActual)
+                                Else
+                                    listEntidadesSeleccionadasCorregir.Add(New EntidadACorregir With {.IDEntidad = EntidadActual.IDEntidad, .Apellido = EntidadActual.Apellido, .Nombre = EntidadActual.Nombre, .ApellidoNombre = EntidadActual.ApellidoNombre, .CorreccionDescripcion = CorreccionDescripcion})
+                                End If
                             End If
                         Next
                     Next
@@ -335,7 +344,13 @@ Public Class formComprobantesGenerarLote
                     TreeNodeEntidad.Expand()
                     For Each TreeNodeAlumno As TreeNode In TreeNodeEntidad.Nodes
                         If TreeNodeAlumno.Checked Then
-                            VerificarEntidad(CType(TreeNodeAlumno.Tag, Entidad))
+                            EntidadActual = CType(TreeNodeAlumno.Tag, Entidad)
+                            CorreccionDescripcion = ""
+                            If MiscFunctions.Entidad_VerificarParaEmitirComprobante(EntidadActual, AnioLectivo, False, FechaServicioDesde, FechaServicioHasta, False, CorreccionDescripcion) Then
+                                listEntidadesSeleccionadasOk.Add(EntidadActual)
+                            Else
+                                listEntidadesSeleccionadasCorregir.Add(New EntidadACorregir With {.IDEntidad = EntidadActual.IDEntidad, .Apellido = EntidadActual.Apellido, .Nombre = EntidadActual.Nombre, .ApellidoNombre = EntidadActual.ApellidoNombre, .CorreccionDescripcion = CorreccionDescripcion})
+                            End If
                         End If
                     Next
                 End If
@@ -348,123 +363,6 @@ Public Class formComprobantesGenerarLote
         listEntidadesSeleccionadasCorregir.OrderBy(Function(eac) CType(eac, EntidadACorregir).ApellidoNombre)
 
         Me.Cursor = Cursors.Default
-    End Sub
-
-    Private Sub VerificarEntidad(ByRef EntidadActual As Entidad)
-        Dim CorregirEntidad As Boolean = False
-        Dim CorreccionDescripcion As String = ""
-
-        If EntidadActual.TipoAlumno = False Then
-            CorregirEntidad = True
-            CorreccionDescripcion &= "No es una Entidad del tipo Alumno." & vbCrLf
-        End If
-
-        If EntidadActual.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = AnioLectivo).Count > 1 Then
-            CorregirEntidad = True
-            CorreccionDescripcion &= "El Alumno está cargado en más de un curso para el Año Lectivo que se va a facturar." & vbCrLf
-        End If
-
-        If EntidadActual.EmitirFacturaA Is Nothing Then
-            CorregirEntidad = True
-            CorreccionDescripcion &= "No está especificado a quién se le factura." & vbCrLf
-        Else
-            If EntidadActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO Then
-                ' Se le factura al Alumno
-                If EntidadActual.IDCategoriaIVA Is Nothing Then
-                    CorregirEntidad = True
-                    CorreccionDescripcion &= "El Alumno no tiene especificada la Categoría de IVA." & vbCrLf
-                End If
-                If EntidadActual.DocumentoNumero Is Nothing And EntidadActual.FacturaDocumentoNumero Is Nothing Then
-                    CorregirEntidad = True
-                    CorreccionDescripcion &= "El Alumno no tiene especificado el Tipo y Número de Documento." & vbCrLf
-                End If
-            End If
-
-            If EntidadActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE Or EntidadActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or EntidadActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
-                ' Se le factura al Padre (entre otros)
-                If EntidadActual.IDEntidadPadre Is Nothing Then
-                    CorregirEntidad = True
-                    CorreccionDescripcion &= "Debe especificar el Padre para poder facturarle." & vbCrLf
-                Else
-                    If EntidadActual.EntidadPadre.IDCategoriaIVA Is Nothing Then
-                        CorregirEntidad = True
-                        CorreccionDescripcion &= "El Padre no tiene especificada la Categoría de IVA." & vbCrLf
-                    End If
-                    If EntidadActual.EntidadPadre.DocumentoNumero Is Nothing And EntidadActual.EntidadPadre.FacturaDocumentoNumero Is Nothing Then
-                        CorregirEntidad = True
-                        CorreccionDescripcion &= "El Padre no tiene especificado el Tipo y Número de Documento." & vbCrLf
-                    End If
-                End If
-            End If
-
-            If EntidadActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE Or EntidadActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or EntidadActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
-                ' Se le factura a la Madre (entre otros)
-                If EntidadActual.IDEntidadMadre Is Nothing Then
-                    CorregirEntidad = True
-                    CorreccionDescripcion &= "Debe especificar la Madre para poder facturarle." & vbCrLf
-                Else
-                    If EntidadActual.EntidadMadre.IDCategoriaIVA Is Nothing Then
-                        CorregirEntidad = True
-                        CorreccionDescripcion &= "La Madre no tiene especificada la Categoría de IVA." & vbCrLf
-                    End If
-                    If EntidadActual.EntidadMadre.DocumentoNumero Is Nothing And EntidadActual.EntidadMadre.FacturaDocumentoNumero Is Nothing Then
-                        CorregirEntidad = True
-                        CorreccionDescripcion &= "La Madre no tiene especificado el Tipo y Número de Documento." & vbCrLf
-                    End If
-                End If
-            End If
-
-            If EntidadActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or EntidadActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
-                ' Se le factura a Otro (entre otros)
-                If EntidadActual.IDEntidadTercero Is Nothing Then
-                    CorregirEntidad = True
-                    CorreccionDescripcion &= "Debe especificar el Tercero para poder facturarle." & vbCrLf
-                Else
-                    If EntidadActual.EntidadTercero.IDCategoriaIVA Is Nothing Then
-                        CorregirEntidad = True
-                        CorreccionDescripcion &= "El Tercero a quien se le va a facurar no tiene especificada la Categoría de IVA." & vbCrLf
-                    End If
-                    If EntidadActual.EntidadTercero.DocumentoNumero Is Nothing And EntidadActual.EntidadTercero.FacturaDocumentoNumero Is Nothing Then
-                        CorregirEntidad = True
-                        CorreccionDescripcion &= "El Tercero a quien se le va a facurar no tiene especificado el Tipo y Número de Documento." & vbCrLf
-                    End If
-                End If
-            End If
-        End If
-
-        ' Si hay que corregir la Entidad, la agrego a la lista de Entidades a corregir
-        If CorregirEntidad Then
-            CorreccionDescripcion = CorreccionDescripcion.Remove(CorreccionDescripcion.Length - vbCrLf.Length)
-            listEntidadesSeleccionadasCorregir.Add(New EntidadACorregir With {.IDEntidad = EntidadActual.IDEntidad, .Apellido = EntidadActual.Apellido, .Nombre = EntidadActual.Nombre, .ApellidoNombre = EntidadActual.ApellidoNombre, .CorreccionDescripcion = CorreccionDescripcion})
-        Else
-            ' La Entidad está verificada, pero antes de agregarla, verifico que no tenga exclusión de facturación
-            ' Verifico primero la exclusión Desde
-            If Not EntidadActual.ExcluyeFacturaDesde Is Nothing Then
-                ' Especifica exclusión Desde, así que la verifico
-                If EntidadActual.ExcluyeFacturaDesde.Value.CompareTo(FechaServicioHasta) < 0 Then
-                    ' Está dentro de la exclusión Desde, así que verifico la exclusión Hasta
-                    If EntidadActual.ExcluyeFacturaHasta Is Nothing Then
-                        ' No especifica exclusión Hasta, por lo tanto, se excluye (no lo agrego a la lista)
-                    ElseIf EntidadActual.ExcluyeFacturaHasta.Value.CompareTo(FechaServicioDesde) > 0 Then
-                        ' Está dentro de la exclusión Hasta, por lo tanto, se excluye (no lo agrego a la lista)
-                    Else
-                        ' Está fuera de la exclusión, así que lo agrego
-                        listEntidadesSeleccionadasOk.Add(EntidadActual)
-                    End If
-                End If
-            ElseIf Not EntidadActual.ExcluyeFacturaHasta Is Nothing Then
-                ' Especifica exclusión Hasta, así que la verifico
-                If EntidadActual.ExcluyeFacturaHasta.Value.CompareTo(FechaServicioDesde) > 0 Then
-                    ' Está dentro de la exclusión, así que no lo agrego a la lista
-                Else
-                    ' Está fuera de la exclusión, así que lo agrego a la lista
-                    listEntidadesSeleccionadasOk.Add(EntidadActual)
-                End If
-            Else
-                ' No especifica ninguna exclusión, así que lo agrego a la lista
-                listEntidadesSeleccionadasOk.Add(EntidadActual)
-            End If
-        End If
     End Sub
 
     Private Sub MostrarEntidadesACorregir()
@@ -508,8 +406,6 @@ Public Class formComprobantesGenerarLote
 
 #Region "Paso 3 - Generación"
     Private Sub GenerarComprobantes(ByVal LoteNombre As String)
-        Dim dbContext As New CSColegioContext(True)
-
         ' Parámetros
         Dim ArticuloActual As Articulo
         Dim ComprobanteEntidadMayusculas As Boolean

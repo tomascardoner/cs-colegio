@@ -186,6 +186,7 @@
             checkboxTipoAlumno.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoAlumno)
             checkboxTipoFamiliar.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoFamiliar)
             checkboxTipoProveedor.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoProveedor)
+            checkboxTipoOtro.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoOtro)
             CS_Control_ComboBox.SetSelectedValue(comboboxDocumentoTipo, SelectedItemOptions.ValueOrFirst, .IDDocumentoTipo, CByte(0))
             If CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
                 maskedtextboxDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DocumentoNumero)
@@ -311,6 +312,7 @@
             .TipoAlumno = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoAlumno.CheckState)
             .TipoFamiliar = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoFamiliar.CheckState)
             .TipoProveedor = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoProveedor.CheckState)
+            .TipoOtro = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoOtro.CheckState)
             .IDDocumentoTipo = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxDocumentoTipo.SelectedValue, 0)
             If CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
                 .DocumentoNumero = CS_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxDocumentoNumero.Text)
@@ -475,6 +477,7 @@
         formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = True
         formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Otro.Checked = False
         If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
             Dim EntidadSeleccionada As Entidad
             EntidadSeleccionada = CType(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
@@ -495,6 +498,7 @@
         formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = True
         formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Otro.Checked = False
         If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
             Dim EntidadSeleccionada As Entidad
             EntidadSeleccionada = CType(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
@@ -522,6 +526,7 @@
         formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = True
         formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Otro.Checked = False
         If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
             Dim EntidadSeleccionada As Entidad
             EntidadSeleccionada = CType(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
@@ -561,7 +566,7 @@
             textboxApellido.Focus()
             Exit Sub
         End If
-        If checkboxTipoPersonalColegio.Checked = False And checkboxTipoDocente.Checked = False And checkboxTipoAlumno.Checked = False And checkboxTipoFamiliar.Checked = False And checkboxTipoPersonalColegio.Checked = False Then
+        If checkboxTipoPersonalColegio.Checked = False And checkboxTipoDocente.Checked = False And checkboxTipoAlumno.Checked = False And checkboxTipoFamiliar.Checked = False And checkboxTipoProveedor.Checked = False And checkboxTipoOtro.Checked = False Then
             tabcontrolMain.SelectedTab = tabpageGeneral
             MsgBox("Debe especificar el Tipo de Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
             Exit Sub

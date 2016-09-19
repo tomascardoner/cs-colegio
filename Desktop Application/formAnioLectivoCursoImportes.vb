@@ -209,7 +209,7 @@
 
             datagridviewMain.Enabled = False
 
-            formAnioLectivoCursoImporte.LoadAndShow(True, Me, mAnioLectivoCursoActual.IDAnioLectivoCurso, 0)
+            formAnioLectivoCursoImporte.LoadAndShow(True, Me, mAnioLectivoCursoActual, 0)
 
             datagridviewMain.Enabled = True
 
@@ -227,7 +227,7 @@
                 datagridviewMain.Enabled = False
 
                 Dim CurrentRow As GridRowData = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData)
-                formAnioLectivoCursoImporte.LoadAndShow(True, Me, mAnioLectivoCursoActual.IDAnioLectivoCurso, CurrentRow.MesInicio)
+                formAnioLectivoCursoImporte.LoadAndShow(True, Me, mAnioLectivoCursoActual, CurrentRow.MesInicio)
 
                 datagridviewMain.Enabled = True
 
@@ -286,7 +286,7 @@
             datagridviewMain.Enabled = False
 
             Dim CurrentRow As GridRowData = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData)
-            formAnioLectivoCursoImporte.LoadAndShow(False, Me, mAnioLectivoCursoActual.IDAnioLectivoCurso, CurrentRow.MesInicio)
+            formAnioLectivoCursoImporte.LoadAndShow(False, Me, mAnioLectivoCursoActual, CurrentRow.MesInicio)
 
             datagridviewMain.Enabled = True
 

@@ -132,6 +132,7 @@
         <AssociationConnector Association="CSColegioModel.FK__Usuario__Comunicacion__Modificacion" />
         <AssociationConnector Association="CSColegioModel.FK__Entidad__ComunicacionEntidad" />
         <AssociationConnector Association="CSColegioModel.FK__Usuario__ComunicacionEntidad" />
+        <AssociationConnector Association="CSColegioModel.FK__Anio__AnioSiguiente" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

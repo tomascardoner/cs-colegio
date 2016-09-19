@@ -451,6 +451,7 @@
             formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA)
             formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA)
             formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_COMPRA)
+            formEntidadesSeleccionar.menuitemEntidadTipo_Otro.Checked = (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA)
         End If
         If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
             mEntidad = CType(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)

@@ -23,5 +23,7 @@ Partial Public Class Anio
 
     Public Overridable Property Curso As ICollection(Of Curso) = New HashSet(Of Curso)
     Public Overridable Property Nivel As Nivel
+    Public Overridable Property AnioAnterior As ICollection(Of Anio) = New HashSet(Of Anio)
+    Public Overridable Property AnioSiguiente As Anio
 
 End Class

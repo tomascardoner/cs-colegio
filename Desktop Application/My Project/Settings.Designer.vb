@@ -466,6 +466,15 @@ Namespace My
                 Return CType(Me("Newsletter_Folder"),String)
             End Get
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public ReadOnly Property Comprobante_RequiereDomicilioCompleto() As Boolean
+            Get
+                Return CType(Me("Comprobante_RequiereDomicilioCompleto"),Boolean)
+            End Get
+        End Property
     End Class
 End Namespace
 

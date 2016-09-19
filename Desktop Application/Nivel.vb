@@ -19,6 +19,6 @@ Partial Public Class Nivel
     Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
 
-    Public Overridable Property Anio As ICollection(Of Anio) = New HashSet(Of Anio)
+    Public Overridable Property Anios As ICollection(Of Anio) = New HashSet(Of Anio)
 
 End Class

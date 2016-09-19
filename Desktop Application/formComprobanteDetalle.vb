@@ -338,6 +338,7 @@
         formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = True
         formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
+        formEntidadesSeleccionar.menuitemEntidadTipo_Otro.Checked = False
         If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
             mLoading = True
             CargarAlumnos(mComprobanteActual.IDEntidad, CType(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).DataBoundItem, Entidad).IDEntidad)

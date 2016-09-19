@@ -20,6 +20,7 @@ Partial Public Class Entidad
     Public Property TipoAlumno As Boolean
     Public Property TipoFamiliar As Boolean
     Public Property TipoProveedor As Boolean
+    Public Property TipoOtro As Boolean
     Public Property IDDocumentoTipo As Nullable(Of Byte)
     Public Property DocumentoNumero As String
     Public Property FacturaIDDocumentoTipo As Nullable(Of Byte)

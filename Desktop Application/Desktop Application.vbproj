@@ -306,6 +306,12 @@
     <Compile Include="formAboutBox.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formEntidadInscripcionDetalle.Designer.vb">
+      <DependentUpon>formEntidadInscripcionDetalle.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formEntidadInscripcionDetalle.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formAnioLectivoCursoImporteGenerar.Designer.vb">
       <DependentUpon>formAnioLectivoCursoImporteGenerar.vb</DependentUpon>
     </Compile>
@@ -622,6 +628,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formAboutBox.resx">
       <DependentUpon>formAboutBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formEntidadInscripcionDetalle.resx">
+      <DependentUpon>formEntidadInscripcionDetalle.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formAnioLectivoCursoImporteGenerar.resx">
       <DependentUpon>formAnioLectivoCursoImporteGenerar.vb</DependentUpon>

@@ -2,6 +2,7 @@
 
 #Region "Declarations"
     Private mdbContext As New CSColegioContext(True)
+    Private mAnioLectivoCursoActual As AnioLectivoCurso
     Private mAnioLectivoCursoImporteActual As AnioLectivoCursoImporte
 
     Private mIsLoading As Boolean = False
@@ -9,20 +10,22 @@
 #End Region
 
 #Region "Form stuff"
-    Friend Sub LoadAndShow(ByVal EditMode As Boolean, ByRef ParentForm As Form, ByVal IDAnioLectivoCurso As Short, ByVal MesInicio As Byte)
+    Friend Sub LoadAndShow(ByVal EditMode As Boolean, ByRef ParentForm As Form, ByRef AnioLectivoCursoActual As AnioLectivoCurso, ByVal MesInicio As Byte)
         mIsLoading = True
         mEditMode = EditMode
+
+        mAnioLectivoCursoActual = AnioLectivoCursoActual
 
         If MesInicio = 0 Then
             ' Es Nuevo
             mAnioLectivoCursoImporteActual = New AnioLectivoCursoImporte
             With mAnioLectivoCursoImporteActual
-                .IDAnioLectivoCurso = IDAnioLectivoCurso
+                .IDAnioLectivoCurso = mAnioLectivoCursoActual.IDAnioLectivoCurso
                 .MesInicio = MesInicio
             End With
             mdbContext.AnioLectivoCursoImporte.Add(mAnioLectivoCursoImporteActual)
         Else
-            mAnioLectivoCursoImporteActual = mdbContext.AnioLectivoCursoImporte.Find(IDAnioLectivoCurso, MesInicio)
+            mAnioLectivoCursoImporteActual = mdbContext.AnioLectivoCursoImporte.Find(mAnioLectivoCursoActual.IDAnioLectivoCurso, MesInicio)
         End If
 
         Me.MdiParent = formMDIMain
@@ -47,10 +50,10 @@
 
         buttonGuardar.Visible = mEditMode
         buttonCancelar.Visible = mEditMode
-        buttonEditar.Visible = (mEditMode = False)
-        buttonCerrar.Visible = (mEditMode = False)
+        buttonEditar.Visible = Not mEditMode
+        buttonCerrar.Visible = Not mEditMode
 
-        comboboxMesInicio.Enabled = (mEditMode And mAnioLectivoCursoImporteActual.IDAnioLectivoCurso = 0)
+        comboboxMesInicio.Enabled = (mEditMode And mAnioLectivoCursoImporteActual.MesInicio = 0)
         textboxImporteMatricula.ReadOnly = Not mEditMode
         textboxImporteCuota.ReadOnly = Not mEditMode
     End Sub
@@ -77,8 +80,8 @@
 #Region "Load and Set Data"
     Friend Sub SetDataFromObjectToControls()
         With mAnioLectivoCursoImporteActual
-            textboxAnioLectivo.Text = .AnioLectivoCurso.AnioLectivo.ToString
-            textboxCurso.Text = .AnioLectivoCurso.Curso.Anio.Nombre & " - " & .AnioLectivoCurso.Curso.Turno.Nombre & " - " & .AnioLectivoCurso.Curso.Division
+            textboxAnioLectivo.Text = mAnioLectivoCursoActual.AnioLectivo.ToString
+            textboxCurso.Text = mAnioLectivoCursoActual.Curso.Anio.Nombre & " - " & mAnioLectivoCursoActual.Curso.Turno.Nombre & " - " & mAnioLectivoCursoActual.Curso.Division
             comboboxMesInicio.SelectedIndex = .MesInicio - 1
             textboxImporteMatricula.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.ImporteMatricula)
             textboxImporteCuota.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.ImporteCuota)

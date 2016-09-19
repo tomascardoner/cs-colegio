@@ -408,6 +408,7 @@
           <Property Name="TipoAlumno" Type="bit" Nullable="false" />
           <Property Name="TipoFamiliar" Type="bit" Nullable="false" />
           <Property Name="TipoProveedor" Type="bit" Nullable="false" />
+          <Property Name="TipoOtro" Type="bit" Nullable="false" />
           <Property Name="IDDocumentoTipo" Type="tinyint" />
           <Property Name="DocumentoNumero" Type="varchar" MaxLength="12" />
           <Property Name="FacturaIDDocumentoTipo" Type="tinyint" />
@@ -761,6 +762,18 @@
           <Property Name="IDUsuarioGrupo" Type="tinyint" Nullable="false" />
           <Property Name="IDPermiso" Type="char" MaxLength="100" Nullable="false" />
         </EntityType>
+        <Association Name="FK__Anio__AnioSiguiente">
+          <End Role="Anio" Type="Self.Anio" Multiplicity="0..1" />
+          <End Role="Anio1" Type="Self.Anio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Anio">
+              <PropertyRef Name="IDAnio" />
+            </Principal>
+            <Dependent Role="Anio1">
+              <PropertyRef Name="IDAnioSiguiente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Anio__Curso">
           <End Role="Anio" Type="Self.Anio" Multiplicity="1" />
           <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
@@ -1634,6 +1647,10 @@
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsuarioGrupo" EntityType="Self.UsuarioGrupo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsuarioGrupoPermiso" EntityType="Self.UsuarioGrupoPermiso" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Anio__AnioSiguiente" Association="Self.FK__Anio__AnioSiguiente">
+            <End Role="Anio" EntitySet="Anio" />
+            <End Role="Anio1" EntitySet="Anio" />
+          </AssociationSet>
           <AssociationSet Name="FK__Anio__Curso" Association="Self.FK__Anio__Curso">
             <End Role="Anio" EntitySet="Anio" />
             <End Role="Curso" EntitySet="Curso" />
@@ -1922,6 +1939,8 @@
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Curso" Relationship="Self.FK__Anio__Curso" FromRole="Anio" ToRole="Curso" />
           <NavigationProperty Name="Nivel" Relationship="Self.FK__Nivel__Anio" FromRole="Anio" ToRole="Nivel" />
+          <NavigationProperty Name="AnioAnterior" Relationship="CSColegioModel.FK__Anio__AnioSiguiente" FromRole="Anio" ToRole="Anio1" />
+          <NavigationProperty Name="AnioSiguiente" Relationship="CSColegioModel.FK__Anio__AnioSiguiente" FromRole="Anio1" ToRole="Anio" />
         </EntityType>
         <EntityType Name="Articulo">
           <Key>
@@ -2027,6 +2046,7 @@
           <Property Name="TipoAlumno" Type="Boolean" Nullable="false" />
           <Property Name="TipoFamiliar" Type="Boolean" Nullable="false" />
           <Property Name="TipoProveedor" Type="Boolean" Nullable="false" />
+          <Property Name="TipoOtro" Type="Boolean" Nullable="false" />
           <Property Name="IDDocumentoTipo" Type="Byte" />
           <Property Name="DocumentoNumero" Type="String" MaxLength="12" Unicode="false" FixedLength="false" />
           <Property Name="FacturaIDDocumentoTipo" Type="Byte" />
@@ -2194,7 +2214,7 @@
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Anio" Relationship="Self.FK__Nivel__Anio" FromRole="Nivel" ToRole="Anio" />
+          <NavigationProperty Name="Anios" Relationship="Self.FK__Nivel__Anio" FromRole="Nivel" ToRole="Anio" />
         </EntityType>
         <EntityType Name="Parametro">
           <Key>
@@ -2752,6 +2772,10 @@
           <AssociationSet Name="FK__Usuario__ComunicacionEntidad" Association="CSColegioModel.FK__Usuario__ComunicacionEntidad">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="ComunicacionEntidad" EntitySet="ComunicacionEntidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Anio__AnioSiguiente" Association="CSColegioModel.FK__Anio__AnioSiguiente">
+            <End Role="Anio" EntitySet="Anio" />
+            <End Role="Anio1" EntitySet="Anio" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
@@ -3828,6 +3852,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Anio__AnioSiguiente">
+          <End Type="CSColegioModel.Anio" Role="Anio" Multiplicity="0..1" />
+          <End Type="CSColegioModel.Anio" Role="Anio1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Anio">
+              <PropertyRef Name="IDAnio" />
+            </Principal>
+            <Dependent Role="Anio1">
+              <PropertyRef Name="IDAnioSiguiente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3935,6 +3971,7 @@
           <EntitySetMapping Name="Entidad">
             <EntityTypeMapping TypeName="CSColegioModel.Entidad">
               <MappingFragment StoreEntitySet="Entidad">
+                <ScalarProperty Name="TipoOtro" ColumnName="TipoOtro" />
                 <ScalarProperty Name="VerificarEmail2" ColumnName="VerificarEmail2" />
                 <ScalarProperty Name="VerificarEmail1" ColumnName="VerificarEmail1" />
                 <ScalarProperty Name="DebitoAutomaticoCBU" ColumnName="DebitoAutomaticoCBU" />
