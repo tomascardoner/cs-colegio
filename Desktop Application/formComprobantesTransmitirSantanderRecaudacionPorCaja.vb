@@ -105,11 +105,10 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
         Dim FileName As String
 
         ' Obtengo y verifico si existe la carpeta de destino de los archivos a exportar
-        FolderName = CS_SpecialFolders.ProcessString(My.Settings.Exchange_Outbound_Folder)
+        FolderName = CS_SpecialFolders.ProcessString(My.Settings.Exchange_Outbound_Santander_Piryp_Folder)
         If Not FolderName.EndsWith("\") Then
             FolderName &= "\"
         End If
-        FolderName &= My.Settings.Exchange_Outbound_Santander_Piryp_Folder
         If Not FolderName.EndsWith("\") Then
             FolderName &= "\"
         End If
@@ -122,7 +121,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
 
-        Using outputFile As New StreamWriter(FolderName & FileName, False, New System.Text.UnicodeEncoding)
+        Using outputFile As New StreamWriter(FolderName & FileName, False, New System.Text.UTF8Encoding)
 
             For Each RowActual As DataGridViewRow In datagridviewComprobantes.Rows
                 GridDataRowActual = CType(RowActual.DataBoundItem, GridDataRow)
@@ -131,19 +130,19 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
                     ' Detalle
                     DetalleTextStream &= ComprobanteActual.ComprobanteTipo.Sigla.Substring(0, 2)            ' Tipo de Comprobante
                     DetalleTextStream &= ComprobanteActual.NumeroCompleto.PadRight(15, " "c)                ' Nro. Comprobante
-                    DetalleTextStream &= "0000"                                                             ' Nro. Cuota
+                    DetalleTextStream &= "0001"                                                             ' Nro. Cuota
                     DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString.PadRight(15, " "c)    ' Nro. Cliente Empresa
-                    DetalleTextStream &= ComprobanteActual.ApellidoNombre.PadRight(30, " "c).Substring(0, 30)   ' Nombre Cliente
+                    DetalleTextStream &= CS_String.RemoveDiacritics(ComprobanteActual.ApellidoNombre).PadRight(30, " "c).Substring(0, 30)   ' Nombre Cliente
                     DetalleTextStream &= StrDup(11, "0"c)                                                   ' CUIT Cliente
                     DetalleTextStream &= ComprobanteActual.FechaVencimiento.Value.ToString("yyyyMMdd")      ' Fecha 1er. vencimiento
                     DetalleTextStream &= ComprobanteActual.ImporteTotal.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 1er. vencimiento
                     DetalleTextStream &= "0"                                                                ' Moneda
                     DetalleTextStream &= "     "                                                            ' Filler
                     DetalleTextStream &= ComprobanteActual.IDComprobante.ToString.PadRight(30, " "c)        ' Referencia Empresa
-                    DetalleTextStream &= "00000000"                                                         ' Fecha 2do. vencimiento
-                    DetalleTextStream &= StrDup(15, "0"c)                                                   ' Importe 2do. vencimiento
-                    DetalleTextStream &= "00000000"                                                         ' Fecha Vto. Punitorios
-                    DetalleTextStream &= "0000000"                                                          ' TNA
+                    DetalleTextStream &= ComprobanteActual.FechaVencimiento.Value.ToString("yyyyMMdd")      ' Fecha 2do. vencimiento
+                    DetalleTextStream &= ComprobanteActual.ImporteTotal.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 2do. vencimiento
+                    DetalleTextStream &= ComprobanteActual.FechaVencimiento.Value.AddMonths(6).ToString("yyyyMMdd") ' Fecha Vto. Punitorios
+                    DetalleTextStream &= "0003600"                                                          ' TNA
                     DetalleTextStream &= "S"                                                                ' Publica con Nro. Cliente Empresa
                     DetalleTextStream &= "00000000"                                                         ' Fecha Pronto Pago
                     DetalleTextStream &= StrDup(15, "0"c)                                                   ' Importe Pronto Pago

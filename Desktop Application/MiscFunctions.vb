@@ -275,17 +275,19 @@ Module MiscFunctions
                     If EntidadAVerificar.ExcluyeFacturaHasta Is Nothing Then
                         ' No especifica exclusión Hasta, por ende, no se debe incluir en la Facturación
                         If FechaExclusionEsError Then
-                            CorreccionDescripcion &= "El Alumno especifica Fechas de Exclusión de Facturación y coinciden con la Fecha de esta Factura." & vbCrLf
+                            CorreccionDescripcion = "El Alumno especifica Fechas de Exclusión de Facturación y coinciden con la Fecha de esta Factura."
                             Return False
                         Else
+                            CorreccionDescripcion = ""
                             Return False
                         End If
                     ElseIf EntidadAVerificar.ExcluyeFacturaHasta.Value.CompareTo(FechaServicioDesde) > 0 Then
                         ' Está dentro de la exclusión Hasta, por lo tanto, se excluye
                         If FechaExclusionEsError Then
-                            CorreccionDescripcion &= "El Alumno especifica Fechas de Exclusión de Facturación y coinciden con la Fecha de esta Factura." & vbCrLf
+                            CorreccionDescripcion = "El Alumno especifica Fechas de Exclusión de Facturación y coinciden con la Fecha de esta Factura."
                             Return False
                         Else
+                            CorreccionDescripcion = ""
                             Return False
                         End If
                     Else
@@ -301,9 +303,10 @@ Module MiscFunctions
                 If EntidadAVerificar.ExcluyeFacturaHasta.Value.CompareTo(FechaServicioDesde) > 0 Then
                     ' Está dentro de la exclusión, así que no lo agrego a la lista
                     If FechaExclusionEsError Then
-                        CorreccionDescripcion &= "El Alumno especifica Fechas de Exclusión de Facturación y coinciden con la Fecha de esta Factura." & vbCrLf
+                        CorreccionDescripcion = "El Alumno especifica Fechas de Exclusión de Facturación y coinciden con la Fecha de esta Factura."
                         Return False
                     Else
+                        CorreccionDescripcion = ""
                         Return False
                     End If
                 Else

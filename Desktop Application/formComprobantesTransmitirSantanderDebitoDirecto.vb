@@ -119,7 +119,7 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
 
-        Using outputFile As New StreamWriter(FolderName & FileName, False, New System.Text.UnicodeEncoding)
+        Using outputFile As New StreamWriter(FolderName & FileName, False, New System.Text.UTF8Encoding)
 
             For Each RowActual As DataGridViewRow In datagridviewComprobantes.Rows
                 GridDataRowActual = CType(RowActual.DataBoundItem, GridDataRow)
@@ -133,7 +133,7 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
                     DetalleTextStream &= ComprobanteActual.FechaVencimiento.Value.ToString("yyyyMMdd")      ' Fecha 1er. vencimiento
                     DetalleTextStream &= ComprobanteActual.ImporteTotal.ToString("00000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 1er. vencimiento
                     DetalleTextStream &= (ComprobanteActual.ComprobanteTipo.Sigla & ComprobanteActual.PuntoVenta & ComprobanteActual.Numero).PadRight(15, " "c)       ' Identificación Débito
-                    DetalleTextStream &= ComprobanteActual.ApellidoNombre.PadRight(30, " "c).Substring(0, 30)   ' Nombre del Adherente
+                    DetalleTextStream &= CS_String.RemoveDiacritics(ComprobanteActual.ApellidoNombre).PadRight(30, " "c).Substring(0, 30)   ' Nombre del Adherente
                     DetalleTextStream &= " "                                                                ' Filler
                     DetalleTextStream &= ComprobanteActual.IDComprobante.ToString.PadRight(50, " "c)        ' Referencia Empresa
 

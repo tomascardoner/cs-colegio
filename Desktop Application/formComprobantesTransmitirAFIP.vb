@@ -120,6 +120,7 @@
             If Not LogPath.EndsWith("\") Then
                 LogPath &= "\"
             End If
+            LogPath &= DateTime.Today.Year & "\" & DateTime.Today.Month.ToString.PadLeft(2, "0"c) & "\"
             LogFileName = CS_File.ProcessFilename(My.Settings.AFIP_WS_LogFileName)
         End If
 
@@ -333,12 +334,12 @@
         buttonTransmitir.Visible = Not Mostrar
         buttonCancelar.Visible = Mostrar
         If Mostrar Then
-            datagridviewComprobantes.Height = 311
+            datagridviewComprobantes.Height = 270
             progressbarStatus.Maximum = listComprobantes.Count
             progressbarStatus.Value = 0
             textboxStatus.Text = ""
         Else
-            datagridviewComprobantes.Height = 449
+            datagridviewComprobantes.Height = 408
         End If
         groupboxStatus.Visible = Mostrar
     End Sub

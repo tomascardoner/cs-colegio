@@ -26,7 +26,6 @@
         mAnioLectivoCursoActual = AnioLectivoCursoActual
 
         Me.MdiParent = formMDIMain
-        CS_Form.CenterToParent(ParentForm, Me)
         Me.Show()
         textboxAnioLectivo.Text = AnioLectivoCursoActual.AnioLectivo.ToString
         textboxCurso.Text = AnioLectivoCursoActual.Curso.Anio.Nombre & " - " & AnioLectivoCursoActual.Curso.Turno.Nombre & " - " & AnioLectivoCursoActual.Curso.Division

@@ -219,12 +219,12 @@
         buttonEnviar.Visible = Not Mostrar
         buttonCancelar.Visible = Mostrar
         If Mostrar Then
-            datagridviewComprobantes.Height = 311
+            datagridviewComprobantes.Height = 270
             progressbarStatus.Maximum = listComprobantes.Count
             progressbarStatus.Value = 0
             textboxStatus.Text = ""
         Else
-            datagridviewComprobantes.Height = 449
+            datagridviewComprobantes.Height = 408
         End If
         groupboxStatus.Visible = Mostrar
     End Sub

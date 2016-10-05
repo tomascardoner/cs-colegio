@@ -165,7 +165,7 @@
 
                 ' Refresco la lista de Cursos de Años Lectivos para mostrar los cambios
                 If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formAniosLectivosCursos") Then
-                    Dim formAniosLectivosCursos As formAniosLectivosCursos = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formAniosLectivosCursos"), formAniosLectivosCursos)
+                    Dim formAniosLectivosCursos As formAnioLectivoCursos = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formAniosLectivosCursos"), formAnioLectivoCursos)
                     formAniosLectivosCursos.RefreshData(mAnioLectivoCursoActual.IDAnioLectivoCurso)
                     formAniosLectivosCursos = Nothing
                 End If

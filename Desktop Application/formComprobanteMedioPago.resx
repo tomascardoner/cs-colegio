@@ -121,21 +121,21 @@
     <value>17, 17</value>
   </metadata>
   <metadata name="LineShape2.Bounds" type="System.Drawing.Rectangle, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>18, 277, 421, 0</value>
+    <value>15, 225, 315, 0</value>
   </metadata>
   <metadata name="LineShape2.Location" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>18, 277</value>
+    <value>15, 225</value>
   </metadata>
   <metadata name="LineShape2.Size" type="System.Drawing.Size, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>421, 0</value>
+    <value>315, 0</value>
   </metadata>
   <metadata name="LineShape1.Bounds" type="System.Drawing.Rectangle, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>12, 81, 323, 0</value>
+    <value>15, 80, 315, 0</value>
   </metadata>
   <metadata name="LineShape1.Location" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>12, 81</value>
+    <value>15, 80</value>
   </metadata>
   <metadata name="LineShape1.Size" type="System.Drawing.Size, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>323, 0</value>
+    <value>315, 0</value>
   </metadata>
 </root>

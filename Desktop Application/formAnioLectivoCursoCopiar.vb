@@ -134,7 +134,7 @@
 
             ' Refresco la lista para mostrar los cambios
             If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formAniosLectivosCursos") Then
-                Dim formAniosLectivosCursos As formAniosLectivosCursos = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formAniosLectivosCursos"), formAniosLectivosCursos)
+                Dim formAniosLectivosCursos As formAnioLectivoCursos = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formAniosLectivosCursos"), formAnioLectivoCursos)
                 formAniosLectivosCursos.RefreshData()
                 formAniosLectivosCursos = Nothing
             End If

@@ -9,7 +9,7 @@
 #Region "Form stuff"
     Private Sub formComunicacionesEnviarMail_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         buttonEnviar.Enabled = False
-        pFillAndRefreshLists.Comunicacion(comboboxComunicacion, False, False)
+        pFillAndRefreshLists.Comunicacion(comboboxComunicacion, False, False, False)
         comboboxCantidad.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, "500", "200", "150", "100", "50", "20", "10", "5", "1"})
         comboboxCantidad.SelectedIndex = 3
 
@@ -18,6 +18,7 @@
         checkboxTipoAlumno.Checked = True
         checkboxTipoFamiliar.Checked = True
         checkboxTipoProveedor.Checked = False
+        checkboxTipoOtro.Checked = False
     End Sub
 
     Private Sub formComunicacionesEnviarMail_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -40,19 +41,21 @@
                 ' Muestro las Entidades a las que no se les ha enviado la Comunicación seleccionada
 
                 If checkboxTipoPersonalColegio.Checked And checkboxTipoDocente.Checked And checkboxTipoAlumno.Checked And checkboxTipoFamiliar.Checked And checkboxTipoProveedor.Checked And checkboxTipoOtro.Checked Then
-                    listEntidades = (From e In dbContext.Entidad
-                                     Group Join ComunicacionEntidad In dbContext.ComunicacionEntidad On e.IDEntidad Equals ComunicacionEntidad.IDEntidad Into Entidad_ComunicacionEntidad_Join = Group
-                                     From ComunicacionEntidad In Entidad_ComunicacionEntidad_Join.DefaultIfEmpty()
-                                     Where e.TipoFamiliar And e.EsActivo And (Not e.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO) And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And ComunicacionEntidad Is Nothing
-                                     Order By e.ApellidoNombre
-                                     Select e).ToList
+                    'listEntidades = (From e In dbContext.Entidad
+                    '                 Group Join ce In dbContext.ComunicacionEntidad On e.IDEntidad Equals ce.IDEntidad Into Entidad_ComunicacionEntidad_Join = Group
+                    '                 Where Entidad_ComunicacionEntidad_Join. .IDComunicacion = ComunicacionActual.IDComunicacion 
+
+                    '                 From ce In Entidad_ComunicacionEntidad_Join.DefaultIfEmpty()
+                    '                 Where e.EsActivo And (Not e.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO) And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And ce Is Nothing
+                    '                 Order By e.ApellidoNombre
+                    '                 Select e).ToList
                 Else
-                    listEntidades = (From e In dbContext.Entidad
-                                     Group Join ComunicacionEntidad In dbContext.ComunicacionEntidad On e.IDEntidad Equals ComunicacionEntidad.IDEntidad Into Entidad_ComunicacionEntidad_Join = Group
-                                     From ComunicacionEntidad In Entidad_ComunicacionEntidad_Join.DefaultIfEmpty()
-                                     Where e.EsActivo And ((checkboxTipoPersonalColegio.Checked And e.TipoPersonalColegio) Or (checkboxTipoDocente.Checked And e.TipoDocente) Or (checkboxTipoAlumno.Checked And e.TipoAlumno) Or (checkboxTipoFamiliar.Checked And e.TipoFamiliar) Or (checkboxTipoProveedor.Checked And e.TipoProveedor) Or (checkboxTipoOtro.Checked And e.TipoOtro)) And (Not e.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO) And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And ComunicacionEntidad Is Nothing
-                                     Order By e.ApellidoNombre
-                                     Select e).ToList
+                    'listEntidades = (From e In dbContext.Entidad
+                    '                 Join ce In dbContext.ComunicacionEntidad On e.IDEntidad Equals ce.IDEntidad Into Entidad_ComunicacionEntidad_Join
+                    '                 From ce In Entidad_ComunicacionEntidad_Join.DefaultIfEmpty()
+                    '                 Where e.EsActivo And ((checkboxTipoPersonalColegio.Checked And e.TipoPersonalColegio) Or (checkboxTipoDocente.Checked And e.TipoDocente) Or (checkboxTipoAlumno.Checked And e.TipoAlumno) Or (checkboxTipoFamiliar.Checked And e.TipoFamiliar) Or (checkboxTipoProveedor.Checked And e.TipoProveedor) Or (checkboxTipoOtro.Checked And e.TipoOtro)) And (Not e.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO) And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And ce Is Nothing
+                    '                 Order By e.ApellidoNombre
+                    '                 Select e).ToList
                 End If
 
                 Select Case listEntidades.Count
@@ -200,12 +203,12 @@
         buttonEnviar.Visible = Not Mostrar
         buttonCancelar.Visible = Mostrar
         If Mostrar Then
-            datagridviewEntidades.Height = 311
+            datagridviewEntidades.Height = 270
             progressbarStatus.Maximum = listEntidades.Count
             progressbarStatus.Value = 0
             textboxStatus.Text = ""
         Else
-            datagridviewEntidades.Height = 449
+            datagridviewEntidades.Height = 408
         End If
         groupboxStatus.Visible = Mostrar
     End Sub

@@ -325,7 +325,9 @@ Public Class formComprobantesGenerarLote
                                 If MiscFunctions.Entidad_VerificarParaEmitirComprobante(EntidadActual, AnioLectivo, False, FechaServicioDesde, FechaServicioHasta, False, CorreccionDescripcion) Then
                                     listEntidadesSeleccionadasOk.Add(EntidadActual)
                                 Else
-                                    listEntidadesSeleccionadasCorregir.Add(New EntidadACorregir With {.IDEntidad = EntidadActual.IDEntidad, .Apellido = EntidadActual.Apellido, .Nombre = EntidadActual.Nombre, .ApellidoNombre = EntidadActual.ApellidoNombre, .CorreccionDescripcion = CorreccionDescripcion})
+                                    If CorreccionDescripcion.Length > 0 Then
+                                        listEntidadesSeleccionadasCorregir.Add(New EntidadACorregir With {.IDEntidad = EntidadActual.IDEntidad, .Apellido = EntidadActual.Apellido, .Nombre = EntidadActual.Nombre, .ApellidoNombre = EntidadActual.ApellidoNombre, .CorreccionDescripcion = CorreccionDescripcion})
+                                    End If
                                 End If
                             End If
                         Next
@@ -349,7 +351,9 @@ Public Class formComprobantesGenerarLote
                             If MiscFunctions.Entidad_VerificarParaEmitirComprobante(EntidadActual, AnioLectivo, False, FechaServicioDesde, FechaServicioHasta, False, CorreccionDescripcion) Then
                                 listEntidadesSeleccionadasOk.Add(EntidadActual)
                             Else
-                                listEntidadesSeleccionadasCorregir.Add(New EntidadACorregir With {.IDEntidad = EntidadActual.IDEntidad, .Apellido = EntidadActual.Apellido, .Nombre = EntidadActual.Nombre, .ApellidoNombre = EntidadActual.ApellidoNombre, .CorreccionDescripcion = CorreccionDescripcion})
+                                If CorreccionDescripcion.Length > 0 Then
+                                    listEntidadesSeleccionadasCorregir.Add(New EntidadACorregir With {.IDEntidad = EntidadActual.IDEntidad, .Apellido = EntidadActual.Apellido, .Nombre = EntidadActual.Nombre, .ApellidoNombre = EntidadActual.ApellidoNombre, .CorreccionDescripcion = CorreccionDescripcion})
+                                End If
                             End If
                         End If
                     Next

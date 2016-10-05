@@ -2,7 +2,8 @@
 
 #Region "Declarations"
     Friend Form_ClientSize As Size
-    Private AFIP_TicketAcceso_Homo As String
+    Private AFIP_TicketAcceso_Homologacion As String
+    Private AFIP_TicketAcceso_Produccion As String
 #End Region
 
 #Region "Form stuff"
@@ -62,19 +63,36 @@
 
 #Region "Menu Debug"
     Private Sub Debug_AFIPWSHomologacionLogin() Handles menuitemDebugAFIPWSHomologacionLogin.Click
-        AFIP_TicketAcceso_Homo = CS_AFIP_WS.Login(CS_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION), "", CS_AFIP_WS.SERVICIO_FACTURACION_ELECTRONICA, My.Settings.AFIP_WS_Certificado_Homologacion, My.Settings.AFIP_WS_ClavePrivada)
+        AFIP_TicketAcceso_Homologacion = CS_AFIP_WS.Login(CS_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION), "", CS_AFIP_WS.SERVICIO_FACTURACION_ELECTRONICA, My.Settings.AFIP_WS_Certificado_Homologacion, My.Settings.AFIP_WS_ClavePrivada)
     End Sub
 
-    Private Sub Debug_AFIPWSHomologacionObtenerUltimoComprobante(sender As Object, e As EventArgs) Handles menuitemDebugAFIPWSHomologacionCompConsultar.Click
+    Private Sub Debug_AFIPWSHomologacionObtenerUltimoComprobante(sender As Object, e As EventArgs) Handles menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante.Click
         Dim TipoComprobante As Short
         Dim PuntoVenta As Short
 
-        If AFIP_TicketAcceso_Homo = "" Then
+        If AFIP_TicketAcceso_Homologacion = "" Then
             MsgBox("No hay un Ticket de Acceso válido." & vbCrLf & "¿Ya inició sesión en AFIP?", vbExclamation, My.Application.Info.Title)
         Else
-            TipoComprobante = CShort(InputBox("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSHomologacionCompConsultar.Text))
-            PuntoVenta = CShort(InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSHomologacionCompConsultar.Text))
-            MsgBox("El Último Número de comprobante autorizado es: " & CS_AFIP_WS.FacturaElectronica_ConectarYObtenerUltimoNumeroComprobante(AFIP_TicketAcceso_Homo, CS_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION), "", CS_Parameter.GetString(Parametros.EMPRESA_CUIT), TipoComprobante, PuntoVenta))
+            TipoComprobante = CShort(InputBox("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante.Text))
+            PuntoVenta = CShort(InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante.Text))
+            MsgBox("El Último Número de comprobante autorizado es: " & CS_AFIP_WS.FacturaElectronica_ConectarYObtenerUltimoNumeroComprobante(AFIP_TicketAcceso_Homologacion, CS_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION), "", CS_Parameter.GetString(Parametros.EMPRESA_CUIT), TipoComprobante, PuntoVenta))
+        End If
+    End Sub
+
+    Private Sub Debug_AFIPWSProduccionLogin() Handles menuitemDebugAFIPWSProduccionLogin.Click
+        AFIP_TicketAcceso_Produccion = CS_AFIP_WS.Login(CS_Parameter.GetString(Parametros.AFIP_WS_AA_PRODUCCION), "", CS_AFIP_WS.SERVICIO_FACTURACION_ELECTRONICA, My.Settings.AFIP_WS_Certificado_Produccion, My.Settings.AFIP_WS_ClavePrivada)
+    End Sub
+
+    Private Sub Debug_AFIPWSProduccionObtenerUltimoComprobante(sender As Object, e As EventArgs) Handles menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Click
+        Dim TipoComprobante As Short
+        Dim PuntoVenta As Short
+
+        If AFIP_TicketAcceso_Produccion = "" Then
+            MsgBox("No hay un Ticket de Acceso válido." & vbCrLf & "¿Ya inició sesión en AFIP?", vbExclamation, My.Application.Info.Title)
+        Else
+            TipoComprobante = CShort(InputBox("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Text))
+            PuntoVenta = CShort(InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Text))
+            MsgBox("El Último Número de comprobante autorizado es: " & CS_AFIP_WS.FacturaElectronica_ConectarYObtenerUltimoNumeroComprobante(AFIP_TicketAcceso_Produccion, CS_Parameter.GetString(Parametros.AFIP_WS_FE_PRODUCCION), "", CS_Parameter.GetString(Parametros.EMPRESA_CUIT), TipoComprobante, PuntoVenta))
         End If
     End Sub
 
@@ -176,12 +194,12 @@
         If Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCURSO) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formAniosLectivosCursos, Form))
-            formAniosLectivosCursos.Show()
-            If formAniosLectivosCursos.WindowState = FormWindowState.Minimized Then
-                formAniosLectivosCursos.WindowState = FormWindowState.Normal
+            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formAnioLectivoCursos, Form))
+            formAnioLectivoCursos.Show()
+            If formAnioLectivoCursos.WindowState = FormWindowState.Minimized Then
+                formAnioLectivoCursos.WindowState = FormWindowState.Normal
             End If
-            formAniosLectivosCursos.Focus()
+            formAnioLectivoCursos.Focus()
 
             Me.Cursor = Cursors.Default
         End If

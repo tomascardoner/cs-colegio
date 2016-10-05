@@ -22,8 +22,8 @@ Partial Class formComprobantesTransmitirAFIP
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.labelCantidad = New System.Windows.Forms.Label()
         Me.comboboxCantidad = New System.Windows.Forms.ComboBox()
         Me.datagridviewComprobantes = New System.Windows.Forms.DataGridView()
@@ -32,22 +32,22 @@ Partial Class formComprobantesTransmitirAFIP
         Me.columnApellidoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.buttonTransmitir = New System.Windows.Forms.Button()
-        Me.statusstripMain = New System.Windows.Forms.StatusStrip()
-        Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
         Me.groupboxStatus = New System.Windows.Forms.GroupBox()
         Me.textboxStatus = New System.Windows.Forms.TextBox()
         Me.progressbarStatus = New System.Windows.Forms.ProgressBar()
         Me.pictureboxLogo = New System.Windows.Forms.PictureBox()
         Me.buttonCancelar = New System.Windows.Forms.Button()
-        CType(Me.datagridviewComprobantes, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.statusstripMain.SuspendLayout()
-        Me.groupboxStatus.SuspendLayout()
-        CType(Me.pictureboxLogo, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SuspendLayout()
+        Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.statusstripMain = New System.Windows.Forms.StatusStrip()
+        CType(Me.datagridviewComprobantes,System.ComponentModel.ISupportInitialize).BeginInit
+        Me.groupboxStatus.SuspendLayout
+        CType(Me.pictureboxLogo,System.ComponentModel.ISupportInitialize).BeginInit
+        Me.statusstripMain.SuspendLayout
+        Me.SuspendLayout
         '
         'labelCantidad
         '
-        Me.labelCantidad.AutoSize = True
+        Me.labelCantidad.AutoSize = true
         Me.labelCantidad.Location = New System.Drawing.Point(12, 30)
         Me.labelCantidad.Name = "labelCantidad"
         Me.labelCantidad.Size = New System.Drawing.Size(180, 13)
@@ -68,11 +68,11 @@ Partial Class formComprobantesTransmitirAFIP
         Me.datagridviewComprobantes.AllowUserToAddRows = False
         Me.datagridviewComprobantes.AllowUserToDeleteRows = False
         Me.datagridviewComprobantes.AllowUserToResizeRows = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewComprobantes.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewComprobantes.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.datagridviewComprobantes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewComprobantes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewComprobantes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnNumeroCompleto, Me.columnApellidoNombre, Me.columnImporteTotal})
@@ -120,9 +120,9 @@ Partial Class formComprobantesTransmitirAFIP
         '
         Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnImporteTotal.DataPropertyName = "ImporteTotal"
-        DataGridViewCellStyle4.Format = "C2"
-        DataGridViewCellStyle4.NullValue = "0"
-        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.Format = "C2"
+        DataGridViewCellStyle2.NullValue = "0"
+        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle2
         Me.columnImporteTotal.HeaderText = "Importe"
         Me.columnImporteTotal.Name = "columnImporteTotal"
         Me.columnImporteTotal.ReadOnly = True
@@ -137,21 +137,6 @@ Partial Class formComprobantesTransmitirAFIP
         Me.buttonTransmitir.TabIndex = 2
         Me.buttonTransmitir.Text = "Transmitir"
         Me.buttonTransmitir.UseVisualStyleBackColor = True
-        '
-        'statusstripMain
-        '
-        Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statuslabelMain})
-        Me.statusstripMain.Location = New System.Drawing.Point(0, 494)
-        Me.statusstripMain.Name = "statusstripMain"
-        Me.statusstripMain.Size = New System.Drawing.Size(692, 22)
-        Me.statusstripMain.TabIndex = 4
-        '
-        'statuslabelMain
-        '
-        Me.statuslabelMain.Name = "statuslabelMain"
-        Me.statuslabelMain.Size = New System.Drawing.Size(677, 17)
-        Me.statuslabelMain.Spring = True
-        Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'groupboxStatus
         '
@@ -206,6 +191,22 @@ Partial Class formComprobantesTransmitirAFIP
         Me.buttonCancelar.Text = "Cancelar"
         Me.buttonCancelar.UseVisualStyleBackColor = True
         '
+        'statuslabelMain
+        '
+        Me.statuslabelMain.Name = "statuslabelMain"
+        Me.statuslabelMain.Size = New System.Drawing.Size(677, 17)
+        Me.statuslabelMain.Spring = True
+        Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'statusstripMain
+        '
+        Me.statusstripMain.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statuslabelMain})
+        Me.statusstripMain.Location = New System.Drawing.Point(0, 494)
+        Me.statusstripMain.Name = "statusstripMain"
+        Me.statusstripMain.Size = New System.Drawing.Size(692, 22)
+        Me.statusstripMain.TabIndex = 4
+        '
         'formComprobantesTransmitirAFIP
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -224,22 +225,20 @@ Partial Class formComprobantesTransmitirAFIP
         Me.Name = "formComprobantesTransmitirAFIP"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Transmitir Comprobantes a AFIP"
-        CType(Me.datagridviewComprobantes, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.statusstripMain.ResumeLayout(False)
-        Me.statusstripMain.PerformLayout()
-        Me.groupboxStatus.ResumeLayout(False)
-        Me.groupboxStatus.PerformLayout()
-        CType(Me.pictureboxLogo, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ResumeLayout(False)
-        Me.PerformLayout()
+        CType(Me.datagridviewComprobantes,System.ComponentModel.ISupportInitialize).EndInit
+        Me.groupboxStatus.ResumeLayout(false)
+        Me.groupboxStatus.PerformLayout
+        CType(Me.pictureboxLogo,System.ComponentModel.ISupportInitialize).EndInit
+        Me.statusstripMain.ResumeLayout(false)
+        Me.statusstripMain.PerformLayout
+        Me.ResumeLayout(false)
+        Me.PerformLayout
 
-    End Sub
+End Sub
     Friend WithEvents labelCantidad As System.Windows.Forms.Label
     Friend WithEvents comboboxCantidad As System.Windows.Forms.ComboBox
     Friend WithEvents datagridviewComprobantes As System.Windows.Forms.DataGridView
     Friend WithEvents buttonTransmitir As System.Windows.Forms.Button
-    Friend WithEvents statusstripMain As System.Windows.Forms.StatusStrip
-    Friend WithEvents statuslabelMain As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents groupboxStatus As System.Windows.Forms.GroupBox
     Friend WithEvents progressbarStatus As System.Windows.Forms.ProgressBar
     Friend WithEvents textboxStatus As System.Windows.Forms.TextBox
@@ -249,4 +248,6 @@ Partial Class formComprobantesTransmitirAFIP
     Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents pictureboxLogo As System.Windows.Forms.PictureBox
     Friend WithEvents buttonCancelar As System.Windows.Forms.Button
+    Friend WithEvents statuslabelMain As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents statusstripMain As System.Windows.Forms.StatusStrip
 End Class

@@ -306,16 +306,16 @@
     <Compile Include="formAboutBox.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formAnioLectivoCursosImportesAgregar.Designer.vb">
+      <DependentUpon>formAnioLectivoCursosImportesAgregar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formAnioLectivoCursosImportesAgregar.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formEntidadInscripcionDetalle.Designer.vb">
       <DependentUpon>formEntidadInscripcionDetalle.vb</DependentUpon>
     </Compile>
     <Compile Include="formEntidadInscripcionDetalle.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="formAnioLectivoCursoImporteGenerar.Designer.vb">
-      <DependentUpon>formAnioLectivoCursoImporteGenerar.vb</DependentUpon>
-    </Compile>
-    <Compile Include="formAnioLectivoCursoImporteGenerar.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formAnioLectivoCursoImporte.Designer.vb">
@@ -372,10 +372,10 @@
     <Compile Include="formCurso.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formAniosLectivosCursos.Designer.vb">
-      <DependentUpon>formAniosLectivosCursos.vb</DependentUpon>
+    <Compile Include="formAnioLectivoCursos.Designer.vb">
+      <DependentUpon>formAnioLectivoCursos.vb</DependentUpon>
     </Compile>
-    <Compile Include="formAniosLectivosCursos.vb">
+    <Compile Include="formAnioLectivoCursos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formCursos.Designer.vb">
@@ -629,11 +629,11 @@
     <EmbeddedResource Include="formAboutBox.resx">
       <DependentUpon>formAboutBox.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formAnioLectivoCursosImportesAgregar.resx">
+      <DependentUpon>formAnioLectivoCursosImportesAgregar.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formEntidadInscripcionDetalle.resx">
       <DependentUpon>formEntidadInscripcionDetalle.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="formAnioLectivoCursoImporteGenerar.resx">
-      <DependentUpon>formAnioLectivoCursoImporteGenerar.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formAnioLectivoCursoImporte.resx">
       <DependentUpon>formAnioLectivoCursoImporte.vb</DependentUpon>
@@ -662,8 +662,8 @@
     <EmbeddedResource Include="formCurso.resx">
       <DependentUpon>formCurso.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formAniosLectivosCursos.resx">
-      <DependentUpon>formAniosLectivosCursos.vb</DependentUpon>
+    <EmbeddedResource Include="formAnioLectivoCursos.resx">
+      <DependentUpon>formAnioLectivoCursos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formCursos.resx">
       <DependentUpon>formCursos.vb</DependentUpon>

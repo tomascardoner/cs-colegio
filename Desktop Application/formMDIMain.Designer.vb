@@ -44,10 +44,10 @@ Partial Class formMDIMain
         Me.menuitemVentanaSeparadorListaVentanas = New System.Windows.Forms.ToolStripSeparator()
         Me.menuitemDebug = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWS = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemDebugAFIPWSHomologacion = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSHomologacionLogin = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemDebugAFIPWSHomologacionCompConsultar = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemDebugEnviarEmailNewsletter = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugAFIPWSProduccionLogin = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugAFIPWSSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemAyuda = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemAyuda_AcercaDe = New System.Windows.Forms.ToolStripMenuItem()
         Me.toolstripMain = New System.Windows.Forms.ToolStrip()
@@ -80,6 +80,7 @@ Partial Class formMDIMain
         Me.buttonComunicaciones = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemComunicacionesEnviarMail = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonReportes = New System.Windows.Forms.ToolStripButton()
+        Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
@@ -212,7 +213,7 @@ Partial Class formMDIMain
         '
         'menuitemDebug
         '
-        Me.menuitemDebug.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWS, Me.menuitemDebugEnviarEmailNewsletter})
+        Me.menuitemDebug.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWS})
         Me.menuitemDebug.Name = "menuitemDebug"
         Me.menuitemDebug.Size = New System.Drawing.Size(66, 24)
         Me.menuitemDebug.Text = "Debug"
@@ -220,35 +221,33 @@ Partial Class formMDIMain
         '
         'menuitemDebugAFIPWS
         '
-        Me.menuitemDebugAFIPWS.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWSHomologacion})
+        Me.menuitemDebugAFIPWS.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWSHomologacionLogin, Me.menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante, Me.menuitemDebugAFIPWSSeparator1, Me.menuitemDebugAFIPWSProduccionLogin, Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante})
         Me.menuitemDebugAFIPWS.Name = "menuitemDebugAFIPWS"
-        Me.menuitemDebugAFIPWS.Size = New System.Drawing.Size(246, 26)
+        Me.menuitemDebugAFIPWS.Size = New System.Drawing.Size(200, 26)
         Me.menuitemDebugAFIPWS.Text = "AFIP WebServices"
-        '
-        'menuitemDebugAFIPWSHomologacion
-        '
-        Me.menuitemDebugAFIPWSHomologacion.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWSHomologacionLogin, Me.menuitemDebugAFIPWSHomologacionCompConsultar})
-        Me.menuitemDebugAFIPWSHomologacion.Name = "menuitemDebugAFIPWSHomologacion"
-        Me.menuitemDebugAFIPWSHomologacion.Size = New System.Drawing.Size(184, 26)
-        Me.menuitemDebugAFIPWSHomologacion.Text = "Homologación"
         '
         'menuitemDebugAFIPWSHomologacionLogin
         '
         Me.menuitemDebugAFIPWSHomologacionLogin.Name = "menuitemDebugAFIPWSHomologacionLogin"
-        Me.menuitemDebugAFIPWSHomologacionLogin.Size = New System.Drawing.Size(287, 26)
-        Me.menuitemDebugAFIPWSHomologacionLogin.Text = "Login"
+        Me.menuitemDebugAFIPWSHomologacionLogin.Size = New System.Drawing.Size(397, 26)
+        Me.menuitemDebugAFIPWSHomologacionLogin.Text = "Homologación - Login"
         '
-        'menuitemDebugAFIPWSHomologacionCompConsultar
+        'menuitemDebugAFIPWSProduccionLogin
         '
-        Me.menuitemDebugAFIPWSHomologacionCompConsultar.Name = "menuitemDebugAFIPWSHomologacionCompConsultar"
-        Me.menuitemDebugAFIPWSHomologacionCompConsultar.Size = New System.Drawing.Size(287, 26)
-        Me.menuitemDebugAFIPWSHomologacionCompConsultar.Text = "Consultar último comprobante"
+        Me.menuitemDebugAFIPWSProduccionLogin.Name = "menuitemDebugAFIPWSProduccionLogin"
+        Me.menuitemDebugAFIPWSProduccionLogin.Size = New System.Drawing.Size(397, 26)
+        Me.menuitemDebugAFIPWSProduccionLogin.Text = "Producción - Login"
         '
-        'menuitemDebugEnviarEmailNewsletter
+        'menuitemDebugAFIPWSSeparator1
         '
-        Me.menuitemDebugEnviarEmailNewsletter.Name = "menuitemDebugEnviarEmailNewsletter"
-        Me.menuitemDebugEnviarEmailNewsletter.Size = New System.Drawing.Size(246, 26)
-        Me.menuitemDebugEnviarEmailNewsletter.Text = "Enviar e-mail Newsletter"
+        Me.menuitemDebugAFIPWSSeparator1.Name = "menuitemDebugAFIPWSSeparator1"
+        Me.menuitemDebugAFIPWSSeparator1.Size = New System.Drawing.Size(394, 6)
+        '
+        'menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante
+        '
+        Me.menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante.Name = "menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante"
+        Me.menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante.Size = New System.Drawing.Size(397, 26)
+        Me.menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante.Text = "Homologación - Verificar Ultimo Comprobante"
         '
         'menuitemAyuda
         '
@@ -476,6 +475,12 @@ Partial Class formMDIMain
         Me.buttonReportes.Size = New System.Drawing.Size(166, 36)
         Me.buttonReportes.Text = "Reportes"
         '
+        'menuitemDebugAFIPWSProduccionObtenerUltimoComprobante
+        '
+        Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Name = "menuitemDebugAFIPWSProduccionObtenerUltimoComprobante"
+        Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Size = New System.Drawing.Size(397, 26)
+        Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Text = "Producción - Verificar Ultimo Comprobante"
+        '
         'formMDIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -538,12 +543,10 @@ Partial Class formMDIMain
     Friend WithEvents menuitemEntidadesAniosLectivosYCursos As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebug As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWS As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemDebugAFIPWSHomologacion As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSHomologacionLogin As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemComprobantesTransmitirAFIP As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemComprobantesEnviarMail As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents buttonReportes As System.Windows.Forms.ToolStripButton
-    Friend WithEvents menuitemDebugAFIPWSHomologacionCompConsultar As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents menuitemComprobantesExportar As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemComprobantesExportarPagomiscuentas As System.Windows.Forms.ToolStripMenuItem
@@ -557,7 +560,10 @@ Partial Class formMDIMain
     Friend WithEvents menuitemComprobantesImportarRapipago As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemComprobantesImportarPagomiscuentas As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemEntidadesAnioLectivoCursoInscripcion As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemDebugEnviarEmailNewsletter As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents buttonComunicaciones As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents menuitemComunicacionesEnviarMail As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDebugAFIPWSProduccionLogin As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDebugAFIPWSSeparator1 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDebugAFIPWSProduccionObtenerUltimoComprobante As System.Windows.Forms.ToolStripMenuItem
 End Class

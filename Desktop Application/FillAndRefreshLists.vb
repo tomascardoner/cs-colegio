@@ -367,6 +367,7 @@
     End Sub
 
     Friend Sub Mes(ByRef ComboBoxControl As ComboBox, ByVal MostrarNombreDelMes As Boolean, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)
+        ComboBoxControl.Items.Clear()
         If MostrarNombreDelMes Then
             ComboBoxControl.Items.AddRange({"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"})
         Else
@@ -682,13 +683,17 @@
         ComboBoxControl.DataSource = listArticulos
     End Sub
 
-    Friend Sub Comunicacion(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)
+    Friend Sub Comunicacion(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean, Optional ByVal OrdenAscendente As Boolean = True)
         Dim listComunicaciones As List(Of Comunicacion)
 
         ComboBoxControl.ValueMember = "IDComunicacion"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        listComunicaciones = dbContext.Comunicacion.Where(Function(cl) cl.EsActivo).OrderBy(Function(cl) cl.Nombre).ToList
+        If OrdenAscendente Then
+            listComunicaciones = dbContext.Comunicacion.Where(Function(cl) cl.EsActivo).OrderBy(Function(cl) cl.Nombre).ToList
+        Else
+            listComunicaciones = dbContext.Comunicacion.Where(Function(cl) cl.EsActivo).OrderByDescending(Function(cl) cl.Nombre).ToList
+        End If
 
         If AgregarItem_Todos Then
             Dim Item_Todos As New Comunicacion

@@ -722,6 +722,7 @@
             If Not LogPath.EndsWith("\") Then
                 LogPath &= "\"
             End If
+            LogPath &= DateTime.Today.Year & "\" & DateTime.Today.Month.ToString.PadLeft(2, "0"c) & "\"
             LogFileName = CS_File.ProcessFilename(My.Settings.AFIP_WS_LogFileName)
         End If
 
