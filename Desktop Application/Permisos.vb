@@ -41,6 +41,7 @@
     Friend Const COMPROBANTE_ANULAR As String = "COMPROBANTE_ANULAR"
     Friend Const COMPROBANTE_ELIMINAR As String = "COMPROBANTE_ELIMINAR"
     Friend Const COMPROBANTE_IMPRIMIR As String = "COMPROBANTE_IMPRIMIR"
+    Friend Const COMPROBANTE_IMPRIMIR_SINCAE As String = "COMPROBANTE_IMPRIMIR_SINCAE"
     Friend Const COMPROBANTE_GENERARLOTE As String = "COMPROBANTE_GENERARLOTE"
     Friend Const COMPROBANTE_TRANSMITIR_AFIP As String = "COMPROBANTE_TRANSMITIR_AFIP"
     Friend Const COMPROBANTE_ENVIAREMAIL As String = "COMPROBANTE_ENVIAREMAIL"
@@ -66,7 +67,7 @@
     Friend Const REPORTE As String = "REPORTE"
 
     Friend Function VerificarPermiso(ByVal IDPermiso As String, Optional ByVal MostrarAviso As Boolean = True) As Boolean
-        If pUsuario.IDUsuario = 1 Then
+        If pUsuario.IDUsuario = Constantes.USUARIO_ADMINISTRADOR Then
             Return True
         Else
             If pPermisos.Find(Function(usrper) usrper.IDUsuarioGrupo = pUsuario.IDUsuarioGrupo And usrper.IDPermiso.TrimEnd = IDPermiso) Is Nothing Then
@@ -77,6 +78,6 @@
             Else
                 Return True
             End If
-            End If
+        End If
     End Function
 End Module

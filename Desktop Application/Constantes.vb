@@ -27,6 +27,8 @@
 
     Friend Const PROVINCIA_NOESPECIFICA As Byte = 255
 
+    Friend Const USUARIO_ADMINISTRADOR As Short = 1
+
     Friend Const ENTIDAD_EMITIRFACTURAA_NOESPECIFICA As String = "-"
     Friend Const ENTIDAD_EMITIRFACTURAA_PADRE As String = "P"
     Friend Const ENTIDAD_EMITIRFACTURAA_MADRE As String = "M"

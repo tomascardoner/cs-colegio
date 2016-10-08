@@ -764,6 +764,13 @@
                         If TransmitirComprobante(mComprobanteActual) Then
                             MsgBox("Se ha transmitido exitosamente el Comprobante a AFIP.", MsgBoxStyle.Information, My.Application.Info.Title)
                             buttonTransmitirComprobante.Visible = False
+
+                            ' Refresco la lista de Comprobantes para mostrar los cambios
+                            If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formComprobantes") Then
+                                Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formComprobantes"), formComprobantes)
+                                formComprobantes.RefreshData(mComprobanteActual.IDComprobante)
+                                formComprobantes = Nothing
+                            End If
                         End If
                     End If
                 End If

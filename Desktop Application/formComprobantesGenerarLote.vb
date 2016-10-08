@@ -3,7 +3,7 @@
 Public Class formComprobantesGenerarLote
 
 #Region "Declarations"
-    Private dbcontext As CSColegioContext
+    Private mdbContext As CSColegioContext
 
     Private listEntidadesSeleccionadasOk As List(Of Entidad)
     Private listEntidadesSeleccionadasCorregir As List(Of EntidadACorregir)
@@ -33,7 +33,7 @@ Public Class formComprobantesGenerarLote
 
 #Region "Form stuff"
     Private Sub formGenerarLoteFacturas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        dbcontext = New CSColegioContext(True)
+        mdbContext = New CSColegioContext(True)
 
         AnioLectivo = Today.Year
         MesAFacturar = CByte(Today.Month)
@@ -58,7 +58,7 @@ Public Class formComprobantesGenerarLote
     End Sub
 
     Private Sub formGenerarLoteFacturas_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        dbcontext.Dispose()
+        mdbContext.Dispose()
         listEntidadesSeleccionadasOk = Nothing
         listEntidadesSeleccionadasCorregir = Nothing
         listFacturas = Nothing
@@ -82,7 +82,7 @@ Public Class formComprobantesGenerarLote
         Me.Cursor = Cursors.WaitCursor
 
         treeviewPaso1NivelCursoAlumno.BeginUpdate()
-        For Each NivelCurrent As Nivel In dbcontext.Nivel.Where(Function(niv) niv.EsActivo = True)
+        For Each NivelCurrent As Nivel In mdbContext.Nivel.Where(Function(niv) niv.EsActivo = True)
             ' Agrego el nodo correspondiente al Nivel actual y agrego un nodo hijo que diga "cargando..." para cuando se expanda el nodo
             NewNode = New TreeNode(NivelCurrent.Nombre, {New TreeNode(NODO_CARGANDO_TEXTO)})
             NewNode.Checked = My.Settings.LoteComprobantes_PreseleccionarTodos
@@ -198,7 +198,7 @@ Public Class formComprobantesGenerarLote
         Me.Cursor = Cursors.WaitCursor
 
         treeviewPaso1PadresAlumnos.BeginUpdate()
-        For Each EntidadCurrent As Entidad In dbcontext.Entidad.Where(Function(ent) ent.EsActivo = True And ent.TipoFamiliar And (ent.EntidadPadreHijas.Count > 0 Or ent.EntidadMadreHijas.Count > 0)).OrderBy(Function(ent) ent.ApellidoNombre)
+        For Each EntidadCurrent As Entidad In mdbContext.Entidad.Where(Function(ent) ent.EsActivo = True And ent.TipoFamiliar And (ent.EntidadPadreHijas.Count > 0 Or ent.EntidadMadreHijas.Count > 0)).OrderBy(Function(ent) ent.ApellidoNombre)
             ' Agrego el nodo correspondiente al Padre/Madre actual y agrego un nodo hijo que diga "cargando..." para cuando se expanda el nodo
             NewNode = New TreeNode(EntidadCurrent.ApellidoNombre, {New TreeNode(NODO_CARGANDO_TEXTO)})
             NewNode.Checked = My.Settings.LoteComprobantes_PreseleccionarTodos
@@ -429,15 +429,15 @@ Public Class formComprobantesGenerarLote
         listFacturas = New List(Of Comprobante)
 
         ' Cargo los parámetros en variables para reducir tiempo de procesamiento
-        ArticuloActual = dbContext.Articulo.Find(CS_Parameter.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID))
+        ArticuloActual = mdbContext.Articulo.Find(CS_Parameter.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID))
         ComprobanteEntidadMayusculas = CS_Parameter.GetBoolean(Parametros.COMPROBANTE_ENTIDAD_MAYUSCULAS, False).Value
 
         ' Creo el Lote de Comprobantes
         With FacturaLote
-            If dbContext.ComprobanteLote.Count = 0 Then
+            If mdbContext.ComprobanteLote.Count = 0 Then
                 .IDComprobanteLote = 1
             Else
-                .IDComprobanteLote = dbContext.ComprobanteLote.Max(Function(cl) cl.IDComprobanteLote) + 1
+                .IDComprobanteLote = mdbContext.ComprobanteLote.Max(Function(cl) cl.IDComprobanteLote) + 1
             End If
             .FechaHora = Now
             .Nombre = LoteNombre
@@ -486,7 +486,7 @@ Public Class formComprobantesGenerarLote
                         listFacturas.Add(FacturaCabecera)
                     Else
                         ' Ya existe una Factura de ese Titular
-                        If dbContext.Entidad.Find(FacturaCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
+                        If mdbContext.Entidad.Find(FacturaCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
                             ' El Alumno que ya está en la Factura especifica que se le facture individualmente
                             FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadPadre, FacturaLote.IDComprobanteLote, EntidadAlumno.FacturaLeyenda, ComprobanteEntidadMayusculas)
                             FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, ArticuloActual)
@@ -538,7 +538,7 @@ Public Class formComprobantesGenerarLote
                         listFacturas.Add(FacturaCabecera)
                     Else
                         ' Ya existe una Factura de ese Titular
-                        If dbContext.Entidad.Find(FacturaCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
+                        If mdbContext.Entidad.Find(FacturaCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
                             ' El Alumno que ya está en la Factura especifica que se le facture individualmente
                             FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadMadre, FacturaLote.IDComprobanteLote, EntidadAlumno.FacturaLeyenda, ComprobanteEntidadMayusculas)
                             FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, ArticuloActual)
@@ -590,7 +590,7 @@ Public Class formComprobantesGenerarLote
                         listFacturas.Add(FacturaCabecera)
                     Else
                         ' Ya existe una Factura de ese Titular
-                        If dbContext.Entidad.Find(FacturaCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
+                        If mdbContext.Entidad.Find(FacturaCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
                             ' El Alumno que ya está en la Factura especifica que se le facture individualmente
                             FacturaCabecera = GenerarComprobanteCabecera(EntidadAlumno.EntidadTercero, FacturaLote.IDComprobanteLote, EntidadAlumno.FacturaLeyenda, ComprobanteEntidadMayusculas)
                             FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, EntidadAlumno, ArticuloActual)
@@ -621,10 +621,10 @@ Public Class formComprobantesGenerarLote
         listFacturas.OrderBy(Function(cc) cc.IDComprobanteTipo)
 
         ' Obtengo el ID del último Comprobante cargado
-        If dbContext.Comprobante.Count = 0 Then
+        If mdbContext.Comprobante.Count = 0 Then
             NextID = 0
         Else
-            NextID = dbContext.Comprobante.Max(Function(cc) cc.IDComprobante)
+            NextID = mdbContext.Comprobante.Max(Function(cc) cc.IDComprobante)
         End If
 
         ' Recorro todas las Facturas generadas para aplicarles los ID y los Números de Comprobante
@@ -633,7 +633,7 @@ Public Class formComprobantesGenerarLote
                 NextID += 1
                 .IDComprobante = NextID
                 If ComprobanteTipo.IDComprobanteTipo <> .IDComprobanteTipo Then
-                    ComprobanteTipo = dbContext.ComprobanteTipo.Find(.IDComprobanteTipo)
+                    ComprobanteTipo = mdbContext.ComprobanteTipo.Find(.IDComprobanteTipo)
                     ComprobanteTipoPuntoVenta = ComprobanteTipo.ComprobanteTipoPuntoVenta.Where(Function(ctpv) ctpv.IDPuntoVenta = My.Settings.IDPuntoVenta).FirstOrDefault
                     If ComprobanteTipoPuntoVenta Is Nothing Then
                         Exit For
@@ -641,7 +641,7 @@ Public Class formComprobantesGenerarLote
                     PuntoVenta = ComprobanteTipoPuntoVenta.PuntoVenta
 
                     ' Busco si ya hay un comprobante creado de este tipo para obtener el último número
-                    NextComprobanteNumero = dbContext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = .IDComprobanteTipo And cc.PuntoVenta = PuntoVenta.Numero).Max(Function(cc) cc.Numero)
+                    NextComprobanteNumero = mdbContext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = .IDComprobanteTipo And cc.PuntoVenta = PuntoVenta.Numero).Max(Function(cc) cc.Numero)
                     If NextComprobanteNumero Is Nothing Then
                         ' No hay ningún comprobante creado de este tipo, así que tomo el número inicial y le resto 1 porque después se lo sumo
                         NextComprobanteNumero = CStr(CInt(ComprobanteTipoPuntoVenta.NumeroInicio) - 1).PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
@@ -653,7 +653,7 @@ Public Class formComprobantesGenerarLote
             End With
         Next
 
-        dbContext.Dispose()
+        mdbContext.Dispose()
 
         datagridviewPaso3Cabecera.AutoGenerateColumns = False
         datagridviewPaso3Cabecera.DataSource = listFacturas
@@ -774,11 +774,11 @@ Public Class formComprobantesGenerarLote
             Me.Cursor = Cursors.WaitCursor
             Application.DoEvents()
 
-            Using dbcontext As New CSColegioContext(True)
-                dbcontext.ComprobanteLote.Add(FacturaLote)
-                dbcontext.Comprobante.AddRange(listFacturas)
+            Using dbContext As New CSColegioContext(True)
+                dbContext.ComprobanteLote.Add(FacturaLote)
+                dbContext.Comprobante.AddRange(listFacturas)
 
-                dbcontext.SaveChanges()
+                dbContext.SaveChanges()
             End Using
 
             Me.Cursor = Cursors.Default
