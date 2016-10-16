@@ -365,6 +365,7 @@
         textboxAplicaciones_Subtotal.Text = FormatCurrency(Total)
         If mComprobanteTipoActual.UtilizaDetalle = False And mComprobanteTipoActual.UtilizaMedioPago = False Then
             textboxImporteTotal.Text = FormatCurrency(Total)
+            textboxImporteTotal.ReadOnly = (listAplicaciones.Count > 0)
         End If
 
         Me.Cursor = Cursors.Default
@@ -1195,6 +1196,11 @@
                 tabcontrolMain.HideTabPageByName(tabpageMediosPago.Name)
                 panelMediosPago_Subtotal.Visible = False
             End If
+
+            If mComprobanteTipoActual.UtilizaDetalle = False And mComprobanteTipoActual.UtilizaMedioPago = False Then
+                textboxImporteTotal.ReadOnly = False
+            End If
+
         Else
             panelFechas.Visible = False
             tabcontrolMain.HideTabPageByName(tabpageDetalle.Name)
