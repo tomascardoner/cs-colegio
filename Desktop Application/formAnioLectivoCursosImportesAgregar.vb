@@ -54,7 +54,7 @@
 
 #Region "Load and Set Data"
     Private Sub RefreshData()
-        Dim listNivelesTurnos As List(Of GridRowData_NivelTurno)
+        'Dim listNivelesTurnos As List(Of GridRowData_NivelTurno)
 
         'If comboboxMesInicio.SelectedIndex > -1 Then
         '    listNivelesTurnos = (From alc In mdbContext.AnioLectivoCurso

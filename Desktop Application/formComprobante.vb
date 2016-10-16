@@ -868,7 +868,7 @@
 #End Region
 
 #Region "Detalle Toolbar"
-    Private Sub Detalle_Agregar() Handles buttonDetalle_Agregar.Click
+    Private Sub Detalle_Agregar() Handles buttonDetalle_Agregar.ButtonClick
         If textboxEntidad.Tag Is Nothing Then
             MsgBox("Antes de poder agregar Detalles, debe especificar la Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
             textboxEntidad.Focus()
@@ -883,6 +883,28 @@
 
         Dim ComprobanteDetalleNuevo As New ComprobanteDetalle
         formComprobanteDetalle.LoadAndShow(True, True, Me, mComprobanteActual, ComprobanteDetalleNuevo)
+
+        EstablecerFechasSegunDetalle()
+
+        datagridviewDetalle.Enabled = True
+
+        Me.Cursor = Cursors.Default
+    End Sub
+
+    Private Sub Detalle_AgregarMultiple() Handles buttonDetalle_AgregarMultiple.Click
+        If textboxEntidad.Tag Is Nothing Then
+            MsgBox("Antes de poder agregar Detalles, debe especificar la Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxEntidad.Focus()
+            Exit Sub
+        End If
+
+        Me.Cursor = Cursors.WaitCursor
+
+        datagridviewDetalle.Enabled = False
+
+        SetDataFromControlsToObject()
+
+        formComprobanteDetalleAgregarMultiple.LoadAndShow(True, True, Me, mComprobanteActual)
 
         EstablecerFechasSegunDetalle()
 

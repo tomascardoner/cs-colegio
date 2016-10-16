@@ -54,7 +54,6 @@ Partial Class formComprobante
         Me.columnDetalle_PrecioUnitario = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnDetalle_PrecioTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.toolstripDetalle = New System.Windows.Forms.ToolStrip()
-        Me.buttonDetalle_Agregar = New System.Windows.Forms.ToolStripButton()
         Me.buttonDetalle_Editar = New System.Windows.Forms.ToolStripButton()
         Me.buttonDetalle_Eliminar = New System.Windows.Forms.ToolStripButton()
         Me.tabpageImpuestos = New System.Windows.Forms.TabPage()
@@ -147,6 +146,8 @@ Partial Class formComprobante
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
         Me.buttonTransmitirComprobante = New System.Windows.Forms.ToolStripButton()
         Me.buttonVerificarComprobante = New System.Windows.Forms.ToolStripButton()
+        Me.buttonDetalle_Agregar = New System.Windows.Forms.ToolStripSplitButton()
+        Me.buttonDetalle_AgregarMultiple = New System.Windows.Forms.ToolStripMenuItem()
         labelFechaServicioDesde = New System.Windows.Forms.Label()
         labelFechaServicioHasta = New System.Windows.Forms.Label()
         labelLeyenda = New System.Windows.Forms.Label()
@@ -288,7 +289,7 @@ Partial Class formComprobante
         Me.tabpageDetalle.Controls.Add(Me.toolstripDetalle)
         Me.tabpageDetalle.Location = New System.Drawing.Point(4, 22)
         Me.tabpageDetalle.Name = "tabpageDetalle"
-        Me.tabpageDetalle.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabpageDetalle.Padding = New System.Windows.Forms.Padding(3)
         Me.tabpageDetalle.Size = New System.Drawing.Size(875, 282)
         Me.tabpageDetalle.TabIndex = 0
         Me.tabpageDetalle.Text = "Detalle"
@@ -307,14 +308,14 @@ Partial Class formComprobante
         Me.datagridviewDetalle.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnDetalle_Descripcion, Me.columnDetalle_PrecioUnitario, Me.columnDetalle_PrecioTotal})
         Me.datagridviewDetalle.Dock = System.Windows.Forms.DockStyle.Fill
         Me.datagridviewDetalle.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.datagridviewDetalle.Location = New System.Drawing.Point(90, 3)
+        Me.datagridviewDetalle.Location = New System.Drawing.Point(101, 3)
         Me.datagridviewDetalle.MultiSelect = False
         Me.datagridviewDetalle.Name = "datagridviewDetalle"
         Me.datagridviewDetalle.ReadOnly = True
         Me.datagridviewDetalle.RowHeadersVisible = False
         Me.datagridviewDetalle.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewDetalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewDetalle.Size = New System.Drawing.Size(782, 276)
+        Me.datagridviewDetalle.Size = New System.Drawing.Size(771, 276)
         Me.datagridviewDetalle.TabIndex = 4
         '
         'columnDetalle_Descripcion
@@ -361,18 +362,8 @@ Partial Class formComprobante
         Me.toolstripDetalle.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow
         Me.toolstripDetalle.Location = New System.Drawing.Point(3, 3)
         Me.toolstripDetalle.Name = "toolstripDetalle"
-        Me.toolstripDetalle.Size = New System.Drawing.Size(87, 276)
+        Me.toolstripDetalle.Size = New System.Drawing.Size(98, 276)
         Me.toolstripDetalle.TabIndex = 5
-        '
-        'buttonDetalle_Agregar
-        '
-        Me.buttonDetalle_Agregar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_ADD_32
-        Me.buttonDetalle_Agregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.buttonDetalle_Agregar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonDetalle_Agregar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonDetalle_Agregar.Name = "buttonDetalle_Agregar"
-        Me.buttonDetalle_Agregar.Size = New System.Drawing.Size(84, 36)
-        Me.buttonDetalle_Agregar.Text = "Agregar"
         '
         'buttonDetalle_Editar
         '
@@ -381,7 +372,7 @@ Partial Class formComprobante
         Me.buttonDetalle_Editar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonDetalle_Editar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonDetalle_Editar.Name = "buttonDetalle_Editar"
-        Me.buttonDetalle_Editar.Size = New System.Drawing.Size(84, 36)
+        Me.buttonDetalle_Editar.Size = New System.Drawing.Size(95, 36)
         Me.buttonDetalle_Editar.Text = "Editar"
         '
         'buttonDetalle_Eliminar
@@ -391,7 +382,7 @@ Partial Class formComprobante
         Me.buttonDetalle_Eliminar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonDetalle_Eliminar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonDetalle_Eliminar.Name = "buttonDetalle_Eliminar"
-        Me.buttonDetalle_Eliminar.Size = New System.Drawing.Size(84, 36)
+        Me.buttonDetalle_Eliminar.Size = New System.Drawing.Size(95, 36)
         Me.buttonDetalle_Eliminar.Text = "Eliminar"
         '
         'tabpageImpuestos
@@ -400,8 +391,8 @@ Partial Class formComprobante
         Me.tabpageImpuestos.Controls.Add(Me.toolstripImpuestos)
         Me.tabpageImpuestos.Location = New System.Drawing.Point(4, 22)
         Me.tabpageImpuestos.Name = "tabpageImpuestos"
-        Me.tabpageImpuestos.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
-        Me.tabpageImpuestos.Size = New System.Drawing.Size(875, 288)
+        Me.tabpageImpuestos.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabpageImpuestos.Size = New System.Drawing.Size(875, 282)
         Me.tabpageImpuestos.TabIndex = 1
         Me.tabpageImpuestos.Text = "Impuestos"
         '
@@ -426,7 +417,7 @@ Partial Class formComprobante
         Me.datagridviewImpuestos.RowHeadersVisible = False
         Me.datagridviewImpuestos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewImpuestos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewImpuestos.Size = New System.Drawing.Size(782, 282)
+        Me.datagridviewImpuestos.Size = New System.Drawing.Size(782, 276)
         Me.datagridviewImpuestos.TabIndex = 7
         '
         'DataGridViewTextBoxColumn6
@@ -499,7 +490,7 @@ Partial Class formComprobante
         Me.toolstripImpuestos.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow
         Me.toolstripImpuestos.Location = New System.Drawing.Point(3, 3)
         Me.toolstripImpuestos.Name = "toolstripImpuestos"
-        Me.toolstripImpuestos.Size = New System.Drawing.Size(87, 282)
+        Me.toolstripImpuestos.Size = New System.Drawing.Size(87, 276)
         Me.toolstripImpuestos.TabIndex = 6
         '
         'buttonImpuestos_Agregar
@@ -538,8 +529,8 @@ Partial Class formComprobante
         Me.tabpageAplicaciones.Controls.Add(Me.toolstripAplicaciones)
         Me.tabpageAplicaciones.Location = New System.Drawing.Point(4, 22)
         Me.tabpageAplicaciones.Name = "tabpageAplicaciones"
-        Me.tabpageAplicaciones.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
-        Me.tabpageAplicaciones.Size = New System.Drawing.Size(875, 288)
+        Me.tabpageAplicaciones.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabpageAplicaciones.Size = New System.Drawing.Size(875, 282)
         Me.tabpageAplicaciones.TabIndex = 2
         Me.tabpageAplicaciones.Text = "Aplicaciones"
         '
@@ -564,7 +555,7 @@ Partial Class formComprobante
         Me.datagridviewAplicaciones.RowHeadersVisible = False
         Me.datagridviewAplicaciones.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewAplicaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewAplicaciones.Size = New System.Drawing.Size(759, 282)
+        Me.datagridviewAplicaciones.Size = New System.Drawing.Size(759, 276)
         Me.datagridviewAplicaciones.TabIndex = 9
         '
         'columnAplicaciones_Motivo
@@ -642,7 +633,7 @@ Partial Class formComprobante
         Me.toolstripAplicaciones.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow
         Me.toolstripAplicaciones.Location = New System.Drawing.Point(3, 3)
         Me.toolstripAplicaciones.Name = "toolstripAplicaciones"
-        Me.toolstripAplicaciones.Size = New System.Drawing.Size(110, 282)
+        Me.toolstripAplicaciones.Size = New System.Drawing.Size(110, 276)
         Me.toolstripAplicaciones.TabIndex = 8
         '
         'buttonAplicaciones_AplicarTodo
@@ -681,8 +672,8 @@ Partial Class formComprobante
         Me.tabpageMediosPago.Controls.Add(Me.toolstripMediosPago)
         Me.tabpageMediosPago.Location = New System.Drawing.Point(4, 22)
         Me.tabpageMediosPago.Name = "tabpageMediosPago"
-        Me.tabpageMediosPago.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
-        Me.tabpageMediosPago.Size = New System.Drawing.Size(875, 288)
+        Me.tabpageMediosPago.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabpageMediosPago.Size = New System.Drawing.Size(875, 282)
         Me.tabpageMediosPago.TabIndex = 4
         Me.tabpageMediosPago.Text = "Medios de Pago"
         '
@@ -707,7 +698,7 @@ Partial Class formComprobante
         Me.datagridviewMediosPago.RowHeadersVisible = False
         Me.datagridviewMediosPago.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewMediosPago.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewMediosPago.Size = New System.Drawing.Size(739, 282)
+        Me.datagridviewMediosPago.Size = New System.Drawing.Size(739, 276)
         Me.datagridviewMediosPago.TabIndex = 3
         '
         'columnMedioPagos_MedioPagoNombre
@@ -779,7 +770,7 @@ Partial Class formComprobante
         Me.toolstripMediosPago.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow
         Me.toolstripMediosPago.Location = New System.Drawing.Point(3, 3)
         Me.toolstripMediosPago.Name = "toolstripMediosPago"
-        Me.toolstripMediosPago.Size = New System.Drawing.Size(130, 282)
+        Me.toolstripMediosPago.Size = New System.Drawing.Size(130, 276)
         Me.toolstripMediosPago.TabIndex = 4
         '
         'buttonMediosPago_AgregarOtro
@@ -839,8 +830,8 @@ Partial Class formComprobante
         Me.tabpageNotasAuditoria.Controls.Add(Me.textboxUsuarioModificacion)
         Me.tabpageNotasAuditoria.Location = New System.Drawing.Point(4, 22)
         Me.tabpageNotasAuditoria.Name = "tabpageNotasAuditoria"
-        Me.tabpageNotasAuditoria.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
-        Me.tabpageNotasAuditoria.Size = New System.Drawing.Size(875, 288)
+        Me.tabpageNotasAuditoria.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabpageNotasAuditoria.Size = New System.Drawing.Size(875, 282)
         Me.tabpageNotasAuditoria.TabIndex = 5
         Me.tabpageNotasAuditoria.Text = "Notas y Auditoría"
         '
@@ -1181,7 +1172,7 @@ Partial Class formComprobante
         Me.panelPie.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
         Me.panelPie.Location = New System.Drawing.Point(3, 428)
         Me.panelPie.Name = "panelPie"
-        Me.panelPie.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.panelPie.Padding = New System.Windows.Forms.Padding(4)
         Me.panelPie.Size = New System.Drawing.Size(883, 44)
         Me.panelPie.TabIndex = 2
         '
@@ -1412,6 +1403,23 @@ Partial Class formComprobante
         Me.buttonVerificarComprobante.Size = New System.Drawing.Size(135, 36)
         Me.buttonVerificarComprobante.Text = "Verificar datos con AFIP"
         '
+        'buttonDetalle_Agregar
+        '
+        Me.buttonDetalle_Agregar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonDetalle_AgregarMultiple})
+        Me.buttonDetalle_Agregar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_ADD_32
+        Me.buttonDetalle_Agregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.buttonDetalle_Agregar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonDetalle_Agregar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonDetalle_Agregar.Name = "buttonDetalle_Agregar"
+        Me.buttonDetalle_Agregar.Size = New System.Drawing.Size(95, 36)
+        Me.buttonDetalle_Agregar.Text = "Agregar"
+        '
+        'buttonDetalle_AgregarMultiple
+        '
+        Me.buttonDetalle_AgregarMultiple.Name = "buttonDetalle_AgregarMultiple"
+        Me.buttonDetalle_AgregarMultiple.Size = New System.Drawing.Size(161, 22)
+        Me.buttonDetalle_AgregarMultiple.Text = "Multiples cuotas"
+        '
         'formComprobante
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1530,7 +1538,6 @@ Partial Class formComprobante
     Friend WithEvents textboxUsuarioCreacion As System.Windows.Forms.TextBox
     Friend WithEvents textboxFechaHoraModificacion As System.Windows.Forms.TextBox
     Friend WithEvents textboxFechaHoraCreacion As System.Windows.Forms.TextBox
-    Friend WithEvents buttonDetalle_Agregar As System.Windows.Forms.ToolStripButton
     Friend WithEvents tabcontrolMain As CSColegio.DesktopApplication.CS_Control_TabControl
     Friend WithEvents tabpageDetalle As System.Windows.Forms.TabPage
     Friend WithEvents tabpageImpuestos As System.Windows.Forms.TabPage
@@ -1574,4 +1581,6 @@ Partial Class formComprobante
     Friend WithEvents buttonEntidadVerSaldo As System.Windows.Forms.Button
     Friend WithEvents buttonTransmitirComprobante As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonVerificarComprobante As System.Windows.Forms.ToolStripButton
+    Friend WithEvents buttonDetalle_Agregar As System.Windows.Forms.ToolStripSplitButton
+    Friend WithEvents buttonDetalle_AgregarMultiple As System.Windows.Forms.ToolStripMenuItem
 End Class
