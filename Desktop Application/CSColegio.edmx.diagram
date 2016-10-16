@@ -133,6 +133,10 @@
         <AssociationConnector Association="CSColegioModel.FK__Entidad__ComunicacionEntidad" />
         <AssociationConnector Association="CSColegioModel.FK__Usuario__ComunicacionEntidad" />
         <AssociationConnector Association="CSColegioModel.FK__Anio__AnioSiguiente" />
+        <AssociationConnector Association="CSColegioModel.FK__DocumentoTipo__Comprobante" />
+        <EntityTypeShape EntityType="CSColegioModel.EmailEnvio" Width="1.5" PointX="17.375" PointY="24.25" />
+        <AssociationConnector Association="CSColegioModel.FK__Comprobante__EmailEnvio" />
+        <AssociationConnector Association="CSColegioModel.FK__Comunicacion__EmailEnvio" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

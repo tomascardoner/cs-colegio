@@ -77,5 +77,6 @@ Partial Public Class CSColegioContext
     Public Overridable Property ArticuloTalle() As DbSet(Of ArticuloTalle)
     Public Overridable Property Comunicacion() As DbSet(Of Comunicacion)
     Public Overridable Property ComunicacionEntidad() As DbSet(Of ComunicacionEntidad)
+    Public Overridable Property EmailEnvio() As DbSet(Of EmailEnvio)
 
 End Class

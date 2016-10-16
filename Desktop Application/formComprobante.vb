@@ -81,7 +81,13 @@
             Exit Sub
         End If
 
-        buttonTransmitirComprobante.Visible = (mEditMode = False And mComprobanteActual.CAE Is Nothing And mComprobanteActual.IDUsuarioAnulacion Is Nothing)
+        If mComprobanteTipoActual Is Nothing Then
+            buttonVerificarComprobante.Visible = False
+            buttonTransmitirComprobante.Visible = False
+        Else
+            buttonVerificarComprobante.Visible = (mEditMode = False And mComprobanteTipoActual.EmisionElectronica = True And (Not mComprobanteActual.CAE Is Nothing) And mComprobanteActual.IDUsuarioAnulacion Is Nothing)
+            buttonTransmitirComprobante.Visible = (mEditMode = False And mComprobanteTipoActual.EmisionElectronica = True And mComprobanteActual.CAE Is Nothing And mComprobanteActual.IDUsuarioAnulacion Is Nothing)
+        End If
         buttonGuardar.Visible = mEditMode
         buttonCancelar.Visible = mEditMode
         buttonEditar.Visible = (mEditMode = False And mComprobanteActual.CAE Is Nothing And mComprobanteActual.IDUsuarioAnulacion Is Nothing)
@@ -773,6 +779,78 @@
                             End If
                         End If
                     End If
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub VerificarComprobanteAFIP() Handles buttonVerificarComprobante.Click
+        Dim LogPath As String = ""
+        Dim LogFileName As String = ""
+        Dim Certificado As String
+        Dim WSAA_URL As String
+        Dim WSFEv1_URL As String
+        Dim AFIP_TicketAcceso As String
+
+        Dim InternetProxy As String
+        Dim CUIT_Emisor As String
+
+        Dim ResultadoConsultaComprobanteActual As CS_AFIP_WS.ResultadoConsultaComprobante
+
+        If Not mComprobanteActual Is Nothing Then
+            If mComprobanteTipoActual.EmisionElectronica AndAlso Not mComprobanteActual.CAE Is Nothing Then
+                If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIR_AFIP) Then
+                    Me.Cursor = Cursors.WaitCursor
+                    Application.DoEvents()
+
+                    If My.Settings.AFIP_WS_LogEnabled Then
+                        LogPath = CS_SpecialFolders.ProcessString(My.Settings.AFIP_WS_LogFolder)
+                        If Not LogPath.EndsWith("\") Then
+                            LogPath &= "\"
+                        End If
+                        LogPath &= DateTime.Today.Year & "\" & DateTime.Today.Month.ToString.PadLeft(2, "0"c) & "\"
+                        LogFileName = CS_File.ProcessFilename(My.Settings.AFIP_WS_LogFileName)
+                    End If
+
+                    ' Leo los valores comunes a todas las facturas
+                    If My.Settings.AFIP_WS_ModoHomologacion Then
+                        Certificado = My.Settings.AFIP_WS_Certificado_Homologacion
+                        WSAA_URL = CS_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION)
+                        WSFEv1_URL = CS_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION)
+                    Else
+                        Certificado = My.Settings.AFIP_WS_Certificado_Produccion
+                        WSAA_URL = CS_Parameter.GetString(Parametros.AFIP_WS_AA_PRODUCCION)
+                        WSFEv1_URL = CS_Parameter.GetString(Parametros.AFIP_WS_FE_PRODUCCION)
+                    End If
+
+                    InternetProxy = CS_Parameter.GetString(Parametros.INTERNET_PROXY, "")
+                    CUIT_Emisor = CS_Parameter.GetString(Parametros.EMPRESA_CUIT)
+
+                    ' Intento realizar la Autenticación en el Servidor de AFIP
+                    AFIP_TicketAcceso = CS_AFIP_WS.Login(WSAA_URL, InternetProxy, CS_AFIP_WS.SERVICIO_FACTURACION_ELECTRONICA, Certificado, My.Settings.AFIP_WS_ClavePrivada, LogPath, LogFileName)
+                    If AFIP_TicketAcceso = "" Then
+                        Me.Cursor = Cursors.Default
+                        Exit Sub
+                    End If
+
+                    ResultadoConsultaComprobanteActual = CS_AFIP_WS.FacturaElectronica_ConectarYConsultarComprobante(AFIP_TicketAcceso, WSFEv1_URL, InternetProxy, CS_Parameter.GetString(Parametros.EMPRESA_CUIT), mComprobanteTipoActual.CodigoAFIP, CShort(mComprobanteActual.PuntoVenta), CInt(mComprobanteActual.Numero))
+
+                    Me.Cursor = Cursors.Default
+                    Application.DoEvents()
+
+                    If ResultadoConsultaComprobanteActual.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_ACEPTADO Then
+                        formComprobanteVerificaAFIP.LoadAndShow(Me, mComprobanteActual, ResultadoConsultaComprobanteActual)
+
+                        ' Si actualizo el Comprobante local:
+                        '' Refresco la lista de Comprobantes para mostrar los cambios
+                        'If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formComprobantes") Then
+                        '    Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formComprobantes"), formComprobantes)
+                        '    formComprobantes.RefreshData(mComprobanteActual.IDComprobante)
+                        '    formComprobantes = Nothing
+                        'End If
+                    End If
+
+
                 End If
             End If
         End If

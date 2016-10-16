@@ -4,8 +4,8 @@
     Private mdbContext As New CSColegioContext(True)
     Private listAlumnosCursos As List(Of GridRowData_AlumnoCurso)
     Private listFacturas As List(Of Comprobante)
-    Private mAnioLectivoActual As Integer
-    Private mAnioLectivoProximo As Integer
+    Private mAnioLectivoActual As Short
+    Private mAnioLectivoProximo As Short
     Private mFechaServicioDesde As Date
     Private mFechaServicioHasta As Date
 
@@ -23,11 +23,11 @@
 #Region "Form stuff"
     Private Sub Me_Load() Handles Me.Load
         If Today.Month < 8 Then
-            mAnioLectivoProximo = Today.Year
+            mAnioLectivoProximo = CShort(Today.Year)
         Else
-            mAnioLectivoProximo = Today.Year + 1
+            mAnioLectivoProximo = CShort(Today.Year + 1)
         End If
-        mAnioLectivoActual = mAnioLectivoProximo - 1
+        mAnioLectivoActual = mAnioLectivoProximo - CShort(1)
         textboxAnioLectivo.Text = mAnioLectivoProximo.ToString
         mFechaServicioDesde = New Date(mAnioLectivoProximo, 1, 1)
         mFechaServicioHasta = New Date(mAnioLectivoProximo, 12, 31)
@@ -235,7 +235,25 @@
 
     Private Sub buttonPaso1Siguiente_Click() Handles buttonPaso1Siguiente.Click
         If VerificarEntidades() Then
-            If GenerarComprobantes() Then
+            Dim listAlumno_AnioLectivoCurso_AFacturar As New List(Of Alumno_AnioLectivoCurso_AFacturar)
+            Dim Alumno_AnioLectivoCurso_AFacturarNuevo As Alumno_AnioLectivoCurso_AFacturar
+
+            listFacturas = New List(Of Comprobante)
+
+            For Each GridRowData_AlumnoCursoActual As GridRowData_AlumnoCurso In listAlumnosCursos
+                If GridRowData_AlumnoCursoActual.Seleccionado Then
+                    Alumno_AnioLectivoCurso_AFacturarNuevo = New Alumno_AnioLectivoCurso_AFacturar
+                    Alumno_AnioLectivoCurso_AFacturarNuevo.Alumno = GridRowData_AlumnoCursoActual.Entidad
+                    Alumno_AnioLectivoCurso_AFacturarNuevo.AnioLectivoCurso_AFacturar = GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo
+
+                    listAlumno_AnioLectivoCurso_AFacturar.Add(Alumno_AnioLectivoCurso_AFacturarNuevo)
+                End If
+            Next
+
+            If ModuloComprobantes.GenerarComprobantes(DateTime.Today, DateTime.Today, mFechaServicioDesde, mFechaServicioHasta, Constantes.COMPROBANTE_CONCEPTO_SERVICIOS, Nothing, mAnioLectivoProximo, 0, True, listAlumno_AnioLectivoCurso_AFacturar, listFacturas) Then
+                datagridviewFacturaCabecera.AutoGenerateColumns = False
+                datagridviewFacturaCabecera.DataSource = listFacturas
+
                 MostrarPaneles(2)
             End If
         End If
@@ -250,7 +268,7 @@
         For Each GridRowData_AlumnoCursoActual As GridRowData_AlumnoCurso In listAlumnosCursos
             If GridRowData_AlumnoCursoActual.Seleccionado Then
                 CorreccionDescripcion = ""
-                If Not MiscFunctions.Entidad_VerificarParaEmitirComprobante(GridRowData_AlumnoCursoActual.Entidad, mAnioLectivoProximo, True, mFechaServicioDesde, mFechaServicioHasta, True, CorreccionDescripcion) Then
+                If Not ModuloComprobantes.Entidad_VerificarParaEmitirComprobante(GridRowData_AlumnoCursoActual.Entidad, mAnioLectivoProximo, True, mFechaServicioDesde, mFechaServicioHasta, True, CorreccionDescripcion) Then
                     NoVerificada = True
                     MsgBox(String.Format("El Alumno {1} necesita correcciones.{0}{0}{2}", vbCrLf, GridRowData_AlumnoCursoActual.Entidad.ApellidoNombre, CorreccionDescripcion), MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 End If
@@ -278,390 +296,6 @@
 #End Region
 
 #Region "Finalizar - Generación"
-    Private Sub AgregarAnioLectivoCursos()
-        For Each GridRowData_AlumnoCursoActual As GridRowData_AlumnoCurso In listAlumnosCursos
-            If GridRowData_AlumnoCursoActual.Seleccionado Then
-                GridRowData_AlumnoCursoActual.Entidad.AniosLectivosCursos.Add(GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo)
-            End If
-        Next
-    End Sub
-
-    Private Function GenerarComprobantes() As Boolean
-        ' Parámetros
-        Dim ArticuloActual As Articulo
-        Dim ComprobanteEntidadMayusculas As Boolean
-
-        ' Datos de la Factura
-        Dim NextID As Integer
-        Dim ComprobanteTipo As New ComprobanteTipo
-        Dim ComprobanteTipoPuntoVenta As ComprobanteTipoPuntoVenta
-        Dim PuntoVenta As New PuntoVenta
-        Dim NextComprobanteNumero As String = ""
-
-        Dim FacturaCabecera As New Comprobante
-        Dim FacturaDetalle As ComprobanteDetalle
-
-        Me.Cursor = Cursors.WaitCursor
-
-        listFacturas = New List(Of Comprobante)
-
-        ' Cargo los parámetros en variables para reducir tiempo de procesamiento
-        ArticuloActual = mdbContext.Articulo.Find(CS_Parameter.GetIntegerAsShort(Parametros.CUOTA_MATRICULA_ARTICULO_ID))
-        ComprobanteEntidadMayusculas = CS_Parameter.GetBoolean(Parametros.COMPROBANTE_ENTIDAD_MAYUSCULAS, False).Value
-
-        For Each GridRowData_AlumnoCursoActual As GridRowData_AlumnoCurso In listAlumnosCursos
-            If GridRowData_AlumnoCursoActual.Seleccionado Then
-                If GridRowData_AlumnoCursoActual.Entidad.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO Then
-                    ' Se factura directamente al Alumno, así que lo agrego a él mismo como Titular de la Factura y como Alumno
-                    FacturaCabecera = GenerarComprobanteCabecera(GridRowData_AlumnoCursoActual.Entidad, GridRowData_AlumnoCursoActual.Entidad.FacturaLeyenda, ComprobanteEntidadMayusculas)
-                    FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, GridRowData_AlumnoCursoActual.Entidad, GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo, ArticuloActual)
-                    FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
-                    FacturaCabecera.ImporteImpuesto = 0
-                    FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteSubtotal
-                    listFacturas.Add(FacturaCabecera)
-                End If
-
-                '//////////////////////////////////////////////////////
-                ' FACTURAR AL PADRE
-                '//////////////////////////////////////////////////////
-                If GridRowData_AlumnoCursoActual.Entidad.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE Or GridRowData_AlumnoCursoActual.Entidad.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or GridRowData_AlumnoCursoActual.Entidad.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
-                    ' Se factura al Padre (entre otros posibles)
-                    If GridRowData_AlumnoCursoActual.Entidad.FacturaIndividual Then
-                        ' El Alumno especifica que se le facture individualmente
-                        FacturaCabecera = GenerarComprobanteCabecera(GridRowData_AlumnoCursoActual.Entidad.EntidadPadre, GridRowData_AlumnoCursoActual.Entidad.FacturaLeyenda, ComprobanteEntidadMayusculas)
-                        FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, GridRowData_AlumnoCursoActual.Entidad, GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo, ArticuloActual)
-                        FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
-                        FacturaCabecera.ImporteImpuesto = 0
-                        FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteSubtotal
-                        listFacturas.Add(FacturaCabecera)
-                    Else
-                        ' Busco si existe una Factura de esta Entidad en la lista de Facturas (por otro Alumno)
-                        FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = GridRowData_AlumnoCursoActual.Entidad.IDEntidadPadre.Value)
-                        If FacturaCabecera Is Nothing Then
-                            ' No existe la Factura, la creo.
-                            FacturaCabecera = GenerarComprobanteCabecera(GridRowData_AlumnoCursoActual.Entidad.EntidadPadre, GridRowData_AlumnoCursoActual.Entidad.FacturaLeyenda, ComprobanteEntidadMayusculas)
-                            FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, GridRowData_AlumnoCursoActual.Entidad, GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo, ArticuloActual)
-                            If FacturaDetalle Is Nothing Then
-                                Return False
-                            End If
-                            FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
-                            FacturaCabecera.ImporteImpuesto = 0
-                            FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteSubtotal
-                            listFacturas.Add(FacturaCabecera)
-                        Else
-                            ' Ya existe una Factura de ese Titular
-                            If mdbContext.Entidad.Find(FacturaCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
-                                ' El Alumno que ya está en la Factura especifica que se le facture individualmente
-                                FacturaCabecera = GenerarComprobanteCabecera(GridRowData_AlumnoCursoActual.Entidad.EntidadPadre, GridRowData_AlumnoCursoActual.Entidad.FacturaLeyenda, ComprobanteEntidadMayusculas)
-                                FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, GridRowData_AlumnoCursoActual.Entidad, GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo, ArticuloActual)
-                                If FacturaDetalle Is Nothing Then
-                                    Return False
-                                End If
-                                FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
-                                FacturaCabecera.ImporteImpuesto = 0
-                                FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteSubtotal
-                                listFacturas.Add(FacturaCabecera)
-                            Else
-                                ' No hay restricciones, así que sólo agrego un item al Detalle
-                                FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, GridRowData_AlumnoCursoActual.Entidad, GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo, ArticuloActual)
-                                If FacturaDetalle Is Nothing Then
-                                    Return False
-                                End If
-                                If Not GridRowData_AlumnoCursoActual.Entidad.FacturaLeyenda Is Nothing Then
-                                    If FacturaCabecera.Leyenda Is Nothing Then
-                                        FacturaCabecera.Leyenda = GridRowData_AlumnoCursoActual.Entidad.FacturaLeyenda
-                                    Else
-                                        FacturaCabecera.Leyenda &= vbCrLf & GridRowData_AlumnoCursoActual.Entidad.FacturaLeyenda
-                                    End If
-                                End If
-                                FacturaCabecera.ImporteSubtotal = FacturaCabecera.ImporteSubtotal + FacturaDetalle.PrecioTotal
-                                FacturaCabecera.ImporteImpuesto = 0
-                                FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteSubtotal
-                            End If
-                        End If
-                    End If
-                End If
-
-                '//////////////////////////////////////////////////////
-                ' FACTURAR A LA MADRE
-                '//////////////////////////////////////////////////////
-                If GridRowData_AlumnoCursoActual.Entidad.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE Or GridRowData_AlumnoCursoActual.Entidad.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or GridRowData_AlumnoCursoActual.Entidad.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
-                    ' Se factura a la Madre (entre otros posibles)
-                    If GridRowData_AlumnoCursoActual.Entidad.FacturaIndividual Then
-                        ' El Alumno especifica que se le facture individualmente
-                        FacturaCabecera = GenerarComprobanteCabecera(GridRowData_AlumnoCursoActual.Entidad.EntidadMadre, GridRowData_AlumnoCursoActual.Entidad.FacturaLeyenda, ComprobanteEntidadMayusculas)
-                        FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, GridRowData_AlumnoCursoActual.Entidad, GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo, ArticuloActual)
-                        If FacturaDetalle Is Nothing Then
-                            Return False
-                        End If
-                        FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
-                        FacturaCabecera.ImporteImpuesto = 0
-                        FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteSubtotal
-                        listFacturas.Add(FacturaCabecera)
-                    Else
-                        ' Busco si existe una Factura de esta Entidad en la lista de Facturas (por otro Alumno)
-                        FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = GridRowData_AlumnoCursoActual.Entidad.IDEntidadMadre.Value)
-                        If FacturaCabecera Is Nothing Then
-                            ' No existe la Factura, la creo.
-                            FacturaCabecera = GenerarComprobanteCabecera(GridRowData_AlumnoCursoActual.Entidad.EntidadMadre, GridRowData_AlumnoCursoActual.Entidad.FacturaLeyenda, ComprobanteEntidadMayusculas)
-                            FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, GridRowData_AlumnoCursoActual.Entidad, GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo, ArticuloActual)
-                            If FacturaDetalle Is Nothing Then
-                                Return False
-                            End If
-                            FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
-                            FacturaCabecera.ImporteImpuesto = 0
-                            FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteSubtotal
-                            listFacturas.Add(FacturaCabecera)
-                        Else
-                            ' Ya existe una Factura de ese Titular
-                            If mdbContext.Entidad.Find(FacturaCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
-                                ' El Alumno que ya está en la Factura especifica que se le facture individualmente
-                                FacturaCabecera = GenerarComprobanteCabecera(GridRowData_AlumnoCursoActual.Entidad.EntidadMadre, GridRowData_AlumnoCursoActual.Entidad.FacturaLeyenda, ComprobanteEntidadMayusculas)
-                                FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, GridRowData_AlumnoCursoActual.Entidad, GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo, ArticuloActual)
-                                If FacturaDetalle Is Nothing Then
-                                    Return False
-                                End If
-                                FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
-                                FacturaCabecera.ImporteImpuesto = 0
-                                FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteSubtotal
-                                listFacturas.Add(FacturaCabecera)
-                            Else
-                                ' No hay restricciones, así que sólo agrego un item al Detalle
-                                FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, GridRowData_AlumnoCursoActual.Entidad, GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo, ArticuloActual)
-                                If FacturaDetalle Is Nothing Then
-                                    Return False
-                                End If
-                                If Not GridRowData_AlumnoCursoActual.Entidad.FacturaLeyenda Is Nothing Then
-                                    If FacturaCabecera.Leyenda Is Nothing Then
-                                        FacturaCabecera.Leyenda = GridRowData_AlumnoCursoActual.Entidad.FacturaLeyenda
-                                    Else
-                                        FacturaCabecera.Leyenda &= vbCrLf & GridRowData_AlumnoCursoActual.Entidad.FacturaLeyenda
-                                    End If
-                                End If
-                                FacturaCabecera.ImporteSubtotal = FacturaCabecera.ImporteSubtotal + FacturaDetalle.PrecioTotal
-                                FacturaCabecera.ImporteImpuesto = 0
-                                FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteSubtotal
-                            End If
-                        End If
-                    End If
-                End If
-
-                '//////////////////////////////////////////////////////
-                ' FACTURAR A UN TERCERO
-                '//////////////////////////////////////////////////////
-                If GridRowData_AlumnoCursoActual.Entidad.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or GridRowData_AlumnoCursoActual.Entidad.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
-                    ' Se factura a un Tercero (entre otros posibles)
-                    If GridRowData_AlumnoCursoActual.Entidad.FacturaIndividual Then
-                        ' El Alumno especifica que se le facture individualmente
-                        FacturaCabecera = GenerarComprobanteCabecera(GridRowData_AlumnoCursoActual.Entidad.EntidadTercero, GridRowData_AlumnoCursoActual.Entidad.FacturaLeyenda, ComprobanteEntidadMayusculas)
-                        FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, GridRowData_AlumnoCursoActual.Entidad, GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo, ArticuloActual)
-                        If FacturaDetalle Is Nothing Then
-                            Return False
-                        End If
-                        FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
-                        FacturaCabecera.ImporteImpuesto = 0
-                        FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteSubtotal
-                        listFacturas.Add(FacturaCabecera)
-                    Else
-                        ' Busco si existe una Factura de esta Entidad en la lista de Facturas (por otro Alumno)
-                        FacturaCabecera = listFacturas.Find(Function(fc) fc.IDEntidad = GridRowData_AlumnoCursoActual.Entidad.IDEntidadTercero.Value)
-                        If FacturaCabecera Is Nothing Then
-                            ' No existe la Factura, la creo.
-                            FacturaCabecera = GenerarComprobanteCabecera(GridRowData_AlumnoCursoActual.Entidad.EntidadTercero, GridRowData_AlumnoCursoActual.Entidad.FacturaLeyenda, ComprobanteEntidadMayusculas)
-                            FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, GridRowData_AlumnoCursoActual.Entidad, GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo, ArticuloActual)
-                            If FacturaDetalle Is Nothing Then
-                                Return False
-                            End If
-                            FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
-                            FacturaCabecera.ImporteImpuesto = 0
-                            FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteSubtotal
-                            listFacturas.Add(FacturaCabecera)
-                        Else
-                            ' Ya existe una Factura de ese Titular
-                            If mdbContext.Entidad.Find(FacturaCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
-                                ' El Alumno que ya está en la Factura especifica que se le facture individualmente
-                                FacturaCabecera = GenerarComprobanteCabecera(GridRowData_AlumnoCursoActual.Entidad.EntidadTercero, GridRowData_AlumnoCursoActual.Entidad.FacturaLeyenda, ComprobanteEntidadMayusculas)
-                                FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, GridRowData_AlumnoCursoActual.Entidad, GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo, ArticuloActual)
-                                If FacturaDetalle Is Nothing Then
-                                    Return False
-                                End If
-                                FacturaCabecera.ImporteSubtotal = FacturaDetalle.PrecioTotal
-                                FacturaCabecera.ImporteImpuesto = 0
-                                FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteSubtotal
-                                listFacturas.Add(FacturaCabecera)
-                            Else
-                                ' No hay restricciones, así que sólo agrego un item al Detalle
-                                FacturaDetalle = GenerarComprobanteDetalle(FacturaCabecera, GridRowData_AlumnoCursoActual.Entidad, GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo, ArticuloActual)
-                                If FacturaDetalle Is Nothing Then
-                                    Return False
-                                End If
-                                If Not GridRowData_AlumnoCursoActual.Entidad.FacturaLeyenda Is Nothing Then
-                                    If FacturaCabecera.Leyenda Is Nothing Then
-                                        FacturaCabecera.Leyenda = GridRowData_AlumnoCursoActual.Entidad.FacturaLeyenda
-                                    Else
-                                        FacturaCabecera.Leyenda &= vbCrLf & GridRowData_AlumnoCursoActual.Entidad.FacturaLeyenda
-                                    End If
-                                End If
-                                FacturaCabecera.ImporteSubtotal = FacturaCabecera.ImporteSubtotal + FacturaDetalle.PrecioTotal
-                                FacturaCabecera.ImporteImpuesto = 0
-                                FacturaCabecera.ImporteTotal = FacturaCabecera.ImporteSubtotal
-                            End If
-                        End If
-                    End If
-                End If
-            End If
-        Next
-
-        ' Ordeno la lista de Facturas por Tipo de Comprobante
-        listFacturas.OrderBy(Function(cc) cc.IDComprobanteTipo)
-
-        ' Obtengo el ID del último Comprobante cargado
-        If mdbContext.Comprobante.Count = 0 Then
-            NextID = 0
-        Else
-            NextID = mdbContext.Comprobante.Max(Function(cc) cc.IDComprobante)
-        End If
-
-        ' Recorro todas las Facturas generadas para aplicarles los ID y los Números de Comprobante
-        For Each FacturaCabeceraActual As Comprobante In listFacturas
-            With FacturaCabeceraActual
-                NextID += 1
-                .IDComprobante = NextID
-                If ComprobanteTipo.IDComprobanteTipo <> .IDComprobanteTipo Then
-                    ComprobanteTipo = mdbContext.ComprobanteTipo.Find(.IDComprobanteTipo)
-                    ComprobanteTipoPuntoVenta = ComprobanteTipo.ComprobanteTipoPuntoVenta.Where(Function(ctpv) ctpv.IDPuntoVenta = My.Settings.IDPuntoVenta).FirstOrDefault
-                    If ComprobanteTipoPuntoVenta Is Nothing Then
-                        Exit For
-                    End If
-                    PuntoVenta = ComprobanteTipoPuntoVenta.PuntoVenta
-
-                    ' Busco si ya hay un comprobante creado de este tipo para obtener el último número
-                    NextComprobanteNumero = mdbContext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = .IDComprobanteTipo And cc.PuntoVenta = PuntoVenta.Numero).Max(Function(cc) cc.Numero)
-                    If NextComprobanteNumero Is Nothing Then
-                        ' No hay ningún comprobante creado de este tipo, así que tomo el número inicial y le resto 1 porque después se lo sumo
-                        NextComprobanteNumero = CStr(CInt(ComprobanteTipoPuntoVenta.NumeroInicio) - 1).PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
-                    End If
-                End If
-                NextComprobanteNumero = CStr(CInt(NextComprobanteNumero) + 1).PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
-                .PuntoVenta = PuntoVenta.Numero
-                .Numero = NextComprobanteNumero
-            End With
-        Next
-
-        datagridviewFacturaCabecera.AutoGenerateColumns = False
-        datagridviewFacturaCabecera.DataSource = listFacturas
-
-        Me.Cursor = Cursors.Default
-
-        Return True
-    End Function
-
-    Private Function GenerarComprobanteCabecera(ByRef EntidadCabecera As Entidad, ByVal LeyendaAlumno As String, ByVal ComprobanteEntidadMayusculas As Boolean) As Comprobante
-        Dim FacturaCabecera As New Comprobante
-
-        With FacturaCabecera
-            ' Cabecera
-            .IDComprobanteTipo = EntidadCabecera.CategoriaIVA.VentaIDComprobanteTipo
-            .FechaEmision = DateTime.Today
-            .FechaVencimiento = DateTime.Today
-            .IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS
-            .FechaServicioDesde = mFechaServicioDesde
-            .FechaServicioHasta = mFechaServicioHasta
-
-            ' Entidad
-            .IDEntidad = EntidadCabecera.IDEntidad
-            If ComprobanteEntidadMayusculas Then
-                .ApellidoNombre = EntidadCabecera.ApellidoNombre.ToUpper
-            Else
-                .ApellidoNombre = EntidadCabecera.ApellidoNombre
-            End If
-
-            ' Tipo y Número de Documento
-            If Not EntidadCabecera.FacturaIDDocumentoTipo Is Nothing Then
-                .IDDocumentoTipo = EntidadCabecera.FacturaIDDocumentoTipo.Value
-                .DocumentoNumero = EntidadCabecera.FacturaDocumentoNumero
-            ElseIf Not EntidadCabecera.IDDocumentoTipo Is Nothing Then
-                .IDDocumentoTipo = EntidadCabecera.IDDocumentoTipo.Value
-                .DocumentoNumero = EntidadCabecera.DocumentoNumero
-            Else
-                .IDDocumentoTipo = CS_Parameter.GetIntegerAsByte(Parametros.CONSUMIDORFINAL_DOCUMENTOTIPO_ID)
-                .DocumentoNumero = CS_Parameter.GetString(Parametros.CONSUMIDORFINAL_DOCUMENTONUMERO)
-            End If
-            .IDCategoriaIVA = EntidadCabecera.IDCategoriaIVA.Value
-
-            ' Domicilio
-            .DomicilioCalleCompleto = EntidadCabecera.DomicilioCalleCompleto()
-            .DomicilioCodigoPostal = EntidadCabecera.DomicilioCodigoPostal
-            .DomicilioIDProvincia = EntidadCabecera.DomicilioIDProvincia
-            .DomicilioIDLocalidad = EntidadCabecera.DomicilioIDLocalidad
-
-            .IDComprobanteLote = Nothing
-
-            .Leyenda = EntidadCabecera.FacturaLeyenda
-            If Not LeyendaAlumno Is Nothing Then
-                If .Leyenda Is Nothing Then
-                    .Leyenda = LeyendaAlumno
-                Else
-                    .Leyenda &= vbCrLf & LeyendaAlumno
-                End If
-            End If
-
-            ' Auditoría
-            .IDUsuarioCreacion = pUsuario.IDUsuario
-            .FechaHoraCreacion = System.DateTime.Now
-            .IDUsuarioModificacion = pUsuario.IDUsuario
-            .FechaHoraModificacion = .FechaHoraCreacion
-        End With
-
-        Return FacturaCabecera
-    End Function
-
-    Private Function GenerarComprobanteDetalle(ByRef FacturaCabecera As Comprobante, ByRef EntidadDetalle As Entidad, ByRef AnioLectivoCursoActual As AnioLectivoCurso, ByRef ArticuloActual As Articulo) As ComprobanteDetalle
-        Dim FacturaDetalle As New ComprobanteDetalle
-        Dim AnioLectivoCursoImporteActual As AnioLectivoCursoImporte
-
-        AnioLectivoCursoImporteActual = AnioLectivoCursoActual.AnioLectivoCursoImporte.OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
-
-        If Not AnioLectivoCursoImporteActual Is Nothing Then
-            With FacturaDetalle
-                .Indice = CByte(FacturaCabecera.ComprobanteDetalle.Count + 1)
-                .IDArticulo = ArticuloActual.IDArticulo
-                .IDEntidad = EntidadDetalle.IDEntidad
-                .IDAnioLectivoCurso = AnioLectivoCursoActual.IDAnioLectivoCurso
-                .CuotaMes = Nothing
-                .Cantidad = 1
-                .Descripcion = String.Format(ArticuloActual.Descripcion, vbCrLf, ArticuloActual.Nombre, EntidadDetalle.IDEntidad, EntidadDetalle.Apellido, EntidadDetalle.Nombre, EntidadDetalle.ApellidoNombre, mAnioLectivoProximo)
-
-                ' Precios
-                Select Case EntidadDetalle.EmitirFacturaA
-                    Case Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO, Constantes.ENTIDAD_EMITIRFACTURAA_PADRE, Constantes.ENTIDAD_EMITIRFACTURAA_MADRE, Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO
-                        .PrecioUnitario = AnioLectivoCursoImporteActual.ImporteCuota
-                    Case Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES
-                        .PrecioUnitario = Decimal.Round(AnioLectivoCursoImporteActual.ImporteCuota / 2, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
-                    Case Constantes.ENTIDAD_EMITIRFACTURAA_TODOS
-                        .PrecioUnitario = Decimal.Round(AnioLectivoCursoImporteActual.ImporteCuota / 3, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
-                End Select
-                If EntidadDetalle.IDDescuento Is Nothing Then
-                    .PrecioUnitarioDescuentoPorcentaje = 0
-                    .PrecioUnitarioDescuentoImporte = 0
-                Else
-                    .PrecioUnitarioDescuentoPorcentaje = EntidadDetalle.Descuento.Porcentaje
-                    .PrecioUnitarioDescuentoImporte = Decimal.Round(.PrecioUnitario * .PrecioUnitarioDescuentoPorcentaje / 100, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
-                End If
-                .PrecioUnitarioFinal = .PrecioUnitario - .PrecioUnitarioDescuentoImporte
-                .PrecioTotal = .PrecioUnitarioFinal
-            End With
-
-            FacturaCabecera.ComprobanteDetalle.Add(FacturaDetalle)
-
-            Return FacturaDetalle
-        Else
-            Me.Cursor = Cursors.Default
-            MsgBox("No hay precios cargados para la(s) Factura(s) que se intentan emitir.", MsgBoxStyle.Information, My.Application.Info.Title)
-            Return Nothing
-        End If
-    End Function
-
     Private Function GuardarCambios() As Boolean
         Try
             Me.Cursor = Cursors.WaitCursor
@@ -675,7 +309,7 @@
                 For Each GridRowData_AlumnoCursoActual As GridRowData_AlumnoCurso In listAlumnosCursos
                     EntidadActual = dbContext.Entidad.Find(GridRowData_AlumnoCursoActual.Entidad.IDEntidad)
                     AnioLectivoCursoActual = dbContext.AnioLectivoCurso.Find(GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo.IDAnioLectivoCurso)
-                    EntidadActual.AniosLectivosCursos.Add(AnioLectivoCursoActual)
+                    AnioLectivoCursoActual.Entidades.Add(EntidadActual)
                 Next
                 ' Agrego las Facturas generadas
                 dbContext.Comprobante.AddRange(listFacturas)
@@ -859,14 +493,16 @@
                     End If
 
                     If ResultadoCAE.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_ACEPTADO Then
-                        mdbContext.Comprobante.Attach(ComprobanteActual)
+                        Using dbContext As New CSColegioContext(True)
+                            ComprobanteActual = dbContext.Comprobante.Find(ComprobanteActual.IDComprobante)
 
-                        ComprobanteActual.CAE = ResultadoCAE.Numero
-                        ComprobanteActual.CAEVencimiento = ResultadoCAE.FechaVencimiento
-                        ComprobanteActual.IDUsuarioTransmisionAFIP = pUsuario.IDUsuario
-                        ComprobanteActual.FechaHoraTransmisionAFIP = DateTime.Now
+                            ComprobanteActual.CAE = ResultadoCAE.Numero
+                            ComprobanteActual.CAEVencimiento = ResultadoCAE.FechaVencimiento
+                            ComprobanteActual.IDUsuarioTransmisionAFIP = pUsuario.IDUsuario
+                            ComprobanteActual.FechaHoraTransmisionAFIP = DateTime.Now
 
-                        mdbContext.SaveChanges()
+                            dbContext.SaveChanges()
+                        End Using
                     Else
                         MensajeError = "Se Rechazó la Solicitud de CAE para el Comprobante Electrónico:"
                         MensajeError &= vbCrLf & vbCrLf

@@ -65,5 +65,7 @@ Partial Public Class Comprobante
     Public Overridable Property ComprobanteAplicacion_Aplicados As ICollection(Of ComprobanteAplicacion) = New HashSet(Of ComprobanteAplicacion)
     Public Overridable Property UsuarioEnvioEmail As Usuario
     Public Overridable Property Concepto As Concepto
+    Public Overridable Property DocumentoTipo As DocumentoTipo
+    Public Overridable Property EmailEnvio As ICollection(Of EmailEnvio) = New HashSet(Of EmailEnvio)
 
 End Class

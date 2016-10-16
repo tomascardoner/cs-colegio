@@ -20,7 +20,7 @@ Partial Public Class ComprobanteTipo
     Public Property NombreCompleto As String
     Public Property CodigoAFIP As Byte
     Public Property MovimientoTipo As String
-    Public Property EmisionElectronica As Nullable(Of Boolean)
+    Public Property EmisionElectronica As Boolean
     Public Property UtilizaDetalle As Boolean
     Public Property UtilizaImpuesto As Boolean
     Public Property UtilizaAplicacion As Boolean

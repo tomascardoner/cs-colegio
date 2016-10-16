@@ -75,7 +75,28 @@
         Else
             TipoComprobante = CShort(InputBox("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante.Text))
             PuntoVenta = CShort(InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante.Text))
-            MsgBox("El Último Número de comprobante autorizado es: " & CS_AFIP_WS.FacturaElectronica_ConectarYObtenerUltimoNumeroComprobante(AFIP_TicketAcceso_Homologacion, CS_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION), "", CS_Parameter.GetString(Parametros.EMPRESA_CUIT), TipoComprobante, PuntoVenta))
+            MsgBox("El Último Número de comprobante autorizado es: " & CS_AFIP_WS.FacturaElectronica_ConectarYObtenerUltimoNumeroComprobante(AFIP_TicketAcceso_Homologacion, CS_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION), "", CS_Parameter.GetString(Parametros.EMPRESA_CUIT), TipoComprobante, PuntoVenta), vbInformation, My.Application.Info.Title)
+        End If
+    End Sub
+
+    Private Sub Debug_AFIPWSHomologacionConsultarComprobante(sender As Object, e As EventArgs) Handles menuitemDebugAFIPWSHomologacionConsultarComprobante.Click
+        Dim TipoComprobante As Short
+        Dim PuntoVenta As Short
+        Dim NumeroComprobante As Integer
+        Dim ResultadoConsultaComprobanteActual As CS_AFIP_WS.ResultadoConsultaComprobante
+
+        If AFIP_TicketAcceso_Homologacion = "" Then
+            MsgBox("No hay un Ticket de Acceso válido." & vbCrLf & "¿Ya inició sesión en AFIP?", vbExclamation, My.Application.Info.Title)
+        Else
+            TipoComprobante = CShort(InputBox("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Text))
+            PuntoVenta = CShort(InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Text))
+            NumeroComprobante = CShort(InputBox("Ingrese el Número de Comprobante:", Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Text))
+            ResultadoConsultaComprobanteActual = CS_AFIP_WS.FacturaElectronica_ConectarYConsultarComprobante(AFIP_TicketAcceso_Homologacion, CS_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION), "", CS_Parameter.GetString(Parametros.EMPRESA_CUIT), TipoComprobante, PuntoVenta, NumeroComprobante)
+            If ResultadoConsultaComprobanteActual.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_ACEPTADO Then
+                MsgBox(String.Format("Los datos del comprobante autorizado son:{0}{0}Tipo de Comprobante: {1}{0}Punto de Venta: {2}{0}Número de Comprobante: {3}{0}CAE: {4}{0}Fecha de Vencimiento: {5}{0}Fecha/Hora de Proceso: {6}", vbCrLf, ResultadoConsultaComprobanteActual.TipoComprobante, ResultadoConsultaComprobanteActual.PuntoVenta, ResultadoConsultaComprobanteActual.ComprobanteDesde, ResultadoConsultaComprobanteActual.CodigoAutorizacion, ResultadoConsultaComprobanteActual.FechaVencimiento, ResultadoConsultaComprobanteActual.FechaHoraProceso), vbInformation, My.Application.Info.Title)
+            Else
+                MsgBox(ResultadoConsultaComprobanteActual.ErrorMessage, vbCritical, My.Application.Info.Title)
+            End If
         End If
     End Sub
 
@@ -92,7 +113,40 @@
         Else
             TipoComprobante = CShort(InputBox("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Text))
             PuntoVenta = CShort(InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Text))
-            MsgBox("El Último Número de comprobante autorizado es: " & CS_AFIP_WS.FacturaElectronica_ConectarYObtenerUltimoNumeroComprobante(AFIP_TicketAcceso_Produccion, CS_Parameter.GetString(Parametros.AFIP_WS_FE_PRODUCCION), "", CS_Parameter.GetString(Parametros.EMPRESA_CUIT), TipoComprobante, PuntoVenta))
+            MsgBox("El Último Número de comprobante autorizado es: " & CS_AFIP_WS.FacturaElectronica_ConectarYObtenerUltimoNumeroComprobante(AFIP_TicketAcceso_Produccion, CS_Parameter.GetString(Parametros.AFIP_WS_FE_PRODUCCION), "", CS_Parameter.GetString(Parametros.EMPRESA_CUIT), TipoComprobante, PuntoVenta), vbInformation, My.Application.Info.Title)
+        End If
+    End Sub
+
+    Private Sub Debug_AFIPWSProduccionConsultarComprobante(sender As Object, e As EventArgs) Handles menuitemDebugAFIPWSProduccionConsultarComprobante.Click
+        Dim LogPath As String = ""
+        Dim LogFileName As String = ""
+        Dim TipoComprobante As Short
+        Dim PuntoVenta As Short
+        Dim NumeroComprobante As Integer
+        Dim ResultadoConsultaComprobanteActual As ResultadoConsultaComprobante
+
+        If My.Settings.AFIP_WS_LogEnabled Then
+            LogPath = CS_SpecialFolders.ProcessString(My.Settings.AFIP_WS_LogFolder)
+            If Not LogPath.EndsWith("\") Then
+                LogPath &= "\"
+            End If
+            LogPath &= DateTime.Today.Year & "\" & DateTime.Today.Month.ToString.PadLeft(2, "0"c) & "\"
+            LogFileName = CS_File.ProcessFilename(My.Settings.AFIP_WS_LogFileName)
+        End If
+
+        If AFIP_TicketAcceso_Produccion = "" Then
+            MsgBox("No hay un Ticket de Acceso válido." & vbCrLf & "¿Ya inició sesión en AFIP?", vbExclamation, My.Application.Info.Title)
+        Else
+            TipoComprobante = CShort(InputBox("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Text))
+            PuntoVenta = CShort(InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Text))
+            NumeroComprobante = CShort(InputBox("Ingrese el Número de Comprobante:", Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Text))
+            ResultadoConsultaComprobanteActual = CS_AFIP_WS.FacturaElectronica_ConectarYConsultarComprobante(AFIP_TicketAcceso_Produccion, CS_Parameter.GetString(Parametros.AFIP_WS_FE_PRODUCCION), "", CS_Parameter.GetString(Parametros.EMPRESA_CUIT), TipoComprobante, PuntoVenta, NumeroComprobante, LogPath, LogFileName)
+            If ResultadoConsultaComprobanteActual.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_ACEPTADO Then
+                MsgBox(String.Format("Los datos del comprobante autorizado son:{0}{0}Tipo de Comprobante: {1}{0}Punto de Venta: {2}{0}Número de Comprobante: {3}{0}CAE: {4}{0}Fecha de Vencimiento: {5}{0}Fecha/Hora de Proceso: {6}", vbCrLf, ResultadoConsultaComprobanteActual.TipoComprobante, ResultadoConsultaComprobanteActual.PuntoVenta, ResultadoConsultaComprobanteActual.ComprobanteDesde, ResultadoConsultaComprobanteActual.CodigoAutorizacion, ResultadoConsultaComprobanteActual.FechaVencimiento, ResultadoConsultaComprobanteActual.FechaHoraProceso), vbInformation, My.Application.Info.Title)
+            Else
+                MsgBox(ResultadoConsultaComprobanteActual.ErrorMessage, vbCritical, My.Application.Info.Title)
+            End If
+
         End If
     End Sub
 

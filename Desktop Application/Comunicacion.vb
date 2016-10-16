@@ -27,5 +27,6 @@ Partial Public Class Comunicacion
     Public Overridable Property ComunicacionEntidad As ICollection(Of ComunicacionEntidad) = New HashSet(Of ComunicacionEntidad)
     Public Overridable Property UsuarioCreacion As Usuario
     Public Overridable Property UsuarioModificacion As Usuario
+    Public Overridable Property EmailEnvio As ICollection(Of EmailEnvio) = New HashSet(Of EmailEnvio)
 
 End Class

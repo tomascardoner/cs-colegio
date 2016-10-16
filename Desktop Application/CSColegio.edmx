@@ -290,7 +290,7 @@
           <Property Name="NombreCompleto" Type="varchar" MaxLength="63" StoreGeneratedPattern="Computed" />
           <Property Name="CodigoAFIP" Type="tinyint" Nullable="false" />
           <Property Name="MovimientoTipo" Type="char" MaxLength="1" Nullable="false" />
-          <Property Name="EmisionElectronica" Type="bit" />
+          <Property Name="EmisionElectronica" Type="bit" Nullable="false" />
           <Property Name="UtilizaDetalle" Type="bit" Nullable="false" />
           <Property Name="UtilizaImpuesto" Type="bit" Nullable="false" />
           <Property Name="UtilizaAplicacion" Type="bit" Nullable="false" />
@@ -394,6 +394,15 @@
           <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="VerificaModulo11" Type="bit" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmailEnvio">
+          <Key>
+            <PropertyRef Name="IDEmailEnvio" />
+          </Key>
+          <Property Name="IDEmailEnvio" Type="int" Nullable="false" />
+          <Property Name="EnvioTipo" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="IDComprobante" Type="int" />
+          <Property Name="IDComunicacion" Type="smallint" />
         </EntityType>
         <EntityType Name="Entidad">
           <Key>
@@ -1020,6 +1029,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Comprobante__EmailEnvio">
+          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="0..1" />
+          <End Role="EmailEnvio" Type="Self.EmailEnvio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comprobante">
+              <PropertyRef Name="IDComprobante" />
+            </Principal>
+            <Dependent Role="EmailEnvio">
+              <PropertyRef Name="IDComprobante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__ComprobanteAplicacionMotivo__ComprobanteAplicacion">
           <End Role="ComprobanteAplicacionMotivo" Type="Self.ComprobanteAplicacionMotivo" Multiplicity="0..1" />
           <End Role="ComprobanteAplicacion" Type="Self.ComprobanteAplicacion" Multiplicity="*" />
@@ -1104,6 +1125,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Comunicacion__EmailEnvio">
+          <End Role="Comunicacion" Type="Self.Comunicacion" Multiplicity="0..1" />
+          <End Role="EmailEnvio" Type="Self.EmailEnvio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comunicacion">
+              <PropertyRef Name="IDComunicacion" />
+            </Principal>
+            <Dependent Role="EmailEnvio">
+              <PropertyRef Name="IDComunicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Concepto__ArticuloGrupo">
           <End Role="Concepto" Type="Self.Concepto" Multiplicity="1" />
           <End Role="ArticuloGrupo" Type="Self.ArticuloGrupo" Multiplicity="*" />
@@ -1149,6 +1182,18 @@
             </Principal>
             <Dependent Role="Entidad">
               <PropertyRef Name="IDDescuento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DocumentoTipo__Comprobante">
+          <End Role="DocumentoTipo" Type="Self.DocumentoTipo" Multiplicity="1" />
+          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentoTipo">
+              <PropertyRef Name="IDDocumentoTipo" />
+            </Principal>
+            <Dependent Role="Comprobante">
+              <PropertyRef Name="IDDocumentoTipo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1618,6 +1663,7 @@
           <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Descuento" EntityType="Self.Descuento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DocumentoTipo" EntityType="Self.DocumentoTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmailEnvio" EntityType="Self.EmailEnvio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Entidad" EntityType="Self.Entidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EntidadAnioLectivoCurso" EntityType="Self.EntidadAnioLectivoCurso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EntidadEntidad" EntityType="Self.EntidadEntidad" Schema="dbo" store:Type="Tables" />
@@ -1731,6 +1777,10 @@
             <End Role="Comprobante" EntitySet="Comprobante" />
             <End Role="ComprobanteMedioPago" EntitySet="ComprobanteMedioPago" />
           </AssociationSet>
+          <AssociationSet Name="FK__Comprobante__EmailEnvio" Association="Self.FK__Comprobante__EmailEnvio">
+            <End Role="Comprobante" EntitySet="Comprobante" />
+            <End Role="EmailEnvio" EntitySet="EmailEnvio" />
+          </AssociationSet>
           <AssociationSet Name="FK__ComprobanteAplicacionMotivo__ComprobanteAplicacion" Association="Self.FK__ComprobanteAplicacionMotivo__ComprobanteAplicacion">
             <End Role="ComprobanteAplicacionMotivo" EntitySet="ComprobanteAplicacionMotivo" />
             <End Role="ComprobanteAplicacion" EntitySet="ComprobanteAplicacion" />
@@ -1759,6 +1809,10 @@
             <End Role="Comunicacion" EntitySet="Comunicacion" />
             <End Role="ComunicacionEntidad" EntitySet="ComunicacionEntidad" />
           </AssociationSet>
+          <AssociationSet Name="FK__Comunicacion__EmailEnvio" Association="Self.FK__Comunicacion__EmailEnvio">
+            <End Role="Comunicacion" EntitySet="Comunicacion" />
+            <End Role="EmailEnvio" EntitySet="EmailEnvio" />
+          </AssociationSet>
           <AssociationSet Name="FK__Concepto__ArticuloGrupo" Association="Self.FK__Concepto__ArticuloGrupo">
             <End Role="Concepto" EntitySet="Concepto" />
             <End Role="ArticuloGrupo" EntitySet="ArticuloGrupo" />
@@ -1774,6 +1828,10 @@
           <AssociationSet Name="FK__Descuento__Entidad" Association="Self.FK__Descuento__Entidad">
             <End Role="Descuento" EntitySet="Descuento" />
             <End Role="Entidad" EntitySet="Entidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DocumentoTipo__Comprobante" Association="Self.FK__DocumentoTipo__Comprobante">
+            <End Role="DocumentoTipo" EntitySet="DocumentoTipo" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
           </AssociationSet>
           <AssociationSet Name="FK__DocumentoTipo__Entidad" Association="Self.FK__DocumentoTipo__Entidad">
             <End Role="DocumentoTipo" EntitySet="DocumentoTipo" />
@@ -2032,6 +2090,7 @@
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="EntidadesFactura" Relationship="CSColegioModel.FK__DocumentoTipo__Entidad__Factura" FromRole="DocumentoTipo" ToRole="Entidad" />
           <Property Name="VerificaModulo11" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Comprobante" Relationship="CSColegioModel.FK__DocumentoTipo__Comprobante" FromRole="DocumentoTipo" ToRole="Comprobante" />
         </EntityType>
         <EntityType Name="Entidad">
           <Key>
@@ -2777,6 +2836,19 @@
             <End Role="Anio" EntitySet="Anio" />
             <End Role="Anio1" EntitySet="Anio" />
           </AssociationSet>
+          <AssociationSet Name="FK__DocumentoTipo__Comprobante" Association="CSColegioModel.FK__DocumentoTipo__Comprobante">
+            <End Role="DocumentoTipo" EntitySet="DocumentoTipo" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
+          </AssociationSet>
+          <EntitySet Name="EmailEnvio" EntityType="CSColegioModel.EmailEnvio" />
+          <AssociationSet Name="FK__Comprobante__EmailEnvio" Association="CSColegioModel.FK__Comprobante__EmailEnvio">
+            <End Role="Comprobante" EntitySet="Comprobante" />
+            <End Role="EmailEnvio" EntitySet="EmailEnvio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comunicacion__EmailEnvio" Association="CSColegioModel.FK__Comunicacion__EmailEnvio">
+            <End Role="Comunicacion" EntitySet="Comunicacion" />
+            <End Role="EmailEnvio" EntitySet="EmailEnvio" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
           <Key>
@@ -2802,7 +2874,7 @@
           <Property Name="NombreCompleto" Type="String" MaxLength="63" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
           <Property Name="CodigoAFIP" Type="Byte" Nullable="false" />
           <Property Name="MovimientoTipo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="EmisionElectronica" Type="Boolean" />
+          <Property Name="EmisionElectronica" Type="Boolean" Nullable="false" />
           <Property Name="UtilizaDetalle" Type="Boolean" Nullable="false" />
           <Property Name="UtilizaImpuesto" Type="Boolean" Nullable="false" />
           <Property Name="UtilizaAplicacion" Type="Boolean" Nullable="false" />
@@ -3279,6 +3351,8 @@
           <NavigationProperty Name="ComprobanteAplicacion_Aplicados" Relationship="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicante" FromRole="Comprobante" ToRole="ComprobanteAplicacion" />
           <NavigationProperty Name="UsuarioEnvioEmail" Relationship="CSColegioModel.FK__Usuario__Comprobante__EnvioEmail" FromRole="Comprobante" ToRole="Usuario" />
           <NavigationProperty Name="Concepto" Relationship="CSColegioModel.FK__Concepto__Comprobante" FromRole="Comprobante" ToRole="Concepto" />
+          <NavigationProperty Name="DocumentoTipo" Relationship="CSColegioModel.FK__DocumentoTipo__Comprobante" FromRole="Comprobante" ToRole="DocumentoTipo" />
+          <NavigationProperty Name="EmailEnvio" Relationship="CSColegioModel.FK__Comprobante__EmailEnvio" FromRole="Comprobante" ToRole="EmailEnvio" />
           </EntityType>
         <EntityType Name="ComprobanteMedioPago">
           <Key>
@@ -3778,6 +3852,7 @@
           <NavigationProperty Name="ComunicacionEntidad" Relationship="CSColegioModel.FK__Comunicacion__ComunicacionEntidad" FromRole="Comunicacion" ToRole="ComunicacionEntidad" />
           <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__Comunicacion__Creacion" FromRole="Comunicacion" ToRole="Usuario" />
           <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__Comunicacion__Modificacion" FromRole="Comunicacion" ToRole="Usuario" />
+          <NavigationProperty Name="EmailEnvio" Relationship="CSColegioModel.FK__Comunicacion__EmailEnvio" FromRole="Comunicacion" ToRole="EmailEnvio" />
         </EntityType>
         <EntityType Name="ComunicacionEntidad">
           <Key>
@@ -3861,6 +3936,53 @@
             </Principal>
             <Dependent Role="Anio1">
               <PropertyRef Name="IDAnioSiguiente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DocumentoTipo__Comprobante">
+          <End Type="CSColegioModel.DocumentoTipo" Role="DocumentoTipo" Multiplicity="1" />
+          <End Type="CSColegioModel.Comprobante" Role="Comprobante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentoTipo">
+              <PropertyRef Name="IDDocumentoTipo" />
+            </Principal>
+            <Dependent Role="Comprobante">
+              <PropertyRef Name="IDDocumentoTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EmailEnvio">
+          <Key>
+            <PropertyRef Name="IDEmailEnvio" />
+          </Key>
+          <Property Name="IDEmailEnvio" Type="Int32" Nullable="false" />
+          <Property Name="EnvioTipo" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="IDComprobante" Type="Int32" />
+          <Property Name="IDComunicacion" Type="Int16" />
+          <NavigationProperty Name="Comprobante" Relationship="CSColegioModel.FK__Comprobante__EmailEnvio" FromRole="EmailEnvio" ToRole="Comprobante" />
+          <NavigationProperty Name="Comunicacion" Relationship="CSColegioModel.FK__Comunicacion__EmailEnvio" FromRole="EmailEnvio" ToRole="Comunicacion" />
+        </EntityType>
+        <Association Name="FK__Comprobante__EmailEnvio">
+          <End Type="CSColegioModel.Comprobante" Role="Comprobante" Multiplicity="0..1" />
+          <End Type="CSColegioModel.EmailEnvio" Role="EmailEnvio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comprobante">
+              <PropertyRef Name="IDComprobante" />
+            </Principal>
+            <Dependent Role="EmailEnvio">
+              <PropertyRef Name="IDComprobante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comunicacion__EmailEnvio">
+          <End Type="CSColegioModel.Comunicacion" Role="Comunicacion" Multiplicity="0..1" />
+          <End Type="CSColegioModel.EmailEnvio" Role="EmailEnvio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comunicacion">
+              <PropertyRef Name="IDComunicacion" />
+            </Principal>
+            <Dependent Role="EmailEnvio">
+              <PropertyRef Name="IDComunicacion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4666,6 +4788,16 @@
                 <ScalarProperty Name="FechaHoraEnvioEmail" ColumnName="FechaHoraEnvioEmail" />
                 <ScalarProperty Name="IDEntidad" ColumnName="IDEntidad" />
                 <ScalarProperty Name="IDComunicacion" ColumnName="IDComunicacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailEnvio">
+            <EntityTypeMapping TypeName="CSColegioModel.EmailEnvio">
+              <MappingFragment StoreEntitySet="EmailEnvio">
+                <ScalarProperty Name="IDComunicacion" ColumnName="IDComunicacion" />
+                <ScalarProperty Name="IDComprobante" ColumnName="IDComprobante" />
+                <ScalarProperty Name="EnvioTipo" ColumnName="EnvioTipo" />
+                <ScalarProperty Name="IDEmailEnvio" ColumnName="IDEmailEnvio" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
