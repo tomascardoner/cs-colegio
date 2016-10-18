@@ -139,7 +139,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
                     DetalleTextStream &= "0"                                                                ' Moneda
                     DetalleTextStream &= "     "                                                            ' Filler
                     DetalleTextStream &= ComprobanteActual.IDComprobante.ToString.PadRight(30, " "c)        ' Referencia Empresa
-                    DetalleTextStream &= ComprobanteActual.FechaVencimiento.Value.ToString("yyyyMMdd")      ' Fecha 2do. vencimiento
+                    DetalleTextStream &= ComprobanteActual.FechaVencimiento.Value.AddDays(10).ToString("yyyyMMdd")      ' Fecha 2do. vencimiento
                     DetalleTextStream &= ComprobanteActual.ImporteTotal.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 2do. vencimiento
                     DetalleTextStream &= ComprobanteActual.FechaVencimiento.Value.AddMonths(6).ToString("yyyyMMdd") ' Fecha Vto. Punitorios
                     DetalleTextStream &= "0003600"                                                          ' TNA

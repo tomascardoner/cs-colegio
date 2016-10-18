@@ -477,4 +477,171 @@
             Return Nothing
         End If
     End Function
+
+    Friend Function TransmitirAFIP_Inicializar(ByRef Objeto_AFIP_WS As CS_AFIP_WS.AFIP_WS, ByVal ModoHomologacion As Boolean) As Boolean
+        With Objeto_AFIP_WS
+            If My.Settings.AFIP_WS_LogEnabled Then
+                .LogPath = CS_SpecialFolders.ProcessString(My.Settings.AFIP_WS_LogFolder)
+                If Not .LogPath.EndsWith("\") Then
+                    .LogPath &= "\"
+                End If
+                .LogPath &= DateTime.Today.Year & "\" & DateTime.Today.Month.ToString.PadLeft(2, "0"c) & "\"
+                .LogFileName = CS_File.ProcessFilename(My.Settings.AFIP_WS_LogFileName)
+            End If
+
+            ' Leo los valores comunes a todas las facturas
+            If ModoHomologacion Then
+                .Certificado = My.Settings.AFIP_WS_Certificado_Homologacion
+                .WSAA_URL = CS_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION)
+                .WSFEv1_URL = CS_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION)
+            Else
+                .Certificado = My.Settings.AFIP_WS_Certificado_Produccion
+                .WSAA_URL = CS_Parameter.GetString(Parametros.AFIP_WS_AA_PRODUCCION)
+                .WSFEv1_URL = CS_Parameter.GetString(Parametros.AFIP_WS_FE_PRODUCCION)
+            End If
+            .ClavePrivada = My.Settings.AFIP_WS_ClavePrivada
+
+            .InternetProxy = CS_Parameter.GetString(Parametros.INTERNET_PROXY, "")
+            .CUIT_Emisor = CS_Parameter.GetString(Parametros.EMPRESA_CUIT)
+
+            Using dbContext As New CSColegioContext(True)
+                .MonedaLocal = dbContext.Moneda.Find(CS_Parameter.GetIntegerAsShort(Parametros.DEFAULT_MONEDA_ID))
+                If .MonedaLocal Is Nothing Then
+                    MsgBox("No se ha especificado la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
+                    Return False
+                End If
+                .MonedaLocalCotizacion = dbContext.MonedaCotizacion.Where(Function(mc) mc.IDMoneda = .MonedaLocal.IDMoneda).FirstOrDefault
+                If .MonedaLocalCotizacion Is Nothing Then
+                    MsgBox("No hay cotizaciones cargadas para la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
+                    Return False
+                End If
+            End Using
+        End With
+        Return True
+    End Function
+
+    Friend Function TransmitirAFIP_IniciarSesion(ByRef Objeto_AFIP_WS As CS_AFIP_WS.AFIP_WS) As Boolean
+        Return Objeto_AFIP_WS.FacturaElectronica_Login()
+    End Function
+
+    Friend Function TransmitirAFIP_ConectarServicio(ByRef Objeto_AFIP_WS As CS_AFIP_WS.AFIP_WS) As Boolean
+        Return Objeto_AFIP_WS.FacturaElectronica_Conectar()
+    End Function
+
+    Friend Function TransmitirAFIP_Comprobante(ByRef Objeto_AFIP_WS As CS_AFIP_WS.AFIP_WS, ByRef ComprobanteActual As Comprobante) As Boolean
+        Dim AFIP_Factura As New CS_AFIP_WS.FacturaElectronicaCabecera
+        Dim ComprobanteTipoActual As New ComprobanteTipo
+
+        Dim ArticuloActual As Articulo
+        Dim IDConcepto As Byte = 0
+
+        If Not ComprobanteActual Is Nothing Then
+            If ComprobanteActual.CAE Is Nothing Then
+
+                Using dbContext As New CSColegioContext(True)
+                    With AFIP_Factura
+                        ' Cargo el Tipo de Comprobante si es distinto al anterior
+                        If ComprobanteActual.IDComprobanteTipo <> ComprobanteTipoActual.IDComprobanteTipo Then
+                            ComprobanteTipoActual = dbContext.ComprobanteTipo.Find(ComprobanteActual.IDComprobanteTipo)
+                        End If
+
+                        ' Esto es para determinar el Concepto a especificar en el pedido del CAE
+                        If ComprobanteActual.ComprobanteDetalle.Count > 0 Then
+                            For Each CDetalle As ComprobanteDetalle In ComprobanteActual.ComprobanteDetalle
+                                ArticuloActual = dbContext.Articulo.Find(CDetalle.IDArticulo)
+                                Select Case IDConcepto
+                                    Case CByte(0)
+                                        ' Es el primer Artículo, así que lo guardo
+                                        IDConcepto = ArticuloActual.ArticuloGrupo.IDConcepto
+                                    Case ArticuloActual.ArticuloGrupo.IDConcepto
+                                        ' Es el mismo Concepto que el/los Artículos anteriores, no hago nada
+
+                                    Case Else
+                                        If (IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) And (ArticuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or ArticuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) Then
+                                            ' Hay Productos y Servicios, así que utilizo el Concepto correspondiente
+                                            IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS
+                                            Exit For
+                                        End If
+                                End Select
+                            Next
+                        Else
+                            IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO
+                        End If
+                        .Concepto = IDConcepto
+
+                        ' Documento del Titular
+                        .TipoDocumento = CShort(ComprobanteActual.IDDocumentoTipo)
+                        .DocumentoNumero = CLng(CS_ValueTranslation.FromStringToOnlyDigitsString(ComprobanteActual.DocumentoNumero))
+
+                        ' Tipo de Comprobante
+                        .TipoComprobante = ComprobanteTipoActual.CodigoAFIP
+
+                        ' Datos de la Cabecera
+                        .PuntoVenta = CShort(ComprobanteActual.PuntoVenta)
+                        .ComprobanteDesde = CInt(ComprobanteActual.Numero)
+                        .ComprobanteHasta = CInt(ComprobanteActual.Numero)
+                        .ComprobanteFecha = ComprobanteActual.FechaEmision
+
+                        ' Importes
+                        .ImporteTotal = ComprobanteActual.ImporteTotal
+                        .ImporteTotalConc = 0
+                        .ImporteNeto = ComprobanteActual.ImporteTotal
+                        .ImporteOperacionesExentas = 0
+                        .ImporteTributos = 0
+                        .ImporteIVA = ComprobanteActual.ImporteImpuesto
+
+                        ' Fechas
+                        If ComprobanteActual.FechaServicioDesde.HasValue Then
+                            .FechaServicioDesde = ComprobanteActual.FechaServicioDesde.Value
+                        End If
+                        If ComprobanteActual.FechaServicioHasta.HasValue Then
+                            .FechaServicioHasta = ComprobanteActual.FechaServicioHasta.Value
+                        End If
+                        If ComprobanteActual.FechaVencimiento.HasValue Then
+                            .FechaVencimientoPago = ComprobanteActual.FechaVencimiento.Value
+                        End If
+
+                        ' Moneda
+                        .MonedaID = Objeto_AFIP_WS.MonedaLocal.CodigoAFIP
+                        .MonedaCotizacion = Objeto_AFIP_WS.MonedaLocalCotizacion.CotizacionVenta
+
+                        ' Comprobantes Aplicados
+                        For Each ComprobanteAplicacionActual As ComprobanteAplicacion In ComprobanteActual.ComprobanteAplicacion_Aplicados
+                            Dim AFIP_ComprobanteAsociado As New ComprobanteAsociado
+                            AFIP_ComprobanteAsociado.TipoComprobante = ComprobanteAplicacionActual.ComprobanteAplicado.ComprobanteTipo.CodigoAFIP
+                            AFIP_ComprobanteAsociado.ComprobanteNumero = CInt(ComprobanteAplicacionActual.ComprobanteAplicado.Numero)
+                            AFIP_ComprobanteAsociado.PuntoVenta = CShort(ComprobanteAplicacionActual.ComprobanteAplicado.PuntoVenta)
+                            .ComprobantesAsociados.Add(AFIP_ComprobanteAsociado)
+                        Next
+                    End With
+
+                    ' Obtengo el CAE
+                    With Objeto_AFIP_WS
+                        If .FacturaElectronica_ObtenerCAE(AFIP_Factura) Then
+                            If .UltimoResultadoCAE.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_ACEPTADO Then
+                                dbContext.Comprobante.Attach(ComprobanteActual)
+
+                                ComprobanteActual.CAE = .UltimoResultadoCAE.Numero
+                                ComprobanteActual.CAEVencimiento = .UltimoResultadoCAE.FechaVencimiento
+                                ComprobanteActual.IDUsuarioTransmisionAFIP = pUsuario.IDUsuario
+                                ComprobanteActual.FechaHoraTransmisionAFIP = DateTime.Now
+
+                                dbContext.SaveChanges()
+
+                                Return True
+                            Else
+                                Return False
+                            End If
+                        Else
+                            Return False
+                        End If
+                    End With
+                End Using
+            Else
+                Return False
+            End If
+        Else
+            Return False
+        End If
+    End Function
 End Module

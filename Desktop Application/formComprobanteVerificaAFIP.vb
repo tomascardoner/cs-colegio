@@ -32,12 +32,14 @@
             ListViewItemNew.SubItems.Add(ResultadoConsultaComprobanteActual.ComprobanteDesde.ToString)
             listviewMain.Items.Add(ListViewItemNew)
 
-            ' Concepto
-            ListViewItemNew = New ListViewItem
-            ListViewItemNew.Text = "Concepto:"
-            ListViewItemNew.SubItems.Add(CInt(ComprobanteActual.IDConcepto).ToString)
-            ListViewItemNew.SubItems.Add(ResultadoConsultaComprobanteActual.Concepto.ToString)
-            listviewMain.Items.Add(ListViewItemNew)
+            If Not ComprobanteActual.IDConcepto Is Nothing Then
+                ' Concepto
+                ListViewItemNew = New ListViewItem
+                ListViewItemNew.Text = "Concepto:"
+                ListViewItemNew.SubItems.Add(CInt(ComprobanteActual.IDConcepto).ToString)
+                ListViewItemNew.SubItems.Add(ResultadoConsultaComprobanteActual.Concepto.ToString)
+                listviewMain.Items.Add(ListViewItemNew)
+            End If
 
             ' Tipo de Documento
             ListViewItemNew = New ListViewItem
@@ -82,25 +84,31 @@
             listviewMain.Items.Add(ListViewItemNew)
 
             ' Fecha de Servicio Desde
-            ListViewItemNew = New ListViewItem
-            ListViewItemNew.Text = "Fecha del Servicio Desde:"
-            ListViewItemNew.SubItems.Add(ComprobanteActual.FechaServicioDesde.Value.ToShortDateString)
-            ListViewItemNew.SubItems.Add(ResultadoConsultaComprobanteActual.FechaServicioDesde.ToShortDateString)
-            listviewMain.Items.Add(ListViewItemNew)
+            If Not ComprobanteActual.FechaServicioDesde Is Nothing Then
+                ListViewItemNew = New ListViewItem
+                ListViewItemNew.Text = "Fecha del Servicio Desde:"
+                ListViewItemNew.SubItems.Add(ComprobanteActual.FechaServicioDesde.Value.ToShortDateString)
+                ListViewItemNew.SubItems.Add(ResultadoConsultaComprobanteActual.FechaServicioDesde.ToShortDateString)
+                listviewMain.Items.Add(ListViewItemNew)
+            End If
 
             ' Fecha de Servicio Hasta
-            ListViewItemNew = New ListViewItem
-            ListViewItemNew.Text = "Fecha del Servicio Hasta:"
-            ListViewItemNew.SubItems.Add(ComprobanteActual.FechaServicioHasta.Value.ToShortDateString)
-            ListViewItemNew.SubItems.Add(ResultadoConsultaComprobanteActual.FechaServicioHasta.ToShortDateString)
-            listviewMain.Items.Add(ListViewItemNew)
+            If Not ComprobanteActual.FechaServicioHasta Is Nothing Then
+                ListViewItemNew = New ListViewItem
+                ListViewItemNew.Text = "Fecha del Servicio Hasta:"
+                ListViewItemNew.SubItems.Add(ComprobanteActual.FechaServicioHasta.Value.ToShortDateString)
+                ListViewItemNew.SubItems.Add(ResultadoConsultaComprobanteActual.FechaServicioHasta.ToShortDateString)
+                listviewMain.Items.Add(ListViewItemNew)
+            End If
 
             ' Fecha de Vencimiento (Pago)
-            ListViewItemNew = New ListViewItem
-            ListViewItemNew.Text = "Fecha de Vencimiento (Pago):"
-            ListViewItemNew.SubItems.Add(ComprobanteActual.FechaVencimiento.Value.ToShortDateString)
-            ListViewItemNew.SubItems.Add(ResultadoConsultaComprobanteActual.FechaVencimientoPago.ToShortDateString)
-            listviewMain.Items.Add(ListViewItemNew)
+            If Not ComprobanteActual.FechaVencimiento Is Nothing Then
+                ListViewItemNew = New ListViewItem
+                ListViewItemNew.Text = "Fecha de Vencimiento (Pago):"
+                ListViewItemNew.SubItems.Add(ComprobanteActual.FechaVencimiento.Value.ToShortDateString)
+                ListViewItemNew.SubItems.Add(ResultadoConsultaComprobanteActual.FechaVencimientoPago.ToShortDateString)
+                listviewMain.Items.Add(ListViewItemNew)
+            End If
 
             ' CAE
             ListViewItemNew = New ListViewItem

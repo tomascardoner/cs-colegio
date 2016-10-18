@@ -786,17 +786,7 @@
     End Sub
 
     Private Sub VerificarComprobanteAFIP() Handles buttonVerificarComprobante.Click
-        Dim LogPath As String = ""
-        Dim LogFileName As String = ""
-        Dim Certificado As String
-        Dim WSAA_URL As String
-        Dim WSFEv1_URL As String
-        Dim AFIP_TicketAcceso As String
-
-        Dim InternetProxy As String
-        Dim CUIT_Emisor As String
-
-        Dim ResultadoConsultaComprobanteActual As CS_AFIP_WS.ResultadoConsultaComprobante
+        Dim Objeto_AFIP_WS As New CS_AFIP_WS.AFIP_WS
 
         If Not mComprobanteActual Is Nothing Then
             If mComprobanteTipoActual.EmisionElectronica AndAlso Not mComprobanteActual.CAE Is Nothing Then
@@ -804,54 +794,27 @@
                     Me.Cursor = Cursors.WaitCursor
                     Application.DoEvents()
 
-                    If My.Settings.AFIP_WS_LogEnabled Then
-                        LogPath = CS_SpecialFolders.ProcessString(My.Settings.AFIP_WS_LogFolder)
-                        If Not LogPath.EndsWith("\") Then
-                            LogPath &= "\"
+                    If ModuloComprobantes.TransmitirAFIP_Inicializar(Objeto_AFIP_WS, My.Settings.AFIP_WS_ModoHomologacion) Then
+                        If ModuloComprobantes.TransmitirAFIP_IniciarSesion(Objeto_AFIP_WS) Then
+                            If ModuloComprobantes.TransmitirAFIP_ConectarServicio(Objeto_AFIP_WS) Then
+                                If Objeto_AFIP_WS.FacturaElectronica_ConsultarComprobante(mComprobanteTipoActual.CodigoAFIP, CShort(mComprobanteActual.PuntoVenta), CInt(mComprobanteActual.Numero)) Then
+                                    If Objeto_AFIP_WS.UltimoResultadoConsultaComprobante.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_ACEPTADO Then
+                                        formComprobanteVerificaAFIP.LoadAndShow(Me, mComprobanteActual, Objeto_AFIP_WS.UltimoResultadoConsultaComprobante)
+
+                                        ' Si actualizo el Comprobante local:
+                                        '' Refresco la lista de Comprobantes para mostrar los cambios
+                                        'If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formComprobantes") Then
+                                        '    Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formComprobantes"), formComprobantes)
+                                        '    formComprobantes.RefreshData(mComprobanteActual.IDComprobante)
+                                        '    formComprobantes = Nothing
+                                        'End If
+                                    End If
+                                End If
+                            End If
                         End If
-                        LogPath &= DateTime.Today.Year & "\" & DateTime.Today.Month.ToString.PadLeft(2, "0"c) & "\"
-                        LogFileName = CS_File.ProcessFilename(My.Settings.AFIP_WS_LogFileName)
                     End If
-
-                    ' Leo los valores comunes a todas las facturas
-                    If My.Settings.AFIP_WS_ModoHomologacion Then
-                        Certificado = My.Settings.AFIP_WS_Certificado_Homologacion
-                        WSAA_URL = CS_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION)
-                        WSFEv1_URL = CS_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION)
-                    Else
-                        Certificado = My.Settings.AFIP_WS_Certificado_Produccion
-                        WSAA_URL = CS_Parameter.GetString(Parametros.AFIP_WS_AA_PRODUCCION)
-                        WSFEv1_URL = CS_Parameter.GetString(Parametros.AFIP_WS_FE_PRODUCCION)
-                    End If
-
-                    InternetProxy = CS_Parameter.GetString(Parametros.INTERNET_PROXY, "")
-                    CUIT_Emisor = CS_Parameter.GetString(Parametros.EMPRESA_CUIT)
-
-                    ' Intento realizar la Autenticación en el Servidor de AFIP
-                    AFIP_TicketAcceso = CS_AFIP_WS.Login(WSAA_URL, InternetProxy, CS_AFIP_WS.SERVICIO_FACTURACION_ELECTRONICA, Certificado, My.Settings.AFIP_WS_ClavePrivada, LogPath, LogFileName)
-                    If AFIP_TicketAcceso = "" Then
-                        Me.Cursor = Cursors.Default
-                        Exit Sub
-                    End If
-
-                    ResultadoConsultaComprobanteActual = CS_AFIP_WS.FacturaElectronica_ConectarYConsultarComprobante(AFIP_TicketAcceso, WSFEv1_URL, InternetProxy, CS_Parameter.GetString(Parametros.EMPRESA_CUIT), mComprobanteTipoActual.CodigoAFIP, CShort(mComprobanteActual.PuntoVenta), CInt(mComprobanteActual.Numero))
 
                     Me.Cursor = Cursors.Default
-                    Application.DoEvents()
-
-                    If ResultadoConsultaComprobanteActual.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_ACEPTADO Then
-                        formComprobanteVerificaAFIP.LoadAndShow(Me, mComprobanteActual, ResultadoConsultaComprobanteActual)
-
-                        ' Si actualizo el Comprobante local:
-                        '' Refresco la lista de Comprobantes para mostrar los cambios
-                        'If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formComprobantes") Then
-                        '    Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formComprobantes"), formComprobantes)
-                        '    formComprobantes.RefreshData(mComprobanteActual.IDComprobante)
-                        '    formComprobantes = Nothing
-                        'End If
-                    End If
-
-
                 End If
             End If
         End If
@@ -1252,172 +1215,53 @@
         End If
     End Sub
 
-    Private Function TransmitirComprobante(ByRef ComprobanteATransmitir As Comprobante) As Boolean
-        Dim LogPath As String = ""
-        Dim LogFileName As String = ""
-        Dim Certificado As String
-        Dim WSAA_URL As String
-        Dim WSFEv1_URL As String
-        Dim AFIP_TicketAcceso As String
-        Dim AFIP_Factura As CS_AFIP_WS.FacturaElectronicaCabecera
-        Dim ResultadoCAE As CS_AFIP_WS.ResultadoCAE
+    Private Function TransmitirComprobante(ByRef ComprobanteActual As Comprobante) As Boolean
+        Dim Objeto_AFIP_WS As New CS_AFIP_WS.AFIP_WS
+
         Dim MensajeError As String
 
-        Dim InternetProxy As String
-        Dim CUIT_Emisor As String
-        Dim MonedaLocal As Moneda
-        Dim MonedaLocalCotizacion As MonedaCotizacion
-        Dim ComprobanteTipoActual As New ComprobanteTipo
-        Dim ArticuloActual As Articulo
-        Dim IDConcepto As Byte = 0
-
-        Me.Cursor = Cursors.WaitCursor
-        Application.DoEvents()
-
-        If My.Settings.AFIP_WS_LogEnabled Then
-            LogPath = CS_SpecialFolders.ProcessString(My.Settings.AFIP_WS_LogFolder)
-            If Not LogPath.EndsWith("\") Then
-                LogPath &= "\"
-            End If
-            LogPath &= DateTime.Today.Year & "\" & DateTime.Today.Month.ToString.PadLeft(2, "0"c) & "\"
-            LogFileName = CS_File.ProcessFilename(My.Settings.AFIP_WS_LogFileName)
-        End If
-
-        ' Leo los valores comunes a todas las facturas
-        If My.Settings.AFIP_WS_ModoHomologacion Then
-            Certificado = My.Settings.AFIP_WS_Certificado_Homologacion
-            WSAA_URL = CS_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION)
-            WSFEv1_URL = CS_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION)
-        Else
-            Certificado = My.Settings.AFIP_WS_Certificado_Produccion
-            WSAA_URL = CS_Parameter.GetString(Parametros.AFIP_WS_AA_PRODUCCION)
-            WSFEv1_URL = CS_Parameter.GetString(Parametros.AFIP_WS_FE_PRODUCCION)
-        End If
-
-        InternetProxy = CS_Parameter.GetString(Parametros.INTERNET_PROXY, "")
-        CUIT_Emisor = CS_Parameter.GetString(Parametros.EMPRESA_CUIT)
-
-        MonedaLocal = mdbContext.Moneda.Find(CS_Parameter.GetIntegerAsShort(Parametros.DEFAULT_MONEDA_ID))
-        If MonedaLocal Is Nothing Then
+        If ModuloComprobantes.TransmitirAFIP_Inicializar(Objeto_AFIP_WS, My.Settings.AFIP_WS_ModoHomologacion) Then
             Me.Cursor = Cursors.WaitCursor
-            MsgBox("No se ha especificado la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
-            Return False
-        End If
-        MonedaLocalCotizacion = mdbContext.MonedaCotizacion.Where(Function(mc) mc.IDMoneda = MonedaLocal.IDMoneda).FirstOrDefault
-        If MonedaLocalCotizacion Is Nothing Then
-            Me.Cursor = Cursors.WaitCursor
-            MsgBox("No hay cotizaciones cargadas para la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
-            Return False
-        End If
+            Application.DoEvents()
 
-        ' Intento realizar la Autenticación en el Servidor de AFIP
-        AFIP_TicketAcceso = CS_AFIP_WS.Login(WSAA_URL, InternetProxy, CS_AFIP_WS.SERVICIO_FACTURACION_ELECTRONICA, Certificado, My.Settings.AFIP_WS_ClavePrivada, LogPath, LogFileName)
-        If AFIP_TicketAcceso = "" Then
-            Me.Cursor = Cursors.Default
-            Return False
-        End If
-
-        AFIP_Factura = New CS_AFIP_WS.FacturaElectronicaCabecera
-        With AFIP_Factura
-            If ComprobanteATransmitir.ComprobanteDetalle.Count > 0 Then
-                For Each CDetalle As ComprobanteDetalle In ComprobanteATransmitir.ComprobanteDetalle
-                    ArticuloActual = mdbContext.Articulo.Find(CDetalle.IDArticulo)
-                    Select Case IDConcepto
-                        Case CByte(0)
-                            ' Es el primer Artículo, así que lo guardo
-                            IDConcepto = ArticuloActual.ArticuloGrupo.IDConcepto
-                        Case ArticuloActual.ArticuloGrupo.IDConcepto
-                            ' Es el mismo Concepto que el/los Artículos anteriores, no hago nada
-
-                        Case Else
-                            If (IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) And (ArticuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or ArticuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) Then
-                                ' Hay Productos y Servicios, así que utilizo el Concepto correspondiente
-                                IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS
-                                Exit For
+            If ModuloComprobantes.TransmitirAFIP_IniciarSesion(Objeto_AFIP_WS) Then
+                If ModuloComprobantes.TransmitirAFIP_ConectarServicio(Objeto_AFIP_WS) Then
+                    If Not ComprobanteActual Is Nothing Then
+                        If ComprobanteActual.CAE Is Nothing Then
+                            If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual) Then
+                                MsgBox(String.Format("Se han transmitido exitosamente el Comprobante a AFIP."), MsgBoxStyle.Information, My.Application.Info.Title)
+                                Me.Cursor = Cursors.Default
+                                Return True
+                            ElseIf Objeto_AFIP_WS.UltimoResultadoCAE.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_RECHAZADO Then
+                                MensajeError = "Se Rechazó la Solicitud de CAE para el Comprobante Electrónico:"
+                                MensajeError &= vbCrLf & vbCrLf
+                                MensajeError &= String.Format("{0} N°: {1}", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero)
+                                MensajeError &= vbCrLf
+                                MensajeError &= "Titular: " & ComprobanteActual.ApellidoNombre
+                                MensajeError &= vbCrLf
+                                MensajeError &= "Importe: " & FormatCurrency(ComprobanteActual.ImporteTotal)
+                                If Objeto_AFIP_WS.UltimoResultadoCAE.Observaciones <> "" Then
+                                    MensajeError &= vbCrLf & vbCrLf
+                                    MensajeError &= "Observaciones: " & Objeto_AFIP_WS.UltimoResultadoCAE.Observaciones
+                                End If
+                                If Objeto_AFIP_WS.UltimoResultadoCAE.ErrorMessage <> "" Then
+                                    MensajeError &= vbCrLf & vbCrLf
+                                    MensajeError &= "Error: " & Objeto_AFIP_WS.UltimoResultadoCAE.ErrorMessage
+                                End If
+                                MsgBox(MensajeError, MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                                Me.Cursor = Cursors.Default
+                                Return False
+                            Else
+                                Me.Cursor = Cursors.Default
+                                Return False
                             End If
-                    End Select
-                Next
-            Else
-                IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO
+                        End If
+                    End If
+                End If
             End If
-            .Concepto = IDConcepto
-
-            ' Documento del Titular
-            .TipoDocumento = CShort(ComprobanteATransmitir.IDDocumentoTipo)
-            .DocumentoNumero = CLng(CS_ValueTranslation.FromStringToOnlyDigitsString(ComprobanteATransmitir.DocumentoNumero))
-
-            ' Tipo de Comprobante
-            If ComprobanteATransmitir.IDComprobanteTipo <> ComprobanteTipoActual.IDComprobanteTipo Then
-                ComprobanteTipoActual = mdbContext.ComprobanteTipo.Find(ComprobanteATransmitir.IDComprobanteTipo)
-            End If
-            .TipoComprobante = ComprobanteTipoActual.CodigoAFIP
-
-            ' Datos de la Cabecera
-            .PuntoVenta = CShort(ComprobanteATransmitir.PuntoVenta)
-            .ComprobanteDesde = CInt(ComprobanteATransmitir.Numero)
-            .ComprobanteHasta = CInt(ComprobanteATransmitir.Numero)
-            .ComprobanteFecha = ComprobanteATransmitir.FechaEmision
-
-            ' Importes
-            .ImporteTotal = ComprobanteATransmitir.ImporteTotal
-            .ImporteTotalConc = 0
-            .ImporteNeto = ComprobanteATransmitir.ImporteTotal
-            .ImporteOperacionesExentas = 0
-            .ImporteTributos = 0
-            .ImporteIVA = ComprobanteATransmitir.ImporteImpuesto
-
-            ' Fechas
-            If ComprobanteATransmitir.FechaServicioDesde.HasValue Then
-                .FechaServicioDesde = ComprobanteATransmitir.FechaServicioDesde.Value
-            End If
-            If ComprobanteATransmitir.FechaServicioHasta.HasValue Then
-                .FechaServicioHasta = ComprobanteATransmitir.FechaServicioHasta.Value
-            End If
-            If ComprobanteATransmitir.FechaVencimiento.HasValue Then
-                .FechaVencimientoPago = ComprobanteATransmitir.FechaVencimiento.Value
-            End If
-
-            ' Moneda
-            .MonedaID = MonedaLocal.CodigoAFIP
-            .MonedaCotizacion = MonedaLocalCotizacion.CotizacionVenta
-        End With
-
-        ResultadoCAE = CS_AFIP_WS.FacturaElectronica_ConectarYObtenerCAE(AFIP_TicketAcceso, WSFEv1_URL, InternetProxy, CUIT_Emisor, AFIP_Factura, LogPath, LogFileName)
-        If ResultadoCAE Is Nothing Then
             Me.Cursor = Cursors.Default
-            Return False
         End If
-        If ResultadoCAE.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_ACEPTADO Then
-            ComprobanteATransmitir.CAE = ResultadoCAE.Numero
-            ComprobanteATransmitir.CAEVencimiento = ResultadoCAE.FechaVencimiento
-            ComprobanteATransmitir.IDUsuarioTransmisionAFIP = pUsuario.IDUsuario
-            ComprobanteATransmitir.FechaHoraTransmisionAFIP = Now
-
-            mdbContext.SaveChanges()
-
-            Me.Cursor = Cursors.Default
-            Return True
-        Else
-            MensajeError = "Se Rechazó la Solicitud de CAE para la Factura Electrónica:"
-            MensajeError &= vbCrLf & vbCrLf
-            MensajeError &= "Factura N°: " & ComprobanteATransmitir.NumeroCompleto
-            MensajeError &= vbCrLf
-            MensajeError &= "Titular: " & ComprobanteATransmitir.Entidad.ApellidoNombre
-            MensajeError &= vbCrLf
-            MensajeError &= "Importe: " & FormatCurrency(ComprobanteATransmitir.ImporteTotal)
-            If ResultadoCAE.Observaciones <> "" Then
-                MensajeError &= vbCrLf & vbCrLf
-                MensajeError &= "Observaciones: " & ResultadoCAE.Observaciones
-            End If
-            If ResultadoCAE.ErrorMessage <> "" Then
-                MensajeError &= vbCrLf & vbCrLf
-                MensajeError &= "Error: " & ResultadoCAE.ErrorMessage
-            End If
-            MsgBox(MensajeError, MsgBoxStyle.Exclamation, My.Application.Info.Title)
-
-            Me.Cursor = Cursors.Default
-            Return False
-        End If
+        Return False
     End Function
 #End Region
 
