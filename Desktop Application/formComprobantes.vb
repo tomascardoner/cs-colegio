@@ -650,7 +650,7 @@
                     End Using
 
                     ' Verifico que tenga un CAE asignado, si es que corresponde
-                    If ComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso ComprobanteTipoActual.EmisionElectronica AndAlso CurrentRow.CAE = "" And Not Permisos.VerificarPermiso(Permisos.COMPROBANTE_IMPRIMIR_SINCAE) Then
+                    If ComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso ComprobanteTipoActual.EmisionElectronica AndAlso CurrentRow.CAE = "" And Not Permisos.VerificarPermiso(Permisos.COMPROBANTE_IMPRIMIR_SINCAE, False) Then
                         MsgBox("El comprobante que desea imprimir no tiene un C.A.E. asignado." & vbCrLf & "Esto puede ocurrir porque aún no fue enviado a AFIP o porque AFIP rechazó el comprobante." & vbCrLf & "Por este motivo, este comprobante no tiene validez legal.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                         Exit Sub
                     End If
@@ -777,7 +777,7 @@
 
                                 Select Case My.Settings.Comprobante_EnviarEmail_Metodo
                                     Case Constantes.EMAIL_CLIENT_NETDLL
-                                        If MiscFunctions.EnviarEmailPorNETClient(Titular, Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", True) = -1 Then
+                                        If MiscFunctions.EnviarEmailPorNETClient(New List(Of Entidad)({Titular}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", True) = -1 Then
                                             datagridviewMain.Enabled = True
                                             Me.Cursor = Cursors.Default
                                             Exit Sub

@@ -528,17 +528,20 @@
         Return Objeto_AFIP_WS.FacturaElectronica_Conectar()
     End Function
 
-    Friend Function TransmitirAFIP_Comprobante(ByRef Objeto_AFIP_WS As CS_AFIP_WS.AFIP_WS, ByRef ComprobanteActual As Comprobante) As Boolean
+    Friend Function TransmitirAFIP_Comprobante(ByRef Objeto_AFIP_WS As CS_AFIP_WS.AFIP_WS, ByVal IDComprobanteActual As Integer) As Boolean
         Dim AFIP_Factura As New CS_AFIP_WS.FacturaElectronicaCabecera
+        Dim ComprobanteActual As Comprobante
         Dim ComprobanteTipoActual As New ComprobanteTipo
 
         Dim ArticuloActual As Articulo
         Dim IDConcepto As Byte = 0
 
-        If Not ComprobanteActual Is Nothing Then
-            If ComprobanteActual.CAE Is Nothing Then
+        If IDComprobanteActual <> 0 Then
 
-                Using dbContext As New CSColegioContext(True)
+            Using dbContext As New CSColegioContext(True)
+                ComprobanteActual = dbContext.Comprobante.Find(IDComprobanteActual)
+
+                If ComprobanteActual.CAE Is Nothing Then
                     With AFIP_Factura
                         ' Cargo el Tipo de Comprobante si es distinto al anterior
                         If ComprobanteActual.IDComprobanteTipo <> ComprobanteTipoActual.IDComprobanteTipo Then
@@ -619,8 +622,6 @@
                     With Objeto_AFIP_WS
                         If .FacturaElectronica_ObtenerCAE(AFIP_Factura) Then
                             If .UltimoResultadoCAE.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_ACEPTADO Then
-                                dbContext.Comprobante.Attach(ComprobanteActual)
-
                                 ComprobanteActual.CAE = .UltimoResultadoCAE.Numero
                                 ComprobanteActual.CAEVencimiento = .UltimoResultadoCAE.FechaVencimiento
                                 ComprobanteActual.IDUsuarioTransmisionAFIP = pUsuario.IDUsuario
@@ -636,10 +637,10 @@
                             Return False
                         End If
                     End With
-                End Using
-            Else
-                Return False
-            End If
+                Else
+                    Return False
+                End If
+            End Using
         Else
             Return False
         End If

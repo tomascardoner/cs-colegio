@@ -51,7 +51,7 @@
             ' Número de Documento
             ListViewItemNew = New ListViewItem
             ListViewItemNew.Text = "Número de Documento:"
-            ListViewItemNew.SubItems.Add(CInt(ComprobanteActual.DocumentoNumero).ToString)
+            ListViewItemNew.SubItems.Add(CLng(ComprobanteActual.DocumentoNumero).ToString)
             ListViewItemNew.SubItems.Add(ResultadoConsultaComprobanteActual.DocumentoNumero.ToString)
             listviewMain.Items.Add(ListViewItemNew)
 

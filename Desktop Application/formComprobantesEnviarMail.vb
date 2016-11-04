@@ -159,11 +159,11 @@
                     Dim Cuerpo As String = String.Format(My.Settings.Comprobante_EnvioEmail_Body, vbCrLf) & String.Format(My.Settings.Email_Signature, vbCrLf)
                     Dim AdjuntoNombre As String = String.Format("{0}-{1}.pdf", ComprobanteActual.ComprobanteTipo.Sigla.TrimEnd, ComprobanteActual.NumeroCompleto)
 
-                    textboxStatus.AppendText(vbCrLf & String.Format("Enviando {0} N° {1} a {2}...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero, ComprobanteActual.Entidad.ApellidoNombre))
+                    textboxStatus.AppendText(vbCrLf & String.Format("Enviando {0} N° {1} a {2}...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.NumeroCompleto, ComprobanteActual.Entidad.ApellidoNombre))
 
                     Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
                         Case Constantes.EMAIL_CLIENT_NETDLL
-                            Result = MiscFunctions.EnviarEmailPorNETClient(ComprobanteActual.Entidad, Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", False)
+                            Result = MiscFunctions.EnviarEmailPorNETClient(New List(Of Entidad)({ComprobanteActual.Entidad}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", False)
                             If Result = -1 Then
                                 Exit For
                             End If

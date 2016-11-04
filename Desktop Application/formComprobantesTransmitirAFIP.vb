@@ -106,7 +106,7 @@
                             If Not ComprobanteActual Is Nothing Then
                                 If ComprobanteActual.CAE Is Nothing Then
                                     textboxStatus.AppendText(vbCrLf & String.Format("Solicitando el C.A.E. para la {0} N° {1}...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.NumeroCompleto))
-                                    If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual) Then
+                                    If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual.IDComprobante) Then
                                         progressbarStatus.Value += 1
                                         textboxStatus.AppendText("OK - CAE: " & Objeto_AFIP_WS.UltimoResultadoCAE.Numero)
 

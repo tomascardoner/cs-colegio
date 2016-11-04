@@ -769,7 +769,6 @@
                 If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIR_AFIP) Then
                     If MsgBox("Este Comprobante necesita ser autorizado en AFIP para tener validez." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                         If TransmitirComprobante(mComprobanteActual) Then
-                            MsgBox("Se ha transmitido exitosamente el Comprobante a AFIP.", MsgBoxStyle.Information, My.Application.Info.Title)
                             buttonTransmitirComprobante.Visible = False
 
                             ' Refresco la lista de Comprobantes para mostrar los cambios
@@ -1228,7 +1227,7 @@
                 If ModuloComprobantes.TransmitirAFIP_ConectarServicio(Objeto_AFIP_WS) Then
                     If Not ComprobanteActual Is Nothing Then
                         If ComprobanteActual.CAE Is Nothing Then
-                            If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual) Then
+                            If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual.IDComprobante) Then
                                 MsgBox(String.Format("Se han transmitido exitosamente el Comprobante a AFIP."), MsgBoxStyle.Information, My.Application.Info.Title)
                                 Me.Cursor = Cursors.Default
                                 Return True
