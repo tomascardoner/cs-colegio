@@ -70,151 +70,14 @@ Module MiscFunctions
         ' Establezco los recipientes
         mail.From = New MailAddress(My.Settings.Email_Address, My.Settings.Email_DisplayName)
 
-        ' TODO - Optimizar el siguiente código para que no sea tan repetitivo
-
         ' Destinatarios - To
-        For Each EntidadTo As Entidad In listEntidadesTo
-            With EntidadTo
-                Select Case .ComprobanteEnviarEmail
-                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_CUALQUIERA
-                        If Not .Email1 Is Nothing Then
-                            mail.To.Add(New MailAddress(.Email1, .ApellidoNombre))
-                            MailCount += 1
-                        Else
-                            If Not .Email2 Is Nothing Then
-                                mail.To.Add(New MailAddress(.Email2, .ApellidoNombre))
-                                MailCount += 1
-                            End If
-                        End If
-                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO
-                        If ForzarEnvio Then
-                            If Not .Email1 Is Nothing Then
-                                mail.To.Add(New MailAddress(.Email1, .ApellidoNombre))
-                                MailCount += 1
-                            End If
-                            If Not .Email2 Is Nothing Then
-                                mail.To.Add(New MailAddress(.Email2, .ApellidoNombre))
-                                MailCount += 1
-                            End If
-                        End If
-                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_AMBAS
-                        If Not .Email1 Is Nothing Then
-                            mail.To.Add(New MailAddress(.Email1, .ApellidoNombre))
-                            MailCount += 1
-                        End If
-                        If Not .Email2 Is Nothing Then
-                            mail.To.Add(New MailAddress(.Email2, .ApellidoNombre))
-                            MailCount += 1
-                        End If
-                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL1
-                        If Not .Email1 Is Nothing Then
-                            mail.To.Add(New MailAddress(.Email1, .ApellidoNombre))
-                            MailCount += 1
-                        End If
-                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2
-                        If Not .Email2 Is Nothing Then
-                            mail.To.Add(New MailAddress(.Email2, .ApellidoNombre))
-                            MailCount += 1
-                        End If
-                End Select
-            End With
-        Next
+        MailCount += EnviarEmailPorNETClient_AgregarDestinatarios(listEntidadesTo, mail.To, ForzarEnvio)
 
         ' Destinatarios - CC
-        For Each EntidadCC As Entidad In listEntidadesCC
-            With EntidadCC
-                Select Case .ComprobanteEnviarEmail
-                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_CUALQUIERA
-                        If Not .Email1 Is Nothing Then
-                            mail.CC.Add(New MailAddress(.Email1, .ApellidoNombre))
-                            MailCount += 1
-                        Else
-                            If Not .Email2 Is Nothing Then
-                                mail.CC.Add(New MailAddress(.Email2, .ApellidoNombre))
-                                MailCount += 1
-                            End If
-                        End If
-                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO
-                        If ForzarEnvio Then
-                            If Not .Email1 Is Nothing Then
-                                mail.CC.Add(New MailAddress(.Email1, .ApellidoNombre))
-                                MailCount += 1
-                            End If
-                            If Not .Email2 Is Nothing Then
-                                mail.CC.Add(New MailAddress(.Email2, .ApellidoNombre))
-                                MailCount += 1
-                            End If
-                        End If
-                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_AMBAS
-                        If Not .Email1 Is Nothing Then
-                            mail.CC.Add(New MailAddress(.Email1, .ApellidoNombre))
-                            MailCount += 1
-                        End If
-                        If Not .Email2 Is Nothing Then
-                            mail.CC.Add(New MailAddress(.Email2, .ApellidoNombre))
-                            MailCount += 1
-                        End If
-                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL1
-                        If Not .Email1 Is Nothing Then
-                            mail.CC.Add(New MailAddress(.Email1, .ApellidoNombre))
-                            MailCount += 1
-                        End If
-                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2
-                        If Not .Email2 Is Nothing Then
-                            mail.CC.Add(New MailAddress(.Email2, .ApellidoNombre))
-                            MailCount += 1
-                        End If
-                End Select
-            End With
-        Next
+        MailCount += EnviarEmailPorNETClient_AgregarDestinatarios(listEntidadesCC, mail.CC, ForzarEnvio)
 
         ' Destinatarios - BCC
-        For Each EntidadBCC As Entidad In listEntidadesBCC
-            With EntidadBCC
-                Select Case .ComprobanteEnviarEmail
-                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_CUALQUIERA
-                        If Not .Email1 Is Nothing Then
-                            mail.Bcc.Add(New MailAddress(.Email1, .ApellidoNombre))
-                            MailCount += 1
-                        Else
-                            If Not .Email2 Is Nothing Then
-                                mail.Bcc.Add(New MailAddress(.Email2, .ApellidoNombre))
-                                MailCount += 1
-                            End If
-                        End If
-                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO
-                        If ForzarEnvio Then
-                            If Not .Email1 Is Nothing Then
-                                mail.Bcc.Add(New MailAddress(.Email1, .ApellidoNombre))
-                                MailCount += 1
-                            End If
-                            If Not .Email2 Is Nothing Then
-                                mail.Bcc.Add(New MailAddress(.Email2, .ApellidoNombre))
-                                MailCount += 1
-                            End If
-                        End If
-                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_AMBAS
-                        If Not .Email1 Is Nothing Then
-                            mail.Bcc.Add(New MailAddress(.Email1, .ApellidoNombre))
-                            MailCount += 1
-                        End If
-                        If Not .Email2 Is Nothing Then
-                            mail.Bcc.Add(New MailAddress(.Email2, .ApellidoNombre))
-                            MailCount += 1
-                        End If
-                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL1
-                        If Not .Email1 Is Nothing Then
-                            mail.Bcc.Add(New MailAddress(.Email1, .ApellidoNombre))
-                            MailCount += 1
-                        End If
-                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2
-                        If Not .Email2 Is Nothing Then
-                            mail.Bcc.Add(New MailAddress(.Email2, .ApellidoNombre))
-                            MailCount += 1
-                        End If
-                End Select
-            End With
-        Next
+        MailCount += EnviarEmailPorNETClient_AgregarDestinatarios(listEntidadesBCC, mail.Bcc, ForzarEnvio)
 
         ' Establezco el contenido
         mail.Subject = Asunto
@@ -247,7 +110,59 @@ Module MiscFunctions
             CS_Error.ProcessError(ex, "Error al enviar el e-mail.")
             Return -1
         End Try
+    End Function
 
+    Private Function EnviarEmailPorNETClient_AgregarDestinatarios(ByRef listDestinatarios As List(Of Entidad), ByRef colMailDestinatarios As System.Net.Mail.MailAddressCollection, ByVal ForzarEnvio As Boolean) As Integer
+        Dim DestinatariosCount As Integer = 0
+
+        For Each Destinatario As Entidad In listDestinatarios
+            With Destinatario
+                Select Case .ComprobanteEnviarEmail
+                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_CUALQUIERA
+                        If Not .Email1 Is Nothing Then
+                            colMailDestinatarios.Add(New MailAddress(.Email1, .ApellidoNombre))
+                            DestinatariosCount += 1
+                        Else
+                            If Not .Email2 Is Nothing Then
+                                colMailDestinatarios.Add(New MailAddress(.Email2, .ApellidoNombre))
+                                DestinatariosCount += 1
+                            End If
+                        End If
+                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO
+                        If ForzarEnvio Then
+                            If Not .Email1 Is Nothing Then
+                                colMailDestinatarios.Add(New MailAddress(.Email1, .ApellidoNombre))
+                                DestinatariosCount += 1
+                            End If
+                            If Not .Email2 Is Nothing Then
+                                colMailDestinatarios.Add(New MailAddress(.Email2, .ApellidoNombre))
+                                DestinatariosCount += 1
+                            End If
+                        End If
+                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_AMBAS
+                        If Not .Email1 Is Nothing Then
+                            colMailDestinatarios.Add(New MailAddress(.Email1, .ApellidoNombre))
+                            DestinatariosCount += 1
+                        End If
+                        If Not .Email2 Is Nothing Then
+                            colMailDestinatarios.Add(New MailAddress(.Email2, .ApellidoNombre))
+                            DestinatariosCount += 1
+                        End If
+                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL1
+                        If Not .Email1 Is Nothing Then
+                            colMailDestinatarios.Add(New MailAddress(.Email1, .ApellidoNombre))
+                            DestinatariosCount += 1
+                        End If
+                    Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2
+                        If Not .Email2 Is Nothing Then
+                            colMailDestinatarios.Add(New MailAddress(.Email2, .ApellidoNombre))
+                            DestinatariosCount += 1
+                        End If
+                End Select
+            End With
+        Next
+
+        Return DestinatariosCount
     End Function
 
     Friend Function EnviarEmailPorMSOutlook(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef ReporteActual As Reporte, ByVal AdjuntoNombre As String, ByVal ForzarEnvio As Boolean) As Integer

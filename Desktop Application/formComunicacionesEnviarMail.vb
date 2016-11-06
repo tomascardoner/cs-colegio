@@ -171,6 +171,8 @@
             If listEntidadesBCC.Count >= ComunicacionActual.CantidadDestinatariosPorEmail Then
                 Result = EnviarComunicacion(New List(Of Entidad), New List(Of Entidad), listEntidadesBCC, ComunicacionActual)
                 If Result < 1 Then
+                    MostrarOcultarEstado(False)
+                    Me.Cursor = Cursors.Default
                     Exit Sub
                 End If
                 TotalMailCount += Result
@@ -179,6 +181,8 @@
             If comboboxCantidad.SelectedIndex > 0 AndAlso TotalMailCount + listEntidadesBCC.Count >= CShort(comboboxCantidad.Text) Then
                 If listEntidadesBCC.Count > 0 Then
                     TotalMailCount += EnviarComunicacion(New List(Of Entidad), New List(Of Entidad), listEntidadesBCC, ComunicacionActual)
+                    Exit For
+                Else
                     Exit For
                 End If
             End If
@@ -208,7 +212,17 @@
     Private Function EnviarComunicacion(ByRef listEntidadesTo As List(Of Entidad), ByRef listEntidadesCC As List(Of Entidad), ByRef listEntidadesBCC As List(Of Entidad), ByRef ComunicacionActual As Comunicacion) As Integer
         Dim MailCount As Integer = 0
 
-        textboxStatus.AppendText(vbCrLf & String.Format("Enviando Comunicación a {0} Entidades...", listEntidadesBCC.Count))
+        If listEntidadesTo.Count + listEntidadesCC.Count + listEntidadesBCC.Count = 1 Then
+            If listEntidadesTo.Count = 1 Then
+                textboxStatus.AppendText(vbCrLf & String.Format("Enviando Comunicación a {0}...", listEntidadesTo(0).ApellidoNombre))
+            ElseIf listEntidadesCC.Count = 1 Then
+                textboxStatus.AppendText(vbCrLf & String.Format("Enviando Comunicación a {0}...", listEntidadesCC(0).ApellidoNombre))
+            ElseIf listEntidadesBCC.Count = 1 Then
+                textboxStatus.AppendText(vbCrLf & String.Format("Enviando Comunicación a {0}...", listEntidadesBCC(0).ApellidoNombre))
+            End If
+        Else
+            textboxStatus.AppendText(vbCrLf & String.Format("Enviando Comunicación a {0} Entidades...", listEntidadesBCC.Count))
+        End If
 
         Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
             Case Constantes.EMAIL_CLIENT_NETDLL
@@ -241,6 +255,8 @@
 
             textboxStatus.AppendText("OK")
 
+            listEntidadesTo = New List(Of Entidad)
+            listEntidadesCC = New List(Of Entidad)
             listEntidadesBCC = New List(Of Entidad)
         End If
 
