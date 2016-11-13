@@ -307,12 +307,7 @@
         If Permisos.VerificarPermiso(Permisos.ENTIDAD) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formEntidades, Form))
-            formEntidades.Show()
-            If formEntidades.WindowState = FormWindowState.Minimized Then
-                formEntidades.WindowState = FormWindowState.Normal
-            End If
-            formEntidades.Focus()
+            CS_Form.MDIChild_Show(Me, CType(formEntidades, Form), False)
 
             Me.Cursor = Cursors.Default
         End If
@@ -322,12 +317,7 @@
         If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formEntidadesAnioLectivoCurso, Form))
-            formEntidadesAnioLectivoCurso.Show()
-            If formEntidadesAnioLectivoCurso.WindowState = FormWindowState.Minimized Then
-                formEntidadesAnioLectivoCurso.WindowState = FormWindowState.Normal
-            End If
-            formEntidadesAnioLectivoCurso.Focus()
+            CS_Form.MDIChild_Show(Me, CType(formEntidadesAnioLectivoCurso, Form), True)
 
             Me.Cursor = Cursors.Default
         End If
@@ -337,13 +327,17 @@
         If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO_AGREGAR) Then
             Me.Cursor = Cursors.WaitCursor
 
-            formEntidadInscripcion.MdiParent = Me
-            CS_Form.CenterToParent(Me, CType(formEntidadInscripcion, Form))
-            formEntidadInscripcion.Show()
-            If formEntidadInscripcion.WindowState = FormWindowState.Minimized Then
-                formEntidadInscripcion.WindowState = FormWindowState.Normal
-            End If
-            formEntidadInscripcion.Focus()
+            CS_Form.MDIChild_Show(Me, CType(formEntidadInscripcion, Form), True)
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
+
+    Private Sub EntidadesVerificarEmails(sender As Object, e As EventArgs) Handles menuitemEntidadesVerificarEmails.Click
+        If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDITAR) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            CS_Form.MDIChild_Show(Me, CType(formEntidadesVerificadorEmail, Form), True)
 
             Me.Cursor = Cursors.Default
         End If

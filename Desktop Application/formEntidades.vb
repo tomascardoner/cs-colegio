@@ -29,6 +29,9 @@
         comboboxActivo.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, My.Resources.STRING_YES, My.Resources.STRING_NO})
         comboboxActivo.SelectedIndex = 1
 
+        comboboxVerificarEmail.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, My.Resources.STRING_YES, My.Resources.STRING_NO})
+        comboboxVerificarEmail.SelectedIndex = 0
+
         SkipFilterData = False
 
         OrdenColumna = columnApellido
@@ -82,22 +85,22 @@
                 ' Todos los Tipos de Entidad
                 If BusquedaAplicada Then
                     listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                                    Where ent.ApellidoNombre.ToLower.Contains(textboxBuscar.Text.ToLower.Trim) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo))
+                                                    Where ent.ApellidoNombre.ToLower.Contains(textboxBuscar.Text.ToLower.Trim) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo)) And (comboboxVerificarEmail.SelectedIndex = 0 Or (comboboxVerificarEmail.SelectedIndex = 1 And (ent.VerificarEmail1 Or ent.VerificarEmail2)) Or (comboboxVerificarEmail.SelectedIndex = 2 And Not (ent.VerificarEmail1 Or ent.VerificarEmail2)))
                                                     Select ent).ToList
                 Else
                     listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                                    Where comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo)
+                                                    Where (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo)) And (comboboxVerificarEmail.SelectedIndex = 0 Or (comboboxVerificarEmail.SelectedIndex = 1 And (ent.VerificarEmail1 Or ent.VerificarEmail2)) Or (comboboxVerificarEmail.SelectedIndex = 2 And Not (ent.VerificarEmail1 Or ent.VerificarEmail2)))
                                                     Select ent).ToList
                 End If
 
             Else
                 If BusquedaAplicada Then
                     listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                                    Where ((menuitemEntidadTipo_PersonalColegio.Checked And ent.TipoPersonalColegio) Or (menuitemEntidadTipo_Docente.Checked And ent.TipoDocente) Or (menuitemEntidadTipo_Alumno.Checked And ent.TipoAlumno) Or (menuitemEntidadTipo_Familiar.Checked And ent.TipoFamiliar) Or (menuitemEntidadTipo_Proveedor.Checked And ent.TipoProveedor) Or (menuitemEntidadTipo_Otro.Checked And ent.TipoOtro)) And ent.ApellidoNombre.ToLower.Contains(textboxBuscar.Text.ToLower.Trim) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo))
+                                                    Where ((menuitemEntidadTipo_PersonalColegio.Checked And ent.TipoPersonalColegio) Or (menuitemEntidadTipo_Docente.Checked And ent.TipoDocente) Or (menuitemEntidadTipo_Alumno.Checked And ent.TipoAlumno) Or (menuitemEntidadTipo_Familiar.Checked And ent.TipoFamiliar) Or (menuitemEntidadTipo_Proveedor.Checked And ent.TipoProveedor) Or (menuitemEntidadTipo_Otro.Checked And ent.TipoOtro)) And ent.ApellidoNombre.ToLower.Contains(textboxBuscar.Text.ToLower.Trim) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo)) And (comboboxVerificarEmail.SelectedIndex = 0 Or (comboboxVerificarEmail.SelectedIndex = 1 And (ent.VerificarEmail1 Or ent.VerificarEmail2)) Or (comboboxVerificarEmail.SelectedIndex = 2 And Not (ent.VerificarEmail1 Or ent.VerificarEmail2)))
                                                     Select ent).ToList
                 Else
                     listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                                    Where ((menuitemEntidadTipo_PersonalColegio.Checked And ent.TipoPersonalColegio) Or (menuitemEntidadTipo_Docente.Checked And ent.TipoDocente) Or (menuitemEntidadTipo_Alumno.Checked And ent.TipoAlumno) Or (menuitemEntidadTipo_Familiar.Checked And ent.TipoFamiliar) Or (menuitemEntidadTipo_Proveedor.Checked And ent.TipoProveedor) Or (menuitemEntidadTipo_Otro.Checked And ent.TipoOtro)) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo))
+                                                    Where ((menuitemEntidadTipo_PersonalColegio.Checked And ent.TipoPersonalColegio) Or (menuitemEntidadTipo_Docente.Checked And ent.TipoDocente) Or (menuitemEntidadTipo_Alumno.Checked And ent.TipoAlumno) Or (menuitemEntidadTipo_Familiar.Checked And ent.TipoFamiliar) Or (menuitemEntidadTipo_Proveedor.Checked And ent.TipoProveedor) Or (menuitemEntidadTipo_Otro.Checked And ent.TipoOtro)) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo)) And (comboboxVerificarEmail.SelectedIndex = 0 Or (comboboxVerificarEmail.SelectedIndex = 1 And (ent.VerificarEmail1 Or ent.VerificarEmail2)) Or (comboboxVerificarEmail.SelectedIndex = 2 And Not (ent.VerificarEmail1 Or ent.VerificarEmail2)))
                                                     Select ent).ToList
                 End If
 
@@ -210,6 +213,10 @@
         FilterData()
     End Sub
 
+    Private Sub comboboxVerificarEmail_SelectedIndexChanged() Handles comboboxVerificarEmail.SelectedIndexChanged
+        FilterData()
+    End Sub
+
     Private Sub GridChangeOrder(sender As Object, e As DataGridViewCellMouseEventArgs) Handles datagridviewMain.ColumnHeaderMouseClick
         Dim ClickedColumn As DataGridViewColumn
 
@@ -239,6 +246,25 @@
         OrderData()
     End Sub
 
+    Private Sub Ver() Handles datagridviewMain.DoubleClick
+        If datagridviewMain.CurrentRow Is Nothing Then
+            MsgBox("No hay ninguna Entidad para ver.", vbInformation, My.Application.Info.Title)
+        Else
+            Me.Cursor = Cursors.WaitCursor
+
+            datagridviewMain.Enabled = False
+
+            Dim EntidadActual = CType(datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
+            If comboboxVerificarEmail.SelectedIndex <> 1 Then
+                EntidadActual.VerificarEmail(True)
+            End If
+            formEntidad.LoadAndShow(False, Me, EntidadActual.IDEntidad)
+
+            datagridviewMain.Enabled = True
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
 #End Region
 
 #Region "Main Toolbar"
@@ -266,13 +292,16 @@
                 datagridviewMain.Enabled = False
 
                 Dim EntidadActual = CType(datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
+                If comboboxVerificarEmail.SelectedIndex <> 1 Then
+                    EntidadActual.VerificarEmail(True)
+                End If
                 formEntidad.LoadAndShow(True, Me, EntidadActual.IDEntidad)
 
                 datagridviewMain.Enabled = True
 
                 Me.Cursor = Cursors.Default
             End If
-        End If
+            End If
     End Sub
 
     Private Sub Eliminar_Click() Handles buttonEliminar.Click
@@ -312,24 +341,6 @@
             End If
         End If
     End Sub
-
-    Private Sub Ver() Handles datagridviewMain.DoubleClick
-        If datagridviewMain.CurrentRow Is Nothing Then
-            MsgBox("No hay ninguna Entidad para ver.", vbInformation, My.Application.Info.Title)
-        Else
-            Me.Cursor = Cursors.WaitCursor
-
-            datagridviewMain.Enabled = False
-
-            Dim EntidadActual = CType(datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
-            formEntidad.LoadAndShow(False, Me, EntidadActual.IDEntidad)
-
-            datagridviewMain.Enabled = True
-
-            Me.Cursor = Cursors.Default
-        End If
-    End Sub
-
 #End Region
 
 End Class

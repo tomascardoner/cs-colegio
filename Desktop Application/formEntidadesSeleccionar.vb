@@ -238,6 +238,7 @@
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ninguna Entidad para seleccionar.", vbInformation, My.Application.Info.Title)
         Else
+            CType(datagridviewMain.SelectedRows(0).DataBoundItem, Entidad).VerificarEmail(True)
             Me.DialogResult = Windows.Forms.DialogResult.OK
         End If
     End Sub

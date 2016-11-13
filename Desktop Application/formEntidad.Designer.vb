@@ -435,7 +435,7 @@ Partial Class formEntidad
         labelEmail1.Name = "labelEmail1"
         labelEmail1.Size = New System.Drawing.Size(47, 13)
         labelEmail1.TabIndex = 6
-        labelEmail1.Text = "E-mail 1:"
+        labelEmail1.Text = "e-Mail 1:"
         '
         'labelEmail2
         '
@@ -444,7 +444,7 @@ Partial Class formEntidad
         labelEmail2.Name = "labelEmail2"
         labelEmail2.Size = New System.Drawing.Size(47, 13)
         labelEmail2.TabIndex = 8
-        labelEmail2.Text = "E-mail 2:"
+        labelEmail2.Text = "e-Mail 2:"
         '
         'labelTelefono1
         '
@@ -681,7 +681,7 @@ Partial Class formEntidad
         '
         Me.checkboxVerificarEmail2.AutoSize = True
         Me.checkboxVerificarEmail2.Location = New System.Drawing.Point(485, 72)
-        Me.checkboxVerificarEmail2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.checkboxVerificarEmail2.Margin = New System.Windows.Forms.Padding(2)
         Me.checkboxVerificarEmail2.Name = "checkboxVerificarEmail2"
         Me.checkboxVerificarEmail2.Size = New System.Drawing.Size(15, 14)
         Me.checkboxVerificarEmail2.TabIndex = 10
@@ -693,7 +693,7 @@ Partial Class formEntidad
         '
         Me.checkboxVerificarEmail1.AutoSize = True
         Me.checkboxVerificarEmail1.Location = New System.Drawing.Point(227, 72)
-        Me.checkboxVerificarEmail1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.checkboxVerificarEmail1.Margin = New System.Windows.Forms.Padding(2)
         Me.checkboxVerificarEmail1.Name = "checkboxVerificarEmail1"
         Me.checkboxVerificarEmail1.Size = New System.Drawing.Size(15, 14)
         Me.checkboxVerificarEmail1.TabIndex = 8
@@ -759,7 +759,7 @@ Partial Class formEntidad
         Me.tabpageGeneral.Controls.Add(Me.maskedtextboxFacturaDocumentoNumero)
         Me.tabpageGeneral.Location = New System.Drawing.Point(4, 25)
         Me.tabpageGeneral.Name = "tabpageGeneral"
-        Me.tabpageGeneral.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabpageGeneral.Padding = New System.Windows.Forms.Padding(3)
         Me.tabpageGeneral.Size = New System.Drawing.Size(506, 264)
         Me.tabpageGeneral.TabIndex = 0
         Me.tabpageGeneral.Text = "General"
@@ -982,7 +982,7 @@ Partial Class formEntidad
         Me.tabpageContacto.Controls.Add(Me.textboxTelefono3)
         Me.tabpageContacto.Location = New System.Drawing.Point(4, 25)
         Me.tabpageContacto.Name = "tabpageContacto"
-        Me.tabpageContacto.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabpageContacto.Padding = New System.Windows.Forms.Padding(3)
         Me.tabpageContacto.Size = New System.Drawing.Size(506, 264)
         Me.tabpageContacto.TabIndex = 1
         Me.tabpageContacto.Text = "Contacto"
@@ -1136,7 +1136,7 @@ Partial Class formEntidad
         Me.tabpagePadresYFacturacion.Controls.Add(Me.labelEntidadPadre)
         Me.tabpagePadresYFacturacion.Location = New System.Drawing.Point(4, 25)
         Me.tabpagePadresYFacturacion.Name = "tabpagePadresYFacturacion"
-        Me.tabpagePadresYFacturacion.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabpagePadresYFacturacion.Padding = New System.Windows.Forms.Padding(3)
         Me.tabpagePadresYFacturacion.Size = New System.Drawing.Size(506, 264)
         Me.tabpagePadresYFacturacion.TabIndex = 2
         Me.tabpagePadresYFacturacion.Text = "Padres y Facturación"
@@ -1387,9 +1387,9 @@ Partial Class formEntidad
         Me.tabpageDebitoAutomatico.Controls.Add(Me.radiobuttonDebitoAutomatico_Tipo_TarjetaCredito)
         Me.tabpageDebitoAutomatico.Controls.Add(Me.maskedtextboxDebitoAutomatico_CBU)
         Me.tabpageDebitoAutomatico.Location = New System.Drawing.Point(4, 25)
-        Me.tabpageDebitoAutomatico.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.tabpageDebitoAutomatico.Margin = New System.Windows.Forms.Padding(2)
         Me.tabpageDebitoAutomatico.Name = "tabpageDebitoAutomatico"
-        Me.tabpageDebitoAutomatico.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.tabpageDebitoAutomatico.Padding = New System.Windows.Forms.Padding(2)
         Me.tabpageDebitoAutomatico.Size = New System.Drawing.Size(506, 264)
         Me.tabpageDebitoAutomatico.TabIndex = 9
         Me.tabpageDebitoAutomatico.Text = "Débito Automático"
@@ -1410,7 +1410,7 @@ Partial Class formEntidad
         Me.radiobuttonDebitoAutomatico_Tipo_Ninguno.AutoSize = True
         Me.radiobuttonDebitoAutomatico_Tipo_Ninguno.Checked = True
         Me.radiobuttonDebitoAutomatico_Tipo_Ninguno.Location = New System.Drawing.Point(60, 8)
-        Me.radiobuttonDebitoAutomatico_Tipo_Ninguno.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.radiobuttonDebitoAutomatico_Tipo_Ninguno.Margin = New System.Windows.Forms.Padding(2)
         Me.radiobuttonDebitoAutomatico_Tipo_Ninguno.Name = "radiobuttonDebitoAutomatico_Tipo_Ninguno"
         Me.radiobuttonDebitoAutomatico_Tipo_Ninguno.Size = New System.Drawing.Size(65, 17)
         Me.radiobuttonDebitoAutomatico_Tipo_Ninguno.TabIndex = 2
@@ -1423,7 +1423,7 @@ Partial Class formEntidad
         Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.AutoSize = True
         Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Checked = True
         Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Location = New System.Drawing.Point(154, 8)
-        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Margin = New System.Windows.Forms.Padding(2)
         Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Name = "radiobuttonDebitoAutomatico_Tipo_DebitoDirecto"
         Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Size = New System.Drawing.Size(110, 17)
         Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.TabIndex = 3
@@ -1436,7 +1436,7 @@ Partial Class formEntidad
         Me.radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.AutoSize = True
         Me.radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.Checked = True
         Me.radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.Location = New System.Drawing.Point(290, 8)
-        Me.radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.Margin = New System.Windows.Forms.Padding(2)
         Me.radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.Name = "radiobuttonDebitoAutomatico_Tipo_TarjetaCredito"
         Me.radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.Size = New System.Drawing.Size(108, 17)
         Me.radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.TabIndex = 4
@@ -1451,7 +1451,7 @@ Partial Class formEntidad
         Me.maskedtextboxDebitoAutomatico_CBU.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         Me.maskedtextboxDebitoAutomatico_CBU.HidePromptOnLeave = True
         Me.maskedtextboxDebitoAutomatico_CBU.Location = New System.Drawing.Point(60, 41)
-        Me.maskedtextboxDebitoAutomatico_CBU.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.maskedtextboxDebitoAutomatico_CBU.Margin = New System.Windows.Forms.Padding(2)
         Me.maskedtextboxDebitoAutomatico_CBU.Mask = "0000000-0 0000000000000-0"
         Me.maskedtextboxDebitoAutomatico_CBU.Name = "maskedtextboxDebitoAutomatico_CBU"
         Me.maskedtextboxDebitoAutomatico_CBU.Size = New System.Drawing.Size(153, 20)
@@ -1463,7 +1463,7 @@ Partial Class formEntidad
         Me.tabpageCursosAsistidos.Controls.Add(Me.datagridviewCursosAsistidos)
         Me.tabpageCursosAsistidos.Location = New System.Drawing.Point(4, 25)
         Me.tabpageCursosAsistidos.Name = "tabpageCursosAsistidos"
-        Me.tabpageCursosAsistidos.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabpageCursosAsistidos.Padding = New System.Windows.Forms.Padding(3)
         Me.tabpageCursosAsistidos.Size = New System.Drawing.Size(506, 264)
         Me.tabpageCursosAsistidos.TabIndex = 6
         Me.tabpageCursosAsistidos.Text = "Cursos Asistidos"
@@ -1549,7 +1549,7 @@ Partial Class formEntidad
         Me.tabpageHijos.Controls.Add(Me.datagridviewHijos)
         Me.tabpageHijos.Location = New System.Drawing.Point(4, 25)
         Me.tabpageHijos.Name = "tabpageHijos"
-        Me.tabpageHijos.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabpageHijos.Padding = New System.Windows.Forms.Padding(3)
         Me.tabpageHijos.Size = New System.Drawing.Size(506, 264)
         Me.tabpageHijos.TabIndex = 4
         Me.tabpageHijos.Text = "Hijos"
@@ -1697,7 +1697,7 @@ Partial Class formEntidad
         Me.tabpageRelaciones.Controls.Add(Me.datagridviewRelaciones)
         Me.tabpageRelaciones.Location = New System.Drawing.Point(4, 25)
         Me.tabpageRelaciones.Name = "tabpageRelaciones"
-        Me.tabpageRelaciones.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabpageRelaciones.Padding = New System.Windows.Forms.Padding(3)
         Me.tabpageRelaciones.Size = New System.Drawing.Size(506, 264)
         Me.tabpageRelaciones.TabIndex = 5
         Me.tabpageRelaciones.Text = "Relaciones"
@@ -1781,7 +1781,7 @@ Partial Class formEntidad
         Me.tabpageNotasAuditoria.Controls.Add(labelCreacion)
         Me.tabpageNotasAuditoria.Location = New System.Drawing.Point(4, 25)
         Me.tabpageNotasAuditoria.Name = "tabpageNotasAuditoria"
-        Me.tabpageNotasAuditoria.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabpageNotasAuditoria.Padding = New System.Windows.Forms.Padding(3)
         Me.tabpageNotasAuditoria.Size = New System.Drawing.Size(506, 264)
         Me.tabpageNotasAuditoria.TabIndex = 7
         Me.tabpageNotasAuditoria.Text = "Notas y Auditoría"

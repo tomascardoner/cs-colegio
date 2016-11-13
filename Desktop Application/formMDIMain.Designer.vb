@@ -46,9 +46,11 @@ Partial Class formMDIMain
         Me.menuitemDebugAFIPWS = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSHomologacionLogin = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugAFIPWSHomologacionConsultarComprobante = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.menuitemDebugAFIPWSProduccionLogin = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugAFIPWSProduccionConsultarComprobante = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemAyuda = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemAyuda_AcercaDe = New System.Windows.Forms.ToolStripMenuItem()
         Me.toolstripMain = New System.Windows.Forms.ToolStrip()
@@ -81,8 +83,7 @@ Partial Class formMDIMain
         Me.buttonComunicaciones = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemComunicacionesEnviarMail = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonReportes = New System.Windows.Forms.ToolStripButton()
-        Me.menuitemDebugAFIPWSProduccionConsultarComprobante = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemDebugAFIPWSHomologacionConsultarComprobante = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemEntidadesVerificarEmails = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
@@ -165,51 +166,51 @@ Partial Class formMDIMain
         '
         Me.menuitemVentanaMosaicoHorizontal.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MENU_WINDOW_TILE_HORIZONTALLY
         Me.menuitemVentanaMosaicoHorizontal.Name = "menuitemVentanaMosaicoHorizontal"
-        Me.menuitemVentanaMosaicoHorizontal.Size = New System.Drawing.Size(181, 26)
+        Me.menuitemVentanaMosaicoHorizontal.Size = New System.Drawing.Size(177, 22)
         Me.menuitemVentanaMosaicoHorizontal.Text = "Mosaico &Horizontal"
         '
         'menuitemVentanaMosaicoVertical
         '
         Me.menuitemVentanaMosaicoVertical.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MENU_WINDOW_TILE_VERTICALLY
         Me.menuitemVentanaMosaicoVertical.Name = "menuitemVentanaMosaicoVertical"
-        Me.menuitemVentanaMosaicoVertical.Size = New System.Drawing.Size(181, 26)
+        Me.menuitemVentanaMosaicoVertical.Size = New System.Drawing.Size(177, 22)
         Me.menuitemVentanaMosaicoVertical.Text = "Mosaico &Vertical"
         '
         'menuitemVentanaCascada
         '
         Me.menuitemVentanaCascada.Name = "menuitemVentanaCascada"
-        Me.menuitemVentanaCascada.Size = New System.Drawing.Size(181, 26)
+        Me.menuitemVentanaCascada.Size = New System.Drawing.Size(177, 22)
         Me.menuitemVentanaCascada.Text = "&Cascada"
         '
         'menuitemVentanaOrganizarIconos
         '
         Me.menuitemVentanaOrganizarIconos.Name = "menuitemVentanaOrganizarIconos"
-        Me.menuitemVentanaOrganizarIconos.Size = New System.Drawing.Size(181, 26)
+        Me.menuitemVentanaOrganizarIconos.Size = New System.Drawing.Size(177, 22)
         Me.menuitemVentanaOrganizarIconos.Text = "&Organizar Iconos"
         '
         'menuitemVentanaSeparadorCerrarTodas
         '
         Me.menuitemVentanaSeparadorCerrarTodas.Name = "menuitemVentanaSeparadorCerrarTodas"
-        Me.menuitemVentanaSeparadorCerrarTodas.Size = New System.Drawing.Size(178, 6)
+        Me.menuitemVentanaSeparadorCerrarTodas.Size = New System.Drawing.Size(174, 6)
         '
         'menuitemVentanaCerrarTodas
         '
         Me.menuitemVentanaCerrarTodas.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MENU_WINDOW_CLOSE_ALL
         Me.menuitemVentanaCerrarTodas.Name = "menuitemVentanaCerrarTodas"
-        Me.menuitemVentanaCerrarTodas.Size = New System.Drawing.Size(181, 26)
+        Me.menuitemVentanaCerrarTodas.Size = New System.Drawing.Size(177, 22)
         Me.menuitemVentanaCerrarTodas.Text = "Cerrar todas"
         '
         'menuitemVentanaEncajarEnVentana
         '
         Me.menuitemVentanaEncajarEnVentana.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MENU_WINDOW_FIT_SIZE
         Me.menuitemVentanaEncajarEnVentana.Name = "menuitemVentanaEncajarEnVentana"
-        Me.menuitemVentanaEncajarEnVentana.Size = New System.Drawing.Size(181, 26)
+        Me.menuitemVentanaEncajarEnVentana.Size = New System.Drawing.Size(177, 22)
         Me.menuitemVentanaEncajarEnVentana.Text = "Encajar en ventana"
         '
         'menuitemVentanaSeparadorListaVentanas
         '
         Me.menuitemVentanaSeparadorListaVentanas.Name = "menuitemVentanaSeparadorListaVentanas"
-        Me.menuitemVentanaSeparadorListaVentanas.Size = New System.Drawing.Size(178, 6)
+        Me.menuitemVentanaSeparadorListaVentanas.Size = New System.Drawing.Size(174, 6)
         '
         'menuitemDebug
         '
@@ -238,6 +239,12 @@ Partial Class formMDIMain
         Me.menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante.Size = New System.Drawing.Size(323, 22)
         Me.menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante.Text = "Homologación - Verificar Ultimo Comprobante"
         '
+        'menuitemDebugAFIPWSHomologacionConsultarComprobante
+        '
+        Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Name = "menuitemDebugAFIPWSHomologacionConsultarComprobante"
+        Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Size = New System.Drawing.Size(323, 22)
+        Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Text = "Homologación - Consultar Comprobante"
+        '
         'menuitemDebugAFIPWSSeparator1
         '
         Me.menuitemDebugAFIPWSSeparator1.Name = "menuitemDebugAFIPWSSeparator1"
@@ -255,6 +262,12 @@ Partial Class formMDIMain
         Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Size = New System.Drawing.Size(323, 22)
         Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Text = "Producción - Verificar Ultimo Comprobante"
         '
+        'menuitemDebugAFIPWSProduccionConsultarComprobante
+        '
+        Me.menuitemDebugAFIPWSProduccionConsultarComprobante.Name = "menuitemDebugAFIPWSProduccionConsultarComprobante"
+        Me.menuitemDebugAFIPWSProduccionConsultarComprobante.Size = New System.Drawing.Size(323, 22)
+        Me.menuitemDebugAFIPWSProduccionConsultarComprobante.Text = "Producción - Consultar Comprobante"
+        '
         'menuitemAyuda
         '
         Me.menuitemAyuda.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemAyuda_AcercaDe})
@@ -265,7 +278,7 @@ Partial Class formMDIMain
         'menuitemAyuda_AcercaDe
         '
         Me.menuitemAyuda_AcercaDe.Name = "menuitemAyuda_AcercaDe"
-        Me.menuitemAyuda_AcercaDe.Size = New System.Drawing.Size(152, 22)
+        Me.menuitemAyuda_AcercaDe.Size = New System.Drawing.Size(135, 22)
         Me.menuitemAyuda_AcercaDe.Text = "&Acerca de..."
         '
         'toolstripMain
@@ -333,7 +346,7 @@ Partial Class formMDIMain
         '
         'buttonEntidades
         '
-        Me.buttonEntidades.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemEntidadesAniosLectivosYCursos, Me.menuitemEntidadesAnioLectivoCursoInscripcion})
+        Me.buttonEntidades.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemEntidadesAniosLectivosYCursos, Me.menuitemEntidadesAnioLectivoCursoInscripcion, Me.menuitemEntidadesVerificarEmails})
         Me.buttonEntidades.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ENTIDADES_32
         Me.buttonEntidades.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonEntidades.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
@@ -481,17 +494,11 @@ Partial Class formMDIMain
         Me.buttonReportes.Size = New System.Drawing.Size(142, 36)
         Me.buttonReportes.Text = "Reportes"
         '
-        'menuitemDebugAFIPWSProduccionConsultarComprobante
+        'menuitemEntidadesVerificarEmails
         '
-        Me.menuitemDebugAFIPWSProduccionConsultarComprobante.Name = "menuitemDebugAFIPWSProduccionConsultarComprobante"
-        Me.menuitemDebugAFIPWSProduccionConsultarComprobante.Size = New System.Drawing.Size(323, 22)
-        Me.menuitemDebugAFIPWSProduccionConsultarComprobante.Text = "Producción - Consultar Comprobante"
-        '
-        'menuitemDebugAFIPWSHomologacionConsultarComprobante
-        '
-        Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Name = "menuitemDebugAFIPWSHomologacionConsultarComprobante"
-        Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Size = New System.Drawing.Size(323, 22)
-        Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Text = "Homologación - Consultar Comprobante"
+        Me.menuitemEntidadesVerificarEmails.Name = "menuitemEntidadesVerificarEmails"
+        Me.menuitemEntidadesVerificarEmails.Size = New System.Drawing.Size(253, 22)
+        Me.menuitemEntidadesVerificarEmails.Text = "Verificar direcciones e-mail"
         '
         'formMDIMain
         '
@@ -579,4 +586,5 @@ Partial Class formMDIMain
     Friend WithEvents menuitemDebugAFIPWSProduccionObtenerUltimoComprobante As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSProduccionConsultarComprobante As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSHomologacionConsultarComprobante As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemEntidadesVerificarEmails As System.Windows.Forms.ToolStripMenuItem
 End Class

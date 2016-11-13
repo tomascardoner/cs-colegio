@@ -327,6 +327,12 @@
     <Compile Include="formComprobanteVerificaAFIP.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formEntidadesVerificadorEmail.Designer.vb">
+      <DependentUpon>formEntidadesVerificadorEmail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formEntidadesVerificadorEmail.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formEntidadInscripcionDetalle.Designer.vb">
       <DependentUpon>formEntidadInscripcionDetalle.vb</DependentUpon>
     </Compile>
@@ -653,6 +659,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobanteVerificaAFIP.resx">
       <DependentUpon>formComprobanteVerificaAFIP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formEntidadesVerificadorEmail.resx">
+      <DependentUpon>formEntidadesVerificadorEmail.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formEntidadInscripcionDetalle.resx">
       <DependentUpon>formEntidadInscripcionDetalle.vb</DependentUpon>

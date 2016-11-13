@@ -646,17 +646,25 @@
         If textboxEmail1.Text.Trim.Length > 0 Then
             If Not CS_Email.IsValidEmail(textboxEmail1.Text.Trim, CS_Parameter.GetString(Parametros.EMAIL_VALIDATION_REGULAREXPRESSION)) Then
                 tabcontrolMain.SelectedTab = tabpageContacto
-                MsgBox("La dirección de E-mail 1 es incorrecta.", vbInformation, My.Application.Info.Title)
+                MsgBox("La dirección de e-Mail 1 es incorrecta.", vbInformation, My.Application.Info.Title)
                 textboxEmail1.Focus()
                 Exit Sub
+            End If
+        Else
+            If checkboxVerificarEmail1.Checked Then
+                checkboxVerificarEmail1.Checked = False
             End If
         End If
         If textboxEmail2.Text.Trim.Length > 0 Then
             If Not CS_Email.IsValidEmail(textboxEmail2.Text.Trim, CS_Parameter.GetString(Parametros.EMAIL_VALIDATION_REGULAREXPRESSION)) Then
                 tabcontrolMain.SelectedTab = tabpageContacto
-                MsgBox("La dirección de E-mail 2 es incorrecta.", vbInformation, My.Application.Info.Title)
+                MsgBox("La dirección de e-Mail 2 es incorrecta.", vbInformation, My.Application.Info.Title)
                 textboxEmail2.Focus()
                 Exit Sub
+            End If
+        Else
+            If checkboxVerificarEmail2.Checked Then
+                checkboxVerificarEmail2.Checked = False
             End If
         End If
 

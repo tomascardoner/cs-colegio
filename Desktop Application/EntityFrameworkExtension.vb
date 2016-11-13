@@ -66,6 +66,20 @@ Partial Public Class Entidad
             Return DomicilioCompleto
         End Get
     End Property
+
+    Public Function VerificarEmail(ByVal MostrarMensaje As Boolean) As Boolean
+        If CS_Parameter.GetBoolean(Parametros.ENTIDAD_VERIFICAR_EMAIL_AVISO) AndAlso MostrarMensaje Then
+            If VerificarEmail1 And VerificarEmail2 Then
+                MsgBox("Se deben verificar las dos direcciones de e-Mail de esta Entidad.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+            ElseIf VerificarEmail1 Then
+                MsgBox("Se debe verificar la dirección de e-Mail 1 de esta Entidad.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+            ElseIf VerificarEmail2 Then
+                MsgBox("Se debe verificar la dirección de e-Mail 2 de esta Entidad.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+            End If
+        End If
+
+        Return VerificarEmail1 Or VerificarEmail2
+    End Function
 End Class
 
 Partial Public Class Reporte
