@@ -330,6 +330,7 @@
           <Property Name="CuerpoMensaje" Type="varchar(max)" />
           <Property Name="UtilizarCampos" Type="bit" Nullable="false" />
           <Property Name="CantidadDestinatariosPorEmail" Type="tinyint" Nullable="false" />
+          <Property Name="DestinatariosEnCampoBCC" Type="bit" Nullable="false" />
           <Property Name="ArchivoAdjunto" Type="varchar" MaxLength="1000" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="Notas" Type="varchar(max)" />
@@ -3846,6 +3847,7 @@
           <Property Name="CuerpoMensaje" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="UtilizarCampos" Type="Boolean" Nullable="false" />
           <Property Name="CantidadDestinatariosPorEmail" Type="Byte" Nullable="false" />
+          <Property Name="DestinatariosEnCampoBCC" Type="Boolean" Nullable="false" />
           <Property Name="ArchivoAdjunto" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -4770,6 +4772,7 @@
           <EntitySetMapping Name="Comunicacion">
             <EntityTypeMapping TypeName="CSColegioModel.Comunicacion">
               <MappingFragment StoreEntitySet="Comunicacion">
+                <ScalarProperty Name="DestinatariosEnCampoBCC" ColumnName="DestinatariosEnCampoBCC" />
                 <ScalarProperty Name="CantidadDestinatariosPorEmail" ColumnName="CantidadDestinatariosPorEmail" />
                 <ScalarProperty Name="UtilizarCampos" ColumnName="UtilizarCampos" />
                 <ScalarProperty Name="CuerpoMensajeEsHTML" ColumnName="CuerpoMensajeEsHTML" />

@@ -216,46 +216,19 @@
 
     Private Sub menuitemAnios_Click() Handles menuitemAnios.Click
         If Permisos.VerificarPermiso(Permisos.ANIO) Then
-            Me.Cursor = Cursors.WaitCursor
-
-            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formAnios, Form))
-            formAnios.Show()
-            If formAnios.WindowState = FormWindowState.Minimized Then
-                formAnios.WindowState = FormWindowState.Normal
-            End If
-            formAnios.Focus()
-
-            Me.Cursor = Cursors.Default
+            CS_Form.MDIChild_Show(Me, CType(formAnios, Form), False)
         End If
     End Sub
 
     Private Sub menuitemCursos_Click() Handles menuitemCursos.Click
         If Permisos.VerificarPermiso(Permisos.CURSO) Then
-            Me.Cursor = Cursors.WaitCursor
-
-            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formCursos, Form))
-            formCursos.Show()
-            If formCursos.WindowState = FormWindowState.Minimized Then
-                formCursos.WindowState = FormWindowState.Normal
-            End If
-            formCursos.Focus()
-
-            Me.Cursor = Cursors.Default
+            CS_Form.MDIChild_Show(Me, CType(formCursos, Form), False)
         End If
     End Sub
 
     Private Sub menuitemAniosLectivosCursos_Click() Handles menuitemAniosLectivosCursos.Click
         If Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCURSO) Then
-            Me.Cursor = Cursors.WaitCursor
-
-            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formAnioLectivoCursos, Form))
-            formAnioLectivoCursos.Show()
-            If formAnioLectivoCursos.WindowState = FormWindowState.Minimized Then
-                formAnioLectivoCursos.WindowState = FormWindowState.Normal
-            End If
-            formAnioLectivoCursos.Focus()
-
-            Me.Cursor = Cursors.Default
+            CS_Form.MDIChild_Show(Me, CType(formAnioLectivoCursos, Form), False)
         End If
     End Sub
 
@@ -490,19 +463,17 @@
 #End Region
 
 #Region "Left Toolbar - Comunicaciones"
-    Private Sub Comunicaciones(sender As Object, e As EventArgs) Handles menuitemComunicacionesEnviarMail.Click
+
+    Private Sub Comunicaciones() Handles buttonComunicaciones.ButtonClick
+        If Permisos.VerificarPermiso(Permisos.COMUNICACION) Then
+            CS_Form.MDIChild_Show(Me, CType(formComunicaciones, Form), False)
+        End If
+    End Sub
+
+
+    Private Sub ComunicacionesEnviarMail(sender As Object, e As EventArgs) Handles menuitemComunicacionesEnviarMail.Click
         If Permisos.VerificarPermiso(Permisos.COMUNICACION_ENVIAREMAIL) Then
-            Me.Cursor = Cursors.WaitCursor
-
-            formComunicacionesEnviarMail.MdiParent = Me
-            CS_Form.CenterToParent(Me, CType(formComunicacionesEnviarMail, Form))
-            formComunicacionesEnviarMail.Show()
-            If formComunicacionesEnviarMail.WindowState = FormWindowState.Minimized Then
-                formComunicacionesEnviarMail.WindowState = FormWindowState.Normal
-            End If
-            formComunicacionesEnviarMail.Focus()
-
-            Me.Cursor = Cursors.Default
+            CS_Form.MDIChild_Show(Me, CType(formComunicacionesEnviarMail, Form), True)
         End If
     End Sub
 #End Region
@@ -510,16 +481,7 @@
 #Region "Left Toolbar - Reportes"
     Private Sub buttonReportes_Click(sender As Object, e As EventArgs) Handles buttonReportes.Click
         If Permisos.VerificarPermiso(Permisos.REPORTE) Then
-            Me.Cursor = Cursors.WaitCursor
-
-            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formReportes, Form))
-            formReportes.Show()
-            If formReportes.WindowState = FormWindowState.Minimized Then
-                formReportes.WindowState = FormWindowState.Normal
-            End If
-            formReportes.Focus()
-
-            Me.Cursor = Cursors.Default
+            CS_Form.MDIChild_Show(Me, CType(formReportes, Form), False)
         End If
     End Sub
 #End Region

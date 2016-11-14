@@ -18,6 +18,7 @@ Partial Public Class Comunicacion
     Public Property CuerpoMensaje As String
     Public Property UtilizarCampos As Boolean
     Public Property CantidadDestinatariosPorEmail As Byte
+    Public Property DestinatariosEnCampoBCC As Boolean
     Public Property ArchivoAdjunto As String
     Public Property EsActivo As Boolean
     Public Property Notas As String

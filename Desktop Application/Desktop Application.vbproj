@@ -309,10 +309,22 @@
     <Compile Include="formAboutBox.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formComunicacion.Designer.vb">
+      <DependentUpon>formComunicacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formComunicacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formAnioLectivoCursosImportesAgregar.Designer.vb">
       <DependentUpon>formAnioLectivoCursosImportesAgregar.vb</DependentUpon>
     </Compile>
     <Compile Include="formAnioLectivoCursosImportesAgregar.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formComunicaciones.Designer.vb">
+      <DependentUpon>formComunicaciones.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formComunicaciones.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formComprobanteDetalleAgregarMultiple.Designer.vb">
@@ -651,8 +663,14 @@
     <EmbeddedResource Include="formAboutBox.resx">
       <DependentUpon>formAboutBox.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formComunicacion.resx">
+      <DependentUpon>formComunicacion.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formAnioLectivoCursosImportesAgregar.resx">
       <DependentUpon>formAnioLectivoCursosImportesAgregar.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formComunicaciones.resx">
+      <DependentUpon>formComunicaciones.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formComprobanteDetalleAgregarMultiple.resx">
       <DependentUpon>formComprobanteDetalleAgregarMultiple.vb</DependentUpon>
