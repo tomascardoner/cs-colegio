@@ -667,6 +667,14 @@
                 checkboxVerificarEmail2.Checked = False
             End If
         End If
+        If textboxEmail1.Text.Trim.Length > 0 And textboxEmail2.Text.Trim.Length > 0 Then
+            If textboxEmail1.Text.Trim = textboxEmail2.Text.Trim Then
+                tabcontrolMain.SelectedTab = tabpageContacto
+                MsgBox("Ambas direcciones de e-Mail son iguales.", vbInformation, My.Application.Info.Title)
+                textboxEmail2.Focus()
+                Exit Sub
+            End If
+        End If
 
         ' Emitir Factura A:
         Select Case CStr(comboboxEmitirFacturaA.SelectedValue)
@@ -765,6 +773,7 @@
                     mEntidadActual.IDEntidad = dbcMaxID.Entidad.Max(Function(ent) ent.IDEntidad) + 1
                 End If
             End Using
+            mEntidadActual.FechaHoraCreacion = Now
         End If
 
         ' Paso los datos desde los controles al Objecto de EF
@@ -778,7 +787,6 @@
             mEntidadActual.FechaHoraModificacion = Now
 
             Try
-
                 ' Guardo los cambios
                 mdbContext.SaveChanges()
 
@@ -794,6 +802,8 @@
                 Select Case CS_Database_EF_SQL.TryDecodeDbUpdateException(dbuex)
                     Case Errors.DuplicatedEntity
                         MsgBox("No se pueden guardar los cambios porque ya existe una Entidad con el mismo Apellido y Nombre.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                    Case Errors.UserDefinedError
+                        MsgBox("La dirección de e-Mail especificada, ya existe en la base de datos y no se permiten dulicados.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 End Select
                 Exit Sub
 

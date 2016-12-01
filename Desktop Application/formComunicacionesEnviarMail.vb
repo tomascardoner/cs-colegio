@@ -226,7 +226,7 @@
 
         Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
             Case Constantes.EMAIL_CLIENT_NETDLL
-                MailCount = MiscFunctions.EnviarEmailPorNETClient(listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual.Asunto, ComunicacionActual.CuerpoMensajeEsHTML, ComunicacionActual.CuerpoMensaje, Nothing, "", ComunicacionActual.ArchivoAdjunto, False)
+                MailCount = MiscFunctions.EnviarEmail_PorNETClient_AEntidades(listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual.Asunto, ComunicacionActual.CuerpoMensajeEsHTML, ComunicacionActual.CuerpoMensaje, Nothing, "", ComunicacionActual.ArchivoAdjunto, False)
                 If MailCount = -1 Then
                     Return 0
                 End If

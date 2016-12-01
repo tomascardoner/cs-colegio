@@ -17,6 +17,11 @@
             ' Es Nuevo
             mComunicacionActual = New Comunicacion
             With mComunicacionActual
+                .EsActivo = True
+                .IDUsuarioCreacion = pUsuario.IDUsuario
+                .FechaHoraCreacion = Now
+                .IDUsuarioModificacion = pUsuario.IDUsuario
+                .FechaHoraModificacion = .FechaHoraCreacion
             End With
             mdbContext.Comunicacion.Add(mComunicacionActual)
         Else
@@ -203,6 +208,7 @@
                     mComunicacionActual.IDComunicacion = dbcMaxID.Comunicacion.Max(Function(alc) alc.IDComunicacion) + CShort(1)
                 End If
             End Using
+            mComunicacionActual.FechaHoraCreacion = Now
         End If
 
         ' Paso los datos desde los controles al Objecto de EF
@@ -211,6 +217,9 @@
         If mdbContext.ChangeTracker.HasChanges Then
 
             Me.Cursor = Cursors.WaitCursor
+
+            mComunicacionActual.IDUsuarioModificacion = pUsuario.IDUsuario
+            mComunicacionActual.FechaHoraModificacion = Now
 
             Try
                 ' Guardo los cambios

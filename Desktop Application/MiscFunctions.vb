@@ -62,7 +62,57 @@ Module MiscFunctions
         End Try
     End Function
 
-    Friend Function EnviarEmailPorNETClient(ByRef listEntidadesTo As List(Of Entidad), ByRef listEntidadesCC As List(Of Entidad), ByRef listEntidadesBCC As List(Of Entidad), ByVal Asunto As String, ByVal CuerpoEnHTML As Boolean, ByVal Cuerpo As String, ByRef AdjuntoReporte As Reporte, ByVal AdjuntoNombre As String, ByVal AdjuntoArchivo As String, ByVal ForzarEnvio As Boolean) As Integer
+    Friend Function EnviarEmail_PorNETClient(ByVal DestinatarioTo As MailAddress, ByVal DestinatarioCC As MailAddress, ByVal DestinatarioBCC As MailAddress, ByVal Asunto As String, ByVal CuerpoEnHTML As Boolean, ByVal Cuerpo As String, ByRef AdjuntoReporte As Reporte, ByVal AdjuntoNombre As String, ByVal AdjuntoArchivo As String, ByVal ForzarEnvio As Boolean) As Boolean
+        Dim mail As New MailMessage()
+        Dim smtp As New SmtpClient()
+
+        ' Establezco los recipientes
+        mail.From = New MailAddress(My.Settings.Email_Address, My.Settings.Email_DisplayName)
+
+        If Not DestinatarioTo Is Nothing Then
+            mail.To.Add(DestinatarioTo)
+        End If
+        If Not DestinatarioCC Is Nothing Then
+            mail.CC.Add(DestinatarioCC)
+        End If
+        If Not DestinatarioBCC Is Nothing Then
+            mail.Bcc.Add(DestinatarioBCC)
+        End If
+
+        ' Establezco el contenido
+        mail.Subject = Asunto
+        mail.IsBodyHtml = CuerpoEnHTML
+        mail.Body = Cuerpo
+
+        ' Establezco las opciones del Servidor SMTP
+        smtp.Host = My.Settings.Email_SMTP_Server
+        smtp.EnableSsl = My.Settings.Email_SMTP_UseSSL
+        smtp.Port = My.Settings.Email_SMTP_Port
+        smtp.Timeout = My.Settings.Email_SMTP_Timeout
+
+        Dim Decrypter As New CS_Encrypt_TripleDES(Constantes.ENCRYPTION_PASSWORD)
+        smtp.Credentials = New System.Net.NetworkCredential(My.Settings.Email_SMTP_Username, Decrypter.Decrypt(My.Settings.Email_SMTP_Password))
+        Decrypter = Nothing
+
+        ' Attachments
+        If Not AdjuntoReporte Is Nothing Then
+            mail.Attachments.Add(New System.Net.Mail.Attachment(AdjuntoReporte.ReportObject.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat), AdjuntoNombre))
+        End If
+        If AdjuntoArchivo <> "" Then
+            mail.Attachments.Add(New System.Net.Mail.Attachment(AdjuntoArchivo))
+        End If
+
+        ' Envío el e-mail
+        Try
+            smtp.Send(mail)
+            Return True
+        Catch ex As Exception
+            CS_Error.ProcessError(ex, "Error al enviar el e-mail.")
+            Return False
+        End Try
+    End Function
+
+    Friend Function EnviarEmail_PorNETClient_AEntidades(ByRef listEntidadesTo As List(Of Entidad), ByRef listEntidadesCC As List(Of Entidad), ByRef listEntidadesBCC As List(Of Entidad), ByVal Asunto As String, ByVal CuerpoEnHTML As Boolean, ByVal Cuerpo As String, ByRef AdjuntoReporte As Reporte, ByVal AdjuntoNombre As String, ByVal AdjuntoArchivo As String, ByVal ForzarEnvio As Boolean) As Integer
         Dim mail As New MailMessage()
         Dim smtp As New SmtpClient()
         Dim MailCount As Integer = 0
@@ -71,13 +121,13 @@ Module MiscFunctions
         mail.From = New MailAddress(My.Settings.Email_Address, My.Settings.Email_DisplayName)
 
         ' Destinatarios - To
-        MailCount += EnviarEmailPorNETClient_AgregarDestinatarios(listEntidadesTo, mail.To, ForzarEnvio)
+        MailCount += EnviarEmail_PorNETClient_AgregarDestinatarios(listEntidadesTo, mail.To, ForzarEnvio)
 
         ' Destinatarios - CC
-        MailCount += EnviarEmailPorNETClient_AgregarDestinatarios(listEntidadesCC, mail.CC, ForzarEnvio)
+        MailCount += EnviarEmail_PorNETClient_AgregarDestinatarios(listEntidadesCC, mail.CC, ForzarEnvio)
 
         ' Destinatarios - BCC
-        MailCount += EnviarEmailPorNETClient_AgregarDestinatarios(listEntidadesBCC, mail.Bcc, ForzarEnvio)
+        MailCount += EnviarEmail_PorNETClient_AgregarDestinatarios(listEntidadesBCC, mail.Bcc, ForzarEnvio)
 
         ' Establezco el contenido
         mail.Subject = Asunto
@@ -112,7 +162,7 @@ Module MiscFunctions
         End Try
     End Function
 
-    Private Function EnviarEmailPorNETClient_AgregarDestinatarios(ByRef listDestinatarios As List(Of Entidad), ByRef colMailDestinatarios As System.Net.Mail.MailAddressCollection, ByVal ForzarEnvio As Boolean) As Integer
+    Private Function EnviarEmail_PorNETClient_AgregarDestinatarios(ByRef listDestinatarios As List(Of Entidad), ByRef colMailDestinatarios As System.Net.Mail.MailAddressCollection, ByVal ForzarEnvio As Boolean) As Integer
         Dim DestinatariosCount As Integer = 0
 
         For Each Destinatario As Entidad In listDestinatarios

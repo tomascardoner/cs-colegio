@@ -705,7 +705,7 @@
         End If
     End Sub
 
-    Private Sub buttonEnviarEmail_Click() Handles buttonEnviarEmail.Click
+    Private Sub EnviarEmail_Click() Handles buttonEnviarEmail.Click
         Dim CurrentRow As GridRowData
         Dim ComprobanteTipoActual As ComprobanteTipo
         Dim ComprobanteActual As Comprobante
@@ -777,7 +777,7 @@
 
                                 Select Case My.Settings.Comprobante_EnviarEmail_Metodo
                                     Case Constantes.EMAIL_CLIENT_NETDLL
-                                        If MiscFunctions.EnviarEmailPorNETClient(New List(Of Entidad)({Titular}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", True) = -1 Then
+                                        If MiscFunctions.EnviarEmail_PorNETClient_AEntidades(New List(Of Entidad)({Titular}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", True) = -1 Then
                                             datagridviewMain.Enabled = True
                                             Me.Cursor = Cursors.Default
                                             Exit Sub
