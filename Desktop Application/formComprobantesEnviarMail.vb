@@ -146,10 +146,16 @@
                         IDComprobanteTipo = ComprobanteActual.IDComprobanteTipo
                         ReporteActual = New Reporte
                         If Not ReporteActual.Open(My.Settings.ReportsPath & "\" & ComprobanteActual.ComprobanteTipo.ReporteNombre) Then
-                            Exit For
+                            RefreshData()
+                            MostrarOcultarEstado(False)
+                            Me.Cursor = Cursors.Default
+                            Exit Sub
                         End If
                         If Not ReporteActual.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
-                            Exit For
+                            RefreshData()
+                            MostrarOcultarEstado(False)
+                            Me.Cursor = Cursors.Default
+                            Exit Sub
                         End If
                     End If
                     ReporteActual.RecordSelectionFormula = "{Comprobante.IDComprobante} = " & ComprobanteActual.IDComprobante
@@ -164,9 +170,19 @@
                     Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
                         Case Constantes.EMAIL_CLIENT_NETDLL
                             Result = MiscFunctions.EnviarEmail_PorNETClient_AEntidades(New List(Of Entidad)({ComprobanteActual.Entidad}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", False)
-                            If Result = -1 Then
-                                Exit For
-                            End If
+                            Select Case Result
+                                Case 0
+                                    MsgBox("No hay una dirección de e-mail para la Entidad.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                                    RefreshData()
+                                    MostrarOcultarEstado(False)
+                                    Me.Cursor = Cursors.Default
+                                    Exit Sub
+                                Case -1
+                                    RefreshData()
+                                    MostrarOcultarEstado(False)
+                                    Me.Cursor = Cursors.Default
+                                    Exit Sub
+                            End Select
                             MailCount += Result
                         Case Constantes.EMAIL_CLIENT_MSOUTLOOK
                             Result = MiscFunctions.EnviarEmailPorMSOutlook(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)

@@ -340,7 +340,7 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("30000")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("90000")>  _
         Public ReadOnly Property Email_SMTP_Timeout() As Integer
             Get
                 Return CType(Me("Email_SMTP_Timeout"),Integer)
@@ -460,19 +460,46 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Tomas\Dropbox\Colegio Horizonte\Compartidos Administración\Newsletters")>  _
-        Public ReadOnly Property Newsletter_Folder() As String
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public ReadOnly Property Comprobante_RequiereDomicilioCompleto() As Boolean
             Get
-                Return CType(Me("Newsletter_Folder"),String)
+                Return CType(Me("Comprobante_RequiereDomicilioCompleto"),Boolean)
             End Get
         End Property
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public ReadOnly Property Comprobante_RequiereDomicilioCompleto() As Boolean
+         Global.System.Configuration.DefaultSettingValueAttribute("Mailer-Daemon@orlando.dattaweb.com")>  _
+        Public ReadOnly Property Email_Delivery_Failed_SenderAddress() As String
             Get
-                Return CType(Me("Comprobante_RequiereDomicilioCompleto"),Boolean)
+                Return CType(Me("Email_Delivery_Failed_SenderAddress"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("RV: Mail delivery failed: returning message to sender")>  _
+        Public ReadOnly Property Email_Delivery_Failed_Subject() As String
+            Get
+                Return CType(Me("Email_Delivery_Failed_Subject"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("550 Requested action not taken: mailbox unavailable")>  _
+        Public ReadOnly Property Email_Delivery_Failed_ErrorText() As String
+            Get
+                Return CType(Me("Email_Delivery_Failed_ErrorText"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("The following address(es) failed:")>  _
+        Public ReadOnly Property Email_Delivery_Failed_RejectedAddress_PreviousText() As String
+            Get
+                Return CType(Me("Email_Delivery_Failed_RejectedAddress_PreviousText"),String)
             End Get
         End Property
     End Class

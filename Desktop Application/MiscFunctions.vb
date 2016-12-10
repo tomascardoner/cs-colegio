@@ -129,6 +129,10 @@ Module MiscFunctions
         ' Destinatarios - BCC
         MailCount += EnviarEmail_PorNETClient_AgregarDestinatarios(listEntidadesBCC, mail.Bcc, ForzarEnvio)
 
+        If MailCount = 0 Then
+            Return MailCount
+        End If
+
         ' Establezco el contenido
         mail.Subject = Asunto
         mail.IsBodyHtml = CuerpoEnHTML

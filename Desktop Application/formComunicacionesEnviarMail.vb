@@ -42,6 +42,8 @@
 
     Private Sub formComunicacionesEnviarMail_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         dbContext.Dispose()
+        dbContext = Nothing
+        Me.Dispose()
     End Sub
 #End Region
 
@@ -148,6 +150,8 @@
 #Region "Extra stuff"
     Private Sub EnviarComunicaciones()
         Dim ComunicacionActual As Comunicacion
+        Dim listEntidadesTo As New List(Of Entidad)
+        Dim listEntidadesCC As New List(Of Entidad)
         Dim listEntidadesBCC As New List(Of Entidad)
         Dim Result As Integer = 0
         Dim TotalMailCount As Integer = 0
@@ -166,11 +170,16 @@
             datagridviewEntidades.CurrentCell = RowActual.Cells(0)
             Application.DoEvents()
 
-            listEntidadesBCC.Add(CType(RowActual.DataBoundItem, GridRowData).Destinatario)
+            If ComunicacionActual.DestinatariosEnCampoBCC Then
+                listEntidadesBCC.Add(CType(RowActual.DataBoundItem, GridRowData).Destinatario)
+            Else
+                listEntidadesTo.Add(CType(RowActual.DataBoundItem, GridRowData).Destinatario)
+            End If
 
             If listEntidadesBCC.Count >= ComunicacionActual.CantidadDestinatariosPorEmail Then
-                Result = EnviarComunicacion(New List(Of Entidad), New List(Of Entidad), listEntidadesBCC, ComunicacionActual)
+                Result = EnviarComunicacion(listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual)
                 If Result < 1 Then
+                    RefreshData()
                     MostrarOcultarEstado(False)
                     Me.Cursor = Cursors.Default
                     Exit Sub
@@ -180,7 +189,14 @@
 
             If comboboxCantidad.SelectedIndex > 0 AndAlso TotalMailCount + listEntidadesBCC.Count >= CShort(comboboxCantidad.Text) Then
                 If listEntidadesBCC.Count > 0 Then
-                    TotalMailCount += EnviarComunicacion(New List(Of Entidad), New List(Of Entidad), listEntidadesBCC, ComunicacionActual)
+                    Result = EnviarComunicacion(listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual)
+                    If Result < 1 Then
+                        RefreshData()
+                        MostrarOcultarEstado(False)
+                        Me.Cursor = Cursors.Default
+                        Exit Sub
+                    End If
+                    TotalMailCount += Result
                     Exit For
                 Else
                     Exit For
@@ -194,7 +210,14 @@
             End If
         Next
         If listEntidadesBCC.Count > 0 Then
-            TotalMailCount += EnviarComunicacion(New List(Of Entidad), New List(Of Entidad), listEntidadesBCC, ComunicacionActual)
+            Result = EnviarComunicacion(listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual)
+            If Result < 1 Then
+                RefreshData()
+                MostrarOcultarEstado(False)
+                Me.Cursor = Cursors.Default
+                Exit Sub
+            End If
+            TotalMailCount += Result
         End If
 
         If mCancelar Then
@@ -221,7 +244,7 @@
                 textboxStatus.AppendText(vbCrLf & String.Format("Enviando Comunicación a {0}...", listEntidadesBCC(0).ApellidoNombre))
             End If
         Else
-            textboxStatus.AppendText(vbCrLf & String.Format("Enviando Comunicación a {0} Entidades...", listEntidadesBCC.Count))
+            textboxStatus.AppendText(vbCrLf & String.Format("Enviando Comunicación a {0} Entidades...", listEntidadesTo.Count + listEntidadesCC.Count + listEntidadesBCC.Count))
         End If
 
         Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo

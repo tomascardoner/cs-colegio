@@ -342,6 +342,7 @@
                             If Not ComprobanteActual.CAE Is Nothing Then
                                 If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual.IDComprobante) Then
                                     ' OK
+
                                 ElseIf Objeto_AFIP_WS.UltimoResultadoCAE.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_RECHAZADO Then
                                     MensajeError = "Se Rechazó la Solicitud de CAE para el Comprobante Electrónico:"
                                     MensajeError &= vbCrLf & vbCrLf
