@@ -196,7 +196,7 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
         Public ReadOnly Property AFIP_WS_ModoHomologacion() As Boolean
             Get
                 Return CType(Me("AFIP_WS_ModoHomologacion"),Boolean)

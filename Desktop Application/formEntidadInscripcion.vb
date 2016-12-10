@@ -339,7 +339,7 @@
                 If ModuloComprobantes.TransmitirAFIP_ConectarServicio(Objeto_AFIP_WS) Then
                     For Each ComprobanteActual As Comprobante In listFacturas
                         If Not ComprobanteActual Is Nothing Then
-                            If Not ComprobanteActual.CAE Is Nothing Then
+                            If ComprobanteActual.CAE Is Nothing Then
                                 If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual.IDComprobante) Then
                                     ' OK
 
