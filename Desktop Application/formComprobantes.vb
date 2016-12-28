@@ -776,19 +776,19 @@
                                 Dim AdjuntoNombre As String = String.Format("{0}-{1}.pdf", ComprobanteTipoActual.Sigla.TrimEnd, CurrentRow.NumeroCompleto)
 
                                 Select Case My.Settings.Comprobante_EnviarEmail_Metodo
-                                    Case Constantes.EMAIL_CLIENT_NETDLL
+                                    Case EMAIL_CLIENT_NETDLL
                                         If MiscFunctions.EnviarEmail_PorNETClient_AEntidades(New List(Of Entidad)({Titular}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", True) = -1 Then
                                             datagridviewMain.Enabled = True
                                             Me.Cursor = Cursors.Default
                                             Exit Sub
                                         End If
-                                    Case Constantes.EMAIL_CLIENT_MSOUTLOOK
+                                    Case EMAIL_CLIENT_MSOUTLOOK
                                         If MiscFunctions.EnviarEmailPorMSOutlook(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, True) = -1 Then
                                             datagridviewMain.Enabled = True
                                             Me.Cursor = Cursors.Default
                                             Exit Sub
                                         End If
-                                    Case Constantes.EMAIL_CLIENT_CRYSTALREPORTSMAPI
+                                    Case EMAIL_CLIENT_CRYSTALREPORTSMAPI
                                         If MiscFunctions.EnviarEmailPorCrystalReportsMAPI(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, True) = -1 Then
                                             datagridviewMain.Enabled = True
                                             Me.Cursor = Cursors.Default

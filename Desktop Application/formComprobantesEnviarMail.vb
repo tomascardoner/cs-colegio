@@ -168,7 +168,7 @@
                     textboxStatus.AppendText(vbCrLf & String.Format("Enviando {0} N° {1} a {2}...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.NumeroCompleto, ComprobanteActual.Entidad.ApellidoNombre))
 
                     Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
-                        Case Constantes.EMAIL_CLIENT_NETDLL
+                        Case EMAIL_CLIENT_NETDLL
                             Result = MiscFunctions.EnviarEmail_PorNETClient_AEntidades(New List(Of Entidad)({ComprobanteActual.Entidad}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", False)
                             Select Case Result
                                 Case 0
@@ -184,13 +184,13 @@
                                     Exit Sub
                             End Select
                             MailCount += Result
-                        Case Constantes.EMAIL_CLIENT_MSOUTLOOK
+                        Case EMAIL_CLIENT_MSOUTLOOK
                             Result = MiscFunctions.EnviarEmailPorMSOutlook(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
                             If Result = -1 Then
                                 Exit For
                             End If
                             MailCount += Result
-                        Case Constantes.EMAIL_CLIENT_CRYSTALREPORTSMAPI
+                        Case EMAIL_CLIENT_CRYSTALREPORTSMAPI
                             Result = MiscFunctions.EnviarEmailPorCrystalReportsMAPI(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
                             If Result = -1 Then
                                 Exit For

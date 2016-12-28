@@ -90,7 +90,7 @@ Module MiscFunctions
         smtp.Port = My.Settings.Email_SMTP_Port
         smtp.Timeout = My.Settings.Email_SMTP_Timeout
 
-        Dim Decrypter As New CS_Encrypt_TripleDES(Constantes.ENCRYPTION_PASSWORD)
+        Dim Decrypter As New CS_Encrypt_TripleDES(ENCRYPTION_PASSWORD)
         smtp.Credentials = New System.Net.NetworkCredential(My.Settings.Email_SMTP_Username, Decrypter.Decrypt(My.Settings.Email_SMTP_Password))
         Decrypter = Nothing
 
@@ -144,7 +144,7 @@ Module MiscFunctions
         smtp.Port = My.Settings.Email_SMTP_Port
         smtp.Timeout = My.Settings.Email_SMTP_Timeout
 
-        Dim Decrypter As New CS_Encrypt_TripleDES(Constantes.ENCRYPTION_PASSWORD)
+        Dim Decrypter As New CS_Encrypt_TripleDES(ENCRYPTION_PASSWORD)
         smtp.Credentials = New System.Net.NetworkCredential(My.Settings.Email_SMTP_Username, Decrypter.Decrypt(My.Settings.Email_SMTP_Password))
         Decrypter = Nothing
 
