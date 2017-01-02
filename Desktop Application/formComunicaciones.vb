@@ -275,16 +275,16 @@
         Dim ComunicacionActual As Comunicacion
 
         If datagridviewMain.CurrentRow Is Nothing Then
-            MsgBox("No hay ningún Comprobante para enviar por e-mail.", vbInformation, My.Application.Info.Title)
+            MsgBox("No hay ninguna Comunicación para enviar por e-mail.", vbInformation, My.Application.Info.Title)
         Else
             If Permisos.VerificarPermiso(Permisos.COMUNICACION_ENVIAREMAIL) Then
                 ComunicacionActual = CType(datagridviewMain.SelectedRows(0).DataBoundItem, Comunicacion)
 
                 Dim DireccionEmailDestino As String = ""
-                DireccionEmailDestino = InputBox("Ingrese la dirección de e-Mail del Destinatario.", My.Application.Info.Title)
+                DireccionEmailDestino = InputBox("Ingrese la dirección de e-mail del Destinatario.", My.Application.Info.Title)
                 If DireccionEmailDestino <> "" Then
                     If Not CS_Email.IsValidEmail(DireccionEmailDestino.Trim, CS_Parameter.GetString(Parametros.EMAIL_VALIDATION_REGULAREXPRESSION)) Then                        
-                        MsgBox("La dirección de e-Mail es incorrecta.", vbInformation, My.Application.Info.Title)
+                        MsgBox("La dirección de e-mail es incorrecta.", vbInformation, My.Application.Info.Title)
                         Exit Sub
                     End If
 
@@ -294,7 +294,7 @@
                     Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
                         Case EMAIL_CLIENT_NETDLL
                             If MiscFunctions.EnviarEmail_PorNETClient(New System.Net.Mail.MailAddress(DireccionEmailDestino), Nothing, Nothing, ComunicacionActual.Asunto, ComunicacionActual.CuerpoMensajeEsHTML, ComunicacionActual.CuerpoMensaje, Nothing, "", ComunicacionActual.ArchivoAdjunto, False) Then
-                                MsgBox("Se ha enviado el Comprobante por e-mail.", vbInformation, My.Application.Info.Title)
+                                MsgBox("Se ha enviado la Comunicación por e-mail.", vbInformation, My.Application.Info.Title)
                             End If
                         Case EMAIL_CLIENT_MSOUTLOOK
                             'MiscFunctions.EnviarEmailPorMSOutlook(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)

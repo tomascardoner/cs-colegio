@@ -154,7 +154,8 @@
         Dim listEntidadesCC As New List(Of Entidad)
         Dim listEntidadesBCC As New List(Of Entidad)
         Dim Result As Integer = 0
-        Dim TotalMailCount As Integer = 0
+        Dim TotalMailsEnviados As Integer = 0
+        Dim TotalDestinatarios As Integer = 0
 
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
@@ -175,8 +176,9 @@
             Else
                 listEntidadesTo.Add(CType(RowActual.DataBoundItem, GridRowData).Destinatario)
             End If
+            TotalDestinatarios = (listEntidadesTo.Count + listEntidadesCC.Count + listEntidadesBCC.Count)
 
-            If listEntidadesBCC.Count >= ComunicacionActual.CantidadDestinatariosPorEmail Then
+            If TotalDestinatarios >= ComunicacionActual.CantidadDestinatariosPorEmail Then
                 Result = EnviarComunicacion(listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual)
                 If Result < 1 Then
                     RefreshData()
@@ -184,11 +186,11 @@
                     Me.Cursor = Cursors.Default
                     Exit Sub
                 End If
-                TotalMailCount += Result
+                TotalMailsEnviados += Result
             End If
 
-            If comboboxCantidad.SelectedIndex > 0 AndAlso TotalMailCount + listEntidadesBCC.Count >= CShort(comboboxCantidad.Text) Then
-                If listEntidadesBCC.Count > 0 Then
+            If comboboxCantidad.SelectedIndex > 0 AndAlso (TotalMailsEnviados + TotalDestinatarios) >= CShort(comboboxCantidad.Text) Then
+                If TotalDestinatarios > 0 Then
                     Result = EnviarComunicacion(listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual)
                     If Result < 1 Then
                         RefreshData()
@@ -196,7 +198,7 @@
                         Me.Cursor = Cursors.Default
                         Exit Sub
                     End If
-                    TotalMailCount += Result
+                    TotalMailsEnviados += Result
                     Exit For
                 Else
                     Exit For
@@ -209,7 +211,7 @@
                 Exit For
             End If
         Next
-        If listEntidadesBCC.Count > 0 Then
+        If TotalDestinatarios > 0 Then
             Result = EnviarComunicacion(listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual)
             If Result < 1 Then
                 RefreshData()
@@ -217,13 +219,13 @@
                 Me.Cursor = Cursors.Default
                 Exit Sub
             End If
-            TotalMailCount += Result
+            TotalMailsEnviados += Result
         End If
 
         If mCancelar Then
-            MsgBox(String.Format("Se ha cancelado el envío de e-mails.{1}Se enviaron {0} e-mails.", TotalMailCount, vbCrLf), MsgBoxStyle.Information, My.Application.Info.Title)
+            MsgBox(String.Format("Se ha cancelado el envío de e-mails.{1}Se enviaron {0} e-mails.", TotalMailsEnviados, vbCrLf), MsgBoxStyle.Information, My.Application.Info.Title)
         Else
-            MsgBox(String.Format("Se han enviado {0} e-mails.", TotalMailCount, vbCrLf), MsgBoxStyle.Information, My.Application.Info.Title)
+            MsgBox(String.Format("Se han enviado {0} e-mails.", TotalMailsEnviados, vbCrLf), MsgBoxStyle.Information, My.Application.Info.Title)
         End If
 
         RefreshData()

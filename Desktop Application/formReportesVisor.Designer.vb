@@ -22,6 +22,7 @@ Partial Class formReportesVisor
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formReportesVisor))
         Me.CRViewerMain = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
         Me.SuspendLayout()
         '
@@ -38,13 +39,14 @@ Partial Class formReportesVisor
         Me.CRViewerMain.TabIndex = 0
         Me.CRViewerMain.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
         '
-        'formReportViewerCR
+        'formReportesVisor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(821, 433)
         Me.Controls.Add(Me.CRViewerMain)
-        Me.Name = "formReportViewerCR"
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Name = "formReportesVisor"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "formReportViewerCR"
         Me.ResumeLayout(False)

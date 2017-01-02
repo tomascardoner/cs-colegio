@@ -177,6 +177,7 @@ Partial Class formReportes
         Me.ClientSize = New System.Drawing.Size(591, 410)
         Me.Controls.Add(Me.panelReportes)
         Me.Controls.Add(Me.panelParametros)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "formReportes"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Reportes"
