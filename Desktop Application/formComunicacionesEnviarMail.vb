@@ -270,6 +270,22 @@
         End Select
 
         If MailCount > 0 Then
+            For Each EntidadDestinatario As Entidad In listEntidadesTo
+                Dim ComunicacionEntidadNueva As New ComunicacionEntidad
+                ComunicacionEntidadNueva.IDComunicacion = ComunicacionActual.IDComunicacion
+                ComunicacionEntidadNueva.IDEntidad = EntidadDestinatario.IDEntidad
+                ComunicacionEntidadNueva.IDUsuarioEnvioEmail = pUsuario.IDUsuario
+                ComunicacionEntidadNueva.FechaHoraEnvioEmail = DateTime.Now
+                mdbContext.ComunicacionEntidad.Add(ComunicacionEntidadNueva)
+            Next
+            For Each EntidadDestinatario As Entidad In listEntidadesCC
+                Dim ComunicacionEntidadNueva As New ComunicacionEntidad
+                ComunicacionEntidadNueva.IDComunicacion = ComunicacionActual.IDComunicacion
+                ComunicacionEntidadNueva.IDEntidad = EntidadDestinatario.IDEntidad
+                ComunicacionEntidadNueva.IDUsuarioEnvioEmail = pUsuario.IDUsuario
+                ComunicacionEntidadNueva.FechaHoraEnvioEmail = DateTime.Now
+                mdbContext.ComunicacionEntidad.Add(ComunicacionEntidadNueva)
+            Next
             For Each EntidadDestinatario As Entidad In listEntidadesBCC
                 Dim ComunicacionEntidadNueva As New ComunicacionEntidad
                 ComunicacionEntidadNueva.IDComunicacion = ComunicacionActual.IDComunicacion
