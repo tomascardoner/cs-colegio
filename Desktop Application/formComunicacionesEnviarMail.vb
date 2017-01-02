@@ -157,7 +157,6 @@
         Dim listEntidadesBCC As New List(Of Entidad)
         Dim Result As Integer = 0
         Dim TotalMailsEnviados As Integer = 0
-        Dim TotalDestinatarios As Integer = 0
 
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
@@ -178,9 +177,8 @@
             Else
                 listEntidadesTo.Add(CType(RowActual.DataBoundItem, GridRowData).Destinatario)
             End If
-            TotalDestinatarios = (listEntidadesTo.Count + listEntidadesCC.Count + listEntidadesBCC.Count)
 
-            If TotalDestinatarios >= ComunicacionActual.CantidadDestinatariosPorEmail Then
+            If (listEntidadesTo.Count + listEntidadesCC.Count + listEntidadesBCC.Count) >= ComunicacionActual.CantidadDestinatariosPorEmail Then
                 Result = EnviarComunicacion(listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual)
                 If Result < 1 Then
                     RefreshData()
@@ -191,8 +189,8 @@
                 TotalMailsEnviados += Result
             End If
 
-            If comboboxCantidad.SelectedIndex > 0 AndAlso (TotalMailsEnviados + TotalDestinatarios) >= CShort(comboboxCantidad.Text) Then
-                If TotalDestinatarios > 0 Then
+            If comboboxCantidad.SelectedIndex > 0 AndAlso (TotalMailsEnviados + (listEntidadesTo.Count + listEntidadesCC.Count + listEntidadesBCC.Count)) >= CShort(comboboxCantidad.Text) Then
+                If (listEntidadesTo.Count + listEntidadesCC.Count + listEntidadesBCC.Count) > 0 Then
                     Result = EnviarComunicacion(listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual)
                     If Result < 1 Then
                         RefreshData()
@@ -213,7 +211,7 @@
                 Exit For
             End If
         Next
-        If TotalDestinatarios > 0 Then
+        If (listEntidadesTo.Count + listEntidadesCC.Count + listEntidadesBCC.Count) > 0 Then
             Result = EnviarComunicacion(listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual)
             If Result < 1 Then
                 RefreshData()
