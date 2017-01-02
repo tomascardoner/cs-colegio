@@ -2,9 +2,8 @@
 
 #Region "Declarations"
     Private mLoading As Boolean
-    Private dbContext As New CSColegioContext(True)
-    Private listEntidades As List(Of Entidad)
-    Private listGridRowData As List(Of GridRowData)
+    Private mdbContext As New CSColegioContext(True)
+    Private mlistGridRowData As List(Of GridRowData)
     Private mCancelar As Boolean
 
     Private Class GridRowData
@@ -33,16 +32,14 @@
         checkboxTipoProveedor.Checked = True
         checkboxTipoOtro.Checked = True
 
-        listEntidades = dbContext.Entidad.Where(Function(ent) ent.EsActivo And (Not ent.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO) And (Not (ent.Email1 Is Nothing And ent.Email2 Is Nothing))).OrderBy(Function(ent) ent.ApellidoNombre).ToList
-
         mLoading = False
 
         RefreshData()
     End Sub
 
     Private Sub formComunicacionesEnviarMail_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        dbContext.Dispose()
-        dbContext = Nothing
+        mdbContext.Dispose()
+        mdbContext = Nothing
         Me.Dispose()
     End Sub
 #End Region
@@ -50,7 +47,8 @@
 #Region "Load and Set Data"
     Private Sub RefreshData()
         Dim ComunicacionActual As Comunicacion
-        Dim ComunicacionEntidad As ComunicacionEntidad
+        Dim listEntidades As New List(Of Entidad)
+        Dim listComunicacionEntidades As List(Of ComunicacionEntidad)
 
         If mLoading Then
             Exit Sub
@@ -64,40 +62,44 @@
 
                 ComunicacionActual = CType(comboboxComunicacion.SelectedItem, Comunicacion)
 
-                ' Muestro las Entidades a las que no se les ha enviado la Comunicación seleccionada
-
+                ' Primero obtengo la lista de posibles Entidades
                 If checkboxTipoPersonalColegio.Checked And checkboxTipoDocente.Checked And checkboxTipoAlumno.Checked And checkboxTipoFamiliar.Checked And checkboxTipoProveedor.Checked And checkboxTipoOtro.Checked Then
-                    listGridRowData = (From e In listEntidades
-                                       Select New GridRowData With {.IDEntidad = e.IDEntidad, .ApellidoNombre = e.ApellidoNombre, .Email1 = e.Email1, .Email2 = e.Email2, .Destinatario = e}).ToList
+                    listEntidades = (From ent In mdbContext.Entidad
+                                     Where ent.EsActivo And ent.ComprobanteEnviarEmail <> Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO And (Not (ent.Email1 Is Nothing And ent.Email2 Is Nothing)) _
+                                     And (ent.VerificarEmail1 = False Or ent.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2) And (ent.VerificarEmail2 = False Or ent.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL1)).ToList
                 Else
-                    listGridRowData = (From e In listEntidades
-                                       Where ((checkboxTipoPersonalColegio.Checked And e.TipoPersonalColegio) Or (checkboxTipoDocente.Checked And e.TipoDocente) Or (checkboxTipoAlumno.Checked And e.TipoAlumno) Or (checkboxTipoFamiliar.Checked And e.TipoFamiliar) Or (checkboxTipoProveedor.Checked And e.TipoProveedor) Or (checkboxTipoOtro.Checked And e.TipoOtro))
-                                       Select New GridRowData With {.IDEntidad = e.IDEntidad, .ApellidoNombre = e.ApellidoNombre, .Email1 = e.Email1, .Email2 = e.Email2, .Destinatario = e}).ToList
+                    listEntidades = (From ent In mdbContext.Entidad
+                                     Where ent.EsActivo And ent.ComprobanteEnviarEmail <> Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO And (Not (ent.Email1 Is Nothing And ent.Email2 Is Nothing)) _
+                                     And ((checkboxTipoPersonalColegio.Checked And ent.TipoPersonalColegio) Or (checkboxTipoDocente.Checked And ent.TipoDocente) Or (checkboxTipoAlumno.Checked And ent.TipoAlumno) Or (checkboxTipoFamiliar.Checked And ent.TipoFamiliar) Or (checkboxTipoProveedor.Checked And ent.TipoProveedor) Or (checkboxTipoOtro.Checked And ent.TipoOtro)) _
+                                     And (ent.VerificarEmail1 = False Or ent.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2) And (ent.VerificarEmail2 = False Or ent.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL1)).ToList
                 End If
 
-                ' Esto es una horrible solución provisoria, hasta poder armar un LINQ query como corresponde
-                For Each GridRowDataActual As GridRowData In listGridRowData
-                    ComunicacionEntidad = dbContext.ComunicacionEntidad.Find(ComunicacionActual.IDComunicacion, GridRowDataActual.IDEntidad)
-                    If Not ComunicacionEntidad Is Nothing Then
-                        GridRowDataActual.FechaHoraEnvio = ComunicacionEntidad.FechaHoraEnvioEmail
-                    End If
-                Next
-                listGridRowData = listGridRowData.Where(Function(grd) grd.FechaHoraEnvio = Date.MinValue).ToList
+                ' Ahora obtengo la lista de Entidades a las que se le envió la Comunicación
+                listComunicacionEntidades = (From coment In mdbContext.ComunicacionEntidad
+                                             Where coment.IDComunicacion = ComunicacionActual.IDComunicacion).ToList
 
-                Select Case listGridRowData.Count
+                ' Muestro las Entidades a las que no se les ha enviado la Comunicación seleccionada
+                mlistGridRowData = (From ent In listEntidades
+                                    Group Join coment In listComunicacionEntidades On ent.IDEntidad Equals coment.IDEntidad Into ComunicacionEntidad_Group = Group
+                                    From comentgrp In ComunicacionEntidad_Group.DefaultIfEmpty
+                                    Where comentgrp Is Nothing
+                                    Order By ent.ApellidoNombre
+                                    Select New GridRowData With {.IDEntidad = ent.IDEntidad, .ApellidoNombre = ent.ApellidoNombre, .Email1 = ent.Email1, .Email2 = ent.Email2, .Destinatario = ent}).ToList
+
+                Select Case mlistGridRowData.Count
                     Case 0
                         statuslabelMain.Text = String.Format("No hay Entidades para mostrar.")
                     Case 1
                         statuslabelMain.Text = String.Format("Se muestra 1 Entidad.")
                     Case Else
-                        statuslabelMain.Text = String.Format("Se muestran {0} Entidades.", listGridRowData.Count)
+                        statuslabelMain.Text = String.Format("Se muestran {0} Entidades.", mlistGridRowData.Count)
                 End Select
             Else
                 listEntidades = Nothing
             End If
 
             datagridviewEntidades.AutoGenerateColumns = False
-            datagridviewEntidades.DataSource = listGridRowData
+            datagridviewEntidades.DataSource = mlistGridRowData
 
         Catch ex As Exception
             CS_Error.ProcessError(ex, "Error al obtener la lista de Comprobantes.")
@@ -124,7 +126,7 @@
     End Sub
 
     Private Sub Enviar_Click() Handles buttonEnviar.Click
-        If listEntidades.Count > 0 Then
+        If mlistGridRowData.Count > 0 Then
             If My.Settings.Email_MaxPerHour > 0 Then
                 If comboboxCantidad.SelectedIndex = 0 Then
                     If MsgBox(String.Format("Está por enviar la Comunicación a Todas las Entidades por e-mail.{2}Tenga en cuenta que por cuestiones de seguridad (para evitar el spam), los servidores actuales no permiten enviar más de {1} e-mails por hora.{2}{2}¿Desea continuar de todos modos?", comboboxCantidad.SelectedText, My.Settings.Email_MaxPerHour, vbCrLf), CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
@@ -274,9 +276,9 @@
                 ComunicacionEntidadNueva.IDEntidad = EntidadDestinatario.IDEntidad
                 ComunicacionEntidadNueva.IDUsuarioEnvioEmail = pUsuario.IDUsuario
                 ComunicacionEntidadNueva.FechaHoraEnvioEmail = DateTime.Now
-                dbContext.ComunicacionEntidad.Add(ComunicacionEntidadNueva)
+                mdbContext.ComunicacionEntidad.Add(ComunicacionEntidadNueva)
             Next
-            dbContext.SaveChanges()
+            mdbContext.SaveChanges()
 
             textboxStatus.AppendText("OK")
 
@@ -293,7 +295,7 @@
         buttonCancelar.Visible = Mostrar
         If Mostrar Then
             datagridviewEntidades.Height = 270
-            progressbarStatus.Maximum = listEntidades.Count
+            progressbarStatus.Maximum = mlistGridRowData.Count
             progressbarStatus.Value = 0
             textboxStatus.Text = ""
         Else
