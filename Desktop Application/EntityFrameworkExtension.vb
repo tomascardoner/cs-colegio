@@ -118,7 +118,7 @@ Partial Public Class Reporte
             Return False
         End Try
 
-        For Each ParametroActual As ReporteParametro In Me.ReporteParametro
+        For Each ParametroActual As ReporteParametro In Me.ReporteParametros
             For Each ParameterFieldActual As ParameterField In ReportObject.ParameterFields
                 With ParameterFieldActual
                     If CStr(IIf(.ParameterType = ParameterType.StoreProcedureParameter, "@", "")) & ParametroActual.IDParametro.TrimEnd = .ParameterFieldName Then

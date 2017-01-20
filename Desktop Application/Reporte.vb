@@ -19,6 +19,6 @@ Partial Public Class Reporte
     Public Property MostrarEnVisor As Boolean
 
     Public Overridable Property ReporteGrupo As ReporteGrupo
-    Public Overridable Property ReporteParametro As ICollection(Of ReporteParametro) = New HashSet(Of ReporteParametro)
+    Public Overridable Property ReporteParametros As ICollection(Of ReporteParametro) = New HashSet(Of ReporteParametro)
 
 End Class

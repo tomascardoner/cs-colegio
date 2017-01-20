@@ -30,7 +30,7 @@
                 ReporteGrupoNode.Tag = ReporteGrupoActual
                 treeviewReportes.Nodes.Add(ReporteGrupoNode)
 
-                For Each ReporteActual As Reporte In ReporteGrupoActual.Reporte
+                For Each ReporteActual As Reporte In ReporteGrupoActual.Reportes
                     ' Agrego el Reporte
                     ReporteNode = New TreeNode(ReporteActual.Nombre)
                     ReporteNode.Tag = ReporteActual
@@ -70,7 +70,7 @@
         Try
             listviewParametros.BeginUpdate()
             ReporteActual = CType(treeviewReportes.SelectedNode.Tag, Reporte)
-            For Each ParametroActual As ReporteParametro In ReporteActual.ReporteParametro.OrderBy(Function(rp) rp.Orden)
+            For Each ParametroActual As ReporteParametro In ReporteActual.ReporteParametros.OrderBy(Function(rp) rp.Orden)
 
                 With ParametroActual
                     ' Agrego el Parámetro
@@ -108,7 +108,7 @@
             MsgBox("No hay ningún Parámetro seleccionado para modificar.", vbInformation, My.Application.Info.Title)
         Else
             ReporteActual = CType(treeviewReportes.SelectedNode.Tag, Reporte)
-            ParametroActual = ReporteActual.ReporteParametro.Where(Function(rp) rp.IDParametro = CStr(listviewParametros.SelectedItems(0).Tag)).First
+            ParametroActual = ReporteActual.ReporteParametros.Where(Function(rp) rp.IDParametro = CStr(listviewParametros.SelectedItems(0).Tag)).First
             ListViewItemActual = listviewParametros.SelectedItems(0)
 
             Select Case ParametroActual.Tipo
@@ -149,7 +149,7 @@
 
         If listviewParametros.SelectedItems.Count > 0 AndAlso e.KeyCode = Keys.Delete Then
             ReporteActual = CType(treeviewReportes.SelectedNode.Tag, Reporte)
-            ParametroActual = ReporteActual.ReporteParametro.Where(Function(rp) rp.IDParametro = CStr(listviewParametros.SelectedItems(0).Tag)).First
+            ParametroActual = ReporteActual.ReporteParametros.Where(Function(rp) rp.IDParametro = CStr(listviewParametros.SelectedItems(0).Tag)).First
             ListViewItemActual = listviewParametros.SelectedItems(0)
 
             ParametroActual.Valor = Nothing
@@ -174,7 +174,7 @@
         End If
 
         ReporteActual = CType(treeviewReportes.SelectedNode.Tag, Reporte)
-        For Each ParametroActual In ReporteActual.ReporteParametro
+        For Each ParametroActual In ReporteActual.ReporteParametros
             If ParametroActual.Requerido AndAlso ParametroActual.Valor Is Nothing Then
                 MsgBox(ParametroActual.RequeridoLeyenda, MsgBoxStyle.Information, My.Application.Info.Title)
                 listviewParametros.Focus()

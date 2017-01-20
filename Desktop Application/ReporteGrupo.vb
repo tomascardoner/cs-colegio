@@ -15,6 +15,6 @@ Partial Public Class ReporteGrupo
     Public Property Nombre As String
     Public Property EsActivo As Boolean
 
-    Public Overridable Property Reporte As ICollection(Of Reporte) = New HashSet(Of Reporte)
+    Public Overridable Property Reportes As ICollection(Of Reporte) = New HashSet(Of Reporte)
 
 End Class

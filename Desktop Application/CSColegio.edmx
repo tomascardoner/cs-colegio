@@ -3249,7 +3249,7 @@
           <Property Name="Archivo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="MostrarEnVisor" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ReporteGrupo" Relationship="CSColegioModel.FK__ReporteGrupo__Reporte" FromRole="Reporte" ToRole="ReporteGrupo" />
-          <NavigationProperty Name="ReporteParametro" Relationship="CSColegioModel.FK__Reporte__ReporteParametro" FromRole="Reporte" ToRole="ReporteParametro" />
+          <NavigationProperty Name="ReporteParametros" Relationship="CSColegioModel.FK__Reporte__ReporteParametro" FromRole="Reporte" ToRole="ReporteParametro" />
         </EntityType>
         <EntityType Name="ReporteGrupo">
           <Key>
@@ -3258,7 +3258,7 @@
           <Property Name="IDReporteGrupo" Type="Byte" Nullable="false" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Reporte" Relationship="CSColegioModel.FK__ReporteGrupo__Reporte" FromRole="ReporteGrupo" ToRole="Reporte" />
+          <NavigationProperty Name="Reportes" Relationship="CSColegioModel.FK__ReporteGrupo__Reporte" FromRole="ReporteGrupo" ToRole="Reporte" />
         </EntityType>
         <Association Name="FK__ReporteGrupo__Reporte">
           <End Type="CSColegioModel.ReporteGrupo" Role="ReporteGrupo" Multiplicity="1" />
