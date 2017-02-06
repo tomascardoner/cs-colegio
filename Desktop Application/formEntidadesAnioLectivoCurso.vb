@@ -96,7 +96,7 @@
             formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = False
             formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = False
             If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                Dim EntidadNueva As Entidad = dbcontext.Entidad.Find(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).Cells(formEntidadesSeleccionar.COLUMNA_IDENTIDAD).Value)
+                Dim EntidadNueva As Entidad = dbcontext.Entidad.Find(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).Cells(formEntidadesSeleccionar.columnIDEntidad.Name).Value)
                 Try
                     Me.Cursor = Cursors.WaitCursor
                     AnioLectivoCurso.Entidades.Add(EntidadNueva)

@@ -304,7 +304,7 @@ Partial Class formEntidad
         'labelCategoriaIVA
         '
         labelCategoriaIVA.AutoSize = True
-        labelCategoriaIVA.Location = New System.Drawing.Point(6, 169)
+        labelCategoriaIVA.Location = New System.Drawing.Point(6, 170)
         labelCategoriaIVA.Name = "labelCategoriaIVA"
         labelCategoriaIVA.Size = New System.Drawing.Size(92, 13)
         labelCategoriaIVA.TabIndex = 21

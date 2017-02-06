@@ -232,7 +232,7 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("CSColegio")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("CSColegio_Produccion")>  _
         Public ReadOnly Property DBConnection_Database() As String
             Get
                 Return CType(Me("DBConnection_Database"),String)

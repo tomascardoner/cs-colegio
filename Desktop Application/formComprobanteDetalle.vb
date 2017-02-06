@@ -14,6 +14,7 @@
     Private mCambiandoDescuento As Boolean = False
 
     Private mLoading As Boolean
+    Private mIsNew As Boolean
 #End Region
 
 #Region "Form stuff"
@@ -23,11 +24,16 @@
 
         mComprobanteActual = ComprobanteActual
         mComprobanteDetalleActual = ComprobanteDetalleActual
+        mIsNew = (mComprobanteDetalleActual.Indice = 0)
 
         'Me.MdiParent = formMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
-        SetDataFromObjectToControls()
+        If mIsNew Then
+            CargarAlumnos(mComprobanteActual.IDEntidad, Nothing)
+        Else
+            SetDataFromObjectToControls()
+        End If
         ChangeMode()
 
         Me.ShowDialog(ParentForm)
@@ -91,9 +97,10 @@
                     comboboxAlumno.SelectedIndex = 0
                 End If
             Else
-                comboboxAlumno.SelectedValue = .IDEntidad
                 If comboboxAlumno.Items.Count = 1 Then
                     comboboxAlumno.SelectedIndex = 0
+                Else
+                    comboboxAlumno.SelectedValue = .IDEntidad
                 End If
                 'EstablecerAnioLectivoCurso()
             End If

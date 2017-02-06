@@ -317,8 +317,12 @@
                 dbContext.SaveChanges()
             End Using
 
+            ' Refresco la lista de Comprobantes para mostrar los cambios
+            pFillAndRefreshLists.Comprobantes(0)
+
             Me.Cursor = Cursors.Default
             Return True
+
         Catch ex As Exception
             Me.Cursor = Cursors.Default
             CS_Error.ProcessError(ex, "Error al guardar las Facturas Generadas")
@@ -342,7 +346,6 @@
                             If ComprobanteActual.CAE Is Nothing Then
                                 If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual.IDComprobante) Then
                                     ' OK
-
                                 ElseIf Objeto_AFIP_WS.UltimoResultadoCAE.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_RECHAZADO Then
                                     MensajeError = "Se Rechazó la Solicitud de CAE para el Comprobante Electrónico:"
                                     MensajeError &= vbCrLf & vbCrLf

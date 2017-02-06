@@ -1,7 +1,16 @@
 ﻿Friend Class FillAndRefreshLists
 
 #Region "Declarations..."
-    Friend dbContext As CSColegioContext
+    Friend mdbContext As CSColegioContext
+
+    Public Sub New()
+        mdbContext = New CSColegioContext(True)
+    End Sub
+
+    Protected Overrides Sub Finalize()
+        mdbContext.Dispose()
+        MyBase.Finalize()
+    End Sub
 
     Public Class AnioLectivoCurso_ListItem
         Public Property IDAnioLectivoCurso As Short
@@ -27,12 +36,12 @@
         ComboBoxControl.DisplayMember = "Descripcion"
 
         If IncluyeNivelEnNombre Then
-            listAnios = (From a In dbContext.Anio
-                         Join n In dbContext.Nivel On a.IDNivel Equals n.IDNivel
+            listAnios = (From a In mdbContext.Anio
+                         Join n In mdbContext.Nivel On a.IDNivel Equals n.IDNivel
                          Where a.EsActivo And a.IDAnio <> Excluye_IDAnio And (IDNivel = 0 Or a.IDNivel = IDNivel)
                          Select New Anio_ListItem With {.IDAnio = a.IDAnio, .Descripcion = n.Nombre & " - " & a.Nombre}).ToList
         Else
-            listAnios = (From a In dbContext.Anio
+            listAnios = (From a In mdbContext.Anio
                          Where a.EsActivo And a.IDAnio <> Excluye_IDAnio And (IDNivel = 0 Or a.IDNivel = IDNivel)
                          Select New Anio_ListItem With {.IDAnio = a.IDAnio, .Descripcion = a.Nombre}).ToList
         End If
@@ -57,7 +66,7 @@
         ComboBoxControl.ValueMember = "IDDocumentoTipo"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Dim qryList = From tbl In dbContext.DocumentoTipo
+        Dim qryList = From tbl In mdbContext.DocumentoTipo
                           Where tbl.EsActivo
                           Order By tbl.Nombre
 
@@ -77,7 +86,7 @@
         ComboBoxControl.ValueMember = "IDCategoriaIVA"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Dim qryList = From tbl In dbContext.CategoriaIVA
+        Dim qryList = From tbl In mdbContext.CategoriaIVA
                           Where tbl.EsActivo
                           Order By tbl.Nombre
 
@@ -98,7 +107,7 @@
         ComboBoxControl.ValueMember = "IDBanco"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        listBancos = (From tbl In dbContext.Banco
+        listBancos = (From tbl In mdbContext.Banco
                       Where tbl.EsActivo
                       Order By tbl.Nombre).ToList
 
@@ -116,7 +125,7 @@
         ComboBoxControl.ValueMember = "IDProvincia"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Dim qryList = From tbl In dbContext.Provincia
+        Dim qryList = From tbl In mdbContext.Provincia
                           Order By tbl.Nombre
 
         Dim localList = qryList.ToList
@@ -134,7 +143,7 @@
         ComboBoxControl.ValueMember = "IDLocalidad"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Dim qryList = From tbl In dbContext.Localidad
+        Dim qryList = From tbl In mdbContext.Localidad
                           Where tbl.IDProvincia = IDProvincia
                           Order By tbl.Nombre
 
@@ -157,7 +166,7 @@
         If String.IsNullOrEmpty(OperacionTipo) Then
             ComboBoxControl.DisplayMember = "NombreCompleto"
 
-            Dim qryList = From tbl In dbContext.ComprobanteTipo
+            Dim qryList = From tbl In mdbContext.ComprobanteTipo
                           Where tbl.EsActivo
                           Order By tbl.NombreCompleto
 
@@ -165,7 +174,7 @@
         Else
             ComboBoxControl.DisplayMember = "NombreConLetra"
 
-            Dim qryList = From tbl In dbContext.ComprobanteTipo
+            Dim qryList = From tbl In mdbContext.ComprobanteTipo
                           Where tbl.OperacionTipo = OperacionTipo And tbl.EsActivo
                           Order By tbl.NombreConLetra
 
@@ -319,7 +328,7 @@
         ComboBoxControl.ValueMember = "IDDescuento"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Dim qryList = From tbl In dbContext.Descuento
+        Dim qryList = From tbl In mdbContext.Descuento
                       Where tbl.EsActivo
                       Order By tbl.Nombre
 
@@ -339,7 +348,7 @@
             ComboBoxControl.ValueMember = "AnioLectivo"
             ComboBoxControl.DisplayMember = "AnioLectivo"
 
-            Dim qryList = (From alc In dbContext.AnioLectivoCurso
+            Dim qryList = (From alc In mdbContext.AnioLectivoCurso
                            Order By alc.AnioLectivo
                            Select alc.AnioLectivo
                            Distinct).ToList
@@ -386,7 +395,7 @@
         ComboBoxControl.ValueMember = "IDNivel"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Dim qryList = From tbl In dbContext.Nivel
+        Dim qryList = From tbl In mdbContext.Nivel
                           Where tbl.EsActivo And tbl.IDNivel >= IDNivelMinimo
                           Order By tbl.Nombre
 
@@ -411,7 +420,7 @@
         ComboBoxControl.ValueMember = "IDTurno"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        Dim qryList = From tbl In dbContext.Turno
+        Dim qryList = From tbl In mdbContext.Turno
                           Where tbl.EsActivo
                           Order By tbl.Nombre
 
@@ -439,17 +448,17 @@
         ComboBoxControl.DisplayMember = "Descripcion"
 
         If IncluyeNivelEnNombre Then
-            listCursos = (From c In dbContext.Curso
-                          Join a In dbContext.Anio On a.IDAnio Equals c.IDAnio
-                          Join n In dbContext.Nivel On n.IDNivel Equals a.IDNivel
-                          Join t In dbContext.Turno On c.IDTurno Equals t.IDTurno
+            listCursos = (From c In mdbContext.Curso
+                          Join a In mdbContext.Anio On a.IDAnio Equals c.IDAnio
+                          Join n In mdbContext.Nivel On n.IDNivel Equals a.IDNivel
+                          Join t In mdbContext.Turno On c.IDTurno Equals t.IDTurno
                           Order By n.Nombre, a.Nombre, t.Nombre, c.Division
                           Where a.EsActivo And (IDNivel = 0 Or a.IDNivel = IDNivel) And a.IDAnio >= IDAnioMinimo
                           Select New Curso_ListItem With {.IDCurso = c.IDCurso, .Descripcion = n.Nombre & " - " & a.Nombre & " - " & t.Nombre & " - " & c.Division}).ToList
         Else
-            listCursos = (From c In dbContext.Curso
-                          Join a In dbContext.Anio On a.IDAnio Equals c.IDAnio
-                          Join t In dbContext.Turno On c.IDTurno Equals t.IDTurno
+            listCursos = (From c In mdbContext.Curso
+                          Join a In mdbContext.Anio On a.IDAnio Equals c.IDAnio
+                          Join t In mdbContext.Turno On c.IDTurno Equals t.IDTurno
                           Order By a.Nombre, t.Nombre, c.Division
                           Where a.EsActivo And (IDNivel = 0 Or a.IDNivel = IDNivel) And a.IDAnio >= IDAnioMinimo
                           Select New Curso_ListItem With {.IDCurso = c.IDCurso, .Descripcion = a.Nombre & " - " & t.Nombre & " - " & c.Division}).ToList
@@ -476,13 +485,13 @@
         ComboBoxControl.DisplayMember = "Descripcion"
 
         If IDNivel Is Nothing Then
-            Dim qryList = From tbl In dbContext.AnioLectivoCurso
+            Dim qryList = From tbl In mdbContext.AnioLectivoCurso
                           Where tbl.AnioLectivo = AnioLectivo
                           Order By tbl.AnioLectivo, tbl.Curso.Anio.Nivel.Nombre, tbl.Curso.Anio.Nombre, tbl.Curso.Turno.Nombre, tbl.Curso.Division
                           Select tbl.IDCurso, Descripcion = tbl.Curso.Anio.Nivel.Nombre & " - " & tbl.Curso.Anio.Nombre & " - " & tbl.Curso.Turno.Nombre & " - " & tbl.Curso.Division
             ComboBoxControl.DataSource = qryList.ToList
         Else
-            Dim qryList = From tbl In dbContext.AnioLectivoCurso
+            Dim qryList = From tbl In mdbContext.AnioLectivoCurso
                           Where tbl.AnioLectivo = AnioLectivo And tbl.Curso.Anio.IDNivel = IDNivel
                           Order By tbl.AnioLectivo, tbl.Curso.Anio.Nombre, tbl.Curso.Turno.Nombre, tbl.Curso.Division
                           Select tbl.IDCurso, Descripcion = tbl.Curso.Anio.Nombre & " - " & tbl.Curso.Turno.Nombre & " - " & tbl.Curso.Division
@@ -498,12 +507,12 @@
 
         If IncluyeAnioLectivoEnDescripcion Then
             If IDEntidad Is Nothing Then
-                listAnioLectivoCursos = (From alc In dbContext.AnioLectivoCurso
+                listAnioLectivoCursos = (From alc In mdbContext.AnioLectivoCurso
                                          Where alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
                                          Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
                                          Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.AnioLectivo.ToString & " - " & alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo}).ToList
             Else
-                listAnioLectivoCursos = (From e In dbContext.Entidad
+                listAnioLectivoCursos = (From e In mdbContext.Entidad
                                          From alc In e.AniosLectivosCursos
                                          Where e.IDEntidad = IDEntidad And alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
                                          Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
@@ -511,12 +520,12 @@
             End If
         Else
             If IDEntidad Is Nothing Then
-                listAnioLectivoCursos = (From alc In dbContext.AnioLectivoCurso
+                listAnioLectivoCursos = (From alc In mdbContext.AnioLectivoCurso
                                          Where alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
                                          Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
                                          Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo}).ToList
             Else
-                listAnioLectivoCursos = (From e In dbContext.Entidad
+                listAnioLectivoCursos = (From e In mdbContext.Entidad
                                          From alc In e.AniosLectivosCursos
                                          Where e.IDEntidad = IDEntidad And alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
                                          Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
@@ -533,7 +542,7 @@
         ComboBoxControl.ValueMember = "IDComprobanteLote"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        listComprobanteLote = dbContext.ComprobanteLote.OrderByDescending(Function(cl) cl.FechaHora).ToList
+        listComprobanteLote = mdbContext.ComprobanteLote.OrderByDescending(Function(cl) cl.FechaHora).ToList
 
         If AgregarItem_Todos Then
             Dim Item_Todos As New ComprobanteLote
@@ -558,15 +567,15 @@
         ComboBoxControl.DisplayMember = "Nombre"
 
         If EsChequeMostrar And NoEsChequeMostrar Then
-            listMediosPago = (From tbl In dbContext.MedioPago
+            listMediosPago = (From tbl In mdbContext.MedioPago
                               Where tbl.EsActivo
                               Order By tbl.Nombre).ToList
         ElseIf EsChequeMostrar Then
-            listMediosPago = (From tbl In dbContext.MedioPago
+            listMediosPago = (From tbl In mdbContext.MedioPago
                               Where tbl.EsActivo And tbl.EsCheque
                               Order By tbl.Nombre).ToList
         ElseIf NoEsChequeMostrar Then
-            listMediosPago = (From tbl In dbContext.MedioPago
+            listMediosPago = (From tbl In mdbContext.MedioPago
                               Where tbl.EsActivo And Not tbl.EsCheque
                               Order By tbl.Nombre).ToList
         Else
@@ -590,10 +599,10 @@
 
         If MostrarNombreCompleto Then
             ComboBoxControl.DisplayMember = "NombreCompleto"
-            localList = dbContext.ChequeMotivoRechazo.Where(Function(cmr) cmr.EsActivo).OrderBy(Function(cmr) cmr.NombreCompleto).ToList
+            localList = mdbContext.ChequeMotivoRechazo.Where(Function(cmr) cmr.EsActivo).OrderBy(Function(cmr) cmr.NombreCompleto).ToList
         Else
             ComboBoxControl.DisplayMember = "Nombre"
-            localList = dbContext.ChequeMotivoRechazo.Where(Function(cmr) cmr.EsActivo).OrderBy(Function(cmr) cmr.Nombre).ToList
+            localList = mdbContext.ChequeMotivoRechazo.Where(Function(cmr) cmr.EsActivo).OrderBy(Function(cmr) cmr.Nombre).ToList
         End If
 
         If AgregarItem_Todos Then
@@ -614,11 +623,11 @@
         ComboBoxControl.DisplayMember = "Nombre"
 
         If IDMedioPago Is Nothing OrElse IDMedioPago = 0 Then
-            localList = (From c In dbContext.Caja
+            localList = (From c In mdbContext.Caja
                          Where c.EsActivo
                          Order By c.Nombre).ToList
         Else
-            localList = (From c In dbContext.Caja
+            localList = (From c In mdbContext.Caja
                          From mp In c.MedioPago
                          Where c.EsActivo AndAlso mp.IDMedioPago = IDMedioPago
                          Order By c.Nombre
@@ -641,7 +650,7 @@
         ComboBoxControl.ValueMember = "IDComprobanteAplicacionMotivo"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        listComprobanteAplicacionMotivo = dbContext.ComprobanteAplicacionMotivo.OrderBy(Function(cl) cl.Nombre).ToList
+        listComprobanteAplicacionMotivo = mdbContext.ComprobanteAplicacionMotivo.OrderBy(Function(cl) cl.Nombre).ToList
 
         If AgregarItem_Todos Then
             Dim Item_Todos As New ComprobanteAplicacionMotivo
@@ -665,7 +674,7 @@
         ComboBoxControl.ValueMember = "IDArticulo"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        listArticulos = dbContext.Articulo.Where(Function(cl) cl.EsActivo).OrderBy(Function(cl) cl.Nombre).ToList
+        listArticulos = mdbContext.Articulo.Where(Function(cl) cl.EsActivo).OrderBy(Function(cl) cl.Nombre).ToList
 
         If AgregarItem_Todos Then
             Dim Item_Todos As New Articulo
@@ -690,9 +699,9 @@
         ComboBoxControl.DisplayMember = "Nombre"
 
         If OrdenAscendente Then
-            listComunicaciones = dbContext.Comunicacion.Where(Function(cl) cl.EsActivo).OrderBy(Function(cl) cl.Nombre).ToList
+            listComunicaciones = mdbContext.Comunicacion.Where(Function(cl) cl.EsActivo).OrderBy(Function(cl) cl.Nombre).ToList
         Else
-            listComunicaciones = dbContext.Comunicacion.Where(Function(cl) cl.EsActivo).OrderByDescending(Function(cl) cl.Nombre).ToList
+            listComunicaciones = mdbContext.Comunicacion.Where(Function(cl) cl.EsActivo).OrderByDescending(Function(cl) cl.Nombre).ToList
         End If
 
         If AgregarItem_Todos Then
@@ -711,12 +720,13 @@
         ComboBoxControl.DataSource = listComunicaciones
     End Sub
 
-    Public Sub New()
-        dbContext = New CSColegioContext(True)
+    Friend Sub Comprobantes(ByVal IDComprobante As Integer)
+        ' Refresco la lista de Comprobantes para mostrar los cambios
+        If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formComprobantes") Then
+            Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formComprobantes"), formComprobantes)
+            formComprobantes.RefreshData(IDComprobante)
+            formComprobantes = Nothing
+        End If
     End Sub
 
-    Protected Overrides Sub Finalize()
-        dbContext.Dispose()
-        MyBase.Finalize()
-    End Sub
 End Class

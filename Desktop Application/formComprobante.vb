@@ -753,11 +753,7 @@
             End If
 
             ' Refresco la lista de Comprobantes para mostrar los cambios
-            If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formComprobantes") Then
-                Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formComprobantes"), formComprobantes)
-                formComprobantes.RefreshData(mComprobanteActual.IDComprobante)
-                formComprobantes = Nothing
-            End If
+            pFillAndRefreshLists.Comprobantes(mComprobanteActual.IDComprobante)
         End If
 
         Me.Close()

@@ -9,10 +9,6 @@
 
     Private OrdenColumna As DataGridViewColumn
     Private OrdenTipo As SortOrder
-
-    Private Const COLUMNA_IDENTIDAD As String = "columnIDEntidad"
-    Private Const COLUMNA_APELLIDO As String = "columnApellido"
-    Private Const COLUMNA_NOMBRE As String = "columnNombre"
 #End Region
 
 #Region "Form stuff"
@@ -59,7 +55,7 @@
             If datagridviewMain.CurrentRow Is Nothing Then
                 PositionIDEntidad = 0
             Else
-                PositionIDEntidad = CInt(datagridviewMain.CurrentRow.Cells(COLUMNA_IDENTIDAD).Value)
+                PositionIDEntidad = CInt(datagridviewMain.CurrentRow.Cells(columnIDEntidad.Name).Value)
             End If
         End If
 
@@ -67,8 +63,8 @@
 
         If PositionIDEntidad <> 0 Then
             For Each CurrentRowChecked As DataGridViewRow In datagridviewMain.Rows
-                If CInt(CurrentRowChecked.Cells(COLUMNA_IDENTIDAD).Value) = PositionIDEntidad Then
-                    datagridviewMain.CurrentCell = CurrentRowChecked.Cells(COLUMNA_IDENTIDAD)
+                If CInt(CurrentRowChecked.Cells(columnIDEntidad.Name).Value) = PositionIDEntidad Then
+                    datagridviewMain.CurrentCell = CurrentRowChecked.Cells(columnIDEntidad.Name)
                     Exit For
                 End If
             Next
@@ -124,19 +120,19 @@
     Private Sub OrderData()
         ' Realizo las rutinas de ordenamiento
         Select Case OrdenColumna.Name
-            Case COLUMNA_IDENTIDAD
+            Case columnIDEntidad.Name
                 If OrdenTipo = SortOrder.Ascending Then
                     listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.OrderBy(Function(col) col.IDEntidad).ToList
                 Else
                     listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.OrderByDescending(Function(col) col.IDEntidad).ToList
                 End If
-            Case COLUMNA_APELLIDO
+            Case columnApellido.Name
                 If OrdenTipo = SortOrder.Ascending Then
                     listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.OrderBy(Function(col) col.Apellido & col.Nombre).ToList
                 Else
                     listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.OrderByDescending(Function(col) col.Apellido & col.Nombre).ToList
                 End If
-            Case COLUMNA_NOMBRE
+            Case columnNombre.Name
                 If OrdenTipo = SortOrder.Ascending Then
                     listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.OrderBy(Function(col) col.Nombre & col.Apellido).ToList
                 Else
@@ -155,8 +151,8 @@
         If Not textboxBuscar.Focused Then
             If Char.IsLetter(e.KeyChar) Then
                 For Each RowCurrent As DataGridViewRow In datagridviewMain.Rows
-                    If RowCurrent.Cells(COLUMNA_APELLIDO).Value.ToString.StartsWith(e.KeyChar, StringComparison.CurrentCultureIgnoreCase) Then
-                        RowCurrent.Cells(COLUMNA_IDENTIDAD).Selected = True
+                    If RowCurrent.Cells(columnApellido.Name).Value.ToString.StartsWith(e.KeyChar, StringComparison.CurrentCultureIgnoreCase) Then
+                        RowCurrent.Cells(columnIDEntidad.Name).Selected = True
                         datagridviewMain.Focus()
                         Exit For
                     End If
@@ -222,7 +218,7 @@
 
         ClickedColumn = CType(datagridviewMain.Columns(e.ColumnIndex), DataGridViewColumn)
 
-        If ClickedColumn.Name = COLUMNA_IDENTIDAD Or ClickedColumn.Name = COLUMNA_APELLIDO Or ClickedColumn.Name = COLUMNA_NOMBRE Then
+        If ClickedColumn.Name = columnIDEntidad.Name Or ClickedColumn.Name = columnApellido.Name Or ClickedColumn.Name = columnNombre.Name Then
             If ClickedColumn Is OrdenColumna Then
                 ' La columna clickeada es la misma por la que ya estaba ordenado, así que cambio la dirección del orden
                 If OrdenTipo = SortOrder.Ascending Then
