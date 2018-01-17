@@ -143,7 +143,7 @@
                            Join aa In mdbContext.Anio On ca.IDAnio Equals aa.IDAnio
                            Join na In mdbContext.Nivel On aa.IDNivel Equals na.IDNivel
                            Join ta In mdbContext.Turno On ca.IDTurno Equals ta.IDTurno
-                           Where (e.IDEntidad = EntidadSeleccionada.IDEntidad Or e.IDEntidadPadre = EntidadSeleccionada.IDEntidad Or e.IDEntidadMadre = EntidadSeleccionada.IDEntidad Or e.IDEntidadTercero = EntidadSeleccionada.IDEntidad) And alca.AnioLectivo = mAnioLectivoActual
+                           Where e.EsActivo And (e.IDEntidad = EntidadSeleccionada.IDEntidad Or e.IDEntidadPadre = EntidadSeleccionada.IDEntidad Or e.IDEntidadMadre = EntidadSeleccionada.IDEntidad Or e.IDEntidadTercero = EntidadSeleccionada.IDEntidad) And alca.AnioLectivo = mAnioLectivoActual
                            Select New GridRowData_AlumnoCurso With {.Seleccionado = True, .Entidad = e, .ApellidoNombre = e.ApellidoNombre, .AnioLectivoCursoActual = alca, .AnioLectivoCursoActualNombre = na.Nombre & " - " & aa.Nombre & " - " & ta.Nombre & " - " & ca.Division}).ToList
         End If
 
@@ -234,6 +234,9 @@
     End Sub
 
     Private Sub buttonPaso1Siguiente_Click() Handles buttonPaso1Siguiente.Click
+        Me.Cursor = Cursors.WaitCursor
+        Application.DoEvents()
+
         If VerificarEntidades() Then
             Dim listAlumno_AnioLectivoCurso_AFacturar As New List(Of Alumno_AnioLectivoCurso_AFacturar)
             Dim Alumno_AnioLectivoCurso_AFacturarNuevo As Alumno_AnioLectivoCurso_AFacturar
@@ -257,6 +260,9 @@
                 MostrarPaneles(2)
             End If
         End If
+
+        Me.Cursor = Cursors.Default
+        Application.DoEvents()
     End Sub
 #End Region
 

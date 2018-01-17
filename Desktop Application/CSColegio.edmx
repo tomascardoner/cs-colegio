@@ -268,7 +268,7 @@
           <Property Name="IDComprobante" Type="int" Nullable="false" />
           <Property Name="Indice" Type="tinyint" Nullable="false" />
           <Property Name="IDMedioPago" Type="tinyint" Nullable="false" />
-          <Property Name="FechaHora" Type="smalldatetime" />
+          <Property Name="FechaHora" Type="datetime2" Precision="0" />
           <Property Name="Numero" Type="varchar" MaxLength="20" />
           <Property Name="IDBanco" Type="smallint" />
           <Property Name="Cuenta" Type="varchar" MaxLength="30" />
@@ -492,6 +492,7 @@
           </Key>
           <Property Name="Fecha" Type="date" Nullable="false" />
           <Property Name="Motivo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Tipo" Type="char" MaxLength="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Impuesto">
           <Key>
@@ -3278,6 +3279,7 @@
           </Key>
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Motivo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Tipo" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="Caja">
           <Key>
@@ -4551,6 +4553,7 @@
           <EntitySetMapping Name="Feriado">
             <EntityTypeMapping TypeName="CSColegioModel.Feriado">
               <MappingFragment StoreEntitySet="Feriado">
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
                 <ScalarProperty Name="Motivo" ColumnName="Motivo" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
               </MappingFragment>

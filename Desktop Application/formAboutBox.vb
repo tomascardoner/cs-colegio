@@ -8,6 +8,7 @@
         labelLicensedTo.Text = pLicensedTo
 
         ' Propiedades
+        listviewPropiedades.Items.Clear()
         Dim NewItem As ListViewItem
 
         NewItem = New ListViewItem

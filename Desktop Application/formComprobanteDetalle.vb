@@ -460,13 +460,35 @@
         End If
 
         If textboxPrecioUnitario.Text.Trim.Length = 0 Then
-            MsgBox("Debe ingresar el Importe.", MsgBoxStyle.Information, My.Application.Info.Title)
+            MsgBox("Debe ingresar el Precio Unitario.", MsgBoxStyle.Information, My.Application.Info.Title)
             textboxPrecioUnitario.Focus()
             Exit Sub
         End If
         If Not CS_ValueTranslation.ValidateCurrency(textboxPrecioUnitario.Text) Then
-            MsgBox("El Importe ingresado no es válido.", MsgBoxStyle.Information, My.Application.Info.Title)
+            MsgBox("El Precio Unitario ingresado no es válido.", MsgBoxStyle.Information, My.Application.Info.Title)
             textboxPrecioUnitario.Focus()
+            Exit Sub
+        End If
+
+        If textboxPrecioUnitarioDescuentoPorcentaje.Text.Trim.Length = 0 Then
+            MsgBox("Debe ingresar el Porcentaje de Descuento.", MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxPrecioUnitarioDescuentoPorcentaje.Focus()
+            Exit Sub
+        End If
+        If Not CS_ValueTranslation.ValidateCurrency(textboxPrecioUnitarioDescuentoImporte.Text) Then
+            MsgBox("El Importe de Descuento ingresado no es válido.", MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxPrecioUnitarioDescuentoImporte.Focus()
+            Exit Sub
+        End If
+
+        If textboxPrecioUnitarioDescuentoImporte.Text.Trim.Length = 0 Then
+            MsgBox("Debe ingresar el Importe de Descuento.", MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxPrecioUnitarioDescuentoImporte.Focus()
+            Exit Sub
+        End If
+        If Not CS_ValueTranslation.ValidateCurrency(textboxPrecioUnitarioDescuentoImporte.Text) Then
+            MsgBox("El Importe de Descuento ingresado no es válido.", MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxPrecioUnitarioDescuentoImporte.Focus()
             Exit Sub
         End If
 
