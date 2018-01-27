@@ -37,10 +37,11 @@ Partial Class formComunicaciones
         Me.buttonAgregar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEliminar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonEnviarEmail = New System.Windows.Forms.ToolStripButton()
         Me.toolstripActivo = New System.Windows.Forms.ToolStrip()
         Me.labelActivo = New System.Windows.Forms.ToolStripLabel()
         Me.comboboxActivo = New System.Windows.Forms.ToolStripComboBox()
-        Me.buttonEnviarEmail = New System.Windows.Forms.ToolStripButton()
+        Me.buttonCopiar = New System.Windows.Forms.ToolStripButton()
         Me.statusstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelToolbars.SuspendLayout()
@@ -145,10 +146,10 @@ Partial Class formComunicaciones
         '
         Me.toolstripButtons.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripButtons.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.toolstripButtons.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAgregar, Me.buttonEditar, Me.buttonEliminar, Me.buttonEnviarEmail})
+        Me.toolstripButtons.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAgregar, Me.buttonCopiar, Me.buttonEditar, Me.buttonEliminar, Me.buttonEnviarEmail})
         Me.toolstripButtons.Location = New System.Drawing.Point(0, 0)
         Me.toolstripButtons.Name = "toolstripButtons"
-        Me.toolstripButtons.Size = New System.Drawing.Size(380, 39)
+        Me.toolstripButtons.Size = New System.Drawing.Size(458, 39)
         Me.toolstripButtons.TabIndex = 1
         '
         'buttonAgregar
@@ -178,12 +179,21 @@ Partial Class formComunicaciones
         Me.buttonEliminar.Size = New System.Drawing.Size(86, 36)
         Me.buttonEliminar.Text = "Eliminar"
         '
+        'buttonEnviarEmail
+        '
+        Me.buttonEnviarEmail.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_EMAIL_32
+        Me.buttonEnviarEmail.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonEnviarEmail.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonEnviarEmail.Name = "buttonEnviarEmail"
+        Me.buttonEnviarEmail.Size = New System.Drawing.Size(133, 36)
+        Me.buttonEnviarEmail.Text = "Enviar por e-mail"
+        '
         'toolstripActivo
         '
         Me.toolstripActivo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripActivo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripActivo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelActivo, Me.comboboxActivo})
-        Me.toolstripActivo.Location = New System.Drawing.Point(380, 0)
+        Me.toolstripActivo.Location = New System.Drawing.Point(458, 0)
         Me.toolstripActivo.Name = "toolstripActivo"
         Me.toolstripActivo.Size = New System.Drawing.Size(124, 39)
         Me.toolstripActivo.TabIndex = 12
@@ -200,14 +210,14 @@ Partial Class formComunicaciones
         Me.comboboxActivo.Name = "comboboxActivo"
         Me.comboboxActivo.Size = New System.Drawing.Size(75, 39)
         '
-        'buttonEnviarEmail
+        'buttonCopiar
         '
-        Me.buttonEnviarEmail.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_EMAIL_32
-        Me.buttonEnviarEmail.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonEnviarEmail.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonEnviarEmail.Name = "buttonEnviarEmail"
-        Me.buttonEnviarEmail.Size = New System.Drawing.Size(133, 36)
-        Me.buttonEnviarEmail.Text = "Enviar por e-mail"
+        Me.buttonCopiar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_COPY_32
+        Me.buttonCopiar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonCopiar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonCopiar.Name = "buttonCopiar"
+        Me.buttonCopiar.Size = New System.Drawing.Size(78, 36)
+        Me.buttonCopiar.Text = "Copiar"
         '
         'formComunicaciones
         '
@@ -249,4 +259,5 @@ Partial Class formComunicaciones
     Friend WithEvents columnAsunto As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnEsActivo As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents buttonEnviarEmail As System.Windows.Forms.ToolStripButton
+    Friend WithEvents buttonCopiar As System.Windows.Forms.ToolStripButton
 End Class

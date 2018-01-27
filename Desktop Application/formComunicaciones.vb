@@ -198,6 +198,24 @@
         End If
     End Sub
 
+    Private Sub Copiar_Click() Handles buttonCopiar.Click
+        If datagridviewMain.CurrentRow Is Nothing Then
+            MsgBox("No hay ninguna Comunicación para copiar.", vbInformation, My.Application.Info.Title)
+        Else
+            If Permisos.VerificarPermiso(Permisos.COMUNICACION_AGREGAR) Then
+                Me.Cursor = Cursors.WaitCursor
+
+                datagridviewMain.Enabled = False
+
+                formComunicacion.LoadAndShow(True, Me, CType(datagridviewMain.SelectedRows(0).DataBoundItem, Comunicacion).IDComunicacion, True)
+
+                datagridviewMain.Enabled = True
+
+                Me.Cursor = Cursors.Default
+            End If
+        End If
+    End Sub
+
     Private Sub Editar_Click() Handles buttonEditar.Click
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ninguna Comunicación para editar.", vbInformation, My.Application.Info.Title)
@@ -207,7 +225,7 @@
 
                 datagridviewMain.Enabled = False
 
-                formComunicacion.LoadAndShow(True, Me, CType(datagridviewMain.SelectedRows(0).DataBoundItem, Comunicacion).IDComunicacion)
+                formComunicacion.LoadAndShow(True, Me, CType(datagridviewMain.SelectedRows(0).DataBoundItem, Comunicacion).IDComunicacion, False)
 
                 datagridviewMain.Enabled = True
 

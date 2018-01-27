@@ -9,7 +9,7 @@
 #End Region
 
 #Region "Form stuff"
-    Friend Sub LoadAndShow(ByVal EditMode As Boolean, ByRef ParentForm As Form, ByVal IDComunicacion As Short)
+    Friend Sub LoadAndShow(ByVal EditMode As Boolean, ByRef ParentForm As Form, ByVal IDComunicacion As Short, Optional ByVal EsCopia As Boolean = False)
         mIsLoading = True
         mEditMode = EditMode
 
@@ -24,7 +24,30 @@
                 .FechaHoraModificacion = .FechaHoraCreacion
             End With
             mdbContext.Comunicacion.Add(mComunicacionActual)
+        ElseIf EsCopia Then
+            ' Es Copia
+            Dim ComunicacionDeOrigen As Comunicacion = mdbContext.Comunicacion.Find(IDComunicacion)
+
+            mComunicacionActual = New Comunicacion
+            With mComunicacionActual
+                .Nombre = ComunicacionDeOrigen.Nombre
+                .Asunto = ComunicacionDeOrigen.Asunto
+                .CuerpoMensajeEsHTML = ComunicacionDeOrigen.CuerpoMensajeEsHTML
+                .CuerpoMensaje = ComunicacionDeOrigen.CuerpoMensaje
+                .UtilizarCampos = ComunicacionDeOrigen.UtilizarCampos
+                .CantidadDestinatariosPorEmail = ComunicacionDeOrigen.CantidadDestinatariosPorEmail
+                .DestinatariosEnCampoBCC = ComunicacionDeOrigen.DestinatariosEnCampoBCC
+                .ArchivoAdjunto = ComunicacionDeOrigen.ArchivoAdjunto
+                .EsActivo = ComunicacionDeOrigen.EsActivo
+                .Notas = ComunicacionDeOrigen.Notas
+                .IDUsuarioCreacion = pUsuario.IDUsuario
+                .FechaHoraCreacion = Now
+                .IDUsuarioModificacion = pUsuario.IDUsuario
+                .FechaHoraModificacion = .FechaHoraCreacion
+            End With
+            mdbContext.Comunicacion.Add(mComunicacionActual)
         Else
+            ' Es Edición
             mComunicacionActual = mdbContext.Comunicacion.Find(IDComunicacion)
         End If
 
