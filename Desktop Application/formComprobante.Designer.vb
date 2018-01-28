@@ -54,6 +54,8 @@ Partial Class formComprobante
         Me.columnDetalle_PrecioUnitario = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnDetalle_PrecioTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.toolstripDetalle = New System.Windows.Forms.ToolStrip()
+        Me.buttonDetalle_Agregar = New System.Windows.Forms.ToolStripSplitButton()
+        Me.buttonDetalle_AgregarMultiple = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonDetalle_Editar = New System.Windows.Forms.ToolStripButton()
         Me.buttonDetalle_Eliminar = New System.Windows.Forms.ToolStripButton()
         Me.tabpageImpuestos = New System.Windows.Forms.TabPage()
@@ -124,12 +126,15 @@ Partial Class formComprobante
         Me.textboxEntidad = New System.Windows.Forms.TextBox()
         Me.labelEntidad = New System.Windows.Forms.Label()
         Me.panelPie = New System.Windows.Forms.FlowLayoutPanel()
-        Me.panelSubtotales = New System.Windows.Forms.Panel()
+        Me.panelImporteTotal = New System.Windows.Forms.Panel()
         Me.textboxImporteTotal = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
         Me.labelImporteTotal = New System.Windows.Forms.Label()
         Me.panelMediosPago_Subtotal = New System.Windows.Forms.Panel()
         Me.textboxMediosPago_Subtotal = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
         Me.labelMediosPago_Subtotal = New System.Windows.Forms.Label()
+        Me.panelInteres_Subtotal = New System.Windows.Forms.Panel()
+        Me.textboxInteres_Subtotal = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
+        Me.labelInteres_Subtotal = New System.Windows.Forms.Label()
         Me.panelAplicaciones_Subtotal = New System.Windows.Forms.Panel()
         Me.textboxAplicaciones_Subtotal = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
         Me.labelAplicaciones_Subtotal = New System.Windows.Forms.Label()
@@ -146,8 +151,6 @@ Partial Class formComprobante
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
         Me.buttonTransmitirComprobante = New System.Windows.Forms.ToolStripButton()
         Me.buttonVerificarComprobante = New System.Windows.Forms.ToolStripButton()
-        Me.buttonDetalle_Agregar = New System.Windows.Forms.ToolStripSplitButton()
-        Me.buttonDetalle_AgregarMultiple = New System.Windows.Forms.ToolStripMenuItem()
         labelFechaServicioDesde = New System.Windows.Forms.Label()
         labelFechaServicioHasta = New System.Windows.Forms.Label()
         labelLeyenda = New System.Windows.Forms.Label()
@@ -175,8 +178,9 @@ Partial Class formComprobante
         Me.panelFechas.SuspendLayout()
         Me.panelEntidad.SuspendLayout()
         Me.panelPie.SuspendLayout()
-        Me.panelSubtotales.SuspendLayout()
+        Me.panelImporteTotal.SuspendLayout()
         Me.panelMediosPago_Subtotal.SuspendLayout()
+        Me.panelInteres_Subtotal.SuspendLayout()
         Me.panelAplicaciones_Subtotal.SuspendLayout()
         Me.panelImpuestos_Subtotal.SuspendLayout()
         Me.panelDetalle_Subtotal.SuspendLayout()
@@ -266,7 +270,7 @@ Partial Class formComprobante
         Me.panelMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.panelMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
         Me.panelMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.panelMain.Size = New System.Drawing.Size(889, 475)
+        Me.panelMain.Size = New System.Drawing.Size(1057, 475)
         Me.panelMain.TabIndex = 2
         '
         'tabcontrolMain
@@ -280,7 +284,7 @@ Partial Class formComprobante
         Me.tabcontrolMain.Location = New System.Drawing.Point(3, 114)
         Me.tabcontrolMain.Name = "tabcontrolMain"
         Me.tabcontrolMain.SelectedIndex = 0
-        Me.tabcontrolMain.Size = New System.Drawing.Size(883, 308)
+        Me.tabcontrolMain.Size = New System.Drawing.Size(1051, 308)
         Me.tabcontrolMain.TabIndex = 0
         '
         'tabpageDetalle
@@ -290,7 +294,7 @@ Partial Class formComprobante
         Me.tabpageDetalle.Location = New System.Drawing.Point(4, 22)
         Me.tabpageDetalle.Name = "tabpageDetalle"
         Me.tabpageDetalle.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageDetalle.Size = New System.Drawing.Size(875, 282)
+        Me.tabpageDetalle.Size = New System.Drawing.Size(1043, 282)
         Me.tabpageDetalle.TabIndex = 0
         Me.tabpageDetalle.Text = "Detalle"
         '
@@ -315,7 +319,7 @@ Partial Class formComprobante
         Me.datagridviewDetalle.RowHeadersVisible = False
         Me.datagridviewDetalle.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewDetalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewDetalle.Size = New System.Drawing.Size(771, 276)
+        Me.datagridviewDetalle.Size = New System.Drawing.Size(939, 276)
         Me.datagridviewDetalle.TabIndex = 4
         '
         'columnDetalle_Descripcion
@@ -365,6 +369,23 @@ Partial Class formComprobante
         Me.toolstripDetalle.Size = New System.Drawing.Size(98, 276)
         Me.toolstripDetalle.TabIndex = 5
         '
+        'buttonDetalle_Agregar
+        '
+        Me.buttonDetalle_Agregar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonDetalle_AgregarMultiple})
+        Me.buttonDetalle_Agregar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_ADD_32
+        Me.buttonDetalle_Agregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.buttonDetalle_Agregar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonDetalle_Agregar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonDetalle_Agregar.Name = "buttonDetalle_Agregar"
+        Me.buttonDetalle_Agregar.Size = New System.Drawing.Size(95, 36)
+        Me.buttonDetalle_Agregar.Text = "Agregar"
+        '
+        'buttonDetalle_AgregarMultiple
+        '
+        Me.buttonDetalle_AgregarMultiple.Name = "buttonDetalle_AgregarMultiple"
+        Me.buttonDetalle_AgregarMultiple.Size = New System.Drawing.Size(161, 22)
+        Me.buttonDetalle_AgregarMultiple.Text = "Multiples cuotas"
+        '
         'buttonDetalle_Editar
         '
         Me.buttonDetalle_Editar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_EDIT_32
@@ -392,7 +413,7 @@ Partial Class formComprobante
         Me.tabpageImpuestos.Location = New System.Drawing.Point(4, 22)
         Me.tabpageImpuestos.Name = "tabpageImpuestos"
         Me.tabpageImpuestos.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageImpuestos.Size = New System.Drawing.Size(875, 282)
+        Me.tabpageImpuestos.Size = New System.Drawing.Size(1043, 282)
         Me.tabpageImpuestos.TabIndex = 1
         Me.tabpageImpuestos.Text = "Impuestos"
         '
@@ -417,7 +438,7 @@ Partial Class formComprobante
         Me.datagridviewImpuestos.RowHeadersVisible = False
         Me.datagridviewImpuestos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewImpuestos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewImpuestos.Size = New System.Drawing.Size(782, 276)
+        Me.datagridviewImpuestos.Size = New System.Drawing.Size(950, 276)
         Me.datagridviewImpuestos.TabIndex = 7
         '
         'DataGridViewTextBoxColumn6
@@ -530,7 +551,7 @@ Partial Class formComprobante
         Me.tabpageAplicaciones.Location = New System.Drawing.Point(4, 22)
         Me.tabpageAplicaciones.Name = "tabpageAplicaciones"
         Me.tabpageAplicaciones.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageAplicaciones.Size = New System.Drawing.Size(875, 282)
+        Me.tabpageAplicaciones.Size = New System.Drawing.Size(1043, 282)
         Me.tabpageAplicaciones.TabIndex = 2
         Me.tabpageAplicaciones.Text = "Aplicaciones"
         '
@@ -555,7 +576,7 @@ Partial Class formComprobante
         Me.datagridviewAplicaciones.RowHeadersVisible = False
         Me.datagridviewAplicaciones.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewAplicaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewAplicaciones.Size = New System.Drawing.Size(759, 276)
+        Me.datagridviewAplicaciones.Size = New System.Drawing.Size(927, 276)
         Me.datagridviewAplicaciones.TabIndex = 9
         '
         'columnAplicaciones_Motivo
@@ -645,6 +666,7 @@ Partial Class formComprobante
         Me.buttonAplicaciones_AplicarTodo.Name = "buttonAplicaciones_AplicarTodo"
         Me.buttonAplicaciones_AplicarTodo.Size = New System.Drawing.Size(107, 36)
         Me.buttonAplicaciones_AplicarTodo.Text = "Auto Aplicar"
+        Me.buttonAplicaciones_AplicarTodo.Visible = False
         '
         'buttonAplicaciones_Agregar
         '
@@ -673,7 +695,7 @@ Partial Class formComprobante
         Me.tabpageMediosPago.Location = New System.Drawing.Point(4, 22)
         Me.tabpageMediosPago.Name = "tabpageMediosPago"
         Me.tabpageMediosPago.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageMediosPago.Size = New System.Drawing.Size(875, 282)
+        Me.tabpageMediosPago.Size = New System.Drawing.Size(1043, 282)
         Me.tabpageMediosPago.TabIndex = 4
         Me.tabpageMediosPago.Text = "Medios de Pago"
         '
@@ -698,7 +720,7 @@ Partial Class formComprobante
         Me.datagridviewMediosPago.RowHeadersVisible = False
         Me.datagridviewMediosPago.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewMediosPago.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewMediosPago.Size = New System.Drawing.Size(739, 276)
+        Me.datagridviewMediosPago.Size = New System.Drawing.Size(907, 276)
         Me.datagridviewMediosPago.TabIndex = 3
         '
         'columnMedioPagos_MedioPagoNombre
@@ -831,7 +853,7 @@ Partial Class formComprobante
         Me.tabpageNotasAuditoria.Location = New System.Drawing.Point(4, 22)
         Me.tabpageNotasAuditoria.Name = "tabpageNotasAuditoria"
         Me.tabpageNotasAuditoria.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageNotasAuditoria.Size = New System.Drawing.Size(875, 282)
+        Me.tabpageNotasAuditoria.Size = New System.Drawing.Size(1043, 282)
         Me.tabpageNotasAuditoria.TabIndex = 5
         Me.tabpageNotasAuditoria.Text = "Notas y Auditoría"
         '
@@ -936,7 +958,7 @@ Partial Class formComprobante
         Me.panelCabecera.Dock = System.Windows.Forms.DockStyle.Fill
         Me.panelCabecera.Location = New System.Drawing.Point(3, 3)
         Me.panelCabecera.Name = "panelCabecera"
-        Me.panelCabecera.Size = New System.Drawing.Size(883, 105)
+        Me.panelCabecera.Size = New System.Drawing.Size(1051, 105)
         Me.panelCabecera.TabIndex = 0
         '
         'panelIdentificacion
@@ -1163,8 +1185,9 @@ Partial Class formComprobante
         '
         Me.panelPie.AutoSize = True
         Me.panelPie.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.panelPie.Controls.Add(Me.panelSubtotales)
+        Me.panelPie.Controls.Add(Me.panelImporteTotal)
         Me.panelPie.Controls.Add(Me.panelMediosPago_Subtotal)
+        Me.panelPie.Controls.Add(Me.panelInteres_Subtotal)
         Me.panelPie.Controls.Add(Me.panelAplicaciones_Subtotal)
         Me.panelPie.Controls.Add(Me.panelImpuestos_Subtotal)
         Me.panelPie.Controls.Add(Me.panelDetalle_Subtotal)
@@ -1173,20 +1196,20 @@ Partial Class formComprobante
         Me.panelPie.Location = New System.Drawing.Point(3, 428)
         Me.panelPie.Name = "panelPie"
         Me.panelPie.Padding = New System.Windows.Forms.Padding(4)
-        Me.panelPie.Size = New System.Drawing.Size(883, 44)
+        Me.panelPie.Size = New System.Drawing.Size(1051, 44)
         Me.panelPie.TabIndex = 2
         '
-        'panelSubtotales
+        'panelImporteTotal
         '
-        Me.panelSubtotales.AutoSize = True
-        Me.panelSubtotales.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.panelSubtotales.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.panelSubtotales.Controls.Add(Me.textboxImporteTotal)
-        Me.panelSubtotales.Controls.Add(Me.labelImporteTotal)
-        Me.panelSubtotales.Location = New System.Drawing.Point(705, 7)
-        Me.panelSubtotales.Name = "panelSubtotales"
-        Me.panelSubtotales.Size = New System.Drawing.Size(167, 29)
-        Me.panelSubtotales.TabIndex = 0
+        Me.panelImporteTotal.AutoSize = True
+        Me.panelImporteTotal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelImporteTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.panelImporteTotal.Controls.Add(Me.textboxImporteTotal)
+        Me.panelImporteTotal.Controls.Add(Me.labelImporteTotal)
+        Me.panelImporteTotal.Location = New System.Drawing.Point(873, 7)
+        Me.panelImporteTotal.Name = "panelImporteTotal"
+        Me.panelImporteTotal.Size = New System.Drawing.Size(167, 29)
+        Me.panelImporteTotal.TabIndex = 0
         '
         'textboxImporteTotal
         '
@@ -1216,7 +1239,7 @@ Partial Class formComprobante
         Me.panelMediosPago_Subtotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.panelMediosPago_Subtotal.Controls.Add(Me.textboxMediosPago_Subtotal)
         Me.panelMediosPago_Subtotal.Controls.Add(Me.labelMediosPago_Subtotal)
-        Me.panelMediosPago_Subtotal.Location = New System.Drawing.Point(518, 7)
+        Me.panelMediosPago_Subtotal.Location = New System.Drawing.Point(686, 7)
         Me.panelMediosPago_Subtotal.Name = "panelMediosPago_Subtotal"
         Me.panelMediosPago_Subtotal.Size = New System.Drawing.Size(181, 29)
         Me.panelMediosPago_Subtotal.TabIndex = 6
@@ -1240,6 +1263,37 @@ Partial Class formComprobante
         Me.labelMediosPago_Subtotal.TabIndex = 0
         Me.labelMediosPago_Subtotal.Text = "Medios de Pago:"
         '
+        'panelInteres_Subtotal
+        '
+        Me.panelInteres_Subtotal.AutoSize = True
+        Me.panelInteres_Subtotal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelInteres_Subtotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.panelInteres_Subtotal.Controls.Add(Me.textboxInteres_Subtotal)
+        Me.panelInteres_Subtotal.Controls.Add(Me.labelInteres_Subtotal)
+        Me.panelInteres_Subtotal.Location = New System.Drawing.Point(528, 7)
+        Me.panelInteres_Subtotal.Name = "panelInteres_Subtotal"
+        Me.panelInteres_Subtotal.Size = New System.Drawing.Size(152, 29)
+        Me.panelInteres_Subtotal.TabIndex = 8
+        '
+        'textboxInteres_Subtotal
+        '
+        Me.textboxInteres_Subtotal.Location = New System.Drawing.Point(67, 4)
+        Me.textboxInteres_Subtotal.Name = "textboxInteres_Subtotal"
+        Me.textboxInteres_Subtotal.ReadOnly = True
+        Me.textboxInteres_Subtotal.Size = New System.Drawing.Size(80, 20)
+        Me.textboxInteres_Subtotal.TabIndex = 1
+        Me.textboxInteres_Subtotal.TabStop = False
+        Me.textboxInteres_Subtotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'labelInteres_Subtotal
+        '
+        Me.labelInteres_Subtotal.AutoSize = True
+        Me.labelInteres_Subtotal.Location = New System.Drawing.Point(3, 7)
+        Me.labelInteres_Subtotal.Name = "labelInteres_Subtotal"
+        Me.labelInteres_Subtotal.Size = New System.Drawing.Size(53, 13)
+        Me.labelInteres_Subtotal.TabIndex = 0
+        Me.labelInteres_Subtotal.Text = "Intereses:"
+        '
         'panelAplicaciones_Subtotal
         '
         Me.panelAplicaciones_Subtotal.AutoSize = True
@@ -1247,7 +1301,7 @@ Partial Class formComprobante
         Me.panelAplicaciones_Subtotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.panelAplicaciones_Subtotal.Controls.Add(Me.textboxAplicaciones_Subtotal)
         Me.panelAplicaciones_Subtotal.Controls.Add(Me.labelAplicaciones_Subtotal)
-        Me.panelAplicaciones_Subtotal.Location = New System.Drawing.Point(348, 7)
+        Me.panelAplicaciones_Subtotal.Location = New System.Drawing.Point(358, 7)
         Me.panelAplicaciones_Subtotal.Name = "panelAplicaciones_Subtotal"
         Me.panelAplicaciones_Subtotal.Size = New System.Drawing.Size(164, 29)
         Me.panelAplicaciones_Subtotal.TabIndex = 5
@@ -1278,7 +1332,7 @@ Partial Class formComprobante
         Me.panelImpuestos_Subtotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.panelImpuestos_Subtotal.Controls.Add(Me.textboxImpuestos_Subtotal)
         Me.panelImpuestos_Subtotal.Controls.Add(Me.labelImpuestosSubtotal)
-        Me.panelImpuestos_Subtotal.Location = New System.Drawing.Point(190, 7)
+        Me.panelImpuestos_Subtotal.Location = New System.Drawing.Point(200, 7)
         Me.panelImpuestos_Subtotal.Name = "panelImpuestos_Subtotal"
         Me.panelImpuestos_Subtotal.Size = New System.Drawing.Size(152, 29)
         Me.panelImpuestos_Subtotal.TabIndex = 7
@@ -1309,7 +1363,7 @@ Partial Class formComprobante
         Me.panelDetalle_Subtotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.panelDetalle_Subtotal.Controls.Add(Me.textboxDetalle_Subtotal)
         Me.panelDetalle_Subtotal.Controls.Add(Me.labelDetalle_Subtotal)
-        Me.panelDetalle_Subtotal.Location = New System.Drawing.Point(47, 7)
+        Me.panelDetalle_Subtotal.Location = New System.Drawing.Point(57, 7)
         Me.panelDetalle_Subtotal.Name = "panelDetalle_Subtotal"
         Me.panelDetalle_Subtotal.Size = New System.Drawing.Size(137, 29)
         Me.panelDetalle_Subtotal.TabIndex = 4
@@ -1340,7 +1394,7 @@ Partial Class formComprobante
         Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonCerrar, Me.buttonEditar, Me.buttonCancelar, Me.buttonGuardar, Me.buttonTransmitirComprobante, Me.buttonVerificarComprobante})
         Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
         Me.toolstripMain.Name = "toolstripMain"
-        Me.toolstripMain.Size = New System.Drawing.Size(889, 39)
+        Me.toolstripMain.Size = New System.Drawing.Size(1057, 39)
         Me.toolstripMain.TabIndex = 0
         '
         'buttonCerrar
@@ -1403,28 +1457,11 @@ Partial Class formComprobante
         Me.buttonVerificarComprobante.Size = New System.Drawing.Size(135, 36)
         Me.buttonVerificarComprobante.Text = "Verificar datos con AFIP"
         '
-        'buttonDetalle_Agregar
-        '
-        Me.buttonDetalle_Agregar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonDetalle_AgregarMultiple})
-        Me.buttonDetalle_Agregar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_ADD_32
-        Me.buttonDetalle_Agregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.buttonDetalle_Agregar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonDetalle_Agregar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonDetalle_Agregar.Name = "buttonDetalle_Agregar"
-        Me.buttonDetalle_Agregar.Size = New System.Drawing.Size(95, 36)
-        Me.buttonDetalle_Agregar.Text = "Agregar"
-        '
-        'buttonDetalle_AgregarMultiple
-        '
-        Me.buttonDetalle_AgregarMultiple.Name = "buttonDetalle_AgregarMultiple"
-        Me.buttonDetalle_AgregarMultiple.Size = New System.Drawing.Size(161, 22)
-        Me.buttonDetalle_AgregarMultiple.Text = "Multiples cuotas"
-        '
         'formComprobante
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(889, 514)
+        Me.ClientSize = New System.Drawing.Size(1057, 514)
         Me.Controls.Add(Me.panelMain)
         Me.Controls.Add(Me.toolstripMain)
         Me.MinimumSize = New System.Drawing.Size(690, 45)
@@ -1465,10 +1502,12 @@ Partial Class formComprobante
         Me.panelEntidad.PerformLayout()
         Me.panelPie.ResumeLayout(False)
         Me.panelPie.PerformLayout()
-        Me.panelSubtotales.ResumeLayout(False)
-        Me.panelSubtotales.PerformLayout()
+        Me.panelImporteTotal.ResumeLayout(False)
+        Me.panelImporteTotal.PerformLayout()
         Me.panelMediosPago_Subtotal.ResumeLayout(False)
         Me.panelMediosPago_Subtotal.PerformLayout()
+        Me.panelInteres_Subtotal.ResumeLayout(False)
+        Me.panelInteres_Subtotal.PerformLayout()
         Me.panelAplicaciones_Subtotal.ResumeLayout(False)
         Me.panelAplicaciones_Subtotal.PerformLayout()
         Me.panelImpuestos_Subtotal.ResumeLayout(False)
@@ -1485,7 +1524,7 @@ Partial Class formComprobante
     Friend WithEvents panelCabecera As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents panelIdentificacion As System.Windows.Forms.Panel
     Friend WithEvents panelPie As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents panelSubtotales As System.Windows.Forms.Panel
+    Friend WithEvents panelImporteTotal As System.Windows.Forms.Panel
     Friend WithEvents textboxImporteTotal As CSColegio.DesktopApplication.CS_Control_TextBox_Currency
     Friend WithEvents labelImporteTotal As System.Windows.Forms.Label
     Friend WithEvents textboxNumero As System.Windows.Forms.TextBox
@@ -1583,4 +1622,7 @@ Partial Class formComprobante
     Friend WithEvents buttonVerificarComprobante As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonDetalle_Agregar As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents buttonDetalle_AgregarMultiple As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents panelInteres_Subtotal As System.Windows.Forms.Panel
+    Friend WithEvents textboxInteres_Subtotal As CSColegio.DesktopApplication.CS_Control_TextBox_Currency
+    Friend WithEvents labelInteres_Subtotal As System.Windows.Forms.Label
 End Class

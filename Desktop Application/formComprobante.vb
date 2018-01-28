@@ -212,6 +212,7 @@
             textboxDetalle_Subtotal.Text = FormatCurrency(0)
             textboxImpuestos_Subtotal.Text = FormatCurrency(0)
             textboxAplicaciones_Subtotal.Text = FormatCurrency(0)
+            textboxInteres_Subtotal.Text = FormatCurrency(0)
             textboxMediosPago_Subtotal.Text = FormatCurrency(0)
             textboxImporteTotal.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.ImporteTotal)
 
@@ -363,6 +364,9 @@
             End Select
         Next
         textboxAplicaciones_Subtotal.Text = FormatCurrency(Total)
+
+        textboxInteres_Subtotal.Text = FormatCurrency(CalcularInteresesSobreAplicaciones(datetimepickerFechaVencimiento.Value, mComprobanteActual.ComprobanteAplicacion_Aplicados.ToList))
+
         If mComprobanteTipoActual.UtilizaDetalle = False And mComprobanteTipoActual.UtilizaMedioPago = False Then
             textboxImporteTotal.Text = FormatCurrency(Total)
             textboxImporteTotal.ReadOnly = (listAplicaciones.Count > 0)
