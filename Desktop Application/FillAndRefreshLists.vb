@@ -362,7 +362,7 @@
             Dim FechaInicioActividad As Date
 
             ' Cargo de acuerdo a la Fecha de Inicio de Actividades o al Año actual, en su defecto
-            FechaInicioActividad = CS_Parameter.GetDate(Parametros.EMPRESA_INICIO_ACTIVIDAD, DateTime.Today).Value
+            FechaInicioActividad = CS_Parameter_System.GetDate(Parametros.EMPRESA_INICIO_ACTIVIDAD, DateTime.Today).Value
             If Orden = SortOrder.Ascending Then
                 For AnioActual As Integer = FechaInicioActividad.Year To DateTime.Today.AddYears(1).Year
                     ComboBoxControl.Items.Add(AnioActual.ToString)

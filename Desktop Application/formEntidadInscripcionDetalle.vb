@@ -87,9 +87,9 @@
                 If mIDAnioProximo = 0 Then
                     comboboxAnioProximo.SelectedIndex = 1
                 Else
-                    CS_Control_ComboBox.SetSelectedValue(comboboxAnioProximo, SelectedItemOptions.ValueOrLast, mIDAnioProximo)
-                    CS_Control_ComboBox.SetSelectedValue(comboboxTurnoProximo, SelectedItemOptions.ValueOrFirstIfUnique, mIDTurnoProximo)
-                    CS_Control_ComboBox.SetSelectedValue(comboboxDivisionProximo, SelectedItemOptions.ValueOrFirstIfUnique, mDivisionProximo)
+                    CS_ComboBox.SetSelectedValue(comboboxAnioProximo, SelectedItemOptions.ValueOrLast, mIDAnioProximo)
+                    CS_ComboBox.SetSelectedValue(comboboxTurnoProximo, SelectedItemOptions.ValueOrFirstIfUnique, mIDTurnoProximo)
+                    CS_ComboBox.SetSelectedValue(comboboxDivisionProximo, SelectedItemOptions.ValueOrFirstIfUnique, mDivisionProximo)
                 End If
             End If
         End With
@@ -135,7 +135,7 @@
             comboboxTurnoProximo.DisplayMember = "Nombre"
             comboboxTurnoProximo.DataSource = listTurnos
             ' Intento seleccionar el mismo Turno que el Año anterior
-            CS_Control_ComboBox.SetSelectedValue(comboboxTurnoProximo, SelectedItemOptions.ValueOrFirstIfUnique, mAnioLectivoCursoActual.Curso.IDTurno)
+            CS_ComboBox.SetSelectedValue(comboboxTurnoProximo, SelectedItemOptions.ValueOrFirstIfUnique, mAnioLectivoCursoActual.Curso.IDTurno)
         End If
     End Sub
 
@@ -155,7 +155,7 @@
                           Select c.Division).ToList
 
             ' Intento seleccionar la misma Division que el Año anterior
-            CS_Control_ComboBox.SetSelectedValue(comboboxDivisionProximo, SelectedItemOptions.ValueOrFirstIfUnique, mAnioLectivoCursoActual.Curso.Division)
+            CS_ComboBox.SetSelectedValue(comboboxDivisionProximo, SelectedItemOptions.ValueOrFirstIfUnique, mAnioLectivoCursoActual.Curso.Division)
         End If
     End Sub
 

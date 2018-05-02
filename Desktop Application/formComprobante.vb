@@ -62,7 +62,7 @@
         Me.MdiParent = formMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
-        CS_Control_ComboBox.SetSelectedValue(comboboxComprobanteTipo, SelectedItemOptions.Value, mComprobanteActual.IDComprobanteTipo)
+        CS_ComboBox.SetSelectedValue(comboboxComprobanteTipo, SelectedItemOptions.Value, mComprobanteActual.IDComprobanteTipo)
         CambiarTipoComprobante()
         SetDataFromObjectToControls()
         Me.Show()
@@ -118,8 +118,8 @@
     Friend Sub InitializeFormAndControls()
         SetAppearance()
 
-        mIDArticuloMatricula = CS_Parameter.GetIntegerAsShort(Parametros.CUOTA_MATRICULA_ARTICULO_ID)
-        mIDArticuloMensual = CS_Parameter.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID)
+        mIDArticuloMatricula = CS_Parameter_System.GetIntegerAsShort(Parametros.CUOTA_MATRICULA_ARTICULO_ID)
+        mIDArticuloMensual = CS_Parameter_System.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID)
 
         ' Cargo los ComboBox
         pFillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo, Nothing, False, False)
@@ -159,7 +159,7 @@
             Else
                 textboxIDComprobante.Text = String.Format(.IDComprobante.ToString, "G")
             End If
-            CS_Control_ComboBox.SetSelectedValue(comboboxComprobanteTipo, SelectedItemOptions.Value, .IDComprobanteTipo)
+            CS_ComboBox.SetSelectedValue(comboboxComprobanteTipo, SelectedItemOptions.Value, .IDComprobanteTipo)
             textboxPuntoVenta.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.PuntoVenta)
             textboxNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Numero)
             datetimepickerFechaEmision.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaEmision, datetimepickerFechaEmision)
@@ -244,7 +244,7 @@
 
             ' Entidad
             .IDEntidad = CS_ValueTranslation.FromControlTagToObjectInteger(textboxEntidad.Tag).Value
-            If CS_Parameter.GetBoolean(Parametros.COMPROBANTE_ENTIDAD_MAYUSCULAS, False).Value Then
+            If CS_Parameter_System.GetBoolean(Parametros.COMPROBANTE_ENTIDAD_MAYUSCULAS, False).Value Then
                 .ApellidoNombre = mEntidad.ApellidoNombre.ToUpper
             Else
                 .ApellidoNombre = mEntidad.ApellidoNombre
@@ -258,8 +258,8 @@
                 .IDDocumentoTipo = mEntidad.IDDocumentoTipo.Value
                 .DocumentoNumero = mEntidad.DocumentoNumero
             Else
-                .IDDocumentoTipo = CS_Parameter.GetIntegerAsByte(Parametros.CONSUMIDORFINAL_DOCUMENTOTIPO_ID)
-                .DocumentoNumero = CS_Parameter.GetString(Parametros.CONSUMIDORFINAL_DOCUMENTONUMERO)
+                .IDDocumentoTipo = CS_Parameter_System.GetIntegerAsByte(Parametros.CONSUMIDORFINAL_DOCUMENTOTIPO_ID)
+                .DocumentoNumero = CS_Parameter_System.GetString(Parametros.CONSUMIDORFINAL_DOCUMENTONUMERO)
             End If
             .IDCategoriaIVA = mEntidad.IDCategoriaIVA.Value
 

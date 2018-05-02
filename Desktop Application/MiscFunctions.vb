@@ -265,13 +265,13 @@ Module MiscFunctions
     End Function
 
     Friend Function CalcularInteresesSobreAplicaciones(ByVal FechaCalculo As Date, ByRef ComprobanteAplicaciones As List(Of ComprobanteAplicacion)) As Decimal
-        If ComprobanteAplicaciones.Count > 0 AndAlso CS_Parameter.GetBoolean(Parametros.COMPROBANTE_APLICACION_INTERES_CALCULAR) Then
+        If ComprobanteAplicaciones.Count > 0 AndAlso CS_Parameter_System.GetBoolean(Parametros.COMPROBANTE_APLICACION_INTERES_CALCULAR) Then
             Dim DiasTranscurridos As Long
             Dim PorcentajeInteresDiario As Decimal
             Dim PorcentajeInteresAplicar As Decimal
             Dim ImporteInteresAcumulado As Decimal = 0
 
-            PorcentajeInteresDiario = CS_Parameter.GetDecimal(Parametros.COMPROBANTE_APLICACION_INTERES_MENSUAL) / 30
+            PorcentajeInteresDiario = CS_Parameter_System.GetDecimal(Parametros.COMPROBANTE_APLICACION_INTERES_MENSUAL) / 30
 
             Using dbContext As New CSColegioContext(True)
                 Dim ComprobanteAplicadoActual As Comprobante
@@ -281,7 +281,7 @@ Module MiscFunctions
 
                     If ComprobanteAplicadoActual.FechaVencimiento.HasValue Then
                         DiasTranscurridos = DateDiff(DateInterval.Day, ComprobanteAplicadoActual.FechaVencimiento.Value, FechaCalculo)
-                        If DiasTranscurridos > 0 AndAlso DiasTranscurridos > CS_Parameter.GetIntegerAsInteger(Parametros.COMPROBANTE_APLICACION_INTERES_DIASTOLERANCIA) Then
+                        If DiasTranscurridos > 0 AndAlso DiasTranscurridos > CS_Parameter_System.GetIntegerAsInteger(Parametros.COMPROBANTE_APLICACION_INTERES_DIASTOLERANCIA) Then
                             PorcentajeInteresAplicar = DiasTranscurridos * PorcentajeInteresDiario
                             ImporteInteresAcumulado += ComprobanteAplicacionActual.Importe * PorcentajeInteresAplicar / 100
                         End If

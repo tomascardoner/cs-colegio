@@ -82,7 +82,7 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
 
     Private Sub buttonTransmitir_Click(sender As Object, e As EventArgs) Handles buttonExportar.Click
         If listComprobantes.Count > 0 Then
-            If CS_Parameter.GetString(Parametros.EMPRESA_ADDI_CODIGOSERVICIO) = "" Then
+            If CS_Parameter_System.GetString(Parametros.EMPRESA_ADDI_CODIGOSERVICIO) = "" Then
                 MsgBox("No está especificado el Código de Servicio otorgado por el Banco Santander.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 Exit Sub
             End If
@@ -127,7 +127,7 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
                 If Not ComprobanteActual Is Nothing Then
                     ' Detalle
                     DetalleTextStream &= "11"                                                               ' Tipo de Registro
-                    DetalleTextStream &= CS_Parameter.GetString(Parametros.EMPRESA_ADDI_CODIGOSERVICIO).PadRight(10, " "c)  ' Código de Servicio
+                    DetalleTextStream &= CS_Parameter_System.GetString(Parametros.EMPRESA_ADDI_CODIGOSERVICIO).PadRight(10, " "c)  ' Código de Servicio
                     DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString("000000").PadRight(22, " "c)          ' Número de Partida
                     DetalleTextStream &= ComprobanteActual.Entidad.DebitoAutomaticoCBU                      ' CBU
                     DetalleTextStream &= ComprobanteActual.FechaVencimiento.Value.ToString("yyyyMMdd")      ' Fecha 1er. vencimiento

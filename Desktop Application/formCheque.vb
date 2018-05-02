@@ -60,8 +60,8 @@
 #Region "Load and Set Data"
     Friend Sub SetDataFromObjectToControls()
         With mComprobanteMedioPagoActual
-            CS_Control_ComboBox.SetSelectedValue(comboboxMedioPago, SelectedItemOptions.ValueOrFirstIfUnique, .IDMedioPago, CByte(0))
-            CS_Control_ComboBox.SetSelectedValue(comboboxCaja, SelectedItemOptions.ValueOrFirstIfUnique, .IDCaja, CByte(0))
+            CS_ComboBox.SetSelectedValue(comboboxMedioPago, SelectedItemOptions.ValueOrFirstIfUnique, .IDMedioPago, CByte(0))
+            CS_ComboBox.SetSelectedValue(comboboxCaja, SelectedItemOptions.ValueOrFirstIfUnique, .IDCaja, CByte(0))
         End With
         With mComprobanteMedioPagoActual.Cheque
             If .IDCheque = 0 Then
@@ -69,7 +69,7 @@
             Else
                 textboxIDCheque.Text = String.Format(.IDCheque.ToString, "G")
             End If
-            CS_Control_ComboBox.SetSelectedValue(comboboxBanco, SelectedItemOptions.Value, .IDBanco, CShort(0))
+            CS_ComboBox.SetSelectedValue(comboboxBanco, SelectedItemOptions.Value, .IDBanco, CShort(0))
             datetimepickerFechaEmision.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaEmision)
             datetimepickerFechaPago.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaPago)
             textboxNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Numero)
@@ -80,7 +80,7 @@
             textboxCodigoPostal.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.CodigoPostal)
 
             'textboxEstado.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Estado)
-            CS_Control_ComboBox.SetSelectedValue(comboboxMotivoRechazo, SelectedItemOptions.Value, .IDChequeMotivoRechazo, CShort(0))
+            CS_ComboBox.SetSelectedValue(comboboxMotivoRechazo, SelectedItemOptions.Value, .IDChequeMotivoRechazo, CShort(0))
         End With
     End Sub
 

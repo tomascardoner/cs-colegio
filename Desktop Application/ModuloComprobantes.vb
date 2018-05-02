@@ -172,11 +172,11 @@
 
             ' Cargo los parámetros en variables para reducir tiempo de procesamiento
             If MesAFacturar = 0 Then
-                ArticuloActual = dbContext.Articulo.Find(CS_Parameter.GetIntegerAsShort(Parametros.CUOTA_MATRICULA_ARTICULO_ID))
+                ArticuloActual = dbContext.Articulo.Find(CS_Parameter_System.GetIntegerAsShort(Parametros.CUOTA_MATRICULA_ARTICULO_ID))
             Else
-                ArticuloActual = dbContext.Articulo.Find(CS_Parameter.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID))
+                ArticuloActual = dbContext.Articulo.Find(CS_Parameter_System.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID))
             End If
-            ComprobanteEntidadMayusculas = CS_Parameter.GetBoolean(Parametros.COMPROBANTE_ENTIDAD_MAYUSCULAS, False).Value
+            ComprobanteEntidadMayusculas = CS_Parameter_System.GetBoolean(Parametros.COMPROBANTE_ENTIDAD_MAYUSCULAS, False).Value
 
             For Each Alumno_AnioLectivoCurso_AFacturarActual As Alumno_AnioLectivoCurso_AFacturar In listAlumno_AnioLectivoCurso_AFacturar
                 AlumnoActual = Alumno_AnioLectivoCurso_AFacturarActual.Alumno
@@ -357,8 +357,8 @@
                 .IDDocumentoTipo = TitularComprobante.IDDocumentoTipo.Value
                 .DocumentoNumero = TitularComprobante.DocumentoNumero
             Else
-                .IDDocumentoTipo = CS_Parameter.GetIntegerAsByte(Parametros.CONSUMIDORFINAL_DOCUMENTOTIPO_ID)
-                .DocumentoNumero = CS_Parameter.GetString(Parametros.CONSUMIDORFINAL_DOCUMENTONUMERO)
+                .IDDocumentoTipo = CS_Parameter_System.GetIntegerAsByte(Parametros.CONSUMIDORFINAL_DOCUMENTOTIPO_ID)
+                .DocumentoNumero = CS_Parameter_System.GetString(Parametros.CONSUMIDORFINAL_DOCUMENTONUMERO)
             End If
             .IDCategoriaIVA = TitularComprobante.IDCategoriaIVA.Value
 
@@ -492,20 +492,20 @@
             ' Leo los valores comunes a todas las facturas
             If ModoHomologacion Then
                 .Certificado = My.Settings.AFIP_WS_Certificado_Homologacion
-                .WSAA_URL = CS_Parameter.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION)
-                .WSFEv1_URL = CS_Parameter.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION)
+                .WSAA_URL = CS_Parameter_System.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION)
+                .WSFEv1_URL = CS_Parameter_System.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION)
             Else
                 .Certificado = My.Settings.AFIP_WS_Certificado_Produccion
-                .WSAA_URL = CS_Parameter.GetString(Parametros.AFIP_WS_AA_PRODUCCION)
-                .WSFEv1_URL = CS_Parameter.GetString(Parametros.AFIP_WS_FE_PRODUCCION)
+                .WSAA_URL = CS_Parameter_System.GetString(Parametros.AFIP_WS_AA_PRODUCCION)
+                .WSFEv1_URL = CS_Parameter_System.GetString(Parametros.AFIP_WS_FE_PRODUCCION)
             End If
             .ClavePrivada = My.Settings.AFIP_WS_ClavePrivada
 
-            .InternetProxy = CS_Parameter.GetString(Parametros.INTERNET_PROXY, "")
-            .CUIT_Emisor = CS_Parameter.GetString(Parametros.EMPRESA_CUIT)
+            .InternetProxy = CS_Parameter_System.GetString(Parametros.INTERNET_PROXY, "")
+            .CUIT_Emisor = CS_Parameter_System.GetString(Parametros.EMPRESA_CUIT)
 
             Using dbContext As New CSColegioContext(True)
-                .MonedaLocal = dbContext.Moneda.Find(CS_Parameter.GetIntegerAsShort(Parametros.DEFAULT_MONEDA_ID))
+                .MonedaLocal = dbContext.Moneda.Find(CS_Parameter_System.GetIntegerAsShort(Parametros.DEFAULT_MONEDA_ID))
                 If .MonedaLocal Is Nothing Then
                     MsgBox("No se ha especificado la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
                     Return False

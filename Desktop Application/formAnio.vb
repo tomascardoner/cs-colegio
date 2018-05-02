@@ -87,9 +87,9 @@
             Else
                 textboxIDAnio.Text = String.Format(.IDAnio.ToString, "G")
             End If
-            CS_Control_ComboBox.SetSelectedValue(comboboxNivel, SelectedItemOptions.Value, .IDNivel)
+            CS_ComboBox.SetSelectedValue(comboboxNivel, SelectedItemOptions.Value, .IDNivel)
             textboxNombre.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Nombre)
-            CS_Control_ComboBox.SetSelectedValue(comboboxAnioSiguiente, SelectedItemOptions.Value, .IDAnioSiguiente, CByte(0))
+            CS_ComboBox.SetSelectedValue(comboboxAnioSiguiente, SelectedItemOptions.Value, .IDAnioSiguiente, CByte(0))
             checkboxEsActivo.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.EsActivo)
         End With
     End Sub

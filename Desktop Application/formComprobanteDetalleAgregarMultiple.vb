@@ -34,7 +34,7 @@
 
     Friend Sub InitializeFormAndControls()
         Using dbContext As New CSColegioContext(True)
-            mArticuloActual = dbContext.Articulo.Find(CS_Parameter.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID))
+            mArticuloActual = dbContext.Articulo.Find(CS_Parameter_System.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID))
         End Using
 
         For MesNumero As Integer = 1 To 12

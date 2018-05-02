@@ -64,7 +64,7 @@
 #Region "Load and Set Data"
     Friend Sub SetDataFromObjectToControls()
         With mComprobanteMedioPagoActual
-            CS_Control_ComboBox.SetSelectedValue(comboboxMedioPago, SelectedItemOptions.Value, .IDMedioPago, CByte(0))
+            CS_ComboBox.SetSelectedValue(comboboxMedioPago, SelectedItemOptions.Value, .IDMedioPago, CByte(0))
 
             If mMedioPagoCurrent.UtilizaFechaHora Then
                 datetimepickerFecha.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaHora)
@@ -79,7 +79,7 @@
                 textboxNumero.Text = ""
             End If
             If mMedioPagoCurrent.UtilizaBanco Then
-                CS_Control_ComboBox.SetSelectedValue(comboboxBanco, SelectedItemOptions.Value, .IDBanco, CShort(0))
+                CS_ComboBox.SetSelectedValue(comboboxBanco, SelectedItemOptions.Value, .IDBanco, CShort(0))
             Else
                 comboboxBanco.SelectedIndex = 0
             End If
@@ -94,7 +94,7 @@
                 textboxTitular.Text = ""
             End If
 
-            CS_Control_ComboBox.SetSelectedValue(comboboxCaja, SelectedItemOptions.Value, .IDCaja, CByte(0))
+            CS_ComboBox.SetSelectedValue(comboboxCaja, SelectedItemOptions.Value, .IDCaja, CByte(0))
             textboxImporte.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.Importe)
         End With
     End Sub

@@ -43,7 +43,7 @@ Public Class formComprobantesGenerarLote
         FechaServicioDesde = New Date(AnioLectivo, MesAFacturar, 1)
         FechaServicioHasta = FechaServicioDesde.AddMonths(1).AddDays(-1)
 
-        datetimepickerFechaVencimiento.Value = New Date(AnioLectivo, MesAFacturar, CS_Parameter.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO_DIA))
+        datetimepickerFechaVencimiento.Value = New Date(AnioLectivo, MesAFacturar, CS_Parameter_System.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO_DIA))
         If datetimepickerFechaVencimiento.Value.CompareTo(FechaEmision) < 0 Then
             datetimepickerFechaVencimiento.Value = FechaEmision
         End If

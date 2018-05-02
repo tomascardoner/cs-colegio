@@ -82,7 +82,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
 
     Private Sub buttonTransmitir_Click(sender As Object, e As EventArgs) Handles buttonExportar.Click
         If listComprobantes.Count > 0 Then
-            If CS_Parameter.GetString(Parametros.EMPRESA_ADDI_CODIGOSERVICIO) = "" Then
+            If CS_Parameter_System.GetString(Parametros.EMPRESA_ADDI_CODIGOSERVICIO) = "" Then
                 MsgBox("No está especificado el Código de Servicio otorgado por el Banco Santander.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 Exit Sub
             End If

@@ -82,7 +82,7 @@
                 textboxIDAnioLectivoCurso.Text = String.Format(.IDAnioLectivoCurso.ToString, "G")
             End If
             comboboxAnioLectivo.SelectedIndex = comboboxAnioLectivo.FindStringExact(.AnioLectivo.ToString)
-            CS_Control_ComboBox.SetSelectedValue(comboboxCurso, SelectedItemOptions.Value, .IDCurso)
+            CS_ComboBox.SetSelectedValue(comboboxCurso, SelectedItemOptions.Value, .IDCurso)
         End With
     End Sub
 

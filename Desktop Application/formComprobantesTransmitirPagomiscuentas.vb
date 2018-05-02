@@ -81,7 +81,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
 
     Private Sub buttonTransmitir_Click(sender As Object, e As EventArgs) Handles buttonExportar.Click
         If listComprobantes.Count > 0 Then
-            If CS_Parameter.GetIntegerAsShort(Parametros.EMPRESA_PRISMA_NUMERO) = 0 Then
+            If CS_Parameter_System.GetIntegerAsShort(Parametros.EMPRESA_PRISMA_NUMERO) = 0 Then
                 MsgBox("No está especificado el Número de Empresa otorgado por PRISMA.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 Exit Sub
             End If
@@ -128,7 +128,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
             CS_Error.ProcessError(ex, "Error el acceder o crear la carpeta especificada.")
         End Try
 
-        FileName = "FAC" & CS_Parameter.GetIntegerAsShort(Parametros.EMPRESA_PRISMA_NUMERO).ToString.PadRight(4, "0"c) & "." & DateTime.Today.ToString("ddMMyy")
+        FileName = "FAC" & CS_Parameter_System.GetIntegerAsShort(Parametros.EMPRESA_PRISMA_NUMERO).ToString.PadRight(4, "0"c) & "." & DateTime.Today.ToString("ddMMyy")
 
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
@@ -138,7 +138,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
             ' Header
             HeaderTextStream = "0"                                                                              ' Código de Registro
             HeaderTextStream &= "400"                                                                           ' Código Prisma
-            HeaderTextStream &= CS_Parameter.GetIntegerAsShort(Parametros.EMPRESA_PRISMA_NUMERO).ToString.PadRight(4, "0"c)     ' Código Empresa Prisma
+            HeaderTextStream &= CS_Parameter_System.GetIntegerAsShort(Parametros.EMPRESA_PRISMA_NUMERO).ToString.PadRight(4, "0"c)     ' Código Empresa Prisma
             HeaderTextStream &= DateTime.Today.ToString("yyyyMMdd")                                             ' Fecha de generación del archivo
             HeaderTextStream &= StrDup(264, "0"c)                                                               ' Filler
             outputFile.WriteLine(HeaderTextStream)
@@ -174,7 +174,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
             ' Tariler
             TrailerTextStream = "9"                                                                             ' Código de Registro
             TrailerTextStream &= "400"                                                                          ' Código Prisma
-            TrailerTextStream &= CS_Parameter.GetIntegerAsShort(Parametros.EMPRESA_PRISMA_NUMERO).ToString.PadLeft(4, "0"c)     ' Código Empresa Prisma
+            TrailerTextStream &= CS_Parameter_System.GetIntegerAsShort(Parametros.EMPRESA_PRISMA_NUMERO).ToString.PadLeft(4, "0"c)     ' Código Empresa Prisma
             TrailerTextStream &= DateTime.Today.ToString("yyyyMMdd")                                            ' Fecha de generación del archivo
             TrailerTextStream &= DetalleCount.ToString.PadLeft(7, "0"c)                                         ' Cantidad de registros de detalle
             TrailerTextStream &= StrDup(7, "0"c)                                                                ' Filler

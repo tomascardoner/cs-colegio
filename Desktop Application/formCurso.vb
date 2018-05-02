@@ -87,8 +87,8 @@
             Else
                 textboxIDCurso.Text = String.Format(.IDCurso.ToString, "G")
             End If
-            CS_Control_ComboBox.SetSelectedValue(comboboxAnio, SelectedItemOptions.Value, .IDAnio)
-            CS_Control_ComboBox.SetSelectedValue(comboboxTurno, SelectedItemOptions.Value, .IDTurno, CByte(0))
+            CS_ComboBox.SetSelectedValue(comboboxAnio, SelectedItemOptions.Value, .IDAnio)
+            CS_ComboBox.SetSelectedValue(comboboxTurno, SelectedItemOptions.Value, .IDTurno, CByte(0))
             textboxDivision.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Division)
             checkboxEsActivo.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.EsActivo)
         End With

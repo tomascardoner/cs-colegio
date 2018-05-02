@@ -62,8 +62,8 @@
     End Sub
 
     Friend Sub InitializeFormAndControls()
-        mIDArticuloMatricula = CS_Parameter.GetIntegerAsShort(Parametros.CUOTA_MATRICULA_ARTICULO_ID)
-        mIDArticuloMensual = CS_Parameter.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID)
+        mIDArticuloMatricula = CS_Parameter_System.GetIntegerAsShort(Parametros.CUOTA_MATRICULA_ARTICULO_ID)
+        mIDArticuloMensual = CS_Parameter_System.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID)
 
         ' Cargo los ComboBox
         pFillAndRefreshLists.Articulo(comboboxArticulo, False, False)
@@ -85,7 +85,7 @@
 #Region "Load and Set Data"
     Friend Sub SetDataFromObjectToControls()
         With mComprobanteDetalleActual
-            CS_Control_ComboBox.SetSelectedValue(comboboxArticulo, SelectedItemOptions.Value, .IDArticulo, CShort(0))
+            CS_ComboBox.SetSelectedValue(comboboxArticulo, SelectedItemOptions.Value, .IDArticulo, CShort(0))
             textboxCantidad.Text = CS_ValueTranslation.FromObjectDecimalToControlTextBox(.Cantidad)
             textboxUnidad.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Unidad)
             textboxDescripcion.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Descripcion)
@@ -106,7 +106,7 @@
             End If
 
             If (Not mArticuloActual Is Nothing) AndAlso (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual) Then
-                CS_Control_ComboBox.SetSelectedValue(comboboxAnioLectivoCurso, SelectedItemOptions.Value, .IDAnioLectivoCurso, CShort(0))
+                CS_ComboBox.SetSelectedValue(comboboxAnioLectivoCurso, SelectedItemOptions.Value, .IDAnioLectivoCurso, CShort(0))
             Else
                 comboboxAlumno.SelectedIndex = -1
                 comboboxAnioLectivoCurso.SelectedIndex = -1
