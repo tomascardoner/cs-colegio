@@ -37,14 +37,14 @@
                                         Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                         Where ct.EmisionElectronica And c.CAE Is Nothing And c.IDUsuarioAnulacion Is Nothing
                                         Order By ct.Nombre, c.NumeroCompleto
-                                        Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal}).ToList
+                                        Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal1}).ToList
 
                 Case Is > 0 ' Cantidad de Comprobantes
                     listComprobantes = (From c In dbContext.Comprobante
                                         Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                         Where ct.EmisionElectronica And c.CAE Is Nothing And c.IDUsuarioAnulacion Is Nothing
                                         Order By ct.Nombre, c.PuntoVenta, c.Numero
-                                        Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal}).Take(CInt(comboboxCantidad.Text)).ToList
+                                        Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal1}).Take(CInt(comboboxCantidad.Text)).ToList
 
             End Select
 
@@ -119,7 +119,7 @@
                                         MensajeError &= vbCrLf
                                         MensajeError &= "Titular: " & ComprobanteActual.ApellidoNombre
                                         MensajeError &= vbCrLf
-                                        MensajeError &= "Importe: " & FormatCurrency(ComprobanteActual.ImporteTotal)
+                                        MensajeError &= "Importe: " & FormatCurrency(ComprobanteActual.ImporteTotal1)
                                         If Objeto_AFIP_WS.UltimoResultadoCAE.Observaciones <> "" Then
                                             MensajeError &= vbCrLf & vbCrLf
                                             MensajeError &= "Observaciones: " & Objeto_AFIP_WS.UltimoResultadoCAE.Observaciones

@@ -17,7 +17,6 @@ Partial Public Class Comprobante
     Public Property Numero As String
     Public Property NumeroCompleto As String
     Public Property FechaEmision As Date
-    Public Property FechaVencimiento As Nullable(Of Date)
     Public Property IDConcepto As Nullable(Of Byte)
     Public Property FechaServicioDesde As Nullable(Of Date)
     Public Property FechaServicioHasta As Nullable(Of Date)
@@ -33,7 +32,12 @@ Partial Public Class Comprobante
     Public Property Leyenda As String
     Public Property ImporteSubtotal As Decimal
     Public Property ImporteImpuesto As Decimal
-    Public Property ImporteTotal As Decimal
+    Public Property FechaVencimiento1 As Nullable(Of Date)
+    Public Property ImporteTotal1 As Decimal
+    Public Property FechaVencimiento2 As Nullable(Of Date)
+    Public Property ImporteTotal2 As Nullable(Of Decimal)
+    Public Property FechaVencimiento3 As Nullable(Of Date)
+    Public Property ImporteTotal3 As Nullable(Of Decimal)
     Public Property Notas As String
     Public Property CAE As String
     Public Property CAEVencimiento As Nullable(Of Date)

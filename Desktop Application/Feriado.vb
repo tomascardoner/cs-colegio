@@ -13,6 +13,5 @@ Imports System.Collections.Generic
 Partial Public Class Feriado
     Public Property Fecha As Date
     Public Property Motivo As String
-    Public Property Tipo As String
 
 End Class

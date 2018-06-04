@@ -469,15 +469,6 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Mailer-Daemon@orlando.dattaweb.com")>  _
-        Public ReadOnly Property Email_Delivery_Failed_SenderAddress() As String
-            Get
-                Return CType(Me("Email_Delivery_Failed_SenderAddress"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("RV: Mail delivery failed: returning message to sender")>  _
         Public ReadOnly Property Email_Delivery_Failed_Subject() As String
             Get
@@ -500,6 +491,15 @@ Namespace My
         Public ReadOnly Property Email_Delivery_Failed_RejectedAddress_PreviousText() As String
             Get
                 Return CType(Me("Email_Delivery_Failed_RejectedAddress_PreviousText"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Mailer-Daemon@orlando.dattaweb.com")>  _
+        Public ReadOnly Property Email_Delivery_Failed_SenderAddress() As String
+            Get
+                Return CType(Me("Email_Delivery_Failed_SenderAddress"),String)
             End Get
         End Property
     End Class

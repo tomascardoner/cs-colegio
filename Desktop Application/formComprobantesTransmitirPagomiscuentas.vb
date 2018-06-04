@@ -42,7 +42,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
                                     Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                     Where c.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And ct.EmisionElectronica And c.CAE IsNot Nothing And c.IDUsuarioAnulacion Is Nothing
                                     Order By ct.Nombre, c.NumeroCompleto
-                                    Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal}).ToList
+                                    Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal1}).ToList
 
                 Select Case listComprobantes.Count
                     Case 0
@@ -152,12 +152,22 @@ Public Class formComprobantesTransmitirPagomiscuentas
                     DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString.PadRight(19, " "c)    ' Número de Referencia
                     DetalleTextStream &= ComprobanteActual.NumeroCompleto.ToString.PadRight(20, " "c)       ' Id. Factura
                     DetalleTextStream &= "0"                                                                ' Código de Moneda
-                    DetalleTextStream &= ComprobanteActual.FechaVencimiento.Value.ToString("yyyyMMdd")      ' Fecha 1er. vencimiento
-                    DetalleTextStream &= ComprobanteActual.ImporteTotal.ToString("000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 1er. vencimiento
-                    DetalleTextStream &= StrDup(8, "0"c)                                                    ' Fecha 2do. vencimiento
-                    DetalleTextStream &= StrDup(11, "0"c)                                                   ' Importe 2do. vencimiento
-                    DetalleTextStream &= StrDup(8, "0"c)                                                    ' Fecha 3er. vencimiento
-                    DetalleTextStream &= StrDup(11, "0"c)                                                   ' Importe 3er. vencimiento
+                    DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.ToString("yyyyMMdd")     ' Fecha 1er. vencimiento
+                    DetalleTextStream &= ComprobanteActual.ImporteTotal1.ToString("000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")   ' Importe 1er. vencimiento
+                    If ComprobanteActual.ImporteTotal2.HasValue Then
+                        DetalleTextStream &= ComprobanteActual.FechaVencimiento2.Value.ToString("yyyyMMdd")     ' Fecha 2do. vencimiento
+                        DetalleTextStream &= ComprobanteActual.ImporteTotal2.Value.ToString("000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")   ' Importe 2do. vencimiento
+                    Else
+                        DetalleTextStream &= StrDup(8, "0"c)                                                    ' Fecha 2do. vencimiento
+                        DetalleTextStream &= StrDup(11, "0"c)                                                   ' Importe 2do. vencimiento
+                    End If
+                    If ComprobanteActual.ImporteTotal3.HasValue Then
+                        DetalleTextStream &= ComprobanteActual.FechaVencimiento3.Value.ToString("yyyyMMdd")     ' Fecha 3er. vencimiento
+                        DetalleTextStream &= ComprobanteActual.ImporteTotal3.Value.ToString("000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")   ' Importe 3er. vencimiento
+                    Else
+                        DetalleTextStream &= StrDup(8, "0"c)                                                    ' Fecha 3er. vencimiento
+                        DetalleTextStream &= StrDup(11, "0"c)                                                   ' Importe 3er. vencimiento
+                    End If
                     DetalleTextStream &= StrDup(19, "0"c)                                                   ' Filler
                     DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString.PadRight(19, " "c)    ' Número de Referencia anterior
                     DetalleTextStream &= (ComprobanteActual.ComprobanteTipo.NombreConLetra.ToUpper.Replace("""", "") & " " & ComprobanteActual.NumeroCompleto).PadRight(40, " "c) ' Mensaje Ticket
@@ -167,7 +177,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
                     outputFile.WriteLine(DetalleTextStream)
 
                     DetalleCount += 1
-                    DetalleImporteTotal += ComprobanteActual.ImporteTotal
+                    DetalleImporteTotal += ComprobanteActual.ImporteTotal1
                 End If
             Next
 

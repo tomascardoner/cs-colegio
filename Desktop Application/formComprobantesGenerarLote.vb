@@ -43,7 +43,7 @@ Public Class formComprobantesGenerarLote
         FechaServicioDesde = New Date(AnioLectivo, MesAFacturar, 1)
         FechaServicioHasta = FechaServicioDesde.AddMonths(1).AddDays(-1)
 
-        datetimepickerFechaVencimiento.Value = New Date(AnioLectivo, MesAFacturar, CS_Parameter_System.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO_DIA))
+        datetimepickerFechaVencimiento.Value = New Date(AnioLectivo, MesAFacturar, CS_Parameter_System.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO1_DIA))
         If datetimepickerFechaVencimiento.Value.CompareTo(FechaEmision) < 0 Then
             datetimepickerFechaVencimiento.Value = FechaEmision
         End If
@@ -434,7 +434,7 @@ Public Class formComprobantesGenerarLote
                 listAlumno_AnioLectivoCurso_AFacturar.Add(Alumno_AnioLectivoCurso_AFacturarNuevo)
             Next
 
-            If ModuloComprobantes.GenerarComprobantes(FechaEmision, datetimepickerFechaVencimiento.Value, FechaServicioDesde, FechaServicioHasta, Constantes.COMPROBANTE_CONCEPTO_SERVICIOS, FacturaLote.IDComprobanteLote, AnioLectivo, MesAFacturar, False, listAlumno_AnioLectivoCurso_AFacturar, listFacturas) Then
+            If ModuloComprobantes.GenerarComprobantes(FechaEmision, datetimepickerFechaVencimiento.Value, New Date(datetimepickerFechaVencimiento.Value.Year, datetimepickerFechaVencimiento.Value.Month, CS_Parameter_System.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO2_DIA)), New Date(datetimepickerFechaVencimiento.Value.Year, datetimepickerFechaVencimiento.Value.Month, CS_Parameter_System.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO3_DIA)), FechaServicioDesde, FechaServicioHasta, Constantes.COMPROBANTE_CONCEPTO_SERVICIOS, FacturaLote.IDComprobanteLote, AnioLectivo, MesAFacturar, False, listAlumno_AnioLectivoCurso_AFacturar, listFacturas) Then
 
                 datagridviewPaso3Cabecera.AutoGenerateColumns = False
                 datagridviewPaso3Cabecera.DataSource = listFacturas

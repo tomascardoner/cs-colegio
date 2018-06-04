@@ -279,8 +279,8 @@ Module MiscFunctions
                 For Each ComprobanteAplicacionActual As ComprobanteAplicacion In ComprobanteAplicaciones
                     ComprobanteAplicadoActual = dbContext.Comprobante.Find(ComprobanteAplicacionActual.IDComprobanteAplicado)
 
-                    If ComprobanteAplicadoActual.FechaVencimiento.HasValue Then
-                        DiasTranscurridos = DateDiff(DateInterval.Day, ComprobanteAplicadoActual.FechaVencimiento.Value, FechaCalculo)
+                    If ComprobanteAplicadoActual.FechaVencimiento1.HasValue Then
+                        DiasTranscurridos = DateDiff(DateInterval.Day, ComprobanteAplicadoActual.FechaVencimiento1.Value, FechaCalculo)
                         If DiasTranscurridos > 0 AndAlso DiasTranscurridos > CS_Parameter_System.GetIntegerAsInteger(Parametros.COMPROBANTE_APLICACION_INTERES_DIASTOLERANCIA) Then
                             PorcentajeInteresAplicar = DiasTranscurridos * PorcentajeInteresDiario
                             ImporteInteresAcumulado += ComprobanteAplicacionActual.Importe * PorcentajeInteresAplicar / 100

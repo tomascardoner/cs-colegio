@@ -165,7 +165,7 @@
             datetimepickerFechaEmision.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaEmision, datetimepickerFechaEmision)
 
             ' Fechas
-            datetimepickerFechaVencimiento.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaVencimiento, datetimepickerFechaVencimiento)
+            datetimepickerFechaVencimiento.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaVencimiento1, datetimepickerFechaVencimiento)
             datetimepickerFechaServicioDesde.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaServicioDesde, datetimepickerFechaServicioDesde)
             datetimepickerFechaServicioHasta.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaServicioHasta, datetimepickerFechaServicioHasta)
 
@@ -214,7 +214,7 @@
             textboxAplicaciones_Subtotal.Text = FormatCurrency(0)
             textboxInteres_Subtotal.Text = FormatCurrency(0)
             textboxMediosPago_Subtotal.Text = FormatCurrency(0)
-            textboxImporteTotal.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.ImporteTotal)
+            textboxImporteTotal.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.ImporteTotal1)
 
             If .IDComprobante > 0 Then
                 If mComprobanteActual.ComprobanteTipo.UtilizaAplicacion Then
@@ -238,7 +238,7 @@
             .FechaEmision = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFechaEmision.Value).Value
 
             ' Fechas
-            .FechaVencimiento = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFechaVencimiento.Value, datetimepickerFechaVencimiento.Checked)
+            .FechaVencimiento1 = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFechaVencimiento.Value, datetimepickerFechaVencimiento.Checked)
             .FechaServicioDesde = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFechaServicioDesde.Value, datetimepickerFechaServicioDesde.Checked)
             .FechaServicioHasta = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFechaServicioHasta.Value, datetimepickerFechaServicioHasta.Checked)
 
@@ -274,9 +274,9 @@
             .Notas = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNotas.Text.Trim)
 
             ' Datos del Pie - Importes Totales
-            .ImporteTotal = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteTotal.Text).Value
+            .ImporteTotal1 = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteTotal.Text).Value
             .ImporteImpuesto = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImpuestos_Subtotal.Text).Value
-            .ImporteSubtotal = .ImporteTotal - .ImporteImpuesto
+            .ImporteSubtotal = .ImporteTotal1 - .ImporteImpuesto
         End With
     End Sub
 
@@ -344,7 +344,7 @@
                                 Join c In mdbContext.Comprobante On ca.IDComprobanteAplicado Equals c.IDComprobante
                                 Join ct In mdbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                 Group Join cam In mdbContext.ComprobanteAplicacionMotivo On ca.IDComprobanteAplicacionMotivo Equals cam.IDComprobanteAplicacionMotivo Into g = Group
-                                Select New GridRowData_Aplicacion With {.ComprobanteAplicacion = ca, .Motivo = g.DefaultIfEmpty(New ComprobanteAplicacionMotivo).FirstOrDefault.Nombre, .ComprobanteTipoNombre = ct.Nombre, .MovimientoTipo = ct.MovimientoTipo, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal, .ImporteAplicado = ca.Importe}).ToList
+                                Select New GridRowData_Aplicacion With {.ComprobanteAplicacion = ca, .Motivo = g.DefaultIfEmpty(New ComprobanteAplicacionMotivo).FirstOrDefault.Nombre, .ComprobanteTipoNombre = ct.Nombre, .MovimientoTipo = ct.MovimientoTipo, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal1, .ImporteAplicado = ca.Importe}).ToList
 
             datagridviewAplicaciones.AutoGenerateColumns = False
             datagridviewAplicaciones.DataSource = listAplicaciones
@@ -499,8 +499,8 @@
 
             EntidadActual = dbContext.Entidad.Find(mEntidad.IDEntidad)
 
-            Debitos = EntidadActual.Comprobante.Where(Function(c) c.IDUsuarioAnulacion Is Nothing And c.ComprobanteTipo.MovimientoTipo = "D").Sum(Function(c) c.ImporteTotal)
-            Creditos = EntidadActual.Comprobante.Where(Function(c) c.IDUsuarioAnulacion Is Nothing And c.ComprobanteTipo.MovimientoTipo = "C").Sum(Function(c) c.ImporteTotal)
+            Debitos = EntidadActual.Comprobante.Where(Function(c) c.IDUsuarioAnulacion Is Nothing And c.ComprobanteTipo.MovimientoTipo = "D").Sum(Function(c) c.ImporteTotal1)
+            Creditos = EntidadActual.Comprobante.Where(Function(c) c.IDUsuarioAnulacion Is Nothing And c.ComprobanteTipo.MovimientoTipo = "C").Sum(Function(c) c.ImporteTotal1)
             SaldoActual = Debitos - Creditos
 
             MsgBox(String.Format("El Saldo actual es: {0}", FormatCurrency(SaldoActual)), MsgBoxStyle.Information, My.Application.Info.Title)
@@ -1238,7 +1238,7 @@
                                 MensajeError &= vbCrLf
                                 MensajeError &= "Titular: " & ComprobanteActual.ApellidoNombre
                                 MensajeError &= vbCrLf
-                                MensajeError &= "Importe: " & FormatCurrency(ComprobanteActual.ImporteTotal)
+                                MensajeError &= "Importe: " & FormatCurrency(ComprobanteActual.ImporteTotal1)
                                 If Objeto_AFIP_WS.UltimoResultadoCAE.Observaciones <> "" Then
                                     MensajeError &= vbCrLf & vbCrLf
                                     MensajeError &= "Observaciones: " & Objeto_AFIP_WS.UltimoResultadoCAE.Observaciones

@@ -152,7 +152,7 @@
     ''' <param name="IDComprobanteLote">ID del Lote a generar. 0 (cero) si no especifica Lote.</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Friend Function GenerarComprobantes(ByVal FechaEmision As Date, ByVal FechaVencimiento As Date, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByVal AnioLectivoAFacturar As Short, ByVal MesAFacturar As Byte, ByVal MuestraErrores As Boolean, ByRef listAlumno_AnioLectivoCurso_AFacturar As List(Of Alumno_AnioLectivoCurso_AFacturar), ByRef listComprobantes As List(Of Comprobante)) As Boolean
+    Friend Function GenerarComprobantes(ByVal FechaEmision As Date, ByVal FechaVencimiento1 As Date, ByVal FechaVencimiento2 As Date, ByVal FechaVencimiento3 As Date, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByVal AnioLectivoAFacturar As Short, ByVal MesAFacturar As Byte, ByVal MuestraErrores As Boolean, ByRef listAlumno_AnioLectivoCurso_AFacturar As List(Of Alumno_AnioLectivoCurso_AFacturar), ByRef listComprobantes As List(Of Comprobante)) As Boolean
         ' Parámetros
         Dim ArticuloActual As Articulo
         Dim ComprobanteEntidadMayusculas As Boolean
@@ -187,7 +187,7 @@
                 '//////////////////////////////////////////////////////
                 If AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO Then
                     TitularComprobante = AlumnoActual
-                    If Not GenerarComprobante(dbContext, listComprobantes, FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, ComprobanteEntidadMayusculas, AlumnoActual, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, MuestraErrores) Then
+                    If Not GenerarComprobante(dbContext, listComprobantes, FechaEmision, FechaVencimiento1, FechaVencimiento2, FechaVencimiento3, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, ComprobanteEntidadMayusculas, AlumnoActual, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, MuestraErrores) Then
                         Return False
                     End If
                 End If
@@ -197,7 +197,7 @@
                 '//////////////////////////////////////////////////////
                 If AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE Or AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                     TitularComprobante = AlumnoActual.EntidadPadre
-                    If Not GenerarComprobante(dbContext, listComprobantes, FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, ComprobanteEntidadMayusculas, AlumnoActual, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, MuestraErrores) Then
+                    If Not GenerarComprobante(dbContext, listComprobantes, FechaEmision, FechaVencimiento1, FechaVencimiento2, FechaVencimiento3, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, ComprobanteEntidadMayusculas, AlumnoActual, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, MuestraErrores) Then
                         Return False
                     End If
                 End If
@@ -207,7 +207,7 @@
                 '//////////////////////////////////////////////////////
                 If AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE Or AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                     TitularComprobante = AlumnoActual.EntidadMadre
-                    If Not GenerarComprobante(dbContext, listComprobantes, FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, ComprobanteEntidadMayusculas, AlumnoActual, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, MuestraErrores) Then
+                    If Not GenerarComprobante(dbContext, listComprobantes, FechaEmision, FechaVencimiento1, FechaVencimiento2, FechaVencimiento3, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, ComprobanteEntidadMayusculas, AlumnoActual, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, MuestraErrores) Then
                         Return False
                     End If
                 End If
@@ -217,7 +217,7 @@
                 '//////////////////////////////////////////////////////
                 If AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                     TitularComprobante = AlumnoActual.EntidadTercero
-                    If Not GenerarComprobante(dbContext, listComprobantes, FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, ComprobanteEntidadMayusculas, AlumnoActual, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, MuestraErrores) Then
+                    If Not GenerarComprobante(dbContext, listComprobantes, FechaEmision, FechaVencimiento1, FechaVencimiento2, FechaVencimiento3, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, ComprobanteEntidadMayusculas, AlumnoActual, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, MuestraErrores) Then
                         Return False
                     End If
                 End If
@@ -264,47 +264,54 @@
         Return True
     End Function
 
-    Private Function GenerarComprobante(ByRef dbContext As CSColegioContext, ByRef listComprobantes As List(Of Comprobante), ByVal FechaEmision As Date, ByVal FechaVencimiento As Date, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByVal TitularComprobante As Entidad, ByVal TitularComprobanteMayusculas As Boolean, ByVal Alumno As Entidad, ByVal AnioLectivoCursoActual As AnioLectivoCurso, ByVal ArticuloActual As Articulo, ByVal AnioLectivoAFacturar As Short, ByVal MesAFacturar As Byte, ByVal MuestraErrores As Boolean) As Boolean
+    Private Function GenerarComprobante(ByRef dbContext As CSColegioContext, ByRef listComprobantes As List(Of Comprobante), ByVal FechaEmision As Date, ByVal FechaVencimiento1 As Date, ByVal FechaVencimiento2 As Date, ByVal FechaVencimiento3 As Date, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByVal TitularComprobante As Entidad, ByVal TitularComprobanteMayusculas As Boolean, ByVal Alumno As Entidad, ByVal AnioLectivoCursoActual As AnioLectivoCurso, ByVal ArticuloActual As Articulo, ByVal AnioLectivoAFacturar As Short, ByVal MesAFacturar As Byte, ByVal MuestraErrores As Boolean) As Boolean
         Dim ComprobanteCabecera As Comprobante
         Dim ComprobanteDetalleActual As ComprobanteDetalle
 
+        Dim Vencimiento2PorcentajeInteres As Decimal
+        Dim Vencimiento2Importe As Decimal
+        Dim Vencimiento3PorcentajeInteres As Decimal
+        Dim Vencimiento3Importe As Decimal
+        Dim InteresRedondeo As Short
+
         If Alumno.FacturaIndividual Then
             ' El Alumno especifica que se le facture individualmente
-            ComprobanteCabecera = GenerarComprobanteCabecera(FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, Alumno.FacturaLeyenda, TitularComprobanteMayusculas)
+            ComprobanteCabecera = GenerarComprobanteCabecera(FechaEmision, FechaVencimiento1, FechaVencimiento2, FechaVencimiento3, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, Alumno.FacturaLeyenda, TitularComprobanteMayusculas)
             ComprobanteDetalleActual = GenerarComprobanteDetalle(ComprobanteCabecera, Alumno, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, MuestraErrores)
             If ComprobanteDetalleActual Is Nothing Then
                 Return False
             End If
             ComprobanteCabecera.ImporteSubtotal = ComprobanteDetalleActual.PrecioTotal
             ComprobanteCabecera.ImporteImpuesto = 0
-            ComprobanteCabecera.ImporteTotal = ComprobanteCabecera.ImporteSubtotal
+            ComprobanteCabecera.ImporteTotal1 = ComprobanteCabecera.ImporteSubtotal
+
             listComprobantes.Add(ComprobanteCabecera)
         Else
             ' Busco si existe un Comprobante de esta Entidad Titular en la lista de Comprobantes (por otro Alumno)
             ComprobanteCabecera = listComprobantes.Find(Function(fc) fc.IDEntidad = TitularComprobante.IDEntidad)
             If ComprobanteCabecera Is Nothing Then
                 ' No existe la Factura, la creo.
-                ComprobanteCabecera = GenerarComprobanteCabecera(FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, Alumno.FacturaLeyenda, TitularComprobanteMayusculas)
+                ComprobanteCabecera = GenerarComprobanteCabecera(FechaEmision, FechaVencimiento1, FechaVencimiento2, FechaVencimiento3, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, Alumno.FacturaLeyenda, TitularComprobanteMayusculas)
                 ComprobanteDetalleActual = GenerarComprobanteDetalle(ComprobanteCabecera, Alumno, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, MuestraErrores)
                 If ComprobanteDetalleActual Is Nothing Then
                     Return False
                 End If
                 ComprobanteCabecera.ImporteSubtotal = ComprobanteDetalleActual.PrecioTotal
                 ComprobanteCabecera.ImporteImpuesto = 0
-                ComprobanteCabecera.ImporteTotal = ComprobanteCabecera.ImporteSubtotal
+                ComprobanteCabecera.ImporteTotal1 = ComprobanteCabecera.ImporteSubtotal
                 listComprobantes.Add(ComprobanteCabecera)
             Else
                 ' Ya existe un Comprobante de ese Titular
                 If dbContext.Entidad.Find(ComprobanteCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
                     ' El Alumno que ya está en la Factura especifica que se le facture individualmente
-                    ComprobanteCabecera = GenerarComprobanteCabecera(FechaEmision, FechaVencimiento, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, Alumno.FacturaLeyenda, TitularComprobanteMayusculas)
+                    ComprobanteCabecera = GenerarComprobanteCabecera(FechaEmision, FechaVencimiento1, FechaVencimiento2, FechaVencimiento3, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, Alumno.FacturaLeyenda, TitularComprobanteMayusculas)
                     ComprobanteDetalleActual = GenerarComprobanteDetalle(ComprobanteCabecera, Alumno, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, MuestraErrores)
                     If ComprobanteDetalleActual Is Nothing Then
                         Return False
                     End If
                     ComprobanteCabecera.ImporteSubtotal = ComprobanteDetalleActual.PrecioTotal
                     ComprobanteCabecera.ImporteImpuesto = 0
-                    ComprobanteCabecera.ImporteTotal = ComprobanteCabecera.ImporteSubtotal
+                    ComprobanteCabecera.ImporteTotal1 = ComprobanteCabecera.ImporteSubtotal
                     listComprobantes.Add(ComprobanteCabecera)
                 Else
                     ' No hay restricciones, así que sólo agrego un item al Detalle
@@ -321,22 +328,46 @@
                     End If
                     ComprobanteCabecera.ImporteSubtotal += ComprobanteDetalleActual.PrecioTotal
                     ComprobanteCabecera.ImporteImpuesto = 0
-                    ComprobanteCabecera.ImporteTotal = ComprobanteCabecera.ImporteSubtotal
+                    ComprobanteCabecera.ImporteTotal1 = ComprobanteCabecera.ImporteSubtotal
                 End If
             End If
         End If
 
+        ' Calculo los intereses para los siguientes vencimientos
+        InteresRedondeo = CS_Parameter_System.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_VENCIMIENTO_INTERES_REDONDEO)
+
+        Vencimiento2PorcentajeInteres = CS_Parameter_System.GetDecimal(Parametros.CUOTA_MENSUAL_VENCIMIENTO2_INTERES)
+        If Vencimiento2PorcentajeInteres > 0 Then
+            Vencimiento2Importe = ComprobanteCabecera.ImporteTotal1 + (ComprobanteCabecera.ImporteTotal1 * Vencimiento2PorcentajeInteres / 100)
+            If InteresRedondeo > 0 Then
+                Vencimiento2Importe = Math.Round(Vencimiento2Importe / InteresRedondeo, 0, MidpointRounding.AwayFromZero) * InteresRedondeo
+            End If
+        Else
+            Vencimiento2Importe = 0
+        End If
+        ComprobanteCabecera.ImporteTotal2 = Vencimiento2Importe
+
+        Vencimiento3PorcentajeInteres = CS_Parameter_System.GetDecimal(Parametros.CUOTA_MENSUAL_VENCIMIENTO3_INTERES)
+        If Vencimiento3PorcentajeInteres > 0 Then
+            Vencimiento3Importe = ComprobanteCabecera.ImporteTotal1 + (ComprobanteCabecera.ImporteTotal1 * Vencimiento3PorcentajeInteres / 100)
+            If InteresRedondeo > 0 Then
+                Vencimiento3Importe = Math.Round(Vencimiento3Importe / InteresRedondeo, 0, MidpointRounding.AwayFromZero) * InteresRedondeo
+            End If
+        Else
+            Vencimiento3Importe = 0
+        End If
+        ComprobanteCabecera.ImporteTotal3 = Vencimiento3Importe
+
         Return True
     End Function
 
-    Private Function GenerarComprobanteCabecera(ByVal FechaEmision As Date, ByVal FechaVencimiento As Date, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByRef TitularComprobante As Entidad, ByVal LeyendaAlumno As String, ByVal TitularComprobanteMayusculas As Boolean) As Comprobante
+    Private Function GenerarComprobanteCabecera(ByVal FechaEmision As Date, ByVal FechaVencimiento1 As Date, ByVal FechaVencimiento2 As Date, ByVal FechaVencimiento3 As Date, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByRef TitularComprobante As Entidad, ByVal LeyendaAlumno As String, ByVal TitularComprobanteMayusculas As Boolean) As Comprobante
         Dim ComprobanteCabecera As New Comprobante
 
         With ComprobanteCabecera
             ' Cabecera
             .IDComprobanteTipo = TitularComprobante.CategoriaIVA.VentaIDComprobanteTipo
             .FechaEmision = FechaEmision
-            .FechaVencimiento = FechaVencimiento
             .IDConcepto = IDConcepto
             .FechaServicioDesde = FechaServicioDesde
             .FechaServicioHasta = FechaServicioHasta
@@ -382,6 +413,11 @@
                     .Leyenda &= vbCrLf & LeyendaAlumno
                 End If
             End If
+
+            ' Vencimientos
+            .FechaVencimiento1 = FechaVencimiento1
+            .FechaVencimiento2 = FechaVencimiento2
+            .FechaVencimiento3 = FechaVencimiento3
 
             ' Auditoría
             .IDUsuarioCreacion = pUsuario.IDUsuario
@@ -586,9 +622,9 @@
                         .ComprobanteFecha = ComprobanteActual.FechaEmision
 
                         ' Importes
-                        .ImporteTotal = ComprobanteActual.ImporteTotal
+                        .ImporteTotal = ComprobanteActual.ImporteTotal1
                         .ImporteTotalConc = 0
-                        .ImporteNeto = ComprobanteActual.ImporteTotal
+                        .ImporteNeto = ComprobanteActual.ImporteTotal1
                         .ImporteOperacionesExentas = 0
                         .ImporteTributos = 0
                         .ImporteIVA = ComprobanteActual.ImporteImpuesto
@@ -600,8 +636,8 @@
                         If ComprobanteActual.FechaServicioHasta.HasValue Then
                             .FechaServicioHasta = ComprobanteActual.FechaServicioHasta.Value
                         End If
-                        If ComprobanteActual.FechaVencimiento.HasValue Then
-                            .FechaVencimientoPago = ComprobanteActual.FechaVencimiento.Value
+                        If ComprobanteActual.FechaVencimiento1.HasValue Then
+                            .FechaVencimientoPago = ComprobanteActual.FechaVencimiento1.Value
                         End If
 
                         ' Moneda

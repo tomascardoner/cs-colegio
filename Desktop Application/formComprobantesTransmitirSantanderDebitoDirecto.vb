@@ -43,7 +43,7 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
                                     Join e In dbContext.Entidad On c.IDEntidad Equals e.IDEntidad
                                     Where c.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And ct.EmisionElectronica And c.CAE IsNot Nothing And c.IDUsuarioAnulacion Is Nothing And e.DebitoAutomaticoTipo = Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO
                                     Order By ct.Nombre, c.NumeroCompleto
-                                    Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal}).ToList
+                                    Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal1}).ToList
 
                 Select Case listComprobantes.Count
                     Case 0
@@ -130,8 +130,8 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
                     DetalleTextStream &= CS_Parameter_System.GetString(Parametros.EMPRESA_ADDI_CODIGOSERVICIO).PadRight(10, " "c)  ' Código de Servicio
                     DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString("000000").PadRight(22, " "c)          ' Número de Partida
                     DetalleTextStream &= ComprobanteActual.Entidad.DebitoAutomaticoCBU                      ' CBU
-                    DetalleTextStream &= ComprobanteActual.FechaVencimiento.Value.ToString("yyyyMMdd")      ' Fecha 1er. vencimiento
-                    DetalleTextStream &= ComprobanteActual.ImporteTotal.ToString("00000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 1er. vencimiento
+                    DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.ToString("yyyyMMdd")      ' Fecha 1er. vencimiento
+                    DetalleTextStream &= ComprobanteActual.ImporteTotal1.ToString("00000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 1er. vencimiento
                     DetalleTextStream &= (ComprobanteActual.ComprobanteTipo.Sigla & ComprobanteActual.PuntoVenta & ComprobanteActual.Numero).PadRight(15, " "c)       ' Identificación Débito
                     DetalleTextStream &= CS_String.RemoveDiacritics(ComprobanteActual.ApellidoNombre).PadRight(30, " "c).Substring(0, 30)   ' Nombre del Adherente
                     DetalleTextStream &= " "                                                                ' Filler
@@ -140,7 +140,7 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
                     DetalleTextStream &= vbCrLf
 
                     DetalleCount += 1
-                    DetalleImporteTotal += ComprobanteActual.ImporteTotal
+                    DetalleImporteTotal += ComprobanteActual.ImporteTotal1
                 End If
             Next
 

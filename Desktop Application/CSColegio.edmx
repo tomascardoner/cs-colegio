@@ -167,7 +167,6 @@
           <Property Name="Numero" Type="char" MaxLength="8" Nullable="false" />
           <Property Name="NumeroCompleto" Type="varchar" MaxLength="13" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="FechaEmision" Type="date" Nullable="false" />
-          <Property Name="FechaVencimiento" Type="date" />
           <Property Name="IDConcepto" Type="tinyint" />
           <Property Name="FechaServicioDesde" Type="date" />
           <Property Name="FechaServicioHasta" Type="date" />
@@ -183,7 +182,12 @@
           <Property Name="Leyenda" Type="varchar(max)" />
           <Property Name="ImporteSubtotal" Type="money" Nullable="false" />
           <Property Name="ImporteImpuesto" Type="money" Nullable="false" />
-          <Property Name="ImporteTotal" Type="money" Nullable="false" />
+          <Property Name="FechaVencimiento1" Type="date" />
+          <Property Name="ImporteTotal1" Type="money" Nullable="false" />
+          <Property Name="FechaVencimiento2" Type="date" />
+          <Property Name="ImporteTotal2" Type="money" />
+          <Property Name="FechaVencimiento3" Type="date" />
+          <Property Name="ImporteTotal3" Type="money" />
           <Property Name="Notas" Type="varchar(max)" />
           <Property Name="CAE" Type="char" MaxLength="14" />
           <Property Name="CAEVencimiento" Type="date" />
@@ -492,7 +496,6 @@
           </Key>
           <Property Name="Fecha" Type="date" Nullable="false" />
           <Property Name="Motivo" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Tipo" Type="char" MaxLength="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Impuesto">
           <Key>
@@ -3279,7 +3282,6 @@
           </Key>
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Motivo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Tipo" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="Caja">
           <Key>
@@ -3309,7 +3311,6 @@
           <Property Name="Numero" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
           <Property Name="NumeroCompleto" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="FechaEmision" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="FechaVencimiento" Type="DateTime" Precision="0" />
           <Property Name="IDConcepto" Type="Byte" />
           <Property Name="FechaServicioDesde" Type="DateTime" Precision="0" />
           <Property Name="FechaServicioHasta" Type="DateTime" Precision="0" />
@@ -3325,7 +3326,12 @@
           <Property Name="Leyenda" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ImporteSubtotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="ImporteImpuesto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="ImporteTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="FechaVencimiento1" Type="DateTime" Precision="0" />
+          <Property Name="ImporteTotal1" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="FechaVencimiento2" Type="DateTime" Precision="0" />
+          <Property Name="ImporteTotal2" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="FechaVencimiento3" Type="DateTime" Precision="0" />
+          <Property Name="ImporteTotal3" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CAE" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
           <Property Name="CAEVencimiento" Type="DateTime" Precision="0" />
@@ -4553,7 +4559,6 @@
           <EntitySetMapping Name="Feriado">
             <EntityTypeMapping TypeName="CSColegioModel.Feriado">
               <MappingFragment StoreEntitySet="Feriado">
-                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
                 <ScalarProperty Name="Motivo" ColumnName="Motivo" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
               </MappingFragment>
@@ -4578,6 +4583,12 @@
           <EntitySetMapping Name="Comprobante">
             <EntityTypeMapping TypeName="CSColegioModel.Comprobante">
               <MappingFragment StoreEntitySet="Comprobante">
+                <ScalarProperty Name="ImporteTotal3" ColumnName="ImporteTotal3" />
+                <ScalarProperty Name="ImporteTotal2" ColumnName="ImporteTotal2" />
+                <ScalarProperty Name="ImporteTotal1" ColumnName="ImporteTotal1" />
+                <ScalarProperty Name="FechaVencimiento3" ColumnName="FechaVencimiento3" />
+                <ScalarProperty Name="FechaVencimiento2" ColumnName="FechaVencimiento2" />
+                <ScalarProperty Name="FechaVencimiento1" ColumnName="FechaVencimiento1" />
                 <ScalarProperty Name="FechaHoraTransmisionAFIP" ColumnName="FechaHoraTransmisionAFIP" />
                 <ScalarProperty Name="IDUsuarioTransmisionAFIP" ColumnName="IDUsuarioTransmisionAFIP" />
                 <ScalarProperty Name="IDConcepto" ColumnName="IDConcepto" />
@@ -4597,7 +4608,6 @@
                 <ScalarProperty Name="CAEVencimiento" ColumnName="CAEVencimiento" />
                 <ScalarProperty Name="CAE" ColumnName="CAE" />
                 <ScalarProperty Name="Notas" ColumnName="Notas" />
-                <ScalarProperty Name="ImporteTotal" ColumnName="ImporteTotal" />
                 <ScalarProperty Name="ImporteImpuesto" ColumnName="ImporteImpuesto" />
                 <ScalarProperty Name="Leyenda" ColumnName="Leyenda" />
                 <ScalarProperty Name="DomicilioIDLocalidad" ColumnName="DomicilioIDLocalidad" />
@@ -4611,7 +4621,6 @@
                 <ScalarProperty Name="IDEntidad" ColumnName="IDEntidad" />
                 <ScalarProperty Name="FechaServicioHasta" ColumnName="FechaServicioHasta" />
                 <ScalarProperty Name="FechaServicioDesde" ColumnName="FechaServicioDesde" />
-                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
                 <ScalarProperty Name="FechaEmision" ColumnName="FechaEmision" />
                 <ScalarProperty Name="Numero" ColumnName="Numero" />
                 <ScalarProperty Name="PuntoVenta" ColumnName="PuntoVenta" />

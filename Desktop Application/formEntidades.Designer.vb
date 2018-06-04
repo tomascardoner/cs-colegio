@@ -32,6 +32,7 @@ Partial Class formEntidades
         Me.buttonAgregar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEliminar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonSincronizarOutlook = New System.Windows.Forms.ToolStripButton()
         Me.statusstripMain = New System.Windows.Forms.StatusStrip()
         Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
         Me.datagridviewMain = New System.Windows.Forms.DataGridView()
@@ -83,11 +84,11 @@ Partial Class formEntidades
         Me.toolstripButtons.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripButtons.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripButtons.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.toolstripButtons.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAgregar, Me.buttonEditar, Me.buttonEliminar})
+        Me.toolstripButtons.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAgregar, Me.buttonEditar, Me.buttonEliminar, Me.buttonSincronizarOutlook})
         Me.toolstripButtons.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         Me.toolstripButtons.Location = New System.Drawing.Point(0, 0)
         Me.toolstripButtons.Name = "toolstripButtons"
-        Me.toolstripButtons.Size = New System.Drawing.Size(247, 39)
+        Me.toolstripButtons.Size = New System.Drawing.Size(367, 39)
         Me.toolstripButtons.TabIndex = 0
         '
         'buttonAgregar
@@ -116,6 +117,14 @@ Partial Class formEntidades
         Me.buttonEliminar.Name = "buttonEliminar"
         Me.buttonEliminar.Size = New System.Drawing.Size(86, 36)
         Me.buttonEliminar.Text = "Eliminar"
+        '
+        'buttonSincronizarOutlook
+        '
+        Me.buttonSincronizarOutlook.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_OUTLOOK_32
+        Me.buttonSincronizarOutlook.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonSincronizarOutlook.Name = "buttonSincronizarOutlook"
+        Me.buttonSincronizarOutlook.Size = New System.Drawing.Size(89, 36)
+        Me.buttonSincronizarOutlook.Text = "Sincronizar"
         '
         'statusstripMain
         '
@@ -252,7 +261,7 @@ Partial Class formEntidades
         Me.toolstripEntidadTipo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripEntidadTipo.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripEntidadTipo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.dropdownbuttonEntidadTipos})
-        Me.toolstripEntidadTipo.Location = New System.Drawing.Point(247, 0)
+        Me.toolstripEntidadTipo.Location = New System.Drawing.Point(367, 0)
         Me.toolstripEntidadTipo.Name = "toolstripEntidadTipo"
         Me.toolstripEntidadTipo.Size = New System.Drawing.Size(111, 39)
         Me.toolstripEntidadTipo.TabIndex = 1
@@ -359,7 +368,7 @@ Partial Class formEntidades
         Me.toolstripBuscar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripBuscar.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripBuscar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelBuscar, Me.textboxBuscar, Me.buttonBuscarBorrar})
-        Me.toolstripBuscar.Location = New System.Drawing.Point(358, 0)
+        Me.toolstripBuscar.Location = New System.Drawing.Point(478, 0)
         Me.toolstripBuscar.Name = "toolstripBuscar"
         Me.toolstripBuscar.Size = New System.Drawing.Size(194, 39)
         Me.toolstripBuscar.TabIndex = 2
@@ -391,7 +400,7 @@ Partial Class formEntidades
         Me.toolstripActivo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripActivo.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripActivo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelActivo, Me.comboboxActivo})
-        Me.toolstripActivo.Location = New System.Drawing.Point(552, 0)
+        Me.toolstripActivo.Location = New System.Drawing.Point(672, 0)
         Me.toolstripActivo.Name = "toolstripActivo"
         Me.toolstripActivo.Size = New System.Drawing.Size(124, 39)
         Me.toolstripActivo.TabIndex = 3
@@ -414,7 +423,7 @@ Partial Class formEntidades
         Me.toolstripVerificarEmail.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripVerificarEmail.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripVerificarEmail.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelVerificarEmail, Me.comboboxVerificarEmail})
-        Me.toolstripVerificarEmail.Location = New System.Drawing.Point(676, 0)
+        Me.toolstripVerificarEmail.Location = New System.Drawing.Point(796, 0)
         Me.toolstripVerificarEmail.Name = "toolstripVerificarEmail"
         Me.toolstripVerificarEmail.Size = New System.Drawing.Size(169, 39)
         Me.toolstripVerificarEmail.TabIndex = 4
@@ -503,4 +512,5 @@ Partial Class formEntidades
     Friend WithEvents toolstripVerificarEmail As System.Windows.Forms.ToolStrip
     Friend WithEvents labelVerificarEmail As System.Windows.Forms.ToolStripLabel
     Friend WithEvents comboboxVerificarEmail As System.Windows.Forms.ToolStripComboBox
+    Friend WithEvents buttonSincronizarOutlook As System.Windows.Forms.ToolStripButton
 End Class

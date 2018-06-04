@@ -65,7 +65,7 @@
             ' Importe Total
             ListViewItemNew = New ListViewItem
             ListViewItemNew.Text = "Importe Total:"
-            ListViewItemNew.SubItems.Add(ComprobanteActual.ImporteTotal.ToString("C"))
+            ListViewItemNew.SubItems.Add(ComprobanteActual.ImporteTotal1.ToString("C"))
             ListViewItemNew.SubItems.Add(ResultadoConsultaComprobanteActual.ImporteTotal.ToString("C"))
             listviewMain.Items.Add(ListViewItemNew)
 
@@ -102,10 +102,10 @@
             End If
 
             ' Fecha de Vencimiento (Pago)
-            If Not ComprobanteActual.FechaVencimiento Is Nothing Then
+            If Not ComprobanteActual.FechaVencimiento1 Is Nothing Then
                 ListViewItemNew = New ListViewItem
                 ListViewItemNew.Text = "Fecha de Vencimiento (Pago):"
-                ListViewItemNew.SubItems.Add(ComprobanteActual.FechaVencimiento.Value.ToShortDateString)
+                ListViewItemNew.SubItems.Add(ComprobanteActual.FechaVencimiento1.Value.ToShortDateString)
                 ListViewItemNew.SubItems.Add(ResultadoConsultaComprobanteActual.FechaVencimientoPago.ToShortDateString)
                 listviewMain.Items.Add(ListViewItemNew)
             End If

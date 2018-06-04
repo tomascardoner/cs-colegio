@@ -264,7 +264,7 @@
 #End Region
 
 #Region "Main Toolbar"
-    Private Sub Agregar_Click() Handles buttonAgregar.Click
+    Private Sub Agregar_Click(sender As Object, e As EventArgs) Handles buttonAgregar.Click
         If Permisos.VerificarPermiso(Permisos.ENTIDAD_AGREGAR) Then
             Me.Cursor = Cursors.WaitCursor
 
@@ -278,7 +278,7 @@
         End If
     End Sub
 
-    Private Sub Editar_Click() Handles buttonEditar.Click
+    Private Sub Editar_Click(sender As Object, e As EventArgs) Handles buttonEditar.Click
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ninguna Entidad para editar.", vbInformation, My.Application.Info.Title)
         Else
@@ -297,10 +297,10 @@
 
                 Me.Cursor = Cursors.Default
             End If
-            End If
+        End If
     End Sub
 
-    Private Sub Eliminar_Click() Handles buttonEliminar.Click
+    Private Sub Eliminar_Click(sender As Object, e As EventArgs) Handles buttonEliminar.Click
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ninguna Entidad para eliminar.", vbInformation, My.Application.Info.Title)
         Else
@@ -337,6 +337,46 @@
             End If
         End If
     End Sub
+
+    Private Sub SincronizarOutlook(sender As Object, e As EventArgs) Handles buttonSincronizarOutlook.Click
+        SincronizeContactsWithOutlook()
+    End Sub
+
 #End Region
+
+    Private Function SincronizeContactsWithOutlook() As Boolean
+        Dim otkApp As Microsoft.Office.Interop.Outlook.Application
+        Dim otkNameSpace As Microsoft.Office.Interop.Outlook.NameSpace
+        Dim otkContactsFolder As Microsoft.Office.Interop.Outlook.MAPIFolder
+        Dim otkContactsItems As Microsoft.Office.Interop.Outlook.Items
+
+        Return True
+
+        Try
+            Me.Cursor = Cursors.WaitCursor
+
+            otkApp = New Microsoft.Office.Interop.Outlook.Application
+            otkNameSpace = otkApp.Session
+            otkContactsFolder = otkNameSpace.GetDefaultFolder(Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderContacts)
+            otkContactsItems = otkContactsFolder.Items
+
+            For Each otkContact As Microsoft.Office.Interop.Outlook.ContactItem In otkContactsItems
+            Next
+
+            otkContactsItems = Nothing
+            otkContactsFolder = Nothing
+            otkNameSpace = Nothing
+            motkApp = Nothing
+
+            Me.Cursor = Cursors.Default
+
+        Catch ex As Exception
+            Me.Cursor = Cursors.Default
+            CS_Error.ProcessError(ex, "Error al iniciar una instancia de Microsoft Outlook")
+            Return False
+        End Try
+
+        Return True
+    End Function
 
 End Class

@@ -43,7 +43,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
                                     Join e In dbContext.Entidad On c.IDEntidad Equals e.IDEntidad
                                     Where c.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And ct.EmisionElectronica And c.CAE IsNot Nothing And c.IDUsuarioAnulacion Is Nothing
                                     Order By ct.Nombre, c.NumeroCompleto
-                                    Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal}).ToList
+                                    Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal1}).ToList
 
                 Select Case listComprobantes.Count
                     Case 0
@@ -134,14 +134,19 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
                     DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString.PadRight(15, " "c)    ' Nro. Cliente Empresa
                     DetalleTextStream &= CS_String.RemoveDiacritics(ComprobanteActual.ApellidoNombre).PadRight(30, " "c).Substring(0, 30)   ' Nombre Cliente
                     DetalleTextStream &= StrDup(11, "0"c)                                                   ' CUIT Cliente
-                    DetalleTextStream &= ComprobanteActual.FechaVencimiento.Value.ToString("yyyyMMdd")      ' Fecha 1er. vencimiento
-                    DetalleTextStream &= ComprobanteActual.ImporteTotal.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 1er. vencimiento
+                    DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.ToString("yyyyMMdd")     ' Fecha 1er. vencimiento
+                    DetalleTextStream &= ComprobanteActual.ImporteTotal1.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")   ' Importe 1er. vencimiento
                     DetalleTextStream &= "0"                                                                ' Moneda
                     DetalleTextStream &= "     "                                                            ' Filler
                     DetalleTextStream &= ComprobanteActual.IDComprobante.ToString.PadRight(30, " "c)        ' Referencia Empresa
-                    DetalleTextStream &= ComprobanteActual.FechaVencimiento.Value.AddDays(10).ToString("yyyyMMdd")      ' Fecha 2do. vencimiento
-                    DetalleTextStream &= ComprobanteActual.ImporteTotal.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 2do. vencimiento
-                    DetalleTextStream &= ComprobanteActual.FechaVencimiento.Value.AddMonths(6).ToString("yyyyMMdd") ' Fecha Vto. Punitorios
+                    If ComprobanteActual.FechaVencimiento2.HasValue Then
+                        DetalleTextStream &= ComprobanteActual.FechaVencimiento2.Value.ToString("yyyyMMdd")      ' Fecha 2do. vencimiento
+                        DetalleTextStream &= ComprobanteActual.ImporteTotal2.Value.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 2do. vencimiento
+                    Else
+                        DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.AddDays(10).ToString("yyyyMMdd")      ' Fecha 2do. vencimiento
+                        DetalleTextStream &= ComprobanteActual.ImporteTotal1.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 2do. vencimiento
+                    End If
+                    DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.AddMonths(6).ToString("yyyyMMdd") ' Fecha Vto. Punitorios
                     DetalleTextStream &= "0003600"                                                          ' TNA
                     DetalleTextStream &= "S"                                                                ' Publica con Nro. Cliente Empresa
                     DetalleTextStream &= "00000000"                                                         ' Fecha Pronto Pago
@@ -155,7 +160,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
                     DetalleTextStream &= vbCrLf
 
                     DetalleCount += 1
-                    DetalleImporteTotal += ComprobanteActual.ImporteTotal
+                    DetalleImporteTotal += ComprobanteActual.ImporteTotal1
                 End If
             Next
 

@@ -406,7 +406,7 @@
             listComprobantes = (From c In dbContext.Comprobante
                                 Where c.IDEntidad = mEntidadActual.IDEntidad And c.IDUsuarioAnulacion Is Nothing
                                 Order By c.FechaEmision Descending
-                                Select New GridRowData_Comprobante With {.IDComprobante = c.IDComprobante, .TipoNombre = c.ComprobanteTipo.NombreConLetra, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal}).ToList
+                                Select New GridRowData_Comprobante With {.IDComprobante = c.IDComprobante, .TipoNombre = c.ComprobanteTipo.NombreConLetra, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal1}).ToList
         End Using
 
         datagridviewComprobantes.AutoGenerateColumns = False

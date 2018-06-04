@@ -253,7 +253,7 @@
                 End If
             Next
 
-            If ModuloComprobantes.GenerarComprobantes(DateTime.Today, DateTime.Today, mFechaServicioDesde, mFechaServicioHasta, Constantes.COMPROBANTE_CONCEPTO_SERVICIOS, Nothing, mAnioLectivoProximo, 0, True, listAlumno_AnioLectivoCurso_AFacturar, listFacturas) Then
+            If ModuloComprobantes.GenerarComprobantes(DateTime.Today, DateTime.Today, Nothing, Nothing, mFechaServicioDesde, mFechaServicioHasta, Constantes.COMPROBANTE_CONCEPTO_SERVICIOS, Nothing, mAnioLectivoProximo, 0, True, listAlumno_AnioLectivoCurso_AFacturar, listFacturas) Then
                 datagridviewFacturaCabecera.AutoGenerateColumns = False
                 datagridviewFacturaCabecera.DataSource = listFacturas
 
@@ -359,7 +359,7 @@
                                     MensajeError &= vbCrLf
                                     MensajeError &= "Titular: " & ComprobanteActual.ApellidoNombre
                                     MensajeError &= vbCrLf
-                                    MensajeError &= "Importe: " & FormatCurrency(ComprobanteActual.ImporteTotal)
+                                    MensajeError &= "Importe: " & FormatCurrency(ComprobanteActual.ImporteTotal1)
                                     If Objeto_AFIP_WS.UltimoResultadoCAE.Observaciones <> "" Then
                                         MensajeError &= vbCrLf & vbCrLf
                                         MensajeError &= "Observaciones: " & Objeto_AFIP_WS.UltimoResultadoCAE.Observaciones
