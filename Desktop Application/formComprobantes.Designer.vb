@@ -29,6 +29,7 @@ Partial Class formComprobantes
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formComprobantes))
         Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
         Me.statusstripMain = New System.Windows.Forms.StatusStrip()
         Me.datagridviewMain = New System.Windows.Forms.DataGridView()
@@ -40,7 +41,6 @@ Partial Class formComprobantes
         Me.columnCAE = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.panelToolbars = New System.Windows.Forms.FlowLayoutPanel()
         Me.toolstripButtons = New System.Windows.Forms.ToolStrip()
-        Me.buttonAgregar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
         Me.buttonAnular = New System.Windows.Forms.ToolStripButton()
         Me.buttonEliminar = New System.Windows.Forms.ToolStripButton()
@@ -70,6 +70,7 @@ Partial Class formComprobantes
         Me.comboboxBuscarTipo = New System.Windows.Forms.ToolStripComboBox()
         Me.textboxBuscar = New System.Windows.Forms.ToolStripTextBox()
         Me.buttonBuscarBorrar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonAgregar = New System.Windows.Forms.ToolStripButton()
         Me.statusstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelToolbars.SuspendLayout()
@@ -214,15 +215,6 @@ Partial Class formComprobantes
         Me.toolstripButtons.Size = New System.Drawing.Size(559, 39)
         Me.toolstripButtons.TabIndex = 1
         '
-        'buttonAgregar
-        '
-        Me.buttonAgregar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_ADD_32
-        Me.buttonAgregar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonAgregar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonAgregar.Name = "buttonAgregar"
-        Me.buttonAgregar.Size = New System.Drawing.Size(85, 36)
-        Me.buttonAgregar.Text = "Agregar"
-        '
         'buttonEditar
         '
         Me.buttonEditar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_EDIT_32
@@ -290,7 +282,7 @@ Partial Class formComprobantes
         Me.toolstripPeriodo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelPeriodo, Me.comboboxPeriodoTipo, Me.comboboxPeriodoValor, Me.labelPeriodoFechaY})
         Me.toolstripPeriodo.Location = New System.Drawing.Point(559, 0)
         Me.toolstripPeriodo.Name = "toolstripPeriodo"
-        Me.toolstripPeriodo.Size = New System.Drawing.Size(300, 39)
+        Me.toolstripPeriodo.Size = New System.Drawing.Size(267, 39)
         Me.toolstripPeriodo.TabIndex = 8
         '
         'labelPeriodo
@@ -442,6 +434,15 @@ Partial Class formComprobantes
         Me.buttonBuscarBorrar.Size = New System.Drawing.Size(23, 22)
         Me.buttonBuscarBorrar.ToolTipText = "Limpiar búsqueda"
         '
+        'buttonAgregar
+        '
+        Me.buttonAgregar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_ADD_32
+        Me.buttonAgregar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonAgregar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonAgregar.Name = "buttonAgregar"
+        Me.buttonAgregar.Size = New System.Drawing.Size(85, 36)
+        Me.buttonAgregar.Text = "Agregar"
+        '
         'formComprobantes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -450,6 +451,7 @@ Partial Class formComprobantes
         Me.Controls.Add(Me.datagridviewMain)
         Me.Controls.Add(Me.panelToolbars)
         Me.Controls.Add(Me.statusstripMain)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "formComprobantes"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Comprobantes"
@@ -479,7 +481,6 @@ Partial Class formComprobantes
     Friend WithEvents datagridviewMain As System.Windows.Forms.DataGridView
     Friend WithEvents panelToolbars As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents toolstripButtons As System.Windows.Forms.ToolStrip
-    Friend WithEvents buttonAgregar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonEditar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonEliminar As System.Windows.Forms.ToolStripButton
     Friend WithEvents toolstripTitular As System.Windows.Forms.ToolStrip
@@ -515,4 +516,5 @@ Partial Class formComprobantes
     Friend WithEvents buttonAnular As System.Windows.Forms.ToolStripButton
     Friend WithEvents comboboxPeriodoValor As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents labelPeriodoFechaY As System.Windows.Forms.ToolStripLabel
+    Friend WithEvents buttonAgregar As System.Windows.Forms.ToolStripButton
 End Class

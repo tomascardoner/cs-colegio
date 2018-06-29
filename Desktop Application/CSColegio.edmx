@@ -113,7 +113,9 @@
           </Key>
           <Property Name="IDCategoriaIVA" Type="tinyint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="VentaIDComprobanteTipo" Type="tinyint" Nullable="false" />
+          <Property Name="IDComprobanteTipo_Factura" Type="tinyint" Nullable="false" />
+          <Property Name="IDComprobanteTipo_NotaDebito" Type="tinyint" Nullable="false" />
+          <Property Name="IDComprobanteTipo_NotaCredito" Type="tinyint" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Cheque">
@@ -1072,6 +1074,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ComprobanteTipo__CategoriaIVA__Factura">
+          <End Role="ComprobanteTipo" Type="Self.ComprobanteTipo" Multiplicity="1" />
+          <End Role="CategoriaIVA" Type="Self.CategoriaIVA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComprobanteTipo">
+              <PropertyRef Name="IDComprobanteTipo" />
+            </Principal>
+            <Dependent Role="CategoriaIVA">
+              <PropertyRef Name="IDComprobanteTipo_Factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ComprobanteTipo__CategoriaIVA__NotaCredito">
+          <End Role="ComprobanteTipo" Type="Self.ComprobanteTipo" Multiplicity="1" />
+          <End Role="CategoriaIVA" Type="Self.CategoriaIVA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComprobanteTipo">
+              <PropertyRef Name="IDComprobanteTipo" />
+            </Principal>
+            <Dependent Role="CategoriaIVA">
+              <PropertyRef Name="IDComprobanteTipo_NotaCredito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ComprobanteTipo__CategoriaIVA__NotaDebito">
+          <End Role="ComprobanteTipo" Type="Self.ComprobanteTipo" Multiplicity="1" />
+          <End Role="CategoriaIVA" Type="Self.CategoriaIVA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComprobanteTipo">
+              <PropertyRef Name="IDComprobanteTipo" />
+            </Principal>
+            <Dependent Role="CategoriaIVA">
+              <PropertyRef Name="IDComprobanteTipo_NotaDebito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__ComprobanteTipo__Comprobante">
           <End Role="ComprobanteTipo" Type="Self.ComprobanteTipo" Multiplicity="1" />
           <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="*" />
@@ -1796,6 +1834,18 @@
             <End Role="ComprobanteLote" EntitySet="ComprobanteLote" />
             <End Role="Comprobante" EntitySet="Comprobante" />
           </AssociationSet>
+          <AssociationSet Name="FK__ComprobanteTipo__CategoriaIVA__Factura" Association="Self.FK__ComprobanteTipo__CategoriaIVA__Factura">
+            <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
+            <End Role="CategoriaIVA" EntitySet="CategoriaIVA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ComprobanteTipo__CategoriaIVA__NotaCredito" Association="Self.FK__ComprobanteTipo__CategoriaIVA__NotaCredito">
+            <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
+            <End Role="CategoriaIVA" EntitySet="CategoriaIVA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ComprobanteTipo__CategoriaIVA__NotaDebito" Association="Self.FK__ComprobanteTipo__CategoriaIVA__NotaDebito">
+            <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
+            <End Role="CategoriaIVA" EntitySet="CategoriaIVA" />
+          </AssociationSet>
           <AssociationSet Name="FK__ComprobanteTipo__Comprobante" Association="Self.FK__ComprobanteTipo__Comprobante">
             <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
             <End Role="Comprobante" EntitySet="Comprobante" />
@@ -2065,10 +2115,15 @@
           </Key>
           <Property Name="IDCategoriaIVA" Type="Byte" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="VentaIDComprobanteTipo" Type="Byte" Nullable="false" />
+          <Property Name="IDComprobanteTipo_Factura" Type="Byte" Nullable="false" />
+          <Property Name="IDComprobanteTipo_NotaDebito" Type="Byte" Nullable="false" />
+          <Property Name="IDComprobanteTipo_NotaCredito" Type="Byte" Nullable="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Entidad" Relationship="Self.FK__CategoriaIVA__Entidad" FromRole="CategoriaIVA" ToRole="Entidad" />
           <NavigationProperty Name="Comprobante" Relationship="CSColegioModel.FK__CategoriaIVA__Comprobante" FromRole="CategoriaIVA" ToRole="Comprobante" />
+          <NavigationProperty Name="ComprobanteTipo" Relationship="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__Factura" FromRole="CategoriaIVA" ToRole="ComprobanteTipo" />
+          <NavigationProperty Name="ComprobanteTipo1" Relationship="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__NotaCredito" FromRole="CategoriaIVA" ToRole="ComprobanteTipo" />
+          <NavigationProperty Name="ComprobanteTipo2" Relationship="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__NotaDebito" FromRole="CategoriaIVA" ToRole="ComprobanteTipo" />
         </EntityType>
         <EntityType Name="Curso">
           <Key>
@@ -2856,6 +2911,18 @@
             <End Role="Comunicacion" EntitySet="Comunicacion" />
             <End Role="EmailEnvio" EntitySet="EmailEnvio" />
           </AssociationSet>
+          <AssociationSet Name="FK__ComprobanteTipo__CategoriaIVA__Factura" Association="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__Factura">
+            <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
+            <End Role="CategoriaIVA" EntitySet="CategoriaIVA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ComprobanteTipo__CategoriaIVA__NotaCredito" Association="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__NotaCredito">
+            <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
+            <End Role="CategoriaIVA" EntitySet="CategoriaIVA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ComprobanteTipo__CategoriaIVA__NotaDebito" Association="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__NotaDebito">
+            <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
+            <End Role="CategoriaIVA" EntitySet="CategoriaIVA" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
           <Key>
@@ -2896,6 +2963,9 @@
           <NavigationProperty Name="Comprobante" Relationship="CSColegioModel.FK__ComprobanteTipo__Comprobante" FromRole="ComprobanteTipo" ToRole="Comprobante" />
           <NavigationProperty Name="ComprobanteTipo_Aplicados" Relationship="CSColegioModel.ComprobanteTipoAplicacion" FromRole="ComprobanteTipo" ToRole="ComprobanteTipo1" />
           <NavigationProperty Name="ComprobanteTipo_Aplicantes" Relationship="CSColegioModel.ComprobanteTipoAplicacion" FromRole="ComprobanteTipo1" ToRole="ComprobanteTipo" />
+          <NavigationProperty Name="CategoriaIVA" Relationship="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__Factura" FromRole="ComprobanteTipo" ToRole="CategoriaIVA" />
+          <NavigationProperty Name="CategoriaIVA1" Relationship="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__NotaCredito" FromRole="ComprobanteTipo" ToRole="CategoriaIVA" />
+          <NavigationProperty Name="CategoriaIVA2" Relationship="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__NotaDebito" FromRole="ComprobanteTipo" ToRole="CategoriaIVA" />
           </EntityType>
         <EntityType Name="Impuesto">
           <Key>
@@ -4000,6 +4070,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ComprobanteTipo__CategoriaIVA__Factura">
+          <End Type="CSColegioModel.ComprobanteTipo" Role="ComprobanteTipo" Multiplicity="1" />
+          <End Type="CSColegioModel.CategoriaIVA" Role="CategoriaIVA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComprobanteTipo">
+              <PropertyRef Name="IDComprobanteTipo" />
+            </Principal>
+            <Dependent Role="CategoriaIVA">
+              <PropertyRef Name="IDComprobanteTipo_Factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ComprobanteTipo__CategoriaIVA__NotaCredito">
+          <End Type="CSColegioModel.ComprobanteTipo" Role="ComprobanteTipo" Multiplicity="1" />
+          <End Type="CSColegioModel.CategoriaIVA" Role="CategoriaIVA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComprobanteTipo">
+              <PropertyRef Name="IDComprobanteTipo" />
+            </Principal>
+            <Dependent Role="CategoriaIVA">
+              <PropertyRef Name="IDComprobanteTipo_NotaCredito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ComprobanteTipo__CategoriaIVA__NotaDebito">
+          <End Type="CSColegioModel.ComprobanteTipo" Role="ComprobanteTipo" Multiplicity="1" />
+          <End Type="CSColegioModel.CategoriaIVA" Role="CategoriaIVA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComprobanteTipo">
+              <PropertyRef Name="IDComprobanteTipo" />
+            </Principal>
+            <Dependent Role="CategoriaIVA">
+              <PropertyRef Name="IDComprobanteTipo_NotaDebito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4072,7 +4178,9 @@
           <EntitySetMapping Name="CategoriaIVA">
             <EntityTypeMapping TypeName="CSColegioModel.CategoriaIVA">
               <MappingFragment StoreEntitySet="CategoriaIVA">
-                <ScalarProperty Name="VentaIDComprobanteTipo" ColumnName="VentaIDComprobanteTipo" />
+                <ScalarProperty Name="IDComprobanteTipo_NotaCredito" ColumnName="IDComprobanteTipo_NotaCredito" />
+                <ScalarProperty Name="IDComprobanteTipo_NotaDebito" ColumnName="IDComprobanteTipo_NotaDebito" />
+                <ScalarProperty Name="IDComprobanteTipo_Factura" ColumnName="IDComprobanteTipo_Factura" />
                 <ScalarProperty Name="IDCategoriaIVA" ColumnName="IDCategoriaIVA" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />

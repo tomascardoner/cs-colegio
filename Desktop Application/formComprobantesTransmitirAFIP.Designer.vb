@@ -24,6 +24,7 @@ Partial Class formComprobantesTransmitirAFIP
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formComprobantesTransmitirAFIP))
         Me.labelCantidad = New System.Windows.Forms.Label()
         Me.comboboxCantidad = New System.Windows.Forms.ComboBox()
         Me.datagridviewComprobantes = New System.Windows.Forms.DataGridView()
@@ -39,15 +40,15 @@ Partial Class formComprobantesTransmitirAFIP
         Me.buttonCancelar = New System.Windows.Forms.Button()
         Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
         Me.statusstripMain = New System.Windows.Forms.StatusStrip()
-        CType(Me.datagridviewComprobantes,System.ComponentModel.ISupportInitialize).BeginInit
-        Me.groupboxStatus.SuspendLayout
-        CType(Me.pictureboxLogo,System.ComponentModel.ISupportInitialize).BeginInit
-        Me.statusstripMain.SuspendLayout
-        Me.SuspendLayout
+        CType(Me.datagridviewComprobantes, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.groupboxStatus.SuspendLayout()
+        CType(Me.pictureboxLogo, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.statusstripMain.SuspendLayout()
+        Me.SuspendLayout()
         '
         'labelCantidad
         '
-        Me.labelCantidad.AutoSize = true
+        Me.labelCantidad.AutoSize = True
         Me.labelCantidad.Location = New System.Drawing.Point(12, 30)
         Me.labelCantidad.Name = "labelCantidad"
         Me.labelCantidad.Size = New System.Drawing.Size(180, 13)
@@ -76,14 +77,14 @@ Partial Class formComprobantesTransmitirAFIP
         Me.datagridviewComprobantes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewComprobantes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewComprobantes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnNumeroCompleto, Me.columnApellidoNombre, Me.columnImporteTotal})
-        Me.datagridviewComprobantes.Location = New System.Drawing.Point(12, 74)
+        Me.datagridviewComprobantes.Location = New System.Drawing.Point(12, 63)
         Me.datagridviewComprobantes.MultiSelect = False
         Me.datagridviewComprobantes.Name = "datagridviewComprobantes"
         Me.datagridviewComprobantes.ReadOnly = True
         Me.datagridviewComprobantes.RowHeadersVisible = False
         Me.datagridviewComprobantes.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewComprobantes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewComprobantes.Size = New System.Drawing.Size(668, 408)
+        Me.datagridviewComprobantes.Size = New System.Drawing.Size(668, 419)
         Me.datagridviewComprobantes.TabIndex = 3
         '
         'columnComprobanteTipoNombre
@@ -174,11 +175,11 @@ Partial Class formComprobantesTransmitirAFIP
         '
         Me.pictureboxLogo.BackColor = System.Drawing.Color.Black
         Me.pictureboxLogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.pictureboxLogo.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_LOGO_AFIP
-        Me.pictureboxLogo.Location = New System.Drawing.Point(395, 6)
+        Me.pictureboxLogo.Image = CType(resources.GetObject("pictureboxLogo.Image"), System.Drawing.Image)
+        Me.pictureboxLogo.Location = New System.Drawing.Point(530, 12)
         Me.pictureboxLogo.Name = "pictureboxLogo"
-        Me.pictureboxLogo.Size = New System.Drawing.Size(190, 62)
-        Me.pictureboxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.pictureboxLogo.Size = New System.Drawing.Size(150, 45)
+        Me.pictureboxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
         Me.pictureboxLogo.TabIndex = 8
         Me.pictureboxLogo.TabStop = False
         '

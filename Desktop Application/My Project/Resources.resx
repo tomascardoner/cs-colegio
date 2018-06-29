@@ -217,9 +217,6 @@
   <data name="IMAGE_MENU_WINDOW_TILE_HORIZONTALLY" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Window - Tile Horizontally.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="IMAGE_LOGO_AFIP" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AFIP.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="IMAGE_ITEM_ADD_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Actions-document-new-icon (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -345,5 +342,11 @@
   </data>
   <data name="IMAGE_OUTLOOK_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Outlook 2016_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_LOGO_AFIP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AFIP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMAGE_LOGO_AFIP_SMALL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AFIP_48_13.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

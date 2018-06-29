@@ -317,6 +317,12 @@
     <Compile Include="formAboutBox.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formCABGenerico.designer.vb">
+      <DependentUpon>formCABGenerico.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formCABGenerico.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formComunicacion.Designer.vb">
       <DependentUpon>formComunicacion.vb</DependentUpon>
     </Compile>
@@ -423,12 +429,6 @@
       <DependentUpon>formCursos.vb</DependentUpon>
     </Compile>
     <Compile Include="formCursos.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="formCABGenerico.Designer.vb">
-      <DependentUpon>formCABGenerico.vb</DependentUpon>
-    </Compile>
-    <Compile Include="formCABGenerico.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formAnio.Designer.vb">
@@ -671,6 +671,9 @@
     <EmbeddedResource Include="formAboutBox.resx">
       <DependentUpon>formAboutBox.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formCABGenerico.resx">
+      <DependentUpon>formCABGenerico.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formComunicacion.resx">
       <DependentUpon>formComunicacion.vb</DependentUpon>
     </EmbeddedResource>
@@ -724,9 +727,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formCursos.resx">
       <DependentUpon>formCursos.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="formCABGenerico.resx">
-      <DependentUpon>formCABGenerico.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formAnio.resx">
       <DependentUpon>formAnio.vb</DependentUpon>
@@ -848,13 +848,14 @@
     <None Include="Resources\document-print-preview %287%29.png" />
     <None Include="Resources\Mail-icon %287%29.png" />
     <None Include="Resources\Mail-icon %286%29.png" />
-    <None Include="Resources\AFIP.jpg" />
     <None Include="Resources\PagoMisCuentas.jpg" />
     <None Include="Resources\export-icon_16.png" />
     <None Include="Resources\export-icon_32.png" />
     <None Include="Resources\Actions-edit-copy-icon_32.png" />
     <None Include="Resources\Santander.jpg" />
     <None Include="Resources\Outlook 2016_32.png" />
+    <None Include="Resources\AFIP.png" />
+    <None Include="Resources\AFIP_48_13.png" />
     <Content Include="school_48_32_16.ico" />
     <None Include="Resources\Move Previous %28Arrow%29 Red24.png" />
     <None Include="Resources\Move Next %28Arrow%29 Green24.png" />

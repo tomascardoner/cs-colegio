@@ -479,7 +479,7 @@
 #End Region
 
 #Region "Main Toolbar"
-    Private Sub Agregar_Click() Handles buttonAgregar.Click
+    Private Sub Agregar(sender As Object, e As EventArgs) Handles buttonAgregar.Click
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE_AGREGAR) Then
             Me.Cursor = Cursors.WaitCursor
 
@@ -493,7 +493,7 @@
         End If
     End Sub
 
-    Private Sub Editar_Click() Handles buttonEditar.Click
+    Private Sub Editar() Handles buttonEditar.Click
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Comprobante para editar.", vbInformation, My.Application.Info.Title)
         Else
@@ -524,7 +524,7 @@
         End If
     End Sub
 
-    Private Sub Anular_Click() Handles buttonAnular.Click
+    Private Sub Anular() Handles buttonAnular.Click
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Comprobante para anular.", vbInformation, My.Application.Info.Title)
         Else
@@ -566,7 +566,7 @@
         End If
     End Sub
 
-    Private Sub Eliminar_Click() Handles buttonEliminar.Click
+    Private Sub Eliminar() Handles buttonEliminar.Click
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Comprobante para eliminar.", vbInformation, My.Application.Info.Title)
         Else

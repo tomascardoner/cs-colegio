@@ -195,7 +195,8 @@ Partial Class formCABGenerico
         '
         'datagridviewMain
         '
-        Me.datagridviewMain.AllowUserToOrderColumns = True
+        Me.datagridviewMain.AllowUserToResizeColumns = False
+        Me.datagridviewMain.AllowUserToResizeRows = False
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
         DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight

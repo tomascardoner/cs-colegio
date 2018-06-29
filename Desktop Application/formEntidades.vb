@@ -344,6 +344,7 @@
 
 #End Region
 
+#Region "Extra stuff"
     Private Function SincronizeContactsWithOutlook() As Boolean
         Dim otkApp As Microsoft.Office.Interop.Outlook.Application
         Dim otkNameSpace As Microsoft.Office.Interop.Outlook.NameSpace
@@ -378,5 +379,6 @@
 
         Return True
     End Function
+#End Region
 
 End Class

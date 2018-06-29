@@ -9,7 +9,7 @@
         <EntityTypeShape EntityType="CSColegioModel.Articulo" Width="1.5" PointX="18" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CSColegioModel.ArticuloGrupo" Width="1.5" PointX="15.75" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CSColegioModel.Banco" Width="1.5" PointX="5.625" PointY="19" IsExpanded="true" />
-        <EntityTypeShape EntityType="CSColegioModel.CategoriaIVA" Width="1.5" PointX="3.25" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSColegioModel.CategoriaIVA" Width="1.5" PointX="3.125" PointY="14.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CSColegioModel.Curso" Width="1.5" PointX="19.25" PointY="16.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CSColegioModel.DocumentoTipo" Width="1.5" PointX="3.25" PointY="18" IsExpanded="true" />
         <EntityTypeShape EntityType="CSColegioModel.Entidad" Width="1.5" PointX="5.5" PointY="5.125" IsExpanded="true" />
@@ -137,6 +137,9 @@
         <EntityTypeShape EntityType="CSColegioModel.EmailEnvio" Width="1.5" PointX="17.375" PointY="24.25" />
         <AssociationConnector Association="CSColegioModel.FK__Comprobante__EmailEnvio" />
         <AssociationConnector Association="CSColegioModel.FK__Comunicacion__EmailEnvio" />
+        <AssociationConnector Association="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__Factura" />
+        <AssociationConnector Association="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__NotaCredito" />
+        <AssociationConnector Association="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__NotaDebito" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

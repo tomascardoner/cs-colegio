@@ -82,11 +82,11 @@
         End If
 
         If mComprobanteTipoActual Is Nothing Then
-            buttonVerificarComprobante.Visible = False
-            buttonTransmitirComprobante.Visible = False
+            buttonAFIP.Visible = False
         Else
-            buttonVerificarComprobante.Visible = (mEditMode = False And mComprobanteTipoActual.EmisionElectronica = True And (Not mComprobanteActual.CAE Is Nothing) And mComprobanteActual.IDUsuarioAnulacion Is Nothing)
-            buttonTransmitirComprobante.Visible = (mEditMode = False And mComprobanteTipoActual.EmisionElectronica = True And mComprobanteActual.CAE Is Nothing And mComprobanteActual.IDUsuarioAnulacion Is Nothing)
+            buttonAFIP.Visible = (mEditMode = False And mComprobanteTipoActual.EmisionElectronica And mComprobanteActual.IDUsuarioAnulacion Is Nothing)
+            menuitemAFIP_ObtenerCAE.Enabled = (mComprobanteActual.CAE Is Nothing)
+            menuitemAFIP_VerificarDatos.Enabled = (Not mComprobanteActual.CAE Is Nothing)
         End If
         buttonGuardar.Visible = mEditMode
         buttonCancelar.Visible = mEditMode
@@ -212,7 +212,6 @@
             textboxDetalle_Subtotal.Text = FormatCurrency(0)
             textboxImpuestos_Subtotal.Text = FormatCurrency(0)
             textboxAplicaciones_Subtotal.Text = FormatCurrency(0)
-            textboxInteres_Subtotal.Text = FormatCurrency(0)
             textboxMediosPago_Subtotal.Text = FormatCurrency(0)
             textboxImporteTotal.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.ImporteTotal1)
 
@@ -365,8 +364,6 @@
         Next
         textboxAplicaciones_Subtotal.Text = FormatCurrency(Total)
 
-        textboxInteres_Subtotal.Text = FormatCurrency(CalcularInteresesSobreAplicaciones(datetimepickerFechaVencimiento.Value, mComprobanteActual.ComprobanteAplicacion_Aplicados.ToList))
-
         If mComprobanteTipoActual.UtilizaDetalle = False And mComprobanteTipoActual.UtilizaMedioPago = False Then
             textboxImporteTotal.Text = FormatCurrency(Total)
             textboxImporteTotal.ReadOnly = (listAplicaciones.Count > 0)
@@ -513,18 +510,18 @@
 #End Region
 
 #Region "Main Toolbar"
-    Private Sub buttonEditar_Click() Handles buttonEditar.Click
+    Private Sub buttonEditar_Click(sender As Object, e As EventArgs) Handles buttonEditar.Click
         If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDITAR) Then
             mEditMode = True
             ChangeMode()
         End If
     End Sub
 
-    Private Sub buttonCerrar_Click() Handles buttonCerrar.Click
+    Private Sub buttonCerrar_Click(sender As Object, e As EventArgs) Handles buttonCerrar.Click
         Me.Close()
     End Sub
 
-    Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
+    Private Sub buttonGuardar_Click(sender As Object, e As EventArgs) Handles buttonGuardar.Click
         Dim EntidadActual As Entidad
         Dim ArticuloActual As Articulo
 
@@ -588,7 +585,7 @@
         End If
 
         ' Fecha - Corroborar con el Concepto de los artículos
-        If mComprobanteTipoActual.UtilizaDetalle AndAlso mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso mComprobanteTipoActual.EmisionElectronica AndAlso Math.Abs(datetimepickerFechaEmision.Value.CompareTo(DateAndTime.Today)) > mConceptoActual.FechaRangoDia Then
+        If mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso mComprobanteTipoActual.EmisionElectronica AndAlso Math.Abs(datetimepickerFechaEmision.Value.CompareTo(DateAndTime.Today)) > mConceptoActual.FechaRangoDia Then
             MsgBox(String.Format("La Fecha de Emisión no puede tener más de {0} días de diferencia con la Fecha actual.", mConceptoActual.FechaRangoDia), MsgBoxStyle.Information, My.Application.Info.Title)
             datetimepickerFechaEmision.Focus()
             Exit Sub
@@ -763,13 +760,13 @@
         Me.Close()
     End Sub
 
-    Private Sub TransmitirComprobanteAFIP() Handles buttonTransmitirComprobante.Click
+    Private Sub AFIP_TransmitirComprobante(sender As Object, e As EventArgs) Handles menuitemAFIP_ObtenerCAE.Click
         If Not mComprobanteActual Is Nothing Then
             If mComprobanteTipoActual.EmisionElectronica AndAlso mComprobanteActual.CAE Is Nothing Then
                 If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIR_AFIP) Then
                     If MsgBox("Este Comprobante necesita ser autorizado en AFIP para tener validez." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                         If TransmitirComprobante(mComprobanteActual) Then
-                            buttonTransmitirComprobante.Visible = False
+                            buttonAFIP.Visible = False
 
                             ' Refresco la lista de Comprobantes para mostrar los cambios
                             If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formComprobantes") Then
@@ -784,7 +781,7 @@
         End If
     End Sub
 
-    Private Sub VerificarComprobanteAFIP() Handles buttonVerificarComprobante.Click
+    Private Sub AFIP_VerificarComprobante(sender As Object, e As EventArgs) Handles menuitemAFIP_VerificarDatos.Click
         Dim Objeto_AFIP_WS As New CS_AFIP_WS.AFIP_WS
 
         If Not mComprobanteActual Is Nothing Then
@@ -819,7 +816,7 @@
         End If
     End Sub
 
-    Private Sub buttonCancelar_Click() Handles buttonCancelar.Click
+    Private Sub Cancelar(sender As Object, e As EventArgs) Handles buttonCancelar.Click
         If mdbContext.ChangeTracker.HasChanges Then
             If MsgBox("Ha realizado cambios en los datos y seleccionó cancelar, los cambios se perderán." & vbCr & vbCr & "¿Confirma la pérdida de los cambios?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                 Me.Close()
@@ -831,7 +828,7 @@
 #End Region
 
 #Region "Detalle Toolbar"
-    Private Sub Detalle_Agregar() Handles buttonDetalle_Agregar.ButtonClick
+    Private Sub Detalle_Agregar(sender As Object, e As EventArgs) Handles buttonDetalle_Agregar.ButtonClick
         If textboxEntidad.Tag Is Nothing Then
             MsgBox("Antes de poder agregar Detalles, debe especificar la Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
             textboxEntidad.Focus()
@@ -854,7 +851,7 @@
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub Detalle_AgregarMultiple() Handles buttonDetalle_AgregarMultiple.Click
+    Private Sub Detalle_AgregarMultiple(sender As Object, e As EventArgs) Handles buttonDetalle_AgregarMultiple.Click
         If textboxEntidad.Tag Is Nothing Then
             MsgBox("Antes de poder agregar Detalles, debe especificar la Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
             textboxEntidad.Focus()
@@ -876,7 +873,7 @@
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub Detalle_Editar() Handles buttonDetalle_Editar.Click
+    Private Sub Detalle_Editar(sender As Object, e As EventArgs) Handles buttonDetalle_Editar.Click
         If datagridviewDetalle.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Detalle para editar.", vbInformation, My.Application.Info.Title)
         Else
@@ -897,7 +894,7 @@
         End If
     End Sub
 
-    Private Sub Detalle_Eliminar() Handles buttonDetalle_Eliminar.Click
+    Private Sub Detalle_Eliminar(sender As Object, e As EventArgs) Handles buttonDetalle_Eliminar.Click
         If datagridviewDetalle.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Detalle para eliminar.", vbInformation, My.Application.Info.Title)
         Else
@@ -921,7 +918,7 @@
         End If
     End Sub
 
-    Private Sub Detalle_Ver() Handles datagridviewDetalle.DoubleClick
+    Private Sub Detalle_Ver(sender As Object, e As EventArgs) Handles datagridviewDetalle.DoubleClick
         If datagridviewDetalle.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Detalle para ver.", vbInformation, My.Application.Info.Title)
         Else
@@ -944,7 +941,7 @@
 #End Region
 
 #Region "Aplicación Toolbar"
-    Private Sub Aplicacion_Agregar() Handles buttonAplicaciones_Agregar.Click
+    Private Sub Aplicacion_Agregar(sender As Object, e As EventArgs) Handles buttonAplicaciones_Agregar.Click
         If textboxEntidad.Tag Is Nothing Then
             MsgBox("Antes de poder agregar Aplicaciones, debe especificar la Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
             textboxEntidad.Focus()
@@ -965,7 +962,7 @@
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub Aplicacion_Eliminar() Handles buttonAplicaciones_Eliminar.Click
+    Private Sub Aplicacion_Eliminar(sender As Object, e As EventArgs) Handles buttonAplicaciones_Eliminar.Click
         If datagridviewAplicaciones.CurrentRow Is Nothing Then
             MsgBox("No hay ninguna Aplicación para eliminar.", vbInformation, My.Application.Info.Title)
         Else
@@ -988,7 +985,7 @@
 #End Region
 
 #Region "Medios de Pago Toolbar"
-    Private Sub MedioPago_AgregarOtro() Handles buttonMediosPago_AgregarOtro.Click
+    Private Sub MedioPago_AgregarOtro(sender As Object, e As EventArgs) Handles buttonMediosPago_AgregarOtro.Click
         Me.Cursor = Cursors.WaitCursor
 
         datagridviewMediosPago.Enabled = False
@@ -1002,7 +999,7 @@
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub MedioPago_AgregarCheque() Handles buttonMediosPago_AgregarCheque.Click
+    Private Sub MedioPago_AgregarCheque(sender As Object, e As EventArgs) Handles buttonMediosPago_AgregarCheque.Click
         Me.Cursor = Cursors.WaitCursor
 
         datagridviewMediosPago.Enabled = False
@@ -1019,7 +1016,7 @@
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub MedioPago_Editar() Handles buttonMediosPago_Editar.Click
+    Private Sub MedioPago_Editar(sender As Object, e As EventArgs) Handles buttonMediosPago_Editar.Click
         If datagridviewMediosPago.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Medio de Pago para editar.", vbInformation, My.Application.Info.Title)
         Else
@@ -1045,7 +1042,7 @@
         End If
     End Sub
 
-    Private Sub MedioPago_Eliminar() Handles buttonMediosPago_Eliminar.Click
+    Private Sub MedioPago_Eliminar(sender As Object, e As EventArgs) Handles buttonMediosPago_Eliminar.Click
         If datagridviewMediosPago.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Medio de Pago para eliminar.", vbInformation, My.Application.Info.Title)
         Else
@@ -1066,7 +1063,7 @@
         End If
     End Sub
 
-    Private Sub MedioPago_Ver() Handles datagridviewMediosPago.DoubleClick
+    Private Sub MedioPago_Ver(sender As Object, e As EventArgs) Handles datagridviewMediosPago.DoubleClick
         If datagridviewMediosPago.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Medio de Pago para ver.", vbInformation, My.Application.Info.Title)
         Else

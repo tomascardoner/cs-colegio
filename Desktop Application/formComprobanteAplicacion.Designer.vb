@@ -37,15 +37,15 @@ Partial Class formComprobanteAplicacion
         Me.labelComprobanteAplicado = New System.Windows.Forms.Label()
         Me.labelImporteAplicado = New System.Windows.Forms.Label()
         Me.datagridviewMain = New System.Windows.Forms.DataGridView()
-        Me.columnTipoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnNumeroCompleto = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnFecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnImporteAplicado = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnImporteSinAplicar = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.textboxImporteAplicado = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
         Me.comboboxMotivo = New System.Windows.Forms.ComboBox()
         Me.labelMotivo = New System.Windows.Forms.Label()
+        Me.columnTipoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnNumeroCompleto = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnFechaEmision = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnImporteAplicado = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnImporteSinAplicar = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.toolstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -128,7 +128,7 @@ Partial Class formComprobanteAplicacion
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
         Me.datagridviewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.datagridviewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnTipoNombre, Me.columnNumeroCompleto, Me.columnFecha, Me.columnImporteTotal, Me.columnImporteAplicado, Me.columnImporteSinAplicar})
+        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnTipoNombre, Me.columnNumeroCompleto, Me.columnFechaEmision, Me.columnImporteTotal, Me.columnImporteAplicado, Me.columnImporteSinAplicar})
         Me.datagridviewMain.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.datagridviewMain.Location = New System.Drawing.Point(12, 69)
         Me.datagridviewMain.MultiSelect = False
@@ -139,73 +139,6 @@ Partial Class formComprobanteAplicacion
         Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewMain.Size = New System.Drawing.Size(539, 215)
         Me.datagridviewMain.TabIndex = 1
-        '
-        'columnTipoNombre
-        '
-        Me.columnTipoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnTipoNombre.DataPropertyName = "TipoNombre"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnTipoNombre.DefaultCellStyle = DataGridViewCellStyle2
-        Me.columnTipoNombre.HeaderText = "Tipo"
-        Me.columnTipoNombre.Name = "columnTipoNombre"
-        Me.columnTipoNombre.ReadOnly = True
-        Me.columnTipoNombre.Width = 53
-        '
-        'columnNumeroCompleto
-        '
-        Me.columnNumeroCompleto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnNumeroCompleto.DataPropertyName = "NumeroCompleto"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnNumeroCompleto.DefaultCellStyle = DataGridViewCellStyle3
-        Me.columnNumeroCompleto.HeaderText = "Número"
-        Me.columnNumeroCompleto.Name = "columnNumeroCompleto"
-        Me.columnNumeroCompleto.ReadOnly = True
-        Me.columnNumeroCompleto.Width = 69
-        '
-        'columnFecha
-        '
-        Me.columnFecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnFecha.DataPropertyName = "FechaEmision"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnFecha.DefaultCellStyle = DataGridViewCellStyle4
-        Me.columnFecha.HeaderText = "Fecha"
-        Me.columnFecha.Name = "columnFecha"
-        Me.columnFecha.ReadOnly = True
-        Me.columnFecha.Width = 62
-        '
-        'columnImporteTotal
-        '
-        Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnImporteTotal.DataPropertyName = "ImporteTotal"
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle5.Format = "C2"
-        DataGridViewCellStyle5.NullValue = Nothing
-        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle5
-        Me.columnImporteTotal.HeaderText = "Importe total"
-        Me.columnImporteTotal.Name = "columnImporteTotal"
-        Me.columnImporteTotal.ReadOnly = True
-        Me.columnImporteTotal.Width = 83
-        '
-        'columnImporteAplicado
-        '
-        Me.columnImporteAplicado.DataPropertyName = "ImporteAplicado"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle6.Format = "C2"
-        DataGridViewCellStyle6.NullValue = Nothing
-        Me.columnImporteAplicado.DefaultCellStyle = DataGridViewCellStyle6
-        Me.columnImporteAplicado.HeaderText = "Importe aplicado"
-        Me.columnImporteAplicado.Name = "columnImporteAplicado"
-        Me.columnImporteAplicado.ReadOnly = True
-        '
-        'columnImporteSinAplicar
-        '
-        Me.columnImporteSinAplicar.DataPropertyName = "ImporteSinAplicar"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle7.Format = "C2"
-        Me.columnImporteSinAplicar.DefaultCellStyle = DataGridViewCellStyle7
-        Me.columnImporteSinAplicar.HeaderText = "Importe pendiente"
-        Me.columnImporteSinAplicar.Name = "columnImporteSinAplicar"
-        Me.columnImporteSinAplicar.ReadOnly = True
         '
         'textboxImporteAplicado
         '
@@ -233,6 +166,83 @@ Partial Class formComprobanteAplicacion
         Me.labelMotivo.Size = New System.Drawing.Size(42, 13)
         Me.labelMotivo.TabIndex = 2
         Me.labelMotivo.Text = "Motivo:"
+        '
+        'columnTipoNombre
+        '
+        Me.columnTipoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnTipoNombre.DataPropertyName = "TipoNombre"
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnTipoNombre.DefaultCellStyle = DataGridViewCellStyle2
+        Me.columnTipoNombre.HeaderText = "Tipo"
+        Me.columnTipoNombre.Name = "columnTipoNombre"
+        Me.columnTipoNombre.ReadOnly = True
+        Me.columnTipoNombre.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.columnTipoNombre.Width = 53
+        '
+        'columnNumeroCompleto
+        '
+        Me.columnNumeroCompleto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnNumeroCompleto.DataPropertyName = "NumeroCompleto"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnNumeroCompleto.DefaultCellStyle = DataGridViewCellStyle3
+        Me.columnNumeroCompleto.HeaderText = "Número"
+        Me.columnNumeroCompleto.Name = "columnNumeroCompleto"
+        Me.columnNumeroCompleto.ReadOnly = True
+        Me.columnNumeroCompleto.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.columnNumeroCompleto.Width = 69
+        '
+        'columnFechaEmision
+        '
+        Me.columnFechaEmision.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnFechaEmision.DataPropertyName = "FechaEmision"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnFechaEmision.DefaultCellStyle = DataGridViewCellStyle4
+        Me.columnFechaEmision.HeaderText = "Fecha"
+        Me.columnFechaEmision.Name = "columnFechaEmision"
+        Me.columnFechaEmision.ReadOnly = True
+        Me.columnFechaEmision.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.columnFechaEmision.Width = 62
+        '
+        'columnImporteTotal
+        '
+        Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnImporteTotal.DataPropertyName = "ImporteTotal"
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle5.Format = "C2"
+        DataGridViewCellStyle5.NullValue = Nothing
+        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle5
+        Me.columnImporteTotal.HeaderText = "Importe total"
+        Me.columnImporteTotal.Name = "columnImporteTotal"
+        Me.columnImporteTotal.ReadOnly = True
+        Me.columnImporteTotal.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.columnImporteTotal.Width = 90
+        '
+        'columnImporteAplicado
+        '
+        Me.columnImporteAplicado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnImporteAplicado.DataPropertyName = "ImporteAplicado"
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle6.Format = "C2"
+        DataGridViewCellStyle6.NullValue = Nothing
+        Me.columnImporteAplicado.DefaultCellStyle = DataGridViewCellStyle6
+        Me.columnImporteAplicado.HeaderText = "Importe aplicado"
+        Me.columnImporteAplicado.Name = "columnImporteAplicado"
+        Me.columnImporteAplicado.ReadOnly = True
+        Me.columnImporteAplicado.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.columnImporteAplicado.Width = 101
+        '
+        'columnImporteSinAplicar
+        '
+        Me.columnImporteSinAplicar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnImporteSinAplicar.DataPropertyName = "ImporteSinAplicar"
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle7.Format = "C2"
+        Me.columnImporteSinAplicar.DefaultCellStyle = DataGridViewCellStyle7
+        Me.columnImporteSinAplicar.HeaderText = "Importe pendiente"
+        Me.columnImporteSinAplicar.Name = "columnImporteSinAplicar"
+        Me.columnImporteSinAplicar.ReadOnly = True
+        Me.columnImporteSinAplicar.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.columnImporteSinAplicar.Width = 107
         '
         'formComprobanteAplicacion
         '
@@ -268,12 +278,12 @@ Partial Class formComprobanteAplicacion
     Friend WithEvents buttonEditar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonCerrar As System.Windows.Forms.ToolStripButton
     Friend WithEvents datagridviewMain As System.Windows.Forms.DataGridView
+    Friend WithEvents comboboxMotivo As System.Windows.Forms.ComboBox
+    Friend WithEvents labelMotivo As System.Windows.Forms.Label
     Friend WithEvents columnTipoNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnNumeroCompleto As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnFecha As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnFechaEmision As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnImporteAplicado As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnImporteSinAplicar As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents comboboxMotivo As System.Windows.Forms.ComboBox
-    Friend WithEvents labelMotivo As System.Windows.Forms.Label
 End Class

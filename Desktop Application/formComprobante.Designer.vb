@@ -24,6 +24,11 @@ Partial Class formComprobante
     Private Sub InitializeComponent()
         Dim labelFechaServicioDesde As System.Windows.Forms.Label
         Dim labelFechaServicioHasta As System.Windows.Forms.Label
+        Dim labelLeyenda As System.Windows.Forms.Label
+        Dim labelEnvioEmail As System.Windows.Forms.Label
+        Dim labelNotas As System.Windows.Forms.Label
+        Dim labelCreacion As System.Windows.Forms.Label
+        Dim labelModificacion As System.Windows.Forms.Label
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -41,54 +46,8 @@ Partial Class formComprobante
         Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim labelLeyenda As System.Windows.Forms.Label
-        Dim labelEnvioEmail As System.Windows.Forms.Label
-        Dim labelNotas As System.Windows.Forms.Label
-        Dim labelCreacion As System.Windows.Forms.Label
-        Dim labelModificacion As System.Windows.Forms.Label
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formComprobante))
         Me.panelMain = New System.Windows.Forms.TableLayoutPanel()
-        Me.panelCabecera = New System.Windows.Forms.FlowLayoutPanel()
-        Me.panelIdentificacion = New System.Windows.Forms.Panel()
-        Me.textboxPuntoVenta = New System.Windows.Forms.TextBox()
-        Me.labelPuntoVenta = New System.Windows.Forms.Label()
-        Me.comboboxComprobanteTipo = New System.Windows.Forms.ComboBox()
-        Me.labelComprobanteTipo = New System.Windows.Forms.Label()
-        Me.textboxNumero = New System.Windows.Forms.TextBox()
-        Me.labelComprobanteNumero = New System.Windows.Forms.Label()
-        Me.datetimepickerFechaEmision = New System.Windows.Forms.DateTimePicker()
-        Me.labelFechaEmision = New System.Windows.Forms.Label()
-        Me.textboxIDComprobante = New System.Windows.Forms.TextBox()
-        Me.labelIDComprobante = New System.Windows.Forms.Label()
-        Me.panelFechas = New System.Windows.Forms.Panel()
-        Me.datetimepickerFechaServicioHasta = New System.Windows.Forms.DateTimePicker()
-        Me.datetimepickerFechaServicioDesde = New System.Windows.Forms.DateTimePicker()
-        Me.datetimepickerFechaVencimiento = New System.Windows.Forms.DateTimePicker()
-        Me.labelFechaVencimiento = New System.Windows.Forms.Label()
-        Me.panelEntidad = New System.Windows.Forms.Panel()
-        Me.buttonEntidadVerSaldo = New System.Windows.Forms.Button()
-        Me.buttonEntidad = New System.Windows.Forms.Button()
-        Me.textboxEntidad = New System.Windows.Forms.TextBox()
-        Me.labelEntidad = New System.Windows.Forms.Label()
-        Me.panelPie = New System.Windows.Forms.FlowLayoutPanel()
-        Me.panelImporteTotal = New System.Windows.Forms.Panel()
-        Me.labelImporteTotal = New System.Windows.Forms.Label()
-        Me.panelMediosPago_Subtotal = New System.Windows.Forms.Panel()
-        Me.labelMediosPago_Subtotal = New System.Windows.Forms.Label()
-        Me.panelInteres_Subtotal = New System.Windows.Forms.Panel()
-        Me.labelInteres_Subtotal = New System.Windows.Forms.Label()
-        Me.panelAplicaciones_Subtotal = New System.Windows.Forms.Panel()
-        Me.labelAplicaciones_Subtotal = New System.Windows.Forms.Label()
-        Me.panelImpuestos_Subtotal = New System.Windows.Forms.Panel()
-        Me.labelImpuestosSubtotal = New System.Windows.Forms.Label()
-        Me.panelDetalle_Subtotal = New System.Windows.Forms.Panel()
-        Me.labelDetalle_Subtotal = New System.Windows.Forms.Label()
-        Me.toolstripMain = New System.Windows.Forms.ToolStrip()
-        Me.buttonCerrar = New System.Windows.Forms.ToolStripButton()
-        Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
-        Me.buttonCancelar = New System.Windows.Forms.ToolStripButton()
-        Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
-        Me.buttonTransmitirComprobante = New System.Windows.Forms.ToolStripButton()
-        Me.buttonVerificarComprobante = New System.Windows.Forms.ToolStripButton()
         Me.tabcontrolMain = New CSColegio.DesktopApplication.CS_Control_TabControl()
         Me.tabpageDetalle = New System.Windows.Forms.TabPage()
         Me.datagridviewDetalle = New System.Windows.Forms.DataGridView()
@@ -145,12 +104,52 @@ Partial Class formComprobante
         Me.textboxUsuarioCreacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraModificacion = New System.Windows.Forms.TextBox()
         Me.textboxUsuarioModificacion = New System.Windows.Forms.TextBox()
+        Me.panelCabecera = New System.Windows.Forms.FlowLayoutPanel()
+        Me.panelIdentificacion = New System.Windows.Forms.Panel()
+        Me.textboxPuntoVenta = New System.Windows.Forms.TextBox()
+        Me.labelPuntoVenta = New System.Windows.Forms.Label()
+        Me.comboboxComprobanteTipo = New System.Windows.Forms.ComboBox()
+        Me.labelComprobanteTipo = New System.Windows.Forms.Label()
+        Me.textboxNumero = New System.Windows.Forms.TextBox()
+        Me.labelComprobanteNumero = New System.Windows.Forms.Label()
+        Me.datetimepickerFechaEmision = New System.Windows.Forms.DateTimePicker()
+        Me.labelFechaEmision = New System.Windows.Forms.Label()
+        Me.textboxIDComprobante = New System.Windows.Forms.TextBox()
+        Me.labelIDComprobante = New System.Windows.Forms.Label()
+        Me.panelFechas = New System.Windows.Forms.Panel()
+        Me.datetimepickerFechaServicioHasta = New System.Windows.Forms.DateTimePicker()
+        Me.datetimepickerFechaServicioDesde = New System.Windows.Forms.DateTimePicker()
+        Me.datetimepickerFechaVencimiento = New System.Windows.Forms.DateTimePicker()
+        Me.labelFechaVencimiento = New System.Windows.Forms.Label()
+        Me.panelEntidad = New System.Windows.Forms.Panel()
+        Me.buttonEntidadVerSaldo = New System.Windows.Forms.Button()
+        Me.buttonEntidad = New System.Windows.Forms.Button()
+        Me.textboxEntidad = New System.Windows.Forms.TextBox()
+        Me.labelEntidad = New System.Windows.Forms.Label()
+        Me.panelPie = New System.Windows.Forms.FlowLayoutPanel()
+        Me.panelImporteTotal = New System.Windows.Forms.Panel()
         Me.textboxImporteTotal = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
+        Me.labelImporteTotal = New System.Windows.Forms.Label()
+        Me.panelMediosPago_Subtotal = New System.Windows.Forms.Panel()
         Me.textboxMediosPago_Subtotal = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
-        Me.textboxInteres_Subtotal = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
+        Me.labelMediosPago_Subtotal = New System.Windows.Forms.Label()
+        Me.panelAplicaciones_Subtotal = New System.Windows.Forms.Panel()
         Me.textboxAplicaciones_Subtotal = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
+        Me.labelAplicaciones_Subtotal = New System.Windows.Forms.Label()
+        Me.panelImpuestos_Subtotal = New System.Windows.Forms.Panel()
         Me.textboxImpuestos_Subtotal = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
+        Me.labelImpuestosSubtotal = New System.Windows.Forms.Label()
+        Me.panelDetalle_Subtotal = New System.Windows.Forms.Panel()
         Me.textboxDetalle_Subtotal = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
+        Me.labelDetalle_Subtotal = New System.Windows.Forms.Label()
+        Me.toolstripMain = New System.Windows.Forms.ToolStrip()
+        Me.buttonCerrar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonCancelar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonAFIP = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.menuitemAFIP_ObtenerCAE = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemAFIP_VerificarDatos = New System.Windows.Forms.ToolStripMenuItem()
         labelFechaServicioDesde = New System.Windows.Forms.Label()
         labelFechaServicioHasta = New System.Windows.Forms.Label()
         labelLeyenda = New System.Windows.Forms.Label()
@@ -159,18 +158,6 @@ Partial Class formComprobante
         labelCreacion = New System.Windows.Forms.Label()
         labelModificacion = New System.Windows.Forms.Label()
         Me.panelMain.SuspendLayout()
-        Me.panelCabecera.SuspendLayout()
-        Me.panelIdentificacion.SuspendLayout()
-        Me.panelFechas.SuspendLayout()
-        Me.panelEntidad.SuspendLayout()
-        Me.panelPie.SuspendLayout()
-        Me.panelImporteTotal.SuspendLayout()
-        Me.panelMediosPago_Subtotal.SuspendLayout()
-        Me.panelInteres_Subtotal.SuspendLayout()
-        Me.panelAplicaciones_Subtotal.SuspendLayout()
-        Me.panelImpuestos_Subtotal.SuspendLayout()
-        Me.panelDetalle_Subtotal.SuspendLayout()
-        Me.toolstripMain.SuspendLayout()
         Me.tabcontrolMain.SuspendLayout()
         Me.tabpageDetalle.SuspendLayout()
         CType(Me.datagridviewDetalle, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -185,6 +172,17 @@ Partial Class formComprobante
         CType(Me.datagridviewMediosPago, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.toolstripMediosPago.SuspendLayout()
         Me.tabpageNotasAuditoria.SuspendLayout()
+        Me.panelCabecera.SuspendLayout()
+        Me.panelIdentificacion.SuspendLayout()
+        Me.panelFechas.SuspendLayout()
+        Me.panelEntidad.SuspendLayout()
+        Me.panelPie.SuspendLayout()
+        Me.panelImporteTotal.SuspendLayout()
+        Me.panelMediosPago_Subtotal.SuspendLayout()
+        Me.panelAplicaciones_Subtotal.SuspendLayout()
+        Me.panelImpuestos_Subtotal.SuspendLayout()
+        Me.panelDetalle_Subtotal.SuspendLayout()
+        Me.toolstripMain.SuspendLayout()
         Me.SuspendLayout()
         '
         'labelFechaServicioDesde
@@ -205,6 +203,54 @@ Partial Class formComprobante
         labelFechaServicioHasta.TabIndex = 4
         labelFechaServicioHasta.Text = "Hasta:"
         '
+        'labelLeyenda
+        '
+        labelLeyenda.AutoSize = True
+        labelLeyenda.Location = New System.Drawing.Point(6, 9)
+        labelLeyenda.Name = "labelLeyenda"
+        labelLeyenda.Size = New System.Drawing.Size(51, 13)
+        labelLeyenda.TabIndex = 0
+        labelLeyenda.Text = "Leyenda:"
+        '
+        'labelEnvioEmail
+        '
+        labelEnvioEmail.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        labelEnvioEmail.AutoSize = True
+        labelEnvioEmail.Location = New System.Drawing.Point(6, 239)
+        labelEnvioEmail.Name = "labelEnvioEmail"
+        labelEnvioEmail.Size = New System.Drawing.Size(115, 13)
+        labelEnvioEmail.TabIndex = 10
+        labelEnvioEmail.Text = "Ultimo envío de e-mail:"
+        '
+        'labelNotas
+        '
+        labelNotas.AutoSize = True
+        labelNotas.Location = New System.Drawing.Point(6, 98)
+        labelNotas.Name = "labelNotas"
+        labelNotas.Size = New System.Drawing.Size(38, 13)
+        labelNotas.TabIndex = 2
+        labelNotas.Text = "Notas:"
+        '
+        'labelCreacion
+        '
+        labelCreacion.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        labelCreacion.AutoSize = True
+        labelCreacion.Location = New System.Drawing.Point(6, 187)
+        labelCreacion.Name = "labelCreacion"
+        labelCreacion.Size = New System.Drawing.Size(52, 13)
+        labelCreacion.TabIndex = 4
+        labelCreacion.Text = "Creación:"
+        '
+        'labelModificacion
+        '
+        labelModificacion.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        labelModificacion.AutoSize = True
+        labelModificacion.Location = New System.Drawing.Point(6, 213)
+        labelModificacion.Name = "labelModificacion"
+        labelModificacion.Size = New System.Drawing.Size(102, 13)
+        labelModificacion.TabIndex = 7
+        labelModificacion.Text = "Ultima Modificación:"
+        '
         'panelMain
         '
         Me.panelMain.AutoSize = True
@@ -224,454 +270,6 @@ Partial Class formComprobante
         Me.panelMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.panelMain.Size = New System.Drawing.Size(1057, 475)
         Me.panelMain.TabIndex = 2
-        '
-        'panelCabecera
-        '
-        Me.panelCabecera.AutoSize = True
-        Me.panelCabecera.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.panelCabecera.Controls.Add(Me.panelIdentificacion)
-        Me.panelCabecera.Controls.Add(Me.panelFechas)
-        Me.panelCabecera.Controls.Add(Me.panelEntidad)
-        Me.panelCabecera.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.panelCabecera.Location = New System.Drawing.Point(3, 3)
-        Me.panelCabecera.Name = "panelCabecera"
-        Me.panelCabecera.Size = New System.Drawing.Size(1051, 105)
-        Me.panelCabecera.TabIndex = 0
-        '
-        'panelIdentificacion
-        '
-        Me.panelIdentificacion.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.panelIdentificacion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.panelIdentificacion.Controls.Add(Me.textboxPuntoVenta)
-        Me.panelIdentificacion.Controls.Add(Me.labelPuntoVenta)
-        Me.panelIdentificacion.Controls.Add(Me.comboboxComprobanteTipo)
-        Me.panelIdentificacion.Controls.Add(Me.labelComprobanteTipo)
-        Me.panelIdentificacion.Controls.Add(Me.textboxNumero)
-        Me.panelIdentificacion.Controls.Add(Me.labelComprobanteNumero)
-        Me.panelIdentificacion.Controls.Add(Me.datetimepickerFechaEmision)
-        Me.panelIdentificacion.Controls.Add(Me.labelFechaEmision)
-        Me.panelIdentificacion.Controls.Add(Me.textboxIDComprobante)
-        Me.panelIdentificacion.Controls.Add(Me.labelIDComprobante)
-        Me.panelIdentificacion.Location = New System.Drawing.Point(3, 3)
-        Me.panelIdentificacion.Name = "panelIdentificacion"
-        Me.panelIdentificacion.Size = New System.Drawing.Size(804, 29)
-        Me.panelIdentificacion.TabIndex = 0
-        '
-        'textboxPuntoVenta
-        '
-        Me.textboxPuntoVenta.Location = New System.Drawing.Point(414, 3)
-        Me.textboxPuntoVenta.MaxLength = 4
-        Me.textboxPuntoVenta.Name = "textboxPuntoVenta"
-        Me.textboxPuntoVenta.Size = New System.Drawing.Size(38, 20)
-        Me.textboxPuntoVenta.TabIndex = 5
-        Me.textboxPuntoVenta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'labelPuntoVenta
-        '
-        Me.labelPuntoVenta.AutoSize = True
-        Me.labelPuntoVenta.Location = New System.Drawing.Point(326, 6)
-        Me.labelPuntoVenta.Name = "labelPuntoVenta"
-        Me.labelPuntoVenta.Size = New System.Drawing.Size(84, 13)
-        Me.labelPuntoVenta.TabIndex = 4
-        Me.labelPuntoVenta.Text = "Punto de Venta:"
-        '
-        'comboboxComprobanteTipo
-        '
-        Me.comboboxComprobanteTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.comboboxComprobanteTipo.FormattingEnabled = True
-        Me.comboboxComprobanteTipo.Location = New System.Drawing.Point(152, 3)
-        Me.comboboxComprobanteTipo.Name = "comboboxComprobanteTipo"
-        Me.comboboxComprobanteTipo.Size = New System.Drawing.Size(159, 21)
-        Me.comboboxComprobanteTipo.TabIndex = 3
-        '
-        'labelComprobanteTipo
-        '
-        Me.labelComprobanteTipo.AutoSize = True
-        Me.labelComprobanteTipo.Location = New System.Drawing.Point(110, 6)
-        Me.labelComprobanteTipo.Name = "labelComprobanteTipo"
-        Me.labelComprobanteTipo.Size = New System.Drawing.Size(31, 13)
-        Me.labelComprobanteTipo.TabIndex = 2
-        Me.labelComprobanteTipo.Text = "Tipo:"
-        '
-        'textboxNumero
-        '
-        Me.textboxNumero.Location = New System.Drawing.Point(516, 3)
-        Me.textboxNumero.MaxLength = 8
-        Me.textboxNumero.Name = "textboxNumero"
-        Me.textboxNumero.Size = New System.Drawing.Size(62, 20)
-        Me.textboxNumero.TabIndex = 7
-        Me.textboxNumero.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'labelComprobanteNumero
-        '
-        Me.labelComprobanteNumero.AutoSize = True
-        Me.labelComprobanteNumero.Location = New System.Drawing.Point(464, 6)
-        Me.labelComprobanteNumero.Name = "labelComprobanteNumero"
-        Me.labelComprobanteNumero.Size = New System.Drawing.Size(47, 13)
-        Me.labelComprobanteNumero.TabIndex = 6
-        Me.labelComprobanteNumero.Text = "Número:"
-        '
-        'datetimepickerFechaEmision
-        '
-        Me.datetimepickerFechaEmision.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.datetimepickerFechaEmision.Location = New System.Drawing.Point(694, 3)
-        Me.datetimepickerFechaEmision.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
-        Me.datetimepickerFechaEmision.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
-        Me.datetimepickerFechaEmision.Name = "datetimepickerFechaEmision"
-        Me.datetimepickerFechaEmision.Size = New System.Drawing.Size(104, 20)
-        Me.datetimepickerFechaEmision.TabIndex = 9
-        '
-        'labelFechaEmision
-        '
-        Me.labelFechaEmision.AutoSize = True
-        Me.labelFechaEmision.Location = New System.Drawing.Point(595, 6)
-        Me.labelFechaEmision.Name = "labelFechaEmision"
-        Me.labelFechaEmision.Size = New System.Drawing.Size(94, 13)
-        Me.labelFechaEmision.TabIndex = 8
-        Me.labelFechaEmision.Text = "Fecha de Emisión:"
-        '
-        'textboxIDComprobante
-        '
-        Me.textboxIDComprobante.Location = New System.Drawing.Point(30, 3)
-        Me.textboxIDComprobante.MaxLength = 10
-        Me.textboxIDComprobante.Name = "textboxIDComprobante"
-        Me.textboxIDComprobante.ReadOnly = True
-        Me.textboxIDComprobante.Size = New System.Drawing.Size(74, 20)
-        Me.textboxIDComprobante.TabIndex = 1
-        Me.textboxIDComprobante.TabStop = False
-        Me.textboxIDComprobante.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'labelIDComprobante
-        '
-        Me.labelIDComprobante.AutoSize = True
-        Me.labelIDComprobante.Location = New System.Drawing.Point(3, 6)
-        Me.labelIDComprobante.Name = "labelIDComprobante"
-        Me.labelIDComprobante.Size = New System.Drawing.Size(21, 13)
-        Me.labelIDComprobante.TabIndex = 0
-        Me.labelIDComprobante.Text = "ID:"
-        '
-        'panelFechas
-        '
-        Me.panelFechas.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.panelFechas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.panelFechas.Controls.Add(Me.datetimepickerFechaServicioHasta)
-        Me.panelFechas.Controls.Add(labelFechaServicioHasta)
-        Me.panelFechas.Controls.Add(Me.datetimepickerFechaServicioDesde)
-        Me.panelFechas.Controls.Add(Me.datetimepickerFechaVencimiento)
-        Me.panelFechas.Controls.Add(labelFechaServicioDesde)
-        Me.panelFechas.Controls.Add(Me.labelFechaVencimiento)
-        Me.panelFechas.Location = New System.Drawing.Point(3, 38)
-        Me.panelFechas.Name = "panelFechas"
-        Me.panelFechas.Size = New System.Drawing.Size(685, 29)
-        Me.panelFechas.TabIndex = 1
-        '
-        'datetimepickerFechaServicioHasta
-        '
-        Me.datetimepickerFechaServicioHasta.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.datetimepickerFechaServicioHasta.Location = New System.Drawing.Point(560, 2)
-        Me.datetimepickerFechaServicioHasta.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
-        Me.datetimepickerFechaServicioHasta.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
-        Me.datetimepickerFechaServicioHasta.Name = "datetimepickerFechaServicioHasta"
-        Me.datetimepickerFechaServicioHasta.ShowCheckBox = True
-        Me.datetimepickerFechaServicioHasta.Size = New System.Drawing.Size(120, 20)
-        Me.datetimepickerFechaServicioHasta.TabIndex = 5
-        '
-        'datetimepickerFechaServicioDesde
-        '
-        Me.datetimepickerFechaServicioDesde.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.datetimepickerFechaServicioDesde.Location = New System.Drawing.Point(390, 2)
-        Me.datetimepickerFechaServicioDesde.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
-        Me.datetimepickerFechaServicioDesde.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
-        Me.datetimepickerFechaServicioDesde.Name = "datetimepickerFechaServicioDesde"
-        Me.datetimepickerFechaServicioDesde.ShowCheckBox = True
-        Me.datetimepickerFechaServicioDesde.Size = New System.Drawing.Size(120, 20)
-        Me.datetimepickerFechaServicioDesde.TabIndex = 3
-        '
-        'datetimepickerFechaVencimiento
-        '
-        Me.datetimepickerFechaVencimiento.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.datetimepickerFechaVencimiento.Location = New System.Drawing.Point(125, 2)
-        Me.datetimepickerFechaVencimiento.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
-        Me.datetimepickerFechaVencimiento.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
-        Me.datetimepickerFechaVencimiento.Name = "datetimepickerFechaVencimiento"
-        Me.datetimepickerFechaVencimiento.ShowCheckBox = True
-        Me.datetimepickerFechaVencimiento.Size = New System.Drawing.Size(120, 20)
-        Me.datetimepickerFechaVencimiento.TabIndex = 1
-        '
-        'labelFechaVencimiento
-        '
-        Me.labelFechaVencimiento.AutoSize = True
-        Me.labelFechaVencimiento.Location = New System.Drawing.Point(3, 6)
-        Me.labelFechaVencimiento.Name = "labelFechaVencimiento"
-        Me.labelFechaVencimiento.Size = New System.Drawing.Size(116, 13)
-        Me.labelFechaVencimiento.TabIndex = 0
-        Me.labelFechaVencimiento.Text = "Fecha de Vencimiento:"
-        '
-        'panelEntidad
-        '
-        Me.panelEntidad.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.panelEntidad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.panelEntidad.Controls.Add(Me.buttonEntidadVerSaldo)
-        Me.panelEntidad.Controls.Add(Me.buttonEntidad)
-        Me.panelEntidad.Controls.Add(Me.textboxEntidad)
-        Me.panelEntidad.Controls.Add(Me.labelEntidad)
-        Me.panelEntidad.Location = New System.Drawing.Point(3, 73)
-        Me.panelEntidad.Name = "panelEntidad"
-        Me.panelEntidad.Size = New System.Drawing.Size(630, 29)
-        Me.panelEntidad.TabIndex = 2
-        '
-        'buttonEntidadVerSaldo
-        '
-        Me.buttonEntidadVerSaldo.Location = New System.Drawing.Point(562, 2)
-        Me.buttonEntidadVerSaldo.Name = "buttonEntidadVerSaldo"
-        Me.buttonEntidadVerSaldo.Size = New System.Drawing.Size(63, 22)
-        Me.buttonEntidadVerSaldo.TabIndex = 3
-        Me.buttonEntidadVerSaldo.Text = "Ver Saldo"
-        Me.buttonEntidadVerSaldo.UseVisualStyleBackColor = True
-        '
-        'buttonEntidad
-        '
-        Me.buttonEntidad.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_SEARCH_16
-        Me.buttonEntidad.Location = New System.Drawing.Point(538, 2)
-        Me.buttonEntidad.Name = "buttonEntidad"
-        Me.buttonEntidad.Size = New System.Drawing.Size(22, 22)
-        Me.buttonEntidad.TabIndex = 2
-        Me.buttonEntidad.Text = "…"
-        Me.buttonEntidad.UseVisualStyleBackColor = True
-        '
-        'textboxEntidad
-        '
-        Me.textboxEntidad.Location = New System.Drawing.Point(55, 3)
-        Me.textboxEntidad.MaxLength = 150
-        Me.textboxEntidad.Name = "textboxEntidad"
-        Me.textboxEntidad.ReadOnly = True
-        Me.textboxEntidad.Size = New System.Drawing.Size(483, 20)
-        Me.textboxEntidad.TabIndex = 1
-        Me.textboxEntidad.TabStop = False
-        '
-        'labelEntidad
-        '
-        Me.labelEntidad.AutoSize = True
-        Me.labelEntidad.Location = New System.Drawing.Point(3, 6)
-        Me.labelEntidad.Name = "labelEntidad"
-        Me.labelEntidad.Size = New System.Drawing.Size(46, 13)
-        Me.labelEntidad.TabIndex = 0
-        Me.labelEntidad.Text = "Entidad:"
-        '
-        'panelPie
-        '
-        Me.panelPie.AutoSize = True
-        Me.panelPie.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.panelPie.Controls.Add(Me.panelImporteTotal)
-        Me.panelPie.Controls.Add(Me.panelMediosPago_Subtotal)
-        Me.panelPie.Controls.Add(Me.panelInteres_Subtotal)
-        Me.panelPie.Controls.Add(Me.panelAplicaciones_Subtotal)
-        Me.panelPie.Controls.Add(Me.panelImpuestos_Subtotal)
-        Me.panelPie.Controls.Add(Me.panelDetalle_Subtotal)
-        Me.panelPie.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.panelPie.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.panelPie.Location = New System.Drawing.Point(3, 428)
-        Me.panelPie.Name = "panelPie"
-        Me.panelPie.Padding = New System.Windows.Forms.Padding(4)
-        Me.panelPie.Size = New System.Drawing.Size(1051, 44)
-        Me.panelPie.TabIndex = 2
-        '
-        'panelImporteTotal
-        '
-        Me.panelImporteTotal.AutoSize = True
-        Me.panelImporteTotal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.panelImporteTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.panelImporteTotal.Controls.Add(Me.textboxImporteTotal)
-        Me.panelImporteTotal.Controls.Add(Me.labelImporteTotal)
-        Me.panelImporteTotal.Location = New System.Drawing.Point(873, 7)
-        Me.panelImporteTotal.Name = "panelImporteTotal"
-        Me.panelImporteTotal.Size = New System.Drawing.Size(167, 29)
-        Me.panelImporteTotal.TabIndex = 0
-        '
-        'labelImporteTotal
-        '
-        Me.labelImporteTotal.AutoSize = True
-        Me.labelImporteTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelImporteTotal.Location = New System.Drawing.Point(3, 5)
-        Me.labelImporteTotal.Name = "labelImporteTotal"
-        Me.labelImporteTotal.Size = New System.Drawing.Size(48, 16)
-        Me.labelImporteTotal.TabIndex = 4
-        Me.labelImporteTotal.Text = "Total:"
-        '
-        'panelMediosPago_Subtotal
-        '
-        Me.panelMediosPago_Subtotal.AutoSize = True
-        Me.panelMediosPago_Subtotal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.panelMediosPago_Subtotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.panelMediosPago_Subtotal.Controls.Add(Me.textboxMediosPago_Subtotal)
-        Me.panelMediosPago_Subtotal.Controls.Add(Me.labelMediosPago_Subtotal)
-        Me.panelMediosPago_Subtotal.Location = New System.Drawing.Point(686, 7)
-        Me.panelMediosPago_Subtotal.Name = "panelMediosPago_Subtotal"
-        Me.panelMediosPago_Subtotal.Size = New System.Drawing.Size(181, 29)
-        Me.panelMediosPago_Subtotal.TabIndex = 6
-        '
-        'labelMediosPago_Subtotal
-        '
-        Me.labelMediosPago_Subtotal.AutoSize = True
-        Me.labelMediosPago_Subtotal.Location = New System.Drawing.Point(3, 7)
-        Me.labelMediosPago_Subtotal.Name = "labelMediosPago_Subtotal"
-        Me.labelMediosPago_Subtotal.Size = New System.Drawing.Size(87, 13)
-        Me.labelMediosPago_Subtotal.TabIndex = 0
-        Me.labelMediosPago_Subtotal.Text = "Medios de Pago:"
-        '
-        'panelInteres_Subtotal
-        '
-        Me.panelInteres_Subtotal.AutoSize = True
-        Me.panelInteres_Subtotal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.panelInteres_Subtotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.panelInteres_Subtotal.Controls.Add(Me.textboxInteres_Subtotal)
-        Me.panelInteres_Subtotal.Controls.Add(Me.labelInteres_Subtotal)
-        Me.panelInteres_Subtotal.Location = New System.Drawing.Point(528, 7)
-        Me.panelInteres_Subtotal.Name = "panelInteres_Subtotal"
-        Me.panelInteres_Subtotal.Size = New System.Drawing.Size(152, 29)
-        Me.panelInteres_Subtotal.TabIndex = 8
-        '
-        'labelInteres_Subtotal
-        '
-        Me.labelInteres_Subtotal.AutoSize = True
-        Me.labelInteres_Subtotal.Location = New System.Drawing.Point(3, 7)
-        Me.labelInteres_Subtotal.Name = "labelInteres_Subtotal"
-        Me.labelInteres_Subtotal.Size = New System.Drawing.Size(53, 13)
-        Me.labelInteres_Subtotal.TabIndex = 0
-        Me.labelInteres_Subtotal.Text = "Intereses:"
-        '
-        'panelAplicaciones_Subtotal
-        '
-        Me.panelAplicaciones_Subtotal.AutoSize = True
-        Me.panelAplicaciones_Subtotal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.panelAplicaciones_Subtotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.panelAplicaciones_Subtotal.Controls.Add(Me.textboxAplicaciones_Subtotal)
-        Me.panelAplicaciones_Subtotal.Controls.Add(Me.labelAplicaciones_Subtotal)
-        Me.panelAplicaciones_Subtotal.Location = New System.Drawing.Point(358, 7)
-        Me.panelAplicaciones_Subtotal.Name = "panelAplicaciones_Subtotal"
-        Me.panelAplicaciones_Subtotal.Size = New System.Drawing.Size(164, 29)
-        Me.panelAplicaciones_Subtotal.TabIndex = 5
-        '
-        'labelAplicaciones_Subtotal
-        '
-        Me.labelAplicaciones_Subtotal.AutoSize = True
-        Me.labelAplicaciones_Subtotal.Location = New System.Drawing.Point(3, 7)
-        Me.labelAplicaciones_Subtotal.Name = "labelAplicaciones_Subtotal"
-        Me.labelAplicaciones_Subtotal.Size = New System.Drawing.Size(70, 13)
-        Me.labelAplicaciones_Subtotal.TabIndex = 0
-        Me.labelAplicaciones_Subtotal.Text = "Aplicaciones:"
-        '
-        'panelImpuestos_Subtotal
-        '
-        Me.panelImpuestos_Subtotal.AutoSize = True
-        Me.panelImpuestos_Subtotal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.panelImpuestos_Subtotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.panelImpuestos_Subtotal.Controls.Add(Me.textboxImpuestos_Subtotal)
-        Me.panelImpuestos_Subtotal.Controls.Add(Me.labelImpuestosSubtotal)
-        Me.panelImpuestos_Subtotal.Location = New System.Drawing.Point(200, 7)
-        Me.panelImpuestos_Subtotal.Name = "panelImpuestos_Subtotal"
-        Me.panelImpuestos_Subtotal.Size = New System.Drawing.Size(152, 29)
-        Me.panelImpuestos_Subtotal.TabIndex = 7
-        '
-        'labelImpuestosSubtotal
-        '
-        Me.labelImpuestosSubtotal.AutoSize = True
-        Me.labelImpuestosSubtotal.Location = New System.Drawing.Point(3, 7)
-        Me.labelImpuestosSubtotal.Name = "labelImpuestosSubtotal"
-        Me.labelImpuestosSubtotal.Size = New System.Drawing.Size(58, 13)
-        Me.labelImpuestosSubtotal.TabIndex = 0
-        Me.labelImpuestosSubtotal.Text = "Impuestos:"
-        '
-        'panelDetalle_Subtotal
-        '
-        Me.panelDetalle_Subtotal.AutoSize = True
-        Me.panelDetalle_Subtotal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.panelDetalle_Subtotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.panelDetalle_Subtotal.Controls.Add(Me.textboxDetalle_Subtotal)
-        Me.panelDetalle_Subtotal.Controls.Add(Me.labelDetalle_Subtotal)
-        Me.panelDetalle_Subtotal.Location = New System.Drawing.Point(57, 7)
-        Me.panelDetalle_Subtotal.Name = "panelDetalle_Subtotal"
-        Me.panelDetalle_Subtotal.Size = New System.Drawing.Size(137, 29)
-        Me.panelDetalle_Subtotal.TabIndex = 4
-        '
-        'labelDetalle_Subtotal
-        '
-        Me.labelDetalle_Subtotal.AutoSize = True
-        Me.labelDetalle_Subtotal.Location = New System.Drawing.Point(3, 7)
-        Me.labelDetalle_Subtotal.Name = "labelDetalle_Subtotal"
-        Me.labelDetalle_Subtotal.Size = New System.Drawing.Size(43, 13)
-        Me.labelDetalle_Subtotal.TabIndex = 0
-        Me.labelDetalle_Subtotal.Text = "Detalle:"
-        '
-        'toolstripMain
-        '
-        Me.toolstripMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.toolstripMain.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonCerrar, Me.buttonEditar, Me.buttonCancelar, Me.buttonGuardar, Me.buttonTransmitirComprobante, Me.buttonVerificarComprobante})
-        Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
-        Me.toolstripMain.Name = "toolstripMain"
-        Me.toolstripMain.Size = New System.Drawing.Size(1057, 39)
-        Me.toolstripMain.TabIndex = 0
-        '
-        'buttonCerrar
-        '
-        Me.buttonCerrar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.buttonCerrar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_CLOSE_32
-        Me.buttonCerrar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonCerrar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonCerrar.Name = "buttonCerrar"
-        Me.buttonCerrar.Size = New System.Drawing.Size(75, 36)
-        Me.buttonCerrar.Text = "Cerrar"
-        '
-        'buttonEditar
-        '
-        Me.buttonEditar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.buttonEditar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_EDIT_32
-        Me.buttonEditar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonEditar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonEditar.Name = "buttonEditar"
-        Me.buttonEditar.Size = New System.Drawing.Size(73, 36)
-        Me.buttonEditar.Text = "Editar"
-        '
-        'buttonCancelar
-        '
-        Me.buttonCancelar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.buttonCancelar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_CANCEL_32
-        Me.buttonCancelar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonCancelar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonCancelar.Name = "buttonCancelar"
-        Me.buttonCancelar.Size = New System.Drawing.Size(89, 36)
-        Me.buttonCancelar.Text = "Cancelar"
-        '
-        'buttonGuardar
-        '
-        Me.buttonGuardar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.buttonGuardar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_OK_32
-        Me.buttonGuardar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonGuardar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonGuardar.Name = "buttonGuardar"
-        Me.buttonGuardar.Size = New System.Drawing.Size(85, 36)
-        Me.buttonGuardar.Text = "Guardar"
-        '
-        'buttonTransmitirComprobante
-        '
-        Me.buttonTransmitirComprobante.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.buttonTransmitirComprobante.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.buttonTransmitirComprobante.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonTransmitirComprobante.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonTransmitirComprobante.Name = "buttonTransmitirComprobante"
-        Me.buttonTransmitirComprobante.Size = New System.Drawing.Size(79, 36)
-        Me.buttonTransmitirComprobante.Text = "Enviar a AFIP"
-        '
-        'buttonVerificarComprobante
-        '
-        Me.buttonVerificarComprobante.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.buttonVerificarComprobante.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.buttonVerificarComprobante.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonVerificarComprobante.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonVerificarComprobante.Name = "buttonVerificarComprobante"
-        Me.buttonVerificarComprobante.Size = New System.Drawing.Size(135, 36)
-        Me.buttonVerificarComprobante.Text = "Verificar datos con AFIP"
         '
         'tabcontrolMain
         '
@@ -1269,25 +867,6 @@ Partial Class formComprobante
         Me.textboxLeyenda.Size = New System.Drawing.Size(741, 83)
         Me.textboxLeyenda.TabIndex = 1
         '
-        'labelLeyenda
-        '
-        labelLeyenda.AutoSize = True
-        labelLeyenda.Location = New System.Drawing.Point(6, 9)
-        labelLeyenda.Name = "labelLeyenda"
-        labelLeyenda.Size = New System.Drawing.Size(51, 13)
-        labelLeyenda.TabIndex = 0
-        labelLeyenda.Text = "Leyenda:"
-        '
-        'labelEnvioEmail
-        '
-        labelEnvioEmail.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        labelEnvioEmail.AutoSize = True
-        labelEnvioEmail.Location = New System.Drawing.Point(6, 239)
-        labelEnvioEmail.Name = "labelEnvioEmail"
-        labelEnvioEmail.Size = New System.Drawing.Size(115, 13)
-        labelEnvioEmail.TabIndex = 10
-        labelEnvioEmail.Text = "Ultimo envío de e-mail:"
-        '
         'textboxFechaHoraEnvioEmail
         '
         Me.textboxFechaHoraEnvioEmail.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
@@ -1310,15 +889,6 @@ Partial Class formComprobante
         Me.textboxUsuarioEnvioEmail.TabIndex = 12
         Me.textboxUsuarioEnvioEmail.TabStop = False
         '
-        'labelNotas
-        '
-        labelNotas.AutoSize = True
-        labelNotas.Location = New System.Drawing.Point(6, 98)
-        labelNotas.Name = "labelNotas"
-        labelNotas.Size = New System.Drawing.Size(38, 13)
-        labelNotas.TabIndex = 2
-        labelNotas.Text = "Notas:"
-        '
         'textboxNotas
         '
         Me.textboxNotas.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -1331,16 +901,6 @@ Partial Class formComprobante
         Me.textboxNotas.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.textboxNotas.Size = New System.Drawing.Size(741, 83)
         Me.textboxNotas.TabIndex = 3
-        '
-        'labelCreacion
-        '
-        labelCreacion.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        labelCreacion.AutoSize = True
-        labelCreacion.Location = New System.Drawing.Point(6, 187)
-        labelCreacion.Name = "labelCreacion"
-        labelCreacion.Size = New System.Drawing.Size(52, 13)
-        labelCreacion.TabIndex = 4
-        labelCreacion.Text = "Creación:"
         '
         'textboxFechaHoraCreacion
         '
@@ -1364,16 +924,6 @@ Partial Class formComprobante
         Me.textboxUsuarioCreacion.TabIndex = 6
         Me.textboxUsuarioCreacion.TabStop = False
         '
-        'labelModificacion
-        '
-        labelModificacion.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        labelModificacion.AutoSize = True
-        labelModificacion.Location = New System.Drawing.Point(6, 213)
-        labelModificacion.Name = "labelModificacion"
-        labelModificacion.Size = New System.Drawing.Size(102, 13)
-        labelModificacion.TabIndex = 7
-        labelModificacion.Text = "Ultima Modificación:"
-        '
         'textboxFechaHoraModificacion
         '
         Me.textboxFechaHoraModificacion.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
@@ -1396,6 +946,268 @@ Partial Class formComprobante
         Me.textboxUsuarioModificacion.TabIndex = 9
         Me.textboxUsuarioModificacion.TabStop = False
         '
+        'panelCabecera
+        '
+        Me.panelCabecera.AutoSize = True
+        Me.panelCabecera.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelCabecera.Controls.Add(Me.panelIdentificacion)
+        Me.panelCabecera.Controls.Add(Me.panelFechas)
+        Me.panelCabecera.Controls.Add(Me.panelEntidad)
+        Me.panelCabecera.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.panelCabecera.Location = New System.Drawing.Point(3, 3)
+        Me.panelCabecera.Name = "panelCabecera"
+        Me.panelCabecera.Size = New System.Drawing.Size(1051, 105)
+        Me.panelCabecera.TabIndex = 0
+        '
+        'panelIdentificacion
+        '
+        Me.panelIdentificacion.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelIdentificacion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.panelIdentificacion.Controls.Add(Me.textboxPuntoVenta)
+        Me.panelIdentificacion.Controls.Add(Me.labelPuntoVenta)
+        Me.panelIdentificacion.Controls.Add(Me.comboboxComprobanteTipo)
+        Me.panelIdentificacion.Controls.Add(Me.labelComprobanteTipo)
+        Me.panelIdentificacion.Controls.Add(Me.textboxNumero)
+        Me.panelIdentificacion.Controls.Add(Me.labelComprobanteNumero)
+        Me.panelIdentificacion.Controls.Add(Me.datetimepickerFechaEmision)
+        Me.panelIdentificacion.Controls.Add(Me.labelFechaEmision)
+        Me.panelIdentificacion.Controls.Add(Me.textboxIDComprobante)
+        Me.panelIdentificacion.Controls.Add(Me.labelIDComprobante)
+        Me.panelIdentificacion.Location = New System.Drawing.Point(3, 3)
+        Me.panelIdentificacion.Name = "panelIdentificacion"
+        Me.panelIdentificacion.Size = New System.Drawing.Size(804, 29)
+        Me.panelIdentificacion.TabIndex = 0
+        '
+        'textboxPuntoVenta
+        '
+        Me.textboxPuntoVenta.Location = New System.Drawing.Point(414, 3)
+        Me.textboxPuntoVenta.MaxLength = 4
+        Me.textboxPuntoVenta.Name = "textboxPuntoVenta"
+        Me.textboxPuntoVenta.Size = New System.Drawing.Size(38, 20)
+        Me.textboxPuntoVenta.TabIndex = 5
+        Me.textboxPuntoVenta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'labelPuntoVenta
+        '
+        Me.labelPuntoVenta.AutoSize = True
+        Me.labelPuntoVenta.Location = New System.Drawing.Point(326, 6)
+        Me.labelPuntoVenta.Name = "labelPuntoVenta"
+        Me.labelPuntoVenta.Size = New System.Drawing.Size(84, 13)
+        Me.labelPuntoVenta.TabIndex = 4
+        Me.labelPuntoVenta.Text = "Punto de Venta:"
+        '
+        'comboboxComprobanteTipo
+        '
+        Me.comboboxComprobanteTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxComprobanteTipo.FormattingEnabled = True
+        Me.comboboxComprobanteTipo.Location = New System.Drawing.Point(152, 3)
+        Me.comboboxComprobanteTipo.Name = "comboboxComprobanteTipo"
+        Me.comboboxComprobanteTipo.Size = New System.Drawing.Size(159, 21)
+        Me.comboboxComprobanteTipo.TabIndex = 3
+        '
+        'labelComprobanteTipo
+        '
+        Me.labelComprobanteTipo.AutoSize = True
+        Me.labelComprobanteTipo.Location = New System.Drawing.Point(110, 6)
+        Me.labelComprobanteTipo.Name = "labelComprobanteTipo"
+        Me.labelComprobanteTipo.Size = New System.Drawing.Size(31, 13)
+        Me.labelComprobanteTipo.TabIndex = 2
+        Me.labelComprobanteTipo.Text = "Tipo:"
+        '
+        'textboxNumero
+        '
+        Me.textboxNumero.Location = New System.Drawing.Point(516, 3)
+        Me.textboxNumero.MaxLength = 8
+        Me.textboxNumero.Name = "textboxNumero"
+        Me.textboxNumero.Size = New System.Drawing.Size(62, 20)
+        Me.textboxNumero.TabIndex = 7
+        Me.textboxNumero.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'labelComprobanteNumero
+        '
+        Me.labelComprobanteNumero.AutoSize = True
+        Me.labelComprobanteNumero.Location = New System.Drawing.Point(464, 6)
+        Me.labelComprobanteNumero.Name = "labelComprobanteNumero"
+        Me.labelComprobanteNumero.Size = New System.Drawing.Size(47, 13)
+        Me.labelComprobanteNumero.TabIndex = 6
+        Me.labelComprobanteNumero.Text = "Número:"
+        '
+        'datetimepickerFechaEmision
+        '
+        Me.datetimepickerFechaEmision.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.datetimepickerFechaEmision.Location = New System.Drawing.Point(694, 3)
+        Me.datetimepickerFechaEmision.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
+        Me.datetimepickerFechaEmision.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
+        Me.datetimepickerFechaEmision.Name = "datetimepickerFechaEmision"
+        Me.datetimepickerFechaEmision.Size = New System.Drawing.Size(104, 20)
+        Me.datetimepickerFechaEmision.TabIndex = 9
+        '
+        'labelFechaEmision
+        '
+        Me.labelFechaEmision.AutoSize = True
+        Me.labelFechaEmision.Location = New System.Drawing.Point(595, 6)
+        Me.labelFechaEmision.Name = "labelFechaEmision"
+        Me.labelFechaEmision.Size = New System.Drawing.Size(94, 13)
+        Me.labelFechaEmision.TabIndex = 8
+        Me.labelFechaEmision.Text = "Fecha de Emisión:"
+        '
+        'textboxIDComprobante
+        '
+        Me.textboxIDComprobante.Location = New System.Drawing.Point(30, 3)
+        Me.textboxIDComprobante.MaxLength = 10
+        Me.textboxIDComprobante.Name = "textboxIDComprobante"
+        Me.textboxIDComprobante.ReadOnly = True
+        Me.textboxIDComprobante.Size = New System.Drawing.Size(74, 20)
+        Me.textboxIDComprobante.TabIndex = 1
+        Me.textboxIDComprobante.TabStop = False
+        Me.textboxIDComprobante.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'labelIDComprobante
+        '
+        Me.labelIDComprobante.AutoSize = True
+        Me.labelIDComprobante.Location = New System.Drawing.Point(3, 6)
+        Me.labelIDComprobante.Name = "labelIDComprobante"
+        Me.labelIDComprobante.Size = New System.Drawing.Size(21, 13)
+        Me.labelIDComprobante.TabIndex = 0
+        Me.labelIDComprobante.Text = "ID:"
+        '
+        'panelFechas
+        '
+        Me.panelFechas.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelFechas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.panelFechas.Controls.Add(Me.datetimepickerFechaServicioHasta)
+        Me.panelFechas.Controls.Add(labelFechaServicioHasta)
+        Me.panelFechas.Controls.Add(Me.datetimepickerFechaServicioDesde)
+        Me.panelFechas.Controls.Add(Me.datetimepickerFechaVencimiento)
+        Me.panelFechas.Controls.Add(labelFechaServicioDesde)
+        Me.panelFechas.Controls.Add(Me.labelFechaVencimiento)
+        Me.panelFechas.Location = New System.Drawing.Point(3, 38)
+        Me.panelFechas.Name = "panelFechas"
+        Me.panelFechas.Size = New System.Drawing.Size(685, 29)
+        Me.panelFechas.TabIndex = 1
+        '
+        'datetimepickerFechaServicioHasta
+        '
+        Me.datetimepickerFechaServicioHasta.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.datetimepickerFechaServicioHasta.Location = New System.Drawing.Point(560, 2)
+        Me.datetimepickerFechaServicioHasta.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
+        Me.datetimepickerFechaServicioHasta.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
+        Me.datetimepickerFechaServicioHasta.Name = "datetimepickerFechaServicioHasta"
+        Me.datetimepickerFechaServicioHasta.ShowCheckBox = True
+        Me.datetimepickerFechaServicioHasta.Size = New System.Drawing.Size(120, 20)
+        Me.datetimepickerFechaServicioHasta.TabIndex = 5
+        '
+        'datetimepickerFechaServicioDesde
+        '
+        Me.datetimepickerFechaServicioDesde.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.datetimepickerFechaServicioDesde.Location = New System.Drawing.Point(390, 2)
+        Me.datetimepickerFechaServicioDesde.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
+        Me.datetimepickerFechaServicioDesde.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
+        Me.datetimepickerFechaServicioDesde.Name = "datetimepickerFechaServicioDesde"
+        Me.datetimepickerFechaServicioDesde.ShowCheckBox = True
+        Me.datetimepickerFechaServicioDesde.Size = New System.Drawing.Size(120, 20)
+        Me.datetimepickerFechaServicioDesde.TabIndex = 3
+        '
+        'datetimepickerFechaVencimiento
+        '
+        Me.datetimepickerFechaVencimiento.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.datetimepickerFechaVencimiento.Location = New System.Drawing.Point(125, 2)
+        Me.datetimepickerFechaVencimiento.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
+        Me.datetimepickerFechaVencimiento.MinDate = New Date(2015, 1, 1, 0, 0, 0, 0)
+        Me.datetimepickerFechaVencimiento.Name = "datetimepickerFechaVencimiento"
+        Me.datetimepickerFechaVencimiento.ShowCheckBox = True
+        Me.datetimepickerFechaVencimiento.Size = New System.Drawing.Size(120, 20)
+        Me.datetimepickerFechaVencimiento.TabIndex = 1
+        '
+        'labelFechaVencimiento
+        '
+        Me.labelFechaVencimiento.AutoSize = True
+        Me.labelFechaVencimiento.Location = New System.Drawing.Point(3, 6)
+        Me.labelFechaVencimiento.Name = "labelFechaVencimiento"
+        Me.labelFechaVencimiento.Size = New System.Drawing.Size(116, 13)
+        Me.labelFechaVencimiento.TabIndex = 0
+        Me.labelFechaVencimiento.Text = "Fecha de Vencimiento:"
+        '
+        'panelEntidad
+        '
+        Me.panelEntidad.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelEntidad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.panelEntidad.Controls.Add(Me.buttonEntidadVerSaldo)
+        Me.panelEntidad.Controls.Add(Me.buttonEntidad)
+        Me.panelEntidad.Controls.Add(Me.textboxEntidad)
+        Me.panelEntidad.Controls.Add(Me.labelEntidad)
+        Me.panelEntidad.Location = New System.Drawing.Point(3, 73)
+        Me.panelEntidad.Name = "panelEntidad"
+        Me.panelEntidad.Size = New System.Drawing.Size(630, 29)
+        Me.panelEntidad.TabIndex = 2
+        '
+        'buttonEntidadVerSaldo
+        '
+        Me.buttonEntidadVerSaldo.Location = New System.Drawing.Point(562, 2)
+        Me.buttonEntidadVerSaldo.Name = "buttonEntidadVerSaldo"
+        Me.buttonEntidadVerSaldo.Size = New System.Drawing.Size(63, 22)
+        Me.buttonEntidadVerSaldo.TabIndex = 3
+        Me.buttonEntidadVerSaldo.Text = "Ver Saldo"
+        Me.buttonEntidadVerSaldo.UseVisualStyleBackColor = True
+        '
+        'buttonEntidad
+        '
+        Me.buttonEntidad.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_SEARCH_16
+        Me.buttonEntidad.Location = New System.Drawing.Point(538, 2)
+        Me.buttonEntidad.Name = "buttonEntidad"
+        Me.buttonEntidad.Size = New System.Drawing.Size(22, 22)
+        Me.buttonEntidad.TabIndex = 2
+        Me.buttonEntidad.Text = "…"
+        Me.buttonEntidad.UseVisualStyleBackColor = True
+        '
+        'textboxEntidad
+        '
+        Me.textboxEntidad.Location = New System.Drawing.Point(55, 3)
+        Me.textboxEntidad.MaxLength = 150
+        Me.textboxEntidad.Name = "textboxEntidad"
+        Me.textboxEntidad.ReadOnly = True
+        Me.textboxEntidad.Size = New System.Drawing.Size(483, 20)
+        Me.textboxEntidad.TabIndex = 1
+        Me.textboxEntidad.TabStop = False
+        '
+        'labelEntidad
+        '
+        Me.labelEntidad.AutoSize = True
+        Me.labelEntidad.Location = New System.Drawing.Point(3, 6)
+        Me.labelEntidad.Name = "labelEntidad"
+        Me.labelEntidad.Size = New System.Drawing.Size(46, 13)
+        Me.labelEntidad.TabIndex = 0
+        Me.labelEntidad.Text = "Entidad:"
+        '
+        'panelPie
+        '
+        Me.panelPie.AutoSize = True
+        Me.panelPie.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelPie.Controls.Add(Me.panelImporteTotal)
+        Me.panelPie.Controls.Add(Me.panelMediosPago_Subtotal)
+        Me.panelPie.Controls.Add(Me.panelAplicaciones_Subtotal)
+        Me.panelPie.Controls.Add(Me.panelImpuestos_Subtotal)
+        Me.panelPie.Controls.Add(Me.panelDetalle_Subtotal)
+        Me.panelPie.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.panelPie.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
+        Me.panelPie.Location = New System.Drawing.Point(3, 428)
+        Me.panelPie.Name = "panelPie"
+        Me.panelPie.Padding = New System.Windows.Forms.Padding(4)
+        Me.panelPie.Size = New System.Drawing.Size(1051, 44)
+        Me.panelPie.TabIndex = 2
+        '
+        'panelImporteTotal
+        '
+        Me.panelImporteTotal.AutoSize = True
+        Me.panelImporteTotal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelImporteTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.panelImporteTotal.Controls.Add(Me.textboxImporteTotal)
+        Me.panelImporteTotal.Controls.Add(Me.labelImporteTotal)
+        Me.panelImporteTotal.Location = New System.Drawing.Point(873, 7)
+        Me.panelImporteTotal.Name = "panelImporteTotal"
+        Me.panelImporteTotal.Size = New System.Drawing.Size(167, 29)
+        Me.panelImporteTotal.TabIndex = 0
+        '
         'textboxImporteTotal
         '
         Me.textboxImporteTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1407,6 +1219,28 @@ Partial Class formComprobante
         Me.textboxImporteTotal.TabStop = False
         Me.textboxImporteTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
+        'labelImporteTotal
+        '
+        Me.labelImporteTotal.AutoSize = True
+        Me.labelImporteTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelImporteTotal.Location = New System.Drawing.Point(3, 5)
+        Me.labelImporteTotal.Name = "labelImporteTotal"
+        Me.labelImporteTotal.Size = New System.Drawing.Size(48, 16)
+        Me.labelImporteTotal.TabIndex = 4
+        Me.labelImporteTotal.Text = "Total:"
+        '
+        'panelMediosPago_Subtotal
+        '
+        Me.panelMediosPago_Subtotal.AutoSize = True
+        Me.panelMediosPago_Subtotal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelMediosPago_Subtotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.panelMediosPago_Subtotal.Controls.Add(Me.textboxMediosPago_Subtotal)
+        Me.panelMediosPago_Subtotal.Controls.Add(Me.labelMediosPago_Subtotal)
+        Me.panelMediosPago_Subtotal.Location = New System.Drawing.Point(686, 7)
+        Me.panelMediosPago_Subtotal.Name = "panelMediosPago_Subtotal"
+        Me.panelMediosPago_Subtotal.Size = New System.Drawing.Size(181, 29)
+        Me.panelMediosPago_Subtotal.TabIndex = 6
+        '
         'textboxMediosPago_Subtotal
         '
         Me.textboxMediosPago_Subtotal.Location = New System.Drawing.Point(96, 4)
@@ -1417,15 +1251,26 @@ Partial Class formComprobante
         Me.textboxMediosPago_Subtotal.TabStop = False
         Me.textboxMediosPago_Subtotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'textboxInteres_Subtotal
+        'labelMediosPago_Subtotal
         '
-        Me.textboxInteres_Subtotal.Location = New System.Drawing.Point(67, 4)
-        Me.textboxInteres_Subtotal.Name = "textboxInteres_Subtotal"
-        Me.textboxInteres_Subtotal.ReadOnly = True
-        Me.textboxInteres_Subtotal.Size = New System.Drawing.Size(80, 20)
-        Me.textboxInteres_Subtotal.TabIndex = 1
-        Me.textboxInteres_Subtotal.TabStop = False
-        Me.textboxInteres_Subtotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.labelMediosPago_Subtotal.AutoSize = True
+        Me.labelMediosPago_Subtotal.Location = New System.Drawing.Point(3, 7)
+        Me.labelMediosPago_Subtotal.Name = "labelMediosPago_Subtotal"
+        Me.labelMediosPago_Subtotal.Size = New System.Drawing.Size(87, 13)
+        Me.labelMediosPago_Subtotal.TabIndex = 0
+        Me.labelMediosPago_Subtotal.Text = "Medios de Pago:"
+        '
+        'panelAplicaciones_Subtotal
+        '
+        Me.panelAplicaciones_Subtotal.AutoSize = True
+        Me.panelAplicaciones_Subtotal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelAplicaciones_Subtotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.panelAplicaciones_Subtotal.Controls.Add(Me.textboxAplicaciones_Subtotal)
+        Me.panelAplicaciones_Subtotal.Controls.Add(Me.labelAplicaciones_Subtotal)
+        Me.panelAplicaciones_Subtotal.Location = New System.Drawing.Point(516, 7)
+        Me.panelAplicaciones_Subtotal.Name = "panelAplicaciones_Subtotal"
+        Me.panelAplicaciones_Subtotal.Size = New System.Drawing.Size(164, 29)
+        Me.panelAplicaciones_Subtotal.TabIndex = 5
         '
         'textboxAplicaciones_Subtotal
         '
@@ -1437,6 +1282,27 @@ Partial Class formComprobante
         Me.textboxAplicaciones_Subtotal.TabStop = False
         Me.textboxAplicaciones_Subtotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
+        'labelAplicaciones_Subtotal
+        '
+        Me.labelAplicaciones_Subtotal.AutoSize = True
+        Me.labelAplicaciones_Subtotal.Location = New System.Drawing.Point(3, 7)
+        Me.labelAplicaciones_Subtotal.Name = "labelAplicaciones_Subtotal"
+        Me.labelAplicaciones_Subtotal.Size = New System.Drawing.Size(70, 13)
+        Me.labelAplicaciones_Subtotal.TabIndex = 0
+        Me.labelAplicaciones_Subtotal.Text = "Aplicaciones:"
+        '
+        'panelImpuestos_Subtotal
+        '
+        Me.panelImpuestos_Subtotal.AutoSize = True
+        Me.panelImpuestos_Subtotal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelImpuestos_Subtotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.panelImpuestos_Subtotal.Controls.Add(Me.textboxImpuestos_Subtotal)
+        Me.panelImpuestos_Subtotal.Controls.Add(Me.labelImpuestosSubtotal)
+        Me.panelImpuestos_Subtotal.Location = New System.Drawing.Point(358, 7)
+        Me.panelImpuestos_Subtotal.Name = "panelImpuestos_Subtotal"
+        Me.panelImpuestos_Subtotal.Size = New System.Drawing.Size(152, 29)
+        Me.panelImpuestos_Subtotal.TabIndex = 7
+        '
         'textboxImpuestos_Subtotal
         '
         Me.textboxImpuestos_Subtotal.Location = New System.Drawing.Point(67, 4)
@@ -1446,6 +1312,27 @@ Partial Class formComprobante
         Me.textboxImpuestos_Subtotal.TabIndex = 1
         Me.textboxImpuestos_Subtotal.TabStop = False
         Me.textboxImpuestos_Subtotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'labelImpuestosSubtotal
+        '
+        Me.labelImpuestosSubtotal.AutoSize = True
+        Me.labelImpuestosSubtotal.Location = New System.Drawing.Point(3, 7)
+        Me.labelImpuestosSubtotal.Name = "labelImpuestosSubtotal"
+        Me.labelImpuestosSubtotal.Size = New System.Drawing.Size(58, 13)
+        Me.labelImpuestosSubtotal.TabIndex = 0
+        Me.labelImpuestosSubtotal.Text = "Impuestos:"
+        '
+        'panelDetalle_Subtotal
+        '
+        Me.panelDetalle_Subtotal.AutoSize = True
+        Me.panelDetalle_Subtotal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelDetalle_Subtotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.panelDetalle_Subtotal.Controls.Add(Me.textboxDetalle_Subtotal)
+        Me.panelDetalle_Subtotal.Controls.Add(Me.labelDetalle_Subtotal)
+        Me.panelDetalle_Subtotal.Location = New System.Drawing.Point(215, 7)
+        Me.panelDetalle_Subtotal.Name = "panelDetalle_Subtotal"
+        Me.panelDetalle_Subtotal.Size = New System.Drawing.Size(137, 29)
+        Me.panelDetalle_Subtotal.TabIndex = 4
         '
         'textboxDetalle_Subtotal
         '
@@ -1457,6 +1344,90 @@ Partial Class formComprobante
         Me.textboxDetalle_Subtotal.TabStop = False
         Me.textboxDetalle_Subtotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
+        'labelDetalle_Subtotal
+        '
+        Me.labelDetalle_Subtotal.AutoSize = True
+        Me.labelDetalle_Subtotal.Location = New System.Drawing.Point(3, 7)
+        Me.labelDetalle_Subtotal.Name = "labelDetalle_Subtotal"
+        Me.labelDetalle_Subtotal.Size = New System.Drawing.Size(43, 13)
+        Me.labelDetalle_Subtotal.TabIndex = 0
+        Me.labelDetalle_Subtotal.Text = "Detalle:"
+        '
+        'toolstripMain
+        '
+        Me.toolstripMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolstripMain.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonCerrar, Me.buttonEditar, Me.buttonCancelar, Me.buttonGuardar, Me.buttonAFIP})
+        Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
+        Me.toolstripMain.Name = "toolstripMain"
+        Me.toolstripMain.Size = New System.Drawing.Size(1057, 39)
+        Me.toolstripMain.TabIndex = 0
+        '
+        'buttonCerrar
+        '
+        Me.buttonCerrar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.buttonCerrar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_CLOSE_32
+        Me.buttonCerrar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonCerrar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonCerrar.Name = "buttonCerrar"
+        Me.buttonCerrar.Size = New System.Drawing.Size(75, 36)
+        Me.buttonCerrar.Text = "Cerrar"
+        '
+        'buttonEditar
+        '
+        Me.buttonEditar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.buttonEditar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_EDIT_32
+        Me.buttonEditar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonEditar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonEditar.Name = "buttonEditar"
+        Me.buttonEditar.Size = New System.Drawing.Size(73, 36)
+        Me.buttonEditar.Text = "Editar"
+        '
+        'buttonCancelar
+        '
+        Me.buttonCancelar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.buttonCancelar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_CANCEL_32
+        Me.buttonCancelar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonCancelar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonCancelar.Name = "buttonCancelar"
+        Me.buttonCancelar.Size = New System.Drawing.Size(89, 36)
+        Me.buttonCancelar.Text = "Cancelar"
+        '
+        'buttonGuardar
+        '
+        Me.buttonGuardar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.buttonGuardar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_OK_32
+        Me.buttonGuardar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonGuardar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonGuardar.Name = "buttonGuardar"
+        Me.buttonGuardar.Size = New System.Drawing.Size(85, 36)
+        Me.buttonGuardar.Text = "Guardar"
+        '
+        'buttonAFIP
+        '
+        Me.buttonAFIP.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.buttonAFIP.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.buttonAFIP.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemAFIP_ObtenerCAE, Me.menuitemAFIP_VerificarDatos})
+        Me.buttonAFIP.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_LOGO_AFIP_SMALL
+        Me.buttonAFIP.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonAFIP.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonAFIP.Margin = New System.Windows.Forms.Padding(0, 1, 5, 2)
+        Me.buttonAFIP.Name = "buttonAFIP"
+        Me.buttonAFIP.Size = New System.Drawing.Size(61, 36)
+        Me.buttonAFIP.Text = "AFIP"
+        '
+        'menuitemAFIP_ObtenerCAE
+        '
+        Me.menuitemAFIP_ObtenerCAE.Name = "menuitemAFIP_ObtenerCAE"
+        Me.menuitemAFIP_ObtenerCAE.Size = New System.Drawing.Size(148, 22)
+        Me.menuitemAFIP_ObtenerCAE.Text = "Obtener CAE"
+        '
+        'menuitemAFIP_VerificarDatos
+        '
+        Me.menuitemAFIP_VerificarDatos.Name = "menuitemAFIP_VerificarDatos"
+        Me.menuitemAFIP_VerificarDatos.Size = New System.Drawing.Size(148, 22)
+        Me.menuitemAFIP_VerificarDatos.Text = "Verificar datos"
+        '
         'formComprobante
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1464,35 +1435,13 @@ Partial Class formComprobante
         Me.ClientSize = New System.Drawing.Size(1057, 514)
         Me.Controls.Add(Me.panelMain)
         Me.Controls.Add(Me.toolstripMain)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MinimumSize = New System.Drawing.Size(690, 45)
         Me.Name = "formComprobante"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Detalle del Comprobante"
         Me.panelMain.ResumeLayout(False)
         Me.panelMain.PerformLayout()
-        Me.panelCabecera.ResumeLayout(False)
-        Me.panelIdentificacion.ResumeLayout(False)
-        Me.panelIdentificacion.PerformLayout()
-        Me.panelFechas.ResumeLayout(False)
-        Me.panelFechas.PerformLayout()
-        Me.panelEntidad.ResumeLayout(False)
-        Me.panelEntidad.PerformLayout()
-        Me.panelPie.ResumeLayout(False)
-        Me.panelPie.PerformLayout()
-        Me.panelImporteTotal.ResumeLayout(False)
-        Me.panelImporteTotal.PerformLayout()
-        Me.panelMediosPago_Subtotal.ResumeLayout(False)
-        Me.panelMediosPago_Subtotal.PerformLayout()
-        Me.panelInteres_Subtotal.ResumeLayout(False)
-        Me.panelInteres_Subtotal.PerformLayout()
-        Me.panelAplicaciones_Subtotal.ResumeLayout(False)
-        Me.panelAplicaciones_Subtotal.PerformLayout()
-        Me.panelImpuestos_Subtotal.ResumeLayout(False)
-        Me.panelImpuestos_Subtotal.PerformLayout()
-        Me.panelDetalle_Subtotal.ResumeLayout(False)
-        Me.panelDetalle_Subtotal.PerformLayout()
-        Me.toolstripMain.ResumeLayout(False)
-        Me.toolstripMain.PerformLayout()
         Me.tabcontrolMain.ResumeLayout(False)
         Me.tabpageDetalle.ResumeLayout(False)
         Me.tabpageDetalle.PerformLayout()
@@ -1516,6 +1465,27 @@ Partial Class formComprobante
         Me.toolstripMediosPago.PerformLayout()
         Me.tabpageNotasAuditoria.ResumeLayout(False)
         Me.tabpageNotasAuditoria.PerformLayout()
+        Me.panelCabecera.ResumeLayout(False)
+        Me.panelIdentificacion.ResumeLayout(False)
+        Me.panelIdentificacion.PerformLayout()
+        Me.panelFechas.ResumeLayout(False)
+        Me.panelFechas.PerformLayout()
+        Me.panelEntidad.ResumeLayout(False)
+        Me.panelEntidad.PerformLayout()
+        Me.panelPie.ResumeLayout(False)
+        Me.panelPie.PerformLayout()
+        Me.panelImporteTotal.ResumeLayout(False)
+        Me.panelImporteTotal.PerformLayout()
+        Me.panelMediosPago_Subtotal.ResumeLayout(False)
+        Me.panelMediosPago_Subtotal.PerformLayout()
+        Me.panelAplicaciones_Subtotal.ResumeLayout(False)
+        Me.panelAplicaciones_Subtotal.PerformLayout()
+        Me.panelImpuestos_Subtotal.ResumeLayout(False)
+        Me.panelImpuestos_Subtotal.PerformLayout()
+        Me.panelDetalle_Subtotal.ResumeLayout(False)
+        Me.panelDetalle_Subtotal.PerformLayout()
+        Me.toolstripMain.ResumeLayout(False)
+        Me.toolstripMain.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1618,11 +1588,9 @@ Partial Class formComprobante
     Friend WithEvents columnDetalle_PrecioUnitario As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnDetalle_PrecioTotal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents buttonEntidadVerSaldo As System.Windows.Forms.Button
-    Friend WithEvents buttonTransmitirComprobante As System.Windows.Forms.ToolStripButton
-    Friend WithEvents buttonVerificarComprobante As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonDetalle_Agregar As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents buttonDetalle_AgregarMultiple As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents panelInteres_Subtotal As System.Windows.Forms.Panel
-    Friend WithEvents textboxInteres_Subtotal As CSColegio.DesktopApplication.CS_Control_TextBox_Currency
-    Friend WithEvents labelInteres_Subtotal As System.Windows.Forms.Label
+    Friend WithEvents buttonAFIP As System.Windows.Forms.ToolStripDropDownButton
+    Friend WithEvents menuitemAFIP_ObtenerCAE As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemAFIP_VerificarDatos As System.Windows.Forms.ToolStripMenuItem
 End Class

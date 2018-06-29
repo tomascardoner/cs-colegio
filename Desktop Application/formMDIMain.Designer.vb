@@ -65,6 +65,7 @@ Partial Class formMDIMain
         Me.buttonEntidades = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemEntidadesAniosLectivosYCursos = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemEntidadesAnioLectivoCursoInscripcion = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemEntidadesVerificarEmails = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonComprobantes = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemComprobantesGenerarLoteFacturas = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesTransmitirAFIP = New System.Windows.Forms.ToolStripMenuItem()
@@ -83,7 +84,6 @@ Partial Class formMDIMain
         Me.buttonComunicaciones = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemComunicacionesEnviarMail = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonReportes = New System.Windows.Forms.ToolStripButton()
-        Me.menuitemEntidadesVerificarEmails = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
@@ -367,6 +367,12 @@ Partial Class formMDIMain
         Me.menuitemEntidadesAnioLectivoCursoInscripcion.Size = New System.Drawing.Size(253, 22)
         Me.menuitemEntidadesAnioLectivoCursoInscripcion.Text = "Inscripción al Año Lectivo y Curso"
         '
+        'menuitemEntidadesVerificarEmails
+        '
+        Me.menuitemEntidadesVerificarEmails.Name = "menuitemEntidadesVerificarEmails"
+        Me.menuitemEntidadesVerificarEmails.Size = New System.Drawing.Size(253, 22)
+        Me.menuitemEntidadesVerificarEmails.Text = "Verificar direcciones e-mail"
+        '
         'buttonComprobantes
         '
         Me.buttonComprobantes.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemComprobantesGenerarLoteFacturas, Me.menuitemComprobantesTransmitirAFIP, Me.menuitemComprobantesEnviarMail, Me.ToolStripMenuItem1, Me.menuitemComprobantesExportar, Me.ImportarArchivosDeToolStripMenuItem})
@@ -381,25 +387,25 @@ Partial Class formMDIMain
         'menuitemComprobantesGenerarLoteFacturas
         '
         Me.menuitemComprobantesGenerarLoteFacturas.Name = "menuitemComprobantesGenerarLoteFacturas"
-        Me.menuitemComprobantesGenerarLoteFacturas.Size = New System.Drawing.Size(220, 38)
-        Me.menuitemComprobantesGenerarLoteFacturas.Text = "Generar Lote de Facturas"
+        Me.menuitemComprobantesGenerarLoteFacturas.Size = New System.Drawing.Size(215, 38)
+        Me.menuitemComprobantesGenerarLoteFacturas.Text = "Generar lote de facturas"
         '
         'menuitemComprobantesTransmitirAFIP
         '
         Me.menuitemComprobantesTransmitirAFIP.Name = "menuitemComprobantesTransmitirAFIP"
-        Me.menuitemComprobantesTransmitirAFIP.Size = New System.Drawing.Size(220, 38)
+        Me.menuitemComprobantesTransmitirAFIP.Size = New System.Drawing.Size(215, 38)
         Me.menuitemComprobantesTransmitirAFIP.Text = "Transmitir a AFIP"
         '
         'menuitemComprobantesEnviarMail
         '
         Me.menuitemComprobantesEnviarMail.Name = "menuitemComprobantesEnviarMail"
-        Me.menuitemComprobantesEnviarMail.Size = New System.Drawing.Size(220, 38)
+        Me.menuitemComprobantesEnviarMail.Size = New System.Drawing.Size(215, 38)
         Me.menuitemComprobantesEnviarMail.Text = "Enviar por e-mail"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(217, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(212, 6)
         '
         'menuitemComprobantesExportar
         '
@@ -407,7 +413,7 @@ Partial Class formMDIMain
         Me.menuitemComprobantesExportar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_EXPORT_32
         Me.menuitemComprobantesExportar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.menuitemComprobantesExportar.Name = "menuitemComprobantesExportar"
-        Me.menuitemComprobantesExportar.Size = New System.Drawing.Size(220, 38)
+        Me.menuitemComprobantesExportar.Size = New System.Drawing.Size(215, 38)
         Me.menuitemComprobantesExportar.Text = "Exportar archivos para..."
         '
         'menuitemComprobantesExportarPagomiscuentas
@@ -440,7 +446,7 @@ Partial Class formMDIMain
         Me.ImportarArchivosDeToolStripMenuItem.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_IMPORT_32
         Me.ImportarArchivosDeToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.ImportarArchivosDeToolStripMenuItem.Name = "ImportarArchivosDeToolStripMenuItem"
-        Me.ImportarArchivosDeToolStripMenuItem.Size = New System.Drawing.Size(220, 38)
+        Me.ImportarArchivosDeToolStripMenuItem.Size = New System.Drawing.Size(215, 38)
         Me.ImportarArchivosDeToolStripMenuItem.Text = "Importar archivos de..."
         '
         'menuitemComprobantesImportarPagomiscuentas
@@ -493,12 +499,6 @@ Partial Class formMDIMain
         Me.buttonReportes.Name = "buttonReportes"
         Me.buttonReportes.Size = New System.Drawing.Size(142, 36)
         Me.buttonReportes.Text = "Reportes"
-        '
-        'menuitemEntidadesVerificarEmails
-        '
-        Me.menuitemEntidadesVerificarEmails.Name = "menuitemEntidadesVerificarEmails"
-        Me.menuitemEntidadesVerificarEmails.Size = New System.Drawing.Size(253, 22)
-        Me.menuitemEntidadesVerificarEmails.Text = "Verificar direcciones e-mail"
         '
         'formMDIMain
         '

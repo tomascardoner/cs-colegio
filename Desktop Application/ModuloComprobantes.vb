@@ -366,7 +366,7 @@
 
         With ComprobanteCabecera
             ' Cabecera
-            .IDComprobanteTipo = TitularComprobante.CategoriaIVA.VentaIDComprobanteTipo
+            .IDComprobanteTipo = TitularComprobante.CategoriaIVA.IDComprobanteTipo_Factura
             .FechaEmision = FechaEmision
             .IDConcepto = IDConcepto
             .FechaServicioDesde = FechaServicioDesde
@@ -679,6 +679,37 @@
             End Using
         Else
             Return False
+        End If
+    End Function
+
+    Friend Function CalcularInteresesSobreAplicaciones(ByVal FechaCalculo As Date, ByRef ComprobanteAplicaciones As List(Of ComprobanteAplicacion)) As Decimal
+        If ComprobanteAplicaciones.Count > 0 AndAlso CS_Parameter_System.GetBoolean(Parametros.VENTA_INTERES_CALCULAR) Then
+            Dim DiasTranscurridos As Long
+            Dim PorcentajeInteresDiario As Decimal
+            Dim PorcentajeInteresAplicar As Decimal
+            Dim ImporteInteresAcumulado As Decimal = 0
+
+            PorcentajeInteresDiario = CS_Parameter_System.GetDecimal(Parametros.VENTA_INTERES_MENSUAL) / 30
+
+            Using dbContext As New CSColegioContext(True)
+                Dim ComprobanteAplicadoActual As Comprobante
+
+                For Each ComprobanteAplicacionActual As ComprobanteAplicacion In ComprobanteAplicaciones
+                    ComprobanteAplicadoActual = dbContext.Comprobante.Find(ComprobanteAplicacionActual.IDComprobanteAplicado)
+
+                    If ComprobanteAplicadoActual.FechaVencimiento1.HasValue Then
+                        DiasTranscurridos = DateDiff(DateInterval.Day, ComprobanteAplicadoActual.FechaVencimiento1.Value, FechaCalculo)
+                        If DiasTranscurridos > 0 AndAlso DiasTranscurridos > CS_Parameter_System.GetIntegerAsInteger(Parametros.VENTA_INTERES_DIASTOLERANCIA) Then
+                            PorcentajeInteresAplicar = DiasTranscurridos * PorcentajeInteresDiario
+                            ImporteInteresAcumulado += ComprobanteAplicacionActual.Importe * PorcentajeInteresAplicar / 100
+                        End If
+                    End If
+                Next
+            End Using
+
+            Return ImporteInteresAcumulado
+        Else
+            Return 0
         End If
     End Function
 End Module
