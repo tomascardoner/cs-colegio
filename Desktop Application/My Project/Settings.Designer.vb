@@ -502,6 +502,51 @@ Namespace My
                 Return CType(Me("Email_Delivery_Failed_SenderAddress"),String)
             End Get
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("localhost")>  _
+        Public ReadOnly Property ADDI_DBConnection_Datasource() As String
+            Get
+                Return CType(Me("ADDI_DBConnection_Datasource"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("ADDISQL")>  _
+        Public ReadOnly Property ADDI_DBConnection_Database() As String
+            Get
+                Return CType(Me("ADDI_DBConnection_Database"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("sa")>  _
+        Public ReadOnly Property ADDI_DBConnection_UserID() As String
+            Get
+                Return CType(Me("ADDI_DBConnection_UserID"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("43ubKjbAQCxR+foIcEK/PcLRw0VHFqfd")>  _
+        Public ReadOnly Property ADDI_DBConnection_Password() As String
+            Get
+                Return CType(Me("ADDI_DBConnection_Password"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("System.Data.SqlClient")>  _
+        Public ReadOnly Property ADDI_DBConnection_Provider() As String
+            Get
+                Return CType(Me("ADDI_DBConnection_Provider"),String)
+            End Get
+        End Property
     End Class
 End Namespace
 

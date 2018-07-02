@@ -84,7 +84,8 @@
             <PropertyRef Name="IDBanco" />
           </Key>
           <Property Name="IDBanco" Type="smallint" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="3" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="CUIT" Type="char" MaxLength="11" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
@@ -462,7 +463,7 @@
           <Property Name="ExcluyeFacturaHasta" Type="date" />
           <Property Name="FacturaLeyenda" Type="varchar(max)" />
           <Property Name="DebitoAutomaticoTipo" Type="char" MaxLength="1" />
-          <Property Name="DebitoAutomaticoCBU" Type="char" MaxLength="22" />
+          <Property Name="DebitoAutomatico_Directo_CBU" Type="char" MaxLength="22" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="Notas" Type="varchar(max)" />
           <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
@@ -2099,7 +2100,7 @@
             <PropertyRef Name="IDBanco" />
           </Key>
           <Property Name="IDBanco" Type="Int16" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CUIT" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
@@ -2108,6 +2109,7 @@
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Cheque" Relationship="CSColegioModel.FK__Banco__Cheque" FromRole="Banco" ToRole="Cheque" />
           <NavigationProperty Name="ComprobanteMedioPago" Relationship="CSColegioModel.FK__Banco__ComprobanteMedioPago" FromRole="Banco" ToRole="ComprobanteMedioPago" />
+          <Property Name="Codigo" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="CategoriaIVA">
           <Key>
@@ -2203,7 +2205,7 @@
           <Property Name="ExcluyeFacturaHasta" Type="DateTime" Precision="0" />
           <Property Name="FacturaLeyenda" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="DebitoAutomaticoTipo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="DebitoAutomaticoCBU" Type="String" MaxLength="22" FixedLength="true" Unicode="false" />
+          <Property Name="DebitoAutomatico_Directo_CBU" Type="String" MaxLength="22" FixedLength="true" Unicode="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
@@ -4164,6 +4166,7 @@
           <EntitySetMapping Name="Banco">
             <EntityTypeMapping TypeName="CSColegioModel.Banco">
               <MappingFragment StoreEntitySet="Banco">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="IDBanco" ColumnName="IDBanco" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="CUIT" ColumnName="CUIT" />
@@ -4215,10 +4218,10 @@
           <EntitySetMapping Name="Entidad">
             <EntityTypeMapping TypeName="CSColegioModel.Entidad">
               <MappingFragment StoreEntitySet="Entidad">
+                <ScalarProperty Name="DebitoAutomatico_Directo_CBU" ColumnName="DebitoAutomatico_Directo_CBU" />
                 <ScalarProperty Name="TipoOtro" ColumnName="TipoOtro" />
                 <ScalarProperty Name="VerificarEmail2" ColumnName="VerificarEmail2" />
                 <ScalarProperty Name="VerificarEmail1" ColumnName="VerificarEmail1" />
-                <ScalarProperty Name="DebitoAutomaticoCBU" ColumnName="DebitoAutomaticoCBU" />
                 <ScalarProperty Name="DebitoAutomaticoTipo" ColumnName="DebitoAutomaticoTipo" />
                 <ScalarProperty Name="ComprobanteEnviarEmail" ColumnName="ComprobanteEnviarEmail" />
                 <ScalarProperty Name="FacturaLeyenda" ColumnName="FacturaLeyenda" />

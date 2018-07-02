@@ -147,7 +147,7 @@
 #End Region
 
 #Region "Controls behavior"
-    Private Sub formEntidades_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
+    Private Sub Me_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
         If Not textboxBuscar.Focused Then
             If Char.IsLetter(e.KeyChar) Then
                 For Each RowCurrent As DataGridViewRow In datagridviewMain.Rows
@@ -159,10 +159,6 @@
                 Next
             End If
         End If
-    End Sub
-
-    Private Sub EntidadTipo_Click() Handles menuitemEntidadTipo_PersonalColegio.Click, menuitemEntidadTipo_Docente.Click, menuitemEntidadTipo_Alumno.Click, menuitemEntidadTipo_Familiar.Click, menuitemEntidadTipo_Proveedor.Click, menuitemEntidadTipo_Otro.Click
-        FilterData()
     End Sub
 
     Private Sub MarcarYDesmarcarTodo_Click(sender As Object, e As EventArgs) Handles menuitemMarcarTodos.Click, menuitemDesmarcarTodos.Click
@@ -180,11 +176,11 @@
         FilterData()
     End Sub
 
-    Private Sub textboxBuscar_GotFocus() Handles textboxBuscar.GotFocus
-        textboxBuscar.SelectAll()
+    Private Sub ToolstripTextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxBuscar.GotFocus
+        CType(sender, ToolStripTextBox).SelectAll()
     End Sub
 
-    Private Sub textboxBuscar_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textboxBuscar.KeyPress
+    Private Sub Buscar_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textboxBuscar.KeyPress
         If e.KeyChar = ChrW(Keys.Return) Then
             If textboxBuscar.Text.Trim.Length < 3 Then
                 MsgBox("Se deben especificar al menos 3 letras para buscar.", MsgBoxStyle.Information, My.Application.Info.Title)
@@ -197,7 +193,7 @@
         End If
     End Sub
 
-    Private Sub buttonBuscarBorrar_Click() Handles buttonBuscarBorrar.Click
+    Private Sub Buscar_Borrar() Handles buttonBuscarBorrar.Click
         If BusquedaAplicada Then
             textboxBuscar.Clear()
             BusquedaAplicada = False
@@ -205,11 +201,7 @@
         End If
     End Sub
 
-    Private Sub comboboxActivo_SelectedIndexChanged() Handles comboboxActivo.SelectedIndexChanged
-        FilterData()
-    End Sub
-
-    Private Sub comboboxVerificarEmail_SelectedIndexChanged() Handles comboboxVerificarEmail.SelectedIndexChanged
+    Private Sub AplicarFiltrar() Handles menuitemEntidadTipo_PersonalColegio.Click, menuitemEntidadTipo_Docente.Click, menuitemEntidadTipo_Alumno.Click, menuitemEntidadTipo_Familiar.Click, menuitemEntidadTipo_Proveedor.Click, menuitemEntidadTipo_Otro.Click, comboboxActivo.SelectedIndexChanged, comboboxVerificarEmail.SelectedIndexChanged
         FilterData()
     End Sub
 
@@ -242,29 +234,10 @@
         OrderData()
     End Sub
 
-    Private Sub Ver() Handles datagridviewMain.DoubleClick
-        If datagridviewMain.CurrentRow Is Nothing Then
-            MsgBox("No hay ninguna Entidad para ver.", vbInformation, My.Application.Info.Title)
-        Else
-            Me.Cursor = Cursors.WaitCursor
-
-            datagridviewMain.Enabled = False
-
-            Dim EntidadActual = CType(datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
-            If comboboxVerificarEmail.SelectedIndex <> 1 Then
-                EntidadActual.VerificarEmail(True)
-            End If
-            formEntidad.LoadAndShow(False, Me, EntidadActual.IDEntidad)
-
-            datagridviewMain.Enabled = True
-
-            Me.Cursor = Cursors.Default
-        End If
-    End Sub
 #End Region
 
 #Region "Main Toolbar"
-    Private Sub Agregar_Click(sender As Object, e As EventArgs) Handles buttonAgregar.Click
+    Private Sub Agregar(sender As Object, e As EventArgs) Handles buttonAgregar.Click
         If Permisos.VerificarPermiso(Permisos.ENTIDAD_AGREGAR) Then
             Me.Cursor = Cursors.WaitCursor
 
@@ -278,7 +251,7 @@
         End If
     End Sub
 
-    Private Sub Editar_Click(sender As Object, e As EventArgs) Handles buttonEditar.Click
+    Private Sub Editar(sender As Object, e As EventArgs) Handles buttonEditar.Click
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ninguna Entidad para editar.", vbInformation, My.Application.Info.Title)
         Else
@@ -300,7 +273,7 @@
         End If
     End Sub
 
-    Private Sub Eliminar_Click(sender As Object, e As EventArgs) Handles buttonEliminar.Click
+    Private Sub Eliminar(sender As Object, e As EventArgs) Handles buttonEliminar.Click
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ninguna Entidad para eliminar.", vbInformation, My.Application.Info.Title)
         Else
@@ -335,6 +308,26 @@
                     Me.Cursor = Cursors.Default
                 End If
             End If
+        End If
+    End Sub
+
+    Private Sub Ver() Handles datagridviewMain.DoubleClick
+        If datagridviewMain.CurrentRow Is Nothing Then
+            MsgBox("No hay ninguna Entidad para ver.", vbInformation, My.Application.Info.Title)
+        Else
+            Me.Cursor = Cursors.WaitCursor
+
+            datagridviewMain.Enabled = False
+
+            Dim EntidadActual = CType(datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
+            If comboboxVerificarEmail.SelectedIndex <> 1 Then
+                EntidadActual.VerificarEmail(True)
+            End If
+            formEntidad.LoadAndShow(False, Me, EntidadActual.IDEntidad)
+
+            datagridviewMain.Enabled = True
+
+            Me.Cursor = Cursors.Default
         End If
     End Sub
 

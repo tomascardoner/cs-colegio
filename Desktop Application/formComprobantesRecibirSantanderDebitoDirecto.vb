@@ -32,7 +32,11 @@ Public Class formComprobantesRecibirSantanderDebitoDirecto
     End Sub
 
     Private Sub ListarArchivos(sender As Object, e As EventArgs) Handles buttonMostrar.Click
-        If CS_Parameter_System.GetString(Parametros.EMPRESA_ADDI_CODIGOSERVICIO) = "" Then
+        If CS_Parameter_System.GetString(Parametros.BANCOSANTANDER_ADDI_CODIGOEMPRESA) = "" Then
+            MsgBox("No está especificado el Código de Empresa otorgado por el Banco Santander.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+            Exit Sub
+        End If
+        If CS_Parameter_System.GetString(Parametros.BANCOSANTANDER_ADDI_CODIGOSERVICIO) = "" Then
             MsgBox("No está especificado el Código de Servicio otorgado por el Banco Santander.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
             Exit Sub
         End If
@@ -60,7 +64,7 @@ Public Class formComprobantesRecibirSantanderDebitoDirecto
         Dim CollectionOfFileNames As System.Collections.ObjectModel.ReadOnlyCollection(Of String)
 
         Try
-            CollectionOfFileNames = My.Computer.FileSystem.GetFiles(textboxUbicacionArchivos.Text.Trim, FileIO.SearchOption.SearchTopLevelOnly, CS_Parameter_System.GetString(Parametros.EMPRESA_ADDI_CODIGOSERVICIO).Substring(0, 4) & "*.deb")
+            CollectionOfFileNames = My.Computer.FileSystem.GetFiles(textboxUbicacionArchivos.Text.Trim, FileIO.SearchOption.SearchTopLevelOnly, CS_Parameter_System.GetString(Parametros.BANCOSANTANDER_ADDI_CODIGOSERVICIO).Substring(0, 4) & "*.deb")
         Catch ex As Exception
             CS_Error.ProcessError(ex, "Error al obtener la lista de Archivos de la Carpeta especificada.")
             Exit Sub

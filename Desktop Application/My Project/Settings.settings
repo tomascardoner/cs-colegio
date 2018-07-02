@@ -149,5 +149,20 @@
     <Setting Name="Email_Delivery_Failed_SenderAddress" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Mailer-Daemon@orlando.dattaweb.com</Value>
     </Setting>
+    <Setting Name="ADDI_DBConnection_Datasource" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">localhost</Value>
+    </Setting>
+    <Setting Name="ADDI_DBConnection_Database" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ADDISQL</Value>
+    </Setting>
+    <Setting Name="ADDI_DBConnection_UserID" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">sa</Value>
+    </Setting>
+    <Setting Name="ADDI_DBConnection_Password" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">43ubKjbAQCxR+foIcEK/PcLRw0VHFqfd</Value>
+    </Setting>
+    <Setting Name="ADDI_DBConnection_Provider" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">System.Data.SqlClient</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

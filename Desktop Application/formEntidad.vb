@@ -264,7 +264,7 @@
                     maskedtextboxDebitoAutomatico_CBU.Text = ""
                 Case Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO
                     radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Checked = True
-                    maskedtextboxDebitoAutomatico_CBU.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DebitoAutomaticoCBU)
+                    maskedtextboxDebitoAutomatico_CBU.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DebitoAutomatico_Directo_CBU)
                 Case Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_TARJETACREDITO
                     radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.Checked = True
                     maskedtextboxDebitoAutomatico_CBU.Text = ""
@@ -367,13 +367,13 @@
             ' Datos de la pestaña Débito Automático
             If radiobuttonDebitoAutomatico_Tipo_Ninguno.Checked Then
                 .DebitoAutomaticoTipo = Nothing
-                .DebitoAutomaticoCBU = Nothing
+                .DebitoAutomatico_Directo_CBU = Nothing
             ElseIf radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Checked Then
                 .DebitoAutomaticoTipo = Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO
-                .DebitoAutomaticoCBU = CS_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxDebitoAutomatico_CBU.Text)
+                .DebitoAutomatico_Directo_CBU = CS_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxDebitoAutomatico_CBU.Text)
             ElseIf radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.Checked Then
                 .DebitoAutomaticoTipo = Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_TARJETACREDITO
-                .DebitoAutomaticoCBU = Nothing
+                .DebitoAutomatico_Directo_CBU = Nothing
             End If
 
             ' Datos de la pestaña Notas y Aditoría
@@ -548,18 +548,20 @@
 #End Region
 
 #Region "Main Toolbar"
-    Private Sub buttonEditar_Click() Handles buttonEditar.Click
+    Private Sub Editar() Handles buttonEditar.Click
         If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDITAR) Then
             mEditMode = True
             ChangeMode()
         End If
     End Sub
 
-    Private Sub buttonCerrar_Click() Handles buttonCerrar.Click
+    Private Sub Cerrar() Handles buttonCerrar.Click
         Me.Close()
     End Sub
 
-    Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
+    Private Sub Guardar() Handles buttonGuardar.Click
+        Dim VerificarAdhesionADDI As Boolean = False
+
         ' Verificar que estén todos los campos con datos coherentes
         If textboxApellido.Text.Trim.Length = 0 Then
             MsgBox("Debe ingresar el Apellido.", MsgBoxStyle.Information, My.Application.Info.Title)
@@ -762,6 +764,33 @@
                 maskedtextboxDebitoAutomatico_CBU.Focus()
                 Exit Sub
             End If
+            Select Case CS_Bank.VerificarCBU(maskedtextboxDebitoAutomatico_CBU.Text)
+                Case 0
+                    tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
+                    MsgBox("El CBU ingresado es incorrecto.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxDebitoAutomatico_CBU.Focus()
+                    Exit Sub
+                Case 1
+                    tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
+                    MsgBox("El CBU ingresado tiene un error en el 1er. bloque.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxDebitoAutomatico_CBU.Focus()
+                    Exit Sub
+                Case 2
+                    tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
+                    MsgBox("El CBU ingresado tiene un error en el 2do. bloque.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxDebitoAutomatico_CBU.Focus()
+                    Exit Sub
+            End Select
+        End If
+        If CS_Parameter_System.GetBoolean(Parametros.BANCOSANTANDER_ADDI_HABILITADO, False) Then
+            ' Si etsá habilitado el sistema ADDI del Banco Santander Río, verifico que no hayan cambiado los datos:
+            '   - Se estableció la opción de Debito Directo
+            '   - Se modificó el CBU
+            '   - Se quitó la opción de Debito Directo
+
+            ' UPDATED 01/07/2018
+            ' No es necesario generear la adhesión porque ya lo hace automáticamente al generar los débitos
+            ' VerificarAdhesionADDI = ((mEntidadActual.DebitoAutomaticoTipo = Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO And Not radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Checked) Or (mEntidadActual.DebitoAutomatico_Directo_CBU <> maskedtextboxDebitoAutomatico_CBU.Text))
         End If
 
         ' Generar el ID de la Entidad nueva
@@ -811,6 +840,52 @@
                 Me.Cursor = Cursors.Default
                 CS_Error.ProcessError(ex, My.Resources.STRING_ERROR_SAVING_CHANGES)
                 Exit Sub
+            End Try
+        End If
+
+        ' Si corresponde, verifico la Adhesion en el sistema ADDI de Banco Santnader Rio
+        If VerificarAdhesionADDI Then
+            Try
+                Dim sqlconn As New SqlClient.SqlConnection
+                Dim sqldatrdr As SqlClient.SqlDataReader
+
+                sqlconn.ConnectionString = GetConnectionString()
+                sqlconn.Open()
+                sqldatrdr = BancoSantander_ADDI.Adhesion_Get(sqlconn, mEntidadActual.IDEntidad)
+
+                If sqldatrdr.Read() Then
+                    ' Existe la Adhesión
+                    Dim AdhesionId As Integer
+                    Dim CBU As String
+                    Dim Status As String
+
+                    AdhesionId = CInt(sqldatrdr("AdhesionId"))
+                    CBU = CStr(sqldatrdr("CBU"))
+                    Status = CStr(sqldatrdr("Status"))
+
+                    If mEntidadActual.DebitoAutomaticoTipo = Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO Then
+                        ' Verifico si el CBU es diferente
+                        If CBU <> mEntidadActual.DebitoAutomatico_Directo_CBU Then
+                            ' El CBU de la Adhesión es diferente, lo actualizo
+                            BancoSantander_ADDI.Adhesion_AltaModificacion(sqlconn, AdhesionId, mEntidadActual.IDEntidad, mEntidadActual.DebitoAutomatico_Directo_CBU, Status)
+                        End If
+                    Else
+                        ' Dar de baja la Adhesión porque se quitó la opción de Débito Directo en la Entidad
+                        BancoSantander_ADDI.Adhesion_Baja(sqlconn, AdhesionId, Status)
+                    End If
+                ElseIf mEntidadActual.DebitoAutomaticoTipo = Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO Then
+                    ' No existe la Adhesión, la creo
+                    BancoSantander_ADDI.Adhesion_AltaModificacion(sqlconn, 0, mEntidadActual.IDEntidad, mEntidadActual.DebitoAutomatico_Directo_CBU, " ")
+                End If
+
+                sqldatrdr.Close()
+                sqldatrdr = Nothing
+
+                sqlconn.Close()
+                sqlconn = Nothing
+
+            Catch ex As Exception
+                CS_Error.ProcessError(ex, "Error al verificar la Adhesión en el sistema ADDI del Banco Santander Río.")
             End Try
         End If
 

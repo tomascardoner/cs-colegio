@@ -82,7 +82,11 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
 
     Private Sub buttonTransmitir_Click(sender As Object, e As EventArgs) Handles buttonExportar.Click
         If listComprobantes.Count > 0 Then
-            If CS_Parameter_System.GetString(Parametros.EMPRESA_ADDI_CODIGOSERVICIO) = "" Then
+            If CS_Parameter_System.GetString(Parametros.BANCOSANTANDER_ADDI_CODIGOEMPRESA) = "" Then
+                MsgBox("No está especificado el Código de Empresa otorgado por el Banco Santander.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                Exit Sub
+            End If
+            If CS_Parameter_System.GetString(Parametros.BANCOSANTANDER_ADDI_CODIGOSERVICIO) = "" Then
                 MsgBox("No está especificado el Código de Servicio otorgado por el Banco Santander.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 Exit Sub
             End If
@@ -127,13 +131,17 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
                 If Not ComprobanteActual Is Nothing Then
                     ' Detalle
                     DetalleTextStream &= "11"                                                               ' Tipo de Registro
-                    DetalleTextStream &= CS_Parameter_System.GetString(Parametros.EMPRESA_ADDI_CODIGOSERVICIO).PadRight(10, " "c)  ' Código de Servicio
+                    DetalleTextStream &= CS_Parameter_System.GetString(Parametros.BANCOSANTANDER_ADDI_CODIGOSERVICIO).PadRight(10, " "c)  ' Código de Servicio
                     DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString("000000").PadRight(22, " "c)          ' Número de Partida
-                    DetalleTextStream &= ComprobanteActual.Entidad.DebitoAutomaticoCBU                      ' CBU
-                    DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.ToString("yyyyMMdd")      ' Fecha 1er. vencimiento
+                    DetalleTextStream &= ComprobanteActual.Entidad.DebitoAutomatico_Directo_CBU             ' CBU
+                    DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.ToString("yyyyMMdd")     ' Fecha 1er. vencimiento
                     DetalleTextStream &= ComprobanteActual.ImporteTotal1.ToString("00000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 1er. vencimiento
                     DetalleTextStream &= (ComprobanteActual.ComprobanteTipo.Sigla & ComprobanteActual.PuntoVenta & ComprobanteActual.Numero).PadRight(15, " "c)       ' Identificación Débito
-                    DetalleTextStream &= CS_String.RemoveDiacritics(ComprobanteActual.ApellidoNombre).PadRight(30, " "c).Substring(0, 30)   ' Nombre del Adherente
+
+                    ' Esto se modificó para no tener que informar el nombre del adherente porque a veces se debita de la cuenta de otro titular diferente al de la factura
+                    DetalleTextStream &= Space(30)          ' Nombre del Adherente
+                    'DetalleTextStream &= CS_String.RemoveDiacritics(ComprobanteActual.ApellidoNombre).PadRight(30, " "c).Substring(0, 30)   ' Nombre del Adherente
+
                     DetalleTextStream &= " "                                                                ' Filler
                     DetalleTextStream &= ComprobanteActual.IDComprobante.ToString.PadRight(50, " "c)        ' Referencia Empresa
 

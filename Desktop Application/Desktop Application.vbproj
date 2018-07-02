@@ -122,6 +122,9 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\..\..\..\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Bank.vb">
+      <Link>CS_Bank.vb</Link>
+    </Compile>
     <Compile Include="..\..\..\..\..\..\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_ComboBox.vb">
       <Link>CS_ComboBox.vb</Link>
     </Compile>
@@ -158,6 +161,7 @@
     <Compile Include="Banco.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="BancoSantander_ADDI.vb" />
     <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Control_TabControl.vb">
       <Link>CS_Control_TabControl.vb</Link>
       <SubType>Component</SubType>
