@@ -3,6 +3,7 @@
 #Region "Declarations"
     Private Class GridRowData
         Public Property MesInicio As Byte
+        Public Property MesInicioNombre As String
         Public Property ImporteMatricula As Decimal
         Public Property ImporteCuota As Decimal
     End Class
@@ -46,7 +47,7 @@
 
         mSkipFilterData = True
 
-        pFillAndRefreshLists.Mes(comboboxMesInicio.ComboBox, True, True, False)
+        pFillAndRefreshLists.Mes(comboboxMesInicio.ComboBox, True, False, True, True, False)
         comboboxMesInicio.SelectedIndex = 0
 
         mSkipFilterData = False
@@ -68,8 +69,14 @@
                 mlistAniosLectivosCursosImportesBase = (From alc In dbContext.AnioLectivoCurso
                                                         Join alci In dbContext.AnioLectivoCursoImporte On alci.IDAnioLectivoCurso Equals alc.IDAnioLectivoCurso
                                                         Where alc.IDAnioLectivoCurso = mAnioLectivoCursoActual.IDAnioLectivoCurso
+                                                        Order By alci.MesInicio
                                                         Select New GridRowData With {.MesInicio = alci.MesInicio, .ImporteMatricula = alci.ImporteMatricula, .ImporteCuota = alci.ImporteCuota}).ToList
             End Using
+
+            ' Agrego los nombres de los meses
+            For Each RowCurrent As GridRowData In mlistAniosLectivosCursosImportesBase
+                RowCurrent.MesInicioNombre = MonthName(RowCurrent.MesInicio).ElementAt(0).ToString.ToUpper & MonthName(RowCurrent.MesInicio).Substring(1).ToLower
+            Next
 
         Catch ex As Exception
 
@@ -131,73 +138,17 @@
                 Exit Sub
             End Try
 
-            OrderData()
+            datagridviewMain.AutoGenerateColumns = False
+            datagridviewMain.DataSource = mlistAniosLectivosCursosImportesFiltradaYOrdenada
 
             Me.Cursor = Cursors.Default
         End If
-    End Sub
-
-    Private Sub OrderData()
-        ' Realizo las rutinas de ordenamiento
-        Select Case mOrdenColumna.Name
-            Case columnMesInicio.Name
-                If mOrdenTipo = SortOrder.Ascending Then
-                    mlistAniosLectivosCursosImportesFiltradaYOrdenada = mlistAniosLectivosCursosImportesFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.MesInicio).ToList
-                Else
-                    mlistAniosLectivosCursosImportesFiltradaYOrdenada = mlistAniosLectivosCursosImportesFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.MesInicio).ToList
-                End If
-            Case columnImporteMatricula.Name
-                If mOrdenTipo = SortOrder.Ascending Then
-                    mlistAniosLectivosCursosImportesFiltradaYOrdenada = mlistAniosLectivosCursosImportesFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.ImporteMatricula).ThenBy(Function(dgrd) dgrd.MesInicio).ToList
-                Else
-                    mlistAniosLectivosCursosImportesFiltradaYOrdenada = mlistAniosLectivosCursosImportesFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.ImporteMatricula).ThenByDescending(Function(dgrd) dgrd.MesInicio).ToList
-                End If
-            Case columnImporteCuota.Name
-                If mOrdenTipo = SortOrder.Ascending Then
-                    mlistAniosLectivosCursosImportesFiltradaYOrdenada = mlistAniosLectivosCursosImportesFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.ImporteCuota).ThenBy(Function(dgrd) dgrd.MesInicio).ToList
-                Else
-                    mlistAniosLectivosCursosImportesFiltradaYOrdenada = mlistAniosLectivosCursosImportesFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.ImporteCuota).ThenByDescending(Function(dgrd) dgrd.MesInicio).ToList
-                End If
-        End Select
-
-        datagridviewMain.AutoGenerateColumns = False
-        datagridviewMain.DataSource = mlistAniosLectivosCursosImportesFiltradaYOrdenada
-
-        ' Muestro el ícono de orden en la columna correspondiente
-        mOrdenColumna.HeaderCell.SortGlyphDirection = mOrdenTipo
     End Sub
 #End Region
 
 #Region "Controls behavior"
     Private Sub CambioFiltros() Handles comboboxMesInicio.SelectedIndexChanged
         FilterData()
-    End Sub
-
-    Private Sub GridChangeOrder(sender As Object, e As DataGridViewCellMouseEventArgs) Handles datagridviewMain.ColumnHeaderMouseClick
-        Dim ClickedColumn As DataGridViewColumn
-
-        ClickedColumn = CType(datagridviewMain.Columns(e.ColumnIndex), DataGridViewColumn)
-
-        If ClickedColumn Is mOrdenColumna Then
-            ' La columna clickeada es la misma por la que ya estaba ordenado, así que cambio la dirección del orden
-            If mOrdenTipo = SortOrder.Ascending Then
-                mOrdenTipo = SortOrder.Descending
-            Else
-                mOrdenTipo = SortOrder.Ascending
-            End If
-        Else
-            ' La columna clickeada es diferencte a la que ya estaba ordenada.
-            ' En primer lugar saco el ícono de orden de la columna vieja
-            If Not mOrdenColumna Is Nothing Then
-                mOrdenColumna.HeaderCell.SortGlyphDirection = SortOrder.None
-            End If
-
-            ' Ahora preparo todo para la nueva columna
-            mOrdenTipo = SortOrder.Ascending
-            mOrdenColumna = ClickedColumn
-        End If
-
-        OrderData()
     End Sub
 #End Region
 

@@ -513,7 +513,7 @@
         textboxEntidadMadre.Tag = Nothing
     End Sub
 
-    Private Sub comboboxEmitirFacturaA_SelectedIndexChanged() Handles comboboxEmitirFacturaA.SelectedIndexChanged
+    Private Sub comboboxEmitirFacturaA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles comboboxEmitirFacturaA.SelectedIndexChanged
         If comboboxEmitirFacturaA.SelectedIndex > -1 Then
             labelEntidadTercero.Visible = (comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS)
             panelEntidadTercero.Visible = (comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS)
@@ -849,7 +849,7 @@
                 Dim sqlconn As New SqlClient.SqlConnection
                 Dim sqldatrdr As SqlClient.SqlDataReader
 
-                sqlconn.ConnectionString = GetConnectionString()
+                sqlconn.ConnectionString = BancoSantander_ADDI.GetConnectionString()
                 sqlconn.Open()
                 sqldatrdr = BancoSantander_ADDI.Adhesion_Get(sqlconn, mEntidadActual.IDEntidad)
 
@@ -934,10 +934,6 @@
 
             Me.Cursor = Cursors.Default
         End If
-    End Sub
-
-    Private Sub comboboxEmitirFacturaA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles comboboxEmitirFacturaA.SelectedIndexChanged
-
     End Sub
 #End Region
 

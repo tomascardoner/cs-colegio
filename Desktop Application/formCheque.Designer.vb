@@ -443,6 +443,7 @@ Partial Class formCheque
         Me.Controls.Add(Me.toolstripMain)
         Me.Controls.Add(Me.ShapeContainer1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "formCheque"

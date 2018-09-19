@@ -106,7 +106,7 @@ Partial Class formAnioLectivoCursoCopiar
         Me.labelLeyenda.TabIndex = 15
         Me.labelLeyenda.Text = "Se copiarán todos los Cursos del Año Lectivo Origen en el Año Lectivo Destino."
         '
-        'formAnio
+        'formAnioLectivoCursoCopiar
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -118,9 +118,10 @@ Partial Class formAnioLectivoCursoCopiar
         Me.Controls.Add(Me.labelAnioLectivoOrigen)
         Me.Controls.Add(Me.toolstripMain)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "formAnio"
+        Me.Name = "formAnioLectivoCursoCopiar"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Copiar Cursos de Año Lectivo"
         Me.toolstripMain.ResumeLayout(False)

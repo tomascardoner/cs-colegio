@@ -299,6 +299,7 @@ Partial Class formComprobanteDetalleAgregarMultiple
         Me.Controls.Add(Me.labelArticulo)
         Me.Controls.Add(Me.toolstripMain)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "formComprobanteDetalleAgregarMultiple"

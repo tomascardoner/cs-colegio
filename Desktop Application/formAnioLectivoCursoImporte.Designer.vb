@@ -22,6 +22,7 @@ Partial Class formAnioLectivoCursoImporte
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formAnioLectivoCursoImporte))
         Me.labelAnioLectivo = New System.Windows.Forms.Label()
         Me.labelCurso = New System.Windows.Forms.Label()
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
@@ -46,7 +47,7 @@ Partial Class formAnioLectivoCursoImporte
         Me.labelAnioLectivo.Location = New System.Drawing.Point(12, 61)
         Me.labelAnioLectivo.Name = "labelAnioLectivo"
         Me.labelAnioLectivo.Size = New System.Drawing.Size(67, 13)
-        Me.labelAnioLectivo.TabIndex = 0
+        Me.labelAnioLectivo.TabIndex = 7
         Me.labelAnioLectivo.Text = "Año Lectivo:"
         '
         'labelCurso
@@ -55,7 +56,7 @@ Partial Class formAnioLectivoCursoImporte
         Me.labelCurso.Location = New System.Drawing.Point(12, 88)
         Me.labelCurso.Name = "labelCurso"
         Me.labelCurso.Size = New System.Drawing.Size(37, 13)
-        Me.labelCurso.TabIndex = 2
+        Me.labelCurso.TabIndex = 9
         Me.labelCurso.Text = "Curso:"
         '
         'buttonGuardar
@@ -105,7 +106,7 @@ Partial Class formAnioLectivoCursoImporte
         Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
         Me.toolstripMain.Name = "toolstripMain"
         Me.toolstripMain.Size = New System.Drawing.Size(429, 39)
-        Me.toolstripMain.TabIndex = 10
+        Me.toolstripMain.TabIndex = 6
         '
         'labelMesInicio
         '
@@ -113,7 +114,7 @@ Partial Class formAnioLectivoCursoImporte
         Me.labelMesInicio.Location = New System.Drawing.Point(12, 115)
         Me.labelMesInicio.Name = "labelMesInicio"
         Me.labelMesInicio.Size = New System.Drawing.Size(73, 13)
-        Me.labelMesInicio.TabIndex = 4
+        Me.labelMesInicio.TabIndex = 0
         Me.labelMesInicio.Text = "Mes de Inicio:"
         '
         'labelImporteMatricula
@@ -122,7 +123,7 @@ Partial Class formAnioLectivoCursoImporte
         Me.labelImporteMatricula.Location = New System.Drawing.Point(12, 142)
         Me.labelImporteMatricula.Name = "labelImporteMatricula"
         Me.labelImporteMatricula.Size = New System.Drawing.Size(93, 13)
-        Me.labelImporteMatricula.TabIndex = 6
+        Me.labelImporteMatricula.TabIndex = 2
         Me.labelImporteMatricula.Text = "Importe Matrícula:"
         '
         'labelImporteCuota
@@ -131,7 +132,7 @@ Partial Class formAnioLectivoCursoImporte
         Me.labelImporteCuota.Location = New System.Drawing.Point(12, 168)
         Me.labelImporteCuota.Name = "labelImporteCuota"
         Me.labelImporteCuota.Size = New System.Drawing.Size(76, 13)
-        Me.labelImporteCuota.TabIndex = 8
+        Me.labelImporteCuota.TabIndex = 4
         Me.labelImporteCuota.Text = "Importe Cuota:"
         '
         'textboxImporteCuota
@@ -140,7 +141,7 @@ Partial Class formAnioLectivoCursoImporte
         Me.textboxImporteCuota.MaxLength = 15
         Me.textboxImporteCuota.Name = "textboxImporteCuota"
         Me.textboxImporteCuota.Size = New System.Drawing.Size(100, 20)
-        Me.textboxImporteCuota.TabIndex = 9
+        Me.textboxImporteCuota.TabIndex = 5
         Me.textboxImporteCuota.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'textboxImporteMatricula
@@ -149,7 +150,7 @@ Partial Class formAnioLectivoCursoImporte
         Me.textboxImporteMatricula.MaxLength = 15
         Me.textboxImporteMatricula.Name = "textboxImporteMatricula"
         Me.textboxImporteMatricula.Size = New System.Drawing.Size(100, 20)
-        Me.textboxImporteMatricula.TabIndex = 7
+        Me.textboxImporteMatricula.TabIndex = 3
         Me.textboxImporteMatricula.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'textboxAnioLectivo
@@ -159,7 +160,7 @@ Partial Class formAnioLectivoCursoImporte
         Me.textboxAnioLectivo.Name = "textboxAnioLectivo"
         Me.textboxAnioLectivo.ReadOnly = True
         Me.textboxAnioLectivo.Size = New System.Drawing.Size(50, 20)
-        Me.textboxAnioLectivo.TabIndex = 1
+        Me.textboxAnioLectivo.TabIndex = 8
         Me.textboxAnioLectivo.TabStop = False
         Me.textboxAnioLectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -170,7 +171,7 @@ Partial Class formAnioLectivoCursoImporte
         Me.textboxCurso.Name = "textboxCurso"
         Me.textboxCurso.ReadOnly = True
         Me.textboxCurso.Size = New System.Drawing.Size(306, 20)
-        Me.textboxCurso.TabIndex = 3
+        Me.textboxCurso.TabIndex = 10
         Me.textboxCurso.TabStop = False
         '
         'comboboxMesInicio
@@ -180,7 +181,7 @@ Partial Class formAnioLectivoCursoImporte
         Me.comboboxMesInicio.Location = New System.Drawing.Point(111, 112)
         Me.comboboxMesInicio.Name = "comboboxMesInicio"
         Me.comboboxMesInicio.Size = New System.Drawing.Size(118, 21)
-        Me.comboboxMesInicio.TabIndex = 5
+        Me.comboboxMesInicio.TabIndex = 1
         '
         'formAnioLectivoCursoImporte
         '
@@ -199,6 +200,8 @@ Partial Class formAnioLectivoCursoImporte
         Me.Controls.Add(Me.labelCurso)
         Me.Controls.Add(Me.toolstripMain)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "formAnioLectivoCursoImporte"

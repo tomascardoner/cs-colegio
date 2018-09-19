@@ -345,6 +345,7 @@ Partial Class formComunicacion
         Me.Controls.Add(Me.labelAsunto)
         Me.Controls.Add(Me.toolstripMain)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "formComunicacion"

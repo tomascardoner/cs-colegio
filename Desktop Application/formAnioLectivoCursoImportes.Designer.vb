@@ -22,10 +22,10 @@ Partial Class formAnioLectivoCursoImportes
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.statusstripMain = New System.Windows.Forms.StatusStrip()
         Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
         Me.panelToolbars = New System.Windows.Forms.FlowLayoutPanel()
@@ -37,14 +37,14 @@ Partial Class formAnioLectivoCursoImportes
         Me.labelMesInicio = New System.Windows.Forms.ToolStripLabel()
         Me.comboboxMesInicio = New System.Windows.Forms.ToolStripComboBox()
         Me.datagridviewMain = New System.Windows.Forms.DataGridView()
-        Me.columnMesInicio = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnImporteMatricula = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnImporteCuota = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.textboxCurso = New System.Windows.Forms.TextBox()
         Me.textboxAnioLectivo = New System.Windows.Forms.TextBox()
         Me.labelAnioLectivo = New System.Windows.Forms.Label()
         Me.labelCurso = New System.Windows.Forms.Label()
+        Me.columnMesInicio = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnImporteMatricula = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnImporteCuota = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.statusstripMain.SuspendLayout()
         Me.panelToolbars.SuspendLayout()
         Me.toolstripButtons.SuspendLayout()
@@ -144,11 +144,11 @@ Partial Class formAnioLectivoCursoImportes
         Me.datagridviewMain.AllowUserToAddRows = False
         Me.datagridviewMain.AllowUserToDeleteRows = False
         Me.datagridviewMain.AllowUserToResizeRows = False
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.datagridviewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnMesInicio, Me.columnImporteMatricula, Me.columnImporteCuota})
         Me.datagridviewMain.Dock = System.Windows.Forms.DockStyle.Fill
@@ -162,43 +162,6 @@ Partial Class formAnioLectivoCursoImportes
         Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewMain.Size = New System.Drawing.Size(450, 206)
         Me.datagridviewMain.TabIndex = 0
-        '
-        'columnMesInicio
-        '
-        Me.columnMesInicio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnMesInicio.DataPropertyName = "MesInicio"
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.columnMesInicio.DefaultCellStyle = DataGridViewCellStyle10
-        Me.columnMesInicio.HeaderText = "Mes de Inicio"
-        Me.columnMesInicio.Name = "columnMesInicio"
-        Me.columnMesInicio.ReadOnly = True
-        Me.columnMesInicio.Width = 87
-        '
-        'columnImporteMatricula
-        '
-        Me.columnImporteMatricula.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnImporteMatricula.DataPropertyName = "ImporteMatricula"
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle11.Format = "C2"
-        DataGridViewCellStyle11.NullValue = Nothing
-        Me.columnImporteMatricula.DefaultCellStyle = DataGridViewCellStyle11
-        Me.columnImporteMatricula.HeaderText = "Importe Matrícula"
-        Me.columnImporteMatricula.Name = "columnImporteMatricula"
-        Me.columnImporteMatricula.ReadOnly = True
-        Me.columnImporteMatricula.Width = 105
-        '
-        'columnImporteCuota
-        '
-        Me.columnImporteCuota.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnImporteCuota.DataPropertyName = "ImporteCuota"
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle12.Format = "C2"
-        DataGridViewCellStyle12.NullValue = Nothing
-        Me.columnImporteCuota.DefaultCellStyle = DataGridViewCellStyle12
-        Me.columnImporteCuota.HeaderText = "Importe Cuota"
-        Me.columnImporteCuota.Name = "columnImporteCuota"
-        Me.columnImporteCuota.ReadOnly = True
-        Me.columnImporteCuota.Width = 90
         '
         'Panel1
         '
@@ -251,6 +214,46 @@ Partial Class formAnioLectivoCursoImportes
         Me.labelCurso.TabIndex = 6
         Me.labelCurso.Text = "Curso:"
         '
+        'columnMesInicio
+        '
+        Me.columnMesInicio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnMesInicio.DataPropertyName = "MesInicioNombre"
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.columnMesInicio.DefaultCellStyle = DataGridViewCellStyle2
+        Me.columnMesInicio.HeaderText = "Mes de Inicio"
+        Me.columnMesInicio.Name = "columnMesInicio"
+        Me.columnMesInicio.ReadOnly = True
+        Me.columnMesInicio.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnMesInicio.Width = 76
+        '
+        'columnImporteMatricula
+        '
+        Me.columnImporteMatricula.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnImporteMatricula.DataPropertyName = "ImporteMatricula"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle3.Format = "C2"
+        DataGridViewCellStyle3.NullValue = Nothing
+        Me.columnImporteMatricula.DefaultCellStyle = DataGridViewCellStyle3
+        Me.columnImporteMatricula.HeaderText = "Importe Matrícula"
+        Me.columnImporteMatricula.Name = "columnImporteMatricula"
+        Me.columnImporteMatricula.ReadOnly = True
+        Me.columnImporteMatricula.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnImporteMatricula.Width = 86
+        '
+        'columnImporteCuota
+        '
+        Me.columnImporteCuota.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnImporteCuota.DataPropertyName = "ImporteCuota"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle4.Format = "C2"
+        DataGridViewCellStyle4.NullValue = Nothing
+        Me.columnImporteCuota.DefaultCellStyle = DataGridViewCellStyle4
+        Me.columnImporteCuota.HeaderText = "Importe Cuota"
+        Me.columnImporteCuota.Name = "columnImporteCuota"
+        Me.columnImporteCuota.ReadOnly = True
+        Me.columnImporteCuota.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnImporteCuota.Width = 71
+        '
         'formAnioLectivoCursoImportes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -291,12 +294,12 @@ Partial Class formAnioLectivoCursoImportes
     Friend WithEvents labelMesInicio As System.Windows.Forms.ToolStripLabel
     Friend WithEvents comboboxMesInicio As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents datagridviewMain As System.Windows.Forms.DataGridView
-    Friend WithEvents columnMesInicio As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnImporteMatricula As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnImporteCuota As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents textboxCurso As System.Windows.Forms.TextBox
     Friend WithEvents textboxAnioLectivo As System.Windows.Forms.TextBox
     Friend WithEvents labelAnioLectivo As System.Windows.Forms.Label
     Friend WithEvents labelCurso As System.Windows.Forms.Label
+    Friend WithEvents columnMesInicio As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnImporteMatricula As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnImporteCuota As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

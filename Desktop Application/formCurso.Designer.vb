@@ -47,7 +47,7 @@ Partial Class formCurso
         labelEsActivo.Location = New System.Drawing.Point(12, 159)
         labelEsActivo.Name = "labelEsActivo"
         labelEsActivo.Size = New System.Drawing.Size(40, 13)
-        labelEsActivo.TabIndex = 8
+        labelEsActivo.TabIndex = 6
         labelEsActivo.Text = "Activo:"
         '
         'comboboxAnio
@@ -57,7 +57,7 @@ Partial Class formCurso
         Me.comboboxAnio.Location = New System.Drawing.Point(92, 76)
         Me.comboboxAnio.Name = "comboboxAnio"
         Me.comboboxAnio.Size = New System.Drawing.Size(266, 21)
-        Me.comboboxAnio.TabIndex = 3
+        Me.comboboxAnio.TabIndex = 1
         '
         'labelAnio
         '
@@ -65,7 +65,7 @@ Partial Class formCurso
         Me.labelAnio.Location = New System.Drawing.Point(12, 79)
         Me.labelAnio.Name = "labelAnio"
         Me.labelAnio.Size = New System.Drawing.Size(29, 13)
-        Me.labelAnio.TabIndex = 2
+        Me.labelAnio.TabIndex = 0
         Me.labelAnio.Text = "Año:"
         '
         'textboxDivision
@@ -75,7 +75,7 @@ Partial Class formCurso
         Me.textboxDivision.MaxLength = 1
         Me.textboxDivision.Name = "textboxDivision"
         Me.textboxDivision.Size = New System.Drawing.Size(23, 20)
-        Me.textboxDivision.TabIndex = 7
+        Me.textboxDivision.TabIndex = 5
         '
         'labelTurno
         '
@@ -83,7 +83,7 @@ Partial Class formCurso
         Me.labelTurno.Location = New System.Drawing.Point(12, 106)
         Me.labelTurno.Name = "labelTurno"
         Me.labelTurno.Size = New System.Drawing.Size(38, 13)
-        Me.labelTurno.TabIndex = 4
+        Me.labelTurno.TabIndex = 2
         Me.labelTurno.Text = "Turno:"
         '
         'buttonGuardar
@@ -133,7 +133,7 @@ Partial Class formCurso
         Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
         Me.toolstripMain.Name = "toolstripMain"
         Me.toolstripMain.Size = New System.Drawing.Size(371, 39)
-        Me.toolstripMain.TabIndex = 10
+        Me.toolstripMain.TabIndex = 8
         '
         'textboxIDCurso
         '
@@ -142,7 +142,7 @@ Partial Class formCurso
         Me.textboxIDCurso.Name = "textboxIDCurso"
         Me.textboxIDCurso.ReadOnly = True
         Me.textboxIDCurso.Size = New System.Drawing.Size(74, 20)
-        Me.textboxIDCurso.TabIndex = 1
+        Me.textboxIDCurso.TabIndex = 10
         Me.textboxIDCurso.TabStop = False
         Me.textboxIDCurso.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -152,7 +152,7 @@ Partial Class formCurso
         Me.labelIDCurso.Location = New System.Drawing.Point(12, 53)
         Me.labelIDCurso.Name = "labelIDCurso"
         Me.labelIDCurso.Size = New System.Drawing.Size(21, 13)
-        Me.labelIDCurso.TabIndex = 0
+        Me.labelIDCurso.TabIndex = 9
         Me.labelIDCurso.Text = "ID:"
         '
         'comboboxTurno
@@ -162,7 +162,7 @@ Partial Class formCurso
         Me.comboboxTurno.Location = New System.Drawing.Point(92, 103)
         Me.comboboxTurno.Name = "comboboxTurno"
         Me.comboboxTurno.Size = New System.Drawing.Size(266, 21)
-        Me.comboboxTurno.TabIndex = 5
+        Me.comboboxTurno.TabIndex = 3
         '
         'labelDivision
         '
@@ -170,7 +170,7 @@ Partial Class formCurso
         Me.labelDivision.Location = New System.Drawing.Point(12, 132)
         Me.labelDivision.Name = "labelDivision"
         Me.labelDivision.Size = New System.Drawing.Size(47, 13)
-        Me.labelDivision.TabIndex = 6
+        Me.labelDivision.TabIndex = 4
         Me.labelDivision.Text = "División:"
         '
         'checkboxEsActivo
@@ -179,7 +179,7 @@ Partial Class formCurso
         Me.checkboxEsActivo.Location = New System.Drawing.Point(92, 159)
         Me.checkboxEsActivo.Name = "checkboxEsActivo"
         Me.checkboxEsActivo.Size = New System.Drawing.Size(15, 14)
-        Me.checkboxEsActivo.TabIndex = 9
+        Me.checkboxEsActivo.TabIndex = 7
         Me.checkboxEsActivo.UseVisualStyleBackColor = True
         '
         'formCurso
@@ -199,6 +199,7 @@ Partial Class formCurso
         Me.Controls.Add(Me.checkboxEsActivo)
         Me.Controls.Add(Me.toolstripMain)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "formCurso"

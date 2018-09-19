@@ -1436,6 +1436,7 @@ Partial Class formComprobante
         Me.Controls.Add(Me.panelMain)
         Me.Controls.Add(Me.toolstripMain)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.KeyPreview = True
         Me.MinimumSize = New System.Drawing.Size(690, 45)
         Me.Name = "formComprobante"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual

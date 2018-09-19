@@ -1850,6 +1850,7 @@ Partial Class formEntidad
         Me.Controls.Add(Me.textboxNombre)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.Name = "formEntidad"
         Me.ShowIcon = False

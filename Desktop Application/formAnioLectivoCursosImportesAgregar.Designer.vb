@@ -34,11 +34,11 @@ Partial Class formAnioLectivoCursosImportesAgregar
         Me.comboboxMesInicio = New System.Windows.Forms.ComboBox()
         Me.labelAnioLectivoOrigen = New System.Windows.Forms.Label()
         Me.datagridviewNivelesTurnos = New System.Windows.Forms.DataGridView()
-        Me.textboxAnioLectivo = New System.Windows.Forms.TextBox()
         Me.columnNivel = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnTurno = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnImporteMatricula = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnImporteCuota = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.textboxAnioLectivo = New System.Windows.Forms.TextBox()
         Me.toolstripMain.SuspendLayout()
         CType(Me.datagridviewNivelesTurnos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -50,7 +50,7 @@ Partial Class formAnioLectivoCursosImportesAgregar
         Me.buttonGuardar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonGuardar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonGuardar.Name = "buttonGuardar"
-        Me.buttonGuardar.Size = New System.Drawing.Size(98, 36)
+        Me.buttonGuardar.Size = New System.Drawing.Size(85, 36)
         Me.buttonGuardar.Text = "Guardar"
         '
         'buttonCancelar
@@ -60,7 +60,7 @@ Partial Class formAnioLectivoCursosImportesAgregar
         Me.buttonCancelar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonCancelar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonCancelar.Name = "buttonCancelar"
-        Me.buttonCancelar.Size = New System.Drawing.Size(102, 36)
+        Me.buttonCancelar.Size = New System.Drawing.Size(89, 36)
         Me.buttonCancelar.Text = "Cancelar"
         '
         'toolstripMain
@@ -70,37 +70,34 @@ Partial Class formAnioLectivoCursosImportesAgregar
         Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonCancelar, Me.buttonGuardar})
         Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
         Me.toolstripMain.Name = "toolstripMain"
-        Me.toolstripMain.Size = New System.Drawing.Size(664, 39)
-        Me.toolstripMain.TabIndex = 5
+        Me.toolstripMain.Size = New System.Drawing.Size(498, 39)
+        Me.toolstripMain.TabIndex = 3
         '
         'labelMesInicio
         '
         Me.labelMesInicio.AutoSize = True
-        Me.labelMesInicio.Location = New System.Drawing.Point(13, 96)
-        Me.labelMesInicio.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.labelMesInicio.Location = New System.Drawing.Point(10, 78)
         Me.labelMesInicio.Name = "labelMesInicio"
-        Me.labelMesInicio.Size = New System.Drawing.Size(94, 17)
-        Me.labelMesInicio.TabIndex = 2
+        Me.labelMesInicio.Size = New System.Drawing.Size(73, 13)
+        Me.labelMesInicio.TabIndex = 0
         Me.labelMesInicio.Text = "Mes de Inicio:"
         '
         'comboboxMesInicio
         '
         Me.comboboxMesInicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxMesInicio.FormattingEnabled = True
-        Me.comboboxMesInicio.Location = New System.Drawing.Point(115, 93)
-        Me.comboboxMesInicio.Margin = New System.Windows.Forms.Padding(4)
+        Me.comboboxMesInicio.Location = New System.Drawing.Point(86, 76)
         Me.comboboxMesInicio.Name = "comboboxMesInicio"
-        Me.comboboxMesInicio.Size = New System.Drawing.Size(133, 24)
-        Me.comboboxMesInicio.TabIndex = 3
+        Me.comboboxMesInicio.Size = New System.Drawing.Size(101, 21)
+        Me.comboboxMesInicio.TabIndex = 1
         '
         'labelAnioLectivoOrigen
         '
         Me.labelAnioLectivoOrigen.AutoSize = True
-        Me.labelAnioLectivoOrigen.Location = New System.Drawing.Point(13, 64)
-        Me.labelAnioLectivoOrigen.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.labelAnioLectivoOrigen.Location = New System.Drawing.Point(10, 52)
         Me.labelAnioLectivoOrigen.Name = "labelAnioLectivoOrigen"
-        Me.labelAnioLectivoOrigen.Size = New System.Drawing.Size(86, 17)
-        Me.labelAnioLectivoOrigen.TabIndex = 0
+        Me.labelAnioLectivoOrigen.Size = New System.Drawing.Size(67, 13)
+        Me.labelAnioLectivoOrigen.TabIndex = 4
         Me.labelAnioLectivoOrigen.Text = "Año Lectivo:"
         '
         'datagridviewNivelesTurnos
@@ -115,27 +112,14 @@ Partial Class formAnioLectivoCursosImportesAgregar
         Me.datagridviewNivelesTurnos.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.datagridviewNivelesTurnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewNivelesTurnos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnNivel, Me.columnTurno, Me.columnImporteMatricula, Me.columnImporteCuota})
-        Me.datagridviewNivelesTurnos.Location = New System.Drawing.Point(16, 125)
-        Me.datagridviewNivelesTurnos.Margin = New System.Windows.Forms.Padding(4)
+        Me.datagridviewNivelesTurnos.Location = New System.Drawing.Point(12, 102)
         Me.datagridviewNivelesTurnos.MultiSelect = False
         Me.datagridviewNivelesTurnos.Name = "datagridviewNivelesTurnos"
         Me.datagridviewNivelesTurnos.RowHeadersVisible = False
         Me.datagridviewNivelesTurnos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewNivelesTurnos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewNivelesTurnos.Size = New System.Drawing.Size(635, 268)
-        Me.datagridviewNivelesTurnos.TabIndex = 4
-        '
-        'textboxAnioLectivo
-        '
-        Me.textboxAnioLectivo.Location = New System.Drawing.Point(115, 61)
-        Me.textboxAnioLectivo.Margin = New System.Windows.Forms.Padding(4)
-        Me.textboxAnioLectivo.MaxLength = 10
-        Me.textboxAnioLectivo.Name = "textboxAnioLectivo"
-        Me.textboxAnioLectivo.ReadOnly = True
-        Me.textboxAnioLectivo.Size = New System.Drawing.Size(65, 22)
-        Me.textboxAnioLectivo.TabIndex = 6
-        Me.textboxAnioLectivo.TabStop = False
-        Me.textboxAnioLectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.datagridviewNivelesTurnos.Size = New System.Drawing.Size(476, 218)
+        Me.datagridviewNivelesTurnos.TabIndex = 2
         '
         'columnNivel
         '
@@ -146,7 +130,7 @@ Partial Class formAnioLectivoCursosImportesAgregar
         Me.columnNivel.HeaderText = "Nivel"
         Me.columnNivel.Name = "columnNivel"
         Me.columnNivel.ReadOnly = True
-        Me.columnNivel.Width = 68
+        Me.columnNivel.Width = 56
         '
         'columnTurno
         '
@@ -157,7 +141,7 @@ Partial Class formAnioLectivoCursosImportesAgregar
         Me.columnTurno.HeaderText = "Turno"
         Me.columnTurno.Name = "columnTurno"
         Me.columnTurno.ReadOnly = True
-        Me.columnTurno.Width = 75
+        Me.columnTurno.Width = 60
         '
         'columnImporteMatricula
         '
@@ -168,7 +152,7 @@ Partial Class formAnioLectivoCursosImportesAgregar
         Me.columnImporteMatricula.DefaultCellStyle = DataGridViewCellStyle4
         Me.columnImporteMatricula.HeaderText = "Importe Matrícula"
         Me.columnImporteMatricula.Name = "columnImporteMatricula"
-        Me.columnImporteMatricula.Width = 133
+        Me.columnImporteMatricula.Width = 105
         '
         'columnImporteCuota
         '
@@ -179,13 +163,24 @@ Partial Class formAnioLectivoCursosImportesAgregar
         Me.columnImporteCuota.DefaultCellStyle = DataGridViewCellStyle5
         Me.columnImporteCuota.HeaderText = "Importe Cuota"
         Me.columnImporteCuota.Name = "columnImporteCuota"
-        Me.columnImporteCuota.Width = 115
+        Me.columnImporteCuota.Width = 90
+        '
+        'textboxAnioLectivo
+        '
+        Me.textboxAnioLectivo.Location = New System.Drawing.Point(86, 50)
+        Me.textboxAnioLectivo.MaxLength = 10
+        Me.textboxAnioLectivo.Name = "textboxAnioLectivo"
+        Me.textboxAnioLectivo.ReadOnly = True
+        Me.textboxAnioLectivo.Size = New System.Drawing.Size(50, 20)
+        Me.textboxAnioLectivo.TabIndex = 5
+        Me.textboxAnioLectivo.TabStop = False
+        Me.textboxAnioLectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'formAnioLectivoCursosImportesAgregar
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8!, 16!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(664, 406)
+        Me.ClientSize = New System.Drawing.Size(498, 330)
         Me.Controls.Add(Me.textboxAnioLectivo)
         Me.Controls.Add(Me.datagridviewNivelesTurnos)
         Me.Controls.Add(Me.labelMesInicio)
@@ -193,7 +188,7 @@ Partial Class formAnioLectivoCursosImportesAgregar
         Me.Controls.Add(Me.labelAnioLectivoOrigen)
         Me.Controls.Add(Me.toolstripMain)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.KeyPreview = True
         Me.MaximizeBox = false
         Me.MinimizeBox = false
         Me.Name = "formAnioLectivoCursosImportesAgregar"

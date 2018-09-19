@@ -375,10 +375,24 @@
         End If
     End Sub
 
-    Friend Sub Mes(ByRef ComboBoxControl As ComboBox, ByVal MostrarNombreDelMes As Boolean, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)
+    Friend Sub Mes(ByRef ComboBoxControl As ComboBox, ByVal MostrarNombreDelMes As Boolean, ByVal NombreEnIdiomaDelSistema As Boolean, ByVal PrimerLetraEnMayusculas As Boolean, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)
         ComboBoxControl.Items.Clear()
         If MostrarNombreDelMes Then
-            ComboBoxControl.Items.AddRange({"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"})
+            If NombreEnIdiomaDelSistema Then
+                For MesNumero As Integer = 1 To 12
+                    If PrimerLetraEnMayusculas Then
+                        ComboBoxControl.Items.Add(MonthName(MesNumero).ElementAt(0).ToString.ToUpper & MonthName(MesNumero).Substring(1).ToLower)
+                    Else
+                        ComboBoxControl.Items.Add(MonthName(MesNumero))
+                    End If
+                Next
+            Else
+                If PrimerLetraEnMayusculas Then
+                    ComboBoxControl.Items.AddRange({"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"})
+                Else
+                    ComboBoxControl.Items.AddRange({"enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"})
+                End If
+            End If
         Else
             ComboBoxControl.Items.AddRange({1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12})
         End If

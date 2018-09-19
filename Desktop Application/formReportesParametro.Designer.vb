@@ -91,6 +91,7 @@ Partial Class formReportesParametro
         '
         Me.textboxNumber.Location = New System.Drawing.Point(61, 65)
         Me.textboxNumber.Name = "textboxNumber"
+        Me.textboxNumber.NumberStyle = System.Globalization.NumberStyles.None
         Me.textboxNumber.Size = New System.Drawing.Size(100, 20)
         Me.textboxNumber.TabIndex = 33
         '
@@ -105,6 +106,7 @@ Partial Class formReportesParametro
         Me.Controls.Add(Me.labelValor)
         Me.Controls.Add(Me.toolstripMain)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "formReportesParametro"

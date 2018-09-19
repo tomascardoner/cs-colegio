@@ -37,15 +37,15 @@ Partial Class formComprobanteAplicacion
         Me.labelComprobanteAplicado = New System.Windows.Forms.Label()
         Me.labelImporteAplicado = New System.Windows.Forms.Label()
         Me.datagridviewMain = New System.Windows.Forms.DataGridView()
-        Me.textboxImporteAplicado = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
-        Me.comboboxMotivo = New System.Windows.Forms.ComboBox()
-        Me.labelMotivo = New System.Windows.Forms.Label()
         Me.columnTipoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnNumeroCompleto = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnFechaEmision = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnImporteAplicado = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnImporteSinAplicar = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.textboxImporteAplicado = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
+        Me.comboboxMotivo = New System.Windows.Forms.ComboBox()
+        Me.labelMotivo = New System.Windows.Forms.Label()
         Me.toolstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -140,33 +140,6 @@ Partial Class formComprobanteAplicacion
         Me.datagridviewMain.Size = New System.Drawing.Size(539, 215)
         Me.datagridviewMain.TabIndex = 1
         '
-        'textboxImporteAplicado
-        '
-        Me.textboxImporteAplicado.Location = New System.Drawing.Point(103, 317)
-        Me.textboxImporteAplicado.MaxLength = 15
-        Me.textboxImporteAplicado.Name = "textboxImporteAplicado"
-        Me.textboxImporteAplicado.Size = New System.Drawing.Size(80, 20)
-        Me.textboxImporteAplicado.TabIndex = 5
-        Me.textboxImporteAplicado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'comboboxMotivo
-        '
-        Me.comboboxMotivo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.comboboxMotivo.FormattingEnabled = True
-        Me.comboboxMotivo.Location = New System.Drawing.Point(103, 290)
-        Me.comboboxMotivo.Name = "comboboxMotivo"
-        Me.comboboxMotivo.Size = New System.Drawing.Size(291, 21)
-        Me.comboboxMotivo.TabIndex = 3
-        '
-        'labelMotivo
-        '
-        Me.labelMotivo.AutoSize = True
-        Me.labelMotivo.Location = New System.Drawing.Point(9, 293)
-        Me.labelMotivo.Name = "labelMotivo"
-        Me.labelMotivo.Size = New System.Drawing.Size(42, 13)
-        Me.labelMotivo.TabIndex = 2
-        Me.labelMotivo.Text = "Motivo:"
-        '
         'columnTipoNombre
         '
         Me.columnTipoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
@@ -215,7 +188,7 @@ Partial Class formComprobanteAplicacion
         Me.columnImporteTotal.Name = "columnImporteTotal"
         Me.columnImporteTotal.ReadOnly = True
         Me.columnImporteTotal.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.columnImporteTotal.Width = 90
+        Me.columnImporteTotal.Width = 83
         '
         'columnImporteAplicado
         '
@@ -244,6 +217,33 @@ Partial Class formComprobanteAplicacion
         Me.columnImporteSinAplicar.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.columnImporteSinAplicar.Width = 107
         '
+        'textboxImporteAplicado
+        '
+        Me.textboxImporteAplicado.Location = New System.Drawing.Point(103, 317)
+        Me.textboxImporteAplicado.MaxLength = 15
+        Me.textboxImporteAplicado.Name = "textboxImporteAplicado"
+        Me.textboxImporteAplicado.Size = New System.Drawing.Size(80, 20)
+        Me.textboxImporteAplicado.TabIndex = 5
+        Me.textboxImporteAplicado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'comboboxMotivo
+        '
+        Me.comboboxMotivo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxMotivo.FormattingEnabled = True
+        Me.comboboxMotivo.Location = New System.Drawing.Point(103, 290)
+        Me.comboboxMotivo.Name = "comboboxMotivo"
+        Me.comboboxMotivo.Size = New System.Drawing.Size(291, 21)
+        Me.comboboxMotivo.TabIndex = 3
+        '
+        'labelMotivo
+        '
+        Me.labelMotivo.AutoSize = True
+        Me.labelMotivo.Location = New System.Drawing.Point(9, 293)
+        Me.labelMotivo.Name = "labelMotivo"
+        Me.labelMotivo.Size = New System.Drawing.Size(42, 13)
+        Me.labelMotivo.TabIndex = 2
+        Me.labelMotivo.Text = "Motivo:"
+        '
         'formComprobanteAplicacion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -257,6 +257,7 @@ Partial Class formComprobanteAplicacion
         Me.Controls.Add(Me.labelComprobanteAplicado)
         Me.Controls.Add(Me.toolstripMain)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "formComprobanteAplicacion"

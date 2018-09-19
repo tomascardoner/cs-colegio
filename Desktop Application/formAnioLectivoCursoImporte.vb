@@ -62,7 +62,7 @@
         SetAppearance()
 
         ' Cargo los ComboBox
-        pFillAndRefreshLists.Mes(comboboxMesInicio, True, False, False)
+        pFillAndRefreshLists.Mes(comboboxMesInicio, True, False, True, False, False)
     End Sub
 
     Friend Sub SetAppearance()

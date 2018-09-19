@@ -53,7 +53,7 @@ Partial Class formEntidadInscripcionDetalle
         Me.buttonGuardar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonGuardar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonGuardar.Name = "buttonGuardar"
-        Me.buttonGuardar.Size = New System.Drawing.Size(98, 36)
+        Me.buttonGuardar.Size = New System.Drawing.Size(85, 36)
         Me.buttonGuardar.Text = "Guardar"
         '
         'buttonCancelar
@@ -63,7 +63,7 @@ Partial Class formEntidadInscripcionDetalle
         Me.buttonCancelar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonCancelar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonCancelar.Name = "buttonCancelar"
-        Me.buttonCancelar.Size = New System.Drawing.Size(102, 36)
+        Me.buttonCancelar.Size = New System.Drawing.Size(89, 36)
         Me.buttonCancelar.Text = "Cancelar"
         '
         'toolstripMain
@@ -73,39 +73,36 @@ Partial Class formEntidadInscripcionDetalle
         Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonCancelar, Me.buttonGuardar})
         Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
         Me.toolstripMain.Name = "toolstripMain"
-        Me.toolstripMain.Size = New System.Drawing.Size(465, 39)
-        Me.toolstripMain.TabIndex = 4
+        Me.toolstripMain.Size = New System.Drawing.Size(349, 39)
+        Me.toolstripMain.TabIndex = 1
         '
         'textboxAlumno
         '
-        Me.textboxAlumno.Location = New System.Drawing.Point(88, 62)
-        Me.textboxAlumno.Margin = New System.Windows.Forms.Padding(4)
+        Me.textboxAlumno.Location = New System.Drawing.Point(66, 50)
         Me.textboxAlumno.MaxLength = 10
         Me.textboxAlumno.Name = "textboxAlumno"
         Me.textboxAlumno.ReadOnly = True
-        Me.textboxAlumno.Size = New System.Drawing.Size(353, 22)
-        Me.textboxAlumno.TabIndex = 1
+        Me.textboxAlumno.Size = New System.Drawing.Size(266, 20)
+        Me.textboxAlumno.TabIndex = 3
         Me.textboxAlumno.TabStop = False
         '
         'labelAlumno
         '
         Me.labelAlumno.AutoSize = True
-        Me.labelAlumno.Location = New System.Drawing.Point(19, 65)
-        Me.labelAlumno.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.labelAlumno.Location = New System.Drawing.Point(14, 53)
         Me.labelAlumno.Name = "labelAlumno"
-        Me.labelAlumno.Size = New System.Drawing.Size(59, 17)
-        Me.labelAlumno.TabIndex = 0
+        Me.labelAlumno.Size = New System.Drawing.Size(45, 13)
+        Me.labelAlumno.TabIndex = 2
         Me.labelAlumno.Text = "Alumno:"
         '
         'comboboxAnioProximo
         '
         Me.comboboxAnioProximo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxAnioProximo.FormattingEnabled = True
-        Me.comboboxAnioProximo.Location = New System.Drawing.Point(76, 36)
-        Me.comboboxAnioProximo.Margin = New System.Windows.Forms.Padding(4)
+        Me.comboboxAnioProximo.Location = New System.Drawing.Point(57, 29)
         Me.comboboxAnioProximo.Name = "comboboxAnioProximo"
-        Me.comboboxAnioProximo.Size = New System.Drawing.Size(353, 24)
-        Me.comboboxAnioProximo.TabIndex = 3
+        Me.comboboxAnioProximo.Size = New System.Drawing.Size(266, 21)
+        Me.comboboxAnioProximo.TabIndex = 1
         '
         'groupboxCursoActual
         '
@@ -115,74 +112,70 @@ Partial Class formEntidadInscripcionDetalle
         Me.groupboxCursoActual.Controls.Add(Me.labelTurnoActual)
         Me.groupboxCursoActual.Controls.Add(Me.textboxAnioActual)
         Me.groupboxCursoActual.Controls.Add(Me.labelAnioActual)
-        Me.groupboxCursoActual.Location = New System.Drawing.Point(12, 111)
+        Me.groupboxCursoActual.Location = New System.Drawing.Point(9, 90)
+        Me.groupboxCursoActual.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.groupboxCursoActual.Name = "groupboxCursoActual"
-        Me.groupboxCursoActual.Size = New System.Drawing.Size(442, 131)
-        Me.groupboxCursoActual.TabIndex = 2
+        Me.groupboxCursoActual.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.groupboxCursoActual.Size = New System.Drawing.Size(332, 106)
+        Me.groupboxCursoActual.TabIndex = 4
         Me.groupboxCursoActual.TabStop = False
         Me.groupboxCursoActual.Text = "Curso actual:"
         '
         'textboxDivisionActual
         '
-        Me.textboxDivisionActual.Location = New System.Drawing.Point(76, 96)
-        Me.textboxDivisionActual.Margin = New System.Windows.Forms.Padding(4)
+        Me.textboxDivisionActual.Location = New System.Drawing.Point(57, 78)
         Me.textboxDivisionActual.MaxLength = 10
         Me.textboxDivisionActual.Name = "textboxDivisionActual"
         Me.textboxDivisionActual.ReadOnly = True
-        Me.textboxDivisionActual.Size = New System.Drawing.Size(26, 22)
-        Me.textboxDivisionActual.TabIndex = 7
+        Me.textboxDivisionActual.Size = New System.Drawing.Size(20, 20)
+        Me.textboxDivisionActual.TabIndex = 5
         Me.textboxDivisionActual.TabStop = False
         '
         'labelDivisionActual
         '
         Me.labelDivisionActual.AutoSize = True
-        Me.labelDivisionActual.Location = New System.Drawing.Point(7, 99)
-        Me.labelDivisionActual.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.labelDivisionActual.Location = New System.Drawing.Point(5, 80)
         Me.labelDivisionActual.Name = "labelDivisionActual"
-        Me.labelDivisionActual.Size = New System.Drawing.Size(61, 17)
-        Me.labelDivisionActual.TabIndex = 6
+        Me.labelDivisionActual.Size = New System.Drawing.Size(47, 13)
+        Me.labelDivisionActual.TabIndex = 4
         Me.labelDivisionActual.Text = "División:"
         '
         'textboxTurnoActual
         '
-        Me.textboxTurnoActual.Location = New System.Drawing.Point(76, 66)
-        Me.textboxTurnoActual.Margin = New System.Windows.Forms.Padding(4)
+        Me.textboxTurnoActual.Location = New System.Drawing.Point(57, 54)
         Me.textboxTurnoActual.MaxLength = 10
         Me.textboxTurnoActual.Name = "textboxTurnoActual"
         Me.textboxTurnoActual.ReadOnly = True
-        Me.textboxTurnoActual.Size = New System.Drawing.Size(353, 22)
-        Me.textboxTurnoActual.TabIndex = 5
+        Me.textboxTurnoActual.Size = New System.Drawing.Size(266, 20)
+        Me.textboxTurnoActual.TabIndex = 3
         Me.textboxTurnoActual.TabStop = False
         '
         'labelTurnoActual
         '
         Me.labelTurnoActual.AutoSize = True
-        Me.labelTurnoActual.Location = New System.Drawing.Point(7, 69)
-        Me.labelTurnoActual.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.labelTurnoActual.Location = New System.Drawing.Point(5, 56)
         Me.labelTurnoActual.Name = "labelTurnoActual"
-        Me.labelTurnoActual.Size = New System.Drawing.Size(50, 17)
-        Me.labelTurnoActual.TabIndex = 4
+        Me.labelTurnoActual.Size = New System.Drawing.Size(38, 13)
+        Me.labelTurnoActual.TabIndex = 2
         Me.labelTurnoActual.Text = "Turno:"
         '
         'textboxAnioActual
         '
-        Me.textboxAnioActual.Location = New System.Drawing.Point(76, 36)
-        Me.textboxAnioActual.Margin = New System.Windows.Forms.Padding(4)
+        Me.textboxAnioActual.Location = New System.Drawing.Point(57, 29)
         Me.textboxAnioActual.MaxLength = 10
         Me.textboxAnioActual.Name = "textboxAnioActual"
         Me.textboxAnioActual.ReadOnly = True
-        Me.textboxAnioActual.Size = New System.Drawing.Size(353, 22)
-        Me.textboxAnioActual.TabIndex = 3
+        Me.textboxAnioActual.Size = New System.Drawing.Size(266, 20)
+        Me.textboxAnioActual.TabIndex = 1
         Me.textboxAnioActual.TabStop = False
         '
         'labelAnioActual
         '
         Me.labelAnioActual.AutoSize = True
-        Me.labelAnioActual.Location = New System.Drawing.Point(7, 39)
-        Me.labelAnioActual.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.labelAnioActual.Location = New System.Drawing.Point(5, 32)
         Me.labelAnioActual.Name = "labelAnioActual"
-        Me.labelAnioActual.Size = New System.Drawing.Size(37, 17)
-        Me.labelAnioActual.TabIndex = 2
+        Me.labelAnioActual.Size = New System.Drawing.Size(29, 13)
+        Me.labelAnioActual.TabIndex = 0
         Me.labelAnioActual.Text = "Año:"
         '
         'groupboxCursoProximo
@@ -193,10 +186,12 @@ Partial Class formEntidadInscripcionDetalle
         Me.groupboxCursoProximo.Controls.Add(Me.Label1)
         Me.groupboxCursoProximo.Controls.Add(Me.Label2)
         Me.groupboxCursoProximo.Controls.Add(Me.Label3)
-        Me.groupboxCursoProximo.Location = New System.Drawing.Point(12, 270)
+        Me.groupboxCursoProximo.Location = New System.Drawing.Point(9, 219)
+        Me.groupboxCursoProximo.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.groupboxCursoProximo.Name = "groupboxCursoProximo"
-        Me.groupboxCursoProximo.Size = New System.Drawing.Size(442, 131)
-        Me.groupboxCursoProximo.TabIndex = 3
+        Me.groupboxCursoProximo.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.groupboxCursoProximo.Size = New System.Drawing.Size(332, 106)
+        Me.groupboxCursoProximo.TabIndex = 0
         Me.groupboxCursoProximo.TabStop = False
         Me.groupboxCursoProximo.Text = "Curso próximo:"
         '
@@ -204,64 +199,59 @@ Partial Class formEntidadInscripcionDetalle
         '
         Me.comboboxDivisionProximo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxDivisionProximo.FormattingEnabled = True
-        Me.comboboxDivisionProximo.Location = New System.Drawing.Point(76, 98)
-        Me.comboboxDivisionProximo.Margin = New System.Windows.Forms.Padding(4)
+        Me.comboboxDivisionProximo.Location = New System.Drawing.Point(57, 80)
         Me.comboboxDivisionProximo.Name = "comboboxDivisionProximo"
-        Me.comboboxDivisionProximo.Size = New System.Drawing.Size(45, 24)
-        Me.comboboxDivisionProximo.TabIndex = 7
+        Me.comboboxDivisionProximo.Size = New System.Drawing.Size(35, 21)
+        Me.comboboxDivisionProximo.TabIndex = 5
         '
         'comboboxTurnoProximo
         '
         Me.comboboxTurnoProximo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxTurnoProximo.FormattingEnabled = True
-        Me.comboboxTurnoProximo.Location = New System.Drawing.Point(76, 68)
-        Me.comboboxTurnoProximo.Margin = New System.Windows.Forms.Padding(4)
+        Me.comboboxTurnoProximo.Location = New System.Drawing.Point(57, 55)
         Me.comboboxTurnoProximo.Name = "comboboxTurnoProximo"
-        Me.comboboxTurnoProximo.Size = New System.Drawing.Size(353, 24)
-        Me.comboboxTurnoProximo.TabIndex = 5
+        Me.comboboxTurnoProximo.Size = New System.Drawing.Size(266, 21)
+        Me.comboboxTurnoProximo.TabIndex = 3
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(7, 101)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Location = New System.Drawing.Point(5, 82)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(61, 17)
-        Me.Label1.TabIndex = 6
+        Me.Label1.Size = New System.Drawing.Size(47, 13)
+        Me.Label1.TabIndex = 4
         Me.Label1.Text = "División:"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(7, 71)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Location = New System.Drawing.Point(5, 58)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(50, 17)
-        Me.Label2.TabIndex = 4
+        Me.Label2.Size = New System.Drawing.Size(38, 13)
+        Me.Label2.TabIndex = 2
         Me.Label2.Text = "Turno:"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(7, 39)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Location = New System.Drawing.Point(5, 32)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(37, 17)
-        Me.Label3.TabIndex = 2
+        Me.Label3.Size = New System.Drawing.Size(29, 13)
+        Me.Label3.TabIndex = 0
         Me.Label3.Text = "Año:"
         '
         'formEntidadInscripcionDetalle
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(465, 418)
+        Me.ClientSize = New System.Drawing.Size(349, 340)
         Me.Controls.Add(Me.groupboxCursoProximo)
         Me.Controls.Add(Me.groupboxCursoActual)
         Me.Controls.Add(Me.textboxAlumno)
         Me.Controls.Add(Me.labelAlumno)
         Me.Controls.Add(Me.toolstripMain)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "formEntidadInscripcionDetalle"
