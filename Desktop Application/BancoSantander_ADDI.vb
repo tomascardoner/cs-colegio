@@ -76,7 +76,6 @@
     Friend Function Adhesion_ActualizarCBU(ByRef sqlconn As SqlClient.SqlConnection, ByVal AdhesionId As Integer, ByVal CBU As String, ByVal LoteImportacion As Integer) As Boolean
         Try
             Dim sqlcmd As New SqlClient.SqlCommand
-            Dim sqldatrdr As SqlClient.SqlDataReader
 
             With sqlcmd
                 .Connection = sqlconn
@@ -99,7 +98,6 @@
     Friend Function Adhesion_Baja(ByRef sqlconn As SqlClient.SqlConnection, ByVal AdhesionId As Integer, ByVal Status As String) As Boolean
         Try
             Dim sqlcmd As New SqlClient.SqlCommand
-            Dim sqldatrdr As SqlClient.SqlDataReader
 
             With sqlcmd
                 .Connection = sqlconn

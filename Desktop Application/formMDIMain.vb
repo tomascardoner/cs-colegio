@@ -232,7 +232,13 @@
         End If
     End Sub
 
-    Private Sub menuitemBancos_Click() Handles menuitemBancos.Click
+    Private Sub menuitemAniosLectivosCursosImportes_Click(sender As Object, e As EventArgs) Handles menuitemAniosLectivosCursosImportes.Click
+        If Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCURSOIMPORTE) And Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCURSOIMPORTE_AGREGAR) And Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCURSOIMPORTE_EDITAR) And Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCURSOIMPORTE_ELIMINAR) Then
+            CS_Form.MDIChild_Show(Me, CType(formAnioLectivoCursosImportes, Form), False)
+        End If
+    End Sub
+
+    Private Sub menuitemBancos_Click(sender As Object, e As EventArgs) Handles menuitemBancos.Click
         Dim formBancos As formCABGenerico
 
         If Permisos.VerificarPermiso(Permisos.BANCO) Then
@@ -265,7 +271,7 @@
                     .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("Nombre", "Nombre", "Nombre", DataGridViewContentAlignment.MiddleLeft))
                     .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_CheckBox("Activo", "Activo", "Activo", DataGridViewContentAlignment.MiddleCenter, False, True, False, False))
 
-                    .bindingsourceMain.DataSource = .dbContext.RelacionTipo.ToList
+                    .bindingsourceMain.DataSource = .dbContext.RelacionTipo.Where(Function(rt) rt.IDRelacionTipo <> CS_Constants.FIELD_VALUE_OTHER_BYTE).ToList
                     .Show()
                 End With
 

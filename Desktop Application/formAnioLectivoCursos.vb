@@ -38,7 +38,7 @@
 
         mSkipFilterData = False
 
-        mOrdenColumna = columnAnioLectivo
+        mOrdenColumna = columnNivel
         mOrdenTipo = SortOrder.Ascending
 
         RefreshData()
@@ -139,12 +139,6 @@
     Private Sub OrderData()
         ' Realizo las rutinas de ordenamiento
         Select Case mOrdenColumna.Name
-            Case columnAnioLectivo.Name
-                If mOrdenTipo = SortOrder.Ascending Then
-                    mlistAniosLectivosCursosFiltradaYOrdenada = mlistAniosLectivosCursosFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.AnioLectivo).ThenBy(Function(dgrd) dgrd.Nivel).ThenBy(Function(dgrd) dgrd.Curso).ToList
-                Else
-                    mlistAniosLectivosCursosFiltradaYOrdenada = mlistAniosLectivosCursosFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.AnioLectivo).ThenByDescending(Function(dgrd) dgrd.Nivel).ThenByDescending(Function(dgrd) dgrd.Curso).ToList
-                End If
             Case columnNivel.Name
                 If mOrdenTipo = SortOrder.Ascending Then
                     mlistAniosLectivosCursosFiltradaYOrdenada = mlistAniosLectivosCursosFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.Nivel).ThenBy(Function(dgrd) dgrd.AnioLectivo).ThenBy(Function(dgrd) dgrd.Curso).ToList
@@ -297,7 +291,7 @@
         End If
     End Sub
 
-    Private Sub Importes_Click() Handles buttonImportes.ButtonClick, menuitemImportesEditar.Click
+    Private Sub Importes_Click() Handles buttonImportes.Click
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Curso de Año Lectivo para ver los Importes.", vbInformation, My.Application.Info.Title)
         Else
@@ -312,24 +306,6 @@
                     Dim AnioLectivoCursoActual As AnioLectivoCurso = dbContext.AnioLectivoCurso.Find(CurrentRow.IDAnioLectivoCurso)
                     formAnioLectivoCursoImportes.LoadAndShow(AnioLectivoCursoActual)
                 End Using
-
-                datagridviewMain.Enabled = True
-
-                Me.Cursor = Cursors.Default
-            End If
-        End If
-    End Sub
-
-    Private Sub ImportesAgregarPorGrupo() Handles menuitemImportesAgregarPorGrupo.Click
-        If datagridviewMain.CurrentRow Is Nothing Then
-            MsgBox("No hay ningún Curso de Año Lectivo para agregar los Importes.", vbInformation, My.Application.Info.Title)
-        Else
-            If Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCURSOIMPORTE) Then
-                Me.Cursor = Cursors.WaitCursor
-
-                datagridviewMain.Enabled = False
-
-                formAnioLectivoCursosImportesAgregar.LoadAndShow(CShort(comboboxAnioLectivo.Text))
 
                 datagridviewMain.Enabled = True
 

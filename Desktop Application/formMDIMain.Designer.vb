@@ -84,6 +84,7 @@ Partial Class formMDIMain
         Me.buttonComunicaciones = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemComunicacionesEnviarMail = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonReportes = New System.Windows.Forms.ToolStripButton()
+        Me.menuitemAniosLectivosCursosImportes = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
@@ -295,7 +296,7 @@ Partial Class formMDIMain
         '
         'dropdownbuttonTablas
         '
-        Me.dropdownbuttonTablas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemAnios, Me.menuitemCursos, Me.menuitemAniosLectivosCursos, Me.separatorBancos, Me.menuitemBancos, Me.separatorRelacionTipos, Me.menuitemRelacionTipos})
+        Me.dropdownbuttonTablas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemAnios, Me.menuitemCursos, Me.menuitemAniosLectivosCursos, Me.menuitemAniosLectivosCursosImportes, Me.separatorBancos, Me.menuitemBancos, Me.separatorRelacionTipos, Me.menuitemRelacionTipos})
         Me.dropdownbuttonTablas.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_TABLAS_32
         Me.dropdownbuttonTablas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.dropdownbuttonTablas.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
@@ -307,41 +308,41 @@ Partial Class formMDIMain
         'menuitemAnios
         '
         Me.menuitemAnios.Name = "menuitemAnios"
-        Me.menuitemAnios.Size = New System.Drawing.Size(195, 22)
+        Me.menuitemAnios.Size = New System.Drawing.Size(253, 22)
         Me.menuitemAnios.Text = "Años"
         '
         'menuitemCursos
         '
         Me.menuitemCursos.Name = "menuitemCursos"
-        Me.menuitemCursos.Size = New System.Drawing.Size(195, 22)
+        Me.menuitemCursos.Size = New System.Drawing.Size(253, 22)
         Me.menuitemCursos.Text = "Cursos"
         '
         'menuitemAniosLectivosCursos
         '
         Me.menuitemAniosLectivosCursos.Name = "menuitemAniosLectivosCursos"
-        Me.menuitemAniosLectivosCursos.Size = New System.Drawing.Size(195, 22)
+        Me.menuitemAniosLectivosCursos.Size = New System.Drawing.Size(253, 22)
         Me.menuitemAniosLectivosCursos.Text = "Años Lectivos y Cursos"
         '
         'separatorBancos
         '
         Me.separatorBancos.Name = "separatorBancos"
-        Me.separatorBancos.Size = New System.Drawing.Size(192, 6)
+        Me.separatorBancos.Size = New System.Drawing.Size(250, 6)
         '
         'menuitemBancos
         '
         Me.menuitemBancos.Name = "menuitemBancos"
-        Me.menuitemBancos.Size = New System.Drawing.Size(195, 22)
+        Me.menuitemBancos.Size = New System.Drawing.Size(253, 22)
         Me.menuitemBancos.Text = "Bancos"
         '
         'separatorRelacionTipos
         '
         Me.separatorRelacionTipos.Name = "separatorRelacionTipos"
-        Me.separatorRelacionTipos.Size = New System.Drawing.Size(192, 6)
+        Me.separatorRelacionTipos.Size = New System.Drawing.Size(250, 6)
         '
         'menuitemRelacionTipos
         '
         Me.menuitemRelacionTipos.Name = "menuitemRelacionTipos"
-        Me.menuitemRelacionTipos.Size = New System.Drawing.Size(195, 22)
+        Me.menuitemRelacionTipos.Size = New System.Drawing.Size(253, 22)
         Me.menuitemRelacionTipos.Text = "Tipos de Relación"
         '
         'buttonEntidades
@@ -500,6 +501,12 @@ Partial Class formMDIMain
         Me.buttonReportes.Size = New System.Drawing.Size(142, 36)
         Me.buttonReportes.Text = "Reportes"
         '
+        'menuitemAniosLectivosCursosImportes
+        '
+        Me.menuitemAniosLectivosCursosImportes.Name = "menuitemAniosLectivosCursosImportes"
+        Me.menuitemAniosLectivosCursosImportes.Size = New System.Drawing.Size(253, 22)
+        Me.menuitemAniosLectivosCursosImportes.Text = "Años Lectivos y Cursos - Importes"
+        '
         'formMDIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -587,4 +594,5 @@ Partial Class formMDIMain
     Friend WithEvents menuitemDebugAFIPWSProduccionConsultarComprobante As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSHomologacionConsultarComprobante As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemEntidadesVerificarEmails As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemAniosLectivosCursosImportes As System.Windows.Forms.ToolStripMenuItem
 End Class

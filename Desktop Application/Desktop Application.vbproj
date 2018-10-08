@@ -333,10 +333,10 @@
     <Compile Include="formComunicacion.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formAnioLectivoCursosImportesAgregar.Designer.vb">
-      <DependentUpon>formAnioLectivoCursosImportesAgregar.vb</DependentUpon>
+    <Compile Include="formAnioLectivoCursosImportes.Designer.vb">
+      <DependentUpon>formAnioLectivoCursosImportes.vb</DependentUpon>
     </Compile>
-    <Compile Include="formAnioLectivoCursosImportesAgregar.vb">
+    <Compile Include="formAnioLectivoCursosImportes.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formComunicaciones.Designer.vb">
@@ -681,8 +681,8 @@
     <EmbeddedResource Include="formComunicacion.resx">
       <DependentUpon>formComunicacion.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formAnioLectivoCursosImportesAgregar.resx">
-      <DependentUpon>formAnioLectivoCursosImportesAgregar.vb</DependentUpon>
+    <EmbeddedResource Include="formAnioLectivoCursosImportes.resx">
+      <DependentUpon>formAnioLectivoCursosImportes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formComunicaciones.resx">
       <DependentUpon>formComunicaciones.vb</DependentUpon>

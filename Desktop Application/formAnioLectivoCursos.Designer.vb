@@ -25,21 +25,15 @@ Partial Class formAnioLectivoCursos
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
         Me.statusstripMain = New System.Windows.Forms.StatusStrip()
         Me.datagridviewMain = New System.Windows.Forms.DataGridView()
-        Me.columnAnioLectivo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnNivel = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnCurso = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.panelToolbars = New System.Windows.Forms.FlowLayoutPanel()
         Me.toolstripButtons = New System.Windows.Forms.ToolStrip()
         Me.buttonAgregar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEliminar = New System.Windows.Forms.ToolStripButton()
-        Me.buttonImportes = New System.Windows.Forms.ToolStripSplitButton()
-        Me.menuitemImportesEditar = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemImportesAgregarPorGrupo = New System.Windows.Forms.ToolStripMenuItem()
+        Me.buttonImportes = New System.Windows.Forms.ToolStripButton()
         Me.buttonCopiarAnioLectivo = New System.Windows.Forms.ToolStripButton()
         Me.toolsptripAnioLectivo = New System.Windows.Forms.ToolStrip()
         Me.labelAnioLectivo = New System.Windows.Forms.ToolStripLabel()
@@ -50,6 +44,8 @@ Partial Class formAnioLectivoCursos
         Me.toolstripCurso = New System.Windows.Forms.ToolStrip()
         Me.labelCurso = New System.Windows.Forms.ToolStripLabel()
         Me.comboboxCurso = New System.Windows.Forms.ToolStripComboBox()
+        Me.columnNivel = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnCurso = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.statusstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelToolbars.SuspendLayout()
@@ -86,7 +82,7 @@ Partial Class formAnioLectivoCursos
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
         Me.datagridviewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.datagridviewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnAnioLectivo, Me.columnNivel, Me.columnCurso})
+        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnNivel, Me.columnCurso})
         Me.datagridviewMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.datagridviewMain.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.datagridviewMain.Location = New System.Drawing.Point(0, 64)
@@ -98,39 +94,6 @@ Partial Class formAnioLectivoCursos
         Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewMain.Size = New System.Drawing.Size(1032, 325)
         Me.datagridviewMain.TabIndex = 0
-        '
-        'columnAnioLectivo
-        '
-        Me.columnAnioLectivo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnAnioLectivo.DataPropertyName = "AnioLectivo"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnAnioLectivo.DefaultCellStyle = DataGridViewCellStyle2
-        Me.columnAnioLectivo.HeaderText = "Año Lectivo"
-        Me.columnAnioLectivo.Name = "columnAnioLectivo"
-        Me.columnAnioLectivo.ReadOnly = True
-        Me.columnAnioLectivo.Width = 89
-        '
-        'columnNivel
-        '
-        Me.columnNivel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnNivel.DataPropertyName = "Nivel"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnNivel.DefaultCellStyle = DataGridViewCellStyle3
-        Me.columnNivel.HeaderText = "Nivel"
-        Me.columnNivel.Name = "columnNivel"
-        Me.columnNivel.ReadOnly = True
-        Me.columnNivel.Width = 56
-        '
-        'columnCurso
-        '
-        Me.columnCurso.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnCurso.DataPropertyName = "Curso"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnCurso.DefaultCellStyle = DataGridViewCellStyle4
-        Me.columnCurso.HeaderText = "Curso"
-        Me.columnCurso.Name = "columnCurso"
-        Me.columnCurso.ReadOnly = True
-        Me.columnCurso.Width = 59
         '
         'panelToolbars
         '
@@ -154,7 +117,7 @@ Partial Class formAnioLectivoCursos
         Me.toolstripButtons.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAgregar, Me.buttonEditar, Me.buttonEliminar, Me.buttonImportes, Me.buttonCopiarAnioLectivo})
         Me.toolstripButtons.Location = New System.Drawing.Point(0, 0)
         Me.toolstripButtons.Name = "toolstripButtons"
-        Me.toolstripButtons.Size = New System.Drawing.Size(466, 39)
+        Me.toolstripButtons.Size = New System.Drawing.Size(454, 39)
         Me.toolstripButtons.TabIndex = 1
         '
         'buttonAgregar
@@ -186,25 +149,12 @@ Partial Class formAnioLectivoCursos
         '
         'buttonImportes
         '
-        Me.buttonImportes.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemImportesEditar, Me.menuitemImportesAgregarPorGrupo})
         Me.buttonImportes.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_DINERO_32
         Me.buttonImportes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonImportes.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonImportes.Name = "buttonImportes"
-        Me.buttonImportes.Size = New System.Drawing.Size(102, 36)
+        Me.buttonImportes.Size = New System.Drawing.Size(90, 36)
         Me.buttonImportes.Text = "Importes"
-        '
-        'menuitemImportesEditar
-        '
-        Me.menuitemImportesEditar.Name = "menuitemImportesEditar"
-        Me.menuitemImportesEditar.Size = New System.Drawing.Size(223, 22)
-        Me.menuitemImportesEditar.Text = "Editar Importes del Curso"
-        '
-        'menuitemImportesAgregarPorGrupo
-        '
-        Me.menuitemImportesAgregarPorGrupo.Name = "menuitemImportesAgregarPorGrupo"
-        Me.menuitemImportesAgregarPorGrupo.Size = New System.Drawing.Size(223, 22)
-        Me.menuitemImportesAgregarPorGrupo.Text = "Agregar Importes por Grupo"
         '
         'buttonCopiarAnioLectivo
         '
@@ -221,7 +171,7 @@ Partial Class formAnioLectivoCursos
         Me.toolsptripAnioLectivo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolsptripAnioLectivo.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolsptripAnioLectivo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelAnioLectivo, Me.comboboxAnioLectivo})
-        Me.toolsptripAnioLectivo.Location = New System.Drawing.Point(466, 0)
+        Me.toolsptripAnioLectivo.Location = New System.Drawing.Point(454, 0)
         Me.toolsptripAnioLectivo.Name = "toolsptripAnioLectivo"
         Me.toolsptripAnioLectivo.Size = New System.Drawing.Size(153, 39)
         Me.toolsptripAnioLectivo.TabIndex = 14
@@ -244,7 +194,7 @@ Partial Class formAnioLectivoCursos
         Me.toolstripNivel.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripNivel.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripNivel.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelNivel, Me.comboboxNivel})
-        Me.toolstripNivel.Location = New System.Drawing.Point(619, 0)
+        Me.toolstripNivel.Location = New System.Drawing.Point(607, 0)
         Me.toolstripNivel.Name = "toolstripNivel"
         Me.toolstripNivel.Size = New System.Drawing.Size(192, 39)
         Me.toolstripNivel.TabIndex = 13
@@ -283,6 +233,28 @@ Partial Class formAnioLectivoCursos
         Me.comboboxCurso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxCurso.Name = "comboboxCurso"
         Me.comboboxCurso.Size = New System.Drawing.Size(300, 25)
+        '
+        'columnNivel
+        '
+        Me.columnNivel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnNivel.DataPropertyName = "Nivel"
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnNivel.DefaultCellStyle = DataGridViewCellStyle2
+        Me.columnNivel.HeaderText = "Nivel"
+        Me.columnNivel.Name = "columnNivel"
+        Me.columnNivel.ReadOnly = True
+        Me.columnNivel.Width = 56
+        '
+        'columnCurso
+        '
+        Me.columnCurso.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnCurso.DataPropertyName = "Curso"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnCurso.DefaultCellStyle = DataGridViewCellStyle3
+        Me.columnCurso.HeaderText = "Curso"
+        Me.columnCurso.Name = "columnCurso"
+        Me.columnCurso.ReadOnly = True
+        Me.columnCurso.Width = 59
         '
         'formAnioLectivoCursos
         '
@@ -329,11 +301,8 @@ Partial Class formAnioLectivoCursos
     Friend WithEvents toolsptripAnioLectivo As System.Windows.Forms.ToolStrip
     Friend WithEvents labelAnioLectivo As System.Windows.Forms.ToolStripLabel
     Friend WithEvents comboboxAnioLectivo As System.Windows.Forms.ToolStripComboBox
-    Friend WithEvents columnAnioLectivo As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents buttonCopiarAnioLectivo As System.Windows.Forms.ToolStripButton
+    Friend WithEvents buttonImportes As System.Windows.Forms.ToolStripButton
     Friend WithEvents columnNivel As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnCurso As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents buttonCopiarAnioLectivo As System.Windows.Forms.ToolStripButton
-    Friend WithEvents buttonImportes As System.Windows.Forms.ToolStripSplitButton
-    Friend WithEvents menuitemImportesEditar As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemImportesAgregarPorGrupo As System.Windows.Forms.ToolStripMenuItem
 End Class

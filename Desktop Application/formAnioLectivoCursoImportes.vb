@@ -47,9 +47,6 @@
 
         mSkipFilterData = True
 
-        pFillAndRefreshLists.Mes(comboboxMesInicio.ComboBox, True, False, True, True, False)
-        comboboxMesInicio.SelectedIndex = 0
-
         mSkipFilterData = False
 
         mOrdenColumna = columnMesInicio
@@ -117,12 +114,6 @@
                 mReportSelectionFormula = ""
                 mlistAniosLectivosCursosImportesFiltradaYOrdenada = mlistAniosLectivosCursosImportesBase.ToList
 
-                ' Filtro por Mes de Inicio
-                If comboboxMesInicio.SelectedIndex > 0 Then
-                    mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AND ").ToString & String.Format("{{AnioLectivoCursoImporte.MesInicio}} = {0}", comboboxMesInicio.ComboBox.SelectedIndex)
-                    mlistAniosLectivosCursosImportesFiltradaYOrdenada = mlistAniosLectivosCursosImportesFiltradaYOrdenada.Where(Function(alc) alc.MesInicio = CByte(comboboxMesInicio.ComboBox.SelectedIndex)).ToList
-                End If
-
                 Select Case mlistAniosLectivosCursosImportesFiltradaYOrdenada.Count
                     Case 0
                         statuslabelMain.Text = String.Format("No hay Importes de Cursos de Años Lectivos para mostrar.")
@@ -143,12 +134,6 @@
 
             Me.Cursor = Cursors.Default
         End If
-    End Sub
-#End Region
-
-#Region "Controls behavior"
-    Private Sub CambioFiltros() Handles comboboxMesInicio.SelectedIndexChanged
-        FilterData()
     End Sub
 #End Region
 
