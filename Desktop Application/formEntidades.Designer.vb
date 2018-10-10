@@ -32,7 +32,6 @@ Partial Class formEntidades
         Me.buttonAgregar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEliminar = New System.Windows.Forms.ToolStripButton()
-        Me.buttonSincronizarOutlook = New System.Windows.Forms.ToolStripButton()
         Me.statusstripMain = New System.Windows.Forms.StatusStrip()
         Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
         Me.datagridviewMain = New System.Windows.Forms.DataGridView()
@@ -68,6 +67,7 @@ Partial Class formEntidades
         Me.toolstripVerificarEmail = New System.Windows.Forms.ToolStrip()
         Me.labelVerificarEmail = New System.Windows.Forms.ToolStripLabel()
         Me.comboboxVerificarEmail = New System.Windows.Forms.ToolStripComboBox()
+        Me.buttonSincronizarOutlook = New System.Windows.Forms.ToolStripButton()
         Me.toolstripButtons.SuspendLayout()
         Me.statusstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -117,14 +117,6 @@ Partial Class formEntidades
         Me.buttonEliminar.Name = "buttonEliminar"
         Me.buttonEliminar.Size = New System.Drawing.Size(86, 36)
         Me.buttonEliminar.Text = "Eliminar"
-        '
-        'buttonSincronizarOutlook
-        '
-        Me.buttonSincronizarOutlook.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_OUTLOOK_32
-        Me.buttonSincronizarOutlook.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonSincronizarOutlook.Name = "buttonSincronizarOutlook"
-        Me.buttonSincronizarOutlook.Size = New System.Drawing.Size(89, 36)
-        Me.buttonSincronizarOutlook.Text = "Sincronizar"
         '
         'statusstripMain
         '
@@ -439,6 +431,14 @@ Partial Class formEntidades
         Me.comboboxVerificarEmail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxVerificarEmail.Name = "comboboxVerificarEmail"
         Me.comboboxVerificarEmail.Size = New System.Drawing.Size(75, 39)
+        '
+        'buttonSincronizarOutlook
+        '
+        Me.buttonSincronizarOutlook.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_OUTLOOK_32
+        Me.buttonSincronizarOutlook.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonSincronizarOutlook.Name = "buttonSincronizarOutlook"
+        Me.buttonSincronizarOutlook.Size = New System.Drawing.Size(89, 36)
+        Me.buttonSincronizarOutlook.Text = "Sincronizar"
         '
         'formEntidades
         '

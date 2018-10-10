@@ -146,6 +146,13 @@
     End Sub
 
     Friend Sub SetAppearance()
+        checkboxTipoPersonalColegio.Text = My.Resources.STRING_ENTIDADTIPO_PERSONALCOLEGIO
+        checkboxTipoDocente.Text = My.Resources.STRING_ENTIDADTIPO_DOCENTE
+        checkboxTipoAlumno.Text = My.Resources.STRING_ENTIDADTIPO_ALUMNO
+        checkboxTipoFamiliar.Text = My.Resources.STRING_ENTIDADTIPO_FAMILIAR
+        checkboxTipoProveedor.Text = My.Resources.STRING_ENTIDADTIPO_PROVEEDOR
+        checkboxTipoOtro.Text = My.Resources.STRING_ENTIDADTIPO_OTRO
+
         datagridviewCursosAsistidos.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
         datagridviewCursosAsistidos.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
 

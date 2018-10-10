@@ -332,46 +332,8 @@
     End Sub
 
     Private Sub SincronizarOutlook(sender As Object, e As EventArgs) Handles buttonSincronizarOutlook.Click
-        SincronizeContactsWithOutlook()
+        formEntidadesSincronizarOutlook.ShowDialog(formMDIMain)
     End Sub
-
-#End Region
-
-#Region "Extra stuff"
-    Private Function SincronizeContactsWithOutlook() As Boolean
-        Dim otkApp As Microsoft.Office.Interop.Outlook.Application
-        Dim otkNameSpace As Microsoft.Office.Interop.Outlook.NameSpace
-        Dim otkContactsFolder As Microsoft.Office.Interop.Outlook.MAPIFolder
-        Dim otkContactsItems As Microsoft.Office.Interop.Outlook.Items
-
-        Return True
-
-        Try
-            Me.Cursor = Cursors.WaitCursor
-
-            otkApp = New Microsoft.Office.Interop.Outlook.Application
-            otkNameSpace = otkApp.Session
-            otkContactsFolder = otkNameSpace.GetDefaultFolder(Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderContacts)
-            otkContactsItems = otkContactsFolder.Items
-
-            For Each otkContact As Microsoft.Office.Interop.Outlook.ContactItem In otkContactsItems
-            Next
-
-            otkContactsItems = Nothing
-            otkContactsFolder = Nothing
-            otkNameSpace = Nothing
-            motkApp = Nothing
-
-            Me.Cursor = Cursors.Default
-
-        Catch ex As Exception
-            Me.Cursor = Cursors.Default
-            CS_Error.ProcessError(ex, "Error al iniciar una instancia de Microsoft Outlook")
-            Return False
-        End Try
-
-        Return True
-    End Function
 #End Region
 
 End Class

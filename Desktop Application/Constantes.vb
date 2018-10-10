@@ -32,6 +32,13 @@
     Friend Const ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO As String = "D"
     Friend Const ENTIDAD_DEBITOAUTOMATICOTIPO_TARJETACREDITO As String = "T"
 
+    Friend Const ENTIDADTIPO_PERSONALCOLEGIO As String = "E"
+    Friend Const ENTIDADTIPO_DOCENTE As String = "D"
+    Friend Const ENTIDADTIPO_ALUMNO As String = "A"
+    Friend Const ENTIDADTIPO_FAMILIAR As String = "F"
+    Friend Const ENTIDADTIPO_PROVEEDOR As String = "P"
+    Friend Const ENTIDADTIPO_OTRO As String = "O"
+
     Friend Const OPERACIONTIPO_COMPRA As String = "C"
     Friend Const OPERACIONTIPO_VENTA As String = "V"
 
@@ -56,6 +63,14 @@
     Friend Const CHEQUE_ESTADO_DEPOSITADO_RECHAZADO_ENBANCO As String = "DR"
     Friend Const CHEQUE_ESTADO_DEPOSITADO_RECHAZADO_ENCARTERA As String = "DC"
     Friend Const CHEQUE_ESTADO_DEPOSITADO_RECHAZADO_DEVUELTO As String = "DV"
+
+    '///////////////////////////////////
+    '    MICROSOFT OUTLOOK
+    '///////////////////////////////////
+    Friend Const OUTLOOK_USERPROPERTYNAME_CONTACTO_ENTIDAD As String = "CSCOLEGIO-IDENTIDAD"
+    Friend Const OUTLOOK_USERPROPERTYNAME_GRUPO_TIPO As String = "CSCOLEGIO-TIPO"
+    Friend Const OUTLOOK_USERPROPERTYNAME_GRUPO_NIVEL As String = "CSCOLEGIO-IDNIVEL"
+    Friend Const OUTLOOK_USERPROPERTYNAME_GRUPO_CURSO As String = "CSCOLEGIO-IDCURSO"
 
     '///////////////////////////////////
     '    PARÁMETROS DE LOS REPORTES

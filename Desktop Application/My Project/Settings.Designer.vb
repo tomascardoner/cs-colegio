@@ -547,6 +547,105 @@ Namespace My
                 Return CType(Me("ADDI_DBConnection_Provider"),String)
             End Get
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public ReadOnly Property Outlook_ContactsSync_EntidadTipo_PersonalColegio() As Boolean
+            Get
+                Return CType(Me("Outlook_ContactsSync_EntidadTipo_PersonalColegio"),Boolean)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public ReadOnly Property Outlook_ContactsSync_EntidadTipo_Docente() As Boolean
+            Get
+                Return CType(Me("Outlook_ContactsSync_EntidadTipo_Docente"),Boolean)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public ReadOnly Property Outlook_ContactsSync_EntidadTipo_Alumno() As Boolean
+            Get
+                Return CType(Me("Outlook_ContactsSync_EntidadTipo_Alumno"),Boolean)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public ReadOnly Property Outlook_ContactsSync_EntidadTipo_Familiar() As Boolean
+            Get
+                Return CType(Me("Outlook_ContactsSync_EntidadTipo_Familiar"),Boolean)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public ReadOnly Property Outlook_ContactsSync_EntidadTipo_Proveedor() As Boolean
+            Get
+                Return CType(Me("Outlook_ContactsSync_EntidadTipo_Proveedor"),Boolean)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public ReadOnly Property Outlook_ContactsSync_EntidadTipo_Otro() As Boolean
+            Get
+                Return CType(Me("Outlook_ContactsSync_EntidadTipo_Otro"),Boolean)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public ReadOnly Property Outlook_ContactsSync_GrupoNoEncontrado_Borrar() As Boolean
+            Get
+                Return CType(Me("Outlook_ContactsSync_GrupoNoEncontrado_Borrar"),Boolean)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public ReadOnly Property Outlook_ContactsSync_ContactoNoEncontrado_Borrar() As Boolean
+            Get
+                Return CType(Me("Outlook_ContactsSync_ContactoNoEncontrado_Borrar"),Boolean)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public ReadOnly Property Outlook_ContactsSync_CrearGrupos_EntidadTipo() As Boolean
+            Get
+                Return CType(Me("Outlook_ContactsSync_CrearGrupos_EntidadTipo"),Boolean)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public ReadOnly Property Outlook_ContactsSync_CrearGrupos_Nivel() As Boolean
+            Get
+                Return CType(Me("Outlook_ContactsSync_CrearGrupos_Nivel"),Boolean)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public ReadOnly Property Outlook_ContactsSync_CrearGrupos_Curso() As Boolean
+            Get
+                Return CType(Me("Outlook_ContactsSync_CrearGrupos_Curso"),Boolean)
+            End Get
+        End Property
     End Class
 End Namespace
 

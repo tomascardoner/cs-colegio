@@ -182,9 +182,9 @@
                 Dim CurrentRow As GridRowData = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData)
 
                 Using dbContext = New CSColegioContext(True)
-                    Dim AnioLectivoCursoImporteActual As AnioLectivoCursoImporte = dbContext.AnioLectivoCursoImporte.Find(CurrentRow.MesInicio)
+                    Dim AnioLectivoCursoImporteActual As AnioLectivoCursoImporte = dbContext.AnioLectivoCursoImporte.Find(mAnioLectivoCursoActual.IDAnioLectivoCurso, CurrentRow.MesInicio)
                     Dim Mensaje As String
-                    Mensaje = String.Format("Se eliminará el Importe del Curso del Año Lectivo seleccionado.{0}{0}Mes de Inicio: {1}{0}{0}¿Confirma la eliminación definitiva?", vbCrLf, CurrentRow.MesInicio)
+                    Mensaje = String.Format("Se eliminará el Importe del Curso del Año Lectivo seleccionado.{0}{0}Mes de Inicio: {1}{0}{0}¿Confirma la eliminación definitiva?", vbCrLf, MonthName(CurrentRow.MesInicio).ElementAt(0).ToString.ToUpper & MonthName(CurrentRow.MesInicio).Substring(1).ToLower)
                     If MsgBox(Mensaje, CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
 
                         Try
