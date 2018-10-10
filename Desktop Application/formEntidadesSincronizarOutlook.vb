@@ -268,6 +268,11 @@ Public Class formEntidadesSincronizarOutlook
                             ' El IDEntidad Especificado tiene un formato erroneo
                             .Delete()
                         End If
+                    Else
+                        ' El Contacto no pertenece al sistema, si las opciones lo indican, lo borro
+                        If radiobuttonContactosBorrar.Checked Then
+                            .Delete()
+                        End If
                     End If
                 End With
 
@@ -422,7 +427,7 @@ Public Class formEntidadesSincronizarOutlook
         Try
             For Each otkContactItem As Outlook.DistListItem In otkContactsItems.OfType(Of Outlook.DistListItem)()
                 With otkContactItem
-                    ' Verifico si es un grupo de Tipo de Entidad
+                    ' Verifico si es un Grupo de Tipo de Entidad
                     otkContactUserProperty = .UserProperties.Find(OUTLOOK_USERPROPERTYNAME_GRUPO_TIPO)
                     If Not otkContactUserProperty Is Nothing Then
                         Select Case otkContactUserProperty.Value.ToString
@@ -494,7 +499,7 @@ Public Class formEntidadesSincronizarOutlook
                         Continue For
                     End If
 
-                    ' Verifico si es un grupo de Nivel
+                    ' Verifico si es un Grupo de Nivel
                     otkContactUserProperty = .UserProperties.Find(OUTLOOK_USERPROPERTYNAME_GRUPO_NIVEL)
                     If Not otkContactUserProperty Is Nothing Then
                         Byte.TryParse(otkContactUserProperty.Value.ToString, IDNivel)
@@ -508,8 +513,8 @@ Public Class formEntidadesSincronizarOutlook
                                 ' Verifico y actualizo las propiedades del grupo
                                 GrupoOutlookActualizado = False
 
-                                If .DLName <> NivelActual.Nombre Then
-                                    .DLName = NivelActual.Nombre
+                                If .DLName <> String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, NivelActual.Nombre) Then
+                                    .DLName = String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, NivelActual.Nombre)
                                     GrupoOutlookActualizado = True
                                 End If
 
@@ -524,7 +529,7 @@ Public Class formEntidadesSincronizarOutlook
                         Continue For
                     End If
 
-                    ' Verifico si es un grupo de Curso
+                    ' Verifico si es un Grupo de Curso
                     otkContactUserProperty = .UserProperties.Find(OUTLOOK_USERPROPERTYNAME_GRUPO_CURSO)
                     If Not otkContactUserProperty Is Nothing Then
                         Byte.TryParse(otkContactUserProperty.Value.ToString, IDCurso)
@@ -538,8 +543,8 @@ Public Class formEntidadesSincronizarOutlook
                                 ' Verifico y actualizo las propiedades del grupo
                                 GrupoOutlookActualizado = False
 
-                                If .DLName <> CursoActual.Nombre Then
-                                    .DLName = CursoActual.Nombre
+                                If .DLName <> String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, CursoActual.Nombre) Then
+                                    .DLName = String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, CursoActual.Nombre)
                                     GrupoOutlookActualizado = True
                                 End If
 
@@ -552,6 +557,11 @@ Public Class formEntidadesSincronizarOutlook
                             .Delete()
                         End If
                         Continue For
+                    End If
+
+                    ' Es un Grupo que no depende del sistema, si está especificado, lo elimino
+                    If radiobuttonGrupoContactosBorrar.Checked Then
+                        .Delete()
                     End If
                 End With
             Next
@@ -584,8 +594,8 @@ Public Class formEntidadesSincronizarOutlook
             GrupoOutlookActualizado = False
 
             With otkDistListItem
-                If .DLName <> EntidadTipoANombre(EntidadTipo) Then
-                    .DLName = EntidadTipoANombre(EntidadTipo)
+                If .DLName <> String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, EntidadTipoANombre(EntidadTipo)) Then
+                    .DLName = String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, EntidadTipoANombre(EntidadTipo))
                     GrupoOutlookActualizado = True
                 End If
 
@@ -696,7 +706,7 @@ Public Class formEntidadesSincronizarOutlook
             otkDistListItem = CType(otkApp.CreateItem(Outlook.OlItemType.olDistributionListItem), Outlook.DistListItem)
             If Not otkDistListItem Is Nothing Then
                 With otkDistListItem
-                    .DLName = EntidadTipoANombre(EntidadTipo)
+                    .DLName = String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, EntidadTipoANombre(EntidadTipo))
                     .AddMembers(otkRecipients)
 
                     .UserProperties.Add(OUTLOOK_USERPROPERTYNAME_GRUPO_TIPO, Outlook.OlUserPropertyType.olText).Value = EntidadTipo

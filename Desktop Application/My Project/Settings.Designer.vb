@@ -604,7 +604,7 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
         Public ReadOnly Property Outlook_ContactsSync_GrupoNoEncontrado_Borrar() As Boolean
             Get
                 Return CType(Me("Outlook_ContactsSync_GrupoNoEncontrado_Borrar"),Boolean)
@@ -613,7 +613,7 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
         Public ReadOnly Property Outlook_ContactsSync_ContactoNoEncontrado_Borrar() As Boolean
             Get
                 Return CType(Me("Outlook_ContactsSync_ContactoNoEncontrado_Borrar"),Boolean)
@@ -644,6 +644,15 @@ Namespace My
         Public ReadOnly Property Outlook_ContactsSync_CrearGrupos_Curso() As Boolean
             Get
                 Return CType(Me("Outlook_ContactsSync_CrearGrupos_Curso"),Boolean)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Grupo: {0}")>  _
+        Public ReadOnly Property Outlook_ContactsSync_GrupoNombre() As String
+            Get
+                Return CType(Me("Outlook_ContactsSync_GrupoNombre"),String)
             End Get
         End Property
     End Class
