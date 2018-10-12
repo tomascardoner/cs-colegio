@@ -375,6 +375,70 @@
         End If
     End Sub
 
+    Friend Sub AnioLectivo(ByRef ListBoxControl As ListBox, ByVal LeerDesdeBaseDeDatos As Boolean, Optional ByVal Orden As SortOrder = SortOrder.Ascending)
+        If LeerDesdeBaseDeDatos Then
+            ListBoxControl.ValueMember = "AnioLectivo"
+            ListBoxControl.DisplayMember = "AnioLectivo"
+
+            Dim qryList = (From alc In mdbContext.AnioLectivoCurso
+                           Order By alc.AnioLectivo
+                           Select alc.AnioLectivo
+                           Distinct).ToList
+
+            If Orden = SortOrder.Ascending Then
+                ListBoxControl.DataSource = qryList.OrderBy(Function(al) al).ToList
+            Else
+                ListBoxControl.DataSource = qryList.OrderByDescending(Function(al) al).ToList
+            End If
+        Else
+            Dim FechaInicioActividad As Date
+
+            ' Cargo de acuerdo a la Fecha de Inicio de Actividades o al Año actual, en su defecto
+            FechaInicioActividad = CS_Parameter_System.GetDate(Parametros.EMPRESA_INICIO_ACTIVIDAD, DateTime.Today).Value
+            If Orden = SortOrder.Ascending Then
+                For AnioActual As Integer = FechaInicioActividad.Year To DateTime.Today.AddYears(1).Year
+                    ListBoxControl.Items.Add(AnioActual.ToString)
+                Next
+            Else
+                For AnioActual As Integer = DateTime.Today.AddYears(1).Year To FechaInicioActividad.Year Step -1
+                    ListBoxControl.Items.Add(AnioActual.ToString)
+                Next
+            End If
+        End If
+    End Sub
+
+    Friend Sub AnioLectivo(ByRef ListBoxControl As CheckedListBox, ByVal LeerDesdeBaseDeDatos As Boolean, Optional ByVal Orden As SortOrder = SortOrder.Ascending)
+        If LeerDesdeBaseDeDatos Then
+            ListBoxControl.ValueMember = "AnioLectivo"
+            ListBoxControl.DisplayMember = "AnioLectivo"
+
+            Dim qryList = (From alc In mdbContext.AnioLectivoCurso
+                           Order By alc.AnioLectivo
+                           Select alc.AnioLectivo
+                           Distinct).ToList
+
+            If Orden = SortOrder.Ascending Then
+                ListBoxControl.DataSource = qryList.OrderBy(Function(al) al).ToList
+            Else
+                ListBoxControl.DataSource = qryList.OrderByDescending(Function(al) al).ToList
+            End If
+        Else
+            Dim FechaInicioActividad As Date
+
+            ' Cargo de acuerdo a la Fecha de Inicio de Actividades o al Año actual, en su defecto
+            FechaInicioActividad = CS_Parameter_System.GetDate(Parametros.EMPRESA_INICIO_ACTIVIDAD, DateTime.Today).Value
+            If Orden = SortOrder.Ascending Then
+                For AnioActual As Integer = FechaInicioActividad.Year To DateTime.Today.AddYears(1).Year
+                    ListBoxControl.Items.Add(AnioActual.ToString)
+                Next
+            Else
+                For AnioActual As Integer = DateTime.Today.AddYears(1).Year To FechaInicioActividad.Year Step -1
+                    ListBoxControl.Items.Add(AnioActual.ToString)
+                Next
+            End If
+        End If
+    End Sub
+
     Friend Sub Mes(ByRef ComboBoxControl As ComboBox, ByVal MostrarNombreDelMes As Boolean, ByVal NombreEnIdiomaDelSistema As Boolean, ByVal PrimerLetraEnMayusculas As Boolean, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)
         ComboBoxControl.Items.Clear()
         If MostrarNombreDelMes Then

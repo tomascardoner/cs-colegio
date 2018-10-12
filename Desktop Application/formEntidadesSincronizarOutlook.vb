@@ -27,16 +27,14 @@ Public Class formEntidadesSincronizarOutlook
         radiobuttonContactosBorrar.Enabled = mEditMode
 
         checkboxCrearGruposEntidadTipo.Enabled = mEditMode
-        checkboxCrearGruposNivel.Enabled = mEditMode
-        checkboxCrearGruposCurso.Enabled = mEditMode
+        checkboxCrearGruposNivelYCurso.Enabled = mEditMode
 
-        buttonEditar.Visible = False
+        checkedlistboxAnioLectivo.Enabled = mEditMode
+
+        buttonEditar.Visible = pUsuario.IDUsuario = USUARIO_ADMINISTRADOR
     End Sub
 
-    Private Sub Me_Load(sender As Object, e As EventArgs) Handles Me.Load
-        mEditMode = False
-        ChangeMode()
-
+    Private Sub LoadOptions()
         ' Cargo las opciones
         checkboxEntidadTipoPersonalColegio.Checked = My.Settings.Outlook_ContactsSync_EntidadTipo_PersonalColegio
         checkboxEntidadTipoDocente.Checked = My.Settings.Outlook_ContactsSync_EntidadTipo_Docente
@@ -52,8 +50,16 @@ Public Class formEntidadesSincronizarOutlook
         radiobuttonContactosBorrar.Checked = My.Settings.Outlook_ContactsSync_ContactoNoEncontrado_Borrar
 
         checkboxCrearGruposEntidadTipo.Checked = My.Settings.Outlook_ContactsSync_CrearGrupos_EntidadTipo
-        checkboxCrearGruposNivel.Checked = My.Settings.Outlook_ContactsSync_CrearGrupos_Nivel
-        checkboxCrearGruposCurso.Checked = My.Settings.Outlook_ContactsSync_CrearGrupos_Curso
+        checkboxCrearGruposNivelYCurso.Checked = My.Settings.Outlook_ContactsSync_CrearGrupos_NivelYCurso
+    End Sub
+
+    Private Sub Me_Load(sender As Object, e As EventArgs) Handles Me.Load
+        mEditMode = False
+        ChangeMode()
+
+        pFillAndRefreshLists.AnioLectivo(checkedlistboxAnioLectivo, False, SortOrder.Ascending)
+
+        LoadOptions()
     End Sub
 
     Private Sub Me_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -122,12 +128,14 @@ Public Class formEntidadesSincronizarOutlook
             If Not SynchronizeWithOutlook_VerifyContactsInOutlook(otkContactsItems, dbContext, listEntidadesVerificadasEnOutlook) Then
                 otkApp = Nothing
                 otkContactsItems = Nothing
+                Me.Cursor = Cursors.Default
                 Return False
             End If
 
             If Not SyncronizeWithOutlook_VerifyContactsInDatabase(otkApp, dbContext, listEntidadesVerificadasEnOutlook) Then
                 otkApp = Nothing
                 otkContactsItems = Nothing
+                Me.Cursor = Cursors.Default
                 Return False
             End If
 
@@ -135,12 +143,14 @@ Public Class formEntidadesSincronizarOutlook
             If Not SynchronizeWithOutlook_VerifyContactsGroupsInOutlook(otkContactsItems, dbContext, listGruposDeTipoVerificadosEnOutlook, listGruposDeNivelVerificadosEnOutlook, listGruposDeCursoVerificadosEnOutlook) Then
                 otkApp = Nothing
                 otkContactsItems = Nothing
+                Me.Cursor = Cursors.Default
                 Return False
             End If
 
             If Not SyncronizeWithOutlook_VerifyContactGroupsInDatabase(otkApp, dbContext, listGruposDeTipoVerificadosEnOutlook) Then
                 otkApp = Nothing
                 otkContactsItems = Nothing
+                Me.Cursor = Cursors.Default
                 Return False
             End If
         End Using
@@ -224,6 +234,9 @@ Public Class formEntidadesSincronizarOutlook
                                 .Delete()
                             ElseIf (Not (checkboxEntidadTipoPersonalColegio.Checked And EntidadActual.TipoPersonalColegio) Or (checkboxEntidadTipoDocente.Checked And EntidadActual.TipoDocente) Or (checkboxEntidadTipoAlumno.Checked And EntidadActual.TipoAlumno) Or (checkboxEntidadTipoFamiliar.Checked And EntidadActual.TipoFamiliar) Or (checkboxEntidadTipoProveedor.Checked And EntidadActual.TipoProveedor) Or (checkboxEntidadTipoOtro.Checked And EntidadActual.TipoOtro)) Then
                                 ' El Contacto en Outlook no coincide con los Tipos de Entidad seleccionados, lo elimino de Outlook
+                                .Delete()
+                            ElseIf EntidadActual.Email1 Is Nothing And EntidadActual.Email2 Is Nothing Then
+                                ' La Entidad no tiene direcciones de e-mail especificadas
                                 .Delete()
                             Else
                                 ' Verifico y actualizo las propiedades del contacto
@@ -344,9 +357,9 @@ Public Class formEntidadesSincronizarOutlook
         Try
             If checkboxEntidadTipoPersonalColegio.Checked And checkboxEntidadTipoDocente.Checked And checkboxEntidadTipoAlumno.Checked And checkboxEntidadTipoFamiliar.Checked And checkboxEntidadTipoProveedor.Checked And checkboxEntidadTipoOtro.Checked Then
                 ' Todos las Entidades
-                qryEntidad = dbContext.Entidad.Where(Function(e) e.EsActivo)
+                qryEntidad = dbContext.Entidad.Where(Function(e) e.EsActivo And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)))
             Else
-                qryEntidad = dbContext.Entidad.Where(Function(e) e.EsActivo AndAlso (checkboxEntidadTipoPersonalColegio.Checked And e.TipoPersonalColegio) Or (checkboxEntidadTipoDocente.Checked And e.TipoDocente) Or (checkboxEntidadTipoAlumno.Checked And e.TipoAlumno) Or (checkboxEntidadTipoFamiliar.Checked And e.TipoFamiliar) Or (checkboxEntidadTipoProveedor.Checked And e.TipoProveedor) Or (checkboxEntidadTipoOtro.Checked And e.TipoOtro))
+                qryEntidad = dbContext.Entidad.Where(Function(e) e.EsActivo And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And ((checkboxEntidadTipoPersonalColegio.Checked And e.TipoPersonalColegio) Or (checkboxEntidadTipoDocente.Checked And e.TipoDocente) Or (checkboxEntidadTipoAlumno.Checked And e.TipoAlumno) Or (checkboxEntidadTipoFamiliar.Checked And e.TipoFamiliar) Or (checkboxEntidadTipoProveedor.Checked And e.TipoProveedor) Or (checkboxEntidadTipoOtro.Checked And e.TipoOtro)))
             End If
 
             progressbarMain.Value = 0
