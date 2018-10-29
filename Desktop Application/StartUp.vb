@@ -78,7 +78,7 @@
         ' Muestro el Nombre de la Compañía a la que está licenciada la Aplicación
         Dim LicenseDecrypter As New CS_Encrypt_TripleDES(APPLICATION_LICENSE_PASSWORD)
         Dim DecryptedLicense As String = ""
-        If Not LicenseDecrypter.Decrypt(CS_Parameter_System.GetString(Parametros.LICENSE_COMPANY_NAME, ""), DecryptedLicense) Then
+        If Not LicenseDecrypter.Decrypt(CS_Parameter_System.GetString(Parametros.LICENSE_COMPANY_NAME, "EMPTY"), DecryptedLicense) Then
             MsgBox("La Licencia especificada no es válida.", MsgBoxStyle.Critical, My.Application.Info.Title)
             formSplashScreen.Close()
             formSplashScreen.Dispose()
