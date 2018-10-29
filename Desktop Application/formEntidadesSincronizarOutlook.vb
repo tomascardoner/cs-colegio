@@ -107,6 +107,7 @@ Public Class formEntidadesSincronizarOutlook
     Private Function SynchronizeWithOutlook() As Boolean
         Dim otkApp As Outlook.Application = Nothing
         Dim otkContactsItems As Outlook.Items = Nothing
+        Dim qryEntidades As System.Linq.IQueryable(Of Entidad)
 
         Dim listGruposDeTipoVerificadosEnOutlook As New List(Of String)
         Dim listGruposDeNivelVerificadosEnOutlook As New List(Of Byte)
@@ -132,7 +133,21 @@ Public Class formEntidadesSincronizarOutlook
                 Return False
             End If
 
-            If Not SyncronizeWithOutlook_VerifyContactsInDatabase(otkApp, dbContext, listEntidadesVerificadasEnOutlook) Then
+            Try
+                If checkboxEntidadTipoPersonalColegio.Checked And checkboxEntidadTipoDocente.Checked And checkboxEntidadTipoAlumno.Checked And checkboxEntidadTipoFamiliar.Checked And checkboxEntidadTipoProveedor.Checked And checkboxEntidadTipoOtro.Checked Then
+                    ' Todos las Entidades
+                    qryEntidades = dbContext.Entidad.Where(Function(e) e.EsActivo And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)))
+                Else
+                    qryEntidades = dbContext.Entidad.Where(Function(e) e.EsActivo And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And ((checkboxEntidadTipoPersonalColegio.Checked And e.TipoPersonalColegio) Or (checkboxEntidadTipoDocente.Checked And e.TipoDocente) Or (checkboxEntidadTipoAlumno.Checked And e.TipoAlumno) Or (checkboxEntidadTipoFamiliar.Checked And e.TipoFamiliar) Or (checkboxEntidadTipoProveedor.Checked And e.TipoProveedor) Or (checkboxEntidadTipoOtro.Checked And e.TipoOtro)))
+                End If
+            Catch ex As Exception
+                Me.Cursor = Cursors.Default
+                CS_Error.ProcessError(ex, "Error al obtener las Entidades de la base de datos.")
+                otkApp = Nothing
+                otkContactsItems = Nothing
+                Return False
+            End Try
+            If Not SyncronizeWithOutlook_VerifyContactsInDatabase(otkApp, qryEntidades, listEntidadesVerificadasEnOutlook) Then
                 otkApp = Nothing
                 otkContactsItems = Nothing
                 Me.Cursor = Cursors.Default
@@ -147,7 +162,7 @@ Public Class formEntidadesSincronizarOutlook
                 Return False
             End If
 
-            If Not SyncronizeWithOutlook_VerifyContactGroupsInDatabase(otkApp, dbContext, listGruposDeTipoVerificadosEnOutlook) Then
+            If Not SyncronizeWithOutlook_VerifyContactGroupsInDatabase(otkApp, qryEntidades, listGruposDeTipoVerificadosEnOutlook) Then
                 otkApp = Nothing
                 otkContactsItems = Nothing
                 Me.Cursor = Cursors.Default
@@ -218,8 +233,9 @@ Public Class formEntidadesSincronizarOutlook
             progressbarMain.Value = 0
             progressbarMain.Maximum = otkContactsItems.OfType(Of Outlook.ContactItem).Count
             progressbarMain.Visible = True
-            labelStatus.Text = "Verificando Contactos en Outlook..."
+            labelStatus.Text = "Verificando Contactos existentes en Outlook..."
             labelStatus.Visible = True
+            Application.DoEvents()
 
             For Each otkContactItem As Outlook.ContactItem In otkContactsItems.OfType(Of Outlook.ContactItem)()
                 With otkContactItem
@@ -292,6 +308,7 @@ Public Class formEntidadesSincronizarOutlook
                 ' Progress bar
                 ItemIndex += 1
                 progressbarMain.Value = ItemIndex
+                Application.DoEvents()
             Next
 
             otkContactUserProperty = Nothing
@@ -346,27 +363,20 @@ Public Class formEntidadesSincronizarOutlook
     ''' Verifico los contactos de la base de datos para ver si hay que agregar alguno
     ''' </summary>
     ''' <param name="otkApp">Microsoft Outlook Application object</param>
-    ''' <param name="dbContext">Database context object</param>
+    ''' <param name="qryEntidades">Entidades de la base de datos</param>
     ''' <param name="listEntidadesVerificadasEnOutlook">Lista de IDs de Entidades verificadas en Outlook</param>
     ''' <returns>True if succeded or False if failed</returns>
     ''' <remarks></remarks>
-    Private Function SyncronizeWithOutlook_VerifyContactsInDatabase(ByRef otkApp As Outlook.Application, ByRef dbContext As CSColegioContext, ByRef listEntidadesVerificadasEnOutlook As List(Of Integer)) As Boolean
+    Private Function SyncronizeWithOutlook_VerifyContactsInDatabase(ByRef otkApp As Outlook.Application, ByRef qryEntidades As System.Linq.IQueryable(Of Entidad), ByRef listEntidadesVerificadasEnOutlook As List(Of Integer)) As Boolean
         Dim ItemIndex As Integer = 0
-        Dim qryEntidad As System.Linq.IQueryable(Of Entidad)
 
         Try
-            If checkboxEntidadTipoPersonalColegio.Checked And checkboxEntidadTipoDocente.Checked And checkboxEntidadTipoAlumno.Checked And checkboxEntidadTipoFamiliar.Checked And checkboxEntidadTipoProveedor.Checked And checkboxEntidadTipoOtro.Checked Then
-                ' Todos las Entidades
-                qryEntidad = dbContext.Entidad.Where(Function(e) e.EsActivo And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)))
-            Else
-                qryEntidad = dbContext.Entidad.Where(Function(e) e.EsActivo And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And ((checkboxEntidadTipoPersonalColegio.Checked And e.TipoPersonalColegio) Or (checkboxEntidadTipoDocente.Checked And e.TipoDocente) Or (checkboxEntidadTipoAlumno.Checked And e.TipoAlumno) Or (checkboxEntidadTipoFamiliar.Checked And e.TipoFamiliar) Or (checkboxEntidadTipoProveedor.Checked And e.TipoProveedor) Or (checkboxEntidadTipoOtro.Checked And e.TipoOtro)))
-            End If
-
             progressbarMain.Value = 0
-            progressbarMain.Maximum = qryEntidad.Count
-            labelStatus.Text = "Verificando Entidades en Sistema..."
+            progressbarMain.Maximum = qryEntidades.Count
+            labelStatus.Text = "Verificando Entidades en el Sistema..."
+            Application.DoEvents()
 
-            For Each EntidadActual In qryEntidad
+            For Each EntidadActual In qryEntidades
                 ' Verifico que no haya sido verificado en el paso anterior
                 Dim index As Integer
                 index = listEntidadesVerificadasEnOutlook.IndexOf(EntidadActual.IDEntidad)
@@ -401,13 +411,12 @@ Public Class formEntidadesSincronizarOutlook
                 ' Progress bar
                 ItemIndex += 1
                 progressbarMain.Value = ItemIndex
+                Application.DoEvents()
             Next
 
-            qryEntidad = Nothing
             Return True
 
         Catch ex As Exception
-            qryEntidad = Nothing
             Me.Cursor = Cursors.Default
             CS_Error.ProcessError(ex, "Error creando los Contactos no existentes en Microsoft Outlook.")
             Return False
@@ -429,6 +438,7 @@ Public Class formEntidadesSincronizarOutlook
     ''' <returns>True if succeded or False if failed</returns>
     ''' <remarks></remarks>
     Private Function SynchronizeWithOutlook_VerifyContactsGroupsInOutlook(ByRef otkContactsItems As Outlook.Items, ByRef dbContext As CSColegioContext, ByRef listGruposDeTipoVerificadosEnOutlook As List(Of String), ByRef listGruposDeNivelVerificadosEnOutlook As List(Of Byte), ByRef listGruposDeCursoVerificadosEnOutlook As List(Of Byte)) As Boolean
+        Dim ItemIndex As Integer = 0
         Dim otkContactUserProperty As Outlook.UserProperty
 
         Dim IDNivel As Byte
@@ -436,6 +446,11 @@ Public Class formEntidadesSincronizarOutlook
         Dim IDCurso As Byte
         Dim CursoActual As Curso
         Dim GrupoOutlookActualizado As Boolean
+
+        progressbarMain.Value = 0
+        progressbarMain.Maximum = otkContactsItems.OfType(Of Outlook.DistListItem).Count
+        labelStatus.Text = "Verificando Grupos de Contactos existentes en Outlook..."
+        Application.DoEvents()
 
         Try
             For Each otkContactItem As Outlook.DistListItem In otkContactsItems.OfType(Of Outlook.DistListItem)()
@@ -446,7 +461,6 @@ Public Class formEntidadesSincronizarOutlook
                         Select Case otkContactUserProperty.Value.ToString
                             Case Constantes.ENTIDADTIPO_PERSONALCOLEGIO
                                 If checkboxEntidadTipoPersonalColegio.Checked Then
-                                    'otkContactItem.AddMember()
                                     If Not SynchronizeWithOutlook_ContactsGroupsOfType(otkContactItem, listGruposDeTipoVerificadosEnOutlook, Constantes.ENTIDADTIPO_PERSONALCOLEGIO) Then
                                         otkContactUserProperty = Nothing
                                         Return False
@@ -577,6 +591,11 @@ Public Class formEntidadesSincronizarOutlook
                         .Delete()
                     End If
                 End With
+
+                ' Progress bar
+                ItemIndex += 1
+                progressbarMain.Value = ItemIndex
+                Application.DoEvents()
             Next
             Return True
 
@@ -629,39 +648,39 @@ Public Class formEntidadesSincronizarOutlook
     ''' Verifico los grupos de contactos de la base de datos para ver si hay que agregar alguno
     ''' </summary>
     ''' <param name="otkApp">Microsoft Outlook Application object</param>
-    ''' <param name="dbContext">Database context object</param>
+    ''' <param name="qryEntidades">Entidades de la base de datos</param>
     ''' <param name="listGruposDeTipoVerificadosEnOutlook">Lista de IDs de Entidades verificadas en Outlook</param>
     ''' <returns>True if succeded or False if failed</returns>
     ''' <remarks></remarks>
-    Private Function SyncronizeWithOutlook_VerifyContactGroupsInDatabase(ByRef otkApp As Outlook.Application, ByRef dbContext As CSColegioContext, ByRef listGruposDeTipoVerificadosEnOutlook As List(Of String)) As Boolean
+    Private Function SyncronizeWithOutlook_VerifyContactGroupsInDatabase(ByRef otkApp As Outlook.Application, ByRef qryEntidades As System.Linq.IQueryable(Of Entidad), ByRef listGruposDeTipoVerificadosEnOutlook As List(Of String)) As Boolean
         Try
             If checkboxEntidadTipoPersonalColegio.Checked And Not listGruposDeTipoVerificadosEnOutlook.Contains(Constantes.ENTIDADTIPO_PERSONALCOLEGIO) Then
-                If Not SynchronizeWithOutlook_CreateContactGroupInOutlook(otkApp, Constantes.ENTIDADTIPO_PERSONALCOLEGIO, dbContext.Entidad.Where(Function(e) e.EsActivo And e.TipoPersonalColegio)) Then
+                If Not SynchronizeWithOutlook_CreateContactGroupInOutlook(otkApp, Constantes.ENTIDADTIPO_PERSONALCOLEGIO, qryEntidades.Where(Function(e) e.TipoPersonalColegio)) Then
                     Return False
                 End If
             End If
             If checkboxEntidadTipoDocente.Checked And Not listGruposDeTipoVerificadosEnOutlook.Contains(Constantes.ENTIDADTIPO_DOCENTE) Then
-                If Not SynchronizeWithOutlook_CreateContactGroupInOutlook(otkApp, Constantes.ENTIDADTIPO_DOCENTE, dbContext.Entidad.Where(Function(e) e.EsActivo And e.TipoDocente)) Then
+                If Not SynchronizeWithOutlook_CreateContactGroupInOutlook(otkApp, Constantes.ENTIDADTIPO_DOCENTE, qryEntidades.Where(Function(e) e.TipoDocente)) Then
                     Return False
                 End If
             End If
             If checkboxEntidadTipoAlumno.Checked And Not listGruposDeTipoVerificadosEnOutlook.Contains(Constantes.ENTIDADTIPO_ALUMNO) Then
-                If Not SynchronizeWithOutlook_CreateContactGroupInOutlook(otkApp, Constantes.ENTIDADTIPO_ALUMNO, dbContext.Entidad.Where(Function(e) e.EsActivo And e.TipoAlumno)) Then
+                If Not SynchronizeWithOutlook_CreateContactGroupInOutlook(otkApp, Constantes.ENTIDADTIPO_ALUMNO, qryEntidades.Where(Function(e) e.TipoAlumno)) Then
                     Return False
                 End If
             End If
             If checkboxEntidadTipoFamiliar.Checked And Not listGruposDeTipoVerificadosEnOutlook.Contains(Constantes.ENTIDADTIPO_FAMILIAR) Then
-                If Not SynchronizeWithOutlook_CreateContactGroupInOutlook(otkApp, Constantes.ENTIDADTIPO_FAMILIAR, dbContext.Entidad.Where(Function(e) e.EsActivo And e.TipoFamiliar)) Then
+                If Not SynchronizeWithOutlook_CreateContactGroupInOutlook(otkApp, Constantes.ENTIDADTIPO_FAMILIAR, qryEntidades.Where(Function(e) e.TipoFamiliar)) Then
                     Return False
                 End If
             End If
             If checkboxEntidadTipoProveedor.Checked And Not listGruposDeTipoVerificadosEnOutlook.Contains(Constantes.ENTIDADTIPO_PROVEEDOR) Then
-                If Not SynchronizeWithOutlook_CreateContactGroupInOutlook(otkApp, Constantes.ENTIDADTIPO_PROVEEDOR, dbContext.Entidad.Where(Function(e) e.EsActivo And e.TipoProveedor)) Then
+                If Not SynchronizeWithOutlook_CreateContactGroupInOutlook(otkApp, Constantes.ENTIDADTIPO_PROVEEDOR, qryEntidades.Where(Function(e) e.TipoProveedor)) Then
                     Return False
                 End If
             End If
             If checkboxEntidadTipoOtro.Checked And Not listGruposDeTipoVerificadosEnOutlook.Contains(Constantes.ENTIDADTIPO_OTRO) Then
-                If Not SynchronizeWithOutlook_CreateContactGroupInOutlook(otkApp, Constantes.ENTIDADTIPO_OTRO, dbContext.Entidad.Where(Function(e) e.EsActivo And e.TipoOtro)) Then
+                If Not SynchronizeWithOutlook_CreateContactGroupInOutlook(otkApp, Constantes.ENTIDADTIPO_OTRO, qryEntidades.Where(Function(e) e.TipoOtro)) Then
                     Return False
                 End If
             End If
@@ -740,10 +759,16 @@ Public Class formEntidadesSincronizarOutlook
     End Function
 
     Private Function SynchronizeWithOutlook_AddMembersToRecipientListInOutlook(ByRef otkApp As Outlook.Application, ByRef qryEntidades As System.Linq.IQueryable(Of Entidad), ByRef otkRecipients As Outlook.Recipients) As Boolean
+        Dim ItemIndex As Integer = 0
         Dim otkNameSpace As Outlook.NameSpace
         Dim otkContactsFolder As Outlook.MAPIFolder
         Dim otkContactsItems As Outlook.Items
         Dim otkMailItem As Outlook.MailItem
+
+        progressbarMain.Value = 0
+        progressbarMain.Maximum = qryEntidades.Count
+        labelStatus.Text = "Agregando miembros a Grupos de Contactos en Outlook..."
+        Application.DoEvents()
 
         Try
             otkNameSpace = otkApp.Session
@@ -754,7 +779,22 @@ Public Class formEntidadesSincronizarOutlook
             otkRecipients = otkMailItem.Recipients
 
             For Each EntidadActual In qryEntidades
-                otkRecipients.Add(EntidadActual.ApellidoNombre)
+                If (EntidadActual.Email1 Is Nothing) Or ((Not EntidadActual.Email1 Is Nothing) AndAlso (Not EntidadActual.Email2 Is Nothing) AndAlso EntidadActual.ComprobanteEnviarEmail = ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2) Then
+                    otkRecipients.Add(EntidadActual.Email2)
+                Else
+                    otkRecipients.Add(EntidadActual.Email1)
+                End If
+
+                If Not otkRecipients.ResolveAll() Then
+                    otkRecipients.Remove(otkRecipients.Count - 1)
+                    MsgBox(String.Format("Outlook no pudo resolver el nombre del miembro del Grupo ({0}).", EntidadActual.ApellidoNombre), MsgBoxStyle.Information, My.Application.Info.Title)
+                    Return True
+                End If
+
+                ' Progress bar
+                ItemIndex += 1
+                progressbarMain.Value = ItemIndex
+                Application.DoEvents()
             Next
 
             otkMailItem.Delete()
@@ -762,8 +802,7 @@ Public Class formEntidadesSincronizarOutlook
             otkContactsItems = Nothing
             otkContactsFolder = Nothing
             otkNameSpace = Nothing
-
-            Return otkRecipients.ResolveAll()
+            Return True
 
         Catch ex As Exception
             otkMailItem = Nothing
@@ -771,11 +810,10 @@ Public Class formEntidadesSincronizarOutlook
             otkContactsFolder = Nothing
             otkNameSpace = Nothing
             Me.Cursor = Cursors.Default
-            CS_Error.ProcessError(ex, "Error al agregar los Contactos a el Grupo de Contactos en Microsoft Outlook.")
+            CS_Error.ProcessError(ex, "Error al agregar los Contactos al Grupo de Contactos en Microsoft Outlook.")
             Return False
         End Try
     End Function
-
 #End Region
 
 End Class

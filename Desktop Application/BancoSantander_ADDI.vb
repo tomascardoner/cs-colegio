@@ -8,8 +8,14 @@
             .InitialCatalog = My.Settings.ADDI_DBConnection_Database
             .UserID = My.Settings.ADDI_DBConnection_UserID
             ' Desencripto la contraseña de la conexión a la base de datos que está en el archivo app.config
-            Dim PasswordDecrypter As New CS_Encrypt_TripleDES(ENCRYPTION_PASSWORD)
-            .Password = PasswordDecrypter.Decrypt(My.Settings.ADDI_DBConnection_Password)
+            Dim PasswordDecrypter As New CS_Encrypt_TripleDES(PUBLIC_ENCRYPTION_PASSWORD)
+            Dim DecrytedPassword As String = ""
+            If PasswordDecrypter.Decrypt(My.Settings.ADDI_DBConnection_Password, DecrytedPassword) Then
+                .Password = DecrytedPassword
+            Else
+                MsgBox("La contraseña de conexión al sistema ADDI es incorrecta.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                .Password = ""
+            End If
             PasswordDecrypter = Nothing
             .MultipleActiveResultsets = True
             .WorkstationID = My.Computer.Name

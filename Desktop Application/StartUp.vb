@@ -38,8 +38,16 @@
         pDatabase.InitialCatalog = My.Settings.DBConnection_Database
         pDatabase.UserID = My.Settings.DBConnection_UserID
         ' Desencripto la contraseña de la conexión a la base de datos que está en el archivo app.config
-        Dim PasswordDecrypter As New CS_Encrypt_TripleDES(ENCRYPTION_PASSWORD)
-        pDatabase.Password = PasswordDecrypter.Decrypt(My.Settings.DBConnection_Password)
+        Dim PasswordDecrypter As New CS_Encrypt_TripleDES(PUBLIC_ENCRYPTION_PASSWORD)
+        Dim DecryptedPassword As String = ""
+        If Not PasswordDecrypter.Decrypt(My.Settings.DBConnection_Password, DecryptedPassword) Then
+            MsgBox("La contraseña de conexión a la base de datos es incorrecta.", MsgBoxStyle.Critical, My.Application.Info.Title)
+            formSplashScreen.Close()
+            formSplashScreen.Dispose()
+            TerminateApplication()
+            Exit Sub
+        End If
+        pDatabase.Password = DecryptedPassword
         PasswordDecrypter = Nothing
         pDatabase.MultipleActiveResultsets = True
         pDatabase.WorkstationID = My.Computer.Name
@@ -68,8 +76,16 @@
         End If
 
         ' Muestro el Nombre de la Compañía a la que está licenciada la Aplicación
-        Dim LicenseDecrypter As New CS_Encrypt_TripleDES(ENCRYPTION_PASSWORD)
-        pLicensedTo = LicenseDecrypter.Decrypt(CS_Parameter_System.GetString(Parametros.LICENSE_COMPANY_NAME, ""))
+        Dim LicenseDecrypter As New CS_Encrypt_TripleDES(APPLICATION_LICENSE_PASSWORD)
+        Dim DecryptedLicense As String = ""
+        If Not LicenseDecrypter.Decrypt(CS_Parameter_System.GetString(Parametros.LICENSE_COMPANY_NAME, ""), DecryptedLicense) Then
+            MsgBox("La Licencia especificada no es válida.", MsgBoxStyle.Critical, My.Application.Info.Title)
+            formSplashScreen.Close()
+            formSplashScreen.Dispose()
+            TerminateApplication()
+            Exit Sub
+        End If
+        pLicensedTo = DecryptedLicense
         LicenseDecrypter = Nothing
         formSplashScreen.labelLicensedTo.Text = pLicensedTo
         Application.DoEvents()

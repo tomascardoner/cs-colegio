@@ -109,8 +109,13 @@ Module MiscFunctions
         smtp.Port = My.Settings.Email_SMTP_Port
         smtp.Timeout = My.Settings.Email_SMTP_Timeout
 
-        Dim Decrypter As New CS_Encrypt_TripleDES(ENCRYPTION_PASSWORD)
-        smtp.Credentials = New System.Net.NetworkCredential(My.Settings.Email_SMTP_Username, Decrypter.Decrypt(My.Settings.Email_SMTP_Password))
+        Dim Decrypter As New CS_Encrypt_TripleDES(PUBLIC_ENCRYPTION_PASSWORD)
+        Dim DecryptedPassword As String = ""
+        If Not Decrypter.Decrypt(My.Settings.Email_SMTP_Password, DecryptedPassword) Then
+            MsgBox("La contraseña de e-mail (SMTP) especificada es incorrecta.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+            Return False
+        End If
+        smtp.Credentials = New System.Net.NetworkCredential(My.Settings.Email_SMTP_Username, DecryptedPassword)
         Decrypter = Nothing
 
         ' Attachments
@@ -163,8 +168,14 @@ Module MiscFunctions
         smtp.Port = My.Settings.Email_SMTP_Port
         smtp.Timeout = My.Settings.Email_SMTP_Timeout
 
-        Dim Decrypter As New CS_Encrypt_TripleDES(ENCRYPTION_PASSWORD)
-        smtp.Credentials = New System.Net.NetworkCredential(My.Settings.Email_SMTP_Username, Decrypter.Decrypt(My.Settings.Email_SMTP_Password))
+        Dim Decrypter As New CS_Encrypt_TripleDES(PUBLIC_ENCRYPTION_PASSWORD)
+        Dim DecryptedPassword As String = ""
+
+        If Not Decrypter.Decrypt(My.Settings.Email_SMTP_Password, DecryptedPassword) Then
+            MsgBox("La contraseña de e-mail (SMTP) especificada es incorrecta.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+            Return -1
+        End If
+        smtp.Credentials = New System.Net.NetworkCredential(My.Settings.Email_SMTP_Username, DecryptedPassword)
         Decrypter = Nothing
 
         ' Attachments
