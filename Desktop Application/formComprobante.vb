@@ -204,7 +204,9 @@
                 textboxFechaHoraEnvioEmail.Text = ""
                 textboxUsuarioEnvioEmail.Text = ""
             Else
-                textboxFechaHoraEnvioEmail.Text = .FechaHoraEnvioEmail.Value.ToShortDateString & " " & .FechaHoraEnvioEmail.Value.ToShortTimeString
+                If Not .FechaHoraEnvioEmail Is Nothing Then
+                    textboxFechaHoraEnvioEmail.Text = .FechaHoraEnvioEmail.Value.ToShortDateString & " " & .FechaHoraEnvioEmail.Value.ToShortTimeString
+                End If
                 textboxUsuarioEnvioEmail.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.UsuarioEnvioEmail.Descripcion)
             End If
 

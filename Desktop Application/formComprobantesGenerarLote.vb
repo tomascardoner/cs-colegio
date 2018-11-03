@@ -5,19 +5,19 @@ Public Class formComprobantesGenerarLote
 #Region "Declarations"
     Private mdbContext As CSColegioContext
 
-    Private listEntidadesSeleccionadasOk As List(Of Entidad)
-    Private listEntidadesSeleccionadasCorregir As List(Of EntidadACorregir)
+    Private mlistEntidadesSeleccionadasOk As List(Of Entidad)
+    Private mlistEntidadesSeleccionadasCorregir As List(Of EntidadACorregir)
 
-    Private FacturaLote As New ComprobanteLote
-    Private listFacturas As List(Of Comprobante)
+    Private mFacturaLote As New ComprobanteLote
+    Private mlistFacturas As List(Of Comprobante)
 
-    Private AnioLectivo As Short
-    Private MesAFacturar As Byte
-    Private MesAFacturarNombre As String
+    Private mAnioLectivo As Short
+    Private mMesAFacturar As Byte
+    Private mMesAFacturarNombre As String
 
-    Private FechaEmision As Date
-    Private FechaServicioDesde As Date
-    Private FechaServicioHasta As Date
+    Private mFechaEmision As Date
+    Private mFechaServicioDesde As Date
+    Private mFechaServicioHasta As Date
 
     Private Const NODO_CARGANDO_TEXTO As String = "Cargando..."
 
@@ -35,33 +35,33 @@ Public Class formComprobantesGenerarLote
     Private Sub formGenerarLoteFacturas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         mdbContext = New CSColegioContext(True)
 
-        AnioLectivo = CShort(Today.Year)
-        MesAFacturar = CByte(Today.Month)
-        MesAFacturarNombre = StrConv(MonthName(MesAFacturar), VbStrConv.ProperCase)
+        mAnioLectivo = CShort(Today.Year)
+        mMesAFacturar = CByte(Today.Month)
+        mMesAFacturarNombre = StrConv(MonthName(mMesAFacturar), VbStrConv.ProperCase)
 
-        FechaEmision = DateTime.Today
-        FechaServicioDesde = New Date(AnioLectivo, MesAFacturar, 1)
-        FechaServicioHasta = FechaServicioDesde.AddMonths(1).AddDays(-1)
+        mFechaEmision = DateTime.Today
+        mFechaServicioDesde = New Date(mAnioLectivo, mMesAFacturar, 1)
+        mFechaServicioHasta = mFechaServicioDesde.AddMonths(1).AddDays(-1)
 
-        datetimepickerFechaVencimiento.Value = New Date(AnioLectivo, MesAFacturar, CS_Parameter_System.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO1_DIA))
-        If datetimepickerFechaVencimiento.Value.CompareTo(FechaEmision) < 0 Then
-            datetimepickerFechaVencimiento.Value = FechaEmision
+        datetimepickerFechaVencimiento.Value = New Date(mAnioLectivo, mMesAFacturar, CS_Parameter_System.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO1_DIA))
+        If datetimepickerFechaVencimiento.Value.CompareTo(mFechaEmision) < 0 Then
+            datetimepickerFechaVencimiento.Value = mFechaEmision
         End If
         datetimepickerFechaVencimiento.Checked = False
 
         FillTreeViewNiveles()
         FillTreeViewPadres()
 
-        lalbelPaso1Pie.Text = "Período a Facturar: " & MesAFacturarNombre & " de " & AnioLectivo
+        lalbelPaso1Pie.Text = "Período a Facturar: " & mMesAFacturarNombre & " de " & mAnioLectivo
 
         MostrarPaneles(1)
     End Sub
 
     Private Sub formGenerarLoteFacturas_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         mdbContext.Dispose()
-        listEntidadesSeleccionadasOk = Nothing
-        listEntidadesSeleccionadasCorregir = Nothing
-        listFacturas = Nothing
+        mlistEntidadesSeleccionadasOk = Nothing
+        mlistEntidadesSeleccionadasCorregir = Nothing
+        mlistFacturas = Nothing
     End Sub
 
 #End Region
@@ -146,7 +146,7 @@ Public Class formComprobantesGenerarLote
         treeviewPaso1NivelCursoAlumno.BeginUpdate()
         NodoCurso.Nodes.RemoveAt(0)
         CursoCurrent = CType(NodoCurso.Tag, Curso)
-        AnioLectivoCursoCurrent = CursoCurrent.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = AnioLectivo).SingleOrDefault()
+        AnioLectivoCursoCurrent = CursoCurrent.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = mAnioLectivo).SingleOrDefault()
         If Not AnioLectivoCursoCurrent Is Nothing Then
             For Each EntidadCurrent As Entidad In AnioLectivoCursoCurrent.Entidades.Where(Function(ent) ent.EsActivo = True).OrderBy(Function(ent) ent.ApellidoNombre)
                 ' Agrego el nodo correspondiente a la Entidad actual
@@ -221,7 +221,7 @@ Public Class formComprobantesGenerarLote
         EntidadNodoCurrent = CType(NodoEntidad.Tag, Entidad)
         ' Primero busco los Hijos del Padre
         For Each EntidadHijoCurrent As Entidad In EntidadNodoCurrent.EntidadPadreHijas.Where(Function(ent) ent.EsActivo).OrderBy(Function(ent) ent.ApellidoNombre)
-            If EntidadHijoCurrent.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = AnioLectivo).Count > 0 Then
+            If EntidadHijoCurrent.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = mAnioLectivo).Count > 0 Then
                 NewNode = New TreeNode(EntidadHijoCurrent.ApellidoNombre)
                 NewNode.Checked = NodoEntidad.Checked
                 NewNode.Tag = EntidadHijoCurrent
@@ -230,7 +230,7 @@ Public Class formComprobantesGenerarLote
         Next
         ' Ahora busco los Hijos de la Madre
         For Each EntidadHijoCurrent As Entidad In EntidadNodoCurrent.EntidadMadreHijas.Where(Function(ent) ent.EsActivo).OrderBy(Function(ent) ent.ApellidoNombre)
-            If EntidadHijoCurrent.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = AnioLectivo).Count > 0 Then
+            If EntidadHijoCurrent.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = mAnioLectivo).Count > 0 Then
                 NewNode = New TreeNode(EntidadHijoCurrent.ApellidoNombre)
                 NewNode.Checked = NodoEntidad.Checked
                 NewNode.Tag = EntidadHijoCurrent
@@ -281,8 +281,8 @@ Public Class formComprobantesGenerarLote
 
         Me.Cursor = Cursors.WaitCursor
 
-        listEntidadesSeleccionadasOk = New List(Of Entidad)
-        listEntidadesSeleccionadasCorregir = New List(Of EntidadACorregir)
+        mlistEntidadesSeleccionadasOk = New List(Of Entidad)
+        mlistEntidadesSeleccionadasCorregir = New List(Of EntidadACorregir)
 
         'Antes que nada verifico que no haya Alumnos que están en más de un curso a la vez
 
@@ -322,11 +322,11 @@ Public Class formComprobantesGenerarLote
                             If TreeNodeEntidad.Checked Then
                                 EntidadActual = CType(TreeNodeEntidad.Tag, Entidad)
                                 CorreccionDescripcion = ""
-                                If ModuloComprobantes.Entidad_VerificarParaEmitirComprobante(EntidadActual, AnioLectivo, False, FechaServicioDesde, FechaServicioHasta, False, CorreccionDescripcion) Then
-                                    listEntidadesSeleccionadasOk.Add(EntidadActual)
+                                If ModuloComprobantes.Entidad_VerificarParaEmitirComprobante(EntidadActual, mAnioLectivo, False, mFechaServicioDesde, mFechaServicioHasta, False, CorreccionDescripcion) Then
+                                    mlistEntidadesSeleccionadasOk.Add(EntidadActual)
                                 Else
                                     If CorreccionDescripcion.Length > 0 Then
-                                        listEntidadesSeleccionadasCorregir.Add(New EntidadACorregir With {.IDEntidad = EntidadActual.IDEntidad, .Apellido = EntidadActual.Apellido, .Nombre = EntidadActual.Nombre, .ApellidoNombre = EntidadActual.ApellidoNombre, .CorreccionDescripcion = CorreccionDescripcion})
+                                        mlistEntidadesSeleccionadasCorregir.Add(New EntidadACorregir With {.IDEntidad = EntidadActual.IDEntidad, .Apellido = EntidadActual.Apellido, .Nombre = EntidadActual.Nombre, .ApellidoNombre = EntidadActual.ApellidoNombre, .CorreccionDescripcion = CorreccionDescripcion})
                                     End If
                                 End If
                             End If
@@ -348,11 +348,11 @@ Public Class formComprobantesGenerarLote
                         If TreeNodeAlumno.Checked Then
                             EntidadActual = CType(TreeNodeAlumno.Tag, Entidad)
                             CorreccionDescripcion = ""
-                            If ModuloComprobantes.Entidad_VerificarParaEmitirComprobante(EntidadActual, AnioLectivo, False, FechaServicioDesde, FechaServicioHasta, False, CorreccionDescripcion) Then
-                                listEntidadesSeleccionadasOk.Add(EntidadActual)
+                            If ModuloComprobantes.Entidad_VerificarParaEmitirComprobante(EntidadActual, mAnioLectivo, False, mFechaServicioDesde, mFechaServicioHasta, False, CorreccionDescripcion) Then
+                                mlistEntidadesSeleccionadasOk.Add(EntidadActual)
                             Else
                                 If CorreccionDescripcion.Length > 0 Then
-                                    listEntidadesSeleccionadasCorregir.Add(New EntidadACorregir With {.IDEntidad = EntidadActual.IDEntidad, .Apellido = EntidadActual.Apellido, .Nombre = EntidadActual.Nombre, .ApellidoNombre = EntidadActual.ApellidoNombre, .CorreccionDescripcion = CorreccionDescripcion})
+                                    mlistEntidadesSeleccionadasCorregir.Add(New EntidadACorregir With {.IDEntidad = EntidadActual.IDEntidad, .Apellido = EntidadActual.Apellido, .Nombre = EntidadActual.Nombre, .ApellidoNombre = EntidadActual.ApellidoNombre, .CorreccionDescripcion = CorreccionDescripcion})
                                 End If
                             End If
                         End If
@@ -363,21 +363,21 @@ Public Class formComprobantesGenerarLote
             treeviewPaso1PadresAlumnos.EndUpdate()
         End If
 
-        listEntidadesSeleccionadasOk.OrderBy(Function(ent) ent.ApellidoNombre)
-        listEntidadesSeleccionadasCorregir.OrderBy(Function(eac) CType(eac, EntidadACorregir).ApellidoNombre)
+        mlistEntidadesSeleccionadasOk.OrderBy(Function(ent) ent.ApellidoNombre)
+        mlistEntidadesSeleccionadasCorregir.OrderBy(Function(eac) CType(eac, EntidadACorregir).ApellidoNombre)
 
         Me.Cursor = Cursors.Default
     End Sub
 
     Private Sub MostrarEntidadesACorregir()
-        listEntidadesSeleccionadasCorregir = listEntidadesSeleccionadasCorregir.OrderBy(Function(ent) ent.ApellidoNombre).ToList
+        mlistEntidadesSeleccionadasCorregir = mlistEntidadesSeleccionadasCorregir.OrderBy(Function(ent) ent.ApellidoNombre).ToList
 
         datagridviewPaso2.AutoGenerateColumns = False
-        datagridviewPaso2.DataSource = listEntidadesSeleccionadasCorregir
+        datagridviewPaso2.DataSource = mlistEntidadesSeleccionadasCorregir
 
-        labelPaso2Pie.Text = "Entidades a corregir: " & listEntidadesSeleccionadasCorregir.Count.ToString
+        labelPaso2Pie.Text = "Entidades a corregir: " & mlistEntidadesSeleccionadasCorregir.Count.ToString
 
-        buttonPaso2Siguiente.Enabled = (listEntidadesSeleccionadasCorregir.Count = 0)
+        buttonPaso2Siguiente.Enabled = (mlistEntidadesSeleccionadasCorregir.Count = 0)
     End Sub
 
     Private Sub buttonPaso2Anterior_Click() Handles buttonPaso2Anterior.Click
@@ -390,7 +390,7 @@ Public Class formComprobantesGenerarLote
         Dim Alumno_AnioLectivoCurso_AFacturarNuevo As Alumno_AnioLectivoCurso_AFacturar
 
         If datetimepickerFechaVencimiento.Checked Then
-            If datetimepickerFechaVencimiento.Value.CompareTo(FechaEmision) < 0 Then
+            If datetimepickerFechaVencimiento.Value.CompareTo(mFechaEmision) < 0 Then
                 MsgBox("La Fecha de Vencimiento de las Facturas debe ser mayor o igual a la Fecha de Emisión, que es hoy.", MsgBoxStyle.Information, My.Application.Info.Title)
                 datetimepickerFechaVencimiento.Focus()
                 Exit Sub
@@ -401,13 +401,20 @@ Public Class formComprobantesGenerarLote
             Exit Sub
         End If
 
-        LoteNombre = InputBox("Ingrese el nombre del Lote a Generar:", My.Application.Info.Title, String.Format("Período {0:00}/{1}", MesAFacturar, AnioLectivo))
+        LoteNombre = InputBox("Ingrese el nombre del Lote a Generar:", My.Application.Info.Title, String.Format("Período {0:00}/{1}", mMesAFacturar, mAnioLectivo))
 
         If LoteNombre.Trim.Length > 0 Then
-
             Using dbContext As New CSColegioContext(True)
+
+                ' Verifico que no exista un Lote de Comprobantes con el mismo nombre, ya que esto no se permite en la
+                ' base de datos, y además, porque podría significar que se están duplicando los Comprobentes
+                If dbContext.ComprobanteLote.Where(Function(cl) cl.Nombre = LoteNombre.Trim).Count > 0 Then
+                    MsgBox(String.Format("Ya existe un Lote con el mismo Nombre.{0}Verifique que no esté dupicando el Lote de Comprobantes.", ControlChars.CrLf), MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                    Exit Sub
+                End If
+
                 ' Creo el Lote de Comprobantes
-                With FacturaLote
+                With mFacturaLote
                     If dbContext.ComprobanteLote.Count = 0 Then
                         .IDComprobanteLote = 1
                     Else
@@ -424,22 +431,22 @@ Public Class formComprobantesGenerarLote
                 End With
             End Using
 
-            listFacturas = New List(Of Comprobante)
+            mlistFacturas = New List(Of Comprobante)
 
-            For Each EntidadActual As Entidad In listEntidadesSeleccionadasOk
+            For Each EntidadActual As Entidad In mlistEntidadesSeleccionadasOk
                 Alumno_AnioLectivoCurso_AFacturarNuevo = New Alumno_AnioLectivoCurso_AFacturar
                 Alumno_AnioLectivoCurso_AFacturarNuevo.Alumno = EntidadActual
-                Alumno_AnioLectivoCurso_AFacturarNuevo.AnioLectivoCurso_AFacturar = EntidadActual.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = AnioLectivo).FirstOrDefault
+                Alumno_AnioLectivoCurso_AFacturarNuevo.AnioLectivoCurso_AFacturar = EntidadActual.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = mAnioLectivo).FirstOrDefault
 
                 listAlumno_AnioLectivoCurso_AFacturar.Add(Alumno_AnioLectivoCurso_AFacturarNuevo)
             Next
 
-            If ModuloComprobantes.GenerarComprobantes(FechaEmision, datetimepickerFechaVencimiento.Value, New Date(datetimepickerFechaVencimiento.Value.Year, datetimepickerFechaVencimiento.Value.Month, CS_Parameter_System.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO2_DIA)), New Date(datetimepickerFechaVencimiento.Value.Year, datetimepickerFechaVencimiento.Value.Month, CS_Parameter_System.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO3_DIA)), FechaServicioDesde, FechaServicioHasta, Constantes.COMPROBANTE_CONCEPTO_SERVICIOS, FacturaLote.IDComprobanteLote, AnioLectivo, MesAFacturar, False, listAlumno_AnioLectivoCurso_AFacturar, listFacturas) Then
+            If ModuloComprobantes.GenerarComprobantes(mFechaEmision, datetimepickerFechaVencimiento.Value, New Date(datetimepickerFechaVencimiento.Value.Year, datetimepickerFechaVencimiento.Value.Month, CS_Parameter_System.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO2_DIA)), New Date(datetimepickerFechaVencimiento.Value.Year, datetimepickerFechaVencimiento.Value.Month, CS_Parameter_System.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO3_DIA)), mFechaServicioDesde, mFechaServicioHasta, Constantes.COMPROBANTE_CONCEPTO_SERVICIOS, mFacturaLote.IDComprobanteLote, mAnioLectivo, mMesAFacturar, False, listAlumno_AnioLectivoCurso_AFacturar, mlistFacturas) Then
 
                 datagridviewPaso3Cabecera.AutoGenerateColumns = False
-                datagridviewPaso3Cabecera.DataSource = listFacturas
+                datagridviewPaso3Cabecera.DataSource = mlistFacturas
 
-                labelPaso3Pie.Text = String.Format("Se generarán {0} Facturas.", listFacturas.Count)
+                labelPaso3Pie.Text = String.Format("Se generarán {0} Facturas.", mlistFacturas.Count)
 
                 Me.Cursor = Cursors.Default
 
@@ -457,8 +464,8 @@ Public Class formComprobantesGenerarLote
             Application.DoEvents()
 
             Using dbContext As New CSColegioContext(True)
-                dbContext.ComprobanteLote.Add(FacturaLote)
-                dbContext.Comprobante.AddRange(listFacturas)
+                dbContext.ComprobanteLote.Add(mFacturaLote)
+                dbContext.Comprobante.AddRange(mlistFacturas)
 
                 dbContext.SaveChanges()
             End Using
@@ -486,7 +493,7 @@ Public Class formComprobantesGenerarLote
     Private Sub buttonPaso3Finalizar_Click() Handles buttonPaso3Finalizar.Click
         If MsgBox("¿Confirma la Generación del Lote de Facturas?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
             If GuardarComprobantes() Then
-                MsgBox(String.Format("Se han generado {0} Facturas.", listFacturas.Count), MsgBoxStyle.Information, My.Application.Info.Title)
+                MsgBox(String.Format("Se han generado {0} Facturas.", mlistFacturas.Count), MsgBoxStyle.Information, My.Application.Info.Title)
                 Me.Close()
             End If
         End If

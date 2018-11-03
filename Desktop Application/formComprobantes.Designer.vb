@@ -41,6 +41,7 @@ Partial Class formComprobantes
         Me.columnCAE = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.panelToolbars = New System.Windows.Forms.FlowLayoutPanel()
         Me.toolstripButtons = New System.Windows.Forms.ToolStrip()
+        Me.buttonAgregar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
         Me.buttonAnular = New System.Windows.Forms.ToolStripButton()
         Me.buttonEliminar = New System.Windows.Forms.ToolStripButton()
@@ -70,7 +71,6 @@ Partial Class formComprobantes
         Me.comboboxBuscarTipo = New System.Windows.Forms.ToolStripComboBox()
         Me.textboxBuscar = New System.Windows.Forms.ToolStripTextBox()
         Me.buttonBuscarBorrar = New System.Windows.Forms.ToolStripButton()
-        Me.buttonAgregar = New System.Windows.Forms.ToolStripButton()
         Me.statusstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelToolbars.SuspendLayout()
@@ -85,16 +85,18 @@ Partial Class formComprobantes
         'statuslabelMain
         '
         Me.statuslabelMain.Name = "statuslabelMain"
-        Me.statuslabelMain.Size = New System.Drawing.Size(1017, 17)
+        Me.statuslabelMain.Size = New System.Drawing.Size(1356, 17)
         Me.statuslabelMain.Spring = True
         Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'statusstripMain
         '
+        Me.statusstripMain.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statuslabelMain})
-        Me.statusstripMain.Location = New System.Drawing.Point(0, 389)
+        Me.statusstripMain.Location = New System.Drawing.Point(0, 484)
         Me.statusstripMain.Name = "statusstripMain"
-        Me.statusstripMain.Size = New System.Drawing.Size(1032, 22)
+        Me.statusstripMain.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
+        Me.statusstripMain.Size = New System.Drawing.Size(1376, 22)
         Me.statusstripMain.TabIndex = 4
         '
         'datagridviewMain
@@ -111,14 +113,15 @@ Partial Class formComprobantes
         Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnTipo, Me.columnNumeroCompleto, Me.columnFecha, Me.columnEntidadNombre, Me.columnImporteTotal, Me.columnCAE})
         Me.datagridviewMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.datagridviewMain.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.datagridviewMain.Location = New System.Drawing.Point(0, 64)
+        Me.datagridviewMain.Location = New System.Drawing.Point(0, 67)
+        Me.datagridviewMain.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.datagridviewMain.MultiSelect = False
         Me.datagridviewMain.Name = "datagridviewMain"
         Me.datagridviewMain.ReadOnly = True
         Me.datagridviewMain.RowHeadersVisible = False
         Me.datagridviewMain.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewMain.Size = New System.Drawing.Size(1032, 325)
+        Me.datagridviewMain.Size = New System.Drawing.Size(1376, 417)
         Me.datagridviewMain.TabIndex = 0
         '
         'columnTipo
@@ -130,7 +133,7 @@ Partial Class formComprobantes
         Me.columnTipo.HeaderText = "Tipo"
         Me.columnTipo.Name = "columnTipo"
         Me.columnTipo.ReadOnly = True
-        Me.columnTipo.Width = 53
+        Me.columnTipo.Width = 65
         '
         'columnNumeroCompleto
         '
@@ -141,7 +144,7 @@ Partial Class formComprobantes
         Me.columnNumeroCompleto.HeaderText = "Número"
         Me.columnNumeroCompleto.Name = "columnNumeroCompleto"
         Me.columnNumeroCompleto.ReadOnly = True
-        Me.columnNumeroCompleto.Width = 69
+        Me.columnNumeroCompleto.Width = 87
         '
         'columnFecha
         '
@@ -152,7 +155,7 @@ Partial Class formComprobantes
         Me.columnFecha.HeaderText = "Fecha"
         Me.columnFecha.Name = "columnFecha"
         Me.columnFecha.ReadOnly = True
-        Me.columnFecha.Width = 62
+        Me.columnFecha.Width = 76
         '
         'columnEntidadNombre
         '
@@ -163,7 +166,7 @@ Partial Class formComprobantes
         Me.columnEntidadNombre.HeaderText = "Titular"
         Me.columnEntidadNombre.Name = "columnEntidadNombre"
         Me.columnEntidadNombre.ReadOnly = True
-        Me.columnEntidadNombre.Width = 61
+        Me.columnEntidadNombre.Width = 77
         '
         'columnImporteTotal
         '
@@ -176,7 +179,7 @@ Partial Class formComprobantes
         Me.columnImporteTotal.HeaderText = "Importe Total"
         Me.columnImporteTotal.Name = "columnImporteTotal"
         Me.columnImporteTotal.ReadOnly = True
-        Me.columnImporteTotal.Width = 94
+        Me.columnImporteTotal.Width = 120
         '
         'columnCAE
         '
@@ -187,7 +190,7 @@ Partial Class formComprobantes
         Me.columnCAE.HeaderText = "CAE"
         Me.columnCAE.Name = "columnCAE"
         Me.columnCAE.ReadOnly = True
-        Me.columnCAE.Width = 53
+        Me.columnCAE.Width = 64
         '
         'panelToolbars
         '
@@ -201,19 +204,30 @@ Partial Class formComprobantes
         Me.panelToolbars.Controls.Add(Me.toolstripBuscar)
         Me.panelToolbars.Dock = System.Windows.Forms.DockStyle.Top
         Me.panelToolbars.Location = New System.Drawing.Point(0, 0)
+        Me.panelToolbars.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.panelToolbars.Name = "panelToolbars"
-        Me.panelToolbars.Size = New System.Drawing.Size(1032, 64)
+        Me.panelToolbars.Size = New System.Drawing.Size(1376, 67)
         Me.panelToolbars.TabIndex = 0
         '
         'toolstripButtons
         '
         Me.toolstripButtons.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripButtons.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolstripButtons.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripButtons.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAgregar, Me.buttonEditar, Me.buttonAnular, Me.buttonEliminar, Me.buttonImprimir, Me.buttonEnviarEmail})
         Me.toolstripButtons.Location = New System.Drawing.Point(0, 0)
         Me.toolstripButtons.Name = "toolstripButtons"
-        Me.toolstripButtons.Size = New System.Drawing.Size(559, 39)
+        Me.toolstripButtons.Size = New System.Drawing.Size(649, 39)
         Me.toolstripButtons.TabIndex = 1
+        '
+        'buttonAgregar
+        '
+        Me.buttonAgregar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_ADD_32
+        Me.buttonAgregar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonAgregar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonAgregar.Name = "buttonAgregar"
+        Me.buttonAgregar.Size = New System.Drawing.Size(99, 36)
+        Me.buttonAgregar.Text = "Agregar"
         '
         'buttonEditar
         '
@@ -221,7 +235,7 @@ Partial Class formComprobantes
         Me.buttonEditar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonEditar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonEditar.Name = "buttonEditar"
-        Me.buttonEditar.Size = New System.Drawing.Size(73, 36)
+        Me.buttonEditar.Size = New System.Drawing.Size(84, 36)
         Me.buttonEditar.Text = "Editar"
         '
         'buttonAnular
@@ -230,7 +244,7 @@ Partial Class formComprobantes
         Me.buttonAnular.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonAnular.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonAnular.Name = "buttonAnular"
-        Me.buttonAnular.Size = New System.Drawing.Size(78, 36)
+        Me.buttonAnular.Size = New System.Drawing.Size(88, 36)
         Me.buttonAnular.Text = "Anular"
         '
         'buttonEliminar
@@ -239,7 +253,7 @@ Partial Class formComprobantes
         Me.buttonEliminar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonEliminar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonEliminar.Name = "buttonEliminar"
-        Me.buttonEliminar.Size = New System.Drawing.Size(86, 36)
+        Me.buttonEliminar.Size = New System.Drawing.Size(99, 36)
         Me.buttonEliminar.Text = "Eliminar"
         '
         'buttonImprimir
@@ -249,7 +263,7 @@ Partial Class formComprobantes
         Me.buttonImprimir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonImprimir.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonImprimir.Name = "buttonImprimir"
-        Me.buttonImprimir.Size = New System.Drawing.Size(101, 36)
+        Me.buttonImprimir.Size = New System.Drawing.Size(117, 36)
         Me.buttonImprimir.Text = "Imprimir"
         '
         'menuitemImprimirPrevisualizar
@@ -257,13 +271,13 @@ Partial Class formComprobantes
         Me.menuitemImprimirPrevisualizar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_PRINT_PREVIEW_32
         Me.menuitemImprimirPrevisualizar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.menuitemImprimirPrevisualizar.Name = "menuitemImprimirPrevisualizar"
-        Me.menuitemImprimirPrevisualizar.Size = New System.Drawing.Size(226, 38)
+        Me.menuitemImprimirPrevisualizar.Size = New System.Drawing.Size(267, 38)
         Me.menuitemImprimirPrevisualizar.Text = "Previsualizar"
         '
         'menuitemImprimirListadoDeComprobantes
         '
         Me.menuitemImprimirListadoDeComprobantes.Name = "menuitemImprimirListadoDeComprobantes"
-        Me.menuitemImprimirListadoDeComprobantes.Size = New System.Drawing.Size(226, 38)
+        Me.menuitemImprimirListadoDeComprobantes.Size = New System.Drawing.Size(267, 38)
         Me.menuitemImprimirListadoDeComprobantes.Text = "Listado de Comprobantes"
         '
         'buttonEnviarEmail
@@ -272,114 +286,118 @@ Partial Class formComprobantes
         Me.buttonEnviarEmail.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonEnviarEmail.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonEnviarEmail.Name = "buttonEnviarEmail"
-        Me.buttonEnviarEmail.Size = New System.Drawing.Size(133, 36)
+        Me.buttonEnviarEmail.Size = New System.Drawing.Size(159, 36)
         Me.buttonEnviarEmail.Text = "Enviar por e-mail"
         '
         'toolstripPeriodo
         '
         Me.toolstripPeriodo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripPeriodo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolstripPeriodo.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripPeriodo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelPeriodo, Me.comboboxPeriodoTipo, Me.comboboxPeriodoValor, Me.labelPeriodoFechaY})
-        Me.toolstripPeriodo.Location = New System.Drawing.Point(559, 0)
+        Me.toolstripPeriodo.Location = New System.Drawing.Point(649, 0)
         Me.toolstripPeriodo.Name = "toolstripPeriodo"
-        Me.toolstripPeriodo.Size = New System.Drawing.Size(267, 39)
+        Me.toolstripPeriodo.Size = New System.Drawing.Size(345, 39)
         Me.toolstripPeriodo.TabIndex = 8
         '
         'labelPeriodo
         '
         Me.labelPeriodo.Name = "labelPeriodo"
-        Me.labelPeriodo.Size = New System.Drawing.Size(51, 36)
+        Me.labelPeriodo.Size = New System.Drawing.Size(63, 36)
         Me.labelPeriodo.Text = "Período:"
         '
         'comboboxPeriodoTipo
         '
         Me.comboboxPeriodoTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxPeriodoTipo.Name = "comboboxPeriodoTipo"
-        Me.comboboxPeriodoTipo.Size = New System.Drawing.Size(75, 39)
+        Me.comboboxPeriodoTipo.Size = New System.Drawing.Size(99, 39)
         '
         'comboboxPeriodoValor
         '
         Me.comboboxPeriodoValor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxPeriodoValor.Name = "comboboxPeriodoValor"
-        Me.comboboxPeriodoValor.Size = New System.Drawing.Size(121, 39)
+        Me.comboboxPeriodoValor.Size = New System.Drawing.Size(160, 39)
         '
         'labelPeriodoFechaY
         '
         Me.labelPeriodoFechaY.Name = "labelPeriodoFechaY"
-        Me.labelPeriodoFechaY.Size = New System.Drawing.Size(13, 36)
+        Me.labelPeriodoFechaY.Size = New System.Drawing.Size(16, 36)
         Me.labelPeriodoFechaY.Text = "y"
         '
         'toolstripComprobanteTipo
         '
         Me.toolstripComprobanteTipo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripComprobanteTipo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolstripComprobanteTipo.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripComprobanteTipo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelComprobanteTipo, Me.comboboxOperacionTipo, Me.comboboxComprobanteTipo})
-        Me.toolstripComprobanteTipo.Location = New System.Drawing.Point(0, 39)
+        Me.toolstripComprobanteTipo.Location = New System.Drawing.Point(994, 0)
         Me.toolstripComprobanteTipo.Name = "toolstripComprobanteTipo"
-        Me.toolstripComprobanteTipo.Size = New System.Drawing.Size(266, 25)
+        Me.toolstripComprobanteTipo.Size = New System.Drawing.Size(347, 39)
         Me.toolstripComprobanteTipo.TabIndex = 10
         '
         'labelComprobanteTipo
         '
         Me.labelComprobanteTipo.Name = "labelComprobanteTipo"
-        Me.labelComprobanteTipo.Size = New System.Drawing.Size(34, 22)
+        Me.labelComprobanteTipo.Size = New System.Drawing.Size(42, 36)
         Me.labelComprobanteTipo.Text = "Tipo:"
         '
         'comboboxOperacionTipo
         '
         Me.comboboxOperacionTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxOperacionTipo.Name = "comboboxOperacionTipo"
-        Me.comboboxOperacionTipo.Size = New System.Drawing.Size(75, 25)
+        Me.comboboxOperacionTipo.Size = New System.Drawing.Size(99, 39)
         '
         'comboboxComprobanteTipo
         '
         Me.comboboxComprobanteTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxComprobanteTipo.Name = "comboboxComprobanteTipo"
-        Me.comboboxComprobanteTipo.Size = New System.Drawing.Size(150, 25)
+        Me.comboboxComprobanteTipo.Size = New System.Drawing.Size(199, 39)
         '
         'toolstripComprobanteLote
         '
         Me.toolstripComprobanteLote.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripComprobanteLote.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolstripComprobanteLote.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripComprobanteLote.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelComprobanteLote, Me.comboboxComprobanteLote})
-        Me.toolstripComprobanteLote.Location = New System.Drawing.Point(266, 39)
+        Me.toolstripComprobanteLote.Location = New System.Drawing.Point(0, 39)
         Me.toolstripComprobanteLote.Name = "toolstripComprobanteLote"
-        Me.toolstripComprobanteLote.Size = New System.Drawing.Size(158, 25)
+        Me.toolstripComprobanteLote.Size = New System.Drawing.Size(285, 28)
         Me.toolstripComprobanteLote.TabIndex = 11
         '
         'labelComprobanteLote
         '
         Me.labelComprobanteLote.Name = "labelComprobanteLote"
-        Me.labelComprobanteLote.Size = New System.Drawing.Size(33, 22)
+        Me.labelComprobanteLote.Size = New System.Drawing.Size(41, 25)
         Me.labelComprobanteLote.Text = "Lote:"
         '
         'comboboxComprobanteLote
         '
         Me.comboboxComprobanteLote.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxComprobanteLote.Name = "comboboxComprobanteLote"
-        Me.comboboxComprobanteLote.Size = New System.Drawing.Size(120, 25)
+        Me.comboboxComprobanteLote.Size = New System.Drawing.Size(200, 28)
         '
         'toolstripTitular
         '
         Me.toolstripTitular.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripTitular.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolstripTitular.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripTitular.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelEntidad, Me.textboxEntidad, Me.buttonEntidad, Me.buttonEntidadBorrar})
-        Me.toolstripTitular.Location = New System.Drawing.Point(424, 39)
+        Me.toolstripTitular.Location = New System.Drawing.Point(285, 39)
         Me.toolstripTitular.Name = "toolstripTitular"
-        Me.toolstripTitular.Size = New System.Drawing.Size(295, 25)
+        Me.toolstripTitular.Size = New System.Drawing.Size(372, 28)
         Me.toolstripTitular.TabIndex = 7
         '
         'labelEntidad
         '
         Me.labelEntidad.Name = "labelEntidad"
-        Me.labelEntidad.Size = New System.Drawing.Size(44, 22)
+        Me.labelEntidad.Size = New System.Drawing.Size(54, 25)
         Me.labelEntidad.Text = "Titular:"
         '
         'textboxEntidad
         '
         Me.textboxEntidad.Name = "textboxEntidad"
         Me.textboxEntidad.ReadOnly = True
-        Me.textboxEntidad.Size = New System.Drawing.Size(200, 25)
+        Me.textboxEntidad.Size = New System.Drawing.Size(265, 28)
         '
         'buttonEntidad
         '
@@ -387,7 +405,7 @@ Partial Class formComprobantes
         Me.buttonEntidad.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_SEARCH_16
         Me.buttonEntidad.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonEntidad.Name = "buttonEntidad"
-        Me.buttonEntidad.Size = New System.Drawing.Size(23, 22)
+        Me.buttonEntidad.Size = New System.Drawing.Size(24, 25)
         '
         'buttonEntidadBorrar
         '
@@ -395,35 +413,36 @@ Partial Class formComprobantes
         Me.buttonEntidadBorrar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_CLOSE_16
         Me.buttonEntidadBorrar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonEntidadBorrar.Name = "buttonEntidadBorrar"
-        Me.buttonEntidadBorrar.Size = New System.Drawing.Size(23, 22)
+        Me.buttonEntidadBorrar.Size = New System.Drawing.Size(24, 25)
         '
         'toolstripBuscar
         '
         Me.toolstripBuscar.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripBuscar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolstripBuscar.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripBuscar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelBuscar, Me.comboboxBuscarTipo, Me.textboxBuscar, Me.buttonBuscarBorrar})
-        Me.toolstripBuscar.Location = New System.Drawing.Point(719, 39)
+        Me.toolstripBuscar.Location = New System.Drawing.Point(657, 39)
         Me.toolstripBuscar.Name = "toolstripBuscar"
-        Me.toolstripBuscar.Size = New System.Drawing.Size(296, 25)
+        Me.toolstripBuscar.Size = New System.Drawing.Size(377, 28)
         Me.toolstripBuscar.TabIndex = 9
         '
         'labelBuscar
         '
         Me.labelBuscar.Name = "labelBuscar"
-        Me.labelBuscar.Size = New System.Drawing.Size(66, 22)
+        Me.labelBuscar.Size = New System.Drawing.Size(82, 25)
         Me.labelBuscar.Text = "Buscar por:"
         '
         'comboboxBuscarTipo
         '
         Me.comboboxBuscarTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxBuscarTipo.Name = "comboboxBuscarTipo"
-        Me.comboboxBuscarTipo.Size = New System.Drawing.Size(80, 25)
+        Me.comboboxBuscarTipo.Size = New System.Drawing.Size(105, 28)
         '
         'textboxBuscar
         '
         Me.textboxBuscar.MaxLength = 100
         Me.textboxBuscar.Name = "textboxBuscar"
-        Me.textboxBuscar.Size = New System.Drawing.Size(120, 25)
+        Me.textboxBuscar.Size = New System.Drawing.Size(159, 28)
         '
         'buttonBuscarBorrar
         '
@@ -431,27 +450,19 @@ Partial Class formComprobantes
         Me.buttonBuscarBorrar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_CLOSE_16
         Me.buttonBuscarBorrar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonBuscarBorrar.Name = "buttonBuscarBorrar"
-        Me.buttonBuscarBorrar.Size = New System.Drawing.Size(23, 22)
+        Me.buttonBuscarBorrar.Size = New System.Drawing.Size(24, 25)
         Me.buttonBuscarBorrar.ToolTipText = "Limpiar búsqueda"
-        '
-        'buttonAgregar
-        '
-        Me.buttonAgregar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_ADD_32
-        Me.buttonAgregar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonAgregar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonAgregar.Name = "buttonAgregar"
-        Me.buttonAgregar.Size = New System.Drawing.Size(85, 36)
-        Me.buttonAgregar.Text = "Agregar"
         '
         'formComprobantes
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1032, 411)
+        Me.ClientSize = New System.Drawing.Size(1376, 506)
         Me.Controls.Add(Me.datagridviewMain)
         Me.Controls.Add(Me.panelToolbars)
         Me.Controls.Add(Me.statusstripMain)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "formComprobantes"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Comprobantes"
