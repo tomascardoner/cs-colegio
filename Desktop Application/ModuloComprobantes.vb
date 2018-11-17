@@ -230,7 +230,7 @@
             If dbContext.Comprobante.Count = 0 Then
                 NextID = 0
             Else
-                NextID = dbContext.Comprobante.Max(Function(cc) cc.IDComprobante)
+                NextID = (From c In dbContext.Comprobante Select c.IDComprobante).Max
             End If
 
             ' Recorro todas las Facturas generadas para aplicarles los ID y los Números de Comprobante

@@ -341,11 +341,47 @@
         Me.Cursor = Cursors.WaitCursor
 
         Try
-            listAplicaciones = (From ca In mComprobanteActual.ComprobanteAplicacion_Aplicados
-                                Join c In mdbContext.Comprobante On ca.IDComprobanteAplicado Equals c.IDComprobante
-                                Join ct In mdbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                Group Join cam In mdbContext.ComprobanteAplicacionMotivo On ca.IDComprobanteAplicacionMotivo Equals cam.IDComprobanteAplicacionMotivo Into g = Group
-                                Select New GridRowData_Aplicacion With {.ComprobanteAplicacion = ca, .Motivo = g.DefaultIfEmpty(New ComprobanteAplicacionMotivo).FirstOrDefault.Nombre, .ComprobanteTipoNombre = ct.Nombre, .MovimientoTipo = ct.MovimientoTipo, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal1, .ImporteAplicado = ca.Importe}).ToList
+            listAplicaciones = New List(Of GridRowData_Aplicacion)
+
+            If mComprobanteActual.ComprobanteAplicacion_Aplicados.Count > 0 Then
+
+                Using dbContext As New CSColegioContext(True)
+
+                    For Each ca As ComprobanteAplicacion In mComprobanteActual.ComprobanteAplicacion_Aplicados
+                        Dim GridRowData As New GridRowData_Aplicacion
+                        Dim ComprobanteAplicado As Comprobante
+                        Dim ComprobanteAplicacionMotivoActual As ComprobanteAplicacionMotivo
+
+                        With GridRowData
+                            .ComprobanteAplicacion = ca
+
+                            If ca.IDComprobanteAplicacionMotivo.HasValue Then
+                                ComprobanteAplicacionMotivoActual = dbContext.ComprobanteAplicacionMotivo.Find(ca.IDComprobanteAplicacionMotivo)
+                                .Motivo = ComprobanteAplicacionMotivoActual.Nombre
+                            Else
+                                .Motivo = ""
+                            End If
+
+                            ComprobanteAplicado = dbContext.Comprobante.Find(ca.IDComprobanteAplicado)
+                            .ComprobanteTipoNombre = ComprobanteAplicado.ComprobanteTipo.Nombre
+                            .MovimientoTipo = ComprobanteAplicado.ComprobanteTipo.MovimientoTipo
+
+                            .NumeroCompleto = ComprobanteAplicado.NumeroCompleto
+                            .FechaEmision = ComprobanteAplicado.FechaEmision
+                            .ImporteTotal = ComprobanteAplicado.ImporteTotal1
+                            .ImporteAplicado = ca.Importe
+                        End With
+
+                        listAplicaciones.Add(GridRowData)
+
+                        ComprobanteAplicado = Nothing
+                        ComprobanteAplicacionMotivoActual = Nothing
+                        GridRowData = Nothing
+                    Next
+
+                End Using
+
+            End If
 
             datagridviewAplicaciones.AutoGenerateColumns = False
             datagridviewAplicaciones.DataSource = listAplicaciones
@@ -442,7 +478,7 @@
         End If
     End Sub
 
-    Private Sub buttonEntidad_Click(sender As Object, e As EventArgs) Handles buttonEntidad.Click
+    Private Sub EntidadBuscar(sender As Object, e As EventArgs) Handles buttonEntidad.Click
         If datagridviewDetalle.Rows.Count > 0 Then
             MsgBox("No se puede cambiar la Entidad porque hay Detalles cargados.", MsgBoxStyle.Information, My.Application.Info.Title)
             Exit Sub
@@ -480,6 +516,7 @@
             End If
         End If
         formEntidadesSeleccionar.Dispose()
+        formEntidadesSeleccionar = Nothing
     End Sub
 
     Private Sub EntidadVerSaldo() Handles buttonEntidadVerSaldo.Click
@@ -687,7 +724,7 @@
                 If dbcMaxID.Comprobante.Count = 0 Then
                     mComprobanteActual.IDComprobante = 1
                 Else
-                    mComprobanteActual.IDComprobante = dbcMaxID.Comprobante.Max(Function(comp) comp.IDComprobante) + 1
+                    mComprobanteActual.IDComprobante = (From c In dbcMaxID.Comprobante Select c.IDComprobante).Max + 1
                 End If
             End Using
 
