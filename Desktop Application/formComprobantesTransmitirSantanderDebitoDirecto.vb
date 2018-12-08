@@ -1,10 +1,10 @@
 ﻿Imports System.IO
-
 Public Class formComprobantesTransmitirSantanderDebitoDirecto
 
 #Region "Declarations"
     Private dbContext As New CSColegioContext(True)
     Private listComprobantes As List(Of GridDataRow)
+    Private FechaVencimientoComprobantes As Date = Nothing
 
     Private Class GridDataRow
         Public Property IDComprobante As Integer
@@ -12,16 +12,17 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
         Public Property NumeroCompleto As String
         Public Property ApellidoNombre As String
         Public Property ImporteTotal As Decimal
+        Public Property FechaVencimiento As Date
     End Class
 #End Region
 
 #Region "Form stuff"
-    Private Sub formComprobantesTransmitirPagomiscuentas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub Me_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         buttonExportar.Enabled = False
         pFillAndRefreshLists.ComprobanteLote(comboboxComprobanteLote, False, False)
     End Sub
 
-    Private Sub formComprobantesTransmitirPagomiscuentas_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub Me_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         dbContext.Dispose()
     End Sub
 #End Region
@@ -43,18 +44,26 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
                                     Join e In dbContext.Entidad On c.IDEntidad Equals e.IDEntidad
                                     Where c.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And ct.EmisionElectronica And c.CAE IsNot Nothing And c.IDUsuarioAnulacion Is Nothing And e.DebitoAutomaticoTipo = Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO
                                     Order By ct.Nombre, c.NumeroCompleto
-                                    Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal1}).ToList
+                                    Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal1, .FechaVencimiento = c.FechaVencimiento1.Value}).ToList
 
                 Select Case listComprobantes.Count
                     Case 0
                         statuslabelMain.Text = String.Format("No hay Comprobantes para mostrar.")
+                        FechaVencimientoComprobantes = Nothing
                     Case 1
                         statuslabelMain.Text = String.Format("Se muestra 1 Comprobante.")
+                        FechaVencimientoComprobantes = listComprobantes.First.FechaVencimiento
+                        datetimepickkerFechaVencimiento.Value = listComprobantes.First.FechaVencimiento
+                        datetimepickkerFechaVencimiento.Checked = False
                     Case Else
                         statuslabelMain.Text = String.Format("Se muestran {0} Comprobantes.", listComprobantes.Count)
+                        FechaVencimientoComprobantes = listComprobantes.First.FechaVencimiento
+                        datetimepickkerFechaVencimiento.Value = listComprobantes.First.FechaVencimiento
+                        datetimepickkerFechaVencimiento.Checked = False
                 End Select
             Else
                 listComprobantes = Nothing
+                FechaVencimientoComprobantes = Nothing
             End If
 
             datagridviewComprobantes.AutoGenerateColumns = False
@@ -80,7 +89,9 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
         RefreshData()
     End Sub
 
-    Private Sub buttonTransmitir_Click(sender As Object, e As EventArgs) Handles buttonExportar.Click
+    Private Sub Exportar_Click(sender As Object, e As EventArgs) Handles buttonExportar.Click
+        Dim DiasPreviosAlVencimiento As Integer
+
         If listComprobantes.Count > 0 Then
             If CS_Parameter_System.GetString(Parametros.BANCOSANTANDER_ADDI_CODIGOEMPRESA) = "" Then
                 MsgBox("No está especificado el Código de Empresa otorgado por el Banco Santander.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
@@ -89,6 +100,26 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
             If CS_Parameter_System.GetString(Parametros.BANCOSANTANDER_ADDI_CODIGOSERVICIO) = "" Then
                 MsgBox("No está especificado el Código de Servicio otorgado por el Banco Santander.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 Exit Sub
+            End If
+
+            DiasPreviosAlVencimiento = CS_Parameter_System.GetIntegerAsInteger(Parametros.BANCOSANTANDER_ADDI_DIASPREVIOSVENCIMIENTO, 0)
+            If DiasPreviosAlVencimiento > 0 Then
+                If datetimepickkerFechaVencimiento.Checked Then
+                    If DateAndTime.DateDiff("d", Today, datetimepickkerFechaVencimiento.Value) < DiasPreviosAlVencimiento Then
+                        MsgBox(String.Format("La fecha de vencimiento debe ser mayor a la fecha actual al menos en {0} días.", DiasPreviosAlVencimiento), MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                        Exit Sub
+                    End If
+                Else
+                    If DateAndTime.DateDiff("d", Today, FechaVencimientoComprobantes) < DiasPreviosAlVencimiento Then
+                        MsgBox(String.Format("La fecha de vencimiento debe ser mayor a la fecha actual al menos en {0} días.", DiasPreviosAlVencimiento), MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                        Exit Sub
+                    End If
+                End If
+            Else
+                If DateAndTime.DateDiff("d", Today, FechaVencimientoComprobantes) < 0 Then
+                    MsgBox("La fecha de vencimiento debe ser mayor o igual a la fecha actual.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                    Exit Sub
+                End If
             End If
 
             ExportarComprobantes()

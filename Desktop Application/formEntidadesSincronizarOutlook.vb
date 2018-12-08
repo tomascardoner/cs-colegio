@@ -222,6 +222,7 @@ Public Class formEntidadesSincronizarOutlook
     ''' <returns>True if succeded or False if failed</returns>
     ''' <remarks></remarks>
     Private Function SynchronizeWithOutlook_VerifyContactsInOutlook(ByRef otkContactsItems As Outlook.Items, ByRef dbContext As CSColegioContext, ByRef listEntidadesVerificadasEnOutlook As List(Of Integer)) As Boolean
+        Dim listContactItemsInOutlook As List(Of Outlook.ContactItem)
         Dim otkContactUserProperty As Outlook.UserProperty
 
         Dim IDEntidad As Integer
@@ -230,71 +231,85 @@ Public Class formEntidadesSincronizarOutlook
         Dim ItemIndex As Integer = 0
 
         Try
+            ' Uso una lista estática porque si uso la carpeta de Outlook directamente en el For Each, al borrar o agregar items, pierde la secuencialidad
+            listContactItemsInOutlook = otkContactsItems.OfType(Of Outlook.ContactItem)().ToList
+
             progressbarMain.Value = 0
-            progressbarMain.Maximum = otkContactsItems.OfType(Of Outlook.ContactItem).Count
+            progressbarMain.Maximum = listContactItemsInOutlook.Count
             progressbarMain.Visible = True
             labelStatus.Text = "Verificando Contactos existentes en Outlook..."
             labelStatus.Visible = True
             Application.DoEvents()
 
-            For Each otkContactItem As Outlook.ContactItem In otkContactsItems.OfType(Of Outlook.ContactItem)()
+            For Each otkContactItem As Outlook.ContactItem In listContactItemsInOutlook
                 With otkContactItem
                     otkContactUserProperty = .UserProperties.Find(OUTLOOK_USERPROPERTYNAME_CONTACTO_ENTIDAD)
                     If Not otkContactUserProperty Is Nothing Then
                         Integer.TryParse(otkContactUserProperty.Value.ToString, IDEntidad)
                         If IDEntidad > 0 Then
-                            listEntidadesVerificadasEnOutlook.Add(IDEntidad)
-                            EntidadActual = dbContext.Entidad.Find(IDEntidad)
-                            If EntidadActual Is Nothing OrElse EntidadActual.EsActivo = False Then
-                                ' No existe la Entidad en la base de datos o está desactivada, lo elimino de Outlook
-                                .Delete()
-                            ElseIf (Not (checkboxEntidadTipoPersonalColegio.Checked And EntidadActual.TipoPersonalColegio) Or (checkboxEntidadTipoDocente.Checked And EntidadActual.TipoDocente) Or (checkboxEntidadTipoAlumno.Checked And EntidadActual.TipoAlumno) Or (checkboxEntidadTipoFamiliar.Checked And EntidadActual.TipoFamiliar) Or (checkboxEntidadTipoProveedor.Checked And EntidadActual.TipoProveedor) Or (checkboxEntidadTipoOtro.Checked And EntidadActual.TipoOtro)) Then
-                                ' El Contacto en Outlook no coincide con los Tipos de Entidad seleccionados, lo elimino de Outlook
-                                .Delete()
-                            ElseIf EntidadActual.Email1 Is Nothing And EntidadActual.Email2 Is Nothing Then
-                                ' La Entidad no tiene direcciones de e-mail especificadas
+                            If listEntidadesVerificadasEnOutlook.Contains(IDEntidad) Then
+                                ' Ya fue verificado, por lo tanto, está duplicado, hay que borrarlo
+                                Debug.Print("DELETE: Duplicade - " & otkContactItem.FullName)
                                 .Delete()
                             Else
-                                ' Verifico y actualizo las propiedades del contacto
-                                ContactoOutlookActualizado = False
+                                listEntidadesVerificadasEnOutlook.Add(IDEntidad)
+                                EntidadActual = dbContext.Entidad.Find(IDEntidad)
+                                If EntidadActual Is Nothing OrElse EntidadActual.EsActivo = False Then
+                                    ' No existe la Entidad en la base de datos o está desactivada, lo elimino de Outlook
+                                    Debug.Print("DELETE: No existe en DB o está incative - " & otkContactItem.FullName)
+                                    .Delete()
+                                ElseIf Not ((checkboxEntidadTipoPersonalColegio.Checked And EntidadActual.TipoPersonalColegio) Or (checkboxEntidadTipoDocente.Checked And EntidadActual.TipoDocente) Or (checkboxEntidadTipoAlumno.Checked And EntidadActual.TipoAlumno) Or (checkboxEntidadTipoFamiliar.Checked And EntidadActual.TipoFamiliar) Or (checkboxEntidadTipoProveedor.Checked And EntidadActual.TipoProveedor) Or (checkboxEntidadTipoOtro.Checked And EntidadActual.TipoOtro)) Then
+                                    ' El Contacto en Outlook no coincide con los Tipos de Entidad seleccionados, lo elimino de Outlook
+                                    Debug.Print("DELETE: No coincide el Tipo - " & otkContactItem.FullName)
+                                    .Delete()
+                                ElseIf EntidadActual.Email1 Is Nothing And EntidadActual.Email2 Is Nothing Then
+                                    ' La Entidad no tiene direcciones de e-mail especificadas
+                                    Debug.Print("DELETE: Sin direcciones de e-mail - " & otkContactItem.FullName)
+                                    .Delete()
+                                Else
+                                    ' Verifico y actualizo las propiedades del contacto
+                                    ContactoOutlookActualizado = False
 
-                                If .LastName <> EntidadActual.Apellido Then
-                                    .LastName = EntidadActual.Apellido
-                                    ContactoOutlookActualizado = True
-                                End If
-                                If .FirstName <> EntidadActual.Nombre Then
-                                    .FirstName = EntidadActual.Nombre
-                                    ContactoOutlookActualizado = True
-                                End If
-
-                                If .Email1Address <> EntidadActual.Email1 Then
-                                    .Email1Address = EntidadActual.Email1
-                                    SynchronizeWithOutlook_Email1_SetDisplayName(otkContactItem, EntidadActual)
-                                    ContactoOutlookActualizado = True
-                                End If
-
-                                If .Email2Address <> EntidadActual.Email2 Then
-                                    .Email2Address = EntidadActual.Email2
-                                    SynchronizeWithOutlook_Email2_SetDisplayName(otkContactItem, EntidadActual)
-                                    ContactoOutlookActualizado = True
-                                End If
-
-                                If EntidadActual.FechaNacimiento Is Nothing Then
-                                    If .Birthday <> CS_Office_Outlook_EarlyBinding.CONTACT_DATE_EMPTYVALUE Then
-                                        .Birthday = CS_Office_Outlook_EarlyBinding.CONTACT_DATE_EMPTYVALUE
+                                    If .LastName <> EntidadActual.Apellido Then
+                                        .LastName = EntidadActual.Apellido
                                         ContactoOutlookActualizado = True
                                     End If
-                                ElseIf .Birthday <> EntidadActual.FechaNacimiento Then
-                                    .Birthday = EntidadActual.FechaNacimiento.Value
-                                    ContactoOutlookActualizado = True
-                                End If
+                                    If .FirstName <> EntidadActual.Nombre Then
+                                        .FirstName = EntidadActual.Nombre
+                                        ContactoOutlookActualizado = True
+                                    End If
 
-                                If ContactoOutlookActualizado Then
-                                    .Save()
+                                    If .Email1Address <> EntidadActual.Email1 Then
+                                        .Email1Address = EntidadActual.Email1
+                                        CS_Office_Outlook_EarlyBinding.Contact_SetDisplayNameOfEmail1(otkContactItem, EntidadActual)
+                                        ContactoOutlookActualizado = True
+                                    End If
+
+                                    If .Email2Address <> EntidadActual.Email2 Then
+                                        .Email2Address = EntidadActual.Email2
+                                        CS_Office_Outlook_EarlyBinding.Contact_SetDisplayNameOfEmail2(otkContactItem, EntidadActual)
+                                        ContactoOutlookActualizado = True
+                                    End If
+
+                                    If EntidadActual.FechaNacimiento Is Nothing Then
+                                        If .Birthday <> CS_Office_Outlook_EarlyBinding.CONTACT_DATE_EMPTYVALUE Then
+                                            .Birthday = CS_Office_Outlook_EarlyBinding.CONTACT_DATE_EMPTYVALUE
+                                            ContactoOutlookActualizado = True
+                                        End If
+                                    ElseIf .Birthday <> EntidadActual.FechaNacimiento Then
+                                        .Birthday = EntidadActual.FechaNacimiento.Value
+                                        ContactoOutlookActualizado = True
+                                    End If
+
+                                    If ContactoOutlookActualizado Then
+                                        Debug.Print("UPDATE: Info actualizada - " & otkContactItem.FullName)
+                                        .Save()
+                                    End If
                                 End If
                             End If
                         Else
                             ' El IDEntidad Especificado tiene un formato erroneo
+                            Debug.Print("DELETE: el campo IDEntidad es erróneo - " & otkContactItem.FullName)
                             .Delete()
                         End If
                     Else
@@ -311,6 +326,7 @@ Public Class formEntidadesSincronizarOutlook
                 Application.DoEvents()
             Next
 
+            listContactItemsInOutlook = Nothing
             otkContactUserProperty = Nothing
             Return True
 
@@ -322,42 +338,6 @@ Public Class formEntidadesSincronizarOutlook
             Return False
         End Try
     End Function
-
-    ''' <summary>
-    ''' Establece el valor de la propiedad DisplayName del Email1 en Outlook
-    ''' </summary>
-    ''' <param name="otkContact"></param>
-    ''' <param name="EntidadActual"></param>
-    ''' <remarks></remarks>
-    Private Sub SynchronizeWithOutlook_Email1_SetDisplayName(ByRef otkContact As Outlook.ContactItem, ByRef EntidadActual As Entidad)
-        If EntidadActual.Email1 Is Nothing Then
-            otkContact.Email1DisplayName = Nothing
-        Else
-            If EntidadActual.Email2 Is Nothing Then
-                otkContact.Email1DisplayName = otkContact.LastNameAndFirstName
-            Else
-                otkContact.Email1DisplayName = otkContact.LastNameAndFirstName & " (" & otkContact.Email1Address & ")"
-            End If
-        End If
-    End Sub
-
-    ''' <summary>
-    ''' Establece el valor de la propiedad DisplayName del Email2 en Outlook
-    ''' </summary>
-    ''' <param name="otkContact"></param>
-    ''' <param name="EntidadActual"></param>
-    ''' <remarks></remarks>
-    Private Sub SynchronizeWithOutlook_Email2_SetDisplayName(ByRef otkContact As Outlook.ContactItem, ByRef EntidadActual As Entidad)
-        If EntidadActual.Email2 Is Nothing Then
-            otkContact.Email2DisplayName = Nothing
-        Else
-            If EntidadActual.Email1 Is Nothing Then
-                otkContact.Email2DisplayName = otkContact.LastNameAndFirstName
-            Else
-                otkContact.Email2DisplayName = otkContact.LastNameAndFirstName & " (" & otkContact.Email1Address & ")"
-            End If
-        End If
-    End Sub
 
     ''' <summary>
     ''' Verifico los contactos de la base de datos para ver si hay que agregar alguno
@@ -392,16 +372,18 @@ Public Class formEntidadesSincronizarOutlook
                             .Email1Address = EntidadActual.Email1
                             If .Email1Address <> EntidadActual.Email1 Then
                                 .Email1Address = EntidadActual.Email1
-                                SynchronizeWithOutlook_Email1_SetDisplayName(newOutlookContact, EntidadActual)
+                                CS_Office_Outlook_EarlyBinding.Contact_SetDisplayNameOfEmail1(newOutlookContact, EntidadActual)
                             End If
 
                             .Email2Address = EntidadActual.Email2
                             If .Email2Address <> EntidadActual.Email2 Then
                                 .Email2Address = EntidadActual.Email2
-                                SynchronizeWithOutlook_Email2_SetDisplayName(newOutlookContact, EntidadActual)
+                                CS_Office_Outlook_EarlyBinding.Contact_SetDisplayNameOfEmail2(newOutlookContact, EntidadActual)
                             End If
 
                             .UserProperties.Add(OUTLOOK_USERPROPERTYNAME_CONTACTO_ENTIDAD, Outlook.OlUserPropertyType.olInteger).Value = EntidadActual.IDEntidad
+
+                            Debug.Print("ADDED: Nuevo contacto - " & .FullName)
 
                             .Save()
                         End With
@@ -438,22 +420,26 @@ Public Class formEntidadesSincronizarOutlook
     ''' <returns>True if succeded or False if failed</returns>
     ''' <remarks></remarks>
     Private Function SynchronizeWithOutlook_VerifyContactsGroupsInOutlook(ByRef otkContactsItems As Outlook.Items, ByRef dbContext As CSColegioContext, ByRef listGruposDeTipoVerificadosEnOutlook As List(Of String), ByRef listGruposDeNivelVerificadosEnOutlook As List(Of Byte), ByRef listGruposDeCursoVerificadosEnOutlook As List(Of Byte)) As Boolean
-        Dim ItemIndex As Integer = 0
+        Dim listDistListItemsInOutlook As List(Of Outlook.DistListItem)
         Dim otkContactUserProperty As Outlook.UserProperty
 
+        Dim ItemIndex As Integer = 0
         Dim IDNivel As Byte
         Dim NivelActual As Nivel
         Dim IDCurso As Byte
         Dim CursoActual As Curso
         Dim GrupoOutlookActualizado As Boolean
 
-        progressbarMain.Value = 0
-        progressbarMain.Maximum = otkContactsItems.OfType(Of Outlook.DistListItem).Count
-        labelStatus.Text = "Verificando Grupos de Contactos existentes en Outlook..."
-        Application.DoEvents()
-
         Try
-            For Each otkContactItem As Outlook.DistListItem In otkContactsItems.OfType(Of Outlook.DistListItem)()
+            ' Uso una lista estática porque si uso la carpeta de Outlook directamente en el For Each, al borrar o agregar items, pierde la secuencialidad
+            listDistListItemsInOutlook = otkContactsItems.OfType(Of Outlook.DistListItem)().ToList
+
+            progressbarMain.Value = 0
+            progressbarMain.Maximum = listDistListItemsInOutlook.Count
+            labelStatus.Text = "Verificando Grupos de Contactos existentes en Outlook..."
+            Application.DoEvents()
+
+            For Each otkContactItem As Outlook.DistListItem In listDistListItemsInOutlook
                 With otkContactItem
                     ' Verifico si es un Grupo de Tipo de Entidad
                     otkContactUserProperty = .UserProperties.Find(OUTLOOK_USERPROPERTYNAME_GRUPO_TIPO)
@@ -467,6 +453,7 @@ Public Class formEntidadesSincronizarOutlook
                                     End If
                                 Else
                                     ' No hay que sincronizar este grupo, por lo tanto se borra de Outlook
+                                    Debug.Print("Outlook Sync - Contact Group - DELETE: No está seleccionado para sincronizar - " & otkContactItem.DLName)
                                     .Delete()
                                 End If
                             Case Constantes.ENTIDADTIPO_DOCENTE
@@ -477,6 +464,7 @@ Public Class formEntidadesSincronizarOutlook
                                     End If
                                 Else
                                     ' No hay que sincronizar este grupo, por lo tanto se borra de Outlook
+                                    Debug.Print("Outlook Sync - Contact Group - DELETE: No está seleccionado para sincronizar - " & otkContactItem.DLName)
                                     .Delete()
                                 End If
                             Case Constantes.ENTIDADTIPO_ALUMNO
@@ -487,6 +475,7 @@ Public Class formEntidadesSincronizarOutlook
                                     End If
                                 Else
                                     ' No hay que sincronizar este grupo, por lo tanto se borra de Outlook
+                                    Debug.Print("Outlook Sync - Contact Group - DELETE: No está seleccionado para sincronizar - " & otkContactItem.DLName)
                                     .Delete()
                                 End If
                             Case Constantes.ENTIDADTIPO_FAMILIAR
@@ -497,6 +486,7 @@ Public Class formEntidadesSincronizarOutlook
                                     End If
                                 Else
                                     ' No hay que sincronizar este grupo, por lo tanto se borra de Outlook
+                                    Debug.Print("Outlook Sync - Contact Group - DELETE: No está seleccionado para sincronizar - " & otkContactItem.DLName)
                                     .Delete()
                                 End If
                             Case Constantes.ENTIDADTIPO_PROVEEDOR
@@ -507,6 +497,7 @@ Public Class formEntidadesSincronizarOutlook
                                     End If
                                 Else
                                     ' No hay que sincronizar este grupo, por lo tanto se borra de Outlook
+                                    Debug.Print("Outlook Sync - Contact Group - DELETE: No está seleccionado para sincronizar - " & otkContactItem.DLName)
                                     .Delete()
                                 End If
                             Case Constantes.ENTIDADTIPO_OTRO
@@ -517,10 +508,12 @@ Public Class formEntidadesSincronizarOutlook
                                     End If
                                 Else
                                     ' No hay que sincronizar este grupo, por lo tanto se borra de Outlook
+                                    Debug.Print("Outlook Sync - Contact Group - DELETE: No está seleccionado para sincronizar - " & otkContactItem.DLName)
                                     .Delete()
                                 End If
                             Case Else
                                 ' Es un grupo de Tipo pero tiene mal especificado el Tipo
+                                Debug.Print("Outlook Sync - Contact Group - DELETE: El campo de Tipo es erróneo - " & otkContactItem.DLName)
                                 .Delete()
                         End Select
                         Continue For
@@ -535,6 +528,7 @@ Public Class formEntidadesSincronizarOutlook
                             NivelActual = dbContext.Nivel.Find(IDNivel)
                             If NivelActual Is Nothing Then
                                 ' No existe el Grupo en la base de datos, lo elimino de Outlook
+                                Debug.Print("Outlook Sync - Contact Group - DELETE: No existe el Nivel en la base de datos - " & otkContactItem.DLName)
                                 .Delete()
                             Else
                                 ' Verifico y actualizo las propiedades del grupo
@@ -546,11 +540,13 @@ Public Class formEntidadesSincronizarOutlook
                                 End If
 
                                 If GrupoOutlookActualizado Then
+                                    Debug.Print("Outlook Sync - Contact Group - UPDATE: Se actualizó la info - " & otkContactItem.DLName)
                                     .Save()
                                 End If
                             End If
                         Else
                             ' El IDNivel Especificado tiene un formato erroneo
+                            Debug.Print("Outlook Sync - Contact Group - DELETE: El campo IDNivel es erróneo - " & otkContactItem.DLName)
                             .Delete()
                         End If
                         Continue For
@@ -565,6 +561,7 @@ Public Class formEntidadesSincronizarOutlook
                             CursoActual = dbContext.Curso.Find(IDCurso)
                             If CursoActual Is Nothing Then
                                 ' No existe el Grupo en la base de datos, lo elimino de Outlook
+                                Debug.Print("Outlook Sync - Contact Group - DELETE: No existe el Curso en la base de datos - " & otkContactItem.DLName)
                                 .Delete()
                             Else
                                 ' Verifico y actualizo las propiedades del grupo
@@ -576,11 +573,13 @@ Public Class formEntidadesSincronizarOutlook
                                 End If
 
                                 If GrupoOutlookActualizado Then
+                                    Debug.Print("Outlook Sync - Contact Group - UPDATE: Se actualizó la info - " & otkContactItem.DLName)
                                     .Save()
                                 End If
                             End If
                         Else
                             ' El IDCurso Especificado tiene un formato erroneo
+                            Debug.Print("Outlook Sync - Contact Group - DELETE: El campo IDCurso es erróneo - " & otkContactItem.DLName)
                             .Delete()
                         End If
                         Continue For
@@ -588,6 +587,7 @@ Public Class formEntidadesSincronizarOutlook
 
                     ' Es un Grupo que no depende del sistema, si está especificado, lo elimino
                     If radiobuttonGrupoContactosBorrar.Checked Then
+                        Debug.Print("Outlook Sync - Contact Group - DELETE: Es un grupo inexistente - " & otkContactItem.DLName)
                         .Delete()
                     End If
                 End With
@@ -597,6 +597,9 @@ Public Class formEntidadesSincronizarOutlook
                 progressbarMain.Value = ItemIndex
                 Application.DoEvents()
             Next
+
+            listDistListItemsInOutlook = Nothing
+
             Return True
 
         Catch ex As Exception
@@ -768,7 +771,7 @@ Public Class formEntidadesSincronizarOutlook
         progressbarMain.Value = 0
         progressbarMain.Maximum = qryEntidades.Count
         labelStatus.Text = "Agregando miembros a Grupos de Contactos en Outlook..."
-        Application.DoEvents()
+        ' Application.DoEvents()
 
         Try
             otkNameSpace = otkApp.Session
@@ -794,7 +797,7 @@ Public Class formEntidadesSincronizarOutlook
                 ' Progress bar
                 ItemIndex += 1
                 progressbarMain.Value = ItemIndex
-                Application.DoEvents()
+                ' Application.DoEvents()
             Next
 
             otkMailItem.Delete()
