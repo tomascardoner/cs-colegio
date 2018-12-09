@@ -332,7 +332,9 @@
     End Sub
 
     Private Sub SincronizarOutlook(sender As Object, e As EventArgs) Handles buttonSincronizarOutlook.Click
-        formEntidadesSincronizarOutlook.ShowDialog(formMDIMain)
+        If Permisos.VerificarPermiso(Permisos.ENTIDAD_SINCRONIZAR_OUTLOOK) Then
+            formEntidadesSincronizarOutlook.ShowDialog(formMDIMain)
+        End If
     End Sub
 #End Region
 

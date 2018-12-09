@@ -69,8 +69,10 @@ Public Class formEntidadesSincronizarOutlook
 
 #Region "Controls behavior"
     Private Sub Editar(sender As Object, e As EventArgs) Handles buttonEditar.Click
-        mEditMode = True
-        ChangeMode()
+        If Permisos.VerificarPermiso(Permisos.ENTIDAD_SINCRONIZAR_OUTLOOK) Then
+            mEditMode = True
+            ChangeMode()
+        End If
     End Sub
 
     Private Sub Sincronizar(sender As Object, e As EventArgs) Handles buttonSincronizar.Click
@@ -249,22 +251,22 @@ Public Class formEntidadesSincronizarOutlook
                         If IDEntidad > 0 Then
                             If listEntidadesVerificadasEnOutlook.Contains(IDEntidad) Then
                                 ' Ya fue verificado, por lo tanto, está duplicado, hay que borrarlo
-                                Debug.Print("DELETE: Duplicade - " & otkContactItem.FullName)
+                                Debug.Print("DELETE: Duplicade - " & .FullName)
                                 .Delete()
                             Else
                                 listEntidadesVerificadasEnOutlook.Add(IDEntidad)
                                 EntidadActual = dbContext.Entidad.Find(IDEntidad)
                                 If EntidadActual Is Nothing OrElse EntidadActual.EsActivo = False Then
                                     ' No existe la Entidad en la base de datos o está desactivada, lo elimino de Outlook
-                                    Debug.Print("DELETE: No existe en DB o está incative - " & otkContactItem.FullName)
+                                    Debug.Print("DELETE: No existe en DB o está incative - " & .FullName)
                                     .Delete()
                                 ElseIf Not ((checkboxEntidadTipoPersonalColegio.Checked And EntidadActual.TipoPersonalColegio) Or (checkboxEntidadTipoDocente.Checked And EntidadActual.TipoDocente) Or (checkboxEntidadTipoAlumno.Checked And EntidadActual.TipoAlumno) Or (checkboxEntidadTipoFamiliar.Checked And EntidadActual.TipoFamiliar) Or (checkboxEntidadTipoProveedor.Checked And EntidadActual.TipoProveedor) Or (checkboxEntidadTipoOtro.Checked And EntidadActual.TipoOtro)) Then
                                     ' El Contacto en Outlook no coincide con los Tipos de Entidad seleccionados, lo elimino de Outlook
-                                    Debug.Print("DELETE: No coincide el Tipo - " & otkContactItem.FullName)
+                                    Debug.Print("DELETE: No coincide el Tipo - " & .FullName)
                                     .Delete()
                                 ElseIf EntidadActual.Email1 Is Nothing And EntidadActual.Email2 Is Nothing Then
                                     ' La Entidad no tiene direcciones de e-mail especificadas
-                                    Debug.Print("DELETE: Sin direcciones de e-mail - " & otkContactItem.FullName)
+                                    Debug.Print("DELETE: Sin direcciones de e-mail - " & .FullName)
                                     .Delete()
                                 Else
                                     ' Verifico y actualizo las propiedades del contacto
@@ -302,14 +304,14 @@ Public Class formEntidadesSincronizarOutlook
                                     End If
 
                                     If ContactoOutlookActualizado Then
-                                        Debug.Print("UPDATE: Info actualizada - " & otkContactItem.FullName)
+                                        Debug.Print("UPDATE: Info actualizada - " & .FullName)
                                         .Save()
                                     End If
                                 End If
                             End If
                         Else
                             ' El IDEntidad Especificado tiene un formato erroneo
-                            Debug.Print("DELETE: el campo IDEntidad es erróneo - " & otkContactItem.FullName)
+                            Debug.Print("DELETE: el campo IDEntidad es erróneo - " & .FullName)
                             .Delete()
                         End If
                     Else
@@ -424,11 +426,11 @@ Public Class formEntidadesSincronizarOutlook
         Dim otkContactUserProperty As Outlook.UserProperty
 
         Dim ItemIndex As Integer = 0
+        Dim EntidadTipo As String
         Dim IDNivel As Byte
         Dim NivelActual As Nivel
         Dim IDCurso As Byte
         Dim CursoActual As Curso
-        Dim GrupoOutlookActualizado As Boolean
 
         Try
             ' Uso una lista estática porque si uso la carpeta de Outlook directamente en el For Each, al borrar o agregar items, pierde la secuencialidad
@@ -444,78 +446,32 @@ Public Class formEntidadesSincronizarOutlook
                     ' Verifico si es un Grupo de Tipo de Entidad
                     otkContactUserProperty = .UserProperties.Find(OUTLOOK_USERPROPERTYNAME_GRUPO_TIPO)
                     If Not otkContactUserProperty Is Nothing Then
-                        Select Case otkContactUserProperty.Value.ToString
-                            Case Constantes.ENTIDADTIPO_PERSONALCOLEGIO
-                                If checkboxEntidadTipoPersonalColegio.Checked Then
-                                    If Not SynchronizeWithOutlook_ContactsGroupsOfType(otkContactItem, listGruposDeTipoVerificadosEnOutlook, Constantes.ENTIDADTIPO_PERSONALCOLEGIO) Then
-                                        otkContactUserProperty = Nothing
-                                        Return False
+                        EntidadTipo = otkContactUserProperty.Value.ToString
+                        If listGruposDeTipoVerificadosEnOutlook.Contains(EntidadTipo) Then
+                            ' Ya fue verificado, por lo tanto, está duplicado, hay que borrarlo
+                            Debug.Print("Outlook Sync - Contact Group - DELETE: Está duplicado - " & .DLName)
+                            .Delete()
+                        Else
+                            listGruposDeTipoVerificadosEnOutlook.Add(EntidadTipo)
+                            If EntidadTipo.Length = 1 AndAlso Constantes.ENTIDADTIPO_TODOS.Contains(EntidadTipo) Then
+                                If (checkboxEntidadTipoPersonalColegio.Checked And EntidadTipo = Constantes.ENTIDADTIPO_PERSONALCOLEGIO) Or (checkboxEntidadTipoDocente.Checked And EntidadTipo = Constantes.ENTIDADTIPO_DOCENTE) Or (checkboxEntidadTipoAlumno.Checked And EntidadTipo = Constantes.ENTIDADTIPO_ALUMNO) Or (checkboxEntidadTipoFamiliar.Checked And EntidadTipo = Constantes.ENTIDADTIPO_FAMILIAR) Or (checkboxEntidadTipoProveedor.Checked And EntidadTipo = Constantes.ENTIDADTIPO_PROVEEDOR) Or (checkboxEntidadTipoOtro.Checked And EntidadTipo = Constantes.ENTIDADTIPO_OTRO) Then
+                                    ' Verifico y actualizo las propiedades del grupo
+                                    If .DLName <> String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, EntidadTipoANombre(EntidadTipo)) Then
+                                        .DLName = String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, EntidadTipoANombre(EntidadTipo))
+                                        Debug.Print("Outlook Sync - Contact Group - UPDATE: Se actualizó la info - " & .DLName)
+                                        .Save()
                                     End If
                                 Else
                                     ' No hay que sincronizar este grupo, por lo tanto se borra de Outlook
-                                    Debug.Print("Outlook Sync - Contact Group - DELETE: No está seleccionado para sincronizar - " & otkContactItem.DLName)
+                                    Debug.Print("Outlook Sync - Contact Group - DELETE: No está seleccionado para sincronizar - " & .DLName)
                                     .Delete()
                                 End If
-                            Case Constantes.ENTIDADTIPO_DOCENTE
-                                If checkboxEntidadTipoDocente.Checked Then
-                                    If Not SynchronizeWithOutlook_ContactsGroupsOfType(otkContactItem, listGruposDeTipoVerificadosEnOutlook, Constantes.ENTIDADTIPO_DOCENTE) Then
-                                        otkContactUserProperty = Nothing
-                                        Return False
-                                    End If
-                                Else
-                                    ' No hay que sincronizar este grupo, por lo tanto se borra de Outlook
-                                    Debug.Print("Outlook Sync - Contact Group - DELETE: No está seleccionado para sincronizar - " & otkContactItem.DLName)
-                                    .Delete()
-                                End If
-                            Case Constantes.ENTIDADTIPO_ALUMNO
-                                If checkboxEntidadTipoAlumno.Checked Then
-                                    If Not SynchronizeWithOutlook_ContactsGroupsOfType(otkContactItem, listGruposDeTipoVerificadosEnOutlook, Constantes.ENTIDADTIPO_ALUMNO) Then
-                                        otkContactUserProperty = Nothing
-                                        Return False
-                                    End If
-                                Else
-                                    ' No hay que sincronizar este grupo, por lo tanto se borra de Outlook
-                                    Debug.Print("Outlook Sync - Contact Group - DELETE: No está seleccionado para sincronizar - " & otkContactItem.DLName)
-                                    .Delete()
-                                End If
-                            Case Constantes.ENTIDADTIPO_FAMILIAR
-                                If checkboxEntidadTipoFamiliar.Checked Then
-                                    If Not SynchronizeWithOutlook_ContactsGroupsOfType(otkContactItem, listGruposDeTipoVerificadosEnOutlook, Constantes.ENTIDADTIPO_FAMILIAR) Then
-                                        otkContactUserProperty = Nothing
-                                        Return False
-                                    End If
-                                Else
-                                    ' No hay que sincronizar este grupo, por lo tanto se borra de Outlook
-                                    Debug.Print("Outlook Sync - Contact Group - DELETE: No está seleccionado para sincronizar - " & otkContactItem.DLName)
-                                    .Delete()
-                                End If
-                            Case Constantes.ENTIDADTIPO_PROVEEDOR
-                                If checkboxEntidadTipoProveedor.Checked Then
-                                    If Not SynchronizeWithOutlook_ContactsGroupsOfType(otkContactItem, listGruposDeTipoVerificadosEnOutlook, Constantes.ENTIDADTIPO_PROVEEDOR) Then
-                                        otkContactUserProperty = Nothing
-                                        Return False
-                                    End If
-                                Else
-                                    ' No hay que sincronizar este grupo, por lo tanto se borra de Outlook
-                                    Debug.Print("Outlook Sync - Contact Group - DELETE: No está seleccionado para sincronizar - " & otkContactItem.DLName)
-                                    .Delete()
-                                End If
-                            Case Constantes.ENTIDADTIPO_OTRO
-                                If checkboxEntidadTipoOtro.Checked Then
-                                    If Not SynchronizeWithOutlook_ContactsGroupsOfType(otkContactItem, listGruposDeTipoVerificadosEnOutlook, Constantes.ENTIDADTIPO_OTRO) Then
-                                        otkContactUserProperty = Nothing
-                                        Return False
-                                    End If
-                                Else
-                                    ' No hay que sincronizar este grupo, por lo tanto se borra de Outlook
-                                    Debug.Print("Outlook Sync - Contact Group - DELETE: No está seleccionado para sincronizar - " & otkContactItem.DLName)
-                                    .Delete()
-                                End If
-                            Case Else
+                            Else
                                 ' Es un grupo de Tipo pero tiene mal especificado el Tipo
-                                Debug.Print("Outlook Sync - Contact Group - DELETE: El campo de Tipo es erróneo - " & otkContactItem.DLName)
+                                Debug.Print("Outlook Sync - Contact Group - DELETE: El campo de Tipo es erróneo - " & .DLName)
                                 .Delete()
-                        End Select
+                            End If
+                        End If
                         Continue For
                     End If
 
@@ -524,29 +480,29 @@ Public Class formEntidadesSincronizarOutlook
                     If Not otkContactUserProperty Is Nothing Then
                         Byte.TryParse(otkContactUserProperty.Value.ToString, IDNivel)
                         If IDNivel > 0 Then
-                            listGruposDeNivelVerificadosEnOutlook.Add(IDNivel)
-                            NivelActual = dbContext.Nivel.Find(IDNivel)
-                            If NivelActual Is Nothing Then
-                                ' No existe el Grupo en la base de datos, lo elimino de Outlook
-                                Debug.Print("Outlook Sync - Contact Group - DELETE: No existe el Nivel en la base de datos - " & otkContactItem.DLName)
+                            If listGruposDeNivelVerificadosEnOutlook.Contains(IDNivel) Then
+                                ' Ya fue verificado, por lo tanto, está duplicado, hay que borrarlo
+                                Debug.Print("Outlook Sync - Contact Group - DELETE: Está duplicado - " & .DLName)
                                 .Delete()
                             Else
-                                ' Verifico y actualizo las propiedades del grupo
-                                GrupoOutlookActualizado = False
-
-                                If .DLName <> String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, NivelActual.Nombre) Then
-                                    .DLName = String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, NivelActual.Nombre)
-                                    GrupoOutlookActualizado = True
-                                End If
-
-                                If GrupoOutlookActualizado Then
-                                    Debug.Print("Outlook Sync - Contact Group - UPDATE: Se actualizó la info - " & otkContactItem.DLName)
-                                    .Save()
+                                listGruposDeNivelVerificadosEnOutlook.Add(IDNivel)
+                                NivelActual = dbContext.Nivel.Find(IDNivel)
+                                If NivelActual Is Nothing Then
+                                    ' No existe el Grupo en la base de datos, lo elimino de Outlook
+                                    Debug.Print("Outlook Sync - Contact Group - DELETE: No existe el Nivel en la base de datos - " & .DLName)
+                                    .Delete()
+                                Else
+                                    ' Verifico y actualizo las propiedades del grupo
+                                    If .DLName <> String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, NivelActual.Nombre) Then
+                                        .DLName = String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, NivelActual.Nombre)
+                                        Debug.Print("Outlook Sync - Contact Group - UPDATE: Se actualizó la info - " & .DLName)
+                                        .Save()
+                                    End If
                                 End If
                             End If
                         Else
                             ' El IDNivel Especificado tiene un formato erroneo
-                            Debug.Print("Outlook Sync - Contact Group - DELETE: El campo IDNivel es erróneo - " & otkContactItem.DLName)
+                            Debug.Print("Outlook Sync - Contact Group - DELETE: El campo IDNivel es erróneo - " & .DLName)
                             .Delete()
                         End If
                         Continue For
@@ -557,29 +513,29 @@ Public Class formEntidadesSincronizarOutlook
                     If Not otkContactUserProperty Is Nothing Then
                         Byte.TryParse(otkContactUserProperty.Value.ToString, IDCurso)
                         If IDCurso > 0 Then
-                            listGruposDeCursoVerificadosEnOutlook.Add(IDCurso)
-                            CursoActual = dbContext.Curso.Find(IDCurso)
-                            If CursoActual Is Nothing Then
-                                ' No existe el Grupo en la base de datos, lo elimino de Outlook
-                                Debug.Print("Outlook Sync - Contact Group - DELETE: No existe el Curso en la base de datos - " & otkContactItem.DLName)
+                            If listGruposDeCursoVerificadosEnOutlook.Contains(IDCurso) Then
+                                ' Ya fue verificado, por lo tanto, está duplicado, hay que borrarlo
+                                Debug.Print("Outlook Sync - Contact Group - DELETE: Está duplicado - " & .DLName)
                                 .Delete()
                             Else
-                                ' Verifico y actualizo las propiedades del grupo
-                                GrupoOutlookActualizado = False
-
-                                If .DLName <> String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, CursoActual.Nombre) Then
-                                    .DLName = String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, CursoActual.Nombre)
-                                    GrupoOutlookActualizado = True
-                                End If
-
-                                If GrupoOutlookActualizado Then
-                                    Debug.Print("Outlook Sync - Contact Group - UPDATE: Se actualizó la info - " & otkContactItem.DLName)
-                                    .Save()
+                                listGruposDeCursoVerificadosEnOutlook.Add(IDCurso)
+                                CursoActual = dbContext.Curso.Find(IDCurso)
+                                If CursoActual Is Nothing Then
+                                    ' No existe el Grupo en la base de datos, lo elimino de Outlook
+                                    Debug.Print("Outlook Sync - Contact Group - DELETE: No existe el Curso en la base de datos - " & .DLName)
+                                    .Delete()
+                                Else
+                                    ' Verifico y actualizo las propiedades del grupo
+                                    If .DLName <> String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, CursoActual.Nombre) Then
+                                        .DLName = String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, CursoActual.Nombre)
+                                        Debug.Print("Outlook Sync - Contact Group - UPDATE: Se actualizó la info - " & .DLName)
+                                        .Save()
+                                    End If
                                 End If
                             End If
                         Else
                             ' El IDCurso Especificado tiene un formato erroneo
-                            Debug.Print("Outlook Sync - Contact Group - DELETE: El campo IDCurso es erróneo - " & otkContactItem.DLName)
+                            Debug.Print("Outlook Sync - Contact Group - DELETE: El campo IDCurso es erróneo - " & .DLName)
                             .Delete()
                         End If
                         Continue For
@@ -587,7 +543,7 @@ Public Class formEntidadesSincronizarOutlook
 
                     ' Es un Grupo que no depende del sistema, si está especificado, lo elimino
                     If radiobuttonGrupoContactosBorrar.Checked Then
-                        Debug.Print("Outlook Sync - Contact Group - DELETE: Es un grupo inexistente - " & otkContactItem.DLName)
+                        Debug.Print("Outlook Sync - Contact Group - DELETE: Es un grupo inexistente - " & .DLName)
                         .Delete()
                     End If
                 End With
@@ -607,42 +563,6 @@ Public Class formEntidadesSincronizarOutlook
 
             Me.Cursor = Cursors.Default
             CS_Error.ProcessError(ex, "Error verificando los Grupos de Contactos de Microsoft Outlook")
-            Return False
-        End Try
-    End Function
-
-    ''' <summary>
-    ''' Verifica y actualiza las propiedades de un Grupo de Contactos en Outlook con el Tipo de Entidad en la Base de Datos
-    ''' </summary>
-    ''' <param name="otkDistListItem"></param>
-    ''' <param name="listGruposDeTipoVerificadosEnOutlook"></param>
-    ''' <param name="EntidadTipo"></param>
-    ''' <returns>True if succeded or False if failed</returns>
-    ''' <remarks></remarks>
-    Private Function SynchronizeWithOutlook_ContactsGroupsOfType(ByRef otkDistListItem As Outlook.DistListItem, ByRef listGruposDeTipoVerificadosEnOutlook As List(Of String), ByVal EntidadTipo As String) As Boolean
-        Dim GrupoOutlookActualizado As Boolean
-
-        Try
-            listGruposDeTipoVerificadosEnOutlook.Add(EntidadTipo)
-
-            ' Verifico y actualizo las propiedades del grupo
-            GrupoOutlookActualizado = False
-
-            With otkDistListItem
-                If .DLName <> String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, EntidadTipoANombre(EntidadTipo)) Then
-                    .DLName = String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, EntidadTipoANombre(EntidadTipo))
-                    GrupoOutlookActualizado = True
-                End If
-
-                If GrupoOutlookActualizado Then
-                    .Save()
-                End If
-            End With
-            Return True
-
-        Catch ex As Exception
-            Me.Cursor = Cursors.Default
-            CS_Error.ProcessError(ex, String.Format("Error verificando el Grupo de Contactos ({0}) de Microsoft Outlook", EntidadTipoANombre(EntidadTipo)))
             Return False
         End Try
     End Function
@@ -687,39 +607,6 @@ Public Class formEntidadesSincronizarOutlook
                     Return False
                 End If
             End If
-
-            'For Each EntidadActual In dbContext.Entidad.Where(Function(e) e.TipoPersonalColegio)
-            '    ' Verifico que no haya sido verificado en el paso anterior
-            '    Dim index As Integer
-            '    index = listEntidadesVerificadasEnOutlook.IndexOf(EntidadActual.IDEntidad)
-            '    If index = -1 Then
-            '        Dim newOutlookContact As Outlook.ContactItem
-
-            '        newOutlookContact = CType(otkApp.CreateItem(Outlook.OlItemType.olContactItem), Outlook.ContactItem)
-            '        If Not newOutlookContact Is Nothing Then
-            '            With newOutlookContact
-            '                .LastName = EntidadActual.Apellido
-            '                .FirstName = EntidadActual.Nombre
-
-            '                .Email1Address = EntidadActual.Email1
-            '                If .Email1Address <> EntidadActual.Email1 Then
-            '                    .Email1Address = EntidadActual.Email1
-            '                    SynchronizeWithOutlook_Email1_SetDisplayName(newOutlookContact, EntidadActual)
-            '                End If
-
-            '                .Email2Address = EntidadActual.Email2
-            '                If .Email2Address <> EntidadActual.Email2 Then
-            '                    .Email2Address = EntidadActual.Email2
-            '                    SynchronizeWithOutlook_Email2_SetDisplayName(newOutlookContact, EntidadActual)
-            '                End If
-
-            '                .UserProperties.Add(OUTLOOK_USERPROPERTYNAME_CONTACTO_ENTIDAD, Outlook.OlUserPropertyType.olInteger).Value = EntidadActual.IDEntidad
-
-            '                .Save()
-            '            End With
-            '        End If
-            '    End If
-            'Next
             Return True
 
         Catch ex As Exception
@@ -746,6 +633,7 @@ Public Class formEntidadesSincronizarOutlook
 
                     .UserProperties.Add(OUTLOOK_USERPROPERTYNAME_GRUPO_TIPO, Outlook.OlUserPropertyType.olText).Value = EntidadTipo
 
+                    Debug.Print("Outlook Sync - Contact Group - ADD: Se ha creado el grupo - " & .DLName)
                     .Save()
                 End With
             End If
@@ -771,7 +659,7 @@ Public Class formEntidadesSincronizarOutlook
         progressbarMain.Value = 0
         progressbarMain.Maximum = qryEntidades.Count
         labelStatus.Text = "Agregando miembros a Grupos de Contactos en Outlook..."
-        ' Application.DoEvents()
+        Application.DoEvents()
 
         Try
             otkNameSpace = otkApp.Session
@@ -781,24 +669,37 @@ Public Class formEntidadesSincronizarOutlook
             otkMailItem = CType(otkContactsItems.Add(Outlook.OlItemType.olMailItem), Outlook.MailItem)
             otkRecipients = otkMailItem.Recipients
 
-            For Each EntidadActual In qryEntidades
-                If (EntidadActual.Email1 Is Nothing) Or ((Not EntidadActual.Email1 Is Nothing) AndAlso (Not EntidadActual.Email2 Is Nothing) AndAlso EntidadActual.ComprobanteEnviarEmail = ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2) Then
-                    otkRecipients.Add(EntidadActual.Email2)
-                Else
-                    otkRecipients.Add(EntidadActual.Email1)
-                End If
-
-                If Not otkRecipients.ResolveAll() Then
-                    otkRecipients.Remove(otkRecipients.Count - 1)
-                    MsgBox(String.Format("Outlook no pudo resolver el nombre del miembro del Grupo ({0}).", EntidadActual.ApellidoNombre), MsgBoxStyle.Information, My.Application.Info.Title)
-                    Return True
-                End If
+            For Each EntidadActual As Entidad In qryEntidades
+                With EntidadActual
+                    If Not ((.Email1 Is Nothing And .Email2 Is Nothing) Or .ComprobanteEnviarEmail = ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO) Then
+                        If .Email1 Is Nothing Or .Email2 Is Nothing Then
+                            ' Tiene una sola dirección de email, por lo que no hay conflicto en agregarlo con el nombre
+                            otkRecipients.Add(.ApellidoNombre)
+                        Else
+                            ' Tiene especificada las dos direcciones de e-mail, hay que verificar cual se va a agregar al grupo
+                            Select Case .ComprobanteEnviarEmail
+                                Case ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL1, ENTIDAD_COMPROBANTE_ENVIAREMAIL_CUALQUIERA
+                                    otkRecipients.Add(.ApellidoNombre & " (" & .Email1 & ")")
+                                Case ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2
+                                    otkRecipients.Add(.ApellidoNombre & " (" & .Email2 & ")")
+                                Case ENTIDAD_COMPROBANTE_ENVIAREMAIL_AMBAS
+                                    otkRecipients.Add(.ApellidoNombre & " (" & .Email1 & ")")
+                                    otkRecipients.Add(.ApellidoNombre & " (" & .Email2 & ")")
+                            End Select
+                        End If
+                    End If
+                End With
 
                 ' Progress bar
                 ItemIndex += 1
                 progressbarMain.Value = ItemIndex
-                ' Application.DoEvents()
+                Application.DoEvents()
             Next
+
+            If Not otkRecipients.ResolveAll() Then
+                MsgBox("Outlook no pudo resolver el nombre de algún miembro del Grupo.", MsgBoxStyle.Information, My.Application.Info.Title)
+                Return True
+            End If
 
             otkMailItem.Delete()
             otkMailItem = Nothing
