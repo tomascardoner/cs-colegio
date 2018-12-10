@@ -370,6 +370,7 @@ Public Class formEntidadesSincronizarOutlook
                         With newOutlookContact
                             .LastName = EntidadActual.Apellido
                             .FirstName = EntidadActual.Nombre
+                            .FileAs = EntidadActual.ApellidoNombre
 
                             .Email1Address = EntidadActual.Email1
                             If .Email1Address <> EntidadActual.Email1 Then
@@ -655,6 +656,7 @@ Public Class formEntidadesSincronizarOutlook
         Dim otkContactsFolder As Outlook.MAPIFolder
         Dim otkContactsItems As Outlook.Items
         Dim otkMailItem As Outlook.MailItem
+        Dim otkRecipientNew As Outlook.Recipient = Nothing
 
         progressbarMain.Value = 0
         progressbarMain.Maximum = qryEntidades.Count
@@ -674,18 +676,21 @@ Public Class formEntidadesSincronizarOutlook
                     If Not ((.Email1 Is Nothing And .Email2 Is Nothing) Or .ComprobanteEnviarEmail = ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO) Then
                         If .Email1 Is Nothing Or .Email2 Is Nothing Then
                             ' Tiene una sola dirección de email, por lo que no hay conflicto en agregarlo con el nombre
-                            otkRecipients.Add(.ApellidoNombre)
+                            otkRecipientNew = otkRecipients.Add(.ApellidoNombre)
                         Else
                             ' Tiene especificada las dos direcciones de e-mail, hay que verificar cual se va a agregar al grupo
                             Select Case .ComprobanteEnviarEmail
                                 Case ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL1, ENTIDAD_COMPROBANTE_ENVIAREMAIL_CUALQUIERA
-                                    otkRecipients.Add(.ApellidoNombre & " (" & .Email1 & ")")
+                                    otkRecipientNew = otkRecipients.Add(.ApellidoNombre & " (" & .Email1 & ")")
                                 Case ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2
-                                    otkRecipients.Add(.ApellidoNombre & " (" & .Email2 & ")")
+                                    otkRecipientNew = otkRecipients.Add(.ApellidoNombre & " (" & .Email2 & ")")
                                 Case ENTIDAD_COMPROBANTE_ENVIAREMAIL_AMBAS
-                                    otkRecipients.Add(.ApellidoNombre & " (" & .Email1 & ")")
-                                    otkRecipients.Add(.ApellidoNombre & " (" & .Email2 & ")")
+                                    otkRecipientNew = otkRecipients.Add(.ApellidoNombre & " (" & .Email1 & ")")
+                                    otkRecipientNew = otkRecipients.Add(.ApellidoNombre & " (" & .Email2 & ")")
                             End Select
+                        End If
+                        If (Not otkRecipientNew.Resolved) AndAlso (Not otkRecipientNew.Resolve()) Then
+                            MsgBox(String.Format("Outlook no pudo resolver el nombre ({0}) del miembro del Grupo.", .ApellidoNombre), MsgBoxStyle.Information, My.Application.Info.Title)
                         End If
                     End If
                 End With
@@ -696,10 +701,10 @@ Public Class formEntidadesSincronizarOutlook
                 Application.DoEvents()
             Next
 
-            If Not otkRecipients.ResolveAll() Then
-                MsgBox("Outlook no pudo resolver el nombre de algún miembro del Grupo.", MsgBoxStyle.Information, My.Application.Info.Title)
-                Return True
-            End If
+            'If Not otkRecipients.ResolveAll() Then
+            '    MsgBox("Outlook no pudo resolver el nombre de algún miembro del Grupo.", MsgBoxStyle.Information, My.Application.Info.Title)
+            '    Return True
+            'End If
 
             otkMailItem.Delete()
             otkMailItem = Nothing
