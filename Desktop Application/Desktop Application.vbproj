@@ -309,6 +309,11 @@
     <Compile Include="EntidadEntidad.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntidadesSincronizarOutlook.vb" />
+    <Compile Include="EntidadesSincronizarOutlookContactos.vb" />
+    <Compile Include="EntidadesSincronizarOutlookGrupos.vb" />
+    <Compile Include="EntidadesSincronizarOutlookGruposMiembros.vb" />
+    <Compile Include="EntidadesSincronizarOutlookOpciones.vb" />
     <Compile Include="EntityFrameworkExtension.vb" />
     <Compile Include="Feriado.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
