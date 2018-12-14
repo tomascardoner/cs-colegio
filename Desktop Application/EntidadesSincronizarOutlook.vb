@@ -7,81 +7,84 @@ Module EntidadesSincronizarOutlook
     ''' <returns>True if succeded or False if failed</returns>
     ''' <remarks></remarks>
     Friend Function Sincronizar(ByVal Opciones As EntidadesSincronizarOutlookOpciones, ByRef LabelEstado As Label, ByRef ProgressBarProgreso As ProgressBar) As Boolean
-        Dim OutlookAplicacion As Outlook.Application = Nothing
+        Dim OutlookApplication As Outlook.Application = Nothing
         Dim OutlookContacts As Outlook.Items = Nothing
 
-        Dim EntidadesVerificadasEnOutlook As New List(Of Integer)
+        Dim IDEntidadesVerificadasEnOutlook As New List(Of Integer)
+        Dim Entidades As List(Of Entidad)
 
-        Dim qryEntidades As System.Linq.IQueryable(Of Entidad)
-
-        Dim listGruposDeTipoVerificadosEnOutlook As New List(Of String)
-        Dim listGruposDeNivelVerificadosEnOutlook As New List(Of Byte)
-        Dim listGruposDeCursoVerificadosEnOutlook As New List(Of Byte)
+        Dim GruposDeTipoVerificadosEnOutlook As New List(Of String)
+        Dim GruposDeNivelVerificadosEnOutlook As New List(Of Byte)
+        Dim GruposDeCursoVerificadosEnOutlook As New List(Of Byte)
 
         LabelEstado.Text = "Iniciando instancia de Microsoft Outlook..."
         LabelEstado.Visible = True
-        ProgressBarProgreso.Value = 0
-        ProgressBarProgreso.Visible = True
         Application.DoEvents()
 
-        If Not InicializarAplicacion(OutlookAplicacion, OutlookContacts) Then
-            OutlookAplicacion = Nothing
-            OutlookContacts = Nothing
-            EntidadesVerificadasEnOutlook = Nothing
-            Return False
-        End If
-
-
-        Using dbContext As New CSColegioContext(True)
-            ' Verifico los Contactos
-            LabelEstado.Text = "Verificando Contactos existentes en Outlook..."
+        If InicializarAplicacion(OutlookApplication, OutlookContacts) Then
+            ProgressBarProgreso.Value = 0
+            ProgressBarProgreso.Visible = True
             Application.DoEvents()
 
-            If Not EntidadesSincronizarOutlookContactos.VerificarContactosEnOutlook(OutlookContacts, dbContext, EntidadesVerificadasEnOutlook, OpcionContactoHuerfanoBorrar, ProgressBarProgreso) Then
-                OutlookAplicacion = Nothing
-                OutlookContacts = Nothing
-                Return False
-            End If
+            Using dbContext As New CSColegioContext(True)
+                ' Verifico los Contactos de Outlook
+                LabelEstado.Text = "Verificando Contactos existentes en Outlook..."
+                Application.DoEvents()
 
-            Try
-                If checkboxEntidadTipoPersonalColegio.Checked And checkboxEntidadTipoDocente.Checked And checkboxEntidadTipoAlumno.Checked And checkboxEntidadTipoFamiliar.Checked And checkboxEntidadTipoProveedor.Checked And checkboxEntidadTipoOtro.Checked Then
-                    ' Todas las Entidades
-                    qryEntidades = dbContext.Entidad.Where(Function(e) e.EsActivo And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)))
-                Else
-                    ' Sólo las seleccionadas
-                    qryEntidades = dbContext.Entidad.Where(Function(e) e.EsActivo And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And ((checkboxEntidadTipoPersonalColegio.Checked And e.TipoPersonalColegio) Or (checkboxEntidadTipoDocente.Checked And e.TipoDocente) Or (checkboxEntidadTipoAlumno.Checked And e.TipoAlumno) Or (checkboxEntidadTipoFamiliar.Checked And e.TipoFamiliar) Or (checkboxEntidadTipoProveedor.Checked And e.TipoProveedor) Or (checkboxEntidadTipoOtro.Checked And e.TipoOtro)))
+                If EntidadesSincronizarOutlookContactos.VerificarContactosEnOutlook(OutlookContacts, dbContext, IDEntidadesVerificadasEnOutlook, Opciones, ProgressBarProgreso) Then
+                    Try
+                        If Opciones.EntidadTipoPersonalColegio And Opciones.EntidadTipoDocente And Opciones.EntidadTipoAlumno And Opciones.EntidadTipoFamiliar And Opciones.EntidadTipoProveedor And Opciones.EntidadTipoOtro Then
+                            ' Todas las Entidades
+                            Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing))).ToList
+                        Else
+                            ' Sólo las seleccionadas
+                            Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And ((Opciones.EntidadTipoPersonalColegio And e.TipoPersonalColegio) Or (Opciones.EntidadTipoDocente And e.TipoDocente) Or (Opciones.EntidadTipoAlumno And e.TipoAlumno) Or (Opciones.EntidadTipoFamiliar And e.TipoFamiliar) Or (Opciones.EntidadTipoProveedor And e.TipoProveedor) Or (Opciones.EntidadTipoOtro And e.TipoOtro))).ToList
+                        End If
+                    Catch ex As Exception
+                        CS_Error.ProcessError(ex, "Error al obtener las Entidades de la base de datos.")
+                        OutlookApplication = Nothing
+                        OutlookContacts = Nothing
+                        IDEntidadesVerificadasEnOutlook = Nothing
+                        Entidades = Nothing
+                        GruposDeTipoVerificadosEnOutlook = Nothing
+                        GruposDeNivelVerificadosEnOutlook = Nothing
+                        GruposDeCursoVerificadosEnOutlook = Nothing
+                        Return False
+                    End Try
+
+                    ' Verifico los Contactos en la Base de Datos para ver si falta agregar alguno
+                    LabelEstado.Text = "Verificando Entidades en el Sistema..."
+                    Application.DoEvents()
+                    If EntidadesSincronizarOutlookContactos.VerificarContactosEnBaseDeDatos(OutlookApplication, Entidades, IDEntidadesVerificadasEnOutlook, ProgressBarProgreso) Then
+                        ' Verifico los Grupos de Contactos
+                        LabelEstado.Text = "Verificando Grupos de Contactos existentes en Outlook..."
+                        If EntidadesSincronizarOutlookGruposExistentes.VerificarGrupos(OutlookApplication, OutlookContacts, dbContext, GruposDeTipoVerificadosEnOutlook, GruposDeNivelVerificadosEnOutlook, GruposDeCursoVerificadosEnOutlook, Opciones, ProgressBarProgreso) Then
+
+                            LabelEstado.Text = "Verificando Grupos de Contactos en el Sistema..."
+                            If EntidadesSincronizarOutlookGruposInexistentes.CrearGrupos(OutlookApplication, Entidades, GruposDeTipoVerificadosEnOutlook, Opciones, ProgressBarProgreso) Then
+                                OutlookApplication = Nothing
+                                OutlookContacts = Nothing
+                                IDEntidadesVerificadasEnOutlook = Nothing
+                                Entidades = Nothing
+                                GruposDeTipoVerificadosEnOutlook = Nothing
+                                GruposDeNivelVerificadosEnOutlook = Nothing
+                                GruposDeCursoVerificadosEnOutlook = Nothing
+                                Return True
+                            End If
+                        End If
+                    End If
                 End If
-            Catch ex As Exception
-                CS_Error.ProcessError(ex, "Error al obtener las Entidades de la base de datos.")
-                OutlookAplicacion = Nothing
-                OutlookContacts = Nothing
-                Return False
-            End Try
-            If Not SyncronizeWithOutlook_VerifyContactsInDatabase(otkApp, qryEntidades, listEntidadesVerificadasEnOutlook) Then
-                otkApp = Nothing
-                OutlookContacts = Nothing
-                Return False
-            End If
+            End Using
+        End If
 
-            ' Verifico los Grupos de Contactos
-            If Not SynchronizeWithOutlook_VerifyContactsGroupsInOutlook(otkContactsItems, dbContext, listGruposDeTipoVerificadosEnOutlook, listGruposDeNivelVerificadosEnOutlook, listGruposDeCursoVerificadosEnOutlook) Then
-                otkApp = Nothing
-                OutlookContacts = Nothing
-                Return False
-            End If
-
-            If Not SyncronizeWithOutlook_VerifyContactGroupsInDatabase(otkApp, qryEntidades, listGruposDeTipoVerificadosEnOutlook) Then
-                otkApp = Nothing
-                OutlookContacts = Nothing
-                Return False
-            End If
-        End Using
-
-        motkApp = Nothing
+        OutlookApplication = Nothing
         OutlookContacts = Nothing
-        listEntidadesVerificadasEnOutlook = Nothing
-
-        Return True
+        IDEntidadesVerificadasEnOutlook = Nothing
+        Entidades = Nothing
+        GruposDeTipoVerificadosEnOutlook = Nothing
+        GruposDeNivelVerificadosEnOutlook = Nothing
+        GruposDeCursoVerificadosEnOutlook = Nothing
+        Return False
     End Function
 
     ''' <summary>

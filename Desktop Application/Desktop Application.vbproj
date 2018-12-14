@@ -121,22 +121,22 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\..\..\..\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Bank.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Bank.vb">
       <Link>CS_Bank.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\..\..\..\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_ComboBox.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_ComboBox.vb">
       <Link>CS_ComboBox.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\..\..\..\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Constants.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Constants.vb">
       <Link>CS_Constants.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\..\..\..\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Office_Outlook_EarlyBinding.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Office_Outlook_EarlyBinding.vb">
       <Link>CS_Office_Outlook_EarlyBinding.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\..\..\..\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Parameter_System.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Parameter_System.vb">
       <Link>CS_Parameter_System.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\..\..\..\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_String.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_String.vb">
       <Link>CS_String.vb</Link>
     </Compile>
     <Compile Include="Anio.vb">
@@ -161,69 +161,69 @@
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="BancoSantander_ADDI.vb" />
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Control_TabControl.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Control_TabControl.vb">
       <Link>CS_Control_TabControl.vb</Link>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Control_Textbox_Currency.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Control_Textbox_Currency.vb">
       <Link>CS_Control_Textbox_Currency.vb</Link>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Control_Textbox_Number.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Control_Textbox_Number.vb">
       <Link>CS_Control_Textbox_Number.vb</Link>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Database_EF_SQL.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Database_EF_SQL.vb">
       <Link>CS_Database_EF_SQL.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Database_SQL.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Database_SQL.vb">
       <Link>CS_Database_SQL.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Encryption_TripleDES.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Encryption_TripleDES.vb">
       <Link>CS_Encryption_TripleDES.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_ErrorMessageBox.designer.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_ErrorMessageBox.designer.vb">
       <Link>CS_ErrorMessageBox.designer.vb</Link>
       <DependentUpon>CS_ErrorMessageBox.vb</DependentUpon>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_ErrorMessageBox.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_ErrorMessageBox.vb">
       <Link>CS_ErrorMessageBox.vb</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_AFIP.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_AFIP.vb">
       <Link>CS_AFIP.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_AFIP_WS.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_AFIP_WS.vb">
       <Link>CS_AFIP_WS.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_DataGridView.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_DataGridView.vb">
       <Link>CS_DataGridView.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Email.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Email.vb">
       <Link>CS_Email.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Error.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Error.vb">
       <Link>CS_Error.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_File.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_File.vb">
       <Link>CS_File.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_FileLog.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_FileLog.vb">
       <Link>CS_FileLog.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Form.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Form.vb">
       <Link>CS_Form.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Instance.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Instance.vb">
       <Link>CS_Instance.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_Office_Outlook_LateBinding.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Office_Outlook_LateBinding.vb">
       <Link>CS_Office_Outlook_LateBinding.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_SpecialFolders.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_SpecialFolders.vb">
       <Link>CS_SpecialFolders.vb</Link>
     </Compile>
-    <Compile Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_ValueTranslation.vb">
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_ValueTranslation.vb">
       <Link>CS_ValueTranslation.vb</Link>
     </Compile>
     <Compile Include="Caja.vb">
@@ -311,8 +311,12 @@
     </Compile>
     <Compile Include="EntidadesSincronizarOutlook.vb" />
     <Compile Include="EntidadesSincronizarOutlookContactos.vb" />
-    <Compile Include="EntidadesSincronizarOutlookGrupos.vb" />
+    <Compile Include="EntidadesSincronizarOutlookContactosABM.vb" />
+    <Compile Include="EntidadesSincronizarOutlookGruposExistentes.vb" />
+    <Compile Include="EntidadesSincronizarOutlookGruposABM.vb" />
+    <Compile Include="EntidadesSincronizarOutlookGruposInexistentes.vb" />
     <Compile Include="EntidadesSincronizarOutlookGruposMiembros.vb" />
+    <Compile Include="EntidadesSincronizarOutlookGruposMiembrosABM.vb" />
     <Compile Include="EntidadesSincronizarOutlookOpciones.vb" />
     <Compile Include="EntityFrameworkExtension.vb" />
     <Compile Include="Feriado.vb">
@@ -678,7 +682,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="C:\Users\Tomas\Dropbox\Cardoner Sistemas\Framework\Visual Basic .NET\CS_ErrorMessageBox.resx">
+    <EmbeddedResource Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_ErrorMessageBox.resx">
       <Link>CS_ErrorMessageBox.resx</Link>
       <DependentUpon>CS_ErrorMessageBox.vb</DependentUpon>
     </EmbeddedResource>

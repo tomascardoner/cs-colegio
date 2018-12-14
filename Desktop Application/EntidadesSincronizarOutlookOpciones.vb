@@ -13,4 +13,19 @@
     Public Property CrearGrupoContactosPorNivelesYCursos As Boolean
 
     Public Property AniosLectivos As List(Of Short)
+
+    Friend Sub LoadFromSettings()
+        EntidadTipoPersonalColegio = My.Settings.Outlook_ContactsSync_EntidadTipo_PersonalColegio
+        EntidadTipoDocente = My.Settings.Outlook_ContactsSync_EntidadTipo_Docente
+        EntidadTipoAlumno = My.Settings.Outlook_ContactsSync_EntidadTipo_Alumno
+        EntidadTipoFamiliar = My.Settings.Outlook_ContactsSync_EntidadTipo_Familiar
+        EntidadTipoProveedor = My.Settings.Outlook_ContactsSync_EntidadTipo_Proveedor
+        EntidadTipoOtro = My.Settings.Outlook_ContactsSync_EntidadTipo_Otro
+
+        GrupoContactosInexistenteBorrar = My.Settings.Outlook_ContactsSync_GrupoNoEncontrado_Borrar
+        ContactoInexistenteBorrar = My.Settings.Outlook_ContactsSync_ContactoNoEncontrado_Borrar
+
+        CrearGrupoContactosPorEntidadTipos = My.Settings.Outlook_ContactsSync_CrearGrupos_EntidadTipo
+        CrearGrupoContactosPorNivelesYCursos = My.Settings.Outlook_ContactsSync_CrearGrupos_NivelYCurso
+    End Sub
 End Class

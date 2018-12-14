@@ -5,6 +5,8 @@ Public Class formEntidadesSincronizarOutlook
 #Region "Declarations"
     Private mIsLoading As Boolean = False
     Private mEditMode As Boolean = False
+
+    Private Opciones As EntidadesSincronizarOutlookOpciones
 #End Region
 
 #Region "Form stuff"
@@ -34,23 +36,24 @@ Public Class formEntidadesSincronizarOutlook
         buttonEditar.Visible = pUsuario.IDUsuario = USUARIO_ADMINISTRADOR
     End Sub
 
-    Private Sub LoadOptions()
-        ' Cargo las opciones
-        checkboxEntidadTipoPersonalColegio.Checked = My.Settings.Outlook_ContactsSync_EntidadTipo_PersonalColegio
-        checkboxEntidadTipoDocente.Checked = My.Settings.Outlook_ContactsSync_EntidadTipo_Docente
-        checkboxEntidadTipoAlumno.Checked = My.Settings.Outlook_ContactsSync_EntidadTipo_Alumno
-        checkboxEntidadTipoFamiliar.Checked = My.Settings.Outlook_ContactsSync_EntidadTipo_Familiar
-        checkboxEntidadTipoProveedor.Checked = My.Settings.Outlook_ContactsSync_EntidadTipo_Proveedor
-        checkboxEntidadTipoOtro.Checked = My.Settings.Outlook_ContactsSync_EntidadTipo_Otro
+    Private Sub SetOpciones()
+        With Opciones
+            checkboxEntidadTipoPersonalColegio.Checked = .EntidadTipoPersonalColegio
+            checkboxEntidadTipoDocente.Checked = .EntidadTipoDocente
+            checkboxEntidadTipoAlumno.Checked = .EntidadTipoAlumno
+            checkboxEntidadTipoFamiliar.Checked = .EntidadTipoFamiliar
+            checkboxEntidadTipoProveedor.Checked = .EntidadTipoProveedor
+            checkboxEntidadTipoOtro.Checked = .EntidadTipoOtro
 
-        radiobuttonGrupoContactosIgnorar.Checked = Not My.Settings.Outlook_ContactsSync_GrupoNoEncontrado_Borrar
-        radiobuttonGrupoContactosBorrar.Checked = My.Settings.Outlook_ContactsSync_GrupoNoEncontrado_Borrar
+            radiobuttonGrupoContactosIgnorar.Checked = Not .GrupoContactosInexistenteBorrar
+            radiobuttonGrupoContactosBorrar.Checked = .GrupoContactosInexistenteBorrar
 
-        radiobuttonContactosIgnorar.Checked = Not My.Settings.Outlook_ContactsSync_ContactoNoEncontrado_Borrar
-        radiobuttonContactosBorrar.Checked = My.Settings.Outlook_ContactsSync_ContactoNoEncontrado_Borrar
+            radiobuttonContactosIgnorar.Checked = Not .ContactoInexistenteBorrar
+            radiobuttonContactosBorrar.Checked = .ContactoInexistenteBorrar
 
-        checkboxCrearGruposEntidadTipo.Checked = My.Settings.Outlook_ContactsSync_CrearGrupos_EntidadTipo
-        checkboxCrearGruposNivelYCurso.Checked = My.Settings.Outlook_ContactsSync_CrearGrupos_NivelYCurso
+            checkboxCrearGruposEntidadTipo.Checked = .CrearGrupoContactosPorEntidadTipos
+            checkboxCrearGruposNivelYCurso.Checked = .CrearGrupoContactosPorNivelesYCursos
+        End With
     End Sub
 
     Private Sub Me_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -59,7 +62,10 @@ Public Class formEntidadesSincronizarOutlook
 
         pFillAndRefreshLists.AnioLectivo(checkedlistboxAnioLectivo, False, SortOrder.Ascending)
 
-        LoadOptions()
+        Opciones = New EntidadesSincronizarOutlookOpciones
+        Opciones.LoadFromSettings()
+
+        SetOpciones()
     End Sub
 
     Private Sub Me_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -76,8 +82,6 @@ Public Class formEntidadesSincronizarOutlook
     End Sub
 
     Private Sub Sincronizar(sender As Object, e As EventArgs) Handles buttonSincronizar.Click
-        Dim Opciones As New EntidadesSincronizarOutlookOpciones
-
         If Not (checkboxEntidadTipoPersonalColegio.Checked Or checkboxEntidadTipoDocente.Checked Or checkboxEntidadTipoAlumno.Checked Or checkboxEntidadTipoFamiliar.Checked Or checkboxEntidadTipoProveedor.Checked Or checkboxEntidadTipoOtro.Checked) Then
             MsgBox("Para poder sincronizar con Microsoft Outlook, es necesario que seleccione al menos un Tipo de Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
             Exit Sub
