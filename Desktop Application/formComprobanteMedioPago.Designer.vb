@@ -39,7 +39,6 @@ Partial Class formComprobanteMedioPago
         Me.textboxNumero = New System.Windows.Forms.TextBox()
         Me.comboboxBanco = New System.Windows.Forms.ComboBox()
         Me.labelBanco = New System.Windows.Forms.Label()
-        Me.textboxImporte = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
         Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
         Me.LineShape2 = New Microsoft.VisualBasic.PowerPacks.LineShape()
         Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
@@ -47,7 +46,9 @@ Partial Class formComprobanteMedioPago
         Me.labelCuenta = New System.Windows.Forms.Label()
         Me.textboxTitular = New System.Windows.Forms.TextBox()
         Me.labelTitular = New System.Windows.Forms.Label()
+        Me.currencytextboxImporte = New Syncfusion.Windows.Forms.Tools.CurrencyTextBox()
         Me.toolstripMain.SuspendLayout()
+        CType(Me.currencytextboxImporte, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'labelMedioPago
@@ -213,15 +214,6 @@ Partial Class formComprobanteMedioPago
         Me.labelBanco.TabIndex = 7
         Me.labelBanco.Text = "Banco:"
         '
-        'textboxImporte
-        '
-        Me.textboxImporte.Location = New System.Drawing.Point(97, 263)
-        Me.textboxImporte.MaxLength = 15
-        Me.textboxImporte.Name = "textboxImporte"
-        Me.textboxImporte.Size = New System.Drawing.Size(100, 20)
-        Me.textboxImporte.TabIndex = 16
-        Me.textboxImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
         'ShapeContainer1
         '
         Me.ShapeContainer1.Location = New System.Drawing.Point(0, 0)
@@ -283,11 +275,28 @@ Partial Class formComprobanteMedioPago
         Me.labelTitular.TabIndex = 11
         Me.labelTitular.Text = "Titular:"
         '
+        'currencytextboxImporte
+        '
+        Me.currencytextboxImporte.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.currencytextboxImporte.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxImporte.Location = New System.Drawing.Point(97, 263)
+        Me.currencytextboxImporte.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
+        Me.currencytextboxImporte.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.currencytextboxImporte.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxImporte.Name = "currencytextboxImporte"
+        Me.currencytextboxImporte.NullString = ""
+        Me.currencytextboxImporte.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
+        Me.currencytextboxImporte.Size = New System.Drawing.Size(100, 20)
+        Me.currencytextboxImporte.TabIndex = 15
+        Me.currencytextboxImporte.Text = "$ 0,00"
+        Me.currencytextboxImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
         'formComprobanteMedioPago
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(344, 291)
+        Me.Controls.Add(Me.currencytextboxImporte)
         Me.Controls.Add(Me.textboxTitular)
         Me.Controls.Add(Me.labelTitular)
         Me.Controls.Add(Me.textboxCuenta)
@@ -299,7 +308,6 @@ Partial Class formComprobanteMedioPago
         Me.Controls.Add(Me.datetimepickerHora)
         Me.Controls.Add(Me.datetimepickerFecha)
         Me.Controls.Add(Me.labelFechaHora)
-        Me.Controls.Add(Me.textboxImporte)
         Me.Controls.Add(Me.toolstripMain)
         Me.Controls.Add(Me.labelImporte)
         Me.Controls.Add(Me.comboboxCaja)
@@ -316,6 +324,7 @@ Partial Class formComprobanteMedioPago
         Me.Text = "Detalle del Medio de Pago"
         Me.toolstripMain.ResumeLayout(False)
         Me.toolstripMain.PerformLayout()
+        CType(Me.currencytextboxImporte, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -330,7 +339,6 @@ Partial Class formComprobanteMedioPago
     Friend WithEvents buttonEditar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonCancelar As System.Windows.Forms.ToolStripButton
     Friend WithEvents buttonGuardar As System.Windows.Forms.ToolStripButton
-    Friend WithEvents textboxImporte As CSColegio.DesktopApplication.CS_Control_TextBox_Currency
     Friend WithEvents labelFechaHora As System.Windows.Forms.Label
     Friend WithEvents datetimepickerFecha As System.Windows.Forms.DateTimePicker
     Friend WithEvents datetimepickerHora As System.Windows.Forms.DateTimePicker
@@ -345,4 +353,5 @@ Partial Class formComprobanteMedioPago
     Friend WithEvents labelCuenta As System.Windows.Forms.Label
     Friend WithEvents textboxTitular As System.Windows.Forms.TextBox
     Friend WithEvents labelTitular As System.Windows.Forms.Label
+    Friend WithEvents currencytextboxImporte As Syncfusion.Windows.Forms.Tools.CurrencyTextBox
 End Class

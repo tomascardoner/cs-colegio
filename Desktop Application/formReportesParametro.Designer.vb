@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class formReportesParametro
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,16 +20,18 @@ Partial Class formReportesParametro
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.toolstripMain = New System.Windows.Forms.ToolStrip()
         Me.buttonCancelar = New System.Windows.Forms.ToolStripButton()
         Me.buttonAceptar = New System.Windows.Forms.ToolStripButton()
         Me.labelValor = New System.Windows.Forms.Label()
         Me.datetimepickerValor = New System.Windows.Forms.DateTimePicker()
-        Me.textboxMoney = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
-        Me.textboxNumber = New CSColegio.DesktopApplication.CS_Control_TextBox_Number()
+        Me.currencytextboxMoney = New Syncfusion.Windows.Forms.Tools.CurrencyTextBox()
+        Me.doubletextboxNumber = New Syncfusion.Windows.Forms.Tools.DoubleTextBox()
         Me.toolstripMain.SuspendLayout()
+        CType(Me.currencytextboxMoney, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.doubletextboxNumber, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'toolstripMain
@@ -80,28 +82,45 @@ Partial Class formReportesParametro
         Me.datetimepickerValor.Size = New System.Drawing.Size(120, 20)
         Me.datetimepickerValor.TabIndex = 31
         '
-        'textboxMoney
+        'currencytextboxMoney
         '
-        Me.textboxMoney.Location = New System.Drawing.Point(61, 65)
-        Me.textboxMoney.Name = "textboxMoney"
-        Me.textboxMoney.Size = New System.Drawing.Size(120, 20)
-        Me.textboxMoney.TabIndex = 32
+        Me.currencytextboxMoney.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.currencytextboxMoney.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxMoney.Location = New System.Drawing.Point(61, 66)
+        Me.currencytextboxMoney.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
+        Me.currencytextboxMoney.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.currencytextboxMoney.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxMoney.Name = "currencytextboxMoney"
+        Me.currencytextboxMoney.NullString = ""
+        Me.currencytextboxMoney.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
+        Me.currencytextboxMoney.Size = New System.Drawing.Size(100, 20)
+        Me.currencytextboxMoney.TabIndex = 32
+        Me.currencytextboxMoney.Text = "$ 0,00"
+        Me.currencytextboxMoney.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'textboxNumber
+        'doubletextboxNumber
         '
-        Me.textboxNumber.Location = New System.Drawing.Point(61, 65)
-        Me.textboxNumber.Name = "textboxNumber"
-        Me.textboxNumber.NumberStyle = System.Globalization.NumberStyles.None
-        Me.textboxNumber.Size = New System.Drawing.Size(100, 20)
-        Me.textboxNumber.TabIndex = 33
+        Me.doubletextboxNumber.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.doubletextboxNumber.DoubleValue = 0R
+        Me.doubletextboxNumber.Location = New System.Drawing.Point(61, 66)
+        Me.doubletextboxNumber.MaxValue = 999999.99R
+        Me.doubletextboxNumber.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.doubletextboxNumber.MinValue = 0R
+        Me.doubletextboxNumber.Name = "doubletextboxNumber"
+        Me.doubletextboxNumber.NullString = ""
+        Me.doubletextboxNumber.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
+        Me.doubletextboxNumber.Size = New System.Drawing.Size(69, 20)
+        Me.doubletextboxNumber.TabIndex = 33
+        Me.doubletextboxNumber.Text = "0,00"
+        Me.doubletextboxNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'formReportesParametro
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(268, 105)
-        Me.Controls.Add(Me.textboxNumber)
-        Me.Controls.Add(Me.textboxMoney)
+        Me.Controls.Add(Me.doubletextboxNumber)
+        Me.Controls.Add(Me.currencytextboxMoney)
         Me.Controls.Add(Me.datetimepickerValor)
         Me.Controls.Add(Me.labelValor)
         Me.Controls.Add(Me.toolstripMain)
@@ -114,6 +133,8 @@ Partial Class formReportesParametro
         Me.Text = "ReportesParametros"
         Me.toolstripMain.ResumeLayout(False)
         Me.toolstripMain.PerformLayout()
+        CType(Me.currencytextboxMoney, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.doubletextboxNumber, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -123,6 +144,6 @@ Partial Class formReportesParametro
     Friend WithEvents buttonAceptar As System.Windows.Forms.ToolStripButton
     Friend WithEvents labelValor As System.Windows.Forms.Label
     Friend WithEvents datetimepickerValor As System.Windows.Forms.DateTimePicker
-    Friend WithEvents textboxMoney As CSColegio.DesktopApplication.CS_Control_TextBox_Currency
-    Friend WithEvents textboxNumber As CSColegio.DesktopApplication.CS_Control_TextBox_Number
+    Friend WithEvents currencytextboxMoney As Syncfusion.Windows.Forms.Tools.CurrencyTextBox
+    Friend WithEvents doubletextboxNumber As Syncfusion.Windows.Forms.Tools.DoubleTextBox
 End Class

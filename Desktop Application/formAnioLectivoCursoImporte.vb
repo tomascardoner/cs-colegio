@@ -54,8 +54,8 @@
         buttonCerrar.Visible = Not mEditMode
 
         comboboxMesInicio.Enabled = (mEditMode And mAnioLectivoCursoImporteActual.MesInicio = 0)
-        textboxImporteMatricula.ReadOnly = Not mEditMode
-        textboxImporteCuota.ReadOnly = Not mEditMode
+        currencytextboxImporteMatricula.ReadOnly = Not mEditMode
+        currencytextboxImporteCuota.ReadOnly = Not mEditMode
     End Sub
 
     Friend Sub InitializeFormAndControls()
@@ -83,16 +83,16 @@
             textboxAnioLectivo.Text = mAnioLectivoCursoActual.AnioLectivo.ToString
             textboxCurso.Text = mAnioLectivoCursoActual.Curso.Anio.Nombre & " - " & mAnioLectivoCursoActual.Curso.Turno.Nombre & " - " & mAnioLectivoCursoActual.Curso.Division
             comboboxMesInicio.SelectedIndex = .MesInicio - 1
-            textboxImporteMatricula.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.ImporteMatricula)
-            textboxImporteCuota.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.ImporteCuota)
+            currencytextboxImporteMatricula.DecimalValue = .ImporteMatricula
+            currencytextboxImporteCuota.DecimalValue = .ImporteCuota
         End With
     End Sub
 
     Friend Sub SetDataFromControlsToObject()
         With mAnioLectivoCursoImporteActual
             .MesInicio = CByte(comboboxMesInicio.SelectedIndex + 1)
-            .ImporteMatricula = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteMatricula.Text).Value
-            .ImporteCuota = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteCuota.Text).Value
+            .ImporteMatricula = currencytextboxImporteMatricula.DecimalValue
+            .ImporteCuota = currencytextboxImporteCuota.DecimalValue
         End With
     End Sub
 #End Region
@@ -116,7 +116,7 @@
         End Select
     End Sub
 
-    Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxImporteMatricula.GotFocus, textboxImporteCuota.GotFocus
+    Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs)
         CType(sender, TextBox).SelectAll()
     End Sub
 #End Region
@@ -137,16 +137,6 @@
         If comboboxMesInicio.SelectedIndex = -1 Then
             MsgBox("Debe especificar el Mes de Inicio.", MsgBoxStyle.Information, My.Application.Info.Title)
             comboboxMesInicio.Focus()
-            Exit Sub
-        End If
-        If Not textboxImporteMatricula.Value.HasValue Then
-            MsgBox("Debe especificar el Importe de la Matrícula.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxImporteMatricula.Focus()
-            Exit Sub
-        End If
-        If Not textboxImporteCuota.Value.HasValue Then
-            MsgBox("Debe especificar el Importe de la Cuota.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxImporteCuota.Focus()
             Exit Sub
         End If
 

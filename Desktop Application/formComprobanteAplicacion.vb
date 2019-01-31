@@ -48,7 +48,7 @@
         buttonCerrar.Visible = Not mEditMode
 
         comboboxMotivo.Enabled = mEditMode
-        textboxImporteAplicado.ReadOnly = (mEditMode = False)
+        currencytextboxImporteAplicado.ReadOnly = (mEditMode = False)
     End Sub
 
     Friend Sub InitializeFormAndControls()
@@ -83,7 +83,7 @@
     End Sub
     Friend Sub SetDataFromObjectToControls()
         With mComprobanteAplicacionActual
-            'textboxImporteAplicado.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.Importe)
+            'currencytextboxImporteAplicado.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.Importe)
         End With
     End Sub
 
@@ -91,7 +91,7 @@
         With mComprobanteAplicacionActual
             .IDComprobanteAplicado = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).IDComprobante
             .IDComprobanteAplicacionMotivo = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxMotivo.SelectedValue)
-            .Importe = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteAplicado.Text).Value
+            .Importe = currencytextboxImporteAplicado.DecimalValue
         End With
     End Sub
 #End Region
@@ -116,7 +116,7 @@
 
     Private Sub AplicarComprobante() Handles datagridviewMain.DoubleClick
         If Not datagridviewMain.CurrentRow Is Nothing Then
-            textboxImporteAplicado.Text = FormatCurrency(CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).ImporteSinAplicar)
+            currencytextboxImporteAplicado.DecimalValue = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).ImporteSinAplicar.Value
         End If
     End Sub
 #End Region
@@ -137,25 +137,15 @@
             datagridviewMain.Focus()
             Exit Sub
         End If
-        If textboxImporteAplicado.Text.Trim.Length = 0 Then
-            MsgBox("Debe ingresar el Importe a aplicar.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxImporteAplicado.Focus()
-            Exit Sub
-        End If
-        If Not CS_ValueTranslation.ValidateCurrency(textboxImporteAplicado.Text) Then
-            MsgBox("El Importe ingresado no es válido.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxImporteAplicado.Focus()
-            Exit Sub
-        End If
-        If CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteAplicado.Text).Value <= 0 Then
+        If currencytextboxImporteAplicado.DecimalValue <= 0 Then
             MsgBox("El Importe a aplicar debe ser mayor a cero.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxImporteAplicado.Focus()
+            currencytextboxImporteAplicado.Focus()
             Exit Sub
         End If
 
-        If CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteAplicado.Text).Value > CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).ImporteSinAplicar Then
+        If currencytextboxImporteAplicado.DecimalValue > CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).ImporteSinAplicar Then
             MsgBox("El Importe a aplicar no puede ser mayor que el Importe pendiente.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxImporteAplicado.Focus()
+            currencytextboxImporteAplicado.Focus()
             Exit Sub
         End If
 

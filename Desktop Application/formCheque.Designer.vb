@@ -40,7 +40,6 @@ Partial Class formCheque
         Me.labelIDCheque = New System.Windows.Forms.Label()
         Me.datetimepickerFechaPago = New System.Windows.Forms.DateTimePicker()
         Me.labelFechaPago = New System.Windows.Forms.Label()
-        Me.textboxImporte = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
         Me.labelImporte = New System.Windows.Forms.Label()
         Me.maskedtextboxCUIT = New System.Windows.Forms.MaskedTextBox()
         Me.labelCUIT = New System.Windows.Forms.Label()
@@ -59,8 +58,10 @@ Partial Class formCheque
         Me.labelMedioPago = New System.Windows.Forms.Label()
         Me.comboboxCaja = New System.Windows.Forms.ComboBox()
         Me.labelCaja = New System.Windows.Forms.Label()
+        Me.currencytextboxImporte = New Syncfusion.Windows.Forms.Tools.CurrencyTextBox()
         labelCodigoPostal = New System.Windows.Forms.Label()
         Me.toolstripMain.SuspendLayout()
+        CType(Me.currencytextboxImporte, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'labelCodigoPostal
@@ -232,15 +233,6 @@ Partial Class formCheque
         Me.labelFechaPago.TabIndex = 8
         Me.labelFechaPago.Text = "Fecha de Pago:"
         '
-        'textboxImporte
-        '
-        Me.textboxImporte.Location = New System.Drawing.Point(123, 222)
-        Me.textboxImporte.MaxLength = 15
-        Me.textboxImporte.Name = "textboxImporte"
-        Me.textboxImporte.Size = New System.Drawing.Size(100, 20)
-        Me.textboxImporte.TabIndex = 13
-        Me.textboxImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
         'labelImporte
         '
         Me.labelImporte.AutoSize = True
@@ -407,11 +399,28 @@ Partial Class formCheque
         Me.labelCaja.TabIndex = 22
         Me.labelCaja.Text = "Caja:"
         '
+        'currencytextboxImporte
+        '
+        Me.currencytextboxImporte.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.currencytextboxImporte.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxImporte.Location = New System.Drawing.Point(123, 222)
+        Me.currencytextboxImporte.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
+        Me.currencytextboxImporte.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.currencytextboxImporte.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxImporte.Name = "currencytextboxImporte"
+        Me.currencytextboxImporte.NullString = ""
+        Me.currencytextboxImporte.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
+        Me.currencytextboxImporte.Size = New System.Drawing.Size(100, 20)
+        Me.currencytextboxImporte.TabIndex = 13
+        Me.currencytextboxImporte.Text = "$ 0,00"
+        Me.currencytextboxImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
         'formCheque
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(371, 466)
+        Me.Controls.Add(Me.currencytextboxImporte)
         Me.Controls.Add(Me.comboboxCaja)
         Me.Controls.Add(Me.labelCaja)
         Me.Controls.Add(Me.comboboxMedioPago)
@@ -426,7 +435,6 @@ Partial Class formCheque
         Me.Controls.Add(Me.labelTitular)
         Me.Controls.Add(Me.labelCUIT)
         Me.Controls.Add(Me.maskedtextboxCUIT)
-        Me.Controls.Add(Me.textboxImporte)
         Me.Controls.Add(Me.labelImporte)
         Me.Controls.Add(Me.datetimepickerFechaPago)
         Me.Controls.Add(Me.labelFechaPago)
@@ -451,6 +459,7 @@ Partial Class formCheque
         Me.Text = "Cheque"
         Me.toolstripMain.ResumeLayout(False)
         Me.toolstripMain.PerformLayout()
+        CType(Me.currencytextboxImporte, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -472,7 +481,6 @@ Partial Class formCheque
     Friend WithEvents labelIDCheque As System.Windows.Forms.Label
     Friend WithEvents datetimepickerFechaPago As System.Windows.Forms.DateTimePicker
     Friend WithEvents labelFechaPago As System.Windows.Forms.Label
-    Friend WithEvents textboxImporte As CSColegio.DesktopApplication.CS_Control_TextBox_Currency
     Friend WithEvents labelImporte As System.Windows.Forms.Label
     Friend WithEvents maskedtextboxCUIT As System.Windows.Forms.MaskedTextBox
     Friend WithEvents labelCUIT As System.Windows.Forms.Label
@@ -491,4 +499,5 @@ Partial Class formCheque
     Friend WithEvents LineShape3 As Microsoft.VisualBasic.PowerPacks.LineShape
     Friend WithEvents comboboxCaja As System.Windows.Forms.ComboBox
     Friend WithEvents labelCaja As System.Windows.Forms.Label
+    Friend WithEvents currencytextboxImporte As Syncfusion.Windows.Forms.Tools.CurrencyTextBox
 End Class

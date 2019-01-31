@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class formComprobanteDetalle
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class formComprobanteDetalle
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.toolstripMain = New System.Windows.Forms.ToolStrip()
         Me.buttonCerrar = New System.Windows.Forms.ToolStripButton()
@@ -36,7 +36,6 @@ Partial Class formComprobanteDetalle
         Me.comboboxCuotaMes = New System.Windows.Forms.ComboBox()
         Me.labelCuotaMes = New System.Windows.Forms.Label()
         Me.labelCantidad = New System.Windows.Forms.Label()
-        Me.textboxCantidad = New System.Windows.Forms.TextBox()
         Me.textboxUnidad = New System.Windows.Forms.TextBox()
         Me.labelUnidad = New System.Windows.Forms.Label()
         Me.textboxDescripcion = New System.Windows.Forms.TextBox()
@@ -46,13 +45,20 @@ Partial Class formComprobanteDetalle
         Me.labelPrecioUnitarioDescuentoImporte = New System.Windows.Forms.Label()
         Me.labelPrecioUnitarioFinal = New System.Windows.Forms.Label()
         Me.labelPrecioTotal = New System.Windows.Forms.Label()
-        Me.textboxPrecioUnitarioDescuentoPorcentaje = New System.Windows.Forms.TextBox()
-        Me.textboxPrecioTotal = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
-        Me.textboxPrecioUnitarioFinal = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
-        Me.textboxPrecioUnitarioDescuentoImporte = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
-        Me.textboxPrecioUnitario = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
         Me.comboboxAlumno = New System.Windows.Forms.ComboBox()
+        Me.doubletextboxCantidad = New Syncfusion.Windows.Forms.Tools.DoubleTextBox()
+        Me.currencytextboxPrecioUnitario = New Syncfusion.Windows.Forms.Tools.CurrencyTextBox()
+        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje = New Syncfusion.Windows.Forms.Tools.PercentTextBox()
+        Me.currencytextboxPrecioUnitarioDescuentoImporte = New Syncfusion.Windows.Forms.Tools.CurrencyTextBox()
+        Me.currencytextboxPrecioUnitarioFinal = New Syncfusion.Windows.Forms.Tools.CurrencyTextBox()
+        Me.currencytextboxPrecioTotal = New Syncfusion.Windows.Forms.Tools.CurrencyTextBox()
         Me.toolstripMain.SuspendLayout()
+        CType(Me.doubletextboxCantidad, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.currencytextboxPrecioUnitario, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.percenttextboxPrecioUnitarioDescuentoPorcentaje, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.currencytextboxPrecioUnitarioDescuentoImporte, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.currencytextboxPrecioUnitarioFinal, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.currencytextboxPrecioTotal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'toolstripMain
@@ -186,15 +192,6 @@ Partial Class formComprobanteDetalle
         Me.labelCantidad.TabIndex = 2
         Me.labelCantidad.Text = "Cantidad:"
         '
-        'textboxCantidad
-        '
-        Me.textboxCantidad.Location = New System.Drawing.Point(123, 78)
-        Me.textboxCantidad.MaxLength = 3
-        Me.textboxCantidad.Name = "textboxCantidad"
-        Me.textboxCantidad.Size = New System.Drawing.Size(69, 20)
-        Me.textboxCantidad.TabIndex = 3
-        Me.textboxCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
         'textboxUnidad
         '
         Me.textboxUnidad.Location = New System.Drawing.Point(123, 104)
@@ -276,55 +273,6 @@ Partial Class formComprobanteDetalle
         Me.labelPrecioTotal.TabIndex = 23
         Me.labelPrecioTotal.Text = "Precio Total:"
         '
-        'textboxPrecioUnitarioDescuentoPorcentaje
-        '
-        Me.textboxPrecioUnitarioDescuentoPorcentaje.Location = New System.Drawing.Point(123, 263)
-        Me.textboxPrecioUnitarioDescuentoPorcentaje.MaxLength = 5
-        Me.textboxPrecioUnitarioDescuentoPorcentaje.Name = "textboxPrecioUnitarioDescuentoPorcentaje"
-        Me.textboxPrecioUnitarioDescuentoPorcentaje.Size = New System.Drawing.Size(69, 20)
-        Me.textboxPrecioUnitarioDescuentoPorcentaje.TabIndex = 18
-        Me.textboxPrecioUnitarioDescuentoPorcentaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'textboxPrecioTotal
-        '
-        Me.textboxPrecioTotal.Location = New System.Drawing.Point(123, 341)
-        Me.textboxPrecioTotal.MaxLength = 15
-        Me.textboxPrecioTotal.Name = "textboxPrecioTotal"
-        Me.textboxPrecioTotal.ReadOnly = True
-        Me.textboxPrecioTotal.Size = New System.Drawing.Size(100, 20)
-        Me.textboxPrecioTotal.TabIndex = 24
-        Me.textboxPrecioTotal.TabStop = False
-        Me.textboxPrecioTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'textboxPrecioUnitarioFinal
-        '
-        Me.textboxPrecioUnitarioFinal.Location = New System.Drawing.Point(123, 315)
-        Me.textboxPrecioUnitarioFinal.MaxLength = 15
-        Me.textboxPrecioUnitarioFinal.Name = "textboxPrecioUnitarioFinal"
-        Me.textboxPrecioUnitarioFinal.ReadOnly = True
-        Me.textboxPrecioUnitarioFinal.Size = New System.Drawing.Size(100, 20)
-        Me.textboxPrecioUnitarioFinal.TabIndex = 22
-        Me.textboxPrecioUnitarioFinal.TabStop = False
-        Me.textboxPrecioUnitarioFinal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'textboxPrecioUnitarioDescuentoImporte
-        '
-        Me.textboxPrecioUnitarioDescuentoImporte.Location = New System.Drawing.Point(123, 289)
-        Me.textboxPrecioUnitarioDescuentoImporte.MaxLength = 15
-        Me.textboxPrecioUnitarioDescuentoImporte.Name = "textboxPrecioUnitarioDescuentoImporte"
-        Me.textboxPrecioUnitarioDescuentoImporte.Size = New System.Drawing.Size(100, 20)
-        Me.textboxPrecioUnitarioDescuentoImporte.TabIndex = 20
-        Me.textboxPrecioUnitarioDescuentoImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'textboxPrecioUnitario
-        '
-        Me.textboxPrecioUnitario.Location = New System.Drawing.Point(123, 237)
-        Me.textboxPrecioUnitario.MaxLength = 15
-        Me.textboxPrecioUnitario.Name = "textboxPrecioUnitario"
-        Me.textboxPrecioUnitario.Size = New System.Drawing.Size(100, 20)
-        Me.textboxPrecioUnitario.TabIndex = 16
-        Me.textboxPrecioUnitario.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
         'comboboxAlumno
         '
         Me.comboboxAlumno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -334,27 +282,126 @@ Partial Class formComprobanteDetalle
         Me.comboboxAlumno.Size = New System.Drawing.Size(317, 21)
         Me.comboboxAlumno.TabIndex = 7
         '
+        'doubletextboxCantidad
+        '
+        Me.doubletextboxCantidad.AllowNull = True
+        Me.doubletextboxCantidad.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.doubletextboxCantidad.DoubleValue = 0R
+        Me.doubletextboxCantidad.Location = New System.Drawing.Point(123, 78)
+        Me.doubletextboxCantidad.MaxValue = 999999.99R
+        Me.doubletextboxCantidad.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.doubletextboxCantidad.MinValue = 0.01R
+        Me.doubletextboxCantidad.Name = "doubletextboxCantidad"
+        Me.doubletextboxCantidad.NullString = ""
+        Me.doubletextboxCantidad.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
+        Me.doubletextboxCantidad.Size = New System.Drawing.Size(69, 20)
+        Me.doubletextboxCantidad.TabIndex = 3
+        Me.doubletextboxCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'currencytextboxPrecioUnitario
+        '
+        Me.currencytextboxPrecioUnitario.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.currencytextboxPrecioUnitario.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxPrecioUnitario.Location = New System.Drawing.Point(123, 237)
+        Me.currencytextboxPrecioUnitario.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
+        Me.currencytextboxPrecioUnitario.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.currencytextboxPrecioUnitario.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxPrecioUnitario.Name = "currencytextboxPrecioUnitario"
+        Me.currencytextboxPrecioUnitario.NullString = ""
+        Me.currencytextboxPrecioUnitario.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
+        Me.currencytextboxPrecioUnitario.Size = New System.Drawing.Size(100, 20)
+        Me.currencytextboxPrecioUnitario.TabIndex = 16
+        Me.currencytextboxPrecioUnitario.Text = "$ 0,00"
+        Me.currencytextboxPrecioUnitario.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'percenttextboxPrecioUnitarioDescuentoPorcentaje
+        '
+        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.DoubleValue = 0R
+        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.Location = New System.Drawing.Point(123, 263)
+        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.MaxValue = 100.0R
+        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.MinValue = 0R
+        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.Name = "percenttextboxPrecioUnitarioDescuentoPorcentaje"
+        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.NullString = ""
+        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentNegativePattern = 1
+        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentPositivePattern = 1
+        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.Size = New System.Drawing.Size(69, 20)
+        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.TabIndex = 18
+        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.Text = "0,00%"
+        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'currencytextboxPrecioUnitarioDescuentoImporte
+        '
+        Me.currencytextboxPrecioUnitarioDescuentoImporte.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.currencytextboxPrecioUnitarioDescuentoImporte.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxPrecioUnitarioDescuentoImporte.Location = New System.Drawing.Point(123, 289)
+        Me.currencytextboxPrecioUnitarioDescuentoImporte.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
+        Me.currencytextboxPrecioUnitarioDescuentoImporte.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.currencytextboxPrecioUnitarioDescuentoImporte.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxPrecioUnitarioDescuentoImporte.Name = "currencytextboxPrecioUnitarioDescuentoImporte"
+        Me.currencytextboxPrecioUnitarioDescuentoImporte.NullString = ""
+        Me.currencytextboxPrecioUnitarioDescuentoImporte.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
+        Me.currencytextboxPrecioUnitarioDescuentoImporte.Size = New System.Drawing.Size(100, 20)
+        Me.currencytextboxPrecioUnitarioDescuentoImporte.TabIndex = 20
+        Me.currencytextboxPrecioUnitarioDescuentoImporte.Text = "$ 0,00"
+        Me.currencytextboxPrecioUnitarioDescuentoImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'currencytextboxPrecioUnitarioFinal
+        '
+        Me.currencytextboxPrecioUnitarioFinal.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.currencytextboxPrecioUnitarioFinal.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxPrecioUnitarioFinal.Location = New System.Drawing.Point(123, 315)
+        Me.currencytextboxPrecioUnitarioFinal.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
+        Me.currencytextboxPrecioUnitarioFinal.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.currencytextboxPrecioUnitarioFinal.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxPrecioUnitarioFinal.Name = "currencytextboxPrecioUnitarioFinal"
+        Me.currencytextboxPrecioUnitarioFinal.NullString = ""
+        Me.currencytextboxPrecioUnitarioFinal.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
+        Me.currencytextboxPrecioUnitarioFinal.ReadOnly = True
+        Me.currencytextboxPrecioUnitarioFinal.Size = New System.Drawing.Size(100, 20)
+        Me.currencytextboxPrecioUnitarioFinal.TabIndex = 22
+        Me.currencytextboxPrecioUnitarioFinal.Text = "$ 0,00"
+        Me.currencytextboxPrecioUnitarioFinal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'currencytextboxPrecioTotal
+        '
+        Me.currencytextboxPrecioTotal.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.currencytextboxPrecioTotal.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxPrecioTotal.Location = New System.Drawing.Point(123, 341)
+        Me.currencytextboxPrecioTotal.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
+        Me.currencytextboxPrecioTotal.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.currencytextboxPrecioTotal.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxPrecioTotal.Name = "currencytextboxPrecioTotal"
+        Me.currencytextboxPrecioTotal.NullString = ""
+        Me.currencytextboxPrecioTotal.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
+        Me.currencytextboxPrecioTotal.ReadOnly = True
+        Me.currencytextboxPrecioTotal.Size = New System.Drawing.Size(100, 20)
+        Me.currencytextboxPrecioTotal.TabIndex = 24
+        Me.currencytextboxPrecioTotal.Text = "$ 0,00"
+        Me.currencytextboxPrecioTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
         'formComprobanteDetalle
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(476, 374)
+        Me.Controls.Add(Me.currencytextboxPrecioTotal)
+        Me.Controls.Add(Me.currencytextboxPrecioUnitarioFinal)
+        Me.Controls.Add(Me.currencytextboxPrecioUnitarioDescuentoImporte)
+        Me.Controls.Add(Me.percenttextboxPrecioUnitarioDescuentoPorcentaje)
+        Me.Controls.Add(Me.currencytextboxPrecioUnitario)
+        Me.Controls.Add(Me.doubletextboxCantidad)
         Me.Controls.Add(Me.comboboxAlumno)
-        Me.Controls.Add(Me.textboxPrecioUnitarioDescuentoPorcentaje)
-        Me.Controls.Add(Me.textboxPrecioTotal)
         Me.Controls.Add(Me.labelPrecioTotal)
-        Me.Controls.Add(Me.textboxPrecioUnitarioFinal)
         Me.Controls.Add(Me.labelPrecioUnitarioFinal)
-        Me.Controls.Add(Me.textboxPrecioUnitarioDescuentoImporte)
         Me.Controls.Add(Me.labelPrecioUnitarioDescuentoImporte)
         Me.Controls.Add(Me.labelPrecioUnitarioDescuentoPorcentaje)
-        Me.Controls.Add(Me.textboxPrecioUnitario)
         Me.Controls.Add(Me.labelPrecioUnitario)
         Me.Controls.Add(Me.labelDescripcion)
         Me.Controls.Add(Me.textboxDescripcion)
         Me.Controls.Add(Me.textboxUnidad)
         Me.Controls.Add(Me.labelUnidad)
-        Me.Controls.Add(Me.textboxCantidad)
         Me.Controls.Add(Me.labelCantidad)
         Me.Controls.Add(Me.comboboxCuotaMes)
         Me.Controls.Add(Me.labelCuotaMes)
@@ -374,6 +421,12 @@ Partial Class formComprobanteDetalle
         Me.Text = "Detalle"
         Me.toolstripMain.ResumeLayout(False)
         Me.toolstripMain.PerformLayout()
+        CType(Me.doubletextboxCantidad, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.currencytextboxPrecioUnitario, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.percenttextboxPrecioUnitarioDescuentoPorcentaje, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.currencytextboxPrecioUnitarioDescuentoImporte, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.currencytextboxPrecioUnitarioFinal, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.currencytextboxPrecioTotal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -392,20 +445,20 @@ Partial Class formComprobanteDetalle
     Friend WithEvents comboboxCuotaMes As System.Windows.Forms.ComboBox
     Friend WithEvents labelCuotaMes As System.Windows.Forms.Label
     Friend WithEvents labelCantidad As System.Windows.Forms.Label
-    Friend WithEvents textboxCantidad As System.Windows.Forms.TextBox
     Friend WithEvents textboxUnidad As System.Windows.Forms.TextBox
     Friend WithEvents labelUnidad As System.Windows.Forms.Label
     Friend WithEvents textboxDescripcion As System.Windows.Forms.TextBox
     Friend WithEvents labelDescripcion As System.Windows.Forms.Label
     Friend WithEvents labelPrecioUnitario As System.Windows.Forms.Label
-    Friend WithEvents textboxPrecioUnitario As CSColegio.DesktopApplication.CS_Control_TextBox_Currency
     Friend WithEvents labelPrecioUnitarioDescuentoPorcentaje As System.Windows.Forms.Label
-    Friend WithEvents textboxPrecioUnitarioDescuentoImporte As CSColegio.DesktopApplication.CS_Control_TextBox_Currency
     Friend WithEvents labelPrecioUnitarioDescuentoImporte As System.Windows.Forms.Label
-    Friend WithEvents textboxPrecioUnitarioFinal As CSColegio.DesktopApplication.CS_Control_TextBox_Currency
     Friend WithEvents labelPrecioUnitarioFinal As System.Windows.Forms.Label
-    Friend WithEvents textboxPrecioTotal As CSColegio.DesktopApplication.CS_Control_TextBox_Currency
     Friend WithEvents labelPrecioTotal As System.Windows.Forms.Label
-    Friend WithEvents textboxPrecioUnitarioDescuentoPorcentaje As System.Windows.Forms.TextBox
     Friend WithEvents comboboxAlumno As System.Windows.Forms.ComboBox
+    Friend WithEvents doubletextboxCantidad As Syncfusion.Windows.Forms.Tools.DoubleTextBox
+    Friend WithEvents currencytextboxPrecioUnitario As Syncfusion.Windows.Forms.Tools.CurrencyTextBox
+    Friend WithEvents percenttextboxPrecioUnitarioDescuentoPorcentaje As Syncfusion.Windows.Forms.Tools.PercentTextBox
+    Friend WithEvents currencytextboxPrecioUnitarioDescuentoImporte As Syncfusion.Windows.Forms.Tools.CurrencyTextBox
+    Friend WithEvents currencytextboxPrecioUnitarioFinal As Syncfusion.Windows.Forms.Tools.CurrencyTextBox
+    Friend WithEvents currencytextboxPrecioTotal As Syncfusion.Windows.Forms.Tools.CurrencyTextBox
 End Class

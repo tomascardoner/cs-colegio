@@ -33,12 +33,14 @@ Partial Class formAnioLectivoCursoImporte
         Me.labelMesInicio = New System.Windows.Forms.Label()
         Me.labelImporteMatricula = New System.Windows.Forms.Label()
         Me.labelImporteCuota = New System.Windows.Forms.Label()
-        Me.textboxImporteCuota = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
-        Me.textboxImporteMatricula = New CSColegio.DesktopApplication.CS_Control_TextBox_Currency()
         Me.textboxAnioLectivo = New System.Windows.Forms.TextBox()
         Me.textboxCurso = New System.Windows.Forms.TextBox()
         Me.comboboxMesInicio = New System.Windows.Forms.ComboBox()
+        Me.currencytextboxImporteMatricula = New Syncfusion.Windows.Forms.Tools.CurrencyTextBox()
+        Me.currencytextboxImporteCuota = New Syncfusion.Windows.Forms.Tools.CurrencyTextBox()
         Me.toolstripMain.SuspendLayout()
+        CType(Me.currencytextboxImporteMatricula, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.currencytextboxImporteCuota, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'labelAnioLectivo
@@ -135,24 +137,6 @@ Partial Class formAnioLectivoCursoImporte
         Me.labelImporteCuota.TabIndex = 4
         Me.labelImporteCuota.Text = "Importe Cuota:"
         '
-        'textboxImporteCuota
-        '
-        Me.textboxImporteCuota.Location = New System.Drawing.Point(111, 165)
-        Me.textboxImporteCuota.MaxLength = 15
-        Me.textboxImporteCuota.Name = "textboxImporteCuota"
-        Me.textboxImporteCuota.Size = New System.Drawing.Size(100, 20)
-        Me.textboxImporteCuota.TabIndex = 5
-        Me.textboxImporteCuota.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'textboxImporteMatricula
-        '
-        Me.textboxImporteMatricula.Location = New System.Drawing.Point(111, 139)
-        Me.textboxImporteMatricula.MaxLength = 15
-        Me.textboxImporteMatricula.Name = "textboxImporteMatricula"
-        Me.textboxImporteMatricula.Size = New System.Drawing.Size(100, 20)
-        Me.textboxImporteMatricula.TabIndex = 3
-        Me.textboxImporteMatricula.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
         'textboxAnioLectivo
         '
         Me.textboxAnioLectivo.Location = New System.Drawing.Point(111, 58)
@@ -183,17 +167,49 @@ Partial Class formAnioLectivoCursoImporte
         Me.comboboxMesInicio.Size = New System.Drawing.Size(118, 21)
         Me.comboboxMesInicio.TabIndex = 1
         '
+        'currencytextboxImporteMatricula
+        '
+        Me.currencytextboxImporteMatricula.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.currencytextboxImporteMatricula.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxImporteMatricula.Location = New System.Drawing.Point(111, 139)
+        Me.currencytextboxImporteMatricula.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
+        Me.currencytextboxImporteMatricula.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.currencytextboxImporteMatricula.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxImporteMatricula.Name = "currencytextboxImporteMatricula"
+        Me.currencytextboxImporteMatricula.NullString = ""
+        Me.currencytextboxImporteMatricula.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
+        Me.currencytextboxImporteMatricula.Size = New System.Drawing.Size(100, 20)
+        Me.currencytextboxImporteMatricula.TabIndex = 3
+        Me.currencytextboxImporteMatricula.Text = "$ 0,00"
+        Me.currencytextboxImporteMatricula.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'currencytextboxImporteCuota
+        '
+        Me.currencytextboxImporteCuota.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.currencytextboxImporteCuota.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxImporteCuota.Location = New System.Drawing.Point(111, 165)
+        Me.currencytextboxImporteCuota.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
+        Me.currencytextboxImporteCuota.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.currencytextboxImporteCuota.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxImporteCuota.Name = "currencytextboxImporteCuota"
+        Me.currencytextboxImporteCuota.NullString = ""
+        Me.currencytextboxImporteCuota.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
+        Me.currencytextboxImporteCuota.Size = New System.Drawing.Size(100, 20)
+        Me.currencytextboxImporteCuota.TabIndex = 5
+        Me.currencytextboxImporteCuota.Text = "$ 0,00"
+        Me.currencytextboxImporteCuota.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
         'formAnioLectivoCursoImporte
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(429, 201)
+        Me.Controls.Add(Me.currencytextboxImporteCuota)
+        Me.Controls.Add(Me.currencytextboxImporteMatricula)
         Me.Controls.Add(Me.comboboxMesInicio)
         Me.Controls.Add(Me.textboxCurso)
         Me.Controls.Add(Me.textboxAnioLectivo)
         Me.Controls.Add(Me.labelImporteCuota)
-        Me.Controls.Add(Me.textboxImporteCuota)
-        Me.Controls.Add(Me.textboxImporteMatricula)
         Me.Controls.Add(Me.labelImporteMatricula)
         Me.Controls.Add(Me.labelMesInicio)
         Me.Controls.Add(Me.labelAnioLectivo)
@@ -209,6 +225,8 @@ Partial Class formAnioLectivoCursoImporte
         Me.Text = "Curso de Año Lectivo"
         Me.toolstripMain.ResumeLayout(False)
         Me.toolstripMain.PerformLayout()
+        CType(Me.currencytextboxImporteMatricula, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.currencytextboxImporteCuota, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -221,11 +239,11 @@ Partial Class formAnioLectivoCursoImporte
     Friend WithEvents buttonCerrar As System.Windows.Forms.ToolStripButton
     Friend WithEvents toolstripMain As System.Windows.Forms.ToolStrip
     Friend WithEvents labelMesInicio As System.Windows.Forms.Label
-    Friend WithEvents textboxImporteMatricula As CSColegio.DesktopApplication.CS_Control_TextBox_Currency
     Friend WithEvents labelImporteMatricula As System.Windows.Forms.Label
-    Friend WithEvents textboxImporteCuota As CSColegio.DesktopApplication.CS_Control_TextBox_Currency
     Friend WithEvents labelImporteCuota As System.Windows.Forms.Label
     Friend WithEvents textboxAnioLectivo As System.Windows.Forms.TextBox
     Friend WithEvents textboxCurso As System.Windows.Forms.TextBox
     Friend WithEvents comboboxMesInicio As System.Windows.Forms.ComboBox
+    Friend WithEvents currencytextboxImporteMatricula As Syncfusion.Windows.Forms.Tools.CurrencyTextBox
+    Friend WithEvents currencytextboxImporteCuota As Syncfusion.Windows.Forms.Tools.CurrencyTextBox
 End Class

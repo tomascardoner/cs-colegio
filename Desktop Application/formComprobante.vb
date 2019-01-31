@@ -112,7 +112,7 @@
         textboxLeyenda.ReadOnly = (mEditMode = False)
         textboxNotas.ReadOnly = (mEditMode = False)
 
-        'textboxImporteTotal.ReadOnly = (comboboxComprobanteTipo.SelectedIndex <> -1 AndAlso (mComprobanteTipoActual.UtilizaDetalle Or mComprobanteTipoActual.UtilizaMedioPago))
+        'currencytextboxImporteTotal.ReadOnly = (comboboxComprobanteTipo.SelectedIndex <> -1 AndAlso (mComprobanteTipoActual.UtilizaDetalle Or mComprobanteTipoActual.UtilizaMedioPago))
     End Sub
 
     Friend Sub InitializeFormAndControls()
@@ -160,8 +160,8 @@
                 textboxIDComprobante.Text = String.Format(.IDComprobante.ToString, "G")
             End If
             CS_ComboBox.SetSelectedValue(comboboxComprobanteTipo, SelectedItemOptions.Value, .IDComprobanteTipo)
-            textboxPuntoVenta.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.PuntoVenta)
-            textboxNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Numero)
+            textboxPuntoVenta.Text = .PuntoVenta
+            textboxNumero.Text = .Numero
             datetimepickerFechaEmision.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaEmision, datetimepickerFechaEmision)
 
             ' Fechas
@@ -211,11 +211,11 @@
             End If
 
             ' Datos del Pie - Importes Totales
-            textboxDetalle_Subtotal.Text = FormatCurrency(0)
-            textboxImpuestos_Subtotal.Text = FormatCurrency(0)
-            textboxAplicaciones_Subtotal.Text = FormatCurrency(0)
-            textboxMediosPago_Subtotal.Text = FormatCurrency(0)
-            textboxImporteTotal.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.ImporteTotal1)
+            currencytextboxDetalle_Subtotal.DecimalValue = 0
+            currencytextboxImpuestos_Subtotal.DecimalValue = 0
+            currencytextboxAplicaciones_Subtotal.DecimalValue = 0
+            currencytextboxMediosPago_Subtotal.DecimalValue = 0
+            currencytextboxImporteTotal.DecimalValue = .ImporteTotal1
 
             If .IDComprobante > 0 Then
                 If mComprobanteActual.ComprobanteTipo.UtilizaAplicacion Then
@@ -233,8 +233,8 @@
             ' Datos de la Identificación
             .IDComprobanteTipo = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxComprobanteTipo.SelectedValue, 0).Value
 
-            .PuntoVenta = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxPuntoVenta.Text)
-            .Numero = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNumero.Text)
+            .PuntoVenta = textboxPuntoVenta.Text
+            .Numero = textboxNumero.Text
 
             .FechaEmision = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFechaEmision.Value).Value
 
@@ -275,8 +275,8 @@
             .Notas = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNotas.Text.Trim)
 
             ' Datos del Pie - Importes Totales
-            .ImporteTotal1 = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteTotal.Text).Value
-            .ImporteImpuesto = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImpuestos_Subtotal.Text).Value
+            .ImporteTotal1 = currencytextboxImporteTotal.DecimalValue
+            .ImporteImpuesto = currencytextboxImpuestos_Subtotal.DecimalValue
             .ImporteSubtotal = .ImporteTotal1 - .ImporteImpuesto
         End With
     End Sub
@@ -307,9 +307,9 @@
         For Each ComprobanteDetalleActual As ComprobanteDetalle In mComprobanteActual.ComprobanteDetalle
             Total += ComprobanteDetalleActual.PrecioUnitarioFinal
         Next
-        textboxDetalle_Subtotal.Text = FormatCurrency(Total)
+        currencytextboxDetalle_Subtotal.DecimalValue = Total
         If mComprobanteTipoActual.UtilizaDetalle Then
-            textboxImporteTotal.Text = FormatCurrency(Total)
+            currencytextboxImporteTotal.DecimalValue = Total
         End If
 
         Me.Cursor = Cursors.Default
@@ -400,11 +400,11 @@
                     Total -= GridRowData_AplicacionActual.ImporteAplicado
             End Select
         Next
-        textboxAplicaciones_Subtotal.Text = FormatCurrency(Total)
+        currencytextboxAplicaciones_Subtotal.DecimalValue = Total
 
         If mComprobanteTipoActual.UtilizaDetalle = False And mComprobanteTipoActual.UtilizaMedioPago = False Then
-            textboxImporteTotal.Text = FormatCurrency(Total)
-            textboxImporteTotal.ReadOnly = (listAplicaciones.Count > 0)
+            currencytextboxImporteTotal.DecimalValue = Total
+            currencytextboxImporteTotal.ReadOnly = (listAplicaciones.Count > 0)
         End If
 
         Me.Cursor = Cursors.Default
@@ -453,8 +453,8 @@
         For Each GridRowData_MedioPagoCurrent As GridRowData_MedioPago In listMediosPago
             Total += GridRowData_MedioPagoCurrent.Importe
         Next
-        textboxMediosPago_Subtotal.Text = FormatCurrency(Total)
-        textboxImporteTotal.Text = FormatCurrency(Total)
+        currencytextboxMediosPago_Subtotal.DecimalValue = Total
+        currencytextboxImporteTotal.DecimalValue = Total
 
         Me.Cursor = Cursors.Default
 
@@ -471,7 +471,7 @@
 #End Region
 
 #Region "Controls behavior"
-    Private Sub comboboxComprobanteTipo_SelectedValueChanged() Handles comboboxComprobanteTipo.SelectedValueChanged
+    Private Sub ComprobanteTipoChanged() Handles comboboxComprobanteTipo.SelectedValueChanged
         If Not mIsLoading Then
             CambiarTipoComprobante()
             ChangeMode()
@@ -543,7 +543,7 @@
         End Using
     End Sub
 
-    Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxIDComprobante.GotFocus, textboxPuntoVenta.GotFocus, textboxNumero.GotFocus, textboxEntidad.GotFocus, textboxImporteTotal.GotFocus
+    Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxIDComprobante.GotFocus, textboxEntidad.GotFocus
         CType(sender, TextBox).SelectAll()
     End Sub
 #End Region
@@ -692,26 +692,16 @@
 
         ' Importe Total
         If mComprobanteTipoActual.UtilizaDetalle = False And mComprobanteTipoActual.UtilizaMedioPago = False Then
-            If textboxImporteTotal.Text.Trim.Length = 0 Then
-                MsgBox("Debe ingresar el Total del Comprobante.", MsgBoxStyle.Information, My.Application.Info.Title)
-                textboxImporteTotal.Focus()
-                Exit Sub
-            End If
-            If Not CS_ValueTranslation.ValidateCurrency(textboxImporteTotal.Text) Then
-                MsgBox("El Total ingresado no es válido.", MsgBoxStyle.Information, My.Application.Info.Title)
-                textboxImporteTotal.Focus()
-                Exit Sub
-            End If
-            If CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporteTotal.Text).Value <= 0 Then
+            If currencytextboxImporteTotal.IsNull Or currencytextboxImporteTotal.DecimalValue <= 0 Then
                 MsgBox("El Total debe ser mayor a cero.", MsgBoxStyle.Information, My.Application.Info.Title)
-                textboxImporteTotal.Focus()
+                currencytextboxImporteTotal.Focus()
                 Exit Sub
             End If
         End If
 
         ' Subtotales de cada solapa
         If mComprobanteTipoActual.UtilizaAplicacion Then
-            If textboxAplicaciones_Subtotal.Value > 0 AndAlso textboxAplicaciones_Subtotal.Value > textboxImporteTotal.Value Then
+            If currencytextboxAplicaciones_Subtotal.DecimalValue > 0 AndAlso currencytextboxAplicaciones_Subtotal.DecimalValue > currencytextboxImporteTotal.DecimalValue Then
                 MsgBox("El Subtotal de los Comprobantes aplicados no puede ser mayor al Total del Comprobante actual.", MsgBoxStyle.Information, My.Application.Info.Title)
                 Exit Sub
             End If
@@ -1196,7 +1186,7 @@
             End If
 
             If mComprobanteTipoActual.UtilizaDetalle = False And mComprobanteTipoActual.UtilizaMedioPago = False Then
-                textboxImporteTotal.ReadOnly = False
+                currencytextboxImporteTotal.ReadOnly = False
             End If
 
         Else

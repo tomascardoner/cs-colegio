@@ -80,11 +80,11 @@
 
             .CuotaMes = CByte(IIf(comboboxCuotaMesDesde.SelectedIndex = -1, Nothing, comboboxCuotaMesDesde.SelectedIndex + 1))
 
-            .PrecioUnitario = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxPrecioUnitario.Text).Value
-            .PrecioUnitarioDescuentoPorcentaje = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxPrecioUnitarioDescuentoPorcentaje.Text).Value
-            .PrecioUnitarioDescuentoImporte = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxPrecioUnitarioDescuentoImporte.Text).Value
-            .PrecioUnitarioFinal = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxPrecioUnitarioFinal.Text).Value
-            .PrecioTotal = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxPrecioTotal.Text).Value
+            .PrecioUnitario = currencytextboxPrecioUnitario.DecimalValue
+            .PrecioUnitarioDescuentoPorcentaje = Convert.ToDecimal(percenttextboxPrecioUnitarioDescuentoPorcentaje.DoubleValue)
+            .PrecioUnitarioDescuentoImporte = currencytextboxPrecioUnitarioDescuentoImporte.DecimalValue
+            .PrecioUnitarioFinal = currencytextboxPrecioUnitarioFinal.DecimalValue
+            .PrecioTotal = currencytextboxPrecioTotal.DecimalValue
         End With
     End Sub
 
@@ -138,12 +138,12 @@
                     PrecioUnitario = AnioLectivoCursoImporteActual.ImporteCuota
                 End If
             End If
-            textboxPrecioUnitario.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(PrecioUnitario)
+            currencytextboxPrecioUnitario.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(PrecioUnitario)
         End If
     End Sub
 
     Private Sub CalcularPrecioFinal()
-        textboxPrecioTotal.Text = textboxPrecioUnitarioFinal.Text
+        currencytextboxPrecioTotal.Text = currencytextboxPrecioUnitarioFinal.Text
     End Sub
 
 #End Region
@@ -163,10 +163,10 @@
             If comboboxAlumno.SelectedIndex > -1 Then
                 mEntidad = CType(comboboxAlumno.SelectedItem, Entidad)
                 If mEntidad.IDDescuento Is Nothing Then
-                    textboxPrecioUnitarioDescuentoPorcentaje.Text = CS_ValueTranslation.FromObjectPercentToControlTextBox(0)
+                    percenttextboxPrecioUnitarioDescuentoPorcentaje.DoubleValue = 0
                     'textboxPrecioUnitarioDescuentoImporte.Text = "0"
                 Else
-                    textboxPrecioUnitarioDescuentoPorcentaje.Text = CS_ValueTranslation.FromObjectPercentToControlTextBox(mEntidad.Descuento.Porcentaje)
+                    percenttextboxPrecioUnitarioDescuentoPorcentaje.DoubleValue = mEntidad.Descuento.Porcentaje / 100
                 End If
             End If
             EstablecerAnioLectivoCurso()
@@ -201,40 +201,30 @@
         EstablecerPrecioUnitario()
     End Sub
 
-    Private Sub PrecioUnitario_TextChanged() Handles textboxPrecioUnitario.TextChanged
+    Private Sub PrecioUnitario_TextChanged() Handles currencytextboxPrecioUnitario.DecimalValueChanged
         CalcularDescuento()
         CalcularPrecioFinal()
     End Sub
 
-    Private Sub CalcularDescuento() Handles textboxPrecioUnitarioDescuentoPorcentaje.TextChanged
+    Private Sub CalcularDescuento() Handles percenttextboxPrecioUnitarioDescuentoPorcentaje.DoubleValueChanged
         If Not mCambiandoDescuento Then
-            If CS_ValueTranslation.ValidateCurrency(textboxPrecioUnitario.Text) Then
-                If CS_ValueTranslation.ValidateDecimal(textboxPrecioUnitarioDescuentoPorcentaje.Text) Then
-                    textboxPrecioUnitarioDescuentoImporte.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxPrecioUnitario.Text) * CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxPrecioUnitarioDescuentoPorcentaje.Text) / 100)
-                    PrecioUnitarioDescuentoImporte_TextChanged()
-                End If
-            End If
+            currencytextboxPrecioUnitarioDescuentoImporte.DecimalValue = currencytextboxPrecioUnitario.DecimalValue * Convert.ToDecimal(percenttextboxPrecioUnitarioDescuentoPorcentaje.DoubleValue)
+            PrecioUnitarioDescuentoImporte_TextChanged()
         End If
     End Sub
 
-    Private Sub PrecioUnitarioDescuentoImporte_KeyPressed() Handles textboxPrecioUnitarioDescuentoImporte.KeyPress
+    Private Sub PrecioUnitarioDescuentoImporte_KeyPressed() Handles currencytextboxPrecioUnitarioDescuentoImporte.KeyPress
         mCambiandoDescuento = True
-        textboxPrecioUnitarioDescuentoPorcentaje.Text = "0"
+        percenttextboxPrecioUnitarioDescuentoPorcentaje.DoubleValue = 0
         mCambiandoDescuento = False
     End Sub
 
-    Private Sub PrecioUnitarioDescuentoImporte_TextChanged() Handles textboxPrecioUnitarioDescuentoImporte.TextChanged
-        If CS_ValueTranslation.ValidateCurrency(textboxPrecioUnitario.Text) Then
-            If CS_ValueTranslation.ValidateCurrency(textboxPrecioUnitarioDescuentoImporte.Text) AndAlso CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxPrecioUnitarioDescuentoImporte.Text) > 0 Then
-                textboxPrecioUnitarioFinal.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxPrecioUnitario.Text) - CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxPrecioUnitarioDescuentoImporte.Text))
-            Else
-                textboxPrecioUnitarioFinal.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxPrecioUnitario.Text))
-            End If
-        End If
+    Private Sub PrecioUnitarioDescuentoImporte_TextChanged() Handles currencytextboxPrecioUnitarioDescuentoImporte.DecimalValueChanged
+        currencytextboxPrecioUnitarioFinal.DecimalValue = currencytextboxPrecioUnitario.DecimalValue - currencytextboxPrecioUnitarioDescuentoImporte.DecimalValue
         CalcularPrecioFinal()
     End Sub
 
-    Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxPrecioUnitario.GotFocus, textboxPrecioUnitarioDescuentoPorcentaje.GotFocus, textboxPrecioUnitarioDescuentoImporte.GotFocus, textboxPrecioUnitarioFinal.GotFocus, textboxPrecioTotal.GotFocus
+    Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs)
         CType(sender, TextBox).SelectAll()
     End Sub
 #End Region
@@ -271,28 +261,6 @@
             comboboxCuotaMesHasta.Focus()
             Exit Sub
         End If
-
-        If textboxPrecioUnitario.Text.Trim.Length = 0 Then
-            MsgBox("Debe ingresar el Importe.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxPrecioUnitario.Focus()
-            Exit Sub
-        End If
-        If Not CS_ValueTranslation.ValidateCurrency(textboxPrecioUnitario.Text) Then
-            MsgBox("El Importe ingresado no es válido.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxPrecioUnitario.Focus()
-            Exit Sub
-        End If
-
-        '##########################################
-        ' Update by: Tomas Cardoner
-        ' Date: 13/03/2016
-        ' Description: Commented for no cero checking to allow a General discount item without amount, and only applied in discount field
-        'If CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxPrecioUnitario.Text).Value <= 0 Then
-        '    MsgBox("El Importe debe ser mayor a cero.", MsgBoxStyle.Information, My.Application.Info.Title)
-        '    textboxPrecioUnitario.Focus()
-        '    Exit Sub
-        'End If
-        '##########################################
 
         For Indice As Integer = comboboxCuotaMesDesde.SelectedIndex + 1 To comboboxCuotaMesHasta.SelectedIndex + 1
             Dim ComprobanteDetalleActual As New ComprobanteDetalle

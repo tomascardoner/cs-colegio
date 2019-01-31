@@ -44,7 +44,7 @@
         textboxCuenta.ReadOnly = (mEditMode = False)
         textboxTitular.ReadOnly = (mEditMode = False)
         comboboxCaja.Enabled = mEditMode
-        textboxImporte.ReadOnly = (mEditMode = False)
+        currencytextboxImporte.ReadOnly = (mEditMode = False)
     End Sub
 
     Friend Sub InitializeFormAndControls()
@@ -95,7 +95,7 @@
             End If
 
             CS_ComboBox.SetSelectedValue(comboboxCaja, SelectedItemOptions.Value, .IDCaja, CByte(0))
-            textboxImporte.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.Importe)
+            currencytextboxImporte.DecimalValue = .Importe
         End With
     End Sub
 
@@ -130,7 +130,7 @@
             End If
 
             .IDCaja = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxCaja.SelectedValue, 0).Value
-            .Importe = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporte.Text).Value
+            .Importe = currencytextboxImporte.DecimalValue
         End With
     End Sub
 #End Region
@@ -221,19 +221,9 @@
             comboboxCaja.Focus()
             Exit Sub
         End If
-        If textboxImporte.Text.Trim.Length = 0 Then
-            MsgBox("Debe ingresar el Importe.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxImporte.Focus()
-            Exit Sub
-        End If
-        If Not CS_ValueTranslation.ValidateCurrency(textboxImporte.Text) Then
-            MsgBox("El Importe ingresado no es válido.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxImporte.Focus()
-            Exit Sub
-        End If
-        If CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporte.Text).Value <= 0 Then
+        If currencytextboxImporte.DecimalValue <= 0 Then
             MsgBox("El Importe debe ser mayor a cero.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxImporte.Focus()
+            currencytextboxImporte.Focus()
             Exit Sub
         End If
 

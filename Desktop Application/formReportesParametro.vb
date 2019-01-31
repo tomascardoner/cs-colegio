@@ -6,15 +6,16 @@
 
         mParametroActual = ParametroActual
 
-        textboxMoney.Visible = (mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_MONEY)
+        doubletextboxNumber.Visible = (mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_DECIMAL Or mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_DECIMAL)
+        currencytextboxMoney.Visible = (mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_MONEY)
         datetimepickerValor.Visible = (mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_DATE Or mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_DATETIME)
 
         If Not mParametroActual.Valor Is Nothing Then
             Select Case mParametroActual.Tipo
                 Case Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_INTEGER, Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_DECIMAL
-                    textboxNumber.Text = CStr(mParametroActual.Valor)
+                    doubletextboxNumber.Text = CStr(mParametroActual.Valor)
                 Case Constantes.REPORTE_PARAMETRO_TIPO_MONEY
-                    textboxMoney.Text = CStr(mParametroActual.Valor)
+                    currencytextboxMoney.Text = CStr(mParametroActual.Valor)
                 Case Constantes.REPORTE_PARAMETRO_TIPO_DATE
                     datetimepickerValor.Value = CDate(mParametroActual.Valor)
             End Select
@@ -24,9 +25,9 @@
     Private Sub buttonAceptar_Click(sender As Object, e As EventArgs) Handles buttonAceptar.Click
         Select Case mParametroActual.Tipo
             Case Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_INTEGER, Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_DECIMAL
-                mParametroActual.Valor = textboxNumber.Value
+                mParametroActual.Valor = doubletextboxNumber.DoubleValue
             Case Constantes.REPORTE_PARAMETRO_TIPO_MONEY
-                mParametroActual.Valor = textboxMoney.Value
+                mParametroActual.Valor = currencytextboxMoney.DecimalValue
             Case Constantes.REPORTE_PARAMETRO_TIPO_DATE
                 mParametroActual.Valor = datetimepickerValor.Value
         End Select

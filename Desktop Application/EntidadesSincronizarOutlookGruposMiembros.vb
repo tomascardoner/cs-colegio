@@ -5,7 +5,7 @@ Module EntidadesSincronizarOutlookGruposMiembros
         Dim EntidadesIDVerificados As List(Of Integer) = Nothing
         Dim EntidadesAAgregar As List(Of Entidad)
 
-        If VerificarMiembrosEnOutlook(OutlookDistListItem, Entidades, EntidadesIDVerificados, ProgressBarToUpdate) Then
+        If VerificarMiembrosEnOutlook(OutlookApplication, OutlookDistListItem, Entidades, EntidadesIDVerificados, ProgressBarToUpdate) Then
             If Entidades.Count > EntidadesIDVerificados.Count Then
                 EntidadesAAgregar = (From dbe In Entidades Where Not EntidadesIDVerificados.Contains(dbe.IDEntidad)).ToList
 
@@ -27,7 +27,7 @@ Module EntidadesSincronizarOutlookGruposMiembros
     ''' <param name="EntidadIDVerificados">Lista de IDs de Entidades verificadas</param>
     ''' <param name="ProgressBarToUpdate">Control progress bar para mostrar el progreso</param>
     ''' <returns>True si no hubo error</returns>
-    Private Function VerificarMiembrosEnOutlook(ByRef OutlookDistListItem As Outlook.DistListItem, ByRef Entidades As List(Of Entidad), ByRef EntidadIDVerificados As List(Of Integer), ByRef ProgressBarToUpdate As ProgressBar) As Boolean
+    Private Function VerificarMiembrosEnOutlook(ByRef OutlookApplication As Outlook.Application, ByRef OutlookDistListItem As Outlook.DistListItem, ByRef Entidades As List(Of Entidad), ByRef EntidadIDVerificados As List(Of Integer), ByRef ProgressBarToUpdate As ProgressBar) As Boolean
         Dim OutlookRecipient As Outlook.Recipient
         Dim OutlookAddressEntry As Outlook.AddressEntry
         Dim OutlookContactItem As Outlook.ContactItem
@@ -49,7 +49,7 @@ Module EntidadesSincronizarOutlookGruposMiembros
                 ' Verifico si el contacto existe en la base de datos
                 OutlookAddressEntry = OutlookRecipient.AddressEntry
                 If Not OutlookAddressEntry Is Nothing Then
-                    OutlookContactItem = OutlookAddressEntry.GetContact
+                    OutlookContactItem = CType(OutlookApplication.GetNamespace("MAPI").GetItemFromID(Strings.Right(OutlookAddressEntry.ID, 48)), Outlook.ContactItem)
                     If Not OutlookContactItem Is Nothing Then
                         OutlookUserProperty = OutlookContactItem.UserProperties.Find(OUTLOOK_USERPROPERTYNAME_CONTACTO_ENTIDAD)
                         If Not OutlookUserProperty Is Nothing Then

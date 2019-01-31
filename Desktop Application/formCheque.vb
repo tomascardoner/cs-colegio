@@ -73,7 +73,7 @@
             datetimepickerFechaEmision.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaEmision)
             datetimepickerFechaPago.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaPago)
             textboxNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Numero)
-            textboxImporte.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.Importe)
+            currencytextboxImporte.DecimalValue = .Importe
             textboxCuenta.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Cuenta)
             maskedtextboxCUIT.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.CUIT)
             textboxTitular.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Titular)
@@ -92,14 +92,14 @@
             .Cuenta = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxCuenta.Text)
             .Titular = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxTitular.Text)
             .IDCaja = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxCaja.SelectedValue, 0).Value
-            .Importe = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporte.Text).Value
+            .Importe = currencytextboxImporte.DecimalValue
         End With
         With mComprobanteMedioPagoActual.Cheque
             .IDBanco = CS_ValueTranslation.FromControlComboBoxToObjectShort(comboboxBanco.SelectedValue, 0).Value
             .FechaEmision = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFechaEmision.Value)
             .FechaPago = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFechaPago.Value)
             .Numero = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNumero.Text)
-            .Importe = CS_ValueTranslation.FromControlTextBoxToObjectDecimal(textboxImporte.Text).Value
+            .Importe = currencytextboxImporte.DecimalValue
             .Cuenta = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxCuenta.Text)
             .CUIT = CS_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxCUIT.Text)
             .Titular = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxTitular.Text)
@@ -165,14 +165,9 @@
             Exit Sub
         End If
 
-        If textboxImporte.Text.Trim.Length = 0 Then
-            MsgBox("Debe ingresar el Importe.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxImporte.Focus()
-            Exit Sub
-        End If
-        If Not CS_ValueTranslation.ValidateCurrency(textboxImporte.Text) Then
-            MsgBox("El Importe ingresado no es válido.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxImporte.Focus()
+        If currencytextboxImporte.DecimalValue = 0 Then
+            MsgBox("Debe ingresar el Importe del Cheque.", MsgBoxStyle.Information, My.Application.Info.Title)
+            currencytextboxImporte.Focus()
             Exit Sub
         End If
 
