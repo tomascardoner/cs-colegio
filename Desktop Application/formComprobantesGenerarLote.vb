@@ -388,6 +388,9 @@ Public Class formComprobantesGenerarLote
         Dim LoteNombre As String
         Dim listAlumno_AnioLectivoCurso_AFacturar As New List(Of Alumno_AnioLectivoCurso_AFacturar)
         Dim Alumno_AnioLectivoCurso_AFacturarNuevo As Alumno_AnioLectivoCurso_AFacturar
+        Dim DiasDelMes As Byte
+        Dim DiaVencimiento2 As Byte
+        Dim DiaVencimiento3 As Byte
 
         If datetimepickerFechaVencimiento.Checked Then
             If datetimepickerFechaVencimiento.Value.CompareTo(mFechaEmision) < 0 Then
@@ -441,7 +444,16 @@ Public Class formComprobantesGenerarLote
                 listAlumno_AnioLectivoCurso_AFacturar.Add(Alumno_AnioLectivoCurso_AFacturarNuevo)
             Next
 
-            If ModuloComprobantes.GenerarComprobantes(mFechaEmision, datetimepickerFechaVencimiento.Value, New Date(datetimepickerFechaVencimiento.Value.Year, datetimepickerFechaVencimiento.Value.Month, CS_Parameter_System.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO2_DIA)), New Date(datetimepickerFechaVencimiento.Value.Year, datetimepickerFechaVencimiento.Value.Month, CS_Parameter_System.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO3_DIA)), mFechaServicioDesde, mFechaServicioHasta, Constantes.COMPROBANTE_CONCEPTO_SERVICIOS, mFacturaLote.IDComprobanteLote, mAnioLectivo, mMesAFacturar, False, listAlumno_AnioLectivoCurso_AFacturar, mlistFacturas) Then
+            DiasDelMes = Convert.ToByte(DateTime.DaysInMonth(datetimepickerFechaVencimiento.Value.Year, datetimepickerFechaVencimiento.Value.Month))
+            DiaVencimiento2 = CS_Parameter_System.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO2_DIA)
+            If DiaVencimiento2 > DiasDelMes Then
+                DiaVencimiento2 = DiasDelMes
+            End If
+            DiaVencimiento3 = CS_Parameter_System.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO3_DIA)
+            If DiaVencimiento3 > DiasDelMes Then
+                DiaVencimiento3 = DiasDelMes
+            End If
+            If ModuloComprobantes.GenerarComprobantes(mFechaEmision, datetimepickerFechaVencimiento.Value, New Date(datetimepickerFechaVencimiento.Value.Year, datetimepickerFechaVencimiento.Value.Month, DiaVencimiento2), New Date(datetimepickerFechaVencimiento.Value.Year, datetimepickerFechaVencimiento.Value.Month, DiaVencimiento3), mFechaServicioDesde, mFechaServicioHasta, Constantes.COMPROBANTE_CONCEPTO_SERVICIOS, mFacturaLote.IDComprobanteLote, mAnioLectivo, mMesAFacturar, False, listAlumno_AnioLectivoCurso_AFacturar, mlistFacturas) Then
 
                 datagridviewPaso3Cabecera.AutoGenerateColumns = False
                 datagridviewPaso3Cabecera.DataSource = mlistFacturas
