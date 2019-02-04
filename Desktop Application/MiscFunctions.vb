@@ -203,40 +203,40 @@ Module MiscFunctions
             With Destinatario
                 Select Case .ComprobanteEnviarEmail
                     Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_CUALQUIERA
-                        If (Not .Email1 Is Nothing) AndAlso (Not .VerificarEmail1) Then
+                        If Not .Email1 Is Nothing Then
                             colMailDestinatarios.Add(New MailAddress(.Email1, .ApellidoNombre))
                             DestinatariosCount += 1
-                        ElseIf (Not .Email2 Is Nothing) AndAlso (Not .VerificarEmail2) Then
+                        ElseIf Not .Email2 Is Nothing Then
                             colMailDestinatarios.Add(New MailAddress(.Email2, .ApellidoNombre))
                             DestinatariosCount += 1
                         End If
                     Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO
                         If ForzarEnvio Then
-                            If (Not .Email1 Is Nothing) AndAlso (Not .VerificarEmail1) Then
+                            If Not .Email1 Is Nothing Then
                                 colMailDestinatarios.Add(New MailAddress(.Email1, .ApellidoNombre))
                                 DestinatariosCount += 1
                             End If
-                            If (Not .Email2 Is Nothing) AndAlso (Not .VerificarEmail2) Then
+                            If Not .Email2 Is Nothing Then
                                 colMailDestinatarios.Add(New MailAddress(.Email2, .ApellidoNombre))
                                 DestinatariosCount += 1
                             End If
                         End If
                     Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_AMBAS
-                        If (Not .Email1 Is Nothing) AndAlso (Not .VerificarEmail1) Then
+                        If Not .Email1 Is Nothing Then
                             colMailDestinatarios.Add(New MailAddress(.Email1, .ApellidoNombre))
                             DestinatariosCount += 1
                         End If
-                        If (Not .Email2 Is Nothing) AndAlso (Not .VerificarEmail2) Then
+                        If Not .Email2 Is Nothing Then
                             colMailDestinatarios.Add(New MailAddress(.Email2, .ApellidoNombre))
                             DestinatariosCount += 1
                         End If
                     Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL1
-                        If (Not .Email1 Is Nothing) AndAlso (Not .VerificarEmail1) Then
+                        If Not .Email1 Is Nothing Then
                             colMailDestinatarios.Add(New MailAddress(.Email1, .ApellidoNombre))
                             DestinatariosCount += 1
                         End If
                     Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2
-                        If (Not .Email2 Is Nothing) AndAlso (Not .VerificarEmail2) Then
+                        If Not .Email2 Is Nothing Then
                             colMailDestinatarios.Add(New MailAddress(.Email2, .ApellidoNombre))
                             DestinatariosCount += 1
                         End If
