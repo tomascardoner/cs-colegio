@@ -164,10 +164,10 @@
                 mdbContext.SaveChanges()
 
                 ' Refresco la lista de Cursos de Años Lectivos para mostrar los cambios
-                If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formAniosLectivosCursos") Then
-                    Dim formAniosLectivosCursos As formAnioLectivoCursos = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formAniosLectivosCursos"), formAnioLectivoCursos)
-                    formAniosLectivosCursos.RefreshData(mAnioLectivoCursoActual.IDAnioLectivoCurso)
-                    formAniosLectivosCursos = Nothing
+                If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formAnioLectivoCursos") Then
+                    Dim formAnioLectivoCursos As formAnioLectivoCursos = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formAnioLectivoCursos"), formAnioLectivoCursos)
+                    formAnioLectivoCursos.RefreshData(mAnioLectivoCursoActual.IDAnioLectivoCurso)
+                    formAnioLectivoCursos = Nothing
                 End If
 
             Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
