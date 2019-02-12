@@ -313,9 +313,11 @@
 
                 ' Agrego los Alumnos a los Cursos indicados
                 For Each GridRowData_AlumnoCursoActual As GridRowData_AlumnoCurso In listAlumnosCursos
-                    EntidadActual = dbContext.Entidad.Find(GridRowData_AlumnoCursoActual.Entidad.IDEntidad)
-                    AnioLectivoCursoActual = dbContext.AnioLectivoCurso.Find(GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo.IDAnioLectivoCurso)
-                    AnioLectivoCursoActual.Entidades.Add(EntidadActual)
+                    If GridRowData_AlumnoCursoActual.Seleccionado Then
+                        EntidadActual = dbContext.Entidad.Find(GridRowData_AlumnoCursoActual.Entidad.IDEntidad)
+                        AnioLectivoCursoActual = dbContext.AnioLectivoCurso.Find(GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo.IDAnioLectivoCurso)
+                        AnioLectivoCursoActual.Entidades.Add(EntidadActual)
+                    End If
                 Next
                 ' Agrego las Facturas generadas
                 dbContext.Comprobante.AddRange(listFacturas)

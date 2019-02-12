@@ -411,7 +411,7 @@
             Exit Sub
         End If
 
-        If doubletextboxCantidad.IsNull Then
+        If doubletextboxCantidad.DoubleValue = 0 Then
             MsgBox("Debe ingresar la Cantidad.", MsgBoxStyle.Information, My.Application.Info.Title)
             doubletextboxCantidad.Focus()
             Exit Sub

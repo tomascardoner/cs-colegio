@@ -205,9 +205,9 @@ Partial Class formComprobanteDetalle
         Me.labelUnidad.AutoSize = True
         Me.labelUnidad.Location = New System.Drawing.Point(12, 107)
         Me.labelUnidad.Name = "labelUnidad"
-        Me.labelUnidad.Size = New System.Drawing.Size(44, 13)
+        Me.labelUnidad.Size = New System.Drawing.Size(97, 13)
         Me.labelUnidad.TabIndex = 4
-        Me.labelUnidad.Text = "Unidad:"
+        Me.labelUnidad.Text = "Unidad de Medida:"
         '
         'textboxDescripcion
         '
@@ -284,18 +284,18 @@ Partial Class formComprobanteDetalle
         '
         'doubletextboxCantidad
         '
-        Me.doubletextboxCantidad.AllowNull = True
         Me.doubletextboxCantidad.BeforeTouchSize = New System.Drawing.Size(69, 20)
-        Me.doubletextboxCantidad.DoubleValue = 0R
+        Me.doubletextboxCantidad.DoubleValue = 1.0R
         Me.doubletextboxCantidad.Location = New System.Drawing.Point(123, 78)
         Me.doubletextboxCantidad.MaxValue = 999999.99R
         Me.doubletextboxCantidad.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
-        Me.doubletextboxCantidad.MinValue = 0.01R
+        Me.doubletextboxCantidad.MinValue = 0R
         Me.doubletextboxCantidad.Name = "doubletextboxCantidad"
         Me.doubletextboxCantidad.NullString = ""
         Me.doubletextboxCantidad.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
         Me.doubletextboxCantidad.Size = New System.Drawing.Size(69, 20)
         Me.doubletextboxCantidad.TabIndex = 3
+        Me.doubletextboxCantidad.Text = "1,00"
         Me.doubletextboxCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'currencytextboxPrecioUnitario
