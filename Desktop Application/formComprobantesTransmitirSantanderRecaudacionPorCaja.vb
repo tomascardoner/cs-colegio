@@ -101,6 +101,8 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
         Dim DetalleCount As Integer = 0
         Dim DetalleImporteTotal As Decimal = 0
 
+        Dim InteresTasaNominalAnual As Decimal
+
         Dim FolderName As String
         Dim FileName As String
 
@@ -120,6 +122,8 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
 
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
+
+        InteresTasaNominalAnual = CS_Parameter_System.GetDecimal(Parametros.INTERES_TASA_NOMINAL_ANUAL)
 
         Using outputFile As New StreamWriter(FolderName & FileName, False, New System.Text.UTF8Encoding)
 
@@ -146,8 +150,8 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
                         DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.AddDays(10).ToString("yyyyMMdd")      ' Fecha 2do. vencimiento
                         DetalleTextStream &= ComprobanteActual.ImporteTotal1.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 2do. vencimiento
                     End If
-                    DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.AddMonths(6).ToString("yyyyMMdd") ' Fecha Vto. Punitorios
-                    DetalleTextStream &= "0003600"                                                          ' TNA
+                    DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.AddMonths(1).ToString("yyyyMMdd") ' Fecha Vto. Punitorios
+                    DetalleTextStream &= InteresTasaNominalAnual.ToString("00000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "") ' TNA
                     DetalleTextStream &= "S"                                                                ' Publica con Nro. Cliente Empresa
                     DetalleTextStream &= "00000000"                                                         ' Fecha Pronto Pago
                     DetalleTextStream &= StrDup(15, "0"c)                                                   ' Importe Pronto Pago
