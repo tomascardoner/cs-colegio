@@ -29,9 +29,12 @@ Partial Class formReportesParametro
         Me.datetimepickerValor = New System.Windows.Forms.DateTimePicker()
         Me.currencytextboxMoney = New Syncfusion.Windows.Forms.Tools.CurrencyTextBox()
         Me.doubletextboxNumber = New Syncfusion.Windows.Forms.Tools.DoubleTextBox()
+        Me.comboboxValues = New System.Windows.Forms.ComboBox()
+        Me.integertextboxNumber = New Syncfusion.Windows.Forms.Tools.IntegerTextBox()
         Me.toolstripMain.SuspendLayout()
         CType(Me.currencytextboxMoney, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.doubletextboxNumber, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.integertextboxNumber, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'toolstripMain
@@ -114,11 +117,37 @@ Partial Class formReportesParametro
         Me.doubletextboxNumber.Text = "0,00"
         Me.doubletextboxNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
+        'comboboxValues
+        '
+        Me.comboboxValues.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxValues.FormattingEnabled = True
+        Me.comboboxValues.Location = New System.Drawing.Point(61, 65)
+        Me.comboboxValues.Name = "comboboxValues"
+        Me.comboboxValues.Size = New System.Drawing.Size(195, 21)
+        Me.comboboxValues.TabIndex = 34
+        '
+        'integertextboxNumber
+        '
+        Me.integertextboxNumber.AllowNull = True
+        Me.integertextboxNumber.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.integertextboxNumber.IntegerValue = CType(0, Long)
+        Me.integertextboxNumber.Location = New System.Drawing.Point(61, 65)
+        Me.integertextboxNumber.MaxValue = CType(9999999, Long)
+        Me.integertextboxNumber.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.integertextboxNumber.MinValue = CType(0, Long)
+        Me.integertextboxNumber.Name = "integertextboxNumber"
+        Me.integertextboxNumber.NullString = ""
+        Me.integertextboxNumber.Size = New System.Drawing.Size(69, 20)
+        Me.integertextboxNumber.TabIndex = 35
+        Me.integertextboxNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
         'formReportesParametro
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(268, 105)
+        Me.Controls.Add(Me.integertextboxNumber)
+        Me.Controls.Add(Me.comboboxValues)
         Me.Controls.Add(Me.doubletextboxNumber)
         Me.Controls.Add(Me.currencytextboxMoney)
         Me.Controls.Add(Me.datetimepickerValor)
@@ -135,6 +164,7 @@ Partial Class formReportesParametro
         Me.toolstripMain.PerformLayout()
         CType(Me.currencytextboxMoney, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.doubletextboxNumber, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.integertextboxNumber, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -146,4 +176,6 @@ Partial Class formReportesParametro
     Friend WithEvents datetimepickerValor As System.Windows.Forms.DateTimePicker
     Friend WithEvents currencytextboxMoney As Syncfusion.Windows.Forms.Tools.CurrencyTextBox
     Friend WithEvents doubletextboxNumber As Syncfusion.Windows.Forms.Tools.DoubleTextBox
+    Friend WithEvents comboboxValues As ComboBox
+    Friend WithEvents integertextboxNumber As Syncfusion.Windows.Forms.Tools.IntegerTextBox
 End Class

@@ -6,23 +6,40 @@
 
         mParametroActual = ParametroActual
 
-        doubletextboxNumber.Visible = (mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_DECIMAL Or mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_DECIMAL)
+        integertextboxNumber.Visible = (mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_INTEGER)
+        doubletextboxNumber.Visible = (mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_DECIMAL)
         currencytextboxMoney.Visible = (mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_MONEY)
         datetimepickerValor.Visible = (mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_DATE Or mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_DATETIME)
+        comboboxValues.Visible = (mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_YEAR Or mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_MONTH)
 
-        If Not mParametroActual.Valor Is Nothing Then
-            Select Case mParametroActual.Tipo
-                Case Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_INTEGER, Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_DECIMAL
+
+        Select Case mParametroActual.Tipo
+            Case Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_INTEGER, Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_DECIMAL
+                If Not mParametroActual.Valor Is Nothing Then
                     doubletextboxNumber.Text = CStr(mParametroActual.Valor)
-                Case Constantes.REPORTE_PARAMETRO_TIPO_MONEY
+                End If
+            Case Constantes.REPORTE_PARAMETRO_TIPO_MONEY
+                If Not mParametroActual.Valor Is Nothing Then
                     currencytextboxMoney.Text = CStr(mParametroActual.Valor)
-                Case Constantes.REPORTE_PARAMETRO_TIPO_DATE
+                End If
+            Case Constantes.REPORTE_PARAMETRO_TIPO_DATE
+                If Not mParametroActual.Valor Is Nothing Then
                     datetimepickerValor.Value = CDate(mParametroActual.Valor)
-            End Select
-        End If
+                End If
+            Case Constantes.REPORTE_PARAMETRO_TIPO_YEAR
+                pFillAndRefreshLists.AnioLectivo(comboboxValues, False, SortOrder.Descending)
+                If Not mParametroActual.Valor Is Nothing Then
+                    CS_ComboBox.SetSelectedValue(comboboxValues, SelectedItemOptions.ValueOrFirstIfUnique, mParametroActual.Valor)
+                End If
+            Case Constantes.REPORTE_PARAMETRO_TIPO_MONTH
+                pFillAndRefreshLists.Mes(comboboxValues, True, False, True, False, False)
+                If Not mParametroActual.Valor Is Nothing Then
+                    comboboxValues.SelectedIndex = CInt(mParametroActual.Valor) - 1
+                End If
+        End Select
     End Sub
 
-    Private Sub buttonAceptar_Click(sender As Object, e As EventArgs) Handles buttonAceptar.Click
+    Private Sub Aceptar_Click(sender As Object, e As EventArgs) Handles buttonAceptar.Click
         Select Case mParametroActual.Tipo
             Case Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_INTEGER, Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_DECIMAL
                 mParametroActual.Valor = doubletextboxNumber.DoubleValue
@@ -30,16 +47,30 @@
                 mParametroActual.Valor = currencytextboxMoney.DecimalValue
             Case Constantes.REPORTE_PARAMETRO_TIPO_DATE
                 mParametroActual.Valor = datetimepickerValor.Value
+            Case Constantes.REPORTE_PARAMETRO_TIPO_YEAR
+                If comboboxValues.SelectedIndex = -1 Then
+                    MsgBox("Debe seleccionar un Año.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    comboboxValues.Focus()
+                    Exit Sub
+                End If
+                mParametroActual.Valor = comboboxValues.Text
+            Case Constantes.REPORTE_PARAMETRO_TIPO_MONTH
+                If comboboxValues.SelectedIndex = -1 Then
+                    MsgBox("Debe seleccionar un Mes.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    comboboxValues.Focus()
+                    Exit Sub
+                End If
+                mParametroActual.Valor = comboboxValues.SelectedIndex + 1
         End Select
 
         Me.DialogResult = Windows.Forms.DialogResult.OK
     End Sub
 
-    Private Sub buttonCancelar_Click(sender As Object, e As EventArgs) Handles buttonCancelar.Click
+    Private Sub Cancelar_Click(sender As Object, e As EventArgs) Handles buttonCancelar.Click
         Me.DialogResult = Windows.Forms.DialogResult.Cancel
     End Sub
 
-    Private Sub formReportesParametro_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub Me_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         mParametroActual = Nothing
     End Sub
 End Class

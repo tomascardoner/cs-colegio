@@ -277,6 +277,10 @@ Partial Public Class ReporteParametro
                         Return ""
                     Case Constantes.REPORTE_PARAMETRO_TIPO_YEAR_MONTH_TO
                         Return ""
+                    Case Constantes.REPORTE_PARAMETRO_TIPO_YEAR
+                        Return mValor.ToString
+                    Case Constantes.REPORTE_PARAMETRO_TIPO_MONTH
+                        Return DateAndTime.MonthName(CInt(mValor))
                     Case Constantes.REPORTE_PARAMETRO_TIPO_SINO
                         If CBool(mValor) Then
                             Return My.Resources.STRING_YES
