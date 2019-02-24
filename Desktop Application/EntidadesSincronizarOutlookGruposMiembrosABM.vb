@@ -19,14 +19,14 @@ Module EntidadesSincronizarOutlookGruposMiembrosABM
         End Try
     End Function
 
-    Friend Function BorrarRecipiente(ByRef OutlookRecipient As Outlook.Recipient, ByVal GrupoNombre As String, ByVal DebugMessageReason As String) As Boolean
+    Friend Function BorrarRecipiente(ByRef OutlookRecipient As Outlook.Recipient, ByVal OutlookDistListItem As Outlook.DistListItem, ByVal DebugMessageReason As String) As Boolean
         Try
-            Debug.Print(String.Format("Outlook Sync - Contacts Group Bember - Delete - {0}: {1}", DebugMessageReason, OutlookRecipient.Name))
-            OutlookRecipient.Delete()
+            Debug.Print(String.Format("Outlook Sync - Contacts Group Member - Delete - {0}: {1}", DebugMessageReason, OutlookRecipient.Name))
+            OutlookDistListItem.RemoveMember(OutlookRecipient)
             Return True
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, String.Format("Error al borrar el Contacto ({1}) del Grupo ({0}) en Microsoft Outlook.", GrupoNombre, OutlookRecipient.Name))
+            CS_Error.ProcessError(ex, String.Format("Error al borrar el Contacto ({1}) del Grupo ({0}) en Microsoft Outlook.", OutlookDistListItem.DLName, OutlookRecipient.Name))
             Return False
         End Try
     End Function

@@ -13,10 +13,10 @@ Module EntidadesSincronizarOutlookGruposMiembros
                     Return False
                 End If
             End If
+            Return True
         Else
             Return False
         End If
-        Return True
     End Function
 
     ''' <summary>
@@ -36,6 +36,8 @@ Module EntidadesSincronizarOutlookGruposMiembros
         Dim IDEntidad As Integer
         Dim ItemIndex As Integer = 0
 
+        Dim HayAlgunRecipienteBorrado As Boolean = False
+
         EntidadIDVerificados = New List(Of Integer)
 
         Try
@@ -49,7 +51,9 @@ Module EntidadesSincronizarOutlookGruposMiembros
                 ' Verifico si el contacto existe en la base de datos
                 OutlookAddressEntry = OutlookRecipient.AddressEntry
                 If Not OutlookAddressEntry Is Nothing Then
+                    ' Esto funciona siempre y cuando no haya un contacto con la misma dirección de e-mail en otra carpeta de contactos
                     OutlookContactItem = CType(OutlookApplication.GetNamespace("MAPI").GetItemFromID(Strings.Right(OutlookAddressEntry.ID, 48)), Outlook.ContactItem)
+
                     If Not OutlookContactItem Is Nothing Then
                         OutlookUserProperty = OutlookContactItem.UserProperties.Find(OUTLOOK_USERPROPERTYNAME_CONTACTO_ENTIDAD)
                         If Not OutlookUserProperty Is Nothing Then
@@ -58,24 +62,35 @@ Module EntidadesSincronizarOutlookGruposMiembros
                                 If Entidades.Exists(Function(e) e.IDEntidad = IDEntidad) Then
                                     If EntidadIDVerificados.Contains(IDEntidad) Then
                                         ' Ya está en la Lista de IDs verificados, esto quiere decir que está duplicado, por lo tanto, lo borro
-                                        EntidadesSincronizarOutlookGruposMiembrosABM.BorrarRecipiente(OutlookRecipient, OutlookDistListItem.DLName, "Duplicated")
+                                        If EntidadesSincronizarOutlookGruposMiembrosABM.BorrarRecipiente(OutlookRecipient, OutlookDistListItem, "Duplicated") Then
+                                            HayAlgunRecipienteBorrado = True
+                                        End If
                                     Else
                                         ' Está ok, agrego el ID a la lista de Verificados
                                         EntidadIDVerificados.Add(IDEntidad)
                                     End If
                                 Else
                                     ' El contacto no existe en la base de datos
-                                    EntidadesSincronizarOutlookGruposMiembrosABM.BorrarRecipiente(OutlookRecipient, OutlookDistListItem.DLName, "Doesn't exists anymore in DB or is inactive")
+                                    If EntidadesSincronizarOutlookGruposMiembrosABM.BorrarRecipiente(OutlookRecipient, OutlookDistListItem, "Doesn't exists anymore in DB or is inactive") Then
+                                        HayAlgunRecipienteBorrado = True
+                                    End If
                                 End If
                             Else
                                 ' El IDEntidad es erróneo, borro el Recipiente del grupo
-                                EntidadesSincronizarOutlookGruposMiembrosABM.BorrarRecipiente(OutlookRecipient, OutlookDistListItem.DLName, "ID field wrong format")
+                                If EntidadesSincronizarOutlookGruposMiembrosABM.BorrarRecipiente(OutlookRecipient, OutlookDistListItem, "ID field wrong format") Then
+                                    HayAlgunRecipienteBorrado = True
+                                End If
                             End If
                         Else
                             ' No tiene especificado el IDEntidad, borro el Recipiente del grupo
-                            EntidadesSincronizarOutlookGruposMiembrosABM.BorrarRecipiente(OutlookRecipient, OutlookDistListItem.DLName, "Doesn't belongs to system")
+                            If EntidadesSincronizarOutlookGruposMiembrosABM.BorrarRecipiente(OutlookRecipient, OutlookDistListItem, "Doesn't belongs to system") Then
+                                HayAlgunRecipienteBorrado = True
+                            End If
                         End If
                     End If
+                End If
+                If HayAlgunRecipienteBorrado Then
+                    OutlookDistListItem.Save()
                 End If
 
                 ' Progress bar

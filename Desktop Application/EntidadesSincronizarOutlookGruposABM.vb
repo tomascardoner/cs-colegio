@@ -1,28 +1,58 @@
 ﻿Imports Microsoft.Office.Interop
 
 Module EntidadesSincronizarOutlookGruposABM
-    Friend Function CrearGrupo(ByRef OutlookApplication As Outlook.Application, ByRef OutlookDistListItem As Outlook.DistListItem, ByVal UserPropertyName As String, ByVal UserPropertyValue As String) As Boolean
-        Return CrearGrupoInterno(OutlookApplication, OutlookDistListItem, UserPropertyName, Outlook.OlUserPropertyType.olText, UserPropertyValue)
-    End Function
-
-    Friend Function CrearGrupo(ByRef OutlookApplication As Outlook.Application, ByRef OutlookDistListItem As Outlook.DistListItem, ByVal UserPropertyName As String, ByVal UserPropertyValue As Integer) As Boolean
-        Return CrearGrupoInterno(OutlookApplication, OutlookDistListItem, UserPropertyName, Outlook.OlUserPropertyType.olInteger, UserPropertyValue)
-    End Function
-
-    Private Function CrearGrupoInterno(ByRef OutlookApplication As Outlook.Application, ByRef OutlookDistListItem As Outlook.DistListItem, ByVal UserPropertyName As String, ByVal UserPropertyType As Outlook.OlUserPropertyType, ByVal UserPropertyValue As Object) As Boolean
+    Friend Function CrearGrupoDeTipoDeEntidad(ByRef OutlookApplication As Outlook.Application, ByRef OutlookDistListItem As Outlook.DistListItem, ByVal EntidadTipo As String) As Boolean
         Try
             OutlookDistListItem = CType(OutlookApplication.CreateItem(Outlook.OlItemType.olDistributionListItem), Outlook.DistListItem)
             If OutlookDistListItem Is Nothing Then
                 Return False
             Else
-                OutlookDistListItem.UserProperties.Add(UserPropertyName, UserPropertyType).Value = UserPropertyValue
+                OutlookDistListItem.UserProperties.Add(Constantes.OUTLOOK_USERPROPERTYNAME_GRUPO_TIPO, Outlook.OlUserPropertyType.olText).Value = EntidadTipo
                 Debug.Print("Outlook Sync - Contacts Group - Add")
                 Return True
             End If
 
         Catch ex As Exception
             OutlookDistListItem = Nothing
-            CS_Error.ProcessError(ex, "Error al crear el Grupo de Contactos en Microsoft Outlook.")
+            CS_Error.ProcessError(ex, "Error al crear el Grupo de Contactos de Tipo de Entidad en Microsoft Outlook.")
+            Return False
+        End Try
+    End Function
+
+    Friend Function CrearGrupoDeNivel(ByRef OutlookApplication As Outlook.Application, ByRef OutlookDistListItem As Outlook.DistListItem, ByVal AnioLectivo As Short, ByVal IDNivel As Byte) As Boolean
+        Try
+            OutlookDistListItem = CType(OutlookApplication.CreateItem(Outlook.OlItemType.olDistributionListItem), Outlook.DistListItem)
+            If OutlookDistListItem Is Nothing Then
+                Return False
+            Else
+                OutlookDistListItem.UserProperties.Add(Constantes.OUTLOOK_USERPROPERTYNAME_GRUPO_ANIOLECTIVO, Outlook.OlUserPropertyType.olInteger).Value = AnioLectivo
+                OutlookDistListItem.UserProperties.Add(Constantes.OUTLOOK_USERPROPERTYNAME_GRUPO_NIVEL, Outlook.OlUserPropertyType.olInteger).Value = IDNivel
+                Debug.Print("Outlook Sync - Contacts Group - Add")
+                Return True
+            End If
+
+        Catch ex As Exception
+            OutlookDistListItem = Nothing
+            CS_Error.ProcessError(ex, "Error al crear el Grupo de Contactos de Nivel en Microsoft Outlook.")
+            Return False
+        End Try
+    End Function
+
+    Friend Function CrearGrupoDeCurso(ByRef OutlookApplication As Outlook.Application, ByRef OutlookDistListItem As Outlook.DistListItem, ByVal AnioLectivo As Short, ByVal IDCurso As Byte) As Boolean
+        Try
+            OutlookDistListItem = CType(OutlookApplication.CreateItem(Outlook.OlItemType.olDistributionListItem), Outlook.DistListItem)
+            If OutlookDistListItem Is Nothing Then
+                Return False
+            Else
+                OutlookDistListItem.UserProperties.Add(Constantes.OUTLOOK_USERPROPERTYNAME_GRUPO_ANIOLECTIVO, Outlook.OlUserPropertyType.olInteger).Value = AnioLectivo
+                OutlookDistListItem.UserProperties.Add(Constantes.OUTLOOK_USERPROPERTYNAME_GRUPO_CURSO, Outlook.OlUserPropertyType.olInteger).Value = IDCurso
+                Debug.Print("Outlook Sync - Contacts Group - Add")
+                Return True
+            End If
+
+        Catch ex As Exception
+            OutlookDistListItem = Nothing
+            CS_Error.ProcessError(ex, "Error al crear el Grupo de Contactos de Curso en Microsoft Outlook.")
             Return False
         End Try
     End Function

@@ -23,7 +23,6 @@ Module EntidadesSincronizarOutlookContactos
         Try
             ' Uso una lista estática porque si uso la carpeta de Outlook directamente en el For Each, al borrar o agregar items, pierde la secuencialidad
             ListOfOutlookContactItems = OutlookContacts.OfType(Of Outlook.ContactItem)().ToList
-
             ProgressBarProgreso.Value = 0
             ProgressBarProgreso.Maximum = ListOfOutlookContactItems.Count
             Application.DoEvents()

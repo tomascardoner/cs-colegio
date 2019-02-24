@@ -40,9 +40,9 @@ Partial Class formEntidadesSincronizarOutlook
         Me.groupboxGrupoContactos = New System.Windows.Forms.GroupBox()
         Me.radiobuttonGrupoContactosBorrar = New System.Windows.Forms.RadioButton()
         Me.radiobuttonGrupoContactosIgnorar = New System.Windows.Forms.RadioButton()
-        Me.groupboxGruposACrear = New System.Windows.Forms.GroupBox()
-        Me.checkboxCrearGruposNivelYCurso = New System.Windows.Forms.CheckBox()
-        Me.checkboxCrearGruposEntidadTipo = New System.Windows.Forms.CheckBox()
+        Me.groupboxGruposASincronizar = New System.Windows.Forms.GroupBox()
+        Me.checkboxSincronizarGruposNivelYCurso = New System.Windows.Forms.CheckBox()
+        Me.checkboxSincronizarGruposEntidadTipo = New System.Windows.Forms.CheckBox()
         Me.labelStatus = New System.Windows.Forms.Label()
         Me.groupboxAnioLectivo = New System.Windows.Forms.GroupBox()
         Me.checkedlistboxAnioLectivo = New System.Windows.Forms.CheckedListBox()
@@ -50,7 +50,7 @@ Partial Class formEntidadesSincronizarOutlook
         Me.groupboxItemNoEncontrado.SuspendLayout()
         Me.groupboxContactos.SuspendLayout()
         Me.groupboxGrupoContactos.SuspendLayout()
-        Me.groupboxGruposACrear.SuspendLayout()
+        Me.groupboxGruposASincronizar.SuspendLayout()
         Me.groupboxAnioLectivo.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -232,36 +232,36 @@ Partial Class formEntidadesSincronizarOutlook
         Me.radiobuttonGrupoContactosIgnorar.Text = "Ignorar"
         Me.radiobuttonGrupoContactosIgnorar.UseVisualStyleBackColor = True
         '
-        'groupboxGruposACrear
+        'groupboxGruposASincronizar
         '
-        Me.groupboxGruposACrear.Controls.Add(Me.checkboxCrearGruposNivelYCurso)
-        Me.groupboxGruposACrear.Controls.Add(Me.checkboxCrearGruposEntidadTipo)
-        Me.groupboxGruposACrear.Location = New System.Drawing.Point(12, 200)
-        Me.groupboxGruposACrear.Name = "groupboxGruposACrear"
-        Me.groupboxGruposACrear.Size = New System.Drawing.Size(326, 51)
-        Me.groupboxGruposACrear.TabIndex = 2
-        Me.groupboxGruposACrear.TabStop = False
-        Me.groupboxGruposACrear.Text = "Crear Grupos de Contactos por:"
+        Me.groupboxGruposASincronizar.Controls.Add(Me.checkboxSincronizarGruposNivelYCurso)
+        Me.groupboxGruposASincronizar.Controls.Add(Me.checkboxSincronizarGruposEntidadTipo)
+        Me.groupboxGruposASincronizar.Location = New System.Drawing.Point(12, 200)
+        Me.groupboxGruposASincronizar.Name = "groupboxGruposASincronizar"
+        Me.groupboxGruposASincronizar.Size = New System.Drawing.Size(326, 51)
+        Me.groupboxGruposASincronizar.TabIndex = 2
+        Me.groupboxGruposASincronizar.TabStop = False
+        Me.groupboxGruposASincronizar.Text = "Sincronizar Grupos de Contactos por:"
         '
-        'checkboxCrearGruposNivelYCurso
+        'checkboxSincronizarGruposNivelYCurso
         '
-        Me.checkboxCrearGruposNivelYCurso.AutoSize = True
-        Me.checkboxCrearGruposNivelYCurso.Location = New System.Drawing.Point(134, 23)
-        Me.checkboxCrearGruposNivelYCurso.Name = "checkboxCrearGruposNivelYCurso"
-        Me.checkboxCrearGruposNivelYCurso.Size = New System.Drawing.Size(104, 17)
-        Me.checkboxCrearGruposNivelYCurso.TabIndex = 1
-        Me.checkboxCrearGruposNivelYCurso.Text = "Niveles y Cursos"
-        Me.checkboxCrearGruposNivelYCurso.UseVisualStyleBackColor = True
+        Me.checkboxSincronizarGruposNivelYCurso.AutoSize = True
+        Me.checkboxSincronizarGruposNivelYCurso.Location = New System.Drawing.Point(134, 23)
+        Me.checkboxSincronizarGruposNivelYCurso.Name = "checkboxSincronizarGruposNivelYCurso"
+        Me.checkboxSincronizarGruposNivelYCurso.Size = New System.Drawing.Size(104, 17)
+        Me.checkboxSincronizarGruposNivelYCurso.TabIndex = 1
+        Me.checkboxSincronizarGruposNivelYCurso.Text = "Niveles y Cursos"
+        Me.checkboxSincronizarGruposNivelYCurso.UseVisualStyleBackColor = True
         '
-        'checkboxCrearGruposEntidadTipo
+        'checkboxSincronizarGruposEntidadTipo
         '
-        Me.checkboxCrearGruposEntidadTipo.AutoSize = True
-        Me.checkboxCrearGruposEntidadTipo.Location = New System.Drawing.Point(12, 23)
-        Me.checkboxCrearGruposEntidadTipo.Name = "checkboxCrearGruposEntidadTipo"
-        Me.checkboxCrearGruposEntidadTipo.Size = New System.Drawing.Size(106, 17)
-        Me.checkboxCrearGruposEntidadTipo.TabIndex = 0
-        Me.checkboxCrearGruposEntidadTipo.Text = "Tipos de Entidad"
-        Me.checkboxCrearGruposEntidadTipo.UseVisualStyleBackColor = True
+        Me.checkboxSincronizarGruposEntidadTipo.AutoSize = True
+        Me.checkboxSincronizarGruposEntidadTipo.Location = New System.Drawing.Point(12, 23)
+        Me.checkboxSincronizarGruposEntidadTipo.Name = "checkboxSincronizarGruposEntidadTipo"
+        Me.checkboxSincronizarGruposEntidadTipo.Size = New System.Drawing.Size(106, 17)
+        Me.checkboxSincronizarGruposEntidadTipo.TabIndex = 0
+        Me.checkboxSincronizarGruposEntidadTipo.Text = "Tipos de Entidad"
+        Me.checkboxSincronizarGruposEntidadTipo.UseVisualStyleBackColor = True
         '
         'labelStatus
         '
@@ -284,6 +284,7 @@ Partial Class formEntidadesSincronizarOutlook
         '
         'checkedlistboxAnioLectivo
         '
+        Me.checkedlistboxAnioLectivo.CheckOnClick = True
         Me.checkedlistboxAnioLectivo.ColumnWidth = 50
         Me.checkedlistboxAnioLectivo.FormattingEnabled = True
         Me.checkedlistboxAnioLectivo.Location = New System.Drawing.Point(12, 22)
@@ -299,7 +300,7 @@ Partial Class formEntidadesSincronizarOutlook
         Me.ClientSize = New System.Drawing.Size(352, 496)
         Me.Controls.Add(Me.groupboxAnioLectivo)
         Me.Controls.Add(Me.labelStatus)
-        Me.Controls.Add(Me.groupboxGruposACrear)
+        Me.Controls.Add(Me.groupboxGruposASincronizar)
         Me.Controls.Add(Me.groupboxItemNoEncontrado)
         Me.Controls.Add(Me.groupboxEntidadTipo)
         Me.Controls.Add(Me.buttonEditar)
@@ -319,8 +320,8 @@ Partial Class formEntidadesSincronizarOutlook
         Me.groupboxContactos.PerformLayout()
         Me.groupboxGrupoContactos.ResumeLayout(False)
         Me.groupboxGrupoContactos.PerformLayout()
-        Me.groupboxGruposACrear.ResumeLayout(False)
-        Me.groupboxGruposACrear.PerformLayout()
+        Me.groupboxGruposASincronizar.ResumeLayout(False)
+        Me.groupboxGruposASincronizar.PerformLayout()
         Me.groupboxAnioLectivo.ResumeLayout(False)
         Me.ResumeLayout(False)
 
@@ -342,9 +343,9 @@ Partial Class formEntidadesSincronizarOutlook
     Friend WithEvents groupboxGrupoContactos As System.Windows.Forms.GroupBox
     Friend WithEvents radiobuttonGrupoContactosBorrar As System.Windows.Forms.RadioButton
     Friend WithEvents radiobuttonGrupoContactosIgnorar As System.Windows.Forms.RadioButton
-    Friend WithEvents groupboxGruposACrear As System.Windows.Forms.GroupBox
-    Friend WithEvents checkboxCrearGruposEntidadTipo As System.Windows.Forms.CheckBox
-    Friend WithEvents checkboxCrearGruposNivelYCurso As System.Windows.Forms.CheckBox
+    Friend WithEvents groupboxGruposASincronizar As System.Windows.Forms.GroupBox
+    Friend WithEvents checkboxSincronizarGruposEntidadTipo As System.Windows.Forms.CheckBox
+    Friend WithEvents checkboxSincronizarGruposNivelYCurso As System.Windows.Forms.CheckBox
     Friend WithEvents labelStatus As System.Windows.Forms.Label
     Friend WithEvents groupboxAnioLectivo As System.Windows.Forms.GroupBox
     Friend WithEvents checkedlistboxAnioLectivo As System.Windows.Forms.CheckedListBox

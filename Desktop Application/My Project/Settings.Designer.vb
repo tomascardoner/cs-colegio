@@ -623,18 +623,18 @@ Namespace My
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public ReadOnly Property Outlook_ContactsSync_CrearGrupos_EntidadTipo() As Boolean
+        Public ReadOnly Property Outlook_ContactsSync_SincronizarGrupos_EntidadTipo() As Boolean
             Get
-                Return CType(Me("Outlook_ContactsSync_CrearGrupos_EntidadTipo"),Boolean)
+                Return CType(Me("Outlook_ContactsSync_SincronizarGrupos_EntidadTipo"),Boolean)
             End Get
         End Property
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public ReadOnly Property Outlook_ContactsSync_CrearGrupos_NivelYCurso() As Boolean
+        Public ReadOnly Property Outlook_ContactsSync_SincronizarGrupos_NivelYCurso() As Boolean
             Get
-                Return CType(Me("Outlook_ContactsSync_CrearGrupos_NivelYCurso"),Boolean)
+                Return CType(Me("Outlook_ContactsSync_SincronizarGrupos_NivelYCurso"),Boolean)
             End Get
         End Property
         
@@ -649,7 +649,7 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("2018,2019")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("2018;2019")>  _
         Public ReadOnly Property Outlook_ContactsSync_AniosLectivos() As String
             Get
                 Return CType(Me("Outlook_ContactsSync_AniosLectivos"),String)

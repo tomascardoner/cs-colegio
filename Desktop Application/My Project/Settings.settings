@@ -188,17 +188,17 @@
     <Setting Name="Outlook_ContactsSync_ContactoNoEncontrado_Borrar" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Outlook_ContactsSync_CrearGrupos_EntidadTipo" Type="System.Boolean" Scope="Application">
+    <Setting Name="Outlook_ContactsSync_SincronizarGrupos_EntidadTipo" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Outlook_ContactsSync_CrearGrupos_NivelYCurso" Type="System.Boolean" Scope="Application">
+    <Setting Name="Outlook_ContactsSync_SincronizarGrupos_NivelYCurso" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Outlook_ContactsSync_GrupoNombre" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Grupo: {0}</Value>
     </Setting>
     <Setting Name="Outlook_ContactsSync_AniosLectivos" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">2018,2019</Value>
+      <Value Profile="(Default)">2018;2019</Value>
     </Setting>
   </Settings>
 </SettingsFile>

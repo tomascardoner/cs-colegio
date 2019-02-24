@@ -28,8 +28,8 @@ Public Class formEntidadesSincronizarOutlook
         radiobuttonContactosIgnorar.Enabled = mEditMode
         radiobuttonContactosBorrar.Enabled = mEditMode
 
-        checkboxCrearGruposEntidadTipo.Enabled = mEditMode
-        checkboxCrearGruposNivelYCurso.Enabled = mEditMode
+        checkboxSincronizarGruposEntidadTipo.Enabled = mEditMode
+        checkboxSincronizarGruposNivelYCurso.Enabled = mEditMode
 
         checkedlistboxAnioLectivo.Enabled = mEditMode
 
@@ -37,6 +37,8 @@ Public Class formEntidadesSincronizarOutlook
     End Sub
 
     Private Sub SetOpciones()
+        Dim ItemIndex As Integer = 0
+
         With Opciones
             checkboxEntidadTipoPersonalColegio.Checked = .EntidadTipoPersonalColegio
             checkboxEntidadTipoDocente.Checked = .EntidadTipoDocente
@@ -51,8 +53,17 @@ Public Class formEntidadesSincronizarOutlook
             radiobuttonContactosIgnorar.Checked = Not .ContactoInexistenteBorrar
             radiobuttonContactosBorrar.Checked = .ContactoInexistenteBorrar
 
-            checkboxCrearGruposEntidadTipo.Checked = .CrearGrupoContactosPorEntidadTipos
-            checkboxCrearGruposNivelYCurso.Checked = .CrearGrupoContactosPorNivelesYCursos
+            checkboxSincronizarGruposEntidadTipo.Checked = .SincronizarGrupoContactosPorEntidadTipos
+            checkboxSincronizarGruposNivelYCurso.Checked = .SincronizarGrupoContactosPorNivelesYCursos
+
+            For Each AnioLectivoActual As Short In .AniosLectivos
+                For ItemIndex = ItemIndex To checkedlistboxAnioLectivo.Items.Count -1
+                    If Convert.ToInt16(checkedlistboxAnioLectivo.Items(ItemIndex)) = AnioLectivoActual Then
+                        checkedlistboxAnioLectivo.SetItemChecked(ItemIndex, True)
+                        Exit For
+                    End If
+                Next
+            Next
         End With
     End Sub
 
@@ -98,10 +109,13 @@ Public Class formEntidadesSincronizarOutlook
             .GrupoContactosInexistenteBorrar = radiobuttonGrupoContactosBorrar.Checked
             .ContactoInexistenteBorrar = radiobuttonContactosBorrar.Checked
 
-            .CrearGrupoContactosPorEntidadTipos = checkboxCrearGruposEntidadTipo.Checked
-            .CrearGrupoContactosPorNivelesYCursos = checkboxCrearGruposNivelYCurso.Checked
+            .SincronizarGrupoContactosPorEntidadTipos = checkboxSincronizarGruposEntidadTipo.Checked
+            .SincronizarGrupoContactosPorNivelesYCursos = checkboxSincronizarGruposNivelYCurso.Checked
 
-            '.AniosLectivos = checkedlistboxAnioLectivo.Items
+            .AniosLectivos = New List(Of Short)
+            For Each AnioLectivoChecked As Short In checkedlistboxAnioLectivo.CheckedItems
+                .AniosLectivos.Append(AnioLectivoChecked)
+            Next
         End With
 
         ' Si se modificaron, guardo las nuevas opciones de sincronización
