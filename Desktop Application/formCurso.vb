@@ -28,7 +28,7 @@
             mCursoActual = mdbContext.Curso.Find(IDCurso)
         End If
 
-        Me.MdiParent = formMDIMain
+        Me.MdiParent = pFormMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
         SetDataFromObjectToControls()
@@ -183,8 +183,8 @@
                 mdbContext.SaveChanges()
 
                 ' Refresco la lista de Entidades para mostrar los cambios
-                If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formCursos") Then
-                    Dim formCursos As formCursos = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formCursos"), formCursos)
+                If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formCursos") Then
+                    Dim formCursos As formCursos = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formCursos"), formCursos)
                     formCursos.RefreshData(mCursoActual.IDCurso)
                     formCursos = Nothing
                 End If

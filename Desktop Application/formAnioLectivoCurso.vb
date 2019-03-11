@@ -24,7 +24,7 @@
             mAnioLectivoCursoActual = mdbContext.AnioLectivoCurso.Find(IDAnioLectivoCurso)
         End If
 
-        Me.MdiParent = formMDIMain
+        Me.MdiParent = pFormMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
         SetDataFromObjectToControls()
@@ -164,8 +164,8 @@
                 mdbContext.SaveChanges()
 
                 ' Refresco la lista de Cursos de Años Lectivos para mostrar los cambios
-                If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formAnioLectivoCursos") Then
-                    Dim formAnioLectivoCursos As formAnioLectivoCursos = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formAnioLectivoCursos"), formAnioLectivoCursos)
+                If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formAnioLectivoCursos") Then
+                    Dim formAnioLectivoCursos As formAnioLectivoCursos = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formAnioLectivoCursos"), formAnioLectivoCursos)
                     formAnioLectivoCursos.RefreshData(mAnioLectivoCursoActual.IDAnioLectivoCurso)
                     formAnioLectivoCursos = Nothing
                 End If

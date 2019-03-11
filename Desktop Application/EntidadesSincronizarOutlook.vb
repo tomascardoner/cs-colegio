@@ -64,7 +64,7 @@ Module EntidadesSincronizarOutlook
                             LabelEstado.Text = "Verificando Grupos de Contactos en el Sistema (Tipos)..."
                             If EntidadesSincronizarOutlookGruposInexistentes.VerificarYCrearGruposDeTiposDeEntidad(OutlookApplication, Entidades, GruposDeTipoVerificadosEnOutlook, Opciones, ProgressBarProgreso) Then
                                 LabelEstado.Text = "Verificando Grupos de Contactos en el Sistema (Nivel)..."
-                                If EntidadesSincronizarOutlookGruposInexistentes.VerificarYCrearGruposDeNiveles(OutlookApplication, Entidades, GruposDeTipoVerificadosEnOutlook, Opciones, ProgressBarProgreso) Then
+                                If EntidadesSincronizarOutlookGruposInexistentes.VerificarYCrearGruposDeNiveles(OutlookApplication, dbContext, Entidades, GruposDeTipoVerificadosEnOutlook, Opciones, ProgressBarProgreso) Then
                                     OutlookApplication = Nothing
                                     OutlookContacts = Nothing
                                     IDEntidadesVerificadasEnOutlook = Nothing

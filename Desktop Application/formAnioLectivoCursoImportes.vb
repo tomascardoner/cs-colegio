@@ -26,7 +26,7 @@
 
         mAnioLectivoCursoActual = AnioLectivoCursoActual
 
-        Me.MdiParent = formMDIMain
+        Me.MdiParent = pFormMDIMain
         Me.Show()
         textboxAnioLectivo.Text = AnioLectivoCursoActual.AnioLectivo.ToString
         textboxCurso.Text = AnioLectivoCursoActual.Curso.Anio.Nombre & " - " & AnioLectivoCursoActual.Curso.Turno.Nombre & " - " & AnioLectivoCursoActual.Curso.Division

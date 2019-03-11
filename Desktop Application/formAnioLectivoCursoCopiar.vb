@@ -10,7 +10,7 @@
     Friend Sub LoadAndShow(ByRef ParentForm As Form)
         mIsLoading = True
 
-        Me.MdiParent = formMDIMain
+        Me.MdiParent = pFormMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
         Me.Show()
@@ -133,8 +133,8 @@
             End Try
 
             ' Refresco la lista para mostrar los cambios
-            If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), formAnioLectivoCursos.Name) Then
-                Dim formAniosLectivosCursos As formAnioLectivoCursos = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), formAnioLectivoCursos.Name), formAnioLectivoCursos)
+            If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), formAnioLectivoCursos.Name) Then
+                Dim formAniosLectivosCursos As formAnioLectivoCursos = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), formAnioLectivoCursos.Name), formAnioLectivoCursos)
                 formAniosLectivosCursos.RefreshData()
                 formAniosLectivosCursos = Nothing
             End If

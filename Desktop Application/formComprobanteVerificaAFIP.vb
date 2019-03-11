@@ -132,7 +132,7 @@
             'listviewMain.Items.Add(ListViewItemNew)
         End With
 
-        Me.MdiParent = formMDIMain
+        Me.MdiParent = pFormMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
         Me.Show()
         If Me.WindowState = FormWindowState.Minimized Then

@@ -45,7 +45,7 @@
         mEditMode = EditMode
 
         ' Antes que nada, cierro las ventanas hijas que pudieran haber quedado abiertas
-        If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formComprobanteMedioPago") Then
+        If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formComprobanteMedioPago") Then
             formComprobanteMedioPago.Close()
             formComprobanteMedioPago = Nothing
         End If
@@ -59,7 +59,7 @@
             mComprobanteActual = mdbContext.Comprobante.Find(IDComprobante)
         End If
 
-        Me.MdiParent = formMDIMain
+        Me.MdiParent = pFormMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
         CS_ComboBox.SetSelectedValue(comboboxComprobanteTipo, SelectedItemOptions.Value, mComprobanteActual.IDComprobanteTipo)
@@ -798,8 +798,8 @@
                             buttonAFIP.Visible = False
 
                             ' Refresco la lista de Comprobantes para mostrar los cambios
-                            If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formComprobantes") Then
-                                Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formComprobantes"), formComprobantes)
+                            If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formComprobantes") Then
+                                Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formComprobantes"), formComprobantes)
                                 formComprobantes.RefreshData(mComprobanteActual.IDComprobante)
                                 formComprobantes = Nothing
                             End If
@@ -828,8 +828,8 @@
 
                                         ' Si actualizo el Comprobante local:
                                         '' Refresco la lista de Comprobantes para mostrar los cambios
-                                        'If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formComprobantes") Then
-                                        '    Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formComprobantes"), formComprobantes)
+                                        'If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formComprobantes") Then
+                                        '    Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formComprobantes"), formComprobantes)
                                         '    formComprobantes.RefreshData(mComprobanteActual.IDComprobante)
                                         '    formComprobantes = Nothing
                                         'End If

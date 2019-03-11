@@ -51,7 +51,7 @@
             mComunicacionActual = mdbContext.Comunicacion.Find(IDComunicacion)
         End If
 
-        Me.MdiParent = formMDIMain
+        Me.MdiParent = pFormMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
         SetDataFromObjectToControls()
@@ -249,8 +249,8 @@
                 mdbContext.SaveChanges()
 
                 ' Refresco la lista de Cursos de Años Lectivos para mostrar los cambios
-                If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formComunicaciones") Then
-                    Dim formComunicaciones As formComunicaciones = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formComunicaciones"), formComunicaciones)
+                If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formComunicaciones") Then
+                    Dim formComunicaciones As formComunicaciones = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formComunicaciones"), formComunicaciones)
                     formComunicaciones.RefreshData(mComunicacionActual.IDComunicacion)
                     formComunicaciones = Nothing
                 End If

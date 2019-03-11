@@ -42,7 +42,7 @@
             mEntidadActual = mdbContext.Entidad.Find(IDEntidad)
         End If
 
-        Me.MdiParent = formMDIMain
+        Me.MdiParent = pFormMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
         SetDataFromObjectToControls()
@@ -827,8 +827,8 @@
                 mdbContext.SaveChanges()
 
                 ' Refresco la lista de Entidades para mostrar los cambios
-                If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formEntidades") Then
-                    Dim formEntidades As formEntidades = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formEntidades"), formEntidades)
+                If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formEntidades") Then
+                    Dim formEntidades As formEntidades = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formEntidades"), formEntidades)
                     formEntidades.RefreshData(mEntidadActual.IDEntidad)
                     formEntidades = Nothing
                 End If

@@ -23,9 +23,9 @@ Module MiscFunctions
     Friend Sub PreviewCrystalReport(ByRef ReporteActual As Reporte, ByVal WindowText As String)
         Dim VisorReporte As New formReportesVisor
 
-        formMDIMain.Cursor = Cursors.WaitCursor
+        pFormMDIMain.Cursor = Cursors.WaitCursor
 
-        CS_Form.MDIChild_PositionAndSizeToFit(CType(formMDIMain, Form), CType(VisorReporte, Form))
+        CS_Form.MDIChild_PositionAndSizeToFit(CType(pFormMDIMain, Form), CType(VisorReporte, Form))
         With VisorReporte
             .Text = WindowText
             .CRViewerMain.ReportSource = ReporteActual.ReportObject
@@ -36,23 +36,23 @@ Module MiscFunctions
             .Focus()
         End With
 
-        formMDIMain.Cursor = Cursors.Default
+        pFormMDIMain.Cursor = Cursors.Default
     End Sub
 
     Friend Sub UserLoggedIn()
         LoadPermisos()
 
-        formMDIMain.menuitemDebug.Visible = (pUsuario.IDUsuario = 1)
+        pFormMDIMain.menuitemDebug.Visible = (pUsuario.IDUsuario = 1)
 
         Select Case pUsuario.Genero
             Case Constantes.ENTIDAD_GENERO_MASCULINO
-                formMDIMain.labelUsuarioNombre.Image = My.Resources.Resources.IMAGE_USUARIO_HOMBRE_16
+                pFormMDIMain.labelUsuarioNombre.Image = My.Resources.Resources.IMAGE_USUARIO_HOMBRE_16
             Case Constantes.ENTIDAD_GENERO_FEMENINO
-                formMDIMain.labelUsuarioNombre.Image = My.Resources.Resources.IMAGE_USUARIO_MUJER_16
+                pFormMDIMain.labelUsuarioNombre.Image = My.Resources.Resources.IMAGE_USUARIO_MUJER_16
             Case Else
-                formMDIMain.labelUsuarioNombre.Image = Nothing
+                pFormMDIMain.labelUsuarioNombre.Image = Nothing
         End Select
-        formMDIMain.labelUsuarioNombre.Text = pUsuario.Descripcion
+        pFormMDIMain.labelUsuarioNombre.Text = pUsuario.Descripcion
 
         My.Application.Log.WriteEntry(String.Format("El Usuario '{0}' ha iniciado sesión.", pUsuario.Nombre), TraceEventType.Information)
     End Sub
@@ -64,7 +64,7 @@ Module MiscFunctions
             End Using
             Return True
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al cargar los Parámetros desde la base de datos.")
+            CS_Error.ProcessError(ex, "Error al conectarse a la base de datos.")
             Return False
         End Try
     End Function

@@ -28,7 +28,7 @@
             mAnioActual = mdbContext.Anio.Find(IDAnio)
         End If
 
-        Me.MdiParent = formMDIMain
+        Me.MdiParent = pFormMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
         SetDataFromObjectToControls()
@@ -178,8 +178,8 @@
                 mdbContext.SaveChanges()
 
                 ' Refresco la lista de Entidades para mostrar los cambios
-                If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formAnios") Then
-                    Dim formAnios As formAnios = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formAnios"), formAnios)
+                If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formAnios") Then
+                    Dim formAnios As formAnios = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formAnios"), formAnios)
                     formAnios.RefreshData(mAnioActual.IDAnio)
                     formAnios = Nothing
                 End If

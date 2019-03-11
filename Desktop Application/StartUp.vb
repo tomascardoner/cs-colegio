@@ -3,6 +3,7 @@
     Friend pDatabase As CS_Database_SQL
     Friend pFillAndRefreshLists As FillAndRefreshLists
 
+    Friend pFormMDIMain As formMDIMain
     Friend pPermisos As List(Of UsuarioGrupoPermiso)
     Friend pParametros As List(Of Parametro)
     Friend pLicensedTo As String
@@ -97,10 +98,11 @@
         StartupTime = Now
 
         ' Muestro el form MDI principal
-        formMDIMain.Show()
+        pFormMDIMain = New formMDIMain()
+        pFormMDIMain.Show()
 
-        formMDIMain.Cursor = Cursors.AppStarting
-        formMDIMain.Enabled = False
+        pFormMDIMain.Cursor = Cursors.AppStarting
+        pFormMDIMain.Enabled = False
 
         formSplashScreen.labelStatus.Text = "Todo completado."
         Application.DoEvents()
@@ -121,7 +123,7 @@
                 MiscFunctions.UserLoggedIn()
             End Using
         Else
-            If Not formLogin.ShowDialog(formMDIMain) = DialogResult.OK Then
+            If Not formLogin.ShowDialog(pFormMDIMain) = DialogResult.OK Then
                 Application.Exit()
                 My.Application.Log.WriteEntry("La Aplicación ha finalizado porque el Usuario no ha iniciado sesión.", TraceEventType.Warning)
                 Exit Sub
@@ -131,17 +133,23 @@
         End If
 
         ' Está todo listo. Cambio el puntero del mouse a modo normal y habilito el form MDI principal
-        formMDIMain.Cursor = Cursors.Default
-        formMDIMain.Enabled = True
+        pFormMDIMain.Cursor = Cursors.Default
+        pFormMDIMain.Enabled = True
 
         System.Windows.Forms.Cursor.Current = Cursors.Default
 
         ' Inicio el loop sobre el form MDI principal
         My.Application.Log.WriteEntry("La Aplicación se ha iniciado correctamente.", TraceEventType.Information)
-        Application.Run(formMDIMain)
+        Application.Run(pFormMDIMain)
     End Sub
 
     Friend Sub TerminateApplication()
+        If Not pFormMDIMain Is Nothing Then
+            For Each formCurrent As Form In pFormMDIMain.MdiChildren()
+                formCurrent.Close()
+                formCurrent.Dispose()
+            Next
+        End If
         pDatabase = Nothing
         pFillAndRefreshLists = Nothing
         pPermisos = Nothing

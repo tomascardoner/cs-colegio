@@ -26,7 +26,7 @@
         mComprobanteDetalleActual = ComprobanteDetalleActual
         mIsNew = (mComprobanteDetalleActual.Indice = 0)
 
-        'Me.MdiParent = formMDIMain
+        'Me.MdiParent = pFormMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
         If mIsNew Then
@@ -451,8 +451,8 @@
         SetDataFromControlsToObject()
 
         ' Refresco la lista para mostrar los cambios
-        If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formComprobante") Then
-            Dim formComprobante As formComprobante = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formComprobante"), formComprobante)
+        If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formComprobante") Then
+            Dim formComprobante As formComprobante = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formComprobante"), formComprobante)
             formComprobante.RefreshData_Detalle(mComprobanteDetalleActual.Indice)
             formComprobante = Nothing
         End If

@@ -28,7 +28,7 @@
             mAnioLectivoCursoImporteActual = mdbContext.AnioLectivoCursoImporte.Find(mAnioLectivoCursoActual.IDAnioLectivoCurso, MesInicio)
         End If
 
-        Me.MdiParent = formMDIMain
+        Me.MdiParent = pFormMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
         SetDataFromObjectToControls()
@@ -152,8 +152,8 @@
                 mdbContext.SaveChanges()
 
                 ' Refresco la lista de Importes de Cursos de Años Lectivos para mostrar los cambios
-                If CS_Form.MDIChild_IsLoaded(CType(formMDIMain, Form), "formAnioLectivoCursoImportes") Then
-                    Dim formAnioLectivoCursoImportes As formAnioLectivoCursoImportes = CType(CS_Form.MDIChild_GetInstance(CType(formMDIMain, Form), "formAnioLectivoCursoImportes"), formAnioLectivoCursoImportes)
+                If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formAnioLectivoCursoImportes") Then
+                    Dim formAnioLectivoCursoImportes As formAnioLectivoCursoImportes = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formAnioLectivoCursoImportes"), formAnioLectivoCursoImportes)
                     formAnioLectivoCursoImportes.RefreshData(mAnioLectivoCursoImporteActual.MesInicio, True)
                     formAnioLectivoCursoImportes = Nothing
                 End If
