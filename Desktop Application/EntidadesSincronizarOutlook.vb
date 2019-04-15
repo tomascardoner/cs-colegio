@@ -63,21 +63,30 @@ Module EntidadesSincronizarOutlook
 
                             LabelEstado.Text = "Verificando Grupos de Contactos en el Sistema (Tipos)..."
                             If EntidadesSincronizarOutlookGruposInexistentes.VerificarYCrearGruposDeTiposDeEntidad(OutlookApplication, Entidades, GruposDeTipoVerificadosEnOutlook, Opciones, ProgressBarProgreso) Then
-                                LabelEstado.Text = "Verificando Grupos de Contactos en el Sistema (Nivel)..."
-                                If EntidadesSincronizarOutlookGruposInexistentes.VerificarYCrearGruposDeNiveles(OutlookApplication, dbContext, Entidades, GruposDeTipoVerificadosEnOutlook, Opciones, ProgressBarProgreso) Then
-                                    OutlookApplication = Nothing
-                                    OutlookContacts = Nothing
-                                    IDEntidadesVerificadasEnOutlook = Nothing
-                                    Entidades = Nothing
-                                    GruposDeTipoVerificadosEnOutlook = Nothing
-                                    GruposDeNivelVerificadosEnOutlook = Nothing
-                                    GruposDeCursoVerificadosEnOutlook = Nothing
-                                    Return True
+
+                                LabelEstado.Text = "Verificando Grupos de Contactos en el Sistema (Cursos)..."
+                                If EntidadesSincronizarOutlookGruposInexistentes.VerificarYCrearGrupoDeCurso(OutlookApplication, dbContext, Entidades, GruposDeTipoVerificadosEnOutlook, Opciones, ProgressBarProgreso) Then
+
+                                    LabelEstado.Text = "Verificando Grupos de Contactos en el Sistema (Nivel)..."
+                                    If EntidadesSincronizarOutlookGruposInexistentes.VerificarYCrearGruposDeNiveles(OutlookApplication, dbContext, Entidades, GruposDeTipoVerificadosEnOutlook, Opciones, ProgressBarProgreso) Then
+                                        OutlookApplication = Nothing
+                                        OutlookContacts = Nothing
+                                        IDEntidadesVerificadasEnOutlook = Nothing
+                                        Entidades = Nothing
+                                        GruposDeTipoVerificadosEnOutlook = Nothing
+                                        GruposDeNivelVerificadosEnOutlook = Nothing
+                                        GruposDeCursoVerificadosEnOutlook = Nothing
+                                        Return True
+                                    End If
+
                                 End If
+
                             End If
+
                         End If
 
                     End If
+
                 End If
             End Using
         End If
