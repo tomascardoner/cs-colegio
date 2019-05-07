@@ -121,7 +121,7 @@
                 comboboxCuotaMes.SelectedIndex = -1
             End If
             currencytextboxPrecioUnitario.DecimalValue = .PrecioUnitario
-            percenttextboxPrecioUnitarioDescuentoPorcentaje.DoubleValue = .PrecioUnitarioDescuentoPorcentaje
+            percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentValue = .PrecioUnitarioDescuentoPorcentaje
             currencytextboxPrecioUnitarioDescuentoImporte.DecimalValue = .PrecioUnitarioDescuentoImporte
             currencytextboxPrecioUnitarioFinal.DecimalValue = .PrecioUnitarioFinal
             currencytextboxPrecioTotal.DecimalValue = .PrecioTotal
@@ -149,7 +149,7 @@
                 .CuotaMes = Nothing
             End If
             .PrecioUnitario = currencytextboxPrecioUnitario.DecimalValue
-            .PrecioUnitarioDescuentoPorcentaje = Convert.ToDecimal(percenttextboxPrecioUnitarioDescuentoPorcentaje.DoubleValue)
+            .PrecioUnitarioDescuentoPorcentaje = Convert.ToDecimal(percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentValue)
             .PrecioUnitarioDescuentoImporte = currencytextboxPrecioUnitarioDescuentoImporte.DecimalValue
             .PrecioUnitarioFinal = currencytextboxPrecioUnitarioFinal.DecimalValue
             .PrecioTotal = currencytextboxPrecioTotal.DecimalValue
@@ -328,7 +328,7 @@
                     percenttextboxPrecioUnitarioDescuentoPorcentaje.DoubleValue = 0
                     'textboxPrecioUnitarioDescuentoImporte.Text = "0"
                 Else
-                    percenttextboxPrecioUnitarioDescuentoPorcentaje.DoubleValue = mEntidad.Descuento.Porcentaje / 100
+                    percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentValue = mEntidad.Descuento.Porcentaje
                 End If
             End If
             EstablecerAnioLectivoCurso()

@@ -79,14 +79,14 @@ Module EntidadesSincronizarOutlookGruposInexistentes
                                                    Order By n.Nombre, a.Nombre, t.Nombre, c.Division
                                                    Select New NivelCursoEntidad With {.IDNivel = n.IDNivel, .NivelNombre = n.Nombre, .IDCurso = c.IDCurso, .CursoNombre = a.Nombre + " - " + t.Nombre + " - " + c.Division}).ToList()
 
-                    listNivelesCursosYEntidades = (From n In dbContext.Nivel
-                                                   Join a In dbContext.Anio On n.IDNivel Equals a.IDNivel
-                                                   Join c In dbContext.Curso On a.IDAnio Equals c.IDCurso
-                                                   Join t In dbContext.Turno On c.IDTurno Equals t.IDTurno
-                                                   Join alc In dbContext.AnioLectivoCurso On c.IDCurso Equals alc.IDCurso
-                                                   Where alc.AnioLectivo = AnioLectivoActual
-                                                   Order By n.Nombre, a.Nombre, t.Nombre, c.Division
-                                                   Select alc.Entidades).ToList()
+                    'listNivelesCursosYEntidades = (From n In dbContext.Nivel
+                    '                               Join a In dbContext.Anio On n.IDNivel Equals a.IDNivel
+                    '                               Join c In dbContext.Curso On a.IDAnio Equals c.IDCurso
+                    '                               Join t In dbContext.Turno On c.IDTurno Equals t.IDTurno
+                    '                               Join alc In dbContext.AnioLectivoCurso On c.IDCurso Equals alc.IDCurso
+                    '                               Where alc.AnioLectivo = AnioLectivoActual
+                    '                               Order By n.Nombre, a.Nombre, t.Nombre, c.Division
+                    '                               Select alc.Entidades).ToList()
 
                 Catch ex As Exception
                     CS_Error.ProcessError(ex, "Error al obtener los Niveles del Año Lectivo.")
@@ -94,21 +94,21 @@ Module EntidadesSincronizarOutlookGruposInexistentes
                 End Try
 
                 Try
-                    For Each NivelActual As Nivel In listNiveles
-                        listNivelesYAniosLectivosCursos = (From n In dbContext.Nivel
-                                                           Join a In dbContext.Anio On n.IDNivel Equals a.IDNivel
-                                                           Join c In dbContext.Curso On a.IDAnio Equals c.IDCurso
-                                                           Join alc In dbContext.AnioLectivoCurso On c.IDCurso Equals alc.IDCurso
-                                                           Where alc.AnioLectivo = AnioLectivoActual
-                                                           Order By n.Nombre
-                                                           Select n, alc)
-                        If EntidadesSincronizarOutlookGruposABM.CrearGrupoDeTipoDeEntidad(OutlookApplication, OutlookDistListItem, EntidadTipo) Then
-                            If EntidadesSincronizarOutlookGruposABM.ActualizarGrupo(OutlookApplication, OutlookDistListItem, String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, EntidadTipoANombre(EntidadTipo)), Entidades, ProgressBarProgreso) Then
-                                Return True
-                            End If
-                        End If
-                        Return False
-                    Next
+                    'For Each NivelActual As Nivel In listNiveles
+                    '    listNivelesYAniosLectivosCursos = (From n In dbContext.Nivel
+                    '                                       Join a In dbContext.Anio On n.IDNivel Equals a.IDNivel
+                    '                                       Join c In dbContext.Curso On a.IDAnio Equals c.IDCurso
+                    '                                       Join alc In dbContext.AnioLectivoCurso On c.IDCurso Equals alc.IDCurso
+                    '                                       Where alc.AnioLectivo = AnioLectivoActual
+                    '                                       Order By n.Nombre
+                    '                                       Select n, alc)
+                    '    If EntidadesSincronizarOutlookGruposABM.CrearGrupoDeTipoDeEntidad(OutlookApplication, OutlookDistListItem, EntidadTipo) Then
+                    '        If EntidadesSincronizarOutlookGruposABM.ActualizarGrupo(OutlookApplication, OutlookDistListItem, String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, EntidadTipoANombre(EntidadTipo)), Entidades, ProgressBarProgreso) Then
+                    '            Return True
+                    '        End If
+                    '    End If
+                    '    Return False
+                    'Next
                 Catch ex As Exception
                     CS_Error.ProcessError(ex, "Error al obtener los Niveles del Año Lectivo.")
                     Return False
@@ -149,14 +149,14 @@ Module EntidadesSincronizarOutlookGruposInexistentes
                                                    Order By n.Nombre, a.Nombre, t.Nombre, c.Division
                                                    Select New NivelCursoEntidad With {.IDNivel = n.IDNivel, .NivelNombre = n.Nombre, .IDCurso = c.IDCurso, .CursoNombre = a.Nombre + " - " + t.Nombre + " - " + c.Division}).ToList()
 
-                    listNivelesCursosYEntidades = (From n In dbContext.Nivel
-                                                   Join a In dbContext.Anio On n.IDNivel Equals a.IDNivel
-                                                   Join c In dbContext.Curso On a.IDAnio Equals c.IDCurso
-                                                   Join t In dbContext.Turno On c.IDTurno Equals t.IDTurno
-                                                   Join alc In dbContext.AnioLectivoCurso On c.IDCurso Equals alc.IDCurso
-                                                   Where alc.AnioLectivo = AnioLectivoActual
-                                                   Order By n.Nombre, a.Nombre, t.Nombre, c.Division
-                                                   Select alc.Entidades).ToList()
+                    'listNivelesCursosYEntidades = (From n In dbContext.Nivel
+                    '                               Join a In dbContext.Anio On n.IDNivel Equals a.IDNivel
+                    '                               Join c In dbContext.Curso On a.IDAnio Equals c.IDCurso
+                    '                               Join t In dbContext.Turno On c.IDTurno Equals t.IDTurno
+                    '                               Join alc In dbContext.AnioLectivoCurso On c.IDCurso Equals alc.IDCurso
+                    '                               Where alc.AnioLectivo = AnioLectivoActual
+                    '                               Order By n.Nombre, a.Nombre, t.Nombre, c.Division
+                    '                               Select alc.Entidades).ToList()
 
                 Catch ex As Exception
                     CS_Error.ProcessError(ex, "Error al obtener los Niveles del Año Lectivo.")
@@ -164,21 +164,21 @@ Module EntidadesSincronizarOutlookGruposInexistentes
                 End Try
 
                 Try
-                    For Each NivelActual As Nivel In listNiveles
-                        listNivelesYAniosLectivosCursos = (From n In dbContext.Nivel
-                                                           Join a In dbContext.Anio On n.IDNivel Equals a.IDNivel
-                                                           Join c In dbContext.Curso On a.IDAnio Equals c.IDCurso
-                                                           Join alc In dbContext.AnioLectivoCurso On c.IDCurso Equals alc.IDCurso
-                                                           Where alc.AnioLectivo = AnioLectivoActual
-                                                           Order By n.Nombre
-                                                           Select n, alc)
-                        If EntidadesSincronizarOutlookGruposABM.CrearGrupoDeTipoDeEntidad(OutlookApplication, OutlookDistListItem, EntidadTipo) Then
-                            If EntidadesSincronizarOutlookGruposABM.ActualizarGrupo(OutlookApplication, OutlookDistListItem, String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, EntidadTipoANombre(EntidadTipo)), Entidades, ProgressBarProgreso) Then
-                                Return True
-                            End If
-                        End If
-                        Return False
-                    Next
+                    'For Each NivelActual As Nivel In listNiveles
+                    '    listNivelesYAniosLectivosCursos = (From n In dbContext.Nivel
+                    '                                       Join a In dbContext.Anio On n.IDNivel Equals a.IDNivel
+                    '                                       Join c In dbContext.Curso On a.IDAnio Equals c.IDCurso
+                    '                                       Join alc In dbContext.AnioLectivoCurso On c.IDCurso Equals alc.IDCurso
+                    '                                       Where alc.AnioLectivo = AnioLectivoActual
+                    '                                       Order By n.Nombre
+                    '                                       Select n, alc)
+                    '    If EntidadesSincronizarOutlookGruposABM.CrearGrupoDeTipoDeEntidad(OutlookApplication, OutlookDistListItem, EntidadTipo) Then
+                    '        If EntidadesSincronizarOutlookGruposABM.ActualizarGrupo(OutlookApplication, OutlookDistListItem, String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, EntidadTipoANombre(EntidadTipo)), Entidades, ProgressBarProgreso) Then
+                    '            Return True
+                    '        End If
+                    '    End If
+                    '    Return False
+                    'Next
                 Catch ex As Exception
                     CS_Error.ProcessError(ex, "Error al obtener los Niveles del Año Lectivo.")
                     Return False
