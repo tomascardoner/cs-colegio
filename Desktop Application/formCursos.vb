@@ -10,6 +10,7 @@
         Public Property IDTurno As Byte
         Public Property Turno As String
         Public Property Division As String
+        Public Property CuotaTipo As String
         Public Property EsActivo As Boolean
     End Class
 
@@ -61,7 +62,8 @@
                                    Join a In dbContext.Anio On a.IDAnio Equals c.IDAnio
                                    Join n In dbContext.Nivel On n.IDNivel Equals a.IDNivel
                                    Join t In dbContext.Turno On c.IDTurno Equals t.IDTurno
-                                   Select New GridRowData With {.IDCurso = c.IDCurso, .IDNivel = a.IDNivel, .Nivel = n.Nombre, .IDAnio = a.IDAnio, .Anio = a.Nombre, .IDTurno = c.IDTurno, .Turno = t.Nombre, .Division = c.Division, .EsActivo = a.EsActivo}).ToList
+                                   Join ct In dbContext.CuotaTipo On c.IDCuotaTipo Equals ct.IDCuotaTipo
+                                   Select New GridRowData With {.IDCurso = c.IDCurso, .IDNivel = a.IDNivel, .Nivel = n.Nombre, .IDAnio = a.IDAnio, .Anio = a.Nombre, .IDTurno = c.IDTurno, .Turno = t.Nombre, .Division = c.Division, .CuotaTipo = ct.Nombre, .EsActivo = a.EsActivo}).ToList
             End Using
 
         Catch ex As Exception
@@ -85,7 +87,7 @@
 
         If PositionIDCurso <> 0 Then
             For Each CurrentRowChecked As DataGridViewRow In datagridviewMain.Rows
-                If CType(CurrentRowChecked.DataBoundItem, GridRowData).IDAnio = PositionIDCurso Then
+                If CType(CurrentRowChecked.DataBoundItem, GridRowData).IDCurso = PositionIDCurso Then
                     datagridviewMain.CurrentCell = CurrentRowChecked.Cells(0)
                     Exit For
                 End If
@@ -176,15 +178,21 @@
                 End If
             Case columnDivision.Name
                 If mOrdenTipo = SortOrder.Ascending Then
-                    mlistCursosFiltradaYOrdenada = mlistCursosFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.Turno).ThenBy(Function(dgrd) dgrd.Nivel).ThenBy(Function(dgrd) dgrd.Anio).ThenBy(Function(dgrd) dgrd.Division).ToList
-                Else
-                    mlistCursosFiltradaYOrdenada = mlistCursosFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.Turno).ThenByDescending(Function(dgrd) dgrd.Nivel).ThenByDescending(Function(dgrd) dgrd.Anio).ThenBy(Function(dgrd) dgrd.Division).ToList
-                End If
-            Case columnEsActivo.Name
-                If mOrdenTipo = SortOrder.Ascending Then
                     mlistCursosFiltradaYOrdenada = mlistCursosFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.Division).ThenBy(Function(dgrd) dgrd.Nivel).ThenBy(Function(dgrd) dgrd.Anio).ThenBy(Function(dgrd) dgrd.Turno).ToList
                 Else
                     mlistCursosFiltradaYOrdenada = mlistCursosFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.Division).ThenByDescending(Function(dgrd) dgrd.Nivel).ThenByDescending(Function(dgrd) dgrd.Anio).ThenBy(Function(dgrd) dgrd.Turno).ToList
+                End If
+            Case columnCuotaTipo.Name
+                If mOrdenTipo = SortOrder.Ascending Then
+                    mlistCursosFiltradaYOrdenada = mlistCursosFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.CuotaTipo).ThenBy(Function(dgrd) dgrd.Turno).ThenBy(Function(dgrd) dgrd.Nivel).ThenBy(Function(dgrd) dgrd.Anio).ThenBy(Function(dgrd) dgrd.Division).ToList
+                Else
+                    mlistCursosFiltradaYOrdenada = mlistCursosFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.CuotaTipo).ThenBy(Function(dgrd) dgrd.Turno).ThenBy(Function(dgrd) dgrd.Nivel).ThenBy(Function(dgrd) dgrd.Anio).ThenBy(Function(dgrd) dgrd.Division).ToList
+                End If
+            Case columnEsActivo.Name
+                If mOrdenTipo = SortOrder.Ascending Then
+                    mlistCursosFiltradaYOrdenada = mlistCursosFiltradaYOrdenada.OrderBy(Function(dgrd) dgrd.EsActivo).ThenBy(Function(dgrd) dgrd.Turno).ThenBy(Function(dgrd) dgrd.Nivel).ThenBy(Function(dgrd) dgrd.Anio).ThenBy(Function(dgrd) dgrd.Division).ToList
+                Else
+                    mlistCursosFiltradaYOrdenada = mlistCursosFiltradaYOrdenada.OrderByDescending(Function(dgrd) dgrd.EsActivo).ThenBy(Function(dgrd) dgrd.Turno).ThenBy(Function(dgrd) dgrd.Nivel).ThenBy(Function(dgrd) dgrd.Anio).ThenBy(Function(dgrd) dgrd.Division).ToList
                 End If
         End Select
 

@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class formMDIMain
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class formMDIMain
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formMDIMain))
         Me.statusstripMain = New System.Windows.Forms.StatusStrip()
@@ -84,7 +84,6 @@ Partial Class formMDIMain
         Me.buttonComunicaciones = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemComunicacionesEnviarMail = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonReportes = New System.Windows.Forms.ToolStripButton()
-        Me.menuitemAniosLectivosCursosImportes = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
@@ -296,7 +295,7 @@ Partial Class formMDIMain
         '
         'dropdownbuttonTablas
         '
-        Me.dropdownbuttonTablas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemAnios, Me.menuitemCursos, Me.menuitemAniosLectivosCursos, Me.menuitemAniosLectivosCursosImportes, Me.separatorBancos, Me.menuitemBancos, Me.separatorRelacionTipos, Me.menuitemRelacionTipos})
+        Me.dropdownbuttonTablas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemAnios, Me.menuitemCursos, Me.menuitemAniosLectivosCursos, Me.separatorBancos, Me.menuitemBancos, Me.separatorRelacionTipos, Me.menuitemRelacionTipos})
         Me.dropdownbuttonTablas.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_TABLAS_32
         Me.dropdownbuttonTablas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.dropdownbuttonTablas.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
@@ -308,41 +307,41 @@ Partial Class formMDIMain
         'menuitemAnios
         '
         Me.menuitemAnios.Name = "menuitemAnios"
-        Me.menuitemAnios.Size = New System.Drawing.Size(253, 22)
+        Me.menuitemAnios.Size = New System.Drawing.Size(195, 22)
         Me.menuitemAnios.Text = "Años"
         '
         'menuitemCursos
         '
         Me.menuitemCursos.Name = "menuitemCursos"
-        Me.menuitemCursos.Size = New System.Drawing.Size(253, 22)
+        Me.menuitemCursos.Size = New System.Drawing.Size(195, 22)
         Me.menuitemCursos.Text = "Cursos"
         '
         'menuitemAniosLectivosCursos
         '
         Me.menuitemAniosLectivosCursos.Name = "menuitemAniosLectivosCursos"
-        Me.menuitemAniosLectivosCursos.Size = New System.Drawing.Size(253, 22)
+        Me.menuitemAniosLectivosCursos.Size = New System.Drawing.Size(195, 22)
         Me.menuitemAniosLectivosCursos.Text = "Años Lectivos y Cursos"
         '
         'separatorBancos
         '
         Me.separatorBancos.Name = "separatorBancos"
-        Me.separatorBancos.Size = New System.Drawing.Size(250, 6)
+        Me.separatorBancos.Size = New System.Drawing.Size(192, 6)
         '
         'menuitemBancos
         '
         Me.menuitemBancos.Name = "menuitemBancos"
-        Me.menuitemBancos.Size = New System.Drawing.Size(253, 22)
+        Me.menuitemBancos.Size = New System.Drawing.Size(195, 22)
         Me.menuitemBancos.Text = "Bancos"
         '
         'separatorRelacionTipos
         '
         Me.separatorRelacionTipos.Name = "separatorRelacionTipos"
-        Me.separatorRelacionTipos.Size = New System.Drawing.Size(250, 6)
+        Me.separatorRelacionTipos.Size = New System.Drawing.Size(192, 6)
         '
         'menuitemRelacionTipos
         '
         Me.menuitemRelacionTipos.Name = "menuitemRelacionTipos"
-        Me.menuitemRelacionTipos.Size = New System.Drawing.Size(253, 22)
+        Me.menuitemRelacionTipos.Size = New System.Drawing.Size(195, 22)
         Me.menuitemRelacionTipos.Text = "Tipos de Relación"
         '
         'buttonEntidades
@@ -388,25 +387,25 @@ Partial Class formMDIMain
         'menuitemComprobantesGenerarLoteFacturas
         '
         Me.menuitemComprobantesGenerarLoteFacturas.Name = "menuitemComprobantesGenerarLoteFacturas"
-        Me.menuitemComprobantesGenerarLoteFacturas.Size = New System.Drawing.Size(215, 38)
+        Me.menuitemComprobantesGenerarLoteFacturas.Size = New System.Drawing.Size(216, 38)
         Me.menuitemComprobantesGenerarLoteFacturas.Text = "Generar lote de facturas"
         '
         'menuitemComprobantesTransmitirAFIP
         '
         Me.menuitemComprobantesTransmitirAFIP.Name = "menuitemComprobantesTransmitirAFIP"
-        Me.menuitemComprobantesTransmitirAFIP.Size = New System.Drawing.Size(215, 38)
+        Me.menuitemComprobantesTransmitirAFIP.Size = New System.Drawing.Size(216, 38)
         Me.menuitemComprobantesTransmitirAFIP.Text = "Transmitir a AFIP"
         '
         'menuitemComprobantesEnviarMail
         '
         Me.menuitemComprobantesEnviarMail.Name = "menuitemComprobantesEnviarMail"
-        Me.menuitemComprobantesEnviarMail.Size = New System.Drawing.Size(215, 38)
+        Me.menuitemComprobantesEnviarMail.Size = New System.Drawing.Size(216, 38)
         Me.menuitemComprobantesEnviarMail.Text = "Enviar por e-mail"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(212, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(213, 6)
         '
         'menuitemComprobantesExportar
         '
@@ -414,7 +413,7 @@ Partial Class formMDIMain
         Me.menuitemComprobantesExportar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_EXPORT_32
         Me.menuitemComprobantesExportar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.menuitemComprobantesExportar.Name = "menuitemComprobantesExportar"
-        Me.menuitemComprobantesExportar.Size = New System.Drawing.Size(215, 38)
+        Me.menuitemComprobantesExportar.Size = New System.Drawing.Size(216, 38)
         Me.menuitemComprobantesExportar.Text = "Exportar archivos para..."
         '
         'menuitemComprobantesExportarPagomiscuentas
@@ -447,7 +446,7 @@ Partial Class formMDIMain
         Me.ImportarArchivosDeToolStripMenuItem.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_IMPORT_32
         Me.ImportarArchivosDeToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.ImportarArchivosDeToolStripMenuItem.Name = "ImportarArchivosDeToolStripMenuItem"
-        Me.ImportarArchivosDeToolStripMenuItem.Size = New System.Drawing.Size(215, 38)
+        Me.ImportarArchivosDeToolStripMenuItem.Size = New System.Drawing.Size(216, 38)
         Me.ImportarArchivosDeToolStripMenuItem.Text = "Importar archivos de..."
         '
         'menuitemComprobantesImportarPagomiscuentas
@@ -500,12 +499,6 @@ Partial Class formMDIMain
         Me.buttonReportes.Name = "buttonReportes"
         Me.buttonReportes.Size = New System.Drawing.Size(142, 36)
         Me.buttonReportes.Text = "Reportes"
-        '
-        'menuitemAniosLectivosCursosImportes
-        '
-        Me.menuitemAniosLectivosCursosImportes.Name = "menuitemAniosLectivosCursosImportes"
-        Me.menuitemAniosLectivosCursosImportes.Size = New System.Drawing.Size(253, 22)
-        Me.menuitemAniosLectivosCursosImportes.Text = "Años Lectivos y Cursos - Importes"
         '
         'formMDIMain
         '
@@ -594,5 +587,4 @@ Partial Class formMDIMain
     Friend WithEvents menuitemDebugAFIPWSProduccionConsultarComprobante As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSHomologacionConsultarComprobante As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemEntidadesVerificarEmails As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemAniosLectivosCursosImportes As System.Windows.Forms.ToolStripMenuItem
 End Class

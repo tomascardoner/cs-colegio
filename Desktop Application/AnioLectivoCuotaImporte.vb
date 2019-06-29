@@ -10,12 +10,13 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class AnioLectivoCursoImporte
-    Public Property IDAnioLectivoCurso As Short
+Partial Public Class AnioLectivoCuotaImporte
+    Public Property AnioLectivo As Short
     Public Property MesInicio As Byte
+    Public Property IDCuotaTipo As Byte
     Public Property ImporteMatricula As Decimal
     Public Property ImporteCuota As Decimal
 
-    Public Overridable Property AnioLectivoCurso As AnioLectivoCurso
+    Public Overridable Property CuotaTipo As CuotaTipo
 
 End Class

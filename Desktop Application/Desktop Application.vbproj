@@ -134,6 +134,27 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Anio.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AnioLectivoCuotaImporte.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AnioLectivoCurso.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Articulo.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ArticuloGrupo.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ArticuloTalle.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Banco.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
     <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Bank.vb">
       <Link>CS_Bank.vb</Link>
     </Compile>
@@ -151,27 +172,6 @@
     </Compile>
     <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_String.vb">
       <Link>CS_String.vb</Link>
-    </Compile>
-    <Compile Include="Anio.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AnioLectivoCurso.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AnioLectivoCursoImporte.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Articulo.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ArticuloGrupo.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ArticuloTalle.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Banco.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="BancoSantander_ADDI.vb" />
     <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Control_TabControl.vb">
@@ -296,6 +296,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="CuotaTipo.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
     <Compile Include="Curso.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -346,12 +349,6 @@
     <Compile Include="formComunicacion.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formAnioLectivoCursosImportes.Designer.vb">
-      <DependentUpon>formAnioLectivoCursosImportes.vb</DependentUpon>
-    </Compile>
-    <Compile Include="formAnioLectivoCursosImportes.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="formComunicaciones.Designer.vb">
       <DependentUpon>formComunicaciones.vb</DependentUpon>
     </Compile>
@@ -388,12 +385,6 @@
     <Compile Include="formEntidadInscripcionDetalle.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formAnioLectivoCursoImporte.Designer.vb">
-      <DependentUpon>formAnioLectivoCursoImporte.vb</DependentUpon>
-    </Compile>
-    <Compile Include="formAnioLectivoCursoImporte.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="formAnioLectivoCursoCopiar.Designer.vb">
       <DependentUpon>formAnioLectivoCursoCopiar.vb</DependentUpon>
     </Compile>
@@ -404,12 +395,6 @@
       <DependentUpon>formAnioLectivoCurso.vb</DependentUpon>
     </Compile>
     <Compile Include="formAnioLectivoCurso.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="formAnioLectivoCursoImportes.Designer.vb">
-      <DependentUpon>formAnioLectivoCursoImportes.vb</DependentUpon>
-    </Compile>
-    <Compile Include="formAnioLectivoCursoImportes.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formComunicacionesEnviarMail.Designer.vb">
@@ -700,9 +685,6 @@
     <EmbeddedResource Include="formComunicacion.resx">
       <DependentUpon>formComunicacion.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formAnioLectivoCursosImportes.resx">
-      <DependentUpon>formAnioLectivoCursosImportes.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="formComunicaciones.resx">
       <DependentUpon>formComunicaciones.vb</DependentUpon>
     </EmbeddedResource>
@@ -721,17 +703,11 @@
     <EmbeddedResource Include="formEntidadInscripcionDetalle.resx">
       <DependentUpon>formEntidadInscripcionDetalle.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formAnioLectivoCursoImporte.resx">
-      <DependentUpon>formAnioLectivoCursoImporte.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="formAnioLectivoCursoCopiar.resx">
       <DependentUpon>formAnioLectivoCursoCopiar.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formAnioLectivoCurso.resx">
       <DependentUpon>formAnioLectivoCurso.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="formAnioLectivoCursoImportes.resx">
-      <DependentUpon>formAnioLectivoCursoImportes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formComunicacionesEnviarMail.resx">
       <DependentUpon>formComunicacionesEnviarMail.vb</DependentUpon>

@@ -33,5 +33,7 @@ Partial Public Class Usuario
     Public Overridable Property ComunicacionesCreadas As ICollection(Of Comunicacion) = New HashSet(Of Comunicacion)
     Public Overridable Property ComunicacionesModificadas As ICollection(Of Comunicacion) = New HashSet(Of Comunicacion)
     Public Overridable Property ComunicacionesEntidadesEnviadas As ICollection(Of ComunicacionEntidad) = New HashSet(Of ComunicacionEntidad)
+    Public Overridable Property CuotaTipos As ICollection(Of CuotaTipo) = New HashSet(Of CuotaTipo)
+    Public Overridable Property CuotaTipo1 As ICollection(Of CuotaTipo) = New HashSet(Of CuotaTipo)
 
 End Class

@@ -10,21 +10,18 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class Curso
-    Public Property IDCurso As Byte
-    Public Property IDAnio As Byte
-    Public Property IDTurno As Byte
-    Public Property Division As String
+Partial Public Class CuotaTipo
     Public Property IDCuotaTipo As Byte
+    Public Property Nombre As String
     Public Property EsActivo As Boolean
     Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date
     Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
 
-    Public Overridable Property Anio As Anio
-    Public Overridable Property Turno As Turno
-    Public Overridable Property AniosLectivosCursos As ICollection(Of AnioLectivoCurso) = New HashSet(Of AnioLectivoCurso)
-    Public Overridable Property CuotaTipo As CuotaTipo
+    Public Overridable Property Curso As ICollection(Of Curso) = New HashSet(Of Curso)
+    Public Overridable Property UsuarioCreacion As Usuario
+    Public Overridable Property UsuarioModificacion As Usuario
+    Public Overridable Property AnioLectivoCuotaImporte As ICollection(Of AnioLectivoCuotaImporte) = New HashSet(Of AnioLectivoCuotaImporte)
 
 End Class

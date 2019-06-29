@@ -37,6 +37,8 @@ Partial Class formCurso
         Me.comboboxTurno = New System.Windows.Forms.ComboBox()
         Me.labelDivision = New System.Windows.Forms.Label()
         Me.checkboxEsActivo = New System.Windows.Forms.CheckBox()
+        Me.comboboxCuotaTipo = New System.Windows.Forms.ComboBox()
+        Me.labelCuotaTipo = New System.Windows.Forms.Label()
         labelEsActivo = New System.Windows.Forms.Label()
         Me.toolstripMain.SuspendLayout()
         Me.SuspendLayout()
@@ -44,20 +46,20 @@ Partial Class formCurso
         'labelEsActivo
         '
         labelEsActivo.AutoSize = True
-        labelEsActivo.Location = New System.Drawing.Point(12, 159)
+        labelEsActivo.Location = New System.Drawing.Point(12, 184)
         labelEsActivo.Name = "labelEsActivo"
         labelEsActivo.Size = New System.Drawing.Size(40, 13)
-        labelEsActivo.TabIndex = 6
+        labelEsActivo.TabIndex = 10
         labelEsActivo.Text = "Activo:"
         '
         'comboboxAnio
         '
         Me.comboboxAnio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxAnio.FormattingEnabled = True
-        Me.comboboxAnio.Location = New System.Drawing.Point(92, 76)
+        Me.comboboxAnio.Location = New System.Drawing.Point(95, 76)
         Me.comboboxAnio.Name = "comboboxAnio"
         Me.comboboxAnio.Size = New System.Drawing.Size(266, 21)
-        Me.comboboxAnio.TabIndex = 1
+        Me.comboboxAnio.TabIndex = 3
         '
         'labelAnio
         '
@@ -65,17 +67,17 @@ Partial Class formCurso
         Me.labelAnio.Location = New System.Drawing.Point(12, 79)
         Me.labelAnio.Name = "labelAnio"
         Me.labelAnio.Size = New System.Drawing.Size(29, 13)
-        Me.labelAnio.TabIndex = 0
+        Me.labelAnio.TabIndex = 2
         Me.labelAnio.Text = "Año:"
         '
         'textboxDivision
         '
         Me.textboxDivision.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.textboxDivision.Location = New System.Drawing.Point(92, 129)
+        Me.textboxDivision.Location = New System.Drawing.Point(95, 129)
         Me.textboxDivision.MaxLength = 1
         Me.textboxDivision.Name = "textboxDivision"
         Me.textboxDivision.Size = New System.Drawing.Size(23, 20)
-        Me.textboxDivision.TabIndex = 5
+        Me.textboxDivision.TabIndex = 7
         '
         'labelTurno
         '
@@ -83,7 +85,7 @@ Partial Class formCurso
         Me.labelTurno.Location = New System.Drawing.Point(12, 106)
         Me.labelTurno.Name = "labelTurno"
         Me.labelTurno.Size = New System.Drawing.Size(38, 13)
-        Me.labelTurno.TabIndex = 2
+        Me.labelTurno.TabIndex = 4
         Me.labelTurno.Text = "Turno:"
         '
         'buttonGuardar
@@ -133,16 +135,16 @@ Partial Class formCurso
         Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
         Me.toolstripMain.Name = "toolstripMain"
         Me.toolstripMain.Size = New System.Drawing.Size(371, 39)
-        Me.toolstripMain.TabIndex = 8
+        Me.toolstripMain.TabIndex = 12
         '
         'textboxIDCurso
         '
-        Me.textboxIDCurso.Location = New System.Drawing.Point(92, 50)
+        Me.textboxIDCurso.Location = New System.Drawing.Point(95, 50)
         Me.textboxIDCurso.MaxLength = 10
         Me.textboxIDCurso.Name = "textboxIDCurso"
         Me.textboxIDCurso.ReadOnly = True
         Me.textboxIDCurso.Size = New System.Drawing.Size(74, 20)
-        Me.textboxIDCurso.TabIndex = 10
+        Me.textboxIDCurso.TabIndex = 1
         Me.textboxIDCurso.TabStop = False
         Me.textboxIDCurso.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -152,17 +154,17 @@ Partial Class formCurso
         Me.labelIDCurso.Location = New System.Drawing.Point(12, 53)
         Me.labelIDCurso.Name = "labelIDCurso"
         Me.labelIDCurso.Size = New System.Drawing.Size(21, 13)
-        Me.labelIDCurso.TabIndex = 9
+        Me.labelIDCurso.TabIndex = 0
         Me.labelIDCurso.Text = "ID:"
         '
         'comboboxTurno
         '
         Me.comboboxTurno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxTurno.FormattingEnabled = True
-        Me.comboboxTurno.Location = New System.Drawing.Point(92, 103)
+        Me.comboboxTurno.Location = New System.Drawing.Point(95, 103)
         Me.comboboxTurno.Name = "comboboxTurno"
         Me.comboboxTurno.Size = New System.Drawing.Size(266, 21)
-        Me.comboboxTurno.TabIndex = 3
+        Me.comboboxTurno.TabIndex = 5
         '
         'labelDivision
         '
@@ -170,23 +172,43 @@ Partial Class formCurso
         Me.labelDivision.Location = New System.Drawing.Point(12, 132)
         Me.labelDivision.Name = "labelDivision"
         Me.labelDivision.Size = New System.Drawing.Size(47, 13)
-        Me.labelDivision.TabIndex = 4
+        Me.labelDivision.TabIndex = 6
         Me.labelDivision.Text = "División:"
         '
         'checkboxEsActivo
         '
         Me.checkboxEsActivo.AutoSize = True
-        Me.checkboxEsActivo.Location = New System.Drawing.Point(92, 159)
+        Me.checkboxEsActivo.Location = New System.Drawing.Point(95, 184)
         Me.checkboxEsActivo.Name = "checkboxEsActivo"
         Me.checkboxEsActivo.Size = New System.Drawing.Size(15, 14)
-        Me.checkboxEsActivo.TabIndex = 7
+        Me.checkboxEsActivo.TabIndex = 11
         Me.checkboxEsActivo.UseVisualStyleBackColor = True
+        '
+        'comboboxCuotaTipo
+        '
+        Me.comboboxCuotaTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxCuotaTipo.FormattingEnabled = True
+        Me.comboboxCuotaTipo.Location = New System.Drawing.Point(95, 155)
+        Me.comboboxCuotaTipo.Name = "comboboxCuotaTipo"
+        Me.comboboxCuotaTipo.Size = New System.Drawing.Size(266, 21)
+        Me.comboboxCuotaTipo.TabIndex = 9
+        '
+        'labelCuotaTipo
+        '
+        Me.labelCuotaTipo.AutoSize = True
+        Me.labelCuotaTipo.Location = New System.Drawing.Point(12, 158)
+        Me.labelCuotaTipo.Name = "labelCuotaTipo"
+        Me.labelCuotaTipo.Size = New System.Drawing.Size(77, 13)
+        Me.labelCuotaTipo.TabIndex = 8
+        Me.labelCuotaTipo.Text = "Tipo de Cuota:"
         '
         'formCurso
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(371, 192)
+        Me.ClientSize = New System.Drawing.Size(371, 211)
+        Me.Controls.Add(Me.comboboxCuotaTipo)
+        Me.Controls.Add(Me.labelCuotaTipo)
         Me.Controls.Add(labelEsActivo)
         Me.Controls.Add(Me.comboboxTurno)
         Me.Controls.Add(Me.labelDivision)
@@ -225,4 +247,6 @@ Partial Class formCurso
     Friend WithEvents comboboxTurno As System.Windows.Forms.ComboBox
     Friend WithEvents labelDivision As System.Windows.Forms.Label
     Friend WithEvents checkboxEsActivo As System.Windows.Forms.CheckBox
+    Friend WithEvents comboboxCuotaTipo As ComboBox
+    Friend WithEvents labelCuotaTipo As Label
 End Class

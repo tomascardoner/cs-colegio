@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d421cb0e5a4745b6815723ebaf9d9670" Name="Diagram1" ZoomLevel="39">
+      <Diagram DiagramId="d421cb0e5a4745b6815723ebaf9d9670" Name="Diagram1" ZoomLevel="11">
         <EntityTypeShape EntityType="CSColegioModel.Anio" Width="1.5" PointX="1.75" PointY="62" IsExpanded="true" />
         <EntityTypeShape EntityType="CSColegioModel.Articulo" Width="1.5" PointX="8" PointY="32" IsExpanded="true" />
         <EntityTypeShape EntityType="CSColegioModel.ArticuloGrupo" Width="1.5" PointX="5.75" PointY="31.75" IsExpanded="true" />
@@ -112,8 +112,6 @@
         <AssociationConnector Association="CSColegioModel.ComprobanteTipoAplicacion" ManuallyRouted="false" >
         </AssociationConnector>
         <AssociationConnector Association="CSColegioModel.FK__Concepto__Comprobante" />
-        <EntityTypeShape EntityType="CSColegioModel.AnioLectivoCursoImporte" Width="1.5" PointX="3.25" PointY="49.125" />
-        <AssociationConnector Association="CSColegioModel.FK__AnioLectivoCurso__AnioLectivoCursoImporte" />
         <EntityTypeShape EntityType="CSColegioModel.ReporteParametro" Width="1.5" PointX="24.5" PointY="5.125" />
         <AssociationConnector Association="CSColegioModel.FK__Reporte__ReporteParametro" />
         <EntityTypeShape EntityType="CSColegioModel.TarjetaCredito" Width="1.5" PointX="20" PointY="21.875" />
@@ -136,6 +134,12 @@
         <AssociationConnector Association="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__Factura" />
         <AssociationConnector Association="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__NotaCredito" />
         <AssociationConnector Association="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__NotaDebito" />
+        <EntityTypeShape EntityType="CSColegioModel.CuotaTipo" Width="1.5" PointX="3.25" PointY="1.125" />
+        <AssociationConnector Association="CSColegioModel.FK__CuotaTipo__Curso" />
+        <AssociationConnector Association="CSColegioModel.FK__Usuario__CuotaTipo__Creacion" />
+        <AssociationConnector Association="CSColegioModel.FK__Usuario__CuotaTipo__Modificacion" />
+        <EntityTypeShape EntityType="CSColegioModel.AnioLectivoCuotaImporte" Width="1.5" PointX="5.5" PointY="1.625" />
+        <AssociationConnector Association="CSColegioModel.FK__CuotaTipo__AnioLectivoCuotaImporte" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

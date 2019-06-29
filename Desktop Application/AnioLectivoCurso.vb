@@ -18,6 +18,5 @@ Partial Public Class AnioLectivoCurso
     Public Overridable Property Entidades As ICollection(Of Entidad) = New HashSet(Of Entidad)
     Public Overridable Property Curso As Curso
     Public Overridable Property ComprobanteDetalle As ICollection(Of ComprobanteDetalle) = New HashSet(Of ComprobanteDetalle)
-    Public Overridable Property AnioLectivoCursoImporte As ICollection(Of AnioLectivoCursoImporte) = New HashSet(Of AnioLectivoCursoImporte)
 
 End Class

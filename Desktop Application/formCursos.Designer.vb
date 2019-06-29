@@ -30,11 +30,6 @@ Partial Class formCursos
         Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
         Me.statusstripMain = New System.Windows.Forms.StatusStrip()
         Me.datagridviewMain = New System.Windows.Forms.DataGridView()
-        Me.columnNivel = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnAnio = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnTurno = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnDivision = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnEsActivo = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.panelToolbars = New System.Windows.Forms.FlowLayoutPanel()
         Me.toolstripButtons = New System.Windows.Forms.ToolStrip()
         Me.buttonAgregar = New System.Windows.Forms.ToolStripButton()
@@ -51,6 +46,12 @@ Partial Class formCursos
         Me.toolstripActivo = New System.Windows.Forms.ToolStrip()
         Me.labelActivo = New System.Windows.Forms.ToolStripLabel()
         Me.comboboxActivo = New System.Windows.Forms.ToolStripComboBox()
+        Me.columnNivel = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnAnio = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnTurno = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnDivision = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnCuotaTipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnEsActivo = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.statusstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelToolbars.SuspendLayout()
@@ -86,7 +87,7 @@ Partial Class formCursos
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
         Me.datagridviewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.datagridviewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnNivel, Me.columnAnio, Me.columnTurno, Me.columnDivision, Me.columnEsActivo})
+        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnNivel, Me.columnAnio, Me.columnTurno, Me.columnDivision, Me.columnCuotaTipo, Me.columnEsActivo})
         Me.datagridviewMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.datagridviewMain.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.datagridviewMain.Location = New System.Drawing.Point(0, 64)
@@ -98,61 +99,6 @@ Partial Class formCursos
         Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewMain.Size = New System.Drawing.Size(1032, 325)
         Me.datagridviewMain.TabIndex = 0
-        '
-        'columnNivel
-        '
-        Me.columnNivel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnNivel.DataPropertyName = "Nivel"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnNivel.DefaultCellStyle = DataGridViewCellStyle2
-        Me.columnNivel.HeaderText = "Nivel"
-        Me.columnNivel.Name = "columnNivel"
-        Me.columnNivel.ReadOnly = True
-        Me.columnNivel.Width = 56
-        '
-        'columnAnio
-        '
-        Me.columnAnio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnAnio.DataPropertyName = "Anio"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnAnio.DefaultCellStyle = DataGridViewCellStyle3
-        Me.columnAnio.HeaderText = "Año"
-        Me.columnAnio.Name = "columnAnio"
-        Me.columnAnio.ReadOnly = True
-        Me.columnAnio.Width = 51
-        '
-        'columnTurno
-        '
-        Me.columnTurno.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnTurno.DataPropertyName = "Turno"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnTurno.DefaultCellStyle = DataGridViewCellStyle4
-        Me.columnTurno.HeaderText = "Turno"
-        Me.columnTurno.Name = "columnTurno"
-        Me.columnTurno.ReadOnly = True
-        Me.columnTurno.Width = 60
-        '
-        'columnDivision
-        '
-        Me.columnDivision.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnDivision.DataPropertyName = "Division"
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnDivision.DefaultCellStyle = DataGridViewCellStyle5
-        Me.columnDivision.HeaderText = "División"
-        Me.columnDivision.Name = "columnDivision"
-        Me.columnDivision.ReadOnly = True
-        Me.columnDivision.Width = 69
-        '
-        'columnEsActivo
-        '
-        Me.columnEsActivo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnEsActivo.DataPropertyName = "EsActivo"
-        Me.columnEsActivo.HeaderText = "Activo"
-        Me.columnEsActivo.Name = "columnEsActivo"
-        Me.columnEsActivo.ReadOnly = True
-        Me.columnEsActivo.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.columnEsActivo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.columnEsActivo.Width = 62
         '
         'panelToolbars
         '
@@ -212,7 +158,7 @@ Partial Class formCursos
         Me.toolstripNivel.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelNivel, Me.comboboxNivel, Me.labelAnio, Me.comboboxAnio})
         Me.toolstripNivel.Location = New System.Drawing.Point(247, 0)
         Me.toolstripNivel.Name = "toolstripNivel"
-        Me.toolstripNivel.Size = New System.Drawing.Size(507, 39)
+        Me.toolstripNivel.Size = New System.Drawing.Size(476, 39)
         Me.toolstripNivel.TabIndex = 13
         '
         'labelNivel
@@ -244,15 +190,15 @@ Partial Class formCursos
         Me.toolstripTurno.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripTurno.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripTurno.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelTurno, Me.comboboxTurno})
-        Me.toolstripTurno.Location = New System.Drawing.Point(754, 0)
+        Me.toolstripTurno.Location = New System.Drawing.Point(723, 0)
         Me.toolstripTurno.Name = "toolstripTurno"
-        Me.toolstripTurno.Size = New System.Drawing.Size(197, 39)
+        Me.toolstripTurno.Size = New System.Drawing.Size(196, 39)
         Me.toolstripTurno.TabIndex = 11
         '
         'labelTurno
         '
         Me.labelTurno.Name = "labelTurno"
-        Me.labelTurno.Size = New System.Drawing.Size(42, 36)
+        Me.labelTurno.Size = New System.Drawing.Size(41, 36)
         Me.labelTurno.Text = "Turno:"
         '
         'comboboxTurno
@@ -282,6 +228,70 @@ Partial Class formCursos
         Me.comboboxActivo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxActivo.Name = "comboboxActivo"
         Me.comboboxActivo.Size = New System.Drawing.Size(75, 25)
+        '
+        'columnNivel
+        '
+        Me.columnNivel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnNivel.DataPropertyName = "Nivel"
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnNivel.DefaultCellStyle = DataGridViewCellStyle2
+        Me.columnNivel.HeaderText = "Nivel"
+        Me.columnNivel.Name = "columnNivel"
+        Me.columnNivel.ReadOnly = True
+        Me.columnNivel.Width = 56
+        '
+        'columnAnio
+        '
+        Me.columnAnio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnAnio.DataPropertyName = "Anio"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnAnio.DefaultCellStyle = DataGridViewCellStyle3
+        Me.columnAnio.HeaderText = "Año"
+        Me.columnAnio.Name = "columnAnio"
+        Me.columnAnio.ReadOnly = True
+        Me.columnAnio.Width = 51
+        '
+        'columnTurno
+        '
+        Me.columnTurno.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnTurno.DataPropertyName = "Turno"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnTurno.DefaultCellStyle = DataGridViewCellStyle4
+        Me.columnTurno.HeaderText = "Turno"
+        Me.columnTurno.Name = "columnTurno"
+        Me.columnTurno.ReadOnly = True
+        Me.columnTurno.Width = 60
+        '
+        'columnDivision
+        '
+        Me.columnDivision.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnDivision.DataPropertyName = "Division"
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnDivision.DefaultCellStyle = DataGridViewCellStyle5
+        Me.columnDivision.HeaderText = "División"
+        Me.columnDivision.Name = "columnDivision"
+        Me.columnDivision.ReadOnly = True
+        Me.columnDivision.Width = 69
+        '
+        'columnCuotaTipo
+        '
+        Me.columnCuotaTipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnCuotaTipo.DataPropertyName = "CuotaTipo"
+        Me.columnCuotaTipo.HeaderText = "Tipo Cuota"
+        Me.columnCuotaTipo.Name = "columnCuotaTipo"
+        Me.columnCuotaTipo.ReadOnly = True
+        Me.columnCuotaTipo.Width = 84
+        '
+        'columnEsActivo
+        '
+        Me.columnEsActivo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnEsActivo.DataPropertyName = "EsActivo"
+        Me.columnEsActivo.HeaderText = "Activo"
+        Me.columnEsActivo.Name = "columnEsActivo"
+        Me.columnEsActivo.ReadOnly = True
+        Me.columnEsActivo.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.columnEsActivo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.columnEsActivo.Width = 62
         '
         'formCursos
         '
@@ -330,9 +340,10 @@ Partial Class formCursos
     Friend WithEvents toolstripTurno As System.Windows.Forms.ToolStrip
     Friend WithEvents labelTurno As System.Windows.Forms.ToolStripLabel
     Friend WithEvents comboboxTurno As System.Windows.Forms.ToolStripComboBox
-    Friend WithEvents columnNivel As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnAnio As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnTurno As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnDivision As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnEsActivo As System.Windows.Forms.DataGridViewCheckBoxColumn
+    Friend WithEvents columnNivel As DataGridViewTextBoxColumn
+    Friend WithEvents columnAnio As DataGridViewTextBoxColumn
+    Friend WithEvents columnTurno As DataGridViewTextBoxColumn
+    Friend WithEvents columnDivision As DataGridViewTextBoxColumn
+    Friend WithEvents columnCuotaTipo As DataGridViewTextBoxColumn
+    Friend WithEvents columnEsActivo As DataGridViewCheckBoxColumn
 End Class

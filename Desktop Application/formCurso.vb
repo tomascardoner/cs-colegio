@@ -56,6 +56,7 @@
         comboboxAnio.Enabled = mEditMode
         comboboxTurno.Enabled = mEditMode
         textboxDivision.ReadOnly = Not mEditMode
+        comboboxCuotaTipo.Enabled = mEditMode
         checkboxEsActivo.Enabled = mEditMode
     End Sub
 
@@ -65,6 +66,7 @@
         ' Cargo los ComboBox
         pFillAndRefreshLists.Anio(comboboxAnio, False, False, True)
         pFillAndRefreshLists.Turno(comboboxTurno, False, False)
+        pFillAndRefreshLists.CuotaTipo(comboboxCuotaTipo, False, False)
     End Sub
 
     Friend Sub SetAppearance()
@@ -90,6 +92,7 @@
             CS_ComboBox.SetSelectedValue(comboboxAnio, SelectedItemOptions.Value, .IDAnio)
             CS_ComboBox.SetSelectedValue(comboboxTurno, SelectedItemOptions.Value, .IDTurno, CByte(0))
             textboxDivision.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Division)
+            CS_ComboBox.SetSelectedValue(comboboxCuotaTipo, SelectedItemOptions.Value, .IDCuotaTipo, CByte(0))
             checkboxEsActivo.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.EsActivo)
         End With
     End Sub
@@ -99,6 +102,7 @@
             .IDAnio = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxAnio.SelectedValue, 0).Value
             .IDTurno = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxTurno.SelectedValue, 0).Value
             .Division = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxDivision.Text)
+            .IDCuotaTipo = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxCuotaTipo.SelectedValue, 0).Value
             .EsActivo = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxEsActivo.CheckState)
         End With
     End Sub
@@ -148,6 +152,11 @@
         If comboboxTurno.SelectedIndex = -1 Then
             MsgBox("Debe especificar el Turno.", MsgBoxStyle.Information, My.Application.Info.Title)
             comboboxTurno.Focus()
+            Exit Sub
+        End If
+        If comboboxCuotaTipo.SelectedIndex = -1 Then
+            MsgBox("Debe especificar el Tipo de Cuota.", MsgBoxStyle.Information, My.Application.Info.Title)
+            comboboxCuotaTipo.Focus()
             Exit Sub
         End If
         If textboxDivision.Text.Trim.Length = 0 Then

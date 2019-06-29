@@ -450,18 +450,20 @@
     ''' <remarks></remarks>
     Private Function GenerarComprobanteDetalle(ByRef ComprobanteCabecera As Comprobante, ByRef Alumno As Entidad, ByRef AnioLectivoCursoActual As AnioLectivoCurso, ByRef ArticuloActual As Articulo, ByVal AnioLectivoAFacturar As Short, ByVal MesAFacturar As Byte, ByVal MuestraErrores As Boolean) As ComprobanteDetalle
         Dim ComprobanteDetalleActual As New ComprobanteDetalle
-        Dim AnioLectivoCursoImporteActual As AnioLectivoCursoImporte
+        Dim AnioLectivo As Short
+        Dim AnioLectivoCuotaImporteActual As AnioLectivoCuotaImporte
         Dim MesAFacturarNombre As String
 
+        AnioLectivo = AnioLectivoCursoActual.AnioLectivo
         If MesAFacturar = 0 Then
             Dim MesParaPrecio As Byte
             MesParaPrecio = CByte(ComprobanteCabecera.FechaEmision.Month)
-            AnioLectivoCursoImporteActual = AnioLectivoCursoActual.AnioLectivoCursoImporte.Where(Function(alci) alci.MesInicio <= MesParaPrecio).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
+            AnioLectivoCuotaImporteActual = AnioLectivoCursoActual.Curso.CuotaTipo.AnioLectivoCuotaImporte.Where(Function(alci) alci.AnioLectivo = AnioLectivo And alci.MesInicio <= MesParaPrecio).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
         Else
-            AnioLectivoCursoImporteActual = AnioLectivoCursoActual.AnioLectivoCursoImporte.Where(Function(alci) alci.MesInicio <= MesAFacturar).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
+            AnioLectivoCuotaImporteActual = AnioLectivoCursoActual.Curso.CuotaTipo.AnioLectivoCuotaImporte.Where(Function(alci) alci.AnioLectivo = AnioLectivo And alci.MesInicio <= MesAFacturar).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
         End If
 
-        If Not AnioLectivoCursoImporteActual Is Nothing Then
+        If Not AnioLectivoCursoActual Is Nothing Then
             With ComprobanteDetalleActual
                 .Indice = CByte(ComprobanteCabecera.ComprobanteDetalle.Count + 1)
                 .IDArticulo = ArticuloActual.IDArticulo
@@ -481,20 +483,20 @@
                 If MesAFacturar = 0 Then
                     Select Case Alumno.EmitirFacturaA
                         Case Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO, Constantes.ENTIDAD_EMITIRFACTURAA_PADRE, Constantes.ENTIDAD_EMITIRFACTURAA_MADRE, Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO
-                            .PrecioUnitario = AnioLectivoCursoImporteActual.ImporteMatricula
+                            .PrecioUnitario = AnioLectivoCuotaImporteActual.ImporteMatricula
                         Case Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES
-                            .PrecioUnitario = Decimal.Round(AnioLectivoCursoImporteActual.ImporteMatricula / 2, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
+                            .PrecioUnitario = Decimal.Round(AnioLectivoCuotaImporteActual.ImporteMatricula / 2, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
                         Case Constantes.ENTIDAD_EMITIRFACTURAA_TODOS
-                            .PrecioUnitario = Decimal.Round(AnioLectivoCursoImporteActual.ImporteMatricula / 3, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
+                            .PrecioUnitario = Decimal.Round(AnioLectivoCuotaImporteActual.ImporteMatricula / 3, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
                     End Select
                 Else
                     Select Case Alumno.EmitirFacturaA
                         Case Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO, Constantes.ENTIDAD_EMITIRFACTURAA_PADRE, Constantes.ENTIDAD_EMITIRFACTURAA_MADRE, Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO
-                            .PrecioUnitario = AnioLectivoCursoImporteActual.ImporteCuota
+                            .PrecioUnitario = AnioLectivoCuotaImporteActual.ImporteCuota
                         Case Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES
-                            .PrecioUnitario = Decimal.Round(AnioLectivoCursoImporteActual.ImporteCuota / 2, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
+                            .PrecioUnitario = Decimal.Round(AnioLectivoCuotaImporteActual.ImporteCuota / 2, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
                         Case Constantes.ENTIDAD_EMITIRFACTURAA_TODOS
-                            .PrecioUnitario = Decimal.Round(AnioLectivoCursoImporteActual.ImporteCuota / 3, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
+                            .PrecioUnitario = Decimal.Round(AnioLectivoCuotaImporteActual.ImporteCuota / 3, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
                     End Select
                 End If
 

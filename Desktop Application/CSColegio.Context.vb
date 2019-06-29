@@ -70,7 +70,6 @@ Partial Public Class CSColegioContext
     Public Overridable Property ChequeMotivoRechazo() As DbSet(Of ChequeMotivoRechazo)
     Public Overridable Property Chequera() As DbSet(Of Chequera)
     Public Overridable Property ComprobanteAplicacionMotivo() As DbSet(Of ComprobanteAplicacionMotivo)
-    Public Overridable Property AnioLectivoCursoImporte() As DbSet(Of AnioLectivoCursoImporte)
     Public Overridable Property ReporteParametro() As DbSet(Of ReporteParametro)
     Public Overridable Property TarjetaCredito() As DbSet(Of TarjetaCredito)
     Public Overridable Property TarjetaCreditoBanco() As DbSet(Of TarjetaCreditoBanco)
@@ -78,5 +77,7 @@ Partial Public Class CSColegioContext
     Public Overridable Property Comunicacion() As DbSet(Of Comunicacion)
     Public Overridable Property ComunicacionEntidad() As DbSet(Of ComunicacionEntidad)
     Public Overridable Property EmailEnvio() As DbSet(Of EmailEnvio)
+    Public Overridable Property CuotaTipo() As DbSet(Of CuotaTipo)
+    Public Overridable Property AnioLectivoCuotaImporte() As DbSet(Of AnioLectivoCuotaImporte)
 
 End Class

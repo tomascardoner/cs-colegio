@@ -232,12 +232,6 @@
         End If
     End Sub
 
-    Private Sub menuitemAniosLectivosCursosImportes_Click(sender As Object, e As EventArgs) Handles menuitemAniosLectivosCursosImportes.Click
-        If Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCURSOIMPORTE) And Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCURSOIMPORTE_AGREGAR) And Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCURSOIMPORTE_EDITAR) And Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCURSOIMPORTE_ELIMINAR) Then
-            CS_Form.MDIChild_Show(Me, CType(formAnioLectivoCursosImportes, Form), False)
-        End If
-    End Sub
-
     Private Sub menuitemBancos_Click(sender As Object, e As EventArgs) Handles menuitemBancos.Click
         Dim formBancos As formCABGenerico
 

@@ -252,31 +252,42 @@
     End Sub
 
     Private Sub EstablecerPrecioUnitario()
-        Dim AnioLectivoCursoActual As AnioLectivoCurso
-        Dim AnioLectivoCursoImporteActual As AnioLectivoCursoImporte
+        Dim AnioLectivo As Short
+        Dim IDCurso As Byte
+        Dim CursoActual As Curso
+        Dim IDCuotaTipo As Byte
+        Dim AnioLectivoCuotaImporteActual As AnioLectivoCuotaImporte
         Dim PrecioUnitario As Decimal
 
         If (Not mArticuloActual Is Nothing) AndAlso (Not comboboxAlumno.SelectedIndex = -1) AndAlso (Not comboboxAnioLectivoCurso.SelectedItem Is Nothing) Then
+            AnioLectivo = CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).AnioLectivo
+            IDCurso = CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).IDCurso
             Select Case mArticuloActual.IDArticulo
                 Case mIDArticuloMatricula
                     ' MATRÍCULA
                     Using dbContext As New CSColegioContext(True)
-                        AnioLectivoCursoActual = dbContext.AnioLectivoCurso.Find(CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).IDAnioLectivoCurso)
-                        AnioLectivoCursoImporteActual = AnioLectivoCursoActual.AnioLectivoCursoImporte.Where(Function(alci) alci.MesInicio <= Month(DateAndTime.Today)).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
+                        CursoActual = dbContext.Curso.Find(IDCurso)
+                        If Not CursoActual Is Nothing Then
+                            IDCuotaTipo = CursoActual.IDCuotaTipo
+                            AnioLectivoCuotaImporteActual = dbContext.AnioLectivoCuotaImporte.Where(Function(alci) alci.AnioLectivo = AnioLectivo And alci.MesInicio <= Month(DateAndTime.Today) And alci.IDCuotaTipo = IDCuotaTipo).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
+                            If Not AnioLectivoCuotaImporteActual Is Nothing Then
+                                PrecioUnitario = AnioLectivoCuotaImporteActual.ImporteMatricula
+                            End If
+                        End If
                     End Using
-                    If Not AnioLectivoCursoImporteActual Is Nothing Then
-                        PrecioUnitario = AnioLectivoCursoImporteActual.ImporteMatricula
-                    End If
                 Case mIDArticuloMensual
                     ' CUOTA MENSUAL
                     If comboboxCuotaMes.SelectedIndex > -1 Then
                         Using dbContext As New CSColegioContext(True)
-                            AnioLectivoCursoActual = dbContext.AnioLectivoCurso.Find(CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).IDAnioLectivoCurso)
-                            AnioLectivoCursoImporteActual = AnioLectivoCursoActual.AnioLectivoCursoImporte.Where(Function(alci) alci.MesInicio <= CByte(comboboxCuotaMes.SelectedIndex + 1)).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
+                            CursoActual = dbContext.Curso.Find(IDCurso)
+                            If Not CursoActual Is Nothing Then
+                                IDCuotaTipo = CursoActual.IDCuotaTipo
+                                AnioLectivoCuotaImporteActual = dbContext.AnioLectivoCuotaImporte.Where(Function(alci) alci.AnioLectivo = AnioLectivo And alci.MesInicio <= CByte(comboboxCuotaMes.SelectedIndex + 1) And alci.IDCuotaTipo = IDCuotaTipo).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
+                                If Not AnioLectivoCuotaImporteActual Is Nothing Then
+                                    PrecioUnitario = AnioLectivoCuotaImporteActual.ImporteCuota
+                                End If
+                            End If
                         End Using
-                        If Not AnioLectivoCursoImporteActual Is Nothing Then
-                            PrecioUnitario = AnioLectivoCursoImporteActual.ImporteCuota
-                        End If
                     End If
             End Select
             currencytextboxPrecioUnitario.DecimalValue = PrecioUnitario
@@ -458,6 +469,10 @@
         End If
 
         Me.Close()
+    End Sub
+
+    Private Sub comboboxAnioLectivoCurso_SelectedIndexChanged(sender As Object, e As EventArgs) Handles comboboxAnioLectivoCurso.SelectedIndexChanged
+
     End Sub
 
 #End Region
