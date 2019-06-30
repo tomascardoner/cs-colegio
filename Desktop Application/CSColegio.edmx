@@ -19,7 +19,7 @@
           <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="AnioLectivoCuotaImporte">
+        <EntityType Name="AnioLectivoCuota">
           <Key>
             <PropertyRef Name="AnioLectivo" />
             <PropertyRef Name="MesInicio" />
@@ -1208,14 +1208,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CuotaTipo__AnioLectivoCuotaImporte">
+        <Association Name="FK__CuotaTipo__AnioLectivoCuota">
           <End Role="CuotaTipo" Type="Self.CuotaTipo" Multiplicity="1" />
-          <End Role="AnioLectivoCuotaImporte" Type="Self.AnioLectivoCuotaImporte" Multiplicity="*" />
+          <End Role="AnioLectivoCuota" Type="Self.AnioLectivoCuota" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CuotaTipo">
               <PropertyRef Name="IDCuotaTipo" />
             </Principal>
-            <Dependent Role="AnioLectivoCuotaImporte">
+            <Dependent Role="AnioLectivoCuota">
               <PropertyRef Name="IDCuotaTipo" />
             </Dependent>
           </ReferentialConstraint>
@@ -1730,7 +1730,7 @@
         </Association>
         <EntityContainer Name="CSColegioModelStoreContainer">
           <EntitySet Name="Anio" EntityType="Self.Anio" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AnioLectivoCuotaImporte" EntityType="Self.AnioLectivoCuotaImporte" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AnioLectivoCuota" EntityType="Self.AnioLectivoCuota" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AnioLectivoCurso" EntityType="Self.AnioLectivoCurso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Articulo" EntityType="Self.Articulo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ArticuloGrupo" EntityType="Self.ArticuloGrupo" Schema="dbo" store:Type="Tables" />
@@ -1925,9 +1925,9 @@
             <End Role="Concepto" EntitySet="Concepto" />
             <End Role="Comprobante" EntitySet="Comprobante" />
           </AssociationSet>
-          <AssociationSet Name="FK__CuotaTipo__AnioLectivoCuotaImporte" Association="Self.FK__CuotaTipo__AnioLectivoCuotaImporte">
+          <AssociationSet Name="FK__CuotaTipo__AnioLectivoCuota" Association="Self.FK__CuotaTipo__AnioLectivoCuota">
             <End Role="CuotaTipo" EntitySet="CuotaTipo" />
-            <End Role="AnioLectivoCuotaImporte" EntitySet="AnioLectivoCuotaImporte" />
+            <End Role="AnioLectivoCuota" EntitySet="AnioLectivoCuota" />
           </AssociationSet>
           <AssociationSet Name="FK__CuotaTipo__Curso" Association="Self.FK__CuotaTipo__Curso">
             <End Role="CuotaTipo" EntitySet="CuotaTipo" />
@@ -2355,7 +2355,7 @@
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Movimiento" Relationship="Self.FK__MedioPago__Movimiento" FromRole="MedioPago" ToRole="Movimiento" />
           <NavigationProperty Name="ComprobanteMedioPago" Relationship="CSColegioModel.FK__MedioPago__ComprobanteMedioPago" FromRole="MedioPago" ToRole="ComprobanteMedioPago" />
-          <NavigationProperty Name="Caja" Relationship="CSColegioModel.MedioPagoCaja" FromRole="MedioPago" ToRole="Caja" />
+          <NavigationProperty Name="Caja" Relationship="CSColegioModel.FK__Caja__MedioPagoCaja" FromRole="MedioPago" ToRole="Caja" />
         </EntityType>
         <EntityType Name="Movimiento">
           <Key>
@@ -2867,7 +2867,7 @@
             <End Role="Caja" EntitySet="Caja" />
             <End Role="ComprobanteMedioPago" EntitySet="ComprobanteMedioPago" />
           </AssociationSet>
-          <AssociationSet Name="MedioPagoCaja" Association="CSColegioModel.MedioPagoCaja">
+          <AssociationSet Name="FK__Caja__MedioPagoCaja" Association="CSColegioModel.FK__Caja__MedioPagoCaja">
             <End Role="Caja" EntitySet="Caja" />
             <End Role="MedioPago" EntitySet="MedioPago" />
           </AssociationSet>
@@ -2911,7 +2911,7 @@
             <End Role="ComprobanteAplicacionMotivo" EntitySet="ComprobanteAplicacionMotivo" />
             <End Role="ComprobanteAplicacion" EntitySet="ComprobanteAplicacion" />
           </AssociationSet>
-          <AssociationSet Name="ComprobanteTipoAplicacion" Association="CSColegioModel.ComprobanteTipoAplicacion">
+          <AssociationSet Name="FK__ComprobanteTipo__ComprobanteTipoAplicacion" Association="CSColegioModel.FK__ComprobanteTipo__ComprobanteTipoAplicacion">
             <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
             <End Role="ComprobanteTipo1" EntitySet="ComprobanteTipo" />
           </AssociationSet>
@@ -2999,10 +2999,10 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="CuotaTipo" EntitySet="CuotaTipo" />
           </AssociationSet>
-          <EntitySet Name="AnioLectivoCuotaImporte" EntityType="CSColegioModel.AnioLectivoCuotaImporte" />
-          <AssociationSet Name="FK__CuotaTipo__AnioLectivoCuotaImporte" Association="CSColegioModel.FK__CuotaTipo__AnioLectivoCuotaImporte">
+          <EntitySet Name="AnioLectivoCuota" EntityType="CSColegioModel.AnioLectivoCuota" />
+          <AssociationSet Name="FK__CuotaTipo__AnioLectivoCuota" Association="CSColegioModel.FK__CuotaTipo__AnioLectivoCuota">
             <End Role="CuotaTipo" EntitySet="CuotaTipo" />
-            <End Role="AnioLectivoCuotaImporte" EntitySet="AnioLectivoCuotaImporte" />
+            <End Role="AnioLectivoCuota" EntitySet="AnioLectivoCuota" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
@@ -3042,8 +3042,8 @@
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ComprobanteTipoPuntoVenta" Relationship="CSColegioModel.FK__ComprobanteTipo__ComprobanteTipoPuntoVenta" FromRole="ComprobanteTipo" ToRole="ComprobanteTipoPuntoVenta" />
           <NavigationProperty Name="Comprobante" Relationship="CSColegioModel.FK__ComprobanteTipo__Comprobante" FromRole="ComprobanteTipo" ToRole="Comprobante" />
-          <NavigationProperty Name="ComprobanteTipo_Aplicados" Relationship="CSColegioModel.ComprobanteTipoAplicacion" FromRole="ComprobanteTipo" ToRole="ComprobanteTipo1" />
-          <NavigationProperty Name="ComprobanteTipo_Aplicantes" Relationship="CSColegioModel.ComprobanteTipoAplicacion" FromRole="ComprobanteTipo1" ToRole="ComprobanteTipo" />
+          <NavigationProperty Name="ComprobanteTipo_Aplicados" Relationship="CSColegioModel.FK__ComprobanteTipo__ComprobanteTipoAplicacion" FromRole="ComprobanteTipo" ToRole="ComprobanteTipo1" />
+          <NavigationProperty Name="ComprobanteTipo_Aplicantes" Relationship="CSColegioModel.FK__ComprobanteTipo__ComprobanteTipoAplicacion" FromRole="ComprobanteTipo1" ToRole="ComprobanteTipo" />
           <NavigationProperty Name="CategoriaIVA" Relationship="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__Factura" FromRole="ComprobanteTipo" ToRole="CategoriaIVA" />
           <NavigationProperty Name="CategoriaIVA1" Relationship="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__NotaCredito" FromRole="ComprobanteTipo" ToRole="CategoriaIVA" />
           <NavigationProperty Name="CategoriaIVA2" Relationship="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__NotaDebito" FromRole="ComprobanteTipo" ToRole="CategoriaIVA" />
@@ -3447,7 +3447,7 @@
           <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ComprobanteMedioPago" Relationship="CSColegioModel.FK__Caja__ComprobanteMedioPago" FromRole="Caja" ToRole="ComprobanteMedioPago" />
-          <NavigationProperty Name="MedioPago" Relationship="CSColegioModel.MedioPagoCaja" FromRole="Caja" ToRole="MedioPago" />
+          <NavigationProperty Name="MedioPago" Relationship="CSColegioModel.FK__Caja__MedioPagoCaja" FromRole="Caja" ToRole="MedioPago" />
           <Property Name="EmiteCheque" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Chequera" Relationship="CSColegioModel.FK__Caja__Chequera" FromRole="Caja" ToRole="Chequera" />
         </EntityType>
@@ -3714,7 +3714,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="MedioPagoCaja">
+        <Association Name="FK__Caja__MedioPagoCaja">
           <End Type="CSColegioModel.Caja" Role="Caja" Multiplicity="*" />
           <End Type="CSColegioModel.MedioPago" Role="MedioPago" Multiplicity="*" />
         </Association>
@@ -3873,7 +3873,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="ComprobanteTipoAplicacion">
+        <Association Name="FK__ComprobanteTipo__ComprobanteTipoAplicacion">
           <End Type="CSColegioModel.ComprobanteTipo" Role="ComprobanteTipo" Multiplicity="*" />
           <End Type="CSColegioModel.ComprobanteTipo" Role="ComprobanteTipo1" Multiplicity="*" />
         </Association>
@@ -4177,7 +4177,7 @@
           <NavigationProperty Name="Curso" Relationship="CSColegioModel.FK__CuotaTipo__Curso" FromRole="CuotaTipo" ToRole="Curso" />
           <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__CuotaTipo__Creacion" FromRole="CuotaTipo" ToRole="Usuario" />
           <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__CuotaTipo__Modificacion" FromRole="CuotaTipo" ToRole="Usuario" />
-          <NavigationProperty Name="AnioLectivoCuotaImporte" Relationship="CSColegioModel.FK__CuotaTipo__AnioLectivoCuotaImporte" FromRole="CuotaTipo" ToRole="AnioLectivoCuotaImporte" />
+          <NavigationProperty Name="AnioLectivoCuotas" Relationship="CSColegioModel.FK__CuotaTipo__AnioLectivoCuota" FromRole="CuotaTipo" ToRole="AnioLectivoCuota" />
         </EntityType>
         <Association Name="FK__CuotaTipo__Curso">
           <End Type="CSColegioModel.CuotaTipo" Role="CuotaTipo" Multiplicity="1" />
@@ -4215,7 +4215,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="AnioLectivoCuotaImporte">
+        <EntityType Name="AnioLectivoCuota">
           <Key>
             <PropertyRef Name="AnioLectivo" />
             <PropertyRef Name="MesInicio" />
@@ -4226,16 +4226,16 @@
           <Property Name="IDCuotaTipo" Type="Byte" Nullable="false" />
           <Property Name="ImporteMatricula" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="ImporteCuota" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <NavigationProperty Name="CuotaTipo" Relationship="CSColegioModel.FK__CuotaTipo__AnioLectivoCuotaImporte" FromRole="AnioLectivoCuotaImporte" ToRole="CuotaTipo" />
+          <NavigationProperty Name="CuotaTipo" Relationship="CSColegioModel.FK__CuotaTipo__AnioLectivoCuota" FromRole="AnioLectivoCuota" ToRole="CuotaTipo" />
         </EntityType>
-        <Association Name="FK__CuotaTipo__AnioLectivoCuotaImporte">
+        <Association Name="FK__CuotaTipo__AnioLectivoCuota">
           <End Type="CSColegioModel.CuotaTipo" Role="CuotaTipo" Multiplicity="1" />
-          <End Type="CSColegioModel.AnioLectivoCuotaImporte" Role="AnioLectivoCuotaImporte" Multiplicity="*" />
+          <End Type="CSColegioModel.AnioLectivoCuota" Role="AnioLectivoCuota" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CuotaTipo">
               <PropertyRef Name="IDCuotaTipo" />
             </Principal>
-            <Dependent Role="AnioLectivoCuotaImporte">
+            <Dependent Role="AnioLectivoCuota">
               <PropertyRef Name="IDCuotaTipo" />
             </Dependent>
           </ReferentialConstraint>
@@ -4908,7 +4908,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="MedioPagoCaja" TypeName="CSColegioModel.MedioPagoCaja" StoreEntitySet="MedioPagoCaja">
+          <AssociationSetMapping Name="FK__Caja__MedioPagoCaja" TypeName="CSColegioModel.FK__Caja__MedioPagoCaja" StoreEntitySet="MedioPagoCaja">
             <EndProperty Name="MedioPago">
               <ScalarProperty Name="IDMedioPago" ColumnName="IDMedioPago" />
             </EndProperty>
@@ -4961,7 +4961,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="ComprobanteTipoAplicacion" TypeName="CSColegioModel.ComprobanteTipoAplicacion" StoreEntitySet="ComprobanteTipoAplicacion">
+          <AssociationSetMapping Name="FK__ComprobanteTipo__ComprobanteTipoAplicacion" TypeName="CSColegioModel.FK__ComprobanteTipo__ComprobanteTipoAplicacion" StoreEntitySet="ComprobanteTipoAplicacion">
             <EndProperty Name="ComprobanteTipo1">
               <ScalarProperty Name="IDComprobanteTipo" ColumnName="IDComprobanteTipoAplicante" />
             </EndProperty>
@@ -5069,9 +5069,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AnioLectivoCuotaImporte">
-            <EntityTypeMapping TypeName="CSColegioModel.AnioLectivoCuotaImporte">
-              <MappingFragment StoreEntitySet="AnioLectivoCuotaImporte">
+          <EntitySetMapping Name="AnioLectivoCuota">
+            <EntityTypeMapping TypeName="CSColegioModel.AnioLectivoCuota">
+              <MappingFragment StoreEntitySet="AnioLectivoCuota">
                 <ScalarProperty Name="ImporteCuota" ColumnName="ImporteCuota" />
                 <ScalarProperty Name="ImporteMatricula" ColumnName="ImporteMatricula" />
                 <ScalarProperty Name="IDCuotaTipo" ColumnName="IDCuotaTipo" />

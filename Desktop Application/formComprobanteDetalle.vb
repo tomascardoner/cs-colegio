@@ -256,7 +256,7 @@
         Dim IDCurso As Byte
         Dim CursoActual As Curso
         Dim IDCuotaTipo As Byte
-        Dim AnioLectivoCuotaImporteActual As AnioLectivoCuotaImporte
+        Dim AnioLectivoCuotaActual As AnioLectivoCuota
         Dim PrecioUnitario As Decimal
 
         If (Not mArticuloActual Is Nothing) AndAlso (Not comboboxAlumno.SelectedIndex = -1) AndAlso (Not comboboxAnioLectivoCurso.SelectedItem Is Nothing) Then
@@ -269,9 +269,9 @@
                         CursoActual = dbContext.Curso.Find(IDCurso)
                         If Not CursoActual Is Nothing Then
                             IDCuotaTipo = CursoActual.IDCuotaTipo
-                            AnioLectivoCuotaImporteActual = dbContext.AnioLectivoCuotaImporte.Where(Function(alci) alci.AnioLectivo = AnioLectivo And alci.MesInicio <= Month(DateAndTime.Today) And alci.IDCuotaTipo = IDCuotaTipo).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
-                            If Not AnioLectivoCuotaImporteActual Is Nothing Then
-                                PrecioUnitario = AnioLectivoCuotaImporteActual.ImporteMatricula
+                            AnioLectivoCuotaActual = dbContext.AnioLectivoCuota.Where(Function(alci) alci.AnioLectivo = AnioLectivo And alci.MesInicio <= Month(DateAndTime.Today) And alci.IDCuotaTipo = IDCuotaTipo).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
+                            If Not AnioLectivoCuotaActual Is Nothing Then
+                                PrecioUnitario = AnioLectivoCuotaActual.ImporteMatricula
                             End If
                         End If
                     End Using
@@ -282,9 +282,9 @@
                             CursoActual = dbContext.Curso.Find(IDCurso)
                             If Not CursoActual Is Nothing Then
                                 IDCuotaTipo = CursoActual.IDCuotaTipo
-                                AnioLectivoCuotaImporteActual = dbContext.AnioLectivoCuotaImporte.Where(Function(alci) alci.AnioLectivo = AnioLectivo And alci.MesInicio <= CByte(comboboxCuotaMes.SelectedIndex + 1) And alci.IDCuotaTipo = IDCuotaTipo).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
-                                If Not AnioLectivoCuotaImporteActual Is Nothing Then
-                                    PrecioUnitario = AnioLectivoCuotaImporteActual.ImporteCuota
+                                AnioLectivoCuotaActual = dbContext.AnioLectivoCuota.Where(Function(alci) alci.AnioLectivo = AnioLectivo And alci.MesInicio <= CByte(comboboxCuotaMes.SelectedIndex + 1) And alci.IDCuotaTipo = IDCuotaTipo).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
+                                If Not AnioLectivoCuotaActual Is Nothing Then
+                                    PrecioUnitario = AnioLectivoCuotaActual.ImporteCuota
                                 End If
                             End If
                         End Using

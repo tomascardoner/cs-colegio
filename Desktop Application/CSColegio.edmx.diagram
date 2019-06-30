@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d421cb0e5a4745b6815723ebaf9d9670" Name="Diagram1" ZoomLevel="11">
+      <Diagram DiagramId="d421cb0e5a4745b6815723ebaf9d9670" Name="Diagram1" ZoomLevel="24">
         <EntityTypeShape EntityType="CSColegioModel.Anio" Width="1.5" PointX="1.75" PointY="62" IsExpanded="true" />
         <EntityTypeShape EntityType="CSColegioModel.Articulo" Width="1.5" PointX="8" PointY="32" IsExpanded="true" />
         <EntityTypeShape EntityType="CSColegioModel.ArticuloGrupo" Width="1.5" PointX="5.75" PointY="31.75" IsExpanded="true" />
@@ -94,7 +94,7 @@
         <EntityTypeShape EntityType="CSColegioModel.Cheque" Width="2.25" PointX="16.5" PointY="9.375" />
         <AssociationConnector Association="CSColegioModel.FK__Banco__Cheque" />
         <AssociationConnector Association="CSColegioModel.FK__Caja__ComprobanteMedioPago" />
-        <AssociationConnector Association="CSColegioModel.MedioPagoCaja" />
+        <AssociationConnector Association="CSColegioModel.FK__Caja__MedioPagoCaja" />
         <EntityTypeShape EntityType="CSColegioModel.ComprobanteAplicacion" Width="2.75" PointX="16.5" PointY="21.625" />
         <AssociationConnector Association="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicado" />
         <AssociationConnector Association="CSColegioModel.FK__Comprobante__ComprobanteAplicacion__Aplicante" ManuallyRouted="false" >
@@ -109,7 +109,7 @@
         <AssociationConnector Association="CSColegioModel.FK__Usuario__Comprobante__EnvioEmail" />
         <EntityTypeShape EntityType="CSColegioModel.ComprobanteAplicacionMotivo" Width="1.5" PointX="14.25" PointY="25.875" />
         <AssociationConnector Association="CSColegioModel.FK__ComprobanteAplicacionMotivo__ComprobanteAplicacion" />
-        <AssociationConnector Association="CSColegioModel.ComprobanteTipoAplicacion" ManuallyRouted="false" >
+        <AssociationConnector Association="CSColegioModel.FK__ComprobanteTipo__ComprobanteTipoAplicacion" ManuallyRouted="false" >
         </AssociationConnector>
         <AssociationConnector Association="CSColegioModel.FK__Concepto__Comprobante" />
         <EntityTypeShape EntityType="CSColegioModel.ReporteParametro" Width="1.5" PointX="24.5" PointY="5.125" />
@@ -138,8 +138,8 @@
         <AssociationConnector Association="CSColegioModel.FK__CuotaTipo__Curso" />
         <AssociationConnector Association="CSColegioModel.FK__Usuario__CuotaTipo__Creacion" />
         <AssociationConnector Association="CSColegioModel.FK__Usuario__CuotaTipo__Modificacion" />
-        <EntityTypeShape EntityType="CSColegioModel.AnioLectivoCuotaImporte" Width="1.5" PointX="5.5" PointY="1.625" />
-        <AssociationConnector Association="CSColegioModel.FK__CuotaTipo__AnioLectivoCuotaImporte" />
+        <EntityTypeShape EntityType="CSColegioModel.AnioLectivoCuota" Width="1.5" PointX="5.5" PointY="39.75" />
+        <AssociationConnector Association="CSColegioModel.FK__CuotaTipo__AnioLectivoCuota" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -78,6 +78,6 @@ Partial Public Class CSColegioContext
     Public Overridable Property ComunicacionEntidad() As DbSet(Of ComunicacionEntidad)
     Public Overridable Property EmailEnvio() As DbSet(Of EmailEnvio)
     Public Overridable Property CuotaTipo() As DbSet(Of CuotaTipo)
-    Public Overridable Property AnioLectivoCuotaImporte() As DbSet(Of AnioLectivoCuotaImporte)
+    Public Overridable Property AnioLectivoCuota() As DbSet(Of AnioLectivoCuota)
 
 End Class

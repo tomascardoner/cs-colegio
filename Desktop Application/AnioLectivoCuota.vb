@@ -10,7 +10,7 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class AnioLectivoCuotaImporte
+Partial Public Class AnioLectivoCuota
     Public Property AnioLectivo As Short
     Public Property MesInicio As Byte
     Public Property IDCuotaTipo As Byte

@@ -232,6 +232,12 @@
         End If
     End Sub
 
+    Private Sub menuitemAniosLectivosCuotas_Click() Handles menuitemAniosLectivosCuotas.Click
+        If Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCUOTA) Then
+            CS_Form.MDIChild_Show(Me, CType(formAnioLectivoCuotas, Form), False)
+        End If
+    End Sub
+
     Private Sub menuitemBancos_Click(sender As Object, e As EventArgs) Handles menuitemBancos.Click
         Dim formBancos As formCABGenerico
 

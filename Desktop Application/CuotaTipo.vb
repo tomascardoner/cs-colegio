@@ -22,6 +22,6 @@ Partial Public Class CuotaTipo
     Public Overridable Property Curso As ICollection(Of Curso) = New HashSet(Of Curso)
     Public Overridable Property UsuarioCreacion As Usuario
     Public Overridable Property UsuarioModificacion As Usuario
-    Public Overridable Property AnioLectivoCuotaImporte As ICollection(Of AnioLectivoCuotaImporte) = New HashSet(Of AnioLectivoCuotaImporte)
+    Public Overridable Property AnioLectivoCuotas As ICollection(Of AnioLectivoCuota) = New HashSet(Of AnioLectivoCuota)
 
 End Class

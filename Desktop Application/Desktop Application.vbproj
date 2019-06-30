@@ -137,7 +137,7 @@
     <Compile Include="Anio.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
-    <Compile Include="AnioLectivoCuotaImporte.vb">
+    <Compile Include="AnioLectivoCuota.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="AnioLectivoCurso.vb">
@@ -335,6 +335,18 @@
       <DependentUpon>formAboutBox.vb</DependentUpon>
     </Compile>
     <Compile Include="formAboutBox.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formAnioLectivoCuotas.Designer.vb">
+      <DependentUpon>formAnioLectivoCuotas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formAnioLectivoCuotas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formAnioLectivoCuota.designer.vb">
+      <DependentUpon>formAnioLectivoCuota.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formAnioLectivoCuota.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formCABGenerico.designer.vb">
@@ -678,6 +690,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formAboutBox.resx">
       <DependentUpon>formAboutBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formAnioLectivoCuotas.resx">
+      <DependentUpon>formAnioLectivoCuotas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formAnioLectivoCuota.resx">
+      <DependentUpon>formAnioLectivoCuota.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formCABGenerico.resx">
       <DependentUpon>formCABGenerico.vb</DependentUpon>
