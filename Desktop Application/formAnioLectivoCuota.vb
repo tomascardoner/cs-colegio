@@ -160,7 +160,7 @@
                 ' Refresco la lista de Importes de Cursos de Años Lectivos para mostrar los cambios
                 If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formAnioLectivoCuotas") Then
                     Dim formAnioLectivoCuotas As formAnioLectivoCuotas = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formAnioLectivoCuotas"), formAnioLectivoCuotas)
-                    formAnioLectivoCuotas.RefreshData(mAnioLectivoCuotaActual.AnioLectivo, mAnioLectivoCuotaActual.MesInicio, mAnioLectivoCuotaActual.IDCuotaTipo, True)
+                    formAnioLectivoCuotas.RefreshData(mAnioLectivoCuotaActual.AnioLectivo, mAnioLectivoCuotaActual.MesInicio, mAnioLectivoCuotaActual.IDCuotaTipo, False)
                     formAnioLectivoCuotas = Nothing
                 End If
 
