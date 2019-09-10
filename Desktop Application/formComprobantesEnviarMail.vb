@@ -119,6 +119,7 @@
 #End Region
 
 #Region "Extra stuff"
+
     Private Sub EnviarComprobantes()
         Dim GridDataRowActual As GridDataRow
         Dim ComprobanteActual As Comprobante
