@@ -61,7 +61,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
             datagridviewComprobantes.DataSource = listComprobantes
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al obtener la lista de Comprobantes.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener la lista de Comprobantes.")
         End Try
 
         Me.Cursor = Cursors.Default
@@ -103,20 +103,29 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
 
         Dim InteresTasaNominalAnual As Decimal
 
-        Dim FolderName As String
+        Dim FolderName As String = ""
         Dim FileName As String
 
         ' Obtengo y verifico si existe la carpeta de destino de los archivos a exportar
-        FolderName = CS_SpecialFolders.ProcessString(My.Settings.Exchange_Outbound_Santander_Piryp_Folder)
-        If Not FolderName.EndsWith("\") Then
-            FolderName &= "\"
-        End If
-        If Not FolderName.EndsWith("\") Then
-            FolderName &= "\"
-        End If
-        If Not Directory.Exists(FolderName) Then
-            Directory.CreateDirectory(FolderName)
-        End If
+        Try
+            FolderName = CardonerSistemas.SpecialFolders.ProcessString(My.Settings.Exchange_Outbound_Santander_Piryp_Folder)
+            If Not FolderName.EndsWith("\") Then
+                FolderName &= "\"
+            End If
+            If Not FolderName.EndsWith("\") Then
+                FolderName &= "\"
+            End If
+            If Not Directory.Exists(FolderName) Then
+                Directory.CreateDirectory(FolderName)
+            End If
+
+        Catch avex As AccessViolationException
+            MsgBox("La aplicación no tiene permisos para acceder o crear la carpeta especificada.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+            Return False
+
+        Catch ex As Exception
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error el acceder o crear la carpeta especificada.")
+        End Try
 
         FileName = CS_File.RemoveInvalidFileNameChars(String.Format("Lote - {0}.txt", comboboxComprobanteLote.Text))
 

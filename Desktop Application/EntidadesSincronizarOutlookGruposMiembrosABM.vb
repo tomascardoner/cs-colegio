@@ -14,7 +14,7 @@ Module EntidadesSincronizarOutlookGruposMiembrosABM
             End If
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, String.Format("Error al agregar y resolver el Recipiente ({1}) al Grupo ({0}) en Microsoft Outlook.", OutlookDistListItem.DLName, RecipientName))
+            CardonerSistemas.ErrorHandler.ProcessError(ex, String.Format("Error al agregar y resolver el Recipiente ({1}) al Grupo ({0}) en Microsoft Outlook.", OutlookDistListItem.DLName, RecipientName))
             Return False
         End Try
     End Function
@@ -26,7 +26,7 @@ Module EntidadesSincronizarOutlookGruposMiembrosABM
             Return True
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, String.Format("Error al borrar el Contacto ({1}) del Grupo ({0}) en Microsoft Outlook.", OutlookDistListItem.DLName, OutlookRecipient.Name))
+            CardonerSistemas.ErrorHandler.ProcessError(ex, String.Format("Error al borrar el Contacto ({1}) del Grupo ({0}) en Microsoft Outlook.", OutlookDistListItem.DLName, OutlookRecipient.Name))
             Return False
         End Try
     End Function

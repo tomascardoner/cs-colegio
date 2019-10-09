@@ -1,6 +1,6 @@
 ﻿Module StartUp
     ' Database stuff
-    Friend pDatabase As CS_Database_SQL
+    Friend pDatabase As CardonerSistemas.Database.ADO.SQLServer
     Friend pFillAndRefreshLists As FillAndRefreshLists
 
     Friend pFormMDIMain As formMDIMain
@@ -33,7 +33,7 @@
         Application.DoEvents()
 
         ' Obtengo el Connection String para las conexiones de ADO .NET
-        pDatabase = New CS_Database_SQL
+        pDatabase = New CardonerSistemas.Database.ADO.SQLServer
         pDatabase.ApplicationName = My.Application.Info.Title
         pDatabase.DataSource = My.Settings.DBConnection_Datasource
         pDatabase.InitialCatalog = My.Settings.DBConnection_Database

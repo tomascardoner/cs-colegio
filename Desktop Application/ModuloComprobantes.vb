@@ -526,7 +526,7 @@
     Friend Function TransmitirAFIP_Inicializar(ByRef Objeto_AFIP_WS As CS_AFIP_WS.AFIP_WS, ByVal ModoHomologacion As Boolean) As Boolean
         With Objeto_AFIP_WS
             If My.Settings.AFIP_WS_LogEnabled Then
-                .LogPath = CS_SpecialFolders.ProcessString(My.Settings.AFIP_WS_LogFolder)
+                .LogPath = CardonerSistemas.SpecialFolders.ProcessString(My.Settings.AFIP_WS_LogFolder)
                 If Not .LogPath.EndsWith("\") Then
                     .LogPath &= "\"
                 End If

@@ -116,7 +116,7 @@
             MsgBox("Se han marcado las direcciones de e-mail de las Entidades.", MsgBoxStyle.Information, My.Application.Info.Title)
         Catch ex As Exception
             Me.Cursor = Cursors.Default
-            CS_Error.ProcessError(ex, My.Resources.STRING_ERROR_SAVING_CHANGES)
+            CardonerSistemas.ErrorHandler.ProcessError(ex, My.Resources.STRING_ERROR_SAVING_CHANGES)
         End Try
     End Sub
 

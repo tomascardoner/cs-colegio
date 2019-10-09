@@ -60,7 +60,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
             datagridviewComprobantes.DataSource = listComprobantes
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al obtener la lista de Comprobantes.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener la lista de Comprobantes.")
         End Try
 
         Me.Cursor = Cursors.Default
@@ -102,20 +102,19 @@ Public Class formComprobantesTransmitirPagomiscuentas
         Dim DetalleCount As Integer = 0
         Dim DetalleImporteTotal As Decimal = 0
 
-        Dim FolderName As String
+        Dim FolderName As String = ""
         Dim FileName As String
 
         ' Obtengo y verifico si existe la carpeta de destino de los archivos a exportar
-        FolderName = CS_SpecialFolders.ProcessString(My.Settings.Exchange_Outbound_Folder)
-        If Not Foldername.EndsWith("\") Then
-            Foldername &= "\"
-        End If
-        FolderName &= My.Settings.Exchange_Outbound_PagoMisCuentas_SubFolder
-        If Not FolderName.EndsWith("\") Then
-            FolderName &= "\"
-        End If
-
         Try
+            FolderName = CardonerSistemas.SpecialFolders.ProcessString(My.Settings.Exchange_Outbound_Folder)
+            If Not FolderName.EndsWith("\") Then
+                FolderName &= "\"
+            End If
+            FolderName &= My.Settings.Exchange_Outbound_PagoMisCuentas_SubFolder
+            If Not FolderName.EndsWith("\") Then
+                FolderName &= "\"
+            End If
             If Not My.Computer.FileSystem.DirectoryExists(FolderName) Then
                 My.Computer.FileSystem.CreateDirectory(FolderName)
             End If
@@ -125,7 +124,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
             Return False
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error el acceder o crear la carpeta especificada.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error el acceder o crear la carpeta especificada.")
         End Try
 
         FileName = "FAC" & CS_Parameter_System.GetIntegerAsShort(Parametros.EMPRESA_PRISMA_NUMERO).ToString.PadRight(4, "0"c) & "." & DateTime.Today.ToString("ddMMyy")

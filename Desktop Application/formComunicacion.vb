@@ -257,15 +257,15 @@
 
             Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
                 Me.Cursor = Cursors.Default
-                Select Case CS_Database_EF_SQL.TryDecodeDbUpdateException(dbuex)
-                    Case Errors.DuplicatedEntity
+                Select Case CardonerSistemas.Database.EntityFramework.TryDecodeDbUpdateException(dbuex)
+                    Case CardonerSistemas.Database.EntityFramework.Errors.DuplicatedEntity
                         MsgBox("No se pueden guardar los cambios porque ya existe una Comunicación con el mismo ID o Nombre.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 End Select
                 Exit Sub
 
             Catch ex As Exception
                 Me.Cursor = Cursors.Default
-                CS_Error.ProcessError(ex, My.Resources.STRING_ERROR_SAVING_CHANGES)
+                CardonerSistemas.ErrorHandler.ProcessError(ex, My.Resources.STRING_ERROR_SAVING_CHANGES)
                 Exit Sub
             End Try
         End If

@@ -41,7 +41,7 @@ Module EntidadesSincronizarOutlook
                             Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And ((Opciones.EntidadTipoPersonalColegio And e.TipoPersonalColegio) Or (Opciones.EntidadTipoDocente And e.TipoDocente) Or (Opciones.EntidadTipoAlumno And e.TipoAlumno) Or (Opciones.EntidadTipoFamiliar And e.TipoFamiliar) Or (Opciones.EntidadTipoProveedor And e.TipoProveedor) Or (Opciones.EntidadTipoOtro And e.TipoOtro))).ToList
                         End If
                     Catch ex As Exception
-                        CS_Error.ProcessError(ex, "Error al obtener las Entidades de la base de datos.")
+                        CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener las Entidades de la base de datos.")
                         OutlookApplication = Nothing
                         OutlookContacts = Nothing
                         IDEntidadesVerificadasEnOutlook = Nothing
@@ -123,7 +123,7 @@ Module EntidadesSincronizarOutlook
             OutlookSession = Nothing
             OutlookFolderContacts = Nothing
 
-            CS_Error.ProcessError(ex, "Error al iniciar una instancia de Microsoft Outlook.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al iniciar una instancia de Microsoft Outlook.")
             Return False
         End Try
     End Function

@@ -11,7 +11,7 @@
     <AssemblyName>CSColegio</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsFormsWithCustomSubMain</MyType>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -134,6 +134,26 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\framework-vbnet\Database.ADO.vb">
+      <Link>Database.ADO.vb</Link>
+    </Compile>
+    <Compile Include="..\..\..\framework-vbnet\Database.EntityFramework.vb">
+      <Link>Database.EntityFramework.vb</Link>
+    </Compile>
+    <Compile Include="..\..\..\framework-vbnet\ErrorHandler.vb">
+      <Link>ErrorHandler.vb</Link>
+    </Compile>
+    <Compile Include="..\..\..\framework-vbnet\ErrorHandlerMessageBox.designer.vb">
+      <Link>ErrorHandlerMessageBox.designer.vb</Link>
+      <DependentUpon>ErrorHandlerMessageBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\..\framework-vbnet\ErrorHandlerMessageBox.vb">
+      <Link>ErrorHandlerMessageBox.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\..\..\framework-vbnet\SpecialFolders.vb">
+      <Link>SpecialFolders.vb</Link>
+    </Compile>
     <Compile Include="Anio.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -178,22 +198,8 @@
       <Link>CS_Control_TabControl.vb</Link>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Database_EF_SQL.vb">
-      <Link>CS_Database_EF_SQL.vb</Link>
-    </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Database_SQL.vb">
-      <Link>CS_Database_SQL.vb</Link>
-    </Compile>
     <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Encryption_TripleDES.vb">
       <Link>CS_Encryption_TripleDES.vb</Link>
-    </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_ErrorMessageBox.designer.vb">
-      <Link>CS_ErrorMessageBox.designer.vb</Link>
-      <DependentUpon>CS_ErrorMessageBox.vb</DependentUpon>
-    </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_ErrorMessageBox.vb">
-      <Link>CS_ErrorMessageBox.vb</Link>
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_AFIP.vb">
       <Link>CS_AFIP.vb</Link>
@@ -206,9 +212,6 @@
     </Compile>
     <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Email.vb">
       <Link>CS_Email.vb</Link>
-    </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Error.vb">
-      <Link>CS_Error.vb</Link>
     </Compile>
     <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_File.vb">
       <Link>CS_File.vb</Link>
@@ -224,9 +227,6 @@
     </Compile>
     <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Office_Outlook_LateBinding.vb">
       <Link>CS_Office_Outlook_LateBinding.vb</Link>
-    </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_SpecialFolders.vb">
-      <Link>CS_SpecialFolders.vb</Link>
     </Compile>
     <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_ValueTranslation.vb">
       <Link>CS_ValueTranslation.vb</Link>
@@ -684,9 +684,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_ErrorMessageBox.resx">
-      <Link>CS_ErrorMessageBox.resx</Link>
-      <DependentUpon>CS_ErrorMessageBox.vb</DependentUpon>
+    <EmbeddedResource Include="..\..\..\framework-vbnet\ErrorHandlerMessageBox.resx">
+      <Link>ErrorHandlerMessageBox.resx</Link>
+      <DependentUpon>ErrorHandlerMessageBox.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formAboutBox.resx">
       <DependentUpon>formAboutBox.vb</DependentUpon>

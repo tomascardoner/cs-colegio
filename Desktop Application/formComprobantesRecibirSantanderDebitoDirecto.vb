@@ -1,6 +1,4 @@
-﻿Imports System.IO
-
-Public Class formComprobantesRecibirSantanderDebitoDirecto
+﻿Public Class formComprobantesRecibirSantanderDebitoDirecto
 
 #Region "Declarations"
     Private dbContext As New CSColegioContext(True)
@@ -17,7 +15,7 @@ Public Class formComprobantesRecibirSantanderDebitoDirecto
 
 #Region "Form stuff"
     Private Sub formComprobantesRecibirSantanderDebitoDirecto_Load() Handles Me.Load
-        textboxUbicacionArchivos.Text = CS_SpecialFolders.ProcessString(My.Settings.Exchange_Inbound_Santander_ADDI_Folder)
+        textboxUbicacionArchivos.Text = CardonerSistemas.SpecialFolders.ProcessString(My.Settings.Exchange_Inbound_Santander_ADDI_Folder)
     End Sub
 
     Private Sub formComprobantesRecibirSantanderDebitoDirecto_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -58,7 +56,7 @@ Public Class formComprobantesRecibirSantanderDebitoDirecto
             Exit Sub
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error el acceder a la Carpeta especificada.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error el acceder a la Carpeta especificada.")
         End Try
 
         Dim CollectionOfFileNames As System.Collections.ObjectModel.ReadOnlyCollection(Of String)
@@ -66,7 +64,7 @@ Public Class formComprobantesRecibirSantanderDebitoDirecto
         Try
             CollectionOfFileNames = My.Computer.FileSystem.GetFiles(textboxUbicacionArchivos.Text.Trim, FileIO.SearchOption.SearchTopLevelOnly, CS_Parameter_System.GetString(Parametros.BANCOSANTANDER_ADDI_CODIGOSERVICIO).Substring(0, 4) & "*.deb")
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al obtener la lista de Archivos de la Carpeta especificada.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener la lista de Archivos de la Carpeta especificada.")
             Exit Sub
         End Try
 

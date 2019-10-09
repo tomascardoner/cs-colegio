@@ -101,7 +101,7 @@ Module EntidadesSincronizarOutlookGruposMiembros
             Return True
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, String.Format("Error al verificar los Contactos del Grupo ({0}) en Microsoft Outlook.", OutlookDistListItem.DLName))
+            CardonerSistemas.ErrorHandler.ProcessError(ex, String.Format("Error al verificar los Contactos del Grupo ({0}) en Microsoft Outlook.", OutlookDistListItem.DLName))
             Return False
         End Try
     End Function
@@ -138,7 +138,7 @@ Module EntidadesSincronizarOutlookGruposMiembros
             Return True
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, String.Format("Error al agregar los Miembros al Grupo ({0}) en Microsoft Outlook.", OutlookDistListItem.DLName))
+            CardonerSistemas.ErrorHandler.ProcessError(ex, String.Format("Error al agregar los Miembros al Grupo ({0}) en Microsoft Outlook.", OutlookDistListItem.DLName))
             Return False
         End Try
     End Function

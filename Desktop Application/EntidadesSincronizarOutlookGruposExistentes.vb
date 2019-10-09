@@ -78,7 +78,7 @@ Module EntidadesSincronizarOutlookGruposExistentes
             Return True
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error verificando los Grupos de Contactos de Microsoft Outlook")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error verificando los Grupos de Contactos de Microsoft Outlook")
             OutlookDistListItems = Nothing
             Return False
         End Try
@@ -108,7 +108,7 @@ Module EntidadesSincronizarOutlookGruposExistentes
                                 Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo And e.TipoOtro And Not (e.Email1 Is Nothing And e.Email2 Is Nothing)).ToList
                         End Select
                     Catch ex As Exception
-                        CS_Error.ProcessError(ex, "Error al filtrar las Entidades por Tipo.")
+                        CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al filtrar las Entidades por Tipo.")
                         Entidades = Nothing
                         Return False
                     End Try
@@ -162,7 +162,7 @@ Module EntidadesSincronizarOutlookGruposExistentes
                                     EntidadesSincronizarOutlookGruposABM.BorrarGrupo(OutlookDistListItem, "Doesn't exists anymore in DB or is inactive")
                                 End If
                             Catch ex As Exception
-                                CS_Error.ProcessError(ex, "Error al filtrar las Entidades por Año Lectivo y Nivel.")
+                                CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al filtrar las Entidades por Año Lectivo y Nivel.")
                                 Entidades = Nothing
                                 Return False
                             End Try
@@ -220,7 +220,7 @@ Module EntidadesSincronizarOutlookGruposExistentes
                                     EntidadesSincronizarOutlookGruposABM.BorrarGrupo(OutlookDistListItem, "Doesn't exists anymore in DB or is inactive")
                                 End If
                             Catch ex As Exception
-                                CS_Error.ProcessError(ex, "Error al filtrar las Entidades por Año Lectivo y Curso.")
+                                CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al filtrar las Entidades por Año Lectivo y Curso.")
                                 Entidades = Nothing
                                 Return False
                             End Try

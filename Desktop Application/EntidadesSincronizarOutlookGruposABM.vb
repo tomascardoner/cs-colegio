@@ -14,7 +14,7 @@ Module EntidadesSincronizarOutlookGruposABM
 
         Catch ex As Exception
             OutlookDistListItem = Nothing
-            CS_Error.ProcessError(ex, "Error al crear el Grupo de Contactos de Tipo de Entidad en Microsoft Outlook.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al crear el Grupo de Contactos de Tipo de Entidad en Microsoft Outlook.")
             Return False
         End Try
     End Function
@@ -33,7 +33,7 @@ Module EntidadesSincronizarOutlookGruposABM
 
         Catch ex As Exception
             OutlookDistListItem = Nothing
-            CS_Error.ProcessError(ex, "Error al crear el Grupo de Contactos de Nivel en Microsoft Outlook.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al crear el Grupo de Contactos de Nivel en Microsoft Outlook.")
             Return False
         End Try
     End Function
@@ -52,7 +52,7 @@ Module EntidadesSincronizarOutlookGruposABM
 
         Catch ex As Exception
             OutlookDistListItem = Nothing
-            CS_Error.ProcessError(ex, "Error al crear el Grupo de Contactos de Curso en Microsoft Outlook.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al crear el Grupo de Contactos de Curso en Microsoft Outlook.")
             Return False
         End Try
     End Function
@@ -79,7 +79,7 @@ Module EntidadesSincronizarOutlookGruposABM
             Return True
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, String.Format("Error al actualizar el Grupo de Contactos ({0}) en Microsoft Outlook.", GrupoNombre))
+            CardonerSistemas.ErrorHandler.ProcessError(ex, String.Format("Error al actualizar el Grupo de Contactos ({0}) en Microsoft Outlook.", GrupoNombre))
             Return False
         End Try
     End Function
@@ -91,7 +91,7 @@ Module EntidadesSincronizarOutlookGruposABM
             Return True
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, String.Format("Error al borrar el Grupo de Contactos ({0}) en Microsoft Outlook.", OutlookDistListItem.DLName))
+            CardonerSistemas.ErrorHandler.ProcessError(ex, String.Format("Error al borrar el Grupo de Contactos ({0}) en Microsoft Outlook.", OutlookDistListItem.DLName))
             Return False
         End Try
     End Function

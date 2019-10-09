@@ -1,6 +1,6 @@
 ﻿Module BancoSantander_ADDI
     Friend Function GetConnectionString() As String
-        Dim DatabaseObject As New CS_Database_SQL
+        Dim DatabaseObject As New CardonerSistemas.Database.ADO.SQLServer
 
         With DatabaseObject
             .ApplicationName = My.Application.Info.Title
@@ -42,7 +42,7 @@
             Return sqldatrdr
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al obtener la Adhesión en el sistema ADDI del Banco Santander Río.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener la Adhesión en el sistema ADDI del Banco Santander Río.")
             Return Nothing
         End Try
     End Function
@@ -74,7 +74,7 @@
             Return True
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al actualizar el CBU de la Adhesión en el sistema ADDI del Banco Santander Río.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al actualizar el CBU de la Adhesión en el sistema ADDI del Banco Santander Río.")
             Return False
         End Try
     End Function
@@ -96,7 +96,7 @@
             Return True
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al actualizar el CBU de la Adhesión en el sistema ADDI del Banco Santander Río.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al actualizar el CBU de la Adhesión en el sistema ADDI del Banco Santander Río.")
             Return False
         End Try
     End Function
@@ -126,7 +126,7 @@
             Return True
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al dar de baja la Adhesión en el sistema ADDI del Banco Santander Río.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al dar de baja la Adhesión en el sistema ADDI del Banco Santander Río.")
             Return False
         End Try
     End Function

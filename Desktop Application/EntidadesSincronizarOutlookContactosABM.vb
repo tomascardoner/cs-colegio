@@ -14,7 +14,7 @@ Module EntidadesSincronizarOutlookContactosABM
 
         Catch ex As Exception
             OutlookContactItem = Nothing
-            CS_Error.ProcessError(ex, String.Format("Error al crear el Contacto en Microsoft Outlook (IDEntidad: {0}).", IDEntidad))
+            CardonerSistemas.ErrorHandler.ProcessError(ex, String.Format("Error al crear el Contacto en Microsoft Outlook (IDEntidad: {0}).", IDEntidad))
             Return False
         End Try
     End Function
@@ -69,7 +69,7 @@ Module EntidadesSincronizarOutlookContactosABM
             Return True
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, String.Format("Error al actualizar el Contacto ({0}) en Microsoft Outlook.", EntidadActual.ApellidoNombre))
+            CardonerSistemas.ErrorHandler.ProcessError(ex, String.Format("Error al actualizar el Contacto ({0}) en Microsoft Outlook.", EntidadActual.ApellidoNombre))
             Return False
         End Try
     End Function
@@ -81,7 +81,7 @@ Module EntidadesSincronizarOutlookContactosABM
             Return True
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, String.Format("Error al borrar el Contacto ({0}) en Microsoft Outlook.", OutlookContactItem.FullName))
+            CardonerSistemas.ErrorHandler.ProcessError(ex, String.Format("Error al borrar el Contacto ({0}) en Microsoft Outlook.", OutlookContactItem.FullName))
             Return False
         End Try
     End Function

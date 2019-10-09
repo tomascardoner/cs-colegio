@@ -61,7 +61,7 @@
             End Select
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al obtener la lista de Comprobantes.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener la lista de Comprobantes.")
         End Try
 
         Me.Cursor = Cursors.Default

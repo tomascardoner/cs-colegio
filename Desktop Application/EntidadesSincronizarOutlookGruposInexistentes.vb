@@ -89,7 +89,7 @@ Module EntidadesSincronizarOutlookGruposInexistentes
                     '                               Select alc.Entidades).ToList()
 
                 Catch ex As Exception
-                    CS_Error.ProcessError(ex, "Error al obtener los Niveles del Año Lectivo.")
+                    CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener los Niveles del Año Lectivo.")
                     Return False
                 End Try
 
@@ -110,7 +110,7 @@ Module EntidadesSincronizarOutlookGruposInexistentes
                     '    Return False
                     'Next
                 Catch ex As Exception
-                    CS_Error.ProcessError(ex, "Error al obtener los Niveles del Año Lectivo.")
+                    CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener los Niveles del Año Lectivo.")
                     Return False
                 End Try
             Next
@@ -159,7 +159,7 @@ Module EntidadesSincronizarOutlookGruposInexistentes
                     '                               Select alc.Entidades).ToList()
 
                 Catch ex As Exception
-                    CS_Error.ProcessError(ex, "Error al obtener los Niveles del Año Lectivo.")
+                    CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener los Niveles del Año Lectivo.")
                     Return False
                 End Try
 
@@ -180,7 +180,7 @@ Module EntidadesSincronizarOutlookGruposInexistentes
                     '    Return False
                     'Next
                 Catch ex As Exception
-                    CS_Error.ProcessError(ex, "Error al obtener los Niveles del Año Lectivo.")
+                    CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener los Niveles del Año Lectivo.")
                     Return False
                 End Try
             Next

@@ -47,7 +47,7 @@
 
         Catch ex As Exception
 
-            CS_Error.ProcessError(ex, "Error al leer las Comunicaciones.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al leer las Comunicaciones.")
             Me.Cursor = Cursors.Default
             Exit Sub
         End Try
@@ -102,7 +102,7 @@
                 End Select
 
             Catch ex As Exception
-                CS_Error.ProcessError(ex, "Error al filtrar los datos.")
+                CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al filtrar los datos.")
                 Me.Cursor = Cursors.Default
                 Exit Sub
             End Try
@@ -253,15 +253,15 @@
                             dbContext.SaveChanges()
 
                         Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
-                            Select Case CS_Database_EF_SQL.TryDecodeDbUpdateException(dbuex)
-                                Case Errors.RelatedEntity
+                            Select Case CardonerSistemas.Database.EntityFramework.TryDecodeDbUpdateException(dbuex)
+                                Case CardonerSistemas.Database.EntityFramework.Errors.RelatedEntity
                                     MsgBox("No se puede eliminar la Comunicación porque tiene datos relacionados.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                             End Select
                             Me.Cursor = Cursors.Default
                             Exit Sub
 
                         Catch ex As Exception
-                            CS_Error.ProcessError(ex, "Error al eliminar la Comunicación.")
+                            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al eliminar la Comunicación.")
                         End Try
 
                         RefreshData()

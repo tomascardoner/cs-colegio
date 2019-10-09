@@ -333,7 +333,7 @@
 
         Catch ex As Exception
             Me.Cursor = Cursors.Default
-            CS_Error.ProcessError(ex, "Error al guardar las Facturas Generadas")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al guardar las Facturas Generadas")
             Return False
         End Try
     End Function

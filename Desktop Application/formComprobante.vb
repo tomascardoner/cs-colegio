@@ -299,7 +299,7 @@
             datagridviewDetalle.DataSource = mComprobanteActual.ComprobanteDetalle.ToList
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al leer los Detalles.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al leer los Detalles.")
             Me.Cursor = Cursors.Default
             Exit Sub
         End Try
@@ -387,7 +387,7 @@
             datagridviewAplicaciones.DataSource = listAplicaciones
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al leer los Comprobantes aplicados.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al leer los Comprobantes aplicados.")
             Me.Cursor = Cursors.Default
             Exit Sub
         End Try
@@ -445,7 +445,7 @@
             datagridviewMediosPago.DataSource = listMediosPago
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al leer los Medios de Pago.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al leer los Medios de Pago.")
             Me.Cursor = Cursors.Default
             Exit Sub
         End Try
@@ -756,19 +756,19 @@
 
             Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
                 Me.Cursor = Cursors.Default
-                Select Case CS_Database_EF_SQL.TryDecodeDbUpdateException(dbuex)
-                    Case Errors.DuplicatedEntity
+                Select Case CardonerSistemas.Database.EntityFramework.TryDecodeDbUpdateException(dbuex)
+                    Case CardonerSistemas.Database.EntityFramework.Errors.DuplicatedEntity
                         MsgBox("No se pueden guardar los cambios porque ya existe un Comprobante con el mismo ID.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                    Case Errors.Unknown, Errors.NoDBError
-                        CS_Error.ProcessError(dbuex.GetBaseException, My.Resources.STRING_ERROR_SAVING_CHANGES)
+                    Case CardonerSistemas.Database.EntityFramework.Errors.Unknown, CardonerSistemas.Database.EntityFramework.Errors.NoDBError
+                        CardonerSistemas.ErrorHandler.ProcessError(dbuex.GetBaseException, My.Resources.STRING_ERROR_SAVING_CHANGES)
                     Case Else
-                        CS_Error.ProcessError(dbuex.GetBaseException, My.Resources.STRING_ERROR_SAVING_CHANGES)
+                        CardonerSistemas.ErrorHandler.ProcessError(dbuex.GetBaseException, My.Resources.STRING_ERROR_SAVING_CHANGES)
                 End Select
                 Exit Sub
 
             Catch ex As Exception
                 Me.Cursor = Cursors.Default
-                CS_Error.ProcessError(ex, My.Resources.STRING_ERROR_SAVING_CHANGES)
+                CardonerSistemas.ErrorHandler.ProcessError(ex, My.Resources.STRING_ERROR_SAVING_CHANGES)
                 Exit Sub
             End Try
 

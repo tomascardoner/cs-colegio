@@ -76,7 +76,7 @@ Module EntidadesSincronizarOutlookContactos
 
         Catch ex As Exception
             OutlookUserProperty = Nothing
-            CS_Error.ProcessError(ex, "Error verificando los Contactos existentes en Microsoft Outlook.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error verificando los Contactos existentes en Microsoft Outlook.")
             Return False
         End Try
     End Function
@@ -119,7 +119,7 @@ Module EntidadesSincronizarOutlookContactos
             Return True
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error creando los Contactos no existentes en Microsoft Outlook.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error creando los Contactos no existentes en Microsoft Outlook.")
             OutlookContactItem = Nothing
             Return False
         End Try

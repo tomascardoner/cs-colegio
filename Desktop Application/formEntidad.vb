@@ -835,17 +835,17 @@
 
             Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
                 Me.Cursor = Cursors.Default
-                Select Case CS_Database_EF_SQL.TryDecodeDbUpdateException(dbuex)
-                    Case Errors.DuplicatedEntity
+                Select Case CardonerSistemas.Database.EntityFramework.TryDecodeDbUpdateException(dbuex)
+                    Case CardonerSistemas.Database.EntityFramework.Errors.DuplicatedEntity
                         MsgBox("No se pueden guardar los cambios porque ya existe una Entidad con el mismo Apellido y Nombre.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                    Case Errors.UserDefinedError
+                    Case CardonerSistemas.Database.EntityFramework.Errors.UserDefinedError
                         MsgBox("La dirección de e-Mail especificada, ya existe en la base de datos y no se permiten dulicados.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 End Select
                 Exit Sub
 
             Catch ex As Exception
                 Me.Cursor = Cursors.Default
-                CS_Error.ProcessError(ex, My.Resources.STRING_ERROR_SAVING_CHANGES)
+                CardonerSistemas.ErrorHandler.ProcessError(ex, My.Resources.STRING_ERROR_SAVING_CHANGES)
                 Exit Sub
             End Try
         End If
@@ -892,7 +892,7 @@
                 sqlconn = Nothing
 
             Catch ex As Exception
-                CS_Error.ProcessError(ex, "Error al verificar la Adhesión en el sistema ADDI del Banco Santander Río.")
+                CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al verificar la Adhesión en el sistema ADDI del Banco Santander Río.")
             End Try
         End If
 

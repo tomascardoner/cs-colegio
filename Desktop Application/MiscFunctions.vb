@@ -64,7 +64,7 @@ Module MiscFunctions
             End Using
             Return True
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al conectarse a la base de datos.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al conectarse a la base de datos.")
             Return False
         End Try
     End Function
@@ -76,7 +76,7 @@ Module MiscFunctions
             End Using
             Return True
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al cargar los Permisos del Usuario.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al cargar los Permisos del Usuario.")
             Return False
         End Try
     End Function
@@ -131,7 +131,7 @@ Module MiscFunctions
             smtp.Send(mail)
             Return True
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al enviar el e-mail.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al enviar el e-mail.")
             Return False
         End Try
     End Function
@@ -191,7 +191,7 @@ Module MiscFunctions
             smtp.Send(mail)
             Return MailCount
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al enviar el e-mail.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al enviar el e-mail.")
             Return -1
         End Try
     End Function
@@ -288,7 +288,7 @@ Module MiscFunctions
             Return -1   'True
 
         Catch ex As Exception
-            CS_Error.ProcessError(ex, "Error al enviar el e-mail.")
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al enviar el e-mail.")
             Return -1   'False
 
         End Try
