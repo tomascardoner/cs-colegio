@@ -39,7 +39,7 @@
         pDatabase.InitialCatalog = My.Settings.DBConnection_Database
         pDatabase.UserID = My.Settings.DBConnection_UserID
         ' Desencripto la contraseña de la conexión a la base de datos que está en el archivo app.config
-        Dim PasswordDecrypter As New CS_Encrypt_TripleDES(PUBLIC_ENCRYPTION_PASSWORD)
+        Dim PasswordDecrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PUBLIC_ENCRYPTION_PASSWORD)
         Dim DecryptedPassword As String = ""
         If Not PasswordDecrypter.Decrypt(My.Settings.DBConnection_Password, DecryptedPassword) Then
             MsgBox("La contraseña de conexión a la base de datos es incorrecta.", MsgBoxStyle.Critical, My.Application.Info.Title)

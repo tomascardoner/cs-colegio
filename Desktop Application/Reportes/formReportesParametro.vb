@@ -29,7 +29,7 @@
             Case Constantes.REPORTE_PARAMETRO_TIPO_YEAR
                 pFillAndRefreshLists.AnioLectivo(comboboxValues, False, SortOrder.Descending)
                 If Not mParametroActual.Valor Is Nothing Then
-                    CS_ComboBox.SetSelectedValue(comboboxValues, SelectedItemOptions.ValueOrFirstIfUnique, mParametroActual.Valor)
+                    CardonerSistemas.ComboBox.SetSelectedValue(comboboxValues, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, mParametroActual.Valor)
                 End If
             Case Constantes.REPORTE_PARAMETRO_TIPO_MONTH
                 pFillAndRefreshLists.Mes(comboboxValues, True, False, True, False, False)

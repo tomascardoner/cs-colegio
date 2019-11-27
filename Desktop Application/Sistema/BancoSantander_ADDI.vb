@@ -8,7 +8,7 @@
             .InitialCatalog = My.Settings.ADDI_DBConnection_Database
             .UserID = My.Settings.ADDI_DBConnection_UserID
             ' Desencripto la contraseña de la conexión a la base de datos que está en el archivo app.config
-            Dim PasswordDecrypter As New CS_Encrypt_TripleDES(PUBLIC_ENCRYPTION_PASSWORD)
+            Dim PasswordDecrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PUBLIC_ENCRYPTION_PASSWORD)
             Dim DecrytedPassword As String = ""
             If PasswordDecrypter.Decrypt(My.Settings.ADDI_DBConnection_Password, DecrytedPassword) Then
                 .Password = DecrytedPassword

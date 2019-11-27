@@ -109,7 +109,7 @@ Module MiscFunctions
         smtp.Port = My.Settings.Email_SMTP_Port
         smtp.Timeout = My.Settings.Email_SMTP_Timeout
 
-        Dim Decrypter As New CS_Encrypt_TripleDES(PUBLIC_ENCRYPTION_PASSWORD)
+        Dim Decrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PUBLIC_ENCRYPTION_PASSWORD)
         Dim DecryptedPassword As String = ""
         If Not Decrypter.Decrypt(My.Settings.Email_SMTP_Password, DecryptedPassword) Then
             MsgBox("La contraseña de e-mail (SMTP) especificada es incorrecta.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
@@ -168,7 +168,7 @@ Module MiscFunctions
         smtp.Port = My.Settings.Email_SMTP_Port
         smtp.Timeout = My.Settings.Email_SMTP_Timeout
 
-        Dim Decrypter As New CS_Encrypt_TripleDES(PUBLIC_ENCRYPTION_PASSWORD)
+        Dim Decrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PUBLIC_ENCRYPTION_PASSWORD)
         Dim DecryptedPassword As String = ""
 
         If Not Decrypter.Decrypt(My.Settings.Email_SMTP_Password, DecryptedPassword) Then

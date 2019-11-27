@@ -271,7 +271,7 @@
                     .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("Nombre", "Nombre", "Nombre", DataGridViewContentAlignment.MiddleLeft))
                     .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_CheckBox("Activo", "Activo", "Activo", DataGridViewContentAlignment.MiddleCenter, False, True, False, False))
 
-                    .bindingsourceMain.DataSource = .dbContext.RelacionTipo.Where(Function(rt) rt.IDRelacionTipo <> CS_Constants.FIELD_VALUE_OTHER_BYTE).ToList
+                    .bindingsourceMain.DataSource = .dbContext.RelacionTipo.Where(Function(rt) rt.IDRelacionTipo <> CardonerSistemas.Constants.FIELD_VALUE_OTHER_BYTE).ToList
                     .Show()
                 End With
 

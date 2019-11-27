@@ -122,7 +122,7 @@
             textboxCuerpoMensaje.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.CuerpoMensaje)
             checkboxCuerpoMensajeEsHTML.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.CuerpoMensajeEsHTML)
             checkboxUtilizarCampos.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.UtilizarCampos)
-            CS_ComboBox.SetSelectedIndexByDisplayValue(comboboxCantidadDestinatariosPorEmail, .CantidadDestinatariosPorEmail.ToString)
+            CardonerSistemas.ComboBox.SetSelectedIndexByDisplayValue(comboboxCantidadDestinatariosPorEmail, .CantidadDestinatariosPorEmail.ToString)
             checkboxDestinatariosEnCampoBCC.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.DestinatariosEnCampoBCC)
             textboxArchivoAdjunto.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.ArchivoAdjunto)
             checkboxEsActivo.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.EsActivo)

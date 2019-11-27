@@ -62,7 +62,7 @@
         Me.MdiParent = pFormMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
-        CS_ComboBox.SetSelectedValue(comboboxComprobanteTipo, SelectedItemOptions.Value, mComprobanteActual.IDComprobanteTipo)
+        CardonerSistemas.ComboBox.SetSelectedValue(comboboxComprobanteTipo, CardonerSistemas.ComboBox.SelectedItemOptions.Value, mComprobanteActual.IDComprobanteTipo)
         CambiarTipoComprobante()
         SetDataFromObjectToControls()
         Me.Show()
@@ -159,7 +159,7 @@
             Else
                 textboxIDComprobante.Text = String.Format(.IDComprobante.ToString, "G")
             End If
-            CS_ComboBox.SetSelectedValue(comboboxComprobanteTipo, SelectedItemOptions.Value, .IDComprobanteTipo)
+            CardonerSistemas.ComboBox.SetSelectedValue(comboboxComprobanteTipo, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDComprobanteTipo)
             textboxPuntoVenta.Text = .PuntoVenta
             textboxNumero.Text = .Numero
             datetimepickerFechaEmision.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaEmision, datetimepickerFechaEmision)

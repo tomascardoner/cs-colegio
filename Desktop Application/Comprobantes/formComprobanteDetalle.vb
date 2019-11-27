@@ -85,7 +85,7 @@
 #Region "Load and Set Data"
     Friend Sub SetDataFromObjectToControls()
         With mComprobanteDetalleActual
-            CS_ComboBox.SetSelectedValue(comboboxArticulo, SelectedItemOptions.Value, .IDArticulo, CShort(0))
+            CardonerSistemas.ComboBox.SetSelectedValue(comboboxArticulo, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDArticulo, CShort(0))
             doubletextboxCantidad.DoubleValue = .Cantidad
             textboxUnidad.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Unidad)
             textboxDescripcion.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Descripcion)
@@ -106,7 +106,7 @@
             End If
 
             If (Not mArticuloActual Is Nothing) AndAlso (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual) Then
-                CS_ComboBox.SetSelectedValue(comboboxAnioLectivoCurso, SelectedItemOptions.Value, .IDAnioLectivoCurso, CShort(0))
+                CardonerSistemas.ComboBox.SetSelectedValue(comboboxAnioLectivoCurso, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDAnioLectivoCurso, CShort(0))
             Else
                 comboboxAlumno.SelectedIndex = -1
                 comboboxAnioLectivoCurso.SelectedIndex = -1

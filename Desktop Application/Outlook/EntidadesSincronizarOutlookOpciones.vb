@@ -31,7 +31,7 @@
         SincronizarGrupoContactosPorNivelesYCursos = My.Settings.Outlook_ContactsSync_SincronizarGrupos_NivelYCurso
 
         ' Cargo los Años Lectivos
-        For Each AnioLectivoString As String In My.Settings.Outlook_ContactsSync_AniosLectivos.Split(CS_Constants.STRING_LIST_SEPARATOR)
+        For Each AnioLectivoString As String In My.Settings.Outlook_ContactsSync_AniosLectivos.Split(CardonerSistemas.Constants.STRING_LIST_SEPARATOR)
             If Short.TryParse(AnioLectivoString, AnioLectivoShort) Then
                 AniosLectivos.Add(AnioLectivoShort)
             End If

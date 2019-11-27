@@ -310,16 +310,16 @@
                     datagridviewMain.Enabled = False
 
                     Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
-                        Case EMAIL_CLIENT_NETDLL
+                        Case CardonerSistemas.Constants.EMAIL_CLIENT_NETDLL
                             If MiscFunctions.EnviarEmail_PorNETClient(New System.Net.Mail.MailAddress(DireccionEmailDestino), Nothing, Nothing, ComunicacionActual.Asunto, ComunicacionActual.CuerpoMensajeEsHTML, ComunicacionActual.CuerpoMensaje, Nothing, "", ComunicacionActual.ArchivoAdjunto, False) Then
                                 MsgBox("Se ha enviado la Comunicación por e-mail.", vbInformation, My.Application.Info.Title)
                             End If
-                        Case EMAIL_CLIENT_MSOUTLOOK
+                        Case CardonerSistemas.Constants.EMAIL_CLIENT_MSOUTLOOK
                             'MiscFunctions.EnviarEmailPorMSOutlook(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
                             'If MailCount = -1 Then
                             '    Return 0
                             'End If
-                        Case EMAIL_CLIENT_CRYSTALREPORTSMAPI
+                        Case CardonerSistemas.Constants.EMAIL_CLIENT_CRYSTALREPORTSMAPI
                             'Result = MiscFunctions.EnviarEmailPorCrystalReportsMAPI(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
                             'If Result = -1 Then
                             '    Return 0

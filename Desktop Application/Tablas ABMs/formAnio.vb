@@ -1,31 +1,31 @@
-﻿Public Class formCurso
+﻿Public Class formAnio
 
 #Region "Declarations"
     Private mdbContext As New CSColegioContext(True)
-    Private mCursoActual As Curso
+    Private mAnioActual As Anio
 
     Private mIsLoading As Boolean = False
     Private mEditMode As Boolean = False
 #End Region
 
 #Region "Form stuff"
-    Friend Sub LoadAndShow(ByVal EditMode As Boolean, ByRef ParentForm As Form, ByVal IDCurso As Byte)
+    Friend Sub LoadAndShow(ByVal EditMode As Boolean, ByRef ParentForm As Form, ByVal IDAnio As Byte)
         mIsLoading = True
         mEditMode = EditMode
 
-        If IDCurso = 0 Then
+        If IDAnio = 0 Then
             ' Es Nuevo
-            mCursoActual = New Curso
-            With mCursoActual
+            mAnioActual = New Anio
+            With mAnioActual
                 .EsActivo = True
                 .IDUsuarioCreacion = pUsuario.IDUsuario
                 .FechaHoraCreacion = Now
                 .IDUsuarioModificacion = pUsuario.IDUsuario
                 .FechaHoraModificacion = .FechaHoraCreacion
             End With
-            mdbContext.Curso.Add(mCursoActual)
+            mdbContext.Anio.Add(mAnioActual)
         Else
-            mCursoActual = mdbContext.Curso.Find(IDCurso)
+            mAnioActual = mdbContext.Anio.Find(IDAnio)
         End If
 
         Me.MdiParent = pFormMDIMain
@@ -53,10 +53,9 @@
         buttonEditar.Visible = (mEditMode = False)
         buttonCerrar.Visible = (mEditMode = False)
 
-        comboboxAnio.Enabled = mEditMode
-        comboboxTurno.Enabled = mEditMode
-        textboxDivision.ReadOnly = Not mEditMode
-        comboboxCuotaTipo.Enabled = mEditMode
+        comboboxNivel.Enabled = mEditMode
+        textboxNombre.ReadOnly = Not mEditMode
+        comboboxAnioSiguiente.Enabled = mEditMode
         checkboxEsActivo.Enabled = mEditMode
     End Sub
 
@@ -64,9 +63,8 @@
         SetAppearance()
 
         ' Cargo los ComboBox
-        pFillAndRefreshLists.Anio(comboboxAnio, False, False, True)
-        pFillAndRefreshLists.Turno(comboboxTurno, False, False)
-        pFillAndRefreshLists.CuotaTipo(comboboxCuotaTipo, False, False)
+        pFillAndRefreshLists.Nivel(comboboxNivel, False, False)
+        pFillAndRefreshLists.Anio(comboboxAnioSiguiente, False, True, True, mAnioActual.IDAnio)
     End Sub
 
     Friend Sub SetAppearance()
@@ -76,33 +74,31 @@
     Private Sub Me_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         mdbContext.Dispose()
         mdbContext = Nothing
-        mCursoActual = Nothing
+        mAnioActual = Nothing
         Me.Dispose()
     End Sub
 #End Region
 
 #Region "Load and Set Data"
     Friend Sub SetDataFromObjectToControls()
-        With mCursoActual
-            If .IDCurso = 0 Then
-                textboxIDCurso.Text = My.Resources.STRING_ITEM_NEW_MALE
+        With mAnioActual
+            If .IDAnio = 0 Then
+                textboxIDAnio.Text = My.Resources.STRING_ITEM_NEW_MALE
             Else
-                textboxIDCurso.Text = String.Format(.IDCurso.ToString, "G")
+                textboxIDAnio.Text = String.Format(.IDAnio.ToString, "G")
             End If
-            CS_ComboBox.SetSelectedValue(comboboxAnio, SelectedItemOptions.Value, .IDAnio)
-            CS_ComboBox.SetSelectedValue(comboboxTurno, SelectedItemOptions.Value, .IDTurno, CByte(0))
-            textboxDivision.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Division)
-            CS_ComboBox.SetSelectedValue(comboboxCuotaTipo, SelectedItemOptions.Value, .IDCuotaTipo, CByte(0))
+            CardonerSistemas.ComboBox.SetSelectedValue(comboboxNivel, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDNivel)
+            textboxNombre.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Nombre)
+            CardonerSistemas.ComboBox.SetSelectedValue(comboboxAnioSiguiente, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDAnioSiguiente, CByte(0))
             checkboxEsActivo.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.EsActivo)
         End With
     End Sub
 
     Friend Sub SetDataFromControlsToObject()
-        With mCursoActual
-            .IDAnio = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxAnio.SelectedValue, 0).Value
-            .IDTurno = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxTurno.SelectedValue, 0).Value
-            .Division = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxDivision.Text)
-            .IDCuotaTipo = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxCuotaTipo.SelectedValue, 0).Value
+        With mAnioActual
+            .IDNivel = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxNivel.SelectedValue, 0).Value
+            .Nombre = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNombre.Text)
+            .IDAnioSiguiente = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxAnioSiguiente.SelectedValue, 0)
             .EsActivo = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxEsActivo.CheckState)
         End With
     End Sub
@@ -126,14 +122,14 @@
         End Select
     End Sub
 
-    Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxDivision.GotFocus
+    Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxNombre.GotFocus
         CType(sender, TextBox).SelectAll()
     End Sub
 #End Region
 
 #Region "Main Toolbar"
     Private Sub buttonEditar_Click() Handles buttonEditar.Click
-        If Permisos.VerificarPermiso(Permisos.CURSO_EDITAR) Then
+        If Permisos.VerificarPermiso(Permisos.ANIO_EDITAR) Then
             mEditMode = True
             ChangeMode()
         End If
@@ -144,34 +140,24 @@
     End Sub
 
     Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
-        If comboboxAnio.SelectedIndex = -1 Then
-            MsgBox("Debe especificar el Año.", MsgBoxStyle.Information, My.Application.Info.Title)
-            comboboxAnio.Focus()
+        If comboboxNivel.SelectedIndex = -1 Then
+            MsgBox("Debe especificar el Nivel.", MsgBoxStyle.Information, My.Application.Info.Title)
+            comboboxNivel.Focus()
             Exit Sub
         End If
-        If comboboxTurno.SelectedIndex = -1 Then
-            MsgBox("Debe especificar el Turno.", MsgBoxStyle.Information, My.Application.Info.Title)
-            comboboxTurno.Focus()
-            Exit Sub
-        End If
-        If comboboxCuotaTipo.SelectedIndex = -1 Then
-            MsgBox("Debe especificar el Tipo de Cuota.", MsgBoxStyle.Information, My.Application.Info.Title)
-            comboboxCuotaTipo.Focus()
-            Exit Sub
-        End If
-        If textboxDivision.Text.Trim.Length = 0 Then
-            MsgBox("Debe ingresar la División.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxDivision.Focus()
+        If textboxNombre.Text.Trim.Length = 0 Then
+            MsgBox("Debe ingresar el Nombre.", MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxNombre.Focus()
             Exit Sub
         End If
 
         ' Generar el ID del Año nuevo
-        If mCursoActual.IDCurso = 0 Then
+        If mAnioActual.IDAnio = 0 Then
             Using dbcMaxID As New CSColegioContext(True)
-                If dbcMaxID.Curso.Count = 0 Then
-                    mCursoActual.IDCurso = 1
+                If dbcMaxID.Anio.Count = 0 Then
+                    mAnioActual.IDAnio = 1
                 Else
-                    mCursoActual.IDCurso = dbcMaxID.Curso.Max(Function(a) a.IDCurso) + CByte(1)
+                    mAnioActual.IDAnio = dbcMaxID.Anio.Max(Function(a) a.IDAnio) + CByte(1)
                 End If
             End Using
         End If
@@ -183,8 +169,8 @@
 
             Me.Cursor = Cursors.WaitCursor
 
-            mCursoActual.IDUsuarioModificacion = pUsuario.IDUsuario
-            mCursoActual.FechaHoraModificacion = Now
+            mAnioActual.IDUsuarioModificacion = pUsuario.IDUsuario
+            mAnioActual.FechaHoraModificacion = Now
 
             Try
 
@@ -192,17 +178,17 @@
                 mdbContext.SaveChanges()
 
                 ' Refresco la lista de Entidades para mostrar los cambios
-                If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formCursos") Then
-                    Dim formCursos As formCursos = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formCursos"), formCursos)
-                    formCursos.RefreshData(mCursoActual.IDCurso)
-                    formCursos = Nothing
+                If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formAnios") Then
+                    Dim formAnios As formAnios = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formAnios"), formAnios)
+                    formAnios.RefreshData(mAnioActual.IDAnio)
+                    formAnios = Nothing
                 End If
 
             Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
                 Me.Cursor = Cursors.Default
                 Select Case CardonerSistemas.Database.EntityFramework.TryDecodeDbUpdateException(dbuex)
                     Case CardonerSistemas.Database.EntityFramework.Errors.DuplicatedEntity
-                        MsgBox("No se pueden guardar los cambios porque ya existe un Curso con el mismo Año, Turno y División.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                        MsgBox("No se pueden guardar los cambios porque ya existe un Año con el mismo Nombre.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 End Select
                 Exit Sub
 

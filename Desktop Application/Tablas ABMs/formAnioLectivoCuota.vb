@@ -1,27 +1,29 @@
-﻿Public Class formAnioLectivoCurso
+﻿Public Class formAnioLectivoCuota
 
 #Region "Declarations"
     Private mdbContext As New CSColegioContext(True)
-    Private mAnioLectivoCursoActual As AnioLectivoCurso
+    Private mAnioLectivoCuotaActual As AnioLectivoCuota
 
+    Private mIsNew As Boolean
     Private mIsLoading As Boolean = False
     Private mEditMode As Boolean = False
 #End Region
 
 #Region "Form stuff"
-    Friend Sub LoadAndShow(ByVal EditMode As Boolean, ByRef ParentForm As Form, ByVal IDAnioLectivoCurso As Short)
+    Friend Sub LoadAndShow(ByVal EditMode As Boolean, ByRef ParentForm As Form, ByVal AnioLectivo As Short, ByVal MesInicio As Byte, ByVal IDCuotaTipo As Byte)
+        mIsNew = (IDCuotaTipo = 0)
         mIsLoading = True
         mEditMode = EditMode
 
-        If IDAnioLectivoCurso = 0 Then
+        If mIsNew Then
             ' Es Nuevo
-            mAnioLectivoCursoActual = New AnioLectivoCurso
-            With mAnioLectivoCursoActual
-                .AnioLectivo = CShort(DateTime.Today.Year)
+            mAnioLectivoCuotaActual = New AnioLectivoCuota
+            With mAnioLectivoCuotaActual
+                .AnioLectivo = AnioLectivo
             End With
-            mdbContext.AnioLectivoCurso.Add(mAnioLectivoCursoActual)
+            mdbContext.AnioLectivoCuota.Add(mAnioLectivoCuotaActual)
         Else
-            mAnioLectivoCursoActual = mdbContext.AnioLectivoCurso.Find(IDAnioLectivoCurso)
+            mAnioLectivoCuotaActual = mdbContext.AnioLectivoCuota.Find(AnioLectivo, MesInicio, IDCuotaTipo)
         End If
 
         Me.MdiParent = pFormMDIMain
@@ -46,19 +48,21 @@
 
         buttonGuardar.Visible = mEditMode
         buttonCancelar.Visible = mEditMode
-        buttonEditar.Visible = (mEditMode = False)
-        buttonCerrar.Visible = (mEditMode = False)
+        buttonEditar.Visible = Not mEditMode
+        buttonCerrar.Visible = Not mEditMode
 
-        comboboxAnioLectivo.Enabled = mEditMode
-        comboboxCurso.Enabled = mEditMode
+        comboboxMesInicio.Enabled = (mEditMode And mIsNew)
+        comboboxCuotaTipo.Enabled = (mEditMode And mIsNew)
+        currencytextboxImporteMatricula.ReadOnly = Not mEditMode
+        currencytextboxImporteCuota.ReadOnly = Not mEditMode
     End Sub
 
     Friend Sub InitializeFormAndControls()
         SetAppearance()
 
         ' Cargo los ComboBox
-        pFillAndRefreshLists.AnioLectivo(comboboxAnioLectivo, False, SortOrder.Ascending)
-        pFillAndRefreshLists.Curso(comboboxCurso, False, False, True)
+        pFillAndRefreshLists.Mes(comboboxMesInicio, True, False, True, False, False)
+        pFillAndRefreshLists.CuotaTipo(comboboxCuotaTipo, False, False)
     End Sub
 
     Friend Sub SetAppearance()
@@ -68,28 +72,28 @@
     Private Sub Me_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         mdbContext.Dispose()
         mdbContext = Nothing
-        mAnioLectivoCursoActual = Nothing
+        mAnioLectivoCuotaActual = Nothing
         Me.Dispose()
     End Sub
 #End Region
 
 #Region "Load and Set Data"
     Friend Sub SetDataFromObjectToControls()
-        With mAnioLectivoCursoActual
-            If .IDAnioLectivoCurso = 0 Then
-                textboxIDAnioLectivoCurso.Text = My.Resources.STRING_ITEM_NEW_MALE
-            Else
-                textboxIDAnioLectivoCurso.Text = String.Format(.IDAnioLectivoCurso.ToString, "G")
-            End If
-            comboboxAnioLectivo.SelectedIndex = comboboxAnioLectivo.FindStringExact(.AnioLectivo.ToString)
-            CS_ComboBox.SetSelectedValue(comboboxCurso, SelectedItemOptions.Value, .IDCurso)
+        With mAnioLectivoCuotaActual
+            textboxAnioLectivo.Text = mAnioLectivoCuotaActual.AnioLectivo.ToString
+            comboboxMesInicio.SelectedIndex = .MesInicio - 1
+            CardonerSistemas.ComboBox.SetSelectedValue(comboboxCuotaTipo, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, .IDCuotaTipo)
+            currencytextboxImporteMatricula.DecimalValue = .ImporteMatricula
+            currencytextboxImporteCuota.DecimalValue = .ImporteCuota
         End With
     End Sub
 
     Friend Sub SetDataFromControlsToObject()
-        With mAnioLectivoCursoActual
-            .AnioLectivo = CShort(comboboxAnioLectivo.Text)
-            .IDCurso = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxCurso.SelectedValue, 0).Value
+        With mAnioLectivoCuotaActual
+            .MesInicio = CByte(comboboxMesInicio.SelectedIndex + 1)
+            .IDCuotaTipo = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxCuotaTipo.SelectedValue).Value
+            .ImporteMatricula = currencytextboxImporteMatricula.DecimalValue
+            .ImporteCuota = currencytextboxImporteCuota.DecimalValue
         End With
     End Sub
 #End Region
@@ -119,7 +123,7 @@
 
 #Region "Main Toolbar"
     Private Sub buttonEditar_Click() Handles buttonEditar.Click
-        If Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCURSO_EDITAR) Then
+        If Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCUOTA_EDITAR) Then
             mEditMode = True
             ChangeMode()
         End If
@@ -130,27 +134,17 @@
     End Sub
 
     Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
-        If comboboxAnioLectivo.SelectedIndex = -1 Then
-            MsgBox("Debe especificar el Año Lectivo.", MsgBoxStyle.Information, My.Application.Info.Title)
-            comboboxAnioLectivo.Focus()
+        If comboboxMesInicio.SelectedIndex = -1 Then
+            MsgBox("Debe especificar el Mes de Inicio.", MsgBoxStyle.Information, My.Application.Info.Title)
+            comboboxMesInicio.Focus()
             Exit Sub
         End If
-        If comboboxCurso.SelectedIndex = -1 Then
-            MsgBox("Debe especificar el Curso.", MsgBoxStyle.Information, My.Application.Info.Title)
-            comboboxCurso.Focus()
+        If comboboxCuotaTipo.SelectedIndex = -1 Then
+            MsgBox("Debe especificar el Tipo de Cuota.", MsgBoxStyle.Information, My.Application.Info.Title)
+            comboboxCuotaTipo.Focus()
             Exit Sub
         End If
 
-        ' Generar el ID del Año nuevo
-        If mAnioLectivoCursoActual.IDAnioLectivoCurso = 0 Then
-            Using dbcMaxID As New CSColegioContext(True)
-                If dbcMaxID.Curso.Count = 0 Then
-                    mAnioLectivoCursoActual.IDAnioLectivoCurso = 1
-                Else
-                    mAnioLectivoCursoActual.IDAnioLectivoCurso = dbcMaxID.AnioLectivoCurso.Max(Function(alc) alc.IDAnioLectivoCurso) + CShort(1)
-                End If
-            End Using
-        End If
 
         ' Paso los datos desde los controles al Objecto de EF
         SetDataFromControlsToObject()
@@ -163,18 +157,18 @@
                 ' Guardo los cambios
                 mdbContext.SaveChanges()
 
-                ' Refresco la lista de Cursos de Años Lectivos para mostrar los cambios
-                If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formAnioLectivoCursos") Then
-                    Dim formAnioLectivoCursos As formAnioLectivoCursos = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formAnioLectivoCursos"), formAnioLectivoCursos)
-                    formAnioLectivoCursos.RefreshData(mAnioLectivoCursoActual.IDAnioLectivoCurso)
-                    formAnioLectivoCursos = Nothing
+                ' Refresco la lista de Importes de Cursos de Años Lectivos para mostrar los cambios
+                If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formAnioLectivoCuotas") Then
+                    Dim formAnioLectivoCuotas As formAnioLectivoCuotas = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formAnioLectivoCuotas"), formAnioLectivoCuotas)
+                    formAnioLectivoCuotas.RefreshData(mAnioLectivoCuotaActual.AnioLectivo, mAnioLectivoCuotaActual.MesInicio, mAnioLectivoCuotaActual.IDCuotaTipo, False)
+                    formAnioLectivoCuotas = Nothing
                 End If
 
             Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
                 Me.Cursor = Cursors.Default
                 Select Case CardonerSistemas.Database.EntityFramework.TryDecodeDbUpdateException(dbuex)
                     Case CardonerSistemas.Database.EntityFramework.Errors.DuplicatedEntity
-                        MsgBox("No se pueden guardar los cambios porque ya existe el Curso para el Año Lectivo.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                        MsgBox("No se pueden guardar los cambios porque ya existe el Mes de Inicio del Importe del Curso para el Año Lectivo.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 End Select
                 Exit Sub
 
