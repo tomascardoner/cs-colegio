@@ -29,12 +29,12 @@
             For Each FormCurrent As Form In Me.MdiChildren
                 If FormCurrent.FormBorderStyle = Windows.Forms.FormBorderStyle.Sizable Then
                     If FormCurrent.Name = "formComprobante" Then
-                        CS_Form.MDIChild_CenterToClientArea(Me, FormCurrent, Form_ClientSize)
+                        CS_Form.MDIChild_CenterToClientArea(FormCurrent, Form_ClientSize)
                     Else
                         CS_Form.MDIChild_PositionAndSizeToFit(Me, FormCurrent)
                     End If
                 Else
-                    CS_Form.MDIChild_CenterToClientArea(Me, FormCurrent, Form_ClientSize)
+                    CS_Form.MDIChild_CenterToClientArea(FormCurrent, Form_ClientSize)
                 End If
             Next
         End If
@@ -115,16 +115,22 @@
     End Sub
 
     Private Sub Debug_AFIPWSProduccionObtenerUltimoComprobante(sender As Object, e As EventArgs) Handles menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Click
+        Dim TipoComprobanteString As String
         Dim TipoComprobante As Short
+        Dim PuntoVentaString As String
         Dim PuntoVenta As Short
 
         If mObjeto_AFIP_WS_Produccion Is Nothing Then
             MsgBox("No hay un Ticket de Acceso válido." & vbCrLf & "¿Ya inició sesión en AFIP?", vbExclamation, My.Application.Info.Title)
         Else
-            TipoComprobante = CShort(InputBox("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Text))
-            PuntoVenta = CShort(InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Text))
-            If mObjeto_AFIP_WS_Produccion.FacturaElectronica_ConectarYObtenerUltimoNumeroComprobante(TipoComprobante, PuntoVenta) Then
-                MsgBox("El Último Número de comprobante autorizado es: " & mObjeto_AFIP_WS_Produccion.UltimoComprobanteAutorizado, vbInformation, My.Application.Info.Title)
+            TipoComprobanteString = InputBox("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Text)
+            If TipoComprobanteString.Trim.Length() > 0 AndAlso Short.TryParse(TipoComprobanteString, TipoComprobante) Then
+                PuntoVentaString = InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Text)
+                If PuntoVentaString.Trim.Length() > 0 AndAlso Short.TryParse(PuntoVentaString, PuntoVenta) Then
+                    If mObjeto_AFIP_WS_Produccion.FacturaElectronica_ConectarYObtenerUltimoNumeroComprobante(TipoComprobante, PuntoVenta) Then
+                        MsgBox("El Último Número de comprobante autorizado es: " & mObjeto_AFIP_WS_Produccion.UltimoComprobanteAutorizado, vbInformation, My.Application.Info.Title)
+                    End If
+                End If
             End If
         End If
     End Sub
