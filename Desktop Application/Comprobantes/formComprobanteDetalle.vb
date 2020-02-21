@@ -230,7 +230,11 @@
             comboboxAnioLectivoCurso.DataSource = Nothing
         Else
             If mArticuloActual.IDArticulo = mIDArticuloMatricula Then
-                pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year + 1, True, mEntidad.IDEntidad)
+                If Permisos.VerificarPermiso(Permisos.COMPROBANTE_DETALLE_PERMITE_MATRICULAANIOANTERIOR, False) Then
+                    pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year - 1, Today.Year + 1, True, mEntidad.IDEntidad)
+                Else
+                    pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year, Today.Year + 1, True, mEntidad.IDEntidad)
+                End If
             ElseIf mArticuloActual.IDArticulo = mIDArticuloMensual Then
                 If Permisos.VerificarPermiso(Permisos.COMPROBANTE_DETALLE_PERMITE_CUOTAANIOANTERIORYSIGUIENTE, False) Then
                     pFillAndRefreshLists.AnioLectivoCurso(comboboxAnioLectivoCurso, Today.Year - 1, Today.Year + 1, True, mEntidad.IDEntidad)
