@@ -18,6 +18,7 @@
 #End Region
 
 #Region "Form stuff"
+
     Friend Sub LoadAndShow(ByVal ParentEditMode As Boolean, ByVal EditMode As Boolean, ByRef ParentForm As Form, ByRef ComprobanteActual As Comprobante, ByRef ComprobanteDetalleActual As ComprobanteDetalle)
         mParentEditMode = ParentEditMode
         mEditMode = EditMode
@@ -66,7 +67,7 @@
         mIDArticuloMensual = CS_Parameter_System.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID)
 
         ' Cargo los ComboBox
-        pFillAndRefreshLists.Articulo(comboboxArticulo, False, False)
+        pFillAndRefreshLists.Articulo(comboboxArticulo, False, False, mComprobanteActual.IDComprobanteTipo)
 
         For MesNumero As Integer = 1 To 12
             comboboxCuotaMes.Items.Add(StrConv(MonthName(MesNumero), VbStrConv.ProperCase))
@@ -80,6 +81,7 @@
         mEntidad = Nothing
         Me.Dispose()
     End Sub
+
 #End Region
 
 #Region "Load and Set Data"
@@ -307,6 +309,7 @@
 #End Region
 
 #Region "Controls behavior"
+
     Private Sub FormKeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
         Select Case e.KeyChar
             Case Microsoft.VisualBasic.ChrW(Keys.Return)
@@ -407,9 +410,11 @@
     Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxUnidad.GotFocus, textboxDescripcion.GotFocus
         CType(sender, TextBox).SelectAll()
     End Sub
+
 #End Region
 
 #Region "Main Toolbar"
+
     Private Sub buttonEditar_Click() Handles buttonEditar.Click
         mEditMode = True
         ChangeMode()

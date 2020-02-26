@@ -24,6 +24,8 @@ Partial Public Class Caja
 
     Public Overridable Property ComprobanteMedioPago As ICollection(Of ComprobanteMedioPago) = New HashSet(Of ComprobanteMedioPago)
     Public Overridable Property MedioPago As ICollection(Of MedioPago) = New HashSet(Of MedioPago)
-    Public Overridable Property Chequera As ICollection(Of Chequera) = New HashSet(Of Chequera)
+    Public Overridable Property Chequeras As ICollection(Of Chequera) = New HashSet(Of Chequera)
+    Public Overridable Property UsuarioCreacion As Usuario
+    Public Overridable Property UsuarioModificacion As Usuario
 
 End Class

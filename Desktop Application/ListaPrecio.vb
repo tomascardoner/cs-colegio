@@ -10,21 +10,18 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class Anio
-    Public Property IDAnio As Byte
-    Public Property IDNivel As Byte
+Partial Public Class ListaPrecio
+    Public Property IDListaPrecio As Short
     Public Property Nombre As String
-    Public Property IDAnioSiguiente As Nullable(Of Byte)
+    Public Property VigenciaDesde As Nullable(Of Date)
+    Public Property VigenciaHasta As Nullable(Of Date)
     Public Property EsActivo As Boolean
     Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date
     Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
 
-    Public Overridable Property Cursos As ICollection(Of Curso) = New HashSet(Of Curso)
-    Public Overridable Property Nivel As Nivel
-    Public Overridable Property AnioAnterior As ICollection(Of Anio) = New HashSet(Of Anio)
-    Public Overridable Property AnioSiguiente As Anio
+    Public Overridable Property ListaPrecioArticulos As ICollection(Of ListaPrecioArticulo) = New HashSet(Of ListaPrecioArticulo)
     Public Overridable Property UsuarioCreacion As Usuario
     Public Overridable Property UsuarioModificacion As Usuario
 

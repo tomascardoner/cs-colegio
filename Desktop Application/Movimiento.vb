@@ -26,5 +26,7 @@ Partial Public Class Movimiento
 
     Public Overridable Property MedioPago As MedioPago
     Public Overridable Property MovimientoGrupo As MovimientoGrupo
+    Public Overridable Property UsuarioCreacion As Usuario
+    Public Overridable Property UsuarioModificacion As Usuario
 
 End Class

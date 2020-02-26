@@ -12,10 +12,18 @@ Imports System.Collections.Generic
 
 Partial Public Class ArticuloTalle
     Public Property IDArticulo As Short
-    Public Property IDTalle As Short
+    Public Property IDTalle As Byte
     Public Property Nombre As String
+    Public Property StockMinimo As Nullable(Of Short)
     Public Property EsActivo As Boolean
+    Public Property IDUsuarioCreacion As Short
+    Public Property FechaHoraCreacion As Date
+    Public Property IDUsuarioModificacion As Short
+    Public Property FechaHoraModificacion As Date
 
     Public Overridable Property Articulo As Articulo
+    Public Overridable Property ListaPrecioArticuloTalles As ICollection(Of ListaPrecioArticuloTalle) = New HashSet(Of ListaPrecioArticuloTalle)
+    Public Overridable Property UsuarioCreacion As Usuario
+    Public Overridable Property UsuarioModificacion As Usuario
 
 End Class

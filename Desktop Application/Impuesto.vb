@@ -23,5 +23,7 @@ Partial Public Class Impuesto
     Public Property FechaHoraModificacion As Date
 
     Public Overridable Property ComprobanteImpuesto As ICollection(Of ComprobanteImpuesto) = New HashSet(Of ComprobanteImpuesto)
+    Public Overridable Property UsuarioCreacion As Usuario
+    Public Overridable Property UsuarioModificacion As Usuario
 
 End Class

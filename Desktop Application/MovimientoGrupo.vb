@@ -21,5 +21,7 @@ Partial Public Class MovimientoGrupo
     Public Property FechaHoraModificacion As Date
 
     Public Overridable Property Movimiento As ICollection(Of Movimiento) = New HashSet(Of Movimiento)
+    Public Overridable Property UsuarioCreacion As Usuario
+    Public Overridable Property UsuarioModificacion As Usuario
 
 End Class

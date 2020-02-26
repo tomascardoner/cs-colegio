@@ -19,6 +19,8 @@ Partial Public Class RelacionTipo
     Public Property IDUsuarioModificacion As Short
     Public Property FechaHoraModificacion As Date
 
-    Public Overridable Property EntidadEntidad As ICollection(Of EntidadEntidad) = New HashSet(Of EntidadEntidad)
+    Public Overridable Property EntidadEntidades As ICollection(Of EntidadEntidad) = New HashSet(Of EntidadEntidad)
+    Public Overridable Property UsuarioCreacion As Usuario
+    Public Overridable Property UsuarioModificacion As Usuario
 
 End Class

@@ -71,5 +71,7 @@ Partial Public Class Comprobante
     Public Overridable Property Concepto As Concepto
     Public Overridable Property DocumentoTipo As DocumentoTipo
     Public Overridable Property EmailEnvio As ICollection(Of EmailEnvio) = New HashSet(Of EmailEnvio)
+    Public Overridable Property UsuarioAnulacion As Usuario
+    Public Overridable Property UsuarioTransmisionAFIP As Usuario
 
 End Class

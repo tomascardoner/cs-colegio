@@ -22,5 +22,7 @@ Partial Public Class Chequera
     Public Property FechaHoraModificacion As Date
 
     Public Overridable Property Caja As Caja
+    Public Overridable Property UsuarioCreacion As Usuario
+    Public Overridable Property UsuarioModificacion As Usuario
 
 End Class

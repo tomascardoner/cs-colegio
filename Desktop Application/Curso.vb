@@ -26,5 +26,7 @@ Partial Public Class Curso
     Public Overridable Property Turno As Turno
     Public Overridable Property AniosLectivosCursos As ICollection(Of AnioLectivoCurso) = New HashSet(Of AnioLectivoCurso)
     Public Overridable Property CuotaTipo As CuotaTipo
+    Public Overridable Property UsuarioCreacion As Usuario
+    Public Overridable Property UsuarioModificacion As Usuario
 
 End Class

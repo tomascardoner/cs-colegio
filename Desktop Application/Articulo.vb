@@ -22,7 +22,10 @@ Partial Public Class Articulo
     Public Property FechaHoraModificacion As Date
 
     Public Overridable Property ArticuloGrupo As ArticuloGrupo
-    Public Overridable Property ComprobanteDetalle As ICollection(Of ComprobanteDetalle) = New HashSet(Of ComprobanteDetalle)
-    Public Overridable Property ArticuloTalle As ICollection(Of ArticuloTalle) = New HashSet(Of ArticuloTalle)
+    Public Overridable Property ComprobanteDetalles As ICollection(Of ComprobanteDetalle) = New HashSet(Of ComprobanteDetalle)
+    Public Overridable Property ArticuloTalles As ICollection(Of ArticuloTalle) = New HashSet(Of ArticuloTalle)
+    Public Overridable Property ListaPrecioArticulos As ICollection(Of ListaPrecioArticulo) = New HashSet(Of ListaPrecioArticulo)
+    Public Overridable Property UsuarioCreacion As Usuario
+    Public Overridable Property UsuarioModificacion As Usuario
 
 End Class

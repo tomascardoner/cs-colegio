@@ -20,5 +20,7 @@ Partial Public Class Turno
     Public Property FechaHoraModificacion As Date
 
     Public Overridable Property Curso As ICollection(Of Curso) = New HashSet(Of Curso)
+    Public Overridable Property UsuarioCreacion As Usuario
+    Public Overridable Property UsuarioModificacion As Usuario
 
 End Class

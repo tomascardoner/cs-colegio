@@ -27,5 +27,8 @@ Partial Public Class ArticuloGrupo
 
     Public Overridable Property Articulo As ICollection(Of Articulo) = New HashSet(Of Articulo)
     Public Overridable Property Concepto As Concepto
+    Public Overridable Property UsuarioCreacion As Usuario
+    Public Overridable Property UsuarioModificacion As Usuario
+    Public Overridable Property ComprobanteTipos As ICollection(Of ComprobanteTipo) = New HashSet(Of ComprobanteTipo)
 
 End Class

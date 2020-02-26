@@ -197,41 +197,6 @@
     <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_String.vb">
       <Link>Framework\CS_String.vb</Link>
     </Compile>
-    <Compile Include="Sistema\BancoSantander_ADDI.vb" />
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Control_TabControl.vb">
-      <Link>Framework\CS_Control_TabControl.vb</Link>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Encryption_TripleDES.vb">
-      <Link>Framework\CS_Encryption_TripleDES.vb</Link>
-    </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_AFIP_WS.vb">
-      <Link>Framework\CS_AFIP_WS.vb</Link>
-    </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_DataGridView.vb">
-      <Link>Framework\CS_DataGridView.vb</Link>
-    </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Email.vb">
-      <Link>Framework\CS_Email.vb</Link>
-    </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_File.vb">
-      <Link>Framework\CS_File.vb</Link>
-    </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_FileLog.vb">
-      <Link>Framework\CS_FileLog.vb</Link>
-    </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Form.vb">
-      <Link>Framework\CS_Form.vb</Link>
-    </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Instance.vb">
-      <Link>Framework\CS_Instance.vb</Link>
-    </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Office_Outlook_LateBinding.vb">
-      <Link>Framework\CS_Office_Outlook_LateBinding.vb</Link>
-    </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_ValueTranslation.vb">
-      <Link>Framework\CS_ValueTranslation.vb</Link>
-    </Compile>
     <Compile Include="Caja.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -286,17 +251,6 @@
     <Compile Include="CondicionIVA.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sistema\Constantes.vb" />
-    <Compile Include="CSColegio.Context.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CSColegio.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CSColegio.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
     <Compile Include="CuotaTipo.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -318,6 +272,115 @@
     <Compile Include="EntidadEntidad.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Feriado.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Impuesto.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ImpuestoOtro.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ListaPrecio.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ListaPrecioArticulo.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ListaPrecioArticuloTalle.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Localidad.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Log.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MedioPago.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Moneda.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MonedaCotizacion.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Movimiento.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MovimientoGrupo.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nivel.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Parametro.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Provincia.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PuntoVenta.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RelacionTipo.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Reporte.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteGrupo.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteParametro.vb">
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sistema\BancoSantander_ADDI.vb" />
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Control_TabControl.vb">
+      <Link>Framework\CS_Control_TabControl.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Encryption_TripleDES.vb">
+      <Link>Framework\CS_Encryption_TripleDES.vb</Link>
+    </Compile>
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_AFIP_WS.vb">
+      <Link>Framework\CS_AFIP_WS.vb</Link>
+    </Compile>
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_DataGridView.vb">
+      <Link>Framework\CS_DataGridView.vb</Link>
+    </Compile>
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Email.vb">
+      <Link>Framework\CS_Email.vb</Link>
+    </Compile>
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_File.vb">
+      <Link>Framework\CS_File.vb</Link>
+    </Compile>
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_FileLog.vb">
+      <Link>Framework\CS_FileLog.vb</Link>
+    </Compile>
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Form.vb">
+      <Link>Framework\CS_Form.vb</Link>
+    </Compile>
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Instance.vb">
+      <Link>Framework\CS_Instance.vb</Link>
+    </Compile>
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Office_Outlook_LateBinding.vb">
+      <Link>Framework\CS_Office_Outlook_LateBinding.vb</Link>
+    </Compile>
+    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_ValueTranslation.vb">
+      <Link>Framework\CS_ValueTranslation.vb</Link>
+    </Compile>
+    <Compile Include="Sistema\Constantes.vb" />
+    <Compile Include="CSColegio.Context.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CSColegio.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CSColegio.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CSColegio.tt</DependentUpon>
+    </Compile>
     <Compile Include="Outlook\EntidadesSincronizarOutlook.vb" />
     <Compile Include="Outlook\EntidadesSincronizarOutlookContactos.vb" />
     <Compile Include="Outlook\EntidadesSincronizarOutlookContactosABM.vb" />
@@ -328,9 +391,6 @@
     <Compile Include="Outlook\EntidadesSincronizarOutlookGruposMiembrosABM.vb" />
     <Compile Include="Outlook\EntidadesSincronizarOutlookOpciones.vb" />
     <Compile Include="Sistema\EntityFrameworkExtension.vb" />
-    <Compile Include="Feriado.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
     <Compile Include="Sistema\FillAndRefreshLists.vb" />
     <Compile Include="Sistema\formAboutBox.Designer.vb">
       <DependentUpon>formAboutBox.vb</DependentUpon>
@@ -591,35 +651,8 @@
     <Compile Include="Comprobantes\formComprobantesTransmitirAFIP.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Impuesto.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ImpuestoOtro.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Localidad.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Log.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MedioPago.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
     <Compile Include="Sistema\MiscFunctions.vb" />
     <Compile Include="Comprobantes\ModuloComprobantes.vb" />
-    <Compile Include="Moneda.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MonedaCotizacion.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Movimiento.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MovimientoGrupo.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -635,32 +668,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Nivel.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Parametro.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
     <Compile Include="Sistema\Parametros.vb" />
     <Compile Include="Sistema\Permisos.vb" />
-    <Compile Include="Provincia.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PuntoVenta.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RelacionTipo.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Reporte.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ReporteGrupo.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ReporteParametro.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
     <Compile Include="Sistema\StartUp.vb" />
     <Compile Include="TarjetaCredito.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
@@ -754,6 +763,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Comprobantes\formCheque.resx">
       <DependentUpon>formCheque.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Comprobantes\formComprobante.resx">
       <DependentUpon>formComprobante.vb</DependentUpon>

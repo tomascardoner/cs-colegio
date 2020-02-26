@@ -23,5 +23,7 @@ Partial Public Class EntidadEntidad
     Public Overridable Property EntidadHija As Entidad
     Public Overridable Property EntidadPadre As Entidad
     Public Overridable Property RelacionTipo As RelacionTipo
+    Public Overridable Property UsuarioCreacion As Usuario
+    Public Overridable Property UsuarioModificacion As Usuario
 
 End Class

@@ -18,6 +18,6 @@ Partial Public Class Localidad
 
     Public Overridable Property Entidad As ICollection(Of Entidad) = New HashSet(Of Entidad)
     Public Overridable Property Provincia As Provincia
-    Public Overridable Property Comprobante As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
+    Public Overridable Property Comprobantes As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
 
 End Class

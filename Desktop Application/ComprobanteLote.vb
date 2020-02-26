@@ -20,5 +20,7 @@ Partial Public Class ComprobanteLote
     Public Property FechaHoraModificacion As Date
 
     Public Overridable Property Comprobante As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
+    Public Overridable Property UsuarioCreacion As Usuario
+    Public Overridable Property UsuarioModificacion As Usuario
 
 End Class

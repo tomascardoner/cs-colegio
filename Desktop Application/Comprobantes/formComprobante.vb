@@ -1128,6 +1128,7 @@
             mComprobanteTipoActual = CType(comboboxComprobanteTipo.SelectedItem, ComprobanteTipo)
 
             ' Verifico la asignación del número de comprobante
+            ' TODO: Poder especificar el punto de venta para cada comprobante
             mComprobanteTipoPuntoVentaActual = mComprobanteTipoActual.ComprobanteTipoPuntoVenta.Where(Function(ctpv) ctpv.IDPuntoVenta = My.Settings.IDPuntoVenta).FirstOrDefault()
             If mComprobanteTipoPuntoVentaActual Is Nothing Then
                 ' No hay un numerador definido, habilito los campos de Punto de Venta y Numero

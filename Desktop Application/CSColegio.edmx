@@ -77,9 +77,14 @@
             <PropertyRef Name="IDTalle" />
           </Key>
           <Property Name="IDArticulo" Type="smallint" Nullable="false" />
-          <Property Name="IDTalle" Type="smallint" Nullable="false" />
+          <Property Name="IDTalle" Type="tinyint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="StockMinimo" Type="smallint" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Banco">
           <Key>
@@ -319,6 +324,14 @@
           <Property Name="IDComprobanteTipoAplicante" Type="tinyint" Nullable="false" />
           <Property Name="IDComprobanteTipoAplicado" Type="tinyint" Nullable="false" />
         </EntityType>
+        <EntityType Name="ComprobanteTipoArticuloGrupo">
+          <Key>
+            <PropertyRef Name="IDComprobanteTipo" />
+            <PropertyRef Name="IDArticuloGrupo" />
+          </Key>
+          <Property Name="IDComprobanteTipo" Type="tinyint" Nullable="false" />
+          <Property Name="IDArticuloGrupo" Type="tinyint" Nullable="false" />
+        </EntityType>
         <EntityType Name="ComprobanteTipoPuntoVenta">
           <Key>
             <PropertyRef Name="IDComprobanteTipo" />
@@ -538,6 +551,50 @@
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="ListaPrecio">
+          <Key>
+            <PropertyRef Name="IDListaPrecio" />
+          </Key>
+          <Property Name="IDListaPrecio" Type="smallint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="VigenciaDesde" Type="date" />
+          <Property Name="VigenciaHasta" Type="date" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ListaPrecioArticulo">
+          <Key>
+            <PropertyRef Name="IDListaPrecio" />
+            <PropertyRef Name="IDArticulo" />
+          </Key>
+          <Property Name="IDListaPrecio" Type="smallint" Nullable="false" />
+          <Property Name="IDArticulo" Type="smallint" Nullable="false" />
+          <Property Name="PrecioNeto" Type="money" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ListaPrecioArticuloTalle">
+          <Key>
+            <PropertyRef Name="IDListaPrecio" />
+            <PropertyRef Name="IDArticulo" />
+            <PropertyRef Name="IDTalle" />
+          </Key>
+          <Property Name="IDListaPrecio" Type="smallint" Nullable="false" />
+          <Property Name="IDArticulo" Type="smallint" Nullable="false" />
+          <Property Name="IDTalle" Type="tinyint" Nullable="false" />
+          <Property Name="PrecioNeto" Type="money" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Localidad">
           <Key>
             <PropertyRef Name="IDProvincia" />
@@ -592,6 +649,10 @@
           <Property Name="Simbolo" Type="varchar" MaxLength="10" />
           <Property Name="CodigoAFIP" Type="char" MaxLength="3" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="MonedaCotizacion">
           <Key>
@@ -602,6 +663,10 @@
           <Property Name="Fecha" Type="date" Nullable="false" />
           <Property Name="CotizacionCompra" Type="money" Nullable="false" />
           <Property Name="CotizacionVenta" Type="money" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Movimiento">
           <Key>
@@ -868,6 +933,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Articulo__ListaPrecioArticulo">
+          <End Role="Articulo" Type="Self.Articulo" Multiplicity="1" />
+          <End Role="ListaPrecioArticulo" Type="Self.ListaPrecioArticulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulo">
+              <PropertyRef Name="IDArticulo" />
+            </Principal>
+            <Dependent Role="ListaPrecioArticulo">
+              <PropertyRef Name="IDArticulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__ArticuloGrupo__Articulo">
           <End Role="ArticuloGrupo" Type="Self.ArticuloGrupo" Multiplicity="1" />
           <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
@@ -877,6 +954,32 @@
             </Principal>
             <Dependent Role="Articulo">
               <PropertyRef Name="IDArticuloGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ArticuloGrupo__ComprobanteTipoArticuloGrupo">
+          <End Role="ArticuloGrupo" Type="Self.ArticuloGrupo" Multiplicity="1" />
+          <End Role="ComprobanteTipoArticuloGrupo" Type="Self.ComprobanteTipoArticuloGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArticuloGrupo">
+              <PropertyRef Name="IDArticuloGrupo" />
+            </Principal>
+            <Dependent Role="ComprobanteTipoArticuloGrupo">
+              <PropertyRef Name="IDArticuloGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ArticuloTalle__ListaPrecioArticuloTalle">
+          <End Role="ArticuloTalle" Type="Self.ArticuloTalle" Multiplicity="1" />
+          <End Role="ListaPrecioArticuloTalle" Type="Self.ListaPrecioArticuloTalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArticuloTalle">
+              <PropertyRef Name="IDArticulo" />
+              <PropertyRef Name="IDTalle" />
+            </Principal>
+            <Dependent Role="ListaPrecioArticuloTalle">
+              <PropertyRef Name="IDArticulo" />
+              <PropertyRef Name="IDTalle" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1148,6 +1251,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ComprobanteTipo__ComprobanteTipoArticuloGrupo">
+          <End Role="ComprobanteTipo" Type="Self.ComprobanteTipo" Multiplicity="1" />
+          <End Role="ComprobanteTipoArticuloGrupo" Type="Self.ComprobanteTipoArticuloGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComprobanteTipo">
+              <PropertyRef Name="IDComprobanteTipo" />
+            </Principal>
+            <Dependent Role="ComprobanteTipoArticuloGrupo">
+              <PropertyRef Name="IDComprobanteTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__ComprobanteTipo__ComprobanteTipoPuntoVenta">
           <End Role="ComprobanteTipo" Type="Self.ComprobanteTipo" Multiplicity="1" />
           <End Role="ComprobanteTipoPuntoVenta" Type="Self.ComprobanteTipoPuntoVenta" Multiplicity="*" />
@@ -1216,18 +1331,6 @@
               <PropertyRef Name="IDCuotaTipo" />
             </Principal>
             <Dependent Role="AnioLectivoCuota">
-              <PropertyRef Name="IDCuotaTipo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__CuotaTipo__Curso">
-          <End Role="CuotaTipo" Type="Self.CuotaTipo" Multiplicity="1" />
-          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CuotaTipo">
-              <PropertyRef Name="IDCuotaTipo" />
-            </Principal>
-            <Dependent Role="Curso">
               <PropertyRef Name="IDCuotaTipo" />
             </Dependent>
           </ReferentialConstraint>
@@ -1412,6 +1515,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ListaPrecio__ListaPrecioArticulo">
+          <End Role="ListaPrecio" Type="Self.ListaPrecio" Multiplicity="1" />
+          <End Role="ListaPrecioArticulo" Type="Self.ListaPrecioArticulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListaPrecio">
+              <PropertyRef Name="IDListaPrecio" />
+            </Principal>
+            <Dependent Role="ListaPrecioArticulo">
+              <PropertyRef Name="IDListaPrecio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ListaPrecioArticulo__ListaPrecioArticuloTalle">
+          <End Role="ListaPrecioArticulo" Type="Self.ListaPrecioArticulo" Multiplicity="1" />
+          <End Role="ListaPrecioArticuloTalle" Type="Self.ListaPrecioArticuloTalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListaPrecioArticulo">
+              <PropertyRef Name="IDListaPrecio" />
+              <PropertyRef Name="IDArticulo" />
+            </Principal>
+            <Dependent Role="ListaPrecioArticuloTalle">
+              <PropertyRef Name="IDListaPrecio" />
+              <PropertyRef Name="IDArticulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Localidad__Comprobante">
           <End Role="Localidad" Type="Self.Localidad" Multiplicity="0..1" />
           <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="*" />
@@ -1473,6 +1602,18 @@
             </Principal>
             <Dependent Role="Movimiento">
               <PropertyRef Name="IDMedioPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Moneda__MonedaCotizacion">
+          <End Role="Moneda" Type="Self.Moneda" Multiplicity="1" />
+          <End Role="MonedaCotizacion" Type="Self.MonedaCotizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Moneda">
+              <PropertyRef Name="IDMoneda" />
+            </Principal>
+            <Dependent Role="MonedaCotizacion">
+              <PropertyRef Name="IDMoneda" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1572,6 +1713,186 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Usuario__Anio__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Anio" Type="Self.Anio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Anio">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Anio__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Anio" Type="Self.Anio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Anio">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Articulo__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Articulo">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Articulo__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Articulo">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ArticuloGrupo__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ArticuloGrupo" Type="Self.ArticuloGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ArticuloGrupo">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ArticuloGrupo__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ArticuloGrupo" Type="Self.ArticuloGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ArticuloGrupo">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ArticuloTalle__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ArticuloTalle" Type="Self.ArticuloTalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ArticuloTalle">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ArticuloTalle__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ArticuloTalle" Type="Self.ArticuloTalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ArticuloTalle">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Banco__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Banco" Type="Self.Banco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Banco">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Banco__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Banco" Type="Self.Banco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Banco">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Caja__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Caja" Type="Self.Caja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Caja">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Caja__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Caja" Type="Self.Caja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Caja">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Chequera__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Chequera" Type="Self.Chequera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Chequera">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Chequera__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Chequera" Type="Self.Chequera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Chequera">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Comprobante__Anulacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Comprobante">
+              <PropertyRef Name="IDUsuarioAnulacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Usuario__Comprobante__Creacion">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="*" />
@@ -1604,6 +1925,66 @@
               <PropertyRef Name="IDUsuario" />
             </Principal>
             <Dependent Role="Comprobante">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Comprobante__TransmisionAFIP">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Comprobante">
+              <PropertyRef Name="IDUsuarioTransmisionAFIP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ComprobanteLote__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ComprobanteLote" Type="Self.ComprobanteLote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ComprobanteLote">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ComprobanteLote__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ComprobanteLote" Type="Self.ComprobanteLote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ComprobanteLote">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ComprobanteTipo__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ComprobanteTipo" Type="Self.ComprobanteTipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ComprobanteTipo">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ComprobanteTipo__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ComprobanteTipo" Type="Self.ComprobanteTipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ComprobanteTipo">
               <PropertyRef Name="IDUsuarioModificacion" />
             </Dependent>
           </ReferentialConstraint>
@@ -1668,6 +2049,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Usuario__Curso__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Curso__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Usuario__Entidad__Creacion">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Entidad" Type="Self.Entidad" Multiplicity="*" />
@@ -1692,6 +2097,126 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Usuario__EntidadEntidad__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="EntidadEntidad" Type="Self.EntidadEntidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="EntidadEntidad">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__EntidadEntidad__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="EntidadEntidad" Type="Self.EntidadEntidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="EntidadEntidad">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Impuesto__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Impuesto" Type="Self.Impuesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Impuesto">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Impuesto__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Impuesto" Type="Self.Impuesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Impuesto">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ListaPrecio__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ListaPrecio" Type="Self.ListaPrecio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ListaPrecio">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ListaPrecio__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ListaPrecio" Type="Self.ListaPrecio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ListaPrecio">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ListaPrecioArticulo__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ListaPrecioArticulo" Type="Self.ListaPrecioArticulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ListaPrecioArticulo">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ListaPrecioArticulo__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ListaPrecioArticulo" Type="Self.ListaPrecioArticulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ListaPrecioArticulo">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ListaPrecioArticuloTalle__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ListaPrecioArticuloTalle" Type="Self.ListaPrecioArticuloTalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ListaPrecioArticuloTalle">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ListaPrecioArticuloTalle__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ListaPrecioArticuloTalle" Type="Self.ListaPrecioArticuloTalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ListaPrecioArticuloTalle">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Usuario__Log">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Log" Type="Self.Log" Multiplicity="*" />
@@ -1701,6 +2226,246 @@
             </Principal>
             <Dependent Role="Log">
               <PropertyRef Name="IDUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__MedioPago__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="MedioPago" Type="Self.MedioPago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="MedioPago">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__MedioPago__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="MedioPago" Type="Self.MedioPago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="MedioPago">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Moneda__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Moneda" Type="Self.Moneda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Moneda">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Moneda__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Moneda" Type="Self.Moneda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Moneda">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__MonedaCotizacion__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="MonedaCotizacion" Type="Self.MonedaCotizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="MonedaCotizacion">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__MonedaCotizacion__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="MonedaCotizacion" Type="Self.MonedaCotizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="MonedaCotizacion">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Movimiento__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Movimiento" Type="Self.Movimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Movimiento">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Movimiento__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Movimiento" Type="Self.Movimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Movimiento">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__MovimientoGrupo__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="MovimientoGrupo" Type="Self.MovimientoGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="MovimientoGrupo">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__MovimientoGrupo__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="MovimientoGrupo" Type="Self.MovimientoGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="MovimientoGrupo">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Nivel__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Nivel" Type="Self.Nivel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Nivel">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Nivel__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Nivel" Type="Self.Nivel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Nivel">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__RelacionTipo__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="RelacionTipo" Type="Self.RelacionTipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="RelacionTipo">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__RelacionTipo__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="RelacionTipo" Type="Self.RelacionTipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="RelacionTipo">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Turno__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Turno" Type="Self.Turno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Turno">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Turno__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Turno" Type="Self.Turno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Turno">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Usuario__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Usuario1" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Usuario1">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Usuario__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Usuario1" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Usuario1">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__UsuarioGrupo__Creacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="UsuarioGrupo" Type="Self.UsuarioGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="UsuarioGrupo">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__UsuarioGrupo__Modificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="UsuarioGrupo" Type="Self.UsuarioGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="UsuarioGrupo">
+              <PropertyRef Name="IDUsuarioModificacion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1750,6 +2515,7 @@
           <EntitySet Name="ComprobanteMedioPago" EntityType="Self.ComprobanteMedioPago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteTipo" EntityType="Self.ComprobanteTipo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteTipoAplicacion" EntityType="Self.ComprobanteTipoAplicacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComprobanteTipoArticuloGrupo" EntityType="Self.ComprobanteTipoArticuloGrupo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComprobanteTipoPuntoVenta" EntityType="Self.ComprobanteTipoPuntoVenta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comunicacion" EntityType="Self.Comunicacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComunicacionEntidad" EntityType="Self.ComunicacionEntidad" Schema="dbo" store:Type="Tables" />
@@ -1766,6 +2532,9 @@
           <EntitySet Name="Feriado" EntityType="Self.Feriado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Impuesto" EntityType="Self.Impuesto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImpuestoOtro" EntityType="Self.ImpuestoOtro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListaPrecio" EntityType="Self.ListaPrecio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListaPrecioArticulo" EntityType="Self.ListaPrecioArticulo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListaPrecioArticuloTalle" EntityType="Self.ListaPrecioArticuloTalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Localidad" EntityType="Self.Localidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MedioPago" EntityType="Self.MedioPago" Schema="dbo" store:Type="Tables" />
@@ -1813,9 +2582,21 @@
             <End Role="Articulo" EntitySet="Articulo" />
             <End Role="ComprobanteDetalle" EntitySet="ComprobanteDetalle" />
           </AssociationSet>
+          <AssociationSet Name="FK__Articulo__ListaPrecioArticulo" Association="Self.FK__Articulo__ListaPrecioArticulo">
+            <End Role="Articulo" EntitySet="Articulo" />
+            <End Role="ListaPrecioArticulo" EntitySet="ListaPrecioArticulo" />
+          </AssociationSet>
           <AssociationSet Name="FK__ArticuloGrupo__Articulo" Association="Self.FK__ArticuloGrupo__Articulo">
             <End Role="ArticuloGrupo" EntitySet="ArticuloGrupo" />
             <End Role="Articulo" EntitySet="Articulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ArticuloGrupo__ComprobanteTipoArticuloGrupo" Association="Self.FK__ArticuloGrupo__ComprobanteTipoArticuloGrupo">
+            <End Role="ArticuloGrupo" EntitySet="ArticuloGrupo" />
+            <End Role="ComprobanteTipoArticuloGrupo" EntitySet="ComprobanteTipoArticuloGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ArticuloTalle__ListaPrecioArticuloTalle" Association="Self.FK__ArticuloTalle__ListaPrecioArticuloTalle">
+            <End Role="ArticuloTalle" EntitySet="ArticuloTalle" />
+            <End Role="ListaPrecioArticuloTalle" EntitySet="ListaPrecioArticuloTalle" />
           </AssociationSet>
           <AssociationSet Name="FK__Banco__Cheque" Association="Self.FK__Banco__Cheque">
             <End Role="Banco" EntitySet="Banco" />
@@ -1905,6 +2686,10 @@
             <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
             <End Role="ComprobanteTipoAplicacion" EntitySet="ComprobanteTipoAplicacion" />
           </AssociationSet>
+          <AssociationSet Name="FK__ComprobanteTipo__ComprobanteTipoArticuloGrupo" Association="Self.FK__ComprobanteTipo__ComprobanteTipoArticuloGrupo">
+            <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
+            <End Role="ComprobanteTipoArticuloGrupo" EntitySet="ComprobanteTipoArticuloGrupo" />
+          </AssociationSet>
           <AssociationSet Name="FK__ComprobanteTipo__ComprobanteTipoPuntoVenta" Association="Self.FK__ComprobanteTipo__ComprobanteTipoPuntoVenta">
             <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
             <End Role="ComprobanteTipoPuntoVenta" EntitySet="ComprobanteTipoPuntoVenta" />
@@ -1928,10 +2713,6 @@
           <AssociationSet Name="FK__CuotaTipo__AnioLectivoCuota" Association="Self.FK__CuotaTipo__AnioLectivoCuota">
             <End Role="CuotaTipo" EntitySet="CuotaTipo" />
             <End Role="AnioLectivoCuota" EntitySet="AnioLectivoCuota" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CuotaTipo__Curso" Association="Self.FK__CuotaTipo__Curso">
-            <End Role="CuotaTipo" EntitySet="CuotaTipo" />
-            <End Role="Curso" EntitySet="Curso" />
           </AssociationSet>
           <AssociationSet Name="FK__Curso__CursoAnioLectivo" Association="Self.FK__Curso__CursoAnioLectivo">
             <End Role="Curso" EntitySet="Curso" />
@@ -1993,6 +2774,14 @@
             <End Role="Impuesto" EntitySet="Impuesto" />
             <End Role="ComprobanteImpuesto" EntitySet="ComprobanteImpuesto" />
           </AssociationSet>
+          <AssociationSet Name="FK__ListaPrecio__ListaPrecioArticulo" Association="Self.FK__ListaPrecio__ListaPrecioArticulo">
+            <End Role="ListaPrecio" EntitySet="ListaPrecio" />
+            <End Role="ListaPrecioArticulo" EntitySet="ListaPrecioArticulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ListaPrecioArticulo__ListaPrecioArticuloTalle" Association="Self.FK__ListaPrecioArticulo__ListaPrecioArticuloTalle">
+            <End Role="ListaPrecioArticulo" EntitySet="ListaPrecioArticulo" />
+            <End Role="ListaPrecioArticuloTalle" EntitySet="ListaPrecioArticuloTalle" />
+          </AssociationSet>
           <AssociationSet Name="FK__Localidad__Comprobante" Association="Self.FK__Localidad__Comprobante">
             <End Role="Localidad" EntitySet="Localidad" />
             <End Role="Comprobante" EntitySet="Comprobante" />
@@ -2012,6 +2801,10 @@
           <AssociationSet Name="FK__MedioPago__Movimiento" Association="Self.FK__MedioPago__Movimiento">
             <End Role="MedioPago" EntitySet="MedioPago" />
             <End Role="Movimiento" EntitySet="Movimiento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Moneda__MonedaCotizacion" Association="Self.FK__Moneda__MonedaCotizacion">
+            <End Role="Moneda" EntitySet="Moneda" />
+            <End Role="MonedaCotizacion" EntitySet="MonedaCotizacion" />
           </AssociationSet>
           <AssociationSet Name="FK__Movimiento_Categoria__Movimiento" Association="Self.FK__Movimiento_Categoria__Movimiento">
             <End Role="MovimientoGrupo" EntitySet="MovimientoGrupo" />
@@ -2045,6 +2838,66 @@
             <End Role="Turno" EntitySet="Turno" />
             <End Role="Curso" EntitySet="Curso" />
           </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Anio__Creacion" Association="Self.FK__Usuario__Anio__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Anio" EntitySet="Anio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Anio__Modificacion" Association="Self.FK__Usuario__Anio__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Anio" EntitySet="Anio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Articulo__Creacion" Association="Self.FK__Usuario__Articulo__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Articulo" EntitySet="Articulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Articulo__Modificacion" Association="Self.FK__Usuario__Articulo__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Articulo" EntitySet="Articulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ArticuloGrupo__Creacion" Association="Self.FK__Usuario__ArticuloGrupo__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ArticuloGrupo" EntitySet="ArticuloGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ArticuloGrupo__Modificacion" Association="Self.FK__Usuario__ArticuloGrupo__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ArticuloGrupo" EntitySet="ArticuloGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ArticuloTalle__Creacion" Association="Self.FK__Usuario__ArticuloTalle__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ArticuloTalle" EntitySet="ArticuloTalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ArticuloTalle__Modificacion" Association="Self.FK__Usuario__ArticuloTalle__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ArticuloTalle" EntitySet="ArticuloTalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Banco__Creacion" Association="Self.FK__Usuario__Banco__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Banco" EntitySet="Banco" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Banco__Modificacion" Association="Self.FK__Usuario__Banco__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Banco" EntitySet="Banco" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Caja__Creacion" Association="Self.FK__Usuario__Caja__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Caja" EntitySet="Caja" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Caja__Modificacion" Association="Self.FK__Usuario__Caja__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Caja" EntitySet="Caja" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Chequera__Creacion" Association="Self.FK__Usuario__Chequera__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Chequera" EntitySet="Chequera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Chequera__Modificacion" Association="Self.FK__Usuario__Chequera__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Chequera" EntitySet="Chequera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Comprobante__Anulacion" Association="Self.FK__Usuario__Comprobante__Anulacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
+          </AssociationSet>
           <AssociationSet Name="FK__Usuario__Comprobante__Creacion" Association="Self.FK__Usuario__Comprobante__Creacion">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Comprobante" EntitySet="Comprobante" />
@@ -2056,6 +2909,26 @@
           <AssociationSet Name="FK__Usuario__Comprobante__Modificacion" Association="Self.FK__Usuario__Comprobante__Modificacion">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Comprobante" EntitySet="Comprobante" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Comprobante__TransmisionAFIP" Association="Self.FK__Usuario__Comprobante__TransmisionAFIP">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ComprobanteLote__Creacion" Association="Self.FK__Usuario__ComprobanteLote__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ComprobanteLote" EntitySet="ComprobanteLote" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ComprobanteLote__Modificacion" Association="Self.FK__Usuario__ComprobanteLote__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ComprobanteLote" EntitySet="ComprobanteLote" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ComprobanteTipo__Creacion" Association="Self.FK__Usuario__ComprobanteTipo__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ComprobanteTipo__Modificacion" Association="Self.FK__Usuario__ComprobanteTipo__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
           </AssociationSet>
           <AssociationSet Name="FK__Usuario__Comunicacion__Creacion" Association="Self.FK__Usuario__Comunicacion__Creacion">
             <End Role="Usuario" EntitySet="Usuario" />
@@ -2077,6 +2950,14 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="CuotaTipo" EntitySet="CuotaTipo" />
           </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Curso__Creacion" Association="Self.FK__Usuario__Curso__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Curso__Modificacion" Association="Self.FK__Usuario__Curso__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
           <AssociationSet Name="FK__Usuario__Entidad__Creacion" Association="Self.FK__Usuario__Entidad__Creacion">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Entidad" EntitySet="Entidad" />
@@ -2085,9 +2966,129 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Entidad" EntitySet="Entidad" />
           </AssociationSet>
+          <AssociationSet Name="FK__Usuario__EntidadEntidad__Creacion" Association="Self.FK__Usuario__EntidadEntidad__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="EntidadEntidad" EntitySet="EntidadEntidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__EntidadEntidad__Modificacion" Association="Self.FK__Usuario__EntidadEntidad__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="EntidadEntidad" EntitySet="EntidadEntidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Impuesto__Creacion" Association="Self.FK__Usuario__Impuesto__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Impuesto" EntitySet="Impuesto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Impuesto__Modificacion" Association="Self.FK__Usuario__Impuesto__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Impuesto" EntitySet="Impuesto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ListaPrecio__Creacion" Association="Self.FK__Usuario__ListaPrecio__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ListaPrecio" EntitySet="ListaPrecio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ListaPrecio__Modificacion" Association="Self.FK__Usuario__ListaPrecio__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ListaPrecio" EntitySet="ListaPrecio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ListaPrecioArticulo__Creacion" Association="Self.FK__Usuario__ListaPrecioArticulo__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ListaPrecioArticulo" EntitySet="ListaPrecioArticulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ListaPrecioArticulo__Modificacion" Association="Self.FK__Usuario__ListaPrecioArticulo__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ListaPrecioArticulo" EntitySet="ListaPrecioArticulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ListaPrecioArticuloTalle__Creacion" Association="Self.FK__Usuario__ListaPrecioArticuloTalle__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ListaPrecioArticuloTalle" EntitySet="ListaPrecioArticuloTalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ListaPrecioArticuloTalle__Modificacion" Association="Self.FK__Usuario__ListaPrecioArticuloTalle__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ListaPrecioArticuloTalle" EntitySet="ListaPrecioArticuloTalle" />
+          </AssociationSet>
           <AssociationSet Name="FK__Usuario__Log" Association="Self.FK__Usuario__Log">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Log" EntitySet="Log" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__MedioPago__Creacion" Association="Self.FK__Usuario__MedioPago__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="MedioPago" EntitySet="MedioPago" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__MedioPago__Modificacion" Association="Self.FK__Usuario__MedioPago__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="MedioPago" EntitySet="MedioPago" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Moneda__Creacion" Association="Self.FK__Usuario__Moneda__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Moneda" EntitySet="Moneda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Moneda__Modificacion" Association="Self.FK__Usuario__Moneda__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Moneda" EntitySet="Moneda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__MonedaCotizacion__Creacion" Association="Self.FK__Usuario__MonedaCotizacion__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="MonedaCotizacion" EntitySet="MonedaCotizacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__MonedaCotizacion__Modificacion" Association="Self.FK__Usuario__MonedaCotizacion__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="MonedaCotizacion" EntitySet="MonedaCotizacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Movimiento__Creacion" Association="Self.FK__Usuario__Movimiento__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Movimiento" EntitySet="Movimiento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Movimiento__Modificacion" Association="Self.FK__Usuario__Movimiento__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Movimiento" EntitySet="Movimiento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__MovimientoGrupo__Creacion" Association="Self.FK__Usuario__MovimientoGrupo__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="MovimientoGrupo" EntitySet="MovimientoGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__MovimientoGrupo__Modificacion" Association="Self.FK__Usuario__MovimientoGrupo__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="MovimientoGrupo" EntitySet="MovimientoGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Nivel__Creacion" Association="Self.FK__Usuario__Nivel__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Nivel" EntitySet="Nivel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Nivel__Modificacion" Association="Self.FK__Usuario__Nivel__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Nivel" EntitySet="Nivel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__RelacionTipo__Creacion" Association="Self.FK__Usuario__RelacionTipo__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="RelacionTipo" EntitySet="RelacionTipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__RelacionTipo__Modificacion" Association="Self.FK__Usuario__RelacionTipo__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="RelacionTipo" EntitySet="RelacionTipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Turno__Creacion" Association="Self.FK__Usuario__Turno__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Turno" EntitySet="Turno" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Turno__Modificacion" Association="Self.FK__Usuario__Turno__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Turno" EntitySet="Turno" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Usuario__Creacion" Association="Self.FK__Usuario__Usuario__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Usuario1" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Usuario__Modificacion" Association="Self.FK__Usuario__Usuario__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Usuario1" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__UsuarioGrupo__Creacion" Association="Self.FK__Usuario__UsuarioGrupo__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__UsuarioGrupo__Modificacion" Association="Self.FK__Usuario__UsuarioGrupo__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
           </AssociationSet>
           <AssociationSet Name="FK__UsuarioGrupo__Usuario" Association="Self.FK__UsuarioGrupo__Usuario">
             <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
@@ -2115,10 +3116,12 @@
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Curso" Relationship="Self.FK__Anio__Curso" FromRole="Anio" ToRole="Curso" />
+          <NavigationProperty Name="Cursos" Relationship="Self.FK__Anio__Curso" FromRole="Anio" ToRole="Curso" />
           <NavigationProperty Name="Nivel" Relationship="Self.FK__Nivel__Anio" FromRole="Anio" ToRole="Nivel" />
           <NavigationProperty Name="AnioAnterior" Relationship="CSColegioModel.FK__Anio__AnioSiguiente" FromRole="Anio" ToRole="Anio1" />
           <NavigationProperty Name="AnioSiguiente" Relationship="CSColegioModel.FK__Anio__AnioSiguiente" FromRole="Anio1" ToRole="Anio" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__Anio__Creacion" FromRole="Anio" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__Anio__Modificacion" FromRole="Anio" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Articulo">
           <Key>
@@ -2134,8 +3137,11 @@
           <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ArticuloGrupo" Relationship="Self.FK__ArticuloGrupo__Articulo" FromRole="Articulo" ToRole="ArticuloGrupo" />
-          <NavigationProperty Name="ComprobanteDetalle" Relationship="CSColegioModel.FK__Articulo__ComprobanteDetalle" FromRole="Articulo" ToRole="ComprobanteDetalle" />
-          <NavigationProperty Name="ArticuloTalle" Relationship="CSColegioModel.FK__Articulo__ArticuloTalle" FromRole="Articulo" ToRole="ArticuloTalle" />
+          <NavigationProperty Name="ComprobanteDetalles" Relationship="CSColegioModel.FK__Articulo__ComprobanteDetalle" FromRole="Articulo" ToRole="ComprobanteDetalle" />
+          <NavigationProperty Name="ArticuloTalles" Relationship="CSColegioModel.FK__Articulo__ArticuloTalle" FromRole="Articulo" ToRole="ArticuloTalle" />
+          <NavigationProperty Name="ListaPrecioArticulos" Relationship="CSColegioModel.FK__Articulo__ListaPrecioArticulo" FromRole="Articulo" ToRole="ListaPrecioArticulo" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__Articulo__Creacion" FromRole="Articulo" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__Articulo__Modificacion" FromRole="Articulo" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="ArticuloGrupo">
           <Key>
@@ -2156,6 +3162,9 @@
           <Property Name="UtilizaColor" Type="Boolean" Nullable="false" />
           <Property Name="UtilizaTalle" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Concepto" Relationship="CSColegioModel.FK__Concepto__ArticuloGrupo" FromRole="ArticuloGrupo" ToRole="Concepto" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__ArticuloGrupo__Creacion" FromRole="ArticuloGrupo" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__ArticuloGrupo__Modificacion" FromRole="ArticuloGrupo" ToRole="Usuario" />
+          <NavigationProperty Name="ComprobanteTipos" Relationship="CSColegioModel.ComprobanteTipoArticuloGrupo" FromRole="ArticuloGrupo" ToRole="ComprobanteTipo" />
         </EntityType>
         <EntityType Name="Banco">
           <Key>
@@ -2172,6 +3181,8 @@
           <NavigationProperty Name="Cheque" Relationship="CSColegioModel.FK__Banco__Cheque" FromRole="Banco" ToRole="Cheque" />
           <NavigationProperty Name="ComprobanteMedioPago" Relationship="CSColegioModel.FK__Banco__ComprobanteMedioPago" FromRole="Banco" ToRole="ComprobanteMedioPago" />
           <Property Name="Codigo" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__Banco__Creacion" FromRole="Banco" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__Banco__Modificacion" FromRole="Banco" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="CategoriaIVA">
           <Key>
@@ -2207,6 +3218,8 @@
           <NavigationProperty Name="Turno" Relationship="Self.FK__Turno__Curso" FromRole="Curso" ToRole="Turno" />
           <NavigationProperty Name="AniosLectivosCursos" Relationship="CSColegioModel.FK__Curso__AnioLectivoCurso" FromRole="Curso" ToRole="AnioLectivoCurso" />
           <NavigationProperty Name="CuotaTipo" Relationship="CSColegioModel.FK__CuotaTipo__Curso" FromRole="Curso" ToRole="CuotaTipo" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__Curso__Creacion" FromRole="Curso" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__Curso__Modificacion" FromRole="Curso" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="DocumentoTipo">
           <Key>
@@ -2218,7 +3231,7 @@
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="EntidadesFactura" Relationship="CSColegioModel.FK__DocumentoTipo__Entidad__Factura" FromRole="DocumentoTipo" ToRole="Entidad" />
           <Property Name="VerificaModulo11" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Comprobante" Relationship="CSColegioModel.FK__DocumentoTipo__Comprobante" FromRole="DocumentoTipo" ToRole="Comprobante" />
+          <NavigationProperty Name="Comprobantes" Relationship="CSColegioModel.FK__DocumentoTipo__Comprobante" FromRole="DocumentoTipo" ToRole="Comprobante" />
         </EntityType>
         <EntityType Name="Entidad">
           <Key>
@@ -2312,6 +3325,8 @@
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__EntidadEntidad__Creacion" FromRole="EntidadEntidad" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__EntidadEntidad__Modificacion" FromRole="EntidadEntidad" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Localidad">
           <Key>
@@ -2324,7 +3339,7 @@
           <Property Name="CodigoPostal" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="Entidad" Relationship="Self.FK__Localidad__Entidad" FromRole="Localidad" ToRole="Entidad" />
           <NavigationProperty Name="Provincia" Relationship="Self.FK__Provincia__Localidad" FromRole="Localidad" ToRole="Provincia" />
-          <NavigationProperty Name="Comprobante" Relationship="CSColegioModel.FK__Localidad__Comprobante" FromRole="Localidad" ToRole="Comprobante" />
+          <NavigationProperty Name="Comprobantes" Relationship="CSColegioModel.FK__Localidad__Comprobante" FromRole="Localidad" ToRole="Comprobante" />
         </EntityType>
         <EntityType Name="Log">
           <Key>
@@ -2356,6 +3371,8 @@
           <NavigationProperty Name="Movimiento" Relationship="Self.FK__MedioPago__Movimiento" FromRole="MedioPago" ToRole="Movimiento" />
           <NavigationProperty Name="ComprobanteMedioPago" Relationship="CSColegioModel.FK__MedioPago__ComprobanteMedioPago" FromRole="MedioPago" ToRole="ComprobanteMedioPago" />
           <NavigationProperty Name="Caja" Relationship="CSColegioModel.FK__Caja__MedioPagoCaja" FromRole="MedioPago" ToRole="Caja" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__MedioPago__Creacion" FromRole="MedioPago" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__MedioPago__Modificacion" FromRole="MedioPago" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Movimiento">
           <Key>
@@ -2375,6 +3392,8 @@
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="MedioPago" Relationship="Self.FK__MedioPago__Movimiento" FromRole="Movimiento" ToRole="MedioPago" />
           <NavigationProperty Name="MovimientoGrupo" Relationship="Self.FK__Movimiento_Categoria__Movimiento" FromRole="Movimiento" ToRole="MovimientoGrupo" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__Movimiento__Creacion" FromRole="Movimiento" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__Movimiento__Modificacion" FromRole="Movimiento" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="MovimientoGrupo">
           <Key>
@@ -2389,6 +3408,8 @@
           <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Movimiento" Relationship="Self.FK__Movimiento_Categoria__Movimiento" FromRole="MovimientoGrupo" ToRole="Movimiento" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__MovimientoGrupo__Creacion" FromRole="MovimientoGrupo" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__MovimientoGrupo__Modificacion" FromRole="MovimientoGrupo" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Nivel">
           <Key>
@@ -2402,6 +3423,8 @@
           <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Anios" Relationship="Self.FK__Nivel__Anio" FromRole="Nivel" ToRole="Anio" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__Nivel__Creacion" FromRole="Nivel" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__Nivel__Modificacion" FromRole="Nivel" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Parametro">
           <Key>
@@ -2435,7 +3458,9 @@
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="EntidadEntidad" Relationship="CSColegioModel.FK__RelacionTipo__EntidadEntidad" FromRole="RelacionTipo" ToRole="EntidadEntidad" />
+          <NavigationProperty Name="EntidadEntidades" Relationship="CSColegioModel.FK__RelacionTipo__EntidadEntidad" FromRole="RelacionTipo" ToRole="EntidadEntidad" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__RelacionTipo__Creacion" FromRole="RelacionTipo" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__RelacionTipo__Modificacion" FromRole="RelacionTipo" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Turno">
           <Key>
@@ -2449,6 +3474,8 @@
           <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Curso" Relationship="Self.FK__Turno__Curso" FromRole="Turno" ToRole="Curso" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__Turno__Creacion" FromRole="Turno" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__Turno__Modificacion" FromRole="Turno" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -2471,12 +3498,66 @@
           <NavigationProperty Name="ComprobantesCreados" Relationship="CSColegioModel.FK__Usuario__Comprobante__Creacion" FromRole="Usuario" ToRole="Comprobante" />
           <NavigationProperty Name="ComprobantesModificados" Relationship="CSColegioModel.FK__Usuario__Comprobante__Modificacion" FromRole="Usuario" ToRole="Comprobante" />
           <NavigationProperty Name="Log" Relationship="CSColegioModel.FK__Usuario__Log" FromRole="Usuario" ToRole="Log" />
-          <NavigationProperty Name="ComprobantesEnviados" Relationship="CSColegioModel.FK__Usuario__Comprobante__EnvioEmail" FromRole="Usuario" ToRole="Comprobante" />
+          <NavigationProperty Name="ComprobantesEnviadosPorEmail" Relationship="CSColegioModel.FK__Usuario__Comprobante__EnvioEmail" FromRole="Usuario" ToRole="Comprobante" />
           <NavigationProperty Name="ComunicacionesCreadas" Relationship="CSColegioModel.FK__Usuario__Comunicacion__Creacion" FromRole="Usuario" ToRole="Comunicacion" />
           <NavigationProperty Name="ComunicacionesModificadas" Relationship="CSColegioModel.FK__Usuario__Comunicacion__Modificacion" FromRole="Usuario" ToRole="Comunicacion" />
           <NavigationProperty Name="ComunicacionesEntidadesEnviadas" Relationship="CSColegioModel.FK__Usuario__ComunicacionEntidad" FromRole="Usuario" ToRole="ComunicacionEntidad" />
           <NavigationProperty Name="CuotaTipos" Relationship="CSColegioModel.FK__Usuario__CuotaTipo__Creacion" FromRole="Usuario" ToRole="CuotaTipo" />
           <NavigationProperty Name="CuotaTipo1" Relationship="CSColegioModel.FK__Usuario__CuotaTipo__Modificacion" FromRole="Usuario" ToRole="CuotaTipo" />
+          <NavigationProperty Name="AniosCreados" Relationship="CSColegioModel.FK__Usuario__Anio__Creacion" FromRole="Usuario" ToRole="Anio" />
+          <NavigationProperty Name="AniosModificados" Relationship="CSColegioModel.FK__Usuario__Anio__Modificacion" FromRole="Usuario" ToRole="Anio" />
+          <NavigationProperty Name="ArticulosCreados" Relationship="CSColegioModel.FK__Usuario__Articulo__Creacion" FromRole="Usuario" ToRole="Articulo" />
+          <NavigationProperty Name="ArticulosModificados" Relationship="CSColegioModel.FK__Usuario__Articulo__Modificacion" FromRole="Usuario" ToRole="Articulo" />
+          <NavigationProperty Name="ArticuloGruposCreados" Relationship="CSColegioModel.FK__Usuario__ArticuloGrupo__Creacion" FromRole="Usuario" ToRole="ArticuloGrupo" />
+          <NavigationProperty Name="ArticuloGruposModificados" Relationship="CSColegioModel.FK__Usuario__ArticuloGrupo__Modificacion" FromRole="Usuario" ToRole="ArticuloGrupo" />
+          <NavigationProperty Name="BancosCreados" Relationship="CSColegioModel.FK__Usuario__Banco__Creacion" FromRole="Usuario" ToRole="Banco" />
+          <NavigationProperty Name="BancosModificados" Relationship="CSColegioModel.FK__Usuario__Banco__Modificacion" FromRole="Usuario" ToRole="Banco" />
+          <NavigationProperty Name="CajasCreadas" Relationship="CSColegioModel.FK__Usuario__Caja__Creacion" FromRole="Usuario" ToRole="Caja" />
+          <NavigationProperty Name="CajasModificadas" Relationship="CSColegioModel.FK__Usuario__Caja__Modificacion" FromRole="Usuario" ToRole="Caja" />
+          <NavigationProperty Name="ChequerasCreadas" Relationship="CSColegioModel.FK__Usuario__Chequera__Creacion" FromRole="Usuario" ToRole="Chequera" />
+          <NavigationProperty Name="ChequerasModificadas" Relationship="CSColegioModel.FK__Usuario__Chequera__Modificacion" FromRole="Usuario" ToRole="Chequera" />
+          <NavigationProperty Name="ComprobantesAnulados" Relationship="CSColegioModel.FK__Usuario__Comprobante__Anulacion" FromRole="Usuario" ToRole="Comprobante" />
+          <NavigationProperty Name="ComprobantesTransmitidosAFIP" Relationship="CSColegioModel.FK__Usuario__Comprobante__TransmisionAFIP" FromRole="Usuario" ToRole="Comprobante" />
+          <NavigationProperty Name="ComprobanteLotesCreados" Relationship="CSColegioModel.FK__Usuario__ComprobanteLote__Creacion" FromRole="Usuario" ToRole="ComprobanteLote" />
+          <NavigationProperty Name="ComprobanteLotesModificados" Relationship="CSColegioModel.FK__Usuario__ComprobanteLote__Modificacion" FromRole="Usuario" ToRole="ComprobanteLote" />
+          <NavigationProperty Name="ComprobanteTiposCreados" Relationship="CSColegioModel.FK__Usuario__ComprobanteTipo__Creacion" FromRole="Usuario" ToRole="ComprobanteTipo" />
+          <NavigationProperty Name="ComprobanteTiposModificados" Relationship="CSColegioModel.FK__Usuario__ComprobanteTipo__Modificacion" FromRole="Usuario" ToRole="ComprobanteTipo" />
+          <NavigationProperty Name="CursosCreados" Relationship="CSColegioModel.FK__Usuario__Curso__Creacion" FromRole="Usuario" ToRole="Curso" />
+          <NavigationProperty Name="CursosModificados" Relationship="CSColegioModel.FK__Usuario__Curso__Modificacion" FromRole="Usuario" ToRole="Curso" />
+          <NavigationProperty Name="EntidadEntidadesCreadas" Relationship="CSColegioModel.FK__Usuario__EntidadEntidad__Creacion" FromRole="Usuario" ToRole="EntidadEntidad" />
+          <NavigationProperty Name="EntidadEntidadesModificadas" Relationship="CSColegioModel.FK__Usuario__EntidadEntidad__Modificacion" FromRole="Usuario" ToRole="EntidadEntidad" />
+          <NavigationProperty Name="ImpuestosCreados" Relationship="CSColegioModel.FK__Usuario__Impuesto__Creacion" FromRole="Usuario" ToRole="Impuesto" />
+          <NavigationProperty Name="ImpuestosModificados" Relationship="CSColegioModel.FK__Usuario__Impuesto__Modificacion" FromRole="Usuario" ToRole="Impuesto" />
+          <NavigationProperty Name="ListasPreciosCreadas" Relationship="CSColegioModel.FK__Usuario__ListaPrecio__Creacion" FromRole="Usuario" ToRole="ListaPrecio" />
+          <NavigationProperty Name="ListasPreciosModificadas" Relationship="CSColegioModel.FK__Usuario__ListaPrecio__Modificacion" FromRole="Usuario" ToRole="ListaPrecio" />
+          <NavigationProperty Name="ListaPrecioArticulosCreados" Relationship="CSColegioModel.FK__Usuario__ListaPrecioArticulo__Creacion" FromRole="Usuario" ToRole="ListaPrecioArticulo" />
+          <NavigationProperty Name="ListaPrecioArticulosModificados" Relationship="CSColegioModel.FK__Usuario__ListaPrecioArticulo__Modificacion" FromRole="Usuario" ToRole="ListaPrecioArticulo" />
+          <NavigationProperty Name="MediosPagoCreados" Relationship="CSColegioModel.FK__Usuario__MedioPago__Creacion" FromRole="Usuario" ToRole="MedioPago" />
+          <NavigationProperty Name="MediosPagoModificados" Relationship="CSColegioModel.FK__Usuario__MedioPago__Modificacion" FromRole="Usuario" ToRole="MedioPago" />
+          <NavigationProperty Name="MovimientosCreados" Relationship="CSColegioModel.FK__Usuario__Movimiento__Creacion" FromRole="Usuario" ToRole="Movimiento" />
+          <NavigationProperty Name="MovimientosModificados" Relationship="CSColegioModel.FK__Usuario__Movimiento__Modificacion" FromRole="Usuario" ToRole="Movimiento" />
+          <NavigationProperty Name="MovimientoGruposCreados" Relationship="CSColegioModel.FK__Usuario__MovimientoGrupo__Creacion" FromRole="Usuario" ToRole="MovimientoGrupo" />
+          <NavigationProperty Name="MovimientoGruposModificados" Relationship="CSColegioModel.FK__Usuario__MovimientoGrupo__Modificacion" FromRole="Usuario" ToRole="MovimientoGrupo" />
+          <NavigationProperty Name="NivelesCreados" Relationship="CSColegioModel.FK__Usuario__Nivel__Creacion" FromRole="Usuario" ToRole="Nivel" />
+          <NavigationProperty Name="NivelesModificados" Relationship="CSColegioModel.FK__Usuario__Nivel__Modificacion" FromRole="Usuario" ToRole="Nivel" />
+          <NavigationProperty Name="RelacionTiposCreados" Relationship="CSColegioModel.FK__Usuario__RelacionTipo__Creacion" FromRole="Usuario" ToRole="RelacionTipo" />
+          <NavigationProperty Name="RelacionTiposModificados" Relationship="CSColegioModel.FK__Usuario__RelacionTipo__Modificacion" FromRole="Usuario" ToRole="RelacionTipo" />
+          <NavigationProperty Name="TurnosCreados" Relationship="CSColegioModel.FK__Usuario__Turno__Creacion" FromRole="Usuario" ToRole="Turno" />
+          <NavigationProperty Name="TurnosModificados" Relationship="CSColegioModel.FK__Usuario__Turno__Modificacion" FromRole="Usuario" ToRole="Turno" />
+          <NavigationProperty Name="Usuario1" Relationship="CSColegioModel.FK__Usuario__Usuario__Creacion" FromRole="Usuario" ToRole="Usuario1" />
+          <NavigationProperty Name="Usuario2" Relationship="CSColegioModel.FK__Usuario__Usuario__Creacion" FromRole="Usuario1" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario11" Relationship="CSColegioModel.FK__Usuario__Usuario__Modificacion" FromRole="Usuario" ToRole="Usuario1" />
+          <NavigationProperty Name="Usuario3" Relationship="CSColegioModel.FK__Usuario__Usuario__Modificacion" FromRole="Usuario1" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioGruposCreados" Relationship="CSColegioModel.FK__Usuario__UsuarioGrupo__Creacion" FromRole="Usuario" ToRole="UsuarioGrupo" />
+          <NavigationProperty Name="UsuarioGruposModificados" Relationship="CSColegioModel.FK__Usuario__UsuarioGrupo__Modificacion" FromRole="Usuario" ToRole="UsuarioGrupo" />
+          <NavigationProperty Name="ArticuloTallesCreados" Relationship="CSColegioModel.FK__Usuario__ArticuloTalle__Creacion" FromRole="Usuario" ToRole="ArticuloTalle" />
+          <NavigationProperty Name="ArticuloTallesModificados" Relationship="CSColegioModel.FK__Usuario__ArticuloTalle__Modificacion" FromRole="Usuario" ToRole="ArticuloTalle" />
+          <NavigationProperty Name="ListaPrecioArticuloTallesCreados" Relationship="CSColegioModel.FK__Usuario__ListaPrecioArticuloTalle__Creacion" FromRole="Usuario" ToRole="ListaPrecioArticuloTalle" />
+          <NavigationProperty Name="ListaPrecioArticuloTallesModificados" Relationship="CSColegioModel.FK__Usuario__ListaPrecioArticuloTalle__Modificacion" FromRole="Usuario" ToRole="ListaPrecioArticuloTalle" />
+          <NavigationProperty Name="MonedasCreadas" Relationship="CSColegioModel.FK__Usuario__Moneda__Creacion" FromRole="Usuario" ToRole="Moneda" />
+          <NavigationProperty Name="MonedasModificadas" Relationship="CSColegioModel.FK__Usuario__Moneda__Modificacion" FromRole="Usuario" ToRole="Moneda" />
+          <NavigationProperty Name="MonedaCotizacionesCreadas" Relationship="CSColegioModel.FK__Usuario__MonedaCotizacion__Creacion" FromRole="Usuario" ToRole="MonedaCotizacion" />
+          <NavigationProperty Name="MonedaCotizacionesModificadas" Relationship="CSColegioModel.FK__Usuario__MonedaCotizacion__Modificacion" FromRole="Usuario" ToRole="MonedaCotizacion" />
         </EntityType>
         <EntityType Name="UsuarioGrupo">
           <Key>
@@ -2491,6 +3572,8 @@
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK__UsuarioGrupo__Usuario" FromRole="UsuarioGrupo" ToRole="Usuario" />
           <NavigationProperty Name="UsuarioGrupoPermiso" Relationship="CSColegioModel.FK__UsuarioGrupo__UsuarioGrupoPermiso" FromRole="UsuarioGrupo" ToRole="UsuarioGrupoPermiso" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__UsuarioGrupo__Creacion" FromRole="UsuarioGrupo" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__UsuarioGrupo__Modificacion" FromRole="UsuarioGrupo" ToRole="Usuario" />
         </EntityType>
         <Association Name="FK__Anio__Curso">
           <End Role="Anio" Type="Self.Anio" Multiplicity="1" />
@@ -3004,6 +4087,241 @@
             <End Role="CuotaTipo" EntitySet="CuotaTipo" />
             <End Role="AnioLectivoCuota" EntitySet="AnioLectivoCuota" />
           </AssociationSet>
+          <EntitySet Name="ListaPrecio" EntityType="CSColegioModel.ListaPrecio" />
+          <EntitySet Name="ListaPrecioArticulo" EntityType="CSColegioModel.ListaPrecioArticulo" />
+          <EntitySet Name="ListaPrecioArticuloTalle" EntityType="CSColegioModel.ListaPrecioArticuloTalle" />
+          <AssociationSet Name="FK__Usuario__Anio__Creacion" Association="CSColegioModel.FK__Usuario__Anio__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Anio" EntitySet="Anio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Anio__Modificacion" Association="CSColegioModel.FK__Usuario__Anio__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Anio" EntitySet="Anio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Articulo__ListaPrecioArticulo" Association="CSColegioModel.FK__Articulo__ListaPrecioArticulo">
+            <End Role="Articulo" EntitySet="Articulo" />
+            <End Role="ListaPrecioArticulo" EntitySet="ListaPrecioArticulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Articulo__Creacion" Association="CSColegioModel.FK__Usuario__Articulo__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Articulo" EntitySet="Articulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Articulo__Modificacion" Association="CSColegioModel.FK__Usuario__Articulo__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Articulo" EntitySet="Articulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ArticuloGrupo__Creacion" Association="CSColegioModel.FK__Usuario__ArticuloGrupo__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ArticuloGrupo" EntitySet="ArticuloGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ArticuloGrupo__Modificacion" Association="CSColegioModel.FK__Usuario__ArticuloGrupo__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ArticuloGrupo" EntitySet="ArticuloGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ArticuloTalle__ListaPrecioArticuloTalle" Association="CSColegioModel.FK__ArticuloTalle__ListaPrecioArticuloTalle">
+            <End Role="ArticuloTalle" EntitySet="ArticuloTalle" />
+            <End Role="ListaPrecioArticuloTalle" EntitySet="ListaPrecioArticuloTalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Banco__Creacion" Association="CSColegioModel.FK__Usuario__Banco__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Banco" EntitySet="Banco" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Banco__Modificacion" Association="CSColegioModel.FK__Usuario__Banco__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Banco" EntitySet="Banco" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Caja__Creacion" Association="CSColegioModel.FK__Usuario__Caja__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Caja" EntitySet="Caja" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Caja__Modificacion" Association="CSColegioModel.FK__Usuario__Caja__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Caja" EntitySet="Caja" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Chequera__Creacion" Association="CSColegioModel.FK__Usuario__Chequera__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Chequera" EntitySet="Chequera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Chequera__Modificacion" Association="CSColegioModel.FK__Usuario__Chequera__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Chequera" EntitySet="Chequera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Comprobante__Anulacion" Association="CSColegioModel.FK__Usuario__Comprobante__Anulacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Comprobante__TransmisionAFIP" Association="CSColegioModel.FK__Usuario__Comprobante__TransmisionAFIP">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Comprobante" EntitySet="Comprobante" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ComprobanteLote__Creacion" Association="CSColegioModel.FK__Usuario__ComprobanteLote__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ComprobanteLote" EntitySet="ComprobanteLote" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ComprobanteLote__Modificacion" Association="CSColegioModel.FK__Usuario__ComprobanteLote__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ComprobanteLote" EntitySet="ComprobanteLote" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ComprobanteTipo__Creacion" Association="CSColegioModel.FK__Usuario__ComprobanteTipo__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ComprobanteTipo__Modificacion" Association="CSColegioModel.FK__Usuario__ComprobanteTipo__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Curso__Creacion" Association="CSColegioModel.FK__Usuario__Curso__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Curso__Modificacion" Association="CSColegioModel.FK__Usuario__Curso__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__EntidadEntidad__Creacion" Association="CSColegioModel.FK__Usuario__EntidadEntidad__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="EntidadEntidad" EntitySet="EntidadEntidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__EntidadEntidad__Modificacion" Association="CSColegioModel.FK__Usuario__EntidadEntidad__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="EntidadEntidad" EntitySet="EntidadEntidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Impuesto__Creacion" Association="CSColegioModel.FK__Usuario__Impuesto__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Impuesto" EntitySet="Impuesto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Impuesto__Modificacion" Association="CSColegioModel.FK__Usuario__Impuesto__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Impuesto" EntitySet="Impuesto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ListaPrecio__ListaPrecioArticulo" Association="CSColegioModel.FK__ListaPrecio__ListaPrecioArticulo">
+            <End Role="ListaPrecio" EntitySet="ListaPrecio" />
+            <End Role="ListaPrecioArticulo" EntitySet="ListaPrecioArticulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ListaPrecio__Creacion" Association="CSColegioModel.FK__Usuario__ListaPrecio__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ListaPrecio" EntitySet="ListaPrecio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ListaPrecio__Modificacion" Association="CSColegioModel.FK__Usuario__ListaPrecio__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ListaPrecio" EntitySet="ListaPrecio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ListaPrecioArticulo__ListaPrecioArticuloTalle" Association="CSColegioModel.FK__ListaPrecioArticulo__ListaPrecioArticuloTalle">
+            <End Role="ListaPrecioArticulo" EntitySet="ListaPrecioArticulo" />
+            <End Role="ListaPrecioArticuloTalle" EntitySet="ListaPrecioArticuloTalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ListaPrecioArticulo__Creacion" Association="CSColegioModel.FK__Usuario__ListaPrecioArticulo__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ListaPrecioArticulo" EntitySet="ListaPrecioArticulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ListaPrecioArticulo__Modificacion" Association="CSColegioModel.FK__Usuario__ListaPrecioArticulo__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ListaPrecioArticulo" EntitySet="ListaPrecioArticulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__MedioPago__Creacion" Association="CSColegioModel.FK__Usuario__MedioPago__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="MedioPago" EntitySet="MedioPago" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__MedioPago__Modificacion" Association="CSColegioModel.FK__Usuario__MedioPago__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="MedioPago" EntitySet="MedioPago" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Movimiento__Creacion" Association="CSColegioModel.FK__Usuario__Movimiento__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Movimiento" EntitySet="Movimiento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Movimiento__Modificacion" Association="CSColegioModel.FK__Usuario__Movimiento__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Movimiento" EntitySet="Movimiento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__MovimientoGrupo__Creacion" Association="CSColegioModel.FK__Usuario__MovimientoGrupo__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="MovimientoGrupo" EntitySet="MovimientoGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__MovimientoGrupo__Modificacion" Association="CSColegioModel.FK__Usuario__MovimientoGrupo__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="MovimientoGrupo" EntitySet="MovimientoGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Nivel__Creacion" Association="CSColegioModel.FK__Usuario__Nivel__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Nivel" EntitySet="Nivel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Nivel__Modificacion" Association="CSColegioModel.FK__Usuario__Nivel__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Nivel" EntitySet="Nivel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__RelacionTipo__Creacion" Association="CSColegioModel.FK__Usuario__RelacionTipo__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="RelacionTipo" EntitySet="RelacionTipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__RelacionTipo__Modificacion" Association="CSColegioModel.FK__Usuario__RelacionTipo__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="RelacionTipo" EntitySet="RelacionTipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Turno__Creacion" Association="CSColegioModel.FK__Usuario__Turno__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Turno" EntitySet="Turno" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Turno__Modificacion" Association="CSColegioModel.FK__Usuario__Turno__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Turno" EntitySet="Turno" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Usuario__Creacion" Association="CSColegioModel.FK__Usuario__Usuario__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Usuario1" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Usuario__Modificacion" Association="CSColegioModel.FK__Usuario__Usuario__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Usuario1" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__UsuarioGrupo__Creacion" Association="CSColegioModel.FK__Usuario__UsuarioGrupo__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__UsuarioGrupo__Modificacion" Association="CSColegioModel.FK__Usuario__UsuarioGrupo__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="ComprobanteTipoArticuloGrupo" Association="CSColegioModel.ComprobanteTipoArticuloGrupo">
+            <End Role="ArticuloGrupo" EntitySet="ArticuloGrupo" />
+            <End Role="ComprobanteTipo" EntitySet="ComprobanteTipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ArticuloTalle__Creacion" Association="CSColegioModel.FK__Usuario__ArticuloTalle__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ArticuloTalle" EntitySet="ArticuloTalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ArticuloTalle__Modificacion" Association="CSColegioModel.FK__Usuario__ArticuloTalle__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ArticuloTalle" EntitySet="ArticuloTalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ListaPrecioArticuloTalle__Creacion" Association="CSColegioModel.FK__Usuario__ListaPrecioArticuloTalle__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ListaPrecioArticuloTalle" EntitySet="ListaPrecioArticuloTalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__ListaPrecioArticuloTalle__Modificacion" Association="CSColegioModel.FK__Usuario__ListaPrecioArticuloTalle__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ListaPrecioArticuloTalle" EntitySet="ListaPrecioArticuloTalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Moneda__MonedaCotizacion" Association="CSColegioModel.FK__Moneda__MonedaCotizacion">
+            <End Role="Moneda" EntitySet="Moneda" />
+            <End Role="MonedaCotizacion" EntitySet="MonedaCotizacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Moneda__Creacion" Association="CSColegioModel.FK__Usuario__Moneda__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Moneda" EntitySet="Moneda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__Moneda__Modificacion" Association="CSColegioModel.FK__Usuario__Moneda__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Moneda" EntitySet="Moneda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__MonedaCotizacion__Creacion" Association="CSColegioModel.FK__Usuario__MonedaCotizacion__Creacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="MonedaCotizacion" EntitySet="MonedaCotizacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__MonedaCotizacion__Modificacion" Association="CSColegioModel.FK__Usuario__MonedaCotizacion__Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="MonedaCotizacion" EntitySet="MonedaCotizacion" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
           <Key>
@@ -3047,6 +4365,9 @@
           <NavigationProperty Name="CategoriaIVA" Relationship="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__Factura" FromRole="ComprobanteTipo" ToRole="CategoriaIVA" />
           <NavigationProperty Name="CategoriaIVA1" Relationship="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__NotaCredito" FromRole="ComprobanteTipo" ToRole="CategoriaIVA" />
           <NavigationProperty Name="CategoriaIVA2" Relationship="CSColegioModel.FK__ComprobanteTipo__CategoriaIVA__NotaDebito" FromRole="ComprobanteTipo" ToRole="CategoriaIVA" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__ComprobanteTipo__Creacion" FromRole="ComprobanteTipo" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__ComprobanteTipo__Modificacion" FromRole="ComprobanteTipo" ToRole="Usuario" />
+          <NavigationProperty Name="ArticuloGrupos" Relationship="CSColegioModel.ComprobanteTipoArticuloGrupo" FromRole="ComprobanteTipo" ToRole="ArticuloGrupo" />
           </EntityType>
         <EntityType Name="Impuesto">
           <Key>
@@ -3063,6 +4384,8 @@
           <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ComprobanteImpuesto" Relationship="CSColegioModel.FK__Impuesto__ComprobanteImpuesto" FromRole="Impuesto" ToRole="ComprobanteImpuesto" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__Impuesto__Creacion" FromRole="Impuesto" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__Impuesto__Modificacion" FromRole="Impuesto" ToRole="Usuario" />
         </EntityType>
         <Association Name="FK__Impuesto__ComprobanteImpuesto">
           <End Type="CSColegioModel.Impuesto" Role="Impuesto" Multiplicity="1" />
@@ -3244,6 +4567,13 @@
           <Property Name="Simbolo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="CodigoAFIP" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="MonedaCotizaciones" Relationship="CSColegioModel.FK__Moneda__MonedaCotizacion" FromRole="Moneda" ToRole="MonedaCotizacion" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__Moneda__Creacion" FromRole="Moneda" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__Moneda__Modificacion" FromRole="Moneda" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="UnidadMedida">
           <Key>
@@ -3357,6 +4687,8 @@
           <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Comprobante" Relationship="CSColegioModel.FK__ComprobanteLote__Comprobante" FromRole="ComprobanteLote" ToRole="Comprobante" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__ComprobanteLote__Creacion" FromRole="ComprobanteLote" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__ComprobanteLote__Modificacion" FromRole="ComprobanteLote" ToRole="Usuario" />
         </EntityType>
         <Association Name="FK__DocumentoTipo__Entidad__Factura">
           <End Type="CSColegioModel.DocumentoTipo" Role="DocumentoTipo" Multiplicity="0..1" />
@@ -3379,6 +4711,13 @@
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CotizacionCompra" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="CotizacionVenta" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Moneda" Relationship="CSColegioModel.FK__Moneda__MonedaCotizacion" FromRole="MonedaCotizacion" ToRole="Moneda" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__MonedaCotizacion__Creacion" FromRole="MonedaCotizacion" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__MonedaCotizacion__Modificacion" FromRole="MonedaCotizacion" ToRole="Usuario" />
         </EntityType>
         <Association Name="FK__Entidad__EntidadTercero">
           <End Type="CSColegioModel.Entidad" Role="Entidad" Multiplicity="0..1" />
@@ -3449,7 +4788,9 @@
           <NavigationProperty Name="ComprobanteMedioPago" Relationship="CSColegioModel.FK__Caja__ComprobanteMedioPago" FromRole="Caja" ToRole="ComprobanteMedioPago" />
           <NavigationProperty Name="MedioPago" Relationship="CSColegioModel.FK__Caja__MedioPagoCaja" FromRole="Caja" ToRole="MedioPago" />
           <Property Name="EmiteCheque" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Chequera" Relationship="CSColegioModel.FK__Caja__Chequera" FromRole="Caja" ToRole="Chequera" />
+          <NavigationProperty Name="Chequeras" Relationship="CSColegioModel.FK__Caja__Chequera" FromRole="Caja" ToRole="Chequera" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__Caja__Creacion" FromRole="Caja" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__Caja__Modificacion" FromRole="Caja" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Comprobante">
           <Key>
@@ -3514,6 +4855,8 @@
           <NavigationProperty Name="Concepto" Relationship="CSColegioModel.FK__Concepto__Comprobante" FromRole="Comprobante" ToRole="Concepto" />
           <NavigationProperty Name="DocumentoTipo" Relationship="CSColegioModel.FK__DocumentoTipo__Comprobante" FromRole="Comprobante" ToRole="DocumentoTipo" />
           <NavigationProperty Name="EmailEnvio" Relationship="CSColegioModel.FK__Comprobante__EmailEnvio" FromRole="Comprobante" ToRole="EmailEnvio" />
+          <NavigationProperty Name="UsuarioAnulacion" Relationship="CSColegioModel.FK__Usuario__Comprobante__Anulacion" FromRole="Comprobante" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioTransmisionAFIP" Relationship="CSColegioModel.FK__Usuario__Comprobante__TransmisionAFIP" FromRole="Comprobante" ToRole="Usuario" />
           </EntityType>
         <EntityType Name="ComprobanteMedioPago">
           <Key>
@@ -3815,6 +5158,8 @@
           <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Caja" Relationship="CSColegioModel.FK__Caja__Chequera" FromRole="Chequera" ToRole="Caja" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__Chequera__Creacion" FromRole="Chequera" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__Chequera__Modificacion" FromRole="Chequera" ToRole="Usuario" />
         </EntityType>
         <Association Name="FK__Caja__Chequera">
           <End Type="CSColegioModel.Caja" Role="Caja" Multiplicity="1" />
@@ -3954,10 +5299,18 @@
             <PropertyRef Name="IDTalle" />
           </Key>
           <Property Name="IDArticulo" Type="Int16" Nullable="false" />
-          <Property Name="IDTalle" Type="Int16" Nullable="false" />
+          <Property Name="IDTalle" Type="Byte" Nullable="false" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StockMinimo" Type="Int16" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Articulo" Relationship="CSColegioModel.FK__Articulo__ArticuloTalle" FromRole="ArticuloTalle" ToRole="Articulo" />
+          <NavigationProperty Name="ListaPrecioArticuloTalles" Relationship="CSColegioModel.FK__ArticuloTalle__ListaPrecioArticuloTalle" FromRole="ArticuloTalle" ToRole="ListaPrecioArticuloTalle" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__ArticuloTalle__Creacion" FromRole="ArticuloTalle" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__ArticuloTalle__Modificacion" FromRole="ArticuloTalle" ToRole="Usuario" />
         </EntityType>
         <Association Name="FK__Articulo__ArticuloTalle">
           <End Type="CSColegioModel.Articulo" Role="Articulo" Multiplicity="1" />
@@ -4237,6 +5590,754 @@
             </Principal>
             <Dependent Role="AnioLectivoCuota">
               <PropertyRef Name="IDCuotaTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ListaPrecio">
+          <Key>
+            <PropertyRef Name="IDListaPrecio" />
+          </Key>
+          <Property Name="IDListaPrecio" Type="Int16" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VigenciaDesde" Type="DateTime" Precision="0" />
+          <Property Name="VigenciaHasta" Type="DateTime" Precision="0" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ListaPrecioArticulos" Relationship="CSColegioModel.FK__ListaPrecio__ListaPrecioArticulo" FromRole="ListaPrecio" ToRole="ListaPrecioArticulo" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__ListaPrecio__Creacion" FromRole="ListaPrecio" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__ListaPrecio__Modificacion" FromRole="ListaPrecio" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="ListaPrecioArticulo">
+          <Key>
+            <PropertyRef Name="IDListaPrecio" />
+            <PropertyRef Name="IDArticulo" />
+          </Key>
+          <Property Name="IDListaPrecio" Type="Int16" Nullable="false" />
+          <Property Name="IDArticulo" Type="Int16" Nullable="false" />
+          <Property Name="PrecioNeto" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Articulo" Relationship="CSColegioModel.FK__Articulo__ListaPrecioArticulo" FromRole="ListaPrecioArticulo" ToRole="Articulo" />
+          <NavigationProperty Name="ListaPrecio" Relationship="CSColegioModel.FK__ListaPrecio__ListaPrecioArticulo" FromRole="ListaPrecioArticulo" ToRole="ListaPrecio" />
+          <NavigationProperty Name="ListaPrecioArticuloTalles" Relationship="CSColegioModel.FK__ListaPrecioArticulo__ListaPrecioArticuloTalle" FromRole="ListaPrecioArticulo" ToRole="ListaPrecioArticuloTalle" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__ListaPrecioArticulo__Creacion" FromRole="ListaPrecioArticulo" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__ListaPrecioArticulo__Modificacion" FromRole="ListaPrecioArticulo" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="ListaPrecioArticuloTalle">
+          <Key>
+            <PropertyRef Name="IDListaPrecio" />
+            <PropertyRef Name="IDArticulo" />
+            <PropertyRef Name="IDTalle" />
+          </Key>
+          <Property Name="IDListaPrecio" Type="Int16" Nullable="false" />
+          <Property Name="IDArticulo" Type="Int16" Nullable="false" />
+          <Property Name="IDTalle" Type="Byte" Nullable="false" />
+          <Property Name="PrecioNeto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ArticuloTalle" Relationship="CSColegioModel.FK__ArticuloTalle__ListaPrecioArticuloTalle" FromRole="ListaPrecioArticuloTalle" ToRole="ArticuloTalle" />
+          <NavigationProperty Name="ListaPrecioArticulo" Relationship="CSColegioModel.FK__ListaPrecioArticulo__ListaPrecioArticuloTalle" FromRole="ListaPrecioArticuloTalle" ToRole="ListaPrecioArticulo" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__ListaPrecioArticuloTalle__Creacion" FromRole="ListaPrecioArticuloTalle" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__ListaPrecioArticuloTalle__Modificacion" FromRole="ListaPrecioArticuloTalle" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="FK__Usuario__Anio__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Anio" Role="Anio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Anio">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Anio__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Anio" Role="Anio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Anio">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Articulo__ListaPrecioArticulo">
+          <End Type="CSColegioModel.Articulo" Role="Articulo" Multiplicity="1" />
+          <End Type="CSColegioModel.ListaPrecioArticulo" Role="ListaPrecioArticulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulo">
+              <PropertyRef Name="IDArticulo" />
+            </Principal>
+            <Dependent Role="ListaPrecioArticulo">
+              <PropertyRef Name="IDArticulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Articulo__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Articulo" Role="Articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Articulo">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Articulo__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Articulo" Role="Articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Articulo">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ArticuloGrupo__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.ArticuloGrupo" Role="ArticuloGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ArticuloGrupo">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ArticuloGrupo__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.ArticuloGrupo" Role="ArticuloGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ArticuloGrupo">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ArticuloTalle__ListaPrecioArticuloTalle">
+          <End Type="CSColegioModel.ArticuloTalle" Role="ArticuloTalle" Multiplicity="1" />
+          <End Type="CSColegioModel.ListaPrecioArticuloTalle" Role="ListaPrecioArticuloTalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArticuloTalle">
+              <PropertyRef Name="IDArticulo" />
+              <PropertyRef Name="IDTalle" />
+            </Principal>
+            <Dependent Role="ListaPrecioArticuloTalle">
+              <PropertyRef Name="IDArticulo" />
+              <PropertyRef Name="IDTalle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Banco__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Banco" Role="Banco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Banco">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Banco__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Banco" Role="Banco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Banco">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Caja__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Caja" Role="Caja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Caja">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Caja__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Caja" Role="Caja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Caja">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Chequera__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Chequera" Role="Chequera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Chequera">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Chequera__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Chequera" Role="Chequera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Chequera">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Comprobante__Anulacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+          <End Type="CSColegioModel.Comprobante" Role="Comprobante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Comprobante">
+              <PropertyRef Name="IDUsuarioAnulacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Comprobante__TransmisionAFIP">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+          <End Type="CSColegioModel.Comprobante" Role="Comprobante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Comprobante">
+              <PropertyRef Name="IDUsuarioTransmisionAFIP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ComprobanteLote__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.ComprobanteLote" Role="ComprobanteLote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ComprobanteLote">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ComprobanteLote__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.ComprobanteLote" Role="ComprobanteLote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ComprobanteLote">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ComprobanteTipo__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.ComprobanteTipo" Role="ComprobanteTipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ComprobanteTipo">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ComprobanteTipo__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.ComprobanteTipo" Role="ComprobanteTipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ComprobanteTipo">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Curso__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Curso" Role="Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Curso__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Curso" Role="Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__EntidadEntidad__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.EntidadEntidad" Role="EntidadEntidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="EntidadEntidad">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__EntidadEntidad__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.EntidadEntidad" Role="EntidadEntidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="EntidadEntidad">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Impuesto__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Impuesto" Role="Impuesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Impuesto">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Impuesto__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Impuesto" Role="Impuesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Impuesto">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ListaPrecio__ListaPrecioArticulo">
+          <End Type="CSColegioModel.ListaPrecio" Role="ListaPrecio" Multiplicity="1" />
+          <End Type="CSColegioModel.ListaPrecioArticulo" Role="ListaPrecioArticulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListaPrecio">
+              <PropertyRef Name="IDListaPrecio" />
+            </Principal>
+            <Dependent Role="ListaPrecioArticulo">
+              <PropertyRef Name="IDListaPrecio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ListaPrecio__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.ListaPrecio" Role="ListaPrecio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ListaPrecio">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ListaPrecio__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.ListaPrecio" Role="ListaPrecio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ListaPrecio">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ListaPrecioArticulo__ListaPrecioArticuloTalle">
+          <End Type="CSColegioModel.ListaPrecioArticulo" Role="ListaPrecioArticulo" Multiplicity="1" />
+          <End Type="CSColegioModel.ListaPrecioArticuloTalle" Role="ListaPrecioArticuloTalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListaPrecioArticulo">
+              <PropertyRef Name="IDListaPrecio" />
+              <PropertyRef Name="IDArticulo" />
+            </Principal>
+            <Dependent Role="ListaPrecioArticuloTalle">
+              <PropertyRef Name="IDListaPrecio" />
+              <PropertyRef Name="IDArticulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ListaPrecioArticulo__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.ListaPrecioArticulo" Role="ListaPrecioArticulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ListaPrecioArticulo">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ListaPrecioArticulo__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.ListaPrecioArticulo" Role="ListaPrecioArticulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ListaPrecioArticulo">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__MedioPago__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.MedioPago" Role="MedioPago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="MedioPago">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__MedioPago__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.MedioPago" Role="MedioPago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="MedioPago">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Movimiento__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Movimiento" Role="Movimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Movimiento">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Movimiento__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Movimiento" Role="Movimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Movimiento">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__MovimientoGrupo__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.MovimientoGrupo" Role="MovimientoGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="MovimientoGrupo">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__MovimientoGrupo__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.MovimientoGrupo" Role="MovimientoGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="MovimientoGrupo">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Nivel__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Nivel" Role="Nivel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Nivel">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Nivel__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Nivel" Role="Nivel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Nivel">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__RelacionTipo__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.RelacionTipo" Role="RelacionTipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="RelacionTipo">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__RelacionTipo__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.RelacionTipo" Role="RelacionTipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="RelacionTipo">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Turno__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Turno" Role="Turno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Turno">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Turno__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Turno" Role="Turno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Turno">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Usuario__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Usuario" Role="Usuario1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Usuario1">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Usuario__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Usuario" Role="Usuario1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Usuario1">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__UsuarioGrupo__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.UsuarioGrupo" Role="UsuarioGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="UsuarioGrupo">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__UsuarioGrupo__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.UsuarioGrupo" Role="UsuarioGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="UsuarioGrupo">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ComprobanteTipoArticuloGrupo">
+          <End Type="CSColegioModel.ArticuloGrupo" Role="ArticuloGrupo" Multiplicity="*" />
+          <End Type="CSColegioModel.ComprobanteTipo" Role="ComprobanteTipo" Multiplicity="*" />
+        </Association>
+        <Association Name="FK__Usuario__ArticuloTalle__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.ArticuloTalle" Role="ArticuloTalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ArticuloTalle">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ArticuloTalle__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.ArticuloTalle" Role="ArticuloTalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ArticuloTalle">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ListaPrecioArticuloTalle__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.ListaPrecioArticuloTalle" Role="ListaPrecioArticuloTalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ListaPrecioArticuloTalle">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__ListaPrecioArticuloTalle__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.ListaPrecioArticuloTalle" Role="ListaPrecioArticuloTalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="ListaPrecioArticuloTalle">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Moneda__MonedaCotizacion">
+          <End Type="CSColegioModel.Moneda" Role="Moneda" Multiplicity="1" />
+          <End Type="CSColegioModel.MonedaCotizacion" Role="MonedaCotizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Moneda">
+              <PropertyRef Name="IDMoneda" />
+            </Principal>
+            <Dependent Role="MonedaCotizacion">
+              <PropertyRef Name="IDMoneda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Moneda__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Moneda" Role="Moneda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Moneda">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__Moneda__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.Moneda" Role="Moneda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Moneda">
+              <PropertyRef Name="IDUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__MonedaCotizacion__Creacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.MonedaCotizacion" Role="MonedaCotizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="MonedaCotizacion">
+              <PropertyRef Name="IDUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__MonedaCotizacion__Modificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.MonedaCotizacion" Role="MonedaCotizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="MonedaCotizacion">
+              <PropertyRef Name="IDUsuarioModificacion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4709,6 +6810,10 @@
           <EntitySetMapping Name="Moneda">
             <EntityTypeMapping TypeName="CSColegioModel.Moneda">
               <MappingFragment StoreEntitySet="Moneda">
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
                 <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
                 <ScalarProperty Name="CodigoAFIP" ColumnName="CodigoAFIP" />
                 <ScalarProperty Name="Simbolo" ColumnName="Simbolo" />
@@ -4772,6 +6877,10 @@
           <EntitySetMapping Name="MonedaCotizacion">
             <EntityTypeMapping TypeName="CSColegioModel.MonedaCotizacion">
               <MappingFragment StoreEntitySet="MonedaCotizacion">
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
                 <ScalarProperty Name="CotizacionVenta" ColumnName="CotizacionVenta" />
                 <ScalarProperty Name="CotizacionCompra" ColumnName="CotizacionCompra" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
@@ -5008,6 +7117,11 @@
           <EntitySetMapping Name="ArticuloTalle">
             <EntityTypeMapping TypeName="CSColegioModel.ArticuloTalle">
               <MappingFragment StoreEntitySet="ArticuloTalle">
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="StockMinimo" ColumnName="StockMinimo" />
                 <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IDTalle" ColumnName="IDTalle" />
@@ -5080,6 +7194,58 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ListaPrecio">
+            <EntityTypeMapping TypeName="CSColegioModel.ListaPrecio">
+              <MappingFragment StoreEntitySet="ListaPrecio">
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="VigenciaHasta" ColumnName="VigenciaHasta" />
+                <ScalarProperty Name="VigenciaDesde" ColumnName="VigenciaDesde" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IDListaPrecio" ColumnName="IDListaPrecio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListaPrecioArticulo">
+            <EntityTypeMapping TypeName="CSColegioModel.ListaPrecioArticulo">
+              <MappingFragment StoreEntitySet="ListaPrecioArticulo">
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="PrecioNeto" ColumnName="PrecioNeto" />
+                <ScalarProperty Name="IDArticulo" ColumnName="IDArticulo" />
+                <ScalarProperty Name="IDListaPrecio" ColumnName="IDListaPrecio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListaPrecioArticuloTalle">
+            <EntityTypeMapping TypeName="CSColegioModel.ListaPrecioArticuloTalle">
+              <MappingFragment StoreEntitySet="ListaPrecioArticuloTalle">
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+                <ScalarProperty Name="IDUsuarioModificacion" ColumnName="IDUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IDUsuarioCreacion" ColumnName="IDUsuarioCreacion" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="PrecioNeto" ColumnName="PrecioNeto" />
+                <ScalarProperty Name="IDTalle" ColumnName="IDTalle" />
+                <ScalarProperty Name="IDArticulo" ColumnName="IDArticulo" />
+                <ScalarProperty Name="IDListaPrecio" ColumnName="IDListaPrecio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ComprobanteTipoArticuloGrupo" TypeName="CSColegioModel.ComprobanteTipoArticuloGrupo" StoreEntitySet="ComprobanteTipoArticuloGrupo">
+            <EndProperty Name="ComprobanteTipo">
+              <ScalarProperty Name="IDComprobanteTipo" ColumnName="IDComprobanteTipo" />
+            </EndProperty>
+            <EndProperty Name="ArticuloGrupo">
+              <ScalarProperty Name="IDArticuloGrupo" ColumnName="IDArticuloGrupo" />
+            </EndProperty>
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -28,5 +28,7 @@ Partial Public Class MedioPago
     Public Overridable Property Movimiento As ICollection(Of Movimiento) = New HashSet(Of Movimiento)
     Public Overridable Property ComprobanteMedioPago As ICollection(Of ComprobanteMedioPago) = New HashSet(Of ComprobanteMedioPago)
     Public Overridable Property Caja As ICollection(Of Caja) = New HashSet(Of Caja)
+    Public Overridable Property UsuarioCreacion As Usuario
+    Public Overridable Property UsuarioModificacion As Usuario
 
 End Class

@@ -20,7 +20,6 @@ WriteHeader(fileManager)
 For Each loopEntity As EntityType In typeMapper.GetItemsToGenerate(Of EntityType)(itemCollection)
     Dim entity as EntityType = loopEntity
     fileManager.StartNewFile(entity.Name & ".vb")
-    BeginNamespace(code)
 #>
 <#=codeStringGenerator.EntityClassOpening(entity)#>
 <#
@@ -61,13 +60,11 @@ For Each loopEntity As EntityType In typeMapper.GetItemsToGenerate(Of EntityType
 
 End Class
 <#
-    EndNamespace(code)
 Next
 
 For Each loopComplex As ComplexType In typeMapper.GetItemsToGenerate(Of ComplexType)(itemCollection)
     Dim complex as ComplexType = loopComplex
     fileManager.StartNewFile(complex.Name & ".vb")
-    BeginNamespace(code)
 #>
 Partial <#=Accessibility.ForType(complex)#> Class <#=code.Escape(complex)#>
 <#
@@ -97,12 +94,11 @@ Partial <#=Accessibility.ForType(complex)#> Class <#=code.Escape(complex)#>
 
 End Class
 <#
-    EndNamespace(code)
+
 Next
 
 For Each enumType As SimpleType In typeMapper.GetEnumItemsToGenerate(itemCollection)
     fileManager.StartNewFile(enumType.Name & ".vb")
-    BeginNamespace(code)
     If typeMapper.EnumIsFlags(enumType) Then
 #>
 <Flags>
@@ -128,7 +124,6 @@ For Each enumType As SimpleType In typeMapper.GetEnumItemsToGenerate(itemCollect
 #>
 End Enum
 <#
-    EndNamespace(code)
 Next
 
 fileManager.Process()
@@ -151,27 +146,6 @@ Imports System.Collections.Generic
 
 <#+
     FileManager.EndBlock()
-End Sub
-
-Public Sub BeginNamespace(ByVal code As CodeGenerationTools)
-    Dim codeNamespace as String = code.VsNamespaceSuggestion()
-    If Not String.IsNullOrEmpty(codeNamespace) Then
-#>
-Namespace <#=code.EscapeNamespace(codeNamespace)#>
-
-<#+
-        PushIndent("    ")
-    End If
-End Sub
-
-Public Sub EndNamespace(ByVal code As CodeGenerationTools)
-    If Not String.IsNullOrEmpty(code.VsNamespaceSuggestion()) Then
-        PopIndent()
-#>
-
-End Namespace
-<#+
-    End If
 End Sub
 
 Public Const TemplateId As String = "VB_DbContext_Types_EF6"

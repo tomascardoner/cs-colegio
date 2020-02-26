@@ -42,7 +42,6 @@ End If
 Dim codeNamespace As String = code.VsNamespaceSuggestion()
 If Not String.IsNullOrEmpty(codeNamespace) Then
 #>
-Namespace <#=code.EscapeNamespace(codeNamespace)#>
 
 <#
     PushIndent("    ")
@@ -96,7 +95,6 @@ If Not String.IsNullOrEmpty(codeNamespace) Then
     PopIndent()
 #>
 
-End Namespace
 <#
 End If
 #>

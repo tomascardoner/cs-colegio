@@ -15,5 +15,13 @@ Partial Public Class MonedaCotizacion
     Public Property Fecha As Date
     Public Property CotizacionCompra As Decimal
     Public Property CotizacionVenta As Decimal
+    Public Property IDUsuarioCreacion As Short
+    Public Property FechaHoraCreacion As Date
+    Public Property IDUsuarioModificacion As Short
+    Public Property FechaHoraModificacion As Date
+
+    Public Overridable Property Moneda As Moneda
+    Public Overridable Property UsuarioCreacion As Usuario
+    Public Overridable Property UsuarioModificacion As Usuario
 
 End Class

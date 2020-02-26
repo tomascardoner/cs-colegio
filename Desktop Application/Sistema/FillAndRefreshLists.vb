@@ -772,13 +772,21 @@
         ComboBoxControl.DataSource = listComprobanteAplicacionMotivo
     End Sub
 
-    Friend Sub Articulo(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)
+    Friend Sub Articulo(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean, Optional ByVal IDComprobanteTipo As Byte = 0)
         Dim listArticulos As List(Of Articulo)
 
         ComboBoxControl.ValueMember = "IDArticulo"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        listArticulos = mdbContext.Articulo.Where(Function(cl) cl.EsActivo).OrderBy(Function(cl) cl.Nombre).ToList
+        If IDComprobanteTipo = 0 Then
+            listArticulos = mdbContext.Articulo.Where(Function(a) a.EsActivo).OrderBy(Function(a) a.Nombre).ToList
+        Else
+            listArticulos = (From a In mdbContext.Articulo
+                             Join ag In mdbContext.ArticuloGrupo On a.IDArticuloGrupo Equals ag.IDArticuloGrupo
+                             Where a.EsActivo AndAlso ag.ComprobanteTipos.Where(Function(ct) ct.IDComprobanteTipo = IDComprobanteTipo).Count > 0
+                             Order By a.Nombre
+                             Select a).ToList
+        End If
 
         If AgregarItem_Todos Then
             Dim Item_Todos As New Articulo

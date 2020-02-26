@@ -18,6 +18,6 @@ Partial Public Class DocumentoTipo
 
     Public Overridable Property Entidades As ICollection(Of Entidad) = New HashSet(Of Entidad)
     Public Overridable Property EntidadesFactura As ICollection(Of Entidad) = New HashSet(Of Entidad)
-    Public Overridable Property Comprobante As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
+    Public Overridable Property Comprobantes As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
 
 End Class

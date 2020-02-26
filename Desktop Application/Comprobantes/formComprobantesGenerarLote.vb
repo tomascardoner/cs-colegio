@@ -124,7 +124,7 @@ Public Class formComprobantesGenerarLote
         treeviewPaso1NivelCursoAlumno.BeginUpdate()
         NodoAnio.Nodes.RemoveAt(0)
         AnioCurrent = CType(NodoAnio.Tag, Anio)
-        For Each CursoCurrent As Curso In AnioCurrent.Curso
+        For Each CursoCurrent As Curso In AnioCurrent.Cursos
             ' Agrego el nodo correspondiente al Curso actual
             NewNode = New TreeNode("Turno: " & CursoCurrent.Turno.Nombre & " - División: " & CursoCurrent.Division, {New TreeNode(NODO_CARGANDO_TEXTO)})
             NewNode.Checked = NodoAnio.Checked
