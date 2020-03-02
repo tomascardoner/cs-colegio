@@ -128,6 +128,7 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
 #End Region
 
 #Region "Extra stuff"
+
     Private Function ExportarComprobantes() As Boolean
         Dim HeaderTextStream As String = ""
         Dim DetalleTextStream As String = ""
