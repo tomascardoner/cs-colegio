@@ -129,6 +129,9 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
         End Try
 
         FileName = CS_File.RemoveInvalidFileNameChars(String.Format("Lote - {0}.txt", comboboxComprobanteLote.Text))
+        If MessageBox.Show(String.Format("El archivo '{1}' ya existe.{0}¿Desea sobreescribirlo?", vbCrLf, FolderName & FileName), My.Application.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) = DialogResult.No Then
+            Return False
+        End If
 
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
@@ -227,7 +230,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
             HeaderTextStream &= "007"                                                                           ' Código de Canal
             HeaderTextStream &= (NumeroUltimoEnvio + 1).ToString("00000")                                       ' Número de envío (secuencial)
             ' TODO: poner el número de la última rendición procesada
-            HeaderTextStream &= (1).ToString("00000")                                                           ' Última rendición procesada
+            HeaderTextStream &= (0).ToString("00000")                                                           ' Última rendición procesada
             HeaderTextStream &= "S"                                                                             ' Marca de Actualización de Cuenta Comercial
             HeaderTextStream &= " "                                                                             ' Marca para publicación ON-LINE
             HeaderTextStream &= StrDup(617, " ")                                                                ' Relleno
@@ -237,7 +240,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
             TrailerTextStream &= DetalleImporteTotal.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Total Importe 1er. vencimiento
             TrailerTextStream &= StrDup(15, "0")                                                                 ' Ceros
             TrailerTextStream &= DetalleCount.ToString("0000000")                                                ' Cantidad de registros de detalle
-            HeaderTextStream &= StrDup(612, " ")                                                                ' Relleno
+            TrailerTextStream &= StrDup(612, " ")                                                                ' Relleno
 
             ' Exporto todo al archivo
             outputFile.Write(HeaderTextStream & vbCrLf & DetalleTextStream & TrailerTextStream)
@@ -249,7 +252,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
         DetalleTextStream = Nothing
         TrailerTextStream = Nothing
 
-        MsgBox(String.Format("Se ha generado exitosamente el archivo de intercambio con Banco Santander - Recaudación Por Caja, conteniendo {0} Comprobantes.", DetalleCount), MsgBoxStyle.Information, My.Application.Info.Title)
+        MsgBox(String.Format("Se ha generado exitosamente el archivo de intercambio con Banco Santander - Recaudación Por Caja, conteniendo {1} Comprobantes.{0}{0}Ubicación:{0}{2}", vbCrLf, DetalleCount, FolderName & FileName), MsgBoxStyle.Information, My.Application.Info.Title)
 
         RefreshData()
 
