@@ -129,9 +129,17 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
         End Try
 
         FileName = CS_File.RemoveInvalidFileNameChars(String.Format("Lote - {0}.txt", comboboxComprobanteLote.Text))
-        If MessageBox.Show(String.Format("El archivo '{1}' ya existe.{0}¿Desea sobreescribirlo?", vbCrLf, FolderName & FileName), My.Application.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) = DialogResult.No Then
+
+        Try
+            If FileSystem.Dir(FolderName & FileName) <> "" Then
+                If MessageBox.Show(String.Format("El archivo '{1}' ya existe.{0}¿Desea sobreescribirlo?", vbCrLf, FolderName & FileName), My.Application.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) = DialogResult.No Then
+                    Return False
+                End If
+            End If
+        Catch ex As Exception
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "No se puede verificar la existencia del archivo de destino. Esto puede deberse a que la aplicación no tenga permisos para acceder a la carpeta de destino.")
             Return False
-        End If
+        End Try
 
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
@@ -139,112 +147,119 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
         InteresTasaNominalAnual = CS_Parameter_System.GetDecimal(Parametros.INTERES_TASA_NOMINAL_ANUAL)
         NumeroUltimoEnvio = CS_Parameter_System.GetIntegerAsInteger(Parametros.BANCOSANTANDER_PIRYP_NUMEROULTIMOENVIO)
 
-        Using outputFile As New StreamWriter(FolderName & FileName, False, New System.Text.UTF8Encoding)
+        Try
 
-            For Each RowActual As DataGridViewRow In datagridviewComprobantes.Rows
-                GridDataRowActual = CType(RowActual.DataBoundItem, GridDataRow)
-                ComprobanteActual = dbContext.Comprobante.Find(GridDataRowActual.IDComprobante)
-                If Not ComprobanteActual Is Nothing Then
-                    ' Detalle
-                    DetalleTextStream &= "D"                                                                ' Tipo de Registro DETALLE
-                    DetalleTextStream &= "A"                                                                ' Tipo de Operación (A=Actualización / B=Baja)
-                    DetalleTextStream &= "0"                                                                ' Código de Moneda (0=Pesos / 2=Dólares)
-                    DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString.PadRight(15, " "c)    ' Número de Cliente
-                    DetalleTextStream &= ComprobanteActual.ComprobanteTipo.Sigla.Substring(0, 2)            ' Tipo de Comprobante
-                    DetalleTextStream &= ComprobanteActual.NumeroCompleto.PadRight(15, " "c)                ' Número de Comprobante
-                    DetalleTextStream &= "0001"                                                             ' Número de Cuota
-                    DetalleTextStream &= CS_String.RemoveDiacritics(ComprobanteActual.ApellidoNombre).PadRight(30, " "c).Substring(0, 30)   ' Nombre del Cliente
-                    If ComprobanteActual.DomicilioCalleCompleto Is Nothing Then
-                        DetalleTextStream &= StrDup(30, " ")                ' Dirección del Cliente
-                    Else
-                        DetalleTextStream &= CS_String.RemoveDiacritics(ComprobanteActual.DomicilioCalleCompleto).PadRight(30, " "c).Substring(0, 30)   ' Dirección del Cliente
+            Using outputFile As New StreamWriter(FolderName & FileName, False, New System.Text.UTF8Encoding)
+
+                For Each RowActual As DataGridViewRow In datagridviewComprobantes.Rows
+                    GridDataRowActual = CType(RowActual.DataBoundItem, GridDataRow)
+                    ComprobanteActual = dbContext.Comprobante.Find(GridDataRowActual.IDComprobante)
+                    If Not ComprobanteActual Is Nothing Then
+                        ' Detalle
+                        DetalleTextStream &= "D"                                                                ' Tipo de Registro DETALLE
+                        DetalleTextStream &= "A"                                                                ' Tipo de Operación (A=Actualización / B=Baja)
+                        DetalleTextStream &= "0"                                                                ' Código de Moneda (0=Pesos / 2=Dólares)
+                        DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString.PadRight(15, " "c)    ' Número de Cliente
+                        DetalleTextStream &= ComprobanteActual.ComprobanteTipo.Sigla.Substring(0, 2)            ' Tipo de Comprobante
+                        DetalleTextStream &= ComprobanteActual.NumeroCompleto.PadRight(15, " "c)                ' Número de Comprobante
+                        DetalleTextStream &= "0001"                                                             ' Número de Cuota
+                        DetalleTextStream &= CS_String.RemoveDiacritics(ComprobanteActual.ApellidoNombre).PadRight(30, " "c).Substring(0, 30)   ' Nombre del Cliente
+                        If ComprobanteActual.DomicilioCalleCompleto Is Nothing Then
+                            DetalleTextStream &= StrDup(30, " ")                ' Dirección del Cliente
+                        Else
+                            DetalleTextStream &= CS_String.RemoveDiacritics(ComprobanteActual.DomicilioCalleCompleto).PadRight(30, " "c).Substring(0, 30)   ' Dirección del Cliente
+                        End If
+                        If ComprobanteActual.DomicilioIDLocalidad.HasValue Then
+                            DetalleTextStream &= CS_String.RemoveDiacritics(ComprobanteActual.Localidad.Nombre).PadRight(20, " "c).Substring(0, 20)   ' Localidad del Cliente
+                        Else
+                            DetalleTextStream &= StrDup(20, " ")                ' Localidad del Cliente
+                        End If
+                        If ComprobanteActual.DomicilioCodigoPostal Is Nothing Then
+                            DetalleTextStream &= " "              ' Prefijo del Código Postal
+                            DetalleTextStream &= StrDup(5, " ")   ' Número del Código Postal
+                            DetalleTextStream &= StrDup(4, " ")   ' Ubicación manzana del Código Postal
+                        Else
+                            Select Case ComprobanteActual.DomicilioCodigoPostal.Length
+                                Case 4
+                                    DetalleTextStream &= " "   ' Prefijo del Código Postal
+                                    DetalleTextStream &= ComprobanteActual.DomicilioCodigoPostal.PadRight(5, " "c)   ' Número del Código Postal
+                                    DetalleTextStream &= StrDup(4, " ")   ' Ubicación manzana del Código Postal
+                                Case 8
+                                    DetalleTextStream &= ComprobanteActual.DomicilioCodigoPostal.Substring(0, 1)    ' Prefijo del Código Postal
+                                    DetalleTextStream &= ComprobanteActual.DomicilioCodigoPostal.Substring(1, 4).PadRight(5, " "c)  ' Número del Código Postal
+                                    DetalleTextStream &= ComprobanteActual.DomicilioCodigoPostal.Substring(5, 3).PadRight(4, " "c)  ' Ubicación manzana del Código Postal
+                                Case Else
+                                    DetalleTextStream &= " "              ' Prefijo del Código Postal
+                                    DetalleTextStream &= StrDup(5, " ")   ' Número del Código Postal
+                                    DetalleTextStream &= StrDup(4, " ")   ' Ubicación manzana del Código Postal
+                            End Select
+                        End If
+                        DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.ToString("yyyyMMdd")     ' Fecha 1er. vencimiento
+                        DetalleTextStream &= ComprobanteActual.ImporteTotal1.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")   ' Importe 1er. vencimiento
+                        If ComprobanteActual.FechaVencimiento2.HasValue Then
+                            DetalleTextStream &= ComprobanteActual.FechaVencimiento2.Value.ToString("yyyyMMdd") ' Fecha 2do. vencimiento
+                            DetalleTextStream &= ComprobanteActual.ImporteTotal2.Value.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 2do. vencimiento
+                        Else
+                            DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.AddDays(10).ToString("yyyyMMdd")      ' Fecha 2do. vencimiento
+                            DetalleTextStream &= ComprobanteActual.ImporteTotal1.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 2do. vencimiento
+                        End If
+                        DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.ToString("yyyyMMdd")     ' Fecha Pronto Pago
+                        DetalleTextStream &= ComprobanteActual.ImporteTotal1.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")   ' Importe Pronto Pago
+                        DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.AddMonths(1).ToString("yyyyMMdd") ' Fecha hasta Punitorios
+                        DetalleTextStream &= InteresTasaNominalAnual.ToString("0000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "") ' Tasa de Punitorios
+                        DetalleTextStream &= "N"                                                                ' Marca de Excepción de cobro de comisión al depositante (S=Cobra al depositante / N=Cobra a la Empresa)
+                        DetalleTextStream &= StrDup(10, " "c)                                                   ' Formas de Cobro Permitidas
+                        If ComprobanteActual.DocumentoTipo.IDDocumentoTipo = CS_Parameter_System.GetIntegerAsByte(Parametros.DOCUMENTOTIPO_CUIT_ID) Or ComprobanteActual.DocumentoTipo.IDDocumentoTipo = CS_Parameter_System.GetIntegerAsByte(Parametros.DOCUMENTOTIPO_CUIL_ID) Then
+                            DetalleTextStream &= ComprobanteActual.DocumentoNumero                                  ' Número de CUIT del Cliente
+                        Else
+                            DetalleTextStream &= StrDup(11, "0"c)                                                   ' Número de CUIT del Cliente
+                        End If
+                        DetalleTextStream &= "9"                                                                    ' Código de Ingresos Brutos del Cliente(9=No Informa)
+                        DetalleTextStream &= "1"                                                                    ' Código de Condición de IVA del Cliente (1=consumidor Final)
+                        DetalleTextStream &= StrDup(3, " "c)                                                        ' Código de Concepto
+                        DetalleTextStream &= StrDup(40, " "c)                                                       ' Descripción del Concepto
+                        DetalleTextStream &= ComprobanteActual.NumeroCompleto.ToString.PadRight(18, " "c)           ' Observación Libre 1ra.
+                        DetalleTextStream &= ComprobanteActual.IDComprobante.ToString.PadRight(15, " "c)            ' Observación Libre 2da.
+                        DetalleTextStream &= StrDup(15, " "c)                                                       ' Observación Libre 3ra.
+                        DetalleTextStream &= StrDup(80, " "c)                                                       ' Observación Libre 4ta.
+                        DetalleTextStream &= StrDup(243, " "c)                                                      ' Relleno
+
+                        DetalleTextStream &= vbCrLf
+
+                        DetalleCount += 1
+                        DetalleImporteTotal += ComprobanteActual.ImporteTotal1
                     End If
-                    If ComprobanteActual.DomicilioIDLocalidad.HasValue Then
-                        DetalleTextStream &= CS_String.RemoveDiacritics(ComprobanteActual.Localidad.Nombre).PadRight(20, " "c).Substring(0, 20)   ' Localidad del Cliente
-                    Else
-                        DetalleTextStream &= StrDup(20, " ")                ' Localidad del Cliente
-                    End If
-                    If ComprobanteActual.DomicilioCodigoPostal Is Nothing Then
-                        DetalleTextStream &= " "              ' Prefijo del Código Postal
-                        DetalleTextStream &= StrDup(5, " ")   ' Número del Código Postal
-                        DetalleTextStream &= StrDup(4, " ")   ' Ubicación manzana del Código Postal
-                    Else
-                        Select Case ComprobanteActual.DomicilioCodigoPostal.Length
-                            Case 4
-                                DetalleTextStream &= " "   ' Prefijo del Código Postal
-                                DetalleTextStream &= ComprobanteActual.DomicilioCodigoPostal.PadRight(5, " "c)   ' Número del Código Postal
-                                DetalleTextStream &= StrDup(4, " ")   ' Ubicación manzana del Código Postal
-                            Case 8
-                                DetalleTextStream &= ComprobanteActual.DomicilioCodigoPostal.Substring(0, 1)    ' Prefijo del Código Postal
-                                DetalleTextStream &= ComprobanteActual.DomicilioCodigoPostal.Substring(1, 4).PadRight(5, " "c)  ' Número del Código Postal
-                                DetalleTextStream &= ComprobanteActual.DomicilioCodigoPostal.Substring(5, 3).PadRight(4, " "c)  ' Ubicación manzana del Código Postal
-                            Case Else
-                                DetalleTextStream &= " "              ' Prefijo del Código Postal
-                                DetalleTextStream &= StrDup(5, " ")   ' Número del Código Postal
-                                DetalleTextStream &= StrDup(4, " ")   ' Ubicación manzana del Código Postal
-                        End Select
-                    End If
-                    DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.ToString("yyyyMMdd")     ' Fecha 1er. vencimiento
-                    DetalleTextStream &= ComprobanteActual.ImporteTotal1.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")   ' Importe 1er. vencimiento
-                    If ComprobanteActual.FechaVencimiento2.HasValue Then
-                        DetalleTextStream &= ComprobanteActual.FechaVencimiento2.Value.ToString("yyyyMMdd") ' Fecha 2do. vencimiento
-                        DetalleTextStream &= ComprobanteActual.ImporteTotal2.Value.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 2do. vencimiento
-                    Else
-                        DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.AddDays(10).ToString("yyyyMMdd")      ' Fecha 2do. vencimiento
-                        DetalleTextStream &= ComprobanteActual.ImporteTotal1.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Importe 2do. vencimiento
-                    End If
-                    DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.ToString("yyyyMMdd")     ' Fecha Pronto Pago
-                    DetalleTextStream &= ComprobanteActual.ImporteTotal1.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")   ' Importe Pronto Pago
-                    DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.AddMonths(1).ToString("yyyyMMdd") ' Fecha hasta Punitorios
-                    DetalleTextStream &= InteresTasaNominalAnual.ToString("0000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "") ' Tasa de Punitorios
-                    DetalleTextStream &= "N"                                                                ' Marca de Excepción de cobro de comisión al depositante (S=Cobra al depositante / N=Cobra a la Empresa)
-                    DetalleTextStream &= StrDup(10, " "c)                                                   ' Formas de Cobro Permitidas
-                    If ComprobanteActual.DocumentoTipo.IDDocumentoTipo = CS_Parameter_System.GetIntegerAsByte(Parametros.DOCUMENTOTIPO_CUIT_ID) Or ComprobanteActual.DocumentoTipo.IDDocumentoTipo = CS_Parameter_System.GetIntegerAsByte(Parametros.DOCUMENTOTIPO_CUIL_ID) Then
-                        DetalleTextStream &= ComprobanteActual.DocumentoNumero                                  ' Número de CUIT del Cliente
-                    Else
-                        DetalleTextStream &= StrDup(11, "0"c)                                                   ' Número de CUIT del Cliente
-                    End If
-                    DetalleTextStream &= "9"                                                                    ' Código de Ingresos Brutos del Cliente(9=No Informa)
-                    DetalleTextStream &= "1"                                                                    ' Código de Condición de IVA del Cliente (1=consumidor Final)
-                    DetalleTextStream &= StrDup(3, " "c)                                                        ' Código de Concepto
-                    DetalleTextStream &= StrDup(40, " "c)                                                       ' Descripción del Concepto
-                    DetalleTextStream &= ComprobanteActual.NumeroCompleto.ToString.PadRight(18, " "c)           ' Observación Libre 1ra.
-                    DetalleTextStream &= ComprobanteActual.IDComprobante.ToString.PadRight(15, " "c)            ' Observación Libre 2da.
-                    DetalleTextStream &= StrDup(15, " "c)                                                       ' Observación Libre 3ra.
-                    DetalleTextStream &= StrDup(80, " "c)                                                       ' Observación Libre 4ta.
-                    DetalleTextStream &= StrDup(243, " "c)                                                      ' Relleno
+                Next
 
-                    DetalleTextStream &= vbCrLf
+                ' Header
+                HeaderTextStream = "H"                                                                              ' Tipo de Registro HEADER
+                HeaderTextStream &= CS_Parameter_System.GetString(Parametros.EMPRESA_CUIT)                          ' CUIT de la Empresa
+                HeaderTextStream &= "0"                                                                             ' Empresa
+                HeaderTextStream &= "001"                                                                           ' Código de Producto
+                HeaderTextStream &= CS_Parameter_System.GetString(Parametros.BANCOSANTANDER_PIRYP_NUMEROACUERDO)    ' Número de Acuerdo
+                HeaderTextStream &= "007"                                                                           ' Código de Canal
+                HeaderTextStream &= (NumeroUltimoEnvio + 1).ToString("00000")                                       ' Número de envío (secuencial)
+                ' TODO: poner el número de la última rendición procesada
+                HeaderTextStream &= (0).ToString("00000")                                                           ' Última rendición procesada
+                HeaderTextStream &= "S"                                                                             ' Marca de Actualización de Cuenta Comercial
+                HeaderTextStream &= "B"                                                                             ' Marca para publicación ON-LINE
+                HeaderTextStream &= StrDup(617, " ")                                                                ' Relleno
 
-                    DetalleCount += 1
-                    DetalleImporteTotal += ComprobanteActual.ImporteTotal1
-                End If
-            Next
+                ' Trailer
+                TrailerTextStream = "T"                                                                              ' Tipo de Registro TRAILER
+                TrailerTextStream &= DetalleImporteTotal.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Total Importe 1er. vencimiento
+                TrailerTextStream &= StrDup(15, "0")                                                                 ' Ceros
+                TrailerTextStream &= DetalleCount.ToString("0000000")                                                ' Cantidad de registros de detalle
+                TrailerTextStream &= StrDup(612, " ")                                                                ' Relleno
 
-            ' Header
-            HeaderTextStream = "H"                                                                              ' Tipo de Registro HEADER
-            HeaderTextStream &= CS_Parameter_System.GetString(Parametros.EMPRESA_CUIT)                          ' CUIT de la Empresa
-            HeaderTextStream &= "0"                                                                             ' Empresa
-            HeaderTextStream &= "001"                                                                           ' Código de Producto
-            HeaderTextStream &= CS_Parameter_System.GetString(Parametros.BANCOSANTANDER_PIRYP_NUMEROACUERDO)    ' Número de Acuerdo
-            HeaderTextStream &= "007"                                                                           ' Código de Canal
-            HeaderTextStream &= (NumeroUltimoEnvio + 1).ToString("00000")                                       ' Número de envío (secuencial)
-            ' TODO: poner el número de la última rendición procesada
-            HeaderTextStream &= (0).ToString("00000")                                                           ' Última rendición procesada
-            HeaderTextStream &= "S"                                                                             ' Marca de Actualización de Cuenta Comercial
-            HeaderTextStream &= " "                                                                             ' Marca para publicación ON-LINE
-            HeaderTextStream &= StrDup(617, " ")                                                                ' Relleno
+                ' Exporto todo al archivo
+                outputFile.Write(HeaderTextStream & vbCrLf & DetalleTextStream & TrailerTextStream)
+            End Using
 
-            ' Trailer
-            TrailerTextStream = "T"                                                                              ' Tipo de Registro TRAILER
-            TrailerTextStream &= DetalleImporteTotal.ToString("0000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")    ' Total Importe 1er. vencimiento
-            TrailerTextStream &= StrDup(15, "0")                                                                 ' Ceros
-            TrailerTextStream &= DetalleCount.ToString("0000000")                                                ' Cantidad de registros de detalle
-            TrailerTextStream &= StrDup(612, " ")                                                                ' Relleno
-
-            ' Exporto todo al archivo
-            outputFile.Write(HeaderTextStream & vbCrLf & DetalleTextStream & TrailerTextStream)
-        End Using
+        Catch ex As Exception
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al intentar guardar los datos en el archivo de destino.")
+            Return False
+        End Try
 
         CS_Parameter_System.SetIntegerAsInteger(Parametros.BANCOSANTANDER_PIRYP_NUMEROULTIMOENVIO, NumeroUltimoEnvio + 1)
 
