@@ -173,7 +173,7 @@
                             ReporteActual.RecordSelectionFormula = String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0} AND {{AnioLectivoCurso.IDCurso}} = {1}", comboboxAnioLectivo.ComboBox.SelectedValue.ToString, comboboxCurso.ComboBox.SelectedValue.ToString)
                         End If
 
-                        MiscFunctions.PreviewCrystalReport(ReporteActual, "Listado de Alumnos por Curso")
+                        Reportes.PreviewCrystalReport(ReporteActual, "Listado de Alumnos por Curso")
                     End If
                 End If
 

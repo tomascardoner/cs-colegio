@@ -251,17 +251,17 @@
 
         Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
             Case CardonerSistemas.Constants.EMAIL_CLIENT_NETDLL
-                MailCount = MiscFunctions.EnviarEmail_PorNETClient_AEntidades(listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual.Asunto, ComunicacionActual.CuerpoMensajeEsHTML, ComunicacionActual.CuerpoMensaje, Nothing, "", ComunicacionActual.ArchivoAdjunto, False)
+                MailCount = Email.EnviarEmail_PorNETClient_AEntidades(listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual.Asunto, ComunicacionActual.CuerpoMensajeEsHTML, ComunicacionActual.CuerpoMensaje, Nothing, "", ComunicacionActual.ArchivoAdjunto, False)
                 If MailCount = -1 Then
                     Return 0
                 End If
             Case CardonerSistemas.Constants.EMAIL_CLIENT_MSOUTLOOK
-                'Result = MiscFunctions.EnviarEmailPorMSOutlook(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
+                'Result = Email.EnviarEmailPorMSOutlook(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
                 'If MailCount = -1 Then
                 '    Return 0
                 'End If
             Case CardonerSistemas.Constants.EMAIL_CLIENT_CRYSTALREPORTSMAPI
-                'Result = MiscFunctions.EnviarEmailPorCrystalReportsMAPI(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
+                'Result = Email.EnviarEmailPorCrystalReportsMAPI(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
                 'If Result = -1 Then
                 '    Return 0
                 'End If

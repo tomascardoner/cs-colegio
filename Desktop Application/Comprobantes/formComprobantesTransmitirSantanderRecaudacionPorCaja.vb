@@ -128,7 +128,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error el acceder o crear la carpeta especificada.")
         End Try
 
-        FileName = CS_File.RemoveInvalidFileNameChars(String.Format("Lote - {0}.txt", comboboxComprobanteLote.Text))
+        FileName = CardonerSistemas.Files.RemoveInvalidFileNameChars(String.Format("Lote - {0}.txt", comboboxComprobanteLote.Text))
 
         Try
             If FileSystem.Dir(FolderName & FileName) <> "" Then
@@ -310,7 +310,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error el acceder o crear la carpeta especificada.")
         End Try
 
-        FileName = CS_File.RemoveInvalidFileNameChars(String.Format("Lote - {0}.txt", comboboxComprobanteLote.Text))
+        FileName = CardonerSistemas.Files.RemoveInvalidFileNameChars(String.Format("Lote - {0}.txt", comboboxComprobanteLote.Text))
 
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()

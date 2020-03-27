@@ -159,7 +159,7 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error el acceder o crear la carpeta especificada.")
         End Try
 
-        FileName = CS_File.RemoveInvalidFileNameChars(String.Format("Lote - {0}.deb", comboboxComprobanteLote.Text))
+        FileName = CardonerSistemas.Files.RemoveInvalidFileNameChars(String.Format("Lote - {0}.deb", comboboxComprobanteLote.Text))
 
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()

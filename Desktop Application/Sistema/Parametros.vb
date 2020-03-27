@@ -1,4 +1,7 @@
 ﻿Module Parametros
+
+#Region "Constantes"
+
     'SISTEMA
     Friend Const INTERNET_PROXY As String = "INTERNET_PROXY"
 
@@ -64,5 +67,46 @@
     Friend Const BANCOSANTANDER_ADDI_DIASPREVIOSVENCIMIENTO As String = "BANCOSANTANDER_ADDI_DIASPREVIOSVENCIMIENTO"
     Friend Const BANCOSANTANDER_PIRYP_NUMEROULTIMOENVIO As String = "BANCOSANTANDER_PIRYP_NUMEROULTIMOENVIO"
     Friend Const BANCOSANTANDER_PIRYP_NUMEROACUERDO As String = "BANCOSANTANDER_PIRYP_NUMEROACUERDO"
+
+#End Region
+
+    Friend Function LoadParameters() As Boolean
+        Try
+            Using dbcontext As New CSColegioContext(True)
+                pParametros = dbcontext.Parametro.ToList
+            End Using
+            Return True
+        Catch ex As Exception
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al conectarse a la base de datos.")
+            Return False
+        End Try
+    End Function
+
+    Friend Function SaveParameter(parametro As Parametro) As Boolean
+        Try
+            Using dbcontext As New CSColegioContext(True)
+                Dim parametroExistente As Parametro
+                parametroExistente = dbcontext.Parametro.Find(parametro.IDParametro)
+                If parametroExistente Is Nothing Then
+                    dbcontext.Parametro.Append(parametro)
+                Else
+                    parametroExistente.Texto = parametro.Texto
+                    parametroExistente.NumeroEntero = parametro.NumeroEntero
+                    parametroExistente.NumeroDecimal = parametro.NumeroDecimal
+                    parametroExistente.Moneda = parametro.Moneda
+                    parametroExistente.FechaHora = parametro.FechaHora
+                    parametroExistente.SiNo = parametro.SiNo
+                    parametroExistente.Notas = parametro.Notas
+                End If
+                If dbcontext.ChangeTracker.HasChanges() Then
+                    dbcontext.SaveChanges()
+                End If
+            End Using
+            Return True
+        Catch ex As Exception
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al conectarse a la base de datos.")
+            Return False
+        End Try
+    End Function
 
 End Module

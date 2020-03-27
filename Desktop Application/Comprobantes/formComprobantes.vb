@@ -667,7 +667,7 @@
                             If sender.Equals(buttonImprimir) Then
                                 ReporteActual.ReportObject.PrintToPrinter(1, False, 1, 100)
                             Else
-                                MiscFunctions.PreviewCrystalReport(ReporteActual, CurrentRow.ComprobanteTipoNombre & " N° " & CurrentRow.NumeroCompleto)
+                                Reportes.PreviewCrystalReport(ReporteActual, CurrentRow.ComprobanteTipoNombre & " N° " & CurrentRow.NumeroCompleto)
                             End If
                         End If
                     End If
@@ -694,7 +694,7 @@
                     If ReporteActual.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
                         ReporteActual.RecordSelectionFormula = mReportSelectionFormula
 
-                        MiscFunctions.PreviewCrystalReport(ReporteActual, "Listado de Comprobantes")
+                        Reportes.PreviewCrystalReport(ReporteActual, "Listado de Comprobantes")
                     End If
                 End If
 
@@ -777,19 +777,19 @@
 
                                 Select Case My.Settings.Comprobante_EnviarEmail_Metodo
                                     Case CardonerSistemas.Constants.EMAIL_CLIENT_NETDLL
-                                        If MiscFunctions.EnviarEmail_PorNETClient_AEntidades(New List(Of Entidad)({Titular}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", True) = -1 Then
+                                        If Email.EnviarEmail_PorNETClient_AEntidades(New List(Of Entidad)({Titular}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", True) = -1 Then
                                             datagridviewMain.Enabled = True
                                             Me.Cursor = Cursors.Default
                                             Exit Sub
                                         End If
                                     Case CardonerSistemas.Constants.EMAIL_CLIENT_MSOUTLOOK
-                                        If MiscFunctions.EnviarEmailPorMSOutlook(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, True) = -1 Then
+                                        If Email.EnviarEmailPorMSOutlook(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, True) = -1 Then
                                             datagridviewMain.Enabled = True
                                             Me.Cursor = Cursors.Default
                                             Exit Sub
                                         End If
                                     Case CardonerSistemas.Constants.EMAIL_CLIENT_CRYSTALREPORTSMAPI
-                                        If MiscFunctions.EnviarEmailPorCrystalReportsMAPI(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, True) = -1 Then
+                                        If Email.EnviarEmailPorCrystalReportsMAPI(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, True) = -1 Then
                                             datagridviewMain.Enabled = True
                                             Me.Cursor = Cursors.Default
                                             Exit Sub

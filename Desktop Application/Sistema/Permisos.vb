@@ -1,4 +1,7 @@
 ﻿Module Permisos
+
+#Region "Constantes"
+
     Friend Const NIVEL As String = "NIVEL"
 
     Friend Const ANIO As String = "ANIO"
@@ -74,6 +77,8 @@
 
     Friend Const REPORTE As String = "REPORTE"
 
+#End Region
+
     Friend Function VerificarPermiso(ByVal IDPermiso As String, Optional ByVal MostrarAviso As Boolean = True) As Boolean
         If pUsuario.IDUsuario = Constantes.USUARIO_ADMINISTRADOR Then
             Return True
@@ -88,4 +93,17 @@
             End If
         End If
     End Function
+
+    Friend Function LoadPermisos() As Boolean
+        Try
+            Using dbcontext As New CSColegioContext(True)
+                pPermisos = dbcontext.UsuarioGrupoPermiso.ToList
+            End Using
+            Return True
+        Catch ex As Exception
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al cargar los Permisos del Usuario.")
+            Return False
+        End Try
+    End Function
+
 End Module

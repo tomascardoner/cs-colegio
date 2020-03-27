@@ -170,7 +170,7 @@
 
                     Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
                         Case CardonerSistemas.Constants.EMAIL_CLIENT_NETDLL
-                            Result = MiscFunctions.EnviarEmail_PorNETClient_AEntidades(New List(Of Entidad)({ComprobanteActual.Entidad}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", False)
+                            Result = Email.EnviarEmail_PorNETClient_AEntidades(New List(Of Entidad)({ComprobanteActual.Entidad}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", False)
                             Select Case Result
                                 Case 0
                                     MsgBox("No hay una dirección de e-mail para la Entidad.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
@@ -186,13 +186,13 @@
                             End Select
                             MailCount += Result
                         Case CardonerSistemas.Constants.EMAIL_CLIENT_MSOUTLOOK
-                            Result = MiscFunctions.EnviarEmailPorMSOutlook(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
+                            Result = Email.EnviarEmailPorMSOutlook(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
                             If Result = -1 Then
                                 Exit For
                             End If
                             MailCount += Result
                         Case CardonerSistemas.Constants.EMAIL_CLIENT_CRYSTALREPORTSMAPI
-                            Result = MiscFunctions.EnviarEmailPorCrystalReportsMAPI(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
+                            Result = Email.EnviarEmailPorCrystalReportsMAPI(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
                             If Result = -1 Then
                                 Exit For
                             End If

@@ -335,6 +335,7 @@
     <Compile Include="ReporteParametro.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sistema\Appearance.vb" />
     <Compile Include="Sistema\BancoSantander_ADDI.vb" />
     <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Control_TabControl.vb">
       <Link>Framework\CS_Control_TabControl.vb</Link>
@@ -390,6 +391,7 @@
     <Compile Include="Outlook\EntidadesSincronizarOutlookGruposMiembros.vb" />
     <Compile Include="Outlook\EntidadesSincronizarOutlookGruposMiembrosABM.vb" />
     <Compile Include="Outlook\EntidadesSincronizarOutlookOpciones.vb" />
+    <Compile Include="Sistema\Email.vb" />
     <Compile Include="Sistema\EntityFrameworkExtension.vb" />
     <Compile Include="Sistema\FillAndRefreshLists.vb" />
     <Compile Include="Sistema\formAboutBox.Designer.vb">
@@ -398,6 +400,7 @@
     <Compile Include="Sistema\formAboutBox.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Sistema\Reportes.vb" />
     <Compile Include="Tablas ABMs\formAnioLectivoCuotas.Designer.vb">
       <DependentUpon>formAnioLectivoCuotas.vb</DependentUpon>
     </Compile>

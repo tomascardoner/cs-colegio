@@ -60,7 +60,7 @@
         ' Cargos los Parámetros desde la Base de datos
         formSplashScreen.labelStatus.Text = "Cargando los parámetros desde la Base de datos..."
         Application.DoEvents()
-        If Not MiscFunctions.LoadParameters() Then
+        If Not Parametros.LoadParameters() Then
             formSplashScreen.Close()
             formSplashScreen.Dispose()
             TerminateApplication()
@@ -120,7 +120,7 @@
             ' Como se está ejecutando dentro del IDE de Visual Studio, en lugar de pedir Usuario y contraseña, asumo que es el Administrador
             Using dbcontext As New CSColegioContext(True)
                 pUsuario = dbcontext.Usuario.Find(1)
-                MiscFunctions.UserLoggedIn()
+                Appearance.UserLoggedIn()
             End Using
         Else
             If Not formLogin.ShowDialog(pFormMDIMain) = DialogResult.OK Then

@@ -189,7 +189,7 @@
                 If sender.Equals(buttonImprimir) Then
                     ReporteActual.ReportObject.PrintToPrinter(1, False, 1, 1000)
                 Else
-                    MiscFunctions.PreviewCrystalReport(ReporteActual, ReporteActual.Titulo)
+                    Reportes.PreviewCrystalReport(ReporteActual, ReporteActual.Titulo)
                 End If
             End If
         End If
