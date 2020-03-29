@@ -94,6 +94,20 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
 
 #Region "Extra stuff"
 
+    ''' <summary>
+    ''' Esta función exporta la información para incorporar al sistema recaudación
+    ''' del Banco Santander.
+    ''' 
+    ''' La codificación debe ser ISO 8859-1
+    ''' No se permiten:
+    '''     - Vocales acentuadas
+    '''     - Diéresis
+    '''     - Apóstrofes
+    '''     - Símbolo de Grado "º"
+    '''     - Cualquier otro caracteres especial que no figure en este listado:
+    '''       ¡!¿?(){}[]<>".,;:/%-_+*#=@&¦¢$
+    ''' </summary>
+    ''' <returns></returns>
     Private Function ExportarComprobantesACashManagement() As Boolean
         Dim HeaderTextStream As String = ""
         Dim DetalleTextStream As String = ""
@@ -148,8 +162,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
         NumeroUltimoEnvio = CS_Parameter_System.GetIntegerAsInteger(Parametros.BANCOSANTANDER_PIRYP_NUMEROULTIMOENVIO)
 
         Try
-
-            Using outputFile As New StreamWriter(FolderName & FileName, False, New System.Text.UTF8Encoding)
+            Using outputFile As New StreamWriter(FolderName & FileName, False, System.Text.Encoding.GetEncoding(CardonerSistemas.Encoding.CodePageNumber_Iso_8859_1))
 
                 For Each RowActual As DataGridViewRow In datagridviewComprobantes.Rows
                     GridDataRowActual = CType(RowActual.DataBoundItem, GridDataRow)
@@ -230,6 +243,17 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
                         DetalleImporteTotal += ComprobanteActual.ImporteTotal1
                     End If
                 Next
+
+                ' Reemplazo los caracteres prohibidos que pueda haber
+                ' Las vocales acentuadas y las diéresis ya fueron reemplazadas en cada línea
+                ' con la función RemoveDiacritics
+                DetalleTextStream = DetalleTextStream.Replace("'"c, " "c)
+                DetalleTextStream = DetalleTextStream.Replace("°"c, "o"c)
+
+                ' Verifico que no haya quedado ningún caracter no permitido
+                'If Not System.Text.RegularExpressions.Regex.IsMatch(DetalleTextStream, "[A-Za-z0-9ñÑ¡!¿\?\(\)\{\}\[\]<>""\.,;:/%-_\+\*#=@&¦¢\$]") Then
+                '    Stop
+                'End If
 
                 ' Header
                 HeaderTextStream = "H"                                                                              ' Tipo de Registro HEADER

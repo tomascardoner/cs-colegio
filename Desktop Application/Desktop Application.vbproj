@@ -150,6 +150,9 @@
     <Compile Include="..\..\..\framework-vbnet\Database.EntityFramework.vb">
       <Link>Framework\Database.EntityFramework.vb</Link>
     </Compile>
+    <Compile Include="..\..\..\framework-vbnet\Encoding.vb">
+      <Link>Framework\Encoding.vb</Link>
+    </Compile>
     <Compile Include="..\..\..\framework-vbnet\ErrorHandler.vb">
       <Link>Framework\ErrorHandler.vb</Link>
     </Compile>

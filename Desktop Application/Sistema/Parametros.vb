@@ -88,7 +88,7 @@
                 Dim parametroExistente As Parametro
                 parametroExistente = dbcontext.Parametro.Find(parametro.IDParametro)
                 If parametroExistente Is Nothing Then
-                    dbcontext.Parametro.Append(parametro)
+                    dbcontext.Parametro.Add(parametro)
                 Else
                     parametroExistente.Texto = parametro.Texto
                     parametroExistente.NumeroEntero = parametro.NumeroEntero
