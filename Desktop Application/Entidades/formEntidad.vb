@@ -1,6 +1,7 @@
 ﻿Public Class formEntidad
 
 #Region "Declarations"
+
     Private mdbContext As New CSColegioContext(True)
     Private mEntidadActual As Entidad
 
@@ -14,9 +15,11 @@
         Public Property FechaEmision As Date
         Public Property ImporteTotal As Decimal
     End Class
+
 #End Region
 
 #Region "Form stuff"
+
     Friend Sub LoadAndShow(ByVal EditMode As Boolean, ByRef ParentForm As Form, ByVal IDEntidad As Integer)
         mIsLoading = True
         mEditMode = EditMode
@@ -67,7 +70,6 @@
         buttonEditar.Visible = (mEditMode = False)
         buttonCerrar.Visible = (mEditMode = False)
 
-        checkboxEsActivo.Enabled = mEditMode
         textboxApellido.ReadOnly = (mEditMode = False)
         textboxNombre.ReadOnly = (mEditMode = False)
 
@@ -129,6 +131,8 @@
 
         ' Notas y Auditoría
         textboxNotas.ReadOnly = (mEditMode = False)
+        checkboxEsActivo.Enabled = mEditMode
+        textboxIDOtroSistema.ReadOnly = (mEditMode = False)
     End Sub
 
     Friend Sub InitializeFormAndControls()
@@ -172,9 +176,11 @@
         mEntidadActual = Nothing
         Me.Dispose()
     End Sub
+
 #End Region
 
 #Region "Load and Set Data"
+
     Friend Sub SetDataFromObjectToControls()
         With mEntidadActual
             ' Datos del Encabezado
@@ -183,7 +189,6 @@
             Else
                 textboxIDEntidad.Text = String.Format(.IDEntidad.ToString, "G")
             End If
-            checkboxEsActivo.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.EsActivo)
             textboxApellido.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Apellido)
             textboxNombre.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Nombre)
 
@@ -291,6 +296,8 @@
 
             ' Datos de la pestaña Notas y Auditoría
             textboxNotas.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Notas)
+            checkboxEsActivo.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.EsActivo)
+            textboxIDOtroSistema.Text = String.Format(.IDOtroSistema.ToString, "G")
             textboxFechaHoraCreacion.Text = .FechaHoraCreacion.ToShortDateString & " " & .FechaHoraCreacion.ToShortTimeString
             If .UsuarioCreacion Is Nothing Then
                 textboxUsuarioCreacion.Text = ""
@@ -309,7 +316,6 @@
     Friend Sub SetDataFromControlsToObject()
         With mEntidadActual
             ' Datos del Encabezado
-            .EsActivo = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxEsActivo.CheckState)
             .Apellido = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxApellido.Text)
             .Nombre = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNombre.Text)
 
@@ -385,6 +391,8 @@
 
             ' Datos de la pestaña Notas y Aditoría
             .Notas = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNotas.Text)
+            .EsActivo = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxEsActivo.CheckState)
+            .IDOtroSistema = CS_ValueTranslation.FromControlComboBoxToObjectInteger(textboxIDOtroSistema.Text)
         End With
     End Sub
 
@@ -432,10 +440,12 @@
             datagridviewRelaciones.DataSource = qryRelacionesPadres.ToList
         End Using
     End Sub
+
 #End Region
 
 #Region "Controls behavior"
-    Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxIDEntidad.GotFocus, textboxApellido.GotFocus, textboxNombre.GotFocus, textboxDocumentoNumero.GotFocus, textboxTelefono1.GotFocus, textboxTelefono2.GotFocus, textboxTelefono3.GotFocus, textboxEmail1.GotFocus, textboxEmail2.GotFocus, textboxDomicilioCalle1.GotFocus, textboxDomicilioNumero.GotFocus, textboxDomicilioPiso.GotFocus, textboxDomicilioDepartamento.GotFocus, textboxDomicilioCodigoPostal.GotFocus
+
+    Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxIDEntidad.GotFocus, textboxApellido.GotFocus, textboxNombre.GotFocus, textboxDocumentoNumero.GotFocus, textboxTelefono1.GotFocus, textboxTelefono2.GotFocus, textboxTelefono3.GotFocus, textboxEmail1.GotFocus, textboxEmail2.GotFocus, textboxDomicilioCalle1.GotFocus, textboxDomicilioNumero.GotFocus, textboxDomicilioPiso.GotFocus, textboxDomicilioDepartamento.GotFocus, textboxDomicilioCodigoPostal.GotFocus, textboxNotas.GotFocus, textboxIDOtroSistema.GotFocus
         CType(sender, TextBox).SelectAll()
     End Sub
 
@@ -552,9 +562,11 @@
         labelDebitoAutomatico_CBU.visible = (CType(sender, RadioButton) Is radiobuttonDebitoAutomatico_Tipo_DebitoDirecto)
         maskedtextboxDebitoAutomatico_CBU.Visible = (CType(sender, RadioButton) Is radiobuttonDebitoAutomatico_Tipo_DebitoDirecto)
     End Sub
+
 #End Region
 
 #Region "Main Toolbar"
+
     Private Sub Editar() Handles buttonEditar.Click
         If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDITAR) Then
             mEditMode = True
@@ -908,9 +920,11 @@
             Me.Close()
         End If
     End Sub
+
 #End Region
 
 #Region "Extra stuff"
+
     Private Sub HijoVer() Handles datagridviewHijos.DoubleClick
         If datagridviewHijos.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Hijo para ver.", vbInformation, My.Application.Info.Title)
@@ -942,6 +956,7 @@
             Me.Cursor = Cursors.Default
         End If
     End Sub
+
 #End Region
 
 End Class

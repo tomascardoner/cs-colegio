@@ -76,6 +76,7 @@ Partial Class formEntidad
         Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim labelIDOtroSistema As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formEntidad))
         Me.textboxApellido = New System.Windows.Forms.TextBox()
         Me.textboxIDEntidad = New System.Windows.Forms.TextBox()
@@ -189,6 +190,7 @@ Partial Class formEntidad
         Me.textboxUsuarioCreacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraModificacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraCreacion = New System.Windows.Forms.TextBox()
+        Me.textboxIDOtroSistema = New System.Windows.Forms.TextBox()
         labelApellido = New System.Windows.Forms.Label()
         labelIDEntidad = New System.Windows.Forms.Label()
         labelNombre = New System.Windows.Forms.Label()
@@ -225,6 +227,7 @@ Partial Class formEntidad
         labelNotas = New System.Windows.Forms.Label()
         labelModificacion = New System.Windows.Forms.Label()
         labelCreacion = New System.Windows.Forms.Label()
+        labelIDOtroSistema = New System.Windows.Forms.Label()
         CType(Me.pictureboxMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.toolstripMain.SuspendLayout()
         Me.tabcontrolMain.SuspendLayout()
@@ -276,10 +279,10 @@ Partial Class formEntidad
         'labelEsActivo
         '
         labelEsActivo.AutoSize = True
-        labelEsActivo.Location = New System.Drawing.Point(318, 54)
+        labelEsActivo.Location = New System.Drawing.Point(7, 166)
         labelEsActivo.Name = "labelEsActivo"
         labelEsActivo.Size = New System.Drawing.Size(40, 13)
-        labelEsActivo.TabIndex = 94
+        labelEsActivo.TabIndex = 2
         labelEsActivo.Text = "Activo:"
         '
         'labelFacturaDocumento
@@ -551,25 +554,25 @@ Partial Class formEntidad
         labelNotas.Location = New System.Drawing.Point(6, 9)
         labelNotas.Name = "labelNotas"
         labelNotas.Size = New System.Drawing.Size(38, 13)
-        labelNotas.TabIndex = 15
+        labelNotas.TabIndex = 0
         labelNotas.Text = "Notas:"
         '
         'labelModificacion
         '
         labelModificacion.AutoSize = True
-        labelModificacion.Location = New System.Drawing.Point(6, 196)
+        labelModificacion.Location = New System.Drawing.Point(6, 241)
         labelModificacion.Name = "labelModificacion"
         labelModificacion.Size = New System.Drawing.Size(102, 13)
-        labelModificacion.TabIndex = 12
+        labelModificacion.TabIndex = 9
         labelModificacion.Text = "Ultima Modificación:"
         '
         'labelCreacion
         '
         labelCreacion.AutoSize = True
-        labelCreacion.Location = New System.Drawing.Point(6, 174)
+        labelCreacion.Location = New System.Drawing.Point(7, 215)
         labelCreacion.Name = "labelCreacion"
         labelCreacion.Size = New System.Drawing.Size(52, 13)
-        labelCreacion.TabIndex = 9
+        labelCreacion.TabIndex = 6
         labelCreacion.Text = "Creación:"
         '
         'textboxApellido
@@ -704,10 +707,10 @@ Partial Class formEntidad
         'checkboxEsActivo
         '
         Me.checkboxEsActivo.AutoSize = True
-        Me.checkboxEsActivo.Location = New System.Drawing.Point(364, 54)
+        Me.checkboxEsActivo.Location = New System.Drawing.Point(114, 166)
         Me.checkboxEsActivo.Name = "checkboxEsActivo"
         Me.checkboxEsActivo.Size = New System.Drawing.Size(15, 14)
-        Me.checkboxEsActivo.TabIndex = 95
+        Me.checkboxEsActivo.TabIndex = 3
         Me.checkboxEsActivo.UseVisualStyleBackColor = True
         '
         'tabcontrolMain
@@ -1771,6 +1774,10 @@ Partial Class formEntidad
         '
         'tabpageNotasAuditoria
         '
+        Me.tabpageNotasAuditoria.Controls.Add(Me.checkboxEsActivo)
+        Me.tabpageNotasAuditoria.Controls.Add(labelEsActivo)
+        Me.tabpageNotasAuditoria.Controls.Add(labelIDOtroSistema)
+        Me.tabpageNotasAuditoria.Controls.Add(Me.textboxIDOtroSistema)
         Me.tabpageNotasAuditoria.Controls.Add(labelNotas)
         Me.tabpageNotasAuditoria.Controls.Add(Me.textboxNotas)
         Me.tabpageNotasAuditoria.Controls.Add(Me.textboxUsuarioModificacion)
@@ -1793,52 +1800,70 @@ Partial Class formEntidad
         Me.textboxNotas.MaxLength = 0
         Me.textboxNotas.Multiline = True
         Me.textboxNotas.Name = "textboxNotas"
-        Me.textboxNotas.Size = New System.Drawing.Size(386, 155)
-        Me.textboxNotas.TabIndex = 16
+        Me.textboxNotas.Size = New System.Drawing.Size(386, 154)
+        Me.textboxNotas.TabIndex = 1
         '
         'textboxUsuarioModificacion
         '
-        Me.textboxUsuarioModificacion.Location = New System.Drawing.Point(241, 193)
+        Me.textboxUsuarioModificacion.Location = New System.Drawing.Point(241, 238)
         Me.textboxUsuarioModificacion.MaxLength = 50
         Me.textboxUsuarioModificacion.Name = "textboxUsuarioModificacion"
         Me.textboxUsuarioModificacion.ReadOnly = True
         Me.textboxUsuarioModificacion.Size = New System.Drawing.Size(259, 20)
-        Me.textboxUsuarioModificacion.TabIndex = 14
+        Me.textboxUsuarioModificacion.TabIndex = 11
         '
         'textboxUsuarioCreacion
         '
-        Me.textboxUsuarioCreacion.Location = New System.Drawing.Point(241, 167)
+        Me.textboxUsuarioCreacion.Location = New System.Drawing.Point(241, 212)
         Me.textboxUsuarioCreacion.MaxLength = 50
         Me.textboxUsuarioCreacion.Name = "textboxUsuarioCreacion"
         Me.textboxUsuarioCreacion.ReadOnly = True
         Me.textboxUsuarioCreacion.Size = New System.Drawing.Size(259, 20)
-        Me.textboxUsuarioCreacion.TabIndex = 11
+        Me.textboxUsuarioCreacion.TabIndex = 8
         '
         'textboxFechaHoraModificacion
         '
-        Me.textboxFechaHoraModificacion.Location = New System.Drawing.Point(114, 193)
+        Me.textboxFechaHoraModificacion.Location = New System.Drawing.Point(114, 238)
         Me.textboxFechaHoraModificacion.MaxLength = 0
         Me.textboxFechaHoraModificacion.Name = "textboxFechaHoraModificacion"
         Me.textboxFechaHoraModificacion.ReadOnly = True
         Me.textboxFechaHoraModificacion.Size = New System.Drawing.Size(121, 20)
-        Me.textboxFechaHoraModificacion.TabIndex = 13
+        Me.textboxFechaHoraModificacion.TabIndex = 10
         '
         'textboxFechaHoraCreacion
         '
-        Me.textboxFechaHoraCreacion.Location = New System.Drawing.Point(114, 167)
+        Me.textboxFechaHoraCreacion.Location = New System.Drawing.Point(114, 212)
         Me.textboxFechaHoraCreacion.MaxLength = 0
         Me.textboxFechaHoraCreacion.Name = "textboxFechaHoraCreacion"
         Me.textboxFechaHoraCreacion.ReadOnly = True
         Me.textboxFechaHoraCreacion.Size = New System.Drawing.Size(121, 20)
-        Me.textboxFechaHoraCreacion.TabIndex = 10
+        Me.textboxFechaHoraCreacion.TabIndex = 7
+        '
+        'labelIDOtroSistema
+        '
+        labelIDOtroSistema.AutoSize = True
+        labelIDOtroSistema.Location = New System.Drawing.Point(6, 189)
+        labelIDOtroSistema.Name = "labelIDOtroSistema"
+        labelIDOtroSistema.Size = New System.Drawing.Size(80, 13)
+        labelIDOtroSistema.TabIndex = 4
+        labelIDOtroSistema.Text = "ID otro sistema:"
+        '
+        'textboxIDOtroSistema
+        '
+        Me.textboxIDOtroSistema.Location = New System.Drawing.Point(114, 186)
+        Me.textboxIDOtroSistema.MaxLength = 10
+        Me.textboxIDOtroSistema.Name = "textboxIDOtroSistema"
+        Me.textboxIDOtroSistema.ReadOnly = True
+        Me.textboxIDOtroSistema.Size = New System.Drawing.Size(72, 20)
+        Me.textboxIDOtroSistema.TabIndex = 5
+        Me.textboxIDOtroSistema.TabStop = False
+        Me.textboxIDOtroSistema.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'formEntidad
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(539, 443)
-        Me.Controls.Add(Me.checkboxEsActivo)
-        Me.Controls.Add(labelEsActivo)
         Me.Controls.Add(Me.toolstripMain)
         Me.Controls.Add(Me.tabcontrolMain)
         Me.Controls.Add(Me.pictureboxMain)
@@ -2001,4 +2026,5 @@ Partial Class formEntidad
     Friend WithEvents labelTipoOtro As System.Windows.Forms.Label
     Friend WithEvents checkboxTipoOtro As System.Windows.Forms.CheckBox
     Friend WithEvents labelDebitoAutomatico_CBU As System.Windows.Forms.Label
+    Friend WithEvents textboxIDOtroSistema As TextBox
 End Class

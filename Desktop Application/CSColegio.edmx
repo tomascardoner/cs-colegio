@@ -493,6 +493,7 @@
           <Property Name="DebitoAutomaticoTipo" Type="char" MaxLength="1" />
           <Property Name="DebitoAutomatico_Directo_CBU" Type="char" MaxLength="22" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="IDOtroSistema" Type="int" />
           <Property Name="Notas" Type="varchar(max)" />
           <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
@@ -3285,6 +3286,7 @@
           <Property Name="DebitoAutomatico_Directo_CBU" Type="String" MaxLength="22" FixedLength="true" Unicode="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IDOtroSistema" Type="Int32" />
           <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IDUsuarioModificacion" Type="Int16" Nullable="false" />
@@ -6452,6 +6454,7 @@
           <EntitySetMapping Name="Entidad">
             <EntityTypeMapping TypeName="CSColegioModel.Entidad">
               <MappingFragment StoreEntitySet="Entidad">
+                <ScalarProperty Name="IDOtroSistema" ColumnName="IDOtroSistema" />
                 <ScalarProperty Name="DebitoAutomatico_Directo_CBU" ColumnName="DebitoAutomatico_Directo_CBU" />
                 <ScalarProperty Name="TipoOtro" ColumnName="TipoOtro" />
                 <ScalarProperty Name="VerificarEmail2" ColumnName="VerificarEmail2" />

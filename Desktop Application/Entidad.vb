@@ -59,6 +59,7 @@ Partial Public Class Entidad
     Public Property DebitoAutomatico_Directo_CBU As String
     Public Property EsActivo As Boolean
     Public Property Notas As String
+    Public Property IDOtroSistema As Nullable(Of Integer)
     Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date
     Public Property IDUsuarioModificacion As Short
