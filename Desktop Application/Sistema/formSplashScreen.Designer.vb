@@ -71,7 +71,7 @@ Partial Class formSplashScreen
         'pictureboxIcon
         '
         Me.pictureboxIcon.BackColor = System.Drawing.Color.Transparent
-        Me.pictureboxIcon.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_SENAL_ESCUELA_152
+        Me.pictureboxIcon.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_APPLICATION_ICON_152
         Me.pictureboxIcon.Location = New System.Drawing.Point(396, 141)
         Me.pictureboxIcon.Name = "pictureboxIcon"
         Me.pictureboxIcon.Size = New System.Drawing.Size(90, 96)
