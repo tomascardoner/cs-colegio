@@ -25,6 +25,9 @@ Partial Class formComunicacionesEnviarMail
         Dim labelTipo As System.Windows.Forms.Label
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.datagridviewEntidades = New System.Windows.Forms.DataGridView()
+        Me.columnApellidoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnEmail1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnEmail2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.comboboxComunicacion = New System.Windows.Forms.ComboBox()
         Me.labelComunicacion = New System.Windows.Forms.Label()
         Me.statusstripMain = New System.Windows.Forms.StatusStrip()
@@ -48,9 +51,6 @@ Partial Class formComunicacionesEnviarMail
         Me.checkboxTipoOtro = New System.Windows.Forms.CheckBox()
         Me.comboboxCantidad = New System.Windows.Forms.ComboBox()
         Me.labelCantidad = New System.Windows.Forms.Label()
-        Me.columnApellidoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnEmail1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnEmail2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         labelTipo = New System.Windows.Forms.Label()
         CType(Me.datagridviewEntidades, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.statusstripMain.SuspendLayout()
@@ -88,6 +88,36 @@ Partial Class formComunicacionesEnviarMail
         Me.datagridviewEntidades.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewEntidades.Size = New System.Drawing.Size(668, 429)
         Me.datagridviewEntidades.TabIndex = 5
+        '
+        'columnApellidoNombre
+        '
+        Me.columnApellidoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnApellidoNombre.DataPropertyName = "ApellidoNombre"
+        Me.columnApellidoNombre.HeaderText = "Apellido y Nombre"
+        Me.columnApellidoNombre.Name = "columnApellidoNombre"
+        Me.columnApellidoNombre.ReadOnly = True
+        Me.columnApellidoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnApellidoNombre.Width = 88
+        '
+        'columnEmail1
+        '
+        Me.columnEmail1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnEmail1.DataPropertyName = "Email1"
+        Me.columnEmail1.HeaderText = "e-Mail 1"
+        Me.columnEmail1.Name = "columnEmail1"
+        Me.columnEmail1.ReadOnly = True
+        Me.columnEmail1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnEmail1.Width = 45
+        '
+        'columnEmail2
+        '
+        Me.columnEmail2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnEmail2.DataPropertyName = "Email2"
+        Me.columnEmail2.HeaderText = "e-Mail 2"
+        Me.columnEmail2.Name = "columnEmail2"
+        Me.columnEmail2.ReadOnly = True
+        Me.columnEmail2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnEmail2.Width = 45
         '
         'comboboxComunicacion
         '
@@ -299,36 +329,6 @@ Partial Class formComunicacionesEnviarMail
         Me.labelCantidad.TabIndex = 2
         Me.labelCantidad.Text = "Cantidad de e-mails:"
         '
-        'columnApellidoNombre
-        '
-        Me.columnApellidoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnApellidoNombre.DataPropertyName = "ApellidoNombre"
-        Me.columnApellidoNombre.HeaderText = "Apellido y Nombre"
-        Me.columnApellidoNombre.Name = "columnApellidoNombre"
-        Me.columnApellidoNombre.ReadOnly = True
-        Me.columnApellidoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnApellidoNombre.Width = 88
-        '
-        'columnEmail1
-        '
-        Me.columnEmail1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnEmail1.DataPropertyName = "Email1"
-        Me.columnEmail1.HeaderText = "e-Mail 1"
-        Me.columnEmail1.Name = "columnEmail1"
-        Me.columnEmail1.ReadOnly = True
-        Me.columnEmail1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnEmail1.Width = 45
-        '
-        'columnEmail2
-        '
-        Me.columnEmail2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnEmail2.DataPropertyName = "Email2"
-        Me.columnEmail2.HeaderText = "e-Mail 2"
-        Me.columnEmail2.Name = "columnEmail2"
-        Me.columnEmail2.ReadOnly = True
-        Me.columnEmail2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnEmail2.Width = 45
-        '
         'formComunicacionesEnviarMail
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -359,6 +359,7 @@ Partial Class formComunicacionesEnviarMail
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.Name = "formComunicacionesEnviarMail"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Enviar Comunicación por e-mail"
         CType(Me.datagridviewEntidades, System.ComponentModel.ISupportInitialize).EndInit()

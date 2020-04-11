@@ -130,6 +130,7 @@ Partial Class formReportesParametro
         '
         Me.integertextboxNumber.AllowNull = True
         Me.integertextboxNumber.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.integertextboxNumber.ForeColor = System.Drawing.SystemColors.WindowText
         Me.integertextboxNumber.IntegerValue = CType(0, Long)
         Me.integertextboxNumber.Location = New System.Drawing.Point(61, 65)
         Me.integertextboxNumber.MaxValue = CType(9999999, Long)
@@ -158,6 +159,7 @@ Partial Class formReportesParametro
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "formReportesParametro"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "ReportesParametros"
         Me.toolstripMain.ResumeLayout(False)

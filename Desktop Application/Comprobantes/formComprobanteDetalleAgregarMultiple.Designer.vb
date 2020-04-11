@@ -342,6 +342,7 @@ Partial Class formComprobanteDetalleAgregarMultiple
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "formComprobanteDetalleAgregarMultiple"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Detalle"
         Me.toolstripMain.ResumeLayout(False)

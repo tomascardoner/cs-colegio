@@ -417,6 +417,7 @@ Partial Class formComprobanteDetalle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "formComprobanteDetalle"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Detalle"
         Me.toolstripMain.ResumeLayout(False)

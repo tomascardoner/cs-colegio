@@ -34,6 +34,7 @@ Partial Class formComprobanteVerificaAFIP
         Me.listviewMain.FullRowSelect = True
         Me.listviewMain.GridLines = True
         Me.listviewMain.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.listviewMain.HideSelection = False
         Me.listviewMain.Location = New System.Drawing.Point(12, 12)
         Me.listviewMain.MultiSelect = False
         Me.listviewMain.Name = "listviewMain"
@@ -67,6 +68,7 @@ Partial Class formComprobanteVerificaAFIP
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "formComprobanteVerificaAFIP"
+        Me.ShowInTaskbar = False
         Me.Text = "Verificación de Comprobante con AFIP"
         Me.ResumeLayout(False)
 

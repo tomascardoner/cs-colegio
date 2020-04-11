@@ -224,6 +224,7 @@ Partial Class formComprobantesTransmitirAFIP
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.Name = "formComprobantesTransmitirAFIP"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Transmitir Comprobantes a AFIP"
         CType(Me.datagridviewComprobantes,System.ComponentModel.ISupportInitialize).EndInit

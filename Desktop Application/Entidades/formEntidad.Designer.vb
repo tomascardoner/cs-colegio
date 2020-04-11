@@ -59,6 +59,7 @@ Partial Class formEntidad
         Dim labelNotas As System.Windows.Forms.Label
         Dim labelModificacion As System.Windows.Forms.Label
         Dim labelCreacion As System.Windows.Forms.Label
+        Dim labelIDOtroSistema As System.Windows.Forms.Label
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -76,7 +77,6 @@ Partial Class formEntidad
         Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim labelIDOtroSistema As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formEntidad))
         Me.textboxApellido = New System.Windows.Forms.TextBox()
         Me.textboxIDEntidad = New System.Windows.Forms.TextBox()
@@ -185,12 +185,12 @@ Partial Class formEntidad
         Me.columnPadresNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnPadresRelacionTipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabpageNotasAuditoria = New System.Windows.Forms.TabPage()
+        Me.textboxIDOtroSistema = New System.Windows.Forms.TextBox()
         Me.textboxNotas = New System.Windows.Forms.TextBox()
         Me.textboxUsuarioModificacion = New System.Windows.Forms.TextBox()
         Me.textboxUsuarioCreacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraModificacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraCreacion = New System.Windows.Forms.TextBox()
-        Me.textboxIDOtroSistema = New System.Windows.Forms.TextBox()
         labelApellido = New System.Windows.Forms.Label()
         labelIDEntidad = New System.Windows.Forms.Label()
         labelNombre = New System.Windows.Forms.Label()
@@ -574,6 +574,15 @@ Partial Class formEntidad
         labelCreacion.Size = New System.Drawing.Size(52, 13)
         labelCreacion.TabIndex = 6
         labelCreacion.Text = "Creación:"
+        '
+        'labelIDOtroSistema
+        '
+        labelIDOtroSistema.AutoSize = True
+        labelIDOtroSistema.Location = New System.Drawing.Point(6, 189)
+        labelIDOtroSistema.Name = "labelIDOtroSistema"
+        labelIDOtroSistema.Size = New System.Drawing.Size(80, 13)
+        labelIDOtroSistema.TabIndex = 4
+        labelIDOtroSistema.Text = "ID otro sistema:"
         '
         'textboxApellido
         '
@@ -1794,6 +1803,17 @@ Partial Class formEntidad
         Me.tabpageNotasAuditoria.Text = "Notas y Auditoría"
         Me.tabpageNotasAuditoria.UseVisualStyleBackColor = True
         '
+        'textboxIDOtroSistema
+        '
+        Me.textboxIDOtroSistema.Location = New System.Drawing.Point(114, 186)
+        Me.textboxIDOtroSistema.MaxLength = 10
+        Me.textboxIDOtroSistema.Name = "textboxIDOtroSistema"
+        Me.textboxIDOtroSistema.ReadOnly = True
+        Me.textboxIDOtroSistema.Size = New System.Drawing.Size(72, 20)
+        Me.textboxIDOtroSistema.TabIndex = 5
+        Me.textboxIDOtroSistema.TabStop = False
+        Me.textboxIDOtroSistema.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'textboxNotas
         '
         Me.textboxNotas.Location = New System.Drawing.Point(114, 6)
@@ -1839,26 +1859,6 @@ Partial Class formEntidad
         Me.textboxFechaHoraCreacion.Size = New System.Drawing.Size(121, 20)
         Me.textboxFechaHoraCreacion.TabIndex = 7
         '
-        'labelIDOtroSistema
-        '
-        labelIDOtroSistema.AutoSize = True
-        labelIDOtroSistema.Location = New System.Drawing.Point(6, 189)
-        labelIDOtroSistema.Name = "labelIDOtroSistema"
-        labelIDOtroSistema.Size = New System.Drawing.Size(80, 13)
-        labelIDOtroSistema.TabIndex = 4
-        labelIDOtroSistema.Text = "ID otro sistema:"
-        '
-        'textboxIDOtroSistema
-        '
-        Me.textboxIDOtroSistema.Location = New System.Drawing.Point(114, 186)
-        Me.textboxIDOtroSistema.MaxLength = 10
-        Me.textboxIDOtroSistema.Name = "textboxIDOtroSistema"
-        Me.textboxIDOtroSistema.ReadOnly = True
-        Me.textboxIDOtroSistema.Size = New System.Drawing.Size(72, 20)
-        Me.textboxIDOtroSistema.TabIndex = 5
-        Me.textboxIDOtroSistema.TabStop = False
-        Me.textboxIDOtroSistema.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
         'formEntidad
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1879,6 +1879,7 @@ Partial Class formEntidad
         Me.MaximizeBox = False
         Me.Name = "formEntidad"
         Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Detalle de la Entidad"
         CType(Me.pictureboxMain, System.ComponentModel.ISupportInitialize).EndInit()

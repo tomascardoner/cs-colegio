@@ -200,6 +200,7 @@ Partial Class formComprobantesTransmitirSantanderDebitoDirecto
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "formComprobantesTransmitirSantanderDebitoDirecto"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Exportar archivo de Comprobantes para envío a Banco Santander - Débito Directo"
         CType(Me.datagridviewComprobantes, System.ComponentModel.ISupportInitialize).EndInit()

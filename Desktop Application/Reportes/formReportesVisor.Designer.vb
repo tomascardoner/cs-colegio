@@ -47,6 +47,7 @@ Partial Class formReportesVisor
         Me.Controls.Add(Me.CRViewerMain)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "formReportesVisor"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "formReportViewerCR"
         Me.ResumeLayout(False)

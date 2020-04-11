@@ -35,13 +35,13 @@ Partial Class formComunicaciones
         Me.panelToolbars = New System.Windows.Forms.FlowLayoutPanel()
         Me.toolstripButtons = New System.Windows.Forms.ToolStrip()
         Me.buttonAgregar = New System.Windows.Forms.ToolStripButton()
+        Me.buttonCopiar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEliminar = New System.Windows.Forms.ToolStripButton()
         Me.buttonEnviarEmail = New System.Windows.Forms.ToolStripButton()
         Me.toolstripActivo = New System.Windows.Forms.ToolStrip()
         Me.labelActivo = New System.Windows.Forms.ToolStripLabel()
         Me.comboboxActivo = New System.Windows.Forms.ToolStripComboBox()
-        Me.buttonCopiar = New System.Windows.Forms.ToolStripButton()
         Me.statusstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelToolbars.SuspendLayout()
@@ -161,6 +161,15 @@ Partial Class formComunicaciones
         Me.buttonAgregar.Size = New System.Drawing.Size(85, 36)
         Me.buttonAgregar.Text = "Agregar"
         '
+        'buttonCopiar
+        '
+        Me.buttonCopiar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_COPY_32
+        Me.buttonCopiar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.buttonCopiar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.buttonCopiar.Name = "buttonCopiar"
+        Me.buttonCopiar.Size = New System.Drawing.Size(78, 36)
+        Me.buttonCopiar.Text = "Copiar"
+        '
         'buttonEditar
         '
         Me.buttonEditar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_EDIT_32
@@ -210,15 +219,6 @@ Partial Class formComunicaciones
         Me.comboboxActivo.Name = "comboboxActivo"
         Me.comboboxActivo.Size = New System.Drawing.Size(75, 39)
         '
-        'buttonCopiar
-        '
-        Me.buttonCopiar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_COPY_32
-        Me.buttonCopiar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.buttonCopiar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.buttonCopiar.Name = "buttonCopiar"
-        Me.buttonCopiar.Size = New System.Drawing.Size(78, 36)
-        Me.buttonCopiar.Text = "Copiar"
-        '
         'formComunicaciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -228,6 +228,7 @@ Partial Class formComunicaciones
         Me.Controls.Add(Me.panelToolbars)
         Me.Controls.Add(Me.statusstripMain)
         Me.Name = "formComunicaciones"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Comunicaciones"
         Me.statusstripMain.ResumeLayout(False)

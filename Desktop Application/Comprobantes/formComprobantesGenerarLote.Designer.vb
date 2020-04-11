@@ -69,17 +69,17 @@ Partial Class formComprobantesGenerarLote
         Me.columnDescripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnPrecioTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.datagridviewPaso3Cabecera = New System.Windows.Forms.DataGridView()
+        Me.columnPuntoVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnNumero = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnApellidoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnDocumentoNumero = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.labelPaso3Pie = New System.Windows.Forms.Label()
         Me.pictureboxPaso3 = New System.Windows.Forms.PictureBox()
         Me.labelPaso3Mensaje = New System.Windows.Forms.Label()
         Me.labelPaso3Titulo = New System.Windows.Forms.Label()
         Me.buttonPaso3Anterior = New System.Windows.Forms.Button()
         Me.buttonPaso3Finalizar = New System.Windows.Forms.Button()
-        Me.columnPuntoVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnNumero = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnApellidoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnDocumentoNumero = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.panelPaso1.SuspendLayout()
         Me.tabcontrolMain.SuspendLayout()
         Me.tabpageNivelesCursosAlumnos.SuspendLayout()
@@ -532,6 +532,59 @@ Partial Class formComprobantesGenerarLote
         Me.datagridviewPaso3Cabecera.Size = New System.Drawing.Size(605, 208)
         Me.datagridviewPaso3Cabecera.TabIndex = 0
         '
+        'columnPuntoVenta
+        '
+        Me.columnPuntoVenta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnPuntoVenta.DataPropertyName = "PuntoVenta"
+        Me.columnPuntoVenta.HeaderText = "Punto Venta"
+        Me.columnPuntoVenta.Name = "columnPuntoVenta"
+        Me.columnPuntoVenta.ReadOnly = True
+        Me.columnPuntoVenta.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnPuntoVenta.Width = 65
+        '
+        'columnNumero
+        '
+        Me.columnNumero.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnNumero.DataPropertyName = "Numero"
+        Me.columnNumero.HeaderText = "Factura N°"
+        Me.columnNumero.Name = "columnNumero"
+        Me.columnNumero.ReadOnly = True
+        Me.columnNumero.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnNumero.Width = 58
+        '
+        'columnApellidoNombre
+        '
+        Me.columnApellidoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnApellidoNombre.DataPropertyName = "ApellidoNombre"
+        Me.columnApellidoNombre.HeaderText = "Apellido y Nombre"
+        Me.columnApellidoNombre.Name = "columnApellidoNombre"
+        Me.columnApellidoNombre.ReadOnly = True
+        Me.columnApellidoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnApellidoNombre.Width = 88
+        '
+        'columnDocumentoNumero
+        '
+        Me.columnDocumentoNumero.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnDocumentoNumero.DataPropertyName = "DocumentoNumero"
+        Me.columnDocumentoNumero.HeaderText = "N° Documento"
+        Me.columnDocumentoNumero.Name = "columnDocumentoNumero"
+        Me.columnDocumentoNumero.ReadOnly = True
+        Me.columnDocumentoNumero.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnDocumentoNumero.Width = 75
+        '
+        'columnImporteTotal
+        '
+        Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnImporteTotal.DataPropertyName = "ImporteTotal1"
+        DataGridViewCellStyle9.Format = "C2"
+        DataGridViewCellStyle9.NullValue = "0"
+        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle9
+        Me.columnImporteTotal.HeaderText = "Importe"
+        Me.columnImporteTotal.Name = "columnImporteTotal"
+        Me.columnImporteTotal.ReadOnly = True
+        Me.columnImporteTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnImporteTotal.Width = 48
+        '
         'labelPaso3Pie
         '
         Me.labelPaso3Pie.AutoSize = True
@@ -598,59 +651,6 @@ Partial Class formComprobantesGenerarLote
         Me.buttonPaso3Finalizar.Text = "Finalizar: Emisión"
         Me.buttonPaso3Finalizar.UseVisualStyleBackColor = True
         '
-        'columnPuntoVenta
-        '
-        Me.columnPuntoVenta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnPuntoVenta.DataPropertyName = "PuntoVenta"
-        Me.columnPuntoVenta.HeaderText = "Punto Venta"
-        Me.columnPuntoVenta.Name = "columnPuntoVenta"
-        Me.columnPuntoVenta.ReadOnly = True
-        Me.columnPuntoVenta.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnPuntoVenta.Width = 72
-        '
-        'columnNumero
-        '
-        Me.columnNumero.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnNumero.DataPropertyName = "Numero"
-        Me.columnNumero.HeaderText = "Factura N°"
-        Me.columnNumero.Name = "columnNumero"
-        Me.columnNumero.ReadOnly = True
-        Me.columnNumero.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnNumero.Width = 64
-        '
-        'columnApellidoNombre
-        '
-        Me.columnApellidoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnApellidoNombre.DataPropertyName = "ApellidoNombre"
-        Me.columnApellidoNombre.HeaderText = "Apellido y Nombre"
-        Me.columnApellidoNombre.Name = "columnApellidoNombre"
-        Me.columnApellidoNombre.ReadOnly = True
-        Me.columnApellidoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnApellidoNombre.Width = 88
-        '
-        'columnDocumentoNumero
-        '
-        Me.columnDocumentoNumero.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnDocumentoNumero.DataPropertyName = "DocumentoNumero"
-        Me.columnDocumentoNumero.HeaderText = "N° Documento"
-        Me.columnDocumentoNumero.Name = "columnDocumentoNumero"
-        Me.columnDocumentoNumero.ReadOnly = True
-        Me.columnDocumentoNumero.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnDocumentoNumero.Width = 75
-        '
-        'columnImporteTotal
-        '
-        Me.columnImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnImporteTotal.DataPropertyName = "ImporteTotal1"
-        DataGridViewCellStyle9.Format = "C2"
-        DataGridViewCellStyle9.NullValue = "0"
-        Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle9
-        Me.columnImporteTotal.HeaderText = "Importe"
-        Me.columnImporteTotal.Name = "columnImporteTotal"
-        Me.columnImporteTotal.ReadOnly = True
-        Me.columnImporteTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnImporteTotal.Width = 48
-        '
         'formComprobantesGenerarLote
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -663,6 +663,7 @@ Partial Class formComprobantesGenerarLote
         Me.MaximizeBox = False
         Me.Name = "formComprobantesGenerarLote"
         Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Generación de Lote de Facturas"
         Me.panelPaso1.ResumeLayout(False)

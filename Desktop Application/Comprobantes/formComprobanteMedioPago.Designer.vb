@@ -320,6 +320,7 @@ Partial Class formComprobanteMedioPago
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "formComprobanteMedioPago"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Detalle del Medio de Pago"
         Me.toolstripMain.ResumeLayout(False)

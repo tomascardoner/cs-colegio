@@ -1484,6 +1484,7 @@ Partial Class formComprobante
         Me.KeyPreview = True
         Me.MinimumSize = New System.Drawing.Size(690, 45)
         Me.Name = "formComprobante"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Detalle del Comprobante"
         Me.panelMain.ResumeLayout(False)

@@ -113,9 +113,9 @@ Partial Class formEntidadInscripcionDetalle
         Me.groupboxCursoActual.Controls.Add(Me.textboxAnioActual)
         Me.groupboxCursoActual.Controls.Add(Me.labelAnioActual)
         Me.groupboxCursoActual.Location = New System.Drawing.Point(9, 90)
-        Me.groupboxCursoActual.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.groupboxCursoActual.Margin = New System.Windows.Forms.Padding(2)
         Me.groupboxCursoActual.Name = "groupboxCursoActual"
-        Me.groupboxCursoActual.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.groupboxCursoActual.Padding = New System.Windows.Forms.Padding(2)
         Me.groupboxCursoActual.Size = New System.Drawing.Size(332, 106)
         Me.groupboxCursoActual.TabIndex = 4
         Me.groupboxCursoActual.TabStop = False
@@ -187,9 +187,9 @@ Partial Class formEntidadInscripcionDetalle
         Me.groupboxCursoProximo.Controls.Add(Me.Label2)
         Me.groupboxCursoProximo.Controls.Add(Me.Label3)
         Me.groupboxCursoProximo.Location = New System.Drawing.Point(9, 219)
-        Me.groupboxCursoProximo.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.groupboxCursoProximo.Margin = New System.Windows.Forms.Padding(2)
         Me.groupboxCursoProximo.Name = "groupboxCursoProximo"
-        Me.groupboxCursoProximo.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.groupboxCursoProximo.Padding = New System.Windows.Forms.Padding(2)
         Me.groupboxCursoProximo.Size = New System.Drawing.Size(332, 106)
         Me.groupboxCursoProximo.TabIndex = 0
         Me.groupboxCursoProximo.TabStop = False
@@ -255,6 +255,7 @@ Partial Class formEntidadInscripcionDetalle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "formEntidadInscripcionDetalle"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Alumno - Cursos"
         Me.toolstripMain.ResumeLayout(False)

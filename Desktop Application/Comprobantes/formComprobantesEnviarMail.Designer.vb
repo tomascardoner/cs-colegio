@@ -59,15 +59,14 @@ Partial Class formComprobantesEnviarMail
         Me.datagridviewComprobantes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewComprobantes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewComprobantes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnLote, Me.columnComprobanteTipoNombre, Me.columnNumeroCompleto, Me.columnApellidoNombre, Me.columnImporteTotal})
-        Me.datagridviewComprobantes.Location = New System.Drawing.Point(16, 41)
-        Me.datagridviewComprobantes.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.datagridviewComprobantes.Location = New System.Drawing.Point(12, 33)
         Me.datagridviewComprobantes.MultiSelect = False
         Me.datagridviewComprobantes.Name = "datagridviewComprobantes"
         Me.datagridviewComprobantes.ReadOnly = True
         Me.datagridviewComprobantes.RowHeadersVisible = False
         Me.datagridviewComprobantes.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewComprobantes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewComprobantes.Size = New System.Drawing.Size(891, 553)
+        Me.datagridviewComprobantes.Size = New System.Drawing.Size(668, 449)
         Me.datagridviewComprobantes.TabIndex = 5
         '
         'columnLote
@@ -78,7 +77,7 @@ Partial Class formComprobantesEnviarMail
         Me.columnLote.Name = "columnLote"
         Me.columnLote.ReadOnly = True
         Me.columnLote.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnLote.Width = 42
+        Me.columnLote.Width = 34
         '
         'columnComprobanteTipoNombre
         '
@@ -88,7 +87,7 @@ Partial Class formComprobantesEnviarMail
         Me.columnComprobanteTipoNombre.Name = "columnComprobanteTipoNombre"
         Me.columnComprobanteTipoNombre.ReadOnly = True
         Me.columnComprobanteTipoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnComprobanteTipoNombre.Width = 42
+        Me.columnComprobanteTipoNombre.Width = 34
         '
         'columnNumeroCompleto
         '
@@ -98,7 +97,7 @@ Partial Class formComprobantesEnviarMail
         Me.columnNumeroCompleto.Name = "columnNumeroCompleto"
         Me.columnNumeroCompleto.ReadOnly = True
         Me.columnNumeroCompleto.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnNumeroCompleto.Width = 107
+        Me.columnNumeroCompleto.Width = 82
         '
         'columnApellidoNombre
         '
@@ -108,7 +107,7 @@ Partial Class formComprobantesEnviarMail
         Me.columnApellidoNombre.Name = "columnApellidoNombre"
         Me.columnApellidoNombre.ReadOnly = True
         Me.columnApellidoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnApellidoNombre.Width = 116
+        Me.columnApellidoNombre.Width = 88
         '
         'columnImporteTotal
         '
@@ -121,25 +120,23 @@ Partial Class formComprobantesEnviarMail
         Me.columnImporteTotal.Name = "columnImporteTotal"
         Me.columnImporteTotal.ReadOnly = True
         Me.columnImporteTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnImporteTotal.Width = 61
+        Me.columnImporteTotal.Width = 48
         '
         'comboboxComprobanteLote
         '
         Me.comboboxComprobanteLote.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxComprobanteLote.FormattingEnabled = True
-        Me.comboboxComprobanteLote.Location = New System.Drawing.Point(180, 7)
-        Me.comboboxComprobanteLote.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.comboboxComprobanteLote.Location = New System.Drawing.Point(135, 6)
         Me.comboboxComprobanteLote.Name = "comboboxComprobanteLote"
-        Me.comboboxComprobanteLote.Size = New System.Drawing.Size(321, 24)
+        Me.comboboxComprobanteLote.Size = New System.Drawing.Size(242, 21)
         Me.comboboxComprobanteLote.TabIndex = 1
         '
         'labelComprobanteLote
         '
         Me.labelComprobanteLote.AutoSize = True
-        Me.labelComprobanteLote.Location = New System.Drawing.Point(16, 11)
-        Me.labelComprobanteLote.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.labelComprobanteLote.Location = New System.Drawing.Point(12, 9)
         Me.labelComprobanteLote.Name = "labelComprobanteLote"
-        Me.labelComprobanteLote.Size = New System.Drawing.Size(156, 17)
+        Me.labelComprobanteLote.Size = New System.Drawing.Size(117, 13)
         Me.labelComprobanteLote.TabIndex = 0
         Me.labelComprobanteLote.Text = "Lote de Comprobantes:"
         '
@@ -147,25 +144,23 @@ Partial Class formComprobantesEnviarMail
         '
         Me.statusstripMain.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statuslabelMain})
-        Me.statusstripMain.Location = New System.Drawing.Point(0, 613)
+        Me.statusstripMain.Location = New System.Drawing.Point(0, 494)
         Me.statusstripMain.Name = "statusstripMain"
-        Me.statusstripMain.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
-        Me.statusstripMain.Size = New System.Drawing.Size(923, 22)
+        Me.statusstripMain.Size = New System.Drawing.Size(692, 22)
         Me.statusstripMain.TabIndex = 7
         '
         'statuslabelMain
         '
         Me.statuslabelMain.Name = "statuslabelMain"
-        Me.statuslabelMain.Size = New System.Drawing.Size(903, 17)
+        Me.statuslabelMain.Size = New System.Drawing.Size(677, 17)
         Me.statuslabelMain.Spring = True
         Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'buttonEnviar
         '
-        Me.buttonEnviar.Location = New System.Drawing.Point(824, 6)
-        Me.buttonEnviar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.buttonEnviar.Location = New System.Drawing.Point(618, 5)
         Me.buttonEnviar.Name = "buttonEnviar"
-        Me.buttonEnviar.Size = New System.Drawing.Size(83, 26)
+        Me.buttonEnviar.Size = New System.Drawing.Size(62, 21)
         Me.buttonEnviar.TabIndex = 4
         Me.buttonEnviar.Text = "Enviar"
         Me.buttonEnviar.UseVisualStyleBackColor = True
@@ -175,11 +170,9 @@ Partial Class formComprobantesEnviarMail
         Me.groupboxStatus.Controls.Add(Me.textboxStatus)
         Me.groupboxStatus.Controls.Add(Me.progressbarStatus)
         Me.groupboxStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.groupboxStatus.Location = New System.Drawing.Point(16, 431)
-        Me.groupboxStatus.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.groupboxStatus.Location = New System.Drawing.Point(12, 350)
         Me.groupboxStatus.Name = "groupboxStatus"
-        Me.groupboxStatus.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.groupboxStatus.Size = New System.Drawing.Size(891, 162)
+        Me.groupboxStatus.Size = New System.Drawing.Size(668, 132)
         Me.groupboxStatus.TabIndex = 6
         Me.groupboxStatus.TabStop = False
         Me.groupboxStatus.Text = "Estado del envío:"
@@ -188,59 +181,54 @@ Partial Class formComprobantesEnviarMail
         'textboxStatus
         '
         Me.textboxStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textboxStatus.Location = New System.Drawing.Point(9, 66)
-        Me.textboxStatus.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.textboxStatus.Location = New System.Drawing.Point(7, 54)
         Me.textboxStatus.MaxLength = 0
         Me.textboxStatus.Multiline = True
         Me.textboxStatus.Name = "textboxStatus"
         Me.textboxStatus.ReadOnly = True
         Me.textboxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.textboxStatus.Size = New System.Drawing.Size(872, 86)
+        Me.textboxStatus.Size = New System.Drawing.Size(655, 71)
         Me.textboxStatus.TabIndex = 1
         '
         'progressbarStatus
         '
-        Me.progressbarStatus.Location = New System.Drawing.Point(9, 26)
-        Me.progressbarStatus.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.progressbarStatus.Location = New System.Drawing.Point(7, 21)
         Me.progressbarStatus.Name = "progressbarStatus"
-        Me.progressbarStatus.Size = New System.Drawing.Size(875, 32)
+        Me.progressbarStatus.Size = New System.Drawing.Size(656, 26)
         Me.progressbarStatus.TabIndex = 0
         '
         'comboboxCantidad
         '
         Me.comboboxCantidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxCantidad.FormattingEnabled = True
-        Me.comboboxCantidad.Location = New System.Drawing.Point(679, 7)
-        Me.comboboxCantidad.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.comboboxCantidad.Location = New System.Drawing.Point(509, 6)
         Me.comboboxCantidad.Name = "comboboxCantidad"
-        Me.comboboxCantidad.Size = New System.Drawing.Size(119, 24)
+        Me.comboboxCantidad.Size = New System.Drawing.Size(90, 21)
         Me.comboboxCantidad.TabIndex = 3
         '
         'labelCantidad
         '
         Me.labelCantidad.AutoSize = True
-        Me.labelCantidad.Location = New System.Drawing.Point(535, 11)
-        Me.labelCantidad.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.labelCantidad.Location = New System.Drawing.Point(401, 9)
         Me.labelCantidad.Name = "labelCantidad"
-        Me.labelCantidad.Size = New System.Drawing.Size(137, 17)
+        Me.labelCantidad.Size = New System.Drawing.Size(102, 13)
         Me.labelCantidad.TabIndex = 2
         Me.labelCantidad.Text = "Cantidad de e-mails:"
         '
         'buttonCancelar
         '
-        Me.buttonCancelar.Location = New System.Drawing.Point(824, 7)
-        Me.buttonCancelar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.buttonCancelar.Location = New System.Drawing.Point(618, 6)
         Me.buttonCancelar.Name = "buttonCancelar"
-        Me.buttonCancelar.Size = New System.Drawing.Size(83, 26)
+        Me.buttonCancelar.Size = New System.Drawing.Size(62, 21)
         Me.buttonCancelar.TabIndex = 10
         Me.buttonCancelar.Text = "Cancelar"
         Me.buttonCancelar.UseVisualStyleBackColor = True
         '
         'formComprobantesEnviarMail
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(923, 635)
+        Me.ClientSize = New System.Drawing.Size(692, 516)
         Me.Controls.Add(Me.labelCantidad)
         Me.Controls.Add(Me.comboboxCantidad)
         Me.Controls.Add(Me.comboboxComprobanteLote)
@@ -251,9 +239,9 @@ Partial Class formComprobantesEnviarMail
         Me.Controls.Add(Me.datagridviewComprobantes)
         Me.Controls.Add(Me.buttonCancelar)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.Name = "formComprobantesEnviarMail"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Enviar Lote de Comprobantes por e-mail"
         CType(Me.datagridviewComprobantes, System.ComponentModel.ISupportInitialize).EndInit()

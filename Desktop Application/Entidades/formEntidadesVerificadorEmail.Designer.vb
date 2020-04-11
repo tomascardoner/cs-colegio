@@ -192,6 +192,7 @@ Partial Class formEntidadesVerificadorEmail
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.Name = "formEntidadesVerificadorEmail"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Verificar direcciones de e-mail"
         CType(Me.datagridviewEntidades, System.ComponentModel.ISupportInitialize).EndInit()

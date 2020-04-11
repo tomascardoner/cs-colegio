@@ -455,6 +455,7 @@ Partial Class formCheque
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "formCheque"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Cheque"
         Me.toolstripMain.ResumeLayout(False)

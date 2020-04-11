@@ -311,6 +311,7 @@ Partial Class formEntidadesSincronizarOutlook
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "formEntidadesSincronizarOutlook"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Sincronizar Contactos de Microsoft Outlook"
         Me.groupboxEntidadTipo.ResumeLayout(False)

@@ -67,19 +67,19 @@ Partial Class formEntidadInscripcion
         'labelEntidad
         '
         Me.labelEntidad.AutoSize = True
-        Me.labelEntidad.Location = New System.Drawing.Point(4, 82)
+        Me.labelEntidad.Location = New System.Drawing.Point(3, 67)
+        Me.labelEntidad.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.labelEntidad.Name = "labelEntidad"
-        Me.labelEntidad.Size = New System.Drawing.Size(60, 17)
+        Me.labelEntidad.Size = New System.Drawing.Size(46, 13)
         Me.labelEntidad.TabIndex = 0
         Me.labelEntidad.Text = "Entidad:"
         '
         'buttonEntidad
         '
         Me.buttonEntidad.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_SEARCH_16
-        Me.buttonEntidad.Location = New System.Drawing.Point(519, 76)
-        Me.buttonEntidad.Margin = New System.Windows.Forms.Padding(4)
+        Me.buttonEntidad.Location = New System.Drawing.Point(389, 62)
         Me.buttonEntidad.Name = "buttonEntidad"
-        Me.buttonEntidad.Size = New System.Drawing.Size(29, 28)
+        Me.buttonEntidad.Size = New System.Drawing.Size(22, 23)
         Me.buttonEntidad.TabIndex = 10
         Me.buttonEntidad.UseVisualStyleBackColor = True
         '
@@ -95,26 +95,29 @@ Partial Class formEntidadInscripcion
         Me.panelPaso1.Controls.Add(Me.buttonPaso1Cancelar)
         Me.panelPaso1.Controls.Add(Me.buttonPaso1Siguiente)
         Me.panelPaso1.Controls.Add(Me.labelPaso1)
-        Me.panelPaso1.Location = New System.Drawing.Point(12, 12)
+        Me.panelPaso1.Location = New System.Drawing.Point(9, 10)
+        Me.panelPaso1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.panelPaso1.Name = "panelPaso1"
-        Me.panelPaso1.Size = New System.Drawing.Size(886, 404)
+        Me.panelPaso1.Size = New System.Drawing.Size(664, 328)
         Me.panelPaso1.TabIndex = 12
         '
         'textboxAnioLectivo
         '
-        Me.textboxAnioLectivo.Location = New System.Drawing.Point(96, 48)
+        Me.textboxAnioLectivo.Location = New System.Drawing.Point(72, 39)
+        Me.textboxAnioLectivo.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.textboxAnioLectivo.Name = "textboxAnioLectivo"
         Me.textboxAnioLectivo.ReadOnly = True
-        Me.textboxAnioLectivo.Size = New System.Drawing.Size(49, 22)
+        Me.textboxAnioLectivo.Size = New System.Drawing.Size(38, 20)
         Me.textboxAnioLectivo.TabIndex = 17
         Me.textboxAnioLectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'labelAnioLectivo
         '
         Me.labelAnioLectivo.AutoSize = True
-        Me.labelAnioLectivo.Location = New System.Drawing.Point(4, 51)
+        Me.labelAnioLectivo.Location = New System.Drawing.Point(3, 41)
+        Me.labelAnioLectivo.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.labelAnioLectivo.Name = "labelAnioLectivo"
-        Me.labelAnioLectivo.Size = New System.Drawing.Size(86, 17)
+        Me.labelAnioLectivo.Size = New System.Drawing.Size(67, 13)
         Me.labelAnioLectivo.TabIndex = 16
         Me.labelAnioLectivo.Text = "Año Lectivo:"
         '
@@ -131,14 +134,13 @@ Partial Class formEntidadInscripcion
         Me.datagridviewEntidades.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewEntidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewEntidades.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnSeleccionado, Me.columnApellidoNombre, Me.columnCursoActual, Me.columnCursoProximo})
-        Me.datagridviewEntidades.Location = New System.Drawing.Point(4, 135)
-        Me.datagridviewEntidades.Margin = New System.Windows.Forms.Padding(4)
+        Me.datagridviewEntidades.Location = New System.Drawing.Point(3, 110)
         Me.datagridviewEntidades.MultiSelect = False
         Me.datagridviewEntidades.Name = "datagridviewEntidades"
         Me.datagridviewEntidades.RowHeadersVisible = False
         Me.datagridviewEntidades.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewEntidades.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewEntidades.Size = New System.Drawing.Size(878, 204)
+        Me.datagridviewEntidades.Size = New System.Drawing.Size(658, 166)
         Me.datagridviewEntidades.TabIndex = 15
         '
         'columnSeleccionado
@@ -157,7 +159,7 @@ Partial Class formEntidadInscripcion
         Me.columnApellidoNombre.Name = "columnApellidoNombre"
         Me.columnApellidoNombre.ReadOnly = True
         Me.columnApellidoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnApellidoNombre.Width = 61
+        Me.columnApellidoNombre.Width = 48
         '
         'columnCursoActual
         '
@@ -167,7 +169,7 @@ Partial Class formEntidadInscripcion
         Me.columnCursoActual.Name = "columnCursoActual"
         Me.columnCursoActual.ReadOnly = True
         Me.columnCursoActual.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnCursoActual.Width = 93
+        Me.columnCursoActual.Width = 72
         '
         'columnCursoProximo
         '
@@ -178,35 +180,34 @@ Partial Class formEntidadInscripcion
         Me.columnCursoProximo.ReadOnly = True
         Me.columnCursoProximo.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.columnCursoProximo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnCursoProximo.Width = 104
+        Me.columnCursoProximo.Width = 79
         '
         'labelAlumnos
         '
         Me.labelAlumnos.AutoSize = True
-        Me.labelAlumnos.Location = New System.Drawing.Point(4, 114)
+        Me.labelAlumnos.Location = New System.Drawing.Point(3, 93)
+        Me.labelAlumnos.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.labelAlumnos.Name = "labelAlumnos"
-        Me.labelAlumnos.Size = New System.Drawing.Size(182, 17)
+        Me.labelAlumnos.Size = New System.Drawing.Size(136, 13)
         Me.labelAlumnos.TabIndex = 13
         Me.labelAlumnos.Text = "Alumnos y Cursos actuales:"
         '
         'textboxEntidad
         '
-        Me.textboxEntidad.Location = New System.Drawing.Point(96, 79)
-        Me.textboxEntidad.Margin = New System.Windows.Forms.Padding(4)
+        Me.textboxEntidad.Location = New System.Drawing.Point(72, 64)
         Me.textboxEntidad.MaxLength = 150
         Me.textboxEntidad.Name = "textboxEntidad"
         Me.textboxEntidad.ReadOnly = True
-        Me.textboxEntidad.Size = New System.Drawing.Size(422, 22)
+        Me.textboxEntidad.Size = New System.Drawing.Size(318, 20)
         Me.textboxEntidad.TabIndex = 11
         Me.textboxEntidad.TabStop = False
         '
         'buttonPaso1Cancelar
         '
         Me.buttonPaso1Cancelar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonPaso1Cancelar.Location = New System.Drawing.Point(591, 362)
-        Me.buttonPaso1Cancelar.Margin = New System.Windows.Forms.Padding(4)
+        Me.buttonPaso1Cancelar.Location = New System.Drawing.Point(443, 294)
         Me.buttonPaso1Cancelar.Name = "buttonPaso1Cancelar"
-        Me.buttonPaso1Cancelar.Size = New System.Drawing.Size(100, 42)
+        Me.buttonPaso1Cancelar.Size = New System.Drawing.Size(75, 34)
         Me.buttonPaso1Cancelar.TabIndex = 7
         Me.buttonPaso1Cancelar.Text = "Cancelar"
         Me.buttonPaso1Cancelar.UseVisualStyleBackColor = True
@@ -216,10 +217,9 @@ Partial Class formEntidadInscripcion
         Me.buttonPaso1Siguiente.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.buttonPaso1Siguiente.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_NEXT_24
         Me.buttonPaso1Siguiente.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.buttonPaso1Siguiente.Location = New System.Drawing.Point(699, 362)
-        Me.buttonPaso1Siguiente.Margin = New System.Windows.Forms.Padding(4)
+        Me.buttonPaso1Siguiente.Location = New System.Drawing.Point(524, 294)
         Me.buttonPaso1Siguiente.Name = "buttonPaso1Siguiente"
-        Me.buttonPaso1Siguiente.Size = New System.Drawing.Size(187, 42)
+        Me.buttonPaso1Siguiente.Size = New System.Drawing.Size(140, 34)
         Me.buttonPaso1Siguiente.TabIndex = 8
         Me.buttonPaso1Siguiente.Text = "Paso 2: Verificación"
         Me.buttonPaso1Siguiente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -228,12 +228,13 @@ Partial Class formEntidadInscripcion
         'labelPaso1
         '
         Me.labelPaso1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelPaso1.Location = New System.Drawing.Point(3, 0)
+        Me.labelPaso1.Location = New System.Drawing.Point(2, 0)
+        Me.labelPaso1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.labelPaso1.Name = "labelPaso1"
-        Me.labelPaso1.Size = New System.Drawing.Size(880, 51)
+        Me.labelPaso1.Size = New System.Drawing.Size(660, 41)
         Me.labelPaso1.TabIndex = 0
-        Me.labelPaso1.Text = "Paso 1: Seleccione la Entidad para iniciar el proceso de Inscripción de uno o más" & _
-    " alumnos a un nuevo Ciclo Lectivo. Puede seleccionar el Alumno o el Titular de l" & _
+        Me.labelPaso1.Text = "Paso 1: Seleccione la Entidad para iniciar el proceso de Inscripción de uno o más" &
+    " alumnos a un nuevo Ciclo Lectivo. Puede seleccionar el Alumno o el Titular de l" &
     "a Factura."
         '
         'panelPaso2
@@ -243,9 +244,10 @@ Partial Class formEntidadInscripcion
         Me.panelPaso2.Controls.Add(Me.labelPaso2)
         Me.panelPaso2.Controls.Add(Me.datagridviewFacturaDetalle)
         Me.panelPaso2.Controls.Add(Me.datagridviewFacturaCabecera)
-        Me.panelPaso2.Location = New System.Drawing.Point(12, 12)
+        Me.panelPaso2.Location = New System.Drawing.Point(9, 10)
+        Me.panelPaso2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.panelPaso2.Name = "panelPaso2"
-        Me.panelPaso2.Size = New System.Drawing.Size(886, 404)
+        Me.panelPaso2.Size = New System.Drawing.Size(664, 328)
         Me.panelPaso2.TabIndex = 13
         '
         'buttonPaso2Anterior
@@ -253,10 +255,9 @@ Partial Class formEntidadInscripcion
         Me.buttonPaso2Anterior.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.buttonPaso2Anterior.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_PREVIOUS_24
         Me.buttonPaso2Anterior.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.buttonPaso2Anterior.Location = New System.Drawing.Point(504, 362)
-        Me.buttonPaso2Anterior.Margin = New System.Windows.Forms.Padding(4)
+        Me.buttonPaso2Anterior.Location = New System.Drawing.Point(378, 294)
         Me.buttonPaso2Anterior.Name = "buttonPaso2Anterior"
-        Me.buttonPaso2Anterior.Size = New System.Drawing.Size(187, 42)
+        Me.buttonPaso2Anterior.Size = New System.Drawing.Size(140, 34)
         Me.buttonPaso2Anterior.TabIndex = 10
         Me.buttonPaso2Anterior.Text = "Paso 1: Selección"
         Me.buttonPaso2Anterior.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -265,10 +266,9 @@ Partial Class formEntidadInscripcion
         'buttonPaso2Finalizar
         '
         Me.buttonPaso2Finalizar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonPaso2Finalizar.Location = New System.Drawing.Point(699, 362)
-        Me.buttonPaso2Finalizar.Margin = New System.Windows.Forms.Padding(4)
+        Me.buttonPaso2Finalizar.Location = New System.Drawing.Point(524, 294)
         Me.buttonPaso2Finalizar.Name = "buttonPaso2Finalizar"
-        Me.buttonPaso2Finalizar.Size = New System.Drawing.Size(187, 42)
+        Me.buttonPaso2Finalizar.Size = New System.Drawing.Size(140, 34)
         Me.buttonPaso2Finalizar.TabIndex = 9
         Me.buttonPaso2Finalizar.Text = "Finalizar"
         Me.buttonPaso2Finalizar.UseVisualStyleBackColor = True
@@ -276,9 +276,10 @@ Partial Class formEntidadInscripcion
         'labelPaso2
         '
         Me.labelPaso2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelPaso2.Location = New System.Drawing.Point(3, 0)
+        Me.labelPaso2.Location = New System.Drawing.Point(2, 0)
+        Me.labelPaso2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.labelPaso2.Name = "labelPaso2"
-        Me.labelPaso2.Size = New System.Drawing.Size(880, 30)
+        Me.labelPaso2.Size = New System.Drawing.Size(660, 24)
         Me.labelPaso2.TabIndex = 3
         Me.labelPaso2.Text = "Paso 2: Verifique que la(s) Factura(s) a generar esté(n) correcta(s)."
         '
@@ -295,15 +296,14 @@ Partial Class formEntidadInscripcion
         Me.datagridviewFacturaDetalle.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewFacturaDetalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewFacturaDetalle.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnDescripcion, Me.columnPrecioTotal})
-        Me.datagridviewFacturaDetalle.Location = New System.Drawing.Point(38, 221)
-        Me.datagridviewFacturaDetalle.Margin = New System.Windows.Forms.Padding(4)
+        Me.datagridviewFacturaDetalle.Location = New System.Drawing.Point(28, 180)
         Me.datagridviewFacturaDetalle.MultiSelect = False
         Me.datagridviewFacturaDetalle.Name = "datagridviewFacturaDetalle"
         Me.datagridviewFacturaDetalle.ReadOnly = True
         Me.datagridviewFacturaDetalle.RowHeadersVisible = False
         Me.datagridviewFacturaDetalle.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewFacturaDetalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewFacturaDetalle.Size = New System.Drawing.Size(807, 123)
+        Me.datagridviewFacturaDetalle.Size = New System.Drawing.Size(605, 100)
         Me.datagridviewFacturaDetalle.TabIndex = 2
         '
         'columnDescripcion
@@ -314,7 +314,7 @@ Partial Class formEntidadInscripcion
         Me.columnDescripcion.Name = "columnDescripcion"
         Me.columnDescripcion.ReadOnly = True
         Me.columnDescripcion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnDescripcion.Width = 88
+        Me.columnDescripcion.Width = 69
         '
         'columnPrecioTotal
         '
@@ -327,7 +327,7 @@ Partial Class formEntidadInscripcion
         Me.columnPrecioTotal.Name = "columnPrecioTotal"
         Me.columnPrecioTotal.ReadOnly = True
         Me.columnPrecioTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnPrecioTotal.Width = 54
+        Me.columnPrecioTotal.Width = 43
         '
         'datagridviewFacturaCabecera
         '
@@ -342,15 +342,14 @@ Partial Class formEntidadInscripcion
         Me.datagridviewFacturaCabecera.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewFacturaCabecera.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewFacturaCabecera.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnPuntoVenta, Me.columnNumero, Me.DataGridViewTextBoxColumn1, Me.columnDocumentoNumero, Me.columnCategoriaIVANombre, Me.columnImporteTotal})
-        Me.datagridviewFacturaCabecera.Location = New System.Drawing.Point(38, 34)
-        Me.datagridviewFacturaCabecera.Margin = New System.Windows.Forms.Padding(4)
+        Me.datagridviewFacturaCabecera.Location = New System.Drawing.Point(28, 28)
         Me.datagridviewFacturaCabecera.MultiSelect = False
         Me.datagridviewFacturaCabecera.Name = "datagridviewFacturaCabecera"
         Me.datagridviewFacturaCabecera.ReadOnly = True
         Me.datagridviewFacturaCabecera.RowHeadersVisible = False
         Me.datagridviewFacturaCabecera.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewFacturaCabecera.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewFacturaCabecera.Size = New System.Drawing.Size(807, 156)
+        Me.datagridviewFacturaCabecera.Size = New System.Drawing.Size(605, 127)
         Me.datagridviewFacturaCabecera.TabIndex = 1
         '
         'columnComprobanteTipoNombre
@@ -361,7 +360,7 @@ Partial Class formEntidadInscripcion
         Me.columnComprobanteTipoNombre.Name = "columnComprobanteTipoNombre"
         Me.columnComprobanteTipoNombre.ReadOnly = True
         Me.columnComprobanteTipoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnComprobanteTipoNombre.Width = 42
+        Me.columnComprobanteTipoNombre.Width = 34
         '
         'columnPuntoVenta
         '
@@ -371,7 +370,7 @@ Partial Class formEntidadInscripcion
         Me.columnPuntoVenta.Name = "columnPuntoVenta"
         Me.columnPuntoVenta.ReadOnly = True
         Me.columnPuntoVenta.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnPuntoVenta.Width = 83
+        Me.columnPuntoVenta.Width = 65
         '
         'columnNumero
         '
@@ -381,7 +380,7 @@ Partial Class formEntidadInscripcion
         Me.columnNumero.Name = "columnNumero"
         Me.columnNumero.ReadOnly = True
         Me.columnNumero.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnNumero.Width = 74
+        Me.columnNumero.Width = 58
         '
         'DataGridViewTextBoxColumn1
         '
@@ -391,7 +390,7 @@ Partial Class formEntidadInscripcion
         Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
         Me.DataGridViewTextBoxColumn1.ReadOnly = True
         Me.DataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.DataGridViewTextBoxColumn1.Width = 116
+        Me.DataGridViewTextBoxColumn1.Width = 88
         '
         'columnDocumentoNumero
         '
@@ -401,7 +400,7 @@ Partial Class formEntidadInscripcion
         Me.columnDocumentoNumero.Name = "columnDocumentoNumero"
         Me.columnDocumentoNumero.ReadOnly = True
         Me.columnDocumentoNumero.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnDocumentoNumero.Width = 95
+        Me.columnDocumentoNumero.Width = 75
         '
         'columnCategoriaIVANombre
         '
@@ -411,7 +410,7 @@ Partial Class formEntidadInscripcion
         Me.columnCategoriaIVANombre.Name = "columnCategoriaIVANombre"
         Me.columnCategoriaIVANombre.ReadOnly = True
         Me.columnCategoriaIVANombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnCategoriaIVANombre.Width = 35
+        Me.columnCategoriaIVANombre.Width = 30
         '
         'columnImporteTotal
         '
@@ -424,18 +423,20 @@ Partial Class formEntidadInscripcion
         Me.columnImporteTotal.Name = "columnImporteTotal"
         Me.columnImporteTotal.ReadOnly = True
         Me.columnImporteTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnImporteTotal.Width = 61
+        Me.columnImporteTotal.Width = 48
         '
         'formEntidadInscripcion
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8!, 16!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(913, 428)
+        Me.ClientSize = New System.Drawing.Size(685, 348)
         Me.Controls.Add(Me.panelPaso1)
         Me.Controls.Add(Me.panelPaso2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.MaximizeBox = false
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.MaximizeBox = False
         Me.Name = "formEntidadInscripcion"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Inscripción a un nuevo Ciclo Lectivo"
         Me.panelPaso1.ResumeLayout(false)

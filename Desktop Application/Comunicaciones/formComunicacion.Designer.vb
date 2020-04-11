@@ -349,6 +349,7 @@ Partial Class formComunicacion
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "formComunicacion"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Comunicación"
         Me.toolstripMain.ResumeLayout(False)
