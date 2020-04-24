@@ -392,7 +392,7 @@
             ' Datos de la pestaña Notas y Aditoría
             .Notas = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNotas.Text)
             .EsActivo = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxEsActivo.CheckState)
-            .IDOtroSistema = CS_ValueTranslation.FromControlComboBoxToObjectInteger(textboxIDOtroSistema.Text)
+            .IDOtroSistema = CS_ValueTranslation.FromControlTextBoxToObjectInteger(textboxIDOtroSistema.Text)
         End With
     End Sub
 
@@ -444,6 +444,23 @@
 #End Region
 
 #Region "Controls behavior"
+
+    Private Sub FormKeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
+        Select Case e.KeyChar
+            Case Microsoft.VisualBasic.ChrW(Keys.Return)
+                If mEditMode Then
+                    buttonGuardar.PerformClick()
+                Else
+                    buttonCerrar.PerformClick()
+                End If
+            Case Microsoft.VisualBasic.ChrW(Keys.Escape)
+                If mEditMode Then
+                    buttonCancelar.PerformClick()
+                Else
+                    buttonCerrar.PerformClick()
+                End If
+        End Select
+    End Sub
 
     Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxIDEntidad.GotFocus, textboxApellido.GotFocus, textboxNombre.GotFocus, textboxDocumentoNumero.GotFocus, textboxTelefono1.GotFocus, textboxTelefono2.GotFocus, textboxTelefono3.GotFocus, textboxEmail1.GotFocus, textboxEmail2.GotFocus, textboxDomicilioCalle1.GotFocus, textboxDomicilioNumero.GotFocus, textboxDomicilioPiso.GotFocus, textboxDomicilioDepartamento.GotFocus, textboxDomicilioCodigoPostal.GotFocus, textboxNotas.GotFocus, textboxIDOtroSistema.GotFocus
         CType(sender, TextBox).SelectAll()
