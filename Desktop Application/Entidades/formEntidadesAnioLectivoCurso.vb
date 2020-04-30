@@ -1,15 +1,18 @@
 ﻿Public Class formEntidadesAnioLectivoCurso
 
 #Region "Declarations"
+
     Private dbcontext As New CSColegioContext(True)
     Private AnioLectivoCurso As AnioLectivoCurso
 
     Private Const COLUMNA_IDENTIDAD As String = "columnIDEntidad"
     Private Const COLUMNA_APELLIDO As String = "columnApellido"
     Private Const COLUMNA_NOMBRE As String = "columnNombre"
+
 #End Region
 
 #Region "Form stuff"
+
     Private Sub formEntidades_Load() Handles Me.Load
         SetAppearance()
 
@@ -27,9 +30,11 @@
     Private Sub formEntidadesAnioLectivoCurso_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         dbcontext.Dispose()
     End Sub
+
 #End Region
 
 #Region "Load and Set Data"
+
     Friend Sub RefreshData()
         Me.Cursor = Cursors.WaitCursor
 
@@ -88,6 +93,7 @@
 #End Region
 
 #Region "Main Toolbar"
+
     Private Sub buttonAgregar_Click() Handles buttonAgregar.Click
         If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO_AGREGAR) Then
             formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
@@ -154,8 +160,8 @@
         End If
     End Sub
 
-    Private Sub Imprimir(sender As Object, e As EventArgs) Handles menuitemImprimirListadoCompleto.Click, menuitemImprimirListadoDelCurso.Click
-        If sender.Equals(menuitemImprimirListadoDelCurso) AndAlso datagridviewMain.CurrentRow Is Nothing Then
+    Private Sub Imprimir(sender As Object, e As EventArgs) Handles menuitemImprimirListadoAnioLectivo.Click, menuitemImprimirListadoNivel.Click, menuitemImprimirListadoCurso.Click
+        If sender.Equals(menuitemImprimirListadoCurso) AndAlso datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Alumno para imprimir.", vbInformation, My.Application.Info.Title)
         Else
             If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO_IMPRIMIR) Then
@@ -167,13 +173,16 @@
                 If ReporteActual.Open(My.Settings.ReportsPath & "\AlumnosPorCurso.rpt") Then
                     If ReporteActual.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
 
-                        If sender.Equals(menuitemImprimirListadoCompleto) Then
+                        If sender.Equals(menuitemImprimirListadoAnioLectivo) Then
                             ReporteActual.RecordSelectionFormula = String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0}", comboboxAnioLectivo.ComboBox.SelectedValue.ToString)
-                        ElseIf sender.Equals(menuitemImprimirListadoDelCurso) Then
+                            Reportes.PreviewCrystalReport(ReporteActual, String.Format("Listado de Alumnos por Curso (Año Lectivo {0})", comboboxAnioLectivo.Text))
+                        ElseIf sender.Equals(menuitemImprimirListadoNivel) Then
+                            ReporteActual.RecordSelectionFormula = String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0} AND {{Anio.IDNivel}} = {1}", comboboxAnioLectivo.ComboBox.SelectedValue.ToString, comboboxNivel.ComboBox.SelectedValue.ToString)
+                            Reportes.PreviewCrystalReport(ReporteActual, String.Format("Listado de Alumnos por Curso (Año Lectivo {0} - Nivel {1})", comboboxAnioLectivo.Text, comboboxNivel.Text))
+                        ElseIf sender.Equals(menuitemImprimirListadoCurso) Then
                             ReporteActual.RecordSelectionFormula = String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0} AND {{AnioLectivoCurso.IDCurso}} = {1}", comboboxAnioLectivo.ComboBox.SelectedValue.ToString, comboboxCurso.ComboBox.SelectedValue.ToString)
+                            Reportes.PreviewCrystalReport(ReporteActual, String.Format("Listado de Alumnos por Curso (Año Lectivo {0} - Nivel {1} - Curso {2})", comboboxAnioLectivo.Text, comboboxNivel.Text, comboboxCurso.Text))
                         End If
-
-                        Reportes.PreviewCrystalReport(ReporteActual, "Listado de Alumnos por Curso")
                     End If
                 End If
 
@@ -183,6 +192,7 @@
             End If
         End If
     End Sub
+
 #End Region
 
 End Class

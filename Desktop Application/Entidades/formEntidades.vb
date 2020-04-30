@@ -1,6 +1,7 @@
 ﻿Public Class formEntidades
 
 #Region "Declarations"
+
     Private listEntidadBase As List(Of Entidad)
     Private listEntidadFiltradaYOrdenada As List(Of Entidad)
 
@@ -9,9 +10,11 @@
 
     Private OrdenColumna As DataGridViewColumn
     Private OrdenTipo As SortOrder
+
 #End Region
 
 #Region "Form stuff"
+
     Friend Sub SetAppearance()
         datagridviewMain.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
         datagridviewMain.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
@@ -39,6 +42,7 @@
     Private Sub formEntidades_FormClosed() Handles Me.FormClosed
         listEntidadBase = Nothing
     End Sub
+
 #End Region
 
 #Region "Load and Set Data"

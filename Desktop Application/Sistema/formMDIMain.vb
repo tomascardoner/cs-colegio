@@ -288,6 +288,7 @@
 #End Region
 
 #Region "Left Toolbar - Entidades"
+
     Private Sub Entidades() Handles buttonEntidades.ButtonClick
         If Permisos.VerificarPermiso(Permisos.ENTIDAD) Then
             Me.Cursor = Cursors.WaitCursor
@@ -302,7 +303,7 @@
         If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_Show(Me, CType(formEntidadesAnioLectivoCurso, Form), True)
+            CS_Form.MDIChild_Show(Me, CType(formEntidadesAnioLectivoCurso, Form), False)
 
             Me.Cursor = Cursors.Default
         End If
