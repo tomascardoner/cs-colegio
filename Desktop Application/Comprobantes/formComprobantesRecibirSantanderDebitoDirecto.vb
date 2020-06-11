@@ -15,7 +15,7 @@
 
 #Region "Form stuff"
     Private Sub formComprobantesRecibirSantanderDebitoDirecto_Load() Handles Me.Load
-        textboxUbicacionArchivos.Text = CardonerSistemas.SpecialFolders.ProcessString(My.Settings.Exchange_Inbound_Santander_ADDI_Folder)
+        textboxUbicacionArchivos.Text = CardonerSistemas.SpecialFolders.ProcessString(pSantanderAddiConfig.InboundFolder)
     End Sub
 
     Private Sub formComprobantesRecibirSantanderDebitoDirecto_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed

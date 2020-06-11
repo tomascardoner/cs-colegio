@@ -257,6 +257,9 @@
     <Compile Include="CondicionIVA.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Config\AfipWebServicesConfig.vb" />
+    <Compile Include="Config\DatabaseConfig.vb" />
+    <Compile Include="Config\SantanderAddiConfig.vb" />
     <Compile Include="CuotaTipo.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -377,7 +380,7 @@
     <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_ValueTranslation.vb">
       <Link>Framework\CS_ValueTranslation.vb</Link>
     </Compile>
-    <Compile Include="Configuraciones\Configuration.vb" />
+    <Compile Include="Config\Configuration.vb" />
     <Compile Include="Sistema\Constantes.vb" />
     <Compile Include="CSColegio.Context.vb">
       <AutoGen>True</AutoGen>
@@ -399,7 +402,7 @@
     <Compile Include="Outlook\EntidadesSincronizarOutlookGruposMiembrosABM.vb" />
     <Compile Include="Outlook\EntidadesSincronizarOutlookOpciones.vb" />
     <Compile Include="Sistema\Email.vb" />
-    <Compile Include="Configuraciones\EmailConfig.vb" />
+    <Compile Include="Config\EmailConfig.vb" />
     <Compile Include="Sistema\EntityFrameworkExtension.vb" />
     <Compile Include="Sistema\FillAndRefreshLists.vb" />
     <Compile Include="Sistema\formAboutBox.Designer.vb">
@@ -853,7 +856,16 @@
     </None>
     <EntityDeploy Include="CSColegio.edmx" />
     <None Include="app.manifest" />
-    <None Include="Email.config">
+    <None Include="Config\AfipWebServices.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Database.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Email.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\SantanderAddi.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="CSColegio.Context.tt">

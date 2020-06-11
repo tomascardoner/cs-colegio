@@ -6,7 +6,10 @@ Module StartUp
     Friend pFillAndRefreshLists As FillAndRefreshLists
 
     ' Config files
+    Friend pAfipWebServicesConfig As AfipWebServicesConfig
+    Friend pDatabaseConfig As DatabaseConfig
     Friend pEmailConfig As EmailConfig
+    Friend pSantanderAddiConfig As SantanderAddiConfig
 
     Friend pFormMDIMain As formMDIMain
     Friend pPermisos As List(Of UsuarioGrupoPermiso)
@@ -50,13 +53,13 @@ Module StartUp
         ' Obtengo el Connection String para las conexiones de ADO .NET
         pDatabase = New CardonerSistemas.Database.ADO.SQLServer
         pDatabase.ApplicationName = My.Application.Info.Title
-        pDatabase.DataSource = My.Settings.DBConnection_Datasource
-        pDatabase.InitialCatalog = My.Settings.DBConnection_Database
-        pDatabase.UserID = My.Settings.DBConnection_UserID
+        pDatabase.Datasource = pDatabaseConfig.Datasource
+        pDatabase.InitialCatalog = pDatabaseConfig.Database
+        pDatabase.UserId = pDatabaseConfig.UserId
         ' Desencripto la contraseña de la conexión a la base de datos que está en el archivo app.config
         Dim PasswordDecrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PUBLIC_ENCRYPTION_PASSWORD)
         Dim DecryptedPassword As String = ""
-        If Not PasswordDecrypter.Decrypt(My.Settings.DBConnection_Password, DecryptedPassword) Then
+        If Not PasswordDecrypter.Decrypt(pDatabaseConfig.Password, DecryptedPassword) Then
             MsgBox("La contraseña de conexión a la base de datos es incorrecta.", MsgBoxStyle.Critical, My.Application.Info.Title)
             formSplashScreen.Close()
             formSplashScreen.Dispose()
@@ -72,7 +75,7 @@ Module StartUp
         formSplashScreen.Focus()
 
         ' Obtengo el Connection String para las conexiones de Entity Framework
-        CSColegioContext.CreateConnectionString(My.Settings.DBConnection_Provider, pDatabase.ConnectionString)
+        CSColegioContext.CreateConnectionString(pDatabaseConfig.Provider, pDatabase.ConnectionString)
 
         ' Cargos los Parámetros desde la Base de datos
         formSplashScreen.labelStatus.Text = "Cargando los parámetros desde la Base de datos..."
@@ -173,7 +176,10 @@ Module StartUp
         End If
         pDatabase = Nothing
 
+        pAfipWebServicesConfig = Nothing
+        pDatabaseConfig = Nothing
         pEmailConfig = Nothing
+        pSantanderAddiConfig = Nothing
 
         pFillAndRefreshLists = Nothing
         pPermisos = Nothing

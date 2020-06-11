@@ -525,26 +525,26 @@
 
     Friend Function TransmitirAFIP_Inicializar(ByRef Objeto_AFIP_WS As CS_AFIP_WS.AFIP_WS, ByVal ModoHomologacion As Boolean) As Boolean
         With Objeto_AFIP_WS
-            If My.Settings.AFIP_WS_LogEnabled Then
-                .LogPath = CardonerSistemas.SpecialFolders.ProcessString(My.Settings.AFIP_WS_LogFolder)
+            If pAfipWebServicesConfig.LogEnabledAsBoolean Then
+                .LogPath = CardonerSistemas.SpecialFolders.ProcessString(pAfipWebServicesConfig.LogFolder)
                 If Not .LogPath.EndsWith("\") Then
                     .LogPath &= "\"
                 End If
                 .LogPath &= DateTime.Today.Year & "\" & DateTime.Today.Month.ToString.PadLeft(2, "0"c) & "\"
-                .LogFileName = CardonerSistemas.Files.ProcessFilename(My.Settings.AFIP_WS_LogFileName)
+                .LogFileName = CardonerSistemas.Files.ProcessFilename(pAfipWebServicesConfig.LogFileName)
             End If
 
             ' Leo los valores comunes a todas las facturas
             If ModoHomologacion Then
-                .Certificado = My.Settings.AFIP_WS_Certificado_Homologacion
+                .Certificado = pAfipWebServicesConfig.CertificadoHomologacion
                 .WSAA_URL = CS_Parameter_System.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION)
                 .WSFEv1_URL = CS_Parameter_System.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION)
             Else
-                .Certificado = My.Settings.AFIP_WS_Certificado_Produccion
+                .Certificado = pAfipWebServicesConfig.CertificadoProduccion
                 .WSAA_URL = CS_Parameter_System.GetString(Parametros.AFIP_WS_AA_PRODUCCION)
                 .WSFEv1_URL = CS_Parameter_System.GetString(Parametros.AFIP_WS_FE_PRODUCCION)
             End If
-            .ClavePrivada = My.Settings.AFIP_WS_ClavePrivada
+            .ClavePrivada = pAfipWebServicesConfig.ClavePrivada
 
             .InternetProxy = CS_Parameter_System.GetString(Parametros.INTERNET_PROXY, "")
             .CUIT_Emisor = CS_Parameter_System.GetString(Parametros.EMPRESA_CUIT)

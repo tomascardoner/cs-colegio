@@ -29,47 +29,14 @@
     <Setting Name="PermiteGenerarMatriculaMesDesde" Type="System.Byte" Scope="Application">
       <Value Profile="(Default)">10</Value>
     </Setting>
-    <Setting Name="AFIP_WS_Certificado_Homologacion" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\Users\Tomas\Dropbox\Colegio Horizonte\CS-Colegio\Certificados\administracion_homologacion.crt</Value>
-    </Setting>
-    <Setting Name="AFIP_WS_ClavePrivada" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\Users\Tomas\Dropbox\Colegio Horizonte\CS-Colegio\Certificados\cardonersistemas.key</Value>
-    </Setting>
     <Setting Name="IDPuntoVenta" Type="System.Byte" Scope="Application">
       <Value Profile="(Default)">2</Value>
-    </Setting>
-    <Setting Name="AFIP_WS_TTLTicketRequerimientoAcceso" Type="System.Int16" Scope="Application">
-      <Value Profile="(Default)">2400</Value>
-    </Setting>
-    <Setting Name="AFIP_WS_LogFolder" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">%ApplicationFolder%\Log\AFIP</Value>
-    </Setting>
-    <Setting Name="AFIP_WS_LogFileName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">%DateTimeUniversalNoSlashes%.log</Value>
-    </Setting>
-    <Setting Name="AFIP_WS_ModoHomologacion" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="ReportsPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">C:\Users\Tomas\Dropbox\Cardoner Sistemas\CS-Colegio\Reportes</Value>
     </Setting>
     <Setting Name="DecimalesEnImportes" Type="System.Byte" Scope="Application">
       <Value Profile="(Default)">2</Value>
-    </Setting>
-    <Setting Name="DBConnection_Datasource" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">localhost</Value>
-    </Setting>
-    <Setting Name="DBConnection_Database" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">CSColegio</Value>
-    </Setting>
-    <Setting Name="DBConnection_UserID" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">sa</Value>
-    </Setting>
-    <Setting Name="DBConnection_Password" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">43ubKjbAQCxR+foIcEK/PcLRw0VHFqfd</Value>
-    </Setting>
-    <Setting Name="DBConnection_Provider" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">System.Data.SqlClient</Value>
     </Setting>
     <Setting Name="LoteComprobantes_EnviarEmail_Metodo" Type="System.String" Scope="Application">
       <Value Profile="(Default)">NETCLIENT</Value>
@@ -80,26 +47,14 @@
     <Setting Name="Comprobante_EnvioEmail_Body" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Adjuntamos el Comprobante solicitado.{0}{0}Atentamente.</Value>
     </Setting>
-    <Setting Name="AFIP_WS_Certificado_Produccion" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\Users\Tomas\Dropbox\Colegio Horizonte\CS-Colegio\Certificados\administracion_produccion.crt</Value>
-    </Setting>
-    <Setting Name="AFIP_WS_LogEnabled" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="Exchange_Outbound_Folder" Type="System.String" Scope="Application">
       <Value Profile="(Default)">%ApplicationFolder%\Intercambio\Salida</Value>
-    </Setting>
-    <Setting Name="Exchange_Outbound_Santander_ADDI_Folder" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">%ProgramFilesX86%\ADDISQL\Importar</Value>
     </Setting>
     <Setting Name="Exchange_Outbound_PagoMisCuentas_SubFolder" Type="System.String" Scope="Application">
       <Value Profile="(Default)">PagoMisCuentas</Value>
     </Setting>
     <Setting Name="Exchange_Outbound_Santander_Piryp_Folder" Type="System.String" Scope="Application">
       <Value Profile="(Default)">C:\TEMP</Value>
-    </Setting>
-    <Setting Name="Exchange_Inbound_Santander_ADDI_Folder" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">%ProgramFilesX86%\ADDISQL\Exportar</Value>
     </Setting>
     <Setting Name="Comprobante_RequiereDomicilioCompleto" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
@@ -115,21 +70,6 @@
     </Setting>
     <Setting Name="Email_Delivery_Failed_SenderAddress" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Mailer-Daemon@orlando.dattaweb.com</Value>
-    </Setting>
-    <Setting Name="ADDI_DBConnection_Datasource" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">localhost</Value>
-    </Setting>
-    <Setting Name="ADDI_DBConnection_Database" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">ADDISQL</Value>
-    </Setting>
-    <Setting Name="ADDI_DBConnection_UserID" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">sa</Value>
-    </Setting>
-    <Setting Name="ADDI_DBConnection_Password" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">43ubKjbAQCxR+foIcEK/PcLRw0VHFqfd</Value>
-    </Setting>
-    <Setting Name="ADDI_DBConnection_Provider" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">System.Data.SqlClient</Value>
     </Setting>
     <Setting Name="Outlook_ContactsSync_EntidadTipo_PersonalColegio" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>

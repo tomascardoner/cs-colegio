@@ -26,7 +26,7 @@
             Boolean.TryParse(SmtpUseSsl, SmtpUseSslAsBoolean)
         End Get
         Set(value As Boolean)
-            SmtpUseSsl = IIf(value, 0, 1).ToString()
+            SmtpUseSsl = value.ToString()
         End Set
     End Property
 

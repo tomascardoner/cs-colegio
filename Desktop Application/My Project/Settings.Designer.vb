@@ -140,66 +140,10 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Tomas\Dropbox\Colegio Horizonte\CS-Colegio\Certificados\administracion_h"& _ 
-            "omologacion.crt")>  _
-        Public ReadOnly Property AFIP_WS_Certificado_Homologacion() As String
-            Get
-                Return CType(Me("AFIP_WS_Certificado_Homologacion"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Tomas\Dropbox\Colegio Horizonte\CS-Colegio\Certificados\cardonersistemas"& _ 
-            ".key")>  _
-        Public ReadOnly Property AFIP_WS_ClavePrivada() As String
-            Get
-                Return CType(Me("AFIP_WS_ClavePrivada"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
         Public ReadOnly Property IDPuntoVenta() As Byte
             Get
                 Return CType(Me("IDPuntoVenta"),Byte)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("2400")>  _
-        Public ReadOnly Property AFIP_WS_TTLTicketRequerimientoAcceso() As Short
-            Get
-                Return CType(Me("AFIP_WS_TTLTicketRequerimientoAcceso"),Short)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("%ApplicationFolder%\Log\AFIP")>  _
-        Public ReadOnly Property AFIP_WS_LogFolder() As String
-            Get
-                Return CType(Me("AFIP_WS_LogFolder"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("%DateTimeUniversalNoSlashes%.log")>  _
-        Public ReadOnly Property AFIP_WS_LogFileName() As String
-            Get
-                Return CType(Me("AFIP_WS_LogFileName"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public ReadOnly Property AFIP_WS_ModoHomologacion() As Boolean
-            Get
-                Return CType(Me("AFIP_WS_ModoHomologacion"),Boolean)
             End Get
         End Property
         
@@ -218,51 +162,6 @@ Namespace My
         Public ReadOnly Property DecimalesEnImportes() As Byte
             Get
                 Return CType(Me("DecimalesEnImportes"),Byte)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("localhost")>  _
-        Public ReadOnly Property DBConnection_Datasource() As String
-            Get
-                Return CType(Me("DBConnection_Datasource"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("CSColegio")>  _
-        Public ReadOnly Property DBConnection_Database() As String
-            Get
-                Return CType(Me("DBConnection_Database"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("sa")>  _
-        Public ReadOnly Property DBConnection_UserID() As String
-            Get
-                Return CType(Me("DBConnection_UserID"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("43ubKjbAQCxR+foIcEK/PcLRw0VHFqfd")>  _
-        Public ReadOnly Property DBConnection_Password() As String
-            Get
-                Return CType(Me("DBConnection_Password"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("System.Data.SqlClient")>  _
-        Public ReadOnly Property DBConnection_Provider() As String
-            Get
-                Return CType(Me("DBConnection_Provider"),String)
             End Get
         End Property
         
@@ -295,38 +194,10 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Tomas\Dropbox\Colegio Horizonte\CS-Colegio\Certificados\administracion_p"& _ 
-            "roduccion.crt")>  _
-        Public ReadOnly Property AFIP_WS_Certificado_Produccion() As String
-            Get
-                Return CType(Me("AFIP_WS_Certificado_Produccion"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public ReadOnly Property AFIP_WS_LogEnabled() As Boolean
-            Get
-                Return CType(Me("AFIP_WS_LogEnabled"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("%ApplicationFolder%\Intercambio\Salida")>  _
         Public ReadOnly Property Exchange_Outbound_Folder() As String
             Get
                 Return CType(Me("Exchange_Outbound_Folder"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("%ProgramFilesX86%\ADDISQL\Importar")>  _
-        Public ReadOnly Property Exchange_Outbound_Santander_ADDI_Folder() As String
-            Get
-                Return CType(Me("Exchange_Outbound_Santander_ADDI_Folder"),String)
             End Get
         End Property
         
@@ -345,15 +216,6 @@ Namespace My
         Public ReadOnly Property Exchange_Outbound_Santander_Piryp_Folder() As String
             Get
                 Return CType(Me("Exchange_Outbound_Santander_Piryp_Folder"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("%ProgramFilesX86%\ADDISQL\Exportar")>  _
-        Public ReadOnly Property Exchange_Inbound_Santander_ADDI_Folder() As String
-            Get
-                Return CType(Me("Exchange_Inbound_Santander_ADDI_Folder"),String)
             End Get
         End Property
         
@@ -399,51 +261,6 @@ Namespace My
         Public ReadOnly Property Email_Delivery_Failed_SenderAddress() As String
             Get
                 Return CType(Me("Email_Delivery_Failed_SenderAddress"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("localhost")>  _
-        Public ReadOnly Property ADDI_DBConnection_Datasource() As String
-            Get
-                Return CType(Me("ADDI_DBConnection_Datasource"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("ADDISQL")>  _
-        Public ReadOnly Property ADDI_DBConnection_Database() As String
-            Get
-                Return CType(Me("ADDI_DBConnection_Database"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("sa")>  _
-        Public ReadOnly Property ADDI_DBConnection_UserID() As String
-            Get
-                Return CType(Me("ADDI_DBConnection_UserID"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("43ubKjbAQCxR+foIcEK/PcLRw0VHFqfd")>  _
-        Public ReadOnly Property ADDI_DBConnection_Password() As String
-            Get
-                Return CType(Me("ADDI_DBConnection_Password"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("System.Data.SqlClient")>  _
-        Public ReadOnly Property ADDI_DBConnection_Provider() As String
-            Get
-                Return CType(Me("ADDI_DBConnection_Provider"),String)
             End Get
         End Property
         
