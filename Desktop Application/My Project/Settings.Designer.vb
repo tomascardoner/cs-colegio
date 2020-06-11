@@ -15,7 +15,7 @@ Option Explicit On
 Namespace My
     
     <Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.3.0.0"),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.6.0.0"),  _
      Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)>  _
     Partial Friend NotInheritable Class MySettings
         Inherits Global.System.Configuration.ApplicationSettingsBase
@@ -277,78 +277,6 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Colegio Horizonte de Lobos - Administracion")>  _
-        Public ReadOnly Property Email_DisplayName() As String
-            Get
-                Return CType(Me("Email_DisplayName"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("tomascardoner@me.com")>  _
-        Public ReadOnly Property Email_Address() As String
-            Get
-                Return CType(Me("Email_Address"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("mail.horizontedelobos.com.ar")>  _
-        Public ReadOnly Property Email_SMTP_Server() As String
-            Get
-                Return CType(Me("Email_SMTP_Server"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("administracion@horizontedelobos.com.ar")>  _
-        Public ReadOnly Property Email_SMTP_Username() As String
-            Get
-                Return CType(Me("Email_SMTP_Username"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("yW4DfKMkoW1G6xeH/A+Jj9jGeAXMiW9Xk4NW/87/C7kP9+IdAyHtUw==")>  _
-        Public ReadOnly Property Email_SMTP_Password() As String
-            Get
-                Return CType(Me("Email_SMTP_Password"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("25")>  _
-        Public ReadOnly Property Email_SMTP_Port() As Short
-            Get
-                Return CType(Me("Email_SMTP_Port"),Short)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public ReadOnly Property Email_SMTP_UseSSL() As Boolean
-            Get
-                Return CType(Me("Email_SMTP_UseSSL"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("90000")>  _
-        Public ReadOnly Property Email_SMTP_Timeout() As Integer
-            Get
-                Return CType(Me("Email_SMTP_Timeout"),Integer)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("{0} N° {1}")>  _
         Public ReadOnly Property Comprobante_EnviarEmail_Subject() As String
             Get
@@ -367,17 +295,6 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("{0}{0}Colegio Horizonte de Lobos{0}Administración{0}Castelli 193 - Lobos{0}Tel.: "& _ 
-            "+54 2227 42-4656{0}administracion@horizontedelobos.com.ar{0}www.horizontedelobos"& _ 
-            ".com.ar")>  _
-        Public ReadOnly Property Email_Signature() As String
-            Get
-                Return CType(Me("Email_Signature"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Tomas\Dropbox\Colegio Horizonte\CS-Colegio\Certificados\administracion_p"& _ 
             "roduccion.crt")>  _
         Public ReadOnly Property AFIP_WS_Certificado_Produccion() As String
@@ -388,28 +305,10 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("NETCLIENT")>  _
-        Public ReadOnly Property Comprobante_EnviarEmail_Metodo() As String
-            Get
-                Return CType(Me("Comprobante_EnviarEmail_Metodo"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
         Public ReadOnly Property AFIP_WS_LogEnabled() As Boolean
             Get
                 Return CType(Me("AFIP_WS_LogEnabled"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("200")>  _
-        Public ReadOnly Property Email_MaxPerHour() As Short
-            Get
-                Return CType(Me("Email_MaxPerHour"),Short)
             End Get
         End Property
         

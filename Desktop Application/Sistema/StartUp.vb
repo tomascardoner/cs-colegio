@@ -1,7 +1,12 @@
-﻿Module StartUp
+﻿Imports System.Xml
+
+Module StartUp
     ' Database stuff
     Friend pDatabase As CardonerSistemas.Database.ADO.SQLServer
     Friend pFillAndRefreshLists As FillAndRefreshLists
+
+    ' Config files
+    Friend pEmailConfig As EmailConfig
 
     Friend pFormMDIMain As formMDIMain
     Friend pPermisos As List(Of UsuarioGrupoPermiso)
@@ -32,6 +37,16 @@
         formSplashScreen.labelStatus.Text = "Obteniendo los parámetros de conexión a la Base de datos..."
         Application.DoEvents()
 
+        ' Abro los archivos adicionales de configuración de la aplicación
+        If Not Configuration.LoadFiles() Then
+            formSplashScreen.Close()
+            formSplashScreen.Dispose()
+            TerminateApplication()
+            Exit Sub
+        End If
+
+        formSplashScreen.Focus()
+
         ' Obtengo el Connection String para las conexiones de ADO .NET
         pDatabase = New CardonerSistemas.Database.ADO.SQLServer
         pDatabase.ApplicationName = My.Application.Info.Title
@@ -53,6 +68,8 @@
         pDatabase.MultipleActiveResultsets = True
         pDatabase.WorkstationID = My.Computer.Name
         pDatabase.CreateConnectionString()
+
+        formSplashScreen.Focus()
 
         ' Obtengo el Connection String para las conexiones de Entity Framework
         CSColegioContext.CreateConnectionString(My.Settings.DBConnection_Provider, pDatabase.ConnectionString)
@@ -76,6 +93,8 @@
             Exit Sub
         End If
 
+        formSplashScreen.Focus()
+
         ' Muestro el Nombre de la Compañía a la que está licenciada la Aplicación
         Dim LicenseDecrypter As New CS_Encrypt_TripleDES(APPLICATION_LICENSE_PASSWORD)
         Dim DecryptedLicense As String = ""
@@ -93,6 +112,8 @@
 
         ' Preparo instancia de clase para llenar los ComboBox
         pFillAndRefreshLists = New FillAndRefreshLists
+
+        formSplashScreen.Focus()
 
         ' Tomo el tiempo de inicio para controlar los segundos mínimos que se debe mostrar el Splash Screen
         StartupTime = Now
@@ -151,6 +172,9 @@
             Next
         End If
         pDatabase = Nothing
+
+        pEmailConfig = Nothing
+
         pFillAndRefreshLists = Nothing
         pPermisos = Nothing
         pParametros = Nothing

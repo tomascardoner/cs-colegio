@@ -772,24 +772,24 @@
                                 ReporteActual.RecordSelectionFormula = "{Comprobante.IDComprobante} = " & CurrentRow.IDComprobante
 
                                 Dim Asunto As String = String.Format(My.Settings.Comprobante_EnviarEmail_Subject, ComprobanteTipoActual.NombreConLetra, CurrentRow.NumeroCompleto)
-                                Dim Cuerpo As String = String.Format(My.Settings.Comprobante_EnvioEmail_Body, vbCrLf) & String.Format(My.Settings.Email_Signature, vbCrLf)
+                                Dim Cuerpo As String = String.Format(My.Settings.Comprobante_EnvioEmail_Body, vbCrLf) & String.Format(pEmailConfig.Signature, vbCrLf)
                                 Dim AdjuntoNombre As String = String.Format("{0}-{1}.pdf", ComprobanteTipoActual.Sigla.TrimEnd, CurrentRow.NumeroCompleto)
 
-                                Select Case My.Settings.Comprobante_EnviarEmail_Metodo
+                                Select Case pEmailConfig.SendMethod
                                     Case CardonerSistemas.Constants.EMAIL_CLIENT_NETDLL
-                                        If Email.EnviarEmail_PorNETClient_AEntidades(New List(Of Entidad)({Titular}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", True) = -1 Then
+                                        If Email.EnviarAEntidadesPorNetClient(New List(Of Entidad)({Titular}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", True) = -1 Then
                                             datagridviewMain.Enabled = True
                                             Me.Cursor = Cursors.Default
                                             Exit Sub
                                         End If
                                     Case CardonerSistemas.Constants.EMAIL_CLIENT_MSOUTLOOK
-                                        If Email.EnviarEmailPorMSOutlook(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, True) = -1 Then
+                                        If Email.EnviarPorMSOutlook(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, True) = -1 Then
                                             datagridviewMain.Enabled = True
                                             Me.Cursor = Cursors.Default
                                             Exit Sub
                                         End If
                                     Case CardonerSistemas.Constants.EMAIL_CLIENT_CRYSTALREPORTSMAPI
-                                        If Email.EnviarEmailPorCrystalReportsMAPI(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, True) = -1 Then
+                                        If Email.EnviarPorCrystalReportsMapi(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, True) = -1 Then
                                             datagridviewMain.Enabled = True
                                             Me.Cursor = Cursors.Default
                                             Exit Sub

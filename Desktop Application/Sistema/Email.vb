@@ -1,13 +1,18 @@
 ﻿Imports System.Net.Mail
+Imports System.Xml
 
 Module Email
 
-    Friend Function EnviarEmail_PorNETClient(ByVal DestinatarioTo As MailAddress, ByVal DestinatarioCC As MailAddress, ByVal DestinatarioBCC As MailAddress, ByVal Asunto As String, ByVal CuerpoEnHTML As Boolean, ByVal Cuerpo As String, ByRef AdjuntoReporte As Reporte, ByVal AdjuntoNombre As String, ByVal AdjuntoArchivo As String, ByVal ForzarEnvio As Boolean) As Boolean
+    Friend Function VerificarConfiguracion(ByRef configFile As XmlDocument) As Boolean
+
+    End Function
+
+    Friend Function EnviarPorNetClient(ByVal DestinatarioTo As MailAddress, ByVal DestinatarioCC As MailAddress, ByVal DestinatarioBCC As MailAddress, ByVal Asunto As String, ByVal CuerpoEnHTML As Boolean, ByVal Cuerpo As String, ByRef AdjuntoReporte As Reporte, ByVal AdjuntoNombre As String, ByVal AdjuntoArchivo As String, ByVal ForzarEnvio As Boolean) As Boolean
         Dim mail As New MailMessage()
         Dim smtp As New SmtpClient()
 
         ' Establezco los recipientes
-        mail.From = New MailAddress(My.Settings.Email_Address, My.Settings.Email_DisplayName)
+        mail.From = New MailAddress(pEmailConfig.Address, pEmailConfig.DisplayName)
 
         If Not DestinatarioTo Is Nothing Then
             mail.To.Add(DestinatarioTo)
@@ -25,18 +30,18 @@ Module Email
         mail.Body = Cuerpo
 
         ' Establezco las opciones del Servidor SMTP
-        smtp.Host = My.Settings.Email_SMTP_Server
-        smtp.EnableSsl = My.Settings.Email_SMTP_UseSSL
-        smtp.Port = My.Settings.Email_SMTP_Port
-        smtp.Timeout = My.Settings.Email_SMTP_Timeout
+        smtp.Host = pEmailConfig.SmtpServer
+        smtp.EnableSsl = pEmailConfig.SmtpUseSslAsBoolean
+        smtp.Port = pEmailConfig.SmtpPortAsInteger
+        smtp.Timeout = pEmailConfig.SmtpTimeoutAsInteger
 
         Dim Decrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PUBLIC_ENCRYPTION_PASSWORD)
         Dim DecryptedPassword As String = ""
-        If Not Decrypter.Decrypt(My.Settings.Email_SMTP_Password, DecryptedPassword) Then
+        If Not Decrypter.Decrypt(pEmailConfig.SmtpPassword, DecryptedPassword) Then
             MsgBox("La contraseña de e-mail (SMTP) especificada es incorrecta.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
             Return False
         End If
-        smtp.Credentials = New System.Net.NetworkCredential(My.Settings.Email_SMTP_Username, DecryptedPassword)
+        smtp.Credentials = New System.Net.NetworkCredential(pEmailConfig.SmtpUserName, DecryptedPassword)
         Decrypter = Nothing
 
         ' Attachments
@@ -57,22 +62,22 @@ Module Email
         End Try
     End Function
 
-    Friend Function EnviarEmail_PorNETClient_AEntidades(ByRef listEntidadesTo As List(Of Entidad), ByRef listEntidadesCC As List(Of Entidad), ByRef listEntidadesBCC As List(Of Entidad), ByVal Asunto As String, ByVal CuerpoEnHTML As Boolean, ByVal Cuerpo As String, ByRef AdjuntoReporte As Reporte, ByVal AdjuntoNombre As String, ByVal AdjuntoArchivo As String, ByVal ForzarEnvio As Boolean) As Integer
+    Friend Function EnviarAEntidadesPorNetClient(ByRef listEntidadesTo As List(Of Entidad), ByRef listEntidadesCC As List(Of Entidad), ByRef listEntidadesBCC As List(Of Entidad), ByVal Asunto As String, ByVal CuerpoEnHTML As Boolean, ByVal Cuerpo As String, ByRef AdjuntoReporte As Reporte, ByVal AdjuntoNombre As String, ByVal AdjuntoArchivo As String, ByVal ForzarEnvio As Boolean) As Integer
         Dim mail As New MailMessage()
         Dim smtp As New SmtpClient()
         Dim MailCount As Integer = 0
 
         ' Establezco los recipientes
-        mail.From = New MailAddress(My.Settings.Email_Address, My.Settings.Email_DisplayName)
+        mail.From = New MailAddress(pEmailConfig.Address, pEmailConfig.DisplayName)
 
         ' Destinatarios - To
-        MailCount += EnviarEmail_PorNETClient_AgregarDestinatarios(listEntidadesTo, mail.To, ForzarEnvio)
+        MailCount += EnviarPorNETClientAgregarDestinatarios(listEntidadesTo, mail.To, ForzarEnvio)
 
         ' Destinatarios - CC
-        MailCount += EnviarEmail_PorNETClient_AgregarDestinatarios(listEntidadesCC, mail.CC, ForzarEnvio)
+        MailCount += EnviarPorNETClientAgregarDestinatarios(listEntidadesCC, mail.CC, ForzarEnvio)
 
         ' Destinatarios - BCC
-        MailCount += EnviarEmail_PorNETClient_AgregarDestinatarios(listEntidadesBCC, mail.Bcc, ForzarEnvio)
+        MailCount += EnviarPorNETClientAgregarDestinatarios(listEntidadesBCC, mail.Bcc, ForzarEnvio)
 
         If MailCount = 0 Then
             Return MailCount
@@ -84,19 +89,19 @@ Module Email
         mail.Body = Cuerpo
 
         ' Establezco las opciones del Servidor SMTP
-        smtp.Host = My.Settings.Email_SMTP_Server
-        smtp.EnableSsl = My.Settings.Email_SMTP_UseSSL
-        smtp.Port = My.Settings.Email_SMTP_Port
-        smtp.Timeout = My.Settings.Email_SMTP_Timeout
+        smtp.Host = pEmailConfig.SmtpServer
+        smtp.EnableSsl = pEmailConfig.SmtpUseSslAsBoolean
+        smtp.Port = pEmailConfig.SmtpPortAsInteger
+        smtp.Timeout = pEmailConfig.SmtpTimeoutAsInteger
 
         Dim Decrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PUBLIC_ENCRYPTION_PASSWORD)
         Dim DecryptedPassword As String = ""
 
-        If Not Decrypter.Decrypt(My.Settings.Email_SMTP_Password, DecryptedPassword) Then
+        If Not Decrypter.Decrypt(pEmailConfig.SmtpPassword, DecryptedPassword) Then
             MsgBox("La contraseña de e-mail (SMTP) especificada es incorrecta.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
             Return -1
         End If
-        smtp.Credentials = New System.Net.NetworkCredential(My.Settings.Email_SMTP_Username, DecryptedPassword)
+        smtp.Credentials = New System.Net.NetworkCredential(pEmailConfig.SmtpUserName, DecryptedPassword)
         Decrypter = Nothing
 
         ' Attachments
@@ -117,7 +122,7 @@ Module Email
         End Try
     End Function
 
-    Private Function EnviarEmail_PorNETClient_AgregarDestinatarios(ByRef listDestinatarios As List(Of Entidad), ByRef colMailDestinatarios As System.Net.Mail.MailAddressCollection, ByVal ForzarEnvio As Boolean) As Integer
+    Private Function EnviarPorNETClientAgregarDestinatarios(ByRef listDestinatarios As List(Of Entidad), ByRef colMailDestinatarios As System.Net.Mail.MailAddressCollection, ByVal ForzarEnvio As Boolean) As Integer
         Dim DestinatariosCount As Integer = 0
 
         For Each Destinatario As Entidad In listDestinatarios
@@ -168,7 +173,7 @@ Module Email
         Return DestinatariosCount
     End Function
 
-    Friend Function EnviarEmailPorMSOutlook(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef ReporteActual As Reporte, ByVal AdjuntoNombre As String, ByVal ForzarEnvio As Boolean) As Integer
+    Friend Function EnviarPorMSOutlook(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef ReporteActual As Reporte, ByVal AdjuntoNombre As String, ByVal ForzarEnvio As Boolean) As Integer
         Dim mail As New CS_Office_Outlook_LateBinding.MailItem
 
         If (Not Titular.Email1 Is Nothing) And (Not Titular.Email2 Is Nothing) Then
@@ -187,7 +192,7 @@ Module Email
         Return -1 'CS_Office_Outlook_LateBinding.SendMail(My.Settings.Email_Address, mail)
     End Function
 
-    Friend Function EnviarEmailPorCrystalReportsMAPI(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef ReporteActual As Reporte, ByVal AdjuntoNombre As String, ByVal ForzarEnvio As Boolean) As Integer
+    Friend Function EnviarPorCrystalReportsMapi(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef ReporteActual As Reporte, ByVal AdjuntoNombre As String, ByVal ForzarEnvio As Boolean) As Integer
         'Preparo las opciones del mail
         Dim mailOpts As New CrystalDecisions.Shared.MicrosoftMailDestinationOptions
         If Not Titular.Email1 Is Nothing Then

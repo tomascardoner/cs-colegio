@@ -122,7 +122,6 @@ Partial Class formSplashScreen
         Me.Name = "formSplashScreen"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "App.Title"
-        Me.TopMost = True
         CType(Me.pictureboxIcon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

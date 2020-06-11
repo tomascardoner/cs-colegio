@@ -96,14 +96,14 @@
 
     Private Sub Enviar_Click(sender As Object, e As EventArgs) Handles buttonEnviar.Click
         If listComprobantes.Count > 0 Then
-            If My.Settings.Email_MaxPerHour > 0 Then
+            If pEmailConfig.SendMaxPerHourAsInteger > 0 Then
                 If comboboxCantidad.SelectedIndex = 0 Then
-                    If MsgBox(String.Format("Está por enviar Todos los Comprobantes por e-mail.{2}Tenga en cuenta que por cuestiones de seguridad (para evitar el spam), los servidores actuales no permiten enviar más de {1} e-mails por hora.{2}{2}¿Desea continuar de todos modos?", comboboxCantidad.SelectedText, My.Settings.Email_MaxPerHour, vbCrLf), CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                    If MsgBox(String.Format("Está por enviar Todos los Comprobantes por e-mail.{2}Tenga en cuenta que por cuestiones de seguridad (para evitar el spam), los servidores actuales no permiten enviar más de {1} e-mails por hora.{2}{2}¿Desea continuar de todos modos?", comboboxCantidad.SelectedText, pEmailConfig.SendMaxPerHourAsInteger, vbCrLf), CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
                         Exit Sub
                     End If
                 Else
-                    If CShort(comboboxCantidad.Text) >= My.Settings.Email_MaxPerHour Then
-                        If MsgBox(String.Format("Está por enviar {0} e-mails.{2}Tenga en cuenta que por cuestiones de seguridad (para evitar el spam), los servidores actuales no permiten enviar más de {1} e-mails por hora.{2}{2}¿Desea continuar de todos modos?", comboboxCantidad.Text, My.Settings.Email_MaxPerHour, vbCrLf), CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                    If CShort(comboboxCantidad.Text) >= pEmailConfig.SendMaxPerHourAsInteger Then
+                        If MsgBox(String.Format("Está por enviar {0} e-mails.{2}Tenga en cuenta que por cuestiones de seguridad (para evitar el spam), los servidores actuales no permiten enviar más de {1} e-mails por hora.{2}{2}¿Desea continuar de todos modos?", comboboxCantidad.Text, pEmailConfig.SendMaxPerHourAsInteger, vbCrLf), CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
                             Exit Sub
                         End If
                     End If
@@ -163,14 +163,14 @@
                     ReporteActual.ReportObject.Refresh()
 
                     Dim Asunto As String = String.Format(My.Settings.Comprobante_EnviarEmail_Subject, ComprobanteActual.ComprobanteTipo.NombreConLetra, GridDataRowActual.NumeroCompleto)
-                    Dim Cuerpo As String = String.Format(My.Settings.Comprobante_EnvioEmail_Body, vbCrLf) & String.Format(My.Settings.Email_Signature, vbCrLf)
+                    Dim Cuerpo As String = String.Format(My.Settings.Comprobante_EnvioEmail_Body, vbCrLf) & String.Format(pEmailConfig.Signature, vbCrLf)
                     Dim AdjuntoNombre As String = String.Format("{0}-{1}.pdf", ComprobanteActual.ComprobanteTipo.Sigla.TrimEnd, ComprobanteActual.NumeroCompleto)
 
                     textboxStatus.AppendText(vbCrLf & String.Format("Enviando {0} N° {1} a {2}...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.NumeroCompleto, ComprobanteActual.Entidad.ApellidoNombre))
 
                     Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
                         Case CardonerSistemas.Constants.EMAIL_CLIENT_NETDLL
-                            Result = Email.EnviarEmail_PorNETClient_AEntidades(New List(Of Entidad)({ComprobanteActual.Entidad}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", False)
+                            Result = Email.EnviarAEntidadesPorNetClient(New List(Of Entidad)({ComprobanteActual.Entidad}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", False)
                             Select Case Result
                                 Case 0
                                     MsgBox("No hay una dirección de e-mail para la Entidad.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
@@ -186,13 +186,13 @@
                             End Select
                             MailCount += Result
                         Case CardonerSistemas.Constants.EMAIL_CLIENT_MSOUTLOOK
-                            Result = Email.EnviarEmailPorMSOutlook(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
+                            Result = Email.EnviarPorMSOutlook(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
                             If Result = -1 Then
                                 Exit For
                             End If
                             MailCount += Result
                         Case CardonerSistemas.Constants.EMAIL_CLIENT_CRYSTALREPORTSMAPI
-                            Result = Email.EnviarEmailPorCrystalReportsMAPI(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
+                            Result = Email.EnviarPorCrystalReportsMapi(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
                             If Result = -1 Then
                                 Exit For
                             End If

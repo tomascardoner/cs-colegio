@@ -74,50 +74,17 @@
     <Setting Name="LoteComprobantes_EnviarEmail_Metodo" Type="System.String" Scope="Application">
       <Value Profile="(Default)">NETCLIENT</Value>
     </Setting>
-    <Setting Name="Email_DisplayName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Colegio Horizonte de Lobos - Administracion</Value>
-    </Setting>
-    <Setting Name="Email_Address" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">tomascardoner@me.com</Value>
-    </Setting>
-    <Setting Name="Email_SMTP_Server" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">mail.horizontedelobos.com.ar</Value>
-    </Setting>
-    <Setting Name="Email_SMTP_Username" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">administracion@horizontedelobos.com.ar</Value>
-    </Setting>
-    <Setting Name="Email_SMTP_Password" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">yW4DfKMkoW1G6xeH/A+Jj9jGeAXMiW9Xk4NW/87/C7kP9+IdAyHtUw==</Value>
-    </Setting>
-    <Setting Name="Email_SMTP_Port" Type="System.Int16" Scope="Application">
-      <Value Profile="(Default)">25</Value>
-    </Setting>
-    <Setting Name="Email_SMTP_UseSSL" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="Email_SMTP_Timeout" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">90000</Value>
-    </Setting>
     <Setting Name="Comprobante_EnviarEmail_Subject" Type="System.String" Scope="Application">
       <Value Profile="(Default)">{0} N° {1}</Value>
     </Setting>
     <Setting Name="Comprobante_EnvioEmail_Body" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Adjuntamos el Comprobante solicitado.{0}{0}Atentamente.</Value>
     </Setting>
-    <Setting Name="Email_Signature" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">{0}{0}Colegio Horizonte de Lobos{0}Administración{0}Castelli 193 - Lobos{0}Tel.: +54 2227 42-4656{0}administracion@horizontedelobos.com.ar{0}www.horizontedelobos.com.ar</Value>
-    </Setting>
     <Setting Name="AFIP_WS_Certificado_Produccion" Type="System.String" Scope="Application">
       <Value Profile="(Default)">C:\Users\Tomas\Dropbox\Colegio Horizonte\CS-Colegio\Certificados\administracion_produccion.crt</Value>
     </Setting>
-    <Setting Name="Comprobante_EnviarEmail_Metodo" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">NETCLIENT</Value>
-    </Setting>
     <Setting Name="AFIP_WS_LogEnabled" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="Email_MaxPerHour" Type="System.Int16" Scope="Application">
-      <Value Profile="(Default)">200</Value>
     </Setting>
     <Setting Name="Exchange_Outbound_Folder" Type="System.String" Scope="Application">
       <Value Profile="(Default)">%ApplicationFolder%\Intercambio\Salida</Value>

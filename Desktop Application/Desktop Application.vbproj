@@ -114,6 +114,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
@@ -376,6 +377,7 @@
     <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_ValueTranslation.vb">
       <Link>Framework\CS_ValueTranslation.vb</Link>
     </Compile>
+    <Compile Include="Configuraciones\Configuration.vb" />
     <Compile Include="Sistema\Constantes.vb" />
     <Compile Include="CSColegio.Context.vb">
       <AutoGen>True</AutoGen>
@@ -397,6 +399,7 @@
     <Compile Include="Outlook\EntidadesSincronizarOutlookGruposMiembrosABM.vb" />
     <Compile Include="Outlook\EntidadesSincronizarOutlookOpciones.vb" />
     <Compile Include="Sistema\Email.vb" />
+    <Compile Include="Configuraciones\EmailConfig.vb" />
     <Compile Include="Sistema\EntityFrameworkExtension.vb" />
     <Compile Include="Sistema\FillAndRefreshLists.vb" />
     <Compile Include="Sistema\formAboutBox.Designer.vb">
@@ -406,6 +409,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Sistema\Reportes.vb" />
+    <Compile Include="Sistema\Serializer.vb" />
     <Compile Include="Tablas ABMs\formAnioLectivoCuotas.Designer.vb">
       <DependentUpon>formAnioLectivoCuotas.vb</DependentUpon>
     </Compile>
@@ -849,6 +853,9 @@
     </None>
     <EntityDeploy Include="CSColegio.edmx" />
     <None Include="app.manifest" />
+    <None Include="Email.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="CSColegio.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CSColegio.edmx</DependentUpon>

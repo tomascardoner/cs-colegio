@@ -184,6 +184,7 @@
 #End Region
 
 #Region "Main Toolbar"
+
     Private Sub Agregar_Click() Handles buttonAgregar.Click
         If Permisos.VerificarPermiso(Permisos.COMUNICACION_AGREGAR) Then
             Me.Cursor = Cursors.WaitCursor
@@ -311,7 +312,7 @@
 
                     Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
                         Case CardonerSistemas.Constants.EMAIL_CLIENT_NETDLL
-                            If Email.EnviarEmail_PorNETClient(New System.Net.Mail.MailAddress(DireccionEmailDestino), Nothing, Nothing, ComunicacionActual.Asunto, ComunicacionActual.CuerpoMensajeEsHTML, ComunicacionActual.CuerpoMensaje, Nothing, "", ComunicacionActual.ArchivoAdjunto, False) Then
+                            If Email.EnviarPorNetClient(New System.Net.Mail.MailAddress(DireccionEmailDestino), Nothing, Nothing, ComunicacionActual.Asunto, ComunicacionActual.CuerpoMensajeEsHTML, ComunicacionActual.CuerpoMensaje, Nothing, "", ComunicacionActual.ArchivoAdjunto, False) Then
                                 MsgBox("Se ha enviado la Comunicación por e-mail.", vbInformation, My.Application.Info.Title)
                             End If
                         Case CardonerSistemas.Constants.EMAIL_CLIENT_MSOUTLOOK
