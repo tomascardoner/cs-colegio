@@ -23,9 +23,6 @@
     <Setting Name="UseCustomDialogForErrorMessage" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="LoteComprobantes_PreseleccionarTodos" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="PermiteGenerarMatriculaMesDesde" Type="System.Byte" Scope="Application">
       <Value Profile="(Default)">10</Value>
     </Setting>
@@ -38,74 +35,11 @@
     <Setting Name="DecimalesEnImportes" Type="System.Byte" Scope="Application">
       <Value Profile="(Default)">2</Value>
     </Setting>
-    <Setting Name="LoteComprobantes_EnviarEmail_Metodo" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">NETCLIENT</Value>
-    </Setting>
-    <Setting Name="Comprobante_EnviarEmail_Subject" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">{0} N° {1}</Value>
-    </Setting>
-    <Setting Name="Comprobante_EnvioEmail_Body" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Adjuntamos el Comprobante solicitado.{0}{0}Atentamente.</Value>
-    </Setting>
-    <Setting Name="Exchange_Outbound_Folder" Type="System.String" Scope="Application">
+    <Setting Name="ExchangeOutboundFolder" Type="System.String" Scope="Application">
       <Value Profile="(Default)">%ApplicationFolder%\Intercambio\Salida</Value>
     </Setting>
-    <Setting Name="Exchange_Outbound_PagoMisCuentas_SubFolder" Type="System.String" Scope="Application">
+    <Setting Name="ExchangeOutboundPagoMisCuentasSubFolder" Type="System.String" Scope="Application">
       <Value Profile="(Default)">PagoMisCuentas</Value>
-    </Setting>
-    <Setting Name="Exchange_Outbound_Santander_Piryp_Folder" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\TEMP</Value>
-    </Setting>
-    <Setting Name="Comprobante_RequiereDomicilioCompleto" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="Email_Delivery_Failed_Subject" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">RV: Mail delivery failed: returning message to sender</Value>
-    </Setting>
-    <Setting Name="Email_Delivery_Failed_ErrorText" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">550 Requested action not taken: mailbox unavailable</Value>
-    </Setting>
-    <Setting Name="Email_Delivery_Failed_RejectedAddress_PreviousText" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">The following address(es) failed:</Value>
-    </Setting>
-    <Setting Name="Email_Delivery_Failed_SenderAddress" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Mailer-Daemon@orlando.dattaweb.com</Value>
-    </Setting>
-    <Setting Name="Outlook_ContactsSync_EntidadTipo_PersonalColegio" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="Outlook_ContactsSync_EntidadTipo_Docente" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="Outlook_ContactsSync_EntidadTipo_Alumno" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="Outlook_ContactsSync_EntidadTipo_Familiar" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="Outlook_ContactsSync_EntidadTipo_Proveedor" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="Outlook_ContactsSync_EntidadTipo_Otro" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="Outlook_ContactsSync_GrupoNoEncontrado_Borrar" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="Outlook_ContactsSync_ContactoNoEncontrado_Borrar" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="Outlook_ContactsSync_SincronizarGrupos_EntidadTipo" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="Outlook_ContactsSync_SincronizarGrupos_NivelYCurso" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="Outlook_ContactsSync_GrupoNombre" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Grupo: {0}</Value>
-    </Setting>
-    <Setting Name="Outlook_ContactsSync_AniosLectivos" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">2018;2019</Value>
     </Setting>
   </Settings>
 </SettingsFile>

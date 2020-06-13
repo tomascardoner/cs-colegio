@@ -249,7 +249,7 @@
             textboxStatus.AppendText(vbCrLf & String.Format("Enviando Comunicación a {0} Entidades...", listEntidadesTo.Count + listEntidadesCC.Count + listEntidadesBCC.Count))
         End If
 
-        Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
+        Select Case pComprobanteConfig.SendEmailMethod
             Case CardonerSistemas.Constants.EMAIL_CLIENT_NETDLL
                 MailCount = Email.EnviarAEntidadesPorNetClient(listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual.Asunto, ComunicacionActual.CuerpoMensajeEsHTML, ComunicacionActual.CuerpoMensaje, Nothing, "", ComunicacionActual.ArchivoAdjunto, False)
                 If MailCount = -1 Then

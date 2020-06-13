@@ -258,8 +258,10 @@
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
     <Compile Include="Config\AfipWebServicesConfig.vb" />
+    <Compile Include="Config\ComprobanteConfig.vb" />
     <Compile Include="Config\DatabaseConfig.vb" />
-    <Compile Include="Config\SantanderAddiConfig.vb" />
+    <Compile Include="Config\OutlookContactsSyncConfig.vb" />
+    <Compile Include="Config\SantanderConfig.vb" />
     <Compile Include="CuotaTipo.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -412,7 +414,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Sistema\Reportes.vb" />
-    <Compile Include="Sistema\Serializer.vb" />
+    <Compile Include="Config\Serializer.vb" />
     <Compile Include="Tablas ABMs\formAnioLectivoCuotas.Designer.vb">
       <DependentUpon>formAnioLectivoCuotas.vb</DependentUpon>
     </Compile>
@@ -455,10 +457,10 @@
     <Compile Include="Comprobantes\formComprobanteVerificaAFIP.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Entidades\formEntidadesSincronizarOutlook.Designer.vb">
+    <Compile Include="Outlook\formEntidadesSincronizarOutlook.Designer.vb">
       <DependentUpon>formEntidadesSincronizarOutlook.vb</DependentUpon>
     </Compile>
-    <Compile Include="Entidades\formEntidadesSincronizarOutlook.vb">
+    <Compile Include="Outlook\formEntidadesSincronizarOutlook.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Entidades\formEntidadesVerificadorEmail.Designer.vb">
@@ -737,7 +739,7 @@
     <EmbeddedResource Include="Comprobantes\formComprobanteVerificaAFIP.resx">
       <DependentUpon>formComprobanteVerificaAFIP.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Entidades\formEntidadesSincronizarOutlook.resx">
+    <EmbeddedResource Include="Outlook\formEntidadesSincronizarOutlook.resx">
       <DependentUpon>formEntidadesSincronizarOutlook.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Entidades\formEntidadesVerificadorEmail.resx">
@@ -859,13 +861,19 @@
     <None Include="Config\AfipWebServices.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Config\Comprobante.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Config\Database.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Config\Email.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Config\SantanderAddi.config">
+    <None Include="Config\OutlookContactsSync.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Santander.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="CSColegio.Context.tt">

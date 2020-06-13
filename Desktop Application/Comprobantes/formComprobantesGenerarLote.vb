@@ -1,6 +1,4 @@
-﻿Imports System.Drawing.Printing
-
-Public Class formComprobantesGenerarLote
+﻿Public Class formComprobantesGenerarLote
 
 #Region "Declarations"
     Private mdbContext As CSColegioContext
@@ -76,6 +74,7 @@ Public Class formComprobantesGenerarLote
 #End Region
 
 #Region "Paso 1 - Selección - TreeView de Niveles - Cursos - Alumnos"
+
     Private Sub FillTreeViewNiveles()
         Dim NewNode As TreeNode
 
@@ -85,7 +84,7 @@ Public Class formComprobantesGenerarLote
         For Each NivelCurrent As Nivel In mdbContext.Nivel.Where(Function(niv) niv.EsActivo = True)
             ' Agrego el nodo correspondiente al Nivel actual y agrego un nodo hijo que diga "cargando..." para cuando se expanda el nodo
             NewNode = New TreeNode(NivelCurrent.Nombre, {New TreeNode(NODO_CARGANDO_TEXTO)})
-            NewNode.Checked = My.Settings.LoteComprobantes_PreseleccionarTodos
+            NewNode.Checked = True
             NewNode.Tag = NivelCurrent
             treeviewPaso1NivelCursoAlumno.Nodes.Add(NewNode)
         Next
@@ -192,6 +191,7 @@ Public Class formComprobantesGenerarLote
 #End Region
 
 #Region "Paso 1 - Selección - TreeView de Padres - Alumnos"
+
     Private Sub FillTreeViewPadres()
         Dim NewNode As TreeNode
 
@@ -201,7 +201,7 @@ Public Class formComprobantesGenerarLote
         For Each EntidadCurrent As Entidad In mdbContext.Entidad.Where(Function(ent) ent.EsActivo = True And ent.TipoFamiliar And (ent.EntidadPadreHijas.Count > 0 Or ent.EntidadMadreHijas.Count > 0)).OrderBy(Function(ent) ent.ApellidoNombre)
             ' Agrego el nodo correspondiente al Padre/Madre actual y agrego un nodo hijo que diga "cargando..." para cuando se expanda el nodo
             NewNode = New TreeNode(EntidadCurrent.ApellidoNombre, {New TreeNode(NODO_CARGANDO_TEXTO)})
-            NewNode.Checked = My.Settings.LoteComprobantes_PreseleccionarTodos
+            NewNode.Checked = True
             NewNode.Tag = EntidadCurrent
             treeviewPaso1PadresAlumnos.Nodes.Add(NewNode)
         Next

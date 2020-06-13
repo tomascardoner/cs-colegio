@@ -112,7 +112,7 @@ Module EntidadesSincronizarOutlookGruposExistentes
                         Entidades = Nothing
                         Return False
                     End Try
-                    If Not EntidadesSincronizarOutlookGruposABM.ActualizarGrupo(OutlookApplication, OutlookDistListItem, String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, EntidadTipoANombre(EntidadTipo)), Entidades, ProgressBarProgreso) Then
+                    If Not EntidadesSincronizarOutlookGruposABM.ActualizarGrupo(OutlookApplication, OutlookDistListItem, String.Format(pOutlookContactsSyncConfig.GrupoNombre, EntidadTipoANombre(EntidadTipo)), Entidades, ProgressBarProgreso) Then
                         Entidades = Nothing
                         Return False
                     End If

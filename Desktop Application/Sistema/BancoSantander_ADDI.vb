@@ -4,13 +4,13 @@
 
         With DatabaseObject
             .ApplicationName = My.Application.Info.Title
-            .Datasource = pSantanderAddiConfig.Datasource
-            .InitialCatalog = pSantanderAddiConfig.Database
-            .UserId = pSantanderAddiConfig.UserId
+            .Datasource = pSantanderConfig.Datasource
+            .InitialCatalog = pSantanderConfig.AddiDatabase
+            .UserId = pSantanderConfig.UserId
             ' Desencripto la contraseña de la conexión a la base de datos que está en el archivo app.config
             Dim PasswordDecrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PUBLIC_ENCRYPTION_PASSWORD)
             Dim DecrytedPassword As String = ""
-            If PasswordDecrypter.Decrypt(pSantanderAddiConfig.Password, DecrytedPassword) Then
+            If PasswordDecrypter.Decrypt(pSantanderConfig.Password, DecrytedPassword) Then
                 .Password = DecrytedPassword
             Else
                 MsgBox("La contraseña de conexión al sistema ADDI es incorrecta.", MsgBoxStyle.Exclamation, My.Application.Info.Title)

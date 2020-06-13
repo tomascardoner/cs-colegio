@@ -138,7 +138,7 @@
             CorreccionDescripcion &= String.Format("{1} no tiene especificado el Tipo y Número de Documento.{0}", vbCrLf, SujetoDescripcion)
         End If
 
-        If My.Settings.Comprobante_RequiereDomicilioCompleto Then
+        If pComprobanteConfig.RequiereDomicilioCompletoAsBoolean Then
             If EntidadAVerificar.DomicilioCalle1 Is Nothing Then
                 CorreccionDescripcion &= String.Format("{1} no tiene especificado el Domicilio.{0}", vbCrLf, SujetoDescripcion)
             End If

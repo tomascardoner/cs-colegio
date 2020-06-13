@@ -310,7 +310,7 @@
                     Me.Cursor = Cursors.WaitCursor
                     datagridviewMain.Enabled = False
 
-                    Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
+                    Select Case pComprobanteConfig.SendEmailMethod
                         Case CardonerSistemas.Constants.EMAIL_CLIENT_NETDLL
                             If Email.EnviarPorNetClient(New System.Net.Mail.MailAddress(DireccionEmailDestino), Nothing, Nothing, ComunicacionActual.Asunto, ComunicacionActual.CuerpoMensajeEsHTML, ComunicacionActual.CuerpoMensaje, Nothing, "", ComunicacionActual.ArchivoAdjunto, False) Then
                                 MsgBox("Se ha enviado la Comunicación por e-mail.", vbInformation, My.Application.Info.Title)

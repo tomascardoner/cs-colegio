@@ -162,13 +162,13 @@
                     ReporteActual.RecordSelectionFormula = "{Comprobante.IDComprobante} = " & ComprobanteActual.IDComprobante
                     ReporteActual.ReportObject.Refresh()
 
-                    Dim Asunto As String = String.Format(My.Settings.Comprobante_EnviarEmail_Subject, ComprobanteActual.ComprobanteTipo.NombreConLetra, GridDataRowActual.NumeroCompleto)
-                    Dim Cuerpo As String = String.Format(My.Settings.Comprobante_EnvioEmail_Body, vbCrLf) & String.Format(pEmailConfig.Signature, vbCrLf)
+                    Dim Asunto As String = String.Format(pComprobanteConfig.SendEmailSubject, ComprobanteActual.ComprobanteTipo.NombreConLetra, GridDataRowActual.NumeroCompleto)
+                    Dim Cuerpo As String = String.Format(pComprobanteConfig.SendEmailBody, vbCrLf) & String.Format(pEmailConfig.Signature, vbCrLf)
                     Dim AdjuntoNombre As String = String.Format("{0}-{1}.pdf", ComprobanteActual.ComprobanteTipo.Sigla.TrimEnd, ComprobanteActual.NumeroCompleto)
 
                     textboxStatus.AppendText(vbCrLf & String.Format("Enviando {0} N° {1} a {2}...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.NumeroCompleto, ComprobanteActual.Entidad.ApellidoNombre))
 
-                    Select Case My.Settings.LoteComprobantes_EnviarEmail_Metodo
+                    Select Case pComprobanteConfig.SendEmailMethod
                         Case CardonerSistemas.Constants.EMAIL_CLIENT_NETDLL
                             Result = Email.EnviarAEntidadesPorNetClient(New List(Of Entidad)({ComprobanteActual.Entidad}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", False)
                             Select Case Result

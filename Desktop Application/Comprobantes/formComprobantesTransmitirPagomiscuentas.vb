@@ -107,11 +107,11 @@ Public Class formComprobantesTransmitirPagomiscuentas
 
         ' Obtengo y verifico si existe la carpeta de destino de los archivos a exportar
         Try
-            FolderName = CardonerSistemas.SpecialFolders.ProcessString(My.Settings.Exchange_Outbound_Folder)
+            FolderName = CardonerSistemas.SpecialFolders.ProcessString(My.Settings.ExchangeOutboundFolder)
             If Not FolderName.EndsWith("\") Then
                 FolderName &= "\"
             End If
-            FolderName &= My.Settings.Exchange_Outbound_PagoMisCuentas_SubFolder
+            FolderName &= My.Settings.ExchangeOutboundPagoMisCuentasSubFolder
             If Not FolderName.EndsWith("\") Then
                 FolderName &= "\"
             End If

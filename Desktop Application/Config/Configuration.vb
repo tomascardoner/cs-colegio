@@ -2,10 +2,13 @@
 
 Module Configuration
     Private Const ConfigSubFolder As String = "Config"
+
     Private Const AfipWebServicesFileName As String = "AfipWebServices.config"
+    Private Const ComprobanteFileName As String = "Comprobante.config"
     Private Const DatabaseFileName As String = "Database.config"
     Private Const EmailFileName As String = "Email.config"
-    Private Const SantanderAddiFileName As String = "SantanderAddi.config"
+    Private Const OutlookContactsSyncFileName As String = "OutlookContactsSync.config"
+    Private Const SantanderFileName As String = "Santander.config"
 
     Friend Function LoadFiles() As Boolean
         Dim ConfigFolder As String
@@ -15,13 +18,19 @@ Module Configuration
         If Not LoadAfipWebServicesFile(ConfigFolder) Then
             Return False
         End If
+        If Not LoadComprobanteFile(ConfigFolder) Then
+            Return False
+        End If
         If Not LoadDatabaseFile(ConfigFolder) Then
             Return False
         End If
         If Not LoadEmailFile(ConfigFolder) Then
             Return False
         End If
-        If Not LoadSantanderAddiFile(ConfigFolder) Then
+        If Not LoadOutlookContactsSyncFile(ConfigFolder) Then
+            Return False
+        End If
+        If Not LoadSantanderFile(ConfigFolder) Then
             Return False
         End If
 
@@ -32,7 +41,7 @@ Module Configuration
         If File.Exists(configFolder & fileName) Then
             Return True
         Else
-            MsgBox(String.Format("No se encontró el archivo de configuración '{0}'. Debe estar ubicado en la carpeta '{0}' ubicada en la misma ubicación que el archivo ejecutable (.exe) de la aplicación.", ConfigSubFolder, fileName), MsgBoxStyle.Critical, My.Application.Info.Title)
+            MsgBox(String.Format("No se encontró el archivo de configuración '{1}'. Debe estar ubicado en la carpeta '{0}' ubicada en la misma ubicación que el archivo ejecutable (.exe) de la aplicación.", ConfigSubFolder, fileName), MsgBoxStyle.Critical, My.Application.Info.Title)
             Return False
         End If
     End Function
@@ -53,6 +62,27 @@ Module Configuration
 
         Catch ex As Exception
             CardonerSistemas.ProcessError(ex, String.Format("Error al cargar el archivo de configuración '{0}'.", AfipWebServicesFileName))
+            serializer = Nothing
+            Return False
+        End Try
+    End Function
+
+    Private Function LoadComprobanteFile(ByVal configFolder As String) As Boolean
+        Dim serializer As Serializer = New Serializer()
+        Dim inputText As String
+
+        If Not CheckFileExist(configFolder, ComprobanteFileName) Then
+            Return False
+        End If
+
+        Try
+            inputText = File.ReadAllText(configFolder & ComprobanteFileName)
+            pComprobanteConfig = serializer.Deserialize(Of ComprobanteConfig)(inputText)
+            serializer = Nothing
+            Return True
+
+        Catch ex As Exception
+            CardonerSistemas.ProcessError(ex, String.Format("Error al cargar el archivo de configuración '{0}'.", ComprobanteFileName))
             serializer = Nothing
             Return False
         End Try
@@ -100,22 +130,43 @@ Module Configuration
         End Try
     End Function
 
-    Private Function LoadSantanderAddiFile(ByVal configFolder As String) As Boolean
+    Private Function LoadOutlookContactsSyncFile(ByVal configFolder As String) As Boolean
         Dim serializer As Serializer = New Serializer()
         Dim inputText As String
 
-        If Not CheckFileExist(configFolder, SantanderAddiFileName) Then
+        If Not CheckFileExist(configFolder, OutlookContactsSyncFileName) Then
             Return False
         End If
 
         Try
-            inputText = File.ReadAllText(configFolder & SantanderAddiFileName)
-            pSantanderAddiConfig = serializer.Deserialize(Of SantanderAddiConfig)(inputText)
+            inputText = File.ReadAllText(configFolder & OutlookContactsSyncFileName)
+            pOutlookContactsSyncConfig = serializer.Deserialize(Of OutlookContactsSyncConfig)(inputText)
             serializer = Nothing
             Return True
 
         Catch ex As Exception
-            CardonerSistemas.ProcessError(ex, String.Format("Error al cargar el archivo de configuración '{0}'.", SantanderAddiFileName))
+            CardonerSistemas.ProcessError(ex, String.Format("Error al cargar el archivo de configuración '{0}'.", OutlookContactsSyncFileName))
+            serializer = Nothing
+            Return False
+        End Try
+    End Function
+
+    Private Function LoadSantanderFile(ByVal configFolder As String) As Boolean
+        Dim serializer As Serializer = New Serializer()
+        Dim inputText As String
+
+        If Not CheckFileExist(configFolder, SantanderFileName) Then
+            Return False
+        End If
+
+        Try
+            inputText = File.ReadAllText(configFolder & SantanderFileName)
+            pSantanderConfig = serializer.Deserialize(Of SantanderConfig)(inputText)
+            serializer = Nothing
+            Return True
+
+        Catch ex As Exception
+            CardonerSistemas.ProcessError(ex, String.Format("Error al cargar el archivo de configuración '{0}'.", SantanderFileName))
             serializer = Nothing
             Return False
         End Try

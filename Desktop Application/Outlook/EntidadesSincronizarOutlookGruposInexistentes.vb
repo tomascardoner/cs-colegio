@@ -55,7 +55,7 @@ Module EntidadesSincronizarOutlookGruposInexistentes
             Return True
         Else
             If EntidadesSincronizarOutlookGruposABM.CrearGrupoDeTipoDeEntidad(OutlookApplication, OutlookDistListItem, EntidadTipo) Then
-                If EntidadesSincronizarOutlookGruposABM.ActualizarGrupo(OutlookApplication, OutlookDistListItem, String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, EntidadTipoANombre(EntidadTipo)), Entidades, ProgressBarProgreso) Then
+                If EntidadesSincronizarOutlookGruposABM.ActualizarGrupo(OutlookApplication, OutlookDistListItem, String.Format(pOutlookContactsSyncConfig.GrupoNombre, EntidadTipoANombre(EntidadTipo)), Entidades, ProgressBarProgreso) Then
                     Return True
                 End If
             End If
@@ -124,7 +124,7 @@ Module EntidadesSincronizarOutlookGruposInexistentes
             Return True
         Else
             If EntidadesSincronizarOutlookGruposABM.CrearGrupoDeNivel(OutlookApplication, OutlookDistListItem, AnioLectivo, IDCurso) Then
-                If EntidadesSincronizarOutlookGruposABM.ActualizarGrupo(OutlookApplication, OutlookDistListItem, String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, GrupoNombre), Entidades, ProgressBarProgreso) Then
+                If EntidadesSincronizarOutlookGruposABM.ActualizarGrupo(OutlookApplication, OutlookDistListItem, String.Format(pOutlookContactsSyncConfig.GrupoNombre, GrupoNombre), Entidades, ProgressBarProgreso) Then
                     Return True
                 End If
             End If
@@ -194,7 +194,7 @@ Module EntidadesSincronizarOutlookGruposInexistentes
             Return True
         Else
             If EntidadesSincronizarOutlookGruposABM.CrearGrupoDeNivel(OutlookApplication, OutlookDistListItem, AnioLectivo, IDNivel) Then
-                If EntidadesSincronizarOutlookGruposABM.ActualizarGrupo(OutlookApplication, OutlookDistListItem, String.Format(My.Settings.Outlook_ContactsSync_GrupoNombre, GrupoNombre), Entidades, ProgressBarProgreso) Then
+                If EntidadesSincronizarOutlookGruposABM.ActualizarGrupo(OutlookApplication, OutlookDistListItem, String.Format(pOutlookContactsSyncConfig.GrupoNombre, GrupoNombre), Entidades, ProgressBarProgreso) Then
                     Return True
                 End If
             End If

@@ -11,6 +11,10 @@
     Public Property SmtpTimeout As String
     Public Property SendMethod As String
     Public Property SendMaxPerHour As String
+    Public Property DeliveryFailedSubject As String
+    Public Property DeliveryFailedErrorText As String
+    Public Property DeliveryFailedRejectedAddressPreviousText As String
+    Public Property DeliveryFailedSenderAddress As String
 
     Friend Property SmtpPortAsInteger As Integer
         Get

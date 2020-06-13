@@ -126,7 +126,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
 
         ' Obtengo y verifico si existe la carpeta de destino de los archivos a exportar
         Try
-            FolderName = CardonerSistemas.SpecialFolders.ProcessString(My.Settings.Exchange_Outbound_Santander_Piryp_Folder)
+            FolderName = CardonerSistemas.SpecialFolders.ProcessString(pSantanderConfig.PirypOutboundFolder)
             If Not FolderName.EndsWith("\") Then
                 FolderName &= "\"
             End If
@@ -315,7 +315,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
 
         ' Obtengo y verifico si existe la carpeta de destino de los archivos a exportar
         Try
-            FolderName = CardonerSistemas.SpecialFolders.ProcessString(My.Settings.Exchange_Outbound_Santander_Piryp_Folder)
+            FolderName = CardonerSistemas.SpecialFolders.ProcessString(pSantanderConfig.PirypOutboundFolder)
             If Not FolderName.EndsWith("\") Then
                 FolderName &= "\"
             End If

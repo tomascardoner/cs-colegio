@@ -17,25 +17,25 @@
     Friend Sub LoadFromSettings()
         Dim AnioLectivoShort As Short
 
-        EntidadTipoPersonalColegio = My.Settings.Outlook_ContactsSync_EntidadTipo_PersonalColegio
-        EntidadTipoDocente = My.Settings.Outlook_ContactsSync_EntidadTipo_Docente
-        EntidadTipoAlumno = My.Settings.Outlook_ContactsSync_EntidadTipo_Alumno
-        EntidadTipoFamiliar = My.Settings.Outlook_ContactsSync_EntidadTipo_Familiar
-        EntidadTipoProveedor = My.Settings.Outlook_ContactsSync_EntidadTipo_Proveedor
-        EntidadTipoOtro = My.Settings.Outlook_ContactsSync_EntidadTipo_Otro
+        EntidadTipoPersonalColegio = pOutlookContactsSyncConfig.EntidadTipoPersonalColegioAsBoolean
+        EntidadTipoDocente = pOutlookContactsSyncConfig.EntidadTipoDocenteAsBoolean
+        EntidadTipoAlumno = pOutlookContactsSyncConfig.EntidadTipoAlumnoAsBoolean
+        EntidadTipoFamiliar = pOutlookContactsSyncConfig.EntidadTipoFamiliarAsBoolean
+        EntidadTipoProveedor = pOutlookContactsSyncConfig.EntidadTipoProveedorAsBoolean
+        EntidadTipoOtro = pOutlookContactsSyncConfig.EntidadTipoOtroAsBoolean
 
-        GrupoContactosInexistenteBorrar = My.Settings.Outlook_ContactsSync_GrupoNoEncontrado_Borrar
-        ContactoInexistenteBorrar = My.Settings.Outlook_ContactsSync_ContactoNoEncontrado_Borrar
+        GrupoContactosInexistenteBorrar = pOutlookContactsSyncConfig.GrupoNoEncontradoBorrarAsBoolean
+        ContactoInexistenteBorrar = pOutlookContactsSyncConfig.ContactoNoEncontradoBorrarAsBoolean
 
-        SincronizarGrupoContactosPorEntidadTipos = My.Settings.Outlook_ContactsSync_SincronizarGrupos_EntidadTipo
-        SincronizarGrupoContactosPorNivelesYCursos = My.Settings.Outlook_ContactsSync_SincronizarGrupos_NivelYCurso
+        SincronizarGrupoContactosPorEntidadTipos = pOutlookContactsSyncConfig.GruposEntidadTipoAsBoolean
+        SincronizarGrupoContactosPorNivelesYCursos = pOutlookContactsSyncConfig.GruposNivelYCursoAsBoolean
 
         ' Cargo los Años Lectivos
-        For Each AnioLectivoString As String In My.Settings.Outlook_ContactsSync_AniosLectivos.Split(CardonerSistemas.Constants.STRING_LIST_SEPARATOR)
-            If Short.TryParse(AnioLectivoString, AnioLectivoShort) Then
-                AniosLectivos.Add(AnioLectivoShort)
-            End If
-        Next
-        AniosLectivos = AniosLectivos.OrderBy(Function(x) x).ToList()
+        'For Each AnioLectivoString As String In My.Settings.Outlook_ContactsSync_AniosLectivos.Split(CardonerSistemas.Constants.STRING_LIST_SEPARATOR)
+        '    If Short.TryParse(AnioLectivoString, AnioLectivoShort) Then
+        '        AniosLectivos.Add(AnioLectivoShort)
+        '    End If
+        'Next
+        'AniosLectivos = AniosLectivos.OrderBy(Function(x) x).ToList()
     End Sub
 End Class

@@ -8,6 +8,7 @@
 #End Region
 
 #Region "Form stuff"
+
     Private Sub Me_Load() Handles Me.Load
 
     End Sub

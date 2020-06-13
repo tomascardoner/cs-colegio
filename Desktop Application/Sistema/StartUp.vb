@@ -7,9 +7,11 @@ Module StartUp
 
     ' Config files
     Friend pAfipWebServicesConfig As AfipWebServicesConfig
+    Friend pComprobanteConfig As ComprobanteConfig
     Friend pDatabaseConfig As DatabaseConfig
     Friend pEmailConfig As EmailConfig
-    Friend pSantanderAddiConfig As SantanderAddiConfig
+    Friend pOutlookContactsSyncConfig As OutlookContactsSyncConfig
+    Friend pSantanderConfig As SantanderConfig
 
     Friend pFormMDIMain As formMDIMain
     Friend pPermisos As List(Of UsuarioGrupoPermiso)
@@ -177,9 +179,11 @@ Module StartUp
         pDatabase = Nothing
 
         pAfipWebServicesConfig = Nothing
+        pComprobanteConfig = Nothing
         pDatabaseConfig = Nothing
         pEmailConfig = Nothing
-        pSantanderAddiConfig = Nothing
+        pOutlookContactsSyncConfig = Nothing
+        pSantanderConfig = Nothing
 
         pFillAndRefreshLists = Nothing
         pPermisos = Nothing

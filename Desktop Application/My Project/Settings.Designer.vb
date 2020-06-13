@@ -122,15 +122,6 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public ReadOnly Property LoteComprobantes_PreseleccionarTodos() As Boolean
-            Get
-                Return CType(Me("LoteComprobantes_PreseleccionarTodos"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("10")>  _
         Public ReadOnly Property PermiteGenerarMatriculaMesDesde() As Byte
             Get
@@ -167,208 +158,19 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("NETCLIENT")>  _
-        Public ReadOnly Property LoteComprobantes_EnviarEmail_Metodo() As String
-            Get
-                Return CType(Me("LoteComprobantes_EnviarEmail_Metodo"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("{0} N° {1}")>  _
-        Public ReadOnly Property Comprobante_EnviarEmail_Subject() As String
-            Get
-                Return CType(Me("Comprobante_EnviarEmail_Subject"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Adjuntamos el Comprobante solicitado.{0}{0}Atentamente.")>  _
-        Public ReadOnly Property Comprobante_EnvioEmail_Body() As String
-            Get
-                Return CType(Me("Comprobante_EnvioEmail_Body"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("%ApplicationFolder%\Intercambio\Salida")>  _
-        Public ReadOnly Property Exchange_Outbound_Folder() As String
+        Public ReadOnly Property ExchangeOutboundFolder() As String
             Get
-                Return CType(Me("Exchange_Outbound_Folder"),String)
+                Return CType(Me("ExchangeOutboundFolder"),String)
             End Get
         End Property
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("PagoMisCuentas")>  _
-        Public ReadOnly Property Exchange_Outbound_PagoMisCuentas_SubFolder() As String
+        Public ReadOnly Property ExchangeOutboundPagoMisCuentasSubFolder() As String
             Get
-                Return CType(Me("Exchange_Outbound_PagoMisCuentas_SubFolder"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\TEMP")>  _
-        Public ReadOnly Property Exchange_Outbound_Santander_Piryp_Folder() As String
-            Get
-                Return CType(Me("Exchange_Outbound_Santander_Piryp_Folder"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public ReadOnly Property Comprobante_RequiereDomicilioCompleto() As Boolean
-            Get
-                Return CType(Me("Comprobante_RequiereDomicilioCompleto"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("RV: Mail delivery failed: returning message to sender")>  _
-        Public ReadOnly Property Email_Delivery_Failed_Subject() As String
-            Get
-                Return CType(Me("Email_Delivery_Failed_Subject"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("550 Requested action not taken: mailbox unavailable")>  _
-        Public ReadOnly Property Email_Delivery_Failed_ErrorText() As String
-            Get
-                Return CType(Me("Email_Delivery_Failed_ErrorText"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("The following address(es) failed:")>  _
-        Public ReadOnly Property Email_Delivery_Failed_RejectedAddress_PreviousText() As String
-            Get
-                Return CType(Me("Email_Delivery_Failed_RejectedAddress_PreviousText"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Mailer-Daemon@orlando.dattaweb.com")>  _
-        Public ReadOnly Property Email_Delivery_Failed_SenderAddress() As String
-            Get
-                Return CType(Me("Email_Delivery_Failed_SenderAddress"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public ReadOnly Property Outlook_ContactsSync_EntidadTipo_PersonalColegio() As Boolean
-            Get
-                Return CType(Me("Outlook_ContactsSync_EntidadTipo_PersonalColegio"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public ReadOnly Property Outlook_ContactsSync_EntidadTipo_Docente() As Boolean
-            Get
-                Return CType(Me("Outlook_ContactsSync_EntidadTipo_Docente"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public ReadOnly Property Outlook_ContactsSync_EntidadTipo_Alumno() As Boolean
-            Get
-                Return CType(Me("Outlook_ContactsSync_EntidadTipo_Alumno"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public ReadOnly Property Outlook_ContactsSync_EntidadTipo_Familiar() As Boolean
-            Get
-                Return CType(Me("Outlook_ContactsSync_EntidadTipo_Familiar"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public ReadOnly Property Outlook_ContactsSync_EntidadTipo_Proveedor() As Boolean
-            Get
-                Return CType(Me("Outlook_ContactsSync_EntidadTipo_Proveedor"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public ReadOnly Property Outlook_ContactsSync_EntidadTipo_Otro() As Boolean
-            Get
-                Return CType(Me("Outlook_ContactsSync_EntidadTipo_Otro"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public ReadOnly Property Outlook_ContactsSync_GrupoNoEncontrado_Borrar() As Boolean
-            Get
-                Return CType(Me("Outlook_ContactsSync_GrupoNoEncontrado_Borrar"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public ReadOnly Property Outlook_ContactsSync_ContactoNoEncontrado_Borrar() As Boolean
-            Get
-                Return CType(Me("Outlook_ContactsSync_ContactoNoEncontrado_Borrar"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public ReadOnly Property Outlook_ContactsSync_SincronizarGrupos_EntidadTipo() As Boolean
-            Get
-                Return CType(Me("Outlook_ContactsSync_SincronizarGrupos_EntidadTipo"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public ReadOnly Property Outlook_ContactsSync_SincronizarGrupos_NivelYCurso() As Boolean
-            Get
-                Return CType(Me("Outlook_ContactsSync_SincronizarGrupos_NivelYCurso"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Grupo: {0}")>  _
-        Public ReadOnly Property Outlook_ContactsSync_GrupoNombre() As String
-            Get
-                Return CType(Me("Outlook_ContactsSync_GrupoNombre"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("2018;2019")>  _
-        Public ReadOnly Property Outlook_ContactsSync_AniosLectivos() As String
-            Get
-                Return CType(Me("Outlook_ContactsSync_AniosLectivos"),String)
+                Return CType(Me("ExchangeOutboundPagoMisCuentasSubFolder"),String)
             End Get
         End Property
     End Class
