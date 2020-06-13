@@ -83,7 +83,7 @@
             Dim ComprobanteActual As Comprobante
             Dim MensajeError As String
 
-            If ModuloComprobantes.TransmitirAFIP_Inicializar(Objeto_AFIP_WS, pAfipWebServicesConfig.ModoHomologacionAsBoolean) Then
+            If ModuloComprobantes.TransmitirAFIP_Inicializar(Objeto_AFIP_WS, pAfipWebServicesConfig.ModoHomologacion) Then
                 Me.Cursor = Cursors.WaitCursor
                 Application.DoEvents()
 

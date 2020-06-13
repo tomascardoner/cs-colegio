@@ -17,18 +17,18 @@
     Friend Sub LoadFromSettings()
         Dim AnioLectivoShort As Short
 
-        EntidadTipoPersonalColegio = pOutlookContactsSyncConfig.EntidadTipoPersonalColegioAsBoolean
-        EntidadTipoDocente = pOutlookContactsSyncConfig.EntidadTipoDocenteAsBoolean
-        EntidadTipoAlumno = pOutlookContactsSyncConfig.EntidadTipoAlumnoAsBoolean
-        EntidadTipoFamiliar = pOutlookContactsSyncConfig.EntidadTipoFamiliarAsBoolean
-        EntidadTipoProveedor = pOutlookContactsSyncConfig.EntidadTipoProveedorAsBoolean
-        EntidadTipoOtro = pOutlookContactsSyncConfig.EntidadTipoOtroAsBoolean
+        EntidadTipoPersonalColegio = pOutlookContactsSyncConfig.EntidadTipoPersonalColegio
+        EntidadTipoDocente = pOutlookContactsSyncConfig.EntidadTipoDocente
+        EntidadTipoAlumno = pOutlookContactsSyncConfig.EntidadTipoAlumno
+        EntidadTipoFamiliar = pOutlookContactsSyncConfig.EntidadTipoFamiliar
+        EntidadTipoProveedor = pOutlookContactsSyncConfig.EntidadTipoProveedor
+        EntidadTipoOtro = pOutlookContactsSyncConfig.EntidadTipoOtro
 
-        GrupoContactosInexistenteBorrar = pOutlookContactsSyncConfig.GrupoNoEncontradoBorrarAsBoolean
-        ContactoInexistenteBorrar = pOutlookContactsSyncConfig.ContactoNoEncontradoBorrarAsBoolean
+        GrupoContactosInexistenteBorrar = pOutlookContactsSyncConfig.GrupoNoEncontradoBorrar
+        ContactoInexistenteBorrar = pOutlookContactsSyncConfig.ContactoNoEncontradoBorrar
 
-        SincronizarGrupoContactosPorEntidadTipos = pOutlookContactsSyncConfig.GruposEntidadTipoAsBoolean
-        SincronizarGrupoContactosPorNivelesYCursos = pOutlookContactsSyncConfig.GruposNivelYCursoAsBoolean
+        SincronizarGrupoContactosPorEntidadTipos = pOutlookContactsSyncConfig.GruposEntidadTipo
+        SincronizarGrupoContactosPorNivelesYCursos = pOutlookContactsSyncConfig.GruposNivelYCurso
 
         ' Cargo los Años Lectivos
         'For Each AnioLectivoString As String In My.Settings.Outlook_ContactsSync_AniosLectivos.Split(CardonerSistemas.Constants.STRING_LIST_SEPARATOR)

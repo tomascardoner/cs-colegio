@@ -144,6 +144,9 @@
     <Compile Include="..\..\..\framework-vbnet\ComboBox.vb">
       <Link>Framework\ComboBox.vb</Link>
     </Compile>
+    <Compile Include="..\..\..\framework-vbnet\Configuration.vb">
+      <Link>Framework\Configuration.vb</Link>
+    </Compile>
     <Compile Include="..\..\..\framework-vbnet\Constants.vb">
       <Link>Framework\Constants.vb</Link>
     </Compile>
@@ -414,7 +417,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Sistema\Reportes.vb" />
-    <Compile Include="Config\Serializer.vb" />
     <Compile Include="Tablas ABMs\formAnioLectivoCuotas.Designer.vb">
       <DependentUpon>formAnioLectivoCuotas.vb</DependentUpon>
     </Compile>

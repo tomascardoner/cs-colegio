@@ -138,7 +138,7 @@
             CorreccionDescripcion &= String.Format("{1} no tiene especificado el Tipo y Número de Documento.{0}", vbCrLf, SujetoDescripcion)
         End If
 
-        If pComprobanteConfig.RequiereDomicilioCompletoAsBoolean Then
+        If pComprobanteConfig.RequiereDomicilioCompleto Then
             If EntidadAVerificar.DomicilioCalle1 Is Nothing Then
                 CorreccionDescripcion &= String.Format("{1} no tiene especificado el Domicilio.{0}", vbCrLf, SujetoDescripcion)
             End If
@@ -525,7 +525,7 @@
 
     Friend Function TransmitirAFIP_Inicializar(ByRef Objeto_AFIP_WS As CS_AFIP_WS.AFIP_WS, ByVal ModoHomologacion As Boolean) As Boolean
         With Objeto_AFIP_WS
-            If pAfipWebServicesConfig.LogEnabledAsBoolean Then
+            If pAfipWebServicesConfig.LogEnabled Then
                 .LogPath = CardonerSistemas.SpecialFolders.ProcessString(pAfipWebServicesConfig.LogFolder)
                 If Not .LogPath.EndsWith("\") Then
                     .LogPath &= "\"

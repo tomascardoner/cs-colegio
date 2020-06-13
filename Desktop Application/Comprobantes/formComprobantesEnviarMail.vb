@@ -96,14 +96,14 @@
 
     Private Sub Enviar_Click(sender As Object, e As EventArgs) Handles buttonEnviar.Click
         If listComprobantes.Count > 0 Then
-            If pEmailConfig.SendMaxPerHourAsInteger > 0 Then
+            If pEmailConfig.SendMaxPerHour > 0 Then
                 If comboboxCantidad.SelectedIndex = 0 Then
-                    If MsgBox(String.Format("Está por enviar Todos los Comprobantes por e-mail.{2}Tenga en cuenta que por cuestiones de seguridad (para evitar el spam), los servidores actuales no permiten enviar más de {1} e-mails por hora.{2}{2}¿Desea continuar de todos modos?", comboboxCantidad.SelectedText, pEmailConfig.SendMaxPerHourAsInteger, vbCrLf), CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                    If MsgBox(String.Format("Está por enviar Todos los Comprobantes por e-mail.{2}Tenga en cuenta que por cuestiones de seguridad (para evitar el spam), los servidores actuales no permiten enviar más de {1} e-mails por hora.{2}{2}¿Desea continuar de todos modos?", comboboxCantidad.SelectedText, pEmailConfig.SendMaxPerHour, vbCrLf), CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
                         Exit Sub
                     End If
                 Else
-                    If CShort(comboboxCantidad.Text) >= pEmailConfig.SendMaxPerHourAsInteger Then
-                        If MsgBox(String.Format("Está por enviar {0} e-mails.{2}Tenga en cuenta que por cuestiones de seguridad (para evitar el spam), los servidores actuales no permiten enviar más de {1} e-mails por hora.{2}{2}¿Desea continuar de todos modos?", comboboxCantidad.Text, pEmailConfig.SendMaxPerHourAsInteger, vbCrLf), CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                    If CShort(comboboxCantidad.Text) >= pEmailConfig.SendMaxPerHour Then
+                        If MsgBox(String.Format("Está por enviar {0} e-mails.{2}Tenga en cuenta que por cuestiones de seguridad (para evitar el spam), los servidores actuales no permiten enviar más de {1} e-mails por hora.{2}{2}¿Desea continuar de todos modos?", comboboxCantidad.Text, pEmailConfig.SendMaxPerHour, vbCrLf), CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
                             Exit Sub
                         End If
                     End If

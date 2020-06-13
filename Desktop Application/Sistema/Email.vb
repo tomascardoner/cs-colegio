@@ -31,9 +31,9 @@ Module Email
 
         ' Establezco las opciones del Servidor SMTP
         smtp.Host = pEmailConfig.SmtpServer
-        smtp.EnableSsl = pEmailConfig.SmtpUseSslAsBoolean
-        smtp.Port = pEmailConfig.SmtpPortAsInteger
-        smtp.Timeout = pEmailConfig.SmtpTimeoutAsInteger
+        smtp.EnableSsl = pEmailConfig.SmtpUseSsl
+        smtp.Port = pEmailConfig.SmtpPort
+        smtp.Timeout = pEmailConfig.SmtpTimeout
 
         Dim Decrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PUBLIC_ENCRYPTION_PASSWORD)
         Dim DecryptedPassword As String = ""
@@ -90,9 +90,9 @@ Module Email
 
         ' Establezco las opciones del Servidor SMTP
         smtp.Host = pEmailConfig.SmtpServer
-        smtp.EnableSsl = pEmailConfig.SmtpUseSslAsBoolean
-        smtp.Port = pEmailConfig.SmtpPortAsInteger
-        smtp.Timeout = pEmailConfig.SmtpTimeoutAsInteger
+        smtp.EnableSsl = pEmailConfig.SmtpUseSsl
+        smtp.Port = pEmailConfig.SmtpPort
+        smtp.Timeout = pEmailConfig.SmtpTimeout
 
         Dim Decrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PUBLIC_ENCRYPTION_PASSWORD)
         Dim DecryptedPassword As String = ""
