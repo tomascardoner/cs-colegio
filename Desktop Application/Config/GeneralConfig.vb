@@ -1,4 +1,5 @@
 ﻿Public Class GeneralConfig
+    Public Property SingleInstanceApplication As Boolean
     Public Property DecimalesEnImportes As Byte
     Public Property ReportsPath As String
     Public Property IdPuntoVenta As Integer

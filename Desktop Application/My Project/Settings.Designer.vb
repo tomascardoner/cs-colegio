@@ -57,12 +57,12 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property LastUserLoggedIn() As String
+        Public Property LastLoggedInUser() As String
             Get
-                Return CType(Me("LastUserLoggedIn"),String)
+                Return CType(Me("LastLoggedInUser"),String)
             End Get
             Set
-                Me("LastUserLoggedIn") = value
+                Me("LastLoggedInUser") = value
             End Set
         End Property
     End Class

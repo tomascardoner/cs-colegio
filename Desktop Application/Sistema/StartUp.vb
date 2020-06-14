@@ -1,10 +1,6 @@
 ﻿Imports System.Xml
 
 Module StartUp
-    ' Database stuff
-    Friend pDatabase As CardonerSistemas.Database.ADO.SQLServer
-    Friend pFillAndRefreshLists As FillAndRefreshLists
-
     ' Config files
     Friend pAfipWebServicesConfig As AfipWebServicesConfig
     Friend pAppearanceConfig As New AppearanceConfig
@@ -14,6 +10,10 @@ Module StartUp
     Friend pGeneralConfig As GeneralConfig
     Friend pOutlookContactsSyncConfig As OutlookContactsSyncConfig
     Friend pSantanderConfig As SantanderConfig
+
+    ' Database stuff
+    Friend pDatabase As CardonerSistemas.Database.ADO.SQLServer
+    Friend pFillAndRefreshLists As FillAndRefreshLists
 
     Friend pFormMDIMain As formMDIMain
     Friend pPermisos As List(Of UsuarioGrupoPermiso)
@@ -35,7 +35,7 @@ Module StartUp
         End If
 
         ' Verifico si ya hay una instancia ejecutandose, si permite iniciar otra, o de lo contrario, muestro la instancia original
-        If pAppearanceConfig.SingleInstanceApplication Then
+        If pGeneralConfig.SingleInstanceApplication Then
 
         End If
 
@@ -176,7 +176,6 @@ Module StartUp
                 formCurrent.Dispose()
             Next
         End If
-        pDatabase = Nothing
 
         pAfipWebServicesConfig = Nothing
         pAppearanceConfig = Nothing
@@ -187,6 +186,7 @@ Module StartUp
         pOutlookContactsSyncConfig = Nothing
         pSantanderConfig = Nothing
 
+        pDatabase = Nothing
         pFillAndRefreshLists = Nothing
         pPermisos = Nothing
         pParametros = Nothing
