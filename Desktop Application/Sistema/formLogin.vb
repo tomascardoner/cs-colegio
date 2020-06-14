@@ -5,7 +5,7 @@
     Private Sub formLogin_Load() Handles Me.Load
         mdbContext = New CSColegioContext(True)
 
-        If My.Settings.ShowLastUserLoggedIn Then
+        If pAppearanceConfig.ShowLastLoggedInUser Then
             If My.Settings.LastUserLoggedIn <> "" Then
                 textboxNombre.Text = My.Settings.LastUserLoggedIn
                 labelPassword.TabIndex = 0

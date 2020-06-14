@@ -253,7 +253,7 @@
                     .IDComprobante = NextID
                     If ComprobanteTipo.IDComprobanteTipo <> .IDComprobanteTipo Then
                         ComprobanteTipo = dbContext.ComprobanteTipo.Find(.IDComprobanteTipo)
-                        ComprobanteTipoPuntoVenta = ComprobanteTipo.ComprobanteTipoPuntoVenta.Where(Function(ctpv) ctpv.IDPuntoVenta = My.Settings.IDPuntoVenta).FirstOrDefault
+                        ComprobanteTipoPuntoVenta = ComprobanteTipo.ComprobanteTipoPuntoVenta.Where(Function(ctpv) ctpv.IDPuntoVenta = pGeneralConfig.IdPuntoVenta).FirstOrDefault
                         If ComprobanteTipoPuntoVenta Is Nothing Then
                             Exit For
                         End If
@@ -485,18 +485,18 @@
                         Case Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO, Constantes.ENTIDAD_EMITIRFACTURAA_PADRE, Constantes.ENTIDAD_EMITIRFACTURAA_MADRE, Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO
                             .PrecioUnitario = AnioLectivoCuotaActual.ImporteMatricula
                         Case Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES
-                            .PrecioUnitario = Decimal.Round(AnioLectivoCuotaActual.ImporteMatricula / 2, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
+                            .PrecioUnitario = Decimal.Round(AnioLectivoCuotaActual.ImporteMatricula / 2, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
                         Case Constantes.ENTIDAD_EMITIRFACTURAA_TODOS
-                            .PrecioUnitario = Decimal.Round(AnioLectivoCuotaActual.ImporteMatricula / 3, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
+                            .PrecioUnitario = Decimal.Round(AnioLectivoCuotaActual.ImporteMatricula / 3, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
                     End Select
                 Else
                     Select Case Alumno.EmitirFacturaA
                         Case Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO, Constantes.ENTIDAD_EMITIRFACTURAA_PADRE, Constantes.ENTIDAD_EMITIRFACTURAA_MADRE, Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO
                             .PrecioUnitario = AnioLectivoCuotaActual.ImporteCuota
                         Case Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES
-                            .PrecioUnitario = Decimal.Round(AnioLectivoCuotaActual.ImporteCuota / 2, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
+                            .PrecioUnitario = Decimal.Round(AnioLectivoCuotaActual.ImporteCuota / 2, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
                         Case Constantes.ENTIDAD_EMITIRFACTURAA_TODOS
-                            .PrecioUnitario = Decimal.Round(AnioLectivoCuotaActual.ImporteCuota / 3, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
+                            .PrecioUnitario = Decimal.Round(AnioLectivoCuotaActual.ImporteCuota / 3, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
                     End Select
                 End If
 
@@ -506,7 +506,7 @@
                     .PrecioUnitarioDescuentoImporte = 0
                 Else
                     .PrecioUnitarioDescuentoPorcentaje = Alumno.Descuento.Porcentaje
-                    .PrecioUnitarioDescuentoImporte = Decimal.Round(.PrecioUnitario * .PrecioUnitarioDescuentoPorcentaje / 100, My.Settings.DecimalesEnImportes, MidpointRounding.ToEven)
+                    .PrecioUnitarioDescuentoImporte = Decimal.Round(.PrecioUnitario * .PrecioUnitarioDescuentoPorcentaje / 100, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
                 End If
                 .PrecioUnitarioFinal = .PrecioUnitario - .PrecioUnitarioDescuentoImporte
                 .PrecioTotal = .PrecioUnitarioFinal

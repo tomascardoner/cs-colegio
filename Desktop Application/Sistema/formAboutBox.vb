@@ -25,7 +25,7 @@ Public NotInheritable Class formAboutBox
 
         NewItem = New ListViewItem
         NewItem.Text = "Reports Path"
-        NewItem.SubItems.Add(My.Settings.ReportsPath)
+        NewItem.SubItems.Add(pGeneralConfig.ReportsPath)
         listviewPropiedades.Items.Add(NewItem)
     End Sub
 

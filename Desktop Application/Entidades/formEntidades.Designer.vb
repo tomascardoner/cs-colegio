@@ -88,7 +88,7 @@ Partial Class formEntidades
         Me.toolstripButtons.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         Me.toolstripButtons.Location = New System.Drawing.Point(0, 0)
         Me.toolstripButtons.Name = "toolstripButtons"
-        Me.toolstripButtons.Size = New System.Drawing.Size(336, 39)
+        Me.toolstripButtons.Size = New System.Drawing.Size(367, 39)
         Me.toolstripButtons.TabIndex = 0
         '
         'buttonAgregar
@@ -125,6 +125,7 @@ Partial Class formEntidades
         Me.buttonSincronizarOutlook.Name = "buttonSincronizarOutlook"
         Me.buttonSincronizarOutlook.Size = New System.Drawing.Size(89, 36)
         Me.buttonSincronizarOutlook.Text = "Sincronizar"
+        Me.buttonSincronizarOutlook.ToolTipText = "Sincronizar con Microsoft Outlook"
         '
         'statusstripMain
         '
@@ -261,7 +262,7 @@ Partial Class formEntidades
         Me.toolstripEntidadTipo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripEntidadTipo.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripEntidadTipo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.dropdownbuttonEntidadTipos})
-        Me.toolstripEntidadTipo.Location = New System.Drawing.Point(336, 0)
+        Me.toolstripEntidadTipo.Location = New System.Drawing.Point(367, 0)
         Me.toolstripEntidadTipo.Name = "toolstripEntidadTipo"
         Me.toolstripEntidadTipo.Size = New System.Drawing.Size(110, 39)
         Me.toolstripEntidadTipo.TabIndex = 1
@@ -368,7 +369,7 @@ Partial Class formEntidades
         Me.toolstripBuscar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripBuscar.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripBuscar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelBuscar, Me.textboxBuscar, Me.buttonBuscarBorrar})
-        Me.toolstripBuscar.Location = New System.Drawing.Point(446, 0)
+        Me.toolstripBuscar.Location = New System.Drawing.Point(477, 0)
         Me.toolstripBuscar.Name = "toolstripBuscar"
         Me.toolstripBuscar.Size = New System.Drawing.Size(194, 39)
         Me.toolstripBuscar.TabIndex = 2
@@ -381,7 +382,6 @@ Partial Class formEntidades
         '
         'textboxBuscar
         '
-        Me.textboxBuscar.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.textboxBuscar.MaxLength = 100
         Me.textboxBuscar.Name = "textboxBuscar"
         Me.textboxBuscar.Size = New System.Drawing.Size(120, 39)
@@ -401,7 +401,7 @@ Partial Class formEntidades
         Me.toolstripActivo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripActivo.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripActivo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelActivo, Me.comboboxActivo})
-        Me.toolstripActivo.Location = New System.Drawing.Point(640, 0)
+        Me.toolstripActivo.Location = New System.Drawing.Point(671, 0)
         Me.toolstripActivo.Name = "toolstripActivo"
         Me.toolstripActivo.Size = New System.Drawing.Size(124, 39)
         Me.toolstripActivo.TabIndex = 3
@@ -424,7 +424,7 @@ Partial Class formEntidades
         Me.toolstripVerificarEmail.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripVerificarEmail.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripVerificarEmail.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelVerificarEmail, Me.comboboxVerificarEmail})
-        Me.toolstripVerificarEmail.Location = New System.Drawing.Point(764, 0)
+        Me.toolstripVerificarEmail.Location = New System.Drawing.Point(795, 0)
         Me.toolstripVerificarEmail.Name = "toolstripVerificarEmail"
         Me.toolstripVerificarEmail.Size = New System.Drawing.Size(169, 39)
         Me.toolstripVerificarEmail.TabIndex = 4

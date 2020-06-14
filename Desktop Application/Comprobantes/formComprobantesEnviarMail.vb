@@ -146,7 +146,7 @@
                     If IDComprobanteTipo <> ComprobanteActual.IDComprobanteTipo Then
                         IDComprobanteTipo = ComprobanteActual.IDComprobanteTipo
                         ReporteActual = New Reporte
-                        If Not ReporteActual.Open(My.Settings.ReportsPath & "\" & ComprobanteActual.ComprobanteTipo.ReporteNombre) Then
+                        If Not ReporteActual.Open(pGeneralConfig.ReportsPath & "\" & ComprobanteActual.ComprobanteTipo.ReporteNombre) Then
                             RefreshData()
                             MostrarOcultarEstado(False)
                             Me.Cursor = Cursors.Default

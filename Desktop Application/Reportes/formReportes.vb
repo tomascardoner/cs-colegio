@@ -8,8 +8,8 @@
     Private Sub formReportes_Load(sender As Object, e As EventArgs) Handles Me.Load
         CargarListaReportes()
 
-        treeviewReportes.Font = My.Settings.GridsAndListsFont
-        listviewParametros.Font = My.Settings.GridsAndListsFont
+        treeviewReportes.Font = pAppearanceConfig.ListsFontAsFont
+        listviewParametros.Font = pAppearanceConfig.ListsFontAsFont
     End Sub
 
     Private Sub formReportes_Unload() Handles Me.FormClosed
@@ -184,8 +184,8 @@
 
         Me.Cursor = Cursors.WaitCursor
 
-        If ReporteActual.Open(My.Settings.ReportsPath & "\" & ReporteActual.Archivo) Then
-            If ReporteActual.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
+        If ReporteActual.Open(pGeneralConfig.ReportsPath & "\" & ReporteActual.Archivo) Then
+            If ReporteActual.SetDatabaseConnection(pDatabase.Datasource, pDatabase.InitialCatalog, pDatabase.UserId, pDatabase.Password) Then
                 If sender.Equals(buttonImprimir) Then
                     ReporteActual.ReportObject.PrintToPrinter(1, False, 1, 1000)
                 Else

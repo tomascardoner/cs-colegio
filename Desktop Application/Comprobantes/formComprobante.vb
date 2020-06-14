@@ -126,17 +126,17 @@
     End Sub
 
     Friend Sub SetAppearance()
-        datagridviewDetalle.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
-        datagridviewDetalle.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewDetalle.DefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
+        datagridviewDetalle.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
 
-        datagridviewImpuestos.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
-        datagridviewImpuestos.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewImpuestos.DefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
+        datagridviewImpuestos.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
 
-        datagridviewAplicaciones.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
-        datagridviewAplicaciones.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewAplicaciones.DefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
+        datagridviewAplicaciones.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
 
-        datagridviewMediosPago.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
-        datagridviewMediosPago.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewMediosPago.DefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
+        datagridviewMediosPago.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
     End Sub
 
     Private Sub formComprobante_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -1129,7 +1129,7 @@
 
             ' Verifico la asignación del número de comprobante
             ' TODO: Poder especificar el punto de venta para cada comprobante
-            mComprobanteTipoPuntoVentaActual = mComprobanteTipoActual.ComprobanteTipoPuntoVenta.Where(Function(ctpv) ctpv.IDPuntoVenta = My.Settings.IDPuntoVenta).FirstOrDefault()
+            mComprobanteTipoPuntoVentaActual = mComprobanteTipoActual.ComprobanteTipoPuntoVenta.Where(Function(ctpv) ctpv.IDPuntoVenta = pGeneralConfig.IdPuntoVenta).FirstOrDefault()
             If mComprobanteTipoPuntoVentaActual Is Nothing Then
                 ' No hay un numerador definido, habilito los campos de Punto de Venta y Numero
                 mUtilizaNumerador = False

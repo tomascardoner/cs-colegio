@@ -157,17 +157,17 @@
         checkboxTipoProveedor.Text = My.Resources.STRING_ENTIDADTIPO_PROVEEDOR
         checkboxTipoOtro.Text = My.Resources.STRING_ENTIDADTIPO_OTRO
 
-        datagridviewCursosAsistidos.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
-        datagridviewCursosAsistidos.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewCursosAsistidos.DefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
+        datagridviewCursosAsistidos.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
 
-        datagridviewHijos.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
-        datagridviewHijos.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewHijos.DefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
+        datagridviewHijos.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
 
-        datagridviewComprobantes.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
-        datagridviewComprobantes.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewComprobantes.DefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
+        datagridviewComprobantes.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
 
-        datagridviewRelaciones.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
-        datagridviewRelaciones.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewRelaciones.DefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
+        datagridviewRelaciones.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
     End Sub
 
     Private Sub formEntidad_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed

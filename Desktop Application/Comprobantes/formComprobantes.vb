@@ -40,8 +40,8 @@
 
 #Region "Form stuff"
     Friend Sub SetAppearance()
-        datagridviewMain.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
-        datagridviewMain.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewMain.DefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
+        datagridviewMain.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
     End Sub
 
     Private Sub formComprobantes_Load() Handles Me.Load
@@ -660,8 +660,8 @@
                     datagridviewMain.Enabled = False
 
                     Dim ReporteActual As New Reporte
-                    If ReporteActual.Open(My.Settings.ReportsPath & "\" & ComprobanteTipoActual.ReporteNombre) Then
-                        If ReporteActual.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
+                    If ReporteActual.Open(pGeneralConfig.ReportsPath & "\" & ComprobanteTipoActual.ReporteNombre) Then
+                        If ReporteActual.SetDatabaseConnection(pDatabase.Datasource, pDatabase.InitialCatalog, pDatabase.UserId, pDatabase.Password) Then
                             ReporteActual.RecordSelectionFormula = "{Comprobante.IDComprobante} = " & CurrentRow.IDComprobante
 
                             If sender.Equals(buttonImprimir) Then
@@ -690,8 +690,8 @@
                 datagridviewMain.Enabled = False
 
                 Dim ReporteActual As New Reporte
-                If ReporteActual.Open(My.Settings.ReportsPath & "\Comprobantes.rpt") Then
-                    If ReporteActual.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
+                If ReporteActual.Open(pGeneralConfig.ReportsPath & "\Comprobantes.rpt") Then
+                    If ReporteActual.SetDatabaseConnection(pDatabase.Datasource, pDatabase.InitialCatalog, pDatabase.UserId, pDatabase.Password) Then
                         ReporteActual.RecordSelectionFormula = mReportSelectionFormula
 
                         Reportes.PreviewCrystalReport(ReporteActual, "Listado de Comprobantes")
@@ -767,8 +767,8 @@
                         datagridviewMain.Enabled = False
 
                         Dim ReporteActual As New Reporte
-                        If ReporteActual.Open(My.Settings.ReportsPath & "\" & ComprobanteTipoActual.ReporteNombre) Then
-                            If ReporteActual.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
+                        If ReporteActual.Open(pGeneralConfig.ReportsPath & "\" & ComprobanteTipoActual.ReporteNombre) Then
+                            If ReporteActual.SetDatabaseConnection(pDatabase.Datasource, pDatabase.InitialCatalog, pDatabase.UserId, pDatabase.Password) Then
                                 ReporteActual.RecordSelectionFormula = "{Comprobante.IDComprobante} = " & CurrentRow.IDComprobante
 
                                 Dim Asunto As String = String.Format(pComprobanteConfig.SendEmailSubject, ComprobanteTipoActual.NombreConLetra, CurrentRow.NumeroCompleto)
@@ -826,7 +826,7 @@
             DataGridViewRowActual = datagridviewMain.Rows(e.RowIndex)
             If CType(DataGridViewRowActual.DataBoundItem, GridRowData).Anulado Then
                 DataGridViewRowActual.DefaultCellStyle.ForeColor = Color.DarkGray
-                DataGridViewRowActual.DefaultCellStyle.Font = New System.Drawing.Font(My.Settings.GridsAndListsFont, FontStyle.Strikeout)
+                DataGridViewRowActual.DefaultCellStyle.Font = New System.Drawing.Font(pAppearanceConfig.ListsFont, FontStyle.Strikeout)
             End If
         End If
     End Sub

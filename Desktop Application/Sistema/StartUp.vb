@@ -7,9 +7,11 @@ Module StartUp
 
     ' Config files
     Friend pAfipWebServicesConfig As AfipWebServicesConfig
+    Friend pAppearanceConfig As New AppearanceConfig
     Friend pComprobanteConfig As ComprobanteConfig
     Friend pDatabaseConfig As DatabaseConfig
     Friend pEmailConfig As EmailConfig
+    Friend pGeneralConfig As GeneralConfig
     Friend pOutlookContactsSyncConfig As OutlookContactsSyncConfig
     Friend pSantanderConfig As SantanderConfig
 
@@ -26,13 +28,19 @@ Module StartUp
 
         My.Application.Log.WriteEntry("La Aplicación se está iniciando.", TraceEventType.Information)
 
+        ' Cargo los archivos de configuración de la aplicación
+        If Not Configuration.LoadFiles() Then
+            TerminateApplication()
+            Exit Sub
+        End If
+
         ' Verifico si ya hay una instancia ejecutandose, si permite iniciar otra, o de lo contrario, muestro la instancia original
-        If My.Settings.SingleInstanceApplication Then
+        If pAppearanceConfig.SingleInstanceApplication Then
 
         End If
 
         ' Realizo la inicialización de la Aplicación
-        If My.Settings.EnableVisualStyles Then
+        If pAppearanceConfig.EnableVisualStyles Then
             Application.EnableVisualStyles()
         End If
 
@@ -41,14 +49,6 @@ Module StartUp
         formSplashScreen.Cursor = Cursors.AppStarting
         formSplashScreen.labelStatus.Text = "Obteniendo los parámetros de conexión a la Base de datos..."
         Application.DoEvents()
-
-        ' Abro los archivos adicionales de configuración de la aplicación
-        If Not Configuration.LoadFiles() Then
-            formSplashScreen.Close()
-            formSplashScreen.Dispose()
-            TerminateApplication()
-            Exit Sub
-        End If
 
         formSplashScreen.Focus()
 
@@ -135,7 +135,7 @@ Module StartUp
 
         ' Espero el tiempo mínimo para mostrar el Splash Screen y después lo cierro
         If Not CS_Instance.IsRunningUnderIDE Then
-            Do While Now.Subtract(StartupTime).Seconds < My.Settings.MinimumSplashScreenDisplaySeconds
+            Do While Now.Subtract(StartupTime).Seconds < pAppearanceConfig.MinimumSplashScreenDisplaySeconds
                 Application.DoEvents()
             Loop
         End If
@@ -179,9 +179,11 @@ Module StartUp
         pDatabase = Nothing
 
         pAfipWebServicesConfig = Nothing
+        pAppearanceConfig = Nothing
         pComprobanteConfig = Nothing
         pDatabaseConfig = Nothing
         pEmailConfig = Nothing
+        pGeneralConfig = Nothing
         pOutlookContactsSyncConfig = Nothing
         pSantanderConfig = Nothing
 

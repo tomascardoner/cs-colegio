@@ -54,24 +54,6 @@ Namespace My
             End Get
         End Property
         
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public ReadOnly Property EnableVisualStyles() As Boolean
-            Get
-                Return CType(Me("EnableVisualStyles"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("5")>  _
-        Public ReadOnly Property MinimumSplashScreenDisplaySeconds() As Byte
-            Get
-                Return CType(Me("MinimumSplashScreenDisplaySeconds"),Byte)
-            End Get
-        End Property
-        
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("")>  _
@@ -82,96 +64,6 @@ Namespace My
             Set
                 Me("LastUserLoggedIn") = value
             End Set
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public ReadOnly Property ShowLastUserLoggedIn() As Boolean
-            Get
-                Return CType(Me("ShowLastUserLoggedIn"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Microsoft Sans Serif, 11.25pt")>  _
-        Public ReadOnly Property GridsAndListsFont() As Global.System.Drawing.Font
-            Get
-                Return CType(Me("GridsAndListsFont"),Global.System.Drawing.Font)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public ReadOnly Property SingleInstanceApplication() As Boolean
-            Get
-                Return CType(Me("SingleInstanceApplication"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public ReadOnly Property UseCustomDialogForErrorMessage() As Boolean
-            Get
-                Return CType(Me("UseCustomDialogForErrorMessage"),Boolean)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("10")>  _
-        Public ReadOnly Property PermiteGenerarMatriculaMesDesde() As Byte
-            Get
-                Return CType(Me("PermiteGenerarMatriculaMesDesde"),Byte)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
-        Public ReadOnly Property IDPuntoVenta() As Byte
-            Get
-                Return CType(Me("IDPuntoVenta"),Byte)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Tomas\Dropbox\Cardoner Sistemas\CS-Colegio\Reportes")>  _
-        Public ReadOnly Property ReportsPath() As String
-            Get
-                Return CType(Me("ReportsPath"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
-        Public ReadOnly Property DecimalesEnImportes() As Byte
-            Get
-                Return CType(Me("DecimalesEnImportes"),Byte)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("%ApplicationFolder%\Intercambio\Salida")>  _
-        Public ReadOnly Property ExchangeOutboundFolder() As String
-            Get
-                Return CType(Me("ExchangeOutboundFolder"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("PagoMisCuentas")>  _
-        Public ReadOnly Property ExchangeOutboundPagoMisCuentasSubFolder() As String
-            Get
-                Return CType(Me("ExchangeOutboundPagoMisCuentasSubFolder"),String)
-            End Get
         End Property
     End Class
 End Namespace

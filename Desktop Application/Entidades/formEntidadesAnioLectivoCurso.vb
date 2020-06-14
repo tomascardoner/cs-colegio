@@ -23,8 +23,8 @@
     End Sub
 
     Friend Sub SetAppearance()
-        datagridviewMain.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
-        datagridviewMain.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewMain.DefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
+        datagridviewMain.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
     End Sub
 
     Private Sub formEntidadesAnioLectivoCurso_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -170,8 +170,8 @@
                 datagridviewMain.Enabled = False
 
                 Dim ReporteActual As New Reporte
-                If ReporteActual.Open(My.Settings.ReportsPath & "\AlumnosPorCurso.rpt") Then
-                    If ReporteActual.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
+                If ReporteActual.Open(pGeneralConfig.ReportsPath & "\AlumnosPorCurso.rpt") Then
+                    If ReporteActual.SetDatabaseConnection(pDatabase.Datasource, pDatabase.InitialCatalog, pDatabase.UserId, pDatabase.Password) Then
 
                         If sender.Equals(menuitemImprimirListadoAnioLectivo) Then
                             ReporteActual.RecordSelectionFormula = String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0}", comboboxAnioLectivo.ComboBox.SelectedValue.ToString)

@@ -13,8 +13,8 @@
 
 #Region "Form stuff"
     Friend Sub SetAppearance()
-        datagridviewMain.DefaultCellStyle.Font = My.Settings.GridsAndListsFont
-        datagridviewMain.ColumnHeadersDefaultCellStyle.Font = My.Settings.GridsAndListsFont
+        datagridviewMain.DefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
+        datagridviewMain.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
     End Sub
 
     Private Sub Me_Load() Handles Me.Load
