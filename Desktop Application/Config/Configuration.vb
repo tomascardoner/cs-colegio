@@ -19,7 +19,6 @@
             Return False
         End If
 
-        ' Appearance
         If Not CardonerSistemas.Configuration.LoadFile(ConfigFolder, AppearanceFileName, pAppearanceConfig) Then
             Return False
         End If
