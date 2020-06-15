@@ -1,7 +1,4 @@
-﻿Imports CSColegio.DesktopApplication.CardonerSistemas
-Imports Microsoft.Office.Interop.Outlook
-
-Module Configuration
+﻿Module Configuration
     Private Const ConfigSubFolder As String = "Config"
 
     Private Const AfipWebServicesFileName As String = "AfipWebServices.config"
@@ -26,8 +23,6 @@ Module Configuration
         If Not CardonerSistemas.Configuration.LoadFile(ConfigFolder, AppearanceFileName, pAppearanceConfig) Then
             Return False
         End If
-        ' Needs to convert Font property
-        pAppearanceConfig.ListsFontAsFont = CardonerSistemas.Configuration.ConvertStringToFont(pAppearanceConfig.ListsFont)
 
         If Not CardonerSistemas.Configuration.LoadFile(ConfigFolder, ComprobanteFileName, pComprobanteConfig) Then
             Return False

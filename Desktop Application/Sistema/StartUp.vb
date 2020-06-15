@@ -1,6 +1,4 @@
-﻿Imports System.Xml
-
-Module StartUp
+﻿Module StartUp
     ' Config files
     Friend pAfipWebServicesConfig As AfipWebServicesConfig
     Friend pAppearanceConfig As New AppearanceConfig

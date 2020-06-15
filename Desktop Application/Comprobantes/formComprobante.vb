@@ -126,17 +126,17 @@
     End Sub
 
     Friend Sub SetAppearance()
-        datagridviewDetalle.DefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
-        datagridviewDetalle.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
+        datagridviewDetalle.DefaultCellStyle.Font = pAppearanceConfig.ListsFont
+        datagridviewDetalle.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFont
 
-        datagridviewImpuestos.DefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
-        datagridviewImpuestos.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
+        datagridviewImpuestos.DefaultCellStyle.Font = pAppearanceConfig.ListsFont
+        datagridviewImpuestos.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFont
 
-        datagridviewAplicaciones.DefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
-        datagridviewAplicaciones.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
+        datagridviewAplicaciones.DefaultCellStyle.Font = pAppearanceConfig.ListsFont
+        datagridviewAplicaciones.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFont
 
-        datagridviewMediosPago.DefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
-        datagridviewMediosPago.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFontAsFont
+        datagridviewMediosPago.DefaultCellStyle.Font = pAppearanceConfig.ListsFont
+        datagridviewMediosPago.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFont
     End Sub
 
     Private Sub formComprobante_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed

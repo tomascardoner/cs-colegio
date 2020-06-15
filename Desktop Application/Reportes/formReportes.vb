@@ -8,8 +8,8 @@
     Private Sub formReportes_Load(sender As Object, e As EventArgs) Handles Me.Load
         CargarListaReportes()
 
-        treeviewReportes.Font = pAppearanceConfig.ListsFontAsFont
-        listviewParametros.Font = pAppearanceConfig.ListsFontAsFont
+        treeviewReportes.Font = pAppearanceConfig.ListsFont
+        listviewParametros.Font = pAppearanceConfig.ListsFont
     End Sub
 
     Private Sub formReportes_Unload() Handles Me.FormClosed
