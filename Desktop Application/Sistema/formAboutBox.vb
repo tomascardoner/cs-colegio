@@ -5,7 +5,7 @@ Public NotInheritable Class formAboutBox
     Private Sub formAboutBox_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Text = String.Format("Acerca de {0}", My.Application.Info.Title)
         labelApplicationTitle.Text = My.Application.Info.Title
-        labelVersion.Text = String.Format("Version {0} - ({1})", My.Application.Info.Version.ToString, IO.File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location))
+        labelVersion.Text = String.Format("Version {0} - ({1})", My.Application.Info.Version.ToString, IO.File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location).ToString("yyyyMMdd"))
         labelCopyright.Text = My.Application.Info.Copyright
         labelLicensedTo.Text = pLicensedTo
 
