@@ -1,37 +1,38 @@
 ﻿Imports System.Net.Mail
-Imports AegisImplicitMail
+Imports MimeKit
 
 Module Email
-
-    Friend Function EnviarPorAimClient(ByVal DestinatarioTo As MailAddress, ByVal DestinatarioCC As MailAddress, ByVal DestinatarioBCC As MailAddress, ByVal Asunto As String, ByVal CuerpoEnHTML As Boolean, ByVal Cuerpo As String, ByRef AdjuntoReporte As Reporte, ByVal AdjuntoNombre As String, ByVal AdjuntoArchivo As String, ByVal ForzarEnvio As Boolean) As Boolean
-        Dim mail As New MimeMailMessage()
-        Dim smtp As New MimeMailer()
+    ''' <summary>
+    '''     Esta función, envía un e-mail utilizando el componente MailKit
+    '''     ya que el componente incluído con .Net (System.Net.Mail) no sporta SSL implícito.
+    '''     Envía a todos los recipientes especificados en las 3 listas de destinatarios
+    '''     especificadas en los parámetros.
+    ''' </summary>
+    ''' <param name="destinatariosTo"></param>
+    ''' <param name="destinatariosCC"></param>
+    ''' <param name="destinatariosBcc"></param>
+    ''' <param name="asunto"></param>
+    ''' <param name="cuerpoEsHtml"></param>
+    ''' <param name="cuerpo"></param>
+    ''' <param name="adjuntoReporte"></param>
+    ''' <param name="adjuntoNombre"></param>
+    ''' <param name="adjuntoArchivo"></param>
+    ''' <param name="forzarEnvio"></param>
+    ''' <returns></returns>
+    Friend Function Enviar(ByRef destinatariosTo As InternetAddressList, ByRef destinatariosCC As InternetAddressList, ByRef destinatariosBcc As InternetAddressList, ByVal asunto As String, ByVal cuerpoEsHtml As Boolean, ByVal cuerpo As String, ByRef adjuntoReporte As Reporte, ByVal adjuntoNombre As String, ByVal adjuntoArchivo As String, ByVal forzarEnvio As Boolean) As Boolean
+        Dim mail As New MimeMessage()
+        Dim bodyBuilder As New BodyBuilder()
+        Dim smtp As New MailKit.Net.Smtp.SmtpClient()
 
         ' Establezco los recipientes
-        mail.From = New MimeMailAddress(pEmailConfig.Address, pEmailConfig.DisplayName)
-
-        If Not DestinatarioTo Is Nothing Then
-            mail.To.Add(DestinatarioTo)
-        End If
-        If Not DestinatarioCC Is Nothing Then
-            mail.CC.Add(DestinatarioCC)
-        End If
-        If Not DestinatarioBCC Is Nothing Then
-            mail.Bcc.Add(DestinatarioBCC)
-        End If
-
-        ' Establezco el contenido
-        mail.Subject = Asunto
-        mail.IsBodyHtml = CuerpoEnHTML
-        mail.Body = Cuerpo
+        mail.From.Add(New MailboxAddress(pEmailConfig.DisplayName, pEmailConfig.Address))
+        mail.To.AddRange(destinatariosTo)
+        mail.Cc.AddRange(destinatariosCC)
+        mail.Bcc.AddRange(destinatariosBcc)
 
         ' Establezco las propiedades del Servidor SMTP
-        smtp.Host = pEmailConfig.SmtpServer
-        smtp.EnableImplicitSsl = True
-        smtp.SslType = pEmailConfig.SmtpSslTypeValue
-        smtp.Port = pEmailConfig.SmtpPort
+        smtp.Connect(pEmailConfig.SmtpServer, pEmailConfig.SmtpPort, pEmailConfig.SmtpUseSsl)
         smtp.Timeout = pEmailConfig.SmtpTimeout
-        smtp.AuthenticationMode = AuthenticationType.Base64
 
         Dim Decrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PUBLIC_ENCRYPTION_PASSWORD)
         Dim DecryptedPassword As String = ""
@@ -39,16 +40,26 @@ Module Email
             MsgBox("La contraseña de e-mail (SMTP) especificada es incorrecta.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
             Return False
         End If
-        smtp.Credentials = New System.Net.NetworkCredential(pEmailConfig.SmtpUserName, DecryptedPassword)
+        smtp.Authenticate(New System.Net.NetworkCredential(pEmailConfig.SmtpUserName, DecryptedPassword))
         Decrypter = Nothing
 
-        ' Attachments
-        If Not AdjuntoReporte Is Nothing Then
-            mail.Attachments.Add(CType(New System.Net.Mail.Attachment(AdjuntoReporte.ReportObject.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat), AdjuntoNombre), MimeAttachment))
+        ' Establezco el contenido
+        mail.Subject = asunto
+        If cuerpoEsHtml Then
+            bodyBuilder.HtmlBody = cuerpo
+        Else
+            bodyBuilder.TextBody = cuerpo
         End If
-        If AdjuntoArchivo <> "" Then
-            mail.Attachments.Add(New MimeAttachment(AdjuntoArchivo))
+
+        ' Adjuntos
+        If Not adjuntoReporte Is Nothing Then
+            bodyBuilder.Attachments.Add(adjuntoNombre, adjuntoReporte.ReportObject.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat))
         End If
+        If adjuntoArchivo <> "" Then
+            bodyBuilder.Attachments.Add(adjuntoArchivo)
+        End If
+
+        mail.Body = bodyBuilder.ToMessageBody
 
         ' Envío el e-mail
         Try
@@ -60,215 +71,110 @@ Module Email
         End Try
     End Function
 
-    Friend Function EnviarPorNetClient(ByVal DestinatarioTo As MailAddress, ByVal DestinatarioCC As MailAddress, ByVal DestinatarioBCC As MailAddress, ByVal Asunto As String, ByVal CuerpoEnHTML As Boolean, ByVal Cuerpo As String, ByRef AdjuntoReporte As Reporte, ByVal AdjuntoNombre As String, ByVal AdjuntoArchivo As String, ByVal ForzarEnvio As Boolean) As Boolean
-        Dim mail As New MailMessage()
-        Dim smtp As New SmtpClient()
+    ''' <summary>
+    '''     Esta función, envía un e-mail utilizando el componente MailKit
+    '''     ya que el componente incluído con .Net (System.Net.Mail) no sporta SSL implícito.
+    '''     Envía a un recipiente por cada tipo (To, CC, BCC).
+    ''' </summary>
+    ''' <param name="destinatarioTo"></param>
+    ''' <param name="destinatarioCC"></param>
+    ''' <param name="destinatarioBcc"></param>
+    ''' <param name="asunto"></param>
+    ''' <param name="cuerpoEsHtml"></param>
+    ''' <param name="cuerpo"></param>
+    ''' <param name="adjuntoReporte"></param>
+    ''' <param name="adjuntoNombre"></param>
+    ''' <param name="adjuntoArchivo"></param>
+    ''' <param name="forzarEnvio"></param>
+    ''' <returns></returns>
+    Friend Function Enviar(ByVal destinatarioTo As MailAddress, ByVal destinatarioCC As MailAddress, ByVal destinatarioBcc As MailAddress, ByVal asunto As String, ByVal cuerpoEsHtml As Boolean, ByVal cuerpo As String, ByRef adjuntoReporte As Reporte, ByVal adjuntoNombre As String, ByVal adjuntoArchivo As String, ByVal forzarEnvio As Boolean) As Boolean
+        Dim destinatariosTo As New InternetAddressList
+        Dim destinatariosCC As New InternetAddressList
+        Dim destinatariosBcc As New InternetAddressList
 
-        ' Establezco los recipientes
-        mail.From = New MailAddress(pEmailConfig.Address, pEmailConfig.DisplayName)
-
-        If Not DestinatarioTo Is Nothing Then
-            mail.To.Add(DestinatarioTo)
+        If Not destinatarioTo Is Nothing Then
+            destinatariosTo.Add(New MailboxAddress(destinatarioTo.DisplayName, destinatarioTo.Address))
         End If
-        If Not DestinatarioCC Is Nothing Then
-            mail.CC.Add(DestinatarioCC)
+        If Not destinatarioCC Is Nothing Then
+            destinatariosCC.Add(New MailboxAddress(destinatarioCC.DisplayName, destinatarioCC.Address))
         End If
-        If Not DestinatarioBCC Is Nothing Then
-            mail.Bcc.Add(DestinatarioBCC)
-        End If
-
-        ' Establezco el contenido
-        mail.Subject = Asunto
-        mail.IsBodyHtml = CuerpoEnHTML
-        mail.Body = Cuerpo
-
-        ' Establezco las propiedades del Servidor SMTP
-        smtp.Host = pEmailConfig.SmtpServer
-        smtp.Port = pEmailConfig.SmtpPort
-        smtp.Timeout = pEmailConfig.SmtpTimeout
-
-        Dim Decrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PUBLIC_ENCRYPTION_PASSWORD)
-        Dim DecryptedPassword As String = ""
-        If Not Decrypter.Decrypt(pEmailConfig.SmtpPassword, DecryptedPassword) Then
-            MsgBox("La contraseña de e-mail (SMTP) especificada es incorrecta.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
-            Return False
-        End If
-        smtp.Credentials = New System.Net.NetworkCredential(pEmailConfig.SmtpUserName, DecryptedPassword)
-        Decrypter = Nothing
-
-        ' Attachments
-        If Not AdjuntoReporte Is Nothing Then
-            mail.Attachments.Add(New System.Net.Mail.Attachment(AdjuntoReporte.ReportObject.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat), AdjuntoNombre))
-        End If
-        If AdjuntoArchivo <> "" Then
-            mail.Attachments.Add(New System.Net.Mail.Attachment(AdjuntoArchivo))
+        If Not destinatarioBcc Is Nothing Then
+            destinatariosBcc.Add(New MailboxAddress(destinatarioBcc.DisplayName, destinatarioBcc.Address))
         End If
 
-        ' Envío el e-mail
-        Try
-            smtp.Send(mail)
-            Return True
-        Catch ex As Exception
-            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al enviar el e-mail.")
-            Return False
-        End Try
+        Return Enviar(destinatariosTo, destinatariosCC, destinatariosBcc, asunto, cuerpoEsHtml, cuerpo, adjuntoReporte, adjuntoNombre, adjuntoArchivo, forzarEnvio)
     End Function
 
-    Friend Function EnviarAEntidadesPorNetClient(ByRef listEntidadesTo As List(Of Entidad), ByRef listEntidadesCC As List(Of Entidad), ByRef listEntidadesBCC As List(Of Entidad), ByVal Asunto As String, ByVal CuerpoEnHTML As Boolean, ByVal Cuerpo As String, ByRef AdjuntoReporte As Reporte, ByVal AdjuntoNombre As String, ByVal AdjuntoArchivo As String, ByVal ForzarEnvio As Boolean) As Integer
-        Dim mail As New MailMessage()
-        Dim smtp As New SmtpClient()
-        Dim MailCount As Integer = 0
+    Friend Function Enviar(ByRef entidadesTo As List(Of Entidad), ByRef entidadesCC As List(Of Entidad), ByRef entidadesBCC As List(Of Entidad), ByVal asunto As String, ByVal cuerpoEsHtml As Boolean, ByVal cuerpo As String, ByRef adjuntoReporte As Reporte, ByVal adjuntoNombre As String, ByVal adjuntoArchivo As String, ByVal forzarEnvio As Boolean) As Integer
+        Dim destinatariosTo As New InternetAddressList
+        Dim destinatariosCC As New InternetAddressList
+        Dim destinatariosBcc As New InternetAddressList
+        Dim mailCount As Integer = 0
 
-        ' Establezco los recipientes
-        mail.From = New MailAddress(pEmailConfig.Address, pEmailConfig.DisplayName)
+        mailCount += AgregarRecipientes(entidadesTo, destinatariosTo, forzarEnvio)
+        mailCount += AgregarRecipientes(entidadesCC, destinatariosCC, forzarEnvio)
+        mailCount += AgregarRecipientes(entidadesBCC, destinatariosBcc, forzarEnvio)
 
-        ' Destinatarios - To
-        MailCount += EnviarPorNetClientAgregarDestinatarios(listEntidadesTo, mail.To, ForzarEnvio)
-
-        ' Destinatarios - CC
-        MailCount += EnviarPorNetClientAgregarDestinatarios(listEntidadesCC, mail.CC, ForzarEnvio)
-
-        ' Destinatarios - BCC
-        MailCount += EnviarPorNetClientAgregarDestinatarios(listEntidadesBCC, mail.Bcc, ForzarEnvio)
-
-        If MailCount = 0 Then
-            Return MailCount
+        If mailCount = 0 Then
+            Return 0
+        Else
+            If Enviar(destinatariosTo, destinatariosCC, destinatariosBcc, asunto, cuerpoEsHtml, cuerpo, adjuntoReporte, adjuntoNombre, adjuntoArchivo, forzarEnvio) Then
+                Return mailCount
+            Else
+                Return 0
+            End If
         End If
-
-        ' Establezco el contenido
-        mail.Subject = Asunto
-        mail.IsBodyHtml = CuerpoEnHTML
-        mail.Body = Cuerpo
-
-        ' Establezco las opciones del Servidor SMTP
-        smtp.Host = pEmailConfig.SmtpServer
-        smtp.Port = pEmailConfig.SmtpPort
-        smtp.Timeout = pEmailConfig.SmtpTimeout
-
-        Dim Decrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PUBLIC_ENCRYPTION_PASSWORD)
-        Dim DecryptedPassword As String = ""
-
-        If Not Decrypter.Decrypt(pEmailConfig.SmtpPassword, DecryptedPassword) Then
-            MsgBox("La contraseña de e-mail (SMTP) especificada es incorrecta.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
-            Return -1
-        End If
-        smtp.Credentials = New System.Net.NetworkCredential(pEmailConfig.SmtpUserName, DecryptedPassword)
-        Decrypter = Nothing
-
-        ' Attachments
-        If Not AdjuntoReporte Is Nothing Then
-            mail.Attachments.Add(New System.Net.Mail.Attachment(AdjuntoReporte.ReportObject.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat), AdjuntoNombre))
-        End If
-        If AdjuntoArchivo <> "" Then
-            mail.Attachments.Add(New System.Net.Mail.Attachment(AdjuntoArchivo))
-        End If
-
-        ' Envío el e-mail
-        Try
-            smtp.Send(mail)
-            Return MailCount
-        Catch ex As Exception
-            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al enviar el e-mail.")
-            Return -1
-        End Try
     End Function
 
-    Private Function EnviarPorNetClientAgregarDestinatarios(ByRef listDestinatarios As List(Of Entidad), ByRef colMailDestinatarios As System.Net.Mail.MailAddressCollection, ByVal ForzarEnvio As Boolean) As Integer
-        Dim DestinatariosCount As Integer = 0
+    Private Function AgregarRecipientes(ByRef entidades As List(Of Entidad), ByRef destinatarios As InternetAddressList, ByVal forzarEnvio As Boolean) As Integer
+        Dim destinatariosCount As Integer = 0
 
-        For Each Destinatario As Entidad In listDestinatarios
-            With Destinatario
+        For Each entidad As Entidad In entidades
+            With entidad
                 Select Case .ComprobanteEnviarEmail
                     Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_CUALQUIERA
                         If Not .Email1 Is Nothing Then
-                            colMailDestinatarios.Add(New MailAddress(.Email1, .ApellidoNombre))
-                            DestinatariosCount += 1
+                            destinatarios.Add(New MailboxAddress(.ApellidoNombre, .Email1))
+                            destinatariosCount += 1
                         ElseIf Not .Email2 Is Nothing Then
-                            colMailDestinatarios.Add(New MailAddress(.Email2, .ApellidoNombre))
-                            DestinatariosCount += 1
+                            destinatarios.Add(New MailboxAddress(.ApellidoNombre, .Email2))
+                            destinatariosCount += 1
                         End If
                     Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO
-                        If ForzarEnvio Then
+                        If forzarEnvio Then
                             If Not .Email1 Is Nothing Then
-                                colMailDestinatarios.Add(New MailAddress(.Email1, .ApellidoNombre))
-                                DestinatariosCount += 1
+                                destinatarios.Add(New MailboxAddress(.ApellidoNombre, .Email1))
+                                destinatariosCount += 1
                             End If
                             If Not .Email2 Is Nothing Then
-                                colMailDestinatarios.Add(New MailAddress(.Email2, .ApellidoNombre))
-                                DestinatariosCount += 1
+                                destinatarios.Add(New MailboxAddress(.ApellidoNombre, .Email2))
+                                destinatariosCount += 1
                             End If
                         End If
                     Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_AMBAS
                         If Not .Email1 Is Nothing Then
-                            colMailDestinatarios.Add(New MailAddress(.Email1, .ApellidoNombre))
-                            DestinatariosCount += 1
+                            destinatarios.Add(New MailboxAddress(.ApellidoNombre, .Email1))
+                            destinatariosCount += 1
                         End If
                         If Not .Email2 Is Nothing Then
-                            colMailDestinatarios.Add(New MailAddress(.Email2, .ApellidoNombre))
-                            DestinatariosCount += 1
+                            destinatarios.Add(New MailboxAddress(.ApellidoNombre, .Email2))
+                            destinatariosCount += 1
                         End If
                     Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL1
                         If Not .Email1 Is Nothing Then
-                            colMailDestinatarios.Add(New MailAddress(.Email1, .ApellidoNombre))
-                            DestinatariosCount += 1
+                            destinatarios.Add(New MailboxAddress(.ApellidoNombre, .Email1))
+                            destinatariosCount += 1
                         End If
                     Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2
                         If Not .Email2 Is Nothing Then
-                            colMailDestinatarios.Add(New MailAddress(.Email2, .ApellidoNombre))
-                            DestinatariosCount += 1
+                            destinatarios.Add(New MailboxAddress(.ApellidoNombre, .Email2))
+                            destinatariosCount += 1
                         End If
                 End Select
             End With
         Next
 
-        Return DestinatariosCount
-    End Function
-
-    Friend Function EnviarPorMSOutlook(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef ReporteActual As Reporte, ByVal AdjuntoNombre As String, ByVal ForzarEnvio As Boolean) As Integer
-        Dim mail As New CS_Office_Outlook_LateBinding.MailItem
-
-        If (Not Titular.Email1 Is Nothing) And (Not Titular.Email2 Is Nothing) Then
-            mail.To = Titular.Email1 & "; " & Titular.Email2
-        ElseIf Not Titular.Email1 Is Nothing Then
-            mail.To = Titular.Email1
-        ElseIf Not Titular.Email2 Is Nothing Then
-            mail.To = Titular.Email2
-        End If
-
-        mail.Subject = Asunto
-        mail.Body = Cuerpo
-
-        mail.Attachments.Add(New CS_Office_Outlook_LateBinding.Attachment(ReporteActual.ReportObject.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat), AdjuntoNombre))
-
-        Return -1 'CS_Office_Outlook_LateBinding.SendMail(My.Settings.Email_Address, mail)
-    End Function
-
-    Friend Function EnviarPorCrystalReportsMapi(ByRef Titular As Entidad, ByVal Asunto As String, ByVal Cuerpo As String, ByRef ReporteActual As Reporte, ByVal AdjuntoNombre As String, ByVal ForzarEnvio As Boolean) As Integer
-        'Preparo las opciones del mail
-        Dim mailOpts As New CrystalDecisions.Shared.MicrosoftMailDestinationOptions
-        If Not Titular.Email1 Is Nothing Then
-            mailOpts.MailToList = Titular.Email1
-        ElseIf Not Titular.Email2 Is Nothing Then
-            mailOpts.MailToList = Titular.Email2
-        End If
-        mailOpts.MailSubject = Asunto
-        mailOpts.MailMessage = Cuerpo
-
-        'Ahora preparo las opciones de exportación
-        Dim expopt As New CrystalDecisions.Shared.ExportOptions
-        expopt.ExportDestinationType = CrystalDecisions.Shared.ExportDestinationType.MicrosoftMail
-        expopt.ExportDestinationOptions = mailOpts
-        expopt.ExportFormatType = CrystalDecisions.Shared.ExportFormatType.PortableDocFormat
-
-        Try
-            ReporteActual.ReportObject.Export(expopt)
-            Return -1   'True
-
-        Catch ex As Exception
-            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al enviar el e-mail.")
-            Return -1   'False
-
-        End Try
+        Return destinatariosCount
     End Function
 
 End Module

@@ -168,36 +168,21 @@
 
                     textboxStatus.AppendText(vbCrLf & String.Format("Enviando {0} N° {1} a {2}...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.NumeroCompleto, ComprobanteActual.Entidad.ApellidoNombre))
 
-                    Select Case pComprobanteConfig.SendEmailMethod
-                        Case CardonerSistemas.Constants.EMAIL_CLIENT_NETDLL
-                            Result = Email.EnviarAEntidadesPorNetClient(New List(Of Entidad)({ComprobanteActual.Entidad}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", False)
-                            Select Case Result
-                                Case 0
-                                    MsgBox("No hay una dirección de e-mail para la Entidad.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                                    RefreshData()
-                                    MostrarOcultarEstado(False)
-                                    Me.Cursor = Cursors.Default
-                                    Exit Sub
-                                Case -1
-                                    RefreshData()
-                                    MostrarOcultarEstado(False)
-                                    Me.Cursor = Cursors.Default
-                                    Exit Sub
-                            End Select
-                            MailCount += Result
-                        Case CardonerSistemas.Constants.EMAIL_CLIENT_MSOUTLOOK
-                            Result = Email.EnviarPorMSOutlook(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
-                            If Result = -1 Then
-                                Exit For
-                            End If
-                            MailCount += Result
-                        Case CardonerSistemas.Constants.EMAIL_CLIENT_CRYSTALREPORTSMAPI
-                            Result = Email.EnviarPorCrystalReportsMapi(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
-                            If Result = -1 Then
-                                Exit For
-                            End If
-                            MailCount += Result
+                    Result = Email.Enviar(New List(Of Entidad)({ComprobanteActual.Entidad}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", False)
+                    Select Case Result
+                        Case 0
+                            MsgBox("No hay una dirección de e-mail para la Entidad.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                            RefreshData()
+                            MostrarOcultarEstado(False)
+                            Me.Cursor = Cursors.Default
+                            Exit Sub
+                        Case -1
+                            RefreshData()
+                            MostrarOcultarEstado(False)
+                            Me.Cursor = Cursors.Default
+                            Exit Sub
                     End Select
+                    MailCount += Result
 
                     dbContext.Comprobante.Attach(ComprobanteActual)
 

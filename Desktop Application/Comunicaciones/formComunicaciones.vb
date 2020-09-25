@@ -310,7 +310,7 @@
                     Me.Cursor = Cursors.WaitCursor
                     datagridviewMain.Enabled = False
 
-                    If Email.EnviarPorAimClient(New System.Net.Mail.MailAddress(DireccionEmailDestino), Nothing, Nothing, ComunicacionActual.Asunto, ComunicacionActual.CuerpoMensajeEsHTML, ComunicacionActual.CuerpoMensaje, Nothing, "", ComunicacionActual.ArchivoAdjunto, False) Then
+                    If Email.Enviar(New System.Net.Mail.MailAddress(DireccionEmailDestino), Nothing, Nothing, ComunicacionActual.Asunto, ComunicacionActual.CuerpoMensajeEsHTML, ComunicacionActual.CuerpoMensaje, Nothing, "", ComunicacionActual.ArchivoAdjunto, False) Then
                         MsgBox("Se ha enviado la Comunicación por e-mail.", vbInformation, My.Application.Info.Title)
                     End If
 

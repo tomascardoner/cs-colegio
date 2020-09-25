@@ -479,6 +479,7 @@
 #End Region
 
 #Region "Main Toolbar"
+
     Private Sub Agregar(sender As Object, e As EventArgs) Handles buttonAgregar.Click
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE_AGREGAR) Then
             Me.Cursor = Cursors.WaitCursor
@@ -775,7 +776,7 @@
                                 Dim Cuerpo As String = String.Format(pComprobanteConfig.SendEmailBody, vbCrLf) & String.Format(pEmailConfig.Signature, vbCrLf)
                                 Dim AdjuntoNombre As String = String.Format("{0}-{1}.pdf", ComprobanteTipoActual.Sigla.TrimEnd, CurrentRow.NumeroCompleto)
 
-                                If Email.EnviarAEntidadesPorNetClient(New List(Of Entidad)({Titular}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", True) = -1 Then
+                                If Email.Enviar(New List(Of Entidad)({Titular}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", True) = -1 Then
                                     datagridviewMain.Enabled = True
                                     Me.Cursor = Cursors.Default
                                     Exit Sub
