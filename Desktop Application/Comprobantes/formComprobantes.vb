@@ -775,26 +775,11 @@
                                 Dim Cuerpo As String = String.Format(pComprobanteConfig.SendEmailBody, vbCrLf) & String.Format(pEmailConfig.Signature, vbCrLf)
                                 Dim AdjuntoNombre As String = String.Format("{0}-{1}.pdf", ComprobanteTipoActual.Sigla.TrimEnd, CurrentRow.NumeroCompleto)
 
-                                Select Case pEmailConfig.SendMethod
-                                    Case CardonerSistemas.Constants.EMAIL_CLIENT_NETDLL
-                                        If Email.EnviarAEntidadesPorNetClient(New List(Of Entidad)({Titular}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", True) = -1 Then
-                                            datagridviewMain.Enabled = True
-                                            Me.Cursor = Cursors.Default
-                                            Exit Sub
-                                        End If
-                                    Case CardonerSistemas.Constants.EMAIL_CLIENT_MSOUTLOOK
-                                        If Email.EnviarPorMSOutlook(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, True) = -1 Then
-                                            datagridviewMain.Enabled = True
-                                            Me.Cursor = Cursors.Default
-                                            Exit Sub
-                                        End If
-                                    Case CardonerSistemas.Constants.EMAIL_CLIENT_CRYSTALREPORTSMAPI
-                                        If Email.EnviarPorCrystalReportsMapi(Titular, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, True) = -1 Then
-                                            datagridviewMain.Enabled = True
-                                            Me.Cursor = Cursors.Default
-                                            Exit Sub
-                                        End If
-                                End Select
+                                If Email.EnviarAEntidadesPorNetClient(New List(Of Entidad)({Titular}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", True) = -1 Then
+                                    datagridviewMain.Enabled = True
+                                    Me.Cursor = Cursors.Default
+                                    Exit Sub
+                                End If
 
                                 ComprobanteActual.IDUsuarioEnvioEmail = pUsuario.IDUsuario
                                 ComprobanteActual.FechaHoraEnvioEmail = DateTime.Now

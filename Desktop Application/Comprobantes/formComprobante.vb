@@ -151,6 +151,7 @@
 #End Region
 
 #Region "Load and Set Data"
+
     Friend Sub SetDataFromObjectToControls()
         With mComprobanteActual
             ' Datos de la Identificación
@@ -279,193 +280,7 @@
             .ImporteImpuesto = currencytextboxImpuestos_Subtotal.DecimalValue
             .ImporteSubtotal = .ImporteTotal1 - .ImporteImpuesto
         End With
-    End Sub
 
-    Friend Sub RefreshData_Detalle(Optional ByVal PositionIndice As Byte = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
-        Dim Total As Decimal = 0
-
-        If RestoreCurrentPosition Then
-            If datagridviewDetalle.CurrentRow Is Nothing Then
-                PositionIndice = 0
-            Else
-                PositionIndice = CType(datagridviewDetalle.CurrentRow.DataBoundItem, ComprobanteDetalle).Indice
-            End If
-        End If
-
-        Me.Cursor = Cursors.WaitCursor
-
-        Try
-            datagridviewDetalle.AutoGenerateColumns = False
-            datagridviewDetalle.DataSource = mComprobanteActual.ComprobanteDetalle.ToList
-
-        Catch ex As Exception
-            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al leer los Detalles.")
-            Me.Cursor = Cursors.Default
-            Exit Sub
-        End Try
-
-        For Each ComprobanteDetalleActual As ComprobanteDetalle In mComprobanteActual.ComprobanteDetalle
-            Total += ComprobanteDetalleActual.PrecioUnitarioFinal
-        Next
-        currencytextboxDetalle_Subtotal.DecimalValue = Total
-        If mComprobanteTipoActual.UtilizaDetalle Then
-            currencytextboxImporteTotal.DecimalValue = Total
-        End If
-
-        Me.Cursor = Cursors.Default
-
-        If PositionIndice <> 0 Then
-            For Each CurrentRowChecked As DataGridViewRow In datagridviewDetalle.Rows
-                If CType(datagridviewDetalle.CurrentRow.DataBoundItem, ComprobanteDetalle).Indice = PositionIndice Then
-                    datagridviewDetalle.CurrentCell = CurrentRowChecked.Cells(0)
-                    Exit For
-                End If
-            Next
-        End If
-
-        ChangeMode()
-    End Sub
-
-    Friend Sub RefreshData_Aplicaciones(Optional ByVal PositionIDComprobanteAplicado As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
-        Dim listAplicaciones As List(Of GridRowData_Aplicacion)
-        Dim Total As Decimal = 0
-
-        If RestoreCurrentPosition Then
-            If datagridviewAplicaciones.CurrentRow Is Nothing Then
-                PositionIDComprobanteAplicado = 0
-            Else
-                PositionIDComprobanteAplicado = CType(datagridviewAplicaciones.CurrentRow.DataBoundItem, GridRowData_Aplicacion).ComprobanteAplicacion.IDComprobanteAplicado
-            End If
-        End If
-
-        Me.Cursor = Cursors.WaitCursor
-
-        Try
-            listAplicaciones = New List(Of GridRowData_Aplicacion)
-
-            If mComprobanteActual.ComprobanteAplicacion_Aplicados.Count > 0 Then
-
-                Using dbContext As New CSColegioContext(True)
-
-                    For Each ca As ComprobanteAplicacion In mComprobanteActual.ComprobanteAplicacion_Aplicados
-                        Dim GridRowData As New GridRowData_Aplicacion
-                        Dim ComprobanteAplicado As Comprobante
-                        Dim ComprobanteAplicacionMotivoActual As ComprobanteAplicacionMotivo
-
-                        With GridRowData
-                            .ComprobanteAplicacion = ca
-
-                            If ca.IDComprobanteAplicacionMotivo.HasValue Then
-                                ComprobanteAplicacionMotivoActual = dbContext.ComprobanteAplicacionMotivo.Find(ca.IDComprobanteAplicacionMotivo)
-                                .Motivo = ComprobanteAplicacionMotivoActual.Nombre
-                            Else
-                                .Motivo = ""
-                            End If
-
-                            ComprobanteAplicado = dbContext.Comprobante.Find(ca.IDComprobanteAplicado)
-                            .ComprobanteTipoNombre = ComprobanteAplicado.ComprobanteTipo.Nombre
-                            .MovimientoTipo = ComprobanteAplicado.ComprobanteTipo.MovimientoTipo
-
-                            .NumeroCompleto = ComprobanteAplicado.NumeroCompleto
-                            .FechaEmision = ComprobanteAplicado.FechaEmision
-                            .ImporteTotal = ComprobanteAplicado.ImporteTotal1
-                            .ImporteAplicado = ca.Importe
-                        End With
-
-                        listAplicaciones.Add(GridRowData)
-
-                        ComprobanteAplicado = Nothing
-                        ComprobanteAplicacionMotivoActual = Nothing
-                        GridRowData = Nothing
-                    Next
-
-                End Using
-
-            End If
-
-            datagridviewAplicaciones.AutoGenerateColumns = False
-            datagridviewAplicaciones.DataSource = listAplicaciones
-
-        Catch ex As Exception
-            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al leer los Comprobantes aplicados.")
-            Me.Cursor = Cursors.Default
-            Exit Sub
-        End Try
-
-        For Each GridRowData_AplicacionActual As GridRowData_Aplicacion In listAplicaciones
-            Select Case GridRowData_AplicacionActual.MovimientoTipo
-                Case Constantes.MOVIMIENTOTIPO_CREDITO
-                    Total += GridRowData_AplicacionActual.ImporteAplicado
-                Case Constantes.MOVIMIENTOTIPO_DEBITO
-                    Total -= GridRowData_AplicacionActual.ImporteAplicado
-            End Select
-        Next
-        currencytextboxAplicaciones_Subtotal.DecimalValue = Total
-
-        If mComprobanteTipoActual.UtilizaDetalle = False And mComprobanteTipoActual.UtilizaMedioPago = False Then
-            currencytextboxImporteTotal.DecimalValue = Total
-            currencytextboxImporteTotal.ReadOnly = (listAplicaciones.Count > 0)
-        End If
-
-        Me.Cursor = Cursors.Default
-
-        If PositionIDComprobanteAplicado <> 0 Then
-            For Each CurrentRowChecked As DataGridViewRow In datagridviewAplicaciones.Rows
-                If CType(datagridviewAplicaciones.CurrentRow.DataBoundItem, GridRowData_Aplicacion).ComprobanteAplicacion.IDComprobanteAplicado = PositionIDComprobanteAplicado Then
-                    datagridviewAplicaciones.CurrentCell = CurrentRowChecked.Cells(0)
-                    Exit For
-                End If
-            Next
-        End If
-
-        ChangeMode()
-    End Sub
-
-    Friend Sub RefreshData_MediosPago(Optional ByVal PositionIndice As Byte = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
-        Dim listMediosPago As List(Of GridRowData_MedioPago)
-        Dim Total As Decimal = 0
-
-        If RestoreCurrentPosition Then
-            If datagridviewMediosPago.CurrentRow Is Nothing Then
-                PositionIndice = 0
-            Else
-                PositionIndice = CType(datagridviewMediosPago.CurrentRow.DataBoundItem, GridRowData_MedioPago).ComprobanteMedioPago.Indice
-            End If
-        End If
-
-        Me.Cursor = Cursors.WaitCursor
-
-        Try
-            listMediosPago = (From cmp In mComprobanteActual.ComprobanteMedioPago
-                              Join mp In mdbContext.MedioPago On cmp.IDMedioPago Equals mp.IDMedioPago
-                              Join c In mdbContext.Caja On cmp.IDCaja Equals c.IDCaja
-                              Select New GridRowData_MedioPago With {.ComprobanteMedioPago = cmp, .MedioPago = mp, .MedioPagoNombre = mp.Nombre, .CajaNombre = c.Nombre, .Importe = cmp.Importe}).ToList
-
-            datagridviewMediosPago.AutoGenerateColumns = False
-            datagridviewMediosPago.DataSource = listMediosPago
-
-        Catch ex As Exception
-            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al leer los Medios de Pago.")
-            Me.Cursor = Cursors.Default
-            Exit Sub
-        End Try
-
-        For Each GridRowData_MedioPagoCurrent As GridRowData_MedioPago In listMediosPago
-            Total += GridRowData_MedioPagoCurrent.Importe
-        Next
-        currencytextboxMediosPago_Subtotal.DecimalValue = Total
-        currencytextboxImporteTotal.DecimalValue = Total
-
-        Me.Cursor = Cursors.Default
-
-        If PositionIndice <> 0 Then
-            For Each CurrentRowChecked As DataGridViewRow In datagridviewMediosPago.Rows
-                If CType(datagridviewMediosPago.CurrentRow.DataBoundItem, GridRowData_MedioPago).ComprobanteMedioPago.Indice = PositionIndice Then
-                    datagridviewMediosPago.CurrentCell = CurrentRowChecked.Cells(0)
-                    Exit For
-                End If
-            Next
-        End If
     End Sub
 
 #End Region
@@ -856,7 +671,53 @@
     End Sub
 #End Region
 
-#Region "Detalle Toolbar"
+#Region "Detalles"
+
+    Friend Sub RefreshData_Detalle(Optional ByVal PositionIndice As Byte = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
+        Dim Total As Decimal = 0
+
+        If RestoreCurrentPosition Then
+            If datagridviewDetalle.CurrentRow Is Nothing Then
+                PositionIndice = 0
+            Else
+                PositionIndice = CType(datagridviewDetalle.CurrentRow.DataBoundItem, ComprobanteDetalle).Indice
+            End If
+        End If
+
+        Me.Cursor = Cursors.WaitCursor
+
+        Try
+            datagridviewDetalle.AutoGenerateColumns = False
+            datagridviewDetalle.DataSource = mComprobanteActual.ComprobanteDetalle.ToList
+
+        Catch ex As Exception
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al leer los Detalles.")
+            Me.Cursor = Cursors.Default
+            Exit Sub
+        End Try
+
+        For Each ComprobanteDetalleActual As ComprobanteDetalle In mComprobanteActual.ComprobanteDetalle
+            Total += ComprobanteDetalleActual.PrecioUnitarioFinal
+        Next
+        currencytextboxDetalle_Subtotal.DecimalValue = Total
+        If mComprobanteTipoActual.UtilizaDetalle Then
+            currencytextboxImporteTotal.DecimalValue = Total
+        End If
+
+        Me.Cursor = Cursors.Default
+
+        If PositionIndice <> 0 Then
+            For Each CurrentRowChecked As DataGridViewRow In datagridviewDetalle.Rows
+                If CType(datagridviewDetalle.CurrentRow.DataBoundItem, ComprobanteDetalle).Indice = PositionIndice Then
+                    datagridviewDetalle.CurrentCell = CurrentRowChecked.Cells(0)
+                    Exit For
+                End If
+            Next
+        End If
+
+        ChangeMode()
+    End Sub
+
     Private Sub Detalle_Agregar(sender As Object, e As EventArgs) Handles buttonDetalle_Agregar.ButtonClick
         If textboxEntidad.Tag Is Nothing Then
             MsgBox("Antes de poder agregar Detalles, debe especificar la Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
@@ -967,9 +828,106 @@
             Me.Cursor = Cursors.Default
         End If
     End Sub
+
 #End Region
 
-#Region "Aplicación Toolbar"
+#Region "Aplicaciones"
+
+    Friend Sub RefreshData_Aplicaciones(Optional ByVal PositionIDComprobanteAplicado As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
+        Dim listAplicaciones As List(Of GridRowData_Aplicacion)
+        Dim Total As Decimal = 0
+
+        If RestoreCurrentPosition Then
+            If datagridviewAplicaciones.CurrentRow Is Nothing Then
+                PositionIDComprobanteAplicado = 0
+            Else
+                PositionIDComprobanteAplicado = CType(datagridviewAplicaciones.CurrentRow.DataBoundItem, GridRowData_Aplicacion).ComprobanteAplicacion.IDComprobanteAplicado
+            End If
+        End If
+
+        Me.Cursor = Cursors.WaitCursor
+
+        Try
+            listAplicaciones = New List(Of GridRowData_Aplicacion)
+
+            If mComprobanteActual.ComprobanteAplicacion_Aplicados.Count > 0 Then
+
+                Using dbContext As New CSColegioContext(True)
+
+                    For Each ca As ComprobanteAplicacion In mComprobanteActual.ComprobanteAplicacion_Aplicados
+                        Dim GridRowData As New GridRowData_Aplicacion
+                        Dim ComprobanteAplicado As Comprobante
+                        Dim ComprobanteAplicacionMotivoActual As ComprobanteAplicacionMotivo
+
+                        With GridRowData
+                            .ComprobanteAplicacion = ca
+
+                            If ca.IDComprobanteAplicacionMotivo.HasValue Then
+                                ComprobanteAplicacionMotivoActual = dbContext.ComprobanteAplicacionMotivo.Find(ca.IDComprobanteAplicacionMotivo)
+                                .Motivo = ComprobanteAplicacionMotivoActual.Nombre
+                            Else
+                                .Motivo = ""
+                            End If
+
+                            ComprobanteAplicado = dbContext.Comprobante.Find(ca.IDComprobanteAplicado)
+                            .ComprobanteTipoNombre = ComprobanteAplicado.ComprobanteTipo.Nombre
+                            .MovimientoTipo = ComprobanteAplicado.ComprobanteTipo.MovimientoTipo
+
+                            .NumeroCompleto = ComprobanteAplicado.NumeroCompleto
+                            .FechaEmision = ComprobanteAplicado.FechaEmision
+                            .ImporteTotal = ComprobanteAplicado.ImporteTotal1
+                            .ImporteAplicado = ca.Importe
+                        End With
+
+                        listAplicaciones.Add(GridRowData)
+
+                        ComprobanteAplicado = Nothing
+                        ComprobanteAplicacionMotivoActual = Nothing
+                        GridRowData = Nothing
+                    Next
+
+                End Using
+
+            End If
+
+            datagridviewAplicaciones.AutoGenerateColumns = False
+            datagridviewAplicaciones.DataSource = listAplicaciones
+
+        Catch ex As Exception
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al leer los Comprobantes aplicados.")
+            Me.Cursor = Cursors.Default
+            Exit Sub
+        End Try
+
+        For Each GridRowData_AplicacionActual As GridRowData_Aplicacion In listAplicaciones
+            Select Case GridRowData_AplicacionActual.MovimientoTipo
+                Case Constantes.MOVIMIENTOTIPO_CREDITO
+                    Total += GridRowData_AplicacionActual.ImporteAplicado
+                Case Constantes.MOVIMIENTOTIPO_DEBITO
+                    Total -= GridRowData_AplicacionActual.ImporteAplicado
+            End Select
+        Next
+        currencytextboxAplicaciones_Subtotal.DecimalValue = Total
+
+        If mComprobanteTipoActual.UtilizaDetalle = False And mComprobanteTipoActual.UtilizaMedioPago = False Then
+            currencytextboxImporteTotal.DecimalValue = Total
+            currencytextboxImporteTotal.ReadOnly = (listAplicaciones.Count > 0)
+        End If
+
+        Me.Cursor = Cursors.Default
+
+        If PositionIDComprobanteAplicado <> 0 Then
+            For Each CurrentRowChecked As DataGridViewRow In datagridviewAplicaciones.Rows
+                If CType(datagridviewAplicaciones.CurrentRow.DataBoundItem, GridRowData_Aplicacion).ComprobanteAplicacion.IDComprobanteAplicado = PositionIDComprobanteAplicado Then
+                    datagridviewAplicaciones.CurrentCell = CurrentRowChecked.Cells(0)
+                    Exit For
+                End If
+            Next
+        End If
+
+        ChangeMode()
+    End Sub
+
     Private Sub Aplicacion_Agregar(sender As Object, e As EventArgs) Handles buttonAplicaciones_Agregar.Click
         If textboxEntidad.Tag Is Nothing Then
             MsgBox("Antes de poder agregar Aplicaciones, debe especificar la Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
@@ -1010,10 +968,59 @@
                 Me.Cursor = Cursors.Default
             End If
         End If
+
     End Sub
 #End Region
 
-#Region "Medios de Pago Toolbar"
+#Region "Medios de Pago"
+
+    Friend Sub RefreshData_MediosPago(Optional ByVal PositionIndice As Byte = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
+        Dim listMediosPago As List(Of GridRowData_MedioPago)
+        Dim Total As Decimal = 0
+
+        If RestoreCurrentPosition Then
+            If datagridviewMediosPago.CurrentRow Is Nothing Then
+                PositionIndice = 0
+            Else
+                PositionIndice = CType(datagridviewMediosPago.CurrentRow.DataBoundItem, GridRowData_MedioPago).ComprobanteMedioPago.Indice
+            End If
+        End If
+
+        Me.Cursor = Cursors.WaitCursor
+
+        Try
+            listMediosPago = (From cmp In mComprobanteActual.ComprobanteMedioPago
+                              Join mp In mdbContext.MedioPago On cmp.IDMedioPago Equals mp.IDMedioPago
+                              Join c In mdbContext.Caja On cmp.IDCaja Equals c.IDCaja
+                              Select New GridRowData_MedioPago With {.ComprobanteMedioPago = cmp, .MedioPago = mp, .MedioPagoNombre = mp.Nombre, .CajaNombre = c.Nombre, .Importe = cmp.Importe}).ToList
+
+            datagridviewMediosPago.AutoGenerateColumns = False
+            datagridviewMediosPago.DataSource = listMediosPago
+
+        Catch ex As Exception
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al leer los Medios de Pago.")
+            Me.Cursor = Cursors.Default
+            Exit Sub
+        End Try
+
+        For Each GridRowData_MedioPagoCurrent As GridRowData_MedioPago In listMediosPago
+            Total += GridRowData_MedioPagoCurrent.Importe
+        Next
+        currencytextboxMediosPago_Subtotal.DecimalValue = Total
+        currencytextboxImporteTotal.DecimalValue = Total
+
+        Me.Cursor = Cursors.Default
+
+        If PositionIndice <> 0 Then
+            For Each CurrentRowChecked As DataGridViewRow In datagridviewMediosPago.Rows
+                If CType(datagridviewMediosPago.CurrentRow.DataBoundItem, GridRowData_MedioPago).ComprobanteMedioPago.Indice = PositionIndice Then
+                    datagridviewMediosPago.CurrentCell = CurrentRowChecked.Cells(0)
+                    Exit For
+                End If
+            Next
+        End If
+    End Sub
+
     Private Sub MedioPago_AgregarOtro(sender As Object, e As EventArgs) Handles buttonMediosPago_AgregarOtro.Click
         Me.Cursor = Cursors.WaitCursor
 
@@ -1116,6 +1123,7 @@
 
             Me.Cursor = Cursors.Default
         End If
+
     End Sub
 
 #End Region

@@ -27,8 +27,8 @@
 
         mSkipFilterData = False
 
-        mOrdenColumna = columnNombre
-        mOrdenTipo = SortOrder.Ascending
+        mOrdenColumna = columnIDComunicacion
+        mOrdenTipo = SortOrder.Descending
 
         RefreshData()
     End Sub
@@ -310,22 +310,9 @@
                     Me.Cursor = Cursors.WaitCursor
                     datagridviewMain.Enabled = False
 
-                    Select Case pComprobanteConfig.SendEmailMethod
-                        Case CardonerSistemas.Constants.EMAIL_CLIENT_NETDLL
-                            If Email.EnviarPorNetClient(New System.Net.Mail.MailAddress(DireccionEmailDestino), Nothing, Nothing, ComunicacionActual.Asunto, ComunicacionActual.CuerpoMensajeEsHTML, ComunicacionActual.CuerpoMensaje, Nothing, "", ComunicacionActual.ArchivoAdjunto, False) Then
-                                MsgBox("Se ha enviado la Comunicación por e-mail.", vbInformation, My.Application.Info.Title)
-                            End If
-                        Case CardonerSistemas.Constants.EMAIL_CLIENT_MSOUTLOOK
-                            'Email.EnviarEmailPorMSOutlook(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
-                            'If MailCount = -1 Then
-                            '    Return 0
-                            'End If
-                        Case CardonerSistemas.Constants.EMAIL_CLIENT_CRYSTALREPORTSMAPI
-                            'Result = Email.EnviarEmailPorCrystalReportsMAPI(ComprobanteActual.Entidad, Asunto, Cuerpo, ReporteActual, AdjuntoNombre, False)
-                            'If Result = -1 Then
-                            '    Return 0
-                            'End If
-                    End Select
+                    If Email.EnviarPorAimClient(New System.Net.Mail.MailAddress(DireccionEmailDestino), Nothing, Nothing, ComunicacionActual.Asunto, ComunicacionActual.CuerpoMensajeEsHTML, ComunicacionActual.CuerpoMensaje, Nothing, "", ComunicacionActual.ArchivoAdjunto, False) Then
+                        MsgBox("Se ha enviado la Comunicación por e-mail.", vbInformation, My.Application.Info.Title)
+                    End If
 
                     datagridviewMain.Enabled = True
                     Me.Cursor = Cursors.Default

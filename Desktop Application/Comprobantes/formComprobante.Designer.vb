@@ -1302,7 +1302,7 @@ Partial Class formComprobante
         Me.currencytextboxAplicaciones_Subtotal.Location = New System.Drawing.Point(79, 4)
         Me.currencytextboxAplicaciones_Subtotal.MaxValue = New Decimal(New Integer() {999999999, 0, 0, 131072})
         Me.currencytextboxAplicaciones_Subtotal.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
-        Me.currencytextboxAplicaciones_Subtotal.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.currencytextboxAplicaciones_Subtotal.MinValue = New Decimal(New Integer() {999999999, 0, 0, -2147352576})
         Me.currencytextboxAplicaciones_Subtotal.Name = "currencytextboxAplicaciones_Subtotal"
         Me.currencytextboxAplicaciones_Subtotal.NullString = ""
         Me.currencytextboxAplicaciones_Subtotal.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
