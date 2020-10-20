@@ -279,6 +279,7 @@
                     MsgBox(String.Format("El Alumno {1} necesita correcciones.{0}{0}{2}", vbCrLf, GridRowData_AlumnoCursoActual.Entidad.ApellidoNombre, CorreccionDescripcion), MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 End If
                 If GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo Is Nothing Then
+                    NoVerificada = True
                     MsgBox(String.Format("El Alumno {1} no tiene especificado el Año Lectivo-Curso próximo.", vbCrLf, GridRowData_AlumnoCursoActual.Entidad.ApellidoNombre), MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 End If
             End If

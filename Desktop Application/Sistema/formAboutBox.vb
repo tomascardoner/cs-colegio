@@ -14,19 +14,29 @@ Public NotInheritable Class formAboutBox
         Dim NewItem As ListViewItem
 
         NewItem = New ListViewItem
-        NewItem.Text = "DB - DataSource"
+        NewItem.Text = "Datasource"
         NewItem.SubItems.Add(pDatabaseConfig.Datasource)
         listviewPropiedades.Items.Add(NewItem)
 
         NewItem = New ListViewItem
-        NewItem.Text = "DB - Database"
+        NewItem.Text = "Database"
         NewItem.SubItems.Add(pDatabaseConfig.Database)
         listviewPropiedades.Items.Add(NewItem)
 
         NewItem = New ListViewItem
-        NewItem.Text = "Reports Path"
+        NewItem.Text = "Reports path"
         NewItem.SubItems.Add(pGeneralConfig.ReportsPath)
         listviewPropiedades.Items.Add(NewItem)
+
+        Try
+            NewItem = New ListViewItem
+            NewItem.Text = "Crystal Reports version"
+            NewItem.SubItems.Add(CrystalDecisions.Shared.ReportingVersion.ASSEMBLY_VERSION)
+            listviewPropiedades.Items.Add(NewItem)
+
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private Sub OKButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OKButton.Click

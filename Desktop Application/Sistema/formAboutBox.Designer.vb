@@ -102,12 +102,12 @@ Partial Class formAboutBox
         'columnPropiedad
         '
         Me.columnPropiedad.Text = "Propiedad"
-        Me.columnPropiedad.Width = 95
+        Me.columnPropiedad.Width = 120
         '
         'columnValor
         '
         Me.columnValor.Text = "Valor"
-        Me.columnValor.Width = 315
+        Me.columnValor.Width = 290
         '
         'pictureboxIcon
         '

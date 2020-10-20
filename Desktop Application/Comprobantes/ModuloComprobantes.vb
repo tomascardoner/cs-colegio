@@ -463,7 +463,7 @@
             AnioLectivoCuotaActual = AnioLectivoCursoActual.Curso.CuotaTipo.AnioLectivoCuotas.Where(Function(alci) alci.AnioLectivo = AnioLectivo And alci.MesInicio <= MesAFacturar).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
         End If
 
-        If Not AnioLectivoCursoActual Is Nothing Then
+        If Not AnioLectivoCuotaActual Is Nothing Then
             With ComprobanteDetalleActual
                 .Indice = CByte(ComprobanteCabecera.ComprobanteDetalle.Count + 1)
                 .IDArticulo = ArticuloActual.IDArticulo
