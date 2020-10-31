@@ -2,6 +2,17 @@
 Imports MimeKit
 
 Module Email
+    Friend Function GetSslOptionsEnumValue(ByVal value As Integer) As MailKit.Security.SecureSocketOptions
+        Dim name As String = ""
+
+        If [Enum].IsDefined(GetType(MailKit.Security.SecureSocketOptions), value) Then
+            Return CType(value, MailKit.Security.SecureSocketOptions)
+        Else
+            Return MailKit.Security.SecureSocketOptions.None
+        End If
+    End Function
+
+
     ''' <summary>
     '''     Esta función, envía un e-mail utilizando el componente MailKit
     '''     ya que el componente incluído con .Net (System.Net.Mail) no sporta SSL implícito.
@@ -31,7 +42,7 @@ Module Email
         mail.Bcc.AddRange(destinatariosBcc)
 
         ' Establezco las propiedades del Servidor SMTP
-        smtp.Connect(pEmailConfig.SmtpServer, pEmailConfig.SmtpPort, pEmailConfig.SmtpUseSsl)
+        smtp.Connect(pEmailConfig.SmtpServer, pEmailConfig.SmtpPort, GetSslOptionsEnumValue(pEmailConfig.SmtpSslOptions))
         smtp.Timeout = pEmailConfig.SmtpTimeout
 
         Dim Decrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PUBLIC_ENCRYPTION_PASSWORD)
