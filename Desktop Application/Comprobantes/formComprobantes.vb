@@ -129,6 +129,9 @@
                     Case 4  ' Últimos 3
                         FechaDesde = System.DateTime.Today.AddDays(-2)
                         FechaHasta = System.DateTime.Today
+                    Case 5  ' Últimos 4
+                        FechaDesde = System.DateTime.Today.AddDays(-3)
+                        FechaHasta = System.DateTime.Today
                 End Select
             Case 1  ' Semana
                 Select Case comboboxPeriodoValor.SelectedIndex
@@ -141,6 +144,9 @@
                     Case 2  ' Últimas 2
                         FechaDesde = System.DateTime.Today.AddDays(-System.DateTime.Today.DayOfWeek - 7)
                         FechaHasta = System.DateTime.Today
+                    Case 3  ' Últimas 3
+                        FechaDesde = System.DateTime.Today.AddDays(-System.DateTime.Today.DayOfWeek - 14)
+                        FechaHasta = System.DateTime.Today
                 End Select
             Case 2  ' Mes
                 Select Case comboboxPeriodoValor.SelectedIndex
@@ -152,6 +158,9 @@
                         FechaHasta = New Date(System.DateTime.Today.Year, System.DateTime.Today.AddMonths(-1).Month, New System.Globalization.GregorianCalendar().GetDaysInMonth(System.DateTime.Today.Year, System.DateTime.Today.AddMonths(-1).Month))
                     Case 2  ' Últimos 2
                         FechaDesde = New Date(System.DateTime.Today.Year, System.DateTime.Today.AddMonths(-1).Month, 1)
+                        FechaHasta = System.DateTime.Today
+                    Case 3  ' Últimos 3
+                        FechaDesde = New Date(System.DateTime.Today.Year, System.DateTime.Today.AddMonths(-2).Month, 1)
                         FechaHasta = System.DateTime.Today
                 End Select
             Case 3  ' Fecha
@@ -333,11 +342,11 @@
         comboboxPeriodoValor.Items.Clear()
         Select Case comboboxPeriodoTipo.SelectedIndex
             Case 0  ' Día
-                comboboxPeriodoValor.Items.AddRange({"Hoy", "Ayer", "Anteayer", "Últimos 2", "Últimos 3"})
+                comboboxPeriodoValor.Items.AddRange({"Hoy", "Ayer", "Anteayer", "Últimos 2", "Últimos 3", "Últimos 4"})
             Case 1  ' Semana
-                comboboxPeriodoValor.Items.AddRange({"Actual", "Anterior", "Últimas 2"})
+                comboboxPeriodoValor.Items.AddRange({"Actual", "Anterior", "Últimas 2", "Últimas 3"})
             Case 2  ' Mes
-                comboboxPeriodoValor.Items.AddRange({"Actual", "Anterior", "Últimos 2"})
+                comboboxPeriodoValor.Items.AddRange({"Actual", "Anterior", "Últimos 2", "Últimos 3"})
             Case 3  ' Fecha
                 comboboxPeriodoValor.Items.AddRange({"es igual a:", "es posterior a:", "es anterior a:", "está entre:"})
         End Select
