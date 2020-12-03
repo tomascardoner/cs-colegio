@@ -134,6 +134,7 @@
         MostrarOcultarEstado(True)
         mCancelar = False
         textboxStatus.Text = "Iniciando el envío de Comprobantes..."
+        Application.DoEvents()
 
         For Each RowActual As DataGridViewRow In datagridviewComprobantes.Rows
             ' Hago que la grilla vaya mostrando la fila que se está procesando
