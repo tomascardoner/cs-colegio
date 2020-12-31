@@ -124,11 +124,13 @@
         ' Muestro el form MDI principal
         pFormMDIMain = New formMDIMain()
         pFormMDIMain.Show()
+        formSplashScreen.Focus()
 
         pFormMDIMain.Cursor = Cursors.AppStarting
         pFormMDIMain.Enabled = False
 
         formSplashScreen.labelStatus.Text = "Todo completado."
+        formSplashScreen.Focus()
         Application.DoEvents()
 
         ' Espero el tiempo mínimo para mostrar el Splash Screen y después lo cierro
