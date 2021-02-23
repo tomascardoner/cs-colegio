@@ -12,7 +12,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("Sistema de Gestión para Colegios")> 
 <Assembly: AssemblyCompany("Cardoner Sistemas")> 
 <Assembly: AssemblyProduct("CS-Colegio")>
-<Assembly: AssemblyCopyright("© 2015-2020 Cardoner Sistemas. Reservados todos los derechos.")>
+<Assembly: AssemblyCopyright("© 2015-2021 Cardoner Sistemas. Reservados todos los derechos.")>
 <Assembly: AssemblyTrademark("® CS-Colegio 2015")> 
 
 <Assembly: ComVisible(False)>

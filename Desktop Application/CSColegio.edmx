@@ -5029,7 +5029,7 @@
           <Property Name="Cuenta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="CUIT" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
           <Property Name="Titular" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CodigoPostal" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="CodigoPostal" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="Estado" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="Banco" Relationship="CSColegioModel.FK__Banco__Cheque" FromRole="Cheque" ToRole="Banco" />
           <Property Name="IDChequeMotivoRechazo" Type="Byte" />

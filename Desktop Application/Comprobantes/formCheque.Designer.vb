@@ -288,7 +288,7 @@ Partial Class formCheque
         Me.textboxCodigoPostal.Location = New System.Drawing.Point(123, 326)
         Me.textboxCodigoPostal.MaxLength = 8
         Me.textboxCodigoPostal.Name = "textboxCodigoPostal"
-        Me.textboxCodigoPostal.Size = New System.Drawing.Size(50, 20)
+        Me.textboxCodigoPostal.Size = New System.Drawing.Size(74, 20)
         Me.textboxCodigoPostal.TabIndex = 21
         '
         'textboxEstado

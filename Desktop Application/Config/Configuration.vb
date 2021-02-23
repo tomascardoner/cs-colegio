@@ -15,30 +15,30 @@
 
         ConfigFolder = My.Application.Info.DirectoryPath & IIf(My.Application.Info.DirectoryPath.EndsWith("\"), "", "\").ToString() & ConfigSubFolder & "\"
 
-        If Not CardonerSistemas.Configuration.LoadFile(ConfigFolder, AfipWebServicesFileName, pAfipWebServicesConfig) Then
+        If Not CardonerSistemas.ConfigurationXml.LoadFile(ConfigFolder, AfipWebServicesFileName, pAfipWebServicesConfig) Then
             Return False
         End If
 
-        If Not CardonerSistemas.Configuration.LoadFile(ConfigFolder, AppearanceFileName, pAppearanceConfig) Then
+        If Not CardonerSistemas.ConfigurationXml.LoadFile(ConfigFolder, AppearanceFileName, pAppearanceConfig) Then
             Return False
         End If
 
-        If Not CardonerSistemas.Configuration.LoadFile(ConfigFolder, ComprobanteFileName, pComprobanteConfig) Then
+        If Not CardonerSistemas.ConfigurationXml.LoadFile(ConfigFolder, ComprobanteFileName, pComprobanteConfig) Then
             Return False
         End If
-        If Not CardonerSistemas.Configuration.LoadFile(ConfigFolder, DatabaseFileName, pDatabaseConfig) Then
+        If Not CardonerSistemas.ConfigurationXml.LoadFile(ConfigFolder, DatabaseFileName, pDatabaseConfig) Then
             Return False
         End If
-        If Not CardonerSistemas.Configuration.LoadFile(ConfigFolder, EmailFileName, pEmailConfig) Then
+        If Not CardonerSistemas.ConfigurationXml.LoadFile(ConfigFolder, EmailFileName, pEmailConfig) Then
             Return False
         End If
-        If Not CardonerSistemas.Configuration.LoadFile(ConfigFolder, GeneralFileName, pGeneralConfig) Then
+        If Not CardonerSistemas.ConfigurationXml.LoadFile(ConfigFolder, GeneralFileName, pGeneralConfig) Then
             Return False
         End If
-        If Not CardonerSistemas.Configuration.LoadFile(ConfigFolder, OutlookContactsSyncFileName, pOutlookContactsSyncConfig) Then
+        If Not CardonerSistemas.ConfigurationXml.LoadFile(ConfigFolder, OutlookContactsSyncFileName, pOutlookContactsSyncConfig) Then
             Return False
         End If
-        If Not CardonerSistemas.Configuration.LoadFile(ConfigFolder, SantanderFileName, pSantanderConfig) Then
+        If Not CardonerSistemas.ConfigurationXml.LoadFile(ConfigFolder, SantanderFileName, pSantanderConfig) Then
             Return False
         End If
 
