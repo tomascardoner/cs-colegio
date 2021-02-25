@@ -1,0 +1,10 @@
+{
+  "CertificadoHomologacion": "C:\\Users\\Tomas\\Dropbox\\Colegio Horizonte\\CS-Colegio\\Certificados\\administracion_homologacion.crt",
+  "CertificadoProduccion": "C:\\Users\\Tomas\\Dropbox\\Colegio Horizonte\\CS-Colegio\\Certificados\\administracion_produccion.crt",
+  "ModoHomologacion": true,
+  "ClavePrivada": "C:\\Users\\Tomas\\Dropbox\\Colegio Horizonte\\CS-Colegio\\Certificados\\cardonersistemas.key",
+  "TtlTicketRequerimientoAcceso": 2400,
+  "LogFolder": "%ApplicationFolder%\\Log\\AFIP",
+  "LogFileName": "%DateTimeUniversalNoSlashes%.log",
+  "LogEnabled":  true
+}

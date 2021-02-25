@@ -1,0 +1,13 @@
+{
+  "EntidadTipoPersonalColegio": true,
+  "EntidadTipoDocente": true,
+  "EntidadTipoAlumno": true,
+  "EntidadTipoFamiliar": true,
+  "EntidadTipoProveedor": true,
+  "EntidadTipoOtro": true,
+  "GrupoNoEncontradoBorrar": true,
+  "ContactoNoEncontradoBorrar": true,
+  "GruposEntidadTipo": true,
+  "GruposNivelYCurso": true,
+  "GrupoNombre": "Grupo: {0}"
+}

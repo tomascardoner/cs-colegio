@@ -1,0 +1,10 @@
+{
+  "Datasource": "localhost",
+  "UserId": "sa",
+  "Password": "43ubKjbAQCxR+foIcEK/PcLRw0VHFqfd",
+  "Provider": "System.Data.SqlClient",
+  "AddiDatabase": "ADDISQL",
+  "AddiOutboundFolder": "%ProgramFilesX86%\\ADDISQL\\Importar",
+  "AddiInboundFolder": "%ProgramFilesX86%\\ADDISQL\\Exportar",
+  "PirypOutboundFolder": "C:\\TEMP"
+}

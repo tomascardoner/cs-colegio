@@ -867,8 +867,10 @@
                 Select Case CardonerSistemas.Database.EntityFramework.TryDecodeDbUpdateException(dbuex)
                     Case CardonerSistemas.Database.EntityFramework.Errors.DuplicatedEntity
                         MsgBox("No se pueden guardar los cambios porque ya existe una Entidad con el mismo Apellido y Nombre.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                    Case CardonerSistemas.Database.EntityFramework.Errors.UserDefinedError
-                        MsgBox("La dirección de e-Mail especificada, ya existe en la base de datos y no se permiten dulicados.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                    Case CardonerSistemas.Database.EntityFramework.Errors.Unknown, CardonerSistemas.Database.EntityFramework.Errors.NoDBError
+                        CardonerSistemas.ErrorHandler.ProcessError(dbuex.GetBaseException, My.Resources.STRING_ERROR_SAVING_CHANGES)
+                    Case Else
+                        CardonerSistemas.ErrorHandler.ProcessError(dbuex.GetBaseException, My.Resources.STRING_ERROR_SAVING_CHANGES)
                 End Select
                 Exit Sub
 

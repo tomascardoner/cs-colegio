@@ -1,0 +1,10 @@
+{
+  "EnableVisualStyles": true,
+  "MinimumSplashScreenDisplaySeconds": 5,
+  "MdiFormMargin": 4,
+  "ShowLastLoggedInUser": true,
+  "UseCustomDialogForErrorMessage": true,
+  "ListsFontName": "Microsoft Sans Serif",
+  "ListsFontSize": 11.25,
+  "ListsFontBold": false
+}

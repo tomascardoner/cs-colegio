@@ -1,0 +1,18 @@
+{
+  "DisplayName": "Colegio Horizonte de Lobos - Administración",
+  "Address": "administracion@horizontedelobos.com.ar",
+  "ReplyToAddress": "administracion@horizontedelobos.com.ar",
+  "Signature": "{0}{0}Colegio Horizonte de Lobos{0}Administración{0}Castelli 193 - Lobos{0}Tel.: +54 2227 42-4656{0}administracion@horizontedelobos.com.ar{0}www.horizontedelobos.com.ar",
+  "SmtpServer": "horizont.ferozo.com",
+  "SmtpUserName": "administracion@horizontedelobos.com.ar",
+  "SmtpPassword": "yW4DfKMkoW1G6xeH/A+Jj9jGeAXMiW9Xk4NW/87/C7kP9+IdAyHtUw==",
+  "SmtpPort": 465,
+  "__SMTP SSL options values__": "0=None / 1=Auto / 2=SslOnConnect / 3=StartTls / 4=StartTlsWhenAvailable",
+  "SmtpSslOptions": 1,
+  "SmtpTimeout": 30000,
+  "SendMaxPerHour": 200,
+  "DeliveryFailedSubject": "RV: Mail delivery failed: returning message to sender",
+  "DeliveryFailedErrorText": "550 Requested action not taken: mailbox unavailable",
+  "DeliveryFailedRejectedAddressPreviousText": "The following address(es) failed:",
+  "DeliveryFailedSenderAddress": "Mailer-Daemon@orlando.dattaweb.com"
+}

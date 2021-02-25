@@ -79,8 +79,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BouncyCastle.Crypto, Version=1.8.8.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
-      <HintPath>..\packages\Portable.BouncyCastle.1.8.8\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.10.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.8.10\lib\net40\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -107,15 +107,15 @@
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="MailKit, Version=2.9.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
-      <HintPath>..\packages\MailKit.2.9.0\lib\net47\MailKit.dll</HintPath>
+    <Reference Include="MailKit, Version=2.10.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
+      <HintPath>..\packages\MailKit.2.10.1\lib\net47\MailKit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic.PowerPacks, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="MimeKit, Version=2.9.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
-      <HintPath>..\packages\MimeKit.2.9.2\lib\net47\MimeKit.dll</HintPath>
+    <Reference Include="MimeKit, Version=2.10.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeKit.2.10.1\lib\net47\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Shared.Base, Version=16.4460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -183,11 +183,19 @@
     <Compile Include="..\..\..\framework-vbnet\ComboBox.vb">
       <Link>Framework\ComboBox.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\ConfigurationXml.vb">
-      <Link>Framework\ConfigurationXml.vb</Link>
+    <Compile Include="..\..\..\framework-vbnet\ConfigurationJson.vb">
+      <Link>Framework\ConfigurationJson.vb</Link>
     </Compile>
     <Compile Include="..\..\..\framework-vbnet\Constants.vb">
       <Link>Framework\Constants.vb</Link>
+    </Compile>
+    <Compile Include="..\..\..\framework-vbnet\CS_Database_SelectSource.designer.vb">
+      <Link>Framework\CS_Database_SelectSource.designer.vb</Link>
+      <DependentUpon>CS_Database_SelectSource.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\..\framework-vbnet\CS_Database_SelectSource.vb">
+      <Link>Framework\CS_Database_SelectSource.vb</Link>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="..\..\..\framework-vbnet\Database.ADO.vb">
       <Link>Framework\Database.ADO.vb</Link>
@@ -312,6 +320,12 @@
     <Compile Include="Curso.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\CSColegioContextExtension.vb" />
+    <Compile Include="Database\CursoExtension.vb" />
+    <Compile Include="Database\FormattedDbEntityValidationException.vb" />
+    <Compile Include="Database\EntidadExtension.vb" />
+    <Compile Include="Database\ReporteExtension.vb" />
+    <Compile Include="Database\ReporteParametroExtension.vb" />
     <Compile Include="Descuento.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -449,7 +463,6 @@
     <Compile Include="Outlook\EntidadesSincronizarOutlookOpciones.vb" />
     <Compile Include="Sistema\Email.vb" />
     <Compile Include="Config\EmailConfig.vb" />
-    <Compile Include="Sistema\EntityFrameworkExtension.vb" />
     <Compile Include="Sistema\FillAndRefreshLists.vb" />
     <Compile Include="Sistema\formAboutBox.Designer.vb">
       <DependentUpon>formAboutBox.vb</DependentUpon>
@@ -754,6 +767,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="..\..\..\framework-vbnet\CS_Database_SelectSource.resx">
+      <Link>Framework\CS_Database_SelectSource.resx</Link>
+      <DependentUpon>CS_Database_SelectSource.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="..\..\..\framework-vbnet\ErrorHandlerMessageBox.resx">
       <Link>Framework\ErrorHandlerMessageBox.resx</Link>
       <DependentUpon>ErrorHandlerMessageBox.vb</DependentUpon>
@@ -901,28 +918,28 @@
     </None>
     <EntityDeploy Include="CSColegio.edmx" />
     <None Include="app.manifest" />
-    <None Include="Config\AfipWebServices.config">
+    <None Include="Config\AfipWebServices.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Config\Appearance.config">
+    <None Include="Config\Appearance.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Config\General.config">
+    <None Include="Config\Comprobante.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Config\Comprobante.config">
+    <None Include="Config\Database.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Config\Database.config">
+    <None Include="Config\Email.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Config\Email.config">
+    <None Include="Config\General.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Config\OutlookContactsSync.config">
+    <None Include="Config\OutlookContactsSync.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Config\Santander.config">
+    <None Include="Config\Santander.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="CSColegio.Context.tt">
@@ -973,6 +990,7 @@
     <None Include="Resources\cash-icon_32.png" />
     <None Include="Resources\Cardoner Sistemas.gif" />
     <None Include="Resources\Outlook 2019_32.png" />
+    <None Include="Resources\DatabaseSearch48.png" />
     <Content Include="Sistema\school_48_32_16.ico" />
     <None Include="Resources\Move Previous %28Arrow%29 Red24.png" />
     <None Include="Resources\Move Next %28Arrow%29 Green24.png" />

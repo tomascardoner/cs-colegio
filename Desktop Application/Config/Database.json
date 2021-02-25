@@ -1,0 +1,7 @@
+{
+  "Datasource": "localhost;192.168.0.10",
+  "Database": "CSColegio",
+  "UserId": "sa",
+  "Password": "43ubKjbAQCxR+foIcEK/PcLRw0VHFqfd",
+  "Provider": "System.Data.SqlClient"
+}
