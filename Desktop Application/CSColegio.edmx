@@ -139,7 +139,7 @@
           <Property Name="Cuenta" Type="varchar" MaxLength="20" />
           <Property Name="CUIT" Type="char" MaxLength="11" />
           <Property Name="Titular" Type="varchar" MaxLength="100" />
-          <Property Name="CodigoPostal" Type="char" MaxLength="4" />
+          <Property Name="CodigoPostal" Type="varchar" MaxLength="8" />
           <Property Name="Estado" Type="char" MaxLength="2" Nullable="false" />
           <Property Name="IDChequeMotivoRechazo" Type="tinyint" />
         </EntityType>
@@ -493,8 +493,8 @@
           <Property Name="DebitoAutomaticoTipo" Type="char" MaxLength="1" />
           <Property Name="DebitoAutomatico_Directo_CBU" Type="char" MaxLength="22" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
-          <Property Name="IDOtroSistema" Type="int" />
           <Property Name="Notas" Type="varchar(max)" />
+          <Property Name="IDOtroSistema" Type="int" />
           <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
           <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
