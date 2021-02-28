@@ -1,11 +1,11 @@
 ﻿Public Class formComprobanteVerificaAFIP
 
 #Region "Declarations"
-    Private mResultadoConsultaComprobanteActual As CS_AFIP_WS.ResultadoConsultaComprobante
+    Private mResultadoConsultaComprobanteActual As CardonerSistemas.AfipWebServices.ResultadoConsultaComprobante
 #End Region
 
 #Region "Form stuff"
-    Friend Sub LoadAndShow(ByRef ParentForm As Form, ByRef ComprobanteActual As Comprobante, ByRef ResultadoConsultaComprobanteActual As CS_AFIP_WS.ResultadoConsultaComprobante)
+    Friend Sub LoadAndShow(ByRef ParentForm As Form, ByRef ComprobanteActual As Comprobante, ByRef ResultadoConsultaComprobanteActual As CardonerSistemas.AfipWebServices.ResultadoConsultaComprobante)
         Dim ListViewItemNew As ListViewItem
 
         mResultadoConsultaComprobanteActual = ResultadoConsultaComprobanteActual

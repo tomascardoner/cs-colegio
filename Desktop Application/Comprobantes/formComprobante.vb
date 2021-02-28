@@ -126,6 +126,8 @@
     End Sub
 
     Friend Sub SetAppearance()
+        menuitemAFIP_ObtenerQR.Visible = CS_Parameter_System.GetBoolean(Parametros.AFIP_COMPROBANTES_CODIGOQR_GENERAR, False).Value
+
         datagridviewDetalle.DefaultCellStyle.Font = pAppearanceConfig.ListsFont
         datagridviewDetalle.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFont
 
@@ -592,6 +594,9 @@
                     If MsgBox("Este Comprobante necesita ser autorizado en AFIP para tener validez." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                         If TransmitirComprobante(mComprobanteActual) Then
                             MsgBox("Se ha transmitido exitosamente el Comprobante a AFIP.", MsgBoxStyle.Information, My.Application.Info.Title)
+                            If CS_Parameter_System.GetBoolean(Parametros.AFIP_COMPROBANTES_CODIGOQR_GENERAR, False) Then
+                                ModuloComprobantes.GenerarCodigoQR(mComprobanteActual.IDComprobante)
+                            End If
                         End If
                     End If
                 End If
@@ -625,8 +630,27 @@
         End If
     End Sub
 
+    Private Sub AFIP_ObtenerCodigoQR(sender As Object, e As EventArgs) Handles menuitemAFIP_ObtenerQR.Click
+        If Not mComprobanteActual Is Nothing Then
+            If mComprobanteTipoActual.EmisionElectronica AndAlso mComprobanteActual.CAE IsNot Nothing Then
+                If mComprobanteActual.CodigoQR Is Nothing OrElse MsgBox("Este Comprobante ya tiene generado el Código QR." & vbCrLf & vbCrLf & "¿Desea generarlo nuevamente?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
+                    If ModuloComprobantes.GenerarCodigoQR(mComprobanteActual.IDComprobante,,,,, True) Then
+                        buttonAFIP.Visible = False
+
+                        ' Refresco la lista de Comprobantes para mostrar los cambios
+                        If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formComprobantes") Then
+                            Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formComprobantes"), formComprobantes)
+                            formComprobantes.RefreshData(mComprobanteActual.IDComprobante)
+                            formComprobantes = Nothing
+                        End If
+                    End If
+                End If
+            End If
+        End If
+    End Sub
+
     Private Sub AFIP_VerificarComprobante(sender As Object, e As EventArgs) Handles menuitemAFIP_VerificarDatos.Click
-        Dim Objeto_AFIP_WS As New CS_AFIP_WS.AFIP_WS
+        Dim Objeto_AFIP_WS As New CardonerSistemas.AfipWebServices.WebService
 
         If Not mComprobanteActual Is Nothing Then
             If mComprobanteTipoActual.EmisionElectronica AndAlso Not mComprobanteActual.CAE Is Nothing Then
@@ -638,7 +662,7 @@
                         If ModuloComprobantes.TransmitirAFIP_IniciarSesion(Objeto_AFIP_WS) Then
                             If ModuloComprobantes.TransmitirAFIP_ConectarServicio(Objeto_AFIP_WS) Then
                                 If Objeto_AFIP_WS.FacturaElectronica_ConsultarComprobante(mComprobanteTipoActual.CodigoAFIP, CShort(mComprobanteActual.PuntoVenta), CInt(mComprobanteActual.Numero)) Then
-                                    If Objeto_AFIP_WS.UltimoResultadoConsultaComprobante.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_ACEPTADO Then
+                                    If Objeto_AFIP_WS.UltimoResultadoConsultaComprobante.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoAceptado Then
                                         formComprobanteVerificaAFIP.LoadAndShow(Me, mComprobanteActual, Objeto_AFIP_WS.UltimoResultadoConsultaComprobante)
 
                                         ' Si actualizo el Comprobante local:
@@ -1250,7 +1274,7 @@
     End Sub
 
     Private Function TransmitirComprobante(ByRef ComprobanteActual As Comprobante) As Boolean
-        Dim Objeto_AFIP_WS As New CS_AFIP_WS.AFIP_WS
+        Dim Objeto_AFIP_WS As New CardonerSistemas.AfipWebServices.WebService
 
         Dim MensajeError As String
 
@@ -1266,7 +1290,7 @@
                                 MsgBox(String.Format("Se han transmitido exitosamente el Comprobante a AFIP."), MsgBoxStyle.Information, My.Application.Info.Title)
                                 Me.Cursor = Cursors.Default
                                 Return True
-                            ElseIf Objeto_AFIP_WS.UltimoResultadoCAE.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_RECHAZADO Then
+                            ElseIf Objeto_AFIP_WS.UltimoResultadoCAE.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoRechazado Then
                                 MensajeError = "Se Rechazó la Solicitud de CAE para el Comprobante Electrónico:"
                                 MensajeError &= vbCrLf & vbCrLf
                                 MensajeError &= String.Format("{0} N°: {1}", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero)

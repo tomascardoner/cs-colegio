@@ -150,6 +150,7 @@ Partial Class formComprobante
         Me.buttonAFIP = New System.Windows.Forms.ToolStripDropDownButton()
         Me.menuitemAFIP_ObtenerCAE = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemAFIP_VerificarDatos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemAFIP_ObtenerQR = New System.Windows.Forms.ToolStripMenuItem()
         labelFechaServicioDesde = New System.Windows.Forms.Label()
         labelFechaServicioHasta = New System.Windows.Forms.Label()
         labelLeyenda = New System.Windows.Forms.Label()
@@ -1452,7 +1453,7 @@ Partial Class formComprobante
         '
         Me.buttonAFIP.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.buttonAFIP.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.buttonAFIP.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemAFIP_ObtenerCAE, Me.menuitemAFIP_VerificarDatos})
+        Me.buttonAFIP.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemAFIP_ObtenerCAE, Me.menuitemAFIP_ObtenerQR, Me.menuitemAFIP_VerificarDatos})
         Me.buttonAFIP.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_LOGO_AFIP_SMALL
         Me.buttonAFIP.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonAFIP.ImageTransparentColor = System.Drawing.Color.Magenta
@@ -1464,14 +1465,20 @@ Partial Class formComprobante
         'menuitemAFIP_ObtenerCAE
         '
         Me.menuitemAFIP_ObtenerCAE.Name = "menuitemAFIP_ObtenerCAE"
-        Me.menuitemAFIP_ObtenerCAE.Size = New System.Drawing.Size(148, 22)
+        Me.menuitemAFIP_ObtenerCAE.Size = New System.Drawing.Size(180, 22)
         Me.menuitemAFIP_ObtenerCAE.Text = "Obtener CAE"
         '
         'menuitemAFIP_VerificarDatos
         '
         Me.menuitemAFIP_VerificarDatos.Name = "menuitemAFIP_VerificarDatos"
-        Me.menuitemAFIP_VerificarDatos.Size = New System.Drawing.Size(148, 22)
+        Me.menuitemAFIP_VerificarDatos.Size = New System.Drawing.Size(180, 22)
         Me.menuitemAFIP_VerificarDatos.Text = "Verificar datos"
+        '
+        'menuitemAFIP_ObtenerQR
+        '
+        Me.menuitemAFIP_ObtenerQR.Name = "menuitemAFIP_ObtenerQR"
+        Me.menuitemAFIP_ObtenerQR.Size = New System.Drawing.Size(180, 22)
+        Me.menuitemAFIP_ObtenerQR.Text = "Obtener Código QR"
         '
         'formComprobante
         '
@@ -1645,4 +1652,5 @@ Partial Class formComprobante
     Friend WithEvents currencytextboxImporteTotal As Syncfusion.Windows.Forms.Tools.CurrencyTextBox
     Friend WithEvents textboxNumero As TextBox
     Friend WithEvents textboxPuntoVenta As TextBox
+    Friend WithEvents menuitemAFIP_ObtenerQR As ToolStripMenuItem
 End Class

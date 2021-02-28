@@ -1,4 +1,6 @@
-﻿Module ModuloComprobantes
+﻿Imports System.Text
+
+Module ModuloComprobantes
     Friend Class Alumno_AnioLectivoCurso_AFacturar
         Friend Property Alumno As Entidad
         Friend Property AnioLectivoCurso_AFacturar As AnioLectivoCurso
@@ -523,8 +525,8 @@
         End If
     End Function
 
-    Friend Function TransmitirAFIP_Inicializar(ByRef Objeto_AFIP_WS As CS_AFIP_WS.AFIP_WS, ByVal ModoHomologacion As Boolean) As Boolean
-        With Objeto_AFIP_WS
+    Friend Function TransmitirAFIP_Inicializar(ByRef Objeto_Afip_WS As CardonerSistemas.AfipWebServices.WebService, ByVal ModoHomologacion As Boolean) As Boolean
+        With Objeto_Afip_WS
             If pAfipWebServicesConfig.LogEnabled Then
                 .LogPath = CardonerSistemas.SpecialFolders.ProcessString(pAfipWebServicesConfig.LogFolder)
                 If Not .LogPath.EndsWith("\") Then
@@ -565,16 +567,16 @@
         Return True
     End Function
 
-    Friend Function TransmitirAFIP_IniciarSesion(ByRef Objeto_AFIP_WS As CS_AFIP_WS.AFIP_WS) As Boolean
+    Friend Function TransmitirAFIP_IniciarSesion(ByRef Objeto_AFIP_WS As CardonerSistemas.AfipWebServices.WebService) As Boolean
         Return Objeto_AFIP_WS.FacturaElectronica_Login()
     End Function
 
-    Friend Function TransmitirAFIP_ConectarServicio(ByRef Objeto_AFIP_WS As CS_AFIP_WS.AFIP_WS) As Boolean
+    Friend Function TransmitirAFIP_ConectarServicio(ByRef Objeto_AFIP_WS As CardonerSistemas.AfipWebServices.WebService) As Boolean
         Return Objeto_AFIP_WS.FacturaElectronica_Conectar()
     End Function
 
-    Friend Function TransmitirAFIP_Comprobante(ByRef Objeto_AFIP_WS As CS_AFIP_WS.AFIP_WS, ByVal IDComprobanteActual As Integer) As Boolean
-        Dim AFIP_Factura As New CS_AFIP_WS.FacturaElectronicaCabecera
+    Friend Function TransmitirAFIP_Comprobante(ByRef Objeto_AFIP_WS As CardonerSistemas.AfipWebServices.WebService, ByVal IDComprobanteActual As Integer) As Boolean
+        Dim AFIP_Factura As New CardonerSistemas.AfipWebServices.FacturaElectronicaCabecera
         Dim ComprobanteActual As Comprobante
         Dim ComprobanteTipoActual As New ComprobanteTipo
 
@@ -655,7 +657,7 @@
 
                         ' Comprobantes Aplicados
                         For Each ComprobanteAplicacionActual As ComprobanteAplicacion In ComprobanteActual.ComprobanteAplicacion_Aplicados
-                            Dim AFIP_ComprobanteAsociado As New ComprobanteAsociado
+                            Dim AFIP_ComprobanteAsociado As New CardonerSistemas.AfipWebServices.ComprobanteAsociado
                             AFIP_ComprobanteAsociado.TipoComprobante = ComprobanteAplicacionActual.ComprobanteAplicado.ComprobanteTipo.CodigoAFIP
                             AFIP_ComprobanteAsociado.ComprobanteNumero = CInt(ComprobanteAplicacionActual.ComprobanteAplicado.Numero)
                             AFIP_ComprobanteAsociado.PuntoVenta = CShort(ComprobanteAplicacionActual.ComprobanteAplicado.PuntoVenta)
@@ -666,7 +668,7 @@
                     ' Obtengo el CAE
                     With Objeto_AFIP_WS
                         If .FacturaElectronica_ObtenerCAE(AFIP_Factura) Then
-                            If .UltimoResultadoCAE.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_ACEPTADO Then
+                            If .UltimoResultadoCAE.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoAceptado Then
                                 ComprobanteActual.CAE = .UltimoResultadoCAE.Numero
                                 ComprobanteActual.CAEVencimiento = .UltimoResultadoCAE.FechaVencimiento
                                 ComprobanteActual.IDUsuarioTransmisionAFIP = pUsuario.IDUsuario
@@ -688,6 +690,102 @@
             End Using
         Else
             Return False
+        End If
+    End Function
+
+    Friend Function GenerarCodigoQR(ByVal IDComprobanteActual As Integer, Optional comprobanteTipoCodigoAfip As Short = 0, Optional idMoneda As Short = 0, Optional monedaCodigoAfip As String = "", Optional monedaCotizacion As Decimal = 0, Optional ByVal overwrite As Boolean = False) As Boolean
+        If IDComprobanteActual <> 0 Then
+
+            Using dbContext As New CSColegioContext(True)
+                Dim comprobanteActual As Comprobante
+
+                comprobanteActual = dbContext.Comprobante.Find(IDComprobanteActual)
+
+                If comprobanteActual.CodigoQR Is Nothing Or overwrite Then
+                    Dim afipData As String
+                    Dim afipUrl As String
+                    Dim qrUrl As String
+                    Dim image As Image
+
+                    ' Preparo los datos del comprobante
+                    afipData = CS_Parameter_System.GetString(Parametros.AFIP_COMPROBANTES_CODIGOQR_DATA)
+                    If afipData.Length = 0 Then
+                        MsgBox("No se ha especificado el parámetro 'AFIP_COMPROBANTES_CODIGOQR_DATA'.", CType(MsgBoxStyle.Critical + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title)
+                        Return False
+                    End If
+                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldFecha, comprobanteActual.FechaEmision.ToString("yyyy-MM-dd"))
+                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldCuit, CS_Parameter_System.GetString(Parametros.EMPRESA_CUIT))
+                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldPuntoVenta, Convert.ToInt32(comprobanteActual.PuntoVenta).ToString())
+                    ' Tipo de comprobante
+                    If comprobanteTipoCodigoAfip = 0 Then
+                        comprobanteTipoCodigoAfip = comprobanteActual.ComprobanteTipo.CodigoAFIP
+                    End If
+                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldTipoComprobante, comprobanteActual.ComprobanteTipo.CodigoAFIP.ToString())
+                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldNumeroComprobante, Convert.ToInt32(comprobanteActual.Numero).ToString())
+                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldImporte, comprobanteActual.ImporteTotal1.ToString("#0.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "."))
+                    ' Moneda
+                    If idMoneda = 0 Or monedaCodigoAfip = "" Then
+                        Dim monedaActual As Moneda
+
+                        monedaActual = dbContext.Moneda.Find(CS_Parameter_System.GetIntegerAsShort(Parametros.DEFAULT_MONEDA_ID))
+                        If monedaActual Is Nothing Then
+                            MsgBox("No se ha especificado la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
+                            Return False
+                        End If
+                        idMoneda = monedaActual.IDMoneda
+                        monedaCodigoAfip = monedaActual.CodigoAFIP
+                        monedaActual = Nothing
+                    End If
+                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldMoneda, monedaCodigoAfip)
+                    ' Cotización
+                    If monedaCotizacion = 0 Then
+                        Dim monedaCotizacionActual As MonedaCotizacion
+
+                        monedaCotizacionActual = dbContext.MonedaCotizacion.Where(Function(mc) mc.IDMoneda = idMoneda).FirstOrDefault
+                        If monedaCotizacionActual Is Nothing Then
+                            MsgBox("No hay cotizaciones cargadas para la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
+                            Return False
+                        End If
+                        monedaCotizacion = monedaCotizacionActual.CotizacionVenta
+                    End If
+                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldCotizacion, monedaCotizacion.ToString("#0.000000").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "."))
+                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldTipoDocumento, comprobanteActual.IDDocumentoTipo.ToString())
+                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldNumeroDocumento, comprobanteActual.DocumentoNumero.ToString())
+                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldTipoCodigoAutorizacion, "E")
+                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldCodigoAutorizacion, comprobanteActual.CAE)
+
+                    ' Convierto el string de datos a Base64
+                    afipData = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(afipData))
+
+                    ' Preparo el link de Afip
+                    afipUrl = CS_Parameter_System.GetString(Parametros.AFIP_COMPROBANTES_CODIGOQR_URL)
+                    afipUrl = afipUrl.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataField, afipData)
+                    afipUrl = System.Net.WebUtility.UrlEncode(afipUrl)
+
+                    ' Preparo el link para generar el QR
+                    qrUrl = CS_Parameter_System.GetString(Parametros.QRCODE_GENERATION_URL)
+                    qrUrl = qrUrl.Replace(CardonerSistemas.Barcodes.QRCodeDataField, afipUrl)
+
+                    If CardonerSistemas.Internet.GetImageFromUrl(qrUrl, image) Then
+                        Dim converter As New ImageConverter
+
+                        comprobanteActual.CodigoQR = CType(converter.ConvertTo(image, GetType(Byte())), Byte())
+
+                        Try
+                            dbContext.SaveChanges()
+                            Return True
+
+                        Catch ex As Exception
+                            CardonerSistemas.ErrorHandler.ProcessError(ex, "No se pudo guardar el Código QR del comprobante.")
+                            Return False
+                        End Try
+                    Else
+                        Return False
+                    End If
+                Else
+                    Return True
+                End If
+            End Using
         End If
     End Function
 

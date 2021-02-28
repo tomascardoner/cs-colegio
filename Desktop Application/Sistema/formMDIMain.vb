@@ -2,8 +2,8 @@
 
 #Region "Declarations"
     Friend Form_ClientSize As Size
-    Private mObjeto_AFIP_WS_Homologacion As CS_AFIP_WS.AFIP_WS
-    Private mObjeto_AFIP_WS_Produccion As CS_AFIP_WS.AFIP_WS
+    Private mObjeto_AFIP_WS_Homologacion As CardonerSistemas.AfipWebServices.WebService
+    Private mObjeto_AFIP_WS_Produccion As CardonerSistemas.AfipWebServices.WebService
 #End Region
 
 #Region "Form stuff"
@@ -63,7 +63,7 @@
 
 #Region "Menu Debug"
     Private Sub Debug_AFIPWSHomologacionLogin() Handles menuitemDebugAFIPWSHomologacionLogin.Click
-        mObjeto_AFIP_WS_Homologacion = New CS_AFIP_WS.AFIP_WS
+        mObjeto_AFIP_WS_Homologacion = New CardonerSistemas.AfipWebServices.WebService
 
         If ModuloComprobantes.TransmitirAFIP_Inicializar(mObjeto_AFIP_WS_Homologacion, True) Then
             mObjeto_AFIP_WS_Homologacion.FacturaElectronica_Login()
@@ -97,7 +97,7 @@
             PuntoVenta = CShort(InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Text))
             NumeroComprobante = CShort(InputBox("Ingrese el Número de Comprobante:", Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Text))
             If mObjeto_AFIP_WS_Homologacion.FacturaElectronica_ConectarYConsultarComprobante(TipoComprobante, PuntoVenta, NumeroComprobante) Then
-                If mObjeto_AFIP_WS_Homologacion.UltimoResultadoConsultaComprobante.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_ACEPTADO Then
+                If mObjeto_AFIP_WS_Homologacion.UltimoResultadoConsultaComprobante.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoAceptado Then
                     MsgBox(String.Format("Los datos del comprobante autorizado son:{0}{0}Tipo de Comprobante: {1}{0}Punto de Venta: {2}{0}Número de Comprobante: {3}{0}CAE: {4}{0}Fecha de Vencimiento: {5}{0}Fecha/Hora de Proceso: {6}", vbCrLf, mObjeto_AFIP_WS_Homologacion.UltimoResultadoConsultaComprobante.TipoComprobante, mObjeto_AFIP_WS_Homologacion.UltimoResultadoConsultaComprobante.PuntoVenta, mObjeto_AFIP_WS_Homologacion.UltimoResultadoConsultaComprobante.ComprobanteDesde, mObjeto_AFIP_WS_Homologacion.UltimoResultadoConsultaComprobante.CodigoAutorizacion, mObjeto_AFIP_WS_Homologacion.UltimoResultadoConsultaComprobante.FechaVencimiento, mObjeto_AFIP_WS_Homologacion.UltimoResultadoConsultaComprobante.FechaHoraProceso), vbInformation, My.Application.Info.Title)
                 Else
                     MsgBox(mObjeto_AFIP_WS_Homologacion.UltimoResultadoConsultaComprobante.ErrorMessage, vbCritical, My.Application.Info.Title)
@@ -107,7 +107,7 @@
     End Sub
 
     Private Sub Debug_AFIPWSProduccionLogin() Handles menuitemDebugAFIPWSProduccionLogin.Click
-        mObjeto_AFIP_WS_Produccion = New CS_AFIP_WS.AFIP_WS
+        mObjeto_AFIP_WS_Produccion = New CardonerSistemas.AfipWebServices.WebService
 
         If ModuloComprobantes.TransmitirAFIP_Inicializar(mObjeto_AFIP_WS_Produccion, False) Then
             mObjeto_AFIP_WS_Produccion.FacturaElectronica_Login()
@@ -147,7 +147,7 @@
             PuntoVenta = CShort(InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Text))
             NumeroComprobante = CShort(InputBox("Ingrese el Número de Comprobante:", Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Text))
             If mObjeto_AFIP_WS_Produccion.FacturaElectronica_ConectarYConsultarComprobante(TipoComprobante, PuntoVenta, NumeroComprobante) Then
-                If mObjeto_AFIP_WS_Produccion.UltimoResultadoConsultaComprobante.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_ACEPTADO Then
+                If mObjeto_AFIP_WS_Produccion.UltimoResultadoConsultaComprobante.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoAceptado Then
                     MsgBox(String.Format("Los datos del comprobante autorizado son:{0}{0}Tipo de Comprobante: {1}{0}Punto de Venta: {2}{0}Número de Comprobante: {3}{0}CAE: {4}{0}Fecha de Vencimiento: {5}{0}Fecha/Hora de Proceso: {6}", vbCrLf, mObjeto_AFIP_WS_Produccion.UltimoResultadoConsultaComprobante.TipoComprobante, mObjeto_AFIP_WS_Produccion.UltimoResultadoConsultaComprobante.PuntoVenta, mObjeto_AFIP_WS_Produccion.UltimoResultadoConsultaComprobante.ComprobanteDesde, mObjeto_AFIP_WS_Produccion.UltimoResultadoConsultaComprobante.CodigoAutorizacion, mObjeto_AFIP_WS_Produccion.UltimoResultadoConsultaComprobante.FechaVencimiento, mObjeto_AFIP_WS_Produccion.UltimoResultadoConsultaComprobante.FechaHoraProceso), vbInformation, My.Application.Info.Title)
                 Else
                     MsgBox(mObjeto_AFIP_WS_Produccion.UltimoResultadoConsultaComprobante.ErrorMessage, vbCritical, My.Application.Info.Title)

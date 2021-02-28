@@ -201,6 +201,7 @@
           <Property Name="Notas" Type="varchar(max)" />
           <Property Name="CAE" Type="char" MaxLength="14" />
           <Property Name="CAEVencimiento" Type="date" />
+          <Property Name="CodigoQR" Type="image" />
           <Property Name="IDComprobanteLote" Type="int" />
           <Property Name="PeriodoContableAnio" Type="smallint" />
           <Property Name="PeriodoContableMes" Type="tinyint" />
@@ -4828,6 +4829,7 @@
           <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CAE" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
           <Property Name="CAEVencimiento" Type="DateTime" Precision="0" />
+          <Property Name="CodigoQR" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="IDComprobanteLote" Type="Int32" />
           <Property Name="PeriodoContableAnio" Type="Int16" />
           <Property Name="PeriodoContableMes" Type="Byte" />
@@ -6939,6 +6941,7 @@
           <EntitySetMapping Name="Comprobante">
             <EntityTypeMapping TypeName="CSColegioModel.Comprobante">
               <MappingFragment StoreEntitySet="Comprobante">
+                <ScalarProperty Name="CodigoQR" ColumnName="CodigoQR" />
                 <ScalarProperty Name="ImporteTotal3" ColumnName="ImporteTotal3" />
                 <ScalarProperty Name="ImporteTotal2" ColumnName="ImporteTotal2" />
                 <ScalarProperty Name="ImporteTotal1" ColumnName="ImporteTotal1" />

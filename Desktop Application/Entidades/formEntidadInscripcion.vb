@@ -340,9 +340,11 @@
     End Function
 
     Private Sub TransmitirComprobantes()
-        Dim Objeto_AFIP_WS As New CS_AFIP_WS.AFIP_WS
-
+        Dim Objeto_AFIP_WS As New CardonerSistemas.AfipWebServices.WebService
         Dim MensajeError As String
+        Dim GenerarCodigoQR As Boolean
+
+        GenerarCodigoQR = CS_Parameter_System.GetBoolean(Parametros.AFIP_COMPROBANTES_CODIGOQR_GENERAR, False).Value
 
         If ModuloComprobantes.TransmitirAFIP_Inicializar(Objeto_AFIP_WS, pAfipWebServicesConfig.ModoHomologacion) Then
             Me.Cursor = Cursors.WaitCursor
@@ -355,7 +357,19 @@
                             If ComprobanteActual.CAE Is Nothing Then
                                 If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual.IDComprobante) Then
                                     ' OK
-                                ElseIf Objeto_AFIP_WS.UltimoResultadoCAE.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_RECHAZADO Then
+                                    If GenerarCodigoQR Then
+                                        If ModuloComprobantes.GenerarCodigoQR(ComprobanteActual.IDComprobante) Then
+                                            ' OK
+                                        Else
+                                            MensajeError = "Error al obtener el Código QR del Comprobante Electrónico:"
+                                            MensajeError &= vbCrLf & vbCrLf
+                                            MensajeError &= String.Format("{0} N°: {1}", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero)
+                                            MsgBox(MensajeError, MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                                            Me.Cursor = Cursors.Default
+                                            Exit Sub
+                                        End If
+                                    End If
+                                ElseIf Objeto_AFIP_WS.UltimoResultadoCAE.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoRechazado Then
                                     MensajeError = "Se Rechazó la Solicitud de CAE para el Comprobante Electrónico:"
                                     MensajeError &= vbCrLf & vbCrLf
                                     MensajeError &= String.Format("{0} N°: {1}", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero)

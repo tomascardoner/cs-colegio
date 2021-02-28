@@ -78,10 +78,39 @@
 
     Private Sub Transmitir_Click(sender As Object, e As EventArgs) Handles buttonTransmitir.Click
         If listComprobantes.Count > 0 Then
-            Dim Objeto_AFIP_WS As New CS_AFIP_WS.AFIP_WS
+            Dim Objeto_AFIP_WS As New CardonerSistemas.AfipWebServices.WebService
             Dim GridDataRowActual As GridDataRow
             Dim ComprobanteActual As Comprobante
             Dim MensajeError As String
+            Dim GenerarCodigoQR As Boolean
+            Dim idMoneda As Short
+            Dim monedaCodigoAfip As String
+            Dim monedaCotizacion As Decimal
+            Dim comprobanteTipoCodigoAfip As Short = 0
+
+            GenerarCodigoQR = CS_Parameter_System.GetBoolean(Parametros.AFIP_COMPROBANTES_CODIGOQR_GENERAR, False).Value
+            If GenerarCodigoQR Then
+                Dim monedaActual As Moneda
+                Dim monedaCotizacionActual As MonedaCotizacion
+
+                ' Moneda
+                monedaActual = dbContext.Moneda.Find(CS_Parameter_System.GetIntegerAsShort(Parametros.DEFAULT_MONEDA_ID))
+                If monedaActual Is Nothing Then
+                    MsgBox("No se ha especificado la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
+                    Return
+                End If
+                idMoneda = monedaActual.IDMoneda
+                monedaCodigoAfip = monedaActual.CodigoAFIP
+                monedaActual = Nothing
+
+                ' Cotización
+                monedaCotizacionActual = dbContext.MonedaCotizacion.Where(Function(mc) mc.IDMoneda = idMoneda).FirstOrDefault
+                If monedaCotizacionActual Is Nothing Then
+                    MsgBox("No hay cotizaciones cargadas para la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
+                    Return
+                End If
+                monedaCotizacion = monedaCotizacionActual.CotizacionVenta
+            End If
 
             If ModuloComprobantes.TransmitirAFIP_Inicializar(Objeto_AFIP_WS, pAfipWebServicesConfig.ModoHomologacion) Then
                 Me.Cursor = Cursors.WaitCursor
@@ -108,9 +137,26 @@
                                     textboxStatus.AppendText(vbCrLf & String.Format("Solicitando el C.A.E. para la {0} N° {1}...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.NumeroCompleto))
                                     If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual.IDComprobante) Then
                                         progressbarStatus.Value += 1
-                                        textboxStatus.AppendText("OK - CAE: " & Objeto_AFIP_WS.UltimoResultadoCAE.Numero)
+                                        If GenerarCodigoQR Then
+                                            textboxStatus.AppendText("OK - QR... ")
+                                            If ModuloComprobantes.GenerarCodigoQR(ComprobanteActual.IDComprobante, , idMoneda, monedaCodigoAfip, monedaCotizacion) Then
+                                                textboxStatus.AppendText("OK")
+                                            Else
+                                                textboxStatus.AppendText("ERROR")
+                                                MensajeError = "Error al obtener el Código QR del Comprobante Electrónico:"
+                                                MensajeError &= vbCrLf & vbCrLf
+                                                MensajeError &= String.Format("{0} N°: {1}", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero)
+                                                MsgBox(MensajeError, MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                                                RefreshData()
+                                                MostrarOcultarEstado(False)
+                                                Me.Cursor = Cursors.Default
+                                                Exit Sub
+                                            End If
+                                        Else
+                                            textboxStatus.AppendText("OK - CAE: " & Objeto_AFIP_WS.UltimoResultadoCAE.Numero)
+                                        End If
 
-                                    ElseIf Objeto_AFIP_WS.UltimoResultadoCAE.Resultado = CS_AFIP_WS.SOLICITUD_CAE_RESULTADO_RECHAZADO Then
+                                    ElseIf Objeto_AFIP_WS.UltimoResultadoCAE.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoAceptado Then
                                         textboxStatus.AppendText("RECHAZADO!!")
 
                                         MensajeError = "Se Rechazó la Solicitud de CAE para el Comprobante Electrónico:"
