@@ -253,7 +253,7 @@
                         Case 0
                             ' Búsqueda por Entidad Titular
                             mReportSelectionFormula &= String.Format(" AND InStr(LCase({{Comprobante.ApellidoNombre}}), ""{0}"") > 0", textboxBuscar.Text.ToLower.Trim)
-                            mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.EntidadNombre.ToLower.Contains(textboxBuscar.Text.ToLower.Trim)).ToList
+                            mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.EntidadNombre.ToLower().RemoveDiacritics().Contains(textboxBuscar.Text.ToLower.Trim)).ToList
                         Case 1
                             ' Búsqueda por Número de Comprobante
                             mReportSelectionFormula &= String.Format(" AND InStr({{Comprobante.Numero}}, ""{0}"") > 0", textboxBuscar.Text.Trim)
