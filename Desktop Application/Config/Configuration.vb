@@ -25,6 +25,7 @@ Module Configuration
         pAfipWebServicesConfig.CertificadoProduccion = CardonerSistemas.Files.ProcessFolderName(pAfipWebServicesConfig.CertificadoProduccion)
         pAfipWebServicesConfig.ClavePrivada = CardonerSistemas.Files.ProcessFolderName(pAfipWebServicesConfig.ClavePrivada)
         pAfipWebServicesConfig.LogFolder = CardonerSistemas.Files.ProcessFolderName(pAfipWebServicesConfig.LogFolder)
+        pAfipWebServicesConfig.LogFileName = CardonerSistemas.Files.ProcessFilename(pAfipWebServicesConfig.LogFileName)
 
         ' Appearance
         If Not CardonerSistemas.ConfigurationJson.LoadFile(ConfigFolder, AppearanceFileName, pAppearanceConfig) Then

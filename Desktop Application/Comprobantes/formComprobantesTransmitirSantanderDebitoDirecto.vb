@@ -143,7 +143,7 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
 
         ' Obtengo y verifico si existe la carpeta de destino de los archivos a exportar
         Try
-            FolderName = CardonerSistemas.Files.ProcessFolderName(pSantanderConfig.AddiOutboundFolder)
+            FolderName = pSantanderConfig.AddiOutboundFolder
             If Not FolderName.EndsWith("\") Then
                 FolderName &= "\"
             End If
