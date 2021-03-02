@@ -107,7 +107,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
 
         ' Obtengo y verifico si existe la carpeta de destino de los archivos a exportar
         Try
-            FolderName = CardonerSistemas.SpecialFolders.ProcessString(pGeneralConfig.ExchangeOutboundFolder)
+            FolderName = CardonerSistemas.Files.ProcessFolderName(pGeneralConfig.ExchangeOutboundFolder)
             If Not FolderName.EndsWith("\") Then
                 FolderName &= "\"
             End If

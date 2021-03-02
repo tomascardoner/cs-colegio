@@ -528,7 +528,7 @@ Module ModuloComprobantes
     Friend Function TransmitirAFIP_Inicializar(ByRef Objeto_Afip_WS As CardonerSistemas.AfipWebServices.WebService, ByVal ModoHomologacion As Boolean) As Boolean
         With Objeto_Afip_WS
             If pAfipWebServicesConfig.LogEnabled Then
-                .LogPath = CardonerSistemas.SpecialFolders.ProcessString(pAfipWebServicesConfig.LogFolder)
+                .LogPath = CardonerSistemas.Files.ProcessFolderName(pAfipWebServicesConfig.LogFolder)
                 If Not .LogPath.EndsWith("\") Then
                     .LogPath &= "\"
                 End If

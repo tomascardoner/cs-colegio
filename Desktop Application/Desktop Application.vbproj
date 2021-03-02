@@ -223,11 +223,11 @@
       <Link>Framework\ErrorHandlerMessageBox.vb</Link>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="..\..\..\framework-vbnet\Files.vb">
+      <Link>Framework\Files.vb</Link>
+    </Compile>
     <Compile Include="..\..\..\framework-vbnet\Internet.vb">
       <Link>Framework\Internet.vb</Link>
-    </Compile>
-    <Compile Include="..\..\..\framework-vbnet\SpecialFolders.vb">
-      <Link>Framework\SpecialFolders.vb</Link>
     </Compile>
     <Compile Include="Anio.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
@@ -427,9 +427,6 @@
     </Compile>
     <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Email.vb">
       <Link>Framework\CS_Email.vb</Link>
-    </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_File.vb">
-      <Link>Framework\CS_File.vb</Link>
     </Compile>
     <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_FileLog.vb">
       <Link>Framework\CS_FileLog.vb</Link>
