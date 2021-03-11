@@ -5,5 +5,5 @@
     Public Property IdPuntoVenta As Integer
     Public Property PermiteGenerarMatriculaDesdeMes As Byte
     Public Property ExchangeOutboundFolder As String
-    Public Property ExchangeOutboundPagoMisCuentasSubFolder As String
+    Public Property ExchangeOutboundPagosEducSubFolder As String
 End Class

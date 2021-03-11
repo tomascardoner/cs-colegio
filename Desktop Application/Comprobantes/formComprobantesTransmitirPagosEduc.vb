@@ -1,6 +1,6 @@
 ﻿Imports System.IO
 
-Public Class formComprobantesTransmitirPagomiscuentas
+Public Class formComprobantesTransmitirPagosEduc
 
 #Region "Declarations"
     Private dbContext As New CSColegioContext(True)
@@ -81,7 +81,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
 
     Private Sub buttonTransmitir_Click(sender As Object, e As EventArgs) Handles buttonExportar.Click
         If listComprobantes.Count > 0 Then
-            If CS_Parameter_System.GetIntegerAsShort(Parametros.EMPRESA_PRISMA_NUMERO) = 0 Then
+            If CS_Parameter_System.GetIntegerAsInteger(Parametros.EMPRESA_PAGOSEDUC_NUMERO) = 0 Then
                 MsgBox("No está especificado el Número de Empresa otorgado por PRISMA.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 Exit Sub
             End If
@@ -93,9 +93,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
 
 #Region "Extra stuff"
     Private Function ExportarComprobantes() As Boolean
-        Dim HeaderTextStream As String
         Dim DetalleTextStream As String
-        Dim TrailerTextStream As String
 
         Dim ComprobanteActual As Comprobante
         Dim DetalleCount As Integer = 0
@@ -104,13 +102,15 @@ Public Class formComprobantesTransmitirPagomiscuentas
         Dim FolderName As String = ""
         Dim FileName As String
 
+        Dim CodigoEmpresa As Integer
+
         ' Obtengo y verifico si existe la carpeta de destino de los archivos a exportar
         Try
             FolderName = pGeneralConfig.ExchangeOutboundFolder
             If Not FolderName.EndsWith("\") Then
                 FolderName &= "\"
             End If
-            ' FolderName &= pGeneralConfig.ExchangeOutboundPagoMisCuentasSubFolder
+            FolderName &= pGeneralConfig.ExchangeOutboundPagosEducSubFolder
             If Not FolderName.EndsWith("\") Then
                 FolderName &= "\"
             End If
@@ -126,28 +126,23 @@ Public Class formComprobantesTransmitirPagomiscuentas
             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error el acceder o crear la carpeta especificada.")
         End Try
 
-        FileName = "FAC" & CS_Parameter_System.GetIntegerAsShort(Parametros.EMPRESA_PRISMA_NUMERO).ToString.PadRight(4, "0"c) & "." & DateTime.Today.ToString("ddMMyy")
+        CodigoEmpresa = CS_Parameter_System.GetIntegerAsInteger(Parametros.EMPRESA_PAGOSEDUC_NUMERO, 0)
+        FileName = "FAC" & CodigoEmpresa.ToString.PadLeft(5, "0"c) & "." & DateTime.Today.ToString("ddMMyy")
 
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
 
         Using outputFile As New StreamWriter(FolderName & FileName)
 
-            ' Header
-            HeaderTextStream = "0"                                                                              ' Código de Registro
-            HeaderTextStream &= "400"                                                                           ' Código Prisma
-            HeaderTextStream &= CS_Parameter_System.GetIntegerAsShort(Parametros.EMPRESA_PRISMA_NUMERO).ToString.PadRight(4, "0"c)     ' Código Empresa Prisma
-            HeaderTextStream &= DateTime.Today.ToString("yyyyMMdd")                                             ' Fecha de generación del archivo
-            HeaderTextStream &= StrDup(264, "0"c)                                                               ' Filler
-            outputFile.WriteLine(HeaderTextStream)
-
             For Each RowActual As DataGridViewRow In datagridviewComprobantes.Rows
                 ComprobanteActual = dbContext.Comprobante.Find(CType(RowActual.DataBoundItem, GridDataRow).IDComprobante)
+
                 If Not ComprobanteActual Is Nothing Then
                     ' Detalle
                     DetalleTextStream = "5"                                                                 ' Código de Registro
-                    DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString.PadRight(19, " "c)    ' Número de Referencia
-                    DetalleTextStream &= ComprobanteActual.NumeroCompleto.ToString.PadRight(20, " "c)       ' Id. Factura
+                    DetalleTextStream &= CodigoEmpresa.ToString.PadLeft(5, "0"c)                           ' Código de Entidad
+                    DetalleTextStream &= ComprobanteActual.Entidad.DocumentoNumero.PadRight(14, " "c)       ' Número de Referencia
+                    DetalleTextStream &= ComprobanteActual.IDComprobante.ToString.PadRight(20, " "c)       ' Id. Factura
                     DetalleTextStream &= "0"                                                                ' Código de Moneda
                     DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.ToString("yyyyMMdd")     ' Fecha 1er. vencimiento
                     DetalleTextStream &= ComprobanteActual.ImporteTotal1.ToString("000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")   ' Importe 1er. vencimiento
@@ -166,7 +161,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
                         DetalleTextStream &= StrDup(11, "0"c)                                                   ' Importe 3er. vencimiento
                     End If
                     DetalleTextStream &= StrDup(19, "0"c)                                                   ' Filler
-                    DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString.PadRight(19, " "c)    ' Número de Referencia anterior
+                    DetalleTextStream &= ComprobanteActual.Entidad.DocumentoNumero.PadRight(19, " "c)       ' Número de Referencia anterior
                     DetalleTextStream &= (ComprobanteActual.ComprobanteTipo.NombreConLetra.ToUpper.Replace("""", "") & " " & ComprobanteActual.NumeroCompleto).PadRight(40, " "c) ' Mensaje Ticket
                     DetalleTextStream &= (ComprobanteActual.ComprobanteTipo.Sigla & ComprobanteActual.PuntoVenta & ComprobanteActual.Numero).PadRight(15, " "c) ' Mensaje Pantalla
                     DetalleTextStream &= StrDup(60, " "c)                                                   ' Código de barras
@@ -177,21 +172,9 @@ Public Class formComprobantesTransmitirPagomiscuentas
                     DetalleImporteTotal += ComprobanteActual.ImporteTotal1
                 End If
             Next
-
-            ' Trailer
-            TrailerTextStream = "9"                                                                             ' Código de Registro
-            TrailerTextStream &= "400"                                                                          ' Código Prisma
-            TrailerTextStream &= CS_Parameter_System.GetIntegerAsShort(Parametros.EMPRESA_PRISMA_NUMERO).ToString.PadLeft(4, "0"c)     ' Código Empresa Prisma
-            TrailerTextStream &= DateTime.Today.ToString("yyyyMMdd")                                            ' Fecha de generación del archivo
-            TrailerTextStream &= DetalleCount.ToString.PadLeft(7, "0"c)                                         ' Cantidad de registros de detalle
-            TrailerTextStream &= StrDup(7, "0"c)                                                                ' Filler
-            TrailerTextStream &= DetalleImporteTotal.ToString("00000000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")      ' Total Importe 1er. vencimiento
-            TrailerTextStream &= StrDup(234, "0"c)                                                              ' Filler
-            outputFile.WriteLine(TrailerTextStream)
-
         End Using
 
-        MsgBox(String.Format("Se ha generado exitosamente el archivo de intercambio con PagoMisCuentas, conteniendo {0} Comprobantes.", DetalleCount), MsgBoxStyle.Information, My.Application.Info.Title)
+        MsgBox(String.Format("Se ha generado exitosamente el archivo de intercambio con PAGOS Educ, conteniendo {0} Comprobantes.", DetalleCount), MsgBoxStyle.Information, My.Application.Info.Title)
 
         RefreshData()
 

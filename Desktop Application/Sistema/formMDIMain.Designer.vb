@@ -58,6 +58,7 @@ Partial Class formMDIMain
         Me.menuitemAnios = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemCursos = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemAniosLectivosCursos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemAniosLectivosCuotas = New System.Windows.Forms.ToolStripMenuItem()
         Me.separatorBancos = New System.Windows.Forms.ToolStripSeparator()
         Me.menuitemBancos = New System.Windows.Forms.ToolStripMenuItem()
         Me.separatorRelacionTipos = New System.Windows.Forms.ToolStripSeparator()
@@ -84,7 +85,7 @@ Partial Class formMDIMain
         Me.buttonComunicaciones = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemComunicacionesEnviarMail = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonReportes = New System.Windows.Forms.ToolStripButton()
-        Me.menuitemAniosLectivosCuotas = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemComprobantesExportarPagosEduc = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
@@ -323,6 +324,12 @@ Partial Class formMDIMain
         Me.menuitemAniosLectivosCursos.Size = New System.Drawing.Size(195, 22)
         Me.menuitemAniosLectivosCursos.Text = "Años Lectivos y Cursos"
         '
+        'menuitemAniosLectivosCuotas
+        '
+        Me.menuitemAniosLectivosCuotas.Name = "menuitemAniosLectivosCuotas"
+        Me.menuitemAniosLectivosCuotas.Size = New System.Drawing.Size(195, 22)
+        Me.menuitemAniosLectivosCuotas.Text = "Cuotas"
+        '
         'separatorBancos
         '
         Me.separatorBancos.Name = "separatorBancos"
@@ -410,7 +417,7 @@ Partial Class formMDIMain
         '
         'menuitemComprobantesExportar
         '
-        Me.menuitemComprobantesExportar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemComprobantesExportarPagomiscuentas, Me.menuitemComprobantesExportarSantanderDebitoDirecto, Me.menuitemComprobantesExportarSantanderRecaudacionPorCaja, Me.menuitemComprobantesExportarRapipago})
+        Me.menuitemComprobantesExportar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemComprobantesExportarPagosEduc, Me.menuitemComprobantesExportarPagomiscuentas, Me.menuitemComprobantesExportarSantanderDebitoDirecto, Me.menuitemComprobantesExportarSantanderRecaudacionPorCaja, Me.menuitemComprobantesExportarRapipago})
         Me.menuitemComprobantesExportar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_EXPORT_32
         Me.menuitemComprobantesExportar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.menuitemComprobantesExportar.Name = "menuitemComprobantesExportar"
@@ -419,6 +426,7 @@ Partial Class formMDIMain
         '
         'menuitemComprobantesExportarPagomiscuentas
         '
+        Me.menuitemComprobantesExportarPagomiscuentas.Enabled = False
         Me.menuitemComprobantesExportarPagomiscuentas.Name = "menuitemComprobantesExportarPagomiscuentas"
         Me.menuitemComprobantesExportarPagomiscuentas.Size = New System.Drawing.Size(289, 22)
         Me.menuitemComprobantesExportarPagomiscuentas.Text = "PagoMisCuentas"
@@ -431,12 +439,14 @@ Partial Class formMDIMain
         '
         'menuitemComprobantesExportarSantanderRecaudacionPorCaja
         '
+        Me.menuitemComprobantesExportarSantanderRecaudacionPorCaja.Enabled = False
         Me.menuitemComprobantesExportarSantanderRecaudacionPorCaja.Name = "menuitemComprobantesExportarSantanderRecaudacionPorCaja"
         Me.menuitemComprobantesExportarSantanderRecaudacionPorCaja.Size = New System.Drawing.Size(289, 22)
         Me.menuitemComprobantesExportarSantanderRecaudacionPorCaja.Text = "Banco Santander - Recaudación Por Caja"
         '
         'menuitemComprobantesExportarRapipago
         '
+        Me.menuitemComprobantesExportarRapipago.Enabled = False
         Me.menuitemComprobantesExportarRapipago.Name = "menuitemComprobantesExportarRapipago"
         Me.menuitemComprobantesExportarRapipago.Size = New System.Drawing.Size(289, 22)
         Me.menuitemComprobantesExportarRapipago.Text = "Rapipago"
@@ -452,24 +462,28 @@ Partial Class formMDIMain
         '
         'menuitemComprobantesImportarPagomiscuentas
         '
+        Me.menuitemComprobantesImportarPagomiscuentas.Enabled = False
         Me.menuitemComprobantesImportarPagomiscuentas.Name = "menuitemComprobantesImportarPagomiscuentas"
         Me.menuitemComprobantesImportarPagomiscuentas.Size = New System.Drawing.Size(289, 22)
         Me.menuitemComprobantesImportarPagomiscuentas.Text = "PagoMisCuentas"
         '
         'menuitemComprobantesImportarSantanderDebitoDirecto
         '
+        Me.menuitemComprobantesImportarSantanderDebitoDirecto.Enabled = False
         Me.menuitemComprobantesImportarSantanderDebitoDirecto.Name = "menuitemComprobantesImportarSantanderDebitoDirecto"
         Me.menuitemComprobantesImportarSantanderDebitoDirecto.Size = New System.Drawing.Size(289, 22)
         Me.menuitemComprobantesImportarSantanderDebitoDirecto.Text = "Banco Santander - Débito Directo"
         '
         'menuitemComprobantesImportarSantanderRecaudacionPorCaja
         '
+        Me.menuitemComprobantesImportarSantanderRecaudacionPorCaja.Enabled = False
         Me.menuitemComprobantesImportarSantanderRecaudacionPorCaja.Name = "menuitemComprobantesImportarSantanderRecaudacionPorCaja"
         Me.menuitemComprobantesImportarSantanderRecaudacionPorCaja.Size = New System.Drawing.Size(289, 22)
         Me.menuitemComprobantesImportarSantanderRecaudacionPorCaja.Text = "Banco Santander - Recaudación Por Caja"
         '
         'menuitemComprobantesImportarRapipago
         '
+        Me.menuitemComprobantesImportarRapipago.Enabled = False
         Me.menuitemComprobantesImportarRapipago.Name = "menuitemComprobantesImportarRapipago"
         Me.menuitemComprobantesImportarRapipago.Size = New System.Drawing.Size(289, 22)
         Me.menuitemComprobantesImportarRapipago.Text = "Rapipago"
@@ -501,11 +515,11 @@ Partial Class formMDIMain
         Me.buttonReportes.Size = New System.Drawing.Size(142, 36)
         Me.buttonReportes.Text = "Reportes"
         '
-        'menuitemAniosLectivosCuotas
+        'menuitemComprobantesExportarPagosEduc
         '
-        Me.menuitemAniosLectivosCuotas.Name = "menuitemAniosLectivosCuotas"
-        Me.menuitemAniosLectivosCuotas.Size = New System.Drawing.Size(195, 22)
-        Me.menuitemAniosLectivosCuotas.Text = "Cuotas"
+        Me.menuitemComprobantesExportarPagosEduc.Name = "menuitemComprobantesExportarPagosEduc"
+        Me.menuitemComprobantesExportarPagosEduc.Size = New System.Drawing.Size(289, 22)
+        Me.menuitemComprobantesExportarPagosEduc.Text = "PAGOS Educ"
         '
         'formMDIMain
         '
@@ -595,4 +609,5 @@ Partial Class formMDIMain
     Friend WithEvents menuitemDebugAFIPWSHomologacionConsultarComprobante As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemEntidadesVerificarEmails As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemAniosLectivosCuotas As ToolStripMenuItem
+    Friend WithEvents menuitemComprobantesExportarPagosEduc As ToolStripMenuItem
 End Class

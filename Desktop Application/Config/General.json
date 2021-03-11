@@ -5,5 +5,5 @@
   "IdPuntoVenta": 2,
   "PermiteGenerarMatriculaDesdeMes": 10,
   "ExchangeOutboundFolder": "{ApplicationFolder}\\Intercambio\\Salida",
-  "ExchangeOutboundPagoMisCuentasSubFolder": "PagoMisCuentas"
+  "ExchangeOutboundPagosEducSubFolder": "PagosEduc"
 }

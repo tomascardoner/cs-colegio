@@ -394,6 +394,22 @@
         End If
     End Sub
 
+    Private Sub ComprobantesExportarPagosEduca() Handles menuitemComprobantesExportarPagosEduc.Click
+        If Permisos.VerificarPermiso(Permisos.COMPROBANTE_EXPORTAR_PAGOSEDUC) Then
+            Me.Cursor = Cursors.WaitCursor
+
+            formComprobantesTransmitirPagosEduc.MdiParent = Me
+            CS_Form.CenterToParent(Me, CType(formComprobantesTransmitirPagosEduc, Form))
+            formComprobantesTransmitirPagosEduc.Show()
+            If formComprobantesTransmitirPagosEduc.WindowState = FormWindowState.Minimized Then
+                formComprobantesTransmitirPagosEduc.WindowState = FormWindowState.Normal
+            End If
+            formComprobantesTransmitirPagosEduc.Focus()
+
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
+
     Private Sub ComprobantesExportarPagomiscuentas() Handles menuitemComprobantesExportarPagomiscuentas.Click
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE_EXPORTAR_PAGOMISCUENTAS) Then
             Me.Cursor = Cursors.WaitCursor

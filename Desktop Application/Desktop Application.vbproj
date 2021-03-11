@@ -298,6 +298,12 @@
     <Compile Include="ComprobanteMedioPago.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Comprobantes\formComprobantesTransmitirPagosEduc.Designer.vb">
+      <DependentUpon>formComprobantesTransmitirPagosEduc.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Comprobantes\formComprobantesTransmitirPagosEduc.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ComprobanteTipo.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -329,6 +335,7 @@
     <Compile Include="Curso.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\ComprobanteExtension.vb" />
     <Compile Include="Database\CSColegioContextExtension.vb" />
     <Compile Include="Database\CursoExtension.vb" />
     <Compile Include="Database\FormattedDbEntityValidationException.vb" />
@@ -778,6 +785,9 @@
       <Link>Framework\ErrorHandlerMessageBox.resx</Link>
       <DependentUpon>ErrorHandlerMessageBox.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Comprobantes\formComprobantesTransmitirPagosEduc.resx">
+      <DependentUpon>formComprobantesTransmitirPagosEduc.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Sistema\formAboutBox.resx">
       <DependentUpon>formAboutBox.vb</DependentUpon>
     </EmbeddedResource>
@@ -994,6 +1004,7 @@
     <None Include="Resources\Cardoner Sistemas.gif" />
     <None Include="Resources\Outlook 2019_32.png" />
     <None Include="Resources\DatabaseSearch48.png" />
+    <None Include="Resources\pagoseduc.png" />
     <Content Include="Sistema\school_48_32_16.ico" />
     <None Include="Resources\Move Previous %28Arrow%29 Red24.png" />
     <None Include="Resources\Move Next %28Arrow%29 Green24.png" />
