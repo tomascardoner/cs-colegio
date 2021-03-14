@@ -140,9 +140,9 @@ Public Class formComprobantesTransmitirPagosEduc
                 If Not ComprobanteActual Is Nothing Then
                     ' Detalle
                     DetalleTextStream = "5"                                                                 ' Código de Registro
-                    DetalleTextStream &= CodigoEmpresa.ToString.PadLeft(5, "0"c)                           ' Código de Entidad
-                    DetalleTextStream &= ComprobanteActual.Entidad.DocumentoNumero.PadRight(14, " "c)       ' Número de Referencia
-                    DetalleTextStream &= ComprobanteActual.IDComprobante.ToString.PadRight(20, " "c)       ' Id. Factura
+                    DetalleTextStream &= CodigoEmpresa.ToString.PadLeft(5, "0"c)                            ' Código de Entidad
+                    DetalleTextStream &= ComprobanteActual.DocumentoNumero.PadRight(14, " "c)               ' Número de Referencia
+                    DetalleTextStream &= ComprobanteActual.IDComprobante.ToString.PadRight(20, " "c)        ' Id. Factura
                     DetalleTextStream &= "0"                                                                ' Código de Moneda
                     DetalleTextStream &= ComprobanteActual.FechaVencimiento1.Value.ToString("yyyyMMdd")     ' Fecha 1er. vencimiento
                     DetalleTextStream &= ComprobanteActual.ImporteTotal1.ToString("000000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")   ' Importe 1er. vencimiento
