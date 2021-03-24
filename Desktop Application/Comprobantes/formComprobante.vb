@@ -560,6 +560,11 @@
             mComprobanteActual.IDConcepto = mConceptoActual.IDConcepto
         End If
 
+        ' Si es una factura, calculo el código de barras Sepsa
+        If mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso (mComprobanteTipoActual.CodigoAFIP = Constantes.ComprobanteCodigoAfipFacturaA OrElse mComprobanteTipoActual.CodigoAFIP = Constantes.ComprobanteCodigoAfipFacturaB OrElse mComprobanteTipoActual.CodigoAFIP = Constantes.ComprobanteCodigoAfipFacturaC) Then
+            mComprobanteActual.CalcularCodigoBarrasSepsa()
+        End If
+
         If mdbContext.ChangeTracker.HasChanges Then
 
             Me.Cursor = Cursors.WaitCursor

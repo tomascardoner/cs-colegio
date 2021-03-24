@@ -202,6 +202,7 @@
           <Property Name="CAE" Type="char" MaxLength="14" />
           <Property Name="CAEVencimiento" Type="date" />
           <Property Name="CodigoQR" Type="image" />
+          <Property Name="CodigoBarrasSepsa" Type="varchar" MaxLength="61" />
           <Property Name="IDComprobanteLote" Type="int" />
           <Property Name="PeriodoContableAnio" Type="smallint" />
           <Property Name="PeriodoContableMes" Type="tinyint" />
@@ -3547,10 +3548,10 @@
           <NavigationProperty Name="RelacionTiposModificados" Relationship="CSColegioModel.FK__Usuario__RelacionTipo__Modificacion" FromRole="Usuario" ToRole="RelacionTipo" />
           <NavigationProperty Name="TurnosCreados" Relationship="CSColegioModel.FK__Usuario__Turno__Creacion" FromRole="Usuario" ToRole="Turno" />
           <NavigationProperty Name="TurnosModificados" Relationship="CSColegioModel.FK__Usuario__Turno__Modificacion" FromRole="Usuario" ToRole="Turno" />
-          <NavigationProperty Name="Usuario1" Relationship="CSColegioModel.FK__Usuario__Usuario__Creacion" FromRole="Usuario" ToRole="Usuario1" />
-          <NavigationProperty Name="Usuario2" Relationship="CSColegioModel.FK__Usuario__Usuario__Creacion" FromRole="Usuario1" ToRole="Usuario" />
-          <NavigationProperty Name="Usuario11" Relationship="CSColegioModel.FK__Usuario__Usuario__Modificacion" FromRole="Usuario" ToRole="Usuario1" />
-          <NavigationProperty Name="Usuario3" Relationship="CSColegioModel.FK__Usuario__Usuario__Modificacion" FromRole="Usuario1" ToRole="Usuario" />
+          <NavigationProperty Name="UsuariosCreados" Relationship="CSColegioModel.FK__Usuario__Usuario__Creacion" FromRole="Usuario" ToRole="Usuario1" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK__Usuario__Usuario__Creacion" FromRole="Usuario1" ToRole="Usuario" />
+          <NavigationProperty Name="UsuariosModificados" Relationship="CSColegioModel.FK__Usuario__Usuario__Modificacion" FromRole="Usuario" ToRole="Usuario1" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK__Usuario__Usuario__Modificacion" FromRole="Usuario1" ToRole="Usuario" />
           <NavigationProperty Name="UsuarioGruposCreados" Relationship="CSColegioModel.FK__Usuario__UsuarioGrupo__Creacion" FromRole="Usuario" ToRole="UsuarioGrupo" />
           <NavigationProperty Name="UsuarioGruposModificados" Relationship="CSColegioModel.FK__Usuario__UsuarioGrupo__Modificacion" FromRole="Usuario" ToRole="UsuarioGrupo" />
           <NavigationProperty Name="ArticuloTallesCreados" Relationship="CSColegioModel.FK__Usuario__ArticuloTalle__Creacion" FromRole="Usuario" ToRole="ArticuloTalle" />
@@ -4830,6 +4831,7 @@
           <Property Name="CAE" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
           <Property Name="CAEVencimiento" Type="DateTime" Precision="0" />
           <Property Name="CodigoQR" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="CodigoBarrasSepsa" Type="String" MaxLength="61" FixedLength="false" Unicode="false" />
           <Property Name="IDComprobanteLote" Type="Int32" />
           <Property Name="PeriodoContableAnio" Type="Int16" />
           <Property Name="PeriodoContableMes" Type="Byte" />
@@ -6941,6 +6943,7 @@
           <EntitySetMapping Name="Comprobante">
             <EntityTypeMapping TypeName="CSColegioModel.Comprobante">
               <MappingFragment StoreEntitySet="Comprobante">
+                <ScalarProperty Name="CodigoBarrasSepsa" ColumnName="CodigoBarrasSepsa" />
                 <ScalarProperty Name="CodigoQR" ColumnName="CodigoQR" />
                 <ScalarProperty Name="ImporteTotal3" ColumnName="ImporteTotal3" />
                 <ScalarProperty Name="ImporteTotal2" ColumnName="ImporteTotal2" />

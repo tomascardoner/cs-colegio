@@ -75,10 +75,10 @@ Partial Public Class Usuario
     Public Overridable Property RelacionTiposModificados As ICollection(Of RelacionTipo) = New HashSet(Of RelacionTipo)
     Public Overridable Property TurnosCreados As ICollection(Of Turno) = New HashSet(Of Turno)
     Public Overridable Property TurnosModificados As ICollection(Of Turno) = New HashSet(Of Turno)
-    Public Overridable Property Usuario1 As ICollection(Of Usuario) = New HashSet(Of Usuario)
-    Public Overridable Property Usuario2 As Usuario
-    Public Overridable Property Usuario11 As ICollection(Of Usuario) = New HashSet(Of Usuario)
-    Public Overridable Property Usuario3 As Usuario
+    Public Overridable Property UsuariosCreados As ICollection(Of Usuario) = New HashSet(Of Usuario)
+    Public Overridable Property UsuarioCreacion As Usuario
+    Public Overridable Property UsuariosModificados As ICollection(Of Usuario) = New HashSet(Of Usuario)
+    Public Overridable Property UsuarioModificacion As Usuario
     Public Overridable Property UsuarioGruposCreados As ICollection(Of UsuarioGrupo) = New HashSet(Of UsuarioGrupo)
     Public Overridable Property UsuarioGruposModificados As ICollection(Of UsuarioGrupo) = New HashSet(Of UsuarioGrupo)
     Public Overridable Property ArticuloTallesCreados As ICollection(Of ArticuloTalle) = New HashSet(Of ArticuloTalle)

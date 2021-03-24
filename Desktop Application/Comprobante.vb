@@ -42,6 +42,7 @@ Partial Public Class Comprobante
     Public Property CAE As String
     Public Property CAEVencimiento As Nullable(Of Date)
     Public Property CodigoQR As Byte()
+    Public Property CodigoBarrasSepsa As String
     Public Property IDComprobanteLote As Nullable(Of Integer)
     Public Property PeriodoContableAnio As Nullable(Of Short)
     Public Property PeriodoContableMes As Nullable(Of Byte)

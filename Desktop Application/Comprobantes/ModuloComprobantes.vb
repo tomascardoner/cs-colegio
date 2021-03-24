@@ -1,151 +1,13 @@
 ﻿Imports System.Text
 
 Module ModuloComprobantes
+
+#Region "Generación de comprobantes"
+
     Friend Class Alumno_AnioLectivoCurso_AFacturar
         Friend Property Alumno As Entidad
         Friend Property AnioLectivoCurso_AFacturar As AnioLectivoCurso
     End Class
-
-    ''' <summary>
-    ''' Verifica que una Entidad tenga todos los datos correctos para emitirle un Comprobante
-    ''' </summary>
-    ''' <param name="EntidadAVerificar">Especifica la Entidad a Verificar</param>
-    ''' <param name="AnioLectivo">Año Lectivo</param>
-    ''' <param name="FechaServicioDesde">Fecha de Inicio del Servicio a Facturar</param>
-    ''' <param name="FechaServicioHasta">Fecha de Fin del Servicio a Facturar</param>
-    ''' <param name="FechaExclusionEsError">Especifica si cuando la Entidad tiene exclusión de facturación, se genera error o simplemente se devuelve False</param>
-    ''' <param name="CorreccionDescripcion">Por medio de este parámetro, se devuelve la leyenda de los errores encontrados</param>
-    ''' <returns>Devuelve True si la Entidad tiene todos los datos correctos para facturar o False si no</returns>
-    ''' <remarks></remarks>
-    Friend Function Entidad_VerificarParaEmitirComprobante(ByRef EntidadAVerificar As Entidad, ByVal AnioLectivo As Integer, ByVal AgregarAlCurso As Boolean, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal FechaExclusionEsError As Boolean, ByRef CorreccionDescripcion As String) As Boolean
-        ' El primer paso es verificar que la Entidad especificada, sea de tipo Alumno
-        If EntidadAVerificar.TipoAlumno = False Then
-            CorreccionDescripcion &= "No es una Entidad del tipo Alumno." & vbCrLf
-        End If
-
-        If AgregarAlCurso Then
-            ' Verifico que el Alumno no esté cargado en algún Curso para el mismo Año Lectivo
-            If EntidadAVerificar.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = AnioLectivo).Count > 0 Then
-                CorreccionDescripcion &= "El Alumno ya está cargado en un curso para el Año Lectivo que se va a facturar." & vbCrLf
-            End If
-        Else
-            ' Verifico que el Alumno no esté cargado en más de un Curso para el mismo Año Lectivo
-            If EntidadAVerificar.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = AnioLectivo).Count > 1 Then
-                CorreccionDescripcion &= "El Alumno está cargado en más de un curso para el Año Lectivo que se va a facturar." & vbCrLf
-            End If
-        End If
-
-        ' Verifico a quién se le va a Facturar
-        If EntidadAVerificar.EmitirFacturaA Is Nothing Then
-            CorreccionDescripcion &= "No está especificado a quién se le factura." & vbCrLf
-        Else
-            If EntidadAVerificar.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO Then
-                ' Se le factura al Alumno, verifico que tenga los datos completos
-                Entidad_VerificarDatosCompletosParaEmitirComprobante(EntidadAVerificar, "El Alumno", CorreccionDescripcion)
-            End If
-
-            If EntidadAVerificar.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE Or EntidadAVerificar.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or EntidadAVerificar.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
-                ' Se le factura al Padre (entre otros)
-                If EntidadAVerificar.IDEntidadPadre Is Nothing Then
-                    CorreccionDescripcion &= "Debe especificar el Padre para poder facturarle." & vbCrLf
-                Else
-                    Entidad_VerificarDatosCompletosParaEmitirComprobante(EntidadAVerificar.EntidadPadre, "El Padre", CorreccionDescripcion)
-                End If
-            End If
-
-            If EntidadAVerificar.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE Or EntidadAVerificar.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or EntidadAVerificar.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
-                ' Se le factura a la Madre (entre otros)
-                If EntidadAVerificar.IDEntidadMadre Is Nothing Then
-                    CorreccionDescripcion &= "Debe especificar la Madre para poder facturarle." & vbCrLf
-                Else
-                    Entidad_VerificarDatosCompletosParaEmitirComprobante(EntidadAVerificar.EntidadMadre, "La Madre", CorreccionDescripcion)
-                End If
-            End If
-
-            If EntidadAVerificar.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or EntidadAVerificar.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
-                ' Se le factura a Otro (entre otros)
-                If EntidadAVerificar.IDEntidadTercero Is Nothing Then
-                    CorreccionDescripcion &= "Debe especificar el Tercero para poder facturarle." & vbCrLf
-                Else
-                    Entidad_VerificarDatosCompletosParaEmitirComprobante(EntidadAVerificar.EntidadTercero, "El tercero a quien se le va a facturar", CorreccionDescripcion)
-                End If
-            End If
-        End If
-
-        ' Si hay que corregir la Entidad, la agrego a la lista de Entidades a corregir
-        If CorreccionDescripcion.Length > 0 Then
-            CorreccionDescripcion = CorreccionDescripcion.Remove(CorreccionDescripcion.Length - vbCrLf.Length)
-            Return False
-        Else
-            ' La Entidad está verificada, pero  falta verificar que no tenga exclusión de facturación
-            ' Verifico primero la exclusión Desde
-            If Not EntidadAVerificar.ExcluyeFacturaDesde Is Nothing Then
-                ' Especifica exclusión Desde, así que la verifico
-                If EntidadAVerificar.ExcluyeFacturaDesde.Value.CompareTo(FechaServicioHasta) < 0 Then
-                    ' Está dentro de la exclusión Desde, así que verifico la exclusión Hasta
-                    If EntidadAVerificar.ExcluyeFacturaHasta Is Nothing Then
-                        ' No especifica exclusión Hasta, por ende, no se debe incluir en la Facturación
-                        If FechaExclusionEsError Then
-                            CorreccionDescripcion = "El Alumno especifica Fechas de Exclusión de Facturación y coinciden con la Fecha de esta Factura."
-                            Return False
-                        Else
-                            CorreccionDescripcion = ""
-                            Return False
-                        End If
-                    ElseIf EntidadAVerificar.ExcluyeFacturaHasta.Value.CompareTo(FechaServicioDesde) > 0 Then
-                        ' Está dentro de la exclusión Hasta, por lo tanto, se excluye
-                        If FechaExclusionEsError Then
-                            CorreccionDescripcion = "El Alumno especifica Fechas de Exclusión de Facturación y coinciden con la Fecha de esta Factura."
-                            Return False
-                        Else
-                            CorreccionDescripcion = ""
-                            Return False
-                        End If
-                    Else
-                        ' Está fuera de la exclusión
-                        Return True
-                    End If
-                Else
-                    ' Está fuera de la exclusión
-                    Return True
-                End If
-            ElseIf Not EntidadAVerificar.ExcluyeFacturaHasta Is Nothing Then
-                ' Especifica exclusión Hasta, así que la verifico
-                If EntidadAVerificar.ExcluyeFacturaHasta.Value.CompareTo(FechaServicioDesde) > 0 Then
-                    ' Está dentro de la exclusión, así que no lo agrego a la lista
-                    If FechaExclusionEsError Then
-                        CorreccionDescripcion = "El Alumno especifica Fechas de Exclusión de Facturación y coinciden con la Fecha de esta Factura."
-                        Return False
-                    Else
-                        CorreccionDescripcion = ""
-                        Return False
-                    End If
-                Else
-                    ' Está fuera de la exclusión
-                    Return True
-                End If
-            Else
-                ' No especifica ninguna exclusión
-                Return True
-            End If
-        End If
-    End Function
-
-    Private Sub Entidad_VerificarDatosCompletosParaEmitirComprobante(ByRef EntidadAVerificar As Entidad, ByVal SujetoDescripcion As String, ByRef CorreccionDescripcion As String)
-        If EntidadAVerificar.IDCategoriaIVA Is Nothing Then
-            CorreccionDescripcion &= String.Format("{1} no tiene especificada la Categoría de IVA.{0}", vbCrLf, SujetoDescripcion)
-        End If
-
-        If EntidadAVerificar.DocumentoNumero Is Nothing And EntidadAVerificar.FacturaDocumentoNumero Is Nothing Then
-            CorreccionDescripcion &= String.Format("{1} no tiene especificado el Tipo y Número de Documento.{0}", vbCrLf, SujetoDescripcion)
-        End If
-
-        If pComprobanteConfig.RequiereDomicilioCompleto Then
-            If EntidadAVerificar.DomicilioCalle1 Is Nothing Then
-                CorreccionDescripcion &= String.Format("{1} no tiene especificado el Domicilio.{0}", vbCrLf, SujetoDescripcion)
-            End If
-        End If
-    End Sub
 
     ''' <summary>
     ''' Genera una serie de Comprobantes (Facturas)
@@ -154,7 +16,7 @@ Module ModuloComprobantes
     ''' <param name="IDComprobanteLote">ID del Lote a generar. 0 (cero) si no especifica Lote.</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Friend Function GenerarComprobantes(ByVal FechaEmision As Date, ByVal FechaVencimiento1 As Date, ByVal FechaVencimiento2 As Date, ByVal FechaVencimiento3 As Date, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByVal AnioLectivoAFacturar As Short, ByVal MesAFacturar As Byte, ByVal MuestraErrores As Boolean, ByRef listAlumno_AnioLectivoCurso_AFacturar As List(Of Alumno_AnioLectivoCurso_AFacturar), ByRef listComprobantes As List(Of Comprobante)) As Boolean
+    Friend Function GenerarComprobantes(ByVal FechaEmision As Date, ByVal FechaVencimiento1 As Date, ByVal FechaVencimiento2 As Date?, ByVal FechaVencimiento3 As Date?, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByVal AnioLectivoAFacturar As Short, ByVal MesAFacturar As Byte, ByVal MuestraErrores As Boolean, ByRef listAlumno_AnioLectivoCurso_AFacturar As List(Of Alumno_AnioLectivoCurso_AFacturar), ByRef listComprobantes As List(Of Comprobante)) As Boolean
         ' Parámetros
         Dim ArticuloActual As Articulo
         Dim ComprobanteEntidadMayusculas As Boolean
@@ -189,8 +51,12 @@ Module ModuloComprobantes
             InteresTasaNominalAnual = CS_Parameter_System.GetDecimal(Parametros.INTERES_TASA_NOMINAL_ANUAL)
             If InteresTasaNominalAnual > 0 Then
                 InteresRedondeo = CS_Parameter_System.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_VENCIMIENTO_INTERES_REDONDEO)
-                Vencimiento2PorcentajeInteres = Math.Round(InteresTasaNominalAnual / 365 * DateAndTime.DateDiff(DateInterval.Day, FechaVencimiento1, FechaVencimiento2), 2, MidpointRounding.AwayFromZero)
-                Vencimiento3PorcentajeInteres = Math.Round(InteresTasaNominalAnual / 365 * DateAndTime.DateDiff(DateInterval.Day, FechaVencimiento1, FechaVencimiento3), 2, MidpointRounding.AwayFromZero)
+                If FechaVencimiento2.HasValue Then
+                    Vencimiento2PorcentajeInteres = Math.Round(InteresTasaNominalAnual / 365 * DateAndTime.DateDiff(DateInterval.Day, FechaVencimiento1, FechaVencimiento2.Value), 2, MidpointRounding.AwayFromZero)
+                End If
+                If FechaVencimiento3.HasValue Then
+                    Vencimiento3PorcentajeInteres = Math.Round(InteresTasaNominalAnual / 365 * DateAndTime.DateDiff(DateInterval.Day, FechaVencimiento1, FechaVencimiento3.Value), 2, MidpointRounding.AwayFromZero)
+                End If
             End If
 
             For Each Alumno_AnioLectivoCurso_AFacturarActual As Alumno_AnioLectivoCurso_AFacturar In listAlumno_AnioLectivoCurso_AFacturar
@@ -279,7 +145,7 @@ Module ModuloComprobantes
         Return True
     End Function
 
-    Private Function GenerarComprobante(ByRef dbContext As CSColegioContext, ByRef listComprobantes As List(Of Comprobante), ByVal FechaEmision As Date, ByVal InteresRedondeo As Short, ByVal FechaVencimiento1 As Date, ByVal FechaVencimiento2 As Date, ByVal Vencimiento2PorcentajeInteres As Decimal, ByVal FechaVencimiento3 As Date, ByVal Vencimiento3PorcentajeInteres As Decimal, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByVal TitularComprobante As Entidad, ByVal TitularComprobanteMayusculas As Boolean, ByVal Alumno As Entidad, ByVal AnioLectivoCursoActual As AnioLectivoCurso, ByVal ArticuloActual As Articulo, ByVal AnioLectivoAFacturar As Short, ByVal MesAFacturar As Byte, ByVal MuestraErrores As Boolean) As Boolean
+    Private Function GenerarComprobante(ByRef dbContext As CSColegioContext, ByRef listComprobantes As List(Of Comprobante), ByVal FechaEmision As Date, ByVal InteresRedondeo As Short, ByVal FechaVencimiento1 As Date, ByVal FechaVencimiento2 As Date?, ByVal Vencimiento2PorcentajeInteres As Decimal, ByVal FechaVencimiento3 As Date?, ByVal Vencimiento3PorcentajeInteres As Decimal, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByVal TitularComprobante As Entidad, ByVal TitularComprobanteMayusculas As Boolean, ByVal Alumno As Entidad, ByVal AnioLectivoCursoActual As AnioLectivoCurso, ByVal ArticuloActual As Articulo, ByVal AnioLectivoAFacturar As Short, ByVal MesAFacturar As Byte, ByVal MuestraErrores As Boolean) As Boolean
         Dim ComprobanteCabecera As Comprobante
         Dim ComprobanteDetalleActual As ComprobanteDetalle
 
@@ -352,25 +218,28 @@ Module ModuloComprobantes
             If InteresRedondeo > 0 Then
                 Vencimiento2Importe = Math.Round(Vencimiento2Importe / InteresRedondeo, 0, MidpointRounding.AwayFromZero) * InteresRedondeo
             End If
+            ComprobanteCabecera.ImporteTotal2 = Vencimiento2Importe
         Else
-            Vencimiento2Importe = 0
+            ComprobanteCabecera.ImporteTotal2 = Nothing
         End If
-        ComprobanteCabecera.ImporteTotal2 = Vencimiento2Importe
+
 
         If Vencimiento3PorcentajeInteres > 0 Then
             Vencimiento3Importe = ComprobanteCabecera.ImporteTotal1 + (ComprobanteCabecera.ImporteTotal1 * Vencimiento3PorcentajeInteres / 100)
             If InteresRedondeo > 0 Then
                 Vencimiento3Importe = Math.Round(Vencimiento3Importe / InteresRedondeo, 0, MidpointRounding.AwayFromZero) * InteresRedondeo
             End If
+            ComprobanteCabecera.ImporteTotal3 = Vencimiento3Importe
         Else
-            Vencimiento3Importe = 0
+            ComprobanteCabecera.ImporteTotal3 = Nothing
         End If
-        ComprobanteCabecera.ImporteTotal3 = Vencimiento3Importe
+
+        ComprobanteCabecera.CalcularCodigoBarrasSepsa()
 
         Return True
     End Function
 
-    Private Function GenerarComprobanteCabecera(ByVal FechaEmision As Date, ByVal FechaVencimiento1 As Date, ByVal FechaVencimiento2 As Date, ByVal FechaVencimiento3 As Date, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByRef TitularComprobante As Entidad, ByVal LeyendaAlumno As String, ByVal TitularComprobanteMayusculas As Boolean) As Comprobante
+    Private Function GenerarComprobanteCabecera(ByVal FechaEmision As Date, ByVal FechaVencimiento1 As Date, ByVal FechaVencimiento2 As Date?, ByVal FechaVencimiento3 As Date?, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByRef TitularComprobante As Entidad, ByVal LeyendaAlumno As String, ByVal TitularComprobanteMayusculas As Boolean) As Comprobante
         Dim ComprobanteCabecera As New Comprobante
 
         With ComprobanteCabecera
@@ -524,6 +393,10 @@ Module ModuloComprobantes
             Return Nothing
         End If
     End Function
+
+#End Region
+
+#Region "Transmisión a AFIP"
 
     Friend Function TransmitirAFIP_Inicializar(ByRef Objeto_Afip_WS As CardonerSistemas.AfipWebServices.WebService, ByVal ModoHomologacion As Boolean) As Boolean
         With Objeto_Afip_WS
@@ -693,6 +566,10 @@ Module ModuloComprobantes
         End If
     End Function
 
+#End Region
+
+#Region "Generación de código QR según AFIP"
+
     Friend Function GenerarCodigoQR(ByVal IDComprobanteActual As Integer, Optional comprobanteTipoCodigoAfip As Short = 0, Optional idMoneda As Short = 0, Optional monedaCodigoAfip As String = "", Optional monedaCotizacion As Decimal = 0, Optional ByVal overwrite As Boolean = False) As Boolean
         If IDComprobanteActual <> 0 Then
 
@@ -789,6 +666,10 @@ Module ModuloComprobantes
         End If
     End Function
 
+#End Region
+
+#Region "Cálculo de Intereses"
+
     Friend Function CalcularInteresesSobreAplicaciones(ByVal FechaCalculo As Date, ByRef ComprobanteAplicaciones As List(Of ComprobanteAplicacion)) As Decimal
         If ComprobanteAplicaciones.Count > 0 AndAlso CS_Parameter_System.GetBoolean(Parametros.VENTA_INTERES_CALCULAR) Then
             Dim DiasTranscurridos As Long
@@ -819,4 +700,7 @@ Module ModuloComprobantes
             Return 0
         End If
     End Function
+
+#End Region
+
 End Module

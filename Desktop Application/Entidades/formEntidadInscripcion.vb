@@ -102,6 +102,7 @@
 #End Region
 
 #Region "Paso 1 - Selección"
+
     Private Sub EntidadSeleccionar() Handles buttonEntidad.Click
         Dim EntidadSeleccionada As Entidad
 
@@ -267,6 +268,7 @@
 #End Region
 
 #Region "Paso 2 - Verificación"
+
     Private Function VerificarEntidades() As Boolean
         Dim NoVerificada As Boolean = False
         Dim CorreccionDescripcion As String
@@ -274,7 +276,7 @@
         For Each GridRowData_AlumnoCursoActual As GridRowData_AlumnoCurso In listAlumnosCursos
             If GridRowData_AlumnoCursoActual.Seleccionado Then
                 CorreccionDescripcion = ""
-                If Not ModuloComprobantes.Entidad_VerificarParaEmitirComprobante(GridRowData_AlumnoCursoActual.Entidad, mAnioLectivoProximo, True, mFechaServicioDesde, mFechaServicioHasta, True, CorreccionDescripcion) Then
+                If Not GridRowData_AlumnoCursoActual.Entidad.VerificarParaEmitirComprobante(mAnioLectivoProximo, True, mFechaServicioDesde, mFechaServicioHasta, True, CorreccionDescripcion) Then
                     NoVerificada = True
                     MsgBox(String.Format("El Alumno {1} necesita correcciones.{0}{0}{2}", vbCrLf, GridRowData_AlumnoCursoActual.Entidad.ApellidoNombre, CorreccionDescripcion), MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 End If
@@ -303,6 +305,7 @@
 #End Region
 
 #Region "Finalizar - Generación"
+
     Private Function GuardarCambios() As Boolean
         Try
             Me.Cursor = Cursors.WaitCursor

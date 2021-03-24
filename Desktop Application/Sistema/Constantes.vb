@@ -57,6 +57,16 @@
     Friend Const COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS As Byte = 3
     Friend Const COMPROBANTE_CONCEPTO_OTROS As Byte = 4
 
+    Friend Const ComprobanteCodigoAfipFacturaA As Byte = 1
+    Friend Const ComprobanteCodigoAfipNotaDebitoA As Byte = 2
+    Friend Const ComprobanteCodigoAfipNotaCreditoA As Byte = 3
+    Friend Const ComprobanteCodigoAfipFacturaB As Byte = 6
+    Friend Const ComprobanteCodigoAfipNotaDebitoB As Byte = 7
+    Friend Const ComprobanteCodigoAfipNotaCreditoB As Byte = 8
+    Friend Const ComprobanteCodigoAfipFacturaC As Byte = 11
+    Friend Const ComprobanteCodigoAfipNotaDebitoC As Byte = 12
+    Friend Const ComprobanteCodigoAfipNotaCreditoC As Byte = 13
+
     Friend Const CHEQUE_ESTADO_ENCARTERA As String = "EC"
     Friend Const CHEQUE_ESTADO_ENTREGADO As String = "ET"
     Friend Const CHEQUE_ESTADO_ENTREGADO_RECHAZADO As String = "ER"

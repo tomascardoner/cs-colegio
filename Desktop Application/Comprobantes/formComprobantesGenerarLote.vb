@@ -322,7 +322,7 @@
                             If TreeNodeEntidad.Checked Then
                                 EntidadActual = CType(TreeNodeEntidad.Tag, Entidad)
                                 CorreccionDescripcion = ""
-                                If ModuloComprobantes.Entidad_VerificarParaEmitirComprobante(EntidadActual, mAnioLectivo, False, mFechaServicioDesde, mFechaServicioHasta, False, CorreccionDescripcion) Then
+                                If EntidadActual.VerificarParaEmitirComprobante(mAnioLectivo, False, mFechaServicioDesde, mFechaServicioHasta, False, CorreccionDescripcion) Then
                                     mlistEntidadesSeleccionadasOk.Add(EntidadActual)
                                 Else
                                     If CorreccionDescripcion.Length > 0 Then
@@ -348,7 +348,7 @@
                         If TreeNodeAlumno.Checked Then
                             EntidadActual = CType(TreeNodeAlumno.Tag, Entidad)
                             CorreccionDescripcion = ""
-                            If ModuloComprobantes.Entidad_VerificarParaEmitirComprobante(EntidadActual, mAnioLectivo, False, mFechaServicioDesde, mFechaServicioHasta, False, CorreccionDescripcion) Then
+                            If EntidadActual.VerificarParaEmitirComprobante(mAnioLectivo, False, mFechaServicioDesde, mFechaServicioHasta, False, CorreccionDescripcion) Then
                                 mlistEntidadesSeleccionadasOk.Add(EntidadActual)
                             Else
                                 If CorreccionDescripcion.Length > 0 Then
