@@ -33,6 +33,7 @@ Partial Class formComprobantesGenerarLote
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.panelPaso1 = New System.Windows.Forms.Panel()
+        Me.comboboxPeriodoAFacturar = New System.Windows.Forms.ComboBox()
         Me.lalbelPaso1Pie = New System.Windows.Forms.Label()
         Me.tabcontrolMain = New System.Windows.Forms.TabControl()
         Me.tabpageNivelesCursosAlumnos = New System.Windows.Forms.TabPage()
@@ -98,6 +99,7 @@ Partial Class formComprobantesGenerarLote
         '
         'panelPaso1
         '
+        Me.panelPaso1.Controls.Add(Me.comboboxPeriodoAFacturar)
         Me.panelPaso1.Controls.Add(Me.lalbelPaso1Pie)
         Me.panelPaso1.Controls.Add(Me.tabcontrolMain)
         Me.panelPaso1.Controls.Add(Me.pictureboxPaso1)
@@ -110,15 +112,25 @@ Partial Class formComprobantesGenerarLote
         Me.panelPaso1.Size = New System.Drawing.Size(611, 441)
         Me.panelPaso1.TabIndex = 0
         '
+        'comboboxPeriodoAFacturar
+        '
+        Me.comboboxPeriodoAFacturar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxPeriodoAFacturar.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.comboboxPeriodoAFacturar.FormattingEnabled = True
+        Me.comboboxPeriodoAFacturar.Location = New System.Drawing.Point(149, 411)
+        Me.comboboxPeriodoAFacturar.Name = "comboboxPeriodoAFacturar"
+        Me.comboboxPeriodoAFacturar.Size = New System.Drawing.Size(167, 24)
+        Me.comboboxPeriodoAFacturar.TabIndex = 4
+        '
         'lalbelPaso1Pie
         '
         Me.lalbelPaso1Pie.AutoSize = True
         Me.lalbelPaso1Pie.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lalbelPaso1Pie.Location = New System.Drawing.Point(7, 413)
         Me.lalbelPaso1Pie.Name = "lalbelPaso1Pie"
-        Me.lalbelPaso1Pie.Size = New System.Drawing.Size(31, 16)
+        Me.lalbelPaso1Pie.Size = New System.Drawing.Size(136, 16)
         Me.lalbelPaso1Pie.TabIndex = 3
-        Me.lalbelPaso1Pie.Text = "Pie"
+        Me.lalbelPaso1Pie.Text = "Período a facturar:"
         '
         'tabcontrolMain
         '
@@ -240,7 +252,7 @@ Partial Class formComprobantesGenerarLote
         Me.buttonPaso1Cancelar.Location = New System.Drawing.Point(387, 404)
         Me.buttonPaso1Cancelar.Name = "buttonPaso1Cancelar"
         Me.buttonPaso1Cancelar.Size = New System.Drawing.Size(75, 34)
-        Me.buttonPaso1Cancelar.TabIndex = 4
+        Me.buttonPaso1Cancelar.TabIndex = 5
         Me.buttonPaso1Cancelar.Text = "Cancelar"
         Me.buttonPaso1Cancelar.UseVisualStyleBackColor = True
         '
@@ -252,7 +264,7 @@ Partial Class formComprobantesGenerarLote
         Me.buttonPaso1Siguiente.Location = New System.Drawing.Point(468, 404)
         Me.buttonPaso1Siguiente.Name = "buttonPaso1Siguiente"
         Me.buttonPaso1Siguiente.Size = New System.Drawing.Size(140, 34)
-        Me.buttonPaso1Siguiente.TabIndex = 5
+        Me.buttonPaso1Siguiente.TabIndex = 6
         Me.buttonPaso1Siguiente.Text = "Paso 2: Verificación"
         Me.buttonPaso1Siguiente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.buttonPaso1Siguiente.UseVisualStyleBackColor = True
@@ -734,4 +746,5 @@ Partial Class formComprobantesGenerarLote
     Friend WithEvents columnApellidoNombre As DataGridViewTextBoxColumn
     Friend WithEvents columnDocumentoNumero As DataGridViewTextBoxColumn
     Friend WithEvents columnImporteTotal As DataGridViewTextBoxColumn
+    Friend WithEvents comboboxPeriodoAFacturar As ComboBox
 End Class

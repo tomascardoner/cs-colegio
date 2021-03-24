@@ -30,7 +30,7 @@
             ' Importe 2do. vencimiento
             value &= ImporteTotal2.Value.ToString("00000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")
             ' Fecha 2do. vencimiento
-            value &= DateDiff(DateInterval.Day, FechaVencimiento2.Value, FechaVencimiento1.Value).ToString("00")
+            value &= DateDiff(DateInterval.Day, FechaVencimiento1.Value, FechaVencimiento2.Value).ToString("00")
         Else
             value &= "0000000" & "00"
         End If
@@ -40,7 +40,7 @@
             ' Importe 3er. vencimiento
             value &= ImporteTotal3.Value.ToString("00000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")
             ' Fecha 3er. vencimiento
-            value &= DateDiff(DateInterval.Day, FechaVencimiento3.Value, FechaVencimiento1.Value).ToString("00")
+            value &= DateDiff(DateInterval.Day, FechaVencimiento1.Value, FechaVencimiento3.Value).ToString("00")
         Else
             value &= "0000000" & "00"
         End If

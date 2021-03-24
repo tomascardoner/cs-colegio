@@ -1,6 +1,7 @@
 ﻿Public Class formComprobantesGenerarLote
 
 #Region "Declarations"
+
     Private mdbContext As CSColegioContext
 
     Private mlistEntidadesSeleccionadasOk As List(Of Entidad)
@@ -11,13 +12,19 @@
 
     Private mAnioLectivo As Short
     Private mMesAFacturar As Byte
-    Private mMesAFacturarNombre As String
+    'Private mMesAFacturarNombre As String
 
     Private mFechaEmision As Date
     Private mFechaServicioDesde As Date
     Private mFechaServicioHasta As Date
 
     Private Const NODO_CARGANDO_TEXTO As String = "Cargando..."
+
+    Public Class PeriodoAFacturar
+        Public Property Mes As Byte
+        Public Property Anio As Short
+        Public Property Texto As String
+    End Class
 
     Private Class EntidadACorregir
         Public Property IDEntidad() As Integer
@@ -30,27 +37,32 @@
 #End Region
 
 #Region "Form stuff"
+
     Private Sub formGenerarLoteFacturas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         mdbContext = New CSColegioContext(True)
-
-        mAnioLectivo = CShort(Today.Year)
-        mMesAFacturar = CByte(Today.Month)
-        mMesAFacturarNombre = StrConv(MonthName(mMesAFacturar), VbStrConv.ProperCase)
-
-        mFechaEmision = DateTime.Today
-        mFechaServicioDesde = New Date(mAnioLectivo, mMesAFacturar, 1)
-        mFechaServicioHasta = mFechaServicioDesde.AddMonths(1).AddDays(-1)
-
-        datetimepickerFechaVencimiento.Value = New Date(mAnioLectivo, mMesAFacturar, CS_Parameter_System.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO1_DIA))
-        If datetimepickerFechaVencimiento.Value.CompareTo(mFechaEmision) < 0 Then
-            datetimepickerFechaVencimiento.Value = mFechaEmision
-        End If
-        datetimepickerFechaVencimiento.Checked = False
 
         FillTreeViewNiveles()
         FillTreeViewPadres()
 
-        lalbelPaso1Pie.Text = "Período a Facturar: " & mMesAFacturarNombre & " de " & mAnioLectivo
+        ' Cargar los períodos a facturar
+        comboboxPeriodoAFacturar.DisplayMember = "Texto"
+
+        Dim periodoActual As New PeriodoAFacturar
+        periodoActual.Mes = CByte(Today.Month)
+        periodoActual.Anio = CShort(Today.Year)
+        periodoActual.Texto = Today.ToString("MMMM \d\e yyyy")
+        comboboxPeriodoAFacturar.Items.Add(periodoActual)
+
+        If Today.Day < 20 Then
+            comboboxPeriodoAFacturar.SelectedIndex = 1
+        Else
+            Dim periodoSiguiente As New PeriodoAFacturar
+            periodoSiguiente.Mes = CByte(Today.AddMonths(1).Month)
+            periodoSiguiente.Anio = CShort(Today.AddMonths(1).Year)
+            periodoSiguiente.Texto = Today.AddMonths(1).ToString("MMMM \d\e yyyy")
+            comboboxPeriodoAFacturar.Items.Add(periodoSiguiente)
+            comboboxPeriodoAFacturar.SelectedIndex = 1
+        End If
 
         MostrarPaneles(1)
     End Sub
@@ -188,6 +200,7 @@
             TreeNodeCurrent.Checked = (CType(sender, ToolStripMenuItem) Is menuitemNivelCursoAlumnoMarcarTodos)
         Next
     End Sub
+
 #End Region
 
 #Region "Paso 1 - Selección - TreeView de Padres - Alumnos"
@@ -263,11 +276,29 @@
 #End Region
 
 #Region "Paso 1 - Selección - Botones"
+
     Private Sub buttonPaso1Cancelar_Click() Handles buttonPaso1Cancelar.Click
         Me.Close()
     End Sub
 
     Private Sub buttonPaso1Siguiente_Click() Handles buttonPaso1Siguiente.Click
+        ' Establezco las fechas de acuerdo al período a facturar seleccionado
+        Dim periodo As PeriodoAFacturar
+
+        periodo = CType(comboboxPeriodoAFacturar.SelectedItem, PeriodoAFacturar)
+        mAnioLectivo = periodo.Anio
+        mMesAFacturar = periodo.Mes
+
+        mFechaEmision = DateTime.Today
+        mFechaServicioDesde = New Date(mAnioLectivo, mMesAFacturar, 1)
+        mFechaServicioHasta = mFechaServicioDesde.AddMonths(1).AddDays(-1)
+
+        datetimepickerFechaVencimiento.Value = New Date(mAnioLectivo, mMesAFacturar, CS_Parameter_System.GetIntegerAsByte(Parametros.CUOTA_MENSUAL_VENCIMIENTO1_DIA))
+        If datetimepickerFechaVencimiento.Value.CompareTo(mFechaEmision) < 0 Then
+            datetimepickerFechaVencimiento.Value = mFechaEmision
+        End If
+        datetimepickerFechaVencimiento.Checked = False
+
         VerificarEntidades()
         MostrarEntidadesACorregir()
         MostrarPaneles(2)
@@ -275,6 +306,7 @@
 #End Region
 
 #Region "Paso 2 - Verificación"
+
     Private Sub VerificarEntidades()
         Dim EntidadActual As Entidad
         Dim CorreccionDescripcion As String

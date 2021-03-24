@@ -302,7 +302,7 @@
                 Dim DireccionEmailDestino As String = ""
                 DireccionEmailDestino = InputBox("Ingrese la dirección de e-mail del Destinatario.", My.Application.Info.Title)
                 If DireccionEmailDestino <> "" Then
-                    If Not CS_Email.IsValidEmail(DireccionEmailDestino.Trim, CS_Parameter_System.GetString(Parametros.EMAIL_VALIDATION_REGULAREXPRESSION)) Then                        
+                    If Not CS_Email.IsValidEmail(DireccionEmailDestino.Trim) Then
                         MsgBox("La dirección de e-mail es incorrecta.", vbInformation, My.Application.Info.Title)
                         Exit Sub
                     End If

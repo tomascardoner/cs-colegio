@@ -682,7 +682,7 @@
 
         ' Direcciones de Email
         If textboxEmail1.Text.Trim.Length > 0 Then
-            If Not CS_Email.IsValidEmail(textboxEmail1.Text.Trim, CS_Parameter_System.GetString(Parametros.EMAIL_VALIDATION_REGULAREXPRESSION)) Then
+            If Not CS_Email.IsValidEmail(textboxEmail1.Text.Trim) Then
                 tabcontrolMain.SelectedTab = tabpageContacto
                 MsgBox("La dirección de e-Mail 1 es incorrecta.", vbInformation, My.Application.Info.Title)
                 textboxEmail1.Focus()
@@ -694,7 +694,7 @@
             End If
         End If
         If textboxEmail2.Text.Trim.Length > 0 Then
-            If Not CS_Email.IsValidEmail(textboxEmail2.Text.Trim, CS_Parameter_System.GetString(Parametros.EMAIL_VALIDATION_REGULAREXPRESSION)) Then
+            If Not CS_Email.IsValidEmail(textboxEmail2.Text.Trim) Then
                 tabcontrolMain.SelectedTab = tabpageContacto
                 MsgBox("La dirección de e-Mail 2 es incorrecta.", vbInformation, My.Application.Info.Title)
                 textboxEmail2.Focus()
