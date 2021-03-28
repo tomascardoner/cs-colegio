@@ -2,7 +2,7 @@
 
 #Region "Codigo de barras SEPSA"
 
-    Public Function CalcularCodigoBarrasSepsa() As Boolean
+    Public Function CalcularCodigoBarrasSepsa(ByVal documentoNumero As String) As Boolean
         Dim idCliente As Integer
         Dim value As String
 
@@ -22,7 +22,7 @@
         ' Código de cliente
         value &= idCliente.ToString().PadLeft(5, "0"c)
         ' Cliente
-        value &= DocumentoNumero.PadLeft(14, "0"c)
+        value &= documentoNumero.RemoveNotNumbers().Truncate(9).PadLeft(9, "0"c)
         ' Moneda
         value &= "0"
         ' 2do. vencimiento

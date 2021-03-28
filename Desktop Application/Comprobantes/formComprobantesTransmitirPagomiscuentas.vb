@@ -92,6 +92,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
 #End Region
 
 #Region "Extra stuff"
+
     Private Function ExportarComprobantes() As Boolean
         Dim HeaderTextStream As String
         Dim DetalleTextStream As String
@@ -192,8 +193,6 @@ Public Class formComprobantesTransmitirPagomiscuentas
         End Using
 
         MsgBox(String.Format("Se ha generado exitosamente el archivo de intercambio con PagoMisCuentas, conteniendo {0} Comprobantes.", DetalleCount), MsgBoxStyle.Information, My.Application.Info.Title)
-
-        RefreshData()
 
         Me.Cursor = Cursors.Default
 

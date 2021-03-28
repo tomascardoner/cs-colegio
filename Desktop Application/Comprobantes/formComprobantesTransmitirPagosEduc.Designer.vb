@@ -179,7 +179,7 @@ Partial Class formComprobantesTransmitirPagosEduc
         Me.Name = "formComprobantesTransmitirPagosEduc"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
-        Me.Text = "Exportar archivo de Comprobantes para envío a PAGOS Educ"
+        Me.Text = "Exportar archivos de Comprobantes y Entidades para envío a PAGOS Educ"
         CType(Me.datagridviewComprobantes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.statusstripMain.ResumeLayout(False)
         Me.statusstripMain.PerformLayout()

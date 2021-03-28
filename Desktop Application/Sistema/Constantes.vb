@@ -3,20 +3,20 @@
     '    APLICACIÓN
     '//////////////////
     Friend Const APPLICATION_DATABASE_GUID As String = "{57FC36AB-60E1-4ded-BE7A-6337258CDAED}"
+    Friend Const PROVINCIA_NOESPECIFICA As Byte = 255
+    Friend Const USUARIO_ADMINISTRADOR As Short = 1
+
+    Friend Const ExportacionSistemaPagosEduc As String = "PE"
 
     ' Hex Key - 128 bits
     Friend Const APPLICATION_LICENSE_PASSWORD As String = "6b1c0735f890922b6298b9551d70e384"
 
     '//////////////////
-    '    VARIOS
+    '    ENTIDADES
     '//////////////////
     Friend Const ENTIDAD_GENERO_NOESPECIFICA As String = "-"
     Friend Const ENTIDAD_GENERO_MASCULINO As String = "M"
     Friend Const ENTIDAD_GENERO_FEMENINO As String = "F"
-
-    Friend Const PROVINCIA_NOESPECIFICA As Byte = 255
-
-    Friend Const USUARIO_ADMINISTRADOR As Short = 1
 
     Friend Const ENTIDAD_EMITIRFACTURAA_NOESPECIFICA As String = "-"
     Friend Const ENTIDAD_EMITIRFACTURAA_PADRE As String = "P"
@@ -43,6 +43,9 @@
     Friend Const ENTIDADTIPO_OTRO As String = "O"
     Friend Const ENTIDADTIPO_TODOS As String = ENTIDADTIPO_PERSONALCOLEGIO & ENTIDADTIPO_DOCENTE & ENTIDADTIPO_ALUMNO & ENTIDADTIPO_FAMILIAR & ENTIDADTIPO_PROVEEDOR & ENTIDADTIPO_OTRO
 
+    '##################
+    '   COMPROBANTES
+    '##################
     Friend Const OPERACIONTIPO_COMPRA As String = "C"
     Friend Const OPERACIONTIPO_VENTA As String = "V"
 

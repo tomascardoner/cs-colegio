@@ -202,7 +202,7 @@
           <Property Name="CAE" Type="char" MaxLength="14" />
           <Property Name="CAEVencimiento" Type="date" />
           <Property Name="CodigoQR" Type="image" />
-          <Property Name="CodigoBarrasSepsa" Type="varchar" MaxLength="61" />
+          <Property Name="CodigoBarrasSepsa" Type="varchar" MaxLength="56" />
           <Property Name="IDComprobanteLote" Type="int" />
           <Property Name="PeriodoContableAnio" Type="smallint" />
           <Property Name="PeriodoContableMes" Type="tinyint" />
@@ -523,6 +523,15 @@
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
           <Property Name="IDUsuarioModificacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EntidadExportacion">
+          <Key>
+            <PropertyRef Name="IDEntidad" />
+            <PropertyRef Name="Sistema" />
+          </Key>
+          <Property Name="IDEntidad" Type="int" Nullable="false" />
+          <Property Name="Sistema" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Feriado">
           <Key>
@@ -1467,6 +1476,18 @@
             </Principal>
             <Dependent Role="EntidadEntidad">
               <PropertyRef Name="IDEntidadPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entidad__EntidadExportacion">
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="1" />
+          <End Role="EntidadExportacion" Type="Self.EntidadExportacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="IDEntidad" />
+            </Principal>
+            <Dependent Role="EntidadExportacion">
+              <PropertyRef Name="IDEntidad" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2532,6 +2553,7 @@
           <EntitySet Name="Entidad" EntityType="Self.Entidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EntidadAnioLectivoCurso" EntityType="Self.EntidadAnioLectivoCurso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EntidadEntidad" EntityType="Self.EntidadEntidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EntidadExportacion" EntityType="Self.EntidadExportacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Feriado" EntityType="Self.Feriado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Impuesto" EntityType="Self.Impuesto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImpuestoOtro" EntityType="Self.ImpuestoOtro" Schema="dbo" store:Type="Tables" />
@@ -2760,6 +2782,10 @@
           <AssociationSet Name="FK__Entidad__EntidadEntidad__Padre" Association="Self.FK__Entidad__EntidadEntidad__Padre">
             <End Role="Entidad" EntitySet="Entidad" />
             <End Role="EntidadEntidad" EntitySet="EntidadEntidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entidad__EntidadExportacion" Association="Self.FK__Entidad__EntidadExportacion">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="EntidadExportacion" EntitySet="EntidadExportacion" />
           </AssociationSet>
           <AssociationSet Name="FK__Entidad__EntidadMadre" Association="Self.FK__Entidad__EntidadMadre">
             <End Role="Entidad" EntitySet="Entidad" />
@@ -3312,6 +3338,7 @@
           <NavigationProperty Name="EntidadTercero" Relationship="CSColegioModel.FK__Entidad__EntidadTercero" FromRole="Entidad1" ToRole="Entidad" />
           <NavigationProperty Name="Comprobante" Relationship="CSColegioModel.FK__Entidad__Comprobante" FromRole="Entidad" ToRole="Comprobante" />
           <NavigationProperty Name="ComunicacionEntidad" Relationship="CSColegioModel.FK__Entidad__ComunicacionEntidad" FromRole="Entidad" ToRole="ComunicacionEntidad" />
+          <NavigationProperty Name="EntidadExportacion" Relationship="CSColegioModel.FK__Entidad__EntidadExportacion" FromRole="Entidad" ToRole="EntidadExportacion" />
         </EntityType>
         <EntityType Name="EntidadEntidad">
           <Key>
@@ -4326,6 +4353,11 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="MonedaCotizacion" EntitySet="MonedaCotizacion" />
           </AssociationSet>
+          <EntitySet Name="EntidadExportacion" EntityType="CSColegioModel.EntidadExportacion" />
+          <AssociationSet Name="FK__Entidad__EntidadExportacion" Association="CSColegioModel.FK__Entidad__EntidadExportacion">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="EntidadExportacion" EntitySet="EntidadExportacion" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
           <Key>
@@ -4831,7 +4863,7 @@
           <Property Name="CAE" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
           <Property Name="CAEVencimiento" Type="DateTime" Precision="0" />
           <Property Name="CodigoQR" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="CodigoBarrasSepsa" Type="String" MaxLength="61" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoBarrasSepsa" Type="String" MaxLength="56" FixedLength="false" Unicode="false" />
           <Property Name="IDComprobanteLote" Type="Int32" />
           <Property Name="PeriodoContableAnio" Type="Int16" />
           <Property Name="PeriodoContableMes" Type="Byte" />
@@ -6347,6 +6379,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="EntidadExportacion">
+          <Key>
+            <PropertyRef Name="IDEntidad" />
+            <PropertyRef Name="Sistema" />
+          </Key>
+          <Property Name="IDEntidad" Type="Int32" Nullable="false" />
+          <Property Name="Sistema" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Entidad" Relationship="CSColegioModel.FK__Entidad__EntidadExportacion" FromRole="EntidadExportacion" ToRole="Entidad" />
+        </EntityType>
+        <Association Name="FK__Entidad__EntidadExportacion">
+          <End Type="CSColegioModel.Entidad" Role="Entidad" Multiplicity="1" />
+          <End Type="CSColegioModel.EntidadExportacion" Role="EntidadExportacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="IDEntidad" />
+            </Principal>
+            <Dependent Role="EntidadExportacion">
+              <PropertyRef Name="IDEntidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7255,6 +7309,15 @@
               <ScalarProperty Name="IDArticuloGrupo" ColumnName="IDArticuloGrupo" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="EntidadExportacion">
+            <EntityTypeMapping TypeName="CSColegioModel.EntidadExportacion">
+              <MappingFragment StoreEntitySet="EntidadExportacion">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Sistema" ColumnName="Sistema" />
+                <ScalarProperty Name="IDEntidad" ColumnName="IDEntidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

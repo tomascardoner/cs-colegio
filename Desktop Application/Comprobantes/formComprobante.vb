@@ -366,6 +366,7 @@
 #End Region
 
 #Region "Main Toolbar"
+
     Private Sub buttonEditar_Click(sender As Object, e As EventArgs) Handles buttonEditar.Click
         If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDITAR) Then
             mEditMode = True
@@ -491,6 +492,8 @@
             Exit Sub
         End If
         EntidadActual = mdbContext.Entidad.Find(textboxEntidad.Tag)
+
+
         If Not EntidadActual.EmitirFacturaA Is Nothing Then
             If MsgBox("La Entidad seleccionada, tiene especificado que se le facture otra Entidad." & vbCrLf & vbCrLf & "¿Desea continuar de todos modos?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
                 Exit Sub
@@ -562,7 +565,7 @@
 
         ' Si es una factura, calculo el código de barras Sepsa
         If mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso (mComprobanteTipoActual.CodigoAFIP = Constantes.ComprobanteCodigoAfipFacturaA OrElse mComprobanteTipoActual.CodigoAFIP = Constantes.ComprobanteCodigoAfipFacturaB OrElse mComprobanteTipoActual.CodigoAFIP = Constantes.ComprobanteCodigoAfipFacturaC) Then
-            mComprobanteActual.CalcularCodigoBarrasSepsa()
+            mComprobanteActual.CalcularCodigoBarrasSepsa(mEntidad.DocumentoNumero)
         End If
 
         If mdbContext.ChangeTracker.HasChanges Then

@@ -76,6 +76,18 @@
 
 #End Region
 
+#Region "Controls"
+
+    Private Sub CambioDePeriodo() Handles comboboxPeriodoAFacturar.SelectedValueChanged
+        Dim periodo As PeriodoAFacturar
+
+        periodo = CType(comboboxPeriodoAFacturar.SelectedItem, PeriodoAFacturar)
+        mAnioLectivo = periodo.Anio
+        mMesAFacturar = periodo.Mes
+    End Sub
+
+#End Region
+
 #Region "Extra stuff"
     Private Sub MostrarPaneles(ByVal Paso As Byte)
         panelPaso1.Visible = (Paso = 1)
@@ -283,12 +295,6 @@
 
     Private Sub buttonPaso1Siguiente_Click() Handles buttonPaso1Siguiente.Click
         ' Establezco las fechas de acuerdo al período a facturar seleccionado
-        Dim periodo As PeriodoAFacturar
-
-        periodo = CType(comboboxPeriodoAFacturar.SelectedItem, PeriodoAFacturar)
-        mAnioLectivo = periodo.Anio
-        mMesAFacturar = periodo.Mes
-
         mFechaEmision = DateTime.Today
         mFechaServicioDesde = New Date(mAnioLectivo, mMesAFacturar, 1)
         mFechaServicioHasta = mFechaServicioDesde.AddMonths(1).AddDays(-1)
@@ -444,7 +450,7 @@
                 ' Verifico que no exista un Lote de Comprobantes con el mismo nombre, ya que esto no se permite en la
                 ' base de datos, y además, porque podría significar que se están duplicando los Comprobentes
                 If dbContext.ComprobanteLote.Where(Function(cl) cl.Nombre = LoteNombre.Trim).Count > 0 Then
-                    MsgBox(String.Format("Ya existe un Lote con el mismo Nombre.{0}Verifique que no esté dupicando el Lote de Comprobantes.", ControlChars.CrLf), MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                    MsgBox(String.Format("Ya existe un Lote con el mismo Nombre.{0}Verifique que no esté duplicando el Lote de Comprobantes.", ControlChars.CrLf), MsgBoxStyle.Exclamation, My.Application.Info.Title)
                     Exit Sub
                 End If
 

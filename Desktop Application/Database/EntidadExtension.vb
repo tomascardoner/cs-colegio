@@ -63,21 +63,28 @@
         Return VerificarEmail1 Or VerificarEmail2
     End Function
 
-    Private Sub VerificarDatosCompletosParaEmitirComprobante(ByVal sujetoDescripcion As String, ByRef correccionDescripcion As String)
+    Private Function VerificarDatosCompletosParaEmitirComprobante(ByVal sujetoDescripcion As String, ByRef correccionDescripcion As String) As Boolean
+        Dim resultado As Boolean = True
+
         If IDCategoriaIVA Is Nothing Then
             correccionDescripcion &= String.Format("{1} no tiene especificada la Categoría de IVA.{0}", vbCrLf, sujetoDescripcion)
+            resultado = False
         End If
 
-        If DocumentoNumero Is Nothing And FacturaDocumentoNumero Is Nothing Then
+        If DocumentoNumero Is Nothing Then
             correccionDescripcion &= String.Format("{1} no tiene especificado el Tipo y Número de Documento.{0}", vbCrLf, sujetoDescripcion)
+            resultado = False
         End If
 
         If pComprobanteConfig.RequiereDomicilioCompleto Then
             If DomicilioCalle1 Is Nothing Then
                 correccionDescripcion &= String.Format("{1} no tiene especificado el Domicilio.{0}", vbCrLf, sujetoDescripcion)
+                resultado = False
             End If
         End If
-    End Sub
+
+        Return resultado
+    End Function
 
     ''' <summary>
     ''' Verifica que una Entidad tenga todos los datos correctos para emitirle un Comprobante
@@ -90,6 +97,8 @@
     ''' <returns>Devuelve True si la Entidad tiene todos los datos correctos para facturar o False si no</returns>
     ''' <remarks></remarks>
     Public Function VerificarParaEmitirComprobante(ByVal anioLectivo As Integer, ByVal agregarAlCurso As Boolean, ByVal fechaServicioDesde As Date, ByVal fechaServicioHasta As Date, ByVal fechaExclusionEsError As Boolean, ByRef correccionDescripcion As String) As Boolean
+        Dim datosCompletosVerificados As Boolean
+
         ' El primer paso es verificar que la Entidad especificada, sea de tipo Alumno
         If TipoAlumno = False Then
             correccionDescripcion &= "No es una Entidad del tipo Alumno." & vbCrLf
@@ -113,7 +122,7 @@
         Else
             If EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO Then
                 ' Se le factura al Alumno, verifico que tenga los datos completos
-                VerificarDatosCompletosParaEmitirComprobante("El Alumno", correccionDescripcion)
+                datosCompletosVerificados = VerificarDatosCompletosParaEmitirComprobante("El Alumno", correccionDescripcion)
             End If
 
             If EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE Or EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
@@ -121,7 +130,7 @@
                 If IDEntidadPadre Is Nothing Then
                     correccionDescripcion &= "Debe especificar el Padre para poder facturarle." & vbCrLf
                 Else
-                    EntidadPadre.VerificarDatosCompletosParaEmitirComprobante("El Padre", correccionDescripcion)
+                    datosCompletosVerificados = EntidadPadre.VerificarDatosCompletosParaEmitirComprobante("El Padre", correccionDescripcion)
                 End If
             End If
 
@@ -130,7 +139,7 @@
                 If IDEntidadMadre Is Nothing Then
                     correccionDescripcion &= "Debe especificar la Madre para poder facturarle." & vbCrLf
                 Else
-                    EntidadMadre.VerificarDatosCompletosParaEmitirComprobante("La Madre", correccionDescripcion)
+                    datosCompletosVerificados = EntidadMadre.VerificarDatosCompletosParaEmitirComprobante("La Madre", correccionDescripcion)
                 End If
             End If
 
@@ -139,13 +148,13 @@
                 If IDEntidadTercero Is Nothing Then
                     correccionDescripcion &= "Debe especificar el Tercero para poder facturarle." & vbCrLf
                 Else
-                    EntidadTercero.VerificarDatosCompletosParaEmitirComprobante("El tercero a quien se le va a facturar", correccionDescripcion)
+                    datosCompletosVerificados = EntidadTercero.VerificarDatosCompletosParaEmitirComprobante("El tercero a quien se le va a facturar", correccionDescripcion)
                 End If
             End If
         End If
 
         ' Si hay que corregir la Entidad, la agrego a la lista de Entidades a corregir
-        If correccionDescripcion.Length > 0 Then
+        If Not datosCompletosVerificados Then
             correccionDescripcion = correccionDescripcion.Remove(correccionDescripcion.Length - vbCrLf.Length)
             Return False
         Else

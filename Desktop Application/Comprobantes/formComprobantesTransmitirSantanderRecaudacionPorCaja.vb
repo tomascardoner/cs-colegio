@@ -293,8 +293,6 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
 
         MsgBox(String.Format("Se ha generado exitosamente el archivo de intercambio con Banco Santander - Recaudación Por Caja, conteniendo {1} Comprobantes.{0}{0}Ubicación:{0}{2}", vbCrLf, DetalleCount, FolderName & FileName), MsgBoxStyle.Information, My.Application.Info.Title)
 
-        RefreshData()
-
         Me.Cursor = Cursors.Default
 
         Return True
@@ -389,8 +387,6 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
         End Using
 
         MsgBox(String.Format("Se ha generado exitosamente el archivo de intercambio con Banco Santander - Recaudación Por Caja, conteniendo {0} Comprobantes.", DetalleCount), MsgBoxStyle.Information, My.Application.Info.Title)
-
-        RefreshData()
 
         Me.Cursor = Cursors.Default
 

@@ -82,5 +82,6 @@ Partial Public Class CSColegioContext
     Public Overridable Property ListaPrecio() As DbSet(Of ListaPrecio)
     Public Overridable Property ListaPrecioArticulo() As DbSet(Of ListaPrecioArticulo)
     Public Overridable Property ListaPrecioArticuloTalle() As DbSet(Of ListaPrecioArticuloTalle)
+    Public Overridable Property EntidadExportacion() As DbSet(Of EntidadExportacion)
 
 End Class

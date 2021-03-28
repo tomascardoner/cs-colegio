@@ -234,7 +234,7 @@ Module ModuloComprobantes
             ComprobanteCabecera.ImporteTotal3 = Nothing
         End If
 
-        ComprobanteCabecera.CalcularCodigoBarrasSepsa()
+        ComprobanteCabecera.CalcularCodigoBarrasSepsa(TitularComprobante.DocumentoNumero)
 
         Return True
     End Function

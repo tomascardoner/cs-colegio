@@ -207,9 +207,7 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
             outputFile.WriteLine(HeaderTextStream & vbCrLf & DetalleTextStream)
         End Using
 
-        MsgBox(String.Format("Se ha generado exitosamente el archivo de intercambio con Banco Santander - Débito Directo, conteniendo {0} Comprobantes.", DetalleCount), MsgBoxStyle.Information, My.Application.Info.Title)
-
-        RefreshData()
+        MsgBox(String.Format("Se generó el archivo de intercambio con Banco Santander - Débito Directo, conteniendo {1} comprobantes.{0}{0}Nombre del archivo: {2}{0}{0}Ubicación: {3}", Environment.NewLine, DetalleCount, FileName, FolderName), MsgBoxStyle.Information, My.Application.Info.Title)
 
         Me.Cursor = Cursors.Default
 
