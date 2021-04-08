@@ -72,6 +72,7 @@
 #End Region
 
 #Region "Controls behavior"
+
     Private Sub comboboxLote_SelectedIndexChanged(sender As Object, e As EventArgs) Handles comboboxCantidad.SelectedIndexChanged
         RefreshData()
     End Sub
@@ -87,6 +88,7 @@
             Dim monedaCodigoAfip As String
             Dim monedaCotizacion As Decimal
             Dim comprobanteTipoCodigoAfip As Short = 0
+            Dim comprobantesEnviadosCount As Integer = 0
 
             GenerarCodigoQR = CS_Parameter_System.GetBoolean(Parametros.AFIP_COMPROBANTES_CODIGOQR_GENERAR, False).Value
             If GenerarCodigoQR Then
@@ -138,7 +140,9 @@
                                     If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual.IDComprobante) Then
                                         progressbarStatus.Value += 1
                                         If GenerarCodigoQR Then
+                                            comprobantesEnviadosCount += 1
                                             textboxStatus.AppendText("OK - QR... ")
+                                            Application.DoEvents()
                                             If ModuloComprobantes.GenerarCodigoQR(ComprobanteActual.IDComprobante, , idMoneda, monedaCodigoAfip, monedaCotizacion) Then
                                                 textboxStatus.AppendText("OK")
                                             Else
@@ -153,7 +157,9 @@
                                                 Exit Sub
                                             End If
                                         Else
+                                            comprobantesEnviadosCount += 1
                                             textboxStatus.AppendText("OK - CAE: " & Objeto_AFIP_WS.UltimoResultadoCAE.Numero)
+                                            Application.DoEvents()
                                         End If
 
                                     ElseIf Objeto_AFIP_WS.UltimoResultadoCAE.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoAceptado Then
@@ -194,9 +200,9 @@
                             End If
                         Next
                         If mCancelar Then
-                            MsgBox(String.Format("Se ha cancelado la transmisión.{1}Se transmitieron exitosamente {0} Comprobantes a AFIP.", listComprobantes.Count, vbCrLf), MsgBoxStyle.Information, My.Application.Info.Title)
+                            MsgBox(String.Format("Se ha cancelado la transmisión.{1}{1}Se transmitieron exitosamente {0} Comprobantes a AFIP.", comprobantesEnviadosCount, vbCrLf), MsgBoxStyle.Information, My.Application.Info.Title)
                         Else
-                            MsgBox(String.Format("Se han transmitido exitosamente {0} Comprobantes a AFIP.", listComprobantes.Count, vbCrLf), MsgBoxStyle.Information, My.Application.Info.Title)
+                            MsgBox(String.Format("Se han transmitido exitosamente {0} Comprobantes a AFIP.", comprobantesEnviadosCount, vbCrLf), MsgBoxStyle.Information, My.Application.Info.Title)
                         End If
 
                         RefreshData()
@@ -218,6 +224,7 @@
     Private Sub Cancelar_Click() Handles buttonCancelar.Click
         mCancelar = True
     End Sub
+
 #End Region
 
 #Region "Extra stuff"
