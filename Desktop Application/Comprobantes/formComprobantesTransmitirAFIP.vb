@@ -136,18 +136,18 @@
                             ComprobanteActual = dbContext.Comprobante.Find(GridDataRowActual.IDComprobante)
                             If Not ComprobanteActual Is Nothing Then
                                 If ComprobanteActual.CAE Is Nothing Then
-                                    textboxStatus.AppendText(vbCrLf & String.Format("Solicitando el C.A.E. para la {0} N° {1}...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.NumeroCompleto))
+                                    textboxStatus.AppendText(vbCrLf & String.Format("{0} n° {1} - Autorizando...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.NumeroCompleto))
                                     If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual.IDComprobante) Then
                                         progressbarStatus.Value += 1
                                         If GenerarCodigoQR Then
                                             comprobantesEnviadosCount += 1
-                                            textboxStatus.AppendText("OK - QR... ")
+                                            textboxStatus.AppendText("CAE: " & Objeto_AFIP_WS.UltimoResultadoCAE.Numero & " - Obteniendo código QR...")
                                             Application.DoEvents()
                                             If ModuloComprobantes.GenerarCodigoQR(ComprobanteActual.IDComprobante, , idMoneda, monedaCodigoAfip, monedaCotizacion) Then
                                                 textboxStatus.AppendText("OK")
                                             Else
                                                 textboxStatus.AppendText("ERROR")
-                                                MensajeError = "Error al obtener el Código QR del Comprobante Electrónico:"
+                                                MensajeError = "Error al obtener el código QR del comprobante electrónico:"
                                                 MensajeError &= vbCrLf & vbCrLf
                                                 MensajeError &= String.Format("{0} N°: {1}", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero)
                                                 MsgBox(MensajeError, MsgBoxStyle.Exclamation, My.Application.Info.Title)
@@ -158,7 +158,7 @@
                                             End If
                                         Else
                                             comprobantesEnviadosCount += 1
-                                            textboxStatus.AppendText("OK - CAE: " & Objeto_AFIP_WS.UltimoResultadoCAE.Numero)
+                                            textboxStatus.AppendText("CAE: " & Objeto_AFIP_WS.UltimoResultadoCAE.Numero)
                                             Application.DoEvents()
                                         End If
 
