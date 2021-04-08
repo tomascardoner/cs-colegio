@@ -29,9 +29,9 @@ Partial Class formComprobantesGenerarLote
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.panelPaso1 = New System.Windows.Forms.Panel()
         Me.comboboxPeriodoAFacturar = New System.Windows.Forms.ComboBox()
         Me.lalbelPaso1Pie = New System.Windows.Forms.Label()
@@ -67,8 +67,6 @@ Partial Class formComprobantesGenerarLote
         Me.buttonPaso2Siguiente = New System.Windows.Forms.Button()
         Me.panelPaso3 = New System.Windows.Forms.Panel()
         Me.datagridviewPaso3Detalle = New System.Windows.Forms.DataGridView()
-        Me.columnDescripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnPrecioTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.datagridviewPaso3Cabecera = New System.Windows.Forms.DataGridView()
         Me.columnPuntoVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnNumero = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -81,6 +79,8 @@ Partial Class formComprobantesGenerarLote
         Me.labelPaso3Titulo = New System.Windows.Forms.Label()
         Me.buttonPaso3Anterior = New System.Windows.Forms.Button()
         Me.buttonPaso3Finalizar = New System.Windows.Forms.Button()
+        Me.columnDescripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnPrecioTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.panelPaso1.SuspendLayout()
         Me.tabcontrolMain.SuspendLayout()
         Me.tabpageNivelesCursosAlumnos.SuspendLayout()
@@ -498,29 +498,6 @@ Partial Class formComprobantesGenerarLote
         Me.datagridviewPaso3Detalle.Size = New System.Drawing.Size(605, 100)
         Me.datagridviewPaso3Detalle.TabIndex = 1
         '
-        'columnDescripcion
-        '
-        Me.columnDescripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnDescripcion.DataPropertyName = "Descripcion"
-        Me.columnDescripcion.HeaderText = "Descripción"
-        Me.columnDescripcion.Name = "columnDescripcion"
-        Me.columnDescripcion.ReadOnly = True
-        Me.columnDescripcion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnDescripcion.Width = 69
-        '
-        'columnPrecioTotal
-        '
-        Me.columnPrecioTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnPrecioTotal.DataPropertyName = "PrecioTotal"
-        DataGridViewCellStyle7.Format = "C2"
-        DataGridViewCellStyle7.NullValue = "0"
-        Me.columnPrecioTotal.DefaultCellStyle = DataGridViewCellStyle7
-        Me.columnPrecioTotal.HeaderText = "Precio"
-        Me.columnPrecioTotal.Name = "columnPrecioTotal"
-        Me.columnPrecioTotal.ReadOnly = True
-        Me.columnPrecioTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnPrecioTotal.Width = 43
-        '
         'datagridviewPaso3Cabecera
         '
         Me.datagridviewPaso3Cabecera.AllowUserToAddRows = False
@@ -663,6 +640,29 @@ Partial Class formComprobantesGenerarLote
         Me.buttonPaso3Finalizar.Text = "Finalizar: Emisión"
         Me.buttonPaso3Finalizar.UseVisualStyleBackColor = True
         '
+        'columnDescripcion
+        '
+        Me.columnDescripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnDescripcion.DataPropertyName = "DescripcionDisplay"
+        Me.columnDescripcion.HeaderText = "Descripción"
+        Me.columnDescripcion.Name = "columnDescripcion"
+        Me.columnDescripcion.ReadOnly = True
+        Me.columnDescripcion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnDescripcion.Width = 69
+        '
+        'columnPrecioTotal
+        '
+        Me.columnPrecioTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnPrecioTotal.DataPropertyName = "PrecioTotal"
+        DataGridViewCellStyle7.Format = "C2"
+        DataGridViewCellStyle7.NullValue = "0"
+        Me.columnPrecioTotal.DefaultCellStyle = DataGridViewCellStyle7
+        Me.columnPrecioTotal.HeaderText = "Precio"
+        Me.columnPrecioTotal.Name = "columnPrecioTotal"
+        Me.columnPrecioTotal.ReadOnly = True
+        Me.columnPrecioTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnPrecioTotal.Width = 43
+        '
         'formComprobantesGenerarLote
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -736,8 +736,6 @@ Partial Class formComprobantesGenerarLote
     Friend WithEvents columnVerificacionNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnCorreccionDescripcion As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents datagridviewPaso3Detalle As System.Windows.Forms.DataGridView
-    Friend WithEvents columnDescripcion As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnPrecioTotal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents datagridviewPaso3Cabecera As System.Windows.Forms.DataGridView
     Friend WithEvents datetimepickerFechaVencimiento As System.Windows.Forms.DateTimePicker
     Friend WithEvents labelFechaVencimiento As System.Windows.Forms.Label
@@ -747,4 +745,6 @@ Partial Class formComprobantesGenerarLote
     Friend WithEvents columnDocumentoNumero As DataGridViewTextBoxColumn
     Friend WithEvents columnImporteTotal As DataGridViewTextBoxColumn
     Friend WithEvents comboboxPeriodoAFacturar As ComboBox
+    Friend WithEvents columnDescripcion As DataGridViewTextBoxColumn
+    Friend WithEvents columnPrecioTotal As DataGridViewTextBoxColumn
 End Class

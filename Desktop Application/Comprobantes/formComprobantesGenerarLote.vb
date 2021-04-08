@@ -54,7 +54,7 @@
         comboboxPeriodoAFacturar.Items.Add(periodoActual)
 
         If Today.Day < 20 Then
-            comboboxPeriodoAFacturar.SelectedIndex = 1
+            comboboxPeriodoAFacturar.SelectedIndex = 0
         Else
             Dim periodoSiguiente As New PeriodoAFacturar
             periodoSiguiente.Mes = CByte(Today.AddMonths(1).Month)
@@ -505,9 +505,11 @@
 
         End If
     End Sub
+
 #End Region
 
 #Region "Paso 3 - Generación"
+
     Private Function GuardarComprobantes() As Boolean
         Try
             Me.Cursor = Cursors.WaitCursor

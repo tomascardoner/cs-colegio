@@ -12,7 +12,7 @@
         MyBase.Finalize()
     End Sub
 
-    Public Class AnioLectivoCurso_ListItem
+    Public Class AnioLectivoCursoListItem
         Public Property IDAnioLectivoCurso As Short
         Public Property Descripcion As String
         Public Property AnioLectivo As Short
@@ -604,7 +604,7 @@
     End Sub
 
     Friend Sub AnioLectivoCurso(ByRef ComboBoxControl As ComboBox, ByVal AnioLectivoDesde As Integer, ByVal AnioLectivoHasta As Integer, ByVal IncluyeAnioLectivoEnDescripcion As Boolean, Optional ByVal IDEntidad As Integer? = Nothing)
-        Dim listAnioLectivoCursos As List(Of AnioLectivoCurso_ListItem)
+        Dim listAnioLectivoCursos As List(Of AnioLectivoCursoListItem)
 
         ComboBoxControl.ValueMember = "IDAnioLectivoCurso"
         ComboBoxControl.DisplayMember = "Descripcion"
@@ -614,26 +614,26 @@
                 listAnioLectivoCursos = (From alc In mdbContext.AnioLectivoCurso
                                          Where alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
                                          Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
-                                         Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.AnioLectivo.ToString & " - " & alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo, .IDCurso = alc.IDCurso}).ToList
+                                         Select New AnioLectivoCursoListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.AnioLectivo.ToString & " - " & alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo, .IDCurso = alc.IDCurso}).ToList
             Else
                 listAnioLectivoCursos = (From e In mdbContext.Entidad
                                          From alc In e.AniosLectivosCursos
                                          Where e.IDEntidad = IDEntidad And alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
                                          Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
-                                         Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.AnioLectivo.ToString & " - " & alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo, .IDCurso = alc.IDCurso}).ToList
+                                         Select New AnioLectivoCursoListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.AnioLectivo.ToString & " - " & alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo, .IDCurso = alc.IDCurso}).ToList
             End If
         Else
             If IDEntidad Is Nothing Then
                 listAnioLectivoCursos = (From alc In mdbContext.AnioLectivoCurso
                                          Where alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
                                          Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
-                                         Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo, .IDCurso = alc.IDCurso}).ToList
+                                         Select New AnioLectivoCursoListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo, .IDCurso = alc.IDCurso}).ToList
             Else
                 listAnioLectivoCursos = (From e In mdbContext.Entidad
                                          From alc In e.AniosLectivosCursos
                                          Where e.IDEntidad = IDEntidad And alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
                                          Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
-                                         Select New AnioLectivoCurso_ListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo, .IDCurso = alc.IDCurso}).ToList
+                                         Select New AnioLectivoCursoListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo, .IDCurso = alc.IDCurso}).ToList
             End If
         End If
 

@@ -24,9 +24,9 @@ Partial Class formEntidadInscripcion
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.labelEntidad = New System.Windows.Forms.Label()
         Me.buttonEntidad = New System.Windows.Forms.Button()
         Me.panelPaso1 = New System.Windows.Forms.Panel()
@@ -47,8 +47,6 @@ Partial Class formEntidadInscripcion
         Me.buttonPaso2Finalizar = New System.Windows.Forms.Button()
         Me.labelPaso2 = New System.Windows.Forms.Label()
         Me.datagridviewFacturaDetalle = New System.Windows.Forms.DataGridView()
-        Me.columnDescripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnPrecioTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.datagridviewFacturaCabecera = New System.Windows.Forms.DataGridView()
         Me.columnComprobanteTipoNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnPuntoVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -57,6 +55,8 @@ Partial Class formEntidadInscripcion
         Me.columnDocumentoNumero = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnCategoriaIVANombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnDescripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnPrecioTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.panelPaso1.SuspendLayout()
         CType(Me.datagridviewEntidades, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelPaso2.SuspendLayout()
@@ -96,7 +96,7 @@ Partial Class formEntidadInscripcion
         Me.panelPaso1.Controls.Add(Me.buttonPaso1Siguiente)
         Me.panelPaso1.Controls.Add(Me.labelPaso1)
         Me.panelPaso1.Location = New System.Drawing.Point(9, 10)
-        Me.panelPaso1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.panelPaso1.Margin = New System.Windows.Forms.Padding(2)
         Me.panelPaso1.Name = "panelPaso1"
         Me.panelPaso1.Size = New System.Drawing.Size(664, 328)
         Me.panelPaso1.TabIndex = 12
@@ -104,7 +104,7 @@ Partial Class formEntidadInscripcion
         'textboxAnioLectivo
         '
         Me.textboxAnioLectivo.Location = New System.Drawing.Point(72, 39)
-        Me.textboxAnioLectivo.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.textboxAnioLectivo.Margin = New System.Windows.Forms.Padding(2)
         Me.textboxAnioLectivo.Name = "textboxAnioLectivo"
         Me.textboxAnioLectivo.ReadOnly = True
         Me.textboxAnioLectivo.Size = New System.Drawing.Size(38, 20)
@@ -245,7 +245,7 @@ Partial Class formEntidadInscripcion
         Me.panelPaso2.Controls.Add(Me.datagridviewFacturaDetalle)
         Me.panelPaso2.Controls.Add(Me.datagridviewFacturaCabecera)
         Me.panelPaso2.Location = New System.Drawing.Point(9, 10)
-        Me.panelPaso2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.panelPaso2.Margin = New System.Windows.Forms.Padding(2)
         Me.panelPaso2.Name = "panelPaso2"
         Me.panelPaso2.Size = New System.Drawing.Size(664, 328)
         Me.panelPaso2.TabIndex = 13
@@ -305,29 +305,6 @@ Partial Class formEntidadInscripcion
         Me.datagridviewFacturaDetalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewFacturaDetalle.Size = New System.Drawing.Size(605, 100)
         Me.datagridviewFacturaDetalle.TabIndex = 2
-        '
-        'columnDescripcion
-        '
-        Me.columnDescripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnDescripcion.DataPropertyName = "Descripcion"
-        Me.columnDescripcion.HeaderText = "Descripción"
-        Me.columnDescripcion.Name = "columnDescripcion"
-        Me.columnDescripcion.ReadOnly = True
-        Me.columnDescripcion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnDescripcion.Width = 69
-        '
-        'columnPrecioTotal
-        '
-        Me.columnPrecioTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnPrecioTotal.DataPropertyName = "PrecioTotal"
-        DataGridViewCellStyle3.Format = "C2"
-        DataGridViewCellStyle3.NullValue = "0"
-        Me.columnPrecioTotal.DefaultCellStyle = DataGridViewCellStyle3
-        Me.columnPrecioTotal.HeaderText = "Precio"
-        Me.columnPrecioTotal.Name = "columnPrecioTotal"
-        Me.columnPrecioTotal.ReadOnly = True
-        Me.columnPrecioTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnPrecioTotal.Width = 43
         '
         'datagridviewFacturaCabecera
         '
@@ -425,6 +402,29 @@ Partial Class formEntidadInscripcion
         Me.columnImporteTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.columnImporteTotal.Width = 48
         '
+        'columnDescripcion
+        '
+        Me.columnDescripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnDescripcion.DataPropertyName = "DescripcionDisplay"
+        Me.columnDescripcion.HeaderText = "Descripción"
+        Me.columnDescripcion.Name = "columnDescripcion"
+        Me.columnDescripcion.ReadOnly = True
+        Me.columnDescripcion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnDescripcion.Width = 69
+        '
+        'columnPrecioTotal
+        '
+        Me.columnPrecioTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnPrecioTotal.DataPropertyName = "PrecioTotal"
+        DataGridViewCellStyle3.Format = "C2"
+        DataGridViewCellStyle3.NullValue = "0"
+        Me.columnPrecioTotal.DefaultCellStyle = DataGridViewCellStyle3
+        Me.columnPrecioTotal.HeaderText = "Precio"
+        Me.columnPrecioTotal.Name = "columnPrecioTotal"
+        Me.columnPrecioTotal.ReadOnly = True
+        Me.columnPrecioTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.columnPrecioTotal.Width = 43
+        '
         'formEntidadInscripcion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -433,7 +433,7 @@ Partial Class formEntidadInscripcion
         Me.Controls.Add(Me.panelPaso1)
         Me.Controls.Add(Me.panelPaso2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MaximizeBox = False
         Me.Name = "formEntidadInscripcion"
         Me.ShowInTaskbar = False
@@ -469,8 +469,6 @@ End Sub
     Friend WithEvents columnCategoriaIVANombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnImporteTotal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents datagridviewFacturaDetalle As System.Windows.Forms.DataGridView
-    Friend WithEvents columnDescripcion As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnPrecioTotal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents labelPaso2 As System.Windows.Forms.Label
     Friend WithEvents buttonPaso2Finalizar As System.Windows.Forms.Button
     Friend WithEvents buttonPaso2Anterior As System.Windows.Forms.Button
@@ -478,4 +476,6 @@ End Sub
     Friend WithEvents columnApellidoNombre As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnCursoActual As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents columnCursoProximo As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents columnDescripcion As DataGridViewTextBoxColumn
+    Friend WithEvents columnPrecioTotal As DataGridViewTextBoxColumn
 End Class

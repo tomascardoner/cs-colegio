@@ -68,7 +68,7 @@ Partial Class formComprobanteDetalle
         Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonCerrar, Me.buttonEditar, Me.buttonCancelar, Me.buttonGuardar})
         Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
         Me.toolstripMain.Name = "toolstripMain"
-        Me.toolstripMain.Size = New System.Drawing.Size(476, 39)
+        Me.toolstripMain.Size = New System.Drawing.Size(552, 39)
         Me.toolstripMain.TabIndex = 25
         '
         'buttonCerrar
@@ -122,17 +122,20 @@ Partial Class formComprobanteDetalle
         '
         'comboboxArticulo
         '
+        Me.comboboxArticulo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.comboboxArticulo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxArticulo.FormattingEnabled = True
         Me.comboboxArticulo.Location = New System.Drawing.Point(123, 51)
         Me.comboboxArticulo.Name = "comboboxArticulo"
-        Me.comboboxArticulo.Size = New System.Drawing.Size(339, 21)
+        Me.comboboxArticulo.Size = New System.Drawing.Size(415, 21)
         Me.comboboxArticulo.TabIndex = 1
         '
         'buttonAlumno
         '
+        Me.buttonAlumno.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.buttonAlumno.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_SEARCH_16
-        Me.buttonAlumno.Location = New System.Drawing.Point(440, 129)
+        Me.buttonAlumno.Location = New System.Drawing.Point(516, 129)
         Me.buttonAlumno.Name = "buttonAlumno"
         Me.buttonAlumno.Size = New System.Drawing.Size(22, 23)
         Me.buttonAlumno.TabIndex = 8
@@ -149,11 +152,13 @@ Partial Class formComprobanteDetalle
         '
         'comboboxAnioLectivoCurso
         '
+        Me.comboboxAnioLectivoCurso.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.comboboxAnioLectivoCurso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxAnioLectivoCurso.FormattingEnabled = True
         Me.comboboxAnioLectivoCurso.Location = New System.Drawing.Point(123, 157)
         Me.comboboxAnioLectivoCurso.Name = "comboboxAnioLectivoCurso"
-        Me.comboboxAnioLectivoCurso.Size = New System.Drawing.Size(339, 21)
+        Me.comboboxAnioLectivoCurso.Size = New System.Drawing.Size(415, 21)
         Me.comboboxAnioLectivoCurso.TabIndex = 10
         '
         'labelAnioLectivoCurso
@@ -211,13 +216,13 @@ Partial Class formComprobanteDetalle
         '
         'textboxDescripcion
         '
+        Me.textboxDescripcion.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.textboxDescripcion.Location = New System.Drawing.Point(123, 211)
         Me.textboxDescripcion.MaxLength = 100
         Me.textboxDescripcion.Name = "textboxDescripcion"
-        Me.textboxDescripcion.ReadOnly = True
-        Me.textboxDescripcion.Size = New System.Drawing.Size(339, 20)
+        Me.textboxDescripcion.Size = New System.Drawing.Size(415, 20)
         Me.textboxDescripcion.TabIndex = 14
-        Me.textboxDescripcion.TabStop = False
         '
         'labelDescripcion
         '
@@ -275,11 +280,13 @@ Partial Class formComprobanteDetalle
         '
         'comboboxAlumno
         '
+        Me.comboboxAlumno.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.comboboxAlumno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxAlumno.FormattingEnabled = True
         Me.comboboxAlumno.Location = New System.Drawing.Point(123, 130)
         Me.comboboxAlumno.Name = "comboboxAlumno"
-        Me.comboboxAlumno.Size = New System.Drawing.Size(317, 21)
+        Me.comboboxAlumno.Size = New System.Drawing.Size(393, 21)
         Me.comboboxAlumno.TabIndex = 7
         '
         'doubletextboxCantidad
@@ -305,7 +312,7 @@ Partial Class formComprobanteDetalle
         Me.currencytextboxPrecioUnitario.Location = New System.Drawing.Point(123, 237)
         Me.currencytextboxPrecioUnitario.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
         Me.currencytextboxPrecioUnitario.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
-        Me.currencytextboxPrecioUnitario.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxPrecioUnitario.MinValue = New Decimal(New Integer() {99999999, 0, 0, -2147352576})
         Me.currencytextboxPrecioUnitario.Name = "currencytextboxPrecioUnitario"
         Me.currencytextboxPrecioUnitario.NullString = ""
         Me.currencytextboxPrecioUnitario.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
@@ -354,7 +361,7 @@ Partial Class formComprobanteDetalle
         Me.currencytextboxPrecioUnitarioFinal.Location = New System.Drawing.Point(123, 315)
         Me.currencytextboxPrecioUnitarioFinal.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
         Me.currencytextboxPrecioUnitarioFinal.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
-        Me.currencytextboxPrecioUnitarioFinal.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxPrecioUnitarioFinal.MinValue = New Decimal(New Integer() {99999999, 0, 0, -2147352576})
         Me.currencytextboxPrecioUnitarioFinal.Name = "currencytextboxPrecioUnitarioFinal"
         Me.currencytextboxPrecioUnitarioFinal.NullString = ""
         Me.currencytextboxPrecioUnitarioFinal.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
@@ -371,7 +378,7 @@ Partial Class formComprobanteDetalle
         Me.currencytextboxPrecioTotal.Location = New System.Drawing.Point(123, 341)
         Me.currencytextboxPrecioTotal.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
         Me.currencytextboxPrecioTotal.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
-        Me.currencytextboxPrecioTotal.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
+        Me.currencytextboxPrecioTotal.MinValue = New Decimal(New Integer() {99999999, 0, 0, -2147352576})
         Me.currencytextboxPrecioTotal.Name = "currencytextboxPrecioTotal"
         Me.currencytextboxPrecioTotal.NullString = ""
         Me.currencytextboxPrecioTotal.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
@@ -385,7 +392,7 @@ Partial Class formComprobanteDetalle
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(476, 374)
+        Me.ClientSize = New System.Drawing.Size(552, 374)
         Me.Controls.Add(Me.currencytextboxPrecioTotal)
         Me.Controls.Add(Me.currencytextboxPrecioUnitarioFinal)
         Me.Controls.Add(Me.currencytextboxPrecioUnitarioDescuentoImporte)

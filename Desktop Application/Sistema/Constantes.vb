@@ -7,6 +7,7 @@
     Friend Const USUARIO_ADMINISTRADOR As Short = 1
 
     Friend Const ExportacionSistemaPagosEduc As String = "PE"
+    Friend Const NewLineCharDisplayReplacement As String = " || "
 
     ' Hex Key - 128 bits
     Friend Const APPLICATION_LICENSE_PASSWORD As String = "6b1c0735f890922b6298b9551d70e384"

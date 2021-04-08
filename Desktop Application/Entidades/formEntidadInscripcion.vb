@@ -94,11 +94,13 @@
 #End Region
 
 #Region "Extra stuff"
+
     Private Sub MostrarPaneles(ByVal Paso As Byte)
         panelPaso1.Visible = (Paso = 1)
         panelPaso2.Visible = (Paso = 2)
         Application.DoEvents()
     End Sub
+
 #End Region
 
 #Region "Paso 1 - Selección"
@@ -294,7 +296,7 @@
     End Sub
 
     Private Sub buttonPaso2Finalizar_Click() Handles buttonPaso2Finalizar.Click
-        If MsgBox("¿Confirma la Generación de la(s) Factura(s)?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
+        If MsgBox("¿Confirma la generación de la(s) Factura(s)?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
             If GuardarCambios() Then
                 MsgBox(String.Format("Se han generado {1} Facturas.{0}{0}A continuación, se enviarán a la AFIP para obtener el C.A.E. correspondiente.", vbCrLf, listFacturas.Count), MsgBoxStyle.Information, My.Application.Info.Title)
                 TransmitirComprobantes()
@@ -302,6 +304,7 @@
             End If
         End If
     End Sub
+
 #End Region
 
 #Region "Finalizar - Generación"
@@ -323,6 +326,7 @@
                         AnioLectivoCursoActual.Entidades.Add(EntidadActual)
                     End If
                 Next
+
                 ' Agrego las Facturas generadas
                 dbContext.Comprobante.AddRange(listFacturas)
 

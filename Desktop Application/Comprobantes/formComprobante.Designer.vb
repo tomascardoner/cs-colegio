@@ -30,8 +30,6 @@ Partial Class formComprobante
         Dim labelCreacion As System.Windows.Forms.Label
         Dim labelModificacion As System.Windows.Forms.Label
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -46,14 +44,13 @@ Partial Class formComprobante
         Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formComprobante))
         Me.panelMain = New System.Windows.Forms.TableLayoutPanel()
         Me.tabcontrolMain = New CSColegio.DesktopApplication.CS_Control_TabControl()
         Me.tabpageDetalle = New System.Windows.Forms.TabPage()
         Me.datagridviewDetalle = New System.Windows.Forms.DataGridView()
-        Me.columnDetalle_Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnDetalle_PrecioUnitario = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnDetalle_PrecioTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.toolstripDetalle = New System.Windows.Forms.ToolStrip()
         Me.buttonDetalle_Agregar = New System.Windows.Forms.ToolStripSplitButton()
         Me.buttonDetalle_AgregarMultiple = New System.Windows.Forms.ToolStripMenuItem()
@@ -149,8 +146,11 @@ Partial Class formComprobante
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
         Me.buttonAFIP = New System.Windows.Forms.ToolStripDropDownButton()
         Me.menuitemAFIP_ObtenerCAE = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemAFIP_VerificarDatos = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemAFIP_ObtenerQR = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemAFIP_VerificarDatos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.columnDetalle_Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnDetalle_PrecioUnitario = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnDetalle_PrecioTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         labelFechaServicioDesde = New System.Windows.Forms.Label()
         labelFechaServicioHasta = New System.Windows.Forms.Label()
         labelLeyenda = New System.Windows.Forms.Label()
@@ -325,41 +325,6 @@ Partial Class formComprobante
         Me.datagridviewDetalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewDetalle.Size = New System.Drawing.Size(910, 276)
         Me.datagridviewDetalle.TabIndex = 4
-        '
-        'columnDetalle_Descripcion
-        '
-        Me.columnDetalle_Descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnDetalle_Descripcion.DataPropertyName = "Descripcion"
-        Me.columnDetalle_Descripcion.HeaderText = "Descripción"
-        Me.columnDetalle_Descripcion.Name = "columnDetalle_Descripcion"
-        Me.columnDetalle_Descripcion.ReadOnly = True
-        Me.columnDetalle_Descripcion.Width = 88
-        '
-        'columnDetalle_PrecioUnitario
-        '
-        Me.columnDetalle_PrecioUnitario.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnDetalle_PrecioUnitario.DataPropertyName = "PrecioUnitario"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle2.Format = "C2"
-        DataGridViewCellStyle2.NullValue = Nothing
-        Me.columnDetalle_PrecioUnitario.DefaultCellStyle = DataGridViewCellStyle2
-        Me.columnDetalle_PrecioUnitario.HeaderText = "Precio Unitario"
-        Me.columnDetalle_PrecioUnitario.Name = "columnDetalle_PrecioUnitario"
-        Me.columnDetalle_PrecioUnitario.ReadOnly = True
-        Me.columnDetalle_PrecioUnitario.Width = 101
-        '
-        'columnDetalle_PrecioTotal
-        '
-        Me.columnDetalle_PrecioTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnDetalle_PrecioTotal.DataPropertyName = "PrecioTotal"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle3.Format = "C2"
-        DataGridViewCellStyle3.NullValue = Nothing
-        Me.columnDetalle_PrecioTotal.DefaultCellStyle = DataGridViewCellStyle3
-        Me.columnDetalle_PrecioTotal.HeaderText = "Precio Total"
-        Me.columnDetalle_PrecioTotal.Name = "columnDetalle_PrecioTotal"
-        Me.columnDetalle_PrecioTotal.ReadOnly = True
-        Me.columnDetalle_PrecioTotal.Width = 89
         '
         'toolstripDetalle
         '
@@ -1465,20 +1430,55 @@ Partial Class formComprobante
         'menuitemAFIP_ObtenerCAE
         '
         Me.menuitemAFIP_ObtenerCAE.Name = "menuitemAFIP_ObtenerCAE"
-        Me.menuitemAFIP_ObtenerCAE.Size = New System.Drawing.Size(180, 22)
+        Me.menuitemAFIP_ObtenerCAE.Size = New System.Drawing.Size(178, 22)
         Me.menuitemAFIP_ObtenerCAE.Text = "Obtener CAE"
-        '
-        'menuitemAFIP_VerificarDatos
-        '
-        Me.menuitemAFIP_VerificarDatos.Name = "menuitemAFIP_VerificarDatos"
-        Me.menuitemAFIP_VerificarDatos.Size = New System.Drawing.Size(180, 22)
-        Me.menuitemAFIP_VerificarDatos.Text = "Verificar datos"
         '
         'menuitemAFIP_ObtenerQR
         '
         Me.menuitemAFIP_ObtenerQR.Name = "menuitemAFIP_ObtenerQR"
-        Me.menuitemAFIP_ObtenerQR.Size = New System.Drawing.Size(180, 22)
+        Me.menuitemAFIP_ObtenerQR.Size = New System.Drawing.Size(178, 22)
         Me.menuitemAFIP_ObtenerQR.Text = "Obtener Código QR"
+        '
+        'menuitemAFIP_VerificarDatos
+        '
+        Me.menuitemAFIP_VerificarDatos.Name = "menuitemAFIP_VerificarDatos"
+        Me.menuitemAFIP_VerificarDatos.Size = New System.Drawing.Size(178, 22)
+        Me.menuitemAFIP_VerificarDatos.Text = "Verificar datos"
+        '
+        'columnDetalle_Descripcion
+        '
+        Me.columnDetalle_Descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnDetalle_Descripcion.DataPropertyName = "DescripcionDisplay"
+        Me.columnDetalle_Descripcion.HeaderText = "Descripción"
+        Me.columnDetalle_Descripcion.Name = "columnDetalle_Descripcion"
+        Me.columnDetalle_Descripcion.ReadOnly = True
+        Me.columnDetalle_Descripcion.Width = 88
+        '
+        'columnDetalle_PrecioUnitario
+        '
+        Me.columnDetalle_PrecioUnitario.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnDetalle_PrecioUnitario.DataPropertyName = "PrecioUnitario"
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle2.Format = "C2"
+        DataGridViewCellStyle2.NullValue = Nothing
+        Me.columnDetalle_PrecioUnitario.DefaultCellStyle = DataGridViewCellStyle2
+        Me.columnDetalle_PrecioUnitario.HeaderText = "Precio Unitario"
+        Me.columnDetalle_PrecioUnitario.Name = "columnDetalle_PrecioUnitario"
+        Me.columnDetalle_PrecioUnitario.ReadOnly = True
+        Me.columnDetalle_PrecioUnitario.Width = 101
+        '
+        'columnDetalle_PrecioTotal
+        '
+        Me.columnDetalle_PrecioTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnDetalle_PrecioTotal.DataPropertyName = "PrecioTotal"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle3.Format = "C2"
+        DataGridViewCellStyle3.NullValue = Nothing
+        Me.columnDetalle_PrecioTotal.DefaultCellStyle = DataGridViewCellStyle3
+        Me.columnDetalle_PrecioTotal.HeaderText = "Precio Total"
+        Me.columnDetalle_PrecioTotal.Name = "columnDetalle_PrecioTotal"
+        Me.columnDetalle_PrecioTotal.ReadOnly = True
+        Me.columnDetalle_PrecioTotal.Width = 89
         '
         'formComprobante
         '
@@ -1636,9 +1636,6 @@ Partial Class formComprobante
     Friend WithEvents labelMediosPago_Subtotal As System.Windows.Forms.Label
     Friend WithEvents panelImpuestos_Subtotal As System.Windows.Forms.Panel
     Friend WithEvents labelImpuestosSubtotal As System.Windows.Forms.Label
-    Friend WithEvents columnDetalle_Descripcion As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnDetalle_PrecioUnitario As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnDetalle_PrecioTotal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents buttonEntidadVerSaldo As System.Windows.Forms.Button
     Friend WithEvents buttonDetalle_Agregar As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents buttonDetalle_AgregarMultiple As System.Windows.Forms.ToolStripMenuItem
@@ -1653,4 +1650,7 @@ Partial Class formComprobante
     Friend WithEvents textboxNumero As TextBox
     Friend WithEvents textboxPuntoVenta As TextBox
     Friend WithEvents menuitemAFIP_ObtenerQR As ToolStripMenuItem
+    Friend WithEvents columnDetalle_Descripcion As DataGridViewTextBoxColumn
+    Friend WithEvents columnDetalle_PrecioUnitario As DataGridViewTextBoxColumn
+    Friend WithEvents columnDetalle_PrecioTotal As DataGridViewTextBoxColumn
 End Class

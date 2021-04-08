@@ -14,22 +14,18 @@
 #End Region
 
 #Region "Form stuff"
+
     Friend Sub LoadAndShow(ByVal ParentEditMode As Boolean, ByVal EditMode As Boolean, ByRef ParentForm As Form, ByRef ComprobanteActual As Comprobante)
         mParentEditMode = ParentEditMode
         mEditMode = EditMode
 
         mComprobanteActual = ComprobanteActual
 
-        'Me.MdiParent = pFormMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
         SetDataFromObjectToControls()
 
         Me.ShowDialog(ParentForm)
-        'If Me.WindowState = FormWindowState.Minimized Then
-        '    Me.WindowState = FormWindowState.Normal
-        'End If
-        'Me.Focus()
     End Sub
 
     Friend Sub InitializeFormAndControls()
@@ -38,8 +34,8 @@
         End Using
 
         For MesNumero As Integer = 1 To 12
-            comboboxCuotaMesDesde.Items.Add(StrConv(MonthName(MesNumero), VbStrConv.ProperCase))
-            comboboxCuotaMesHasta.Items.Add(StrConv(MonthName(MesNumero), VbStrConv.ProperCase))
+            comboboxCuotaMesDesde.Items.Add(DateAndTime.MonthName(MesNumero))
+            comboboxCuotaMesHasta.Items.Add(DateAndTime.MonthName(MesNumero))
         Next
     End Sub
 
@@ -52,6 +48,7 @@
 #End Region
 
 #Region "Load and Set Data"
+
     Friend Sub SetDataFromObjectToControls()
         textboxArticulo.Text = mArticuloActual.Nombre
         EstablecerAnioLectivoCurso()
@@ -67,8 +64,8 @@
         comboboxCuotaMesHasta.SelectedIndex = -1
     End Sub
 
-    Friend Sub SetDataFromControlsToObject(ByRef ComprobanteDetalleActual As ComprobanteDetalle, ByVal CuotaMes As Byte)
-        With ComprobanteDetalleActual
+    Friend Sub SetDataFromControlsToObject(ByRef comprobanteDetalleActual As ComprobanteDetalle, ByVal cuotaMes As Byte, ByVal anioLectivo As String, ByVal nivel As String, ByVal anio As String, ByVal turno As String)
+        With comprobanteDetalleActual
             .IDArticulo = mArticuloActual.IDArticulo
             .Cantidad = 1
             .Unidad = Nothing
@@ -76,7 +73,7 @@
             .IDEntidad = CS_ValueTranslation.FromControlComboBoxToObjectInteger(comboboxAlumno.SelectedValue)
             .IDAnioLectivoCurso = CS_ValueTranslation.FromControlComboBoxToObjectShort(comboboxAnioLectivoCurso.SelectedValue)
 
-            .Descripcion = String.Format(mArticuloActual.Descripcion, vbCrLf, mArticuloActual.Nombre, mEntidad.IDEntidad, mEntidad.Apellido, mEntidad.Nombre, mEntidad.ApellidoNombre, CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).AnioLectivo, StrConv(MonthName(CuotaMes), VbStrConv.ProperCase))
+            .Descripcion = ModuloComprobantes.GenerarDescripcionConEtiquetas(mArticuloActual.Descripcion, mArticuloActual.Nombre, anioLectivo, DateAndTime.MonthName(cuotaMes), mEntidad, nivel, anio, turno)
 
             .CuotaMes = CByte(IIf(comboboxCuotaMesDesde.SelectedIndex = -1, Nothing, comboboxCuotaMesDesde.SelectedIndex + 1))
 
@@ -132,8 +129,8 @@
 
         If (Not mArticuloActual Is Nothing) AndAlso (Not comboboxAlumno.SelectedIndex = -1) AndAlso (Not comboboxAnioLectivoCurso.SelectedItem Is Nothing) Then
             If comboboxCuotaMesDesde.SelectedIndex > -1 Then
-                AnioLectivo = CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).AnioLectivo
-                IDCurso = CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).IDCurso
+                AnioLectivo = CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCursoListItem).AnioLectivo
+                IDCurso = CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCursoListItem).IDCurso
                 Using dbContext As New CSColegioContext(True)
                     CursoActual = dbContext.Curso.Find(IDCurso)
                     If Not CursoActual Is Nothing Then
@@ -237,11 +234,16 @@
 #End Region
 
 #Region "Main Toolbar"
+
     Private Sub buttonCerrarOCancelar_Click() Handles buttonCancelar.Click
         Me.Close()
     End Sub
 
     Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
+        Dim anioLectivo As String
+        Dim nivel As String
+        Dim anio As String
+        Dim turno As String
 
         If comboboxAlumno.SelectedIndex = -1 Then
             MsgBox("Debe especificar el Alumno.", MsgBoxStyle.Information, My.Application.Info.Title)
@@ -269,6 +271,24 @@
             Exit Sub
         End If
 
+        Using dbContext As New CSColegioContext(True)
+            Try
+                Dim anioLectivoCurso As AnioLectivoCurso
+
+                anioLectivoCurso = dbContext.AnioLectivoCurso.Find(CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCursoListItem).IDAnioLectivoCurso)
+                anioLectivo = AnioLectivoCurso.AnioLectivo.ToString()
+                nivel = AnioLectivoCurso.Curso.Anio.Nivel.Nombre
+                anio = AnioLectivoCurso.Curso.Anio.Nombre
+                turno = anioLectivoCurso.Curso.Turno.Nombre
+
+                anioLectivoCurso = Nothing
+
+            Catch ex As Exception
+                CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener el Curso del Año lectivo.")
+                Exit Sub
+            End Try
+        End Using
+
         For Indice As Integer = comboboxCuotaMesDesde.SelectedIndex + 1 To comboboxCuotaMesHasta.SelectedIndex + 1
             Dim ComprobanteDetalleActual As New ComprobanteDetalle
 
@@ -281,7 +301,7 @@
             mComprobanteActual.ComprobanteDetalle.Add(ComprobanteDetalleActual)
 
             ' Paso los datos desde los controles al Objecto de EF
-            SetDataFromControlsToObject(ComprobanteDetalleActual, CByte(Indice))
+            SetDataFromControlsToObject(ComprobanteDetalleActual, CByte(Indice), anioLectivo, nivel, anio, turno)
         Next Indice
 
         ' Refresco la lista para mostrar los cambios

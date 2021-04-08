@@ -4448,7 +4448,7 @@
           <Property Name="CuotaMes" Type="Byte" />
           <Property Name="Cantidad" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
           <Property Name="Unidad" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="PrecioUnitario" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="PrecioUnitarioDescuentoPorcentaje" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="PrecioUnitarioDescuentoImporte" Type="Decimal" Precision="19" Scale="4" Nullable="false" />

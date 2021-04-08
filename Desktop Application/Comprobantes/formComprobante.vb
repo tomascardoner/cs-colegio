@@ -1,6 +1,7 @@
 ﻿Public Class formComprobante
 
 #Region "Declarations"
+
     Private mdbContext As New CSColegioContext(True)
     Private mComprobanteActual As Comprobante
 
@@ -37,6 +38,7 @@
         Public Property Numero As String
         Public Property FechaVencimiento As Date
     End Class
+
 #End Region
 
 #Region "Form stuff"
@@ -1246,6 +1248,8 @@
 
     Private Sub EstablecerFechasSegunDetalle()
         Dim AnioLectivoCursoActual As AnioLectivoCurso
+        Dim fechaInicio As Date = Nothing
+        Dim fechaFin As Date = Nothing
 
         If mComprobanteTipoActual.UtilizaDetalle AndAlso mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso mComprobanteTipoActual.EmisionElectronica Then
             For Each DetalleActual As ComprobanteDetalle In mComprobanteActual.ComprobanteDetalle
@@ -1257,12 +1261,13 @@
                         If datetimepickerFechaVencimiento.Checked = False Then
                             datetimepickerFechaVencimiento.Value = DateAndTime.Today
                         End If
-                        If datetimepickerFechaServicioDesde.Checked = False Or datetimepickerFechaServicioDesde.Value > New Date(AnioLectivoCursoActual.AnioLectivo, 1, 1) Then
-                            datetimepickerFechaServicioDesde.Value = New Date(AnioLectivoCursoActual.AnioLectivo, 1, 1)
+                        If fechaInicio = Nothing OrElse fechaInicio > New Date(AnioLectivoCursoActual.AnioLectivo, 1, 1) Then
+                            fechaInicio = New Date(AnioLectivoCursoActual.AnioLectivo, 1, 1)
                         End If
-                        If datetimepickerFechaServicioHasta.Checked = False Or datetimepickerFechaServicioHasta.Value < New Date(AnioLectivoCursoActual.AnioLectivo, 12, 31) Then
-                            datetimepickerFechaServicioHasta.Value = New Date(AnioLectivoCursoActual.AnioLectivo, 12, 31)
+                        If fechaFin = Nothing OrElse fechaFin < New Date(AnioLectivoCursoActual.AnioLectivo, 12, 31) Then
+                            fechaFin = New Date(AnioLectivoCursoActual.AnioLectivo, 12, 31)
                         End If
+
                     Case mIDArticuloMensual
                         Using dbContext As New CSColegioContext(True)
                             AnioLectivoCursoActual = dbContext.AnioLectivoCurso.Find(DetalleActual.IDAnioLectivoCurso)
@@ -1270,14 +1275,23 @@
                         If datetimepickerFechaVencimiento.Checked = False Then
                             datetimepickerFechaVencimiento.Value = DateAndTime.Today
                         End If
-                        If datetimepickerFechaServicioDesde.Checked = False Or datetimepickerFechaServicioDesde.Value > New Date(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value, 1) Then
-                            datetimepickerFechaServicioDesde.Value = New Date(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value, 1)
+                        If fechaInicio = Nothing OrElse fechaInicio > New Date(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value, 1) Then
+                            fechaInicio = New Date(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value, 1)
                         End If
-                        If datetimepickerFechaServicioHasta.Checked = False Or datetimepickerFechaServicioHasta.Value < New Date(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value, Date.DaysInMonth(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value)) Then
-                            datetimepickerFechaServicioHasta.Value = New Date(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value, Date.DaysInMonth(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value))
+                        If fechaFin = Nothing OrElse fechaFin < New Date(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value, Date.DaysInMonth(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value)) Then
+                            fechaFin = New Date(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value, Date.DaysInMonth(AnioLectivoCursoActual.AnioLectivo, DetalleActual.CuotaMes.Value))
                         End If
                 End Select
             Next
+
+            If Not (fechaInicio = Nothing Or fechaFin = Nothing) Then
+                If datetimepickerFechaServicioDesde.Checked = False Or datetimepickerFechaServicioDesde.Value > New Date(AnioLectivoCursoActual.AnioLectivo, 1, 1) Then
+                    datetimepickerFechaServicioDesde.Value = fechaInicio
+                End If
+                If datetimepickerFechaServicioHasta.Checked = False Or datetimepickerFechaServicioHasta.Value < New Date(AnioLectivoCursoActual.AnioLectivo, 12, 31) Then
+                    datetimepickerFechaServicioHasta.Value = fechaFin
+                End If
+            End If
         End If
     End Sub
 

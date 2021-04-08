@@ -4,10 +4,51 @@ Module ModuloComprobantes
 
 #Region "Generación de comprobantes"
 
+    Private Const LeyendaAlumna As String = "Alumna"
+    Private Const LeyendaAlumno As String = "Alumno"
+    Private Const LeyendaAlumne As String = "Alumno/a"
+
+    Private Const EtiquetaSaltoDeLinea As String = "{CrLf}"
+    Private Const EtiquetaArticulo As String = "{Articulo}"
+    Private Const EtiquetaPeriodoAnio As String = "{PeriodoAnio}"
+    Private Const EtiquetaPeriodoMes As String = "{PeriodoMes}"
+    Private Const EtiquetaLeyendaAlumneConGenero As String = "{LeyendaAlumneConGenero}"
+    Private Const EtiquetaAlumneApellidoNombre As String = "{AlumneApellidoNombre}"
+    Private Const EtiquetaAlumneApellido As String = "{AlumneApellido}"
+    Private Const EtiquetaAlumneNombre As String = "{AlumneNombre}"
+    Private Const EtiquetaNivel As String = "{Nivel}"
+    Private Const EtiquetaAnio As String = "{Anio}"
+    Private Const EtiquetaTurno As String = "{Turno}"
+
     Friend Class Alumno_AnioLectivoCurso_AFacturar
         Friend Property Alumno As Entidad
         Friend Property AnioLectivoCurso_AFacturar As AnioLectivoCurso
     End Class
+
+    Friend Function GenerarDescripcionConEtiquetas(ByVal articuloDescripcion As String, ByVal articuloNombre As String, ByVal periodoAnio As String, ByVal periodoMes As String, ByRef alumne As Entidad, ByVal nivel As String, ByVal anio As String, ByVal turno As String) As String
+        If Not String.IsNullOrWhiteSpace(articuloDescripcion) Then
+            articuloDescripcion = articuloDescripcion.Replace(EtiquetaSaltoDeLinea, Environment.NewLine)
+            articuloDescripcion = articuloDescripcion.Replace(EtiquetaArticulo, articuloNombre)
+            articuloDescripcion = articuloDescripcion.Replace(EtiquetaPeriodoAnio, periodoAnio)
+            articuloDescripcion = articuloDescripcion.Replace(EtiquetaPeriodoMes, periodoMes)
+            Select Case alumne.Genero
+                Case Constantes.ENTIDAD_GENERO_FEMENINO
+                    articuloDescripcion = articuloDescripcion.Replace(EtiquetaLeyendaAlumneConGenero, LeyendaAlumna)
+                Case Constantes.ENTIDAD_GENERO_MASCULINO
+                    articuloDescripcion = articuloDescripcion.Replace(EtiquetaLeyendaAlumneConGenero, LeyendaAlumno)
+                Case Else
+                    articuloDescripcion = articuloDescripcion.Replace(EtiquetaLeyendaAlumneConGenero, LeyendaAlumne)
+            End Select
+            articuloDescripcion = articuloDescripcion.Replace(EtiquetaAlumneApellidoNombre, alumne.ApellidoNombre)
+            articuloDescripcion = articuloDescripcion.Replace(EtiquetaAlumneApellido, alumne.Apellido)
+            articuloDescripcion = articuloDescripcion.Replace(EtiquetaAlumneNombre, alumne.Nombre)
+            articuloDescripcion = articuloDescripcion.Replace(EtiquetaNivel, nivel)
+            articuloDescripcion = articuloDescripcion.Replace(EtiquetaAnio, anio)
+            articuloDescripcion = articuloDescripcion.Replace(EtiquetaTurno, turno)
+        End If
+
+        Return articuloDescripcion
+    End Function
 
     ''' <summary>
     ''' Genera una serie de Comprobantes (Facturas)
@@ -148,7 +189,6 @@ Module ModuloComprobantes
     Private Function GenerarComprobante(ByRef dbContext As CSColegioContext, ByRef listComprobantes As List(Of Comprobante), ByVal FechaEmision As Date, ByVal InteresRedondeo As Short, ByVal FechaVencimiento1 As Date, ByVal FechaVencimiento2 As Date?, ByVal Vencimiento2PorcentajeInteres As Decimal, ByVal FechaVencimiento3 As Date?, ByVal Vencimiento3PorcentajeInteres As Decimal, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByVal TitularComprobante As Entidad, ByVal TitularComprobanteMayusculas As Boolean, ByVal Alumno As Entidad, ByVal AnioLectivoCursoActual As AnioLectivoCurso, ByVal ArticuloActual As Articulo, ByVal AnioLectivoAFacturar As Short, ByVal MesAFacturar As Byte, ByVal MuestraErrores As Boolean) As Boolean
         Dim ComprobanteCabecera As Comprobante
         Dim ComprobanteDetalleActual As ComprobanteDetalle
-
 
         Dim Vencimiento2Importe As Decimal
         Dim Vencimiento3Importe As Decimal
@@ -348,7 +388,7 @@ Module ModuloComprobantes
                     MesAFacturarNombre = DateAndTime.MonthName(MesAFacturar)
                 End If
                 .Cantidad = 1
-                .Descripcion = String.Format(ArticuloActual.Descripcion, vbCrLf, ArticuloActual.Nombre, Alumno.IDEntidad, Alumno.Apellido, Alumno.Nombre, Alumno.ApellidoNombre, AnioLectivoAFacturar, MesAFacturarNombre)
+                .Descripcion = GenerarDescripcionConEtiquetas(ArticuloActual.Descripcion, ArticuloActual.Nombre, AnioLectivoAFacturar.ToString(), MesAFacturarNombre, Alumno, AnioLectivoCursoActual.Curso.Anio.Nivel.Nombre, AnioLectivoCursoActual.Curso.Anio.Nombre, AnioLectivoCursoActual.Curso.Turno.Nombre)
 
                 ' Precios
                 If MesAFacturar = 0 Then

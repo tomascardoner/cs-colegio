@@ -1,6 +1,9 @@
 ﻿Public Class formComprobanteDetalle
 
 #Region "Declarations"
+
+    Private mdbContext As New CSColegioContext(True)
+
     Private mIDArticuloMatricula As Short
     Private mIDArticuloMensual As Short
     Private mComprobanteActual As Comprobante
@@ -15,6 +18,7 @@
 
     Private mLoading As Boolean
     Private mIsNew As Boolean
+
 #End Region
 
 #Region "Form stuff"
@@ -27,7 +31,6 @@
         mComprobanteDetalleActual = ComprobanteDetalleActual
         mIsNew = (mComprobanteDetalleActual.Indice = 0)
 
-        'Me.MdiParent = pFormMDIMain
         CS_Form.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
         If mIsNew Then
@@ -38,10 +41,6 @@
         ChangeMode()
 
         Me.ShowDialog(ParentForm)
-        'If Me.WindowState = FormWindowState.Minimized Then
-        '    Me.WindowState = FormWindowState.Normal
-        'End If
-        'Me.Focus()
     End Sub
 
     Private Sub ChangeMode()
@@ -70,11 +69,13 @@
         pFillAndRefreshLists.Articulo(comboboxArticulo, False, False, mComprobanteActual.IDComprobanteTipo)
 
         For MesNumero As Integer = 1 To 12
-            comboboxCuotaMes.Items.Add(StrConv(MonthName(MesNumero), VbStrConv.ProperCase))
+            comboboxCuotaMes.Items.Add(DateAndTime.MonthName(MesNumero))
         Next
     End Sub
 
     Private Sub FormEnd(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        mdbContext.Dispose()
+        mdbContext = Nothing
         mComprobanteActual = Nothing
         mComprobanteDetalleActual = Nothing
         mArticuloActual = Nothing
@@ -85,12 +86,15 @@
 #End Region
 
 #Region "Load and Set Data"
+
     Friend Sub SetDataFromObjectToControls()
+
         With mComprobanteDetalleActual
             CardonerSistemas.ComboBox.SetSelectedValue(comboboxArticulo, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDArticulo, CShort(0))
             doubletextboxCantidad.DoubleValue = .Cantidad
             textboxUnidad.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Unidad)
-            textboxDescripcion.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Descripcion)
+
+            textboxDescripcion.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DescripcionDisplay)
 
             ' Cargo los alumnos en el ComboBox
             CargarAlumnos(mComprobanteActual.IDEntidad, .IDEntidad)
@@ -139,11 +143,15 @@
             If mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual Then
                 .IDEntidad = CS_ValueTranslation.FromControlComboBoxToObjectInteger(comboboxAlumno.SelectedValue)
                 .IDAnioLectivoCurso = CS_ValueTranslation.FromControlComboBoxToObjectShort(comboboxAnioLectivoCurso.SelectedValue)
-                .Descripcion = CS_ValueTranslation.FromControlComboBoxToObjectString(textboxDescripcion.Text)
+                .DescripcionDisplay = CS_ValueTranslation.FromControlComboBoxToObjectString(textboxDescripcion.Text)
             Else
                 .IDEntidad = Nothing
                 .IDAnioLectivoCurso = Nothing
-                .Descripcion = comboboxArticulo.Text
+                If textboxDescripcion.Text.Trim.Length = 0 Then
+                    .Descripcion = comboboxArticulo.Text
+                Else
+                    .DescripcionDisplay = CS_ValueTranslation.FromControlComboBoxToObjectString(textboxDescripcion.Text)
+                End If
             End If
             If mArticuloActual.IDArticulo = mIDArticuloMensual Then
                 .CuotaMes = CByte(IIf(comboboxCuotaMes.SelectedIndex = -1, Nothing, comboboxCuotaMes.SelectedIndex + 1))
@@ -195,9 +203,6 @@
                 textboxUnidad.Text = ""
             End If
 
-            labelDescripcion.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
-            textboxDescripcion.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
-
             labelAlumno.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
             comboboxAlumno.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
             buttonAlumno.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
@@ -210,9 +215,6 @@
         Else
             doubletextboxCantidad.ReadOnly = True
             textboxUnidad.ReadOnly = True
-
-            labelDescripcion.Visible = False
-            textboxDescripcion.Visible = False
 
             labelAlumno.Visible = False
             comboboxAlumno.Visible = False
@@ -251,7 +253,17 @@
 
     Private Sub EstablecerDescripcion()
         If (Not mArticuloActual Is Nothing) AndAlso (mArticuloActual.IDArticulo = mIDArticuloMatricula Or (mArticuloActual.IDArticulo = mIDArticuloMensual And comboboxCuotaMes.SelectedIndex > -1)) And (Not mEntidad Is Nothing) And (Not comboboxAnioLectivoCurso.SelectedItem Is Nothing) Then
-            textboxDescripcion.Text = String.Format(mArticuloActual.Descripcion, vbCrLf, mArticuloActual.Nombre, mEntidad.IDEntidad, mEntidad.Apellido, mEntidad.Nombre, mEntidad.ApellidoNombre, CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).AnioLectivo, comboboxCuotaMes.Text)
+            Dim AnioLectivoCursoActual As AnioLectivoCurso
+
+            Try
+                AnioLectivoCursoActual = mdbContext.AnioLectivoCurso.Find(CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCursoListItem).IDAnioLectivoCurso)
+            Catch ex As Exception
+                CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener los datos del Curso y Año Lectivo.")
+                textboxDescripcion.Text = ""
+                Exit Sub
+            End Try
+
+            textboxDescripcion.Text = ModuloComprobantes.GenerarDescripcionConEtiquetas(mArticuloActual.Descripcion, mArticuloActual.Nombre, AnioLectivoCursoActual.AnioLectivo.ToString(), comboboxCuotaMes.Text, mEntidad, AnioLectivoCursoActual.Curso.Anio.Nivel.Nombre, AnioLectivoCursoActual.Curso.Anio.Nombre, AnioLectivoCursoActual.Curso.Turno.Nombre).Replace(Environment.NewLine, Constantes.NewLineCharDisplayReplacement)
         Else
             textboxDescripcion.Text = ""
         End If
@@ -266,8 +278,8 @@
         Dim PrecioUnitario As Decimal
 
         If (Not mArticuloActual Is Nothing) AndAlso (Not comboboxAlumno.SelectedIndex = -1) AndAlso (Not comboboxAnioLectivoCurso.SelectedItem Is Nothing) Then
-            AnioLectivo = CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).AnioLectivo
-            IDCurso = CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCurso_ListItem).IDCurso
+            AnioLectivo = CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCursoListItem).AnioLectivo
+            IDCurso = CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCursoListItem).IDCurso
             Select Case mArticuloActual.IDArticulo
                 Case mIDArticuloMatricula
                     ' MATRÍCULA
@@ -478,10 +490,6 @@
         End If
 
         Me.Close()
-    End Sub
-
-    Private Sub comboboxAnioLectivoCurso_SelectedIndexChanged(sender As Object, e As EventArgs) Handles comboboxAnioLectivoCurso.SelectedIndexChanged
-
     End Sub
 
 #End Region
