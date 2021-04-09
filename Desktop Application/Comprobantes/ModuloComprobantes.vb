@@ -73,6 +73,7 @@ Module ModuloComprobantes
         Dim AnioLectivoCursoActual As AnioLectivoCurso
         Dim TitularComprobante As Entidad
 
+        Dim DescuentoRedondeo As Short
         Dim InteresTasaNominalAnual As Decimal
         Dim InteresRedondeo As Short
         Dim Vencimiento2PorcentajeInteres As Decimal
@@ -87,6 +88,8 @@ Module ModuloComprobantes
                 ArticuloActual = dbContext.Articulo.Find(CS_Parameter_System.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID))
             End If
             ComprobanteEntidadMayusculas = CS_Parameter_System.GetBoolean(Parametros.COMPROBANTE_ENTIDAD_MAYUSCULAS, False).Value
+
+            DescuentoRedondeo = CS_Parameter_System.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_DESCUENTO_REDONDEO)
 
             ' Calculo las Fechas de Vencimiento y los intereses
             InteresTasaNominalAnual = CS_Parameter_System.GetDecimal(Parametros.INTERES_TASA_NOMINAL_ANUAL)
@@ -109,7 +112,7 @@ Module ModuloComprobantes
                 '//////////////////////////////////////////////////////
                 If AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO Then
                     TitularComprobante = AlumnoActual
-                    If Not GenerarComprobante(dbContext, listComprobantes, FechaEmision, InteresRedondeo, FechaVencimiento1, FechaVencimiento2, Vencimiento2PorcentajeInteres, FechaVencimiento3, Vencimiento3PorcentajeInteres, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, ComprobanteEntidadMayusculas, AlumnoActual, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, MuestraErrores) Then
+                    If Not GenerarComprobante(dbContext, listComprobantes, FechaEmision, InteresRedondeo, FechaVencimiento1, FechaVencimiento2, Vencimiento2PorcentajeInteres, FechaVencimiento3, Vencimiento3PorcentajeInteres, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, ComprobanteEntidadMayusculas, AlumnoActual, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, DescuentoRedondeo, MuestraErrores) Then
                         Return False
                     End If
                 End If
@@ -119,7 +122,7 @@ Module ModuloComprobantes
                 '//////////////////////////////////////////////////////
                 If AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE Or AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                     TitularComprobante = AlumnoActual.EntidadPadre
-                    If Not GenerarComprobante(dbContext, listComprobantes, FechaEmision, InteresRedondeo, FechaVencimiento1, FechaVencimiento2, Vencimiento2PorcentajeInteres, FechaVencimiento3, Vencimiento3PorcentajeInteres, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, ComprobanteEntidadMayusculas, AlumnoActual, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, MuestraErrores) Then
+                    If Not GenerarComprobante(dbContext, listComprobantes, FechaEmision, InteresRedondeo, FechaVencimiento1, FechaVencimiento2, Vencimiento2PorcentajeInteres, FechaVencimiento3, Vencimiento3PorcentajeInteres, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, ComprobanteEntidadMayusculas, AlumnoActual, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, DescuentoRedondeo, MuestraErrores) Then
                         Return False
                     End If
                 End If
@@ -129,7 +132,7 @@ Module ModuloComprobantes
                 '//////////////////////////////////////////////////////
                 If AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE Or AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                     TitularComprobante = AlumnoActual.EntidadMadre
-                    If Not GenerarComprobante(dbContext, listComprobantes, FechaEmision, InteresRedondeo, FechaVencimiento1, FechaVencimiento2, Vencimiento2PorcentajeInteres, FechaVencimiento3, Vencimiento3PorcentajeInteres, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, ComprobanteEntidadMayusculas, AlumnoActual, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, MuestraErrores) Then
+                    If Not GenerarComprobante(dbContext, listComprobantes, FechaEmision, InteresRedondeo, FechaVencimiento1, FechaVencimiento2, Vencimiento2PorcentajeInteres, FechaVencimiento3, Vencimiento3PorcentajeInteres, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, ComprobanteEntidadMayusculas, AlumnoActual, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, DescuentoRedondeo, MuestraErrores) Then
                         Return False
                     End If
                 End If
@@ -139,7 +142,7 @@ Module ModuloComprobantes
                 '//////////////////////////////////////////////////////
                 If AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                     TitularComprobante = AlumnoActual.EntidadTercero
-                    If Not GenerarComprobante(dbContext, listComprobantes, FechaEmision, InteresRedondeo, FechaVencimiento1, FechaVencimiento2, Vencimiento2PorcentajeInteres, FechaVencimiento3, Vencimiento3PorcentajeInteres, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, ComprobanteEntidadMayusculas, AlumnoActual, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, MuestraErrores) Then
+                    If Not GenerarComprobante(dbContext, listComprobantes, FechaEmision, InteresRedondeo, FechaVencimiento1, FechaVencimiento2, Vencimiento2PorcentajeInteres, FechaVencimiento3, Vencimiento3PorcentajeInteres, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, ComprobanteEntidadMayusculas, AlumnoActual, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, DescuentoRedondeo, MuestraErrores) Then
                         Return False
                     End If
                 End If
@@ -186,7 +189,7 @@ Module ModuloComprobantes
         Return True
     End Function
 
-    Private Function GenerarComprobante(ByRef dbContext As CSColegioContext, ByRef listComprobantes As List(Of Comprobante), ByVal FechaEmision As Date, ByVal InteresRedondeo As Short, ByVal FechaVencimiento1 As Date, ByVal FechaVencimiento2 As Date?, ByVal Vencimiento2PorcentajeInteres As Decimal, ByVal FechaVencimiento3 As Date?, ByVal Vencimiento3PorcentajeInteres As Decimal, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByVal TitularComprobante As Entidad, ByVal TitularComprobanteMayusculas As Boolean, ByVal Alumno As Entidad, ByVal AnioLectivoCursoActual As AnioLectivoCurso, ByVal ArticuloActual As Articulo, ByVal AnioLectivoAFacturar As Short, ByVal MesAFacturar As Byte, ByVal MuestraErrores As Boolean) As Boolean
+    Private Function GenerarComprobante(ByRef dbContext As CSColegioContext, ByRef listComprobantes As List(Of Comprobante), ByVal FechaEmision As Date, ByVal InteresRedondeo As Short, ByVal FechaVencimiento1 As Date, ByVal FechaVencimiento2 As Date?, ByVal Vencimiento2PorcentajeInteres As Decimal, ByVal FechaVencimiento3 As Date?, ByVal Vencimiento3PorcentajeInteres As Decimal, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByVal TitularComprobante As Entidad, ByVal TitularComprobanteMayusculas As Boolean, ByVal Alumno As Entidad, ByVal AnioLectivoCursoActual As AnioLectivoCurso, ByVal ArticuloActual As Articulo, ByVal AnioLectivoAFacturar As Short, ByVal MesAFacturar As Byte, ByVal DescuentoRedondeo As Short, ByVal MuestraErrores As Boolean) As Boolean
         Dim ComprobanteCabecera As Comprobante
         Dim ComprobanteDetalleActual As ComprobanteDetalle
 
@@ -196,7 +199,7 @@ Module ModuloComprobantes
         If Alumno.FacturaIndividual Then
             ' El Alumno especifica que se le facture individualmente
             ComprobanteCabecera = GenerarComprobanteCabecera(FechaEmision, FechaVencimiento1, FechaVencimiento2, FechaVencimiento3, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, Alumno.FacturaLeyenda, TitularComprobanteMayusculas)
-            ComprobanteDetalleActual = GenerarComprobanteDetalle(ComprobanteCabecera, Alumno, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, MuestraErrores)
+            ComprobanteDetalleActual = GenerarComprobanteDetalle(ComprobanteCabecera, Alumno, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, DescuentoRedondeo, MuestraErrores)
             If ComprobanteDetalleActual Is Nothing Then
                 Return False
             End If
@@ -211,7 +214,7 @@ Module ModuloComprobantes
             If ComprobanteCabecera Is Nothing Then
                 ' No existe la Factura, la creo.
                 ComprobanteCabecera = GenerarComprobanteCabecera(FechaEmision, FechaVencimiento1, FechaVencimiento2, FechaVencimiento3, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, Alumno.FacturaLeyenda, TitularComprobanteMayusculas)
-                ComprobanteDetalleActual = GenerarComprobanteDetalle(ComprobanteCabecera, Alumno, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, MuestraErrores)
+                ComprobanteDetalleActual = GenerarComprobanteDetalle(ComprobanteCabecera, Alumno, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, DescuentoRedondeo, MuestraErrores)
                 If ComprobanteDetalleActual Is Nothing Then
                     Return False
                 End If
@@ -224,7 +227,7 @@ Module ModuloComprobantes
                 If dbContext.Entidad.Find(ComprobanteCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
                     ' El Alumno que ya está en la Factura especifica que se le facture individualmente
                     ComprobanteCabecera = GenerarComprobanteCabecera(FechaEmision, FechaVencimiento1, FechaVencimiento2, FechaVencimiento3, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, Alumno.FacturaLeyenda, TitularComprobanteMayusculas)
-                    ComprobanteDetalleActual = GenerarComprobanteDetalle(ComprobanteCabecera, Alumno, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, MuestraErrores)
+                    ComprobanteDetalleActual = GenerarComprobanteDetalle(ComprobanteCabecera, Alumno, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, DescuentoRedondeo, MuestraErrores)
                     If ComprobanteDetalleActual Is Nothing Then
                         Return False
                     End If
@@ -234,7 +237,7 @@ Module ModuloComprobantes
                     listComprobantes.Add(ComprobanteCabecera)
                 Else
                     ' No hay restricciones, así que sólo agrego un item al Detalle
-                    ComprobanteDetalleActual = GenerarComprobanteDetalle(ComprobanteCabecera, Alumno, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, MuestraErrores)
+                    ComprobanteDetalleActual = GenerarComprobanteDetalle(ComprobanteCabecera, Alumno, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, DescuentoRedondeo, MuestraErrores)
                     If ComprobanteDetalleActual Is Nothing Then
                         Return False
                     End If
@@ -359,7 +362,7 @@ Module ModuloComprobantes
     ''' <param name="MuestraErrores">Especifica si se va a mostrar un MessageBox cuando no se pueda crear el Detalle por algún motivo, como falta de precios</param>
     ''' <returns>El objeto ComprobanteDetalle creado o Nothing si no se pudo crear</returns>
     ''' <remarks></remarks>
-    Private Function GenerarComprobanteDetalle(ByRef ComprobanteCabecera As Comprobante, ByRef Alumno As Entidad, ByRef AnioLectivoCursoActual As AnioLectivoCurso, ByRef ArticuloActual As Articulo, ByVal AnioLectivoAFacturar As Short, ByVal MesAFacturar As Byte, ByVal MuestraErrores As Boolean) As ComprobanteDetalle
+    Private Function GenerarComprobanteDetalle(ByRef ComprobanteCabecera As Comprobante, ByRef Alumno As Entidad, ByRef AnioLectivoCursoActual As AnioLectivoCurso, ByRef ArticuloActual As Articulo, ByVal AnioLectivoAFacturar As Short, ByVal MesAFacturar As Byte, ByVal DescuentoRedondeo As Short, ByVal MuestraErrores As Boolean) As ComprobanteDetalle
         Dim ComprobanteDetalleActual As New ComprobanteDetalle
         Dim AnioLectivo As Short
         Dim AnioLectivoCuotaActual As AnioLectivoCuota
@@ -431,6 +434,9 @@ Module ModuloComprobantes
                     ' No especifica descuento
                     .PrecioUnitarioDescuentoPorcentaje = 0
                     .PrecioUnitarioDescuentoImporte = 0
+                End If
+                If DescuentoRedondeo > 0 Then
+                    .PrecioUnitarioDescuentoImporte = Math.Round(.PrecioUnitarioDescuentoImporte / DescuentoRedondeo, 0, MidpointRounding.AwayFromZero) * DescuentoRedondeo
                 End If
                 .PrecioUnitarioFinal = .PrecioUnitario - .PrecioUnitarioDescuentoImporte
                 .PrecioTotal = .PrecioUnitarioFinal

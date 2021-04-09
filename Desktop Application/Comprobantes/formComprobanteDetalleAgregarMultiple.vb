@@ -1,9 +1,11 @@
 ﻿Public Class formComprobanteDetalleAgregarMultiple
 
 #Region "Declarations"
+
     Private mComprobanteActual As Comprobante
     Private mArticuloActual As Articulo
     Private mEntidad As Entidad
+    Private mDescuentoRedondeo As Short
 
     Private mParentEditMode As Boolean = False
     Private mEditMode As Boolean = False
@@ -11,6 +13,7 @@
     Private mCambiandoDescuento As Boolean = False
 
     Private mLoading As Boolean
+
 #End Region
 
 #Region "Form stuff"
@@ -37,6 +40,8 @@
             comboboxCuotaMesDesde.Items.Add(DateAndTime.MonthName(MesNumero))
             comboboxCuotaMesHasta.Items.Add(DateAndTime.MonthName(MesNumero))
         Next
+
+        mDescuentoRedondeo = CS_Parameter_System.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_DESCUENTO_REDONDEO)
     End Sub
 
     Private Sub FormEnd(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -229,6 +234,9 @@
     Private Sub CalcularDescuento() Handles percenttextboxPrecioUnitarioDescuentoPorcentaje.DoubleValueChanged
         If Not mCambiandoDescuento Then
             currencytextboxPrecioUnitarioDescuentoImporte.DecimalValue = currencytextboxPrecioUnitario.DecimalValue * Convert.ToDecimal(percenttextboxPrecioUnitarioDescuentoPorcentaje.DoubleValue)
+            If mDescuentoRedondeo > 0 Then
+                currencytextboxPrecioUnitarioDescuentoImporte.DecimalValue = Math.Round(currencytextboxPrecioUnitarioDescuentoImporte.DecimalValue / mDescuentoRedondeo, 0, MidpointRounding.AwayFromZero) * mDescuentoRedondeo
+            End If
             PrecioUnitarioDescuentoImporte_TextChanged()
         End If
     End Sub
