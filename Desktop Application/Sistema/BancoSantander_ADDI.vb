@@ -8,7 +8,7 @@
             .InitialCatalog = pSantanderConfig.AddiDatabase
             .UserId = pSantanderConfig.UserId
             ' Desencripto la contraseña de la conexión a la base de datos que está en el archivo app.config
-            Dim PasswordDecrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PUBLIC_ENCRYPTION_PASSWORD)
+            Dim PasswordDecrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PublicEncryptionPassword)
             Dim DecrytedPassword As String = ""
             If PasswordDecrypter.Decrypt(pSantanderConfig.Password, DecrytedPassword) Then
                 .Password = DecrytedPassword

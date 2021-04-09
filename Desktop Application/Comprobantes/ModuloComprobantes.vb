@@ -32,9 +32,9 @@ Module ModuloComprobantes
             articuloDescripcion = articuloDescripcion.Replace(EtiquetaPeriodoAnio, periodoAnio)
             articuloDescripcion = articuloDescripcion.Replace(EtiquetaPeriodoMes, periodoMes)
             Select Case alumne.Genero
-                Case Constantes.ENTIDAD_GENERO_FEMENINO
+                Case Constantes.EntidadGeneroFemenino
                     articuloDescripcion = articuloDescripcion.Replace(EtiquetaLeyendaAlumneConGenero, LeyendaAlumna)
-                Case Constantes.ENTIDAD_GENERO_MASCULINO
+                Case Constantes.EntidadGeneroMasculino
                     articuloDescripcion = articuloDescripcion.Replace(EtiquetaLeyendaAlumneConGenero, LeyendaAlumno)
                 Case Else
                     articuloDescripcion = articuloDescripcion.Replace(EtiquetaLeyendaAlumneConGenero, LeyendaAlumne)
@@ -412,12 +412,25 @@ Module ModuloComprobantes
                 End If
 
                 ' Descuentos
-                If Alumno.IDDescuento Is Nothing Then
+                If Alumno.IDDescuento.HasValue Then
+                    If Alumno.IDDescuento = CardonerSistemas.Constants.FIELD_VALUE_OTHER_BYTE Then
+                        ' Descuento personalizado para la entidad
+                        If Alumno.DescuentoOtroPorcentaje.HasValue Then
+                            .PrecioUnitarioDescuentoPorcentaje = Alumno.DescuentoOtroPorcentaje.Value
+                            .PrecioUnitarioDescuentoImporte = Decimal.Round(.PrecioUnitario * .PrecioUnitarioDescuentoPorcentaje / 100, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
+                        Else
+                            .PrecioUnitarioDescuentoPorcentaje = 0
+                            .PrecioUnitarioDescuentoImporte = 0
+                        End If
+                    Else
+                        ' Descuento de la tabla de descuentos
+                        .PrecioUnitarioDescuentoPorcentaje = Alumno.Descuento.Porcentaje
+                        .PrecioUnitarioDescuentoImporte = Decimal.Round(.PrecioUnitario * .PrecioUnitarioDescuentoPorcentaje / 100, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
+                    End If
+                Else
+                    ' No especifica descuento
                     .PrecioUnitarioDescuentoPorcentaje = 0
                     .PrecioUnitarioDescuentoImporte = 0
-                Else
-                    .PrecioUnitarioDescuentoPorcentaje = Alumno.Descuento.Porcentaje
-                    .PrecioUnitarioDescuentoImporte = Decimal.Round(.PrecioUnitario * .PrecioUnitarioDescuentoPorcentaje / 100, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
                 End If
                 .PrecioUnitarioFinal = .PrecioUnitario - .PrecioUnitarioDescuentoImporte
                 .PrecioTotal = .PrecioUnitarioFinal

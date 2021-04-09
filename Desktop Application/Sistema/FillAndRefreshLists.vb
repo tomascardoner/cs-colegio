@@ -1,6 +1,7 @@
 ﻿Friend Class FillAndRefreshLists
 
-#Region "Declarations..."
+#Region "Declarations"
+
     Friend mdbContext As CSColegioContext
 
     Public Sub New()
@@ -201,36 +202,41 @@
         ComboBoxControl.SelectedIndex = -1
     End Sub
 
-    Friend Sub Genero(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
+    Friend Sub Genero(ByRef comboBoxControl As ComboBox, ByVal mostrarItemNoEspecifica As Boolean)
         Dim datatableGeneros As New DataTable("Generos")
         Dim datarowRow As DataRow
 
-        ComboBoxControl.ValueMember = "IDGenero"
-        ComboBoxControl.DisplayMember = "Nombre"
+        comboBoxControl.ValueMember = "IDGenero"
+        comboBoxControl.DisplayMember = "Nombre"
 
         With datatableGeneros
             .Columns.Add("IDGenero", System.Type.GetType("System.String"))
             .Columns.Add("Nombre", System.Type.GetType("System.String"))
 
-            If ShowUnspecifiedItem Then
+            If mostrarItemNoEspecifica Then
                 datarowRow = .NewRow
-                datarowRow("IDGenero") = Constantes.ENTIDAD_GENERO_NOESPECIFICA
+                datarowRow("IDGenero") = Constantes.EntidadGeneroNoEspecifica
                 datarowRow("Nombre") = My.Resources.STRING_ITEM_NOT_SPECIFIED
                 .Rows.Add(datarowRow)
             End If
 
             datarowRow = .NewRow
-            datarowRow("IDGenero") = Constantes.ENTIDAD_GENERO_MASCULINO
+            datarowRow("IDGenero") = Constantes.EntidadGeneroMasculino
             datarowRow("Nombre") = My.Resources.STRING_GENERO_MASCULINO
             .Rows.Add(datarowRow)
 
             datarowRow = .NewRow
-            datarowRow("IDGenero") = Constantes.ENTIDAD_GENERO_FEMENINO
+            datarowRow("IDGenero") = Constantes.EntidadGeneroFemenino
             datarowRow("Nombre") = My.Resources.STRING_GENERO_FEMENINO
+            .Rows.Add(datarowRow)
+
+            datarowRow = .NewRow
+            datarowRow("IDGenero") = Constantes.EntidadGeneroEmpresa
+            datarowRow("Nombre") = My.Resources.STRING_GENERO_EMPRESA
             .Rows.Add(datarowRow)
         End With
 
-        ComboBoxControl.DataSource = datatableGeneros
+        comboBoxControl.DataSource = datatableGeneros
     End Sub
 
     Friend Sub Entidad_ComprobanteEnviarEmail(ByRef ComboBoxControl As ComboBox)

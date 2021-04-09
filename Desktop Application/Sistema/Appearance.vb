@@ -6,9 +6,9 @@
         pFormMDIMain.menuitemDebug.Visible = (pUsuario.IDUsuario = 1)
 
         Select Case pUsuario.Genero
-            Case Constantes.ENTIDAD_GENERO_MASCULINO
+            Case Constantes.EntidadGeneroMasculino
                 pFormMDIMain.labelUsuarioNombre.Image = My.Resources.Resources.IMAGE_USUARIO_HOMBRE_16
-            Case Constantes.ENTIDAD_GENERO_FEMENINO
+            Case Constantes.EntidadGeneroFemenino
                 pFormMDIMain.labelUsuarioNombre.Image = My.Resources.Resources.IMAGE_USUARIO_MUJER_16
             Case Else
                 pFormMDIMain.labelUsuarioNombre.Image = Nothing

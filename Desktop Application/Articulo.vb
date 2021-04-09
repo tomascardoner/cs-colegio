@@ -14,6 +14,7 @@ Partial Public Class Articulo
     Public Property IDArticulo As Short
     Public Property Nombre As String
     Public Property Descripcion As String
+    Public Property DescripcionCorta As String
     Public Property IDArticuloGrupo As Byte
     Public Property EsActivo As Boolean
     Public Property IDUsuarioCreacion As Short

@@ -15,9 +15,10 @@
     '//////////////////
     '    ENTIDADES
     '//////////////////
-    Friend Const ENTIDAD_GENERO_NOESPECIFICA As String = "-"
-    Friend Const ENTIDAD_GENERO_MASCULINO As String = "M"
-    Friend Const ENTIDAD_GENERO_FEMENINO As String = "F"
+    Friend Const EntidadGeneroNoEspecifica As String = "-"
+    Friend Const EntidadGeneroMasculino As String = "M"
+    Friend Const EntidadGeneroFemenino As String = "F"
+    Friend Const EntidadGeneroEmpresa As String = "E"
 
     Friend Const ENTIDAD_EMITIRFACTURAA_NOESPECIFICA As String = "-"
     Friend Const ENTIDAD_EMITIRFACTURAA_PADRE As String = "P"

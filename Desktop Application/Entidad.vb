@@ -23,11 +23,11 @@ Partial Public Class Entidad
     Public Property TipoOtro As Boolean
     Public Property IDDocumentoTipo As Nullable(Of Byte)
     Public Property DocumentoNumero As String
-    Public Property FacturaIDDocumentoTipo As Nullable(Of Byte)
-    Public Property FacturaDocumentoNumero As String
     Public Property Genero As String
     Public Property FechaNacimiento As Nullable(Of Date)
     Public Property IDCategoriaIVA As Nullable(Of Byte)
+    Public Property FacturaIDDocumentoTipo As Nullable(Of Byte)
+    Public Property FacturaDocumentoNumero As String
     Public Property Telefono1 As String
     Public Property Telefono2 As String
     Public Property Telefono3 As String
@@ -50,13 +50,14 @@ Partial Public Class Entidad
     Public Property EmitirFacturaA As String
     Public Property IDEntidadTercero As Nullable(Of Integer)
     Public Property IDDescuento As Nullable(Of Byte)
+    Public Property DescuentoOtroPorcentaje As Nullable(Of Decimal)
     Public Property FacturaIndividual As Boolean
     Public Property ExcluyeCalculoInteres As Boolean
     Public Property ExcluyeFacturaDesde As Nullable(Of Date)
     Public Property ExcluyeFacturaHasta As Nullable(Of Date)
     Public Property FacturaLeyenda As String
     Public Property DebitoAutomaticoTipo As String
-    Public Property DebitoAutomatico_Directo_CBU As String
+    Public Property DebitoAutomaticoDirectoCBU As String
     Public Property EsActivo As Boolean
     Public Property Notas As String
     Public Property IDOtroSistema As Nullable(Of Integer)

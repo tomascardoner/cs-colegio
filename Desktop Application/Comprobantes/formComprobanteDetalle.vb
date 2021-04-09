@@ -354,11 +354,22 @@
         If Not mLoading Then
             If comboboxAlumno.SelectedIndex > -1 Then
                 mEntidad = CType(comboboxAlumno.SelectedItem, Entidad)
-                If mEntidad.IDDescuento Is Nothing Then
-                    percenttextboxPrecioUnitarioDescuentoPorcentaje.DoubleValue = 0
-                    'textboxPrecioUnitarioDescuentoImporte.Text = "0"
+                If mEntidad.IDDescuento.HasValue Then
+                    ' Especifica descuento
+                    If mEntidad.IDDescuento.Value = CardonerSistemas.Constants.FIELD_VALUE_OTHER_BYTE Then
+                        ' Descuento personalizado para la entidad
+                        If mEntidad.DescuentoOtroPorcentaje.HasValue Then
+                            percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentValue = mEntidad.DescuentoOtroPorcentaje.Value
+                        Else
+                            percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentValue = 0
+                        End If
+                    Else
+                        ' Descuento de la tabla de descuentos
+                        percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentValue = mEntidad.Descuento.Porcentaje
+                    End If
                 Else
-                    percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentValue = mEntidad.Descuento.Porcentaje
+                    ' No especifica descuento
+                    percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentValue = 0
                 End If
             End If
             EstablecerAnioLectivoCurso()

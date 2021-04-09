@@ -127,7 +127,7 @@
         radiobuttonDebitoAutomatico_Tipo_Ninguno.Enabled = mEditMode
         radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Enabled = mEditMode
         radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.Enabled = mEditMode
-        maskedtextboxDebitoAutomatico_CBU.ReadOnly = (mEditMode = False)
+        maskedtextboxDebitoAutomaticoCBU.ReadOnly = (mEditMode = False)
 
         ' Notas y Auditoría
         textboxNotas.ReadOnly = (mEditMode = False)
@@ -211,7 +211,7 @@
             Else
                 textboxFacturaDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.FacturaDocumentoNumero)
             End If
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxGenero, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirst, .Genero, Constantes.ENTIDAD_GENERO_NOESPECIFICA)
+            CardonerSistemas.ComboBox.SetSelectedValue(comboboxGenero, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirst, .Genero, Constantes.EntidadGeneroNoEspecifica)
             datetimepickerFechaNacimiento.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaNacimiento, datetimepickerFechaNacimiento)
             CardonerSistemas.ComboBox.SetSelectedValue(comboboxCategoriaIVA, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirst, .IDCategoriaIVA, 0)
 
@@ -263,6 +263,11 @@
                 End If
             End If
             CardonerSistemas.ComboBox.SetSelectedValue(comboboxDescuento, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirst, .IDDescuento, 0)
+            If .IDDescuento = CardonerSistemas.Constants.FIELD_VALUE_OTHER_BYTE Then
+                CS_ValueTranslation.FromValueDecimalToControlPercentTextBox(.DescuentoOtroPorcentaje, percenttextboxDescuentoOtroPorcentaje)
+            Else
+                percenttextboxDescuentoOtroPorcentaje.PercentValue = 0
+            End If
             checkboxFacturaIndividual.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.FacturaIndividual)
             checkboxExcluyeCalculoInteres.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.ExcluyeCalculoInteres)
             datetimepickerExcluyeFacturaDesde.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.ExcluyeFacturaDesde, datetimepickerExcluyeFacturaDesde)
@@ -273,13 +278,13 @@
             Select Case .DebitoAutomaticoTipo
                 Case Nothing
                     radiobuttonDebitoAutomatico_Tipo_Ninguno.Checked = True
-                    maskedtextboxDebitoAutomatico_CBU.Text = ""
+                    maskedtextboxDebitoAutomaticoCBU.Text = ""
                 Case Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO
                     radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Checked = True
-                    maskedtextboxDebitoAutomatico_CBU.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DebitoAutomatico_Directo_CBU)
+                    maskedtextboxDebitoAutomaticoCBU.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DebitoAutomaticoDirectoCBU)
                 Case Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_TARJETACREDITO
                     radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.Checked = True
-                    maskedtextboxDebitoAutomatico_CBU.Text = ""
+                    maskedtextboxDebitoAutomaticoCBU.Text = ""
             End Select
 
             ' Datos de la pestaña Cursos Asistidos
@@ -338,7 +343,7 @@
             Else
                 .FacturaDocumentoNumero = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxFacturaDocumentoNumero.Text)
             End If
-            .Genero = CS_ValueTranslation.FromControlComboBoxToObjectString(comboboxGenero.SelectedValue, Constantes.ENTIDAD_GENERO_NOESPECIFICA)
+            .Genero = CS_ValueTranslation.FromControlComboBoxToObjectString(comboboxGenero.SelectedValue, Constantes.EntidadGeneroNoEspecifica)
             .FechaNacimiento = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFechaNacimiento.Value, datetimepickerFechaNacimiento.Checked)
             .IDCategoriaIVA = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxCategoriaIVA.SelectedValue, 0)
 
@@ -371,6 +376,11 @@
                 .IDEntidadTercero = Nothing
             End If
             .IDDescuento = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxDescuento.SelectedValue, 0)
+            If comboboxDescuento.SelectedIndex > -1 AndAlso CByte(comboboxDescuento.SelectedValue) = CardonerSistemas.Constants.FIELD_VALUE_OTHER_BYTE Then
+                .DescuentoOtroPorcentaje = CS_ValueTranslation.FromControlPercentTextBoxToObjectDecimal(percenttextboxDescuentoOtroPorcentaje)
+            Else
+                .DescuentoOtroPorcentaje = Nothing
+            End If
             .FacturaIndividual = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxFacturaIndividual.CheckState)
             .ExcluyeCalculoInteres = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxExcluyeCalculoInteres.CheckState)
             .ExcluyeFacturaDesde = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerExcluyeFacturaDesde.Value, datetimepickerExcluyeFacturaDesde.Checked)
@@ -380,13 +390,13 @@
             ' Datos de la pestaña Débito Automático
             If radiobuttonDebitoAutomatico_Tipo_Ninguno.Checked Then
                 .DebitoAutomaticoTipo = Nothing
-                .DebitoAutomatico_Directo_CBU = Nothing
+                .DebitoAutomaticoDirectoCBU = Nothing
             ElseIf radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Checked Then
                 .DebitoAutomaticoTipo = Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO
-                .DebitoAutomatico_Directo_CBU = CS_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxDebitoAutomatico_CBU.Text)
+                .DebitoAutomaticoDirectoCBU = CS_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxDebitoAutomaticoCBU.Text)
             ElseIf radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.Checked Then
                 .DebitoAutomaticoTipo = Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_TARJETACREDITO
-                .DebitoAutomatico_Directo_CBU = Nothing
+                .DebitoAutomaticoDirectoCBU = Nothing
             End If
 
             ' Datos de la pestaña Notas y Aditoría
@@ -466,7 +476,7 @@
         CType(sender, TextBox).SelectAll()
     End Sub
 
-    Private Sub MaskedTextBoxs_GotFocus(sender As Object, e As EventArgs) Handles maskedtextboxDocumentoNumero.GotFocus, maskedtextboxFacturaDocumentoNumero.GotFocus, maskedtextboxDebitoAutomatico_CBU.GotFocus
+    Private Sub MaskedTextBoxs_GotFocus(sender As Object, e As EventArgs) Handles maskedtextboxDocumentoNumero.GotFocus, maskedtextboxFacturaDocumentoNumero.GotFocus, maskedtextboxDebitoAutomaticoCBU.GotFocus
         CType(sender, MaskedTextBox).SelectAll()
     End Sub
 
@@ -575,9 +585,17 @@
         textboxEntidadTercero.Tag = Nothing
     End Sub
 
+    Private Sub comboboxDescuento_SelectedIndexChanged(sender As Object, e As EventArgs) Handles comboboxDescuento.SelectedIndexChanged
+        If comboboxDescuento.SelectedIndex > -1 AndAlso CByte(comboboxDescuento.SelectedValue) = CardonerSistemas.Constants.FIELD_VALUE_OTHER_BYTE Then
+            percenttextboxDescuentoOtroPorcentaje.Visible = True
+        Else
+            percenttextboxDescuentoOtroPorcentaje.Visible = False
+        End If
+    End Sub
+
     Private Sub DebitoAutomaticoTipo_CheckedChanged(sender As Object, e As EventArgs) Handles radiobuttonDebitoAutomatico_Tipo_Ninguno.CheckedChanged, radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.CheckedChanged, radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.CheckedChanged
-        labelDebitoAutomatico_CBU.visible = (CType(sender, RadioButton) Is radiobuttonDebitoAutomatico_Tipo_DebitoDirecto)
-        maskedtextboxDebitoAutomatico_CBU.Visible = (CType(sender, RadioButton) Is radiobuttonDebitoAutomatico_Tipo_DebitoDirecto)
+        labelDebitoAutomaticoCBU.visible = (CType(sender, RadioButton) Is radiobuttonDebitoAutomatico_Tipo_DebitoDirecto)
+        maskedtextboxDebitoAutomaticoCBU.Visible = (CType(sender, RadioButton) Is radiobuttonDebitoAutomatico_Tipo_DebitoDirecto)
     End Sub
 
 #End Region
@@ -788,33 +806,33 @@
 
         ' Débito Directo
         If radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Checked Then
-            If maskedtextboxDebitoAutomatico_CBU.Text = "" Then
+            If maskedtextboxDebitoAutomaticoCBU.Text = "" Then
                 tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
                 MsgBox("Debe especificar el CBU en el cual realizar el Débito Directo.", MsgBoxStyle.Information, My.Application.Info.Title)
-                maskedtextboxDebitoAutomatico_CBU.Focus()
+                maskedtextboxDebitoAutomaticoCBU.Focus()
                 Exit Sub
             End If
-            If maskedtextboxDebitoAutomatico_CBU.Text.Length < 22 Then
+            If maskedtextboxDebitoAutomaticoCBU.Text.Length < 22 Then
                 tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
                 MsgBox("Debe completar todos los dígitos del CBU en el cual realizar el Débito Directo.", MsgBoxStyle.Information, My.Application.Info.Title)
-                maskedtextboxDebitoAutomatico_CBU.Focus()
+                maskedtextboxDebitoAutomaticoCBU.Focus()
                 Exit Sub
             End If
-            Select Case CS_Bank.VerificarCBU(maskedtextboxDebitoAutomatico_CBU.Text)
+            Select Case CS_Bank.VerificarCBU(maskedtextboxDebitoAutomaticoCBU.Text)
                 Case 0
                     tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
                     MsgBox("El CBU ingresado es incorrecto.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    maskedtextboxDebitoAutomatico_CBU.Focus()
+                    maskedtextboxDebitoAutomaticoCBU.Focus()
                     Exit Sub
                 Case 1
                     tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
                     MsgBox("El CBU ingresado tiene un error en el 1er. bloque.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    maskedtextboxDebitoAutomatico_CBU.Focus()
+                    maskedtextboxDebitoAutomaticoCBU.Focus()
                     Exit Sub
                 Case 2
                     tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
                     MsgBox("El CBU ingresado tiene un error en el 2do. bloque.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    maskedtextboxDebitoAutomatico_CBU.Focus()
+                    maskedtextboxDebitoAutomaticoCBU.Focus()
                     Exit Sub
             End Select
         End If
@@ -903,9 +921,9 @@
 
                     If mEntidadActual.DebitoAutomaticoTipo = Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO Then
                         ' Verifico si el CBU es diferente
-                        If CBU <> mEntidadActual.DebitoAutomatico_Directo_CBU Then
+                        If CBU <> mEntidadActual.DebitoAutomaticoDirectoCBU Then
                             ' El CBU de la Adhesión es diferente, lo actualizo
-                            BancoSantander_ADDI.Adhesion_AltaModificacion(sqlconn, AdhesionId, mEntidadActual.IDEntidad, mEntidadActual.DebitoAutomatico_Directo_CBU, Status)
+                            BancoSantander_ADDI.Adhesion_AltaModificacion(sqlconn, AdhesionId, mEntidadActual.IDEntidad, mEntidadActual.DebitoAutomaticoDirectoCBU, Status)
                         End If
                     Else
                         ' Dar de baja la Adhesión porque se quitó la opción de Débito Directo en la Entidad
@@ -913,7 +931,7 @@
                     End If
                 ElseIf mEntidadActual.DebitoAutomaticoTipo = Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO Then
                     ' No existe la Adhesión, la creo
-                    BancoSantander_ADDI.Adhesion_AltaModificacion(sqlconn, 0, mEntidadActual.IDEntidad, mEntidadActual.DebitoAutomatico_Directo_CBU, " ")
+                    BancoSantander_ADDI.Adhesion_AltaModificacion(sqlconn, 0, mEntidadActual.IDEntidad, mEntidadActual.DebitoAutomaticoDirectoCBU, " ")
                 End If
 
                 sqldatrdr.Close()

@@ -101,7 +101,7 @@ Module Email
             Return False
         End Try
 
-        Dim Decrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PUBLIC_ENCRYPTION_PASSWORD)
+        Dim Decrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PublicEncryptionPassword)
         Dim DecryptedPassword As String = ""
         If Not Decrypter.Decrypt(pEmailConfig.SmtpPassword, DecryptedPassword) Then
             MsgBox("La contraseña de e-mail (SMTP) especificada es incorrecta.", MsgBoxStyle.Exclamation, My.Application.Info.Title)

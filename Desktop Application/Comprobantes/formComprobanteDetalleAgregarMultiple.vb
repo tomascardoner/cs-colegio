@@ -64,7 +64,7 @@
         comboboxCuotaMesHasta.SelectedIndex = -1
     End Sub
 
-    Friend Sub SetDataFromControlsToObject(ByRef comprobanteDetalleActual As ComprobanteDetalle, ByVal cuotaMes As Byte, ByVal anioLectivo As String, ByVal nivel As String, ByVal anio As String, ByVal turno As String)
+    Friend Sub SetDataFromControlsToObject(ByRef comprobanteDetalleActual As ComprobanteDetalle, ByVal cuotaMes As Byte, ByVal anioLectivo As String, ByVal nivel As String, ByVal anio As String, ByVal turno As String, ByVal usarDescripcionCorta As Boolean)
         With comprobanteDetalleActual
             .IDArticulo = mArticuloActual.IDArticulo
             .Cantidad = 1
@@ -73,7 +73,11 @@
             .IDEntidad = CS_ValueTranslation.FromControlComboBoxToObjectInteger(comboboxAlumno.SelectedValue)
             .IDAnioLectivoCurso = CS_ValueTranslation.FromControlComboBoxToObjectShort(comboboxAnioLectivoCurso.SelectedValue)
 
-            .Descripcion = ModuloComprobantes.GenerarDescripcionConEtiquetas(mArticuloActual.Descripcion, mArticuloActual.Nombre, anioLectivo, DateAndTime.MonthName(cuotaMes), mEntidad, nivel, anio, turno)
+            If usarDescripcionCorta Then
+                .Descripcion = ModuloComprobantes.GenerarDescripcionConEtiquetas(mArticuloActual.DescripcionCorta, mArticuloActual.Nombre, anioLectivo, DateAndTime.MonthName(cuotaMes), mEntidad, nivel, anio, turno)
+            Else
+                .Descripcion = ModuloComprobantes.GenerarDescripcionConEtiquetas(mArticuloActual.Descripcion, mArticuloActual.Nombre, anioLectivo, DateAndTime.MonthName(cuotaMes), mEntidad, nivel, anio, turno)
+            End If
 
             .CuotaMes = CByte(IIf(comboboxCuotaMesDesde.SelectedIndex = -1, Nothing, comboboxCuotaMesDesde.SelectedIndex + 1))
 
@@ -153,6 +157,7 @@
 #End Region
 
 #Region "Controls behavior"
+
     Private Sub FormKeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
         Select Case e.KeyChar
             Case Microsoft.VisualBasic.ChrW(Keys.Return)
@@ -166,11 +171,22 @@
         If Not mLoading Then
             If comboboxAlumno.SelectedIndex > -1 Then
                 mEntidad = CType(comboboxAlumno.SelectedItem, Entidad)
-                If mEntidad.IDDescuento Is Nothing Then
-                    percenttextboxPrecioUnitarioDescuentoPorcentaje.DoubleValue = 0
-                    'textboxPrecioUnitarioDescuentoImporte.Text = "0"
+                If mEntidad.IDDescuento.HasValue Then
+                    ' Especifica descuento
+                    If mEntidad.IDDescuento.Value = CardonerSistemas.Constants.FIELD_VALUE_OTHER_BYTE Then
+                        ' Descuento personalizado para la entidad
+                        If mEntidad.DescuentoOtroPorcentaje.HasValue Then
+                            percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentValue = mEntidad.DescuentoOtroPorcentaje.Value
+                        Else
+                            percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentValue = 0
+                        End If
+                    Else
+                        ' Descuento de la tabla de descuentos
+                        percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentValue = mEntidad.Descuento.Porcentaje
+                    End If
                 Else
-                    percenttextboxPrecioUnitarioDescuentoPorcentaje.DoubleValue = mEntidad.Descuento.Porcentaje / 100
+                    ' No especifica descuento
+                    percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentValue = 0
                 End If
             End If
             EstablecerAnioLectivoCurso()
@@ -301,7 +317,12 @@
             mComprobanteActual.ComprobanteDetalle.Add(ComprobanteDetalleActual)
 
             ' Paso los datos desde los controles al Objecto de EF
-            SetDataFromControlsToObject(ComprobanteDetalleActual, CByte(Indice), anioLectivo, nivel, anio, turno)
+            If (comboboxCuotaMesHasta.SelectedIndex - comboboxCuotaMesDesde.SelectedIndex + 1) > 3 AndAlso (Indice - comboboxCuotaMesDesde.SelectedIndex) > 1 Then
+                ' Son más de 3 items iguales, así que a los ítems siguientes al primero, se les aplica la descripción corta
+                SetDataFromControlsToObject(ComprobanteDetalleActual, CByte(Indice), anioLectivo, nivel, anio, turno, True)
+            Else
+                SetDataFromControlsToObject(ComprobanteDetalleActual, CByte(Indice), anioLectivo, nivel, anio, turno, False)
+            End If
         Next Indice
 
         ' Refresco la lista para mostrar los cambios

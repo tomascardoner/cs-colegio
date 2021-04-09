@@ -131,6 +131,7 @@ Partial Class formEntidad
         Me.textboxTelefono2 = New System.Windows.Forms.TextBox()
         Me.textboxTelefono3 = New System.Windows.Forms.TextBox()
         Me.tabpagePadresYFacturacion = New System.Windows.Forms.TabPage()
+        Me.percenttextboxDescuentoOtroPorcentaje = New Syncfusion.Windows.Forms.Tools.PercentTextBox()
         Me.textboxFacturaLeyenda = New System.Windows.Forms.TextBox()
         Me.checkboxFacturaIndividual = New System.Windows.Forms.CheckBox()
         Me.checkboxExcluyeCalculoInteres = New System.Windows.Forms.CheckBox()
@@ -155,11 +156,11 @@ Partial Class formEntidad
         Me.textboxEntidadPadre = New System.Windows.Forms.TextBox()
         Me.labelEntidadPadre = New System.Windows.Forms.Label()
         Me.tabpageDebitoAutomatico = New System.Windows.Forms.TabPage()
-        Me.labelDebitoAutomatico_CBU = New System.Windows.Forms.Label()
+        Me.labelDebitoAutomaticoCBU = New System.Windows.Forms.Label()
         Me.radiobuttonDebitoAutomatico_Tipo_Ninguno = New System.Windows.Forms.RadioButton()
         Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto = New System.Windows.Forms.RadioButton()
         Me.radiobuttonDebitoAutomatico_Tipo_TarjetaCredito = New System.Windows.Forms.RadioButton()
-        Me.maskedtextboxDebitoAutomatico_CBU = New System.Windows.Forms.MaskedTextBox()
+        Me.maskedtextboxDebitoAutomaticoCBU = New System.Windows.Forms.MaskedTextBox()
         Me.tabpageCursosAsistidos = New System.Windows.Forms.TabPage()
         Me.datagridviewCursosAsistidos = New System.Windows.Forms.DataGridView()
         Me.columnAnioLectivo = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -234,6 +235,7 @@ Partial Class formEntidad
         Me.tabpageGeneral.SuspendLayout()
         Me.tabpageContacto.SuspendLayout()
         Me.tabpagePadresYFacturacion.SuspendLayout()
+        CType(Me.percenttextboxDescuentoOtroPorcentaje, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelEntidadTercero.SuspendLayout()
         Me.panelEntidadMadre.SuspendLayout()
         Me.panelEntidadPadre.SuspendLayout()
@@ -482,7 +484,7 @@ Partial Class formEntidad
         labelFacturaLeyenda.Location = New System.Drawing.Point(6, 198)
         labelFacturaLeyenda.Name = "labelFacturaLeyenda"
         labelFacturaLeyenda.Size = New System.Drawing.Size(90, 13)
-        labelFacturaLeyenda.TabIndex = 18
+        labelFacturaLeyenda.TabIndex = 19
         labelFacturaLeyenda.Text = "Leyenda Factura:"
         '
         'labelVarios
@@ -491,7 +493,7 @@ Partial Class formEntidad
         labelVarios.Location = New System.Drawing.Point(6, 148)
         labelVarios.Name = "labelVarios"
         labelVarios.Size = New System.Drawing.Size(39, 13)
-        labelVarios.TabIndex = 9
+        labelVarios.TabIndex = 10
         labelVarios.Text = "Varios:"
         '
         'labelFacturaIndividual
@@ -500,7 +502,7 @@ Partial Class formEntidad
         labelFacturaIndividual.Location = New System.Drawing.Point(128, 148)
         labelFacturaIndividual.Name = "labelFacturaIndividual"
         labelFacturaIndividual.Size = New System.Drawing.Size(115, 13)
-        labelFacturaIndividual.TabIndex = 11
+        labelFacturaIndividual.TabIndex = 12
         labelFacturaIndividual.Text = "Emitir factura individual"
         '
         'labelExcluyeCalculoInteres
@@ -509,7 +511,7 @@ Partial Class formEntidad
         labelExcluyeCalculoInteres.Location = New System.Drawing.Point(305, 148)
         labelExcluyeCalculoInteres.Name = "labelExcluyeCalculoInteres"
         labelExcluyeCalculoInteres.Size = New System.Drawing.Size(152, 13)
-        labelExcluyeCalculoInteres.TabIndex = 13
+        labelExcluyeCalculoInteres.TabIndex = 14
         labelExcluyeCalculoInteres.Text = "Excluir del cálculo de intereses"
         '
         'labelExcluyeFacturaHasta
@@ -518,7 +520,7 @@ Partial Class formEntidad
         labelExcluyeFacturaHasta.Location = New System.Drawing.Point(261, 172)
         labelExcluyeFacturaHasta.Name = "labelExcluyeFacturaHasta"
         labelExcluyeFacturaHasta.Size = New System.Drawing.Size(36, 13)
-        labelExcluyeFacturaHasta.TabIndex = 16
+        labelExcluyeFacturaHasta.TabIndex = 17
         labelExcluyeFacturaHasta.Text = "hasta:"
         '
         'labelExcluyeFacturaDesde
@@ -527,7 +529,7 @@ Partial Class formEntidad
         labelExcluyeFacturaDesde.Location = New System.Drawing.Point(6, 174)
         labelExcluyeFacturaDesde.Name = "labelExcluyeFacturaDesde"
         labelExcluyeFacturaDesde.Size = New System.Drawing.Size(95, 13)
-        labelExcluyeFacturaDesde.TabIndex = 14
+        labelExcluyeFacturaDesde.TabIndex = 15
         labelExcluyeFacturaDesde.Text = "No facturar desde:"
         '
         'labelDescuento
@@ -1125,6 +1127,7 @@ Partial Class formEntidad
         '
         'tabpagePadresYFacturacion
         '
+        Me.tabpagePadresYFacturacion.Controls.Add(Me.percenttextboxDescuentoOtroPorcentaje)
         Me.tabpagePadresYFacturacion.Controls.Add(Me.textboxFacturaLeyenda)
         Me.tabpagePadresYFacturacion.Controls.Add(labelFacturaLeyenda)
         Me.tabpagePadresYFacturacion.Controls.Add(labelVarios)
@@ -1154,6 +1157,23 @@ Partial Class formEntidad
         Me.tabpagePadresYFacturacion.Text = "Padres y Facturación"
         Me.tabpagePadresYFacturacion.UseVisualStyleBackColor = True
         '
+        'percenttextboxDescuentoOtroPorcentaje
+        '
+        Me.percenttextboxDescuentoOtroPorcentaje.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.percenttextboxDescuentoOtroPorcentaje.DoubleValue = 0R
+        Me.percenttextboxDescuentoOtroPorcentaje.Location = New System.Drawing.Point(273, 120)
+        Me.percenttextboxDescuentoOtroPorcentaje.MaxValue = 100.0R
+        Me.percenttextboxDescuentoOtroPorcentaje.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.percenttextboxDescuentoOtroPorcentaje.MinValue = 0R
+        Me.percenttextboxDescuentoOtroPorcentaje.Name = "percenttextboxDescuentoOtroPorcentaje"
+        Me.percenttextboxDescuentoOtroPorcentaje.NullString = ""
+        Me.percenttextboxDescuentoOtroPorcentaje.PercentNegativePattern = 1
+        Me.percenttextboxDescuentoOtroPorcentaje.PercentPositivePattern = 1
+        Me.percenttextboxDescuentoOtroPorcentaje.Size = New System.Drawing.Size(69, 20)
+        Me.percenttextboxDescuentoOtroPorcentaje.TabIndex = 9
+        Me.percenttextboxDescuentoOtroPorcentaje.Text = "0,00%"
+        Me.percenttextboxDescuentoOtroPorcentaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
         'textboxFacturaLeyenda
         '
         Me.textboxFacturaLeyenda.Location = New System.Drawing.Point(107, 195)
@@ -1161,8 +1181,8 @@ Partial Class formEntidad
         Me.textboxFacturaLeyenda.Multiline = True
         Me.textboxFacturaLeyenda.Name = "textboxFacturaLeyenda"
         Me.textboxFacturaLeyenda.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.textboxFacturaLeyenda.Size = New System.Drawing.Size(393, 43)
-        Me.textboxFacturaLeyenda.TabIndex = 19
+        Me.textboxFacturaLeyenda.Size = New System.Drawing.Size(393, 63)
+        Me.textboxFacturaLeyenda.TabIndex = 20
         '
         'checkboxFacturaIndividual
         '
@@ -1170,7 +1190,7 @@ Partial Class formEntidad
         Me.checkboxFacturaIndividual.Location = New System.Drawing.Point(107, 147)
         Me.checkboxFacturaIndividual.Name = "checkboxFacturaIndividual"
         Me.checkboxFacturaIndividual.Size = New System.Drawing.Size(15, 14)
-        Me.checkboxFacturaIndividual.TabIndex = 10
+        Me.checkboxFacturaIndividual.TabIndex = 11
         Me.checkboxFacturaIndividual.UseVisualStyleBackColor = True
         '
         'checkboxExcluyeCalculoInteres
@@ -1179,7 +1199,7 @@ Partial Class formEntidad
         Me.checkboxExcluyeCalculoInteres.Location = New System.Drawing.Point(284, 148)
         Me.checkboxExcluyeCalculoInteres.Name = "checkboxExcluyeCalculoInteres"
         Me.checkboxExcluyeCalculoInteres.Size = New System.Drawing.Size(15, 14)
-        Me.checkboxExcluyeCalculoInteres.TabIndex = 12
+        Me.checkboxExcluyeCalculoInteres.TabIndex = 13
         Me.checkboxExcluyeCalculoInteres.UseVisualStyleBackColor = True
         '
         'panelEntidadTercero
@@ -1244,7 +1264,7 @@ Partial Class formEntidad
         Me.datetimepickerExcluyeFacturaHasta.Name = "datetimepickerExcluyeFacturaHasta"
         Me.datetimepickerExcluyeFacturaHasta.ShowCheckBox = True
         Me.datetimepickerExcluyeFacturaHasta.Size = New System.Drawing.Size(148, 20)
-        Me.datetimepickerExcluyeFacturaHasta.TabIndex = 17
+        Me.datetimepickerExcluyeFacturaHasta.TabIndex = 18
         '
         'datetimepickerExcluyeFacturaDesde
         '
@@ -1255,7 +1275,7 @@ Partial Class formEntidad
         Me.datetimepickerExcluyeFacturaDesde.Name = "datetimepickerExcluyeFacturaDesde"
         Me.datetimepickerExcluyeFacturaDesde.ShowCheckBox = True
         Me.datetimepickerExcluyeFacturaDesde.Size = New System.Drawing.Size(148, 20)
-        Me.datetimepickerExcluyeFacturaDesde.TabIndex = 15
+        Me.datetimepickerExcluyeFacturaDesde.TabIndex = 16
         '
         'comboboxDescuento
         '
@@ -1392,12 +1412,12 @@ Partial Class formEntidad
         '
         'tabpageDebitoAutomatico
         '
-        Me.tabpageDebitoAutomatico.Controls.Add(Me.labelDebitoAutomatico_CBU)
+        Me.tabpageDebitoAutomatico.Controls.Add(Me.labelDebitoAutomaticoCBU)
         Me.tabpageDebitoAutomatico.Controls.Add(labelDebitoAutomatico_Tipo)
         Me.tabpageDebitoAutomatico.Controls.Add(Me.radiobuttonDebitoAutomatico_Tipo_Ninguno)
         Me.tabpageDebitoAutomatico.Controls.Add(Me.radiobuttonDebitoAutomatico_Tipo_DebitoDirecto)
         Me.tabpageDebitoAutomatico.Controls.Add(Me.radiobuttonDebitoAutomatico_Tipo_TarjetaCredito)
-        Me.tabpageDebitoAutomatico.Controls.Add(Me.maskedtextboxDebitoAutomatico_CBU)
+        Me.tabpageDebitoAutomatico.Controls.Add(Me.maskedtextboxDebitoAutomaticoCBU)
         Me.tabpageDebitoAutomatico.Location = New System.Drawing.Point(4, 25)
         Me.tabpageDebitoAutomatico.Margin = New System.Windows.Forms.Padding(2)
         Me.tabpageDebitoAutomatico.Name = "tabpageDebitoAutomatico"
@@ -1407,15 +1427,15 @@ Partial Class formEntidad
         Me.tabpageDebitoAutomatico.Text = "Débito Automático"
         Me.tabpageDebitoAutomatico.UseVisualStyleBackColor = True
         '
-        'labelDebitoAutomatico_CBU
+        'labelDebitoAutomaticoCBU
         '
-        Me.labelDebitoAutomatico_CBU.AutoSize = True
-        Me.labelDebitoAutomatico_CBU.Location = New System.Drawing.Point(5, 43)
-        Me.labelDebitoAutomatico_CBU.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.labelDebitoAutomatico_CBU.Name = "labelDebitoAutomatico_CBU"
-        Me.labelDebitoAutomatico_CBU.Size = New System.Drawing.Size(41, 13)
-        Me.labelDebitoAutomatico_CBU.TabIndex = 7
-        Me.labelDebitoAutomatico_CBU.Text = "C.B.U.:"
+        Me.labelDebitoAutomaticoCBU.AutoSize = True
+        Me.labelDebitoAutomaticoCBU.Location = New System.Drawing.Point(5, 43)
+        Me.labelDebitoAutomaticoCBU.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.labelDebitoAutomaticoCBU.Name = "labelDebitoAutomaticoCBU"
+        Me.labelDebitoAutomaticoCBU.Size = New System.Drawing.Size(41, 13)
+        Me.labelDebitoAutomaticoCBU.TabIndex = 7
+        Me.labelDebitoAutomaticoCBU.Text = "C.B.U.:"
         '
         'radiobuttonDebitoAutomatico_Tipo_Ninguno
         '
@@ -1456,19 +1476,19 @@ Partial Class formEntidad
         Me.radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.Text = "Tarjeta de crédito"
         Me.radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.UseVisualStyleBackColor = True
         '
-        'maskedtextboxDebitoAutomatico_CBU
+        'maskedtextboxDebitoAutomaticoCBU
         '
-        Me.maskedtextboxDebitoAutomatico_CBU.AllowPromptAsInput = False
-        Me.maskedtextboxDebitoAutomatico_CBU.AsciiOnly = True
-        Me.maskedtextboxDebitoAutomatico_CBU.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        Me.maskedtextboxDebitoAutomatico_CBU.HidePromptOnLeave = True
-        Me.maskedtextboxDebitoAutomatico_CBU.Location = New System.Drawing.Point(60, 41)
-        Me.maskedtextboxDebitoAutomatico_CBU.Margin = New System.Windows.Forms.Padding(2)
-        Me.maskedtextboxDebitoAutomatico_CBU.Mask = "0000000-0 0000000000000-0"
-        Me.maskedtextboxDebitoAutomatico_CBU.Name = "maskedtextboxDebitoAutomatico_CBU"
-        Me.maskedtextboxDebitoAutomatico_CBU.Size = New System.Drawing.Size(153, 20)
-        Me.maskedtextboxDebitoAutomatico_CBU.TabIndex = 6
-        Me.maskedtextboxDebitoAutomatico_CBU.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
+        Me.maskedtextboxDebitoAutomaticoCBU.AllowPromptAsInput = False
+        Me.maskedtextboxDebitoAutomaticoCBU.AsciiOnly = True
+        Me.maskedtextboxDebitoAutomaticoCBU.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
+        Me.maskedtextboxDebitoAutomaticoCBU.HidePromptOnLeave = True
+        Me.maskedtextboxDebitoAutomaticoCBU.Location = New System.Drawing.Point(60, 41)
+        Me.maskedtextboxDebitoAutomaticoCBU.Margin = New System.Windows.Forms.Padding(2)
+        Me.maskedtextboxDebitoAutomaticoCBU.Mask = "0000000-0 0000000000000-0"
+        Me.maskedtextboxDebitoAutomaticoCBU.Name = "maskedtextboxDebitoAutomaticoCBU"
+        Me.maskedtextboxDebitoAutomaticoCBU.Size = New System.Drawing.Size(153, 20)
+        Me.maskedtextboxDebitoAutomaticoCBU.TabIndex = 6
+        Me.maskedtextboxDebitoAutomaticoCBU.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'tabpageCursosAsistidos
         '
@@ -1892,6 +1912,7 @@ Partial Class formEntidad
         Me.tabpageContacto.PerformLayout()
         Me.tabpagePadresYFacturacion.ResumeLayout(False)
         Me.tabpagePadresYFacturacion.PerformLayout()
+        CType(Me.percenttextboxDescuentoOtroPorcentaje, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panelEntidadTercero.ResumeLayout(False)
         Me.panelEntidadTercero.PerformLayout()
         Me.panelEntidadMadre.ResumeLayout(False)
@@ -2021,11 +2042,12 @@ Partial Class formEntidad
     Friend WithEvents radiobuttonDebitoAutomatico_Tipo_DebitoDirecto As System.Windows.Forms.RadioButton
     Friend WithEvents radiobuttonDebitoAutomatico_Tipo_Ninguno As System.Windows.Forms.RadioButton
     Friend WithEvents radiobuttonDebitoAutomatico_Tipo_TarjetaCredito As System.Windows.Forms.RadioButton
-    Friend WithEvents maskedtextboxDebitoAutomatico_CBU As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents maskedtextboxDebitoAutomaticoCBU As System.Windows.Forms.MaskedTextBox
     Friend WithEvents checkboxVerificarEmail2 As System.Windows.Forms.CheckBox
     Friend WithEvents checkboxVerificarEmail1 As System.Windows.Forms.CheckBox
     Friend WithEvents labelTipoOtro As System.Windows.Forms.Label
     Friend WithEvents checkboxTipoOtro As System.Windows.Forms.CheckBox
-    Friend WithEvents labelDebitoAutomatico_CBU As System.Windows.Forms.Label
+    Friend WithEvents labelDebitoAutomaticoCBU As System.Windows.Forms.Label
     Friend WithEvents textboxIDOtroSistema As TextBox
+    Friend WithEvents percenttextboxDescuentoOtroPorcentaje As Syncfusion.Windows.Forms.Tools.PercentTextBox
 End Class

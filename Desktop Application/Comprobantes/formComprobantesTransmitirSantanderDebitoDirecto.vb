@@ -174,7 +174,7 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
                     DetalleTextStream &= "11"                                                               ' Tipo de Registro
                     DetalleTextStream &= CS_Parameter_System.GetString(Parametros.BANCOSANTANDER_ADDI_CODIGOSERVICIO).PadRight(10, " "c)  ' Código de Servicio
                     DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString("000000").PadRight(22, " "c)          ' Número de Partida
-                    DetalleTextStream &= ComprobanteActual.Entidad.DebitoAutomatico_Directo_CBU             ' CBU
+                    DetalleTextStream &= ComprobanteActual.Entidad.DebitoAutomaticoDirectoCBU             ' CBU
                     If datetimepickkerFechaVencimiento.Checked Then
                         DetalleTextStream &= datetimepickkerFechaVencimiento.Value.ToString("yyyyMMdd")     ' Fecha 1er. vencimiento
                     Else

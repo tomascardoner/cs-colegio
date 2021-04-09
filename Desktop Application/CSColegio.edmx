@@ -46,6 +46,7 @@
           <Property Name="IDArticulo" Type="smallint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="200" />
+          <Property Name="DescripcionCorta" Type="varchar" MaxLength="200" />
           <Property Name="IDArticuloGrupo" Type="tinyint" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
@@ -245,7 +246,7 @@
           <Property Name="IDArticulo" Type="smallint" Nullable="false" />
           <Property Name="Cantidad" Type="decimal" Precision="8" Scale="2" Nullable="false" />
           <Property Name="Unidad" Type="varchar" MaxLength="10" />
-          <Property Name="Descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="IDEntidad" Type="int" />
           <Property Name="IDAnioLectivoCurso" Type="smallint" />
           <Property Name="CuotaMes" Type="tinyint" />
@@ -423,7 +424,7 @@
           </Key>
           <Property Name="IDDescuento" Type="tinyint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Porcentaje" Type="decimal" Precision="4" Scale="1" Nullable="false" />
+          <Property Name="Porcentaje" Type="decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="DocumentoTipo">
@@ -486,6 +487,7 @@
           <Property Name="EmitirFacturaA" Type="char" MaxLength="1" />
           <Property Name="IDEntidadTercero" Type="int" />
           <Property Name="IDDescuento" Type="tinyint" />
+          <Property Name="DescuentoOtroPorcentaje" Type="decimal" Precision="5" Scale="2" />
           <Property Name="ComprobanteEnviarEmail" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="FacturaIndividual" Type="bit" Nullable="false" />
           <Property Name="ExcluyeCalculoInteres" Type="bit" Nullable="false" />
@@ -493,7 +495,7 @@
           <Property Name="ExcluyeFacturaHasta" Type="date" />
           <Property Name="FacturaLeyenda" Type="varchar(max)" />
           <Property Name="DebitoAutomaticoTipo" Type="char" MaxLength="1" />
-          <Property Name="DebitoAutomatico_Directo_CBU" Type="char" MaxLength="22" />
+          <Property Name="DebitoAutomaticoDirectoCBU" Type="char" MaxLength="22" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="Notas" Type="varchar(max)" />
           <Property Name="IDOtroSistema" Type="int" />
@@ -1067,18 +1069,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CategoriaIVA__Entidad">
-          <End Role="CategoriaIVA" Type="Self.CategoriaIVA" Multiplicity="0..1" />
-          <End Role="Entidad" Type="Self.Entidad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CategoriaIVA">
-              <PropertyRef Name="IDCategoriaIVA" />
-            </Principal>
-            <Dependent Role="Entidad">
-              <PropertyRef Name="IDCategoriaIVA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Cheque__ComprobanteMedioPago">
           <End Role="Cheque" Type="Self.Cheque" Multiplicity="0..1" />
           <End Role="ComprobanteMedioPago" Type="Self.ComprobanteMedioPago" Multiplicity="*" />
@@ -1359,18 +1349,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Descuento__Entidad">
-          <End Role="Descuento" Type="Self.Descuento" Multiplicity="0..1" />
-          <End Role="Entidad" Type="Self.Entidad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Descuento">
-              <PropertyRef Name="IDDescuento" />
-            </Principal>
-            <Dependent Role="Entidad">
-              <PropertyRef Name="IDDescuento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__DocumentoTipo__Comprobante">
           <End Role="DocumentoTipo" Type="Self.DocumentoTipo" Multiplicity="1" />
           <End Role="Comprobante" Type="Self.Comprobante" Multiplicity="*" />
@@ -1380,30 +1358,6 @@
             </Principal>
             <Dependent Role="Comprobante">
               <PropertyRef Name="IDDocumentoTipo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DocumentoTipo__Entidad">
-          <End Role="DocumentoTipo" Type="Self.DocumentoTipo" Multiplicity="0..1" />
-          <End Role="Entidad" Type="Self.Entidad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DocumentoTipo">
-              <PropertyRef Name="IDDocumentoTipo" />
-            </Principal>
-            <Dependent Role="Entidad">
-              <PropertyRef Name="IDDocumentoTipo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DocumentoTipo__Entidad__Factura">
-          <End Role="DocumentoTipo" Type="Self.DocumentoTipo" Multiplicity="0..1" />
-          <End Role="Entidad" Type="Self.Entidad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DocumentoTipo">
-              <PropertyRef Name="IDDocumentoTipo" />
-            </Principal>
-            <Dependent Role="Entidad">
-              <PropertyRef Name="FacturaIDDocumentoTipo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1574,20 +1528,6 @@
               <PropertyRef Name="IDLocalidad" />
             </Principal>
             <Dependent Role="Comprobante">
-              <PropertyRef Name="DomicilioIDProvincia" />
-              <PropertyRef Name="DomicilioIDLocalidad" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Localidad__Entidad">
-          <End Role="Localidad" Type="Self.Localidad" Multiplicity="0..1" />
-          <End Role="Entidad" Type="Self.Entidad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Localidad">
-              <PropertyRef Name="IDProvincia" />
-              <PropertyRef Name="IDLocalidad" />
-            </Principal>
-            <Dependent Role="Entidad">
               <PropertyRef Name="DomicilioIDProvincia" />
               <PropertyRef Name="DomicilioIDLocalidad" />
             </Dependent>
@@ -2093,30 +2033,6 @@
               <PropertyRef Name="IDUsuario" />
             </Principal>
             <Dependent Role="Curso">
-              <PropertyRef Name="IDUsuarioModificacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Usuario__Entidad__Creacion">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="Entidad" Type="Self.Entidad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="IDUsuario" />
-            </Principal>
-            <Dependent Role="Entidad">
-              <PropertyRef Name="IDUsuarioCreacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Usuario__Entidad__Modificacion">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="Entidad" Type="Self.Entidad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="IDUsuario" />
-            </Principal>
-            <Dependent Role="Entidad">
               <PropertyRef Name="IDUsuarioModificacion" />
             </Dependent>
           </ReferentialConstraint>
@@ -2647,10 +2563,6 @@
             <End Role="CategoriaIVA" EntitySet="CategoriaIVA" />
             <End Role="Comprobante" EntitySet="Comprobante" />
           </AssociationSet>
-          <AssociationSet Name="FK__CategoriaIVA__Entidad" Association="Self.FK__CategoriaIVA__Entidad">
-            <End Role="CategoriaIVA" EntitySet="CategoriaIVA" />
-            <End Role="Entidad" EntitySet="Entidad" />
-          </AssociationSet>
           <AssociationSet Name="FK__Cheque__ComprobanteMedioPago" Association="Self.FK__Cheque__ComprobanteMedioPago">
             <End Role="Cheque" EntitySet="Cheque" />
             <End Role="ComprobanteMedioPago" EntitySet="ComprobanteMedioPago" />
@@ -2743,21 +2655,9 @@
             <End Role="Curso" EntitySet="Curso" />
             <End Role="AnioLectivoCurso" EntitySet="AnioLectivoCurso" />
           </AssociationSet>
-          <AssociationSet Name="FK__Descuento__Entidad" Association="Self.FK__Descuento__Entidad">
-            <End Role="Descuento" EntitySet="Descuento" />
-            <End Role="Entidad" EntitySet="Entidad" />
-          </AssociationSet>
           <AssociationSet Name="FK__DocumentoTipo__Comprobante" Association="Self.FK__DocumentoTipo__Comprobante">
             <End Role="DocumentoTipo" EntitySet="DocumentoTipo" />
             <End Role="Comprobante" EntitySet="Comprobante" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DocumentoTipo__Entidad" Association="Self.FK__DocumentoTipo__Entidad">
-            <End Role="DocumentoTipo" EntitySet="DocumentoTipo" />
-            <End Role="Entidad" EntitySet="Entidad" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DocumentoTipo__Entidad__Factura" Association="Self.FK__DocumentoTipo__Entidad__Factura">
-            <End Role="DocumentoTipo" EntitySet="DocumentoTipo" />
-            <End Role="Entidad" EntitySet="Entidad" />
           </AssociationSet>
           <AssociationSet Name="FK__Entidad__Comprobante" Association="Self.FK__Entidad__Comprobante">
             <End Role="Entidad" EntitySet="Entidad" />
@@ -2814,10 +2714,6 @@
           <AssociationSet Name="FK__Localidad__Comprobante" Association="Self.FK__Localidad__Comprobante">
             <End Role="Localidad" EntitySet="Localidad" />
             <End Role="Comprobante" EntitySet="Comprobante" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Localidad__Entidad" Association="Self.FK__Localidad__Entidad">
-            <End Role="Localidad" EntitySet="Localidad" />
-            <End Role="Entidad" EntitySet="Entidad" />
           </AssociationSet>
           <AssociationSet Name="FK__MedioPago__ComprobanteMedioPago" Association="Self.FK__MedioPago__ComprobanteMedioPago">
             <End Role="MedioPago" EntitySet="MedioPago" />
@@ -2987,14 +2883,6 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Curso" EntitySet="Curso" />
           </AssociationSet>
-          <AssociationSet Name="FK__Usuario__Entidad__Creacion" Association="Self.FK__Usuario__Entidad__Creacion">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Entidad" EntitySet="Entidad" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Usuario__Entidad__Modificacion" Association="Self.FK__Usuario__Entidad__Modificacion">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Entidad" EntitySet="Entidad" />
-          </AssociationSet>
           <AssociationSet Name="FK__Usuario__EntidadEntidad__Creacion" Association="Self.FK__Usuario__EntidadEntidad__Creacion">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="EntidadEntidad" EntitySet="EntidadEntidad" />
@@ -3159,6 +3047,7 @@
           <Property Name="IDArticulo" Type="Int16" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DescripcionCorta" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="IDArticuloGrupo" Type="Byte" Nullable="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
@@ -3278,11 +3167,11 @@
           <Property Name="TipoOtro" Type="Boolean" Nullable="false" />
           <Property Name="IDDocumentoTipo" Type="Byte" />
           <Property Name="DocumentoNumero" Type="String" MaxLength="12" Unicode="false" FixedLength="false" />
-          <Property Name="FacturaIDDocumentoTipo" Type="Byte" />
-          <Property Name="FacturaDocumentoNumero" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="Genero" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
           <Property Name="IDCategoriaIVA" Type="Byte" />
+          <Property Name="FacturaIDDocumentoTipo" Type="Byte" />
+          <Property Name="FacturaDocumentoNumero" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="Telefono1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Telefono2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Telefono3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -3305,13 +3194,14 @@
           <Property Name="EmitirFacturaA" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="IDEntidadTercero" Type="Int32" />
           <Property Name="IDDescuento" Type="Byte" />
+          <Property Name="DescuentoOtroPorcentaje" Type="Decimal" Precision="5" Scale="2" />
           <Property Name="FacturaIndividual" Type="Boolean" Nullable="false" />
           <Property Name="ExcluyeCalculoInteres" Type="Boolean" Nullable="false" />
           <Property Name="ExcluyeFacturaDesde" Type="DateTime" Precision="0" />
           <Property Name="ExcluyeFacturaHasta" Type="DateTime" Precision="0" />
           <Property Name="FacturaLeyenda" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="DebitoAutomaticoTipo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="DebitoAutomatico_Directo_CBU" Type="String" MaxLength="22" FixedLength="true" Unicode="false" />
+          <Property Name="DebitoAutomaticoDirectoCBU" Type="String" MaxLength="22" FixedLength="true" Unicode="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IDOtroSistema" Type="Int32" />
@@ -4626,7 +4516,7 @@
           </Key>
           <Property Name="IDDescuento" Type="Byte" Nullable="false" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Porcentaje" Type="Decimal" Nullable="false" Precision="4" Scale="1" />
+          <Property Name="Porcentaje" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Entidad" Relationship="CSColegioModel.FK__Descuento__Entidad" FromRole="Descuento" ToRole="Entidad" />
         </EntityType>
@@ -6425,6 +6315,7 @@
           <EntitySetMapping Name="Articulo">
             <EntityTypeMapping TypeName="CSColegioModel.Articulo">
               <MappingFragment StoreEntitySet="Articulo">
+                <ScalarProperty Name="DescripcionCorta" ColumnName="DescripcionCorta" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="IDArticulo" ColumnName="IDArticulo" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -6512,8 +6403,9 @@
           <EntitySetMapping Name="Entidad">
             <EntityTypeMapping TypeName="CSColegioModel.Entidad">
               <MappingFragment StoreEntitySet="Entidad">
+                <ScalarProperty Name="DebitoAutomaticoDirectoCBU" ColumnName="DebitoAutomaticoDirectoCBU" />
+                <ScalarProperty Name="DescuentoOtroPorcentaje" ColumnName="DescuentoOtroPorcentaje" />
                 <ScalarProperty Name="IDOtroSistema" ColumnName="IDOtroSistema" />
-                <ScalarProperty Name="DebitoAutomatico_Directo_CBU" ColumnName="DebitoAutomatico_Directo_CBU" />
                 <ScalarProperty Name="TipoOtro" ColumnName="TipoOtro" />
                 <ScalarProperty Name="VerificarEmail2" ColumnName="VerificarEmail2" />
                 <ScalarProperty Name="VerificarEmail1" ColumnName="VerificarEmail1" />

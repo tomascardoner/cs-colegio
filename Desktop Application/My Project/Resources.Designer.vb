@@ -693,6 +693,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Empresa.
+        '''</summary>
+        Friend ReadOnly Property STRING_GENERO_EMPRESA() As String
+            Get
+                Return ResourceManager.GetString("STRING_GENERO_EMPRESA", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Señores.
+        '''</summary>
+        Friend ReadOnly Property STRING_GENERO_EMPRESA_TRATAMIENTO() As String
+            Get
+                Return ResourceManager.GetString("STRING_GENERO_EMPRESA_TRATAMIENTO", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Femenino.
         '''</summary>
         Friend ReadOnly Property STRING_GENERO_FEMENINO() As String
@@ -702,11 +720,38 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Señora.
+        '''</summary>
+        Friend ReadOnly Property STRING_GENERO_FEMENINO_TRATAMIENTO() As String
+            Get
+                Return ResourceManager.GetString("STRING_GENERO_FEMENINO_TRATAMIENTO", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Masculino.
         '''</summary>
         Friend ReadOnly Property STRING_GENERO_MASCULINO() As String
             Get
                 Return ResourceManager.GetString("STRING_GENERO_MASCULINO", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Señor.
+        '''</summary>
+        Friend ReadOnly Property STRING_GENERO_MASCULINO_TRATAMIENTO() As String
+            Get
+                Return ResourceManager.GetString("STRING_GENERO_MASCULINO_TRATAMIENTO", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Señor(a)(es):.
+        '''</summary>
+        Friend ReadOnly Property STRING_GENERO_NOESPECIFICA_TRATAMIENTO() As String
+            Get
+                Return ResourceManager.GetString("STRING_GENERO_NOESPECIFICA_TRATAMIENTO", resourceCulture)
             End Get
         End Property
         
