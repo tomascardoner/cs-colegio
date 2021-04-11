@@ -42,6 +42,7 @@ Partial Public Class Entidad
     Public Property DomicilioDepartamento As String
     Public Property DomicilioCalle2 As String
     Public Property DomicilioCalle3 As String
+    Public Property DomicilioBarrio As String
     Public Property DomicilioCodigoPostal As String
     Public Property DomicilioIDProvincia As Nullable(Of Byte)
     Public Property DomicilioIDLocalidad As Nullable(Of Short)

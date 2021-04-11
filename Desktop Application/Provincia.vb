@@ -13,6 +13,7 @@ Imports System.Collections.Generic
 Partial Public Class Provincia
     Public Property IDProvincia As Byte
     Public Property Nombre As String
+    Public Property NoMostrarEnDomicilioCompleto As Boolean
 
     Public Overridable Property Localidad As ICollection(Of Localidad) = New HashSet(Of Localidad)
 

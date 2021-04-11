@@ -39,6 +39,14 @@
                         DomicilioCompleto &= " esq. " & DomicilioCalle2
                     End If
                 End If
+
+                If Not DomicilioBarrio Is Nothing Then
+                    DomicilioCompleto &= " - " & DomicilioBarrio
+                End If
+            Else
+                If Not DomicilioBarrio Is Nothing Then
+                    DomicilioCompleto = DomicilioBarrio
+                End If
             End If
 
             Return DomicilioCompleto

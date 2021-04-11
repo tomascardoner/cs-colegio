@@ -290,6 +290,7 @@
 #End Region
 
 #Region "Controls behavior"
+
     Private Sub ComprobanteTipoChanged() Handles comboboxComprobanteTipo.SelectedValueChanged
         If Not mIsLoading Then
             CambiarTipoComprobante()
@@ -365,6 +366,7 @@
     Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles textboxIDComprobante.GotFocus, textboxEntidad.GotFocus
         CType(sender, TextBox).SelectAll()
     End Sub
+
 #End Region
 
 #Region "Main Toolbar"

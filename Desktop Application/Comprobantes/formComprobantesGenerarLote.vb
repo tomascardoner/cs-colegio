@@ -18,7 +18,7 @@
     Private mFechaServicioDesde As Date
     Private mFechaServicioHasta As Date
 
-    Private Const NODO_CARGANDO_TEXTO As String = "Cargando..."
+    Private Const NodoCargandoTexto As String = "Cargando..."
 
     Public Class PeriodoAFacturar
         Public Property Mes As Byte
@@ -107,7 +107,7 @@
         treeviewPaso1NivelCursoAlumno.BeginUpdate()
         For Each NivelCurrent As Nivel In mdbContext.Nivel.Where(Function(niv) niv.EsActivo = True)
             ' Agrego el nodo correspondiente al Nivel actual y agrego un nodo hijo que diga "cargando..." para cuando se expanda el nodo
-            NewNode = New TreeNode(NivelCurrent.Nombre, {New TreeNode(NODO_CARGANDO_TEXTO)})
+            NewNode = New TreeNode(NivelCurrent.Nombre, {New TreeNode(NodoCargandoTexto)})
             NewNode.Checked = True
             NewNode.Tag = NivelCurrent
             treeviewPaso1NivelCursoAlumno.Nodes.Add(NewNode)
@@ -128,7 +128,7 @@
         NivelCurrent = CType(NodoNivel.Tag, Nivel)
         For Each AnioCurrent As Anio In NivelCurrent.Anios.Where(Function(ani) ani.EsActivo = True)
             ' Agrego el nodo correspondiente al Año actual
-            NewNode = New TreeNode(AnioCurrent.Nombre, {New TreeNode(NODO_CARGANDO_TEXTO)})
+            NewNode = New TreeNode(AnioCurrent.Nombre, {New TreeNode(NodoCargandoTexto)})
             NewNode.Checked = NodoNivel.Checked
             NewNode.Tag = AnioCurrent
             NodoNivel.Nodes.Add(NewNode)
@@ -149,7 +149,7 @@
         AnioCurrent = CType(NodoAnio.Tag, Anio)
         For Each CursoCurrent As Curso In AnioCurrent.Cursos
             ' Agrego el nodo correspondiente al Curso actual
-            NewNode = New TreeNode("Turno: " & CursoCurrent.Turno.Nombre & " - División: " & CursoCurrent.Division, {New TreeNode(NODO_CARGANDO_TEXTO)})
+            NewNode = New TreeNode("Turno: " & CursoCurrent.Turno.Nombre & " - División: " & CursoCurrent.Division, {New TreeNode(NodoCargandoTexto)})
             NewNode.Checked = NodoAnio.Checked
             NewNode.Tag = CursoCurrent
             NodoAnio.Nodes.Add(NewNode)
@@ -225,7 +225,7 @@
         treeviewPaso1PadresAlumnos.BeginUpdate()
         For Each EntidadCurrent As Entidad In mdbContext.Entidad.Where(Function(ent) ent.EsActivo = True And ent.TipoFamiliar And (ent.EntidadPadreHijas.Count > 0 Or ent.EntidadMadreHijas.Count > 0)).OrderBy(Function(ent) ent.ApellidoNombre)
             ' Agrego el nodo correspondiente al Padre/Madre actual y agrego un nodo hijo que diga "cargando..." para cuando se expanda el nodo
-            NewNode = New TreeNode(EntidadCurrent.ApellidoNombre, {New TreeNode(NODO_CARGANDO_TEXTO)})
+            NewNode = New TreeNode(EntidadCurrent.ApellidoNombre, {New TreeNode(NodoCargandoTexto)})
             NewNode.Checked = True
             NewNode.Tag = EntidadCurrent
             treeviewPaso1PadresAlumnos.Nodes.Add(NewNode)
