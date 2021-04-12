@@ -1,10 +1,13 @@
 ﻿Public Class formReportes
 
 #Region "Declarations"
+
     Private mdbContext As New CSColegioContext(True)
+
 #End Region
 
 #Region "Form stuff"
+
     Private Sub formReportes_Load(sender As Object, e As EventArgs) Handles Me.Load
         CargarListaReportes()
 
@@ -15,9 +18,11 @@
     Private Sub formReportes_Unload() Handles Me.FormClosed
         mdbContext.Dispose()
     End Sub
+
 #End Region
 
 #Region "Reportes"
+
     Private Sub CargarListaReportes()
         Dim ReporteGrupoNode As TreeNode
         Dim ReporteNode As TreeNode
@@ -58,9 +63,11 @@
             End If
         End If
     End Sub
+
 #End Region
 
 #Region "Parámetros"
+
     Private Sub CargarListaParametros()
         Dim ReporteActual As Reporte
         Dim ParametroListViewItem As ListViewItem
@@ -70,6 +77,9 @@
         Try
             listviewParametros.BeginUpdate()
             ReporteActual = CType(treeviewReportes.SelectedNode.Tag, Reporte)
+
+            labelParametrosTitulo.Text = String.Format("Parámetros del Reporte: ""{0} - {1}""", treeviewReportes.SelectedNode.Parent.Text, ReporteActual.Nombre)
+
             For Each ParametroActual As ReporteParametro In ReporteActual.ReporteParametros.OrderBy(Function(rp) rp.Orden)
 
                 With ParametroActual
@@ -161,9 +171,11 @@
         panelReportes.Show()
         panelParametros.Hide()
     End Sub
+
 #End Region
 
 #Region "Mostrar Reporte"
+
     Private Sub MostrarReporte(sender As Object, e As EventArgs) Handles buttonImprimir.Click, buttonPrevisualizar.Click
         Dim ReporteActual As Reporte
 
@@ -196,6 +208,7 @@
 
         Me.Cursor = Cursors.Default
     End Sub
+
 #End Region
 
 End Class
