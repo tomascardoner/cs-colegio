@@ -1,6 +1,7 @@
 ﻿Public Class formComprobantes
 
 #Region "Declarations"
+
     Private WithEvents datetimepickerFechaDesdeHost As ToolStripControlHost
     Private WithEvents datetimepickerFechaHastaHost As ToolStripControlHost
 
@@ -14,6 +15,7 @@
         Public Property FechaEmision As Date
         Public Property IDEntidad As Integer
         Public Property EntidadNombre As String
+        Public Property DocumentoNumero As String
         Public Property ImporteTotal As Decimal
         Public Property CAE As String
         Public Property Anulado As Boolean
@@ -36,9 +38,11 @@
     Private Const COLUMNA_TITULAR As String = "columnEntidadNombre"
     Private Const COLUMNA_IMPORTETOTAL As String = "columnImporteTotal"
     Private Const COLUMNA_CAE As String = "columnCAE"
+
 #End Region
 
 #Region "Form stuff"
+
     Friend Sub SetAppearance()
         datagridviewMain.DefaultCellStyle.Font = pAppearanceConfig.ListsFont
         datagridviewMain.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFont
@@ -60,7 +64,7 @@
         pFillAndRefreshLists.ComprobanteLote(comboboxComprobanteLote.ComboBox, True, False)
 
         ' Buscar
-        comboboxBuscarTipo.Items.AddRange({"Titular:", "Número:"})
+        comboboxBuscarTipo.Items.AddRange({"titular:", "número:", "documento:"})
         comboboxBuscarTipo.SelectedIndex = 0
 
         mSkipFilterData = False
@@ -102,9 +106,11 @@
         datetimepickerFechaDesdeHost.Visible = False
         datetimepickerFechaHastaHost.Visible = False
     End Sub
+
 #End Region
 
 #Region "Load and Set Data"
+
     Friend Sub RefreshData(Optional ByVal PositionIDComprobante As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
         Dim FechaDesde As Date
         Dim FechaHasta As Date
@@ -188,7 +194,7 @@
                                          Join ct In dbContext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                          Where cc.FechaEmision >= FechaDesde And cc.FechaEmision <= FechaHasta
                                          Order By cc.FechaEmision, cc.IDComprobante
-                                         Select New GridRowData With {.IDComprobante = cc.IDComprobante, .OperacionTipo = ct.OperacionTipo, .IDComprobanteTipo = cc.IDComprobanteTipo, .ComprobanteTipoNombre = ct.Nombre, .IDComprobanteLote = cc.IDComprobanteLote, .NumeroCompleto = cc.NumeroCompleto, .FechaEmision = cc.FechaEmision, .IDEntidad = cc.IDEntidad, .EntidadNombre = cc.ApellidoNombre, .ImporteTotal = cc.ImporteTotal1, .CAE = cc.CAE, .Anulado = Not cc.IDUsuarioAnulacion Is Nothing}).ToList
+                                         Select New GridRowData With {.IDComprobante = cc.IDComprobante, .OperacionTipo = ct.OperacionTipo, .IDComprobanteTipo = cc.IDComprobanteTipo, .ComprobanteTipoNombre = ct.Nombre, .IDComprobanteLote = cc.IDComprobanteLote, .NumeroCompleto = cc.NumeroCompleto, .FechaEmision = cc.FechaEmision, .IDEntidad = cc.IDEntidad, .EntidadNombre = cc.ApellidoNombre, .DocumentoNumero = cc.DocumentoNumero, .ImporteTotal = cc.ImporteTotal1, .CAE = cc.CAE, .Anulado = Not cc.IDUsuarioAnulacion Is Nothing}).ToList
             End Using
 
         Catch ex As Exception
@@ -257,7 +263,11 @@
                         Case 1
                             ' Búsqueda por Número de Comprobante
                             mReportSelectionFormula &= String.Format(" AND InStr({{Comprobante.Numero}}, ""{0}"") > 0", textboxBuscar.Text.Trim)
-                            mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.NumeroCompleto.Contains(textboxBuscar.Text.Trim)).ToList
+                            mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.NumeroCompleto.Contains(textboxBuscar.Text.ToLower().Trim())).ToList
+                        Case 2
+                            ' Búsqueda por Número de Documento del Titular
+                            mReportSelectionFormula &= String.Format(" AND InStr({{Comprobante.DocumentoNumero}}, ""{0}"") > 0", textboxBuscar.Text.Trim)
+                            mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.DocumentoNumero.ToLower().Contains(textboxBuscar.Text.ToLower().Trim())).ToList
                     End Select
                 End If
 
@@ -338,6 +348,7 @@
 #End Region
 
 #Region "Controls behavior"
+
     Private Sub PeriodoTipoSeleccionar() Handles comboboxPeriodoTipo.SelectedIndexChanged
         comboboxPeriodoValor.Items.Clear()
         Select Case comboboxPeriodoTipo.SelectedIndex
@@ -412,11 +423,14 @@
         Select Case comboboxBuscarTipo.SelectedIndex
             Case 0
                 textboxBuscar.MaxLength = 152
-                textboxBuscar.Width = 200
             Case 1
                 textboxBuscar.MaxLength = 13
-                textboxBuscar.Width = 80
+            Case 2
+                textboxBuscar.MaxLength = 12
         End Select
+        If textboxBuscar.Text.Trim().Length >= 3 Then
+            FilterData()
+        End If
     End Sub
 
     Private Sub textboxBuscar_GotFocus() Handles textboxBuscar.GotFocus
@@ -425,24 +439,13 @@
 
     Private Sub textboxBuscar_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textboxBuscar.KeyPress
         If e.KeyChar = ChrW(Keys.Return) Then
-            Select Case comboboxBuscarTipo.SelectedIndex
-                Case 0
-                    If textboxBuscar.Text.Trim.Length < 3 Then
-                        MsgBox("Se deben especificar al menos 3 letras de la Entidad a buscar.", MsgBoxStyle.Information, My.Application.Info.Title)
-                        textboxBuscar.Focus()
-                    Else
-                        mBusquedaAplicada = True
-                        FilterData()
-                    End If
-                Case 1
-                    If textboxBuscar.Text.Trim.Length < 1 Then
-                        MsgBox("Se debe especificar al menos 1 número del Comprobante a buscar.", MsgBoxStyle.Information, My.Application.Info.Title)
-                        textboxBuscar.Focus()
-                    Else
-                        mBusquedaAplicada = True
-                        FilterData()
-                    End If
-            End Select
+            If textboxBuscar.Text.Trim.Length < 3 Then
+                MsgBox("Se deben especificar al menos 3 caracteres para buscar.", MsgBoxStyle.Information, My.Application.Info.Title)
+                textboxBuscar.Focus()
+            Else
+                mBusquedaAplicada = True
+                FilterData()
+            End If
             e.Handled = True
         ElseIf comboboxBuscarTipo.SelectedIndex = 1 Then
             If (Not Char.IsDigit(e.KeyChar)) And e.KeyChar <> Chr(Keys.Back) And e.KeyChar <> Chr(Keys.Delete) And e.KeyChar <> Chr(Keys.Separator) Then
@@ -485,6 +488,7 @@
 
         OrderData()
     End Sub
+
 #End Region
 
 #Region "Main Toolbar"

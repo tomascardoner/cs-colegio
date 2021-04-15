@@ -60,6 +60,7 @@ Partial Class formEntidades
         Me.panelToolbars = New System.Windows.Forms.FlowLayoutPanel()
         Me.toolstripBuscar = New System.Windows.Forms.ToolStrip()
         Me.labelBuscar = New System.Windows.Forms.ToolStripLabel()
+        Me.comboboxBuscar = New System.Windows.Forms.ToolStripComboBox()
         Me.textboxBuscar = New System.Windows.Forms.ToolStripTextBox()
         Me.buttonBuscarBorrar = New System.Windows.Forms.ToolStripButton()
         Me.toolstripActivo = New System.Windows.Forms.ToolStrip()
@@ -88,7 +89,7 @@ Partial Class formEntidades
         Me.toolstripButtons.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         Me.toolstripButtons.Location = New System.Drawing.Point(0, 0)
         Me.toolstripButtons.Name = "toolstripButtons"
-        Me.toolstripButtons.Size = New System.Drawing.Size(367, 39)
+        Me.toolstripButtons.Size = New System.Drawing.Size(336, 39)
         Me.toolstripButtons.TabIndex = 0
         '
         'buttonAgregar
@@ -159,14 +160,14 @@ Partial Class formEntidades
         Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnIDEntidad, Me.columnApellido, Me.columnNombre, Me.columnTipoPersonalColegio, Me.columnTipoDocente, Me.columnTipoAlumno, Me.columnTipoFamiliar, Me.columnTipoProveedor, Me.columnTipoOtro})
         Me.datagridviewMain.DataSource = Me.bindingsourceMain
         Me.datagridviewMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.datagridviewMain.Location = New System.Drawing.Point(0, 39)
+        Me.datagridviewMain.Location = New System.Drawing.Point(0, 64)
         Me.datagridviewMain.MultiSelect = False
         Me.datagridviewMain.Name = "datagridviewMain"
         Me.datagridviewMain.ReadOnly = True
         Me.datagridviewMain.RowHeadersVisible = False
         Me.datagridviewMain.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewMain.Size = New System.Drawing.Size(1061, 308)
+        Me.datagridviewMain.Size = New System.Drawing.Size(1061, 283)
         Me.datagridviewMain.TabIndex = 0
         '
         'columnIDEntidad
@@ -175,10 +176,10 @@ Partial Class formEntidades
         Me.columnIDEntidad.DataPropertyName = "IDEntidad"
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         Me.columnIDEntidad.DefaultCellStyle = DataGridViewCellStyle2
-        Me.columnIDEntidad.HeaderText = "N° Entidad"
+        Me.columnIDEntidad.HeaderText = "#"
         Me.columnIDEntidad.Name = "columnIDEntidad"
         Me.columnIDEntidad.ReadOnly = True
-        Me.columnIDEntidad.Width = 77
+        Me.columnIDEntidad.Width = 39
         '
         'columnApellido
         '
@@ -262,7 +263,7 @@ Partial Class formEntidades
         Me.toolstripEntidadTipo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripEntidadTipo.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripEntidadTipo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.dropdownbuttonEntidadTipos})
-        Me.toolstripEntidadTipo.Location = New System.Drawing.Point(367, 0)
+        Me.toolstripEntidadTipo.Location = New System.Drawing.Point(336, 0)
         Me.toolstripEntidadTipo.Name = "toolstripEntidadTipo"
         Me.toolstripEntidadTipo.Size = New System.Drawing.Size(110, 39)
         Me.toolstripEntidadTipo.TabIndex = 1
@@ -360,7 +361,7 @@ Partial Class formEntidades
         Me.panelToolbars.Dock = System.Windows.Forms.DockStyle.Top
         Me.panelToolbars.Location = New System.Drawing.Point(0, 0)
         Me.panelToolbars.Name = "panelToolbars"
-        Me.panelToolbars.Size = New System.Drawing.Size(1061, 39)
+        Me.panelToolbars.Size = New System.Drawing.Size(1061, 64)
         Me.panelToolbars.TabIndex = 2
         '
         'toolstripBuscar
@@ -368,20 +369,27 @@ Partial Class formEntidades
         Me.toolstripBuscar.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripBuscar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripBuscar.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.toolstripBuscar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelBuscar, Me.textboxBuscar, Me.buttonBuscarBorrar})
-        Me.toolstripBuscar.Location = New System.Drawing.Point(477, 0)
+        Me.toolstripBuscar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelBuscar, Me.comboboxBuscar, Me.textboxBuscar, Me.buttonBuscarBorrar})
+        Me.toolstripBuscar.Location = New System.Drawing.Point(446, 0)
         Me.toolstripBuscar.Name = "toolstripBuscar"
-        Me.toolstripBuscar.Size = New System.Drawing.Size(194, 39)
+        Me.toolstripBuscar.Size = New System.Drawing.Size(335, 39)
         Me.toolstripBuscar.TabIndex = 2
         '
         'labelBuscar
         '
         Me.labelBuscar.Name = "labelBuscar"
-        Me.labelBuscar.Size = New System.Drawing.Size(45, 36)
-        Me.labelBuscar.Text = "Buscar:"
+        Me.labelBuscar.Size = New System.Drawing.Size(63, 36)
+        Me.labelBuscar.Text = "Buscar por"
+        '
+        'comboboxBuscar
+        '
+        Me.comboboxBuscar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxBuscar.Name = "comboboxBuscar"
+        Me.comboboxBuscar.Size = New System.Drawing.Size(90, 39)
         '
         'textboxBuscar
         '
+        Me.textboxBuscar.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.textboxBuscar.MaxLength = 100
         Me.textboxBuscar.Name = "textboxBuscar"
         Me.textboxBuscar.Size = New System.Drawing.Size(120, 39)
@@ -401,7 +409,7 @@ Partial Class formEntidades
         Me.toolstripActivo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripActivo.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripActivo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelActivo, Me.comboboxActivo})
-        Me.toolstripActivo.Location = New System.Drawing.Point(671, 0)
+        Me.toolstripActivo.Location = New System.Drawing.Point(781, 0)
         Me.toolstripActivo.Name = "toolstripActivo"
         Me.toolstripActivo.Size = New System.Drawing.Size(124, 39)
         Me.toolstripActivo.TabIndex = 3
@@ -424,22 +432,22 @@ Partial Class formEntidades
         Me.toolstripVerificarEmail.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripVerificarEmail.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripVerificarEmail.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelVerificarEmail, Me.comboboxVerificarEmail})
-        Me.toolstripVerificarEmail.Location = New System.Drawing.Point(795, 0)
+        Me.toolstripVerificarEmail.Location = New System.Drawing.Point(0, 39)
         Me.toolstripVerificarEmail.Name = "toolstripVerificarEmail"
-        Me.toolstripVerificarEmail.Size = New System.Drawing.Size(169, 39)
+        Me.toolstripVerificarEmail.Size = New System.Drawing.Size(169, 25)
         Me.toolstripVerificarEmail.TabIndex = 4
         '
         'labelVerificarEmail
         '
         Me.labelVerificarEmail.Name = "labelVerificarEmail"
-        Me.labelVerificarEmail.Size = New System.Drawing.Size(89, 36)
+        Me.labelVerificarEmail.Size = New System.Drawing.Size(89, 22)
         Me.labelVerificarEmail.Text = "Verificar e-Mail:"
         '
         'comboboxVerificarEmail
         '
         Me.comboboxVerificarEmail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxVerificarEmail.Name = "comboboxVerificarEmail"
-        Me.comboboxVerificarEmail.Size = New System.Drawing.Size(75, 39)
+        Me.comboboxVerificarEmail.Size = New System.Drawing.Size(75, 25)
         '
         'formEntidades
         '
@@ -502,17 +510,18 @@ Partial Class formEntidades
     Friend WithEvents labelActivo As System.Windows.Forms.ToolStripLabel
     Friend WithEvents comboboxActivo As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents menuitemEntidadTipo_Otro As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents columnIDEntidad As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnApellido As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnNombre As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents columnTipoPersonalColegio As System.Windows.Forms.DataGridViewCheckBoxColumn
-    Friend WithEvents columnTipoDocente As System.Windows.Forms.DataGridViewCheckBoxColumn
-    Friend WithEvents columnTipoAlumno As System.Windows.Forms.DataGridViewCheckBoxColumn
-    Friend WithEvents columnTipoFamiliar As System.Windows.Forms.DataGridViewCheckBoxColumn
-    Friend WithEvents columnTipoProveedor As System.Windows.Forms.DataGridViewCheckBoxColumn
-    Friend WithEvents columnTipoOtro As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents toolstripVerificarEmail As System.Windows.Forms.ToolStrip
     Friend WithEvents labelVerificarEmail As System.Windows.Forms.ToolStripLabel
     Friend WithEvents comboboxVerificarEmail As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents buttonSincronizarOutlook As System.Windows.Forms.ToolStripButton
+    Friend WithEvents comboboxBuscar As ToolStripComboBox
+    Friend WithEvents columnIDEntidad As DataGridViewTextBoxColumn
+    Friend WithEvents columnApellido As DataGridViewTextBoxColumn
+    Friend WithEvents columnNombre As DataGridViewTextBoxColumn
+    Friend WithEvents columnTipoPersonalColegio As DataGridViewCheckBoxColumn
+    Friend WithEvents columnTipoDocente As DataGridViewCheckBoxColumn
+    Friend WithEvents columnTipoAlumno As DataGridViewCheckBoxColumn
+    Friend WithEvents columnTipoFamiliar As DataGridViewCheckBoxColumn
+    Friend WithEvents columnTipoProveedor As DataGridViewCheckBoxColumn
+    Friend WithEvents columnTipoOtro As DataGridViewCheckBoxColumn
 End Class

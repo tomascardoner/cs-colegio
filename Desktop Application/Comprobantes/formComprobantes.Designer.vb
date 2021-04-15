@@ -421,20 +421,20 @@ Partial Class formComprobantes
         Me.toolstripBuscar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelBuscar, Me.comboboxBuscarTipo, Me.textboxBuscar, Me.buttonBuscarBorrar})
         Me.toolstripBuscar.Location = New System.Drawing.Point(0, 66)
         Me.toolstripBuscar.Name = "toolstripBuscar"
-        Me.toolstripBuscar.Size = New System.Drawing.Size(297, 27)
+        Me.toolstripBuscar.Size = New System.Drawing.Size(335, 27)
         Me.toolstripBuscar.TabIndex = 9
         '
         'labelBuscar
         '
         Me.labelBuscar.Name = "labelBuscar"
-        Me.labelBuscar.Size = New System.Drawing.Size(66, 24)
-        Me.labelBuscar.Text = "Buscar por:"
+        Me.labelBuscar.Size = New System.Drawing.Size(63, 24)
+        Me.labelBuscar.Text = "Buscar por"
         '
         'comboboxBuscarTipo
         '
         Me.comboboxBuscarTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxBuscarTipo.Name = "comboboxBuscarTipo"
-        Me.comboboxBuscarTipo.Size = New System.Drawing.Size(80, 27)
+        Me.comboboxBuscarTipo.Size = New System.Drawing.Size(90, 27)
         '
         'textboxBuscar
         '
