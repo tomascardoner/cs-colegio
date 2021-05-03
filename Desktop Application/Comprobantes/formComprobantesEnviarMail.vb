@@ -20,7 +20,13 @@
 #End Region
 
 #Region "Form stuff"
+
+    Private Sub SetAppearance()
+        Me.Icon = CardonerSistemas.Graphics.GetIconFromBitmap(My.Resources.IMAGE_COMPROBANTES_32)
+    End Sub
+
     Private Sub formComprobantesEnviarMail_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SetAppearance()
         buttonEnviar.Enabled = False
         pFillAndRefreshLists.ComprobanteLote(comboboxComprobanteLote, False, False)
         comboboxCantidad.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, "500", "200", "150", "100", "50", "20", "10", "5", "1"})

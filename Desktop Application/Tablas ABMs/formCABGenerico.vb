@@ -9,8 +9,13 @@ Public Class formCABGenerico
 
     Private mExtraToolbars() As ToolStrip = {}
 
-    Private Sub formCABGenerico_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub SetAppearance()
+        Me.Icon = CardonerSistemas.Graphics.GetIconFromBitmap(My.Resources.IMAGE_TABLAS_32)
         Me.Text = EntityNamePlural
+    End Sub
+
+    Private Sub formCABGenerico_Load(sender As Object, e As EventArgs) Handles Me.Load
+        SetAppearance()
     End Sub
 
     Private Sub bindingsourceMain_ListChanged(sender As Object, e As System.ComponentModel.ListChangedEventArgs) Handles bindingsourceMain.ListChanged

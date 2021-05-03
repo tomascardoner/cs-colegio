@@ -9,6 +9,7 @@
 #End Region
 
 #Region "Form stuff"
+
     Friend Sub LoadAndShow(ByVal EditMode As Boolean, ByRef ParentForm As Form, ByVal IDCurso As Byte)
         mIsLoading = True
         mEditMode = EditMode
@@ -70,7 +71,7 @@
     End Sub
 
     Friend Sub SetAppearance()
-
+        Me.Icon = CardonerSistemas.Graphics.GetIconFromBitmap(My.Resources.IMAGE_TABLAS_32)
     End Sub
 
     Private Sub Me_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed

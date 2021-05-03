@@ -17,7 +17,14 @@
 #End Region
 
 #Region "Form stuff"
+
+    Private Sub SetAppearance()
+        Me.Icon = CardonerSistemas.Graphics.GetIconFromBitmap(My.Resources.IMAGE_EMAIL_32)
+    End Sub
+
     Private Sub formComunicacionesEnviarMail_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SetAppearance()
+
         mLoading = True
 
         buttonEnviar.Enabled = False

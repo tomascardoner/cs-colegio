@@ -15,7 +15,14 @@
 #End Region
 
 #Region "Form stuff"
+
+    Private Sub SetAppearance()
+        Me.Icon = CardonerSistemas.Graphics.GetIconFromBitmap(My.Resources.IMAGE_COMPROBANTES_32)
+    End Sub
+
     Private Sub formComprobantesTransmitirAFIP_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SetAppearance()
+
         buttonTransmitir.Enabled = False
         comboboxCantidad.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, "500", "200", "100", "50", "20", "10", "5", "1"})
     End Sub

@@ -229,6 +229,9 @@
     <Compile Include="..\..\..\framework-vbnet\Files.vb">
       <Link>Framework\Files.vb</Link>
     </Compile>
+    <Compile Include="..\..\..\framework-vbnet\Graphics.vb">
+      <Link>Framework\Graphics.vb</Link>
+    </Compile>
     <Compile Include="..\..\..\framework-vbnet\Internet.vb">
       <Link>Framework\Internet.vb</Link>
     </Compile>

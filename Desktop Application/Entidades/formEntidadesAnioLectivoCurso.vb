@@ -23,6 +23,8 @@
     End Sub
 
     Friend Sub SetAppearance()
+        Me.Icon = CardonerSistemas.Graphics.GetIconFromBitmap(My.Resources.IMAGE_ENTIDADES_32)
+
         datagridviewMain.DefaultCellStyle.Font = pAppearanceConfig.ListsFont
         datagridviewMain.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFont
     End Sub

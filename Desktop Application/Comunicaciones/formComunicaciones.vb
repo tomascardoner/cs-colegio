@@ -12,7 +12,10 @@
 #End Region
 
 #Region "Form stuff"
+
     Friend Sub SetAppearance()
+        Me.Icon = CardonerSistemas.Graphics.GetIconFromBitmap(My.Resources.IMAGE_EMAIL_32)
+
         datagridviewMain.DefaultCellStyle.Font = pAppearanceConfig.ListsFont
         datagridviewMain.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFont
     End Sub

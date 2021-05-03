@@ -9,6 +9,7 @@
 #End Region
 
 #Region "Form stuff"
+
     Friend Sub LoadAndShow(ByVal EditMode As Boolean, ByRef ParentForm As Form, ByVal IDComunicacion As Short, Optional ByVal EsCopia As Boolean = False)
         mIsLoading = True
         mEditMode = EditMode
@@ -98,7 +99,7 @@
     End Sub
 
     Friend Sub SetAppearance()
-
+        Me.Icon = CardonerSistemas.Graphics.GetIconFromBitmap(My.Resources.IMAGE_EMAIL_32)
     End Sub
 
     Private Sub Me_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
