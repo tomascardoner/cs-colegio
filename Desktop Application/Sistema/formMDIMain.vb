@@ -196,6 +196,7 @@
 #End Region
 
 #Region "Left Toolbar - Tablas"
+
     Private Function FormCABGenerico_CrearOMostrar(ByVal EntityNameSingular As String, ByVal EntityNamePlural As String) As formCABGenerico
         Dim FormCurrent As formCABGenerico
 
@@ -285,6 +286,25 @@
             End If
         End If
     End Sub
+
+    Private Sub menuitemGruposUsuarios_Click() Handles menuitemGruposUsuarios.Click
+        If Permisos.VerificarPermiso(Permisos.USUARIOGRUPO) Then
+            CS_Form.MDIChild_Show(Me, CType(formUsuarioGrupos, Form), False)
+        End If
+    End Sub
+
+    Private Sub menuitemPermisosGruposUsuarios_Click() Handles menuitemPermisosGruposUsuarios.Click
+        If Permisos.VerificarPermiso(Permisos.USUARIOGRUPOPERMISO) Then
+            CS_Form.MDIChild_Show(Me, CType(formUsuarioGrupoPermisos, Form), False)
+        End If
+    End Sub
+
+    Private Sub menuitemUsuarios_Click() Handles menuitemUsuarios.Click
+        If Permisos.VerificarPermiso(Permisos.USUARIO) Then
+            CS_Form.MDIChild_Show(Me, CType(formUsuarios, Form), False)
+        End If
+    End Sub
+
 #End Region
 
 #Region "Left Toolbar - Entidades"
@@ -331,6 +351,7 @@
 #End Region
 
 #Region "Left Toolbar - Comprobantes"
+
     Private Sub Comprobantes() Handles buttonComprobantes.ButtonClick
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE) Then
             Me.Cursor = Cursors.WaitCursor

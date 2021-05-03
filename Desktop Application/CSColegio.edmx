@@ -851,6 +851,7 @@
           <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Genero" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="IDUsuarioGrupo" Type="tinyint" Nullable="false" />
+          <Property Name="Notas" Type="varchar(max)" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
@@ -863,6 +864,7 @@
           </Key>
           <Property Name="IDUsuarioGrupo" Type="tinyint" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Notas" Type="varchar(max)" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="smallint" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
@@ -3526,6 +3528,7 @@
           <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Genero" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="IDUsuarioGrupo" Type="Byte" Nullable="false" />
+          <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
@@ -3604,6 +3607,7 @@
           </Key>
           <Property Name="IDUsuarioGrupo" Type="Byte" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <Property Name="IDUsuarioCreacion" Type="Int16" Nullable="false" />
           <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
@@ -6729,6 +6733,7 @@
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="CSColegioModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Notas" ColumnName="Notas" />
                 <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
@@ -6746,6 +6751,7 @@
           <EntitySetMapping Name="UsuarioGrupo">
             <EntityTypeMapping TypeName="CSColegioModel.UsuarioGrupo">
               <MappingFragment StoreEntitySet="UsuarioGrupo">
+                <ScalarProperty Name="Notas" ColumnName="Notas" />
                 <ScalarProperty Name="IDUsuarioGrupo" ColumnName="IDUsuarioGrupo" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />

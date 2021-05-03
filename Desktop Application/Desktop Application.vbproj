@@ -695,10 +695,10 @@
     <Compile Include="Entidades\formEntidadInscripcion.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Sistema\formLogin.Designer.vb">
+    <Compile Include="Usuarios\formLogin.Designer.vb">
       <DependentUpon>formLogin.vb</DependentUpon>
     </Compile>
-    <Compile Include="Sistema\formLogin.vb">
+    <Compile Include="Usuarios\formLogin.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Sistema\formMDIMain.Designer.vb">
@@ -756,7 +756,37 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Sistema\Parametros.vb" />
-    <Compile Include="Sistema\Permisos.vb" />
+    <Compile Include="Usuarios\formUsuario.designer.vb">
+      <DependentUpon>formUsuario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios\formUsuario.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Usuarios\formUsuarioGrupo.designer.vb">
+      <DependentUpon>formUsuarioGrupo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios\formUsuarioGrupo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Usuarios\formUsuarioGrupoPermisos.designer.vb">
+      <DependentUpon>formUsuarioGrupoPermisos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios\formUsuarioGrupoPermisos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Usuarios\formUsuarioGrupos.designer.vb">
+      <DependentUpon>formUsuarioGrupos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios\formUsuarioGrupos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Usuarios\formUsuarios.designer.vb">
+      <DependentUpon>formUsuarios.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios\formUsuarios.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Usuarios\Permisos.vb" />
     <Compile Include="Sistema\StartUp.vb" />
     <Compile Include="TarjetaCredito.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
@@ -901,7 +931,7 @@
     <EmbeddedResource Include="Entidades\formEntidadInscripcion.resx">
       <DependentUpon>formEntidadInscripcion.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Sistema\formLogin.resx">
+    <EmbeddedResource Include="Usuarios\formLogin.resx">
       <DependentUpon>formLogin.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sistema\formMDIMain.resx">
@@ -927,6 +957,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Sistema\formSplashScreen.resx">
       <DependentUpon>formSplashScreen.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usuarios\formUsuario.resx">
+      <DependentUpon>formUsuario.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usuarios\formUsuarioGrupo.resx">
+      <DependentUpon>formUsuarioGrupo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usuarios\formUsuarioGrupoPermisos.resx">
+      <DependentUpon>formUsuarioGrupoPermisos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usuarios\formUsuarioGrupos.resx">
+      <DependentUpon>formUsuarioGrupos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usuarios\formUsuarios.resx">
+      <DependentUpon>formUsuarios.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

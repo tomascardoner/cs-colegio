@@ -17,6 +17,7 @@ Partial Public Class Usuario
     Public Property Password As String
     Public Property Genero As String
     Public Property IDUsuarioGrupo As Byte
+    Public Property Notas As String
     Public Property EsActivo As Boolean
     Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date

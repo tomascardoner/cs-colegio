@@ -114,7 +114,7 @@
         <AssociationConnector Association="CSColegioModel.FK__Concepto__Comprobante" />
         <EntityTypeShape EntityType="CSColegioModel.ReporteParametro" Width="1.5" PointX="5.25" PointY="1" />
         <AssociationConnector Association="CSColegioModel.FK__Reporte__ReporteParametro" />
-        <EntityTypeShape EntityType="CSColegioModel.TarjetaCredito" Width="1.5" PointX="8.75" PointY="3.75" />
+        <EntityTypeShape EntityType="CSColegioModel.TarjetaCredito" Width="1.5" PointX="7.75" PointY="2.75" />
         <EntityTypeShape EntityType="CSColegioModel.TarjetaCreditoBanco" Width="1.5" PointX="4.75" PointY="8.75" />
         <AssociationConnector Association="CSColegioModel.FK__Concepto__ArticuloGrupo" />
         <EntityTypeShape EntityType="CSColegioModel.ArticuloTalle" Width="1.5" PointX="15" PointY="58" />
@@ -185,16 +185,16 @@
         <AssociationConnector Association="CSColegioModel.FK__Usuario__Nivel__Modificacion" />
         <AssociationConnector Association="CSColegioModel.FK__Usuario__RelacionTipo__Creacion" />
         <AssociationConnector Association="CSColegioModel.FK__Usuario__RelacionTipo__Modificacion" ManuallyRouted="true" >
-          <ConnectorPoint PointX="4.75" PointY="59.788515602228017" />
-          <ConnectorPoint PointX="5.12348079027025" PointY="80.271682733173364" />
-          <ConnectorPoint PointX="5.12651920972975" PointY="80.438321701560014" />
-          <ConnectorPoint PointX="5.21723079027025" PointY="85.413304386958046" />
-          <ConnectorPoint PointX="5.22026920972975" PointY="85.5799433553447" />
-          <ConnectorPoint PointX="5.27973079027025" PointY="88.841052156147853" />
-          <ConnectorPoint PointX="5.28276920972975" PointY="89.0076911245345" />
+          <ConnectorPoint PointX="4.75" PointY="59.788515582153195" />
+          <ConnectorPoint PointX="5.1234807902712207" PointY="80.2716827262384" />
+          <ConnectorPoint PointX="5.12651920972878" PointY="80.438321694625074" />
+          <ConnectorPoint PointX="5.2172307902712207" PointY="85.413304383308059" />
+          <ConnectorPoint PointX="5.22026920972878" PointY="85.579943351694737" />
+          <ConnectorPoint PointX="5.2797307902712207" PointY="88.841052154687816" />
+          <ConnectorPoint PointX="5.28276920972878" PointY="89.0076911230745" />
           <ConnectorPoint PointX="5.322916666666667" PointY="91.209536819801045" />
           <ConnectorPoint PointX="6.17640625" PointY="91.209536819801045" />
-          <ConnectorPoint PointX="6.625" PointY="91.725824703150693" />
+          <ConnectorPoint PointX="6.625" PointY="91.730858760165091" />
         </AssociationConnector>
         <AssociationConnector Association="CSColegioModel.FK__Usuario__Turno__Creacion" />
         <AssociationConnector Association="CSColegioModel.FK__Usuario__Turno__Modificacion" />

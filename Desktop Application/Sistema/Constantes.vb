@@ -1,10 +1,11 @@
 ﻿Module Constantes
+
     '//////////////////
     '    APLICACIÓN
     '//////////////////
     Friend Const APPLICATION_DATABASE_GUID As String = "{57FC36AB-60E1-4ded-BE7A-6337258CDAED}"
     Friend Const PROVINCIA_NOESPECIFICA As Byte = 255
-    Friend Const USUARIO_ADMINISTRADOR As Short = 1
+    Friend Const USUARIOGRUPO_ADMINISTRADORES_ID As Byte = 1
 
     Friend Const ExportacionSistemaPagosEduc As String = "PE"
     Friend Const NewLineCharDisplayReplacement As String = " || "

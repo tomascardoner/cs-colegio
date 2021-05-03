@@ -33,7 +33,7 @@ Public Class formEntidadesSincronizarOutlook
 
         checkedlistboxAnioLectivo.Enabled = mEditMode
 
-        buttonEditar.Visible = pUsuario.IDUsuario = USUARIO_ADMINISTRADOR
+        buttonEditar.Visible = pUsuario.IDUsuarioGrupo = USUARIOGRUPO_ADMINISTRADORES_ID
     End Sub
 
     Private Sub SetOpciones()

@@ -13,6 +13,7 @@ Imports System.Collections.Generic
 Partial Public Class UsuarioGrupo
     Public Property IDUsuarioGrupo As Byte
     Public Property Nombre As String
+    Public Property Notas As String
     Public Property EsActivo As Boolean
     Public Property IDUsuarioCreacion As Short
     Public Property FechaHoraCreacion As Date

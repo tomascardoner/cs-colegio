@@ -61,8 +61,11 @@ Partial Class formMDIMain
         Me.menuitemAniosLectivosCuotas = New System.Windows.Forms.ToolStripMenuItem()
         Me.separatorBancos = New System.Windows.Forms.ToolStripSeparator()
         Me.menuitemBancos = New System.Windows.Forms.ToolStripMenuItem()
-        Me.separatorRelacionTipos = New System.Windows.Forms.ToolStripSeparator()
         Me.menuitemRelacionTipos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.separatorUsuarios = New System.Windows.Forms.ToolStripSeparator()
+        Me.menuitemGruposUsuarios = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemPermisosGruposUsuarios = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemUsuarios = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonEntidades = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemEntidadesAniosLectivosYCursos = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemEntidadesAnioLectivoCursoInscripcion = New System.Windows.Forms.ToolStripMenuItem()
@@ -73,6 +76,7 @@ Partial Class formMDIMain
         Me.menuitemComprobantesEnviarMail = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
         Me.menuitemComprobantesExportar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemComprobantesExportarPagosEduc = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesExportarPagomiscuentas = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesExportarSantanderDebitoDirecto = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemComprobantesExportarSantanderRecaudacionPorCaja = New System.Windows.Forms.ToolStripMenuItem()
@@ -85,7 +89,6 @@ Partial Class formMDIMain
         Me.buttonComunicaciones = New System.Windows.Forms.ToolStripSplitButton()
         Me.menuitemComunicacionesEnviarMail = New System.Windows.Forms.ToolStripMenuItem()
         Me.buttonReportes = New System.Windows.Forms.ToolStripButton()
-        Me.menuitemComprobantesExportarPagosEduc = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         Me.menustripMain.SuspendLayout()
         Me.toolstripMain.SuspendLayout()
@@ -168,51 +171,51 @@ Partial Class formMDIMain
         '
         Me.menuitemVentanaMosaicoHorizontal.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MENU_WINDOW_TILE_HORIZONTALLY
         Me.menuitemVentanaMosaicoHorizontal.Name = "menuitemVentanaMosaicoHorizontal"
-        Me.menuitemVentanaMosaicoHorizontal.Size = New System.Drawing.Size(177, 22)
+        Me.menuitemVentanaMosaicoHorizontal.Size = New System.Drawing.Size(184, 26)
         Me.menuitemVentanaMosaicoHorizontal.Text = "Mosaico &Horizontal"
         '
         'menuitemVentanaMosaicoVertical
         '
         Me.menuitemVentanaMosaicoVertical.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MENU_WINDOW_TILE_VERTICALLY
         Me.menuitemVentanaMosaicoVertical.Name = "menuitemVentanaMosaicoVertical"
-        Me.menuitemVentanaMosaicoVertical.Size = New System.Drawing.Size(177, 22)
+        Me.menuitemVentanaMosaicoVertical.Size = New System.Drawing.Size(184, 26)
         Me.menuitemVentanaMosaicoVertical.Text = "Mosaico &Vertical"
         '
         'menuitemVentanaCascada
         '
         Me.menuitemVentanaCascada.Name = "menuitemVentanaCascada"
-        Me.menuitemVentanaCascada.Size = New System.Drawing.Size(177, 22)
+        Me.menuitemVentanaCascada.Size = New System.Drawing.Size(184, 26)
         Me.menuitemVentanaCascada.Text = "&Cascada"
         '
         'menuitemVentanaOrganizarIconos
         '
         Me.menuitemVentanaOrganizarIconos.Name = "menuitemVentanaOrganizarIconos"
-        Me.menuitemVentanaOrganizarIconos.Size = New System.Drawing.Size(177, 22)
+        Me.menuitemVentanaOrganizarIconos.Size = New System.Drawing.Size(184, 26)
         Me.menuitemVentanaOrganizarIconos.Text = "&Organizar Iconos"
         '
         'menuitemVentanaSeparadorCerrarTodas
         '
         Me.menuitemVentanaSeparadorCerrarTodas.Name = "menuitemVentanaSeparadorCerrarTodas"
-        Me.menuitemVentanaSeparadorCerrarTodas.Size = New System.Drawing.Size(174, 6)
+        Me.menuitemVentanaSeparadorCerrarTodas.Size = New System.Drawing.Size(181, 6)
         '
         'menuitemVentanaCerrarTodas
         '
         Me.menuitemVentanaCerrarTodas.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MENU_WINDOW_CLOSE_ALL
         Me.menuitemVentanaCerrarTodas.Name = "menuitemVentanaCerrarTodas"
-        Me.menuitemVentanaCerrarTodas.Size = New System.Drawing.Size(177, 22)
+        Me.menuitemVentanaCerrarTodas.Size = New System.Drawing.Size(184, 26)
         Me.menuitemVentanaCerrarTodas.Text = "Cerrar todas"
         '
         'menuitemVentanaEncajarEnVentana
         '
         Me.menuitemVentanaEncajarEnVentana.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MENU_WINDOW_FIT_SIZE
         Me.menuitemVentanaEncajarEnVentana.Name = "menuitemVentanaEncajarEnVentana"
-        Me.menuitemVentanaEncajarEnVentana.Size = New System.Drawing.Size(177, 22)
+        Me.menuitemVentanaEncajarEnVentana.Size = New System.Drawing.Size(184, 26)
         Me.menuitemVentanaEncajarEnVentana.Text = "Encajar en ventana"
         '
         'menuitemVentanaSeparadorListaVentanas
         '
         Me.menuitemVentanaSeparadorListaVentanas.Name = "menuitemVentanaSeparadorListaVentanas"
-        Me.menuitemVentanaSeparadorListaVentanas.Size = New System.Drawing.Size(174, 6)
+        Me.menuitemVentanaSeparadorListaVentanas.Size = New System.Drawing.Size(181, 6)
         '
         'menuitemDebug
         '
@@ -297,7 +300,7 @@ Partial Class formMDIMain
         '
         'dropdownbuttonTablas
         '
-        Me.dropdownbuttonTablas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemAnios, Me.menuitemCursos, Me.menuitemAniosLectivosCursos, Me.menuitemAniosLectivosCuotas, Me.separatorBancos, Me.menuitemBancos, Me.separatorRelacionTipos, Me.menuitemRelacionTipos})
+        Me.dropdownbuttonTablas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemAnios, Me.menuitemCursos, Me.menuitemAniosLectivosCursos, Me.menuitemAniosLectivosCuotas, Me.separatorBancos, Me.menuitemBancos, Me.menuitemRelacionTipos, Me.separatorUsuarios, Me.menuitemGruposUsuarios, Me.menuitemPermisosGruposUsuarios, Me.menuitemUsuarios})
         Me.dropdownbuttonTablas.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_TABLAS_32
         Me.dropdownbuttonTablas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.dropdownbuttonTablas.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
@@ -309,48 +312,66 @@ Partial Class formMDIMain
         'menuitemAnios
         '
         Me.menuitemAnios.Name = "menuitemAnios"
-        Me.menuitemAnios.Size = New System.Drawing.Size(195, 22)
+        Me.menuitemAnios.Size = New System.Drawing.Size(241, 22)
         Me.menuitemAnios.Text = "Años"
         '
         'menuitemCursos
         '
         Me.menuitemCursos.Name = "menuitemCursos"
-        Me.menuitemCursos.Size = New System.Drawing.Size(195, 22)
+        Me.menuitemCursos.Size = New System.Drawing.Size(241, 22)
         Me.menuitemCursos.Text = "Cursos"
         '
         'menuitemAniosLectivosCursos
         '
         Me.menuitemAniosLectivosCursos.Name = "menuitemAniosLectivosCursos"
-        Me.menuitemAniosLectivosCursos.Size = New System.Drawing.Size(195, 22)
+        Me.menuitemAniosLectivosCursos.Size = New System.Drawing.Size(241, 22)
         Me.menuitemAniosLectivosCursos.Text = "Años Lectivos y Cursos"
         '
         'menuitemAniosLectivosCuotas
         '
         Me.menuitemAniosLectivosCuotas.Name = "menuitemAniosLectivosCuotas"
-        Me.menuitemAniosLectivosCuotas.Size = New System.Drawing.Size(195, 22)
+        Me.menuitemAniosLectivosCuotas.Size = New System.Drawing.Size(241, 22)
         Me.menuitemAniosLectivosCuotas.Text = "Cuotas"
         '
         'separatorBancos
         '
         Me.separatorBancos.Name = "separatorBancos"
-        Me.separatorBancos.Size = New System.Drawing.Size(192, 6)
+        Me.separatorBancos.Size = New System.Drawing.Size(238, 6)
         '
         'menuitemBancos
         '
         Me.menuitemBancos.Name = "menuitemBancos"
-        Me.menuitemBancos.Size = New System.Drawing.Size(195, 22)
+        Me.menuitemBancos.Size = New System.Drawing.Size(241, 22)
         Me.menuitemBancos.Text = "Bancos"
-        '
-        'separatorRelacionTipos
-        '
-        Me.separatorRelacionTipos.Name = "separatorRelacionTipos"
-        Me.separatorRelacionTipos.Size = New System.Drawing.Size(192, 6)
         '
         'menuitemRelacionTipos
         '
         Me.menuitemRelacionTipos.Name = "menuitemRelacionTipos"
-        Me.menuitemRelacionTipos.Size = New System.Drawing.Size(195, 22)
+        Me.menuitemRelacionTipos.Size = New System.Drawing.Size(241, 22)
         Me.menuitemRelacionTipos.Text = "Tipos de Relación"
+        '
+        'separatorUsuarios
+        '
+        Me.separatorUsuarios.Name = "separatorUsuarios"
+        Me.separatorUsuarios.Size = New System.Drawing.Size(238, 6)
+        '
+        'menuitemGruposUsuarios
+        '
+        Me.menuitemGruposUsuarios.Name = "menuitemGruposUsuarios"
+        Me.menuitemGruposUsuarios.Size = New System.Drawing.Size(241, 22)
+        Me.menuitemGruposUsuarios.Text = "Grupos de usuarios"
+        '
+        'menuitemPermisosGruposUsuarios
+        '
+        Me.menuitemPermisosGruposUsuarios.Name = "menuitemPermisosGruposUsuarios"
+        Me.menuitemPermisosGruposUsuarios.Size = New System.Drawing.Size(241, 22)
+        Me.menuitemPermisosGruposUsuarios.Text = "Permisos de grupos de usuarios"
+        '
+        'menuitemUsuarios
+        '
+        Me.menuitemUsuarios.Name = "menuitemUsuarios"
+        Me.menuitemUsuarios.Size = New System.Drawing.Size(241, 22)
+        Me.menuitemUsuarios.Text = "Usuarios"
         '
         'buttonEntidades
         '
@@ -423,6 +444,12 @@ Partial Class formMDIMain
         Me.menuitemComprobantesExportar.Name = "menuitemComprobantesExportar"
         Me.menuitemComprobantesExportar.Size = New System.Drawing.Size(216, 38)
         Me.menuitemComprobantesExportar.Text = "Exportar archivos para..."
+        '
+        'menuitemComprobantesExportarPagosEduc
+        '
+        Me.menuitemComprobantesExportarPagosEduc.Name = "menuitemComprobantesExportarPagosEduc"
+        Me.menuitemComprobantesExportarPagosEduc.Size = New System.Drawing.Size(289, 22)
+        Me.menuitemComprobantesExportarPagosEduc.Text = "PAGOS Educ"
         '
         'menuitemComprobantesExportarPagomiscuentas
         '
@@ -515,12 +542,6 @@ Partial Class formMDIMain
         Me.buttonReportes.Size = New System.Drawing.Size(142, 36)
         Me.buttonReportes.Text = "Reportes"
         '
-        'menuitemComprobantesExportarPagosEduc
-        '
-        Me.menuitemComprobantesExportarPagosEduc.Name = "menuitemComprobantesExportarPagosEduc"
-        Me.menuitemComprobantesExportarPagosEduc.Size = New System.Drawing.Size(289, 22)
-        Me.menuitemComprobantesExportarPagosEduc.Text = "PAGOS Educ"
-        '
         'formMDIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -573,7 +594,7 @@ Partial Class formMDIMain
     Friend WithEvents menuitemCursos As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents separatorBancos As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents menuitemBancos As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents separatorRelacionTipos As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents separatorUsuarios As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents menuitemRelacionTipos As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemVentanaSeparadorListaVentanas As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents buttonComprobantes As System.Windows.Forms.ToolStripSplitButton
@@ -610,4 +631,7 @@ Partial Class formMDIMain
     Friend WithEvents menuitemEntidadesVerificarEmails As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemAniosLectivosCuotas As ToolStripMenuItem
     Friend WithEvents menuitemComprobantesExportarPagosEduc As ToolStripMenuItem
+    Friend WithEvents menuitemGruposUsuarios As ToolStripMenuItem
+    Friend WithEvents menuitemPermisosGruposUsuarios As ToolStripMenuItem
+    Friend WithEvents menuitemUsuarios As ToolStripMenuItem
 End Class
