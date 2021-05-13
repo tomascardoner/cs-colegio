@@ -11,16 +11,6 @@ Partial Public Class CSColegioContext
         MyBase.New(ConnectionString)
     End Sub
 
-    Public Shared Sub CreateConnectionString(ByVal Provider As String, ByVal ProviderConnectionString As String)
-        Dim ecb As EntityConnectionStringBuilder = New EntityConnectionStringBuilder()
-
-        ecb.Metadata = String.Format("res://*/{0}.csdl|res://*/{0}.ssdl|res://*/{0}.msl", "CSColegio")
-        ecb.Provider = Provider
-        ecb.ProviderConnectionString = ProviderConnectionString
-
-        ConnectionString = ecb.ConnectionString
-    End Sub
-
     Public Overrides Function SaveChanges() As Integer
         Try
             Return MyBase.SaveChanges()

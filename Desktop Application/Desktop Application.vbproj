@@ -340,6 +340,7 @@
     </Compile>
     <Compile Include="Database\ComprobanteDetalleExtension.vb" />
     <Compile Include="Database\ComprobanteExtension.vb" />
+    <Compile Include="Database\Database.vb" />
     <Compile Include="Database\CSColegioContextExtension.vb" />
     <Compile Include="Database\CursoExtension.vb" />
     <Compile Include="Database\FormattedDbEntityValidationException.vb" />
