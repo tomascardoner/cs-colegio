@@ -4,8 +4,6 @@ Imports MimeKit
 
 Module Email
     Friend Function GetSslOptionsEnumValue(ByVal value As Integer) As MailKit.Security.SecureSocketOptions
-        Dim name As String = ""
-
         If [Enum].IsDefined(GetType(MailKit.Security.SecureSocketOptions), value) Then
             Return CType(value, MailKit.Security.SecureSocketOptions)
         Else
