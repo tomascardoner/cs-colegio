@@ -60,6 +60,7 @@ Partial Class formEntidad
         Dim labelModificacion As System.Windows.Forms.Label
         Dim labelCreacion As System.Windows.Forms.Label
         Dim labelIDOtroSistema As System.Windows.Forms.Label
+        Dim labelDomicilioBarrio As System.Windows.Forms.Label
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -77,7 +78,6 @@ Partial Class formEntidad
         Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim labelDomicilioBarrio As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formEntidad))
         Me.textboxApellido = New System.Windows.Forms.TextBox()
         Me.textboxIDEntidad = New System.Windows.Forms.TextBox()
@@ -116,6 +116,7 @@ Partial Class formEntidad
         Me.maskedtextboxDocumentoNumero = New System.Windows.Forms.MaskedTextBox()
         Me.maskedtextboxFacturaDocumentoNumero = New System.Windows.Forms.MaskedTextBox()
         Me.tabpageContacto = New System.Windows.Forms.TabPage()
+        Me.textboxDomicilioBarrio = New System.Windows.Forms.TextBox()
         Me.comboboxComprobanteEnviarEmail = New System.Windows.Forms.ComboBox()
         Me.textboxDomicilioCalle3 = New System.Windows.Forms.TextBox()
         Me.textboxDomicilioCalle2 = New System.Windows.Forms.TextBox()
@@ -193,7 +194,10 @@ Partial Class formEntidad
         Me.textboxUsuarioCreacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraModificacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraCreacion = New System.Windows.Forms.TextBox()
-        Me.textboxDomicilioBarrio = New System.Windows.Forms.TextBox()
+        Me.labelDocumentoNumeroVerificado = New System.Windows.Forms.Label()
+        Me.checkboxDocumentoNumeroVerificado = New System.Windows.Forms.CheckBox()
+        Me.labelFacturaDocumentoNumeroVerificado = New System.Windows.Forms.Label()
+        Me.checkboxFacturaDocumentoNumeroVerificado = New System.Windows.Forms.CheckBox()
         labelApellido = New System.Windows.Forms.Label()
         labelIDEntidad = New System.Windows.Forms.Label()
         labelNombre = New System.Windows.Forms.Label()
@@ -589,6 +593,15 @@ Partial Class formEntidad
         labelIDOtroSistema.TabIndex = 4
         labelIDOtroSistema.Text = "ID otro sistema:"
         '
+        'labelDomicilioBarrio
+        '
+        labelDomicilioBarrio.AutoSize = True
+        labelDomicilioBarrio.Location = New System.Drawing.Point(6, 212)
+        labelDomicilioBarrio.Name = "labelDomicilioBarrio"
+        labelDomicilioBarrio.Size = New System.Drawing.Size(37, 13)
+        labelDomicilioBarrio.TabIndex = 24
+        labelDomicilioBarrio.Text = "Barrio:"
+        '
         'textboxApellido
         '
         Me.textboxApellido.Location = New System.Drawing.Point(202, 77)
@@ -750,6 +763,10 @@ Partial Class formEntidad
         '
         'tabpageGeneral
         '
+        Me.tabpageGeneral.Controls.Add(Me.labelFacturaDocumentoNumeroVerificado)
+        Me.tabpageGeneral.Controls.Add(Me.checkboxFacturaDocumentoNumeroVerificado)
+        Me.tabpageGeneral.Controls.Add(Me.labelDocumentoNumeroVerificado)
+        Me.tabpageGeneral.Controls.Add(Me.checkboxDocumentoNumeroVerificado)
         Me.tabpageGeneral.Controls.Add(Me.labelTipoOtro)
         Me.tabpageGeneral.Controls.Add(Me.checkboxTipoOtro)
         Me.tabpageGeneral.Controls.Add(Me.comboboxFacturaDocumentoTipo)
@@ -1010,6 +1027,14 @@ Partial Class formEntidad
         Me.tabpageContacto.Text = "Contacto"
         Me.tabpageContacto.UseVisualStyleBackColor = True
         '
+        'textboxDomicilioBarrio
+        '
+        Me.textboxDomicilioBarrio.Location = New System.Drawing.Point(72, 209)
+        Me.textboxDomicilioBarrio.MaxLength = 50
+        Me.textboxDomicilioBarrio.Name = "textboxDomicilioBarrio"
+        Me.textboxDomicilioBarrio.Size = New System.Drawing.Size(258, 20)
+        Me.textboxDomicilioBarrio.TabIndex = 25
+        '
         'comboboxComprobanteEnviarEmail
         '
         Me.comboboxComprobanteEnviarEmail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -1160,7 +1185,7 @@ Partial Class formEntidad
         Me.tabpagePadresYFacturacion.Location = New System.Drawing.Point(4, 25)
         Me.tabpagePadresYFacturacion.Name = "tabpagePadresYFacturacion"
         Me.tabpagePadresYFacturacion.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpagePadresYFacturacion.Size = New System.Drawing.Size(506, 264)
+        Me.tabpagePadresYFacturacion.Size = New System.Drawing.Size(506, 286)
         Me.tabpagePadresYFacturacion.TabIndex = 2
         Me.tabpagePadresYFacturacion.Text = "Padres y Facturación"
         Me.tabpagePadresYFacturacion.UseVisualStyleBackColor = True
@@ -1430,7 +1455,7 @@ Partial Class formEntidad
         Me.tabpageDebitoAutomatico.Margin = New System.Windows.Forms.Padding(2)
         Me.tabpageDebitoAutomatico.Name = "tabpageDebitoAutomatico"
         Me.tabpageDebitoAutomatico.Padding = New System.Windows.Forms.Padding(2)
-        Me.tabpageDebitoAutomatico.Size = New System.Drawing.Size(506, 264)
+        Me.tabpageDebitoAutomatico.Size = New System.Drawing.Size(506, 286)
         Me.tabpageDebitoAutomatico.TabIndex = 9
         Me.tabpageDebitoAutomatico.Text = "Débito Automático"
         Me.tabpageDebitoAutomatico.UseVisualStyleBackColor = True
@@ -1504,7 +1529,7 @@ Partial Class formEntidad
         Me.tabpageCursosAsistidos.Location = New System.Drawing.Point(4, 25)
         Me.tabpageCursosAsistidos.Name = "tabpageCursosAsistidos"
         Me.tabpageCursosAsistidos.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageCursosAsistidos.Size = New System.Drawing.Size(506, 264)
+        Me.tabpageCursosAsistidos.Size = New System.Drawing.Size(506, 286)
         Me.tabpageCursosAsistidos.TabIndex = 6
         Me.tabpageCursosAsistidos.Text = "Cursos Asistidos"
         Me.tabpageCursosAsistidos.UseVisualStyleBackColor = True
@@ -1530,7 +1555,7 @@ Partial Class formEntidad
         Me.datagridviewCursosAsistidos.RowHeadersVisible = False
         Me.datagridviewCursosAsistidos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewCursosAsistidos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewCursosAsistidos.Size = New System.Drawing.Size(500, 258)
+        Me.datagridviewCursosAsistidos.Size = New System.Drawing.Size(500, 280)
         Me.datagridviewCursosAsistidos.TabIndex = 5
         '
         'columnAnioLectivo
@@ -1590,7 +1615,7 @@ Partial Class formEntidad
         Me.tabpageHijos.Location = New System.Drawing.Point(4, 25)
         Me.tabpageHijos.Name = "tabpageHijos"
         Me.tabpageHijos.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageHijos.Size = New System.Drawing.Size(506, 264)
+        Me.tabpageHijos.Size = New System.Drawing.Size(506, 286)
         Me.tabpageHijos.TabIndex = 4
         Me.tabpageHijos.Text = "Hijos"
         Me.tabpageHijos.UseVisualStyleBackColor = True
@@ -1616,7 +1641,7 @@ Partial Class formEntidad
         Me.datagridviewHijos.RowHeadersVisible = False
         Me.datagridviewHijos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewHijos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewHijos.Size = New System.Drawing.Size(500, 258)
+        Me.datagridviewHijos.Size = New System.Drawing.Size(500, 280)
         Me.datagridviewHijos.TabIndex = 3
         '
         'columnHijosIDEntidad
@@ -1657,7 +1682,7 @@ Partial Class formEntidad
         Me.tabpageComprobantes.Controls.Add(Me.datagridviewComprobantes)
         Me.tabpageComprobantes.Location = New System.Drawing.Point(4, 25)
         Me.tabpageComprobantes.Name = "tabpageComprobantes"
-        Me.tabpageComprobantes.Size = New System.Drawing.Size(506, 264)
+        Me.tabpageComprobantes.Size = New System.Drawing.Size(506, 286)
         Me.tabpageComprobantes.TabIndex = 8
         Me.tabpageComprobantes.Text = "Comprobantes"
         Me.tabpageComprobantes.UseVisualStyleBackColor = True
@@ -1683,7 +1708,7 @@ Partial Class formEntidad
         Me.datagridviewComprobantes.RowHeadersVisible = False
         Me.datagridviewComprobantes.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewComprobantes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewComprobantes.Size = New System.Drawing.Size(506, 264)
+        Me.datagridviewComprobantes.Size = New System.Drawing.Size(506, 286)
         Me.datagridviewComprobantes.TabIndex = 2
         '
         'columnTipoNombre
@@ -1738,7 +1763,7 @@ Partial Class formEntidad
         Me.tabpageRelaciones.Location = New System.Drawing.Point(4, 25)
         Me.tabpageRelaciones.Name = "tabpageRelaciones"
         Me.tabpageRelaciones.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageRelaciones.Size = New System.Drawing.Size(506, 264)
+        Me.tabpageRelaciones.Size = New System.Drawing.Size(506, 286)
         Me.tabpageRelaciones.TabIndex = 5
         Me.tabpageRelaciones.Text = "Relaciones"
         Me.tabpageRelaciones.UseVisualStyleBackColor = True
@@ -1764,7 +1789,7 @@ Partial Class formEntidad
         Me.datagridviewRelaciones.RowHeadersVisible = False
         Me.datagridviewRelaciones.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewRelaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewRelaciones.Size = New System.Drawing.Size(500, 258)
+        Me.datagridviewRelaciones.Size = New System.Drawing.Size(500, 280)
         Me.datagridviewRelaciones.TabIndex = 4
         '
         'columnPadresIDEntidad
@@ -1826,7 +1851,7 @@ Partial Class formEntidad
         Me.tabpageNotasAuditoria.Location = New System.Drawing.Point(4, 25)
         Me.tabpageNotasAuditoria.Name = "tabpageNotasAuditoria"
         Me.tabpageNotasAuditoria.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageNotasAuditoria.Size = New System.Drawing.Size(506, 264)
+        Me.tabpageNotasAuditoria.Size = New System.Drawing.Size(506, 286)
         Me.tabpageNotasAuditoria.TabIndex = 7
         Me.tabpageNotasAuditoria.Text = "Notas y Auditoría"
         Me.tabpageNotasAuditoria.UseVisualStyleBackColor = True
@@ -1887,22 +1912,41 @@ Partial Class formEntidad
         Me.textboxFechaHoraCreacion.Size = New System.Drawing.Size(121, 20)
         Me.textboxFechaHoraCreacion.TabIndex = 7
         '
-        'labelDomicilioBarrio
+        'labelDocumentoNumeroVerificado
         '
-        labelDomicilioBarrio.AutoSize = True
-        labelDomicilioBarrio.Location = New System.Drawing.Point(6, 212)
-        labelDomicilioBarrio.Name = "labelDomicilioBarrio"
-        labelDomicilioBarrio.Size = New System.Drawing.Size(37, 13)
-        labelDomicilioBarrio.TabIndex = 24
-        labelDomicilioBarrio.Text = "Barrio:"
+        Me.labelDocumentoNumeroVerificado.AutoSize = True
+        Me.labelDocumentoNumeroVerificado.Location = New System.Drawing.Point(380, 126)
+        Me.labelDocumentoNumeroVerificado.Name = "labelDocumentoNumeroVerificado"
+        Me.labelDocumentoNumeroVerificado.Size = New System.Drawing.Size(57, 13)
+        Me.labelDocumentoNumeroVerificado.TabIndex = 28
+        Me.labelDocumentoNumeroVerificado.Text = "Verificado:"
         '
-        'textboxDomicilioBarrio
+        'checkboxDocumentoNumeroVerificado
         '
-        Me.textboxDomicilioBarrio.Location = New System.Drawing.Point(72, 209)
-        Me.textboxDomicilioBarrio.MaxLength = 50
-        Me.textboxDomicilioBarrio.Name = "textboxDomicilioBarrio"
-        Me.textboxDomicilioBarrio.Size = New System.Drawing.Size(258, 20)
-        Me.textboxDomicilioBarrio.TabIndex = 25
+        Me.checkboxDocumentoNumeroVerificado.AutoSize = True
+        Me.checkboxDocumentoNumeroVerificado.Location = New System.Drawing.Point(443, 126)
+        Me.checkboxDocumentoNumeroVerificado.Name = "checkboxDocumentoNumeroVerificado"
+        Me.checkboxDocumentoNumeroVerificado.Size = New System.Drawing.Size(15, 14)
+        Me.checkboxDocumentoNumeroVerificado.TabIndex = 27
+        Me.checkboxDocumentoNumeroVerificado.UseVisualStyleBackColor = True
+        '
+        'labelFacturaDocumentoNumeroVerificado
+        '
+        Me.labelFacturaDocumentoNumeroVerificado.AutoSize = True
+        Me.labelFacturaDocumentoNumeroVerificado.Location = New System.Drawing.Point(380, 197)
+        Me.labelFacturaDocumentoNumeroVerificado.Name = "labelFacturaDocumentoNumeroVerificado"
+        Me.labelFacturaDocumentoNumeroVerificado.Size = New System.Drawing.Size(57, 13)
+        Me.labelFacturaDocumentoNumeroVerificado.TabIndex = 30
+        Me.labelFacturaDocumentoNumeroVerificado.Text = "Verificado:"
+        '
+        'checkboxFacturaDocumentoNumeroVerificado
+        '
+        Me.checkboxFacturaDocumentoNumeroVerificado.AutoSize = True
+        Me.checkboxFacturaDocumentoNumeroVerificado.Location = New System.Drawing.Point(443, 197)
+        Me.checkboxFacturaDocumentoNumeroVerificado.Name = "checkboxFacturaDocumentoNumeroVerificado"
+        Me.checkboxFacturaDocumentoNumeroVerificado.Size = New System.Drawing.Size(15, 14)
+        Me.checkboxFacturaDocumentoNumeroVerificado.TabIndex = 29
+        Me.checkboxFacturaDocumentoNumeroVerificado.UseVisualStyleBackColor = True
         '
         'formEntidad
         '
@@ -2076,4 +2120,8 @@ Partial Class formEntidad
     Friend WithEvents textboxIDOtroSistema As TextBox
     Friend WithEvents percenttextboxDescuentoOtroPorcentaje As Syncfusion.Windows.Forms.Tools.PercentTextBox
     Friend WithEvents textboxDomicilioBarrio As TextBox
+    Friend WithEvents labelFacturaDocumentoNumeroVerificado As Label
+    Friend WithEvents checkboxFacturaDocumentoNumeroVerificado As CheckBox
+    Friend WithEvents labelDocumentoNumeroVerificado As Label
+    Friend WithEvents checkboxDocumentoNumeroVerificado As CheckBox
 End Class

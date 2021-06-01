@@ -66,6 +66,9 @@ Partial Class formEntidades
         Me.toolstripActivo = New System.Windows.Forms.ToolStrip()
         Me.labelActivo = New System.Windows.Forms.ToolStripLabel()
         Me.comboboxActivo = New System.Windows.Forms.ToolStripComboBox()
+        Me.toolstripVerificarDocumento = New System.Windows.Forms.ToolStrip()
+        Me.labelVerificarDocumento = New System.Windows.Forms.ToolStripLabel()
+        Me.comboboxVerificarDocumento = New System.Windows.Forms.ToolStripComboBox()
         Me.toolstripVerificarEmail = New System.Windows.Forms.ToolStrip()
         Me.labelVerificarEmail = New System.Windows.Forms.ToolStripLabel()
         Me.comboboxVerificarEmail = New System.Windows.Forms.ToolStripComboBox()
@@ -77,6 +80,7 @@ Partial Class formEntidades
         Me.panelToolbars.SuspendLayout()
         Me.toolstripBuscar.SuspendLayout()
         Me.toolstripActivo.SuspendLayout()
+        Me.toolstripVerificarDocumento.SuspendLayout()
         Me.toolstripVerificarEmail.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -357,6 +361,7 @@ Partial Class formEntidades
         Me.panelToolbars.Controls.Add(Me.toolstripEntidadTipo)
         Me.panelToolbars.Controls.Add(Me.toolstripBuscar)
         Me.panelToolbars.Controls.Add(Me.toolstripActivo)
+        Me.panelToolbars.Controls.Add(Me.toolstripVerificarDocumento)
         Me.panelToolbars.Controls.Add(Me.toolstripVerificarEmail)
         Me.panelToolbars.Dock = System.Windows.Forms.DockStyle.Top
         Me.panelToolbars.Location = New System.Drawing.Point(0, 0)
@@ -372,7 +377,7 @@ Partial Class formEntidades
         Me.toolstripBuscar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelBuscar, Me.comboboxBuscar, Me.textboxBuscar, Me.buttonBuscarBorrar})
         Me.toolstripBuscar.Location = New System.Drawing.Point(446, 0)
         Me.toolstripBuscar.Name = "toolstripBuscar"
-        Me.toolstripBuscar.Size = New System.Drawing.Size(335, 39)
+        Me.toolstripBuscar.Size = New System.Drawing.Size(304, 39)
         Me.toolstripBuscar.TabIndex = 2
         '
         'labelBuscar
@@ -409,7 +414,7 @@ Partial Class formEntidades
         Me.toolstripActivo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripActivo.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripActivo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelActivo, Me.comboboxActivo})
-        Me.toolstripActivo.Location = New System.Drawing.Point(781, 0)
+        Me.toolstripActivo.Location = New System.Drawing.Point(750, 0)
         Me.toolstripActivo.Name = "toolstripActivo"
         Me.toolstripActivo.Size = New System.Drawing.Size(124, 39)
         Me.toolstripActivo.TabIndex = 3
@@ -426,13 +431,36 @@ Partial Class formEntidades
         Me.comboboxActivo.Name = "comboboxActivo"
         Me.comboboxActivo.Size = New System.Drawing.Size(75, 39)
         '
+        'toolstripVerificarDocumento
+        '
+        Me.toolstripVerificarDocumento.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.toolstripVerificarDocumento.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolstripVerificarDocumento.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.toolstripVerificarDocumento.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelVerificarDocumento, Me.comboboxVerificarDocumento})
+        Me.toolstripVerificarDocumento.Location = New System.Drawing.Point(0, 39)
+        Me.toolstripVerificarDocumento.Name = "toolstripVerificarDocumento"
+        Me.toolstripVerificarDocumento.Size = New System.Drawing.Size(197, 25)
+        Me.toolstripVerificarDocumento.TabIndex = 5
+        '
+        'labelVerificarDocumento
+        '
+        Me.labelVerificarDocumento.Name = "labelVerificarDocumento"
+        Me.labelVerificarDocumento.Size = New System.Drawing.Size(117, 22)
+        Me.labelVerificarDocumento.Text = "Verificar documento:"
+        '
+        'comboboxVerificarDocumento
+        '
+        Me.comboboxVerificarDocumento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboboxVerificarDocumento.Name = "comboboxVerificarDocumento"
+        Me.comboboxVerificarDocumento.Size = New System.Drawing.Size(75, 25)
+        '
         'toolstripVerificarEmail
         '
         Me.toolstripVerificarEmail.Dock = System.Windows.Forms.DockStyle.Fill
         Me.toolstripVerificarEmail.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolstripVerificarEmail.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripVerificarEmail.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelVerificarEmail, Me.comboboxVerificarEmail})
-        Me.toolstripVerificarEmail.Location = New System.Drawing.Point(0, 39)
+        Me.toolstripVerificarEmail.Location = New System.Drawing.Point(197, 39)
         Me.toolstripVerificarEmail.Name = "toolstripVerificarEmail"
         Me.toolstripVerificarEmail.Size = New System.Drawing.Size(169, 25)
         Me.toolstripVerificarEmail.TabIndex = 4
@@ -441,7 +469,7 @@ Partial Class formEntidades
         '
         Me.labelVerificarEmail.Name = "labelVerificarEmail"
         Me.labelVerificarEmail.Size = New System.Drawing.Size(89, 22)
-        Me.labelVerificarEmail.Text = "Verificar e-Mail:"
+        Me.labelVerificarEmail.Text = "Verificar e-mail:"
         '
         'comboboxVerificarEmail
         '
@@ -477,6 +505,8 @@ Partial Class formEntidades
         Me.toolstripBuscar.PerformLayout()
         Me.toolstripActivo.ResumeLayout(False)
         Me.toolstripActivo.PerformLayout()
+        Me.toolstripVerificarDocumento.ResumeLayout(False)
+        Me.toolstripVerificarDocumento.PerformLayout()
         Me.toolstripVerificarEmail.ResumeLayout(False)
         Me.toolstripVerificarEmail.PerformLayout()
         Me.ResumeLayout(False)
@@ -524,4 +554,7 @@ Partial Class formEntidades
     Friend WithEvents columnTipoFamiliar As DataGridViewCheckBoxColumn
     Friend WithEvents columnTipoProveedor As DataGridViewCheckBoxColumn
     Friend WithEvents columnTipoOtro As DataGridViewCheckBoxColumn
+    Friend WithEvents toolstripVerificarDocumento As ToolStrip
+    Friend WithEvents labelVerificarDocumento As ToolStripLabel
+    Friend WithEvents comboboxVerificarDocumento As ToolStripComboBox
 End Class

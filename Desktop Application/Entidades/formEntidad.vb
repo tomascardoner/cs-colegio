@@ -81,9 +81,11 @@
         checkboxTipoProveedor.Enabled = mEditMode
         comboboxDocumentoTipo.Enabled = mEditMode
         textboxDocumentoNumero.ReadOnly = (mEditMode = False)
+        checkboxDocumentoNumeroVerificado.Enabled = mEditMode
         maskedtextboxDocumentoNumero.ReadOnly = (mEditMode = False)
         comboboxFacturaDocumentoTipo.Enabled = mEditMode
         textboxFacturaDocumentoNumero.ReadOnly = (mEditMode = False)
+        checkboxFacturaDocumentoNumeroVerificado.Enabled = mEditMode
         maskedtextboxFacturaDocumentoNumero.ReadOnly = (mEditMode = False)
         comboboxGenero.Enabled = mEditMode
         datetimepickerFechaNacimiento.Enabled = mEditMode
@@ -200,18 +202,30 @@
             checkboxTipoFamiliar.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoFamiliar)
             checkboxTipoProveedor.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoProveedor)
             checkboxTipoOtro.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoOtro)
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxDocumentoTipo, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirst, .IDDocumentoTipo, CByte(0))
-            If CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
-                maskedtextboxDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DocumentoNumero)
+            CardonerSistemas.ComboBox.SetSelectedValue(comboboxDocumentoTipo, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirst, .IDDocumentoTipo, CardonerSistemas.Constants.FIELD_VALUE_NOTSPECIFIED_BYTE)
+            If .IDDocumentoTipo.HasValue Then
+                If CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
+                    maskedtextboxDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DocumentoNumero)
+                Else
+                    textboxDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DocumentoNumero)
+                End If
             Else
-                textboxDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DocumentoNumero)
+                maskedtextboxDocumentoNumero.Text = ""
+                textboxDocumentoNumero.Text = ""
             End If
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxFacturaDocumentoTipo, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirst, .FacturaIDDocumentoTipo, CByte(0))
-            If CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
-                maskedtextboxFacturaDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.FacturaDocumentoNumero)
+            checkboxDocumentoNumeroVerificado.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.DocumentoNumeroVerificado)
+            CardonerSistemas.ComboBox.SetSelectedValue(comboboxFacturaDocumentoTipo, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirst, .FacturaIDDocumentoTipo, CardonerSistemas.Constants.FIELD_VALUE_NOTSPECIFIED_BYTE)
+            If .FacturaIDDocumentoTipo.HasValue Then
+                If CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
+                    maskedtextboxFacturaDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.FacturaDocumentoNumero)
+                Else
+                    textboxFacturaDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.FacturaDocumentoNumero)
+                End If
             Else
-                textboxFacturaDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.FacturaDocumentoNumero)
+                maskedtextboxFacturaDocumentoNumero.Text = ""
+                textboxFacturaDocumentoNumero.Text = ""
             End If
+            checkboxFacturaDocumentoNumeroVerificado.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.FacturaDocumentoNumeroVerificado)
             CardonerSistemas.ComboBox.SetSelectedValue(comboboxGenero, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirst, .Genero, Constantes.EntidadGeneroNoEspecifica)
             datetimepickerFechaNacimiento.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaNacimiento, datetimepickerFechaNacimiento)
             CardonerSistemas.ComboBox.SetSelectedValue(comboboxCategoriaIVA, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirst, .IDCategoriaIVA, 0)
@@ -333,17 +347,29 @@
             .TipoFamiliar = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoFamiliar.CheckState)
             .TipoProveedor = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoProveedor.CheckState)
             .TipoOtro = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxTipoOtro.CheckState)
-            .IDDocumentoTipo = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxDocumentoTipo.SelectedValue, 0)
-            If CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
-                .DocumentoNumero = CS_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxDocumentoNumero.Text)
+            .IDDocumentoTipo = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxDocumentoTipo.SelectedValue, CardonerSistemas.Constants.FIELD_VALUE_NOTSPECIFIED_BYTE)
+            If CByte(comboboxDocumentoTipo.SelectedValue) = CardonerSistemas.Constants.FIELD_VALUE_NOTSPECIFIED_BYTE Then
+                .DocumentoNumero = Nothing
+                .DocumentoNumeroVerificado = False
             Else
-                .DocumentoNumero = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxDocumentoNumero.Text)
+                If CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
+                    .DocumentoNumero = CS_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxDocumentoNumero.Text)
+                Else
+                    .DocumentoNumero = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxDocumentoNumero.Text)
+                End If
+                .DocumentoNumeroVerificado = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxDocumentoNumeroVerificado.CheckState)
             End If
-            .FacturaIDDocumentoTipo = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxFacturaDocumentoTipo.SelectedValue, 0)
-            If CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
-                .FacturaDocumentoNumero = CS_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxFacturaDocumentoNumero.Text)
+            .FacturaIDDocumentoTipo = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxFacturaDocumentoTipo.SelectedValue, CardonerSistemas.Constants.FIELD_VALUE_NOTSPECIFIED_BYTE)
+            If CByte(comboboxFacturaDocumentoTipo.SelectedValue) = CardonerSistemas.Constants.FIELD_VALUE_NOTSPECIFIED_BYTE Then
+                .FacturaDocumentoNumero = Nothing
+                .FacturaDocumentoNumeroVerificado = False
             Else
-                .FacturaDocumentoNumero = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxFacturaDocumentoNumero.Text)
+                If CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
+                    .FacturaDocumentoNumero = CS_ValueTranslation.FromControlTextBoxToObjectString(maskedtextboxFacturaDocumentoNumero.Text)
+                Else
+                    .FacturaDocumentoNumero = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxFacturaDocumentoNumero.Text)
+                End If
+                .FacturaDocumentoNumeroVerificado = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxFacturaDocumentoNumeroVerificado.CheckState)
             End If
             .Genero = CS_ValueTranslation.FromControlComboBoxToObjectString(comboboxGenero.SelectedValue, Constantes.EntidadGeneroNoEspecifica)
             .FechaNacimiento = CS_ValueTranslation.FromControlDateTimePickerToObjectDate(datetimepickerFechaNacimiento.Value, datetimepickerFechaNacimiento.Checked)
@@ -487,6 +513,8 @@
         If Not comboboxDocumentoTipo.SelectedItem Is Nothing Then
             textboxDocumentoNumero.Visible = (CByte(comboboxDocumentoTipo.SelectedValue) > 0 AndAlso Not CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11)
             maskedtextboxDocumentoNumero.Visible = (CByte(comboboxDocumentoTipo.SelectedValue) > 0 AndAlso Not textboxDocumentoNumero.Visible)
+            labelDocumentoNumeroVerificado.Visible = (CByte(comboboxDocumentoTipo.SelectedValue) > 0)
+            checkboxDocumentoNumeroVerificado.Visible = (CByte(comboboxDocumentoTipo.SelectedValue) > 0)
         End If
     End Sub
 
@@ -494,6 +522,8 @@
         If Not comboboxFacturaDocumentoTipo.SelectedItem Is Nothing Then
             textboxFacturaDocumentoNumero.Visible = (CByte(comboboxFacturaDocumentoTipo.SelectedValue) > 0 AndAlso Not CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11)
             maskedtextboxFacturaDocumentoNumero.Visible = (CByte(comboboxFacturaDocumentoTipo.SelectedValue) > 0 AndAlso Not textboxFacturaDocumentoNumero.Visible)
+            labelFacturaDocumentoNumeroVerificado.Visible = (CByte(comboboxFacturaDocumentoTipo.SelectedValue) > 0)
+            checkboxFacturaDocumentoNumeroVerificado.Visible = (CByte(comboboxFacturaDocumentoTipo.SelectedValue) > 0)
         End If
     End Sub
 

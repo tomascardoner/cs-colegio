@@ -461,8 +461,10 @@
           <Property Name="TipoOtro" Type="bit" Nullable="false" />
           <Property Name="IDDocumentoTipo" Type="tinyint" />
           <Property Name="DocumentoNumero" Type="varchar" MaxLength="12" />
+          <Property Name="DocumentoNumeroVerificado" Type="bit" Nullable="false" />
           <Property Name="FacturaIDDocumentoTipo" Type="tinyint" />
           <Property Name="FacturaDocumentoNumero" Type="varchar" MaxLength="12" />
+          <Property Name="FacturaDocumentoNumeroVerificado" Type="bit" Nullable="false" />
           <Property Name="Genero" Type="char" MaxLength="1" />
           <Property Name="FechaNacimiento" Type="date" />
           <Property Name="IDCategoriaIVA" Type="tinyint" />
@@ -3285,11 +3287,13 @@
           <Property Name="TipoOtro" Type="Boolean" Nullable="false" />
           <Property Name="IDDocumentoTipo" Type="Byte" />
           <Property Name="DocumentoNumero" Type="String" MaxLength="12" Unicode="false" FixedLength="false" />
+          <Property Name="DocumentoNumeroVerificado" Type="Boolean" Nullable="false" />
           <Property Name="Genero" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
           <Property Name="IDCategoriaIVA" Type="Byte" />
           <Property Name="FacturaIDDocumentoTipo" Type="Byte" />
           <Property Name="FacturaDocumentoNumero" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="FacturaDocumentoNumeroVerificado" Type="Boolean" Nullable="false" />
           <Property Name="Telefono1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Telefono2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Telefono3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -6525,6 +6529,8 @@
           <EntitySetMapping Name="Entidad">
             <EntityTypeMapping TypeName="CSColegioModel.Entidad">
               <MappingFragment StoreEntitySet="Entidad">
+                <ScalarProperty Name="FacturaDocumentoNumeroVerificado" ColumnName="FacturaDocumentoNumeroVerificado" />
+                <ScalarProperty Name="DocumentoNumeroVerificado" ColumnName="DocumentoNumeroVerificado" />
                 <ScalarProperty Name="DomicilioBarrio" ColumnName="DomicilioBarrio" />
                 <ScalarProperty Name="DebitoAutomaticoDirectoCBU" ColumnName="DebitoAutomaticoDirectoCBU" />
                 <ScalarProperty Name="DescuentoOtroPorcentaje" ColumnName="DescuentoOtroPorcentaje" />

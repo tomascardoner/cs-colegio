@@ -23,11 +23,13 @@ Partial Public Class Entidad
     Public Property TipoOtro As Boolean
     Public Property IDDocumentoTipo As Nullable(Of Byte)
     Public Property DocumentoNumero As String
+    Public Property DocumentoNumeroVerificado As Boolean
     Public Property Genero As String
     Public Property FechaNacimiento As Nullable(Of Date)
     Public Property IDCategoriaIVA As Nullable(Of Byte)
     Public Property FacturaIDDocumentoTipo As Nullable(Of Byte)
     Public Property FacturaDocumentoNumero As String
+    Public Property FacturaDocumentoNumeroVerificado As Boolean
     Public Property Telefono1 As String
     Public Property Telefono2 As String
     Public Property Telefono3 As String

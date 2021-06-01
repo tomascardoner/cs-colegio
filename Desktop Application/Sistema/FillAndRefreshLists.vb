@@ -64,24 +64,26 @@
         ComboBoxControl.DataSource = listAnios
     End Sub
 
-    Friend Sub DocumentoTipo(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
-        ComboBoxControl.ValueMember = "IDDocumentoTipo"
-        ComboBoxControl.DisplayMember = "Nombre"
+    Friend Sub DocumentoTipo(ByRef control As ComboBox, ByVal mostrarItemNoEspecifica As Boolean)
+        Dim listDocumentoTipo As List(Of DocumentoTipo)
 
-        Dim qryList = From tbl In mdbContext.DocumentoTipo
-                          Where tbl.EsActivo
-                          Order By tbl.Nombre
+        control.ValueMember = "IDDocumentoTipo"
+        control.DisplayMember = "Nombre"
 
-        Dim localList = qryList.ToList
-        If ShowUnspecifiedItem Then
-            Dim UnspecifiedItem As New DocumentoTipo
-            UnspecifiedItem.IDDocumentoTipo = 0
-            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NOT_SPECIFIED
-            UnspecifiedItem.VerificaModulo11 = False
-            localList.Insert(0, UnspecifiedItem)
+        listDocumentoTipo = mdbContext.DocumentoTipo.Where(Function(dt) dt.EsActivo).OrderBy(Function(dt) dt.Nombre).ToList()
+
+        If mostrarItemNoEspecifica Then
+            Dim itemNoEspecifica As New DocumentoTipo
+
+            itemNoEspecifica.IDDocumentoTipo = CardonerSistemas.Constants.FIELD_VALUE_NOTSPECIFIED_BYTE
+            itemNoEspecifica.Nombre = My.Resources.STRING_ITEM_NOT_SPECIFIED
+            itemNoEspecifica.VerificaModulo11 = False
+            listDocumentoTipo.Insert(0, itemNoEspecifica)
         End If
 
-        ComboBoxControl.DataSource = localList
+        control.DataSource = listDocumentoTipo
+
+        listDocumentoTipo = Nothing
     End Sub
 
     Friend Sub CategoriaIVA(ByRef ComboBoxControl As ComboBox, ByVal ShowUnspecifiedItem As Boolean)
