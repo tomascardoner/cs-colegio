@@ -47,6 +47,7 @@
 
     Private Sub formEntidades_FormClosed() Handles Me.FormClosed
         listEntidadBase = Nothing
+        listEntidadFiltradaYOrdenada = Nothing
     End Sub
 
 #End Region
@@ -54,10 +55,22 @@
 #Region "Load and Set Data"
 
     Friend Sub RefreshData(Optional ByVal PositionIDEntidad As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
+        If SkipFilterData Then
+            Exit Sub
+        End If
+
         Me.Cursor = Cursors.WaitCursor
 
         Using dbcontext As New CSColegioContext(True)
-            listEntidadBase = dbcontext.Entidad.ToList
+            Select Case comboboxActivo.SelectedIndex
+                Case 0
+                    listEntidadBase = dbcontext.Entidad.ToList()
+                Case 1
+                    listEntidadBase = dbcontext.Entidad.Where(Function(e) e.EsActivo).ToList()
+                Case 2
+                    listEntidadBase = dbcontext.Entidad.Where(Function(e) Not e.EsActivo).ToList()
+                Case Else
+            End Select
         End Using
 
         Me.Cursor = Cursors.Default
@@ -84,60 +97,75 @@
 
     Private Sub FilterData()
 
-        If Not SkipFilterData Then
+        If SkipFilterData Then
+            Exit Sub
+        End If
 
-            Me.Cursor = Cursors.WaitCursor
+        Me.Cursor = Cursors.WaitCursor
 
-            If menuitemEntidadTipo_PersonalColegio.Checked And menuitemEntidadTipo_Docente.Checked And menuitemEntidadTipo_Alumno.Checked And menuitemEntidadTipo_Familiar.Checked And menuitemEntidadTipo_Proveedor.Checked Then
-                ' Todos los Tipos de Entidad
-                If BusquedaAplicada Then
-                    If comboboxBuscar.SelectedIndex = 0 Then
-                        listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                                        Where ent.ApellidoNombre.ToLower().RemoveDiacritics().Contains(textboxBuscar.Text.ToLower().RemoveDiacritics().Trim()) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo)) And (comboboxVerificarDocumento.SelectedIndex = 0 Or (comboboxVerificarDocumento.SelectedIndex = 1 And (ent.DocumentoNumeroVerificado = False Or ent.FacturaDocumentoNumeroVerificado = False)) Or (comboboxVerificarDocumento.SelectedIndex = 2 And (ent.DocumentoNumeroVerificado And ent.FacturaDocumentoNumeroVerificado))) And (comboboxVerificarEmail.SelectedIndex = 0 Or (comboboxVerificarEmail.SelectedIndex = 1 And (ent.VerificarEmail1 Or ent.VerificarEmail2)) Or (comboboxVerificarEmail.SelectedIndex = 2 And Not (ent.VerificarEmail1 Or ent.VerificarEmail2)))
-                                                        Select ent).ToList
-                    Else
-                        listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                                        Where (ent.DocumentoNumero IsNot Nothing AndAlso ent.DocumentoNumero.ToLower().Contains(textboxBuscar.Text.ToLower().Trim())) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo)) And (comboboxVerificarDocumento.SelectedIndex = 0 Or (comboboxVerificarDocumento.SelectedIndex = 1 And (ent.DocumentoNumeroVerificado = False Or ent.FacturaDocumentoNumeroVerificado = False)) Or (comboboxVerificarDocumento.SelectedIndex = 2 And (ent.DocumentoNumeroVerificado And ent.FacturaDocumentoNumeroVerificado))) And (comboboxVerificarEmail.SelectedIndex = 0 Or (comboboxVerificarEmail.SelectedIndex = 1 And (ent.VerificarEmail1 Or ent.VerificarEmail2)) Or (comboboxVerificarEmail.SelectedIndex = 2 And Not (ent.VerificarEmail1 Or ent.VerificarEmail2)))
-                                                        Select ent).ToList
-                    End If
-                Else
-                    listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                                    Where (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo)) And (comboboxVerificarDocumento.SelectedIndex = 0 Or (comboboxVerificarDocumento.SelectedIndex = 1 And (ent.DocumentoNumeroVerificado = False Or ent.FacturaDocumentoNumeroVerificado = False)) Or (comboboxVerificarDocumento.SelectedIndex = 2 And (ent.DocumentoNumeroVerificado And ent.FacturaDocumentoNumeroVerificado))) And (comboboxVerificarEmail.SelectedIndex = 0 Or (comboboxVerificarEmail.SelectedIndex = 1 And (ent.VerificarEmail1 Or ent.VerificarEmail2)) Or (comboboxVerificarEmail.SelectedIndex = 2 And Not (ent.VerificarEmail1 Or ent.VerificarEmail2)))
-                                                    Select ent).ToList
+        Try
+
+            listEntidadFiltradaYOrdenada = listEntidadBase
+
+            ' Tipos de Entidad
+            If Not (menuitemEntidadTipo_PersonalColegio.Checked And menuitemEntidadTipo_Docente.Checked And menuitemEntidadTipo_Alumno.Checked And menuitemEntidadTipo_Familiar.Checked And menuitemEntidadTipo_Proveedor.Checked And menuitemEntidadTipo_Otro.Checked) Then
+                If menuitemEntidadTipo_PersonalColegio.Checked Then
+                    listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) (menuitemEntidadTipo_PersonalColegio.Checked And e.TipoPersonalColegio) Or (menuitemEntidadTipo_Docente.Checked And e.TipoDocente) Or (menuitemEntidadTipo_Alumno.Checked And e.TipoAlumno) Or (menuitemEntidadTipo_Familiar.Checked And e.TipoFamiliar) Or (menuitemEntidadTipo_Proveedor.Checked And e.TipoProveedor) Or (menuitemEntidadTipo_Otro.Checked And e.TipoOtro)).ToList()
                 End If
-
-            Else
-                If BusquedaAplicada Then
-                    If comboboxBuscar.SelectedIndex = 0 Then
-                        listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                                        Where ((menuitemEntidadTipo_PersonalColegio.Checked And ent.TipoPersonalColegio) Or (menuitemEntidadTipo_Docente.Checked And ent.TipoDocente) Or (menuitemEntidadTipo_Alumno.Checked And ent.TipoAlumno) Or (menuitemEntidadTipo_Familiar.Checked And ent.TipoFamiliar) Or (menuitemEntidadTipo_Proveedor.Checked And ent.TipoProveedor) Or (menuitemEntidadTipo_Otro.Checked And ent.TipoOtro)) And (ent.DocumentoNumero IsNot Nothing AndAlso ent.DocumentoNumero.ToLower().Contains(textboxBuscar.Text.ToLower().Trim())) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo)) And (comboboxVerificarDocumento.SelectedIndex = 0 Or (comboboxVerificarDocumento.SelectedIndex = 1 And (ent.DocumentoNumeroVerificado = False Or ent.FacturaDocumentoNumeroVerificado = False)) Or (comboboxVerificarDocumento.SelectedIndex = 2 And (ent.DocumentoNumeroVerificado And ent.FacturaDocumentoNumeroVerificado))) And (comboboxVerificarEmail.SelectedIndex = 0 Or (comboboxVerificarEmail.SelectedIndex = 1 And (ent.VerificarEmail1 Or ent.VerificarEmail2)) Or (comboboxVerificarEmail.SelectedIndex = 2 And Not (ent.VerificarEmail1 Or ent.VerificarEmail2)))
-                                                        Select ent).ToList
-                    Else
-                        listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                                        Where ((menuitemEntidadTipo_PersonalColegio.Checked And ent.TipoPersonalColegio) Or (menuitemEntidadTipo_Docente.Checked And ent.TipoDocente) Or (menuitemEntidadTipo_Alumno.Checked And ent.TipoAlumno) Or (menuitemEntidadTipo_Familiar.Checked And ent.TipoFamiliar) Or (menuitemEntidadTipo_Proveedor.Checked And ent.TipoProveedor) Or (menuitemEntidadTipo_Otro.Checked And ent.TipoOtro)) And ent.ApellidoNombre.ToLower().RemoveDiacritics().Contains(textboxBuscar.Text.ToLower().RemoveDiacritics().Trim()) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo)) And (comboboxVerificarDocumento.SelectedIndex = 0 Or (comboboxVerificarDocumento.SelectedIndex = 1 And (ent.DocumentoNumeroVerificado = False Or ent.FacturaDocumentoNumeroVerificado = False)) Or (comboboxVerificarDocumento.SelectedIndex = 2 And (ent.DocumentoNumeroVerificado And ent.FacturaDocumentoNumeroVerificado))) And (comboboxVerificarEmail.SelectedIndex = 0 Or (comboboxVerificarEmail.SelectedIndex = 1 And (ent.VerificarEmail1 Or ent.VerificarEmail2)) Or (comboboxVerificarEmail.SelectedIndex = 2 And Not (ent.VerificarEmail1 Or ent.VerificarEmail2)))
-                                                        Select ent).ToList
-                    End If
-                Else
-                    listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                                    Where ((menuitemEntidadTipo_PersonalColegio.Checked And ent.TipoPersonalColegio) Or (menuitemEntidadTipo_Docente.Checked And ent.TipoDocente) Or (menuitemEntidadTipo_Alumno.Checked And ent.TipoAlumno) Or (menuitemEntidadTipo_Familiar.Checked And ent.TipoFamiliar) Or (menuitemEntidadTipo_Proveedor.Checked And ent.TipoProveedor) Or (menuitemEntidadTipo_Otro.Checked And ent.TipoOtro)) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo)) And (comboboxVerificarDocumento.SelectedIndex = 0 Or (comboboxVerificarDocumento.SelectedIndex = 1 And (ent.DocumentoNumeroVerificado = False Or ent.FacturaDocumentoNumeroVerificado = False)) Or (comboboxVerificarDocumento.SelectedIndex = 2 And (ent.DocumentoNumeroVerificado And ent.FacturaDocumentoNumeroVerificado))) And (comboboxVerificarEmail.SelectedIndex = 0 Or (comboboxVerificarEmail.SelectedIndex = 1 And (ent.VerificarEmail1 Or ent.VerificarEmail2)) Or (comboboxVerificarEmail.SelectedIndex = 2 And Not (ent.VerificarEmail1 Or ent.VerificarEmail2)))
-                                                    Select ent).ToList
-                End If
-
             End If
 
-            Select Case listEntidadFiltradaYOrdenada.Count
+            ' Verificar documento
+            Select Case comboboxVerificarDocumento.SelectedIndex
                 Case 0
-                    statuslabelMain.Text = String.Format("No hay Entidades para mostrar.")
+                    ' Todos
                 Case 1
-                    statuslabelMain.Text = String.Format("Se muestra 1 Entidad.")
-                Case Else
-                    statuslabelMain.Text = String.Format("Se muestran {0} Entidades.", listEntidadFiltradaYOrdenada.Count)
+                    ' Si
+                    listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) (e.IDDocumentoTipo IsNot Nothing AndAlso Not e.DocumentoNumeroVerificado) Or (e.FacturaIDDocumentoTipo IsNot Nothing AndAlso Not e.FacturaDocumentoNumeroVerificado)).ToList()
+                Case 2
+                    ' No
+                    listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) (e.IDDocumentoTipo Is Nothing Or e.DocumentoNumeroVerificado) And (e.FacturaIDDocumentoTipo Is Nothing Or e.FacturaDocumentoNumeroVerificado)).ToList()
             End Select
 
-            OrderData()
+            ' Verificar e-mail
+            Select Case comboboxVerificarEmail.SelectedIndex
+                Case 0
+                    ' Todos
+                Case 1
+                    ' Si
+                    listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) e.VerificarEmail1 Or e.VerificarEmail2).ToList()
+                Case 2
+                    ' No
+                    listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) Not (e.VerificarEmail1 Or e.VerificarEmail2)).ToList()
+            End Select
 
-            Me.Cursor = Cursors.Default
-        End If
+            ' Búsqueda
+            If BusquedaAplicada Then
+                Select Case comboboxBuscar.SelectedIndex
+                    Case 0
+                        ' Nombre
+                        listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) e.ApellidoNombre.ToLower().RemoveDiacritics().Contains(textboxBuscar.Text.ToLower().RemoveDiacritics().Trim())).ToList()
+                    Case 1
+                        ' Documento
+                        listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) (e.DocumentoNumero IsNot Nothing AndAlso e.DocumentoNumero.ToLower().Contains(textboxBuscar.Text.ToLower().Trim())) Or (e.FacturaDocumentoNumero IsNot Nothing AndAlso e.FacturaDocumentoNumero.ToLower().Contains(textboxBuscar.Text.ToLower().Trim()))).ToList()
+                End Select
+            End If
+
+        Catch ex As Exception
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al filtrar los datos.")
+        End Try
+
+        Select Case listEntidadFiltradaYOrdenada.Count
+            Case 0
+                statuslabelMain.Text = String.Format("No hay Entidades para mostrar.")
+            Case 1
+                statuslabelMain.Text = String.Format("Se muestra 1 Entidad.")
+            Case Else
+                statuslabelMain.Text = String.Format("Se muestran {0} Entidades.", listEntidadFiltradaYOrdenada.Count)
+        End Select
+
+        OrderData()
+
+        Me.Cursor = Cursors.Default
     End Sub
 
     Private Sub OrderData()
@@ -238,7 +266,11 @@
         End If
     End Sub
 
-    Private Sub AplicarFiltrar() Handles menuitemEntidadTipo_PersonalColegio.Click, menuitemEntidadTipo_Docente.Click, menuitemEntidadTipo_Alumno.Click, menuitemEntidadTipo_Familiar.Click, menuitemEntidadTipo_Proveedor.Click, menuitemEntidadTipo_Otro.Click, comboboxActivo.SelectedIndexChanged, comboboxVerificarDocumento.SelectedIndexChanged, comboboxVerificarEmail.SelectedIndexChanged
+    Private Sub RefrescarDatos() Handles comboboxActivo.SelectedIndexChanged
+        RefreshData()
+    End Sub
+
+    Private Sub AplicarFiltros() Handles menuitemEntidadTipo_PersonalColegio.Click, menuitemEntidadTipo_Docente.Click, menuitemEntidadTipo_Alumno.Click, menuitemEntidadTipo_Familiar.Click, menuitemEntidadTipo_Proveedor.Click, menuitemEntidadTipo_Otro.Click, comboboxVerificarDocumento.SelectedIndexChanged, comboboxVerificarEmail.SelectedIndexChanged
         FilterData()
     End Sub
 
