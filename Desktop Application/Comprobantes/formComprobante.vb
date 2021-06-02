@@ -42,6 +42,7 @@
 #End Region
 
 #Region "Form stuff"
+
     Friend Sub LoadAndShow(ByVal EditMode As Boolean, ByRef ParentForm As Form, ByVal IDComprobante As Integer)
         mIsLoading = True
         mEditMode = EditMode
@@ -114,7 +115,7 @@
         textboxLeyenda.ReadOnly = (mEditMode = False)
         textboxNotas.ReadOnly = (mEditMode = False)
 
-        'currencytextboxImporteTotal.ReadOnly = (comboboxComprobanteTipo.SelectedIndex <> -1 AndAlso (mComprobanteTipoActual.UtilizaDetalle Or mComprobanteTipoActual.UtilizaMedioPago))
+        currencytextboxImporteTotal.ReadOnly = (mEditMode = False Or (comboboxComprobanteTipo.SelectedIndex <> -1 AndAlso (mComprobanteTipoActual.UtilizaDetalle Or mComprobanteTipoActual.UtilizaMedioPago)))
     End Sub
 
     Friend Sub InitializeFormAndControls()
@@ -220,7 +221,6 @@
             currencytextboxImpuestos_Subtotal.DecimalValue = 0
             currencytextboxAplicaciones_Subtotal.DecimalValue = 0
             currencytextboxMediosPago_Subtotal.DecimalValue = 0
-            currencytextboxImporteTotal.DecimalValue = .ImporteTotal1
 
             If .IDComprobante > 0 Then
                 If mComprobanteActual.ComprobanteTipo.UtilizaAplicacion Then
@@ -230,6 +230,8 @@
                     RefreshData_MediosPago()
                 End If
             End If
+
+            currencytextboxImporteTotal.DecimalValue = .ImporteTotal1
         End With
     End Sub
 
@@ -1161,6 +1163,7 @@
 #End Region
 
 #Region "Extra stuff"
+
     Private Sub CambiarTipoComprobante()
         Dim NextComprobanteNumero As String
 
@@ -1227,7 +1230,7 @@
             End If
 
             If mComprobanteTipoActual.UtilizaDetalle = False And mComprobanteTipoActual.UtilizaMedioPago = False Then
-                currencytextboxImporteTotal.ReadOnly = False
+                currencytextboxImporteTotal.ReadOnly = Not mEditMode
             End If
 
         Else
@@ -1341,6 +1344,7 @@
         End If
         Return False
     End Function
+
 #End Region
 
 End Class
