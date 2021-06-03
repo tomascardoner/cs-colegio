@@ -508,6 +508,13 @@ Module ModuloComprobantes
     End Function
 
     Friend Function TransmitirAFIP_Comprobante(ByRef Objeto_AFIP_WS As CardonerSistemas.AfipWebServices.WebService, ByVal IDComprobanteActual As Integer) As Boolean
+        Dim CaeNumero As String
+        Dim CaeFechaVencimiento As Date
+
+        Return TransmitirAFIP_Comprobante(Objeto_AFIP_WS, IDComprobanteActual, CaeNumero, CaeFechaVencimiento)
+    End Function
+
+    Friend Function TransmitirAFIP_Comprobante(ByRef Objeto_AFIP_WS As CardonerSistemas.AfipWebServices.WebService, ByVal IDComprobanteActual As Integer, ByRef CaeNumero As String, ByRef CaeFechaVencimiento As Date) As Boolean
         Dim AFIP_Factura As New CardonerSistemas.AfipWebServices.FacturaElectronicaCabecera
         Dim ComprobanteActual As Comprobante
         Dim ComprobanteTipoActual As New ComprobanteTipo
@@ -601,8 +608,13 @@ Module ModuloComprobantes
                     With Objeto_AFIP_WS
                         If .FacturaElectronica_ObtenerCAE(AFIP_Factura) Then
                             If .UltimoResultadoCAE.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoAceptado Then
-                                ComprobanteActual.CAE = .UltimoResultadoCAE.Numero
-                                ComprobanteActual.CAEVencimiento = .UltimoResultadoCAE.FechaVencimiento
+                                ' Número
+                                CaeNumero = .UltimoResultadoCAE.Numero
+                                ComprobanteActual.CAE = CaeNumero
+                                ' Fecha de vencimiento
+                                CaeFechaVencimiento = .UltimoResultadoCAE.FechaVencimiento
+                                ComprobanteActual.CAEVencimiento = CaeFechaVencimiento
+                                ' Usuario y fecha de transmisión
                                 ComprobanteActual.IDUsuarioTransmisionAFIP = pUsuario.IDUsuario
                                 ComprobanteActual.FechaHoraTransmisionAFIP = DateTime.Now
 

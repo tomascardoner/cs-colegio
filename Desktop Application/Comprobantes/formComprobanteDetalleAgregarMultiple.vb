@@ -87,7 +87,7 @@
             .CuotaMes = CByte(IIf(comboboxCuotaMesDesde.SelectedIndex = -1, Nothing, comboboxCuotaMesDesde.SelectedIndex + 1))
 
             .PrecioUnitario = currencytextboxPrecioUnitario.DecimalValue
-            .PrecioUnitarioDescuentoPorcentaje = Convert.ToDecimal(percenttextboxPrecioUnitarioDescuentoPorcentaje.DoubleValue)
+            .PrecioUnitarioDescuentoPorcentaje = Convert.ToDecimal(percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentValue)
             .PrecioUnitarioDescuentoImporte = currencytextboxPrecioUnitarioDescuentoImporte.DecimalValue
             .PrecioUnitarioFinal = currencytextboxPrecioUnitarioFinal.DecimalValue
             .PrecioTotal = currencytextboxPrecioTotal.DecimalValue

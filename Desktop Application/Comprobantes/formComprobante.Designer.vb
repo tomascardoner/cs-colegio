@@ -38,14 +38,14 @@ Partial Class formComprobante
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formComprobante))
         Me.panelMain = New System.Windows.Forms.TableLayoutPanel()
         Me.tabcontrolMain = New CSColegio.DesktopApplication.CS_Control_TabControl()
@@ -72,6 +72,12 @@ Partial Class formComprobante
         Me.buttonImpuestos_Eliminar = New System.Windows.Forms.ToolStripButton()
         Me.tabpageAplicaciones = New System.Windows.Forms.TabPage()
         Me.datagridviewAplicaciones = New System.Windows.Forms.DataGridView()
+        Me.columnAplicaciones_Motivo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnAplicaciones_Tipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnAplicaciones_NumeroCompleto = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnAplicaciones_Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnAplicaciones_ImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.columnAplicaciones_ImporteAplicado = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.toolstripAplicaciones = New System.Windows.Forms.ToolStrip()
         Me.buttonAplicaciones_AplicarTodo = New System.Windows.Forms.ToolStripButton()
         Me.buttonAplicaciones_Agregar = New System.Windows.Forms.ToolStripButton()
@@ -145,12 +151,6 @@ Partial Class formComprobante
         Me.menuitemAFIP_ObtenerCAE = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemAFIP_ObtenerQR = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemAFIP_VerificarDatos = New System.Windows.Forms.ToolStripMenuItem()
-        Me.columnAplicaciones_Motivo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnAplicaciones_Tipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnAplicaciones_NumeroCompleto = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnAplicaciones_Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnAplicaciones_ImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.columnAplicaciones_ImporteAplicado = New System.Windows.Forms.DataGridViewTextBoxColumn()
         labelFechaServicioDesde = New System.Windows.Forms.Label()
         labelFechaServicioHasta = New System.Windows.Forms.Label()
         labelLeyenda = New System.Windows.Forms.Label()
@@ -582,6 +582,74 @@ Partial Class formComprobante
         Me.datagridviewAplicaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.datagridviewAplicaciones.Size = New System.Drawing.Size(921, 276)
         Me.datagridviewAplicaciones.TabIndex = 9
+        '
+        'columnAplicaciones_Motivo
+        '
+        Me.columnAplicaciones_Motivo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnAplicaciones_Motivo.DataPropertyName = "Motivo"
+        Me.columnAplicaciones_Motivo.HeaderText = "Motivo"
+        Me.columnAplicaciones_Motivo.Name = "columnAplicaciones_Motivo"
+        Me.columnAplicaciones_Motivo.ReadOnly = True
+        Me.columnAplicaciones_Motivo.Width = 64
+        '
+        'columnAplicaciones_Tipo
+        '
+        Me.columnAplicaciones_Tipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnAplicaciones_Tipo.DataPropertyName = "ComprobanteTipoNombre"
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnAplicaciones_Tipo.DefaultCellStyle = DataGridViewCellStyle10
+        Me.columnAplicaciones_Tipo.HeaderText = "Tipo"
+        Me.columnAplicaciones_Tipo.Name = "columnAplicaciones_Tipo"
+        Me.columnAplicaciones_Tipo.ReadOnly = True
+        Me.columnAplicaciones_Tipo.Width = 53
+        '
+        'columnAplicaciones_NumeroCompleto
+        '
+        Me.columnAplicaciones_NumeroCompleto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnAplicaciones_NumeroCompleto.DataPropertyName = "NumeroCompleto"
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnAplicaciones_NumeroCompleto.DefaultCellStyle = DataGridViewCellStyle11
+        Me.columnAplicaciones_NumeroCompleto.HeaderText = "Número"
+        Me.columnAplicaciones_NumeroCompleto.Name = "columnAplicaciones_NumeroCompleto"
+        Me.columnAplicaciones_NumeroCompleto.ReadOnly = True
+        Me.columnAplicaciones_NumeroCompleto.Width = 69
+        '
+        'columnAplicaciones_Fecha
+        '
+        Me.columnAplicaciones_Fecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnAplicaciones_Fecha.DataPropertyName = "FechaEmision"
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnAplicaciones_Fecha.DefaultCellStyle = DataGridViewCellStyle12
+        Me.columnAplicaciones_Fecha.HeaderText = "Fecha"
+        Me.columnAplicaciones_Fecha.Name = "columnAplicaciones_Fecha"
+        Me.columnAplicaciones_Fecha.ReadOnly = True
+        Me.columnAplicaciones_Fecha.Width = 62
+        '
+        'columnAplicaciones_ImporteTotal
+        '
+        Me.columnAplicaciones_ImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnAplicaciones_ImporteTotal.DataPropertyName = "ImporteTotal"
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle13.Format = "C2"
+        DataGridViewCellStyle13.NullValue = Nothing
+        Me.columnAplicaciones_ImporteTotal.DefaultCellStyle = DataGridViewCellStyle13
+        Me.columnAplicaciones_ImporteTotal.HeaderText = "Importe Total"
+        Me.columnAplicaciones_ImporteTotal.Name = "columnAplicaciones_ImporteTotal"
+        Me.columnAplicaciones_ImporteTotal.ReadOnly = True
+        Me.columnAplicaciones_ImporteTotal.Width = 87
+        '
+        'columnAplicaciones_ImporteAplicado
+        '
+        Me.columnAplicaciones_ImporteAplicado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnAplicaciones_ImporteAplicado.DataPropertyName = "ImporteAplicado"
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle14.Format = "C2"
+        DataGridViewCellStyle14.NullValue = Nothing
+        Me.columnAplicaciones_ImporteAplicado.DefaultCellStyle = DataGridViewCellStyle14
+        Me.columnAplicaciones_ImporteAplicado.HeaderText = "Importe aplicado"
+        Me.columnAplicaciones_ImporteAplicado.Name = "columnAplicaciones_ImporteAplicado"
+        Me.columnAplicaciones_ImporteAplicado.ReadOnly = True
+        Me.columnAplicaciones_ImporteAplicado.Width = 101
         '
         'toolstripAplicaciones
         '
@@ -1399,88 +1467,20 @@ Partial Class formComprobante
         'menuitemAFIP_ObtenerCAE
         '
         Me.menuitemAFIP_ObtenerCAE.Name = "menuitemAFIP_ObtenerCAE"
-        Me.menuitemAFIP_ObtenerCAE.Size = New System.Drawing.Size(178, 22)
+        Me.menuitemAFIP_ObtenerCAE.Size = New System.Drawing.Size(180, 22)
         Me.menuitemAFIP_ObtenerCAE.Text = "Obtener CAE"
         '
         'menuitemAFIP_ObtenerQR
         '
         Me.menuitemAFIP_ObtenerQR.Name = "menuitemAFIP_ObtenerQR"
-        Me.menuitemAFIP_ObtenerQR.Size = New System.Drawing.Size(178, 22)
+        Me.menuitemAFIP_ObtenerQR.Size = New System.Drawing.Size(180, 22)
         Me.menuitemAFIP_ObtenerQR.Text = "Obtener Código QR"
         '
         'menuitemAFIP_VerificarDatos
         '
         Me.menuitemAFIP_VerificarDatos.Name = "menuitemAFIP_VerificarDatos"
-        Me.menuitemAFIP_VerificarDatos.Size = New System.Drawing.Size(178, 22)
+        Me.menuitemAFIP_VerificarDatos.Size = New System.Drawing.Size(180, 22)
         Me.menuitemAFIP_VerificarDatos.Text = "Verificar datos"
-        '
-        'columnAplicaciones_Motivo
-        '
-        Me.columnAplicaciones_Motivo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnAplicaciones_Motivo.DataPropertyName = "Motivo"
-        Me.columnAplicaciones_Motivo.HeaderText = "Motivo"
-        Me.columnAplicaciones_Motivo.Name = "columnAplicaciones_Motivo"
-        Me.columnAplicaciones_Motivo.ReadOnly = True
-        Me.columnAplicaciones_Motivo.Width = 64
-        '
-        'columnAplicaciones_Tipo
-        '
-        Me.columnAplicaciones_Tipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnAplicaciones_Tipo.DataPropertyName = "ComprobanteTipoNombre"
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnAplicaciones_Tipo.DefaultCellStyle = DataGridViewCellStyle10
-        Me.columnAplicaciones_Tipo.HeaderText = "Tipo"
-        Me.columnAplicaciones_Tipo.Name = "columnAplicaciones_Tipo"
-        Me.columnAplicaciones_Tipo.ReadOnly = True
-        Me.columnAplicaciones_Tipo.Width = 53
-        '
-        'columnAplicaciones_NumeroCompleto
-        '
-        Me.columnAplicaciones_NumeroCompleto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnAplicaciones_NumeroCompleto.DataPropertyName = "NumeroCompleto"
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnAplicaciones_NumeroCompleto.DefaultCellStyle = DataGridViewCellStyle11
-        Me.columnAplicaciones_NumeroCompleto.HeaderText = "Número"
-        Me.columnAplicaciones_NumeroCompleto.Name = "columnAplicaciones_NumeroCompleto"
-        Me.columnAplicaciones_NumeroCompleto.ReadOnly = True
-        Me.columnAplicaciones_NumeroCompleto.Width = 69
-        '
-        'columnAplicaciones_Fecha
-        '
-        Me.columnAplicaciones_Fecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnAplicaciones_Fecha.DataPropertyName = "FechaEmision"
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnAplicaciones_Fecha.DefaultCellStyle = DataGridViewCellStyle12
-        Me.columnAplicaciones_Fecha.HeaderText = "Fecha"
-        Me.columnAplicaciones_Fecha.Name = "columnAplicaciones_Fecha"
-        Me.columnAplicaciones_Fecha.ReadOnly = True
-        Me.columnAplicaciones_Fecha.Width = 62
-        '
-        'columnAplicaciones_ImporteTotal
-        '
-        Me.columnAplicaciones_ImporteTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnAplicaciones_ImporteTotal.DataPropertyName = "ImporteTotal"
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle13.Format = "C2"
-        DataGridViewCellStyle13.NullValue = Nothing
-        Me.columnAplicaciones_ImporteTotal.DefaultCellStyle = DataGridViewCellStyle13
-        Me.columnAplicaciones_ImporteTotal.HeaderText = "Importe Total"
-        Me.columnAplicaciones_ImporteTotal.Name = "columnAplicaciones_ImporteTotal"
-        Me.columnAplicaciones_ImporteTotal.ReadOnly = True
-        Me.columnAplicaciones_ImporteTotal.Width = 94
-        '
-        'columnAplicaciones_ImporteAplicado
-        '
-        Me.columnAplicaciones_ImporteAplicado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnAplicaciones_ImporteAplicado.DataPropertyName = "ImporteAplicado"
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle14.Format = "C2"
-        DataGridViewCellStyle14.NullValue = Nothing
-        Me.columnAplicaciones_ImporteAplicado.DefaultCellStyle = DataGridViewCellStyle14
-        Me.columnAplicaciones_ImporteAplicado.HeaderText = "Importe aplicado"
-        Me.columnAplicaciones_ImporteAplicado.Name = "columnAplicaciones_ImporteAplicado"
-        Me.columnAplicaciones_ImporteAplicado.ReadOnly = True
-        Me.columnAplicaciones_ImporteAplicado.Width = 101
         '
         'formComprobante
         '

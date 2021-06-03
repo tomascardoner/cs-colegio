@@ -1,4 +1,6 @@
-﻿Public Class formComprobante
+﻿Imports System.Data.Entity.Infrastructure
+
+Public Class formComprobante
 
 #Region "Declarations"
 
@@ -14,6 +16,7 @@
     Private mIDArticuloMatricula As Short
     Private mIDArticuloMensual As Short
 
+    Private mIsNew As Boolean = False
     Private mIsLoading As Boolean = False
     Private mEditMode As Boolean = False
 
@@ -44,6 +47,7 @@
 #Region "Form stuff"
 
     Friend Sub LoadAndShow(ByVal EditMode As Boolean, ByRef ParentForm As Form, ByVal IDComprobante As Integer)
+        mIsNew = (IDComprobante = 0)
         mIsLoading = True
         mEditMode = EditMode
 
@@ -53,7 +57,7 @@
             formComprobanteMedioPago = Nothing
         End If
 
-        If IDComprobante = 0 Then
+        If mIsNew Then
             ' Es Nuevo
             mComprobanteActual = New Comprobante
             mComprobanteActual.FechaEmision = DateAndTime.Today
@@ -153,6 +157,7 @@
         mEntidad = Nothing
         Me.Dispose()
     End Sub
+
 #End Region
 
 #Region "Load and Set Data"
@@ -160,7 +165,7 @@
     Friend Sub SetDataFromObjectToControls()
         With mComprobanteActual
             ' Datos de la Identificación
-            If .IDComprobante = 0 Then
+            If mIsNew Then
                 textboxIDComprobante.Text = My.Resources.STRING_ITEM_NEW_MALE
             Else
                 textboxIDComprobante.Text = String.Format(.IDComprobante.ToString, "G")
@@ -184,10 +189,6 @@
                 textboxEntidad.Text = ""
                 textboxEntidad.Tag = Nothing
             End If
-
-            ' Datos de la pestaña Detalle
-            datagridviewDetalle.AutoGenerateColumns = False
-            datagridviewDetalle.DataSource = mComprobanteActual.ComprobanteDetalle.ToList
 
             ' Datos de la pestaña Notas y Auditoría
             textboxLeyenda.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Leyenda)
@@ -222,7 +223,8 @@
             currencytextboxAplicaciones_Subtotal.DecimalValue = 0
             currencytextboxMediosPago_Subtotal.DecimalValue = 0
 
-            If .IDComprobante > 0 Then
+            If Not mIsNew Then
+                RefreshData_Detalle()
                 If mComprobanteActual.ComprobanteTipo.UtilizaAplicacion Then
                     RefreshData_Aplicaciones()
                 End If
@@ -385,180 +387,31 @@
     End Sub
 
     Private Sub buttonGuardar_Click(sender As Object, e As EventArgs) Handles buttonGuardar.Click
-        Dim EntidadActual As Entidad
-        Dim ArticuloActual As Articulo
 
-        Dim NextComprobanteNumero As String
-
-        If comboboxComprobanteTipo.SelectedIndex = -1 Then
-            MsgBox("Debe especificar el Tipo de Comprobante.", MsgBoxStyle.Information, My.Application.Info.Title)
-            comboboxComprobanteTipo.Focus()
+        If Not VerificarDatosComprobante() Then
             Exit Sub
         End If
 
-        ' Punto de Venta
-        If textboxPuntoVenta.Text.Trim.Length = 0 Then
-            MsgBox("Debe especificar el Punto de Venta.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxPuntoVenta.Focus()
-            Exit Sub
-        End If
-        If textboxPuntoVenta.Text.Trim.Length < Constantes.COMPROBANTE_PUNTOVENTA_CARACTERES Then
-            MsgBox(String.Format("El Punto de Venta debe contener {0} números.", Constantes.COMPROBANTE_PUNTOVENTA_CARACTERES), MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxPuntoVenta.Focus()
+        If Not ObtenerConcepto() Then
             Exit Sub
         End If
 
-        ' Número
-        If textboxNumero.Text.Trim.Length = 0 Then
-            MsgBox("Debe especificar el Número de Comprobante.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxNumero.Focus()
-            Exit Sub
-        End If
-        If textboxNumero.Text.Trim.Length < Constantes.COMPROBANTE_NUMERO_CARACTERES Then
-            MsgBox(String.Format("El Número de Comprobante debe contener {0} números.", Constantes.COMPROBANTE_PUNTOVENTA_CARACTERES), MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxNumero.Focus()
+        If Not VerificarFechas() Then
             Exit Sub
         End If
 
-        ' Obtengo el Concepto del Comprobante
-        If mComprobanteTipoActual.UtilizaDetalle AndAlso mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso mComprobanteTipoActual.EmisionElectronica Then
-            If mComprobanteActual.ComprobanteDetalle.Count > 0 Then
-                For Each CDetalle As ComprobanteDetalle In mComprobanteActual.ComprobanteDetalle
-                    ArticuloActual = mdbContext.Articulo.Find(CDetalle.IDArticulo)
-                    Select Case mConceptoActual.IDConcepto
-                        Case CByte(0)
-                            ' Es el primer Artículo, así que lo guardo
-                            mConceptoActual = mdbContext.Concepto.Find(ArticuloActual.ArticuloGrupo.IDConcepto)
-                        Case ArticuloActual.ArticuloGrupo.IDConcepto
-                            ' Es el mismo Concepto que el/los Artículos anteriores, no hago nada
-
-                        Case Else
-                            If (mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) And (ArticuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or ArticuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) Then
-                                ' Hay Productos y Servicios, así que utilizo el Concepto correspondiente
-                                mConceptoActual = mdbContext.Concepto.Find(Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS)
-                                Exit For
-                            End If
-                    End Select
-                Next
-            Else
-                mConceptoActual = mdbContext.Concepto.Find(Constantes.COMPROBANTE_CONCEPTO_PRODUCTO)
-            End If
-        Else
-            mConceptoActual = New Concepto
-        End If
-
-        ' Fecha - Corroborar con el Concepto de los artículos
-        If mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso mComprobanteTipoActual.EmisionElectronica AndAlso Math.Abs(datetimepickerFechaEmision.Value.CompareTo(DateAndTime.Today)) > mConceptoActual.FechaRangoDia Then
-            MsgBox(String.Format("La Fecha de Emisión no puede tener más de {0} días de diferencia con la Fecha actual.", mConceptoActual.FechaRangoDia), MsgBoxStyle.Information, My.Application.Info.Title)
-            datetimepickerFechaEmision.Focus()
+        If Not VerificarEntidad() Then
             Exit Sub
         End If
-        If Math.Abs(datetimepickerFechaEmision.Value.CompareTo(DateAndTime.Today)) > 30 Then
-            If MsgBox(String.Format("La Fecha de Emisión tiene más de {0} días de diferencia con la Fecha actual.", mConceptoActual.FechaRangoDia) & vbCrLf & vbCrLf & "¿Es correcto?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
-                datetimepickerFechaEmision.Focus()
+
+        If Not VerificarImportes() Then
+            Exit Sub
+        End If
+
+        If mIsNew Then
+            If Not EstablecerValoresNuevoComprobante() Then
                 Exit Sub
             End If
-        End If
-
-        ' Fecha de Vencimiento
-        If datetimepickerFechaVencimiento.Checked AndAlso datetimepickerFechaVencimiento.Value.CompareTo(datetimepickerFechaEmision.Value) < 0 Then
-            MsgBox("La Fecha de Vencimiento debe ser posterior o igual a la Fecha de Emisión.", MsgBoxStyle.Information, My.Application.Info.Title)
-            datetimepickerFechaVencimiento.Focus()
-            Exit Sub
-        End If
-
-        ' Fechas de Servicio
-        If mComprobanteTipoActual.UtilizaDetalle AndAlso mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso mComprobanteTipoActual.EmisionElectronica AndAlso (mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS Or mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS) Then
-            If Not datetimepickerFechaVencimiento.Checked Then
-                MsgBox("Por estar facturando Servicios, debe especificar la Fecha de Vencimiento.", MsgBoxStyle.Information, My.Application.Info.Title)
-                datetimepickerFechaVencimiento.Focus()
-                Exit Sub
-            End If
-            If Not datetimepickerFechaServicioDesde.Checked Then
-                MsgBox("Por estar facturando Servicios, debe especificar la Fecha del Período Facturado Desde.", MsgBoxStyle.Information, My.Application.Info.Title)
-                datetimepickerFechaServicioDesde.Focus()
-                Exit Sub
-            End If
-            If Not datetimepickerFechaServicioHasta.Checked Then
-                MsgBox("Por estar facturando Servicios, debe especificar la Fecha del Período Facturado Hasta.", MsgBoxStyle.Information, My.Application.Info.Title)
-                datetimepickerFechaServicioHasta.Focus()
-                Exit Sub
-            End If
-            If datetimepickerFechaServicioHasta.Value.CompareTo(datetimepickerFechaServicioDesde.Value) < 0 Then
-                MsgBox("La Fecha del Período Facturado Hasta, debe ser posterior o igual a la Fecha del Período Facturado Desde.", MsgBoxStyle.Information, My.Application.Info.Title)
-                datetimepickerFechaServicioHasta.Focus()
-                Exit Sub
-            End If
-        End If
-
-        ' Entidad
-        If textboxEntidad.Tag Is Nothing Then
-            MsgBox("Debe especificar la Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxEntidad.Focus()
-            Exit Sub
-        End If
-        EntidadActual = mdbContext.Entidad.Find(textboxEntidad.Tag)
-
-
-        If Not EntidadActual.EmitirFacturaA Is Nothing Then
-            If MsgBox("La Entidad seleccionada, tiene especificado que se le facture otra Entidad." & vbCrLf & vbCrLf & "¿Desea continuar de todos modos?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
-                Exit Sub
-            End If
-        End If
-        If EntidadActual.IDCategoriaIVA Is Nothing Then
-            MsgBox("La Entidad no tiene especificada la Categoría de IVA.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxEntidad.Focus()
-            Exit Sub
-        End If
-        If EntidadActual.DocumentoNumero Is Nothing And EntidadActual.FacturaDocumentoNumero Is Nothing Then
-            MsgBox("La Entidad no tiene especificado el Tipo y Número de Documento.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxEntidad.Focus()
-            Exit Sub
-        End If
-
-        ' Importe Total
-        If mComprobanteTipoActual.UtilizaDetalle = False And mComprobanteTipoActual.UtilizaMedioPago = False Then
-            If currencytextboxImporteTotal.IsNull Or currencytextboxImporteTotal.DecimalValue <= 0 Then
-                MsgBox("El Total debe ser mayor a cero.", MsgBoxStyle.Information, My.Application.Info.Title)
-                currencytextboxImporteTotal.Focus()
-                Exit Sub
-            End If
-        End If
-
-        ' Subtotales de cada solapa
-        If mComprobanteTipoActual.UtilizaAplicacion Then
-            If currencytextboxAplicaciones_Subtotal.DecimalValue > 0 AndAlso currencytextboxAplicaciones_Subtotal.DecimalValue > currencytextboxImporteTotal.DecimalValue Then
-                MsgBox("El Subtotal de los Comprobantes aplicados no puede ser mayor al Total del Comprobante actual.", MsgBoxStyle.Information, My.Application.Info.Title)
-                Exit Sub
-            End If
-        End If
-
-        ' Es un Comprobante Nuevo
-        If mComprobanteActual.IDComprobante = 0 Then
-            ' Calculo el nuevo ID
-            Using dbcMaxID As New CSColegioContext(True)
-                If dbcMaxID.Comprobante.Count = 0 Then
-                    mComprobanteActual.IDComprobante = 1
-                Else
-                    mComprobanteActual.IDComprobante = (From c In dbcMaxID.Comprobante Select c.IDComprobante).Max + 1
-                End If
-            End Using
-
-            ' Si corresponde, recalculo el Número del Comprobante
-            If mUtilizaNumerador Then
-                ' El Número de Comprobante es calculado automáticamente, así que lo verifico por si alguien agregó uno antes de grabar este
-                NextComprobanteNumero = mdbContext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = mComprobanteTipoActual.IDComprobanteTipo And cc.PuntoVenta = mComprobanteTipoPuntoVentaActual.PuntoVenta.Numero).Max(Function(cc) cc.Numero)
-                If NextComprobanteNumero Is Nothing Then
-                    ' No hay ningún comprobante creado de este tipo, así que tomo el número inicial 
-                    NextComprobanteNumero = mComprobanteTipoPuntoVentaActual.NumeroInicio.ToString.PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
-                Else
-                    NextComprobanteNumero = CStr(CInt(NextComprobanteNumero) + 1).PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
-                End If
-                textboxNumero.Text = NextComprobanteNumero
-            End If
-
-            mComprobanteActual.IDUsuarioCreacion = pUsuario.IDUsuario
-            mComprobanteActual.FechaHoraCreacion = Now
         End If
 
         ' Paso los datos desde los controles al Objecto de EF
@@ -603,18 +456,7 @@
                 Exit Sub
             End Try
 
-            If mComprobanteTipoActual.EmisionElectronica AndAlso mComprobanteActual.CAE Is Nothing Then
-                If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIR_AFIP) Then
-                    If MsgBox("Este Comprobante necesita ser autorizado en AFIP para tener validez." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
-                        If TransmitirComprobante(mComprobanteActual) Then
-                            MsgBox("Se ha transmitido exitosamente el Comprobante a AFIP.", MsgBoxStyle.Information, My.Application.Info.Title)
-                            If CS_Parameter_System.GetBoolean(Parametros.AFIP_COMPROBANTES_CODIGOQR_GENERAR, False) Then
-                                ModuloComprobantes.GenerarCodigoQR(mComprobanteActual.IDComprobante)
-                            End If
-                        End If
-                    End If
-                End If
-            End If
+            AutorizarComprobanteEnAfip(False, False)
 
             ' Refresco la lista de Comprobantes para mostrar los cambios
             pFillAndRefreshLists.Comprobantes(mComprobanteActual.IDComprobante)
@@ -623,77 +465,16 @@
         Me.Close()
     End Sub
 
-    Private Sub AFIP_TransmitirComprobante(sender As Object, e As EventArgs) Handles menuitemAFIP_ObtenerCAE.Click
-        If Not mComprobanteActual Is Nothing Then
-            If mComprobanteTipoActual.EmisionElectronica AndAlso mComprobanteActual.CAE Is Nothing Then
-                If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIR_AFIP) Then
-                    If MsgBox("Este Comprobante necesita ser autorizado en AFIP para tener validez." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
-                        If TransmitirComprobante(mComprobanteActual) Then
-                            menuitemAFIP_ObtenerCAE.Enabled = (mComprobanteActual.CAE Is Nothing)
-                            ' Refresco la lista de Comprobantes para mostrar los cambios
-                            If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formComprobantes") Then
-                                Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formComprobantes"), formComprobantes)
-                                formComprobantes.RefreshData(mComprobanteActual.IDComprobante)
-                                formComprobantes = Nothing
-                            End If
-                        End If
-                    End If
-                End If
-            End If
-        End If
+    Private Sub menuitemAFIP_ObtenerCAE_Click(sender As Object, e As EventArgs) Handles menuitemAFIP_ObtenerCAE.Click
+        AutorizarComprobanteEnAfip(True, True)
     End Sub
 
-    Private Sub AFIP_ObtenerCodigoQR(sender As Object, e As EventArgs) Handles menuitemAFIP_ObtenerQR.Click
-        If Not mComprobanteActual Is Nothing Then
-            If mComprobanteTipoActual.EmisionElectronica AndAlso mComprobanteActual.CAE IsNot Nothing Then
-                If mComprobanteActual.CodigoQR Is Nothing OrElse MsgBox("Este Comprobante ya tiene generado el Código QR." & vbCrLf & vbCrLf & "¿Desea generarlo nuevamente?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
-                    If ModuloComprobantes.GenerarCodigoQR(mComprobanteActual.IDComprobante,,,,, True) Then
-                        MsgBox("Se ha generado el Código QR.", MsgBoxStyle.Information, My.Application.Info.Title)
-                        ' Refresco la lista de Comprobantes para mostrar los cambios
-                        If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formComprobantes") Then
-                            Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formComprobantes"), formComprobantes)
-                            formComprobantes.RefreshData(mComprobanteActual.IDComprobante)
-                            formComprobantes = Nothing
-                        End If
-                    End If
-                End If
-            End If
-        End If
+    Private Sub menuitemAFIP_ObtenerQR_Click(sender As Object, e As EventArgs) Handles menuitemAFIP_ObtenerQR.Click
+        ObtenerCodigoQR()
     End Sub
 
-    Private Sub AFIP_VerificarComprobante(sender As Object, e As EventArgs) Handles menuitemAFIP_VerificarDatos.Click
-        Dim Objeto_AFIP_WS As New CardonerSistemas.AfipWebServices.WebService
-
-        If Not mComprobanteActual Is Nothing Then
-            If mComprobanteTipoActual.EmisionElectronica AndAlso Not mComprobanteActual.CAE Is Nothing Then
-                If Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIR_AFIP) Then
-                    Me.Cursor = Cursors.WaitCursor
-                    Application.DoEvents()
-
-                    If ModuloComprobantes.TransmitirAFIP_Inicializar(Objeto_AFIP_WS, pAfipWebServicesConfig.ModoHomologacion) Then
-                        If ModuloComprobantes.TransmitirAFIP_IniciarSesion(Objeto_AFIP_WS) Then
-                            If ModuloComprobantes.TransmitirAFIP_ConectarServicio(Objeto_AFIP_WS) Then
-                                If Objeto_AFIP_WS.FacturaElectronica_ConsultarComprobante(mComprobanteTipoActual.CodigoAFIP, CShort(mComprobanteActual.PuntoVenta), CInt(mComprobanteActual.Numero)) Then
-                                    If Objeto_AFIP_WS.UltimoResultadoConsultaComprobante.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoAceptado Then
-                                        formComprobanteVerificaAFIP.LoadAndShow(Me, mComprobanteActual, Objeto_AFIP_WS.UltimoResultadoConsultaComprobante)
-
-                                        ' Si actualizo el Comprobante local:
-                                        '' Refresco la lista de Comprobantes para mostrar los cambios
-                                        'If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formComprobantes") Then
-                                        '    Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formComprobantes"), formComprobantes)
-                                        '    formComprobantes.RefreshData(mComprobanteActual.IDComprobante)
-                                        '    formComprobantes = Nothing
-                                        'End If
-                                    End If
-                                End If
-                            End If
-                        End If
-                    End If
-
-                    Me.Cursor = Cursors.Default
-                End If
-            End If
-        End If
+    Private Sub menuitemAFIP_VerificarDatos_Click(sender As Object, e As EventArgs) Handles menuitemAFIP_VerificarDatos.Click
+        VerificarDatosComprobanteEnAfip()
     End Sub
 
     Private Sub Cancelar(sender As Object, e As EventArgs) Handles buttonCancelar.Click
@@ -705,6 +486,370 @@
             Me.Close()
         End If
     End Sub
+
+#End Region
+
+#Region "Verificaciones"
+
+    Private Function VerificarDatosComprobante() As Boolean
+        If comboboxComprobanteTipo.SelectedIndex = -1 Then
+            MsgBox("Debe especificar el Tipo de Comprobante.", MsgBoxStyle.Information, My.Application.Info.Title)
+            comboboxComprobanteTipo.Focus()
+            Return False
+        End If
+
+        ' Punto de Venta
+        If textboxPuntoVenta.Text.Trim.Length = 0 Then
+            MsgBox("Debe especificar el Punto de Venta.", MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxPuntoVenta.Focus()
+            Return False
+        End If
+        If textboxPuntoVenta.Text.Trim.Length < Constantes.COMPROBANTE_PUNTOVENTA_CARACTERES Then
+            MsgBox(String.Format("El Punto de Venta debe contener {0} números.", Constantes.COMPROBANTE_PUNTOVENTA_CARACTERES), MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxPuntoVenta.Focus()
+            Return False
+        End If
+
+        ' Número
+        If textboxNumero.Text.Trim.Length = 0 Then
+            MsgBox("Debe especificar el Número de Comprobante.", MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxNumero.Focus()
+            Return False
+        End If
+        If textboxNumero.Text.Trim.Length < Constantes.COMPROBANTE_NUMERO_CARACTERES Then
+            MsgBox(String.Format("El Número de Comprobante debe contener {0} números.", Constantes.COMPROBANTE_PUNTOVENTA_CARACTERES), MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxNumero.Focus()
+            Return False
+        End If
+
+        Return True
+    End Function
+
+    Private Function ObtenerConcepto() As Boolean
+        Dim articuloActual As Articulo
+
+        Try
+            ' Obtengo el Concepto del Comprobante
+            If mComprobanteTipoActual.UtilizaDetalle AndAlso mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso mComprobanteTipoActual.EmisionElectronica Then
+                If mComprobanteActual.ComprobanteDetalle.Count > 0 Then
+                    For Each CDetalle As ComprobanteDetalle In mComprobanteActual.ComprobanteDetalle
+                        articuloActual = mdbContext.Articulo.Find(CDetalle.IDArticulo)
+                        Select Case mConceptoActual.IDConcepto
+                            Case CByte(0)
+                                ' Es el primer Artículo, así que lo guardo
+                                mConceptoActual = mdbContext.Concepto.Find(articuloActual.ArticuloGrupo.IDConcepto)
+                            Case articuloActual.ArticuloGrupo.IDConcepto
+                                ' Es el mismo Concepto que el/los Artículos anteriores, no hago nada
+                            Case Else
+                                If (mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) And (articuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or articuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) Then
+                                    ' Hay Productos y Servicios, así que utilizo el Concepto correspondiente
+                                    mConceptoActual = mdbContext.Concepto.Find(Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS)
+                                    Exit For
+                                End If
+                        End Select
+                    Next
+                Else
+                    mConceptoActual = mdbContext.Concepto.Find(Constantes.COMPROBANTE_CONCEPTO_PRODUCTO)
+                End If
+            Else
+                mConceptoActual = New Concepto
+            End If
+            Return True
+
+
+        Catch ex As Exception
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener el concepto de los items del detalle.")
+            Return False
+        End Try
+
+    End Function
+
+    Private Function VerificarFechas() As Boolean
+        ' Fecha - Corroborar con el Concepto de los artículos
+        If mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso mComprobanteTipoActual.EmisionElectronica AndAlso Math.Abs(datetimepickerFechaEmision.Value.CompareTo(DateAndTime.Today)) > mConceptoActual.FechaRangoDia Then
+            MsgBox(String.Format("La Fecha de Emisión no puede tener más de {0} días de diferencia con la Fecha actual.", mConceptoActual.FechaRangoDia), MsgBoxStyle.Information, My.Application.Info.Title)
+            datetimepickerFechaEmision.Focus()
+            Return False
+        End If
+        If Math.Abs(datetimepickerFechaEmision.Value.CompareTo(DateAndTime.Today)) > 30 Then
+            If MsgBox(String.Format("La Fecha de Emisión tiene más de {0} días de diferencia con la Fecha actual.", mConceptoActual.FechaRangoDia) & vbCrLf & vbCrLf & "¿Es correcto?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                datetimepickerFechaEmision.Focus()
+                Return False
+            End If
+        End If
+
+        ' Fecha de Vencimiento
+        If datetimepickerFechaVencimiento.Checked AndAlso datetimepickerFechaVencimiento.Value.CompareTo(datetimepickerFechaEmision.Value) < 0 Then
+            MsgBox("La Fecha de Vencimiento debe ser posterior o igual a la Fecha de Emisión.", MsgBoxStyle.Information, My.Application.Info.Title)
+            datetimepickerFechaVencimiento.Focus()
+            Return False
+        End If
+
+        ' Fechas de Servicio
+        If mComprobanteTipoActual.UtilizaDetalle AndAlso mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso mComprobanteTipoActual.EmisionElectronica AndAlso (mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS Or mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS) Then
+            If Not datetimepickerFechaVencimiento.Checked Then
+                MsgBox("Por estar facturando Servicios, debe especificar la Fecha de Vencimiento.", MsgBoxStyle.Information, My.Application.Info.Title)
+                datetimepickerFechaVencimiento.Focus()
+                Return False
+            End If
+            If Not datetimepickerFechaServicioDesde.Checked Then
+                MsgBox("Por estar facturando Servicios, debe especificar la Fecha del Período Facturado Desde.", MsgBoxStyle.Information, My.Application.Info.Title)
+                datetimepickerFechaServicioDesde.Focus()
+                Return False
+            End If
+            If Not datetimepickerFechaServicioHasta.Checked Then
+                MsgBox("Por estar facturando Servicios, debe especificar la Fecha del Período Facturado Hasta.", MsgBoxStyle.Information, My.Application.Info.Title)
+                datetimepickerFechaServicioHasta.Focus()
+                Return False
+            End If
+            If datetimepickerFechaServicioHasta.Value.CompareTo(datetimepickerFechaServicioDesde.Value) < 0 Then
+                MsgBox("La Fecha del Período Facturado Hasta, debe ser posterior o igual a la Fecha del Período Facturado Desde.", MsgBoxStyle.Information, My.Application.Info.Title)
+                datetimepickerFechaServicioHasta.Focus()
+                Return False
+            End If
+        End If
+
+        Return True
+    End Function
+
+    Private Function VerificarEntidad() As Boolean
+        Dim entidadActual As Entidad
+
+        If textboxEntidad.Tag Is Nothing Then
+            MsgBox("Debe especificar la Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxEntidad.Focus()
+            Return False
+        End If
+
+        entidadActual = mdbContext.Entidad.Find(textboxEntidad.Tag)
+
+        If Not entidadActual.EmitirFacturaA Is Nothing Then
+            If MsgBox("La Entidad seleccionada, tiene especificado que se le facture otra Entidad." & vbCrLf & vbCrLf & "¿Desea continuar de todos modos?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                Return False
+            End If
+        End If
+        If entidadActual.IDCategoriaIVA Is Nothing Then
+            MsgBox("La Entidad no tiene especificada la Categoría de IVA.", MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxEntidad.Focus()
+            Return False
+        End If
+        If entidadActual.DocumentoNumero Is Nothing And entidadActual.FacturaDocumentoNumero Is Nothing Then
+            MsgBox("La Entidad no tiene especificado el Tipo y Número de Documento.", MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxEntidad.Focus()
+            Return False
+        End If
+
+        Return True
+    End Function
+
+    Private Function VerificarImportes() As Boolean
+        ' Importe Total
+        If mComprobanteTipoActual.UtilizaDetalle = False And mComprobanteTipoActual.UtilizaMedioPago = False Then
+            If currencytextboxImporteTotal.IsNull Or currencytextboxImporteTotal.DecimalValue <= 0 Then
+                MsgBox("El Total debe ser mayor a cero.", MsgBoxStyle.Information, My.Application.Info.Title)
+                currencytextboxImporteTotal.Focus()
+                Return False
+            End If
+        End If
+
+        ' Subtotales de cada solapa
+        If mComprobanteTipoActual.UtilizaAplicacion Then
+            If currencytextboxAplicaciones_Subtotal.DecimalValue > 0 AndAlso currencytextboxAplicaciones_Subtotal.DecimalValue > currencytextboxImporteTotal.DecimalValue Then
+                MsgBox("El Subtotal de los Comprobantes aplicados no puede ser mayor al Total del Comprobante actual.", MsgBoxStyle.Information, My.Application.Info.Title)
+                Return False
+            End If
+        End If
+
+        Return True
+    End Function
+
+#End Region
+
+#Region "Autorización y verificaciones en AFIP"
+
+    Private Function TransmitirComprobante(ByRef ComprobanteActual As Comprobante) As Boolean
+        Dim Objeto_AFIP_WS As New CardonerSistemas.AfipWebServices.WebService
+
+        Dim MensajeError As String
+
+        If ComprobanteActual Is Nothing Then
+            Return False
+        End If
+
+        If ComprobanteActual.CAE IsNot Nothing Then
+            Return False
+        End If
+
+        If Not ModuloComprobantes.TransmitirAFIP_Inicializar(Objeto_AFIP_WS, pAfipWebServicesConfig.ModoHomologacion) Then
+            Return False
+        End If
+
+        Me.Cursor = Cursors.WaitCursor
+        Application.DoEvents()
+
+        If Not ModuloComprobantes.TransmitirAFIP_IniciarSesion(Objeto_AFIP_WS) Then
+            Me.Cursor = Cursors.Default
+            Return False
+        End If
+
+        If Not ModuloComprobantes.TransmitirAFIP_ConectarServicio(Objeto_AFIP_WS) Then
+            Me.Cursor = Cursors.Default
+            Return False
+        End If
+
+        Dim CaeNumero As String
+        Dim CaeFechaVencimiento As Date
+
+        If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual.IDComprobante, CaeNumero, CaeFechaVencimiento) Then
+            mComprobanteActual.CAE = CaeNumero
+            mComprobanteActual.CAEVencimiento = CaeFechaVencimiento
+            MsgBox(String.Format("Se ha transmitido exitosamente el Comprobante a AFIP."), MsgBoxStyle.Information, My.Application.Info.Title)
+            Me.Cursor = Cursors.Default
+            Return True
+        ElseIf Objeto_AFIP_WS.UltimoResultadoCAE.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoRechazado Then
+            MensajeError = "Se Rechazó la Solicitud de CAE para el Comprobante Electrónico:"
+            MensajeError &= vbCrLf & vbCrLf
+            MensajeError &= String.Format("{0} N°: {1}", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero)
+            MensajeError &= vbCrLf
+            MensajeError &= "Titular: " & ComprobanteActual.ApellidoNombre
+            MensajeError &= vbCrLf
+            MensajeError &= "Importe: " & FormatCurrency(ComprobanteActual.ImporteTotal1)
+            If Objeto_AFIP_WS.UltimoResultadoCAE.Observaciones <> "" Then
+                MensajeError &= vbCrLf & vbCrLf
+                MensajeError &= "Observaciones: " & Objeto_AFIP_WS.UltimoResultadoCAE.Observaciones
+            End If
+            If Objeto_AFIP_WS.UltimoResultadoCAE.ErrorMessage <> "" Then
+                MensajeError &= vbCrLf & vbCrLf
+                MensajeError &= "Error: " & Objeto_AFIP_WS.UltimoResultadoCAE.ErrorMessage
+            End If
+            MsgBox(MensajeError, MsgBoxStyle.Exclamation, My.Application.Info.Title)
+            Me.Cursor = Cursors.Default
+            Return False
+        Else
+            Me.Cursor = Cursors.Default
+            Return False
+        End If
+    End Function
+
+    Private Sub AutorizarComprobanteEnAfip(ByVal mostrarAvisoPermisos As Boolean, ByVal refreshList As Boolean)
+        If mComprobanteActual Is Nothing Then
+            Exit Sub
+        End If
+
+        If Not mComprobanteTipoActual.EmisionElectronica Then
+            Exit Sub
+        End If
+
+        If mComprobanteActual.CAE IsNot Nothing Then
+            Exit Sub
+        End If
+
+        If Not Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIR_AFIP, mostrarAvisoPermisos) Then
+            Exit Sub
+        End If
+
+        If MsgBox("Este Comprobante necesita ser autorizado en AFIP para tener validez." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+            Exit Sub
+        End If
+
+        If TransmitirComprobante(mComprobanteActual) Then
+            menuitemAFIP_ObtenerCAE.Enabled = False
+
+            MsgBox("Se ha transmitido exitosamente el Comprobante a AFIP.", MsgBoxStyle.Information, My.Application.Info.Title)
+
+            If CS_Parameter_System.GetBoolean(Parametros.AFIP_COMPROBANTES_CODIGOQR_GENERAR, False) Then
+                ModuloComprobantes.GenerarCodigoQR(mComprobanteActual.IDComprobante)
+            End If
+
+            If refreshList Then
+                pFillAndRefreshLists.Comprobantes(mComprobanteActual.IDComprobante)
+            End If
+        End If
+    End Sub
+
+    Private Sub ObtenerCodigoQR()
+        If mComprobanteActual Is Nothing Then
+            Exit Sub
+        End If
+
+        If Not mComprobanteTipoActual.EmisionElectronica Then
+            Exit Sub
+        End If
+
+        If mComprobanteActual.CAE Is Nothing Then
+            Exit Sub
+        End If
+
+        If mComprobanteActual.CodigoQR IsNot Nothing Then
+            If MsgBox("Este Comprobante ya tiene generado el Código QR." & vbCrLf & vbCrLf & "¿Desea generarlo nuevamente?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+                Exit Sub
+            End If
+        End If
+
+        If ModuloComprobantes.GenerarCodigoQR(mComprobanteActual.IDComprobante,,,,, True) Then
+            MsgBox("Se ha generado el Código QR.", MsgBoxStyle.Information, My.Application.Info.Title)
+
+            pFillAndRefreshLists.Comprobantes(mComprobanteActual.IDComprobante)
+        End If
+    End Sub
+
+    Private Sub VerificarDatosComprobanteEnAfip()
+        Dim Objeto_AFIP_WS As New CardonerSistemas.AfipWebServices.WebService
+
+        If mComprobanteActual Is Nothing Then
+            Exit Sub
+        End If
+
+        If Not mComprobanteTipoActual.EmisionElectronica Then
+            Exit Sub
+        End If
+
+        If mComprobanteActual.CAE Is Nothing Then
+            Exit Sub
+        End If
+
+        If Not Permisos.VerificarPermiso(Permisos.COMPROBANTE_TRANSMITIR_AFIP) Then
+            Exit Sub
+        End If
+
+        Me.Cursor = Cursors.WaitCursor
+        Application.DoEvents()
+
+        If Not ModuloComprobantes.TransmitirAFIP_Inicializar(Objeto_AFIP_WS, pAfipWebServicesConfig.ModoHomologacion) Then
+            Me.Cursor = Cursors.Default
+            Exit Sub
+        End If
+
+        If Not ModuloComprobantes.TransmitirAFIP_IniciarSesion(Objeto_AFIP_WS) Then
+            Me.Cursor = Cursors.Default
+            Exit Sub
+        End If
+
+        If Not ModuloComprobantes.TransmitirAFIP_ConectarServicio(Objeto_AFIP_WS) Then
+            Me.Cursor = Cursors.Default
+            Exit Sub
+        End If
+
+        If Not Objeto_AFIP_WS.FacturaElectronica_ConsultarComprobante(mComprobanteTipoActual.CodigoAFIP, CShort(mComprobanteActual.PuntoVenta), CInt(mComprobanteActual.Numero)) Then
+            Me.Cursor = Cursors.Default
+            Exit Sub
+        End If
+
+        If Objeto_AFIP_WS.UltimoResultadoConsultaComprobante.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoAceptado Then
+            formComprobanteVerificaAFIP.LoadAndShow(Me, mComprobanteActual, Objeto_AFIP_WS.UltimoResultadoConsultaComprobante)
+
+            ' Si actualizo el Comprobante local:
+            '' Refresco la lista de Comprobantes para mostrar los cambios
+            'If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formComprobantes") Then
+            '    Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formComprobantes"), formComprobantes)
+            '    formComprobantes.RefreshData(mComprobanteActual.IDComprobante)
+            '    formComprobantes = Nothing
+            'End If
+        End If
+
+        Me.Cursor = Cursors.Default
+    End Sub
+
 #End Region
 
 #Region "Detalles"
@@ -733,7 +878,7 @@
         End Try
 
         For Each ComprobanteDetalleActual As ComprobanteDetalle In mComprobanteActual.ComprobanteDetalle
-            Total += ComprobanteDetalleActual.PrecioUnitarioFinal
+            Total += ComprobanteDetalleActual.PrecioTotal
         Next
         currencytextboxDetalle_Subtotal.DecimalValue = Total
         If mComprobanteTipoActual.UtilizaDetalle Then
@@ -1298,53 +1443,41 @@
         End If
     End Sub
 
-    Private Function TransmitirComprobante(ByRef ComprobanteActual As Comprobante) As Boolean
-        Dim Objeto_AFIP_WS As New CardonerSistemas.AfipWebServices.WebService
+    Private Function EstablecerValoresNuevoComprobante() As Boolean
+        Dim comprobanteNumeroSiguiente As String
 
-        Dim MensajeError As String
-
-        If ModuloComprobantes.TransmitirAFIP_Inicializar(Objeto_AFIP_WS, pAfipWebServicesConfig.ModoHomologacion) Then
-            Me.Cursor = Cursors.WaitCursor
-            Application.DoEvents()
-
-            If ModuloComprobantes.TransmitirAFIP_IniciarSesion(Objeto_AFIP_WS) Then
-                If ModuloComprobantes.TransmitirAFIP_ConectarServicio(Objeto_AFIP_WS) Then
-                    If Not ComprobanteActual Is Nothing Then
-                        If ComprobanteActual.CAE Is Nothing Then
-                            If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual.IDComprobante) Then
-                                MsgBox(String.Format("Se han transmitido exitosamente el Comprobante a AFIP."), MsgBoxStyle.Information, My.Application.Info.Title)
-                                Me.Cursor = Cursors.Default
-                                Return True
-                            ElseIf Objeto_AFIP_WS.UltimoResultadoCAE.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoRechazado Then
-                                MensajeError = "Se Rechazó la Solicitud de CAE para el Comprobante Electrónico:"
-                                MensajeError &= vbCrLf & vbCrLf
-                                MensajeError &= String.Format("{0} N°: {1}", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero)
-                                MensajeError &= vbCrLf
-                                MensajeError &= "Titular: " & ComprobanteActual.ApellidoNombre
-                                MensajeError &= vbCrLf
-                                MensajeError &= "Importe: " & FormatCurrency(ComprobanteActual.ImporteTotal1)
-                                If Objeto_AFIP_WS.UltimoResultadoCAE.Observaciones <> "" Then
-                                    MensajeError &= vbCrLf & vbCrLf
-                                    MensajeError &= "Observaciones: " & Objeto_AFIP_WS.UltimoResultadoCAE.Observaciones
-                                End If
-                                If Objeto_AFIP_WS.UltimoResultadoCAE.ErrorMessage <> "" Then
-                                    MensajeError &= vbCrLf & vbCrLf
-                                    MensajeError &= "Error: " & Objeto_AFIP_WS.UltimoResultadoCAE.ErrorMessage
-                                End If
-                                MsgBox(MensajeError, MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                                Me.Cursor = Cursors.Default
-                                Return False
-                            Else
-                                Me.Cursor = Cursors.Default
-                                Return False
-                            End If
-                        End If
-                    End If
+        Try
+            ' Calculo el nuevo ID
+            Using dbcMaxID As New CSColegioContext(True)
+                If dbcMaxID.Comprobante.Any() Then
+                    mComprobanteActual.IDComprobante = dbcMaxID.Comprobante.Max(Function(c) c.IDComprobante) + 1
+                Else
+                    mComprobanteActual.IDComprobante = 1
                 End If
+            End Using
+
+            ' Si corresponde, recalculo el Número del Comprobante
+            If mUtilizaNumerador Then
+                ' El Número de Comprobante es calculado automáticamente, así que lo verifico por si alguien agregó uno antes de grabar este
+                comprobanteNumeroSiguiente = mdbContext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = mComprobanteTipoActual.IDComprobanteTipo And cc.PuntoVenta = mComprobanteTipoPuntoVentaActual.PuntoVenta.Numero).Max(Function(cc) cc.Numero)
+                If comprobanteNumeroSiguiente Is Nothing Then
+                    ' No hay ningún comprobante creado de este tipo, así que tomo el número inicial 
+                    comprobanteNumeroSiguiente = mComprobanteTipoPuntoVentaActual.NumeroInicio.ToString.PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
+                Else
+                    comprobanteNumeroSiguiente = CStr(CInt(comprobanteNumeroSiguiente) + 1).PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
+                End If
+                textboxNumero.Text = comprobanteNumeroSiguiente
             End If
-            Me.Cursor = Cursors.Default
-        End If
-        Return False
+
+            mComprobanteActual.IDUsuarioCreacion = pUsuario.IDUsuario
+            mComprobanteActual.FechaHoraCreacion = Now
+            Return True
+
+        Catch ex As Exception
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al establecer los valores del Comprobante nuevo.")
+            Return False
+        End Try
+
     End Function
 
 #End Region
