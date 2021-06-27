@@ -69,6 +69,7 @@ Partial Class formComprobanteVerificaAFIP
         Me.MinimizeBox = False
         Me.Name = "formComprobanteVerificaAFIP"
         Me.ShowInTaskbar = False
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Verificación de Comprobante con AFIP"
         Me.ResumeLayout(False)
 

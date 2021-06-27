@@ -837,14 +837,7 @@ Public Class formComprobante
 
         If Objeto_AFIP_WS.UltimoResultadoConsultaComprobante.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoAceptado Then
             formComprobanteVerificaAFIP.LoadAndShow(Me, mComprobanteActual, Objeto_AFIP_WS.UltimoResultadoConsultaComprobante)
-
-            ' Si actualizo el Comprobante local:
-            '' Refresco la lista de Comprobantes para mostrar los cambios
-            'If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formComprobantes") Then
-            '    Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formComprobantes"), formComprobantes)
-            '    formComprobantes.RefreshData(mComprobanteActual.IDComprobante)
-            '    formComprobantes = Nothing
-            'End If
+            formComprobanteVerificaAFIP = Nothing
         End If
 
         Me.Cursor = Cursors.Default

@@ -5,10 +5,12 @@
 #End Region
 
 #Region "Form stuff"
+
     Friend Sub LoadAndShow(ByRef ParentForm As Form, ByRef ComprobanteActual As Comprobante, ByRef ResultadoConsultaComprobanteActual As CardonerSistemas.AfipWebServices.ResultadoConsultaComprobante)
         Dim ListViewItemNew As ListViewItem
 
         mResultadoConsultaComprobanteActual = ResultadoConsultaComprobanteActual
+        listviewMain.Items.Clear()
 
         With mResultadoConsultaComprobanteActual
             ' Tipo de Comprobante
@@ -132,14 +134,9 @@
             'listviewMain.Items.Add(ListViewItemNew)
         End With
 
-        Me.MdiParent = pFormMDIMain
-        CS_Form.CenterToParent(ParentForm, Me)
-        Me.Show()
-        If Me.WindowState = FormWindowState.Minimized Then
-            Me.WindowState = FormWindowState.Normal
-        End If
-        Me.Focus()
+        Me.ShowDialog()
     End Sub
+
 #End Region
 
 End Class
