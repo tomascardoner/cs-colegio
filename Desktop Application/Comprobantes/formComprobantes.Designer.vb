@@ -71,6 +71,9 @@ Partial Class formComprobantes
         Me.comboboxBuscarTipo = New System.Windows.Forms.ToolStripComboBox()
         Me.textboxBuscar = New System.Windows.Forms.ToolStripTextBox()
         Me.buttonBuscarBorrar = New System.Windows.Forms.ToolStripButton()
+        Me.toolstripTareas = New System.Windows.Forms.ToolStrip()
+        Me.dropdownbuttonTareas = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.menuitemGenerarCódigosBarrasSEPSA = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelToolbars.SuspendLayout()
@@ -80,6 +83,7 @@ Partial Class formComprobantes
         Me.toolstripComprobanteLote.SuspendLayout()
         Me.toolstripTitular.SuspendLayout()
         Me.toolstripBuscar.SuspendLayout()
+        Me.toolstripTareas.SuspendLayout()
         Me.SuspendLayout()
         '
         'statuslabelMain
@@ -200,6 +204,7 @@ Partial Class formComprobantes
         Me.panelToolbars.Controls.Add(Me.toolstripComprobanteLote)
         Me.panelToolbars.Controls.Add(Me.toolstripTitular)
         Me.panelToolbars.Controls.Add(Me.toolstripBuscar)
+        Me.panelToolbars.Controls.Add(Me.toolstripTareas)
         Me.panelToolbars.Dock = System.Windows.Forms.DockStyle.Top
         Me.panelToolbars.Location = New System.Drawing.Point(0, 0)
         Me.panelToolbars.Name = "panelToolbars"
@@ -421,7 +426,7 @@ Partial Class formComprobantes
         Me.toolstripBuscar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelBuscar, Me.comboboxBuscarTipo, Me.textboxBuscar, Me.buttonBuscarBorrar})
         Me.toolstripBuscar.Location = New System.Drawing.Point(0, 66)
         Me.toolstripBuscar.Name = "toolstripBuscar"
-        Me.toolstripBuscar.Size = New System.Drawing.Size(335, 27)
+        Me.toolstripBuscar.Size = New System.Drawing.Size(304, 27)
         Me.toolstripBuscar.TabIndex = 9
         '
         'labelBuscar
@@ -451,6 +456,31 @@ Partial Class formComprobantes
         Me.buttonBuscarBorrar.Name = "buttonBuscarBorrar"
         Me.buttonBuscarBorrar.Size = New System.Drawing.Size(24, 24)
         Me.buttonBuscarBorrar.ToolTipText = "Limpiar búsqueda"
+        '
+        'toolstripTareas
+        '
+        Me.toolstripTareas.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.toolstripTareas.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.dropdownbuttonTareas})
+        Me.toolstripTareas.Location = New System.Drawing.Point(304, 66)
+        Me.toolstripTareas.Name = "toolstripTareas"
+        Me.toolstripTareas.Size = New System.Drawing.Size(86, 25)
+        Me.toolstripTareas.TabIndex = 12
+        '
+        'dropdownbuttonTareas
+        '
+        Me.dropdownbuttonTareas.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.dropdownbuttonTareas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemGenerarCódigosBarrasSEPSA})
+        Me.dropdownbuttonTareas.Image = CType(resources.GetObject("dropdownbuttonTareas.Image"), System.Drawing.Image)
+        Me.dropdownbuttonTareas.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.dropdownbuttonTareas.Name = "dropdownbuttonTareas"
+        Me.dropdownbuttonTareas.Size = New System.Drawing.Size(52, 22)
+        Me.dropdownbuttonTareas.Text = "Tareas"
+        '
+        'menuitemGenerarCódigosBarrasSEPSA
+        '
+        Me.menuitemGenerarCódigosBarrasSEPSA.Name = "menuitemGenerarCódigosBarrasSEPSA"
+        Me.menuitemGenerarCódigosBarrasSEPSA.Size = New System.Drawing.Size(247, 22)
+        Me.menuitemGenerarCódigosBarrasSEPSA.Text = "Generar códigos de barras SEPSA"
         '
         'formComprobantes
         '
@@ -482,6 +512,8 @@ Partial Class formComprobantes
         Me.toolstripTitular.PerformLayout()
         Me.toolstripBuscar.ResumeLayout(False)
         Me.toolstripBuscar.PerformLayout()
+        Me.toolstripTareas.ResumeLayout(False)
+        Me.toolstripTareas.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -527,4 +559,7 @@ Partial Class formComprobantes
     Friend WithEvents comboboxPeriodoValor As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents labelPeriodoFechaY As System.Windows.Forms.ToolStripLabel
     Friend WithEvents buttonAgregar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents toolstripTareas As ToolStrip
+    Friend WithEvents dropdownbuttonTareas As ToolStripDropDownButton
+    Friend WithEvents menuitemGenerarCódigosBarrasSEPSA As ToolStripMenuItem
 End Class

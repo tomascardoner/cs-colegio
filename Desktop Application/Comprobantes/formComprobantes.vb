@@ -46,6 +46,7 @@
     Friend Sub SetAppearance()
         datagridviewMain.DefaultCellStyle.Font = pAppearanceConfig.ListsFont
         datagridviewMain.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFont
+        toolstripTareas.Visible = (pUsuario.IDUsuarioGrupo = Constantes.USUARIOGRUPO_ADMINISTRADORES_ID)
     End Sub
 
     Private Sub formComprobantes_Load() Handles Me.Load
@@ -489,6 +490,61 @@
         OrderData()
     End Sub
 
+    Private Sub menuitemGenerarCódigosBarrasSEPSA_Click(sender As Object, e As EventArgs) Handles menuitemGenerarCódigosBarrasSEPSA.Click
+        Dim CurrentGridRowData As GridRowData
+        Dim ComprobanteActual As Comprobante
+
+        If MsgBox(String.Format("Se van a generar los códigos de barras SEPSA de los comprobantes mostrados.{0}{0}¿Desea continuar?", Environment.NewLine), CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+            Exit Sub
+        End If
+
+        Me.Cursor = Cursors.WaitCursor
+
+        datagridviewMain.Enabled = False
+
+        Using dbContext = New CSColegioContext(True)
+            For Each row As DataGridViewRow In datagridviewMain.Rows
+                datagridviewMain.CurrentCell = row.Cells(0)
+                Application.DoEvents()
+
+                CurrentGridRowData = CType(row.DataBoundItem, GridRowData)
+                If Not CurrentGridRowData.Anulado Then
+                    Try
+                        ComprobanteActual = dbContext.Comprobante.Find(CurrentGridRowData.IDComprobante)
+                    Catch ex As Exception
+                        datagridviewMain.Enabled = True
+                        Me.Cursor = Cursors.Default
+                        CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al cargar los datos del comprobante.")
+                        Exit Sub
+                    End Try
+
+                    If ComprobanteActual.ComprobanteTipo.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso (ComprobanteActual.ComprobanteTipo.CodigoAFIP = Constantes.ComprobanteCodigoAfipFacturaA OrElse ComprobanteActual.ComprobanteTipo.CodigoAFIP = Constantes.ComprobanteCodigoAfipFacturaB OrElse ComprobanteActual.ComprobanteTipo.CodigoAFIP = Constantes.ComprobanteCodigoAfipFacturaC) Then
+                        ComprobanteActual.CalcularCodigoBarrasSepsa(ComprobanteActual.DocumentoNumero)
+                    End If
+                End If
+            Next
+
+            If dbContext.ChangeTracker.HasChanges Then
+                Try
+                    ' Guardo los cambios
+                    dbContext.SaveChanges()
+
+                Catch ex As Exception
+                    datagridviewMain.Enabled = True
+                    Me.Cursor = Cursors.Default
+                    CardonerSistemas.ErrorHandler.ProcessError(ex, My.Resources.STRING_ERROR_SAVING_CHANGES)
+                    Exit Sub
+                End Try
+
+                MsgBox("Se han actualizado los códigos.", MsgBoxStyle.Information, My.Application.Info.Title)
+            End If
+        End Using
+
+        datagridviewMain.Enabled = True
+
+        Me.Cursor = Cursors.Default
+    End Sub
+
 #End Region
 
 #Region "Main Toolbar"
@@ -818,6 +874,7 @@
 #End Region
 
 #Region "Extra stuff"
+
     Private Sub CambiarColorAFilaAnulada(sender As Object, e As DataGridViewRowPostPaintEventArgs) Handles datagridviewMain.RowPostPaint
         If e.RowIndex < datagridviewMain.RowCount - 1 Then
             Dim DataGridViewRowActual As DataGridViewRow

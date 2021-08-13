@@ -5,7 +5,7 @@
   "Signature": "{0}{0}Colegio Horizonte de Lobos{0}Administración{0}Castelli 193 - Lobos{0}Tel.: +54 2227 42-4656{0}administracion@horizontedelobos.com.ar{0}www.horizontedelobos.com.ar",
   "SmtpServer": "horizont.ferozo.com",
   "SmtpUserName": "administracion@horizontedelobos.com.ar",
-  "SmtpPassword": "yW4DfKMkoW1G6xeH/A+Jj9jGeAXMiW9Xk4NW/87/C7kP9+IdAyHtUw==",
+  "SmtpPassword": "Y5WgolUucPtYD6/Q0HWLTrcLPuQRrtZou3Hgjx/Cc5Qu5QtmIg8DV2vb6EVQmlsWbwAN9Y0gYUI=",
   "SmtpPort": 465,
   "__SMTP SSL options values__": "0=None / 1=Auto / 2=SslOnConnect / 3=StartTls / 4=StartTlsWhenAvailable",
   "SmtpSslOptions": 1,

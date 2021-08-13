@@ -45,7 +45,6 @@
             value &= "0000000" & "00"
         End If
 
-
         ' Dígitos verificadores
         value &= ObtenerDigitosVerificadores(value)
 
