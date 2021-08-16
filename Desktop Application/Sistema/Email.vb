@@ -14,20 +14,26 @@ Module Email
 
     Public Function MySslCertificateValidationCallback(sender As Object, certificate As X509Certificate, chain As X509Chain, sslPolicyErrors As Net.Security.SslPolicyErrors) As Boolean
         ' If there are no errors, then everything went smoothly.
+#Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
         If sslPolicyErrors = sslPolicyErrors.None Then
+#Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
             Return True
         End If
 
         ' Note MailKit will always pass the host name string as the `sender` argument.
         Dim host As String = CStr(sender)
 
+#Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
         If (sslPolicyErrors And sslPolicyErrors.RemoteCertificateNotAvailable) <> 0 Then
+#Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
             ' This means that the remote certificate Is unavailable. Notify the user And return false.
             MessageBox.Show(String.Format("The SSL certificate was not available for {0}", host), My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return False
         End If
 
+#Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
         If (sslPolicyErrors And sslPolicyErrors.RemoteCertificateNameMismatch) <> 0 Then
+#Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
             ' This means that the server's SSL certificate did not match the host name that we are trying to connect to.
             Dim certificate2 As X509Certificate2 = CType(certificate, X509Certificate2)
             Dim cn = IIf(certificate2 IsNot Nothing, certificate2.GetNameInfo(X509NameType.SimpleName, False), certificate.Subject)

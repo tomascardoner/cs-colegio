@@ -508,7 +508,7 @@ Module ModuloComprobantes
     End Function
 
     Friend Function TransmitirAFIP_Comprobante(ByRef Objeto_AFIP_WS As CardonerSistemas.AfipWebServices.WebService, ByVal IDComprobanteActual As Integer) As Boolean
-        Dim CaeNumero As String
+        Dim CaeNumero As String = ""
         Dim CaeFechaVencimiento As Date
 
         Return TransmitirAFIP_Comprobante(Objeto_AFIP_WS, IDComprobanteActual, CaeNumero, CaeFechaVencimiento)
@@ -653,7 +653,7 @@ Module ModuloComprobantes
                     Dim afipData As String
                     Dim afipUrl As String
                     Dim qrUrl As String
-                    Dim image As Image
+                    Dim image As Image = Nothing
 
                     ' Preparo los datos del comprobante
                     afipData = CS_Parameter_System.GetString(Parametros.AFIP_COMPROBANTES_CODIGOQR_DATA)
@@ -735,6 +735,7 @@ Module ModuloComprobantes
                 End If
             End Using
         End If
+        Return False
     End Function
 
 #End Region

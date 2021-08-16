@@ -697,7 +697,7 @@ Public Class formComprobante
             Return False
         End If
 
-        Dim CaeNumero As String
+        Dim CaeNumero As String = ""
         Dim CaeFechaVencimiento As Date
 
         If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual.IDComprobante, CaeNumero, CaeFechaVencimiento) Then
@@ -1388,7 +1388,7 @@ Public Class formComprobante
     End Sub
 
     Private Sub EstablecerFechasSegunDetalle()
-        Dim AnioLectivoCursoActual As AnioLectivoCurso
+        Dim AnioLectivoCursoActual As AnioLectivoCurso = Nothing
         Dim fechaInicio As Date = Nothing
         Dim fechaFin As Date = Nothing
 

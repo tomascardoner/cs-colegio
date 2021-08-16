@@ -280,7 +280,7 @@
             End If
             CardonerSistemas.ComboBox.SetSelectedValue(comboboxDescuento, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirst, .IDDescuento, 0)
             If .IDDescuento = CardonerSistemas.Constants.FIELD_VALUE_OTHER_BYTE Then
-                CS_ValueTranslation.FromValueDecimalToControlPercentTextBox(.DescuentoOtroPorcentaje, percenttextboxDescuentoOtroPorcentaje)
+                CS_ValueTranslation_Syncfusion.FromValueDecimalToControlPercentTextBox(.DescuentoOtroPorcentaje, percenttextboxDescuentoOtroPorcentaje)
             Else
                 percenttextboxDescuentoOtroPorcentaje.PercentValue = 0
             End If
@@ -406,7 +406,7 @@
             End If
             .IDDescuento = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxDescuento.SelectedValue, 0)
             If comboboxDescuento.SelectedIndex > -1 AndAlso CByte(comboboxDescuento.SelectedValue) = CardonerSistemas.Constants.FIELD_VALUE_OTHER_BYTE Then
-                .DescuentoOtroPorcentaje = CS_ValueTranslation.FromControlPercentTextBoxToObjectDecimal(percenttextboxDescuentoOtroPorcentaje)
+                .DescuentoOtroPorcentaje = CS_ValueTranslation_Syncfusion.FromControlPercentTextBoxToObjectDecimal(percenttextboxDescuentoOtroPorcentaje)
             Else
                 .DescuentoOtroPorcentaje = Nothing
             End If

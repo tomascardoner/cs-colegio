@@ -65,7 +65,6 @@ Module EntidadesSincronizarOutlookGruposInexistentes
 
     Friend Function VerificarYCrearGruposDeCursos(ByRef OutlookApplication As Outlook.Application, ByRef dbContext As CSColegioContext, ByRef Entidades As List(Of Entidad), ByRef GruposDeNivelVerificadosEnOutlook As List(Of ValueTuple(Of Short, Byte)), ByRef Opciones As EntidadesSincronizarOutlookOpciones, ByRef ProgressBarProgreso As ProgressBar) As Boolean
         Dim listNivelesCursosYEntidades As List(Of NivelCursoEntidad)
-        Dim listEntidades As List(Of Entidad)
 
         If Opciones.SincronizarGrupoContactosPorNivelesYCursos Then
             For Each AnioLectivoActual As Short In Opciones.AniosLectivos
@@ -87,6 +86,7 @@ Module EntidadesSincronizarOutlookGruposInexistentes
                     '                               Where alc.AnioLectivo = AnioLectivoActual
                     '                               Order By n.Nombre, a.Nombre, t.Nombre, c.Division
                     '                               Select alc.Entidades).ToList()
+                    Return True
 
                 Catch ex As Exception
                     CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener los Niveles del Año Lectivo.")
@@ -109,12 +109,17 @@ Module EntidadesSincronizarOutlookGruposInexistentes
                     '    End If
                     '    Return False
                     'Next
+
+                    Return True
+
                 Catch ex As Exception
                     CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener los Niveles del Año Lectivo.")
                     Return False
                 End Try
             Next
         End If
+
+        Return False
     End Function
 
     Private Function VerificarYCrearGrupoDeCurso(ByRef OutlookApplication As Outlook.Application, ByRef Entidades As List(Of Entidad), ByVal AnioLectivo As Short, ByVal IDCurso As Byte, ByVal GrupoNombre As String, ByRef GruposDeCursoVerificadosEnOutlook As List(Of ValueTuple(Of Short, Byte)), ByRef ProgressBarProgreso As ProgressBar) As Boolean
@@ -134,8 +139,6 @@ Module EntidadesSincronizarOutlookGruposInexistentes
 
     Friend Function VerificarYCrearGruposDeNiveles(ByRef OutlookApplication As Outlook.Application, ByRef dbContext As CSColegioContext, ByRef Entidades As List(Of Entidad), ByRef GruposDeNivelVerificadosEnOutlook As List(Of ValueTuple(Of Short, Byte)), ByRef Opciones As EntidadesSincronizarOutlookOpciones, ByRef ProgressBarProgreso As ProgressBar) As Boolean
         Dim listNivelesCursosYEntidades As List(Of NivelCursoEntidad)
-        Dim listEntidades As List(Of Entidad)
-        Dim listNiveles As List(Of Nivel)
 
         If Opciones.SincronizarGrupoContactosPorNivelesYCursos Then
             For Each AnioLectivoActual As Short In Opciones.AniosLectivos
@@ -157,6 +160,7 @@ Module EntidadesSincronizarOutlookGruposInexistentes
                     '                               Where alc.AnioLectivo = AnioLectivoActual
                     '                               Order By n.Nombre, a.Nombre, t.Nombre, c.Division
                     '                               Select alc.Entidades).ToList()
+                    Return True
 
                 Catch ex As Exception
                     CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener los Niveles del Año Lectivo.")
@@ -179,12 +183,15 @@ Module EntidadesSincronizarOutlookGruposInexistentes
                     '    End If
                     '    Return False
                     'Next
+                    Return True
+
                 Catch ex As Exception
                     CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener los Niveles del Año Lectivo.")
                     Return False
                 End Try
             Next
         End If
+        Return True
     End Function
 
     Private Function VerificarYCrearGrupoDeNivel(ByRef OutlookApplication As Outlook.Application, ByRef Entidades As List(Of Entidad), ByVal AnioLectivo As Short, ByVal IDNivel As Byte, ByVal GrupoNombre As String, ByRef GruposDeNivelVerificadosEnOutlook As List(Of ValueTuple(Of Short, Byte)), ByRef ProgressBarProgreso As ProgressBar) As Boolean

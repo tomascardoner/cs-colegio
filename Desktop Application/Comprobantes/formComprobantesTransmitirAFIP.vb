@@ -92,7 +92,7 @@
             Dim MensajeError As String
             Dim GenerarCodigoQR As Boolean
             Dim idMoneda As Short
-            Dim monedaCodigoAfip As String
+            Dim monedaCodigoAfip As String = ""
             Dim monedaCotizacion As Decimal
             Dim comprobanteTipoCodigoAfip As Short = 0
             Dim comprobantesEnviadosCount As Integer = 0

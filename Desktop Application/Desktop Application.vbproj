@@ -206,6 +206,9 @@
     <Compile Include="..\..\..\framework-vbnet\CS_Office_Outlook_EarlyBinding.vb">
       <Link>Framework\CS_Office_Outlook_EarlyBinding.vb</Link>
     </Compile>
+    <Compile Include="..\..\..\framework-vbnet\CS_ValueTranslation_Syncfusion.vb">
+      <Link>Framework\CS_ValueTranslation_Syncfusion.vb</Link>
+    </Compile>
     <Compile Include="..\..\..\framework-vbnet\Database.ADO.vb">
       <Link>Framework\Database.ADO.vb</Link>
     </Compile>

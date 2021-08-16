@@ -15,8 +15,6 @@
     Public Property AniosLectivos As New List(Of Short)
 
     Friend Sub LoadFromSettings()
-        Dim AnioLectivoShort As Short
-
         EntidadTipoPersonalColegio = pOutlookContactsSyncConfig.EntidadTipoPersonalColegio
         EntidadTipoDocente = pOutlookContactsSyncConfig.EntidadTipoDocente
         EntidadTipoAlumno = pOutlookContactsSyncConfig.EntidadTipoAlumno

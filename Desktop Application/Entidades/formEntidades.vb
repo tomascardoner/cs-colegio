@@ -109,9 +109,7 @@
 
             ' Tipos de Entidad
             If Not (menuitemEntidadTipo_PersonalColegio.Checked And menuitemEntidadTipo_Docente.Checked And menuitemEntidadTipo_Alumno.Checked And menuitemEntidadTipo_Familiar.Checked And menuitemEntidadTipo_Proveedor.Checked And menuitemEntidadTipo_Otro.Checked) Then
-                If menuitemEntidadTipo_PersonalColegio.Checked Then
-                    listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) (menuitemEntidadTipo_PersonalColegio.Checked And e.TipoPersonalColegio) Or (menuitemEntidadTipo_Docente.Checked And e.TipoDocente) Or (menuitemEntidadTipo_Alumno.Checked And e.TipoAlumno) Or (menuitemEntidadTipo_Familiar.Checked And e.TipoFamiliar) Or (menuitemEntidadTipo_Proveedor.Checked And e.TipoProveedor) Or (menuitemEntidadTipo_Otro.Checked And e.TipoOtro)).ToList()
-                End If
+                listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) (menuitemEntidadTipo_PersonalColegio.Checked And e.TipoPersonalColegio) Or (menuitemEntidadTipo_Docente.Checked And e.TipoDocente) Or (menuitemEntidadTipo_Alumno.Checked And e.TipoAlumno) Or (menuitemEntidadTipo_Familiar.Checked And e.TipoFamiliar) Or (menuitemEntidadTipo_Proveedor.Checked And e.TipoProveedor) Or (menuitemEntidadTipo_Otro.Checked And e.TipoOtro)).ToList()
             End If
 
             ' Verificar documento

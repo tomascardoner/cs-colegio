@@ -36,7 +36,7 @@ Public Class formComprobantesTransmitirPagosEduc
 
     Private Sub RefreshData()
         Dim ComprobanteLoteActual As ComprobanteLote
-        Dim listComprobantes As List(Of GridDataRow)
+        Dim listComprobantes As List(Of GridDataRow) = Nothing
 
         Me.Cursor = Cursors.WaitCursor
 

@@ -94,6 +94,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
 
 #Region "Extra stuff"
 
+#Disable Warning BC42304 ' XML documentation parse error
     ''' <summary>
     ''' Esta función exporta la información para incorporar al sistema recaudación
     ''' del Banco Santander.
@@ -109,6 +110,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
     ''' </summary>
     ''' <returns></returns>
     Private Function ExportarComprobantesACashManagement() As Boolean
+#Enable Warning BC42304 ' XML documentation parse error
         Dim HeaderTextStream As String = ""
         Dim DetalleTextStream As String = ""
         Dim TrailerTextStream As String = ""
