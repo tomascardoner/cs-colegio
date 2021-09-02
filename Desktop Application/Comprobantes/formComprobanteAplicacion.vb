@@ -1,6 +1,7 @@
 ﻿Public Class formComprobanteAplicacion
 
 #Region "Declarations"
+
     Private mComprobanteActual As Comprobante
     Private mComprobanteTipoActual As ComprobanteTipo
     Private mComprobanteAplicacionActual As ComprobanteAplicacion
@@ -17,9 +18,11 @@
         Public Property ImporteAplicado As Decimal?
         Public Property ImporteSinAplicar As Decimal?
     End Class
+
 #End Region
 
 #Region "Form stuff"
+
     Friend Sub LoadAndShow(ByVal ParentEditMode As Boolean, ByVal EditMode As Boolean, ByRef ParentForm As Form, ByRef ComprobanteActual As Comprobante, ByRef ComprobanteTipoActual As ComprobanteTipo, ByRef ComprobanteAplicacionActual As ComprobanteAplicacion)
         mParentEditMode = ParentEditMode
         mEditMode = EditMode
@@ -62,25 +65,39 @@
         mComprobanteAplicacionActual = Nothing
         Me.Dispose()
     End Sub
+
 #End Region
 
 #Region "Load and Set Data"
+
     Friend Sub FillList_Comprobante()
         Dim listComprobantes As List(Of GridRowData_Comprobante)
 
         Using dbContext As New CSColegioContext(True)
-            listComprobantes = (From c In dbContext.Comprobante
-                                Group Join ca In dbContext.ComprobanteAplicacion On c.IDComprobante Equals ca.IDComprobanteAplicado Into ComprobanteAplicacion_join = Group
-                                From ca In ComprobanteAplicacion_join.DefaultIfEmpty()
-                                Where c.IDEntidad = mComprobanteActual.IDEntidad And c.IDUsuarioAnulacion Is Nothing And c.IDComprobanteTipo <> mComprobanteActual.IDComprobanteTipo And c.ComprobanteTipo.OperacionTipo = mComprobanteTipoActual.OperacionTipo
-                                Group New With {c, c.ComprobanteTipo, ca} By c.IDComprobante, c.ComprobanteTipo.NombreConLetra, c.NumeroCompleto, c.FechaEmision, c.ImporteTotal1 Into g = Group
-                                Where (ImporteTotal1 - If(CType(g.Sum(Function(p) p.ca.Importe), Decimal?) Is Nothing, 0, g.Sum(Function(p) p.ca.Importe))) > 0
-                                Select New GridRowData_Comprobante With {.IDComprobante = IDComprobante, .TipoNombre = NombreConLetra, .NumeroCompleto = NumeroCompleto, .FechaEmision = FechaEmision, .ImporteTotal = ImporteTotal1, .ImporteAplicado = If(CType(g.Sum(Function(p) p.ca.Importe), Decimal?) Is Nothing, 0, g.Sum(Function(p) p.ca.Importe)), .ImporteSinAplicar = (ImporteTotal1 - If(CType(g.Sum(Function(p) p.ca.Importe), Decimal?) Is Nothing, 0, g.Sum(Function(p) p.ca.Importe)))}).ToList
+            If mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA Then
+                listComprobantes = (From c In dbContext.Comprobante
+                                    Group Join ca In dbContext.ComprobanteAplicacion On c.IDComprobante Equals ca.IDComprobanteAplicado Into ComprobanteAplicacion_join = Group
+                                    From ca In ComprobanteAplicacion_join.DefaultIfEmpty()
+                                    Where c.IDEntidad = mComprobanteActual.IDEntidad And c.IDUsuarioAnulacion Is Nothing And c.IDComprobanteTipo <> mComprobanteActual.IDComprobanteTipo And c.ComprobanteTipo.OperacionTipo = mComprobanteTipoActual.OperacionTipo
+                                    Group New With {c, c.ComprobanteTipo, ca} By c.IDComprobante, c.ComprobanteTipo.NombreConLetra, c.NumeroCompleto, c.FechaEmision, c.ImporteTotal1 Into g = Group
+                                    Order By FechaEmision Descending, NumeroCompleto Descending
+                                    Select New GridRowData_Comprobante With {.IDComprobante = IDComprobante, .TipoNombre = NombreConLetra, .NumeroCompleto = NumeroCompleto, .FechaEmision = FechaEmision, .ImporteTotal = ImporteTotal1, .ImporteAplicado = If(CType(g.Sum(Function(p) p.ca.Importe), Decimal?) Is Nothing, 0, g.Sum(Function(p) p.ca.Importe)), .ImporteSinAplicar = (ImporteTotal1 - If(CType(g.Sum(Function(p) p.ca.Importe), Decimal?) Is Nothing, 0, g.Sum(Function(p) p.ca.Importe)))}).ToList
+            Else
+                listComprobantes = (From c In dbContext.Comprobante
+                                    Group Join ca In dbContext.ComprobanteAplicacion On c.IDComprobante Equals ca.IDComprobanteAplicado Into ComprobanteAplicacion_join = Group
+                                    From ca In ComprobanteAplicacion_join.DefaultIfEmpty()
+                                    Where c.IDEntidad = mComprobanteActual.IDEntidad And c.IDUsuarioAnulacion Is Nothing And c.IDComprobanteTipo <> mComprobanteActual.IDComprobanteTipo And c.ComprobanteTipo.OperacionTipo = mComprobanteTipoActual.OperacionTipo
+                                    Group New With {c, c.ComprobanteTipo, ca} By c.IDComprobante, c.ComprobanteTipo.NombreConLetra, c.NumeroCompleto, c.FechaEmision, c.ImporteTotal1 Into g = Group
+                                    Where (ImporteTotal1 - If(CType(g.Sum(Function(p) p.ca.Importe), Decimal?) Is Nothing, 0, g.Sum(Function(p) p.ca.Importe))) > 0
+                                    Order By FechaEmision Descending, NumeroCompleto Descending
+                                    Select New GridRowData_Comprobante With {.IDComprobante = IDComprobante, .TipoNombre = NombreConLetra, .NumeroCompleto = NumeroCompleto, .FechaEmision = FechaEmision, .ImporteTotal = ImporteTotal1, .ImporteAplicado = If(CType(g.Sum(Function(p) p.ca.Importe), Decimal?) Is Nothing, 0, g.Sum(Function(p) p.ca.Importe)), .ImporteSinAplicar = (ImporteTotal1 - If(CType(g.Sum(Function(p) p.ca.Importe), Decimal?) Is Nothing, 0, g.Sum(Function(p) p.ca.Importe)))}).ToList
+            End If
         End Using
 
         datagridviewMain.AutoGenerateColumns = False
         datagridviewMain.DataSource = listComprobantes
     End Sub
+
     Friend Sub SetDataFromObjectToControls()
         With mComprobanteAplicacionActual
             'currencytextboxImporteAplicado.Text = CS_ValueTranslation.FromObjectMoneyToControlTextBox(.Importe)
@@ -94,6 +111,7 @@
             .Importe = currencytextboxImporteAplicado.DecimalValue
         End With
     End Sub
+
 #End Region
 
 #Region "Controls behavior"
@@ -122,6 +140,7 @@
 #End Region
 
 #Region "Main Toolbar"
+
     Private Sub buttonEditar_Click() Handles buttonEditar.Click
         mEditMode = True
         ChangeMode()
@@ -137,13 +156,13 @@
             datagridviewMain.Focus()
             Exit Sub
         End If
-        If currencytextboxImporteAplicado.DecimalValue <= 0 Then
+        If (Not (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA And mComprobanteTipoActual.MovimientoTipo = Constantes.MOVIMIENTOTIPO_CREDITO)) AndAlso currencytextboxImporteAplicado.DecimalValue <= 0 Then
             MsgBox("El Importe a aplicar debe ser mayor a cero.", MsgBoxStyle.Information, My.Application.Info.Title)
             currencytextboxImporteAplicado.Focus()
             Exit Sub
         End If
 
-        If currencytextboxImporteAplicado.DecimalValue > CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).ImporteSinAplicar Then
+        If (Not (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA And mComprobanteTipoActual.MovimientoTipo = Constantes.MOVIMIENTOTIPO_CREDITO)) AndAlso currencytextboxImporteAplicado.DecimalValue > CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).ImporteSinAplicar Then
             MsgBox("El Importe a aplicar no puede ser mayor que el Importe pendiente.", MsgBoxStyle.Information, My.Application.Info.Title)
             currencytextboxImporteAplicado.Focus()
             Exit Sub
@@ -166,6 +185,7 @@
 
         Me.Close()
     End Sub
+
 #End Region
 
 End Class

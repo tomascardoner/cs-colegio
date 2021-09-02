@@ -235,6 +235,7 @@
 #End Region
 
 #Region "Extra stuff"
+
     Private Sub MostrarOcultarEstado(ByVal Mostrar As Boolean)
         buttonTransmitir.Visible = Not Mostrar
         buttonCancelar.Visible = Mostrar
@@ -248,6 +249,7 @@
         End If
         groupboxStatus.Visible = Mostrar
     End Sub
+
 #End Region
 
 End Class
