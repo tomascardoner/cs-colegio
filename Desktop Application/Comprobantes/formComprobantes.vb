@@ -597,43 +597,57 @@
     Private Sub Anular() Handles buttonAnular.Click
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Comprobante para anular.", vbInformation, My.Application.Info.Title)
-        Else
-            If Permisos.VerificarPermiso(Permisos.COMPROBANTE_ANULAR) Then
-
-                Me.Cursor = Cursors.WaitCursor
-
-                Dim CurrentRow As GridRowData = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData)
-
-                Using dbContext = New CSColegioContext(True)
-                    Dim ComprobanteActual As Comprobante = dbContext.Comprobante.Find(CurrentRow.IDComprobante)
-                    If CurrentRow.Anulado Then
-                        MsgBox("No se puede anular este Comprobante porque ya está anulado.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                    Else
-                        If ComprobanteActual.ComprobanteTipo.EmisionElectronica AndAlso Not ComprobanteActual.CAE Is Nothing Then
-                            MsgBox("No se puede anular este Comprobante porque es de Emisión Electrónica y ya tiene un CAE asignado.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                        Else
-                            Dim Mensaje As String
-                            Mensaje = String.Format("Se anulará el Comprobante seleccionado.{0}{0}{1} N° {2}{0}{0}¿Confirma?", vbCrLf, CurrentRow.ComprobanteTipoNombre, CurrentRow.NumeroCompleto)
-                            If MsgBox(Mensaje, CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
-
-                                Try
-                                    ComprobanteActual.IDUsuarioAnulacion = pUsuario.IDUsuario
-                                    ComprobanteActual.FechaHoraAnulacion = DateTime.Now
-                                    dbContext.SaveChanges()
-
-                                Catch ex As Exception
-                                    CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al anular el Comprobante.")
-                                End Try
-
-                                RefreshData()
-                            End If
-                        End If
-                    End If
-                End Using
-
-                Me.Cursor = Cursors.Default
-            End If
+            Exit Sub
         End If
+        If Not Permisos.VerificarPermiso(Permisos.COMPROBANTE_ANULAR) Then
+            Exit Sub
+        End If
+
+        Me.Cursor = Cursors.WaitCursor
+
+        Dim CurrentRow As GridRowData = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData)
+
+        Using dbContext = New CSColegioContext(True)
+
+            Dim ComprobanteActual As Comprobante = dbContext.Comprobante.Find(CurrentRow.IDComprobante)
+            Dim Mensaje As String
+
+            If CurrentRow.Anulado Then
+                Mensaje = String.Format("Este comprobante ya se encuentra anulado. ¿Desea reactivarlo?.{0}{0}{1} N° {2}{0}{0}¿Confirma?", vbCrLf, CurrentRow.ComprobanteTipoNombre, CurrentRow.NumeroCompleto)
+                If MsgBox(Mensaje, CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
+                    Try
+                        ComprobanteActual.IDUsuarioAnulacion = Nothing
+                        ComprobanteActual.FechaHoraAnulacion = Nothing
+                        dbContext.SaveChanges()
+
+                    Catch ex As Exception
+                        CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al reactivar el Comprobante.")
+                    End Try
+
+                    RefreshData()
+                End If
+            Else
+                If ComprobanteActual.ComprobanteTipo.EmisionElectronica AndAlso Not ComprobanteActual.CAE Is Nothing Then
+                    MsgBox("No se puede anular este Comprobante porque es de Emisión Electrónica y ya tiene un CAE asignado.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                Else
+                    Mensaje = String.Format("Se anulará el Comprobante seleccionado.{0}{0}{1} N° {2}{0}{0}¿Confirma?", vbCrLf, CurrentRow.ComprobanteTipoNombre, CurrentRow.NumeroCompleto)
+                    If MsgBox(Mensaje, CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
+                        Try
+                            ComprobanteActual.IDUsuarioAnulacion = pUsuario.IDUsuario
+                            ComprobanteActual.FechaHoraAnulacion = DateTime.Now
+                            dbContext.SaveChanges()
+
+                        Catch ex As Exception
+                            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al anular el Comprobante.")
+                        End Try
+
+                        RefreshData()
+                    End If
+                End If
+            End If
+        End Using
+
+        Me.Cursor = Cursors.Default
     End Sub
 
     Private Sub Eliminar() Handles buttonEliminar.Click
