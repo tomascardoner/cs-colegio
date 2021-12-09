@@ -424,7 +424,7 @@ Public Class formComprobante
 
         ' Si es una factura, calculo el código de barras Sepsa
         If mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso (mComprobanteTipoActual.CodigoAFIP = Constantes.ComprobanteCodigoAfipFacturaA OrElse mComprobanteTipoActual.CodigoAFIP = Constantes.ComprobanteCodigoAfipFacturaB OrElse mComprobanteTipoActual.CodigoAFIP = Constantes.ComprobanteCodigoAfipFacturaC) Then
-            mComprobanteActual.CalcularCodigoBarrasSepsa(mEntidad.DocumentoNumero)
+            mComprobanteActual.CalcularCodigoBarrasSepsa(mComprobanteActual.DocumentoNumero)
         End If
 
         If mdbContext.ChangeTracker.HasChanges Then
