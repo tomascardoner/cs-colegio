@@ -71,6 +71,59 @@
         Return VerificarEmail1 Or VerificarEmail2
     End Function
 
+    Private Function VerificarExclusionParaEmitirComprobante(ByVal fechaServicioDesde As Date, ByVal fechaServicioHasta As Date, ByVal fechaExclusionEsError As Boolean, ByRef correccionDescripcion As String) As Boolean
+        ' Verifico primero la exclusión Desde
+        If Not ExcluyeFacturaDesde Is Nothing Then
+            ' Especifica exclusión Desde, así que la verifico
+            If ExcluyeFacturaDesde.Value.CompareTo(fechaServicioHasta) < 0 Then
+                ' Está dentro de la exclusión Desde, así que verifico la exclusión Hasta
+                If ExcluyeFacturaHasta Is Nothing Then
+                    ' No especifica exclusión Hasta, por ende, no se debe incluir en la Facturación
+                    If fechaExclusionEsError Then
+                        correccionDescripcion = "El Alumno/a especifica Fechas de Exclusión de Facturación y coinciden con la Fecha de esta Factura."
+                        Return False
+                    Else
+                        correccionDescripcion = ""
+                        Return False
+                    End If
+                ElseIf ExcluyeFacturaHasta.Value.CompareTo(fechaServicioDesde) > 0 Then
+                    ' Está dentro de la exclusión Hasta, por lo tanto, se excluye
+                    If fechaExclusionEsError Then
+                        correccionDescripcion = "El Alumno/a especifica Fechas de Exclusión de Facturación y coinciden con la Fecha de esta Factura."
+                        Return False
+                    Else
+                        correccionDescripcion = ""
+                        Return False
+                    End If
+                Else
+                    ' Está fuera de la exclusión
+                    Return True
+                End If
+            Else
+                ' Está fuera de la exclusión
+                Return True
+            End If
+        ElseIf Not ExcluyeFacturaHasta Is Nothing Then
+            ' Especifica exclusión Hasta, así que la verifico
+            If ExcluyeFacturaHasta.Value.CompareTo(fechaServicioDesde) > 0 Then
+                ' Está dentro de la exclusión, así que no lo agrego a la lista
+                If fechaExclusionEsError Then
+                    correccionDescripcion = "El Alumno/a especifica Fechas de Exclusión de Facturación y coinciden con la Fecha de esta Factura."
+                    Return False
+                Else
+                    correccionDescripcion = ""
+                    Return False
+                End If
+            Else
+                ' Está fuera de la exclusión
+                Return True
+            End If
+        Else
+            ' No especifica ninguna exclusión
+            Return True
+        End If
+    End Function
+
     Private Function VerificarDatosCompletosParaEmitirComprobante(ByVal sujetoDescripcion As String, ByRef correccionDescripcion As String) As Boolean
         Dim resultado As Boolean = True
 
@@ -107,6 +160,10 @@
     Public Function VerificarParaEmitirComprobante(ByVal anioLectivo As Integer, ByVal agregarAlCurso As Boolean, ByVal fechaServicioDesde As Date, ByVal fechaServicioHasta As Date, ByVal fechaExclusionEsError As Boolean, ByRef correccionDescripcion As String) As Boolean
         Dim datosCompletosVerificados As Boolean
 
+        If Not VerificarExclusionParaEmitirComprobante(fechaServicioDesde, fechaServicioHasta, fechaExclusionEsError, correccionDescripcion) Then
+            Return False
+        End If
+
         ' El primer paso es verificar que la Entidad especificada, sea de tipo Alumno
         If TipoAlumno = False Then
             correccionDescripcion &= "No es una Entidad del tipo Alumno." & vbCrLf
@@ -115,12 +172,12 @@
         If agregarAlCurso Then
             ' Verifico que el Alumno no esté cargado en algún Curso para el mismo Año Lectivo
             If AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = anioLectivo).Count > 0 Then
-                correccionDescripcion &= "El Alumno ya está cargado en un curso para el Año Lectivo que se va a facturar." & vbCrLf
+                correccionDescripcion &= "El Alumno/a ya está cargado en un curso para el Año Lectivo que se va a facturar." & vbCrLf
             End If
         Else
             ' Verifico que el Alumno no esté cargado en más de un Curso para el mismo Año Lectivo
             If AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = anioLectivo).Count > 1 Then
-                correccionDescripcion &= "El Alumno está cargado en más de un curso para el Año Lectivo que se va a facturar." & vbCrLf
+                correccionDescripcion &= "El Alumno/a está cargado en más de un curso para el Año Lectivo que se va a facturar." & vbCrLf
             End If
         End If
 
@@ -130,7 +187,7 @@
         Else
             If EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO Then
                 ' Se le factura al Alumno, verifico que tenga los datos completos
-                datosCompletosVerificados = VerificarDatosCompletosParaEmitirComprobante("El Alumno", correccionDescripcion)
+                datosCompletosVerificados = VerificarDatosCompletosParaEmitirComprobante("El Alumno/a", correccionDescripcion)
             End If
 
             If EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE Or EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
@@ -161,63 +218,13 @@
             End If
         End If
 
-        ' Si hay que corregir la Entidad, la agrego a la lista de Entidades a corregir
+        ' Si la Entidad a quien se le va a facturar, no tiene los datos completos, la agrego a la lista de Entidades a corregir
         If Not datosCompletosVerificados Then
             correccionDescripcion = correccionDescripcion.Remove(correccionDescripcion.Length - vbCrLf.Length)
             Return False
-        Else
-            ' La Entidad está verificada, pero  falta verificar que no tenga exclusión de facturación
-            ' Verifico primero la exclusión Desde
-            If Not ExcluyeFacturaDesde Is Nothing Then
-                ' Especifica exclusión Desde, así que la verifico
-                If ExcluyeFacturaDesde.Value.CompareTo(fechaServicioHasta) < 0 Then
-                    ' Está dentro de la exclusión Desde, así que verifico la exclusión Hasta
-                    If ExcluyeFacturaHasta Is Nothing Then
-                        ' No especifica exclusión Hasta, por ende, no se debe incluir en la Facturación
-                        If fechaExclusionEsError Then
-                            correccionDescripcion = "El Alumno especifica Fechas de Exclusión de Facturación y coinciden con la Fecha de esta Factura."
-                            Return False
-                        Else
-                            correccionDescripcion = ""
-                            Return False
-                        End If
-                    ElseIf ExcluyeFacturaHasta.Value.CompareTo(fechaServicioDesde) > 0 Then
-                        ' Está dentro de la exclusión Hasta, por lo tanto, se excluye
-                        If fechaExclusionEsError Then
-                            correccionDescripcion = "El Alumno especifica Fechas de Exclusión de Facturación y coinciden con la Fecha de esta Factura."
-                            Return False
-                        Else
-                            correccionDescripcion = ""
-                            Return False
-                        End If
-                    Else
-                        ' Está fuera de la exclusión
-                        Return True
-                    End If
-                Else
-                    ' Está fuera de la exclusión
-                    Return True
-                End If
-            ElseIf Not ExcluyeFacturaHasta Is Nothing Then
-                ' Especifica exclusión Hasta, así que la verifico
-                If ExcluyeFacturaHasta.Value.CompareTo(fechaServicioDesde) > 0 Then
-                    ' Está dentro de la exclusión, así que no lo agrego a la lista
-                    If fechaExclusionEsError Then
-                        correccionDescripcion = "El Alumno especifica Fechas de Exclusión de Facturación y coinciden con la Fecha de esta Factura."
-                        Return False
-                    Else
-                        correccionDescripcion = ""
-                        Return False
-                    End If
-                Else
-                    ' Está fuera de la exclusión
-                    Return True
-                End If
-            Else
-                ' No especifica ninguna exclusión
-                Return True
-            End If
         End If
+
+        Return (correccionDescripcion = String.Empty)
     End Function
 
 #End Region

@@ -359,7 +359,7 @@
                         For Each TreeNodeEntidad As TreeNode In TreeNodeCurso.Nodes
                             If TreeNodeEntidad.Checked Then
                                 EntidadActual = CType(TreeNodeEntidad.Tag, Entidad)
-                                CorreccionDescripcion = ""
+                                CorreccionDescripcion = String.Empty
                                 If EntidadActual.VerificarParaEmitirComprobante(mAnioLectivo, False, mFechaServicioDesde, mFechaServicioHasta, False, CorreccionDescripcion) Then
                                     mlistEntidadesSeleccionadasOk.Add(EntidadActual)
                                 Else
@@ -385,7 +385,7 @@
                     For Each TreeNodeAlumno As TreeNode In TreeNodeEntidad.Nodes
                         If TreeNodeAlumno.Checked Then
                             EntidadActual = CType(TreeNodeAlumno.Tag, Entidad)
-                            CorreccionDescripcion = ""
+                            CorreccionDescripcion = String.Empty
                             If EntidadActual.VerificarParaEmitirComprobante(mAnioLectivo, False, mFechaServicioDesde, mFechaServicioHasta, False, CorreccionDescripcion) Then
                                 mlistEntidadesSeleccionadasOk.Add(EntidadActual)
                             Else

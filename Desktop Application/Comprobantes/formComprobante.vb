@@ -777,6 +777,7 @@ Public Class formComprobante
         End If
 
         If mComprobanteActual.CAE Is Nothing Then
+            MsgBox("Este Comprobante no tiene CAE, por lo que no se puede generar el Código QR.", MsgBoxStyle.Information, My.Application.Info.Title)
             Exit Sub
         End If
 

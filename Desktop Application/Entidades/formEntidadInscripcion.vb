@@ -277,7 +277,7 @@
 
         For Each GridRowData_AlumnoCursoActual As GridRowData_AlumnoCurso In listAlumnosCursos
             If GridRowData_AlumnoCursoActual.Seleccionado Then
-                CorreccionDescripcion = ""
+                CorreccionDescripcion = String.Empty
                 If Not GridRowData_AlumnoCursoActual.Entidad.VerificarParaEmitirComprobante(mAnioLectivoProximo, True, mFechaServicioDesde, mFechaServicioHasta, True, CorreccionDescripcion) Then
                     NoVerificada = True
                     MsgBox(String.Format("El Alumno {1} necesita correcciones.{0}{0}{2}", vbCrLf, GridRowData_AlumnoCursoActual.Entidad.ApellidoNombre, CorreccionDescripcion), MsgBoxStyle.Exclamation, My.Application.Info.Title)
