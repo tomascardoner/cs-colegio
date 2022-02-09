@@ -69,6 +69,7 @@
     Friend Const ENTIDAD_AGREGAR As String = "ENTIDAD_AGREGAR"
     Friend Const ENTIDAD_EDITAR As String = "ENTIDAD_EDITAR"
     Friend Const ENTIDAD_ELIMINAR As String = "ENTIDAD_ELIMINAR"
+    Friend Const ENTIDAD_VERIFICACIONES_VER As String = "ENTIDAD_VERIFICACIONES_VER"
     Friend Const ENTIDAD_SINCRONIZAR_OUTLOOK As String = "ENTIDAD_SINCRONIZAR_OUTLOOK"
     Friend Const ENTIDAD_SINCRONIZAR_OUTLOOK_EDITAROPCIONES As String = "ENTIDAD_SINCRONIZAR_OUTLOOK_EDITAROPCIONES"
 
@@ -186,6 +187,7 @@
 
         ' ENTIDADES
         nodeRoot = AgregarNodos(Arbol, Nothing, ENTIDAD, "Entidades", ENTIDAD_AGREGAR, DESCRIPCION_AGREGAR, ENTIDAD_EDITAR, DESCRIPCION_EDITAR, ENTIDAD_ELIMINAR, DESCRIPCION_ELIMINAR)
+        nodeRoot.Nodes.Add(ENTIDAD_VERIFICACIONES_VER, "Ver campos de verificación (Documentos + eMails")
         nodeRoot.Nodes.Add(ENTIDAD_SINCRONIZAR_OUTLOOK, "Sincronizar datos con Microsoft Outlook")
         nodeRoot.Nodes.Add(ENTIDAD_SINCRONIZAR_OUTLOOK_EDITAROPCIONES, "Editar opciones de sincronización de datos con Microsoft Outlook")
         nodeCurrent = AgregarNodos(Arbol, nodeRoot, ENTIDADANIOLECTIVOCURSO, "Años Lectivos y Cursos", ENTIDADANIOLECTIVOCURSO_AGREGAR, DESCRIPCION_AGREGAR, String.Empty, String.Empty, ENTIDADANIOLECTIVOCURSO_ELIMINAR, DESCRIPCION_ELIMINAR)

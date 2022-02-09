@@ -79,6 +79,7 @@
         checkboxTipoAlumno.Enabled = mEditMode
         checkboxTipoFamiliar.Enabled = mEditMode
         checkboxTipoProveedor.Enabled = mEditMode
+        checkboxTipoOtro.Enabled = mEditMode
         comboboxDocumentoTipo.Enabled = mEditMode
         textboxDocumentoNumero.ReadOnly = (mEditMode = False)
         checkboxDocumentoNumeroVerificado.Enabled = mEditMode
@@ -160,6 +161,11 @@
         checkboxTipoProveedor.Text = My.Resources.STRING_ENTIDADTIPO_PROVEEDOR
         checkboxTipoOtro.Text = My.Resources.STRING_ENTIDADTIPO_OTRO
 
+        checkboxDocumentoNumeroVerificado.Visible = Permisos.VerificarPermiso(Permisos.ENTIDAD_VERIFICACIONES_VER, False)
+        checkboxFacturaDocumentoNumeroVerificado.Visible = Permisos.VerificarPermiso(Permisos.ENTIDAD_VERIFICACIONES_VER, False)
+        checkboxVerificarEmail1.Visible = Permisos.VerificarPermiso(Permisos.ENTIDAD_VERIFICACIONES_VER, False)
+        checkboxVerificarEmail2.Visible = Permisos.VerificarPermiso(Permisos.ENTIDAD_VERIFICACIONES_VER, False)
+
         datagridviewCursosAsistidos.DefaultCellStyle.Font = pAppearanceConfig.ListsFont
         datagridviewCursosAsistidos.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFont
 
@@ -173,7 +179,7 @@
         datagridviewRelaciones.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFont
     End Sub
 
-    Private Sub formEntidad_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub Me_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         mdbContext.Dispose()
         mdbContext = Nothing
         mEntidadActual = Nothing
@@ -438,7 +444,7 @@
     Friend Sub RefreshData_CursosAsistidos()
         Dim listCursosAsistidos As New List(Of Object)
         For Each AnioLectivoCursoCurrent As AnioLectivoCurso In mEntidadActual.AniosLectivosCursos.OrderByDescending(Function(alc) alc.AnioLectivo).ToList
-            listCursosAsistidos.Add(New With {.AnioLectivo = AnioLectivoCursoCurrent.AnioLectivo, .NivelNombre = AnioLectivoCursoCurrent.Curso.Anio.Nivel.Nombre, .AnioNombre = AnioLectivoCursoCurrent.Curso.Anio.Nombre, .TurnoNombre = AnioLectivoCursoCurrent.Curso.Turno.Nombre, .Division = AnioLectivoCursoCurrent.Curso.Division})
+            listCursosAsistidos.Add(New With {AnioLectivoCursoCurrent.AnioLectivo, .NivelNombre = AnioLectivoCursoCurrent.Curso.Anio.Nivel.Nombre, .AnioNombre = AnioLectivoCursoCurrent.Curso.Anio.Nombre, .TurnoNombre = AnioLectivoCursoCurrent.Curso.Turno.Nombre, AnioLectivoCursoCurrent.Curso.Division})
         Next
         datagridviewCursosAsistidos.DataSource = listCursosAsistidos
     End Sub
@@ -509,8 +515,8 @@
         CType(sender, MaskedTextBox).SelectAll()
     End Sub
 
-    Private Sub comboboxDocumentoTipo_SelectedIndexChanged() Handles comboboxDocumentoTipo.SelectedIndexChanged
-        If Not comboboxDocumentoTipo.SelectedItem Is Nothing Then
+    Private Sub ComboboxDocumentoTipo_SelectedIndexChanged() Handles comboboxDocumentoTipo.SelectedIndexChanged
+        If comboboxDocumentoTipo.SelectedItem IsNot Nothing Then
             textboxDocumentoNumero.Visible = (CByte(comboboxDocumentoTipo.SelectedValue) > 0 AndAlso Not CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11)
             maskedtextboxDocumentoNumero.Visible = (CByte(comboboxDocumentoTipo.SelectedValue) > 0 AndAlso Not textboxDocumentoNumero.Visible)
             labelDocumentoNumeroVerificado.Visible = (CByte(comboboxDocumentoTipo.SelectedValue) > 0)
@@ -518,8 +524,8 @@
         End If
     End Sub
 
-    Private Sub comboboxFacturaDocumentoTipo_SelectedIndexChanged() Handles comboboxFacturaDocumentoTipo.SelectedIndexChanged
-        If Not comboboxFacturaDocumentoTipo.SelectedItem Is Nothing Then
+    Private Sub ComboboxFacturaDocumentoTipo_SelectedIndexChanged() Handles comboboxFacturaDocumentoTipo.SelectedIndexChanged
+        If comboboxFacturaDocumentoTipo.SelectedItem IsNot Nothing Then
             textboxFacturaDocumentoNumero.Visible = (CByte(comboboxFacturaDocumentoTipo.SelectedValue) > 0 AndAlso Not CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11)
             maskedtextboxFacturaDocumentoNumero.Visible = (CByte(comboboxFacturaDocumentoTipo.SelectedValue) > 0 AndAlso Not textboxFacturaDocumentoNumero.Visible)
             labelFacturaDocumentoNumeroVerificado.Visible = (CByte(comboboxFacturaDocumentoTipo.SelectedValue) > 0)
@@ -531,7 +537,7 @@
         CType(sender, TextBox).Text = CType(sender, TextBox).Text.Replace(".", "")
     End Sub
 
-    Private Sub comboboxDomicilioProvincia_SelectedValueChanged() Handles comboboxDomicilioProvincia.SelectedValueChanged
+    Private Sub ComboboxDomicilioProvincia_SelectedValueChanged() Handles comboboxDomicilioProvincia.SelectedValueChanged
         If comboboxDomicilioProvincia.SelectedValue Is Nothing Then
             comboboxDomicilioLocalidad.DataSource = Nothing
         Else
@@ -542,13 +548,13 @@
         End If
     End Sub
 
-    Private Sub comboboxDomicilioLocalidad_SelectedValueChanged() Handles comboboxDomicilioLocalidad.SelectedValueChanged
-        If Not comboboxDomicilioLocalidad.SelectedValue Is Nothing Then
+    Private Sub ComboboxDomicilioLocalidad_SelectedValueChanged() Handles comboboxDomicilioLocalidad.SelectedValueChanged
+        If comboboxDomicilioLocalidad.SelectedValue IsNot Nothing Then
             textboxDomicilioCodigoPostal.Text = CType(comboboxDomicilioLocalidad.SelectedItem, Localidad).CodigoPostal
         End If
     End Sub
 
-    Private Sub buttonEntidadPadre_Click(sender As Object, e As EventArgs) Handles buttonEntidadPadre.Click
+    Private Sub ButtonEntidadPadre_Click(sender As Object, e As EventArgs) Handles buttonEntidadPadre.Click
         formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
@@ -564,12 +570,12 @@
         formEntidadesSeleccionar.Dispose()
     End Sub
 
-    Private Sub buttonEntidadPadreBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadPadreBorrar.Click
+    Private Sub ButtonEntidadPadreBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadPadreBorrar.Click
         textboxEntidadPadre.Text = ""
         textboxEntidadPadre.Tag = Nothing
     End Sub
 
-    Private Sub buttonEntidadMadre_Click(sender As Object, e As EventArgs) Handles buttonEntidadMadre.Click
+    Private Sub ButtonEntidadMadre_Click(sender As Object, e As EventArgs) Handles buttonEntidadMadre.Click
         formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
@@ -585,19 +591,19 @@
         formEntidadesSeleccionar.Dispose()
     End Sub
 
-    Private Sub buttonEntidadMadreBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadMadreBorrar.Click
+    Private Sub ButtonEntidadMadreBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadMadreBorrar.Click
         textboxEntidadMadre.Text = ""
         textboxEntidadMadre.Tag = Nothing
     End Sub
 
-    Private Sub comboboxEmitirFacturaA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles comboboxEmitirFacturaA.SelectedIndexChanged
+    Private Sub ComboboxEmitirFacturaA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles comboboxEmitirFacturaA.SelectedIndexChanged
         If comboboxEmitirFacturaA.SelectedIndex > -1 Then
             labelEntidadTercero.Visible = (comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS)
             panelEntidadTercero.Visible = (comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS)
         End If
     End Sub
 
-    Private Sub buttonEntidadTercero_Click(sender As Object, e As EventArgs) Handles buttonEntidadTercero.Click
+    Private Sub ButtonEntidadTercero_Click(sender As Object, e As EventArgs) Handles buttonEntidadTercero.Click
         formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
@@ -613,12 +619,12 @@
         formEntidadesSeleccionar.Dispose()
     End Sub
 
-    Private Sub buttonEntidadTerceroBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadTerceroBorrar.Click
+    Private Sub ButtonEntidadTerceroBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadTerceroBorrar.Click
         textboxEntidadTercero.Text = ""
         textboxEntidadTercero.Tag = Nothing
     End Sub
 
-    Private Sub comboboxDescuento_SelectedIndexChanged(sender As Object, e As EventArgs) Handles comboboxDescuento.SelectedIndexChanged
+    Private Sub ComboboxDescuento_SelectedIndexChanged(sender As Object, e As EventArgs) Handles comboboxDescuento.SelectedIndexChanged
         If comboboxDescuento.SelectedIndex > -1 AndAlso CByte(comboboxDescuento.SelectedValue) = CardonerSistemas.Constants.FIELD_VALUE_OTHER_BYTE Then
             percenttextboxDescuentoOtroPorcentaje.Visible = True
         Else
@@ -647,237 +653,8 @@
     End Sub
 
     Private Sub Guardar() Handles buttonGuardar.Click
-        Dim VerificarAdhesionADDI As Boolean = False
-
-        ' Verificar que estén todos los campos con datos coherentes
-        If textboxApellido.Text.Trim.Length = 0 Then
-            MsgBox("Debe ingresar el Apellido.", MsgBoxStyle.Information, My.Application.Info.Title)
-            textboxApellido.Focus()
+        If Not VerificarDatos() Then
             Exit Sub
-        End If
-        If checkboxTipoPersonalColegio.Checked = False And checkboxTipoDocente.Checked = False And checkboxTipoAlumno.Checked = False And checkboxTipoFamiliar.Checked = False And checkboxTipoProveedor.Checked = False And checkboxTipoOtro.Checked = False Then
-            tabcontrolMain.SelectedTab = tabpageGeneral
-            MsgBox("Debe especificar el Tipo de Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
-            Exit Sub
-        End If
-
-        ' Verifico el Número de Documento
-        If comboboxDocumentoTipo.SelectedIndex > 0 AndAlso textboxDocumentoNumero.Text.Length = 0 Then
-            If CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
-                If maskedtextboxDocumentoNumero.Text.Length = 0 Then
-                    tabcontrolMain.SelectedTab = tabpageGeneral
-                    MsgBox("Si especifica el Tipo de Documento, también debe especificar el Número de Documento.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    maskedtextboxDocumentoNumero.Focus()
-                    Exit Sub
-                End If
-                If maskedtextboxDocumentoNumero.Text.Trim.Length < 11 Then
-                    tabcontrolMain.SelectedTab = tabpageGeneral
-                    MsgBox("El Número de " & CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).Nombre & " debe contener 11 dígitos (sin contar los guiones).", MsgBoxStyle.Information, My.Application.Info.Title)
-                    maskedtextboxDocumentoNumero.Focus()
-                    Exit Sub
-                End If
-                If Not CardonerSistemas.AFIP.VerificarCUIT(maskedtextboxDocumentoNumero.Text) Then
-                    tabcontrolMain.SelectedTab = tabpageGeneral
-                    MsgBox("El Número de " & CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).Nombre & " ingresado es incorrecto.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    maskedtextboxDocumentoNumero.Focus()
-                    Exit Sub
-                End If
-            Else
-                If textboxDocumentoNumero.Text.Length = 0 Then
-                    tabcontrolMain.SelectedTab = tabpageGeneral
-                    MsgBox("Si especifica el Tipo de Documento, también debe especificar el Número de Documento.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    textboxDocumentoNumero.Focus()
-                    Exit Sub
-                End If
-            End If
-        End If
-
-        ' Verifico el Número de Documento para la Factura
-        If comboboxFacturaDocumentoTipo.SelectedIndex > 0 AndAlso textboxFacturaDocumentoNumero.Text.Length = 0 Then
-            If CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
-                If maskedtextboxFacturaDocumentoNumero.Text.Trim.Length = 0 Then
-                    tabcontrolMain.SelectedTab = tabpageGeneral
-                    MsgBox("Si especifica el Tipo de Documento para Facturar, también debe especificar el Número de Documento para Facturar.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    maskedtextboxFacturaDocumentoNumero.Focus()
-                    Exit Sub
-                End If
-                If maskedtextboxFacturaDocumentoNumero.Text.Trim.Length < 11 Then
-                    tabcontrolMain.SelectedTab = tabpageGeneral
-                    MsgBox("El Número de " & CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).Nombre & " debe contener 11 dígitos (sin contar los guiones).", MsgBoxStyle.Information, My.Application.Info.Title)
-                    maskedtextboxFacturaDocumentoNumero.Focus()
-                    Exit Sub
-                End If
-                If Not CardonerSistemas.AFIP.VerificarCUIT(maskedtextboxFacturaDocumentoNumero.Text) Then
-                    tabcontrolMain.SelectedTab = tabpageGeneral
-                    MsgBox("El Número de " & CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).Nombre & " ingresado es incorrecto.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    maskedtextboxFacturaDocumentoNumero.Focus()
-                    Exit Sub
-                End If
-            Else
-                If textboxFacturaDocumentoNumero.Text.Length = 0 Then
-                    tabcontrolMain.SelectedTab = tabpageGeneral
-                    MsgBox("Si especifica el Tipo de Documento, también debe especificar el Número de Documento para Facturar.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    textboxFacturaDocumentoNumero.Focus()
-                    Exit Sub
-                End If
-            End If
-        End If
-
-        ' Fecha de Nacimiento
-        If datetimepickerFechaNacimiento.Checked And datetimepickerFechaNacimiento.Value.Year = Today.Year Then
-            tabcontrolMain.SelectedTab = tabpageGeneral
-            MsgBox("Se ha especificado una Fecha de Nacimiento que no parece ser válida ya que es del año actual.", MsgBoxStyle.Information, My.Application.Info.Title)
-            datetimepickerFechaNacimiento.Focus()
-            Exit Sub
-        End If
-
-        ' Direcciones de Email
-        If textboxEmail1.Text.Trim.Length > 0 Then
-            If Not CS_Email.IsValidEmail(textboxEmail1.Text.Trim) Then
-                tabcontrolMain.SelectedTab = tabpageContacto
-                MsgBox("La dirección de e-Mail 1 es incorrecta.", vbInformation, My.Application.Info.Title)
-                textboxEmail1.Focus()
-                Exit Sub
-            End If
-        Else
-            If checkboxVerificarEmail1.Checked Then
-                checkboxVerificarEmail1.Checked = False
-            End If
-        End If
-        If textboxEmail2.Text.Trim.Length > 0 Then
-            If Not CS_Email.IsValidEmail(textboxEmail2.Text.Trim) Then
-                tabcontrolMain.SelectedTab = tabpageContacto
-                MsgBox("La dirección de e-Mail 2 es incorrecta.", vbInformation, My.Application.Info.Title)
-                textboxEmail2.Focus()
-                Exit Sub
-            End If
-        Else
-            If checkboxVerificarEmail2.Checked Then
-                checkboxVerificarEmail2.Checked = False
-            End If
-        End If
-        If textboxEmail1.Text.Trim.Length > 0 And textboxEmail2.Text.Trim.Length > 0 Then
-            If textboxEmail1.Text.Trim = textboxEmail2.Text.Trim Then
-                tabcontrolMain.SelectedTab = tabpageContacto
-                MsgBox("Ambas direcciones de e-Mail son iguales.", vbInformation, My.Application.Info.Title)
-                textboxEmail2.Focus()
-                Exit Sub
-            End If
-        End If
-
-        ' Emitir Factura A:
-        Select Case CStr(comboboxEmitirFacturaA.SelectedValue)
-            Case Constantes.ENTIDAD_EMITIRFACTURAA_NOESPECIFICA
-                If checkboxTipoAlumno.Checked AndAlso ((Not textboxEntidadPadre.Tag Is Nothing) And (Not textboxEntidadMadre.Tag Is Nothing)) Then
-                    If MsgBox("Ha especificado el Padre y/o la Madre del Alumno, pero no especificó a quien se le facturará." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
-                        tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
-                        comboboxEmitirFacturaA.Focus()
-                        Exit Sub
-                    End If
-                End If
-            Case Constantes.ENTIDAD_EMITIRFACTURAA_PADRE
-                If textboxEntidadPadre.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
-                    MsgBox("Si las facturas se emitirán a nombre del Padre / Tutor, debe especificar el mismo.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    textboxEntidadPadre.Focus()
-                    Exit Sub
-                End If
-            Case Constantes.ENTIDAD_EMITIRFACTURAA_MADRE
-                If textboxEntidadMadre.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
-                    MsgBox("Si las facturas se emitirán a nombre de la Madre / Tutora, debe especificar la misma.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    textboxEntidadMadre.Focus()
-                    Exit Sub
-                End If
-            Case Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO
-                If textboxEntidadTercero.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
-                    MsgBox("Si las facturas se emitirán a nombre de un Tercero, debe especificar el mismo.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    textboxEntidadTercero.Focus()
-                    Exit Sub
-                End If
-            Case Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES
-                If textboxEntidadPadre.Tag Is Nothing And textboxEntidadMadre.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
-                    MsgBox("Si las facturas se emitirán a nombre de ambos Padres, debe especificarlos.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    textboxEntidadPadre.Focus()
-                    Exit Sub
-                ElseIf textboxEntidadPadre.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
-                    MsgBox("Si las facturas se emitirán a nombre de ambos Padres, debe especificar el Padre.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    textboxEntidadPadre.Focus()
-                    Exit Sub
-                ElseIf textboxEntidadMadre.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
-                    MsgBox("Si las facturas se emitirán a nombre de ambos Padres, debe especificar la Madre.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    textboxEntidadMadre.Focus()
-                    Exit Sub
-                End If
-            Case Constantes.ENTIDAD_EMITIRFACTURAA_TODOS
-                If textboxEntidadPadre.Tag Is Nothing And textboxEntidadMadre.Tag Is Nothing And textboxEntidadTercero.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
-                    MsgBox("Si las facturas se emitirán a nombre de Todos (Padres y Tercero), debe especificarlos.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    textboxEntidadPadre.Focus()
-                    Exit Sub
-                ElseIf textboxEntidadPadre.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
-                    MsgBox("Si las facturas se emitirán a nombre de Todos (Padres y Tercero), debe especificar el Padre.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    textboxEntidadPadre.Focus()
-                    Exit Sub
-                ElseIf textboxEntidadMadre.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
-                    MsgBox("Si las facturas se emitirán a nombre de Todos (Padres y Tercero), debe especificar la Madre.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    textboxEntidadMadre.Focus()
-                    Exit Sub
-                ElseIf textboxEntidadTercero.Tag Is Nothing Then
-                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
-                    MsgBox("Si las facturas se emitirán a nombre de Todos (Padres y Tercero), debe especificar el Tercero.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    textboxEntidadTercero.Focus()
-                    Exit Sub
-                End If
-        End Select
-
-        ' Débito Directo
-        If radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Checked Then
-            If maskedtextboxDebitoAutomaticoCBU.Text = "" Then
-                tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
-                MsgBox("Debe especificar el CBU en el cual realizar el Débito Directo.", MsgBoxStyle.Information, My.Application.Info.Title)
-                maskedtextboxDebitoAutomaticoCBU.Focus()
-                Exit Sub
-            End If
-            If maskedtextboxDebitoAutomaticoCBU.Text.Length < 22 Then
-                tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
-                MsgBox("Debe completar todos los dígitos del CBU en el cual realizar el Débito Directo.", MsgBoxStyle.Information, My.Application.Info.Title)
-                maskedtextboxDebitoAutomaticoCBU.Focus()
-                Exit Sub
-            End If
-            Select Case CS_Bank.VerificarCBU(maskedtextboxDebitoAutomaticoCBU.Text)
-                Case 0
-                    tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
-                    MsgBox("El CBU ingresado es incorrecto.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    maskedtextboxDebitoAutomaticoCBU.Focus()
-                    Exit Sub
-                Case 1
-                    tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
-                    MsgBox("El CBU ingresado tiene un error en el 1er. bloque.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    maskedtextboxDebitoAutomaticoCBU.Focus()
-                    Exit Sub
-                Case 2
-                    tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
-                    MsgBox("El CBU ingresado tiene un error en el 2do. bloque.", MsgBoxStyle.Information, My.Application.Info.Title)
-                    maskedtextboxDebitoAutomaticoCBU.Focus()
-                    Exit Sub
-            End Select
-        End If
-        If CS_Parameter_System.GetBoolean(Parametros.BANCOSANTANDER_ADDI_HABILITADO, False) Then
-            ' Si etsá habilitado el sistema ADDI del Banco Santander Río, verifico que no hayan cambiado los datos:
-            '   - Se estableció la opción de Debito Directo
-            '   - Se modificó el CBU
-            '   - Se quitó la opción de Debito Directo
-
-            ' UPDATED 01/07/2018
-            ' No es necesario generear la adhesión porque ya lo hace automáticamente al generar los débitos
-            ' VerificarAdhesionADDI = ((mEntidadActual.DebitoAutomaticoTipo = Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO And Not radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Checked) Or (mEntidadActual.DebitoAutomatico_Directo_CBU <> maskedtextboxDebitoAutomatico_CBU.Text))
         End If
 
         ' Generar el ID de la Entidad nueva
@@ -932,56 +709,10 @@
             End Try
         End If
 
-        ' Si corresponde, verifico la Adhesion en el sistema ADDI de Banco Santnader Rio
-        If VerificarAdhesionADDI Then
-            Try
-                Dim sqlconn As New SqlClient.SqlConnection
-                Dim sqldatrdr As SqlClient.SqlDataReader
-
-                sqlconn.ConnectionString = BancoSantander_ADDI.GetConnectionString()
-                sqlconn.Open()
-                sqldatrdr = BancoSantander_ADDI.Adhesion_Get(sqlconn, mEntidadActual.IDEntidad)
-
-                If sqldatrdr.Read() Then
-                    ' Existe la Adhesión
-                    Dim AdhesionId As Integer
-                    Dim CBU As String
-                    Dim Status As String
-
-                    AdhesionId = CInt(sqldatrdr("AdhesionId"))
-                    CBU = CStr(sqldatrdr("CBU"))
-                    Status = CStr(sqldatrdr("Status"))
-
-                    If mEntidadActual.DebitoAutomaticoTipo = Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO Then
-                        ' Verifico si el CBU es diferente
-                        If CBU <> mEntidadActual.DebitoAutomaticoDirectoCBU Then
-                            ' El CBU de la Adhesión es diferente, lo actualizo
-                            BancoSantander_ADDI.Adhesion_AltaModificacion(sqlconn, AdhesionId, mEntidadActual.IDEntidad, mEntidadActual.DebitoAutomaticoDirectoCBU, Status)
-                        End If
-                    Else
-                        ' Dar de baja la Adhesión porque se quitó la opción de Débito Directo en la Entidad
-                        BancoSantander_ADDI.Adhesion_Baja(sqlconn, AdhesionId, Status)
-                    End If
-                ElseIf mEntidadActual.DebitoAutomaticoTipo = Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO Then
-                    ' No existe la Adhesión, la creo
-                    BancoSantander_ADDI.Adhesion_AltaModificacion(sqlconn, 0, mEntidadActual.IDEntidad, mEntidadActual.DebitoAutomaticoDirectoCBU, " ")
-                End If
-
-                sqldatrdr.Close()
-                sqldatrdr = Nothing
-
-                sqlconn.Close()
-                sqlconn = Nothing
-
-            Catch ex As Exception
-                CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al verificar la Adhesión en el sistema ADDI del Banco Santander Río.")
-            End Try
-        End If
-
         Me.Close()
     End Sub
 
-    Private Sub buttonCancelar_Click() Handles buttonCancelar.Click
+    Private Sub ButtonCancelar_Click() Handles buttonCancelar.Click
         If mdbContext.ChangeTracker.HasChanges Then
             If MsgBox("Ha realizado cambios en los datos y seleccionó cancelar, los cambios se perderán." & vbCr & vbCr & "¿Confirma la pérdida de los cambios?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                 Me.Close()
@@ -1026,6 +757,231 @@
             Me.Cursor = Cursors.Default
         End If
     End Sub
+
+    Private Function VerificarDatos() As Boolean
+        ' Verificar que estén todos los campos con datos coherentes
+        If textboxApellido.Text.Trim.Length = 0 Then
+            MsgBox("Debe ingresar el Apellido.", MsgBoxStyle.Information, My.Application.Info.Title)
+            textboxApellido.Focus()
+            Return False
+        End If
+        If checkboxTipoPersonalColegio.Checked = False And checkboxTipoDocente.Checked = False And checkboxTipoAlumno.Checked = False And checkboxTipoFamiliar.Checked = False And checkboxTipoProveedor.Checked = False And checkboxTipoOtro.Checked = False Then
+            tabcontrolMain.SelectedTab = tabpageGeneral
+            MsgBox("Debe especificar el Tipo de Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
+            Return False
+        End If
+
+        ' Verifico el Número de Documento
+        If comboboxDocumentoTipo.SelectedIndex > 0 AndAlso textboxDocumentoNumero.Text.Length = 0 Then
+            If CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
+                If maskedtextboxDocumentoNumero.Text.Length = 0 Then
+                    tabcontrolMain.SelectedTab = tabpageGeneral
+                    MsgBox("Si especifica el Tipo de Documento, también debe especificar el Número de Documento.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxDocumentoNumero.Focus()
+                    Return False
+                End If
+                If maskedtextboxDocumentoNumero.Text.Trim.Length < 11 Then
+                    tabcontrolMain.SelectedTab = tabpageGeneral
+                    MsgBox("El Número de " & CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).Nombre & " debe contener 11 dígitos (sin contar los guiones).", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxDocumentoNumero.Focus()
+                    Return False
+                End If
+                If Not CardonerSistemas.Afip.VerificarCuit(maskedtextboxDocumentoNumero.Text) Then
+                    tabcontrolMain.SelectedTab = tabpageGeneral
+                    MsgBox("El Número de " & CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).Nombre & " ingresado es incorrecto.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxDocumentoNumero.Focus()
+                    Return False
+                End If
+            Else
+                If textboxDocumentoNumero.Text.Length = 0 Then
+                    tabcontrolMain.SelectedTab = tabpageGeneral
+                    MsgBox("Si especifica el Tipo de Documento, también debe especificar el Número de Documento.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxDocumentoNumero.Focus()
+                    Return False
+                End If
+            End If
+        End If
+
+        ' Verifico el Número de Documento para la Factura
+        If comboboxFacturaDocumentoTipo.SelectedIndex > 0 AndAlso textboxFacturaDocumentoNumero.Text.Length = 0 Then
+            If CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
+                If maskedtextboxFacturaDocumentoNumero.Text.Trim.Length = 0 Then
+                    tabcontrolMain.SelectedTab = tabpageGeneral
+                    MsgBox("Si especifica el Tipo de Documento para Facturar, también debe especificar el Número de Documento para Facturar.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxFacturaDocumentoNumero.Focus()
+                    Return False
+                End If
+                If maskedtextboxFacturaDocumentoNumero.Text.Trim.Length < 11 Then
+                    tabcontrolMain.SelectedTab = tabpageGeneral
+                    MsgBox("El Número de " & CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).Nombre & " debe contener 11 dígitos (sin contar los guiones).", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxFacturaDocumentoNumero.Focus()
+                    Return False
+                End If
+                If Not CardonerSistemas.Afip.VerificarCuit(maskedtextboxFacturaDocumentoNumero.Text) Then
+                    tabcontrolMain.SelectedTab = tabpageGeneral
+                    MsgBox("El Número de " & CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).Nombre & " ingresado es incorrecto.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxFacturaDocumentoNumero.Focus()
+                    Return False
+                End If
+            Else
+                If textboxFacturaDocumentoNumero.Text.Length = 0 Then
+                    tabcontrolMain.SelectedTab = tabpageGeneral
+                    MsgBox("Si especifica el Tipo de Documento, también debe especificar el Número de Documento para Facturar.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxFacturaDocumentoNumero.Focus()
+                    Return False
+                End If
+            End If
+        End If
+
+        ' Fecha de Nacimiento
+        If datetimepickerFechaNacimiento.Checked And datetimepickerFechaNacimiento.Value.Year = Today.Year Then
+            tabcontrolMain.SelectedTab = tabpageGeneral
+            MsgBox("Se ha especificado una Fecha de Nacimiento que no parece ser válida ya que es del año actual.", MsgBoxStyle.Information, My.Application.Info.Title)
+            datetimepickerFechaNacimiento.Focus()
+            Return False
+        End If
+
+        ' Direcciones de Email
+        If textboxEmail1.Text.Trim.Length > 0 Then
+            If Not CS_Email.IsValidEmail(textboxEmail1.Text.Trim) Then
+                tabcontrolMain.SelectedTab = tabpageContacto
+                MsgBox("La dirección de e-Mail 1 es incorrecta.", vbInformation, My.Application.Info.Title)
+                textboxEmail1.Focus()
+                Return False
+            End If
+        Else
+            If checkboxVerificarEmail1.Checked Then
+                checkboxVerificarEmail1.Checked = False
+            End If
+        End If
+        If textboxEmail2.Text.Trim.Length > 0 Then
+            If Not CS_Email.IsValidEmail(textboxEmail2.Text.Trim) Then
+                tabcontrolMain.SelectedTab = tabpageContacto
+                MsgBox("La dirección de e-Mail 2 es incorrecta.", vbInformation, My.Application.Info.Title)
+                textboxEmail2.Focus()
+                Return False
+            End If
+        Else
+            If checkboxVerificarEmail2.Checked Then
+                checkboxVerificarEmail2.Checked = False
+            End If
+        End If
+        If textboxEmail1.Text.Trim.Length > 0 And textboxEmail2.Text.Trim.Length > 0 Then
+            If textboxEmail1.Text.Trim = textboxEmail2.Text.Trim Then
+                tabcontrolMain.SelectedTab = tabpageContacto
+                MsgBox("Ambas direcciones de e-Mail son iguales.", vbInformation, My.Application.Info.Title)
+                textboxEmail2.Focus()
+                Return False
+            End If
+        End If
+
+        ' Emitir Factura A:
+        Select Case CStr(comboboxEmitirFacturaA.SelectedValue)
+            Case Constantes.ENTIDAD_EMITIRFACTURAA_NOESPECIFICA
+                If checkboxTipoAlumno.Checked AndAlso ((textboxEntidadPadre.Tag IsNot Nothing) And (textboxEntidadMadre.Tag IsNot Nothing)) Then
+                    If MsgBox("Ha especificado el Padre y/o la Madre del Alumno, pero no especificó a quien se le facturará." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
+                        tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
+                        comboboxEmitirFacturaA.Focus()
+                        Return False
+                    End If
+                End If
+            Case Constantes.ENTIDAD_EMITIRFACTURAA_PADRE
+                If textboxEntidadPadre.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
+                    MsgBox("Si las facturas se emitirán a nombre del Padre / Tutor, debe especificar el mismo.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadPadre.Focus()
+                    Return False
+                End If
+            Case Constantes.ENTIDAD_EMITIRFACTURAA_MADRE
+                If textboxEntidadMadre.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
+                    MsgBox("Si las facturas se emitirán a nombre de la Madre / Tutora, debe especificar la misma.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadMadre.Focus()
+                    Return False
+                End If
+            Case Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO
+                If textboxEntidadTercero.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
+                    MsgBox("Si las facturas se emitirán a nombre de un Tercero, debe especificar el mismo.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadTercero.Focus()
+                    Return False
+                End If
+            Case Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES
+                If textboxEntidadPadre.Tag Is Nothing And textboxEntidadMadre.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
+                    MsgBox("Si las facturas se emitirán a nombre de ambos Padres, debe especificarlos.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadPadre.Focus()
+                    Return False
+                ElseIf textboxEntidadPadre.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
+                    MsgBox("Si las facturas se emitirán a nombre de ambos Padres, debe especificar el Padre.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadPadre.Focus()
+                    Return False
+                ElseIf textboxEntidadMadre.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
+                    MsgBox("Si las facturas se emitirán a nombre de ambos Padres, debe especificar la Madre.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadMadre.Focus()
+                    Return False
+                End If
+            Case Constantes.ENTIDAD_EMITIRFACTURAA_TODOS
+                If textboxEntidadPadre.Tag Is Nothing And textboxEntidadMadre.Tag Is Nothing And textboxEntidadTercero.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
+                    MsgBox("Si las facturas se emitirán a nombre de Todos (Padres y Tercero), debe especificarlos.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadPadre.Focus()
+                    Return False
+                ElseIf textboxEntidadPadre.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
+                    MsgBox("Si las facturas se emitirán a nombre de Todos (Padres y Tercero), debe especificar el Padre.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadPadre.Focus()
+                    Return False
+                ElseIf textboxEntidadMadre.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
+                    MsgBox("Si las facturas se emitirán a nombre de Todos (Padres y Tercero), debe especificar la Madre.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadMadre.Focus()
+                    Return False
+                ElseIf textboxEntidadTercero.Tag Is Nothing Then
+                    tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
+                    MsgBox("Si las facturas se emitirán a nombre de Todos (Padres y Tercero), debe especificar el Tercero.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    textboxEntidadTercero.Focus()
+                    Return False
+                End If
+        End Select
+
+        ' Débito Directo
+        If radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Checked Then
+            If maskedtextboxDebitoAutomaticoCBU.Text = "" Then
+                tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
+                MsgBox("Debe especificar el CBU en el cual realizar el Débito Directo.", MsgBoxStyle.Information, My.Application.Info.Title)
+                maskedtextboxDebitoAutomaticoCBU.Focus()
+                Return False
+            End If
+            If maskedtextboxDebitoAutomaticoCBU.Text.Length < 22 Then
+                tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
+                MsgBox("Debe completar todos los dígitos del CBU en el cual realizar el Débito Directo.", MsgBoxStyle.Information, My.Application.Info.Title)
+                maskedtextboxDebitoAutomaticoCBU.Focus()
+                Return False
+            End If
+            Select Case CS_Bank.VerificarCBU(maskedtextboxDebitoAutomaticoCBU.Text)
+                Case 0
+                    tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
+                    MsgBox("El CBU ingresado es incorrecto.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxDebitoAutomaticoCBU.Focus()
+                    Return False
+                Case 1
+                    tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
+                    MsgBox("El CBU ingresado tiene un error en el 1er. bloque.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxDebitoAutomaticoCBU.Focus()
+                    Return False
+                Case 2
+                    tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
+                    MsgBox("El CBU ingresado tiene un error en el 2do. bloque.", MsgBoxStyle.Information, My.Application.Info.Title)
+                    maskedtextboxDebitoAutomaticoCBU.Focus()
+                    Return False
+            End Select
+        End If
+
+        Return True
+    End Function
 
 #End Region
 
