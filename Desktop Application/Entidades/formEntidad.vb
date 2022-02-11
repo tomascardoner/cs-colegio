@@ -161,8 +161,6 @@
         checkboxTipoProveedor.Text = My.Resources.STRING_ENTIDADTIPO_PROVEEDOR
         checkboxTipoOtro.Text = My.Resources.STRING_ENTIDADTIPO_OTRO
 
-        checkboxDocumentoNumeroVerificado.Visible = Permisos.VerificarPermiso(Permisos.ENTIDAD_VERIFICACIONES_VER, False)
-        checkboxFacturaDocumentoNumeroVerificado.Visible = Permisos.VerificarPermiso(Permisos.ENTIDAD_VERIFICACIONES_VER, False)
         checkboxVerificarEmail1.Visible = Permisos.VerificarPermiso(Permisos.ENTIDAD_VERIFICACIONES_VER, False)
         checkboxVerificarEmail2.Visible = Permisos.VerificarPermiso(Permisos.ENTIDAD_VERIFICACIONES_VER, False)
 
@@ -519,8 +517,8 @@
         If comboboxDocumentoTipo.SelectedItem IsNot Nothing Then
             textboxDocumentoNumero.Visible = (CByte(comboboxDocumentoTipo.SelectedValue) > 0 AndAlso Not CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11)
             maskedtextboxDocumentoNumero.Visible = (CByte(comboboxDocumentoTipo.SelectedValue) > 0 AndAlso Not textboxDocumentoNumero.Visible)
-            labelDocumentoNumeroVerificado.Visible = (CByte(comboboxDocumentoTipo.SelectedValue) > 0)
-            checkboxDocumentoNumeroVerificado.Visible = (CByte(comboboxDocumentoTipo.SelectedValue) > 0)
+            labelDocumentoNumeroVerificado.Visible = (CByte(comboboxDocumentoTipo.SelectedValue) > 0 AndAlso Permisos.VerificarPermiso(Permisos.ENTIDAD_VERIFICACIONES_VER, False))
+            checkboxDocumentoNumeroVerificado.Visible = (CByte(comboboxDocumentoTipo.SelectedValue) > 0 AndAlso Permisos.VerificarPermiso(Permisos.ENTIDAD_VERIFICACIONES_VER, False))
         End If
     End Sub
 
@@ -528,8 +526,8 @@
         If comboboxFacturaDocumentoTipo.SelectedItem IsNot Nothing Then
             textboxFacturaDocumentoNumero.Visible = (CByte(comboboxFacturaDocumentoTipo.SelectedValue) > 0 AndAlso Not CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11)
             maskedtextboxFacturaDocumentoNumero.Visible = (CByte(comboboxFacturaDocumentoTipo.SelectedValue) > 0 AndAlso Not textboxFacturaDocumentoNumero.Visible)
-            labelFacturaDocumentoNumeroVerificado.Visible = (CByte(comboboxFacturaDocumentoTipo.SelectedValue) > 0)
-            checkboxFacturaDocumentoNumeroVerificado.Visible = (CByte(comboboxFacturaDocumentoTipo.SelectedValue) > 0)
+            labelFacturaDocumentoNumeroVerificado.Visible = (CByte(comboboxFacturaDocumentoTipo.SelectedValue) > 0 AndAlso Permisos.VerificarPermiso(Permisos.ENTIDAD_VERIFICACIONES_VER, False))
+            checkboxFacturaDocumentoNumeroVerificado.Visible = (CByte(comboboxFacturaDocumentoTipo.SelectedValue) > 0 AndAlso Permisos.VerificarPermiso(Permisos.ENTIDAD_VERIFICACIONES_VER, False))
         End If
     End Sub
 
