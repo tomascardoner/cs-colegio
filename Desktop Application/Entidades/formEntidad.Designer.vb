@@ -96,6 +96,10 @@ Partial Class formEntidad
         Me.checkboxEsActivo = New System.Windows.Forms.CheckBox()
         Me.tabcontrolMain = New CSColegio.DesktopApplication.CS_Control_TabControl()
         Me.tabpageGeneral = New System.Windows.Forms.TabPage()
+        Me.labelFacturaDocumentoNumeroVerificado = New System.Windows.Forms.Label()
+        Me.checkboxFacturaDocumentoNumeroVerificado = New System.Windows.Forms.CheckBox()
+        Me.labelDocumentoNumeroVerificado = New System.Windows.Forms.Label()
+        Me.checkboxDocumentoNumeroVerificado = New System.Windows.Forms.CheckBox()
         Me.labelTipoOtro = New System.Windows.Forms.Label()
         Me.checkboxTipoOtro = New System.Windows.Forms.CheckBox()
         Me.comboboxFacturaDocumentoTipo = New System.Windows.Forms.ComboBox()
@@ -194,10 +198,6 @@ Partial Class formEntidad
         Me.textboxUsuarioCreacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraModificacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraCreacion = New System.Windows.Forms.TextBox()
-        Me.labelDocumentoNumeroVerificado = New System.Windows.Forms.Label()
-        Me.checkboxDocumentoNumeroVerificado = New System.Windows.Forms.CheckBox()
-        Me.labelFacturaDocumentoNumeroVerificado = New System.Windows.Forms.Label()
-        Me.checkboxFacturaDocumentoNumeroVerificado = New System.Windows.Forms.CheckBox()
         labelApellido = New System.Windows.Forms.Label()
         labelIDEntidad = New System.Windows.Forms.Label()
         labelNombre = New System.Windows.Forms.Label()
@@ -801,6 +801,42 @@ Partial Class formEntidad
         Me.tabpageGeneral.TabIndex = 0
         Me.tabpageGeneral.Text = "General"
         Me.tabpageGeneral.UseVisualStyleBackColor = True
+        '
+        'labelFacturaDocumentoNumeroVerificado
+        '
+        Me.labelFacturaDocumentoNumeroVerificado.AutoSize = True
+        Me.labelFacturaDocumentoNumeroVerificado.Location = New System.Drawing.Point(380, 197)
+        Me.labelFacturaDocumentoNumeroVerificado.Name = "labelFacturaDocumentoNumeroVerificado"
+        Me.labelFacturaDocumentoNumeroVerificado.Size = New System.Drawing.Size(57, 13)
+        Me.labelFacturaDocumentoNumeroVerificado.TabIndex = 30
+        Me.labelFacturaDocumentoNumeroVerificado.Text = "Verificado:"
+        '
+        'checkboxFacturaDocumentoNumeroVerificado
+        '
+        Me.checkboxFacturaDocumentoNumeroVerificado.AutoSize = True
+        Me.checkboxFacturaDocumentoNumeroVerificado.Location = New System.Drawing.Point(443, 197)
+        Me.checkboxFacturaDocumentoNumeroVerificado.Name = "checkboxFacturaDocumentoNumeroVerificado"
+        Me.checkboxFacturaDocumentoNumeroVerificado.Size = New System.Drawing.Size(15, 14)
+        Me.checkboxFacturaDocumentoNumeroVerificado.TabIndex = 29
+        Me.checkboxFacturaDocumentoNumeroVerificado.UseVisualStyleBackColor = True
+        '
+        'labelDocumentoNumeroVerificado
+        '
+        Me.labelDocumentoNumeroVerificado.AutoSize = True
+        Me.labelDocumentoNumeroVerificado.Location = New System.Drawing.Point(380, 126)
+        Me.labelDocumentoNumeroVerificado.Name = "labelDocumentoNumeroVerificado"
+        Me.labelDocumentoNumeroVerificado.Size = New System.Drawing.Size(57, 13)
+        Me.labelDocumentoNumeroVerificado.TabIndex = 28
+        Me.labelDocumentoNumeroVerificado.Text = "Verificado:"
+        '
+        'checkboxDocumentoNumeroVerificado
+        '
+        Me.checkboxDocumentoNumeroVerificado.AutoSize = True
+        Me.checkboxDocumentoNumeroVerificado.Location = New System.Drawing.Point(443, 126)
+        Me.checkboxDocumentoNumeroVerificado.Name = "checkboxDocumentoNumeroVerificado"
+        Me.checkboxDocumentoNumeroVerificado.Size = New System.Drawing.Size(15, 14)
+        Me.checkboxDocumentoNumeroVerificado.TabIndex = 27
+        Me.checkboxDocumentoNumeroVerificado.UseVisualStyleBackColor = True
         '
         'labelTipoOtro
         '
@@ -1911,42 +1947,6 @@ Partial Class formEntidad
         Me.textboxFechaHoraCreacion.ReadOnly = True
         Me.textboxFechaHoraCreacion.Size = New System.Drawing.Size(121, 20)
         Me.textboxFechaHoraCreacion.TabIndex = 7
-        '
-        'labelDocumentoNumeroVerificado
-        '
-        Me.labelDocumentoNumeroVerificado.AutoSize = True
-        Me.labelDocumentoNumeroVerificado.Location = New System.Drawing.Point(380, 126)
-        Me.labelDocumentoNumeroVerificado.Name = "labelDocumentoNumeroVerificado"
-        Me.labelDocumentoNumeroVerificado.Size = New System.Drawing.Size(57, 13)
-        Me.labelDocumentoNumeroVerificado.TabIndex = 28
-        Me.labelDocumentoNumeroVerificado.Text = "Verificado:"
-        '
-        'checkboxDocumentoNumeroVerificado
-        '
-        Me.checkboxDocumentoNumeroVerificado.AutoSize = True
-        Me.checkboxDocumentoNumeroVerificado.Location = New System.Drawing.Point(443, 126)
-        Me.checkboxDocumentoNumeroVerificado.Name = "checkboxDocumentoNumeroVerificado"
-        Me.checkboxDocumentoNumeroVerificado.Size = New System.Drawing.Size(15, 14)
-        Me.checkboxDocumentoNumeroVerificado.TabIndex = 27
-        Me.checkboxDocumentoNumeroVerificado.UseVisualStyleBackColor = True
-        '
-        'labelFacturaDocumentoNumeroVerificado
-        '
-        Me.labelFacturaDocumentoNumeroVerificado.AutoSize = True
-        Me.labelFacturaDocumentoNumeroVerificado.Location = New System.Drawing.Point(380, 197)
-        Me.labelFacturaDocumentoNumeroVerificado.Name = "labelFacturaDocumentoNumeroVerificado"
-        Me.labelFacturaDocumentoNumeroVerificado.Size = New System.Drawing.Size(57, 13)
-        Me.labelFacturaDocumentoNumeroVerificado.TabIndex = 30
-        Me.labelFacturaDocumentoNumeroVerificado.Text = "Verificado:"
-        '
-        'checkboxFacturaDocumentoNumeroVerificado
-        '
-        Me.checkboxFacturaDocumentoNumeroVerificado.AutoSize = True
-        Me.checkboxFacturaDocumentoNumeroVerificado.Location = New System.Drawing.Point(443, 197)
-        Me.checkboxFacturaDocumentoNumeroVerificado.Name = "checkboxFacturaDocumentoNumeroVerificado"
-        Me.checkboxFacturaDocumentoNumeroVerificado.Size = New System.Drawing.Size(15, 14)
-        Me.checkboxFacturaDocumentoNumeroVerificado.TabIndex = 29
-        Me.checkboxFacturaDocumentoNumeroVerificado.UseVisualStyleBackColor = True
         '
         'formEntidad
         '

@@ -949,6 +949,12 @@
 
         ' Débito Directo
         If radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Checked Then
+            If checkboxTipoAlumno.Checked AndAlso CStr(comboboxEmitirFacturaA.SelectedValue) <> Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO Then
+                tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
+                MsgBox("El CBU para realizar el Débito Directo, debe ser especificado en la(s) Entidad(es) a la(s) cual(es) se le factura.", MsgBoxStyle.Information, My.Application.Info.Title)
+                maskedtextboxDebitoAutomaticoCBU.Focus()
+                Return False
+            End If
             If maskedtextboxDebitoAutomaticoCBU.Text = "" Then
                 tabcontrolMain.SelectedTab = tabpageDebitoAutomatico
                 MsgBox("Debe especificar el CBU en el cual realizar el Débito Directo.", MsgBoxStyle.Information, My.Application.Info.Title)
