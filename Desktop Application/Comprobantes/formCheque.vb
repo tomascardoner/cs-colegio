@@ -17,7 +17,7 @@
         mComprobanteMedioPagoActual = ComprobanteMedioPagoActual
 
         'Me.MdiParent = pFormMDIMain
-        CS_Form.CenterToParent(ParentForm, Me)
+        CardonerSistemas.Forms.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
         SetDataFromObjectToControls()
         ChangeMode()
@@ -40,7 +40,7 @@
         labelMotivoRechazo.Visible = False
         comboboxMotivoRechazo.Visible = False
 
-        CS_Form.ControlsChangeStateEnabled(Me.Controls, mEditMode, True, True, True, toolstripMain.Name)
+        CardonerSistemas.Forms.ControlsChangeStateEnabled(Me.Controls, mEditMode, True, True, True, toolstripMain.Name)
     End Sub
 
     Friend Sub InitializeFormAndControls()
@@ -215,8 +215,8 @@
         SetDataFromControlsToObject()
 
         ' Refresco la lista para mostrar los cambios
-        If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formComprobante") Then
-            Dim formComprobante As formComprobante = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formComprobante"), formComprobante)
+        If CardonerSistemas.Forms.MdiChildIsLoaded(CType(pFormMDIMain, Form), "formComprobante") Then
+            Dim formComprobante As formComprobante = CType(CardonerSistemas.Forms.MdiChildGetInstance(CType(pFormMDIMain, Form), "formComprobante"), formComprobante)
             formComprobante.RefreshData_MediosPago(mComprobanteMedioPagoActual.Indice)
             formComprobante = Nothing
         End If

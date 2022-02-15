@@ -1,46 +1,29 @@
 ﻿Public Class formMDIMain
 
 #Region "Declarations"
-    Friend Form_ClientSize As Size
+
     Private mObjeto_AFIP_WS_Homologacion As CardonerSistemas.AfipWebServices.WebService
     Private mObjeto_AFIP_WS_Produccion As CardonerSistemas.AfipWebServices.WebService
+
 #End Region
 
 #Region "Form stuff"
-    Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Cambio el puntero del mouse para indicar que la aplicación está iniciando
-        Me.Cursor = Cursors.AppStarting
 
-        ' Deshabilito el Form principal hasta que se cierre el SplashScreen
+    Private Sub SetAppearance()
         Me.Enabled = False
-
+        Me.Cursor = Cursors.AppStarting
+        Me.Icon = My.Resources.IconApplication
         Me.Text = My.Application.Info.Title
 
-        menuitemAyuda_AcercaDe.Text = "&Acerca de " & My.Application.Info.Title & "..."
+        menuitemAyuda_AcercaDe.Text = $"&Acerca de {My.Application.Info.Title}..."
+        labelLicenciaCompania.Text = $"Se licencia el uso a: {pLicensedTo.ToUpper()}"
     End Sub
 
-    Private Sub formMDIMain_Resize() Handles Me.Resize
-        If Not Me.WindowState = FormWindowState.Minimized Then
-
-            'OBTENGO LAS MEDIDAS DEL CLIENT AREA DEL FORM MDI
-            Form_ClientSize = New Size(Me.ClientSize.Width - toolstripMain.Width, Me.ClientSize.Height - menustripMain.Height - statusstripMain.Height)
-
-            'HAGO UN RESIZE DE TODOS LOS CHILDS QUE ESTÉN ABIERTOS
-            For Each FormCurrent As Form In Me.MdiChildren
-                If FormCurrent.FormBorderStyle = Windows.Forms.FormBorderStyle.Sizable Then
-                    If FormCurrent.Name = "formComprobante" Then
-                        CS_Form.MDIChild_CenterToClientArea(FormCurrent, Form_ClientSize)
-                    Else
-                        CS_Form.MDIChild_PositionAndSizeToFit(Me, FormCurrent)
-                    End If
-                Else
-                    CS_Form.MDIChild_CenterToClientArea(FormCurrent, Form_ClientSize)
-                End If
-            Next
-        End If
+    Private Sub Me_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SetAppearance()
     End Sub
 
-    Private Sub MDIMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+    Private Sub Me_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         If Not (e.CloseReason = CloseReason.ApplicationExitCall Or e.CloseReason = CloseReason.TaskManagerClosing Or e.CloseReason = CloseReason.WindowsShutDown) Then
             If MsgBox("¿Desea salir de la aplicación?", CType(MsgBoxStyle.Information + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
                 e.Cancel = True
@@ -49,6 +32,7 @@
         End If
         TerminateApplication()
     End Sub
+
 #End Region
 
 #Region "Menu Archivo"
@@ -159,33 +143,15 @@
 #End Region
 
 #Region "Menu Ventana"
-    Private Sub menuitemVentana_MosaicoHorizontal_Click() Handles menuitemVentanaMosaicoHorizontal.Click
-        Me.LayoutMdi(MdiLayout.TileHorizontal)
-    End Sub
-
-    Private Sub menuitemVentana_MosaicoVertical_Click() Handles menuitemVentanaMosaicoVertical.Click
-        Me.LayoutMdi(MdiLayout.TileVertical)
-    End Sub
-
-    Private Sub menuitemVentana_Cascada_Click() Handles menuitemVentanaCascada.Click
-        Me.LayoutMdi(MdiLayout.Cascade)
-    End Sub
 
     Private Sub menuitemVentana_OrganizarIconos_Click() Handles menuitemVentanaOrganizarIconos.Click
         Me.LayoutMdi(MdiLayout.ArrangeIcons)
     End Sub
 
-    Private Sub menuitemVentana_EncajarEnVentana_Click() Handles menuitemVentanaEncajarEnVentana.Click
-        If Not Me.ActiveMdiChild Is Nothing Then
-            Me.ActiveMdiChild.Left = 0
-            Me.ActiveMdiChild.Top = 0
-            Me.ActiveMdiChild.Size = Form_ClientSize
-        End If
+    Private Sub menuitemVentana_CerrarTodas_Click() Handles menuitemVentanaCerrarTodas.Click
+        CardonerSistemas.Forms.MdiChildCloseAll(Me)
     End Sub
 
-    Private Sub menuitemVentana_CerrarTodas_Click() Handles menuitemVentanaCerrarTodas.Click
-        CS_Form.MDIChild_CloseAll(Me)
-    End Sub
 #End Region
 
 #Region "Menu Ayuda"
@@ -200,13 +166,13 @@
     Private Function FormCABGenerico_CrearOMostrar(ByVal EntityNameSingular As String, ByVal EntityNamePlural As String) As formCABGenerico
         Dim FormCurrent As formCABGenerico
 
-        FormCurrent = CType(CS_Form.MDIChild_GetInstance(Me, "formCABGenerico", EntityNamePlural), formCABGenerico)
+        FormCurrent = CType(CardonerSistemas.Forms.MdiChildGetInstance(Me, "formCABGenerico", EntityNamePlural), formCABGenerico)
         If FormCurrent Is Nothing Then
             Me.Cursor = Cursors.WaitCursor
 
             FormCurrent = New formCABGenerico()
 
-            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(FormCurrent, Form))
+            CardonerSistemas.Forms.MdiChildPositionAndSizeToFit(Me, CType(FormCurrent, Form))
             FormCurrent.EntityNameSingular = EntityNameSingular
             FormCurrent.EntityNamePlural = EntityNamePlural
             Return FormCurrent
@@ -223,25 +189,25 @@
 
     Private Sub menuitemAnios_Click() Handles menuitemAnios.Click
         If Permisos.VerificarPermiso(Permisos.ANIO) Then
-            CS_Form.MDIChild_Show(Me, CType(formAnios, Form), False)
+            CardonerSistemas.Forms.MdiChildShow(Me, CType(formAnios, Form), False)
         End If
     End Sub
 
     Private Sub menuitemCursos_Click() Handles menuitemCursos.Click
         If Permisos.VerificarPermiso(Permisos.CURSO) Then
-            CS_Form.MDIChild_Show(Me, CType(formCursos, Form), False)
+            CardonerSistemas.Forms.MdiChildShow(Me, CType(formCursos, Form), False)
         End If
     End Sub
 
     Private Sub menuitemAniosLectivosCursos_Click() Handles menuitemAniosLectivosCursos.Click
         If Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCURSO) Then
-            CS_Form.MDIChild_Show(Me, CType(formAnioLectivoCursos, Form), False)
+            CardonerSistemas.Forms.MdiChildShow(Me, CType(formAnioLectivoCursos, Form), False)
         End If
     End Sub
 
     Private Sub menuitemAniosLectivosCuotas_Click() Handles menuitemAniosLectivosCuotas.Click
         If Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCUOTA) Then
-            CS_Form.MDIChild_Show(Me, CType(formAnioLectivoCuotas, Form), False)
+            CardonerSistemas.Forms.MdiChildShow(Me, CType(formAnioLectivoCuotas, Form), False)
         End If
     End Sub
 
@@ -289,19 +255,19 @@
 
     Private Sub menuitemGruposUsuarios_Click() Handles menuitemGruposUsuarios.Click
         If Permisos.VerificarPermiso(Permisos.USUARIOGRUPO) Then
-            CS_Form.MDIChild_Show(Me, CType(formUsuarioGrupos, Form), False)
+            CardonerSistemas.Forms.MdiChildShow(Me, CType(formUsuarioGrupos, Form), False)
         End If
     End Sub
 
     Private Sub menuitemPermisosGruposUsuarios_Click() Handles menuitemPermisosGruposUsuarios.Click
         If Permisos.VerificarPermiso(Permisos.USUARIOGRUPOPERMISO) Then
-            CS_Form.MDIChild_Show(Me, CType(formUsuarioGrupoPermisos, Form), False)
+            CardonerSistemas.Forms.MdiChildShow(Me, CType(formUsuarioGrupoPermisos, Form), False)
         End If
     End Sub
 
     Private Sub menuitemUsuarios_Click() Handles menuitemUsuarios.Click
         If Permisos.VerificarPermiso(Permisos.USUARIO) Then
-            CS_Form.MDIChild_Show(Me, CType(formUsuarios, Form), False)
+            CardonerSistemas.Forms.MdiChildShow(Me, CType(formUsuarios, Form), False)
         End If
     End Sub
 
@@ -313,7 +279,7 @@
         If Permisos.VerificarPermiso(Permisos.ENTIDAD) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_Show(Me, CType(formEntidades, Form), False)
+            CardonerSistemas.Forms.MdiChildShow(Me, CType(formEntidades, Form), False)
 
             Me.Cursor = Cursors.Default
         End If
@@ -323,7 +289,7 @@
         If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_Show(Me, CType(formEntidadesAnioLectivoCurso, Form), False)
+            CardonerSistemas.Forms.MdiChildShow(Me, CType(formEntidadesAnioLectivoCurso, Form), False)
 
             Me.Cursor = Cursors.Default
         End If
@@ -333,7 +299,7 @@
         If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO_AGREGAR) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_Show(Me, CType(formEntidadInscripcion, Form), True)
+            CardonerSistemas.Forms.MdiChildShow(Me, CType(formEntidadInscripcion, Form), True)
 
             Me.Cursor = Cursors.Default
         End If
@@ -343,7 +309,7 @@
         If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDITAR) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_Show(Me, CType(formEntidadesVerificadorEmail, Form), True)
+            CardonerSistemas.Forms.MdiChildShow(Me, CType(formEntidadesVerificadorEmail, Form), True)
 
             Me.Cursor = Cursors.Default
         End If
@@ -356,7 +322,7 @@
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CS_Form.MDIChild_PositionAndSizeToFit(Me, CType(formComprobantes, Form))
+            CardonerSistemas.Forms.MdiChildPositionAndSizeToFit(Me, CType(formComprobantes, Form))
             formComprobantes.Show()
             If formComprobantes.WindowState = FormWindowState.Minimized Then
                 formComprobantes.WindowState = FormWindowState.Normal
@@ -372,7 +338,7 @@
             Me.Cursor = Cursors.WaitCursor
 
             formComprobantesGenerarLote.MdiParent = Me
-            CS_Form.CenterToParent(Me, CType(formComprobantesGenerarLote, Form))
+            CardonerSistemas.Forms.CenterToParent(Me, CType(formComprobantesGenerarLote, Form))
             formComprobantesGenerarLote.Show()
             If formComprobantesGenerarLote.WindowState = FormWindowState.Minimized Then
                 formComprobantesGenerarLote.WindowState = FormWindowState.Normal
@@ -388,7 +354,7 @@
             Me.Cursor = Cursors.WaitCursor
 
             formComprobantesTransmitirAFIP.MdiParent = Me
-            CS_Form.CenterToParent(Me, CType(formComprobantesTransmitirAFIP, Form))
+            CardonerSistemas.Forms.CenterToParent(Me, CType(formComprobantesTransmitirAFIP, Form))
             formComprobantesTransmitirAFIP.Show()
             If formComprobantesTransmitirAFIP.WindowState = FormWindowState.Minimized Then
                 formComprobantesTransmitirAFIP.WindowState = FormWindowState.Normal
@@ -404,7 +370,7 @@
             Me.Cursor = Cursors.WaitCursor
 
             formComprobantesEnviarMail.MdiParent = Me
-            CS_Form.CenterToParent(Me, CType(formComprobantesEnviarMail, Form))
+            CardonerSistemas.Forms.CenterToParent(Me, CType(formComprobantesEnviarMail, Form))
             formComprobantesEnviarMail.Show()
             If formComprobantesEnviarMail.WindowState = FormWindowState.Minimized Then
                 formComprobantesEnviarMail.WindowState = FormWindowState.Normal
@@ -420,7 +386,7 @@
             Me.Cursor = Cursors.WaitCursor
 
             formComprobantesTransmitirPagosEduc.MdiParent = Me
-            CS_Form.CenterToParent(Me, CType(formComprobantesTransmitirPagosEduc, Form))
+            CardonerSistemas.Forms.CenterToParent(Me, CType(formComprobantesTransmitirPagosEduc, Form))
             formComprobantesTransmitirPagosEduc.Show()
             If formComprobantesTransmitirPagosEduc.WindowState = FormWindowState.Minimized Then
                 formComprobantesTransmitirPagosEduc.WindowState = FormWindowState.Normal
@@ -436,7 +402,7 @@
             Me.Cursor = Cursors.WaitCursor
 
             formComprobantesTransmitirPagomiscuentas.MdiParent = Me
-            CS_Form.CenterToParent(Me, CType(formComprobantesTransmitirPagomiscuentas, Form))
+            CardonerSistemas.Forms.CenterToParent(Me, CType(formComprobantesTransmitirPagomiscuentas, Form))
             formComprobantesTransmitirPagomiscuentas.Show()
             If formComprobantesTransmitirPagomiscuentas.WindowState = FormWindowState.Minimized Then
                 formComprobantesTransmitirPagomiscuentas.WindowState = FormWindowState.Normal
@@ -452,7 +418,7 @@
             Me.Cursor = Cursors.WaitCursor
 
             formComprobantesTransmitirSantanderDebitoDirecto.MdiParent = Me
-            CS_Form.CenterToParent(Me, CType(formComprobantesTransmitirSantanderDebitoDirecto, Form))
+            CardonerSistemas.Forms.CenterToParent(Me, CType(formComprobantesTransmitirSantanderDebitoDirecto, Form))
             formComprobantesTransmitirSantanderDebitoDirecto.Show()
             If formComprobantesTransmitirSantanderDebitoDirecto.WindowState = FormWindowState.Minimized Then
                 formComprobantesTransmitirSantanderDebitoDirecto.WindowState = FormWindowState.Normal
@@ -468,7 +434,7 @@
             Me.Cursor = Cursors.WaitCursor
 
             formComprobantesTransmitirSantanderRecaudacionPorCaja.MdiParent = Me
-            CS_Form.CenterToParent(Me, CType(formComprobantesTransmitirSantanderRecaudacionPorCaja, Form))
+            CardonerSistemas.Forms.CenterToParent(Me, CType(formComprobantesTransmitirSantanderRecaudacionPorCaja, Form))
             formComprobantesTransmitirSantanderRecaudacionPorCaja.Show()
             If formComprobantesTransmitirSantanderRecaudacionPorCaja.WindowState = FormWindowState.Minimized Then
                 formComprobantesTransmitirSantanderRecaudacionPorCaja.WindowState = FormWindowState.Normal
@@ -484,7 +450,7 @@
             Me.Cursor = Cursors.WaitCursor
 
             formComprobantesRecibirSantanderDebitoDirecto.MdiParent = Me
-            CS_Form.CenterToParent(Me, CType(formComprobantesRecibirSantanderDebitoDirecto, Form))
+            CardonerSistemas.Forms.CenterToParent(Me, CType(formComprobantesRecibirSantanderDebitoDirecto, Form))
             formComprobantesRecibirSantanderDebitoDirecto.Show()
             If formComprobantesRecibirSantanderDebitoDirecto.WindowState = FormWindowState.Minimized Then
                 formComprobantesRecibirSantanderDebitoDirecto.WindowState = FormWindowState.Normal
@@ -500,7 +466,7 @@
             Me.Cursor = Cursors.WaitCursor
 
             'formComprobantesRecibirirSantanderRecaudacionPorCaja.MdiParent = Me
-            'CS_Form.CenterToParent(Me, CType(formComprobantesRecibirirSantanderRecaudacionPorCaja, Form))
+            'CardonerSistemas.Forms.CenterToParent(Me, CType(formComprobantesRecibirirSantanderRecaudacionPorCaja, Form))
             'formComprobantesRecibirirSantanderRecaudacionPorCaja.Show()
             'If formComprobantesRecibirirSantanderRecaudacionPorCaja.WindowState = FormWindowState.Minimized Then
             '    formComprobantesRecibirirSantanderRecaudacionPorCaja.WindowState = FormWindowState.Normal
@@ -516,14 +482,14 @@
 
     Private Sub Comunicaciones() Handles buttonComunicaciones.ButtonClick
         If Permisos.VerificarPermiso(Permisos.COMUNICACION) Then
-            CS_Form.MDIChild_Show(Me, CType(formComunicaciones, Form), False)
+            CardonerSistemas.Forms.MdiChildShow(Me, CType(formComunicaciones, Form), False)
         End If
     End Sub
 
 
     Private Sub ComunicacionesEnviarMail(sender As Object, e As EventArgs) Handles menuitemComunicacionesEnviarMail.Click
         If Permisos.VerificarPermiso(Permisos.COMUNICACION_ENVIAREMAIL) Then
-            CS_Form.MDIChild_Show(Me, CType(formComunicacionesEnviarMail, Form), True)
+            CardonerSistemas.Forms.MdiChildShow(Me, CType(formComunicacionesEnviarMail, Form), True)
         End If
     End Sub
 #End Region
@@ -531,7 +497,7 @@
 #Region "Left Toolbar - Reportes"
     Private Sub buttonReportes_Click(sender As Object, e As EventArgs) Handles buttonReportes.Click
         If Permisos.VerificarPermiso(Permisos.REPORTE) Then
-            CS_Form.MDIChild_Show(Me, CType(formReportes, Form), False)
+            CardonerSistemas.Forms.MdiChildShow(Me, CType(formReportes, Form), False)
         End If
     End Sub
 #End Region
@@ -543,9 +509,10 @@
 #End Region
 
 #Region "Extra stuff"
+
     Private Sub CerrarSesionUsuario()
         If MsgBox("¿Desea cerrar la sesión del Usuario actual?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
-            CS_Form.MDIChild_CloseAll(Me)
+            CardonerSistemas.Forms.MdiChildCloseAll(Me)
             labelUsuarioNombre.Image = Nothing
             labelUsuarioNombre.Text = ""
             pUsuario = Nothing

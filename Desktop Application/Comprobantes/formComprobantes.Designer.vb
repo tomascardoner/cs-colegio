@@ -242,7 +242,7 @@ Partial Class formComprobantes
         '
         'buttonAnular
         '
-        Me.buttonAnular.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_CANCEL_32
+        Me.buttonAnular.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.ImageCancelar32
         Me.buttonAnular.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonAnular.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonAnular.Name = "buttonAnular"

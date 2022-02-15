@@ -842,8 +842,8 @@
 
     Friend Sub Comprobantes(ByVal IDComprobante As Integer)
         ' Refresco la lista de Comprobantes para mostrar los cambios
-        If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formComprobantes") Then
-            Dim formComprobantes As formComprobantes = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formComprobantes"), formComprobantes)
+        If CardonerSistemas.Forms.MdiChildIsLoaded(CType(pFormMDIMain, Form), "formComprobantes") Then
+            Dim formComprobantes As formComprobantes = CType(CardonerSistemas.Forms.MdiChildGetInstance(CType(pFormMDIMain, Form), "formComprobantes"), formComprobantes)
             formComprobantes.RefreshData(IDComprobante)
             formComprobantes = Nothing
         End If

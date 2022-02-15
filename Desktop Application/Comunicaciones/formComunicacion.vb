@@ -53,7 +53,7 @@
         End If
 
         Me.MdiParent = pFormMDIMain
-        CS_Form.CenterToParent(ParentForm, Me)
+        CardonerSistemas.Forms.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
         SetDataFromObjectToControls()
         Me.Show()
@@ -250,8 +250,8 @@
                 mdbContext.SaveChanges()
 
                 ' Refresco la lista de Cursos de Años Lectivos para mostrar los cambios
-                If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formComunicaciones") Then
-                    Dim formComunicaciones As formComunicaciones = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formComunicaciones"), formComunicaciones)
+                If CardonerSistemas.Forms.MdiChildIsLoaded(CType(pFormMDIMain, Form), "formComunicaciones") Then
+                    Dim formComunicaciones As formComunicaciones = CType(CardonerSistemas.Forms.MdiChildGetInstance(CType(pFormMDIMain, Form), "formComunicaciones"), formComunicaciones)
                     formComunicaciones.RefreshData(mComunicacionActual.IDComunicacion)
                     formComunicaciones = Nothing
                 End If

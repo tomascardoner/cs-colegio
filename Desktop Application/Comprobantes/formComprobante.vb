@@ -52,7 +52,7 @@ Public Class formComprobante
         mEditMode = EditMode
 
         ' Antes que nada, cierro las ventanas hijas que pudieran haber quedado abiertas
-        If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formComprobanteMedioPago") Then
+        If CardonerSistemas.Forms.MdiChildIsLoaded(CType(pFormMDIMain, Form), "formComprobanteMedioPago") Then
             formComprobanteMedioPago.Close()
             formComprobanteMedioPago = Nothing
         End If
@@ -67,7 +67,7 @@ Public Class formComprobante
         End If
 
         Me.MdiParent = pFormMDIMain
-        CS_Form.CenterToParent(ParentForm, Me)
+        CardonerSistemas.Forms.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
         CardonerSistemas.ComboBox.SetSelectedValue(comboboxComprobanteTipo, CardonerSistemas.ComboBox.SelectedItemOptions.Value, mComprobanteActual.IDComprobanteTipo)
         CambiarTipoComprobante()

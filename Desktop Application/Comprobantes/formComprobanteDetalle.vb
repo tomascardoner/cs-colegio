@@ -32,7 +32,7 @@
         mComprobanteDetalleActual = ComprobanteDetalleActual
         mIsNew = (mComprobanteDetalleActual.Indice = 0)
 
-        CS_Form.CenterToParent(ParentForm, Me)
+        CardonerSistemas.Forms.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
         If mIsNew Then
             CargarAlumnos(mComprobanteActual.IDEntidad, Nothing)
@@ -499,8 +499,8 @@
         SetDataFromControlsToObject()
 
         ' Refresco la lista para mostrar los cambios
-        If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formComprobante") Then
-            Dim formComprobante As formComprobante = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formComprobante"), formComprobante)
+        If CardonerSistemas.Forms.MdiChildIsLoaded(CType(pFormMDIMain, Form), "formComprobante") Then
+            Dim formComprobante As formComprobante = CType(CardonerSistemas.Forms.MdiChildGetInstance(CType(pFormMDIMain, Form), "formComprobante"), formComprobante)
             formComprobante.RefreshData_Detalle(mComprobanteDetalleActual.Indice)
             formComprobante = Nothing
         End If

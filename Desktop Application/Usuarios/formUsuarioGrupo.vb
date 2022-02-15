@@ -31,7 +31,7 @@
             mUsuarioGrupoActual = mdbContext.UsuarioGrupo.Find(IDUsuarioGrupo)
         End If
 
-        CS_Form.CenterToParent(ParentForm, Me)
+        CardonerSistemas.Forms.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
         SetDataFromObjectToControls()
 

@@ -30,7 +30,7 @@
         End If
 
         Me.MdiParent = pFormMDIMain
-        CS_Form.CenterToParent(ParentForm, Me)
+        CardonerSistemas.Forms.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
         SetDataFromObjectToControls()
         Me.Show()
@@ -193,8 +193,8 @@
                 mdbContext.SaveChanges()
 
                 ' Refresco la lista de Entidades para mostrar los cambios
-                If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), "formCursos") Then
-                    Dim formCursos As formCursos = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), "formCursos"), formCursos)
+                If CardonerSistemas.Forms.MdiChildIsLoaded(CType(pFormMDIMain, Form), "formCursos") Then
+                    Dim formCursos As formCursos = CType(CardonerSistemas.Forms.MdiChildGetInstance(CType(pFormMDIMain, Form), "formCursos"), formCursos)
                     formCursos.RefreshData(mCursoActual.IDCurso)
                     formCursos = Nothing
                 End If

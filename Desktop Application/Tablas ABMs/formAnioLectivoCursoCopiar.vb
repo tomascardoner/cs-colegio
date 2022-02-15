@@ -12,7 +12,7 @@
         mIsLoading = True
 
         Me.MdiParent = pFormMDIMain
-        CS_Form.CenterToParent(ParentForm, Me)
+        CardonerSistemas.Forms.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
         Me.Show()
         If Me.WindowState = FormWindowState.Minimized Then
@@ -134,8 +134,8 @@
             End Try
 
             ' Refresco la lista para mostrar los cambios
-            If CS_Form.MDIChild_IsLoaded(CType(pFormMDIMain, Form), formAnioLectivoCursos.Name) Then
-                Dim formAniosLectivosCursos As formAnioLectivoCursos = CType(CS_Form.MDIChild_GetInstance(CType(pFormMDIMain, Form), formAnioLectivoCursos.Name), formAnioLectivoCursos)
+            If CardonerSistemas.Forms.MdiChildIsLoaded(CType(pFormMDIMain, Form), formAnioLectivoCursos.Name) Then
+                Dim formAniosLectivosCursos As formAnioLectivoCursos = CType(CardonerSistemas.Forms.MdiChildGetInstance(CType(pFormMDIMain, Form), formAnioLectivoCursos.Name), formAnioLectivoCursos)
                 formAniosLectivosCursos.RefreshData()
                 formAniosLectivosCursos = Nothing
             End If

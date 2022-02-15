@@ -5,7 +5,7 @@
 
         pFormMDIMain.Cursor = Cursors.WaitCursor
 
-        CS_Form.MDIChild_PositionAndSizeToFit(CType(pFormMDIMain, Form), CType(VisorReporte, Form))
+        CardonerSistemas.Forms.MdiChildPositionAndSizeToFit(CType(pFormMDIMain, Form), CType(VisorReporte, Form))
         With VisorReporte
             .Text = WindowText
             .CRViewerMain.ReportSource = ReporteActual.ReportObject

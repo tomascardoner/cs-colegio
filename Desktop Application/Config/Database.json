@@ -2,6 +2,9 @@
   "Datasource": "localhost;192.168.0.10",
   "Database": "CSColegio",
   "UserId": "sa",
-  "Password": "43ubKjbAQCxR+foIcEK/PcLRw0VHFqfd",
-  "Provider": "System.Data.SqlClient"
+  "Password": "XMBwmvC1gkcSp2jAtdFppYCcwGZYRRnFwuInA7sRJZHx4P61XnnnDqs3r1ZhKeiJnIhdrWvivDs6RrraWCiwOMfnW3zMBfM4ZDG\u002BLdG5u\u002Bevl7L\u002ByD5SuNO7VJkLHyAP",
+  "Provider": "System.Data.SqlClient",
+  "ConnectTimeout": 15,
+  "ConnectRetryCount": 1,
+  "ConnectRetryInterval": 10
 }

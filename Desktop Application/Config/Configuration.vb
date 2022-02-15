@@ -70,4 +70,12 @@ Module Configuration
         Return True
     End Function
 
+    Friend Function SaveFileDatabase() As Boolean
+        Dim ConfigFolder As String
+
+        ConfigFolder = Path.Combine(Application.StartupPath, ConfigSubFolder)
+
+        Return CardonerSistemas.ConfigurationJson.SaveFile(ConfigFolder, DatabaseFileName, StartUp.pDatabaseConfig, True)
+    End Function
+
 End Module
