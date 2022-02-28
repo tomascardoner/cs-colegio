@@ -692,7 +692,19 @@
                 Me.Cursor = Cursors.Default
                 Select Case CardonerSistemas.Database.EntityFramework.TryDecodeDbUpdateException(dbuex)
                     Case CardonerSistemas.Database.EntityFramework.Errors.DuplicatedEntity
-                        MsgBox("No se pueden guardar los cambios porque ya existe una Entidad con el mismo Apellido y Nombre.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                        If dbuex.InnerException IsNot Nothing AndAlso dbuex.InnerException.InnerException IsNot Nothing Then
+                            If dbuex.InnerException.InnerException.Message.Contains("UX_Entidad_ApellidoNombre") Then
+                                MsgBox("No se pueden guardar los cambios porque ya existe una Entidad con el mismo Apellido y Nombre.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                                Return
+                            ElseIf dbuex.InnerException.InnerException.Message.Contains("UX_Entidad_Documento") Then
+                                MsgBox("No se pueden guardar los cambios porque ya existe una Entidad con el mismo Tipo y Número de Documento.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                                Return
+                            ElseIf dbuex.InnerException.InnerException.Message.Contains("UX_Entidad_FacturaDocumento") Then
+                                MsgBox("No se pueden guardar los cambios porque ya existe una Entidad con el mismo Tipo y Número de Documento para Facturar.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                                Return
+                            End If
+                        End If
+                        MsgBox("No se pueden guardar los cambios porque ya existe una Entidad con algunos valores iguales.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                     Case CardonerSistemas.Database.EntityFramework.Errors.Unknown, CardonerSistemas.Database.EntityFramework.Errors.NoDBError
                         CardonerSistemas.ErrorHandler.ProcessError(dbuex.GetBaseException, My.Resources.STRING_ERROR_SAVING_CHANGES)
                     Case Else
