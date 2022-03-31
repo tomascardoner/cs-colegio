@@ -5,9 +5,24 @@
     Public Function CalcularCodigoBarrasSepsa(ByVal documentoNumero As String) As Boolean
         Dim idCliente As Integer
         Dim value As String
+        Const Importe1Maximo As Decimal = CDec(999999.99)
+        Const Importe2Maximo As Decimal = CDec(99999.99)
+        Const Importe3Maximo As Decimal = CDec(99999.99)
 
         idCliente = CS_Parameter_System.GetIntegerAsInteger(Parametros.EMPRESA_PAGOSEDUC_NUMERO)
         If idCliente = 0 Then
+            Return False
+        End If
+        If ImporteTotal1 > Importe1Maximo Then
+            MessageBox.Show($"El importe del 1er. vencimiento de la factura ({FormatCurrency(ImporteTotal1)}) es mayor al máximo permitido por el código SEPSA ({FormatCurrency(Importe1Maximo)}).{vbCrLf}{vbCrLf}Titular: {ApellidoNombre}", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Return False
+        End If
+        If ImporteTotal2.HasValue AndAlso ImporteTotal2.Value > Importe2Maximo Then
+            MessageBox.Show($"El importe del 2do. vencimiento de la factura ({FormatCurrency(ImporteTotal2)}) es mayor al máximo permitido por el código SEPSA ({FormatCurrency(Importe2Maximo)}).{vbCrLf}{vbCrLf}Titular: {ApellidoNombre}", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Return False
+        End If
+        If ImporteTotal3.HasValue AndAlso ImporteTotal3.Value > Importe2Maximo Then
+            MessageBox.Show($"El importe del 3er. vencimiento de la factura ({FormatCurrency(ImporteTotal3)}) es mayor al máximo permitido por el código SEPSA ({FormatCurrency(Importe3Maximo)}).{vbCrLf}{vbCrLf}Titular: {ApellidoNombre}", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Return False
         End If
 
@@ -55,7 +70,7 @@
 
     Private Function ObtenerDigitosVerificadores(ByVal value As String) As String
         Dim secuencia As String
-        Dim sumaProductos As Integer = 0
+        Dim sumaProductos As Integer
         Dim primerDigito As Integer
         Dim segundoDigito As Integer
 

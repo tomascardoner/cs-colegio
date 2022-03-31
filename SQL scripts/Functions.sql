@@ -87,3 +87,27 @@ BEGIN
 	RETURN @ReturnValue
 END
 GO
+
+
+
+-- =============================================
+-- Author:		Tomás A. Cardoner
+-- Create date: 2022-03-17
+-- Description:	Devuelve un número de teléfono formateado
+-- =============================================
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.udfObtenerTelefonoConFormato') AND type = N'FN')
+	DROP FUNCTION dbo.udfObtenerTelefonoConFormato
+GO
+
+CREATE FUNCTION udfObtenerTelefonoConFormato 
+(	
+	@Telefono varchar(50)
+) RETURNS money AS
+BEGIN
+	DECLARE @ReturnValue varchar(50)
+
+	SET @ReturnValue = REPLACE(REPLACE(REPLACE(@Telefono, ' ', ''), '-', ''), '+', '')
+
+	RETURN @ReturnValue
+END
+GO

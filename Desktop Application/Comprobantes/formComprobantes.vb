@@ -519,7 +519,9 @@
                     End Try
 
                     If ComprobanteActual.ComprobanteTipo.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso (ComprobanteActual.ComprobanteTipo.CodigoAFIP = Constantes.ComprobanteCodigoAfipFacturaA OrElse ComprobanteActual.ComprobanteTipo.CodigoAFIP = Constantes.ComprobanteCodigoAfipFacturaB OrElse ComprobanteActual.ComprobanteTipo.CodigoAFIP = Constantes.ComprobanteCodigoAfipFacturaC) Then
-                        ComprobanteActual.CalcularCodigoBarrasSepsa(ComprobanteActual.DocumentoNumero)
+                        If Not ComprobanteActual.CalcularCodigoBarrasSepsa(ComprobanteActual.DocumentoNumero) Then
+                            Exit Sub
+                        End If
                     End If
                 End If
             Next

@@ -277,9 +277,7 @@ Module ModuloComprobantes
             ComprobanteCabecera.ImporteTotal3 = Nothing
         End If
 
-        ComprobanteCabecera.CalcularCodigoBarrasSepsa(TitularComprobante.DocumentoNumero)
-
-        Return True
+        Return ComprobanteCabecera.CalcularCodigoBarrasSepsa(TitularComprobante.DocumentoNumero)
     End Function
 
     Private Function GenerarComprobanteCabecera(ByVal FechaEmision As Date, ByVal FechaVencimiento1 As Date, ByVal FechaVencimiento2 As Date?, ByVal FechaVencimiento3 As Date?, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByRef TitularComprobante As Entidad, ByVal LeyendaAlumno As String, ByVal TitularComprobanteMayusculas As Boolean) As Comprobante
