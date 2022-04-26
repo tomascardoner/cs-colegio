@@ -144,7 +144,7 @@ Public Class formComprobantesTransmitirPagosEduc
         End Try
 
         CodigoEmpresa = CS_Parameter_System.GetIntegerAsInteger(Parametros.EMPRESA_PAGOSEDUC_NUMERO, 0)
-        FileName = "FAC" & codigoEmpresa.ToString.PadLeft(5, "0"c) & "." & DateTime.Today.ToString("ddMMyy")
+        FileName = $"FAC{codigoEmpresa.ToString.PadLeft(5, "0"c)}.{DateTime.Today:ddMMyy}"
 
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
@@ -231,7 +231,7 @@ Public Class formComprobantesTransmitirPagosEduc
             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error el acceder o crear la carpeta especificada.")
         End Try
 
-        FileName = "Archivo Base" & "." & DateTime.Today.ToString("ddMMyy") & ".xlsx"
+        FileName = $"Base.{codigoEmpresa.ToString.PadLeft(5, "0"c)}.xlsx"
 
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
