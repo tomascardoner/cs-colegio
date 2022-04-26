@@ -5,7 +5,7 @@ Public Class formComprobantesTransmitirPagosEduc
 
 #Region "Declarations"
 
-    Private dbContext As New CSColegioContext(True)
+    Private ReadOnly dbContext As New CSColegioContext(True)
 
     Private Class GridDataRow
         Public Property IDComprobante As Integer
@@ -97,8 +97,9 @@ Public Class formComprobantesTransmitirPagosEduc
                 Exit Sub
             End If
 
-            If ExportarComprobantes() Then
-                If ExportArchivoBase() Then
+            Dim codigoEmpresa As Integer = CS_Parameter_System.GetIntegerAsInteger(Parametros.EMPRESA_PAGOSEDUC_NUMERO, 0)
+            If ExportarComprobantes(codigoEmpresa) Then
+                If ExportArchivoBase(codigoEmpresa) Then
 
                 End If
             End If
@@ -110,7 +111,7 @@ Public Class formComprobantesTransmitirPagosEduc
 
 #Region "Extra stuff"
 
-    Private Function ExportarComprobantes() As Boolean
+    Private Function ExportarComprobantes(ByVal codigoEmpresa As Integer) As Boolean
         Dim DetalleTextStream As String
 
         Dim ComprobanteActual As Comprobante
@@ -119,8 +120,6 @@ Public Class formComprobantesTransmitirPagosEduc
 
         Dim FolderName As String = ""
         Dim FileName As String
-
-        Dim CodigoEmpresa As Integer
 
         ' Obtengo y verifico si existe la carpeta de destino de los archivos a exportar
         Try
@@ -145,7 +144,7 @@ Public Class formComprobantesTransmitirPagosEduc
         End Try
 
         CodigoEmpresa = CS_Parameter_System.GetIntegerAsInteger(Parametros.EMPRESA_PAGOSEDUC_NUMERO, 0)
-        FileName = "FAC" & CodigoEmpresa.ToString.PadLeft(5, "0"c) & "." & DateTime.Today.ToString("ddMMyy")
+        FileName = "FAC" & codigoEmpresa.ToString.PadLeft(5, "0"c) & "." & DateTime.Today.ToString("ddMMyy")
 
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
@@ -199,7 +198,7 @@ Public Class formComprobantesTransmitirPagosEduc
         Return True
     End Function
 
-    Private Function ExportArchivoBase() As Boolean
+    Private Function ExportArchivoBase(ByVal codigoEmpresa As Integer) As Boolean
         Dim FolderName As String = ""
         Dim FileName As String
 

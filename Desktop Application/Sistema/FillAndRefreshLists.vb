@@ -718,11 +718,11 @@
         End If
 
         If AgregarItem_Todos Then
-            Dim UnspecifiedItem As New ChequeMotivoRechazo
-            UnspecifiedItem.IDChequeMotivoRechazo = 0
-            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_ALL_MALE
-            UnspecifiedItem.NombreCompleto = My.Resources.STRING_ITEM_ALL_MALE
-            localList.Insert(0, UnspecifiedItem)
+            localList.Insert(0, New ChequeMotivoRechazo With {
+                .IDChequeMotivoRechazo = 0,
+                .Nombre = My.Resources.STRING_ITEM_ALL_MALE,
+                .NombreCompleto = My.Resources.STRING_ITEM_ALL_MALE
+            })
         End If
 
         ComboBoxControl.DataSource = localList

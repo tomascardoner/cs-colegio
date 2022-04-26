@@ -376,7 +376,7 @@ Public Class formComprobante
 #Region "Main Toolbar"
 
     Private Sub buttonEditar_Click(sender As Object, e As EventArgs) Handles buttonEditar.Click
-        If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDITAR) Then
+        If Permisos.VerificarPermiso(Permisos.COMPROBANTE_EDITAR) Then
             mEditMode = True
             ChangeMode()
         End If
