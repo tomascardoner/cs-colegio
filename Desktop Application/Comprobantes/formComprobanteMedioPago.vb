@@ -1,15 +1,18 @@
 ﻿Public Class formComprobanteMedioPago
 
 #Region "Declarations"
+
     Private mComprobanteActual As Comprobante
     Private mComprobanteMedioPagoActual As ComprobanteMedioPago
     Private mMedioPagoCurrent As MedioPago
 
     Private mParentEditMode As Boolean = False
     Private mEditMode As Boolean = False
+
 #End Region
 
 #Region "Form stuff"
+
     Friend Sub LoadAndShow(ByVal ParentEditMode As Boolean, ByVal EditMode As Boolean, ByRef ParentForm As Form, ByRef ComprobanteActual As Comprobante, ByRef ComprobanteMedioPagoActual As ComprobanteMedioPago)
         mParentEditMode = ParentEditMode
         mEditMode = EditMode
@@ -17,17 +20,12 @@
         mComprobanteActual = ComprobanteActual
         mComprobanteMedioPagoActual = ComprobanteMedioPagoActual
 
-        'Me.MdiParent = pFormMDIMain
         CardonerSistemas.Forms.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
         SetDataFromObjectToControls()
 
         ChangeMode()
         Me.ShowDialog(ParentForm)
-        'If Me.WindowState = FormWindowState.Minimized Then
-        '    Me.WindowState = FormWindowState.Normal
-        'End If
-        'Me.Focus()
     End Sub
 
     Private Sub ChangeMode()
@@ -59,9 +57,11 @@
         mMedioPagoCurrent = Nothing
         Me.Dispose()
     End Sub
+
 #End Region
 
 #Region "Load and Set Data"
+
     Friend Sub SetDataFromObjectToControls()
         With mComprobanteMedioPagoActual
             CardonerSistemas.ComboBox.SetSelectedValue(comboboxMedioPago, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDMedioPago, CByte(0))
@@ -133,9 +133,11 @@
             .Importe = currencytextboxImporte.DecimalValue
         End With
     End Sub
+
 #End Region
 
 #Region "Controls behavior"
+
     Private Sub FormKeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
         Select Case e.KeyChar
             Case Microsoft.VisualBasic.ChrW(Keys.Return)

@@ -695,9 +695,10 @@
         End If
 
         If ShowUnspecifiedItem Then
-            Dim UnspecifiedItem As New MedioPago
-            UnspecifiedItem.IDMedioPago = 0
-            UnspecifiedItem.Nombre = My.Resources.STRING_ITEM_NOT_SPECIFIED
+            Dim UnspecifiedItem As New MedioPago With {
+                .IDMedioPago = 0,
+                .Nombre = My.Resources.STRING_ITEM_NOT_SPECIFIED
+            }
             listMediosPago.Insert(0, UnspecifiedItem)
         End If
 
