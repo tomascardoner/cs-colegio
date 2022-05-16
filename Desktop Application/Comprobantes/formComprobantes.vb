@@ -273,7 +273,7 @@
                 End If
 
                 ' Entidad
-                If Not textboxEntidad.Tag Is Nothing Then
+                If textboxEntidad.Tag IsNot Nothing Then
                     mReportSelectionFormula &= String.Format(" AND {{Comprobante.IDEntidad}} = {0}", CInt(textboxEntidad.Tag))
                     mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.IDEntidad = CInt(textboxEntidad.Tag)).ToList
                 End If
