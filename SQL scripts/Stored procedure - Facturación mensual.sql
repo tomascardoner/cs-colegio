@@ -25,14 +25,18 @@ CREATE PROCEDURE uspFacturacionMensual
 
 	BEGIN
 		SELECT YEAR(FechaEmision) AS Anio, MONTH(FechaEmision) As Mes,
-			SUM(CASE IDComprobanteTipo WHEN 1 THEN ImporteTotal1 ELSE 0 END) Facturas,
-			SUM(CASE IDComprobanteTipo WHEN 12 THEN ImporteTotal1 ELSE 0 END) NotasDeCredito,
-			SUM(CASE IDComprobanteTipo WHEN 14 THEN ImporteTotal1 ELSE 0 END) NotasDeDebito
-				FROM Comprobante
-				WHERE (@AnioDesde IS NULL OR YEAR(FechaEmision) >= @AnioDesde)
-					AND (@MesDesde IS NULL OR MONTH(FechaEmision) >= @MesDesde)
-					AND (@AnioHasta IS NULL OR MONTH(FechaEmision) <= @AnioHasta)
-					AND (@MesHasta IS NULL OR MONTH(FechaEmision) <= @MesHasta)
+			CAST(FORMAT(SUM(Factura), 'N', 'es-AR') as varchar(20)) AS Facturas,
+			CAST(FORMAT(SUM(NotaDebito), 'N', 'es-AR') as varchar(20)) AS NotasDebito,
+			CAST(FORMAT(SUM(NotaCredito), 'N', 'es-AR') as varchar(20)) AS NotasCredito,
+			CAST(FORMAT(SUM(Factura) + SUM(NotaDebito) - SUM(NotaCredito), 'N', 'es-AR') as varchar(20)) AS Neto
+				FROM (SELECT FechaEmision, (CASE IDComprobanteTipo WHEN 1 THEN ImporteTotal1 ELSE 0 END) AS Factura, (CASE IDComprobanteTipo WHEN 14 THEN ImporteTotal1 ELSE 0 END) AS NotaDebito, (CASE IDComprobanteTipo WHEN 12 THEN ImporteTotal1 ELSE 0 END) AS NotaCredito
+						FROM Comprobante
+						WHERE Comprobante.FechaHoraAnulacion IS NULL AND IDComprobanteTipo IN (1, 12,14)
+							AND (@AnioDesde IS NULL OR YEAR(FechaEmision) >= @AnioDesde)
+							AND (@MesDesde IS NULL OR MONTH(FechaEmision) >= @MesDesde)
+							AND (@AnioHasta IS NULL OR MONTH(FechaEmision) <= @AnioHasta)
+							AND (@MesHasta IS NULL OR MONTH(FechaEmision) <= @MesHasta)
+						) AS SubQuery
 				GROUP BY YEAR(FechaEmision), MONTH(FechaEmision)
 				ORDER BY Anio, Mes
 	END
