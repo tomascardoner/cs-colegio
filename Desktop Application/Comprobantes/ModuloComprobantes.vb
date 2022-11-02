@@ -209,10 +209,11 @@ Module ModuloComprobantes
 
             listComprobantes.Add(ComprobanteCabecera)
         Else
-            ' Busco si existe un Comprobante de esta Entidad Titular en la lista de Comprobantes (por otro Alumno)
-            ComprobanteCabecera = listComprobantes.Find(Function(fc) fc.IDEntidad = TitularComprobante.IDEntidad)
-            If ComprobanteCabecera Is Nothing Then
-                ' No existe la Factura, la creo.
+            ' Busco si existen Comprobantes de esta Entidad Titular en la lista de Comprobantes (por otro Alumno)
+            Dim listComprobantesDelTitular As List(Of Comprobante)
+            listComprobantesDelTitular = listComprobantes.Where(Function(fc) fc.IDEntidad = TitularComprobante.IDEntidad).ToList()
+            If listComprobantesDelTitular.Count = 0 Then
+                ' No existen facturas, creo una.
                 ComprobanteCabecera = GenerarComprobanteCabecera(FechaEmision, FechaVencimiento1, FechaVencimiento2, FechaVencimiento3, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, Alumno.FacturaLeyenda, TitularComprobanteMayusculas)
                 ComprobanteDetalleActual = GenerarComprobanteDetalle(ComprobanteCabecera, Alumno, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, DescuentoRedondeo, MuestraErrores)
                 If ComprobanteDetalleActual Is Nothing Then
@@ -223,35 +224,43 @@ Module ModuloComprobantes
                 ComprobanteCabecera.ImporteTotal1 = ComprobanteCabecera.ImporteSubtotal
                 listComprobantes.Add(ComprobanteCabecera)
             Else
-                ' Ya existe un Comprobante de ese Titular
-                If dbContext.Entidad.Find(ComprobanteCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
-                    ' El Alumno que ya está en la Factura especifica que se le facture individualmente
-                    ComprobanteCabecera = GenerarComprobanteCabecera(FechaEmision, FechaVencimiento1, FechaVencimiento2, FechaVencimiento3, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, Alumno.FacturaLeyenda, TitularComprobanteMayusculas)
-                    ComprobanteDetalleActual = GenerarComprobanteDetalle(ComprobanteCabecera, Alumno, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, DescuentoRedondeo, MuestraErrores)
-                    If ComprobanteDetalleActual Is Nothing Then
-                        Return False
-                    End If
-                    ComprobanteCabecera.ImporteSubtotal = ComprobanteDetalleActual.PrecioTotal
-                    ComprobanteCabecera.ImporteImpuesto = 0
-                    ComprobanteCabecera.ImporteTotal1 = ComprobanteCabecera.ImporteSubtotal
-                    listComprobantes.Add(ComprobanteCabecera)
-                Else
-                    ' No hay restricciones, así que sólo agrego un item al Detalle
-                    ComprobanteDetalleActual = GenerarComprobanteDetalle(ComprobanteCabecera, Alumno, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, DescuentoRedondeo, MuestraErrores)
-                    If ComprobanteDetalleActual Is Nothing Then
-                        Return False
-                    End If
-                    If Not Alumno.FacturaLeyenda Is Nothing Then
-                        If ComprobanteCabecera.Leyenda Is Nothing Then
-                            ComprobanteCabecera.Leyenda = Alumno.FacturaLeyenda
+                ' Existen Comprobantes de ese Titular
+                For facturaIndex As Integer = 0 To listComprobantesDelTitular.Count - 1
+                    ComprobanteCabecera = listComprobantesDelTitular(facturaIndex)
+                    If dbContext.Entidad.Find(ComprobanteCabecera.ComprobanteDetalle.First.IDEntidad).FacturaIndividual Then
+                        ' El Alumno que ya está en la Factura especifica que se le facture individualmente
+                        ' así que seguimos con la siguiente si es que hay más facturas y si no, creamos una nueva
+                        If facturaIndex = listComprobantesDelTitular.Count - 1 Then
+                            ComprobanteCabecera = GenerarComprobanteCabecera(FechaEmision, FechaVencimiento1, FechaVencimiento2, FechaVencimiento3, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, Alumno.FacturaLeyenda, TitularComprobanteMayusculas)
+                            ComprobanteDetalleActual = GenerarComprobanteDetalle(ComprobanteCabecera, Alumno, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, DescuentoRedondeo, MuestraErrores)
+                            If ComprobanteDetalleActual Is Nothing Then
+                                Return False
+                            End If
+                            ComprobanteCabecera.ImporteSubtotal = ComprobanteDetalleActual.PrecioTotal
+                            ComprobanteCabecera.ImporteImpuesto = 0
+                            ComprobanteCabecera.ImporteTotal1 = ComprobanteCabecera.ImporteSubtotal
+                            listComprobantes.Add(ComprobanteCabecera)
                         Else
-                            ComprobanteCabecera.Leyenda &= vbCrLf & Alumno.FacturaLeyenda
+                            Continue For
                         End If
+                    Else
+                        ' No hay restricciones, así que sólo agrego un item al Detalle
+                        ComprobanteDetalleActual = GenerarComprobanteDetalle(ComprobanteCabecera, Alumno, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, DescuentoRedondeo, MuestraErrores)
+                        If ComprobanteDetalleActual Is Nothing Then
+                            Return False
+                        End If
+                        If Not Alumno.FacturaLeyenda Is Nothing Then
+                            If ComprobanteCabecera.Leyenda Is Nothing Then
+                                ComprobanteCabecera.Leyenda = Alumno.FacturaLeyenda
+                            Else
+                                ComprobanteCabecera.Leyenda &= vbCrLf & Alumno.FacturaLeyenda
+                            End If
+                        End If
+                        ComprobanteCabecera.ImporteSubtotal += ComprobanteDetalleActual.PrecioTotal
+                        ComprobanteCabecera.ImporteImpuesto = 0
+                        ComprobanteCabecera.ImporteTotal1 = ComprobanteCabecera.ImporteSubtotal
                     End If
-                    ComprobanteCabecera.ImporteSubtotal += ComprobanteDetalleActual.PrecioTotal
-                    ComprobanteCabecera.ImporteImpuesto = 0
-                    ComprobanteCabecera.ImporteTotal1 = ComprobanteCabecera.ImporteSubtotal
-                End If
+                Next
             End If
         End If
 

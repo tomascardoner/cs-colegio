@@ -230,6 +230,7 @@
 #End Region
 
 #Region "Main Toolbar"
+
     Private Sub Seleccionar() Handles datagridviewMain.DoubleClick, buttonSeleccionar.Click
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ninguna Entidad para seleccionar.", vbInformation, My.Application.Info.Title)
@@ -243,13 +244,15 @@
         Me.DialogResult = Windows.Forms.DialogResult.Cancel
     End Sub
 
-    Private Sub datagridviewMain_KeyPress(sender As Object, e As KeyPressEventArgs) Handles datagridviewMain.KeyPress
-        If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Return) Then
-            Seleccionar()
-        ElseIf e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Return) Then
-            Cancelar()
+    Private Sub DatagridviewMain_KeyDown(sender As Object, e As KeyEventArgs) Handles datagridviewMain.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            buttonSeleccionar.PerformClick()
+            e.SuppressKeyPress = True
+        ElseIf e.KeyCode = Keys.Escape Then
+            buttonCancelar.PerformClick()
         End If
     End Sub
+
 #End Region
 
 End Class

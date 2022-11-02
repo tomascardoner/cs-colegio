@@ -232,29 +232,32 @@
         End With
     End Sub
 
-    Private Sub buttonPaso1Cancelar_Click() Handles buttonPaso1Cancelar.Click
+    Private Sub Paso1Cancelar_Click() Handles buttonPaso1Cancelar.Click
         Me.Close()
     End Sub
 
-    Private Sub buttonPaso1Siguiente_Click() Handles buttonPaso1Siguiente.Click
+    Private Sub Paso1Siguiente_Click() Handles buttonPaso1Siguiente.Click
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
 
         If VerificarEntidades() Then
             Dim listAlumno_AnioLectivoCurso_AFacturar As New List(Of Alumno_AnioLectivoCurso_AFacturar)
-            Dim Alumno_AnioLectivoCurso_AFacturarNuevo As Alumno_AnioLectivoCurso_AFacturar
 
             listFacturas = New List(Of Comprobante)
 
             For Each GridRowData_AlumnoCursoActual As GridRowData_AlumnoCurso In listAlumnosCursos
                 If GridRowData_AlumnoCursoActual.Seleccionado Then
-                    Alumno_AnioLectivoCurso_AFacturarNuevo = New Alumno_AnioLectivoCurso_AFacturar
-                    Alumno_AnioLectivoCurso_AFacturarNuevo.Alumno = GridRowData_AlumnoCursoActual.Entidad
-                    Alumno_AnioLectivoCurso_AFacturarNuevo.AnioLectivoCurso_AFacturar = GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo
-
-                    listAlumno_AnioLectivoCurso_AFacturar.Add(Alumno_AnioLectivoCurso_AFacturarNuevo)
+                    listAlumno_AnioLectivoCurso_AFacturar.Add(New Alumno_AnioLectivoCurso_AFacturar With {
+                        .Alumno = GridRowData_AlumnoCursoActual.Entidad,
+                        .AnioLectivoCurso_AFacturar = GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo
+                    })
                 End If
             Next
+            If listAlumno_AnioLectivoCurso_AFacturar.Count = 0 Then
+                Me.Cursor = Cursors.Default
+                MessageBox.Show("No se ha seleccionado ningún Alumno.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Return
+            End If
 
             If ModuloComprobantes.GenerarComprobantes(DateTime.Today, DateTime.Today, Nothing, Nothing, mFechaServicioDesde, mFechaServicioHasta, Constantes.COMPROBANTE_CONCEPTO_SERVICIOS, Nothing, mAnioLectivoProximo, 0, True, listAlumno_AnioLectivoCurso_AFacturar, listFacturas) Then
                 datagridviewFacturaCabecera.AutoGenerateColumns = False
@@ -296,9 +299,19 @@
     End Sub
 
     Private Sub buttonPaso2Finalizar_Click() Handles buttonPaso2Finalizar.Click
-        If MsgBox("¿Confirma la generación de la(s) Factura(s)?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
+        Dim mensajeConfirmacion As String
+        Dim mensajeGeneracion As String
+
+        If listFacturas.Count = 1 Then
+            mensajeConfirmacion = "¿Confirma la generación de la Factura?"
+            mensajeGeneracion = $"Se ha generado la Factura.{vbCrLf}{vbCrLf}A continuación, se enviará a la AFIP para obtener el C.A.E. correspondiente."
+        Else
+            mensajeConfirmacion = "¿Confirma la generación de las Facturas?"
+            mensajeGeneracion = $"Se han generado {listFacturas.Count} Facturas.{vbCrLf}{vbCrLf}A continuación, se enviarán a la AFIP para obtener los C.A.E. correspondientes."
+        End If
+        If MsgBox(mensajeConfirmacion, CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
             If GuardarCambios() Then
-                MsgBox(String.Format("Se han generado {1} Facturas.{0}{0}A continuación, se enviarán a la AFIP para obtener el C.A.E. correspondiente.", vbCrLf, listFacturas.Count), MsgBoxStyle.Information, My.Application.Info.Title)
+                MessageBox.Show(mensajeGeneracion, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 TransmitirComprobantes()
                 Me.Close()
             End If
@@ -310,15 +323,15 @@
 #Region "Finalizar - Generación"
 
     Private Function GuardarCambios() As Boolean
-        Try
-            Me.Cursor = Cursors.WaitCursor
-            Application.DoEvents()
+        Me.Cursor = Cursors.WaitCursor
+        Application.DoEvents()
 
-            Using dbContext As New CSColegioContext(True)
-                Dim EntidadActual As Entidad
-                Dim AnioLectivoCursoActual As AnioLectivoCurso
+        Using dbContext As New CSColegioContext(True)
+            Dim EntidadActual As Entidad
+            Dim AnioLectivoCursoActual As AnioLectivoCurso
 
-                ' Agrego los Alumnos a los Cursos indicados
+            ' Agrego los Alumnos a los Cursos indicados
+            Try
                 For Each GridRowData_AlumnoCursoActual As GridRowData_AlumnoCurso In listAlumnosCursos
                     If GridRowData_AlumnoCursoActual.Seleccionado Then
                         EntidadActual = dbContext.Entidad.Find(GridRowData_AlumnoCursoActual.Entidad.IDEntidad)
@@ -326,24 +339,38 @@
                         AnioLectivoCursoActual.Entidades.Add(EntidadActual)
                     End If
                 Next
+                dbContext.SaveChanges()
 
-                ' Agrego las Facturas generadas
+            Catch ex As Exception
+                Me.Cursor = Cursors.Default
+                Dim mensaje As String
+                If listAlumnosCursos.Count = 1 Then
+                    mensaje = "Error al agregar el alumno al curso indicado. Verifique en el curso correspondiente que se haya agregado el alumno."
+                Else
+                    mensaje = "Error al agregar los alumnos a los cursos indicados. Verifique en los cursos correspondientes que se hayan agregado los alumnos."
+                End If
+                CardonerSistemas.ErrorHandler.ProcessError(ex, mensaje)
+            End Try
+
+            ' Agrego las Facturas generadas
+            Try
                 dbContext.Comprobante.AddRange(listFacturas)
 
                 dbContext.SaveChanges()
-            End Using
 
-            ' Refresco la lista de Comprobantes para mostrar los cambios
-            pFillAndRefreshLists.Comprobantes(0)
+            Catch ex As Exception
+                Me.Cursor = Cursors.Default
+                CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al guardar las Facturas Generadas.")
+                Return False
+            End Try
+        End Using
 
-            Me.Cursor = Cursors.Default
-            Return True
+        ' Refresco la lista de Comprobantes para mostrar los cambios
+        pFillAndRefreshLists.Comprobantes(0)
 
-        Catch ex As Exception
-            Me.Cursor = Cursors.Default
-            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al guardar las Facturas Generadas")
-            Return False
-        End Try
+        Me.Cursor = Cursors.Default
+        Return True
+
     End Function
 
     Private Sub TransmitirComprobantes()

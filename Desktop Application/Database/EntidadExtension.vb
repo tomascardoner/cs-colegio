@@ -172,12 +172,12 @@
         If agregarAlCurso Then
             ' Verifico que el Alumno no esté cargado en algún Curso para el mismo Año Lectivo
             If AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = anioLectivo).Count > 0 Then
-                correccionDescripcion &= "El Alumno/a ya está cargado en un curso para el Año Lectivo que se va a facturar." & vbCrLf
+                correccionDescripcion &= "El Alumno ya está cargado en un curso para el Año Lectivo que se va a facturar." & vbCrLf
             End If
         Else
             ' Verifico que el Alumno no esté cargado en más de un Curso para el mismo Año Lectivo
             If AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = anioLectivo).Count > 1 Then
-                correccionDescripcion &= "El Alumno/a está cargado en más de un curso para el Año Lectivo que se va a facturar." & vbCrLf
+                correccionDescripcion &= "El Alumno está cargado en más de un curso para el Año Lectivo que se va a facturar." & vbCrLf
             End If
         End If
 
@@ -187,7 +187,7 @@
         Else
             If EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO Then
                 ' Se le factura al Alumno, verifico que tenga los datos completos
-                datosCompletosVerificados = VerificarDatosCompletosParaEmitirComprobante("El Alumno/a", correccionDescripcion)
+                datosCompletosVerificados = VerificarDatosCompletosParaEmitirComprobante("El Alumno", correccionDescripcion)
             End If
 
             If EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE Or EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
