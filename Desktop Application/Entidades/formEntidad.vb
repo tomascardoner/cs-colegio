@@ -760,7 +760,7 @@
 
             datagridviewComprobantes.Enabled = False
 
-            formComprobante.LoadAndShow(False, Me, CType(datagridviewComprobantes.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).IDComprobante)
+            FormComprobante.LoadAndShow(False, Me, CType(datagridviewComprobantes.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).IDComprobante)
 
             datagridviewComprobantes.Enabled = True
 

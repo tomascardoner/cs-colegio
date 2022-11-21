@@ -190,7 +190,7 @@ Module ModuloComprobantes
     End Function
 
     Private Function GenerarComprobante(ByRef dbContext As CSColegioContext, ByRef listComprobantes As List(Of Comprobante), ByVal FechaEmision As Date, ByVal InteresRedondeo As Short, ByVal FechaVencimiento1 As Date, ByVal FechaVencimiento2 As Date?, ByVal Vencimiento2PorcentajeInteres As Decimal, ByVal FechaVencimiento3 As Date?, ByVal Vencimiento3PorcentajeInteres As Decimal, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByVal TitularComprobante As Entidad, ByVal TitularComprobanteMayusculas As Boolean, ByVal Alumno As Entidad, ByVal AnioLectivoCursoActual As AnioLectivoCurso, ByVal ArticuloActual As Articulo, ByVal AnioLectivoAFacturar As Short, ByVal MesAFacturar As Byte, ByVal DescuentoRedondeo As Short, ByVal MuestraErrores As Boolean) As Boolean
-        Dim ComprobanteCabecera As Comprobante
+        Dim ComprobanteCabecera As Comprobante = Nothing
         Dim ComprobanteDetalleActual As ComprobanteDetalle
 
         Dim Vencimiento2Importe As Decimal
@@ -249,7 +249,7 @@ Module ModuloComprobantes
                         If ComprobanteDetalleActual Is Nothing Then
                             Return False
                         End If
-                        If Not Alumno.FacturaLeyenda Is Nothing Then
+                        If Alumno.FacturaLeyenda IsNot Nothing Then
                             If ComprobanteCabecera.Leyenda Is Nothing Then
                                 ComprobanteCabecera.Leyenda = Alumno.FacturaLeyenda
                             Else
@@ -259,6 +259,7 @@ Module ModuloComprobantes
                         ComprobanteCabecera.ImporteSubtotal += ComprobanteDetalleActual.PrecioTotal
                         ComprobanteCabecera.ImporteImpuesto = 0
                         ComprobanteCabecera.ImporteTotal1 = ComprobanteCabecera.ImporteSubtotal
+                        Exit For
                     End If
                 Next
             End If
@@ -309,10 +310,10 @@ Module ModuloComprobantes
             End If
 
             ' Tipo y Número de Documento
-            If Not TitularComprobante.FacturaIDDocumentoTipo Is Nothing Then
+            If TitularComprobante.FacturaIDDocumentoTipo IsNot Nothing Then
                 .IDDocumentoTipo = TitularComprobante.FacturaIDDocumentoTipo.Value
                 .DocumentoNumero = TitularComprobante.FacturaDocumentoNumero
-            ElseIf Not TitularComprobante.IDDocumentoTipo Is Nothing Then
+            ElseIf TitularComprobante.IDDocumentoTipo IsNot Nothing Then
                 .IDDocumentoTipo = TitularComprobante.IDDocumentoTipo.Value
                 .DocumentoNumero = TitularComprobante.DocumentoNumero
             Else
@@ -334,7 +335,7 @@ Module ModuloComprobantes
             End If
 
             .Leyenda = TitularComprobante.FacturaLeyenda
-            If Not LeyendaAlumno Is Nothing Then
+            If LeyendaAlumno IsNot Nothing Then
                 If .Leyenda Is Nothing Then
                     .Leyenda = LeyendaAlumno
                 Else
@@ -384,7 +385,7 @@ Module ModuloComprobantes
             AnioLectivoCuotaActual = AnioLectivoCursoActual.Curso.CuotaTipo.AnioLectivoCuotas.Where(Function(alci) alci.AnioLectivo = AnioLectivo And alci.MesInicio <= MesAFacturar).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
         End If
 
-        If Not AnioLectivoCuotaActual Is Nothing Then
+        If AnioLectivoCuotaActual IsNot Nothing Then
             With ComprobanteDetalleActual
                 .Indice = CByte(ComprobanteCabecera.ComprobanteDetalle.Count + 1)
                 .IDArticulo = ArticuloActual.IDArticulo
@@ -603,10 +604,11 @@ Module ModuloComprobantes
 
                         ' Comprobantes Aplicados
                         For Each ComprobanteAplicacionActual As ComprobanteAplicacion In ComprobanteActual.ComprobanteAplicacion_Aplicados
-                            Dim AFIP_ComprobanteAsociado As New CardonerSistemas.AfipWebServices.ComprobanteAsociado
-                            AFIP_ComprobanteAsociado.TipoComprobante = ComprobanteAplicacionActual.ComprobanteAplicado.ComprobanteTipo.CodigoAFIP
-                            AFIP_ComprobanteAsociado.ComprobanteNumero = CInt(ComprobanteAplicacionActual.ComprobanteAplicado.Numero)
-                            AFIP_ComprobanteAsociado.PuntoVenta = CShort(ComprobanteAplicacionActual.ComprobanteAplicado.PuntoVenta)
+                            Dim AFIP_ComprobanteAsociado As New CardonerSistemas.AfipWebServices.ComprobanteAsociado With {
+                                .TipoComprobante = ComprobanteAplicacionActual.ComprobanteAplicado.ComprobanteTipo.CodigoAFIP,
+                                .ComprobanteNumero = CInt(ComprobanteAplicacionActual.ComprobanteAplicado.Numero),
+                                .PuntoVenta = CShort(ComprobanteAplicacionActual.ComprobanteAplicado.PuntoVenta)
+                            }
                             .ComprobantesAsociados.Add(AFIP_ComprobanteAsociado)
                         Next
                     End With

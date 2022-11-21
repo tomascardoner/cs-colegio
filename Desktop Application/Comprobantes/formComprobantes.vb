@@ -557,7 +557,7 @@
 
             datagridviewMain.Enabled = False
 
-            formComprobante.LoadAndShow(True, Me, 0)
+            FormComprobante.LoadAndShow(True, Me, 0)
 
             datagridviewMain.Enabled = True
 
@@ -584,7 +584,7 @@
                             Me.Cursor = Cursors.Default
                             MsgBox("No se puede editar este Comprobante porque es de Emisión Electrónica y ya tiene un CAE asignado.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                         Else
-                            formComprobante.LoadAndShow(True, Me, CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData).IDComprobante)
+                            FormComprobante.LoadAndShow(True, Me, CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData).IDComprobante)
                         End If
                     End Using
                 End If
@@ -705,7 +705,7 @@
 
             datagridviewMain.Enabled = False
 
-            formComprobante.LoadAndShow(False, Me, CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData).IDComprobante)
+            FormComprobante.LoadAndShow(False, Me, CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData).IDComprobante)
 
             datagridviewMain.Enabled = True
 

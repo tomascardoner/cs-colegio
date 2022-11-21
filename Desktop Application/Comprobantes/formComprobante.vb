@@ -1,6 +1,6 @@
 ﻿Imports System.Data.Entity.Infrastructure
 
-Public Class formComprobante
+Public Class FormComprobante
 
 #Region "Declarations"
 
@@ -59,8 +59,9 @@ Public Class formComprobante
 
         If mIsNew Then
             ' Es Nuevo
-            mComprobanteActual = New Comprobante
-            mComprobanteActual.FechaEmision = DateAndTime.Today
+            mComprobanteActual = New Comprobante With {
+                .FechaEmision = DateAndTime.Today
+            }
             mdbContext.Comprobante.Add(mComprobanteActual)
         Else
             mComprobanteActual = mdbContext.Comprobante.Find(IDComprobante)
@@ -93,7 +94,7 @@ Public Class formComprobante
         Else
             buttonAFIP.Visible = (mEditMode = False And mComprobanteTipoActual.EmisionElectronica And mComprobanteActual.IDUsuarioAnulacion Is Nothing)
             menuitemAFIP_ObtenerCAE.Enabled = (mComprobanteActual.CAE Is Nothing)
-            menuitemAFIP_VerificarDatos.Enabled = (Not mComprobanteActual.CAE Is Nothing)
+            menuitemAFIP_VerificarDatos.Enabled = (mComprobanteActual.CAE IsNot Nothing)
         End If
         buttonGuardar.Visible = mEditMode
         buttonCancelar.Visible = mEditMode
@@ -148,7 +149,7 @@ Public Class formComprobante
         datagridviewMediosPago.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFont
     End Sub
 
-    Private Sub formComprobante_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub Me_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         mdbContext.Dispose()
         mdbContext = Nothing
         mComprobanteActual = Nothing
@@ -181,7 +182,7 @@ Public Class formComprobante
             datetimepickerFechaServicioHasta.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaServicioHasta, datetimepickerFechaServicioHasta)
 
             ' Entidad
-            If Not .Entidad Is Nothing Then
+            If .Entidad IsNot Nothing Then
                 mEntidad = .Entidad
                 textboxEntidad.Text = .Entidad.ApellidoNombre
                 textboxEntidad.Tag = .Entidad.IDEntidad
@@ -211,7 +212,7 @@ Public Class formComprobante
                 textboxFechaHoraEnvioEmail.Text = ""
                 textboxUsuarioEnvioEmail.Text = ""
             Else
-                If Not .FechaHoraEnvioEmail Is Nothing Then
+                If .FechaHoraEnvioEmail IsNot Nothing Then
                     textboxFechaHoraEnvioEmail.Text = .FechaHoraEnvioEmail.Value.ToShortDateString & " " & .FechaHoraEnvioEmail.Value.ToShortTimeString
                 End If
                 textboxUsuarioEnvioEmail.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.UsuarioEnvioEmail.Descripcion)
@@ -261,10 +262,10 @@ Public Class formComprobante
             End If
 
             ' Tipo y Número de Documento
-            If Not mEntidad.FacturaIDDocumentoTipo Is Nothing Then
+            If mEntidad.FacturaIDDocumentoTipo IsNot Nothing Then
                 .IDDocumentoTipo = mEntidad.FacturaIDDocumentoTipo.Value
                 .DocumentoNumero = mEntidad.FacturaDocumentoNumero
-            ElseIf Not mEntidad.IDDocumentoTipo Is Nothing Then
+            ElseIf mEntidad.IDDocumentoTipo IsNot Nothing Then
                 .IDDocumentoTipo = mEntidad.IDDocumentoTipo.Value
                 .DocumentoNumero = mEntidad.DocumentoNumero
             Else
@@ -317,7 +318,7 @@ Public Class formComprobante
         End If
         formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
-        If Not mComprobanteTipoActual Is Nothing Then
+        If mComprobanteTipoActual IsNot Nothing Then
             formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA)
             formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA)
             formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_COMPRA)
@@ -375,18 +376,18 @@ Public Class formComprobante
 
 #Region "Main Toolbar"
 
-    Private Sub buttonEditar_Click(sender As Object, e As EventArgs) Handles buttonEditar.Click
+    Private Sub ButtonEditar_Click(sender As Object, e As EventArgs) Handles buttonEditar.Click
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE_EDITAR) Then
             mEditMode = True
             ChangeMode()
         End If
     End Sub
 
-    Private Sub buttonCerrar_Click(sender As Object, e As EventArgs) Handles buttonCerrar.Click
+    Private Sub ButtonCerrar_Click(sender As Object, e As EventArgs) Handles buttonCerrar.Click
         Me.Close()
     End Sub
 
-    Private Sub buttonGuardar_Click(sender As Object, e As EventArgs) Handles buttonGuardar.Click
+    Private Sub ButtonGuardar_Click(sender As Object, e As EventArgs) Handles buttonGuardar.Click
 
         If Not VerificarDatosComprobante() Then
             Exit Sub
@@ -467,15 +468,15 @@ Public Class formComprobante
         Me.Close()
     End Sub
 
-    Private Sub menuitemAFIP_ObtenerCAE_Click(sender As Object, e As EventArgs) Handles menuitemAFIP_ObtenerCAE.Click
+    Private Sub MenuitemAFIP_ObtenerCAE_Click(sender As Object, e As EventArgs) Handles menuitemAFIP_ObtenerCAE.Click
         AutorizarComprobanteEnAfip(True, True)
     End Sub
 
-    Private Sub menuitemAFIP_ObtenerQR_Click(sender As Object, e As EventArgs) Handles menuitemAFIP_ObtenerQR.Click
+    Private Sub MenuitemAFIP_ObtenerQR_Click(sender As Object, e As EventArgs) Handles menuitemAFIP_ObtenerQR.Click
         ObtenerCodigoQR()
     End Sub
 
-    Private Sub menuitemAFIP_VerificarDatos_Click(sender As Object, e As EventArgs) Handles menuitemAFIP_VerificarDatos.Click
+    Private Sub MenuitemAFIP_VerificarDatos_Click(sender As Object, e As EventArgs) Handles menuitemAFIP_VerificarDatos.Click
         VerificarDatosComprobanteEnAfip()
     End Sub
 
@@ -625,7 +626,7 @@ Public Class formComprobante
 
         entidadActual = mdbContext.Entidad.Find(textboxEntidad.Tag)
 
-        If Not entidadActual.EmitirFacturaA Is Nothing Then
+        If entidadActual.EmitirFacturaA IsNot Nothing Then
             If MsgBox("La Entidad seleccionada, tiene especificado que se le facture otra Entidad." & vbCrLf & vbCrLf & "¿Desea continuar de todos modos?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
                 Return False
             End If
@@ -1203,8 +1204,9 @@ Public Class formComprobante
 
         datagridviewMediosPago.Enabled = False
 
-        Dim ComprobanteMedioPagoNuevo As New ComprobanteMedioPago
-        ComprobanteMedioPagoNuevo.FechaHora = DateTime.Now
+        Dim ComprobanteMedioPagoNuevo As New ComprobanteMedioPago With {
+            .FechaHora = DateTime.Now
+        }
         formComprobanteMedioPago.LoadAndShow(True, True, Me, mComprobanteActual, ComprobanteMedioPagoNuevo)
 
         datagridviewMediosPago.Enabled = True
@@ -1218,9 +1220,10 @@ Public Class formComprobante
         datagridviewMediosPago.Enabled = False
 
         Dim ComprobanteMedioPagoNuevo As New ComprobanteMedioPago
-        Dim ChequeNuevo As New Cheque
-        ChequeNuevo.FechaEmision = DateTime.Today
-        ChequeNuevo.FechaPago = DateTime.Today
+        Dim ChequeNuevo As New Cheque With {
+            .FechaEmision = DateTime.Today,
+            .FechaPago = DateTime.Today
+        }
         ComprobanteMedioPagoNuevo.Cheque = ChequeNuevo
         formCheque.LoadAndShow(True, True, Me, mdbContext, mComprobanteActual, ComprobanteMedioPagoNuevo)
 

@@ -216,7 +216,7 @@
 
         ' Refresco la lista para mostrar los cambios
         If CardonerSistemas.Forms.MdiChildIsLoaded(CType(pFormMDIMain, Form), "formComprobante") Then
-            Dim formComprobante As formComprobante = CType(CardonerSistemas.Forms.MdiChildGetInstance(CType(pFormMDIMain, Form), "formComprobante"), formComprobante)
+            Dim formComprobante As FormComprobante = CType(CardonerSistemas.Forms.MdiChildGetInstance(CType(pFormMDIMain, Form), "formComprobante"), FormComprobante)
             formComprobante.RefreshData_MediosPago(mComprobanteMedioPagoActual.Indice)
             formComprobante = Nothing
         End If

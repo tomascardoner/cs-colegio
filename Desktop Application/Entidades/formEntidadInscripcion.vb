@@ -1,4 +1,4 @@
-﻿Public Class formEntidadInscripcion
+﻿Public Class FormEntidadInscripcion
 
 #Region "Declarations"
     Private mdbContext As New CSColegioContext(True)
@@ -43,7 +43,7 @@
 #End Region
 
 #Region "Load and Set Data"
- 
+
 #End Region
 
 #Region "Controls behavior"
@@ -132,22 +132,22 @@
         ' Cargo la información de los Alumnos y de los Años Lectivos - Cursos de la base de datos
         If EntidadSeleccionada.TipoAlumno Then
             listAlumnosCursos = (From e In mdbContext.Entidad
-                           From alca In e.AniosLectivosCursos
-                           Join ca In mdbContext.Curso On alca.IDCurso Equals ca.IDCurso
-                           Join aa In mdbContext.Anio On ca.IDAnio Equals aa.IDAnio
-                           Join na In mdbContext.Nivel On aa.IDNivel Equals na.IDNivel
-                           Join ta In mdbContext.Turno On ca.IDTurno Equals ta.IDTurno
-                           Where e.IDEntidad = EntidadSeleccionada.IDEntidad And alca.AnioLectivo = mAnioLectivoActual
-                           Select New GridRowData_AlumnoCurso With {.Seleccionado = True, .Entidad = e, .ApellidoNombre = e.ApellidoNombre, .AnioLectivoCursoActual = alca, .AnioLectivoCursoActualNombre = na.Nombre & " - " & aa.Nombre & " - " & ta.Nombre & " - " & ca.Division}).ToList
+                                 From alca In e.AniosLectivosCursos
+                                 Join ca In mdbContext.Curso On alca.IDCurso Equals ca.IDCurso
+                                 Join aa In mdbContext.Anio On ca.IDAnio Equals aa.IDAnio
+                                 Join na In mdbContext.Nivel On aa.IDNivel Equals na.IDNivel
+                                 Join ta In mdbContext.Turno On ca.IDTurno Equals ta.IDTurno
+                                 Where e.IDEntidad = EntidadSeleccionada.IDEntidad And alca.AnioLectivo = mAnioLectivoActual
+                                 Select New GridRowData_AlumnoCurso With {.Seleccionado = True, .Entidad = e, .ApellidoNombre = e.ApellidoNombre, .AnioLectivoCursoActual = alca, .AnioLectivoCursoActualNombre = na.Nombre & " - " & aa.Nombre & " - " & ta.Nombre & " - " & ca.Division}).ToList
         ElseIf EntidadSeleccionada.TipoFamiliar Then
             listAlumnosCursos = (From e In mdbContext.Entidad
-                           From alca In e.AniosLectivosCursos
-                           Join ca In mdbContext.Curso On alca.IDCurso Equals ca.IDCurso
-                           Join aa In mdbContext.Anio On ca.IDAnio Equals aa.IDAnio
-                           Join na In mdbContext.Nivel On aa.IDNivel Equals na.IDNivel
-                           Join ta In mdbContext.Turno On ca.IDTurno Equals ta.IDTurno
-                           Where e.EsActivo And (e.IDEntidad = EntidadSeleccionada.IDEntidad Or e.IDEntidadPadre = EntidadSeleccionada.IDEntidad Or e.IDEntidadMadre = EntidadSeleccionada.IDEntidad Or e.IDEntidadTercero = EntidadSeleccionada.IDEntidad) And alca.AnioLectivo = mAnioLectivoActual
-                           Select New GridRowData_AlumnoCurso With {.Seleccionado = True, .Entidad = e, .ApellidoNombre = e.ApellidoNombre, .AnioLectivoCursoActual = alca, .AnioLectivoCursoActualNombre = na.Nombre & " - " & aa.Nombre & " - " & ta.Nombre & " - " & ca.Division}).ToList
+                                 From alca In e.AniosLectivosCursos
+                                 Join ca In mdbContext.Curso On alca.IDCurso Equals ca.IDCurso
+                                 Join aa In mdbContext.Anio On ca.IDAnio Equals aa.IDAnio
+                                 Join na In mdbContext.Nivel On aa.IDNivel Equals na.IDNivel
+                                 Join ta In mdbContext.Turno On ca.IDTurno Equals ta.IDTurno
+                                 Where e.EsActivo And (e.IDEntidad = EntidadSeleccionada.IDEntidad Or e.IDEntidadPadre = EntidadSeleccionada.IDEntidad Or e.IDEntidadMadre = EntidadSeleccionada.IDEntidad Or e.IDEntidadTercero = EntidadSeleccionada.IDEntidad) And alca.AnioLectivo = mAnioLectivoActual
+                                 Select New GridRowData_AlumnoCurso With {.Seleccionado = True, .Entidad = e, .ApellidoNombre = e.ApellidoNombre, .AnioLectivoCursoActual = alca, .AnioLectivoCursoActualNombre = na.Nombre & " - " & aa.Nombre & " - " & ta.Nombre & " - " & ca.Division}).ToList
         End If
 
         ' Ahora busco el Curso próximo para cada uno de los Alumnos
@@ -155,7 +155,7 @@
             Dim AnioProximo As Anio
 
             AnioProximo = GridRowData_AlumnoCursoActual.AnioLectivoCursoActual.Curso.Anio.AnioSiguiente
-            If (Not AnioProximo Is Nothing) Then
+            If (AnioProximo IsNot Nothing) Then
                 Dim IDAnioProximo As Byte
                 Dim IDTurnoActual As Byte
                 Dim DivisionActual As String
@@ -180,7 +180,7 @@
                                                Select alc).ToList
                 If listAnioLectivoCursoProximo.Count > 0 Then
                     ' Si existe, así que lo asigno
-                    GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo= listAnioLectivoCursoProximo.First
+                    GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo = listAnioLectivoCursoProximo.First
                     GenerarDescripcionAnioLectivoCursoProximo(GridRowData_AlumnoCursoActual)
                 Else
                     ' No existe, así que verifico si el Turno disponible es el único
@@ -294,11 +294,11 @@
         Return Not NoVerificada
     End Function
 
-    Private Sub buttonPaso2Anterior_Click() Handles buttonPaso2Anterior.Click
+    Private Sub ButtonPaso2Anterior_Click() Handles buttonPaso2Anterior.Click
         MostrarPaneles(1)
     End Sub
 
-    Private Sub buttonPaso2Finalizar_Click() Handles buttonPaso2Finalizar.Click
+    Private Sub ButtonPaso2Finalizar_Click() Handles buttonPaso2Finalizar.Click
         Dim mensajeConfirmacion As String
         Dim mensajeGeneracion As String
 
@@ -387,7 +387,7 @@
             If ModuloComprobantes.TransmitirAFIP_IniciarSesion(Objeto_AFIP_WS) Then
                 If ModuloComprobantes.TransmitirAFIP_ConectarServicio(Objeto_AFIP_WS) Then
                     For Each ComprobanteActual As Comprobante In listFacturas
-                        If Not ComprobanteActual Is Nothing Then
+                        If ComprobanteActual IsNot Nothing Then
                             If ComprobanteActual.CAE Is Nothing Then
                                 If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual.IDComprobante) Then
                                     ' OK

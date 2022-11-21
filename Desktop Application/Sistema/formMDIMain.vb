@@ -299,7 +299,7 @@
         If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO_AGREGAR) Then
             Me.Cursor = Cursors.WaitCursor
 
-            CardonerSistemas.Forms.MdiChildShow(Me, CType(formEntidadInscripcion, Form), True)
+            CardonerSistemas.Forms.MdiChildShow(Me, CType(FormEntidadInscripcion, Form), True)
 
             Me.Cursor = Cursors.Default
         End If
