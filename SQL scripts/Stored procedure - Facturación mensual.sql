@@ -34,7 +34,7 @@ CREATE PROCEDURE uspFacturacionMensual
 						WHERE Comprobante.FechaHoraAnulacion IS NULL AND IDComprobanteTipo IN (1, 12,14)
 							AND (@AnioDesde IS NULL OR YEAR(FechaEmision) >= @AnioDesde)
 							AND (@MesDesde IS NULL OR MONTH(FechaEmision) >= @MesDesde)
-							AND (@AnioHasta IS NULL OR MONTH(FechaEmision) <= @AnioHasta)
+							AND (@AnioHasta IS NULL OR YEAR(FechaEmision) <= @AnioHasta)
 							AND (@MesHasta IS NULL OR MONTH(FechaEmision) <= @MesHasta)
 						) AS SubQuery
 				GROUP BY YEAR(FechaEmision), MONTH(FechaEmision)

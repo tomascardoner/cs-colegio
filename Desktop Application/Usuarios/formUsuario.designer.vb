@@ -22,7 +22,6 @@ Partial Class formUsuario
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim labelCuartel As System.Windows.Forms.Label
         Dim labelUsuarioGrupo As System.Windows.Forms.Label
         Dim labelEsActivo As System.Windows.Forms.Label
         Dim labelModificacion As System.Windows.Forms.Label
@@ -33,14 +32,13 @@ Partial Class formUsuario
         Me.buttonEditar = New System.Windows.Forms.ToolStripButton()
         Me.buttonCerrar = New System.Windows.Forms.ToolStripButton()
         Me.toolstripMain = New System.Windows.Forms.ToolStrip()
-        Me.tabcontrolMain = New CS_Control_TabControl()
+        Me.tabcontrolMain = New CSColegio.DesktopApplication.CS_Control_TabControl()
         Me.tabpageGeneral = New System.Windows.Forms.TabPage()
         Me.comboboxGenero = New System.Windows.Forms.ComboBox()
         Me.textboxPassword = New System.Windows.Forms.TextBox()
         Me.labelPassword = New System.Windows.Forms.Label()
         Me.textboxDescripcion = New System.Windows.Forms.TextBox()
         Me.labelDescripcion = New System.Windows.Forms.Label()
-        Me.comboboxCuartel = New System.Windows.Forms.ComboBox()
         Me.comboboxUsuarioGrupo = New System.Windows.Forms.ComboBox()
         Me.textboxNombre = New System.Windows.Forms.TextBox()
         Me.labelNombre = New System.Windows.Forms.Label()
@@ -54,7 +52,6 @@ Partial Class formUsuario
         Me.textboxFechaHoraCreacion = New System.Windows.Forms.TextBox()
         Me.textboxNotas = New System.Windows.Forms.TextBox()
         Me.labelNotas = New System.Windows.Forms.Label()
-        labelCuartel = New System.Windows.Forms.Label()
         labelUsuarioGrupo = New System.Windows.Forms.Label()
         labelEsActivo = New System.Windows.Forms.Label()
         labelModificacion = New System.Windows.Forms.Label()
@@ -65,15 +62,6 @@ Partial Class formUsuario
         Me.tabpageGeneral.SuspendLayout()
         Me.tabpageNotasAuditoria.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'labelCuartel
-        '
-        labelCuartel.AutoSize = True
-        labelCuartel.Location = New System.Drawing.Point(6, 158)
-        labelCuartel.Name = "labelCuartel"
-        labelCuartel.Size = New System.Drawing.Size(43, 13)
-        labelCuartel.TabIndex = 10
-        labelCuartel.Text = "Cuartel:"
         '
         'labelUsuarioGrupo
         '
@@ -123,7 +111,7 @@ Partial Class formUsuario
         'buttonGuardar
         '
         Me.buttonGuardar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.buttonGuardar.Image = My.Resources.Resources.ImageAceptar32
+        Me.buttonGuardar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.ImageAceptar32
         Me.buttonGuardar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonGuardar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonGuardar.Name = "buttonGuardar"
@@ -133,7 +121,7 @@ Partial Class formUsuario
         'buttonCancelar
         '
         Me.buttonCancelar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.buttonCancelar.Image = My.Resources.Resources.ImageCancelar32
+        Me.buttonCancelar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.ImageCancelar32
         Me.buttonCancelar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonCancelar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonCancelar.Name = "buttonCancelar"
@@ -143,7 +131,7 @@ Partial Class formUsuario
         'buttonEditar
         '
         Me.buttonEditar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.buttonEditar.Image = My.Resources.Resources.IMAGE_ITEM_EDIT_32
+        Me.buttonEditar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_EDIT_32
         Me.buttonEditar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonEditar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonEditar.Name = "buttonEditar"
@@ -153,7 +141,7 @@ Partial Class formUsuario
         'buttonCerrar
         '
         Me.buttonCerrar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.buttonCerrar.Image = My.Resources.Resources.IMAGE_CLOSE_32
+        Me.buttonCerrar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_CLOSE_32
         Me.buttonCerrar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonCerrar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonCerrar.Name = "buttonCerrar"
@@ -188,8 +176,6 @@ Partial Class formUsuario
         Me.tabpageGeneral.Controls.Add(Me.labelPassword)
         Me.tabpageGeneral.Controls.Add(Me.textboxDescripcion)
         Me.tabpageGeneral.Controls.Add(Me.labelDescripcion)
-        Me.tabpageGeneral.Controls.Add(Me.comboboxCuartel)
-        Me.tabpageGeneral.Controls.Add(labelCuartel)
         Me.tabpageGeneral.Controls.Add(Me.comboboxUsuarioGrupo)
         Me.tabpageGeneral.Controls.Add(labelUsuarioGrupo)
         Me.tabpageGeneral.Controls.Add(Me.textboxNombre)
@@ -245,15 +231,6 @@ Partial Class formUsuario
         Me.labelDescripcion.Size = New System.Drawing.Size(66, 13)
         Me.labelDescripcion.TabIndex = 2
         Me.labelDescripcion.Text = "Descripción:"
-        '
-        'comboboxCuartel
-        '
-        Me.comboboxCuartel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.comboboxCuartel.FormattingEnabled = True
-        Me.comboboxCuartel.Location = New System.Drawing.Point(78, 155)
-        Me.comboboxCuartel.Name = "comboboxCuartel"
-        Me.comboboxCuartel.Size = New System.Drawing.Size(427, 21)
-        Me.comboboxCuartel.TabIndex = 11
         '
         'comboboxUsuarioGrupo
         '
@@ -433,7 +410,6 @@ Partial Class formUsuario
     Friend WithEvents textboxUsuarioCreacion As System.Windows.Forms.TextBox
     Friend WithEvents textboxFechaHoraModificacion As System.Windows.Forms.TextBox
     Friend WithEvents textboxFechaHoraCreacion As System.Windows.Forms.TextBox
-    Friend WithEvents comboboxCuartel As System.Windows.Forms.ComboBox
     Friend WithEvents comboboxUsuarioGrupo As System.Windows.Forms.ComboBox
     Friend WithEvents textboxPassword As TextBox
     Friend WithEvents labelPassword As Label
