@@ -3,7 +3,8 @@
 Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
 
 #Region "Declarations"
-    Private dbContext As New CSColegioContext(True)
+
+    Private ReadOnly dbContext As New CSColegioContext(True)
     Private listComprobantes As List(Of GridDataRow)
 
     Private Class GridDataRow
@@ -13,6 +14,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
         Public Property ApellidoNombre As String
         Public Property ImporteTotal As Decimal
     End Class
+
 #End Region
 
 #Region "Form stuff"
@@ -27,6 +29,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
 #End Region
 
 #Region "Load and Set Data"
+
     Private Sub RefreshData()
         Dim ComprobanteLoteActual As ComprobanteLote
 
@@ -34,7 +37,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
 
         Try
 
-            If Not comboboxComprobanteLote.SelectedValue Is Nothing Then
+            If comboboxComprobanteLote.SelectedValue IsNot Nothing Then
                 ComprobanteLoteActual = CType(comboboxComprobanteLote.SelectedItem, ComprobanteLote)
 
                 listComprobantes = (From c In dbContext.Comprobante
@@ -80,7 +83,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
         RefreshData()
     End Sub
 
-    Private Sub buttonTransmitir_Click(sender As Object, e As EventArgs) Handles buttonExportar.Click
+    Private Sub Transmitir_Click(sender As Object, e As EventArgs) Handles buttonExportar.Click
         If listComprobantes.Count > 0 Then
             If CS_Parameter_System.GetString(Parametros.BANCOSANTANDER_ADDI_CODIGOSERVICIO) = "" Then
                 MsgBox("No está especificado el Código de Servicio otorgado por el Banco Santander.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
@@ -169,7 +172,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
                 For Each RowActual As DataGridViewRow In datagridviewComprobantes.Rows
                     GridDataRowActual = CType(RowActual.DataBoundItem, GridDataRow)
                     ComprobanteActual = dbContext.Comprobante.Find(GridDataRowActual.IDComprobante)
-                    If Not ComprobanteActual Is Nothing Then
+                    If ComprobanteActual IsNot Nothing Then
                         ' Detalle
                         DetalleTextStream &= "D"                                                                ' Tipo de Registro DETALLE
                         DetalleTextStream &= "A"                                                                ' Tipo de Operación (A=Actualización / B=Baja)
@@ -346,7 +349,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
             For Each RowActual As DataGridViewRow In datagridviewComprobantes.Rows
                 GridDataRowActual = CType(RowActual.DataBoundItem, GridDataRow)
                 ComprobanteActual = dbContext.Comprobante.Find(GridDataRowActual.IDComprobante)
-                If Not ComprobanteActual Is Nothing Then
+                If ComprobanteActual IsNot Nothing Then
                     ' Detalle
                     DetalleTextStream &= ComprobanteActual.ComprobanteTipo.Sigla.Substring(0, 2)            ' Tipo de Comprobante
                     DetalleTextStream &= ComprobanteActual.NumeroCompleto.PadRight(15, " "c)                ' Nro. Comprobante

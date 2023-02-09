@@ -2,7 +2,7 @@
 
 #Region "Declarations"
 
-    Private dbcontext As New CSColegioContext(True)
+    Private ReadOnly dbcontext As New CSColegioContext(True)
     Private AnioLectivoCurso As AnioLectivoCurso
 
     Private Const COLUMNA_IDENTIDAD As String = "columnIDEntidad"
@@ -46,7 +46,7 @@
             datagridviewMain.DataSource = Nothing
         Else
             AnioLectivoCurso = dbcontext.AnioLectivoCurso.Where(Function(alc) alc.AnioLectivo = CShort(comboboxAnioLectivo.ComboBox.SelectedValue.ToString) And alc.IDCurso = CByte(comboboxCurso.ComboBox.SelectedValue.ToString)).First
-            If Not AnioLectivoCurso Is Nothing Then
+            If AnioLectivoCurso IsNot Nothing Then
                 datagridviewMain.AutoGenerateColumns = False
                 datagridviewMain.DataSource = AnioLectivoCurso.Entidades.OrderBy(Function(ent) ent.ApellidoNombre).ToList
             End If
@@ -67,8 +67,9 @@
 #End Region
 
 #Region "Controls behavior"
+
     Private Sub ComboBoxesChanged() Handles comboboxAnioLectivo.SelectedIndexChanged, comboboxNivel.SelectedIndexChanged
-        If (Not comboboxAnioLectivo.SelectedItem Is Nothing) And (Not comboboxNivel.SelectedItem Is Nothing) Then
+        If (comboboxAnioLectivo.SelectedItem IsNot Nothing) And (comboboxNivel.SelectedItem IsNot Nothing) Then
             pFillAndRefreshLists.CursoPorAnioLectivoYNivel(comboboxCurso.ComboBox, CInt(comboboxAnioLectivo.ComboBox.SelectedValue), CByte(comboboxNivel.ComboBox.SelectedValue))
         End If
     End Sub
@@ -92,11 +93,12 @@
             Me.Cursor = Cursors.Default
         End If
     End Sub
+
 #End Region
 
 #Region "Main Toolbar"
 
-    Private Sub buttonAgregar_Click() Handles buttonAgregar.Click
+    Private Sub Agregar_Click() Handles buttonAgregar.Click
         If Permisos.VerificarPermiso(Permisos.ENTIDADANIOLECTIVOCURSO_AGREGAR) Then
             formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
             formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
@@ -131,7 +133,7 @@
         End If
     End Sub
 
-    Private Sub buttonEliminar_Click() Handles buttonEliminar.Click
+    Private Sub Eliminar_Click() Handles buttonEliminar.Click
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ninguna Entidad para eliminar.", vbInformation, My.Application.Info.Title)
         Else

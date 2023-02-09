@@ -1,6 +1,7 @@
 ﻿Public Class formEntidadInscripcionDetalle
 
 #Region "Declarations"
+
     Private mdbContext As New CSColegioContext(True)
     Private mAnioLectivoCursoActual As AnioLectivoCurso
     Private mAnioLectivoProximo As Integer
@@ -9,7 +10,8 @@
     Private mDivisionProximo As String
 
     Private mIsLoading As Boolean = False
-    Private mEditMode As Boolean = False
+    Private ReadOnly mEditMode As Boolean = False
+
 #End Region
 
 #Region "Form stuff"
@@ -57,6 +59,7 @@
 #End Region
 
 #Region "Load and Set Data"
+
     Friend Sub SetDataFromObjectToControls()
         With mAnioLectivoCursoActual
             textboxAnioActual.Text = .Curso.Anio.Nivel.Nombre & " - " & .Curso.Anio.Nombre
@@ -74,7 +77,7 @@
             itemAnioActual.Nombre = .Curso.Anio.Nivel.Nombre & " - " & .Curso.Anio.Nombre
             listAnios.Add(itemAnioActual)
 
-            If (Not .Curso.Anio.AnioSiguiente Is Nothing) Then
+            If (.Curso.Anio.AnioSiguiente IsNot Nothing) Then
                 ' Anio siguiente
                 Dim itemAnioSiguiente As New Anio
                 itemAnioSiguiente.IDAnio = .Curso.Anio.AnioSiguiente.IDAnio
@@ -87,9 +90,9 @@
                 If mIDAnioProximo = 0 Then
                     comboboxAnioProximo.SelectedIndex = 1
                 Else
-                    CardonerSistemas.ComboBox.SetSelectedValue(comboboxAnioProximo, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrLast, mIDAnioProximo)
-                    CardonerSistemas.ComboBox.SetSelectedValue(comboboxTurnoProximo, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, mIDTurnoProximo)
-                    CardonerSistemas.ComboBox.SetSelectedValue(comboboxDivisionProximo, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, mDivisionProximo)
+                    CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxAnioProximo, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrLast, mIDAnioProximo)
+                    CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxTurnoProximo, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, mIDTurnoProximo)
+                    CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxDivisionProximo, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, mDivisionProximo)
                 End If
             End If
         End With
@@ -135,7 +138,7 @@
             comboboxTurnoProximo.DisplayMember = "Nombre"
             comboboxTurnoProximo.DataSource = listTurnos
             ' Intento seleccionar el mismo Turno que el Año anterior
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxTurnoProximo, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, mAnioLectivoCursoActual.Curso.IDTurno)
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxTurnoProximo, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, mAnioLectivoCursoActual.Curso.IDTurno)
         End If
     End Sub
 
@@ -155,19 +158,20 @@
                           Select c.Division).ToList
 
             ' Intento seleccionar la misma Division que el Año anterior
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxDivisionProximo, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, mAnioLectivoCursoActual.Curso.Division)
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxDivisionProximo, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, mAnioLectivoCursoActual.Curso.Division)
         End If
     End Sub
 
 #End Region
 
 #Region "Main Toolbar"
-    Private Sub buttonCancelar_Click() Handles buttonCancelar.Click
+
+    Private Sub Cancelar_Click() Handles buttonCancelar.Click
         Me.DialogResult = Windows.Forms.DialogResult.Cancel
         Me.Close()
     End Sub
 
-    Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
+    Private Sub Guardar_Click() Handles buttonGuardar.Click
         If comboboxAnioProximo.SelectedIndex = -1 Then
             MsgBox("Debe especificar el Año.", MsgBoxStyle.Information, My.Application.Info.Title)
             comboboxAnioProximo.Focus()

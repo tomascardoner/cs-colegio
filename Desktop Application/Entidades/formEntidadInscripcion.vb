@@ -294,11 +294,11 @@
         Return Not NoVerificada
     End Function
 
-    Private Sub ButtonPaso2Anterior_Click() Handles buttonPaso2Anterior.Click
+    Private Sub Paso2Anterior_Click() Handles buttonPaso2Anterior.Click
         MostrarPaneles(1)
     End Sub
 
-    Private Sub ButtonPaso2Finalizar_Click() Handles buttonPaso2Finalizar.Click
+    Private Sub Paso2Finalizar_Click() Handles buttonPaso2Finalizar.Click
         Dim mensajeConfirmacion As String
         Dim mensajeGeneracion As String
 

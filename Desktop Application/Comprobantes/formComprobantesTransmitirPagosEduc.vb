@@ -42,7 +42,7 @@ Public Class formComprobantesTransmitirPagosEduc
 
         Try
 
-            If Not comboboxComprobanteLote.SelectedValue Is Nothing Then
+            If comboboxComprobanteLote.SelectedValue IsNot Nothing Then
                 ComprobanteLoteActual = CType(comboboxComprobanteLote.SelectedItem, ComprobanteLote)
 
                 listComprobantes = (From c In dbContext.Comprobante
@@ -89,7 +89,7 @@ Public Class formComprobantesTransmitirPagosEduc
         RefreshData()
     End Sub
 
-    Private Sub buttonTransmitir_Click(sender As Object, e As EventArgs) Handles buttonExportar.Click
+    Private Sub Transmitir_Click(sender As Object, e As EventArgs) Handles buttonExportar.Click
 
         If datagridviewComprobantes.Rows.Count > 0 Then
             If CS_Parameter_System.GetIntegerAsInteger(Parametros.EMPRESA_PAGOSEDUC_NUMERO) = 0 Then
@@ -154,10 +154,10 @@ Public Class formComprobantesTransmitirPagosEduc
             For Each RowActual As DataGridViewRow In datagridviewComprobantes.Rows
                 ComprobanteActual = dbContext.Comprobante.Find(CType(RowActual.DataBoundItem, GridDataRow).IDComprobante)
 
-                If Not ComprobanteActual Is Nothing Then
+                If ComprobanteActual IsNot Nothing Then
                     ' Detalle
                     DetalleTextStream = "5"                                                                 ' Código de Registro
-                    DetalleTextStream &= CodigoEmpresa.ToString.PadLeft(5, "0"c)                            ' Código de Entidad
+                    DetalleTextStream &= codigoEmpresa.ToString.PadLeft(5, "0"c)                            ' Código de Entidad
                     DetalleTextStream &= ComprobanteActual.Entidad.DocumentoNumero.RemoveNotNumbers().Truncate(9).PadRight(14, " "c)               ' Número de Referencia
                     DetalleTextStream &= ComprobanteActual.IDComprobante.ToString.PadRight(20, " "c)        ' Id. Factura
                     DetalleTextStream &= "0"                                                                ' Código de Moneda

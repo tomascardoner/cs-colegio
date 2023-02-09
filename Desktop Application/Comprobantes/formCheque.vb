@@ -9,7 +9,8 @@
 #End Region
 
 #Region "Form stuff"
-    Friend Sub LoadAndShow(ByVal ParentEditMode As Boolean, ByVal EditMode As Boolean, ByRef ParentForm As Form, ByRef dbContext As CSColegioContext, ByRef ComprobanteActual As Comprobante, ByRef ComprobanteMedioPagoActual As ComprobanteMedioPago)
+
+    Friend Sub LoadAndShow(ByVal EditMode As Boolean, ByRef ParentForm As Form, ByRef dbContext As CSColegioContext, ByRef ComprobanteActual As Comprobante, ByRef ComprobanteMedioPagoActual As ComprobanteMedioPago)
         mEditMode = EditMode
 
         mdbContext = dbContext
@@ -58,10 +59,11 @@
 #End Region
 
 #Region "Load and Set Data"
+
     Friend Sub SetDataFromObjectToControls()
         With mComprobanteMedioPagoActual
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxMedioPago, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, .IDMedioPago, CByte(0))
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxCaja, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, .IDCaja, CByte(0))
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxMedioPago, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, .IDMedioPago, CByte(0))
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxCaja, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, .IDCaja, CByte(0))
         End With
         With mComprobanteMedioPagoActual.Cheque
             If .IDCheque = 0 Then
@@ -69,7 +71,7 @@
             Else
                 textboxIDCheque.Text = String.Format(.IDCheque.ToString, "G")
             End If
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxBanco, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDBanco, CShort(0))
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxBanco, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, .IDBanco, CShort(0))
             datetimepickerFechaEmision.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaEmision)
             datetimepickerFechaPago.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaPago)
             textboxNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Numero)
@@ -80,7 +82,7 @@
             textboxCodigoPostal.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.CodigoPostal)
 
             'textboxEstado.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Estado)
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxMotivoRechazo, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDChequeMotivoRechazo, CShort(0))
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxMotivoRechazo, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, .IDChequeMotivoRechazo, CShort(0))
         End With
     End Sub
 
@@ -143,16 +145,17 @@
 #End Region
 
 #Region "Main Toolbar"
-    Private Sub buttonEditar_Click() Handles buttonEditar.Click
+
+    Private Sub Editar_Click() Handles buttonEditar.Click
         mEditMode = True
         ChangeMode()
     End Sub
 
-    Private Sub buttonCerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
+    Private Sub CerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
         Me.Close()
     End Sub
 
-    Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
+    Private Sub Guardar_Click() Handles buttonGuardar.Click
         If comboboxBanco.SelectedIndex = -1 Then
             MsgBox("Debe especificar el Banco.", MsgBoxStyle.Information, My.Application.Info.Title)
             comboboxBanco.Focus()
@@ -223,6 +226,7 @@
 
         Me.Close()
     End Sub
+
 #End Region
 
 End Class

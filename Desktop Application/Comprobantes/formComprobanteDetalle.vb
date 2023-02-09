@@ -92,7 +92,7 @@
     Friend Sub SetDataFromObjectToControls()
 
         With mComprobanteDetalleActual
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxArticulo, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDArticulo, CShort(0))
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxArticulo, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, .IDArticulo, CShort(0))
             doubletextboxCantidad.DoubleValue = .Cantidad
             textboxUnidad.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Unidad)
 
@@ -113,13 +113,13 @@
                 'EstablecerAnioLectivoCurso()
             End If
 
-            If (Not mArticuloActual Is Nothing) AndAlso (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual) Then
-                CardonerSistemas.ComboBox.SetSelectedValue(comboboxAnioLectivoCurso, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDAnioLectivoCurso, CShort(0))
+            If (mArticuloActual IsNot Nothing) AndAlso (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual) Then
+                CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxAnioLectivoCurso, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, .IDAnioLectivoCurso, CShort(0))
             Else
                 comboboxAlumno.SelectedIndex = -1
                 comboboxAnioLectivoCurso.SelectedIndex = -1
             End If
-            If (Not mArticuloActual Is Nothing) AndAlso mArticuloActual.IDArticulo = mIDArticuloMensual Then
+            If (mArticuloActual IsNot Nothing) AndAlso mArticuloActual.IDArticulo = mIDArticuloMensual Then
                 If .CuotaMes.HasValue Then
                     comboboxCuotaMes.SelectedIndex = .CuotaMes.Value - 1
                 Else
@@ -254,7 +254,7 @@
     End Sub
 
     Private Sub EstablecerDescripcion()
-        If (Not mArticuloActual Is Nothing) AndAlso (mArticuloActual.IDArticulo = mIDArticuloMatricula Or (mArticuloActual.IDArticulo = mIDArticuloMensual And comboboxCuotaMes.SelectedIndex > -1)) And (Not mEntidad Is Nothing) And (Not comboboxAnioLectivoCurso.SelectedItem Is Nothing) Then
+        If (mArticuloActual IsNot Nothing) AndAlso (mArticuloActual.IDArticulo = mIDArticuloMatricula Or (mArticuloActual.IDArticulo = mIDArticuloMensual And comboboxCuotaMes.SelectedIndex > -1)) And (mEntidad IsNot Nothing) And (comboboxAnioLectivoCurso.SelectedItem IsNot Nothing) Then
             Dim AnioLectivoCursoActual As AnioLectivoCurso
 
             Try
@@ -279,7 +279,7 @@
         Dim AnioLectivoCuotaActual As AnioLectivoCuota
         Dim PrecioUnitario As Decimal
 
-        If (Not mArticuloActual Is Nothing) AndAlso (Not comboboxAlumno.SelectedIndex = -1) AndAlso (Not comboboxAnioLectivoCurso.SelectedItem Is Nothing) Then
+        If (mArticuloActual IsNot Nothing) AndAlso (Not comboboxAlumno.SelectedIndex = -1) AndAlso (comboboxAnioLectivoCurso.SelectedItem IsNot Nothing) Then
             AnioLectivo = CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCursoListItem).AnioLectivo
             IDCurso = CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCursoListItem).IDCurso
             Select Case mArticuloActual.IDArticulo
@@ -287,10 +287,10 @@
                     ' MATRÍCULA
                     Using dbContext As New CSColegioContext(True)
                         CursoActual = dbContext.Curso.Find(IDCurso)
-                        If Not CursoActual Is Nothing Then
+                        If CursoActual IsNot Nothing Then
                             IDCuotaTipo = CursoActual.IDCuotaTipo
                             AnioLectivoCuotaActual = dbContext.AnioLectivoCuota.Where(Function(alci) alci.AnioLectivo = AnioLectivo And alci.MesInicio <= Month(DateAndTime.Today) And alci.IDCuotaTipo = IDCuotaTipo).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
-                            If Not AnioLectivoCuotaActual Is Nothing Then
+                            If AnioLectivoCuotaActual IsNot Nothing Then
                                 PrecioUnitario = AnioLectivoCuotaActual.ImporteMatricula
                             End If
                         End If
@@ -300,10 +300,10 @@
                     If comboboxCuotaMes.SelectedIndex > -1 Then
                         Using dbContext As New CSColegioContext(True)
                             CursoActual = dbContext.Curso.Find(IDCurso)
-                            If Not CursoActual Is Nothing Then
+                            If CursoActual IsNot Nothing Then
                                 IDCuotaTipo = CursoActual.IDCuotaTipo
                                 AnioLectivoCuotaActual = dbContext.AnioLectivoCuota.Where(Function(alci) alci.AnioLectivo = AnioLectivo And alci.MesInicio <= CByte(comboboxCuotaMes.SelectedIndex + 1) And alci.IDCuotaTipo = IDCuotaTipo).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
-                                If Not AnioLectivoCuotaActual Is Nothing Then
+                                If AnioLectivoCuotaActual IsNot Nothing Then
                                     PrecioUnitario = AnioLectivoCuotaActual.ImporteCuota
                                 End If
                             End If
@@ -443,16 +443,16 @@
 
 #Region "Main Toolbar"
 
-    Private Sub buttonEditar_Click() Handles buttonEditar.Click
+    Private Sub Editar_Click() Handles buttonEditar.Click
         mEditMode = True
         ChangeMode()
     End Sub
 
-    Private Sub buttonCerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
+    Private Sub CerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
         Me.Close()
     End Sub
 
-    Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
+    Private Sub Guardar_Click() Handles buttonGuardar.Click
         If comboboxArticulo.SelectedIndex = -1 Then
             MsgBox("Debe especificar el Artículo.", MsgBoxStyle.Information, My.Application.Info.Title)
             comboboxArticulo.Focus()

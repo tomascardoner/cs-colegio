@@ -136,16 +136,16 @@
         Dim AnioLectivoCuotaActual As AnioLectivoCuota
         Dim PrecioUnitario As Decimal
 
-        If (Not mArticuloActual Is Nothing) AndAlso (Not comboboxAlumno.SelectedIndex = -1) AndAlso (Not comboboxAnioLectivoCurso.SelectedItem Is Nothing) Then
+        If (mArticuloActual IsNot Nothing) AndAlso (Not comboboxAlumno.SelectedIndex = -1) AndAlso (comboboxAnioLectivoCurso.SelectedItem IsNot Nothing) Then
             If comboboxCuotaMesDesde.SelectedIndex > -1 Then
                 AnioLectivo = CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCursoListItem).AnioLectivo
                 IDCurso = CType(comboboxAnioLectivoCurso.SelectedItem, FillAndRefreshLists.AnioLectivoCursoListItem).IDCurso
                 Using dbContext As New CSColegioContext(True)
                     CursoActual = dbContext.Curso.Find(IDCurso)
-                    If Not CursoActual Is Nothing Then
+                    If CursoActual IsNot Nothing Then
                         IDCuotaTipo = CursoActual.IDCuotaTipo
                         AnioLectivoCuotaActual = dbContext.AnioLectivoCuota.Where(Function(alci) alci.AnioLectivo = AnioLectivo And alci.MesInicio <= CByte(comboboxCuotaMesDesde.SelectedIndex + 1) And alci.IDCuotaTipo = IDCuotaTipo).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
-                        If Not AnioLectivoCuotaActual Is Nothing Then
+                        If AnioLectivoCuotaActual IsNot Nothing Then
                             PrecioUnitario = AnioLectivoCuotaActual.ImporteCuota
                         End If
                     End If
@@ -259,11 +259,11 @@
 
 #Region "Main Toolbar"
 
-    Private Sub buttonCerrarOCancelar_Click() Handles buttonCancelar.Click
+    Private Sub CerrarOCancelar_Click() Handles buttonCancelar.Click
         Me.Close()
     End Sub
 
-    Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
+    Private Sub Guardar_Click() Handles buttonGuardar.Click
         Dim anioLectivo As String
         Dim nivel As String
         Dim anio As String

@@ -7,7 +7,7 @@
     Private mlistEntidadesSeleccionadasOk As List(Of Entidad)
     Private mlistEntidadesSeleccionadasCorregir As List(Of EntidadACorregir)
 
-    Private mFacturaLote As New ComprobanteLote
+    Private ReadOnly mFacturaLote As New ComprobanteLote
     Private mlistFacturas As List(Of Comprobante)
 
     Private mAnioLectivo As Short
@@ -47,19 +47,21 @@
         ' Cargar los períodos a facturar
         comboboxPeriodoAFacturar.DisplayMember = "Texto"
 
-        Dim periodoActual As New PeriodoAFacturar
-        periodoActual.Mes = CByte(Today.Month)
-        periodoActual.Anio = CShort(Today.Year)
-        periodoActual.Texto = Today.ToString("MMMM \d\e yyyy")
+        Dim periodoActual As New PeriodoAFacturar With {
+            .Mes = CByte(Today.Month),
+            .Anio = CShort(Today.Year),
+            .Texto = Today.ToString("MMMM \d\e yyyy")
+        }
         comboboxPeriodoAFacturar.Items.Add(periodoActual)
 
         If Today.Day < 20 Then
             comboboxPeriodoAFacturar.SelectedIndex = 0
         Else
-            Dim periodoSiguiente As New PeriodoAFacturar
-            periodoSiguiente.Mes = CByte(Today.AddMonths(1).Month)
-            periodoSiguiente.Anio = CShort(Today.AddMonths(1).Year)
-            periodoSiguiente.Texto = Today.AddMonths(1).ToString("MMMM \d\e yyyy")
+            Dim periodoSiguiente As New PeriodoAFacturar With {
+                .Mes = CByte(Today.AddMonths(1).Month),
+                .Anio = CShort(Today.AddMonths(1).Year),
+                .Texto = Today.AddMonths(1).ToString("MMMM \d\e yyyy")
+            }
             comboboxPeriodoAFacturar.Items.Add(periodoSiguiente)
             comboboxPeriodoAFacturar.SelectedIndex = 1
         End If
@@ -89,12 +91,14 @@
 #End Region
 
 #Region "Extra stuff"
+
     Private Sub MostrarPaneles(ByVal Paso As Byte)
         panelPaso1.Visible = (Paso = 1)
         panelPaso2.Visible = (Paso = 2)
         panelPaso3.Visible = (Paso = 3)
         Application.DoEvents()
     End Sub
+
 #End Region
 
 #Region "Paso 1 - Selección - TreeView de Niveles - Cursos - Alumnos"
@@ -107,9 +111,10 @@
         treeviewPaso1NivelCursoAlumno.BeginUpdate()
         For Each NivelCurrent As Nivel In mdbContext.Nivel.Where(Function(niv) niv.EsActivo = True)
             ' Agrego el nodo correspondiente al Nivel actual y agrego un nodo hijo que diga "cargando..." para cuando se expanda el nodo
-            NewNode = New TreeNode(NivelCurrent.Nombre, {New TreeNode(NodoCargandoTexto)})
-            NewNode.Checked = True
-            NewNode.Tag = NivelCurrent
+            NewNode = New TreeNode(NivelCurrent.Nombre, {New TreeNode(NodoCargandoTexto)}) With {
+                .Checked = True,
+                .Tag = NivelCurrent
+            }
             treeviewPaso1NivelCursoAlumno.Nodes.Add(NewNode)
         Next
         treeviewPaso1NivelCursoAlumno.EndUpdate()
@@ -128,9 +133,10 @@
         NivelCurrent = CType(NodoNivel.Tag, Nivel)
         For Each AnioCurrent As Anio In NivelCurrent.Anios.Where(Function(ani) ani.EsActivo = True)
             ' Agrego el nodo correspondiente al Año actual
-            NewNode = New TreeNode(AnioCurrent.Nombre, {New TreeNode(NodoCargandoTexto)})
-            NewNode.Checked = NodoNivel.Checked
-            NewNode.Tag = AnioCurrent
+            NewNode = New TreeNode(AnioCurrent.Nombre, {New TreeNode(NodoCargandoTexto)}) With {
+                .Checked = NodoNivel.Checked,
+                .Tag = AnioCurrent
+            }
             NodoNivel.Nodes.Add(NewNode)
         Next
         treeviewPaso1NivelCursoAlumno.EndUpdate()
@@ -149,9 +155,10 @@
         AnioCurrent = CType(NodoAnio.Tag, Anio)
         For Each CursoCurrent As Curso In AnioCurrent.Cursos
             ' Agrego el nodo correspondiente al Curso actual
-            NewNode = New TreeNode("Turno: " & CursoCurrent.Turno.Nombre & " - División: " & CursoCurrent.Division, {New TreeNode(NodoCargandoTexto)})
-            NewNode.Checked = NodoAnio.Checked
-            NewNode.Tag = CursoCurrent
+            NewNode = New TreeNode("Turno: " & CursoCurrent.Turno.Nombre & " - División: " & CursoCurrent.Division, {New TreeNode(NodoCargandoTexto)}) With {
+                .Checked = NodoAnio.Checked,
+                .Tag = CursoCurrent
+            }
             NodoAnio.Nodes.Add(NewNode)
         Next
         treeviewPaso1NivelCursoAlumno.EndUpdate()
@@ -170,12 +177,13 @@
         NodoCurso.Nodes.RemoveAt(0)
         CursoCurrent = CType(NodoCurso.Tag, Curso)
         AnioLectivoCursoCurrent = CursoCurrent.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = mAnioLectivo).SingleOrDefault()
-        If Not AnioLectivoCursoCurrent Is Nothing Then
+        If AnioLectivoCursoCurrent IsNot Nothing Then
             For Each EntidadCurrent As Entidad In AnioLectivoCursoCurrent.Entidades.Where(Function(ent) ent.EsActivo = True).OrderBy(Function(ent) ent.ApellidoNombre)
                 ' Agrego el nodo correspondiente a la Entidad actual
-                NewNode = New TreeNode(EntidadCurrent.ApellidoNombre)
-                NewNode.Checked = NodoCurso.Checked
-                NewNode.Tag = EntidadCurrent
+                NewNode = New TreeNode(EntidadCurrent.ApellidoNombre) With {
+                    .Checked = NodoCurso.Checked,
+                    .Tag = EntidadCurrent
+                }
                 NodoCurso.Nodes.Add(NewNode)
             Next
         End If
@@ -225,9 +233,10 @@
         treeviewPaso1PadresAlumnos.BeginUpdate()
         For Each EntidadCurrent As Entidad In mdbContext.Entidad.Where(Function(ent) ent.EsActivo = True And ent.TipoFamiliar And (ent.EntidadPadreHijas.Count > 0 Or ent.EntidadMadreHijas.Count > 0)).OrderBy(Function(ent) ent.ApellidoNombre)
             ' Agrego el nodo correspondiente al Padre/Madre actual y agrego un nodo hijo que diga "cargando..." para cuando se expanda el nodo
-            NewNode = New TreeNode(EntidadCurrent.ApellidoNombre, {New TreeNode(NodoCargandoTexto)})
-            NewNode.Checked = True
-            NewNode.Tag = EntidadCurrent
+            NewNode = New TreeNode(EntidadCurrent.ApellidoNombre, {New TreeNode(NodoCargandoTexto)}) With {
+                .Checked = True,
+                .Tag = EntidadCurrent
+            }
             treeviewPaso1PadresAlumnos.Nodes.Add(NewNode)
         Next
         treeviewPaso1PadresAlumnos.EndUpdate()
@@ -247,18 +256,20 @@
         ' Primero busco los Hijos del Padre
         For Each EntidadHijoCurrent As Entidad In EntidadNodoCurrent.EntidadPadreHijas.Where(Function(ent) ent.EsActivo).OrderBy(Function(ent) ent.ApellidoNombre)
             If EntidadHijoCurrent.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = mAnioLectivo).Count > 0 Then
-                NewNode = New TreeNode(EntidadHijoCurrent.ApellidoNombre)
-                NewNode.Checked = NodoEntidad.Checked
-                NewNode.Tag = EntidadHijoCurrent
+                NewNode = New TreeNode(EntidadHijoCurrent.ApellidoNombre) With {
+                    .Checked = NodoEntidad.Checked,
+                    .Tag = EntidadHijoCurrent
+                }
                 NodoEntidad.Nodes.Add(NewNode)
             End If
         Next
         ' Ahora busco los Hijos de la Madre
         For Each EntidadHijoCurrent As Entidad In EntidadNodoCurrent.EntidadMadreHijas.Where(Function(ent) ent.EsActivo).OrderBy(Function(ent) ent.ApellidoNombre)
             If EntidadHijoCurrent.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = mAnioLectivo).Count > 0 Then
-                NewNode = New TreeNode(EntidadHijoCurrent.ApellidoNombre)
-                NewNode.Checked = NodoEntidad.Checked
-                NewNode.Tag = EntidadHijoCurrent
+                NewNode = New TreeNode(EntidadHijoCurrent.ApellidoNombre) With {
+                    .Checked = NodoEntidad.Checked,
+                    .Tag = EntidadHijoCurrent
+                }
                 NodoEntidad.Nodes.Add(NewNode)
             End If
         Next
@@ -289,11 +300,11 @@
 
 #Region "Paso 1 - Selección - Botones"
 
-    Private Sub buttonPaso1Cancelar_Click() Handles buttonPaso1Cancelar.Click
+    Private Sub Paso1Cancelar_Click() Handles buttonPaso1Cancelar.Click
         Me.Close()
     End Sub
 
-    Private Sub buttonPaso1Siguiente_Click() Handles buttonPaso1Siguiente.Click
+    Private Sub Paso1Siguiente_Click() Handles buttonPaso1Siguiente.Click
         ' Establezco las fechas de acuerdo al período a facturar seleccionado
         mFechaEmision = DateTime.Today
         mFechaServicioDesde = New Date(mAnioLectivo, mMesAFacturar, 1)
@@ -418,11 +429,11 @@
         buttonPaso2Siguiente.Enabled = (mlistEntidadesSeleccionadasCorregir.Count = 0)
     End Sub
 
-    Private Sub buttonPaso2Anterior_Click() Handles buttonPaso2Anterior.Click
+    Private Sub Paso2Anterior_Click() Handles buttonPaso2Anterior.Click
         MostrarPaneles(1)
     End Sub
 
-    Private Sub buttonPaso2Siguiente_Click() Handles buttonPaso2Siguiente.Click
+    Private Sub Paso2Siguiente_Click() Handles buttonPaso2Siguiente.Click
         Dim LoteNombre As String
         Dim listAlumno_AnioLectivoCurso_AFacturar As New List(Of Alumno_AnioLectivoCurso_AFacturar)
         Dim Alumno_AnioLectivoCurso_AFacturarNuevo As Alumno_AnioLectivoCurso_AFacturar
@@ -475,9 +486,10 @@
             mlistFacturas = New List(Of Comprobante)
 
             For Each EntidadActual As Entidad In mlistEntidadesSeleccionadasOk
-                Alumno_AnioLectivoCurso_AFacturarNuevo = New Alumno_AnioLectivoCurso_AFacturar
-                Alumno_AnioLectivoCurso_AFacturarNuevo.Alumno = EntidadActual
-                Alumno_AnioLectivoCurso_AFacturarNuevo.AnioLectivoCurso_AFacturar = EntidadActual.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = mAnioLectivo).FirstOrDefault
+                Alumno_AnioLectivoCurso_AFacturarNuevo = New Alumno_AnioLectivoCurso_AFacturar With {
+                    .Alumno = EntidadActual,
+                    .AnioLectivoCurso_AFacturar = EntidadActual.AniosLectivosCursos.Where(Function(alc) alc.AnioLectivo = mAnioLectivo).FirstOrDefault
+                }
 
                 listAlumno_AnioLectivoCurso_AFacturar.Add(Alumno_AnioLectivoCurso_AFacturarNuevo)
             Next
@@ -538,11 +550,11 @@
         End If
     End Sub
 
-    Private Sub buttonPaso3Anterior_Click() Handles buttonPaso3Anterior.Click
+    Private Sub Paso3Anterior_Click() Handles buttonPaso3Anterior.Click
         MostrarPaneles(2)
     End Sub
 
-    Private Sub buttonPaso3Finalizar_Click() Handles buttonPaso3Finalizar.Click
+    Private Sub Paso3Finalizar_Click() Handles buttonPaso3Finalizar.Click
         If MsgBox("¿Confirma la Generación del Lote de Facturas?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
             If GuardarComprobantes() Then
                 MsgBox(String.Format("Se han generado {0} Facturas.", mlistFacturas.Count), MsgBoxStyle.Information, My.Application.Info.Title)

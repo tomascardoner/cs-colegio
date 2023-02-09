@@ -2,7 +2,7 @@
     Private mIntentos As Integer = 0
     Private mdbContext As CSColegioContext
 
-    Private Sub formLogin_Load() Handles Me.Load
+    Private Sub Me_Load() Handles Me.Load
         mdbContext = New CSColegioContext(True)
 
         If pAppearanceConfig.ShowLastLoggedInUser Then
@@ -16,27 +16,27 @@
         End If
     End Sub
 
-    Private Sub formLogin_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
+    Private Sub Me_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
         If e.KeyChar = ChrW(Keys.Return) Then
-            buttonAceptar_Click()
+            Aceptar_Click()
         ElseIf e.KeyChar = ChrW(Keys.Escape) Then
-            buttonCancelar_Click()
+            Cancelar_Click()
         End If
     End Sub
 
-    Private Sub formLogin_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub Me_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         mdbContext.Dispose()
     End Sub
 
-    Private Sub textboxNombre_GotFocus() Handles textboxNombre.GotFocus
+    Private Sub Nombre_GotFocus() Handles textboxNombre.GotFocus
         textboxNombre.SelectAll()
     End Sub
 
-    Private Sub textboxPassword_GotFocus() Handles textboxPassword.GotFocus
+    Private Sub Password_GotFocus() Handles textboxPassword.GotFocus
         textboxPassword.SelectAll()
     End Sub
 
-    Private Sub buttonAceptar_Click() Handles buttonAceptar.Click
+    Private Sub Aceptar_Click() Handles buttonAceptar.Click
         Dim UsuarioCurrent As Usuario
 
         textboxNombre.Text.Trim()
@@ -117,7 +117,7 @@
         Me.DialogResult = Windows.Forms.DialogResult.OK
     End Sub
 
-    Private Sub buttonCancelar_Click() Handles buttonCancelar.Click
+    Private Sub Cancelar_Click() Handles buttonCancelar.Click
         Me.DialogResult = Windows.Forms.DialogResult.Cancel
     End Sub
 End Class

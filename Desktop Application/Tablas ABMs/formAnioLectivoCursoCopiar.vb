@@ -54,11 +54,11 @@
 #End Region
 
 #Region "Main Toolbar"
-    Private Sub buttonCerrarOCancelar_Click() Handles buttonCancelar.Click
+    Private Sub CerrarOCancelar_Click() Handles buttonCancelar.Click
         Me.Close()
     End Sub
 
-    Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
+    Private Sub Guardar_Click() Handles buttonGuardar.Click
         If comboboxAnioLectivoOrigen.SelectedIndex = -1 Then
             MsgBox("Debe especificar el Año Lectivo de Origen.", MsgBoxStyle.Information, My.Application.Info.Title)
             comboboxAnioLectivoOrigen.Focus()

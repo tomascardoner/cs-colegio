@@ -137,6 +137,7 @@
 #End Region
 
 #Region "Controls behavior"
+
     Private Sub formEntidadesSeleccionar_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
         If Not textboxBuscar.Focused Then
             If Char.IsLetter(e.KeyChar) Then
@@ -187,7 +188,7 @@
         End If
     End Sub
 
-    Private Sub buttonBuscarBorrar_Click() Handles buttonBuscarBorrar.Click
+    Private Sub BuscarBorrar_Click() Handles buttonBuscarBorrar.Click
         If BusquedaAplicada Then
             textboxBuscar.Clear()
             BusquedaAplicada = False
@@ -215,7 +216,7 @@
             Else
                 ' La columna clickeada es diferencte a la que ya estaba ordenada.
                 ' En primer lugar saco el ícono de orden de la columna vieja
-                If Not OrdenColumna Is Nothing Then
+                If OrdenColumna IsNot Nothing Then
                     OrdenColumna.HeaderCell.SortGlyphDirection = SortOrder.None
                 End If
 
@@ -227,6 +228,7 @@
 
         OrderData()
     End Sub
+
 #End Region
 
 #Region "Main Toolbar"

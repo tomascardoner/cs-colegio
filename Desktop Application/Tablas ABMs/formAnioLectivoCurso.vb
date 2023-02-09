@@ -83,7 +83,7 @@
                 textboxIDAnioLectivoCurso.Text = String.Format(.IDAnioLectivoCurso.ToString, "G")
             End If
             comboboxAnioLectivo.SelectedIndex = comboboxAnioLectivo.FindStringExact(.AnioLectivo.ToString)
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxCurso, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDCurso)
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxCurso, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, .IDCurso)
         End With
     End Sub
 
@@ -119,18 +119,19 @@
 #End Region
 
 #Region "Main Toolbar"
-    Private Sub buttonEditar_Click() Handles buttonEditar.Click
+
+    Private Sub Editar_Click() Handles buttonEditar.Click
         If Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCURSO_EDITAR) Then
             mEditMode = True
             ChangeMode()
         End If
     End Sub
 
-    Private Sub buttonCerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
+    Private Sub CerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
         Me.Close()
     End Sub
 
-    Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
+    Private Sub Guardar_Click() Handles buttonGuardar.Click
         If comboboxAnioLectivo.SelectedIndex = -1 Then
             MsgBox("Debe especificar el Año Lectivo.", MsgBoxStyle.Information, My.Application.Info.Title)
             comboboxAnioLectivo.Focus()
@@ -188,6 +189,7 @@
 
         Me.Close()
     End Sub
+
 #End Region
 
 End Class

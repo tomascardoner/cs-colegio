@@ -70,7 +70,7 @@ Public Class FormComprobante
         Me.MdiParent = pFormMDIMain
         CardonerSistemas.Forms.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
-        CardonerSistemas.ComboBox.SetSelectedValue(comboboxComprobanteTipo, CardonerSistemas.ComboBox.SelectedItemOptions.Value, mComprobanteActual.IDComprobanteTipo)
+        CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxComprobanteTipo, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, mComprobanteActual.IDComprobanteTipo)
         CambiarTipoComprobante()
         SetDataFromObjectToControls()
         Me.Show()
@@ -171,7 +171,7 @@ Public Class FormComprobante
             Else
                 textboxIDComprobante.Text = String.Format(.IDComprobante.ToString, "G")
             End If
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxComprobanteTipo, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDComprobanteTipo)
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxComprobanteTipo, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, .IDComprobanteTipo)
             textboxPuntoVenta.Text = .PuntoVenta
             textboxNumero.Text = .Numero
             datetimepickerFechaEmision.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaEmision, datetimepickerFechaEmision)
@@ -376,18 +376,18 @@ Public Class FormComprobante
 
 #Region "Main Toolbar"
 
-    Private Sub ButtonEditar_Click(sender As Object, e As EventArgs) Handles buttonEditar.Click
+    Private Sub Editar_Click(sender As Object, e As EventArgs) Handles buttonEditar.Click
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE_EDITAR) Then
             mEditMode = True
             ChangeMode()
         End If
     End Sub
 
-    Private Sub ButtonCerrar_Click(sender As Object, e As EventArgs) Handles buttonCerrar.Click
+    Private Sub Cerrar_Click(sender As Object, e As EventArgs) Handles buttonCerrar.Click
         Me.Close()
     End Sub
 
-    Private Sub ButtonGuardar_Click(sender As Object, e As EventArgs) Handles buttonGuardar.Click
+    Private Sub Guardar_Click(sender As Object, e As EventArgs) Handles buttonGuardar.Click
 
         If Not VerificarDatosComprobante() Then
             Exit Sub
@@ -1225,7 +1225,7 @@ Public Class FormComprobante
             .FechaPago = DateTime.Today
         }
         ComprobanteMedioPagoNuevo.Cheque = ChequeNuevo
-        formCheque.LoadAndShow(True, True, Me, mdbContext, mComprobanteActual, ComprobanteMedioPagoNuevo)
+        formCheque.LoadAndShow(True, Me, mdbContext, mComprobanteActual, ComprobanteMedioPagoNuevo)
 
         datagridviewMediosPago.Enabled = True
 
@@ -1247,7 +1247,7 @@ Public Class FormComprobante
             MedioPagoActual = CType(datagridviewMediosPago.SelectedRows(0).DataBoundItem, GridRowData_MedioPago).MedioPago
 
             If MedioPagoActual.EsCheque Then
-                formCheque.LoadAndShow(True, True, Me, mdbContext, mComprobanteActual, ComprobanteMedioPagoActual)
+                formCheque.LoadAndShow(True, Me, mdbContext, mComprobanteActual, ComprobanteMedioPagoActual)
             Else
                 formComprobanteMedioPago.LoadAndShow(True, True, Me, mComprobanteActual, ComprobanteMedioPagoActual)
             End If
@@ -1294,7 +1294,7 @@ Public Class FormComprobante
             MedioPagoActual = CType(datagridviewMediosPago.SelectedRows(0).DataBoundItem, GridRowData_MedioPago).MedioPago
 
             If MedioPagoActual.EsCheque Then
-                formCheque.LoadAndShow(mEditMode, False, Me, mdbContext, mComprobanteActual, ComprobanteMedioPagoActual)
+                formCheque.LoadAndShow(mEditMode, Me, mdbContext, mComprobanteActual, ComprobanteMedioPagoActual)
             Else
                 formComprobanteMedioPago.LoadAndShow(mEditMode, False, Me, mComprobanteActual, ComprobanteMedioPagoActual)
             End If

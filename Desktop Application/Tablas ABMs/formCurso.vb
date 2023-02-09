@@ -90,10 +90,10 @@
             Else
                 textboxIDCurso.Text = String.Format(.IDCurso.ToString, "G")
             End If
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxAnio, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDAnio)
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxTurno, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDTurno, CByte(0))
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxAnio, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, .IDAnio)
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxTurno, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, .IDTurno, CByte(0))
             textboxDivision.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Division)
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxCuotaTipo, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDCuotaTipo, CByte(0))
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxCuotaTipo, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, .IDCuotaTipo, CByte(0))
             checkboxEsActivo.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.EsActivo)
         End With
     End Sub
@@ -133,18 +133,18 @@
 #End Region
 
 #Region "Main Toolbar"
-    Private Sub buttonEditar_Click() Handles buttonEditar.Click
+    Private Sub Editar_Click() Handles buttonEditar.Click
         If Permisos.VerificarPermiso(Permisos.CURSO_EDITAR) Then
             mEditMode = True
             ChangeMode()
         End If
     End Sub
 
-    Private Sub buttonCerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
+    Private Sub CerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
         Me.Close()
     End Sub
 
-    Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
+    Private Sub Guardar_Click() Handles buttonGuardar.Click
         If comboboxAnio.SelectedIndex = -1 Then
             MsgBox("Debe especificar el Año.", MsgBoxStyle.Information, My.Application.Info.Title)
             comboboxAnio.Focus()

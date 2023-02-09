@@ -123,7 +123,7 @@
             textboxCuerpoMensaje.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.CuerpoMensaje)
             checkboxCuerpoMensajeEsHTML.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.CuerpoMensajeEsHTML)
             checkboxUtilizarCampos.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.UtilizarCampos)
-            CardonerSistemas.ComboBox.SetSelectedIndexByDisplayValue(comboboxCantidadDestinatariosPorEmail, .CantidadDestinatariosPorEmail.ToString)
+            CardonerSistemas.Controls.ComboBox.SetSelectedIndexByDisplayValue(comboboxCantidadDestinatariosPorEmail, .CantidadDestinatariosPorEmail.ToString)
             checkboxDestinatariosEnCampoBCC.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.DestinatariosEnCampoBCC)
             textboxArchivoAdjunto.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.ArchivoAdjunto)
             checkboxEsActivo.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.EsActivo)
@@ -188,18 +188,19 @@
 #End Region
 
 #Region "Main Toolbar"
-    Private Sub buttonEditar_Click() Handles buttonEditar.Click
+
+    Private Sub Editar_Click() Handles buttonEditar.Click
         If Permisos.VerificarPermiso(Permisos.COMUNICACION_EDITAR) Then
             mEditMode = True
             ChangeMode()
         End If
     End Sub
 
-    Private Sub buttonCerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
+    Private Sub CerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
         Me.Close()
     End Sub
 
-    Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
+    Private Sub Guardar_Click() Handles buttonGuardar.Click
         If textboxNombre.Text.Trim.Length = 0 Then
             MsgBox("Debe especificar el Nombre.", MsgBoxStyle.Information, My.Application.Info.Title)
             textboxNombre.Focus()
@@ -273,6 +274,7 @@
 
         Me.Close()
     End Sub
+
 #End Region
 
 End Class

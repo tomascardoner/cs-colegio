@@ -82,7 +82,7 @@
         With mAnioLectivoCuotaActual
             textboxAnioLectivo.Text = mAnioLectivoCuotaActual.AnioLectivo.ToString
             comboboxMesInicio.SelectedIndex = .MesInicio - 1
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxCuotaTipo, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, .IDCuotaTipo)
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxCuotaTipo, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, .IDCuotaTipo)
             currencytextboxImporteMatricula.DecimalValue = .ImporteMatricula
             currencytextboxImporteCuota.DecimalValue = .ImporteCuota
         End With
@@ -122,18 +122,19 @@
 #End Region
 
 #Region "Main Toolbar"
-    Private Sub buttonEditar_Click() Handles buttonEditar.Click
+
+    Private Sub Editar_Click() Handles buttonEditar.Click
         If Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCUOTA_EDITAR) Then
             mEditMode = True
             ChangeMode()
         End If
     End Sub
 
-    Private Sub buttonCerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
+    Private Sub CerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
         Me.Close()
     End Sub
 
-    Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
+    Private Sub Guardar_Click() Handles buttonGuardar.Click
         If comboboxMesInicio.SelectedIndex = -1 Then
             MsgBox("Debe especificar el Mes de Inicio.", MsgBoxStyle.Information, My.Application.Info.Title)
             comboboxMesInicio.Focus()

@@ -88,9 +88,9 @@
             Else
                 textboxIDAnio.Text = String.Format(.IDAnio.ToString, "G")
             End If
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxNivel, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDNivel)
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxNivel, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, .IDNivel)
             textboxNombre.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Nombre)
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxAnioSiguiente, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDAnioSiguiente, CByte(0))
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxAnioSiguiente, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, .IDAnioSiguiente, CByte(0))
             checkboxEsActivo.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.EsActivo)
         End With
     End Sub
@@ -129,18 +129,19 @@
 #End Region
 
 #Region "Main Toolbar"
-    Private Sub buttonEditar_Click() Handles buttonEditar.Click
+
+    Private Sub Editar_Click() Handles buttonEditar.Click
         If Permisos.VerificarPermiso(Permisos.ANIO_EDITAR) Then
             mEditMode = True
             ChangeMode()
         End If
     End Sub
 
-    Private Sub buttonCerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
+    Private Sub CerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
         Me.Close()
     End Sub
 
-    Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
+    Private Sub Guardar_Click() Handles buttonGuardar.Click
         If comboboxNivel.SelectedIndex = -1 Then
             MsgBox("Debe especificar el Nivel.", MsgBoxStyle.Information, My.Application.Info.Title)
             comboboxNivel.Focus()
@@ -202,6 +203,7 @@
 
         Me.Close()
     End Sub
+
 #End Region
 
 End Class

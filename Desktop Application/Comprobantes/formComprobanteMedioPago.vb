@@ -64,7 +64,7 @@
 
     Friend Sub SetDataFromObjectToControls()
         With mComprobanteMedioPagoActual
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxMedioPago, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDMedioPago, CByte(0))
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxMedioPago, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, .IDMedioPago, CByte(0))
 
             If mMedioPagoCurrent.UtilizaFechaHora Then
                 datetimepickerFecha.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaHora)
@@ -79,7 +79,7 @@
                 textboxNumero.Text = ""
             End If
             If mMedioPagoCurrent.UtilizaBanco Then
-                CardonerSistemas.ComboBox.SetSelectedValue(comboboxBanco, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDBanco, CShort(0))
+                CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxBanco, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, .IDBanco, CShort(0))
             Else
                 comboboxBanco.SelectedIndex = 0
             End If
@@ -94,7 +94,7 @@
                 textboxTitular.Text = ""
             End If
 
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxCaja, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .IDCaja, CByte(0))
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxCaja, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, .IDCaja, CByte(0))
             currencytextboxImporte.DecimalValue = .Importe
         End With
     End Sub
@@ -203,16 +203,17 @@
 #End Region
 
 #Region "Main Toolbar"
-    Private Sub buttonEditar_Click() Handles buttonEditar.Click
+
+    Private Sub Editar_Click() Handles buttonEditar.Click
         mEditMode = True
         ChangeMode()
     End Sub
 
-    Private Sub buttonCerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
+    Private Sub CerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
         Me.Close()
     End Sub
 
-    Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
+    Private Sub Guardar_Click() Handles buttonGuardar.Click
         If comboboxMedioPago.SelectedIndex = -1 Then
             MsgBox("Debe especificar el Medio de Pago.", MsgBoxStyle.Information, My.Application.Info.Title)
             comboboxMedioPago.Focus()

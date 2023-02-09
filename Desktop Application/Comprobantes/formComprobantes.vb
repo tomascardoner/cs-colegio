@@ -195,7 +195,7 @@
                                          Join ct In dbContext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                          Where cc.FechaEmision >= FechaDesde And cc.FechaEmision <= FechaHasta
                                          Order By cc.FechaEmision, cc.IDComprobante
-                                         Select New GridRowData With {.IDComprobante = cc.IDComprobante, .OperacionTipo = ct.OperacionTipo, .IDComprobanteTipo = cc.IDComprobanteTipo, .ComprobanteTipoNombre = ct.Nombre, .IDComprobanteLote = cc.IDComprobanteLote, .NumeroCompleto = cc.NumeroCompleto, .FechaEmision = cc.FechaEmision, .IDEntidad = cc.IDEntidad, .EntidadNombre = cc.ApellidoNombre, .DocumentoNumero = cc.DocumentoNumero, .ImporteTotal = cc.ImporteTotal1, .CAE = cc.CAE, .Anulado = Not cc.IDUsuarioAnulacion Is Nothing}).ToList
+                                         Select New GridRowData With {.IDComprobante = cc.IDComprobante, .OperacionTipo = ct.OperacionTipo, .IDComprobanteTipo = cc.IDComprobanteTipo, .ComprobanteTipoNombre = ct.Nombre, .IDComprobanteLote = cc.IDComprobanteLote, .NumeroCompleto = cc.NumeroCompleto, .FechaEmision = cc.FechaEmision, .IDEntidad = cc.IDEntidad, .EntidadNombre = cc.ApellidoNombre, .DocumentoNumero = cc.DocumentoNumero, .ImporteTotal = cc.ImporteTotal1, .CAE = cc.CAE, .Anulado = cc.IDUsuarioAnulacion IsNot Nothing}).ToList
             End Using
 
         Catch ex As Exception
@@ -401,7 +401,7 @@
         FilterData()
     End Sub
 
-    Private Sub buttonEntidad_Click() Handles buttonEntidad.Click
+    Private Sub Entidad_Click() Handles buttonEntidad.Click
         If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
             Dim EntidadSeleccionada As Entidad
             EntidadSeleccionada = CType(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
@@ -412,8 +412,8 @@
         formEntidadesSeleccionar.Dispose()
     End Sub
 
-    Private Sub buttonEntidadBorrar_Click() Handles buttonEntidadBorrar.Click
-        If Not textboxEntidad.Tag Is Nothing Then
+    Private Sub EntidadBorrar_Click() Handles buttonEntidadBorrar.Click
+        If textboxEntidad.Tag IsNot Nothing Then
             textboxEntidad.Text = ""
             textboxEntidad.Tag = Nothing
             FilterData()
@@ -455,7 +455,7 @@
         End If
     End Sub
 
-    Private Sub buttonBuscarBorrar_Click() Handles buttonBuscarBorrar.Click
+    Private Sub BuscarBorrar_Click() Handles buttonBuscarBorrar.Click
         If mBusquedaAplicada Then
             textboxBuscar.Clear()
             mBusquedaAplicada = False
@@ -478,7 +478,7 @@
         Else
             ' La columna clickeada es diferencte a la que ya estaba ordenada.
             ' En primer lugar saco el ícono de orden de la columna vieja
-            If Not mOrdenColumna Is Nothing Then
+            If mOrdenColumna IsNot Nothing Then
                 mOrdenColumna.HeaderCell.SortGlyphDirection = SortOrder.None
             End If
 
@@ -580,7 +580,7 @@
                 Else
                     Using dbContext = New CSColegioContext(True)
                         Dim ComprobanteActual As Comprobante = dbContext.Comprobante.Find(CurrentRow.IDComprobante)
-                        If ComprobanteActual.ComprobanteTipo.EmisionElectronica AndAlso Not ComprobanteActual.CAE Is Nothing Then
+                        If ComprobanteActual.ComprobanteTipo.EmisionElectronica AndAlso ComprobanteActual.CAE IsNot Nothing Then
                             Me.Cursor = Cursors.Default
                             MsgBox("No se puede editar este Comprobante porque es de Emisión Electrónica y ya tiene un CAE asignado.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                         Else
@@ -629,7 +629,7 @@
                     RefreshData()
                 End If
             Else
-                If ComprobanteActual.ComprobanteTipo.EmisionElectronica AndAlso Not ComprobanteActual.CAE Is Nothing Then
+                If ComprobanteActual.ComprobanteTipo.EmisionElectronica AndAlso ComprobanteActual.CAE IsNot Nothing Then
                     MsgBox("No se puede anular este Comprobante porque es de Emisión Electrónica y ya tiene un CAE asignado.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                 Else
                     Mensaje = String.Format("Se anulará el Comprobante seleccionado.{0}{0}{1} N° {2}{0}{0}¿Confirma?", vbCrLf, CurrentRow.ComprobanteTipoNombre, CurrentRow.NumeroCompleto)
@@ -664,7 +664,7 @@
 
                 Using dbContext = New CSColegioContext(True)
                     Dim ComprobanteActual As Comprobante = dbContext.Comprobante.Find(CurrentRow.IDComprobante)
-                    If ComprobanteActual.ComprobanteTipo.EmisionElectronica AndAlso Not ComprobanteActual.CAE Is Nothing Then
+                    If ComprobanteActual.ComprobanteTipo.EmisionElectronica AndAlso ComprobanteActual.CAE IsNot Nothing Then
                         MsgBox("No se puede eliminar este Comprobante porque es de Emisión Electrónica y ya tiene un CAE asignado.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                     Else
                         Dim Mensaje As String
@@ -838,7 +838,7 @@
                         End If
 
                         ' Verifico que no se haya enviado ya
-                        If Not ComprobanteActual.FechaHoraEnvioEmail Is Nothing Then
+                        If ComprobanteActual.FechaHoraEnvioEmail IsNot Nothing Then
                             If MsgBox(String.Format("El Comprobante que está por enviar, ya fue enviado el {1}.{0}{0}¿Desea enviarlo otra vez?", vbCrLf, ComprobanteActual.FechaHoraEnvioEmail.Value.ToShortDateString), CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
                                 Exit Sub
                             End If

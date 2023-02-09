@@ -115,6 +115,7 @@
 #End Region
 
 #Region "Controls behavior"
+
     Private Sub FormKeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
         Select Case e.KeyChar
             Case Microsoft.VisualBasic.ChrW(Keys.Return)
@@ -133,24 +134,25 @@
     End Sub
 
     Private Sub AplicarComprobante() Handles datagridviewMain.DoubleClick
-        If Not datagridviewMain.CurrentRow Is Nothing Then
+        If datagridviewMain.CurrentRow IsNot Nothing Then
             currencytextboxImporteAplicado.DecimalValue = CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).ImporteSinAplicar.Value
         End If
     End Sub
+
 #End Region
 
 #Region "Main Toolbar"
 
-    Private Sub buttonEditar_Click() Handles buttonEditar.Click
+    Private Sub Editar_Click() Handles buttonEditar.Click
         mEditMode = True
         ChangeMode()
     End Sub
 
-    Private Sub buttonCerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
+    Private Sub CerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
         Me.Close()
     End Sub
 
-    Private Sub buttonGuardar_Click() Handles buttonGuardar.Click
+    Private Sub Guardar_Click() Handles buttonGuardar.Click
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Comprobante para aplicar.", vbInformation, My.Application.Info.Title)
             datagridviewMain.Focus()

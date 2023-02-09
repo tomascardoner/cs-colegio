@@ -3,7 +3,8 @@
 Public Class formComprobantesTransmitirPagomiscuentas
 
 #Region "Declarations"
-    Private dbContext As New CSColegioContext(True)
+
+    Private ReadOnly dbContext As New CSColegioContext(True)
     Private listComprobantes As List(Of GridDataRow)
 
     Private Class GridDataRow
@@ -13,6 +14,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
         Public Property ApellidoNombre As String
         Public Property ImporteTotal As Decimal
     End Class
+
 #End Region
 
 #Region "Form stuff"
@@ -27,6 +29,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
 #End Region
 
 #Region "Load and Set Data"
+
     Private Sub RefreshData()
         Dim ComprobanteLoteActual As ComprobanteLote
 
@@ -34,7 +37,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
 
         Try
 
-            If Not comboboxComprobanteLote.SelectedValue Is Nothing Then
+            If comboboxComprobanteLote.SelectedValue IsNot Nothing Then
                 ComprobanteLoteActual = CType(comboboxComprobanteLote.SelectedItem, ComprobanteLote)
 
                 listComprobantes = (From c In dbContext.Comprobante
@@ -79,7 +82,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
         RefreshData()
     End Sub
 
-    Private Sub buttonTransmitir_Click(sender As Object, e As EventArgs) Handles buttonExportar.Click
+    Private Sub Transmitir_Click(sender As Object, e As EventArgs) Handles buttonExportar.Click
         If listComprobantes.Count > 0 Then
             If CS_Parameter_System.GetIntegerAsShort(Parametros.EMPRESA_PRISMA_NUMERO) = 0 Then
                 MsgBox("No está especificado el Número de Empresa otorgado por PRISMA.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
@@ -144,7 +147,7 @@ Public Class formComprobantesTransmitirPagomiscuentas
 
             For Each RowActual As DataGridViewRow In datagridviewComprobantes.Rows
                 ComprobanteActual = dbContext.Comprobante.Find(CType(RowActual.DataBoundItem, GridDataRow).IDComprobante)
-                If Not ComprobanteActual Is Nothing Then
+                If ComprobanteActual IsNot Nothing Then
                     ' Detalle
                     DetalleTextStream = "5"                                                                 ' Código de Registro
                     DetalleTextStream &= ComprobanteActual.Entidad.IDEntidad.ToString.PadRight(19, " "c)    ' Número de Referencia

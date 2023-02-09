@@ -15,25 +15,25 @@
 
         Select Case mParametroActual.Tipo
             Case Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_INTEGER, Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_DECIMAL
-                If Not mParametroActual.Valor Is Nothing Then
+                If mParametroActual.Valor IsNot Nothing Then
                     doubletextboxNumber.Text = CStr(mParametroActual.Valor)
                 End If
             Case Constantes.REPORTE_PARAMETRO_TIPO_MONEY
-                If Not mParametroActual.Valor Is Nothing Then
+                If mParametroActual.Valor IsNot Nothing Then
                     currencytextboxMoney.Text = CStr(mParametroActual.Valor)
                 End If
             Case Constantes.REPORTE_PARAMETRO_TIPO_DATE
-                If Not mParametroActual.Valor Is Nothing Then
+                If mParametroActual.Valor IsNot Nothing Then
                     datetimepickerValor.Value = CDate(mParametroActual.Valor)
                 End If
             Case Constantes.REPORTE_PARAMETRO_TIPO_YEAR
                 pFillAndRefreshLists.AnioLectivo(comboboxValues, False, SortOrder.Descending)
-                If Not mParametroActual.Valor Is Nothing Then
-                    CardonerSistemas.ComboBox.SetSelectedValue(comboboxValues, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, mParametroActual.Valor)
+                If mParametroActual.Valor IsNot Nothing Then
+                    CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxValues, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, mParametroActual.Valor)
                 End If
             Case Constantes.REPORTE_PARAMETRO_TIPO_MONTH
                 pFillAndRefreshLists.Mes(comboboxValues, True, False, True, False, False)
-                If Not mParametroActual.Valor Is Nothing Then
+                If mParametroActual.Valor IsNot Nothing Then
                     comboboxValues.SelectedIndex = CInt(mParametroActual.Valor) - 1
                 End If
         End Select

@@ -206,7 +206,7 @@
             checkboxTipoFamiliar.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoFamiliar)
             checkboxTipoProveedor.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoProveedor)
             checkboxTipoOtro.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.TipoOtro)
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxDocumentoTipo, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirst, .IDDocumentoTipo, CardonerSistemas.Constants.FIELD_VALUE_NOTSPECIFIED_BYTE)
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxDocumentoTipo, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirst, .IDDocumentoTipo, CardonerSistemas.Constants.FIELD_VALUE_NOTSPECIFIED_BYTE)
             If .IDDocumentoTipo.HasValue Then
                 If CType(comboboxDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
                     maskedtextboxDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DocumentoNumero)
@@ -218,7 +218,7 @@
                 textboxDocumentoNumero.Text = ""
             End If
             checkboxDocumentoNumeroVerificado.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.DocumentoNumeroVerificado)
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxFacturaDocumentoTipo, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirst, .FacturaIDDocumentoTipo, CardonerSistemas.Constants.FIELD_VALUE_NOTSPECIFIED_BYTE)
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxFacturaDocumentoTipo, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirst, .FacturaIDDocumentoTipo, CardonerSistemas.Constants.FIELD_VALUE_NOTSPECIFIED_BYTE)
             If .FacturaIDDocumentoTipo.HasValue Then
                 If CType(comboboxFacturaDocumentoTipo.SelectedItem, DocumentoTipo).VerificaModulo11 Then
                     maskedtextboxFacturaDocumentoNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.FacturaDocumentoNumero)
@@ -230,9 +230,9 @@
                 textboxFacturaDocumentoNumero.Text = ""
             End If
             checkboxFacturaDocumentoNumeroVerificado.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.FacturaDocumentoNumeroVerificado)
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxGenero, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirst, .Genero, Constantes.EntidadGeneroNoEspecifica)
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxGenero, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirst, .Genero, Constantes.EntidadGeneroNoEspecifica)
             datetimepickerFechaNacimiento.Value = CS_ValueTranslation.FromObjectDateToControlDateTimePicker(.FechaNacimiento, datetimepickerFechaNacimiento)
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxCategoriaIVA, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirst, .IDCategoriaIVA, 0)
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxCategoriaIVA, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirst, .IDCategoriaIVA, 0)
 
             ' Datos de la pestaña Contacto
             textboxTelefono1.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Telefono1)
@@ -242,7 +242,7 @@
             checkboxVerificarEmail1.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.VerificarEmail1)
             textboxEmail2.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Email2)
             checkboxVerificarEmail2.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.VerificarEmail2)
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxComprobanteEnviarEmail, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirst, .ComprobanteEnviarEmail, Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_CUALQUIERA)
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxComprobanteEnviarEmail, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirst, .ComprobanteEnviarEmail, Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_CUALQUIERA)
             textboxDomicilioCalle1.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCalle1)
             textboxDomicilioNumero.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioNumero)
             textboxDomicilioPiso.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioPiso)
@@ -250,8 +250,8 @@
             textboxDomicilioCalle2.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCalle2)
             textboxDomicilioCalle3.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCalle3)
             textboxDomicilioBarrio.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioBarrio)
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxDomicilioProvincia, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .DomicilioIDProvincia, Constantes.PROVINCIA_NOESPECIFICA)
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxDomicilioLocalidad, CardonerSistemas.ComboBox.SelectedItemOptions.Value, .DomicilioIDLocalidad, 0)
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxDomicilioProvincia, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, .DomicilioIDProvincia, Constantes.PROVINCIA_NOESPECIFICA)
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxDomicilioLocalidad, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, .DomicilioIDLocalidad, 0)
             textboxDomicilioCodigoPostal.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.DomicilioCodigoPostal)
 
             ' Datos de la pestaña Padres y Facturación
@@ -269,7 +269,7 @@
                 textboxEntidadMadre.Text = .EntidadMadre.ApellidoNombre
                 textboxEntidadMadre.Tag = .EntidadMadre.IDEntidad
             End If
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxEmitirFacturaA, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirst, .EmitirFacturaA, Constantes.ENTIDAD_EMITIRFACTURAA_NOESPECIFICA)
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxEmitirFacturaA, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirst, .EmitirFacturaA, Constantes.ENTIDAD_EMITIRFACTURAA_NOESPECIFICA)
             If .EntidadTercero Is Nothing OrElse (.EmitirFacturaA <> Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO And .EmitirFacturaA <> Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) Then
                 textboxEntidadTercero.Text = ""
                 textboxEntidadTercero.Tag = Nothing
@@ -282,7 +282,7 @@
                     textboxEntidadTercero.Tag = .EntidadTercero.IDEntidad
                 End If
             End If
-            CardonerSistemas.ComboBox.SetSelectedValue(comboboxDescuento, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirst, .IDDescuento, 0)
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxDescuento, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirst, .IDDescuento, 0)
             If .IDDescuento = CardonerSistemas.Constants.FIELD_VALUE_OTHER_BYTE Then
                 CS_ValueTranslation_Syncfusion.FromValueDecimalToControlPercentTextBox(.DescuentoOtroPorcentaje, percenttextboxDescuentoOtroPorcentaje)
             Else
@@ -541,7 +541,7 @@
         Else
             pFillAndRefreshLists.Localidad(comboboxDomicilioLocalidad, CByte(comboboxDomicilioProvincia.SelectedValue), False)
             If CByte(comboboxDomicilioProvincia.SelectedValue) = CS_Parameter_System.GetIntegerAsByte(Parametros.DEFAULT_PROVINCIA_ID) Then
-                CardonerSistemas.ComboBox.SetSelectedValue(comboboxDomicilioLocalidad, CardonerSistemas.ComboBox.SelectedItemOptions.ValueOrFirst, CS_Parameter_System.GetIntegerAsShort(Parametros.DEFAULT_LOCALIDAD_ID))
+                CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxDomicilioLocalidad, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirst, CS_Parameter_System.GetIntegerAsShort(Parametros.DEFAULT_LOCALIDAD_ID))
             End If
         End If
     End Sub
@@ -552,7 +552,7 @@
         End If
     End Sub
 
-    Private Sub ButtonEntidadPadre_Click(sender As Object, e As EventArgs) Handles buttonEntidadPadre.Click
+    Private Sub EntidadPadre_Click(sender As Object, e As EventArgs) Handles buttonEntidadPadre.Click
         formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
@@ -568,12 +568,12 @@
         formEntidadesSeleccionar.Dispose()
     End Sub
 
-    Private Sub ButtonEntidadPadreBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadPadreBorrar.Click
+    Private Sub EntidadPadreBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadPadreBorrar.Click
         textboxEntidadPadre.Text = ""
         textboxEntidadPadre.Tag = Nothing
     End Sub
 
-    Private Sub ButtonEntidadMadre_Click(sender As Object, e As EventArgs) Handles buttonEntidadMadre.Click
+    Private Sub EntidadMadre_Click(sender As Object, e As EventArgs) Handles buttonEntidadMadre.Click
         formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
@@ -589,7 +589,7 @@
         formEntidadesSeleccionar.Dispose()
     End Sub
 
-    Private Sub ButtonEntidadMadreBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadMadreBorrar.Click
+    Private Sub EntidadMadreBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadMadreBorrar.Click
         textboxEntidadMadre.Text = ""
         textboxEntidadMadre.Tag = Nothing
     End Sub
@@ -601,7 +601,7 @@
         End If
     End Sub
 
-    Private Sub ButtonEntidadTercero_Click(sender As Object, e As EventArgs) Handles buttonEntidadTercero.Click
+    Private Sub EntidadTercero_Click(sender As Object, e As EventArgs) Handles buttonEntidadTercero.Click
         formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = False
         formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = False
@@ -617,7 +617,7 @@
         formEntidadesSeleccionar.Dispose()
     End Sub
 
-    Private Sub ButtonEntidadTerceroBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadTerceroBorrar.Click
+    Private Sub EntidadTerceroBorrar_Click(sender As Object, e As EventArgs) Handles buttonEntidadTerceroBorrar.Click
         textboxEntidadTercero.Text = ""
         textboxEntidadTercero.Tag = Nothing
     End Sub
@@ -722,7 +722,7 @@
         Me.Close()
     End Sub
 
-    Private Sub ButtonCancelar_Click() Handles buttonCancelar.Click
+    Private Sub Cancelar_Click() Handles buttonCancelar.Click
         If mdbContext.ChangeTracker.HasChanges Then
             If MsgBox("Ha realizado cambios en los datos y seleccionó cancelar, los cambios se perderán." & vbCr & vbCr & "¿Confirma la pérdida de los cambios?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                 Me.Close()

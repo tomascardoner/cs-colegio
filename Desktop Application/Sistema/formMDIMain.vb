@@ -216,7 +216,7 @@
 
         If Permisos.VerificarPermiso(Permisos.BANCO) Then
             formBancos = FormCABGenerico_CrearOMostrar("Banco", "Bancos")
-            If Not formBancos Is Nothing Then
+            If formBancos IsNot Nothing Then
                 With formBancos
                     'AGREGO LAS COLUMNAS
                     .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("IDBanco", "ID", "IDBanco", DataGridViewContentAlignment.MiddleCenter))
@@ -237,7 +237,7 @@
 
         If Permisos.VerificarPermiso(Permisos.RELACIONTIPO) Then
             formRelacionTipo = FormCABGenerico_CrearOMostrar("Tipo de Relación", "Tipos de Relación")
-            If Not formRelacionTipo Is Nothing Then
+            If formRelacionTipo IsNot Nothing Then
                 With formRelacionTipo
                     'AGREGO LAS COLUMNAS
                     .datagridviewMain.Columns.Add(CS_DataGridView.CreateColumn_TextBox("IDRelacionTipo", "ID", "IDRelacionTipo", DataGridViewContentAlignment.MiddleCenter))
@@ -495,7 +495,7 @@
 #End Region
 
 #Region "Left Toolbar - Reportes"
-    Private Sub buttonReportes_Click(sender As Object, e As EventArgs) Handles buttonReportes.Click
+    Private Sub Reportes_Click(sender As Object, e As EventArgs) Handles buttonReportes.Click
         If Permisos.VerificarPermiso(Permisos.REPORTE) Then
             CardonerSistemas.Forms.MdiChildShow(Me, CType(formReportes, Form), False)
         End If
