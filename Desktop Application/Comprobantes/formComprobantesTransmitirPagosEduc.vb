@@ -199,7 +199,7 @@ Public Class formComprobantesTransmitirPagosEduc
     End Function
 
     Private Function ExportArchivoBase(ByVal codigoEmpresa As Integer) As Boolean
-        Dim FolderName As String = ""
+        Dim FolderName As String = String.Empty
         Dim FileName As String
 
         Dim GridDataRowActual As GridDataRow
