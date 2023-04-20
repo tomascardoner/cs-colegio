@@ -54,9 +54,9 @@
 
         mSkipFilterData = True
 
+        ' Filtro de período
         InicializarFiltroDeFechas()
-        comboboxPeriodoTipo.Items.AddRange({"Día:", "Semana:", "Mes:", "Fecha"})
-        comboboxPeriodoTipo.SelectedIndex = 0
+        CardonerSistemas.DateTime.FillPeriodTypesComboBox(comboboxPeriodoTipo.ComboBox, CardonerSistemas.DateTime.PeriodTypes.Month)
 
         ' Tipos de Comprobantes
         comboboxOperacionTipo.Items.AddRange({My.Resources.STRING_ITEM_ALL_MALE, My.Resources.STRING_OPERACIONTIPO_COMPRA, My.Resources.STRING_OPERACIONTIPO_VENTA})
@@ -118,74 +118,7 @@
 
         Me.Cursor = Cursors.WaitCursor
 
-        Select Case comboboxPeriodoTipo.SelectedIndex
-            Case 0  ' Día
-                Select Case comboboxPeriodoValor.SelectedIndex
-                    Case 0  ' Hoy
-                        FechaDesde = System.DateTime.Today
-                        FechaHasta = System.DateTime.Today
-                    Case 1  ' Ayer
-                        FechaDesde = System.DateTime.Today.AddDays(-1)
-                        FechaHasta = System.DateTime.Today.AddDays(-1)
-                    Case 2  ' Anteayer
-                        FechaDesde = System.DateTime.Today.AddDays(-2)
-                        FechaHasta = System.DateTime.Today.AddDays(-2)
-                    Case 3  ' Últimos 2
-                        FechaDesde = System.DateTime.Today.AddDays(-1)
-                        FechaHasta = System.DateTime.Today
-                    Case 4  ' Últimos 3
-                        FechaDesde = System.DateTime.Today.AddDays(-2)
-                        FechaHasta = System.DateTime.Today
-                    Case 5  ' Últimos 4
-                        FechaDesde = System.DateTime.Today.AddDays(-3)
-                        FechaHasta = System.DateTime.Today
-                End Select
-            Case 1  ' Semana
-                Select Case comboboxPeriodoValor.SelectedIndex
-                    Case 0  ' Actual
-                        FechaDesde = System.DateTime.Today.AddDays(-System.DateTime.Today.DayOfWeek)
-                        FechaHasta = System.DateTime.Today
-                    Case 1  ' Anterior
-                        FechaDesde = System.DateTime.Today.AddDays(-System.DateTime.Today.DayOfWeek - 7)
-                        FechaHasta = System.DateTime.Today.AddDays(-System.DateTime.Today.DayOfWeek - 1)
-                    Case 2  ' Últimas 2
-                        FechaDesde = System.DateTime.Today.AddDays(-System.DateTime.Today.DayOfWeek - 7)
-                        FechaHasta = System.DateTime.Today
-                    Case 3  ' Últimas 3
-                        FechaDesde = System.DateTime.Today.AddDays(-System.DateTime.Today.DayOfWeek - 14)
-                        FechaHasta = System.DateTime.Today
-                End Select
-            Case 2  ' Mes
-                Select Case comboboxPeriodoValor.SelectedIndex
-                    Case 0  ' Actual
-                        FechaDesde = New Date(System.DateTime.Today.Year, System.DateTime.Today.Month, 1)
-                        FechaHasta = System.DateTime.Today
-                    Case 1  ' Anterior
-                        FechaDesde = New Date(System.DateTime.Today.Year, System.DateTime.Today.AddMonths(-1).Month, 1)
-                        FechaHasta = New Date(System.DateTime.Today.Year, System.DateTime.Today.AddMonths(-1).Month, New System.Globalization.GregorianCalendar().GetDaysInMonth(System.DateTime.Today.Year, System.DateTime.Today.AddMonths(-1).Month))
-                    Case 2  ' Últimos 2
-                        FechaDesde = New Date(System.DateTime.Today.Year, System.DateTime.Today.AddMonths(-1).Month, 1)
-                        FechaHasta = System.DateTime.Today
-                    Case 3  ' Últimos 3
-                        FechaDesde = New Date(System.DateTime.Today.Year, System.DateTime.Today.AddMonths(-2).Month, 1)
-                        FechaHasta = System.DateTime.Today
-                End Select
-            Case 3  ' Fecha
-                Select Case comboboxPeriodoValor.SelectedIndex
-                    Case 0  ' igual
-                        FechaDesde = CType(datetimepickerFechaDesdeHost.Control, DateTimePicker).Value
-                        FechaHasta = CType(datetimepickerFechaDesdeHost.Control, DateTimePicker).Value
-                    Case 1  ' posterior
-                        FechaDesde = CType(datetimepickerFechaDesdeHost.Control, DateTimePicker).Value
-                        FechaHasta = Date.MaxValue
-                    Case 2  ' anterior
-                        FechaDesde = Date.MinValue
-                        FechaHasta = CType(datetimepickerFechaDesdeHost.Control, DateTimePicker).Value
-                    Case 3  ' entre
-                        FechaDesde = CType(datetimepickerFechaDesdeHost.Control, DateTimePicker).Value
-                        FechaHasta = CType(datetimepickerFechaHastaHost.Control, DateTimePicker).Value
-                End Select
-        End Select
+        CardonerSistemas.DateTime.GetDatesFromPeriodTypeAndValue(CType(comboboxPeriodoTipo.SelectedIndex, CardonerSistemas.DateTime.PeriodTypes), CByte(comboboxPeriodoValor.SelectedIndex), FechaDesde, FechaHasta, CType(datetimepickerFechaDesdeHost.Control, DateTimePicker).Value, CType(datetimepickerFechaHastaHost.Control, DateTimePicker).Value)
 
         Try
             mReportSelectionFormulaBase = String.Format("{{Comprobante.FechaEmision}} >= DateTime({0}, {1}, {2}) AND {{Comprobante.FechaEmision}} <= DateTime({3}, {4}, {5})", FechaDesde.Year, FechaDesde.Month, FechaDesde.Day, FechaHasta.Year, FechaHasta.Month, FechaHasta.Day)
@@ -351,24 +284,13 @@
 #Region "Controls behavior"
 
     Private Sub PeriodoTipoSeleccionar() Handles comboboxPeriodoTipo.SelectedIndexChanged
-        comboboxPeriodoValor.Items.Clear()
-        Select Case comboboxPeriodoTipo.SelectedIndex
-            Case 0  ' Día
-                comboboxPeriodoValor.Items.AddRange({"Hoy", "Ayer", "Anteayer", "Últimos 2", "Últimos 3", "Últimos 4"})
-            Case 1  ' Semana
-                comboboxPeriodoValor.Items.AddRange({"Actual", "Anterior", "Últimas 2", "Últimas 3"})
-            Case 2  ' Mes
-                comboboxPeriodoValor.Items.AddRange({"Actual", "Anterior", "Últimos 2", "Últimos 3"})
-            Case 3  ' Fecha
-                comboboxPeriodoValor.Items.AddRange({"es igual a:", "es posterior a:", "es anterior a:", "está entre:"})
-        End Select
-        comboboxPeriodoValor.SelectedIndex = 0
+        CardonerSistemas.DateTime.FillPeriodValuesComboBox(comboboxPeriodoValor.ComboBox, CType(comboboxPeriodoTipo.SelectedIndex, CardonerSistemas.DateTime.PeriodTypes))
     End Sub
 
     Private Sub PeriodoValorSeleccionar() Handles comboboxPeriodoValor.SelectedIndexChanged
-        datetimepickerFechaDesdeHost.Visible = (comboboxPeriodoTipo.SelectedIndex = 3)
-        labelPeriodoFechaY.Visible = (comboboxPeriodoTipo.SelectedIndex = 3 And comboboxPeriodoValor.SelectedIndex = 3)
-        datetimepickerFechaHastaHost.Visible = (comboboxPeriodoTipo.SelectedIndex = 3 And comboboxPeriodoValor.SelectedIndex = 3)
+        datetimepickerFechaDesdeHost.Visible = (comboboxPeriodoTipo.SelectedIndex = CInt(CardonerSistemas.DateTime.PeriodTypes.Range))
+        labelPeriodoFechaY.Visible = (comboboxPeriodoTipo.SelectedIndex = CInt(CardonerSistemas.DateTime.PeriodTypes.Range) And comboboxPeriodoValor.SelectedIndex = CInt(CardonerSistemas.DateTime.PeriodRangeValues.DateBetween))
+        datetimepickerFechaHastaHost.Visible = labelPeriodoFechaY.Visible
         RefreshData()
     End Sub
 

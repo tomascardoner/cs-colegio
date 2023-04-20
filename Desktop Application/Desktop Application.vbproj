@@ -221,6 +221,9 @@
       <Link>Framework\Database.SelectDatasource.vb</Link>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="..\..\..\framework-vbnet\DateTime.vb">
+      <Link>Framework\DateTime.vb</Link>
+    </Compile>
     <Compile Include="..\..\..\framework-vbnet\Encoding.vb">
       <Link>Framework\Encoding.vb</Link>
     </Compile>
