@@ -1,6 +1,6 @@
 ﻿Imports System.Data.Entity.Infrastructure
 
-Public Class FormComprobante
+Public Class formComprobante
 
 #Region "Declarations"
 
@@ -575,7 +575,7 @@ Public Class FormComprobante
             Return False
         End If
         If Math.Abs(datetimepickerFechaEmision.Value.CompareTo(DateAndTime.Today)) > 30 Then
-            If MsgBox(String.Format("La Fecha de Emisión tiene más de {0} días de diferencia con la Fecha actual.", mConceptoActual.FechaRangoDia) & vbCrLf & vbCrLf & "¿Es correcto?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+            If MsgBox("La Fecha de Emisión tiene más de 30 días de diferencia con la Fecha actual." & vbCrLf & vbCrLf & "¿Es correcto?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
                 datetimepickerFechaEmision.Focus()
                 Return False
             End If
