@@ -143,7 +143,6 @@ Public Class formComprobantesTransmitirPagosEduc
             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error el acceder o crear la carpeta especificada.")
         End Try
 
-        CodigoEmpresa = CS_Parameter_System.GetIntegerAsInteger(Parametros.EMPRESA_PAGOSEDUC_NUMERO, 0)
         FileName = $"FAC{codigoEmpresa.ToString.PadLeft(5, "0"c)}.{DateTime.Today:ddMMyy}"
 
         Me.Cursor = Cursors.WaitCursor
@@ -262,8 +261,10 @@ Public Class formComprobantesTransmitirPagosEduc
             Dim excelWorksheet As Excel.Worksheet
             Dim excelRange As Excel.Range
 
-            Const ExcelColumnaDocumento As Integer = 2
-            Const ExcelColumnaApellidoNombre As Integer = 3
+            Const ExcelColumnaCodigoEntidad As Integer = 1
+            Const ExcelColumnaDni As Integer = 2
+            Const ExcelColumnaLegajo As Integer = 3
+            Const ExcelColumnaApellidoNombre As Integer = 4
 
             ' Creo una instancia de Excel
             Try
@@ -293,29 +294,41 @@ Public Class formComprobantesTransmitirPagosEduc
                 listEntidadesAExportar = Nothing
                 listEntidadExportacion = Nothing
                 excelApp.Quit()
-                releaseObject(excelApp)
+                ReleaseObject(excelApp)
                 Return False
             End Try
 
             ' Creo los encabezados
-            excelRange = CType(excelWorksheet.Cells(1, ExcelColumnaDocumento), Excel.Range)
-            excelRange.Value = "DNI o Legajo del alumno"
+            excelRange = CType(excelWorksheet.Cells(1, ExcelColumnaCodigoEntidad), Excel.Range)
+            excelRange.Value = "código de entidad*"
+            excelRange.Font.Bold = True
+
+            excelRange = CType(excelWorksheet.Cells(1, ExcelColumnaDni), Excel.Range)
+            excelRange.Value = "dni"
+            excelRange.Font.Bold = True
+
+            excelRange = CType(excelWorksheet.Cells(1, ExcelColumnaLegajo), Excel.Range)
+            excelRange.Value = "legajo"
             excelRange.Font.Bold = True
 
             excelRange = CType(excelWorksheet.Cells(1, ExcelColumnaApellidoNombre), Excel.Range)
-            excelRange.Value = "Nombre del alumno"
+            excelRange.Value = "nombre y apellido"
             excelRange.Font.Bold = True
 
             ' Exporto las Entidades
             Dim rowNumber As Integer = 0
             For Each row As GridDataRow In listEntidadesAExportar
                 rowNumber += 1
-                excelWorksheet.Cells(1 + rowNumber, ExcelColumnaDocumento) = row.DocumentoNumero.RemoveNotNumbers().Truncate(9)
+                excelWorksheet.Cells(1 + rowNumber, ExcelColumnaCodigoEntidad) = codigoEmpresa.ToString.PadLeft(5, "0"c)
+                excelWorksheet.Cells(1 + rowNumber, ExcelColumnaDni) = row.DocumentoNumero.RemoveNotNumbers().Truncate(9)
+                ' excelWorksheet.Cells(1 + rowNumber, ExcelColumnaLegajo) = 
                 excelWorksheet.Cells(1 + rowNumber, ExcelColumnaApellidoNombre) = row.ApellidoNombre
             Next
 
             ' Ajusto el ancho de las Columnas
-            CType(excelWorksheet.Columns(ExcelColumnaDocumento), Excel.Range).AutoFit()
+            CType(excelWorksheet.Columns(ExcelColumnaCodigoEntidad), Excel.Range).AutoFit()
+            CType(excelWorksheet.Columns(ExcelColumnaDni), Excel.Range).AutoFit()
+            CType(excelWorksheet.Columns(ExcelColumnaLegajo), Excel.Range).AutoFit()
             CType(excelWorksheet.Columns(ExcelColumnaApellidoNombre), Excel.Range).AutoFit()
 
             ' Guardo el libro de Excel
@@ -326,20 +339,20 @@ Public Class formComprobantesTransmitirPagosEduc
                 CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al guardar el libro de Microsoft Excel.")
                 listEntidadesAExportar = Nothing
                 listEntidadExportacion = Nothing
-                releaseObject(excelRange)
-                releaseObject(excelWorksheet)
-                releaseObject(excelWorkbook)
+                ReleaseObject(excelRange)
+                ReleaseObject(excelWorksheet)
+                ReleaseObject(excelWorkbook)
                 excelApp.Quit()
-                releaseObject(excelApp)
+                ReleaseObject(excelApp)
                 Return False
             End Try
 
             ' Cierro el Excel
-            releaseObject(excelRange)
-            releaseObject(excelWorksheet)
-            releaseObject(excelWorkbook)
+            ReleaseObject(excelRange)
+            ReleaseObject(excelWorksheet)
+            ReleaseObject(excelWorkbook)
             excelApp.Quit()
-            releaseObject(excelApp)
+            ReleaseObject(excelApp)
 
             ' Guardo las entidades exportadas en la base de datos
             Try
@@ -362,7 +375,7 @@ Public Class formComprobantesTransmitirPagosEduc
         Return True
     End Function
 
-    Private Sub releaseObject(ByVal obj As Object)
+    Private Sub ReleaseObject(ByVal obj As Object)
         Try
             System.Runtime.InteropServices.Marshal.ReleaseComObject(obj)
             obj = Nothing

@@ -520,7 +520,7 @@ Public Class FormComprobante
             Return False
         End If
         If textboxNumero.Text.Trim.Length < Constantes.COMPROBANTE_NUMERO_CARACTERES Then
-            MsgBox(String.Format("El Número de Comprobante debe contener {0} números.", Constantes.COMPROBANTE_PUNTOVENTA_CARACTERES), MsgBoxStyle.Information, My.Application.Info.Title)
+            MsgBox(String.Format("El Número de Comprobante debe contener {0} números.", Constantes.COMPROBANTE_NUMERO_CARACTERES), MsgBoxStyle.Information, My.Application.Info.Title)
             textboxNumero.Focus()
             Return False
         End If

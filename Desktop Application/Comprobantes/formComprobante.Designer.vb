@@ -226,7 +226,7 @@ Partial Class FormComprobante
         labelEnvioEmail.Name = "labelEnvioEmail"
         labelEnvioEmail.Size = New System.Drawing.Size(115, 13)
         labelEnvioEmail.TabIndex = 10
-        labelEnvioEmail.Text = "Ultimo envío de e-mail:"
+        labelEnvioEmail.Text = "Último envío de e-mail:"
         '
         'labelNotas
         '
@@ -253,9 +253,9 @@ Partial Class FormComprobante
         labelModificacion.AutoSize = True
         labelModificacion.Location = New System.Drawing.Point(6, 213)
         labelModificacion.Name = "labelModificacion"
-        labelModificacion.Size = New System.Drawing.Size(102, 13)
+        labelModificacion.Size = New System.Drawing.Size(101, 13)
         labelModificacion.TabIndex = 7
-        labelModificacion.Text = "Ultima Modificación:"
+        labelModificacion.Text = "Última modificación:"
         '
         'panelMain
         '
@@ -1225,10 +1225,8 @@ Partial Class FormComprobante
         Me.currencytextboxImporteTotal.ForeColor = System.Drawing.SystemColors.WindowText
         Me.currencytextboxImporteTotal.Location = New System.Drawing.Point(57, 2)
         Me.currencytextboxImporteTotal.MaxValue = New Decimal(New Integer() {999999999, 0, 0, 131072})
-        Me.currencytextboxImporteTotal.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.currencytextboxImporteTotal.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
         Me.currencytextboxImporteTotal.Name = "currencytextboxImporteTotal"
-        Me.currencytextboxImporteTotal.NullString = ""
         Me.currencytextboxImporteTotal.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
         Me.currencytextboxImporteTotal.ReadOnly = True
         Me.currencytextboxImporteTotal.Size = New System.Drawing.Size(105, 22)
@@ -1241,7 +1239,7 @@ Partial Class FormComprobante
         Me.labelImporteTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.labelImporteTotal.Location = New System.Drawing.Point(3, 5)
         Me.labelImporteTotal.Name = "labelImporteTotal"
-        Me.labelImporteTotal.Size = New System.Drawing.Size(48, 16)
+        Me.labelImporteTotal.Size = New System.Drawing.Size(47, 16)
         Me.labelImporteTotal.TabIndex = 4
         Me.labelImporteTotal.Text = "Total:"
         '
@@ -1265,10 +1263,8 @@ Partial Class FormComprobante
         Me.currencytextboxMediosPago_Subtotal.ForeColor = System.Drawing.SystemColors.WindowText
         Me.currencytextboxMediosPago_Subtotal.Location = New System.Drawing.Point(96, 4)
         Me.currencytextboxMediosPago_Subtotal.MaxValue = New Decimal(New Integer() {999999999, 0, 0, 131072})
-        Me.currencytextboxMediosPago_Subtotal.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.currencytextboxMediosPago_Subtotal.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
         Me.currencytextboxMediosPago_Subtotal.Name = "currencytextboxMediosPago_Subtotal"
-        Me.currencytextboxMediosPago_Subtotal.NullString = ""
         Me.currencytextboxMediosPago_Subtotal.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
         Me.currencytextboxMediosPago_Subtotal.ReadOnly = True
         Me.currencytextboxMediosPago_Subtotal.Size = New System.Drawing.Size(80, 20)
@@ -1304,10 +1300,8 @@ Partial Class FormComprobante
         Me.currencytextboxAplicaciones_Subtotal.ForeColor = System.Drawing.SystemColors.WindowText
         Me.currencytextboxAplicaciones_Subtotal.Location = New System.Drawing.Point(79, 4)
         Me.currencytextboxAplicaciones_Subtotal.MaxValue = New Decimal(New Integer() {999999999, 0, 0, 131072})
-        Me.currencytextboxAplicaciones_Subtotal.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.currencytextboxAplicaciones_Subtotal.MinValue = New Decimal(New Integer() {999999999, 0, 0, -2147352576})
         Me.currencytextboxAplicaciones_Subtotal.Name = "currencytextboxAplicaciones_Subtotal"
-        Me.currencytextboxAplicaciones_Subtotal.NullString = ""
         Me.currencytextboxAplicaciones_Subtotal.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
         Me.currencytextboxAplicaciones_Subtotal.ReadOnly = True
         Me.currencytextboxAplicaciones_Subtotal.Size = New System.Drawing.Size(80, 20)
@@ -1343,10 +1337,8 @@ Partial Class FormComprobante
         Me.currencytextboxImpuestos_Subtotal.ForeColor = System.Drawing.SystemColors.WindowText
         Me.currencytextboxImpuestos_Subtotal.Location = New System.Drawing.Point(67, 4)
         Me.currencytextboxImpuestos_Subtotal.MaxValue = New Decimal(New Integer() {999999999, 0, 0, 131072})
-        Me.currencytextboxImpuestos_Subtotal.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.currencytextboxImpuestos_Subtotal.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
         Me.currencytextboxImpuestos_Subtotal.Name = "currencytextboxImpuestos_Subtotal"
-        Me.currencytextboxImpuestos_Subtotal.NullString = ""
         Me.currencytextboxImpuestos_Subtotal.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
         Me.currencytextboxImpuestos_Subtotal.ReadOnly = True
         Me.currencytextboxImpuestos_Subtotal.Size = New System.Drawing.Size(80, 20)
@@ -1382,10 +1374,8 @@ Partial Class FormComprobante
         Me.currencytextboxDetalle_Subtotal.ForeColor = System.Drawing.SystemColors.WindowText
         Me.currencytextboxDetalle_Subtotal.Location = New System.Drawing.Point(52, 4)
         Me.currencytextboxDetalle_Subtotal.MaxValue = New Decimal(New Integer() {999999999, 0, 0, 131072})
-        Me.currencytextboxDetalle_Subtotal.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.currencytextboxDetalle_Subtotal.MinValue = New Decimal(New Integer() {0, 0, 0, 0})
         Me.currencytextboxDetalle_Subtotal.Name = "currencytextboxDetalle_Subtotal"
-        Me.currencytextboxDetalle_Subtotal.NullString = ""
         Me.currencytextboxDetalle_Subtotal.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
         Me.currencytextboxDetalle_Subtotal.ReadOnly = True
         Me.currencytextboxDetalle_Subtotal.Size = New System.Drawing.Size(80, 20)
@@ -1467,22 +1457,22 @@ Partial Class FormComprobante
         'menuitemAFIP_ObtenerCAE
         '
         Me.menuitemAFIP_ObtenerCAE.Name = "menuitemAFIP_ObtenerCAE"
-        Me.menuitemAFIP_ObtenerCAE.Size = New System.Drawing.Size(180, 22)
+        Me.menuitemAFIP_ObtenerCAE.Size = New System.Drawing.Size(178, 22)
         Me.menuitemAFIP_ObtenerCAE.Text = "Obtener CAE"
         '
         'menuitemAFIP_ObtenerQR
         '
         Me.menuitemAFIP_ObtenerQR.Name = "menuitemAFIP_ObtenerQR"
-        Me.menuitemAFIP_ObtenerQR.Size = New System.Drawing.Size(180, 22)
+        Me.menuitemAFIP_ObtenerQR.Size = New System.Drawing.Size(178, 22)
         Me.menuitemAFIP_ObtenerQR.Text = "Obtener Código QR"
         '
         'menuitemAFIP_VerificarDatos
         '
         Me.menuitemAFIP_VerificarDatos.Name = "menuitemAFIP_VerificarDatos"
-        Me.menuitemAFIP_VerificarDatos.Size = New System.Drawing.Size(180, 22)
+        Me.menuitemAFIP_VerificarDatos.Size = New System.Drawing.Size(178, 22)
         Me.menuitemAFIP_VerificarDatos.Text = "Verificar datos"
         '
-        'formComprobante
+        'FormComprobante
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -1492,7 +1482,7 @@ Partial Class FormComprobante
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.MinimumSize = New System.Drawing.Size(690, 45)
-        Me.Name = "formComprobante"
+        Me.Name = "FormComprobante"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Detalle del Comprobante"
