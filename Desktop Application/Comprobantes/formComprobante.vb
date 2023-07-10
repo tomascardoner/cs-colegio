@@ -187,7 +187,7 @@ Public Class formComprobante
                 textboxEntidad.Text = .Entidad.ApellidoNombre
                 textboxEntidad.Tag = .Entidad.IDEntidad
             Else
-                textboxEntidad.Text = ""
+                textboxEntidad.Text = String.Empty
                 textboxEntidad.Tag = Nothing
             End If
 
@@ -195,22 +195,22 @@ Public Class formComprobante
             textboxLeyenda.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Leyenda)
             textboxNotas.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Notas)
             If .UsuarioCreacion Is Nothing Then
-                textboxFechaHoraCreacion.Text = ""
-                textboxUsuarioCreacion.Text = ""
+                textboxFechaHoraCreacion.Text = String.Empty
+                textboxUsuarioCreacion.Text = String.Empty
             Else
                 textboxFechaHoraCreacion.Text = .FechaHoraCreacion.ToShortDateString & " " & .FechaHoraCreacion.ToShortTimeString
                 textboxUsuarioCreacion.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.UsuarioCreacion.Descripcion)
             End If
             If .UsuarioModificacion Is Nothing Then
-                textboxFechaHoraModificacion.Text = ""
-                textboxUsuarioModificacion.Text = ""
+                textboxFechaHoraModificacion.Text = String.Empty
+                textboxUsuarioModificacion.Text = String.Empty
             Else
                 textboxFechaHoraModificacion.Text = .FechaHoraModificacion.ToShortDateString & " " & .FechaHoraModificacion.ToShortTimeString
                 textboxUsuarioModificacion.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.UsuarioModificacion.Descripcion)
             End If
             If .UsuarioEnvioEmail Is Nothing Then
-                textboxFechaHoraEnvioEmail.Text = ""
-                textboxUsuarioEnvioEmail.Text = ""
+                textboxFechaHoraEnvioEmail.Text = String.Empty
+                textboxUsuarioEnvioEmail.Text = String.Empty
             Else
                 If .FechaHoraEnvioEmail IsNot Nothing Then
                     textboxFechaHoraEnvioEmail.Text = .FechaHoraEnvioEmail.Value.ToShortDateString & " " & .FechaHoraEnvioEmail.Value.ToShortTimeString
@@ -1322,12 +1322,12 @@ Public Class formComprobante
             If mComprobanteTipoPuntoVentaActual Is Nothing Then
                 ' No hay un numerador definido, habilito los campos de Punto de Venta y Numero
                 mUtilizaNumerador = False
-                textboxPuntoVenta.Text = ""
-                textboxNumero.Text = ""
+                textboxPuntoVenta.Text = String.Empty
+                textboxNumero.Text = String.Empty
             Else
                 ' Hay un numerador definido, así que si es un comprobante nuevo, busco el siguiente número, como para ir mostrándolo, aunque antes de grabar, puede volver a cambiar
                 mUtilizaNumerador = True
-                If mComprobanteActual.IDComprobante = 0 Then
+                If mIsNew Then
                     textboxPuntoVenta.Text = mComprobanteTipoPuntoVentaActual.PuntoVenta.Numero
                     ' Busco si ya hay un comprobante creado de este tipo para obtener el último número
                     NextComprobanteNumero = mdbContext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = mComprobanteTipoActual.IDComprobanteTipo And cc.PuntoVenta = mComprobanteTipoPuntoVentaActual.PuntoVenta.Numero).Max(Function(cc) cc.Numero)

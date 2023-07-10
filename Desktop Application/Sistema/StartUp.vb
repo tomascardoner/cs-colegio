@@ -32,6 +32,9 @@
             Exit Sub
         End If
 
+        ' Register Syncfusion License
+        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(CardonerSistemas.ConstantsSyncfusion.LicenseKey22_1_34)
+
         ' Verifico si ya hay una instancia ejecutandose, si permite iniciar otra, o de lo contrario, muestro la instancia original
         If pGeneralConfig.SingleInstanceApplication Then
 

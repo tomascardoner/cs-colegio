@@ -295,10 +295,8 @@ Partial Class formComprobanteDetalle
         Me.doubletextboxCantidad.DoubleValue = 1.0R
         Me.doubletextboxCantidad.Location = New System.Drawing.Point(123, 78)
         Me.doubletextboxCantidad.MaxValue = 999999.99R
-        Me.doubletextboxCantidad.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.doubletextboxCantidad.MinValue = 0R
         Me.doubletextboxCantidad.Name = "doubletextboxCantidad"
-        Me.doubletextboxCantidad.NullString = ""
         Me.doubletextboxCantidad.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
         Me.doubletextboxCantidad.Size = New System.Drawing.Size(69, 20)
         Me.doubletextboxCantidad.TabIndex = 3
@@ -311,10 +309,8 @@ Partial Class formComprobanteDetalle
         Me.currencytextboxPrecioUnitario.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxPrecioUnitario.Location = New System.Drawing.Point(123, 237)
         Me.currencytextboxPrecioUnitario.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
-        Me.currencytextboxPrecioUnitario.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.currencytextboxPrecioUnitario.MinValue = New Decimal(New Integer() {99999999, 0, 0, -2147352576})
         Me.currencytextboxPrecioUnitario.Name = "currencytextboxPrecioUnitario"
-        Me.currencytextboxPrecioUnitario.NullString = ""
         Me.currencytextboxPrecioUnitario.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
         Me.currencytextboxPrecioUnitario.Size = New System.Drawing.Size(100, 20)
         Me.currencytextboxPrecioUnitario.TabIndex = 16
@@ -324,13 +320,9 @@ Partial Class formComprobanteDetalle
         'percenttextboxPrecioUnitarioDescuentoPorcentaje
         '
         Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.BeforeTouchSize = New System.Drawing.Size(69, 20)
-        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.DoubleValue = 0R
         Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.Location = New System.Drawing.Point(123, 263)
-        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.MaxValue = 100.0R
-        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.MinValue = 0R
         Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.Name = "percenttextboxPrecioUnitarioDescuentoPorcentaje"
-        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.NullString = ""
         Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentNegativePattern = 1
         Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentPositivePattern = 1
         Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.Size = New System.Drawing.Size(69, 20)
@@ -344,10 +336,8 @@ Partial Class formComprobanteDetalle
         Me.currencytextboxPrecioUnitarioDescuentoImporte.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxPrecioUnitarioDescuentoImporte.Location = New System.Drawing.Point(123, 289)
         Me.currencytextboxPrecioUnitarioDescuentoImporte.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
-        Me.currencytextboxPrecioUnitarioDescuentoImporte.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.currencytextboxPrecioUnitarioDescuentoImporte.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxPrecioUnitarioDescuentoImporte.Name = "currencytextboxPrecioUnitarioDescuentoImporte"
-        Me.currencytextboxPrecioUnitarioDescuentoImporte.NullString = ""
         Me.currencytextboxPrecioUnitarioDescuentoImporte.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
         Me.currencytextboxPrecioUnitarioDescuentoImporte.Size = New System.Drawing.Size(100, 20)
         Me.currencytextboxPrecioUnitarioDescuentoImporte.TabIndex = 20
@@ -360,10 +350,8 @@ Partial Class formComprobanteDetalle
         Me.currencytextboxPrecioUnitarioFinal.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxPrecioUnitarioFinal.Location = New System.Drawing.Point(123, 315)
         Me.currencytextboxPrecioUnitarioFinal.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
-        Me.currencytextboxPrecioUnitarioFinal.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.currencytextboxPrecioUnitarioFinal.MinValue = New Decimal(New Integer() {99999999, 0, 0, -2147352576})
         Me.currencytextboxPrecioUnitarioFinal.Name = "currencytextboxPrecioUnitarioFinal"
-        Me.currencytextboxPrecioUnitarioFinal.NullString = ""
         Me.currencytextboxPrecioUnitarioFinal.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
         Me.currencytextboxPrecioUnitarioFinal.ReadOnly = True
         Me.currencytextboxPrecioUnitarioFinal.Size = New System.Drawing.Size(100, 20)
@@ -377,10 +365,8 @@ Partial Class formComprobanteDetalle
         Me.currencytextboxPrecioTotal.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxPrecioTotal.Location = New System.Drawing.Point(123, 341)
         Me.currencytextboxPrecioTotal.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
-        Me.currencytextboxPrecioTotal.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.currencytextboxPrecioTotal.MinValue = New Decimal(New Integer() {99999999, 0, 0, -2147352576})
         Me.currencytextboxPrecioTotal.Name = "currencytextboxPrecioTotal"
-        Me.currencytextboxPrecioTotal.NullString = ""
         Me.currencytextboxPrecioTotal.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
         Me.currencytextboxPrecioTotal.ReadOnly = True
         Me.currencytextboxPrecioTotal.Size = New System.Drawing.Size(100, 20)
