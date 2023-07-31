@@ -5,9 +5,8 @@
     Public Function CalcularCodigoBarrasSepsa(ByVal documentoNumero As String) As Boolean
         Dim idCliente As Integer
         Dim value As String
-        Const Importe1Maximo As Decimal = CDec(999999.99)
-        Const Importe2Maximo As Decimal = CDec(99999.99)
-        Const Importe3Maximo As Decimal = CDec(99999.99)
+        Const Importe1Maximo As Decimal = CDec(9999999.99)
+        Const Importe2Maximo As Decimal = CDec(9999999.99)
 
         idCliente = CS_Parameter_System.GetIntegerAsInteger(Parametros.EMPRESA_PAGOSEDUC_NUMERO)
         If idCliente = 0 Then
@@ -21,15 +20,11 @@
             MessageBox.Show($"El importe del 2do. vencimiento de la factura ({FormatCurrency(ImporteTotal2)}) es mayor al máximo permitido por el código SEPSA ({FormatCurrency(Importe2Maximo)}).{vbCrLf}{vbCrLf}Titular: {ApellidoNombre}", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Return False
         End If
-        If ImporteTotal3.HasValue AndAlso ImporteTotal3.Value > Importe2Maximo Then
-            MessageBox.Show($"El importe del 3er. vencimiento de la factura ({FormatCurrency(ImporteTotal3)}) es mayor al máximo permitido por el código SEPSA ({FormatCurrency(Importe3Maximo)}).{vbCrLf}{vbCrLf}Titular: {ApellidoNombre}", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-            Return False
-        End If
 
         ' Código de PAGOSEduc
         value = "09370007"
         ' Importe 1er. vencimiento
-        value &= ImporteTotal1.ToString("000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")
+        value &= ImporteTotal1.ToString("0000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")
         ' Fecha 1er. vencimiento (YYJJJ) dónde JJJ son los días transcurridos desde el 1 de enero
         Dim span As TimeSpan
         span = FechaVencimiento1.Value.Subtract(New Date(FechaVencimiento1.Value.Year(), 1, 1))
@@ -37,25 +32,13 @@
         ' Código de cliente
         value &= idCliente.ToString().PadLeft(5, "0"c)
         ' Cliente
-        value &= documentoNumero.RemoveNotNumbers().Truncate(9).PadLeft(9, "0"c)
-        ' Moneda
-        value &= "0"
+        value &= documentoNumero.RemoveNotNumbers().Truncate(14).PadLeft(14, "0"c)
         ' 2do. vencimiento
         If ImporteTotal2.HasValue AndAlso ImporteTotal2.Value > 0 Then
             ' Importe 2do. vencimiento
-            value &= ImporteTotal2.Value.ToString("00000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")
+            value &= ImporteTotal2.Value.ToString("0000000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")
             ' Fecha 2do. vencimiento
             value &= DateDiff(DateInterval.Day, FechaVencimiento1.Value, FechaVencimiento2.Value).ToString("00")
-        Else
-            value &= "0000000" & "00"
-        End If
-
-        ' 3er. vencimiento
-        If ImporteTotal3.HasValue AndAlso ImporteTotal3.Value > 0 Then
-            ' Importe 3er. vencimiento
-            value &= ImporteTotal3.Value.ToString("00000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "")
-            ' Fecha 3er. vencimiento
-            value &= DateDiff(DateInterval.Day, FechaVencimiento1.Value, FechaVencimiento3.Value).ToString("00")
         Else
             value &= "0000000" & "00"
         End If
