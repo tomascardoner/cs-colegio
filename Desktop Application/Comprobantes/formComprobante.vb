@@ -1,6 +1,4 @@
-﻿Imports System.Data.Entity.Infrastructure
-
-Public Class formComprobante
+﻿Public Class formComprobante
 
 #Region "Declarations"
 

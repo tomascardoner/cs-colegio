@@ -274,7 +274,7 @@ Partial Class formComprobante
         Me.panelMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.panelMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
         Me.panelMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.panelMain.Size = New System.Drawing.Size(1028, 475)
+        Me.panelMain.Size = New System.Drawing.Size(1028, 406)
         Me.panelMain.TabIndex = 2
         '
         'tabcontrolMain
@@ -288,7 +288,7 @@ Partial Class formComprobante
         Me.tabcontrolMain.Location = New System.Drawing.Point(3, 114)
         Me.tabcontrolMain.Name = "tabcontrolMain"
         Me.tabcontrolMain.SelectedIndex = 0
-        Me.tabcontrolMain.Size = New System.Drawing.Size(1022, 308)
+        Me.tabcontrolMain.Size = New System.Drawing.Size(1022, 239)
         Me.tabcontrolMain.TabIndex = 0
         '
         'tabpageDetalle
@@ -298,7 +298,7 @@ Partial Class formComprobante
         Me.tabpageDetalle.Location = New System.Drawing.Point(4, 22)
         Me.tabpageDetalle.Name = "tabpageDetalle"
         Me.tabpageDetalle.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageDetalle.Size = New System.Drawing.Size(1014, 282)
+        Me.tabpageDetalle.Size = New System.Drawing.Size(1014, 213)
         Me.tabpageDetalle.TabIndex = 0
         Me.tabpageDetalle.Text = "Detalle"
         '
@@ -323,7 +323,7 @@ Partial Class formComprobante
         Me.datagridviewDetalle.RowHeadersVisible = False
         Me.datagridviewDetalle.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewDetalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewDetalle.Size = New System.Drawing.Size(910, 276)
+        Me.datagridviewDetalle.Size = New System.Drawing.Size(910, 207)
         Me.datagridviewDetalle.TabIndex = 4
         '
         'columnDetalle_Descripcion
@@ -370,7 +370,7 @@ Partial Class formComprobante
         Me.toolstripDetalle.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow
         Me.toolstripDetalle.Location = New System.Drawing.Point(3, 3)
         Me.toolstripDetalle.Name = "toolstripDetalle"
-        Me.toolstripDetalle.Size = New System.Drawing.Size(98, 276)
+        Me.toolstripDetalle.Size = New System.Drawing.Size(98, 207)
         Me.toolstripDetalle.TabIndex = 5
         '
         'buttonDetalle_Agregar
@@ -1198,7 +1198,7 @@ Partial Class formComprobante
         Me.panelPie.Controls.Add(Me.panelDetalle_Subtotal)
         Me.panelPie.Dock = System.Windows.Forms.DockStyle.Fill
         Me.panelPie.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.panelPie.Location = New System.Drawing.Point(3, 428)
+        Me.panelPie.Location = New System.Drawing.Point(3, 359)
         Me.panelPie.Name = "panelPie"
         Me.panelPie.Padding = New System.Windows.Forms.Padding(4)
         Me.panelPie.Size = New System.Drawing.Size(1022, 44)
@@ -1476,7 +1476,7 @@ Partial Class formComprobante
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1028, 514)
+        Me.ClientSize = New System.Drawing.Size(1028, 445)
         Me.Controls.Add(Me.panelMain)
         Me.Controls.Add(Me.toolstripMain)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
