@@ -39,9 +39,6 @@ Partial Class formComprobanteMedioPago
         Me.textboxNumero = New System.Windows.Forms.TextBox()
         Me.comboboxBanco = New System.Windows.Forms.ComboBox()
         Me.labelBanco = New System.Windows.Forms.Label()
-        Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
-        Me.LineShape2 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
         Me.textboxCuenta = New System.Windows.Forms.TextBox()
         Me.labelCuenta = New System.Windows.Forms.Label()
         Me.textboxTitular = New System.Windows.Forms.TextBox()
@@ -214,32 +211,6 @@ Partial Class formComprobanteMedioPago
         Me.labelBanco.TabIndex = 7
         Me.labelBanco.Text = "Banco:"
         '
-        'ShapeContainer1
-        '
-        Me.ShapeContainer1.Location = New System.Drawing.Point(0, 0)
-        Me.ShapeContainer1.Margin = New System.Windows.Forms.Padding(0)
-        Me.ShapeContainer1.Name = "ShapeContainer1"
-        Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.LineShape2, Me.LineShape1})
-        Me.ShapeContainer1.Size = New System.Drawing.Size(344, 291)
-        Me.ShapeContainer1.TabIndex = 14
-        Me.ShapeContainer1.TabStop = False
-        '
-        'LineShape2
-        '
-        Me.LineShape2.Name = "LineShape2"
-        Me.LineShape2.X1 = 15
-        Me.LineShape2.X2 = 330
-        Me.LineShape2.Y1 = 225
-        Me.LineShape2.Y2 = 225
-        '
-        'LineShape1
-        '
-        Me.LineShape1.Name = "LineShape1"
-        Me.LineShape1.X1 = 15
-        Me.LineShape1.X2 = 330
-        Me.LineShape1.Y1 = 80
-        Me.LineShape1.Y2 = 80
-        '
         'textboxCuenta
         '
         Me.textboxCuenta.Location = New System.Drawing.Point(97, 170)
@@ -281,10 +252,8 @@ Partial Class formComprobanteMedioPago
         Me.currencytextboxImporte.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxImporte.Location = New System.Drawing.Point(97, 263)
         Me.currencytextboxImporte.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
-        Me.currencytextboxImporte.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.currencytextboxImporte.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxImporte.Name = "currencytextboxImporte"
-        Me.currencytextboxImporte.NullString = ""
         Me.currencytextboxImporte.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
         Me.currencytextboxImporte.Size = New System.Drawing.Size(100, 20)
         Me.currencytextboxImporte.TabIndex = 15
@@ -314,7 +283,6 @@ Partial Class formComprobanteMedioPago
         Me.Controls.Add(Me.labelCaja)
         Me.Controls.Add(Me.comboboxMedioPago)
         Me.Controls.Add(Me.labelMedioPago)
-        Me.Controls.Add(Me.ShapeContainer1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.KeyPreview = True
         Me.MaximizeBox = False
@@ -347,9 +315,6 @@ Partial Class formComprobanteMedioPago
     Friend WithEvents textboxNumero As System.Windows.Forms.TextBox
     Friend WithEvents comboboxBanco As System.Windows.Forms.ComboBox
     Friend WithEvents labelBanco As System.Windows.Forms.Label
-    Friend WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
-    Friend WithEvents LineShape2 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape1 As Microsoft.VisualBasic.PowerPacks.LineShape
     Friend WithEvents textboxCuenta As System.Windows.Forms.TextBox
     Friend WithEvents labelCuenta As System.Windows.Forms.Label
     Friend WithEvents textboxTitular As System.Windows.Forms.TextBox

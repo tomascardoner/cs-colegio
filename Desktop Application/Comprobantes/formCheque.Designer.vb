@@ -48,10 +48,6 @@ Partial Class formCheque
         Me.textboxCodigoPostal = New System.Windows.Forms.TextBox()
         Me.textboxEstado = New System.Windows.Forms.TextBox()
         Me.labelEstado = New System.Windows.Forms.Label()
-        Me.LineShape2 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
-        Me.LineShape3 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
         Me.labelMotivoRechazo = New System.Windows.Forms.Label()
         Me.comboboxMotivoRechazo = New System.Windows.Forms.ComboBox()
         Me.comboboxMedioPago = New System.Windows.Forms.ComboBox()
@@ -311,40 +307,6 @@ Partial Class formCheque
         Me.labelEstado.TabIndex = 24
         Me.labelEstado.Text = "Estado:"
         '
-        'LineShape2
-        '
-        Me.LineShape2.Name = "LineShape2"
-        Me.LineShape2.X1 = 12
-        Me.LineShape2.X2 = 360
-        Me.LineShape2.Y1 = 356
-        Me.LineShape2.Y2 = 356
-        '
-        'ShapeContainer1
-        '
-        Me.ShapeContainer1.Location = New System.Drawing.Point(0, 0)
-        Me.ShapeContainer1.Margin = New System.Windows.Forms.Padding(0)
-        Me.ShapeContainer1.Name = "ShapeContainer1"
-        Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.LineShape3, Me.LineShape1, Me.LineShape2})
-        Me.ShapeContainer1.Size = New System.Drawing.Size(371, 466)
-        Me.ShapeContainer1.TabIndex = 46
-        Me.ShapeContainer1.TabStop = False
-        '
-        'LineShape3
-        '
-        Me.LineShape3.Name = "LineShape3"
-        Me.LineShape3.X1 = 12
-        Me.LineShape3.X2 = 360
-        Me.LineShape3.Y1 = 397
-        Me.LineShape3.Y2 = 397
-        '
-        'LineShape1
-        '
-        Me.LineShape1.Name = "LineShape1"
-        Me.LineShape1.X1 = 12
-        Me.LineShape1.X2 = 360
-        Me.LineShape1.Y1 = 81
-        Me.LineShape1.Y2 = 81
-        '
         'labelMotivoRechazo
         '
         Me.labelMotivoRechazo.AutoSize = True
@@ -405,10 +367,8 @@ Partial Class formCheque
         Me.currencytextboxImporte.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxImporte.Location = New System.Drawing.Point(123, 222)
         Me.currencytextboxImporte.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
-        Me.currencytextboxImporte.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.currencytextboxImporte.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxImporte.Name = "currencytextboxImporte"
-        Me.currencytextboxImporte.NullString = ""
         Me.currencytextboxImporte.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
         Me.currencytextboxImporte.Size = New System.Drawing.Size(100, 20)
         Me.currencytextboxImporte.TabIndex = 13
@@ -449,7 +409,6 @@ Partial Class formCheque
         Me.Controls.Add(Me.labelFechaEmision)
         Me.Controls.Add(Me.textboxCuenta)
         Me.Controls.Add(Me.toolstripMain)
-        Me.Controls.Add(Me.ShapeContainer1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.KeyPreview = True
         Me.MaximizeBox = False
@@ -490,14 +449,10 @@ Partial Class formCheque
     Friend WithEvents textboxCodigoPostal As System.Windows.Forms.TextBox
     Friend WithEvents textboxEstado As System.Windows.Forms.TextBox
     Friend WithEvents labelEstado As System.Windows.Forms.Label
-    Friend WithEvents LineShape2 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
     Friend WithEvents labelMotivoRechazo As System.Windows.Forms.Label
     Friend WithEvents comboboxMotivoRechazo As System.Windows.Forms.ComboBox
     Friend WithEvents comboboxMedioPago As System.Windows.Forms.ComboBox
     Friend WithEvents labelMedioPago As System.Windows.Forms.Label
-    Friend WithEvents LineShape1 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape3 As Microsoft.VisualBasic.PowerPacks.LineShape
     Friend WithEvents comboboxCaja As System.Windows.Forms.ComboBox
     Friend WithEvents labelCaja As System.Windows.Forms.Label
     Friend WithEvents currencytextboxImporte As Syncfusion.Windows.Forms.Tools.CurrencyTextBox

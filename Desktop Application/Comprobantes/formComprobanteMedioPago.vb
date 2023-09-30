@@ -51,7 +51,14 @@
         pFillAndRefreshLists.Banco(comboboxBanco, True)
     End Sub
 
-    Private Sub FormEnd(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub Me_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
+        Dim pen As New Pen(Color.FromArgb(255, 0, 0, 0))
+
+        e.Graphics.DrawLine(pen, 12, 81, Me.Width - 24, 81)
+        e.Graphics.DrawLine(pen, 12, 226, Me.Width - 24, 226)
+    End Sub
+
+    Private Sub Me_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         mComprobanteActual = Nothing
         mComprobanteMedioPagoActual = Nothing
         mMedioPagoCurrent = Nothing
@@ -252,6 +259,7 @@
 
         Me.Close()
     End Sub
+
 #End Region
 
 End Class

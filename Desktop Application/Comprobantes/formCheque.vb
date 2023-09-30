@@ -51,11 +51,20 @@
         pFillAndRefreshLists.ChequeMotivoRechazo(comboboxMotivoRechazo, True, False)
     End Sub
 
+    Private Sub Me_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
+        Dim pen As New Pen(Color.FromArgb(255, 0, 0, 0))
+
+        e.Graphics.DrawLine(pen, 12, 81, Me.Width - 24, 81)
+        e.Graphics.DrawLine(pen, 12, 356, Me.Width - 24, 356)
+        e.Graphics.DrawLine(pen, 12, 397, Me.Width - 24, 397)
+    End Sub
+
     Private Sub Me_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         mComprobanteActual = Nothing
         mComprobanteMedioPagoActual = Nothing
         Me.Dispose()
     End Sub
+
 #End Region
 
 #Region "Load and Set Data"
@@ -111,6 +120,7 @@
             '.IDChequeMotivoRechazo = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxMotivoRechazo.SelectedValue, 0).Value
         End With
     End Sub
+
 #End Region
 
 #Region "Controls behavior"
