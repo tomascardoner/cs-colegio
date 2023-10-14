@@ -531,26 +531,48 @@
 
         Try
             ' Obtengo el Concepto del Comprobante
-            If mComprobanteTipoActual.UtilizaDetalle AndAlso mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso mComprobanteTipoActual.EmisionElectronica Then
-                If mComprobanteActual.ComprobanteDetalle.Count > 0 Then
-                    For Each CDetalle As ComprobanteDetalle In mComprobanteActual.ComprobanteDetalle
-                        articuloActual = mdbContext.Articulo.Find(CDetalle.IDArticulo)
+            If mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso mComprobanteTipoActual.EmisionElectronica Then
+                If mComprobanteTipoActual.UtilizaDetalle Then
+                    If mComprobanteActual.ComprobanteDetalle.Count > 0 Then
+                        ' Busco en los conceptos de los detalles
+                        For Each detalle As ComprobanteDetalle In mComprobanteActual.ComprobanteDetalle
+                            articuloActual = mdbContext.Articulo.Find(detalle.IDArticulo)
+                            Select Case mConceptoActual.IDConcepto
+                                Case CByte(0)
+                                    ' Es el primer Artículo, así que lo guardo
+                                    mConceptoActual = mdbContext.Concepto.Find(articuloActual.ArticuloGrupo.IDConcepto)
+                                Case articuloActual.ArticuloGrupo.IDConcepto
+                                    ' Es el mismo Concepto que el/los Artículos anteriores, no hago nada
+                                Case Else
+                                    If (mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) And (articuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or articuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) Then
+                                        ' Hay Productos y Servicios, así que utilizo el Concepto correspondiente
+                                        mConceptoActual = mdbContext.Concepto.Find(Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS)
+                                        Exit For
+                                    End If
+                            End Select
+                        Next
+                    Else
+                        ' Al no haber todavía un detalle, tomo el concepto Producto como predeterminado
+                        mConceptoActual = mdbContext.Concepto.Find(Constantes.COMPROBANTE_CONCEPTO_PRODUCTO)
+                    End If
+                ElseIf mComprobanteTipoActual.UtilizaAplicacion Then
+                    ' El tipo de comprobante no tiene detalles, por lo tanto, si corresponde, busco en las aplicaciones
+                    For Each apl As ComprobanteAplicacion In mComprobanteActual.ComprobanteAplicacion_Aplicados
+                        Dim cmp As Comprobante = mdbContext.Comprobante.Find(apl.IDComprobanteAplicado)
                         Select Case mConceptoActual.IDConcepto
                             Case CByte(0)
                                 ' Es el primer Artículo, así que lo guardo
-                                mConceptoActual = mdbContext.Concepto.Find(articuloActual.ArticuloGrupo.IDConcepto)
-                            Case articuloActual.ArticuloGrupo.IDConcepto
-                                ' Es el mismo Concepto que el/los Artículos anteriores, no hago nada
+                                mConceptoActual = mdbContext.Concepto.Find(cmp.IDConcepto)
+                            Case cmp.IDConcepto
+                                ' Es el mismo Concepto que el/los comprobantes anteriores, no hago nada
                             Case Else
-                                If (mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) And (articuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or articuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) Then
+                                If (mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or mConceptoActual.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) And (cmp.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or cmp.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) Then
                                     ' Hay Productos y Servicios, así que utilizo el Concepto correspondiente
                                     mConceptoActual = mdbContext.Concepto.Find(Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS)
                                     Exit For
                                 End If
                         End Select
                     Next
-                Else
-                    mConceptoActual = mdbContext.Concepto.Find(Constantes.COMPROBANTE_CONCEPTO_PRODUCTO)
                 End If
             Else
                 mConceptoActual = New Concepto
