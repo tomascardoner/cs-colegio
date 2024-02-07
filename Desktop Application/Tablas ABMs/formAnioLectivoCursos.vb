@@ -46,9 +46,11 @@
 
         RefreshData()
     End Sub
+
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
+
     Friend Sub RefreshData(Optional ByVal PositionIDAnioLectivoCurso As Short = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
 
         Me.Cursor = Cursors.WaitCursor
@@ -67,7 +69,7 @@
 
             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al leer los Cursos de los Años Lectivos.")
             Me.Cursor = Cursors.Default
-            Exit Sub
+            Return
         End Try
 
         Me.Cursor = Cursors.Default
@@ -103,18 +105,18 @@
                 mlistAniosLectivosCursosFiltradaYOrdenada = mlistAniosLectivosCursosBase.ToList
 
                 ' Filtro por Año Lectivo
-                mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AND ").ToString & String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0}", CShort(comboboxAnioLectivo.Text))
+                mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, String.Empty, " AND ").ToString & String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0}", CShort(comboboxAnioLectivo.Text))
                 mlistAniosLectivosCursosFiltradaYOrdenada = mlistAniosLectivosCursosFiltradaYOrdenada.Where(Function(alc) alc.AnioLectivo = CShort(comboboxAnioLectivo.Text)).ToList
 
                 ' Filtro por Nivel
                 If comboboxNivel.SelectedIndex > 0 Then
-                    mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AND ").ToString & String.Format("{{Anio.IDNivel}} = {0}", CByte(comboboxNivel.ComboBox.SelectedValue))
+                    mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, String.Empty, " AND ").ToString & String.Format("{{Anio.IDNivel}} = {0}", CByte(comboboxNivel.ComboBox.SelectedValue))
                     mlistAniosLectivosCursosFiltradaYOrdenada = mlistAniosLectivosCursosFiltradaYOrdenada.Where(Function(alc) alc.IDNivel = CByte(comboboxNivel.ComboBox.SelectedValue)).ToList
                 End If
 
                 ' Filtro por Curso
                 If comboboxCurso.SelectedIndex > 0 Then
-                    mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AND ").ToString & String.Format("{{AnioLectivoCurso.IDCurso}} = {0}", CByte(comboboxCurso.ComboBox.SelectedValue))
+                    mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, String.Empty, " AND ").ToString & String.Format("{{AnioLectivoCurso.IDCurso}} = {0}", CByte(comboboxCurso.ComboBox.SelectedValue))
                     mlistAniosLectivosCursosFiltradaYOrdenada = mlistAniosLectivosCursosFiltradaYOrdenada.Where(Function(alc) alc.IDCurso = CByte(comboboxCurso.ComboBox.SelectedValue)).ToList
                 End If
 
@@ -130,7 +132,7 @@
             Catch ex As Exception
                 CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al filtrar los datos.")
                 Me.Cursor = Cursors.Default
-                Exit Sub
+                Return
             End Try
 
             OrderData()
@@ -162,6 +164,7 @@
         ' Muestro el ícono de orden en la columna correspondiente
         mOrdenColumna.HeaderCell.SortGlyphDirection = mOrdenTipo
     End Sub
+
 #End Region
 
 #Region "Controls behavior"

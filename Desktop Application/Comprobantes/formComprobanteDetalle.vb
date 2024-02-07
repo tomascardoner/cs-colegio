@@ -47,7 +47,7 @@
     Private Sub ChangeMode()
         buttonGuardar.Visible = mEditMode
         buttonCancelar.Visible = mEditMode
-        buttonEditar.Visible = (mParentEditMode And Not mEditMode)
+        buttonEditar.Visible = (mParentEditMode AndAlso Not mEditMode)
         buttonCerrar.Visible = Not mEditMode
 
         comboboxArticulo.Enabled = mEditMode
@@ -87,7 +87,7 @@
 
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
 
     Friend Sub SetDataFromObjectToControls()
 
@@ -113,7 +113,7 @@
                 'EstablecerAnioLectivoCurso()
             End If
 
-            If (mArticuloActual IsNot Nothing) AndAlso (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual) Then
+            If (mArticuloActual IsNot Nothing) AndAlso (mArticuloActual.IDArticulo = mIDArticuloMatricula OrElse mArticuloActual.IDArticulo = mIDArticuloMensual) Then
                 CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxAnioLectivoCurso, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, .IDAnioLectivoCurso, CShort(0))
             Else
                 comboboxAlumno.SelectedIndex = -1
@@ -142,7 +142,7 @@
             .Cantidad = Convert.ToDecimal(doubletextboxCantidad.DoubleValue)
             .Unidad = CS_ValueTranslation.FromControlComboBoxToObjectString(textboxUnidad.Text)
 
-            If mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual Then
+            If mArticuloActual.IDArticulo = mIDArticuloMatricula OrElse mArticuloActual.IDArticulo = mIDArticuloMensual Then
                 .IDEntidad = CS_ValueTranslation.FromControlComboBoxToObjectInteger(comboboxAlumno.SelectedValue)
                 .IDAnioLectivoCurso = CS_ValueTranslation.FromControlComboBoxToObjectShort(comboboxAnioLectivoCurso.SelectedValue)
                 .DescripcionDisplay = CS_ValueTranslation.FromControlComboBoxToObjectString(textboxDescripcion.Text)
@@ -179,11 +179,11 @@
         Using dbContext As New CSColegioContext(True)
             If IDEntidadActual Is Nothing Then
                 listAlumnos = (From e In dbContext.Entidad.Include("Descuento")
-                               Where e.EsActivo AndAlso e.TipoAlumno AndAlso (((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) And e.IDEntidadPadre = IDEntidadPadre) Or ((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) And e.IDEntidadMadre = IDEntidadPadre) Or ((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) And e.IDEntidadTercero = IDEntidadPadre))
+                               Where e.EsActivo AndAlso e.TipoAlumno AndAlso (((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE OrElse e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES OrElse e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) AndAlso e.IDEntidadPadre = IDEntidadPadre) OrElse ((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE OrElse e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES OrElse e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) AndAlso e.IDEntidadMadre = IDEntidadPadre) OrElse ((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO OrElse e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) AndAlso e.IDEntidadTercero = IDEntidadPadre))
                                Order By e.ApellidoNombre).ToList
             Else
                 listAlumnos = (From e In dbContext.Entidad.Include("Descuento")
-                               Where e.EsActivo AndAlso e.TipoAlumno AndAlso (((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) And e.IDEntidadPadre = IDEntidadPadre) Or ((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) And e.IDEntidadMadre = IDEntidadPadre) Or ((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) And e.IDEntidadTercero = IDEntidadPadre) Or e.IDEntidad = IDEntidadActual)
+                               Where e.EsActivo AndAlso e.TipoAlumno AndAlso (((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE OrElse e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES OrElse e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) AndAlso e.IDEntidadPadre = IDEntidadPadre) OrElse ((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE OrElse e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES OrElse e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) AndAlso e.IDEntidadMadre = IDEntidadPadre) OrElse ((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO OrElse e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) AndAlso e.IDEntidadTercero = IDEntidadPadre) OrElse e.IDEntidad = IDEntidadActual)
                                Order By e.ApellidoNombre).ToList
             End If
         End Using
@@ -198,19 +198,19 @@
         If comboboxArticulo.SelectedIndex > -1 Then
             mArticuloActual = CType(comboboxArticulo.SelectedItem, Articulo)
 
-            doubletextboxCantidad.ReadOnly = (mEditMode = False Or mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
-            textboxUnidad.ReadOnly = (mEditMode = False Or mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
-            If mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual Then
+            doubletextboxCantidad.ReadOnly = (mEditMode = False OrElse mArticuloActual.IDArticulo = mIDArticuloMatricula OrElse mArticuloActual.IDArticulo = mIDArticuloMensual)
+            textboxUnidad.ReadOnly = (mEditMode = False OrElse mArticuloActual.IDArticulo = mIDArticuloMatricula OrElse mArticuloActual.IDArticulo = mIDArticuloMensual)
+            If mArticuloActual.IDArticulo = mIDArticuloMatricula OrElse mArticuloActual.IDArticulo = mIDArticuloMensual Then
                 doubletextboxCantidad.Text = "1"
                 textboxUnidad.Text = ""
             End If
 
-            labelAlumno.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
-            comboboxAlumno.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
-            buttonAlumno.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
+            labelAlumno.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula OrElse mArticuloActual.IDArticulo = mIDArticuloMensual)
+            comboboxAlumno.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula OrElse mArticuloActual.IDArticulo = mIDArticuloMensual)
+            buttonAlumno.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula OrElse mArticuloActual.IDArticulo = mIDArticuloMensual)
 
-            labelAnioLectivoCurso.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
-            comboboxAnioLectivoCurso.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual)
+            labelAnioLectivoCurso.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula OrElse mArticuloActual.IDArticulo = mIDArticuloMensual)
+            comboboxAnioLectivoCurso.Visible = (mArticuloActual.IDArticulo = mIDArticuloMatricula OrElse mArticuloActual.IDArticulo = mIDArticuloMensual)
 
             labelCuotaMes.Visible = (mArticuloActual.IDArticulo = mIDArticuloMensual)
             comboboxCuotaMes.Visible = (mArticuloActual.IDArticulo = mIDArticuloMensual)
@@ -254,7 +254,7 @@
     End Sub
 
     Private Sub EstablecerDescripcion()
-        If (mArticuloActual IsNot Nothing) AndAlso (mArticuloActual.IDArticulo = mIDArticuloMatricula Or (mArticuloActual.IDArticulo = mIDArticuloMensual And comboboxCuotaMes.SelectedIndex > -1)) And (mEntidad IsNot Nothing) And (comboboxAnioLectivoCurso.SelectedItem IsNot Nothing) Then
+        If (mArticuloActual IsNot Nothing) AndAlso (mArticuloActual.IDArticulo = mIDArticuloMatricula OrElse (mArticuloActual.IDArticulo = mIDArticuloMensual AndAlso comboboxCuotaMes.SelectedIndex > -1)) AndAlso (mEntidad IsNot Nothing) AndAlso (comboboxAnioLectivoCurso.SelectedItem IsNot Nothing) Then
             Dim AnioLectivoCursoActual As AnioLectivoCurso
 
             Try
@@ -289,7 +289,7 @@
                         CursoActual = dbContext.Curso.Find(IDCurso)
                         If CursoActual IsNot Nothing Then
                             IDCuotaTipo = CursoActual.IDCuotaTipo
-                            AnioLectivoCuotaActual = dbContext.AnioLectivoCuota.Where(Function(alci) alci.AnioLectivo = AnioLectivo And alci.MesInicio <= Month(DateAndTime.Today) And alci.IDCuotaTipo = IDCuotaTipo).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
+                            AnioLectivoCuotaActual = dbContext.AnioLectivoCuota.Where(Function(alci) alci.AnioLectivo = AnioLectivo AndAlso alci.MesInicio <= Month(DateAndTime.Today) AndAlso alci.IDCuotaTipo = IDCuotaTipo).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
                             If AnioLectivoCuotaActual IsNot Nothing Then
                                 PrecioUnitario = AnioLectivoCuotaActual.ImporteMatricula
                             End If
@@ -302,7 +302,7 @@
                             CursoActual = dbContext.Curso.Find(IDCurso)
                             If CursoActual IsNot Nothing Then
                                 IDCuotaTipo = CursoActual.IDCuotaTipo
-                                AnioLectivoCuotaActual = dbContext.AnioLectivoCuota.Where(Function(alci) alci.AnioLectivo = AnioLectivo And alci.MesInicio <= CByte(comboboxCuotaMes.SelectedIndex + 1) And alci.IDCuotaTipo = IDCuotaTipo).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
+                                AnioLectivoCuotaActual = dbContext.AnioLectivoCuota.Where(Function(alci) alci.AnioLectivo = AnioLectivo AndAlso alci.MesInicio <= CByte(comboboxCuotaMes.SelectedIndex + 1) AndAlso alci.IDCuotaTipo = IDCuotaTipo).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
                                 If AnioLectivoCuotaActual IsNot Nothing Then
                                     PrecioUnitario = AnioLectivoCuotaActual.ImporteCuota
                                 End If
@@ -465,7 +465,7 @@
             Exit Sub
         End If
 
-        If mArticuloActual.IDArticulo = mIDArticuloMatricula Or mArticuloActual.IDArticulo = mIDArticuloMensual Then
+        If mArticuloActual.IDArticulo = mIDArticuloMatricula OrElse mArticuloActual.IDArticulo = mIDArticuloMensual Then
             If comboboxAlumno.SelectedIndex = -1 Then
                 MsgBox("Debe especificar el Alumno.", MsgBoxStyle.Information, My.Application.Info.Title)
                 buttonAlumno.Focus()

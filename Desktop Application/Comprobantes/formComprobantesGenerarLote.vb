@@ -231,7 +231,7 @@
         Me.Cursor = Cursors.WaitCursor
 
         treeviewPaso1PadresAlumnos.BeginUpdate()
-        For Each EntidadCurrent As Entidad In mdbContext.Entidad.Where(Function(ent) ent.EsActivo = True And ent.TipoFamiliar And (ent.EntidadPadreHijas.Count > 0 Or ent.EntidadMadreHijas.Count > 0)).OrderBy(Function(ent) ent.ApellidoNombre)
+        For Each EntidadCurrent As Entidad In mdbContext.Entidad.Where(Function(ent) ent.EsActivo = True AndAlso ent.TipoFamiliar AndAlso (ent.EntidadPadreHijas.Count > 0 OrElse ent.EntidadMadreHijas.Count > 0)).OrderBy(Function(ent) ent.ApellidoNombre)
             ' Agrego el nodo correspondiente al Padre/Madre actual y agrego un nodo hijo que diga "cargando..." para cuando se expanda el nodo
             NewNode = New TreeNode(EntidadCurrent.ApellidoNombre, {New TreeNode(NodoCargandoTexto)}) With {
                 .Checked = True,

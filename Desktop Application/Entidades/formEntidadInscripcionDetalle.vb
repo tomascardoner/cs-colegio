@@ -58,7 +58,7 @@
     End Sub
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
 
     Friend Sub SetDataFromObjectToControls()
         With mAnioLectivoCursoActual
@@ -131,7 +131,7 @@
             listTurnos = (From c In mdbContext.Curso
                           Join alc In mdbContext.AnioLectivoCurso On c.IDCurso Equals alc.IDCurso
                           Join t In mdbContext.Turno On c.IDTurno Equals t.IDTurno
-                          Where alc.AnioLectivo = mAnioLectivoProximo And c.IDAnio = IDAnioProximo
+                          Where alc.AnioLectivo = mAnioLectivoProximo AndAlso c.IDAnio = IDAnioProximo
                           Select t).ToList
 
             comboboxTurnoProximo.ValueMember = "IDTurno"
@@ -154,7 +154,7 @@
             comboboxDivisionProximo.ValueMember = "Division"
             comboboxDivisionProximo.DataSource = (From c In mdbContext.Curso
                           Join alc In mdbContext.AnioLectivoCurso On c.IDCurso Equals alc.IDCurso
-                          Where alc.AnioLectivo = mAnioLectivoProximo And c.IDAnio = IDAnioProximo And c.IDTurno = IDTurnoProximo
+                          Where alc.AnioLectivo = mAnioLectivoProximo AndAlso c.IDAnio = IDAnioProximo AndAlso c.IDTurno = IDTurnoProximo
                           Select c.Division).ToList
 
             ' Intento seleccionar la misma Division que el Año anterior

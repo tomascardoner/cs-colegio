@@ -52,7 +52,7 @@
 
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
 
     Friend Sub RefreshData(Optional ByVal PositionIDEntidad As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
         If SkipFilterData Then
@@ -108,8 +108,8 @@
             listEntidadFiltradaYOrdenada = listEntidadBase
 
             ' Tipos de Entidad
-            If Not (menuitemEntidadTipo_PersonalColegio.Checked And menuitemEntidadTipo_Docente.Checked And menuitemEntidadTipo_Alumno.Checked And menuitemEntidadTipo_Familiar.Checked And menuitemEntidadTipo_Proveedor.Checked And menuitemEntidadTipo_Otro.Checked) Then
-                listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) (menuitemEntidadTipo_PersonalColegio.Checked And e.TipoPersonalColegio) Or (menuitemEntidadTipo_Docente.Checked And e.TipoDocente) Or (menuitemEntidadTipo_Alumno.Checked And e.TipoAlumno) Or (menuitemEntidadTipo_Familiar.Checked And e.TipoFamiliar) Or (menuitemEntidadTipo_Proveedor.Checked And e.TipoProveedor) Or (menuitemEntidadTipo_Otro.Checked And e.TipoOtro)).ToList()
+            If Not (menuitemEntidadTipo_PersonalColegio.Checked AndAlso menuitemEntidadTipo_Docente.Checked AndAlso menuitemEntidadTipo_Alumno.Checked AndAlso menuitemEntidadTipo_Familiar.Checked AndAlso menuitemEntidadTipo_Proveedor.Checked AndAlso menuitemEntidadTipo_Otro.Checked) Then
+                listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) (menuitemEntidadTipo_PersonalColegio.Checked AndAlso e.TipoPersonalColegio) OrElse (menuitemEntidadTipo_Docente.Checked AndAlso e.TipoDocente) OrElse (menuitemEntidadTipo_Alumno.Checked AndAlso e.TipoAlumno) OrElse (menuitemEntidadTipo_Familiar.Checked AndAlso e.TipoFamiliar) OrElse (menuitemEntidadTipo_Proveedor.Checked AndAlso e.TipoProveedor) OrElse (menuitemEntidadTipo_Otro.Checked AndAlso e.TipoOtro)).ToList()
             End If
 
             ' Verificar documento
@@ -118,10 +118,10 @@
                     ' Todos
                 Case 1
                     ' Si
-                    listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) (e.IDDocumentoTipo IsNot Nothing AndAlso Not e.DocumentoNumeroVerificado) Or (e.FacturaIDDocumentoTipo IsNot Nothing AndAlso Not e.FacturaDocumentoNumeroVerificado)).ToList()
+                    listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) (e.IDDocumentoTipo IsNot Nothing AndAlso Not e.DocumentoNumeroVerificado) OrElse (e.FacturaIDDocumentoTipo IsNot Nothing AndAlso Not e.FacturaDocumentoNumeroVerificado)).ToList()
                 Case 2
                     ' No
-                    listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) (e.IDDocumentoTipo Is Nothing Or e.DocumentoNumeroVerificado) And (e.FacturaIDDocumentoTipo Is Nothing Or e.FacturaDocumentoNumeroVerificado)).ToList()
+                    listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) (e.IDDocumentoTipo Is Nothing OrElse e.DocumentoNumeroVerificado) AndAlso (e.FacturaIDDocumentoTipo Is Nothing OrElse e.FacturaDocumentoNumeroVerificado)).ToList()
             End Select
 
             ' Verificar e-mail
@@ -130,10 +130,10 @@
                     ' Todos
                 Case 1
                     ' Si
-                    listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) e.VerificarEmail1 Or e.VerificarEmail2).ToList()
+                    listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) e.VerificarEmail1 OrElse e.VerificarEmail2).ToList()
                 Case 2
                     ' No
-                    listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) Not (e.VerificarEmail1 Or e.VerificarEmail2)).ToList()
+                    listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) Not (e.VerificarEmail1 OrElse e.VerificarEmail2)).ToList()
             End Select
 
             ' Búsqueda
@@ -144,7 +144,7 @@
                         listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) e.ApellidoNombre.ToLower().RemoveDiacritics().Contains(textboxBuscar.Text.ToLower().RemoveDiacritics().Trim())).ToList()
                     Case 1
                         ' Documento
-                        listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) (e.DocumentoNumero IsNot Nothing AndAlso e.DocumentoNumero.ToLower().Contains(textboxBuscar.Text.ToLower().Trim())) Or (e.FacturaDocumentoNumero IsNot Nothing AndAlso e.FacturaDocumentoNumero.ToLower().Contains(textboxBuscar.Text.ToLower().Trim()))).ToList()
+                        listEntidadFiltradaYOrdenada = listEntidadFiltradaYOrdenada.Where(Function(e) (e.DocumentoNumero IsNot Nothing AndAlso e.DocumentoNumero.ToLower().Contains(textboxBuscar.Text.ToLower().Trim())) OrElse (e.FacturaDocumentoNumero IsNot Nothing AndAlso e.FacturaDocumentoNumero.ToLower().Contains(textboxBuscar.Text.ToLower().Trim()))).ToList()
                 End Select
             End If
 
@@ -277,7 +277,7 @@
 
         ClickedColumn = CType(datagridviewMain.Columns(e.ColumnIndex), DataGridViewColumn)
 
-        If ClickedColumn.Name = columnIDEntidad.Name Or ClickedColumn.Name = columnApellido.Name Or ClickedColumn.Name = columnNombre.Name Then
+        If ClickedColumn.Name = columnIDEntidad.Name OrElse ClickedColumn.Name = columnApellido.Name OrElse ClickedColumn.Name = columnNombre.Name Then
             If ClickedColumn Is OrdenColumna Then
                 ' La columna clickeada es la misma por la que ya estaba ordenado, así que cambio la dirección del orden
                 If OrdenTipo = SortOrder.Ascending Then

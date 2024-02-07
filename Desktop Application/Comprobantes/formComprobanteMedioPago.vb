@@ -31,7 +31,7 @@
     Private Sub ChangeMode()
         buttonGuardar.Visible = mEditMode
         buttonCancelar.Visible = mEditMode
-        buttonEditar.Visible = (mParentEditMode And Not mEditMode)
+        buttonEditar.Visible = (mParentEditMode AndAlso Not mEditMode)
         buttonCerrar.Visible = Not mEditMode
 
         comboboxMedioPago.Enabled = mEditMode
@@ -67,7 +67,7 @@
 
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
 
     Friend Sub SetDataFromObjectToControls()
         With mComprobanteMedioPagoActual

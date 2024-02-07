@@ -40,11 +40,11 @@
         If IncluyeNivelEnNombre Then
             listAnios = (From a In mdbContext.Anio
                          Join n In mdbContext.Nivel On a.IDNivel Equals n.IDNivel
-                         Where a.EsActivo And a.IDAnio <> Excluye_IDAnio And (IDNivel = 0 Or a.IDNivel = IDNivel)
+                         Where a.EsActivo AndAlso a.IDAnio <> Excluye_IDAnio AndAlso (IDNivel = 0 OrElse a.IDNivel = IDNivel)
                          Select New Anio_ListItem With {.IDAnio = a.IDAnio, .Descripcion = n.Nombre & " - " & a.Nombre}).ToList
         Else
             listAnios = (From a In mdbContext.Anio
-                         Where a.EsActivo And a.IDAnio <> Excluye_IDAnio And (IDNivel = 0 Or a.IDNivel = IDNivel)
+                         Where a.EsActivo AndAlso a.IDAnio <> Excluye_IDAnio AndAlso (IDNivel = 0 OrElse a.IDNivel = IDNivel)
                          Select New Anio_ListItem With {.IDAnio = a.IDAnio, .Descripcion = a.Nombre}).ToList
         End If
 
@@ -179,7 +179,7 @@
             ComboBoxControl.DisplayMember = "NombreConLetra"
 
             Dim qryList = From tbl In mdbContext.ComprobanteTipo
-                          Where tbl.OperacionTipo = OperacionTipo And tbl.EsActivo
+                          Where tbl.OperacionTipo = OperacionTipo AndAlso tbl.EsActivo
                           Order By tbl.NombreConLetra
 
             localList = qryList.ToList
@@ -483,7 +483,7 @@
         ComboBoxControl.DisplayMember = "Nombre"
 
         Dim qryList = From tbl In mdbContext.Nivel
-                          Where tbl.EsActivo And tbl.IDNivel >= IDNivelMinimo
+                          Where tbl.EsActivo AndAlso tbl.IDNivel >= IDNivelMinimo
                           Order By tbl.Nombre
 
         Dim localList = qryList.ToList
@@ -565,14 +565,14 @@
                           Join n In mdbContext.Nivel On n.IDNivel Equals a.IDNivel
                           Join t In mdbContext.Turno On c.IDTurno Equals t.IDTurno
                           Order By n.Nombre, a.Nombre, t.Nombre, c.Division
-                          Where a.EsActivo And (IDNivel = 0 Or a.IDNivel = IDNivel) And a.IDAnio >= IDAnioMinimo
+                          Where a.EsActivo AndAlso (IDNivel = 0 OrElse a.IDNivel = IDNivel) AndAlso a.IDAnio >= IDAnioMinimo
                           Select New Curso_ListItem With {.IDCurso = c.IDCurso, .Descripcion = n.Nombre & " - " & a.Nombre & " - " & t.Nombre & " - " & c.Division}).ToList
         Else
             listCursos = (From c In mdbContext.Curso
                           Join a In mdbContext.Anio On a.IDAnio Equals c.IDAnio
                           Join t In mdbContext.Turno On c.IDTurno Equals t.IDTurno
                           Order By a.Nombre, t.Nombre, c.Division
-                          Where a.EsActivo And (IDNivel = 0 Or a.IDNivel = IDNivel) And a.IDAnio >= IDAnioMinimo
+                          Where a.EsActivo AndAlso (IDNivel = 0 OrElse a.IDNivel = IDNivel) AndAlso a.IDAnio >= IDAnioMinimo
                           Select New Curso_ListItem With {.IDCurso = c.IDCurso, .Descripcion = a.Nombre & " - " & t.Nombre & " - " & c.Division}).ToList
         End If
 
@@ -604,7 +604,7 @@
             ComboBoxControl.DataSource = qryList.ToList
         Else
             Dim qryList = From tbl In mdbContext.AnioLectivoCurso
-                          Where tbl.AnioLectivo = AnioLectivo And tbl.Curso.Anio.IDNivel = IDNivel
+                          Where tbl.AnioLectivo = AnioLectivo AndAlso tbl.Curso.Anio.IDNivel = IDNivel
                           Order By tbl.AnioLectivo, tbl.Curso.Anio.Nombre, tbl.Curso.Turno.Nombre, tbl.Curso.Division
                           Select tbl.IDCurso, Descripcion = tbl.Curso.Anio.Nombre & " - " & tbl.Curso.Turno.Nombre & " - " & tbl.Curso.Division
             ComboBoxControl.DataSource = qryList.ToList
@@ -620,26 +620,26 @@
         If IncluyeAnioLectivoEnDescripcion Then
             If IDEntidad Is Nothing Then
                 listAnioLectivoCursos = (From alc In mdbContext.AnioLectivoCurso
-                                         Where alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
+                                         Where alc.AnioLectivo >= AnioLectivoDesde AndAlso alc.AnioLectivo <= AnioLectivoHasta
                                          Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
                                          Select New AnioLectivoCursoListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.AnioLectivo.ToString & " - " & alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo, .IDCurso = alc.IDCurso}).ToList
             Else
                 listAnioLectivoCursos = (From e In mdbContext.Entidad
                                          From alc In e.AniosLectivosCursos
-                                         Where e.IDEntidad = IDEntidad And alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
+                                         Where e.IDEntidad = IDEntidad AndAlso alc.AnioLectivo >= AnioLectivoDesde AndAlso alc.AnioLectivo <= AnioLectivoHasta
                                          Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
                                          Select New AnioLectivoCursoListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.AnioLectivo.ToString & " - " & alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo, .IDCurso = alc.IDCurso}).ToList
             End If
         Else
             If IDEntidad Is Nothing Then
                 listAnioLectivoCursos = (From alc In mdbContext.AnioLectivoCurso
-                                         Where alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
+                                         Where alc.AnioLectivo >= AnioLectivoDesde AndAlso alc.AnioLectivo <= AnioLectivoHasta
                                          Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
                                          Select New AnioLectivoCursoListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo, .IDCurso = alc.IDCurso}).ToList
             Else
                 listAnioLectivoCursos = (From e In mdbContext.Entidad
                                          From alc In e.AniosLectivosCursos
-                                         Where e.IDEntidad = IDEntidad And alc.AnioLectivo >= AnioLectivoDesde And alc.AnioLectivo <= AnioLectivoHasta
+                                         Where e.IDEntidad = IDEntidad AndAlso alc.AnioLectivo >= AnioLectivoDesde AndAlso alc.AnioLectivo <= AnioLectivoHasta
                                          Order By alc.AnioLectivo Descending, alc.Curso.Anio.Nivel.Nombre, alc.Curso.Anio.Nombre, alc.Curso.Turno.Nombre, alc.Curso.Division
                                          Select New AnioLectivoCursoListItem With {.IDAnioLectivoCurso = alc.IDAnioLectivoCurso, .Descripcion = alc.Curso.Anio.Nivel.Nombre & " - " & alc.Curso.Anio.Nombre & " - " & alc.Curso.Turno.Nombre & " - " & alc.Curso.Division, .AnioLectivo = alc.AnioLectivo, .IDCurso = alc.IDCurso}).ToList
             End If
@@ -678,17 +678,17 @@
         ComboBoxControl.ValueMember = "IDMedioPago"
         ComboBoxControl.DisplayMember = "Nombre"
 
-        If EsChequeMostrar And NoEsChequeMostrar Then
+        If EsChequeMostrar AndAlso NoEsChequeMostrar Then
             listMediosPago = (From tbl In mdbContext.MedioPago
                               Where tbl.EsActivo
                               Order By tbl.Nombre).ToList
         ElseIf EsChequeMostrar Then
             listMediosPago = (From tbl In mdbContext.MedioPago
-                              Where tbl.EsActivo And tbl.EsCheque
+                              Where tbl.EsActivo AndAlso tbl.EsCheque
                               Order By tbl.Nombre).ToList
         ElseIf NoEsChequeMostrar Then
             listMediosPago = (From tbl In mdbContext.MedioPago
-                              Where tbl.EsActivo And Not tbl.EsCheque
+                              Where tbl.EsActivo AndAlso Not tbl.EsCheque
                               Order By tbl.Nombre).ToList
         Else
             listMediosPago = Nothing
@@ -859,7 +859,7 @@
         If MostrarGrupoAdministradores Then
             listItems = mdbContext.UsuarioGrupo.Where(Function(ug) ug.EsActivo).OrderBy(Function(ug) ug.Nombre).ToList
         Else
-            listItems = mdbContext.UsuarioGrupo.Where(Function(ug) ug.EsActivo And ug.IDUsuarioGrupo <> USUARIOGRUPO_ADMINISTRADORES_ID).OrderBy(Function(ug) ug.Nombre).ToList
+            listItems = mdbContext.UsuarioGrupo.Where(Function(ug) ug.EsActivo AndAlso ug.IDUsuarioGrupo <> USUARIOGRUPO_ADMINISTRADORES_ID).OrderBy(Function(ug) ug.Nombre).ToList
         End If
 
         If AgregarItem_Todos Then

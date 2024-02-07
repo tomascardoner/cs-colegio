@@ -32,7 +32,7 @@ Public Class formComprobantesTransmitirPagosEduc
 
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
 
     Private Sub RefreshData()
         Dim ComprobanteLoteActual As ComprobanteLote
@@ -49,7 +49,7 @@ Public Class formComprobantesTransmitirPagosEduc
                                     Join e In dbContext.Entidad On c.IDEntidad Equals e.IDEntidad
                                     Join cl In dbContext.ComprobanteLote On c.IDComprobanteLote Equals cl.IDComprobanteLote
                                     Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                    Where c.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And ct.EmisionElectronica And c.CAE IsNot Nothing And c.IDUsuarioAnulacion Is Nothing
+                                    Where c.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote AndAlso ct.EmisionElectronica AndAlso c.CAE IsNot Nothing AndAlso c.IDUsuarioAnulacion Is Nothing
                                     Order By ct.Nombre, c.NumeroCompleto
                                     Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .IDEntidad = e.IDEntidad, .ApellidoNombre = e.ApellidoNombre, .DocumentoNumero = e.DocumentoNumero, .ImporteTotal = c.ImporteTotal1}).ToList
 

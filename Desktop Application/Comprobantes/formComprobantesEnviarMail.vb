@@ -38,7 +38,7 @@
     End Sub
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
     Private Sub RefreshData()
         Dim ComprobanteLoteActual As ComprobanteLote
 
@@ -61,7 +61,7 @@
                                     Join cl In dbContext.ComprobanteLote On c.IDComprobanteLote Equals cl.IDComprobanteLote
                                     Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                     Join e In dbContext.Entidad On c.IDEntidad Equals e.IDEntidad
-                                    Where c.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And c.IDUsuarioAnulacion Is Nothing And c.IDUsuarioEnvioEmail Is Nothing And ct.EmisionElectronica And (Not c.CAE Is Nothing) And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And (Not e.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO)
+                                    Where c.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote AndAlso c.IDUsuarioAnulacion Is Nothing AndAlso c.IDUsuarioEnvioEmail Is Nothing AndAlso ct.EmisionElectronica AndAlso (Not c.CAE Is Nothing) AndAlso (Not (e.Email1 Is Nothing AndAlso e.Email2 Is Nothing)) AndAlso (Not e.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO)
                                     Order By ct.Nombre, c.NumeroCompleto
                                     Select New GridDataRow With {.IDComprobante = c.IDComprobante, .IDComprobanteTipo = c.IDComprobanteTipo, .IDComprobanteLote = c.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .IDEntidad = c.IDEntidad, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal1}).ToList
 
@@ -149,7 +149,7 @@
 
             ComprobanteActual = dbContext.Comprobante.Find(GridDataRowActual.IDComprobante)
             If Not ComprobanteActual Is Nothing Then
-                If (Not ComprobanteActual.Entidad.Email1 Is Nothing) Or (Not ComprobanteActual.Entidad.Email2 Is Nothing) Then
+                If (Not ComprobanteActual.Entidad.Email1 Is Nothing) OrElse (Not ComprobanteActual.Entidad.Email2 Is Nothing) Then
                     If IDComprobanteTipo <> ComprobanteActual.IDComprobanteTipo Then
                         IDComprobanteTipo = ComprobanteActual.IDComprobanteTipo
                         ReporteActual = New Reporte

@@ -93,7 +93,7 @@ Public Class formEntidadesSincronizarOutlook
     End Sub
 
     Private Sub Sincronizar(sender As Object, e As EventArgs) Handles buttonSincronizar.Click
-        If Not (checkboxEntidadTipoPersonalColegio.Checked Or checkboxEntidadTipoDocente.Checked Or checkboxEntidadTipoAlumno.Checked Or checkboxEntidadTipoFamiliar.Checked Or checkboxEntidadTipoProveedor.Checked Or checkboxEntidadTipoOtro.Checked) Then
+        If Not (checkboxEntidadTipoPersonalColegio.Checked OrElse checkboxEntidadTipoDocente.Checked OrElse checkboxEntidadTipoAlumno.Checked OrElse checkboxEntidadTipoFamiliar.Checked OrElse checkboxEntidadTipoProveedor.Checked OrElse checkboxEntidadTipoOtro.Checked) Then
             MsgBox("Para poder sincronizar con Microsoft Outlook, es necesario que seleccione al menos un Tipo de Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
             Exit Sub
         End If

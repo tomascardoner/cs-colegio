@@ -30,7 +30,7 @@ Module EntidadesSincronizarOutlookContactos
             For Each OutlookContactItem As Outlook.ContactItem In ListOfOutlookContactItems
                 With OutlookContactItem
                     OutlookUserProperty = .UserProperties.Find(OUTLOOK_USERPROPERTYNAME_CONTACTO_ENTIDAD)
-                    If Not OutlookUserProperty Is Nothing Then
+                    If OutlookUserProperty Is Nothing Then
                         Integer.TryParse(OutlookUserProperty.Value.ToString, IDEntidad)
                         If IDEntidad > 0 Then
                             If IDEntidadesVerificadasEnOutlook.Contains(IDEntidad) Then
@@ -39,13 +39,13 @@ Module EntidadesSincronizarOutlookContactos
                             Else
                                 IDEntidadesVerificadasEnOutlook.Add(IDEntidad)
                                 EntidadActual = dbContext.Entidad.Find(IDEntidad)
-                                If EntidadActual Is Nothing OrElse EntidadActual.EsActivo = False Then
+                                If EntidadActual Is Nothing OrElse Not EntidadActual.EsActivo Then
                                     ' No existe la Entidad en la base de datos o está desactivada
-                                    EntidadesSincronizarOutlookContactosABM.BorrarContacto(OutlookContactItem, "Doesn't exists anymore in DB or is inactive")
-                                ElseIf Not ((Opciones.EntidadTipoPersonalColegio And EntidadActual.TipoPersonalColegio) Or (Opciones.EntidadTipoDocente And EntidadActual.TipoDocente) Or (Opciones.EntidadTipoAlumno And EntidadActual.TipoAlumno) Or (Opciones.EntidadTipoFamiliar And EntidadActual.TipoFamiliar) Or (Opciones.EntidadTipoProveedor And EntidadActual.TipoProveedor) Or (Opciones.EntidadTipoOtro And EntidadActual.TipoOtro)) Then
+                                    EntidadesSincronizarOutlookContactosABM.BorrarContacto(OutlookContactItem, "Doesn't exists anymore in DB OrElse is inactive")
+                                ElseIf Not ((Opciones.EntidadTipoPersonalColegio AndAlso EntidadActual.TipoPersonalColegio) OrElse (Opciones.EntidadTipoDocente AndAlso EntidadActual.TipoDocente) OrElse (Opciones.EntidadTipoAlumno AndAlso EntidadActual.TipoAlumno) OrElse (Opciones.EntidadTipoFamiliar AndAlso EntidadActual.TipoFamiliar) OrElse (Opciones.EntidadTipoProveedor AndAlso EntidadActual.TipoProveedor) OrElse (Opciones.EntidadTipoOtro AndAlso EntidadActual.TipoOtro)) Then
                                     ' El Contacto en Outlook no coincide con los Tipos de Entidad seleccionados, lo elimino de Outlook
                                     EntidadesSincronizarOutlookContactosABM.BorrarContacto(OutlookContactItem, "Type doesn't match")
-                                ElseIf EntidadActual.Email1 Is Nothing And EntidadActual.Email2 Is Nothing Then
+                                ElseIf EntidadActual.Email1 Is Nothing AndAlso EntidadActual.Email2 Is Nothing Then
                                     ' La Entidad no tiene direcciones de e-mail especificadas
                                     EntidadesSincronizarOutlookContactosABM.BorrarContacto(OutlookContactItem, "Doesn't have e-mail addresses")
                                 Else

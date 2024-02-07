@@ -40,7 +40,7 @@
         Dim nodeCurrent As TreeNode
         Dim permisoCurrent As UsuarioGrupoPermiso
 
-        If e.Action <> TreeViewAction.ByMouse And e.Action <> TreeViewAction.ByKeyboard Then
+        If e.Action <> TreeViewAction.ByMouse AndAlso e.Action <> TreeViewAction.ByKeyboard Then
             Exit Sub
         End If
 

@@ -1,17 +1,14 @@
-﻿Partial Public Class Comprobante
+﻿Imports System.Text
+
+Partial Public Class Comprobante
 
 #Region "Codigo de barras SEPSA"
 
-    Public Function CalcularCodigoBarrasSepsa(ByVal documentoNumero As String) As Boolean
-        Dim idCliente As Integer
+    Public Function CalcularCodigoBarrasSepsa(idCliente As Integer, documentoNumero As String) As Boolean
         Dim value As String
         Const Importe1Maximo As Decimal = CDec(9999999.99)
         Const Importe2Maximo As Decimal = CDec(9999999.99)
 
-        idCliente = CS_Parameter_System.GetIntegerAsInteger(Parametros.EMPRESA_PAGOSEDUC_NUMERO)
-        If idCliente = 0 Then
-            Return False
-        End If
         If ImporteTotal1 > Importe1Maximo Then
             MessageBox.Show($"El importe del 1er. vencimiento de la factura ({FormatCurrency(ImporteTotal1)}) es mayor al máximo permitido por el código SEPSA ({FormatCurrency(Importe1Maximo)}).{vbCrLf}{vbCrLf}Titular: {ApellidoNombre}", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Return False
@@ -81,6 +78,7 @@
 
         Dim secuencia As String
         Dim longitud As Integer
+        Dim sb As New StringBuilder
 
         ' Primera secuencia
         If value.Length < PrimeraSecuencia.Length Then
@@ -91,14 +89,15 @@
         secuencia = PrimeraSecuencia.Substring(0, longitud)
 
         ' Segunda secuencia
-        Do While secuencia.Length < value.Length
+        Do While sb.Length < value.Length
             If (value.Length - secuencia.Length) < SegundaSecuencia.Length Then
                 longitud = value.Length - secuencia.Length
             Else
                 longitud = SegundaSecuencia.Length
             End If
-            secuencia &= SegundaSecuencia.Substring(0, longitud)
+            sb.Append(SegundaSecuencia.Substring(0, longitud))
         Loop
+        secuencia &= sb.ToString()
 
         Return secuencia
     End Function

@@ -30,7 +30,7 @@ Module EntidadesSincronizarOutlookGruposExistentes
                 With OutlookDistListItem
                     ' Verifico si es un Grupo de Tipo de Entidad
                     OutlookUserProperty = .UserProperties.Find(OUTLOOK_USERPROPERTYNAME_GRUPO_TIPO)
-                    If Not OutlookUserProperty Is Nothing Then
+                    If OutlookUserProperty IsNot Nothing Then
                         If Not VerificarGrupoDeTipo(OutlookApplication, OutlookDistListItem, OutlookUserProperty.Value.ToString, dbContext, GruposDeTipoVerificadosEnOutlook, Opciones, ProgressBarProgreso) Then
                             OutlookDistListItems = Nothing
                             OutlookUserProperty = Nothing
@@ -41,7 +41,7 @@ Module EntidadesSincronizarOutlookGruposExistentes
 
                     ' Verifico si es un Grupo de Nivel
                     OutlookUserProperty = .UserProperties.Find(OUTLOOK_USERPROPERTYNAME_GRUPO_NIVEL)
-                    If Not OutlookUserProperty Is Nothing Then
+                    If OutlookUserProperty IsNot Nothing Then
                         If Not VerificarGrupoDeNivel(OutlookApplication, OutlookDistListItem, OutlookUserProperty.Value.ToString, dbContext, GruposDeNivelVerificadosEnOutlook, Opciones, ProgressBarProgreso) Then
                             OutlookDistListItems = Nothing
                             OutlookUserProperty = Nothing
@@ -52,7 +52,7 @@ Module EntidadesSincronizarOutlookGruposExistentes
 
                     ' Verifico si es un Grupo de Curso
                     OutlookUserProperty = .UserProperties.Find(OUTLOOK_USERPROPERTYNAME_GRUPO_CURSO)
-                    If Not OutlookUserProperty Is Nothing Then
+                    If OutlookUserProperty IsNot Nothing Then
                         If Not VerificarGrupoDeCurso(OutlookApplication, OutlookDistListItem, OutlookUserProperty.Value.ToString, dbContext, GruposDeCursoVerificadosEnOutlook, Opciones, ProgressBarProgreso) Then
                             OutlookDistListItems = Nothing
                             OutlookUserProperty = Nothing
@@ -89,23 +89,23 @@ Module EntidadesSincronizarOutlookGruposExistentes
 
         ' Verifico que el dato contenido en la Property sea válido
         If EntidadTipo.Length = 1 AndAlso Constantes.ENTIDADTIPO_TODOS.Contains(EntidadTipo) Then
-            If (Opciones.EntidadTipoPersonalColegio And EntidadTipo = Constantes.ENTIDADTIPO_PERSONALCOLEGIO) Or (Opciones.EntidadTipoDocente And EntidadTipo = Constantes.ENTIDADTIPO_DOCENTE) Or (Opciones.EntidadTipoAlumno And EntidadTipo = Constantes.ENTIDADTIPO_ALUMNO) Or (Opciones.EntidadTipoFamiliar And EntidadTipo = Constantes.ENTIDADTIPO_FAMILIAR) Or (Opciones.EntidadTipoProveedor And EntidadTipo = Constantes.ENTIDADTIPO_PROVEEDOR) Or (Opciones.EntidadTipoOtro And EntidadTipo = Constantes.ENTIDADTIPO_OTRO) Then
+            If (Opciones.EntidadTipoPersonalColegio AndAlso EntidadTipo = Constantes.ENTIDADTIPO_PERSONALCOLEGIO) OrElse (Opciones.EntidadTipoDocente AndAlso EntidadTipo = Constantes.ENTIDADTIPO_DOCENTE) OrElse (Opciones.EntidadTipoAlumno AndAlso EntidadTipo = Constantes.ENTIDADTIPO_ALUMNO) OrElse (Opciones.EntidadTipoFamiliar AndAlso EntidadTipo = Constantes.ENTIDADTIPO_FAMILIAR) OrElse (Opciones.EntidadTipoProveedor AndAlso EntidadTipo = Constantes.ENTIDADTIPO_PROVEEDOR) OrElse (Opciones.EntidadTipoOtro AndAlso EntidadTipo = Constantes.ENTIDADTIPO_OTRO) Then
                 If Not GruposDeTipoVerificadosEnOutlook.Contains(EntidadTipo) Then
                     ' Verifico y actualizo las propiedades del grupo
                     Try
                         Select Case EntidadTipo
                             Case Constantes.ENTIDADTIPO_PERSONALCOLEGIO
-                                Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo And e.TipoPersonalColegio And Not (e.Email1 Is Nothing And e.Email2 Is Nothing)).ToList
+                                Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo AndAlso e.TipoPersonalColegio AndAlso Not (e.Email1 Is Nothing AndAlso e.Email2 Is Nothing)).ToList
                             Case Constantes.ENTIDADTIPO_DOCENTE
-                                Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo And e.TipoDocente And Not (e.Email1 Is Nothing And e.Email2 Is Nothing)).ToList
+                                Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo AndAlso e.TipoDocente AndAlso Not (e.Email1 Is Nothing AndAlso e.Email2 Is Nothing)).ToList
                             Case Constantes.ENTIDADTIPO_ALUMNO
-                                Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo And e.TipoAlumno And Not (e.Email1 Is Nothing And e.Email2 Is Nothing)).ToList
+                                Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo AndAlso e.TipoAlumno AndAlso Not (e.Email1 Is Nothing AndAlso e.Email2 Is Nothing)).ToList
                             Case Constantes.ENTIDADTIPO_FAMILIAR
-                                Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo And e.TipoFamiliar And Not (e.Email1 Is Nothing And e.Email2 Is Nothing)).ToList
+                                Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo AndAlso e.TipoFamiliar AndAlso Not (e.Email1 Is Nothing AndAlso e.Email2 Is Nothing)).ToList
                             Case Constantes.ENTIDADTIPO_PROVEEDOR
-                                Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo And e.TipoProveedor And Not (e.Email1 Is Nothing And e.Email2 Is Nothing)).ToList
+                                Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo AndAlso e.TipoProveedor AndAlso Not (e.Email1 Is Nothing AndAlso e.Email2 Is Nothing)).ToList
                             Case Constantes.ENTIDADTIPO_OTRO
-                                Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo And e.TipoOtro And Not (e.Email1 Is Nothing And e.Email2 Is Nothing)).ToList
+                                Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo AndAlso e.TipoOtro AndAlso Not (e.Email1 Is Nothing AndAlso e.Email2 Is Nothing)).ToList
                         End Select
                     Catch ex As Exception
                         CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al filtrar las Entidades por Tipo.")
@@ -143,23 +143,23 @@ Module EntidadesSincronizarOutlookGruposExistentes
         Byte.TryParse(IDNivelString, IDNivel)
         If IDNivel > 0 Then
             OutlookUserPropertyAnioLectivo = OutlookDistListItem.UserProperties.Find(OUTLOOK_USERPROPERTYNAME_GRUPO_ANIOLECTIVO)
-            If Not OutlookUserPropertyAnioLectivo Is Nothing Then
+            If OutlookUserPropertyAnioLectivo IsNot Nothing Then
                 Short.TryParse(OutlookUserPropertyAnioLectivo.Value.ToString, AnioLectivo)
                 If AnioLectivo > 0 Then
-                    If Opciones.AniosLectivos.Contains(AnioLectivo) AndAlso Opciones.SincronizarGrupoContactosPorNivelesYCursos And Opciones.EntidadTipoAlumno Then
+                    If Opciones.AniosLectivos.Contains(AnioLectivo) AndAlso Opciones.SincronizarGrupoContactosPorNivelesYCursos AndAlso Opciones.EntidadTipoAlumno Then
                         If Not GruposDeNivelVerificadosEnOutlook.Contains(IDNivel) Then
                             Try
                                 NivelActual = dbContext.Nivel.Find(IDNivel)
-                                If (Not NivelActual Is Nothing) AndAlso NivelActual.EsActivo Then
+                                If NivelActual IsNot Nothing AndAlso NivelActual.EsActivo Then
                                     Entidades = (From alc In dbContext.AnioLectivoCurso
                                                  From e In alc.Entidades
-                                                 Where alc.Curso.Anio.IDNivel = IDNivel And alc.AnioLectivo = AnioLectivo And e.EsActivo And e.TipoAlumno And Not (e.Email1 Is Nothing And e.Email2 Is Nothing)
+                                                 Where alc.Curso.Anio.IDNivel = IDNivel AndAlso alc.AnioLectivo = AnioLectivo AndAlso e.EsActivo AndAlso e.TipoAlumno AndAlso Not (e.Email1 Is Nothing AndAlso e.Email2 Is Nothing)
                                                  Select e).ToList
                                     ' Verifico y actualizo las propiedades del grupo
                                     EntidadesSincronizarOutlookGruposABM.ActualizarGrupo(OutlookApplication, OutlookDistListItem, String.Format("{0} - {1}", AnioLectivo, NivelActual.Nombre), Entidades, ProgressBarProgreso)
                                 Else
                                     ' No existe el Nivel en la base de datos o está inactivo, por lo tanto, lo borro de Outlook
-                                    EntidadesSincronizarOutlookGruposABM.BorrarGrupo(OutlookDistListItem, "Doesn't exists anymore in DB or is inactive")
+                                    EntidadesSincronizarOutlookGruposABM.BorrarGrupo(OutlookDistListItem, "Doesn't exists anymore in DB OrElse is inactive")
                                 End If
                             Catch ex As Exception
                                 CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al filtrar las Entidades por Año Lectivo y Nivel.")
@@ -201,23 +201,23 @@ Module EntidadesSincronizarOutlookGruposExistentes
         Byte.TryParse(IDCursoString, IDCurso)
         If IDCurso > 0 Then
             OutlookUserPropertyAnioLectivo = OutlookDistListItem.UserProperties.Find(OUTLOOK_USERPROPERTYNAME_GRUPO_ANIOLECTIVO)
-            If Not OutlookUserPropertyAnioLectivo Is Nothing Then
+            If OutlookUserPropertyAnioLectivo IsNot Nothing Then
                 Short.TryParse(OutlookUserPropertyAnioLectivo.Value.ToString, AnioLectivo)
                 If AnioLectivo > 0 Then
-                    If Opciones.AniosLectivos.Contains(AnioLectivo) AndAlso Opciones.SincronizarGrupoContactosPorNivelesYCursos And Opciones.EntidadTipoAlumno Then
+                    If Opciones.AniosLectivos.Contains(AnioLectivo) AndAlso Opciones.SincronizarGrupoContactosPorNivelesYCursos AndAlso Opciones.EntidadTipoAlumno Then
                         If Not GruposDeCursoVerificadosEnOutlook.Contains(IDCurso) Then
                             Try
                                 CursoActual = dbContext.Curso.Find(IDCurso)
-                                If (Not CursoActual Is Nothing) AndAlso CursoActual.EsActivo Then
+                                If CursoActual IsNot Nothing AndAlso CursoActual.EsActivo Then
                                     Entidades = (From alc In dbContext.AnioLectivoCurso
                                                  From e In alc.Entidades
-                                                 Where alc.Curso.IDCurso = IDCurso And alc.AnioLectivo = AnioLectivo And e.EsActivo And e.TipoAlumno And Not (e.Email1 Is Nothing And e.Email2 Is Nothing)
+                                                 Where alc.Curso.IDCurso = IDCurso AndAlso alc.AnioLectivo = AnioLectivo AndAlso e.EsActivo AndAlso e.TipoAlumno AndAlso Not (e.Email1 Is Nothing AndAlso e.Email2 Is Nothing)
                                                  Select e).ToList
                                     ' Verifico y actualizo las propiedades del grupo
                                     EntidadesSincronizarOutlookGruposABM.ActualizarGrupo(OutlookApplication, OutlookDistListItem, String.Format("{0} - {1}", AnioLectivo, CursoActual.Nombre), Entidades, ProgressBarProgreso)
                                 Else
                                     ' No existe el Curso en la base de datos o está inactivo, por lo tanto, lo borro de Outlook
-                                    EntidadesSincronizarOutlookGruposABM.BorrarGrupo(OutlookDistListItem, "Doesn't exists anymore in DB or is inactive")
+                                    EntidadesSincronizarOutlookGruposABM.BorrarGrupo(OutlookDistListItem, "Doesn't exists anymore in DB OrElse is inactive")
                                 End If
                             Catch ex As Exception
                                 CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al filtrar las Entidades por Año Lectivo y Curso.")

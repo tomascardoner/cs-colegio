@@ -86,7 +86,7 @@
         Dim listAniosLectivosCursos As List(Of AnioLectivoCurso)
 
         ' Verifico que tenga Cursos asociados
-        listAniosLectivosCursos = mdbContext.AnioLectivoCurso.Where(Function(alc) alc.AnioLectivo = CShort(comboboxAnioLectivoOrigen.Text) And alc.Curso.EsActivo).ToList
+        listAniosLectivosCursos = mdbContext.AnioLectivoCurso.Where(Function(alc) alc.AnioLectivo = CShort(comboboxAnioLectivoOrigen.Text) AndAlso alc.Curso.EsActivo).ToList
         If listAniosLectivosCursos.Count = 0 Then
             MsgBox("El Año Lectivo de Origen no tiene Cursos asociados.", MsgBoxStyle.Information, My.Application.Info.Title)
             comboboxAnioLectivoOrigen.Focus()

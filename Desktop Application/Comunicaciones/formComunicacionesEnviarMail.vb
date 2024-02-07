@@ -51,7 +51,7 @@
     End Sub
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
     Private Sub RefreshData()
         Dim ComunicacionActual As Comunicacion
         Dim listEntidades As New List(Of Entidad)
@@ -70,15 +70,15 @@
                 ComunicacionActual = CType(comboboxComunicacion.SelectedItem, Comunicacion)
 
                 ' Primero obtengo la lista de posibles Entidades
-                If checkboxTipoPersonalColegio.Checked And checkboxTipoDocente.Checked And checkboxTipoAlumno.Checked And checkboxTipoFamiliar.Checked And checkboxTipoProveedor.Checked And checkboxTipoOtro.Checked Then
+                If checkboxTipoPersonalColegio.Checked AndAlso checkboxTipoDocente.Checked AndAlso checkboxTipoAlumno.Checked AndAlso checkboxTipoFamiliar.Checked AndAlso checkboxTipoProveedor.Checked AndAlso checkboxTipoOtro.Checked Then
                     listEntidades = (From ent In mdbContext.Entidad
-                                     Where ent.EsActivo And ent.ComprobanteEnviarEmail <> Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO And (Not (ent.Email1 Is Nothing And ent.Email2 Is Nothing)) _
-                                     And (ent.VerificarEmail1 = False Or ent.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2) And (ent.VerificarEmail2 = False Or ent.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL1)).ToList
+                                     Where ent.EsActivo AndAlso ent.ComprobanteEnviarEmail <> Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO AndAlso (Not (ent.Email1 Is Nothing AndAlso ent.Email2 Is Nothing)) _
+                                     AndAlso (ent.VerificarEmail1 = False OrElse ent.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2) AndAlso (ent.VerificarEmail2 = False OrElse ent.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL1)).ToList
                 Else
                     listEntidades = (From ent In mdbContext.Entidad
-                                     Where ent.EsActivo And ent.ComprobanteEnviarEmail <> Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO And (Not (ent.Email1 Is Nothing And ent.Email2 Is Nothing)) _
-                                     And ((checkboxTipoPersonalColegio.Checked And ent.TipoPersonalColegio) Or (checkboxTipoDocente.Checked And ent.TipoDocente) Or (checkboxTipoAlumno.Checked And ent.TipoAlumno) Or (checkboxTipoFamiliar.Checked And ent.TipoFamiliar) Or (checkboxTipoProveedor.Checked And ent.TipoProveedor) Or (checkboxTipoOtro.Checked And ent.TipoOtro)) _
-                                     And (ent.VerificarEmail1 = False Or ent.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2) And (ent.VerificarEmail2 = False Or ent.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL1)).ToList
+                                     Where ent.EsActivo AndAlso ent.ComprobanteEnviarEmail <> Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO AndAlso (Not (ent.Email1 Is Nothing AndAlso ent.Email2 Is Nothing)) _
+                                     AndAlso ((checkboxTipoPersonalColegio.Checked AndAlso ent.TipoPersonalColegio) OrElse (checkboxTipoDocente.Checked AndAlso ent.TipoDocente) OrElse (checkboxTipoAlumno.Checked AndAlso ent.TipoAlumno) OrElse (checkboxTipoFamiliar.Checked AndAlso ent.TipoFamiliar) OrElse (checkboxTipoProveedor.Checked AndAlso ent.TipoProveedor) OrElse (checkboxTipoOtro.Checked AndAlso ent.TipoOtro)) _
+                                     AndAlso (ent.VerificarEmail1 = False OrElse ent.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2) AndAlso (ent.VerificarEmail2 = False OrElse ent.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL1)).ToList
                 End If
 
                 ' Ahora obtengo la lista de Entidades a las que se le envió la Comunicación

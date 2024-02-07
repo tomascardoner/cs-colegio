@@ -59,7 +59,7 @@
 
     Public Function VerificarEmail(ByVal MostrarMensaje As Boolean) As Boolean
         If CS_Parameter_System.GetBoolean(Parametros.ENTIDAD_VERIFICAR_EMAIL_AVISO) AndAlso MostrarMensaje Then
-            If VerificarEmail1 And VerificarEmail2 Then
+            If VerificarEmail1 AndAlso VerificarEmail2 Then
                 MsgBox("Se deben verificar las dos direcciones de e-Mail de esta Entidad.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
             ElseIf VerificarEmail1 Then
                 MsgBox("Se debe verificar la dirección de e-Mail 1 de esta Entidad.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
@@ -68,7 +68,7 @@
             End If
         End If
 
-        Return VerificarEmail1 Or VerificarEmail2
+        Return VerificarEmail1 OrElse VerificarEmail2
     End Function
 
     Private Function VerificarExclusionParaEmitirComprobante(ByVal fechaServicioDesde As Date, ByVal fechaServicioHasta As Date, ByVal fechaExclusionEsError As Boolean, ByRef correccionDescripcion As String) As Boolean
@@ -190,7 +190,7 @@
                 datosCompletosVerificados = VerificarDatosCompletosParaEmitirComprobante("El Alumno", correccionDescripcion)
             End If
 
-            If EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE Or EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
+            If EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE OrElse EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES OrElse EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                 ' Se le factura al Padre (entre otros)
                 If IDEntidadPadre Is Nothing Then
                     correccionDescripcion &= "Debe especificar el Padre para poder facturarle." & vbCrLf
@@ -199,7 +199,7 @@
                 End If
             End If
 
-            If EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE Or EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
+            If EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE OrElse EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES OrElse EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                 ' Se le factura a la Madre (entre otros)
                 If IDEntidadMadre Is Nothing Then
                     correccionDescripcion &= "Debe especificar la Madre para poder facturarle." & vbCrLf
@@ -208,7 +208,7 @@
                 End If
             End If
 
-            If EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
+            If EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO OrElse EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                 ' Se le factura a Otro (entre otros)
                 If IDEntidadTercero Is Nothing Then
                     correccionDescripcion &= "Debe especificar el Tercero para poder facturarle." & vbCrLf

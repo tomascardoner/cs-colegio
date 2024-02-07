@@ -40,7 +40,8 @@
 
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
+
     Friend Sub RefreshData(Optional ByVal PositionIDUsuarioGrupo As Byte = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
 
         Me.Cursor = Cursors.WaitCursor
@@ -54,7 +55,7 @@
 
             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al leer los Grupos de Usuarios.")
             Me.Cursor = Cursors.Default
-            Exit Sub
+            Return
         End Try
 
         Me.Cursor = Cursors.Default
@@ -86,17 +87,17 @@
 
             Try
                 ' Inicializo las variables
-                mReportSelectionFormula = ""
+                mReportSelectionFormula = String.Empty
                 mlistUsuarioGruposFiltradaYOrdenada = mlistUsuarioGruposBase.ToList
 
                 'Filtro por Activo
                 Select Case comboboxActivo.SelectedIndex
                     Case 0      ' Todos
                     Case 1      ' Sí
-                        mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AND ").ToString & "{UsuarioGrupo.EsActivo} = 1"
+                        mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, String.Empty, " AND ").ToString & "{UsuarioGrupo.EsActivo} = 1"
                         mlistUsuarioGruposFiltradaYOrdenada = mlistUsuarioGruposFiltradaYOrdenada.Where(Function(a) a.EsActivo).ToList
                     Case 2      ' No
-                        mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AND ").ToString & "{UsuarioGrupo.EsActivo} = 0"
+                        mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, String.Empty, " AND ").ToString & "{UsuarioGrupo.EsActivo} = 0"
                         mlistUsuarioGruposFiltradaYOrdenada = mlistUsuarioGruposFiltradaYOrdenada.Where(Function(a) Not a.EsActivo).ToList
                 End Select
 
@@ -112,7 +113,7 @@
             Catch ex As Exception
                 CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al filtrar los datos.")
                 Me.Cursor = Cursors.Default
-                Exit Sub
+                Return
             End Try
 
             OrderData()
@@ -144,6 +145,7 @@
         ' Muestro el ícono de orden en la columna correspondiente
         mOrdenColumna.HeaderCell.SortGlyphDirection = mOrdenTipo
     End Sub
+
 #End Region
 
 #Region "Controls behavior"

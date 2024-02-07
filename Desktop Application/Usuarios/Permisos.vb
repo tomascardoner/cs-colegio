@@ -114,9 +114,9 @@
         If pUsuario.IDUsuarioGrupo = USUARIOGRUPO_ADMINISTRADORES_ID Then
             Return True
         Else
-            If pPermisos.Find(Function(usrper) usrper.IDUsuarioGrupo = pUsuario.IDUsuarioGrupo And usrper.IDPermiso.TrimEnd = IDPermiso) Is Nothing Then
+            If pPermisos.Find(Function(usrper) usrper.IDUsuarioGrupo = pUsuario.IDUsuarioGrupo AndAlso usrper.IDPermiso.TrimEnd = IDPermiso) Is Nothing Then
                 If MostrarAviso Then
-                    MsgBox("No tiene autorización para realizar esta acción.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                    MessageBox.Show("No tiene autorización para realizar esta acción.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
                 Return False
             Else

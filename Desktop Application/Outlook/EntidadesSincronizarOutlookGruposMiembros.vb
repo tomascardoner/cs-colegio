@@ -50,13 +50,13 @@ Module EntidadesSincronizarOutlookGruposMiembros
 
                 ' Verifico si el contacto existe en la base de datos
                 OutlookAddressEntry = OutlookRecipient.AddressEntry
-                If Not OutlookAddressEntry Is Nothing Then
+                If OutlookAddressEntry IsNot Nothing Then
                     ' Esto funciona siempre y cuando no haya un contacto con la misma dirección de e-mail en otra carpeta de contactos
                     OutlookContactItem = CType(OutlookApplication.GetNamespace("MAPI").GetItemFromID(Strings.Right(OutlookAddressEntry.ID, 48)), Outlook.ContactItem)
 
-                    If Not OutlookContactItem Is Nothing Then
+                    If OutlookContactItem IsNot Nothing Then
                         OutlookUserProperty = OutlookContactItem.UserProperties.Find(OUTLOOK_USERPROPERTYNAME_CONTACTO_ENTIDAD)
-                        If Not OutlookUserProperty Is Nothing Then
+                        If OutlookUserProperty IsNot Nothing Then
                             Integer.TryParse(OutlookUserProperty.Value.ToString, IDEntidad)
                             If IDEntidad > 0 Then
                                 If Entidades.Exists(Function(e) e.IDEntidad = IDEntidad) Then
@@ -124,7 +124,7 @@ Module EntidadesSincronizarOutlookGruposMiembros
 
             For Each EntidadAgregar As Entidad In EntidadesAAgregar
                 If Not AgregarRecipienteDesdeEntidad(OutlookApplication, OutlookDistListItem, EntidadAgregar) Then
-                    If MsgBox(String.Format("Outlook no pudo resolver el nombre ({1}) del miembro del Grupo.{0}{0}¿Desea interrumpir el proceso?", Environment.NewLine, EntidadAgregar.ApellidoNombre), CType(MsgBoxStyle.YesNo Or MsgBoxStyle.Information Or MsgBoxStyle.DefaultButton2, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
+                    If MessageBox.Show($"Outlook no pudo resolver el nombre ({EntidadAgregar.ApellidoNombre}) del miembro del Grupo.{vbCrLf}{vbCrLf}¿Desea interrumpir el proceso?", My.Application.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) = DialogResult.Yes Then
                         Exit For
                     End If
                 End If
@@ -146,7 +146,7 @@ Module EntidadesSincronizarOutlookGruposMiembros
     Private Function AgregarRecipienteDesdeEntidad(ByRef OutlookApplication As Outlook.Application, ByRef OutlookDistListItem As Outlook.DistListItem, ByRef EntidadAAgregar As Entidad) As Boolean
         With EntidadAAgregar
             If .ComprobanteEnviarEmail <> ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO Then
-                If .Email1 Is Nothing Or .Email2 Is Nothing Then
+                If .Email1 Is Nothing OrElse .Email2 Is Nothing Then
                     ' Tiene una sola dirección de email, por lo que no hay conflicto en agregarlo con el nombre
                     Return EntidadesSincronizarOutlookGruposMiembrosABM.AgregarRecipienteYResolver(OutlookApplication, OutlookDistListItem, .ApellidoNombre)
                 Else

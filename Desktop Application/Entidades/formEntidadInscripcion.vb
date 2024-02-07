@@ -42,7 +42,7 @@
 
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
 
 #End Region
 
@@ -79,7 +79,7 @@
                 Dim listAnioLectivoCursoProximo As List(Of AnioLectivoCurso)
                 listAnioLectivoCursoProximo = (From c In mdbContext.Curso
                                                Join alc In mdbContext.AnioLectivoCurso On c.IDCurso Equals alc.IDCurso
-                                               Where alc.AnioLectivo = mAnioLectivoProximo And c.IDAnio = IDAnioProximo And c.IDTurno = IDTurnoProximo And c.Division = DivisionProximo
+                                               Where alc.AnioLectivo = mAnioLectivoProximo AndAlso c.IDAnio = IDAnioProximo AndAlso c.IDTurno = IDTurnoProximo AndAlso c.Division = DivisionProximo
                                                Select alc).ToList
                 If listAnioLectivoCursoProximo.Count > 0 Then
                     GridRowData_AlumnoCursoActual.AnioLectivoCursoProximo = listAnioLectivoCursoProximo.First
@@ -137,7 +137,7 @@
                                  Join aa In mdbContext.Anio On ca.IDAnio Equals aa.IDAnio
                                  Join na In mdbContext.Nivel On aa.IDNivel Equals na.IDNivel
                                  Join ta In mdbContext.Turno On ca.IDTurno Equals ta.IDTurno
-                                 Where e.IDEntidad = EntidadSeleccionada.IDEntidad And alca.AnioLectivo = mAnioLectivoActual
+                                 Where e.IDEntidad = EntidadSeleccionada.IDEntidad AndAlso alca.AnioLectivo = mAnioLectivoActual
                                  Select New GridRowData_AlumnoCurso With {.Seleccionado = True, .Entidad = e, .ApellidoNombre = e.ApellidoNombre, .AnioLectivoCursoActual = alca, .AnioLectivoCursoActualNombre = na.Nombre & " - " & aa.Nombre & " - " & ta.Nombre & " - " & ca.Division}).ToList
         ElseIf EntidadSeleccionada.TipoFamiliar Then
             listAlumnosCursos = (From e In mdbContext.Entidad
@@ -146,7 +146,7 @@
                                  Join aa In mdbContext.Anio On ca.IDAnio Equals aa.IDAnio
                                  Join na In mdbContext.Nivel On aa.IDNivel Equals na.IDNivel
                                  Join ta In mdbContext.Turno On ca.IDTurno Equals ta.IDTurno
-                                 Where e.EsActivo And (e.IDEntidad = EntidadSeleccionada.IDEntidad Or e.IDEntidadPadre = EntidadSeleccionada.IDEntidad Or e.IDEntidadMadre = EntidadSeleccionada.IDEntidad Or e.IDEntidadTercero = EntidadSeleccionada.IDEntidad) And alca.AnioLectivo = mAnioLectivoActual
+                                 Where e.EsActivo AndAlso (e.IDEntidad = EntidadSeleccionada.IDEntidad OrElse e.IDEntidadPadre = EntidadSeleccionada.IDEntidad OrElse e.IDEntidadMadre = EntidadSeleccionada.IDEntidad OrElse e.IDEntidadTercero = EntidadSeleccionada.IDEntidad) AndAlso alca.AnioLectivo = mAnioLectivoActual
                                  Select New GridRowData_AlumnoCurso With {.Seleccionado = True, .Entidad = e, .ApellidoNombre = e.ApellidoNombre, .AnioLectivoCursoActual = alca, .AnioLectivoCursoActualNombre = na.Nombre & " - " & aa.Nombre & " - " & ta.Nombre & " - " & ca.Division}).ToList
         End If
 
@@ -176,7 +176,7 @@
                 ' Busco si existe el Año próximo para el nuevo Año Lectivo - Curso con el mismo Turno y División
                 listAnioLectivoCursoProximo = (From c In mdbContext.Curso
                                                Join alc In mdbContext.AnioLectivoCurso On c.IDCurso Equals alc.IDCurso
-                                               Where alc.AnioLectivo = mAnioLectivoProximo And c.IDAnio = IDAnioProximo And c.IDTurno = IDTurnoActual And c.Division = DivisionActual
+                                               Where alc.AnioLectivo = mAnioLectivoProximo AndAlso c.IDAnio = IDAnioProximo AndAlso c.IDTurno = IDTurnoActual AndAlso c.Division = DivisionActual
                                                Select alc).ToList
                 If listAnioLectivoCursoProximo.Count > 0 Then
                     ' Si existe, así que lo asigno
@@ -187,7 +187,7 @@
                     listTurnosProximos = (From c In mdbContext.Curso
                                           Join alc In mdbContext.AnioLectivoCurso On c.IDCurso Equals alc.IDCurso
                                           Join t In mdbContext.Turno On c.IDTurno Equals t.IDTurno
-                                          Where alc.AnioLectivo = mAnioLectivoProximo And c.IDAnio = IDAnioProximo
+                                          Where alc.AnioLectivo = mAnioLectivoProximo AndAlso c.IDAnio = IDAnioProximo
                                           Select t).ToList
                     If listTurnosProximos.Count = 1 Then
                         ' Hay un sólo Turno, lo asigno
@@ -197,7 +197,7 @@
                         ' Verifico si la División es la única
                         listDivisionesProximos = (From c In mdbContext.Curso
                                                   Join alc In mdbContext.AnioLectivoCurso On c.IDCurso Equals alc.IDCurso
-                                                  Where alc.AnioLectivo = mAnioLectivoProximo And c.IDAnio = IDAnioProximo And c.IDTurno = IDTurnoProximo
+                                                  Where alc.AnioLectivo = mAnioLectivoProximo AndAlso c.IDAnio = IDAnioProximo AndAlso c.IDTurno = IDTurnoProximo
                                                   Select c.Division).ToList
                         If listDivisionesProximos.Count = 1 Then
                             ' Hay una sola División, la asigno
@@ -205,7 +205,7 @@
 
                             listAnioLectivoCursoProximo = (From c In mdbContext.Curso
                                                            Join alc In mdbContext.AnioLectivoCurso On c.IDCurso Equals alc.IDCurso
-                                                           Where alc.AnioLectivo = mAnioLectivoProximo And c.IDAnio = IDAnioProximo And c.IDTurno = IDTurnoProximo And c.Division = DivisionProximo
+                                                           Where alc.AnioLectivo = mAnioLectivoProximo AndAlso c.IDAnio = IDAnioProximo AndAlso c.IDTurno = IDTurnoProximo AndAlso c.Division = DivisionProximo
                                                            Select alc).ToList
                             If listAnioLectivoCursoProximo.Count > 0 Then
                                 ' Asigno el nuevo Año Lectivo-Curso

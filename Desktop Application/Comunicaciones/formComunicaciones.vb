@@ -37,7 +37,7 @@
     End Sub
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
     Friend Sub RefreshData(Optional ByVal PositionIDComunicacion As Short = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
 
         Me.Cursor = Cursors.WaitCursor

@@ -55,7 +55,8 @@
 
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
+
     Friend Sub RefreshData(Optional ByVal PositionIDCurso As Byte = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
 
         Me.Cursor = Cursors.WaitCursor
@@ -111,19 +112,19 @@
 
                 ' Filtro por Nivel
                 If comboboxNivel.SelectedIndex > 0 Then
-                    mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AND ").ToString & String.Format("{{Anio.IDNivel}} = {0}", CByte(comboboxNivel.ComboBox.SelectedValue))
+                    mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, String.Empty, " AND ").ToString & String.Format("{{Anio.IDNivel}} = {0}", CByte(comboboxNivel.ComboBox.SelectedValue))
                     mlistCursosFiltradaYOrdenada = mlistCursosFiltradaYOrdenada.Where(Function(c) c.IDNivel = CByte(comboboxNivel.ComboBox.SelectedValue)).ToList
                 End If
 
                 ' Filtro por Curso
                 If comboboxAnio.SelectedIndex > 0 Then
-                    mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AND ").ToString & String.Format("{{Anio.IDNivel}} = {0}", CByte(comboboxAnio.ComboBox.SelectedValue))
+                    mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, String.Empty, " AND ").ToString & String.Format("{{Anio.IDNivel}} = {0}", CByte(comboboxAnio.ComboBox.SelectedValue))
                     mlistCursosFiltradaYOrdenada = mlistCursosFiltradaYOrdenada.Where(Function(c) c.IDAnio = CByte(comboboxAnio.ComboBox.SelectedValue)).ToList
                 End If
 
                 ' Filtro por Turno
                 If comboboxTurno.SelectedIndex > 0 Then
-                    mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AND ").ToString & String.Format("{{Curso.IDTurno}} = {0}", CByte(comboboxTurno.ComboBox.SelectedValue))
+                    mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, String.Empty, " AND ").ToString & String.Format("{{Curso.IDTurno}} = {0}", CByte(comboboxTurno.ComboBox.SelectedValue))
                     mlistCursosFiltradaYOrdenada = mlistCursosFiltradaYOrdenada.Where(Function(c) c.IDTurno = CByte(comboboxTurno.ComboBox.SelectedValue)).ToList
                 End If
 
@@ -131,10 +132,10 @@
                 Select Case comboboxActivo.SelectedIndex
                     Case 0      ' Todos
                     Case 1      ' Sí
-                        mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AND ").ToString & "{Curso.EsActivo} = 1"
+                        mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, String.Empty, " AND ").ToString & "{Curso.EsActivo} = 1"
                         mlistCursosFiltradaYOrdenada = mlistCursosFiltradaYOrdenada.Where(Function(c) c.EsActivo).ToList
                     Case 2      ' No
-                        mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AND ").ToString & "{Curso.EsActivo} = 0"
+                        mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, String.Empty, " AND ").ToString & "{Curso.EsActivo} = 0"
                         mlistCursosFiltradaYOrdenada = mlistCursosFiltradaYOrdenada.Where(Function(c) Not c.EsActivo).ToList
                 End Select
 
@@ -150,7 +151,7 @@
             Catch ex As Exception
                 CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al filtrar los datos.")
                 Me.Cursor = Cursors.Default
-                Exit Sub
+                Return
             End Try
 
             OrderData()
@@ -206,6 +207,7 @@
         ' Muestro el ícono de orden en la columna correspondiente
         mOrdenColumna.HeaderCell.SortGlyphDirection = mOrdenTipo
     End Sub
+
 #End Region
 
 #Region "Controls behavior"

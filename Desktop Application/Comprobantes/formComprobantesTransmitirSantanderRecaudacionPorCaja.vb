@@ -28,7 +28,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
     End Sub
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
 
     Private Sub RefreshData()
         Dim ComprobanteLoteActual As ComprobanteLote
@@ -44,7 +44,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
                                     Join cl In dbContext.ComprobanteLote On c.IDComprobanteLote Equals cl.IDComprobanteLote
                                     Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                     Join e In dbContext.Entidad On c.IDEntidad Equals e.IDEntidad
-                                    Where c.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And ct.EmisionElectronica And c.CAE IsNot Nothing And c.IDUsuarioAnulacion Is Nothing
+                                    Where c.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote AndAlso ct.EmisionElectronica AndAlso c.CAE IsNot Nothing AndAlso c.IDUsuarioAnulacion Is Nothing
                                     Order By ct.Nombre, c.NumeroCompleto
                                     Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal1}).ToList
 
@@ -227,7 +227,7 @@ Public Class formComprobantesTransmitirSantanderRecaudacionPorCaja
                         DetalleTextStream &= InteresTasaNominalAnual.ToString("0000.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "") ' Tasa de Punitorios
                         DetalleTextStream &= "N"                                                                ' Marca de Excepción de cobro de comisión al depositante (S=Cobra al depositante / N=Cobra a la Empresa)
                         DetalleTextStream &= StrDup(10, " "c)                                                   ' Formas de Cobro Permitidas
-                        If ComprobanteActual.DocumentoTipo.IDDocumentoTipo = CS_Parameter_System.GetIntegerAsByte(Parametros.DOCUMENTOTIPO_CUIT_ID) Or ComprobanteActual.DocumentoTipo.IDDocumentoTipo = CS_Parameter_System.GetIntegerAsByte(Parametros.DOCUMENTOTIPO_CUIL_ID) Then
+                        If ComprobanteActual.DocumentoTipo.IDDocumentoTipo = CS_Parameter_System.GetIntegerAsByte(Parametros.DOCUMENTOTIPO_CUIT_ID) OrElse ComprobanteActual.DocumentoTipo.IDDocumentoTipo = CS_Parameter_System.GetIntegerAsByte(Parametros.DOCUMENTOTIPO_CUIL_ID) Then
                             DetalleTextStream &= ComprobanteActual.DocumentoNumero                                  ' Número de CUIT del Cliente
                         Else
                             DetalleTextStream &= StrDup(11, "0"c)                                                   ' Número de CUIT del Cliente

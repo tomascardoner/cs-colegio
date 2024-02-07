@@ -35,7 +35,7 @@
 
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
 
     Friend Sub RefreshData()
         Me.Cursor = Cursors.WaitCursor
@@ -45,7 +45,7 @@
             datagridviewMain.AutoGenerateColumns = False
             datagridviewMain.DataSource = Nothing
         Else
-            AnioLectivoCurso = dbcontext.AnioLectivoCurso.Where(Function(alc) alc.AnioLectivo = CShort(comboboxAnioLectivo.ComboBox.SelectedValue.ToString) And alc.IDCurso = CByte(comboboxCurso.ComboBox.SelectedValue.ToString)).First
+            AnioLectivoCurso = dbcontext.AnioLectivoCurso.Where(Function(alc) alc.AnioLectivo = CShort(comboboxAnioLectivo.ComboBox.SelectedValue.ToString) AndAlso alc.IDCurso = CByte(comboboxCurso.ComboBox.SelectedValue.ToString)).First
             If AnioLectivoCurso IsNot Nothing Then
                 datagridviewMain.AutoGenerateColumns = False
                 datagridviewMain.DataSource = AnioLectivoCurso.Entidades.OrderBy(Function(ent) ent.ApellidoNombre).ToList
@@ -69,7 +69,7 @@
 #Region "Controls behavior"
 
     Private Sub ComboBoxesChanged() Handles comboboxAnioLectivo.SelectedIndexChanged, comboboxNivel.SelectedIndexChanged
-        If (comboboxAnioLectivo.SelectedItem IsNot Nothing) And (comboboxNivel.SelectedItem IsNot Nothing) Then
+        If (comboboxAnioLectivo.SelectedItem IsNot Nothing) AndAlso (comboboxNivel.SelectedItem IsNot Nothing) Then
             pFillAndRefreshLists.CursoPorAnioLectivoYNivel(comboboxCurso.ComboBox, CInt(comboboxAnioLectivo.ComboBox.SelectedValue), CByte(comboboxNivel.ComboBox.SelectedValue))
         End If
     End Sub
@@ -181,10 +181,10 @@
                             ReporteActual.RecordSelectionFormula = String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0}", comboboxAnioLectivo.ComboBox.SelectedValue.ToString)
                             Reportes.PreviewCrystalReport(ReporteActual, String.Format("Listado de Alumnos por Curso (Año Lectivo {0})", comboboxAnioLectivo.Text))
                         ElseIf sender.Equals(menuitemImprimirListadoNivel) Then
-                            ReporteActual.RecordSelectionFormula = String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0} AND {{Anio.IDNivel}} = {1}", comboboxAnioLectivo.ComboBox.SelectedValue.ToString, comboboxNivel.ComboBox.SelectedValue.ToString)
+                            ReporteActual.RecordSelectionFormula = String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0} AndAlso {{Anio.IDNivel}} = {1}", comboboxAnioLectivo.ComboBox.SelectedValue.ToString, comboboxNivel.ComboBox.SelectedValue.ToString)
                             Reportes.PreviewCrystalReport(ReporteActual, String.Format("Listado de Alumnos por Curso (Año Lectivo {0} - Nivel {1})", comboboxAnioLectivo.Text, comboboxNivel.Text))
                         ElseIf sender.Equals(menuitemImprimirListadoCurso) Then
-                            ReporteActual.RecordSelectionFormula = String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0} AND {{AnioLectivoCurso.IDCurso}} = {1}", comboboxAnioLectivo.ComboBox.SelectedValue.ToString, comboboxCurso.ComboBox.SelectedValue.ToString)
+                            ReporteActual.RecordSelectionFormula = String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0} AndAlso {{AnioLectivoCurso.IDCurso}} = {1}", comboboxAnioLectivo.ComboBox.SelectedValue.ToString, comboboxCurso.ComboBox.SelectedValue.ToString)
                             Reportes.PreviewCrystalReport(ReporteActual, String.Format("Listado de Alumnos por Curso (Año Lectivo {0} - Nivel {1} - Curso {2})", comboboxAnioLectivo.Text, comboboxNivel.Text, comboboxCurso.Text))
                         End If
                     End If

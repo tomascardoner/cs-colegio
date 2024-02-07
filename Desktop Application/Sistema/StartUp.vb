@@ -29,16 +29,11 @@
         ' Cargo los archivos de configuración de la aplicación
         If Not Configuration.LoadFiles() Then
             TerminateApplication()
-            Exit Sub
+            Return
         End If
 
         ' Register Syncfusion License
-        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(CardonerSistemas.ConstantsSyncfusion.LicenseKey22_1_34)
-
-        ' Verifico si ya hay una instancia ejecutandose, si permite iniciar otra, o de lo contrario, muestro la instancia original
-        If pGeneralConfig.SingleInstanceApplication Then
-
-        End If
+        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(CardonerSistemas.ConstantsSyncfusion.LicenseKey23_1_42)
 
         ' Realizo la inicialización de la Aplicación
         If pAppearanceConfig.EnableVisualStyles Then
@@ -83,7 +78,7 @@
             formSplashScreen.Close()
             formSplashScreen.Dispose()
             TerminateApplication()
-            Exit Sub
+            Return
         End If
 
         ' Verifico que la Base de Datos corresponda a esta Aplicación a través del GUID guardado en los Parámetros
@@ -92,7 +87,7 @@
             formSplashScreen.Close()
             formSplashScreen.Dispose()
             TerminateApplication()
-            Exit Sub
+            Return
         End If
 
         formSplashScreen.Focus()
@@ -103,7 +98,7 @@
             formSplashScreen.Close()
             formSplashScreen.Dispose()
             TerminateApplication()
-            Exit Sub
+            Return
         End If
         formSplashScreen.labelLicensedTo.Text = pLicensedTo
         Application.DoEvents()
@@ -148,16 +143,16 @@
                 Appearance.UserLoggedIn()
             End Using
         Else
-            If Not formLogin.ShowDialog(pFormMDIMain) = DialogResult.OK Then
+            If formLogin.ShowDialog(pFormMDIMain) <> DialogResult.OK Then
                 Application.Exit()
                 My.Application.Log.WriteEntry("La Aplicación ha finalizado porque el Usuario no ha iniciado sesión.", TraceEventType.Warning)
-                Exit Sub
+                Return
             End If
             formLogin.Close()
             formLogin.Dispose()
         End If
 
-        ' Está todo listo. Cambio el puntero del mouse a modo normal y habilito el form MDI principal
+        ' Cambio el puntero del mouse a modo normal y habilito el form MDI principal
         pFormMDIMain.Cursor = Cursors.Default
         pFormMDIMain.Enabled = True
         pFormMDIMain.Focus()

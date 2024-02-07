@@ -67,7 +67,7 @@ Module ModuloComprobantes
         Dim ComprobanteTipo As New ComprobanteTipo
         Dim ComprobanteTipoPuntoVenta As ComprobanteTipoPuntoVenta
         Dim PuntoVenta As New PuntoVenta
-        Dim NextComprobanteNumero As String = ""
+        Dim NextComprobanteNumero As String = String.Empty
 
         Dim AlumnoActual As Entidad
         Dim AnioLectivoCursoActual As AnioLectivoCurso
@@ -120,7 +120,7 @@ Module ModuloComprobantes
                 '//////////////////////////////////////////////////////
                 ' FACTURAR AL PADRE
                 '//////////////////////////////////////////////////////
-                If AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE Or AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
+                If AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE OrElse AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES OrElse AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                     TitularComprobante = AlumnoActual.EntidadPadre
                     If Not GenerarComprobante(dbContext, listComprobantes, FechaEmision, InteresRedondeo, FechaVencimiento1, FechaVencimiento2, Vencimiento2PorcentajeInteres, FechaVencimiento3, Vencimiento3PorcentajeInteres, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, ComprobanteEntidadMayusculas, AlumnoActual, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, DescuentoRedondeo, MuestraErrores) Then
                         Return False
@@ -130,7 +130,7 @@ Module ModuloComprobantes
                 '//////////////////////////////////////////////////////
                 ' FACTURAR A LA MADRE
                 '//////////////////////////////////////////////////////
-                If AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE Or AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
+                If AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE OrElse AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES OrElse AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                     TitularComprobante = AlumnoActual.EntidadMadre
                     If Not GenerarComprobante(dbContext, listComprobantes, FechaEmision, InteresRedondeo, FechaVencimiento1, FechaVencimiento2, Vencimiento2PorcentajeInteres, FechaVencimiento3, Vencimiento3PorcentajeInteres, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, ComprobanteEntidadMayusculas, AlumnoActual, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, DescuentoRedondeo, MuestraErrores) Then
                         Return False
@@ -140,7 +140,7 @@ Module ModuloComprobantes
                 '//////////////////////////////////////////////////////
                 ' FACTURAR A UN TERCERO
                 '//////////////////////////////////////////////////////
-                If AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
+                If AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO OrElse AlumnoActual.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                     TitularComprobante = AlumnoActual.EntidadTercero
                     If Not GenerarComprobante(dbContext, listComprobantes, FechaEmision, InteresRedondeo, FechaVencimiento1, FechaVencimiento2, Vencimiento2PorcentajeInteres, FechaVencimiento3, Vencimiento3PorcentajeInteres, FechaServicioDesde, FechaServicioHasta, IDConcepto, IDComprobanteLote, TitularComprobante, ComprobanteEntidadMayusculas, AlumnoActual, AnioLectivoCursoActual, ArticuloActual, AnioLectivoAFacturar, MesAFacturar, DescuentoRedondeo, MuestraErrores) Then
                         Return False
@@ -172,24 +172,19 @@ Module ModuloComprobantes
                         PuntoVenta = ComprobanteTipoPuntoVenta.PuntoVenta
 
                         ' Busco si ya hay un comprobante creado de este tipo para obtener el último número
-                        NextComprobanteNumero = dbContext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = .IDComprobanteTipo And cc.PuntoVenta = PuntoVenta.Numero).Max(Function(cc) cc.Numero)
-                        If NextComprobanteNumero Is Nothing Then
-                            ' No hay ningún comprobante creado de este tipo, así que tomo el número inicial y le resto 1 porque después se lo sumo
-                            NextComprobanteNumero = CStr(CInt(ComprobanteTipoPuntoVenta.NumeroInicio) - 1).PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
-                        End If
+                        NextComprobanteNumero = If(dbContext.Comprobante.Where(Function(cc) cc.IDComprobanteTipo = .IDComprobanteTipo AndAlso cc.PuntoVenta = PuntoVenta.Numero).Max(Function(cc) cc.Numero), CStr(CInt(ComprobanteTipoPuntoVenta.NumeroInicio) - 1).PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c))
                     End If
                     NextComprobanteNumero = CStr(CInt(NextComprobanteNumero) + 1).PadLeft(Constantes.COMPROBANTE_NUMERO_CARACTERES, "0"c)
                     .PuntoVenta = PuntoVenta.Numero
                     .Numero = NextComprobanteNumero
                 End With
             Next
-
         End Using
 
         Return True
     End Function
 
-    Private Function GenerarComprobante(ByRef dbContext As CSColegioContext, ByRef listComprobantes As List(Of Comprobante), ByVal FechaEmision As Date, ByVal InteresRedondeo As Short, ByVal FechaVencimiento1 As Date, ByVal FechaVencimiento2 As Date?, ByVal Vencimiento2PorcentajeInteres As Decimal, ByVal FechaVencimiento3 As Date?, ByVal Vencimiento3PorcentajeInteres As Decimal, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByVal TitularComprobante As Entidad, ByVal TitularComprobanteMayusculas As Boolean, ByVal Alumno As Entidad, ByVal AnioLectivoCursoActual As AnioLectivoCurso, ByVal ArticuloActual As Articulo, ByVal AnioLectivoAFacturar As Short, ByVal MesAFacturar As Byte, ByVal DescuentoRedondeo As Short, ByVal MuestraErrores As Boolean) As Boolean
+    Private Function GenerarComprobante(ByRef dbContext As CSColegioContext, ByRef listComprobantes As List(Of Comprobante), ByVal FechaEmision As Date, InteresRedondeo As Short, FechaVencimiento1 As Date, FechaVencimiento2 As Date?, Vencimiento2PorcentajeInteres As Decimal, FechaVencimiento3 As Date?, Vencimiento3PorcentajeInteres As Decimal, FechaServicioDesde As Date, FechaServicioHasta As Date, IDConcepto As Byte, IDComprobanteLote As Integer, TitularComprobante As Entidad, TitularComprobanteMayusculas As Boolean, Alumno As Entidad, AnioLectivoCursoActual As AnioLectivoCurso, ArticuloActual As Articulo, AnioLectivoAFacturar As Short, MesAFacturar As Byte, DescuentoRedondeo As Short, MuestraErrores As Boolean) As Boolean
         Dim ComprobanteCabecera As Comprobante = Nothing
         Dim ComprobanteDetalleActual As ComprobanteDetalle
 
@@ -287,10 +282,15 @@ Module ModuloComprobantes
             ComprobanteCabecera.ImporteTotal3 = Nothing
         End If
 
-        Return ComprobanteCabecera.CalcularCodigoBarrasSepsa(TitularComprobante.DocumentoNumero)
+        Dim idCliente As Integer = CS_Parameter_System.GetIntegerAsInteger(Parametros.EMPRESA_PAGOSEDUC_NUMERO)
+        If idCliente = 0 Then
+            MessageBox.Show("No está especificado el número de empresa para PagosEDUC.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Return False
+        End If
+        Return ComprobanteCabecera.CalcularCodigoBarrasSepsa(idCliente, TitularComprobante.DocumentoNumero)
     End Function
 
-    Private Function GenerarComprobanteCabecera(ByVal FechaEmision As Date, ByVal FechaVencimiento1 As Date, ByVal FechaVencimiento2 As Date?, ByVal FechaVencimiento3 As Date?, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByRef TitularComprobante As Entidad, ByVal LeyendaAlumno As String, ByVal TitularComprobanteMayusculas As Boolean) As Comprobante
+    Private Function GenerarComprobanteCabecera(FechaEmision As Date, FechaVencimiento1 As Date, FechaVencimiento2 As Date?, FechaVencimiento3 As Date?, ByVal FechaServicioDesde As Date, ByVal FechaServicioHasta As Date, ByVal IDConcepto As Byte, ByVal IDComprobanteLote As Integer, ByRef TitularComprobante As Entidad, LeyendaAlumno As String, TitularComprobanteMayusculas As Boolean) As Comprobante
         Dim ComprobanteCabecera As New Comprobante
 
         With ComprobanteCabecera
@@ -370,7 +370,7 @@ Module ModuloComprobantes
     ''' <param name="MuestraErrores">Especifica si se va a mostrar un MessageBox cuando no se pueda crear el Detalle por algún motivo, como falta de precios</param>
     ''' <returns>El objeto ComprobanteDetalle creado o Nothing si no se pudo crear</returns>
     ''' <remarks></remarks>
-    Private Function GenerarComprobanteDetalle(ByRef ComprobanteCabecera As Comprobante, ByRef Alumno As Entidad, ByRef AnioLectivoCursoActual As AnioLectivoCurso, ByRef ArticuloActual As Articulo, ByVal AnioLectivoAFacturar As Short, ByVal MesAFacturar As Byte, ByVal DescuentoRedondeo As Short, ByVal MuestraErrores As Boolean) As ComprobanteDetalle
+    Private Function GenerarComprobanteDetalle(ByRef ComprobanteCabecera As Comprobante, ByRef Alumno As Entidad, ByRef AnioLectivoCursoActual As AnioLectivoCurso, ByRef ArticuloActual As Articulo, AnioLectivoAFacturar As Short, MesAFacturar As Byte, DescuentoRedondeo As Short, MuestraErrores As Boolean) As ComprobanteDetalle
         Dim ComprobanteDetalleActual As New ComprobanteDetalle
         Dim AnioLectivo As Short
         Dim AnioLectivoCuotaActual As AnioLectivoCuota
@@ -380,85 +380,85 @@ Module ModuloComprobantes
         If MesAFacturar = 0 Then
             Dim MesParaPrecio As Byte
             MesParaPrecio = CByte(ComprobanteCabecera.FechaEmision.Month)
-            AnioLectivoCuotaActual = AnioLectivoCursoActual.Curso.CuotaTipo.AnioLectivoCuotas.Where(Function(alci) alci.AnioLectivo = AnioLectivo And alci.MesInicio <= MesParaPrecio).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
+            AnioLectivoCuotaActual = AnioLectivoCursoActual.Curso.CuotaTipo.AnioLectivoCuotas.Where(Function(alci) alci.AnioLectivo = AnioLectivo AndAlso alci.MesInicio <= MesParaPrecio).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
         Else
-            AnioLectivoCuotaActual = AnioLectivoCursoActual.Curso.CuotaTipo.AnioLectivoCuotas.Where(Function(alci) alci.AnioLectivo = AnioLectivo And alci.MesInicio <= MesAFacturar).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
+            AnioLectivoCuotaActual = AnioLectivoCursoActual.Curso.CuotaTipo.AnioLectivoCuotas.Where(Function(alci) alci.AnioLectivo = AnioLectivo AndAlso alci.MesInicio <= MesAFacturar).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
         End If
 
-        If AnioLectivoCuotaActual IsNot Nothing Then
-            With ComprobanteDetalleActual
-                .Indice = CByte(ComprobanteCabecera.ComprobanteDetalle.Count + 1)
-                .IDArticulo = ArticuloActual.IDArticulo
-                .IDEntidad = Alumno.IDEntidad
-                .IDAnioLectivoCurso = AnioLectivoCursoActual.IDAnioLectivoCurso
-                If MesAFacturar = 0 Then
-                    .CuotaMes = Nothing
-                    MesAFacturarNombre = ""
-                Else
-                    .CuotaMes = MesAFacturar
-                    MesAFacturarNombre = DateAndTime.MonthName(MesAFacturar)
-                End If
-                .Cantidad = 1
-                .Descripcion = GenerarDescripcionConEtiquetas(ArticuloActual.Descripcion, ArticuloActual.Nombre, AnioLectivoAFacturar.ToString(), MesAFacturarNombre, Alumno, AnioLectivoCursoActual.Curso.Anio.Nivel.Nombre, AnioLectivoCursoActual.Curso.Anio.Nombre, AnioLectivoCursoActual.Curso.Turno.Nombre)
-
-                ' Precios
-                If MesAFacturar = 0 Then
-                    Select Case Alumno.EmitirFacturaA
-                        Case Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO, Constantes.ENTIDAD_EMITIRFACTURAA_PADRE, Constantes.ENTIDAD_EMITIRFACTURAA_MADRE, Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO
-                            .PrecioUnitario = AnioLectivoCuotaActual.ImporteMatricula
-                        Case Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES
-                            .PrecioUnitario = Decimal.Round(AnioLectivoCuotaActual.ImporteMatricula / 2, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
-                        Case Constantes.ENTIDAD_EMITIRFACTURAA_TODOS
-                            .PrecioUnitario = Decimal.Round(AnioLectivoCuotaActual.ImporteMatricula / 3, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
-                    End Select
-                Else
-                    Select Case Alumno.EmitirFacturaA
-                        Case Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO, Constantes.ENTIDAD_EMITIRFACTURAA_PADRE, Constantes.ENTIDAD_EMITIRFACTURAA_MADRE, Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO
-                            .PrecioUnitario = AnioLectivoCuotaActual.ImporteCuota
-                        Case Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES
-                            .PrecioUnitario = Decimal.Round(AnioLectivoCuotaActual.ImporteCuota / 2, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
-                        Case Constantes.ENTIDAD_EMITIRFACTURAA_TODOS
-                            .PrecioUnitario = Decimal.Round(AnioLectivoCuotaActual.ImporteCuota / 3, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
-                    End Select
-                End If
-
-                ' Descuentos
-                If Alumno.IDDescuento.HasValue Then
-                    If Alumno.IDDescuento = CardonerSistemas.Constants.FIELD_VALUE_OTHER_BYTE Then
-                        ' Descuento personalizado para la entidad
-                        If Alumno.DescuentoOtroPorcentaje.HasValue Then
-                            .PrecioUnitarioDescuentoPorcentaje = Alumno.DescuentoOtroPorcentaje.Value
-                            .PrecioUnitarioDescuentoImporte = Decimal.Round(.PrecioUnitario * .PrecioUnitarioDescuentoPorcentaje / 100, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
-                        Else
-                            .PrecioUnitarioDescuentoPorcentaje = 0
-                            .PrecioUnitarioDescuentoImporte = 0
-                        End If
-                    Else
-                        ' Descuento de la tabla de descuentos
-                        .PrecioUnitarioDescuentoPorcentaje = Alumno.Descuento.Porcentaje
-                        .PrecioUnitarioDescuentoImporte = Decimal.Round(.PrecioUnitario * .PrecioUnitarioDescuentoPorcentaje / 100, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
-                    End If
-                Else
-                    ' No especifica descuento
-                    .PrecioUnitarioDescuentoPorcentaje = 0
-                    .PrecioUnitarioDescuentoImporte = 0
-                End If
-                If DescuentoRedondeo > 0 Then
-                    .PrecioUnitarioDescuentoImporte = Math.Round(.PrecioUnitarioDescuentoImporte / DescuentoRedondeo, 0, MidpointRounding.AwayFromZero) * DescuentoRedondeo
-                End If
-                .PrecioUnitarioFinal = .PrecioUnitario - .PrecioUnitarioDescuentoImporte
-                .PrecioTotal = .PrecioUnitarioFinal
-            End With
-
-            ComprobanteCabecera.ComprobanteDetalle.Add(ComprobanteDetalleActual)
-
-            Return ComprobanteDetalleActual
-        Else
+        If AnioLectivoCuotaActual Is Nothing Then
             If MuestraErrores Then
                 MsgBox("No hay precios cargados para la(s) Factura(s) que se intentan emitir.", MsgBoxStyle.Information, My.Application.Info.Title)
             End If
             Return Nothing
         End If
+
+        With ComprobanteDetalleActual
+            .Indice = CByte(ComprobanteCabecera.ComprobanteDetalle.Count + 1)
+            .IDArticulo = ArticuloActual.IDArticulo
+            .IDEntidad = Alumno.IDEntidad
+            .IDAnioLectivoCurso = AnioLectivoCursoActual.IDAnioLectivoCurso
+            If MesAFacturar = 0 Then
+                .CuotaMes = Nothing
+                MesAFacturarNombre = String.Empty
+            Else
+                .CuotaMes = MesAFacturar
+                MesAFacturarNombre = DateAndTime.MonthName(MesAFacturar)
+            End If
+            .Cantidad = 1
+            .Descripcion = GenerarDescripcionConEtiquetas(ArticuloActual.Descripcion, ArticuloActual.Nombre, AnioLectivoAFacturar.ToString(), MesAFacturarNombre, Alumno, AnioLectivoCursoActual.Curso.Anio.Nivel.Nombre, AnioLectivoCursoActual.Curso.Anio.Nombre, AnioLectivoCursoActual.Curso.Turno.Nombre)
+
+            ' Precios
+            If MesAFacturar = 0 Then
+                Select Case Alumno.EmitirFacturaA
+                    Case Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO, Constantes.ENTIDAD_EMITIRFACTURAA_PADRE, Constantes.ENTIDAD_EMITIRFACTURAA_MADRE, Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO
+                        .PrecioUnitario = AnioLectivoCuotaActual.ImporteMatricula
+                    Case Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES
+                        .PrecioUnitario = Decimal.Round(AnioLectivoCuotaActual.ImporteMatricula / 2, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
+                    Case Constantes.ENTIDAD_EMITIRFACTURAA_TODOS
+                        .PrecioUnitario = Decimal.Round(AnioLectivoCuotaActual.ImporteMatricula / 3, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
+                End Select
+            Else
+                Select Case Alumno.EmitirFacturaA
+                    Case Constantes.ENTIDAD_EMITIRFACTURAA_ALUMNO, Constantes.ENTIDAD_EMITIRFACTURAA_PADRE, Constantes.ENTIDAD_EMITIRFACTURAA_MADRE, Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO
+                        .PrecioUnitario = AnioLectivoCuotaActual.ImporteCuota
+                    Case Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES
+                        .PrecioUnitario = Decimal.Round(AnioLectivoCuotaActual.ImporteCuota / 2, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
+                    Case Constantes.ENTIDAD_EMITIRFACTURAA_TODOS
+                        .PrecioUnitario = Decimal.Round(AnioLectivoCuotaActual.ImporteCuota / 3, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
+                End Select
+            End If
+
+            ' Descuentos
+            If Alumno.IDDescuento.HasValue Then
+                If Alumno.IDDescuento = CardonerSistemas.Constants.FIELD_VALUE_OTHER_BYTE Then
+                    ' Descuento personalizado para la entidad
+                    If Alumno.DescuentoOtroPorcentaje.HasValue Then
+                        .PrecioUnitarioDescuentoPorcentaje = Alumno.DescuentoOtroPorcentaje.Value
+                        .PrecioUnitarioDescuentoImporte = Decimal.Round(.PrecioUnitario * .PrecioUnitarioDescuentoPorcentaje / 100, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
+                    Else
+                        .PrecioUnitarioDescuentoPorcentaje = 0
+                        .PrecioUnitarioDescuentoImporte = 0
+                    End If
+                Else
+                    ' Descuento de la tabla de descuentos
+                    .PrecioUnitarioDescuentoPorcentaje = Alumno.Descuento.Porcentaje
+                    .PrecioUnitarioDescuentoImporte = Decimal.Round(.PrecioUnitario * .PrecioUnitarioDescuentoPorcentaje / 100, pGeneralConfig.DecimalesEnImportes, MidpointRounding.ToEven)
+                End If
+            Else
+                ' No especifica descuento
+                .PrecioUnitarioDescuentoPorcentaje = 0
+                .PrecioUnitarioDescuentoImporte = 0
+            End If
+            If .PrecioUnitarioDescuentoPorcentaje < 100 AndAlso DescuentoRedondeo > 0 Then
+                .PrecioUnitarioDescuentoImporte = Math.Round(.PrecioUnitarioDescuentoImporte / DescuentoRedondeo, 0, MidpointRounding.AwayFromZero) * DescuentoRedondeo
+            End If
+            .PrecioUnitarioFinal = .PrecioUnitario - .PrecioUnitarioDescuentoImporte
+            .PrecioTotal = .PrecioUnitarioFinal
+        End With
+
+        ComprobanteCabecera.ComprobanteDetalle.Add(ComprobanteDetalleActual)
+
+        Return ComprobanteDetalleActual
     End Function
 
 #End Region
@@ -488,7 +488,7 @@ Module ModuloComprobantes
             End If
             .ClavePrivada = pAfipWebServicesConfig.ClavePrivada
 
-            .InternetProxy = CS_Parameter_System.GetString(Parametros.INTERNET_PROXY, "")
+            .InternetProxy = CS_Parameter_System.GetString(Parametros.INTERNET_PROXY, String.Empty)
             .CUIT_Emisor = CS_Parameter_System.GetString(Parametros.EMPRESA_CUIT)
 
             Using dbContext As New CSColegioContext(True)
@@ -516,7 +516,7 @@ Module ModuloComprobantes
     End Function
 
     Friend Function TransmitirAFIP_Comprobante(ByRef Objeto_AFIP_WS As CardonerSistemas.AfipWebServices.WebService, ByVal IDComprobanteActual As Integer) As Boolean
-        Dim CaeNumero As String = ""
+        Dim CaeNumero As String = String.Empty
         Dim CaeFechaVencimiento As Date
 
         Return TransmitirAFIP_Comprobante(Objeto_AFIP_WS, IDComprobanteActual, CaeNumero, CaeFechaVencimiento)
@@ -554,7 +554,7 @@ Module ModuloComprobantes
                                         ' Es el mismo Concepto que el/los Artículos anteriores, no hago nada
 
                                     Case Else
-                                        If (IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) And (ArticuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO Or ArticuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) Then
+                                        If (IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO OrElse IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) AndAlso (ArticuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTO OrElse ArticuloActual.ArticuloGrupo.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS) Then
                                             ' Hay Productos y Servicios, así que utilizo el Concepto correspondiente
                                             IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS
                                             Exit For
@@ -650,7 +650,7 @@ Module ModuloComprobantes
 
 #Region "Generación de código QR según AFIP"
 
-    Friend Function GenerarCodigoQR(ByVal IDComprobanteActual As Integer, Optional comprobanteTipoCodigoAfip As Short = 0, Optional idMoneda As Short = 0, Optional monedaCodigoAfip As String = "", Optional monedaCotizacion As Decimal = 0, Optional ByVal overwrite As Boolean = False) As Boolean
+    Friend Function GenerarCodigoQR(IDComprobanteActual As Integer, Optional comprobanteTipoCodigoAfip As Short = 0, Optional idMoneda As Short = 0, Optional monedaCodigoAfip As String = "", Optional monedaCotizacion As Decimal = 0, Optional overwrite As Boolean = False) As Boolean
         If IDComprobanteActual <> 0 Then
 
             Using dbContext As New CSColegioContext(True)
@@ -658,11 +658,9 @@ Module ModuloComprobantes
 
                 comprobanteActual = dbContext.Comprobante.Find(IDComprobanteActual)
 
-                If comprobanteActual.CodigoQR Is Nothing Or overwrite Then
+                If comprobanteActual.CodigoQR Is Nothing OrElse overwrite Then
                     Dim afipData As String
                     Dim afipUrl As String
-                    Dim qrUrl As String
-                    Dim image As Image = Nothing
 
                     ' Preparo los datos del comprobante
                     afipData = CS_Parameter_System.GetString(Parametros.AFIP_COMPROBANTES_CODIGOQR_DATA)
@@ -681,7 +679,7 @@ Module ModuloComprobantes
                     afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldNumeroComprobante, Convert.ToInt32(comprobanteActual.Numero).ToString())
                     afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldImporte, comprobanteActual.ImporteTotal1.ToString("#0.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "."))
                     ' Moneda
-                    If idMoneda = 0 Or monedaCodigoAfip = "" Then
+                    If idMoneda = 0 OrElse monedaCodigoAfip = String.Empty Then
                         Dim monedaActual As Moneda
 
                         monedaActual = dbContext.Moneda.Find(CS_Parameter_System.GetIntegerAsShort(Parametros.DEFAULT_MONEDA_ID))
@@ -717,28 +715,28 @@ Module ModuloComprobantes
                     ' Preparo el link de Afip
                     afipUrl = CS_Parameter_System.GetString(Parametros.AFIP_COMPROBANTES_CODIGOQR_URL)
                     afipUrl = afipUrl.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataField, afipData)
-                    afipUrl = System.Net.WebUtility.UrlEncode(afipUrl)
+                    'afipUrl = System.Net.WebUtility.UrlEncode(afipUrl)
 
-                    ' Preparo el link para generar el QR
-                    qrUrl = CS_Parameter_System.GetString(Parametros.QRCODE_GENERATION_URL)
-                    qrUrl = qrUrl.Replace(CardonerSistemas.Barcodes.QRCodeDataField, afipUrl)
-
-                    If CardonerSistemas.Internet.GetImageFromUrl(qrUrl, image) Then
+                    ' Genero el código QR
+                    Try
+                        Dim qrGenerator As New QRCoder.QRCodeGenerator()
+                        Dim qrData As QRCoder.QRCodeData = qrGenerator.CreateQrCode(afipUrl, QRCoder.QRCodeGenerator.ECCLevel.L, True)
+                        Dim qrCode As New QRCoder.QRCode(qrData)
+                        Dim qrCodeImage As Bitmap = qrCode.GetGraphic(4)
                         Dim converter As New ImageConverter
-
-                        comprobanteActual.CodigoQR = CType(converter.ConvertTo(image, GetType(Byte())), Byte())
-
-                        Try
-                            dbContext.SaveChanges()
-                            Return True
-
-                        Catch ex As Exception
-                            CardonerSistemas.ErrorHandler.ProcessError(ex, "No se pudo guardar el Código QR del comprobante.")
-                            Return False
-                        End Try
-                    Else
+                        comprobanteActual.CodigoQR = CType(converter.ConvertTo(qrCodeImage, GetType(Byte())), Byte())
+                    Catch ex As Exception
+                        CardonerSistemas.ErrorHandler.ProcessError(ex, "No se pudo generar el Código QR del comprobante.")
                         Return False
-                    End If
+                    End Try
+                    ' Guardo los cambios
+                    Try
+                        dbContext.SaveChanges()
+                        Return True
+                    Catch ex As Exception
+                        CardonerSistemas.ErrorHandler.ProcessError(ex, "No se pudo guardar el Código QR del comprobante.")
+                        Return False
+                    End Try
                 Else
                     Return True
                 End If

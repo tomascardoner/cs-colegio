@@ -49,7 +49,7 @@
     End Sub
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
 
     Friend Sub RefreshData(Optional ByVal PositionIDUsuario As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
 

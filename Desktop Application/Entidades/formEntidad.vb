@@ -186,7 +186,7 @@
 
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
 
     Friend Sub SetDataFromObjectToControls()
         With mEntidadActual
@@ -270,7 +270,7 @@
                 textboxEntidadMadre.Tag = .EntidadMadre.IDEntidad
             End If
             CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxEmitirFacturaA, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirst, .EmitirFacturaA, Constantes.ENTIDAD_EMITIRFACTURAA_NOESPECIFICA)
-            If .EntidadTercero Is Nothing OrElse (.EmitirFacturaA <> Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO And .EmitirFacturaA <> Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) Then
+            If .EntidadTercero Is Nothing OrElse (.EmitirFacturaA <> Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO AndAlso .EmitirFacturaA <> Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) Then
                 textboxEntidadTercero.Text = ""
                 textboxEntidadTercero.Tag = Nothing
             Else
@@ -403,7 +403,7 @@
             .IDEntidadPadre = CS_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadPadre.Tag)
             .IDEntidadMadre = CS_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadMadre.Tag)
             .EmitirFacturaA = CS_ValueTranslation.FromControlComboBoxToObjectString(comboboxEmitirFacturaA.SelectedValue, Constantes.ENTIDAD_EMITIRFACTURAA_NOESPECIFICA)
-            If .EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or .EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
+            If .EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO OrElse .EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS Then
                 .IDEntidadTercero = CS_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadTercero.Tag)
             Else
                 .IDEntidadTercero = Nothing
@@ -450,7 +450,7 @@
     Friend Sub RefreshData_Hijos()
         Using dbcHijos As New CSColegioContext(True)
             Dim qryHijos = From ent In dbcHijos.Entidad
-                           Where ent.IDEntidadPadre = mEntidadActual.IDEntidad Or ent.IDEntidadMadre = mEntidadActual.IDEntidad
+                           Where ent.IDEntidadPadre = mEntidadActual.IDEntidad OrElse ent.IDEntidadMadre = mEntidadActual.IDEntidad
                            Select IDEntidad = ent.IDEntidad, Apellido = ent.Apellido, Nombre = ent.Nombre
             datagridviewHijos.AutoGenerateColumns = False
             datagridviewHijos.DataSource = qryHijos.ToList
@@ -462,7 +462,7 @@
 
         Using dbContext As New CSColegioContext(True)
             listComprobantes = (From c In dbContext.Comprobante
-                                Where c.IDEntidad = mEntidadActual.IDEntidad And c.IDUsuarioAnulacion Is Nothing
+                                Where c.IDEntidad = mEntidadActual.IDEntidad AndAlso c.IDUsuarioAnulacion Is Nothing
                                 Order By c.FechaEmision Descending
                                 Select New GridRowData_Comprobante With {.IDComprobante = c.IDComprobante, .TipoNombre = c.ComprobanteTipo.NombreConLetra, .NumeroCompleto = c.NumeroCompleto, .FechaEmision = c.FechaEmision, .ImporteTotal = c.ImporteTotal1}).ToList
         End Using
@@ -596,8 +596,8 @@
 
     Private Sub ComboboxEmitirFacturaA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles comboboxEmitirFacturaA.SelectedIndexChanged
         If comboboxEmitirFacturaA.SelectedIndex > -1 Then
-            labelEntidadTercero.Visible = (comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS)
-            panelEntidadTercero.Visible = (comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS)
+            labelEntidadTercero.Visible = (comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO OrElse comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS)
+            panelEntidadTercero.Visible = (comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO OrElse comboboxEmitirFacturaA.SelectedValue.ToString = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS)
         End If
     End Sub
 
@@ -775,7 +775,7 @@
             textboxApellido.Focus()
             Return False
         End If
-        If checkboxTipoPersonalColegio.Checked = False And checkboxTipoDocente.Checked = False And checkboxTipoAlumno.Checked = False And checkboxTipoFamiliar.Checked = False And checkboxTipoProveedor.Checked = False And checkboxTipoOtro.Checked = False Then
+        If checkboxTipoPersonalColegio.Checked = False AndAlso checkboxTipoDocente.Checked = False AndAlso checkboxTipoAlumno.Checked = False AndAlso checkboxTipoFamiliar.Checked = False AndAlso checkboxTipoProveedor.Checked = False AndAlso checkboxTipoOtro.Checked = False Then
             tabcontrolMain.SelectedTab = tabpageGeneral
             MsgBox("Debe especificar el Tipo de Entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
             Return False
@@ -844,7 +844,7 @@
         End If
 
         ' Fecha de Nacimiento
-        If datetimepickerFechaNacimiento.Checked And datetimepickerFechaNacimiento.Value.Year = Today.Year Then
+        If datetimepickerFechaNacimiento.Checked AndAlso datetimepickerFechaNacimiento.Value.Year = Today.Year Then
             tabcontrolMain.SelectedTab = tabpageGeneral
             MsgBox("Se ha especificado una Fecha de Nacimiento que no parece ser válida ya que es del año actual.", MsgBoxStyle.Information, My.Application.Info.Title)
             datetimepickerFechaNacimiento.Focus()
@@ -876,7 +876,7 @@
                 checkboxVerificarEmail2.Checked = False
             End If
         End If
-        If textboxEmail1.Text.Trim.Length > 0 And textboxEmail2.Text.Trim.Length > 0 Then
+        If textboxEmail1.Text.Trim.Length > 0 AndAlso textboxEmail2.Text.Trim.Length > 0 Then
             If textboxEmail1.Text.Trim = textboxEmail2.Text.Trim Then
                 tabcontrolMain.SelectedTab = tabpageContacto
                 MsgBox("Ambas direcciones de e-Mail son iguales.", vbInformation, My.Application.Info.Title)
@@ -888,7 +888,7 @@
         ' Emitir Factura A:
         Select Case CStr(comboboxEmitirFacturaA.SelectedValue)
             Case Constantes.ENTIDAD_EMITIRFACTURAA_NOESPECIFICA
-                If checkboxTipoAlumno.Checked AndAlso ((textboxEntidadPadre.Tag IsNot Nothing) And (textboxEntidadMadre.Tag IsNot Nothing)) Then
+                If checkboxTipoAlumno.Checked AndAlso ((textboxEntidadPadre.Tag IsNot Nothing) AndAlso (textboxEntidadMadre.Tag IsNot Nothing)) Then
                     If MsgBox("Ha especificado el Padre y/o la Madre del Alumno, pero no especificó a quien se le facturará." & vbCrLf & vbCrLf & "¿Desea hacerlo ahora?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
                         tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
                         comboboxEmitirFacturaA.Focus()
@@ -917,7 +917,7 @@
                     Return False
                 End If
             Case Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES
-                If textboxEntidadPadre.Tag Is Nothing And textboxEntidadMadre.Tag Is Nothing Then
+                If textboxEntidadPadre.Tag Is Nothing AndAlso textboxEntidadMadre.Tag Is Nothing Then
                     tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
                     MsgBox("Si las facturas se emitirán a nombre de ambos Padres, debe especificarlos.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadPadre.Focus()
@@ -934,7 +934,7 @@
                     Return False
                 End If
             Case Constantes.ENTIDAD_EMITIRFACTURAA_TODOS
-                If textboxEntidadPadre.Tag Is Nothing And textboxEntidadMadre.Tag Is Nothing And textboxEntidadTercero.Tag Is Nothing Then
+                If textboxEntidadPadre.Tag Is Nothing AndAlso textboxEntidadMadre.Tag Is Nothing AndAlso textboxEntidadTercero.Tag Is Nothing Then
                     tabcontrolMain.SelectedTab = tabpagePadresYFacturacion
                     MsgBox("Si las facturas se emitirán a nombre de Todos (Padres y Tercero), debe especificarlos.", MsgBoxStyle.Information, My.Application.Info.Title)
                     textboxEntidadPadre.Focus()

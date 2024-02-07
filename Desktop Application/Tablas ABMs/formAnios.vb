@@ -49,11 +49,10 @@
     End Sub
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
+
     Friend Sub RefreshData(Optional ByVal PositionIDAnio As Byte = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
-
         Me.Cursor = Cursors.WaitCursor
-
         Try
             Using dbContext As New CSColegioContext(True)
                 mlistAniosBase = (From a In dbContext.Anio
@@ -61,14 +60,11 @@
                                   From AnioSiguiente In AnioSiguiente_join.DefaultIfEmpty()
                                   Select New GridRowData With {.IDAnio = a.IDAnio, .IDNivel = a.IDNivel, .Nivel = a.Nivel.Nombre, .Nombre = a.Nombre, .AnioSiguiente = AnioSiguiente.Nivel.Nombre & " - " & AnioSiguiente.Nombre, .EsActivo = a.EsActivo}).ToList
             End Using
-
         Catch ex As Exception
-
             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al leer los Años.")
             Me.Cursor = Cursors.Default
-            Exit Sub
+            Return
         End Try
-
         Me.Cursor = Cursors.Default
 
         If RestoreCurrentPosition Then
@@ -103,7 +99,7 @@
 
                 ' Filtro por Nivel
                 If comboboxNivel.SelectedIndex > 0 Then
-                    mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AND ").ToString & String.Format("{{Anio.IDNivel}} = {0}", CByte(comboboxNivel.ComboBox.SelectedValue))
+                    mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, String.Empty, " AND ").ToString & String.Format("{{Anio.IDNivel}} = {0}", CByte(comboboxNivel.ComboBox.SelectedValue))
                     mlistAniosFiltradaYOrdenada = mlistAniosFiltradaYOrdenada.Where(Function(a) a.IDNivel = CByte(comboboxNivel.ComboBox.SelectedValue)).ToList
                 End If
 
@@ -111,10 +107,10 @@
                 Select Case comboboxActivo.SelectedIndex
                     Case 0      ' Todos
                     Case 1      ' Sí
-                        mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AND ").ToString & "{Anio.EsActivo} = 1"
+                        mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, String.Empty, " AND ").ToString & "{Anio.EsActivo} = 1"
                         mlistAniosFiltradaYOrdenada = mlistAniosFiltradaYOrdenada.Where(Function(a) a.EsActivo).ToList
                     Case 2      ' No
-                        mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AND ").ToString & "{Anio.EsActivo} = 0"
+                        mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, String.Empty, " AND ").ToString & "{Anio.EsActivo} = 0"
                         mlistAniosFiltradaYOrdenada = mlistAniosFiltradaYOrdenada.Where(Function(a) Not a.EsActivo).ToList
                 End Select
 
@@ -130,7 +126,7 @@
             Catch ex As Exception
                 CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al filtrar los datos.")
                 Me.Cursor = Cursors.Default
-                Exit Sub
+                Return
             End Try
 
             OrderData()
@@ -174,6 +170,7 @@
         ' Muestro el ícono de orden en la columna correspondiente
         mOrdenColumna.HeaderCell.SortGlyphDirection = mOrdenTipo
     End Sub
+
 #End Region
 
 #Region "Controls behavior"

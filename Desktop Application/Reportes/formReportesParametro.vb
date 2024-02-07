@@ -9,8 +9,8 @@
         integertextboxNumber.Visible = (mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_INTEGER)
         doubletextboxNumber.Visible = (mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_NUMBER_DECIMAL)
         currencytextboxMoney.Visible = (mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_MONEY)
-        datetimepickerValor.Visible = (mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_DATE Or mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_DATETIME)
-        comboboxValues.Visible = (mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_YEAR Or mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_MONTH)
+        datetimepickerValor.Visible = (mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_DATE OrElse mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_DATETIME)
+        comboboxValues.Visible = (mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_YEAR OrElse mParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_TIPO_MONTH)
 
 
         Select Case mParametroActual.Tipo

@@ -110,7 +110,7 @@
 
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
 
     Friend Sub RefreshData(Optional ByVal PositionIDComprobante As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
         Dim FechaDesde As Date
@@ -121,12 +121,12 @@
         CardonerSistemas.DateTime.GetDatesFromPeriodTypeAndValue(CType(comboboxPeriodoTipo.SelectedIndex, CardonerSistemas.DateTime.PeriodTypes), CByte(comboboxPeriodoValor.SelectedIndex), FechaDesde, FechaHasta, CType(datetimepickerFechaDesdeHost.Control, DateTimePicker).Value, CType(datetimepickerFechaHastaHost.Control, DateTimePicker).Value)
 
         Try
-            mReportSelectionFormulaBase = String.Format("{{Comprobante.FechaEmision}} >= DateTime({0}, {1}, {2}) AND {{Comprobante.FechaEmision}} <= DateTime({3}, {4}, {5})", FechaDesde.Year, FechaDesde.Month, FechaDesde.Day, FechaHasta.Year, FechaHasta.Month, FechaHasta.Day)
+            mReportSelectionFormulaBase = String.Format("{{Comprobante.FechaEmision}} >= DateTime({0}, {1}, {2}) AndAlso {{Comprobante.FechaEmision}} <= DateTime({3}, {4}, {5})", FechaDesde.Year, FechaDesde.Month, FechaDesde.Day, FechaHasta.Year, FechaHasta.Month, FechaHasta.Day)
 
             Using dbContext As New CSColegioContext(True)
                 mlistComprobantesBase = (From cc In dbContext.Comprobante
                                          Join ct In dbContext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                         Where cc.FechaEmision >= FechaDesde And cc.FechaEmision <= FechaHasta
+                                         Where cc.FechaEmision >= FechaDesde AndAlso cc.FechaEmision <= FechaHasta
                                          Order By cc.FechaEmision, cc.IDComprobante
                                          Select New GridRowData With {.IDComprobante = cc.IDComprobante, .OperacionTipo = ct.OperacionTipo, .IDComprobanteTipo = cc.IDComprobanteTipo, .ComprobanteTipoNombre = ct.Nombre, .IDComprobanteLote = cc.IDComprobanteLote, .NumeroCompleto = cc.NumeroCompleto, .FechaEmision = cc.FechaEmision, .IDEntidad = cc.IDEntidad, .EntidadNombre = cc.ApellidoNombre, .DocumentoNumero = cc.DocumentoNumero, .ImporteTotal = cc.ImporteTotal1, .CAE = cc.CAE, .Anulado = cc.IDUsuarioAnulacion IsNot Nothing}).ToList
             End Using
@@ -173,17 +173,17 @@
                     mlistComprobantesFiltradaYOrdenada = mlistComprobantesBase.ToList
                 ElseIf comboboxComprobanteTipo.SelectedIndex = 0 Then
                     ' Todos los comprobantes según la Operación (Compra o Venta)
-                    mReportSelectionFormula = mReportSelectionFormulaBase & String.Format(" AND {{ComprobanteTipo.OperacionTipo}} = ""{0}""", Choose(comboboxOperacionTipo.SelectedIndex, Constantes.OPERACIONTIPO_COMPRA, Constantes.OPERACIONTIPO_VENTA).ToString)
+                    mReportSelectionFormula = mReportSelectionFormulaBase & String.Format(" AndAlso {{ComprobanteTipo.OperacionTipo}} = ""{0}""", Choose(comboboxOperacionTipo.SelectedIndex, Constantes.OPERACIONTIPO_COMPRA, Constantes.OPERACIONTIPO_VENTA).ToString)
                     mlistComprobantesFiltradaYOrdenada = mlistComprobantesBase.Where(Function(comp) comp.OperacionTipo = Choose(comboboxOperacionTipo.SelectedIndex, Constantes.OPERACIONTIPO_COMPRA, Constantes.OPERACIONTIPO_VENTA).ToString).ToList
                 Else
                     ' Tipo de comprobante seleccionado
-                    mReportSelectionFormula = mReportSelectionFormulaBase & String.Format(" AND {{Comprobante.IDComprobanteTipo}} = {0}", CByte(comboboxComprobanteTipo.ComboBox.SelectedValue))
+                    mReportSelectionFormula = mReportSelectionFormulaBase & String.Format(" AndAlso {{Comprobante.IDComprobanteTipo}} = {0}", CByte(comboboxComprobanteTipo.ComboBox.SelectedValue))
                     mlistComprobantesFiltradaYOrdenada = mlistComprobantesBase.Where(Function(comp) comp.IDComprobanteTipo = CByte(comboboxComprobanteTipo.ComboBox.SelectedValue)).ToList
                 End If
 
                 ' Aplico el filtro de Lotes, si corresponde
                 If comboboxComprobanteLote.SelectedIndex > 0 Then
-                    mReportSelectionFormula &= String.Format(" AND {{Comprobante.IDComprobanteLote}} = {0}", CType(comboboxComprobanteLote.SelectedItem, ComprobanteLote).IDComprobanteLote)
+                    mReportSelectionFormula &= String.Format(" AndAlso {{Comprobante.IDComprobanteLote}} = {0}", CType(comboboxComprobanteLote.SelectedItem, ComprobanteLote).IDComprobanteLote)
                     mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.IDComprobanteLote.HasValue AndAlso comp.IDComprobanteLote.Value = CType(comboboxComprobanteLote.SelectedItem, ComprobanteLote).IDComprobanteLote).ToList
                 End If
 
@@ -192,22 +192,22 @@
                     Select Case comboboxBuscarTipo.SelectedIndex
                         Case 0
                             ' Búsqueda por Entidad Titular
-                            mReportSelectionFormula &= String.Format(" AND InStr(LCase({{Comprobante.ApellidoNombre}}), ""{0}"") > 0", textboxBuscar.Text.ToLower.Trim)
+                            mReportSelectionFormula &= String.Format(" AndAlso InStr(LCase({{Comprobante.ApellidoNombre}}), ""{0}"") > 0", textboxBuscar.Text.ToLower.Trim)
                             mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.EntidadNombre.ToLower().RemoveDiacritics().Contains(textboxBuscar.Text.ToLower().RemoveDiacritics().Trim())).ToList
                         Case 1
                             ' Búsqueda por Número de Comprobante
-                            mReportSelectionFormula &= String.Format(" AND InStr({{Comprobante.Numero}}, ""{0}"") > 0", textboxBuscar.Text.Trim)
+                            mReportSelectionFormula &= String.Format(" AndAlso InStr({{Comprobante.Numero}}, ""{0}"") > 0", textboxBuscar.Text.Trim)
                             mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.NumeroCompleto.Contains(textboxBuscar.Text.ToLower().Trim())).ToList
                         Case 2
                             ' Búsqueda por Número de Documento del Titular
-                            mReportSelectionFormula &= String.Format(" AND InStr({{Comprobante.DocumentoNumero}}, ""{0}"") > 0", textboxBuscar.Text.Trim)
+                            mReportSelectionFormula &= String.Format(" AndAlso InStr({{Comprobante.DocumentoNumero}}, ""{0}"") > 0", textboxBuscar.Text.Trim)
                             mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.DocumentoNumero.ToLower().Contains(textboxBuscar.Text.ToLower().Trim())).ToList
                     End Select
                 End If
 
                 ' Entidad
                 If textboxEntidad.Tag IsNot Nothing Then
-                    mReportSelectionFormula &= String.Format(" AND {{Comprobante.IDEntidad}} = {0}", CInt(textboxEntidad.Tag))
+                    mReportSelectionFormula &= String.Format(" AndAlso {{Comprobante.IDEntidad}} = {0}", CInt(textboxEntidad.Tag))
                     mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.IDEntidad = CInt(textboxEntidad.Tag)).ToList
                 End If
 
@@ -289,7 +289,7 @@
 
     Private Sub PeriodoValorSeleccionar() Handles comboboxPeriodoValor.SelectedIndexChanged
         datetimepickerFechaDesdeHost.Visible = (comboboxPeriodoTipo.SelectedIndex = CInt(CardonerSistemas.DateTime.PeriodTypes.Range))
-        labelPeriodoFechaY.Visible = (comboboxPeriodoTipo.SelectedIndex = CInt(CardonerSistemas.DateTime.PeriodTypes.Range) And comboboxPeriodoValor.SelectedIndex = CInt(CardonerSistemas.DateTime.PeriodRangeValues.DateBetween))
+        labelPeriodoFechaY.Visible = (comboboxPeriodoTipo.SelectedIndex = CInt(CardonerSistemas.DateTime.PeriodTypes.Range) AndAlso comboboxPeriodoValor.SelectedIndex = CInt(CardonerSistemas.DateTime.PeriodRangeValues.DateBetween))
         datetimepickerFechaHastaHost.Visible = labelPeriodoFechaY.Visible
         RefreshData()
     End Sub
@@ -371,7 +371,7 @@
             End If
             e.Handled = True
         ElseIf comboboxBuscarTipo.SelectedIndex = 1 Then
-            If (Not Char.IsDigit(e.KeyChar)) And e.KeyChar <> Chr(Keys.Back) And e.KeyChar <> Chr(Keys.Delete) And e.KeyChar <> Chr(Keys.Separator) Then
+            If (Not Char.IsDigit(e.KeyChar)) AndAlso e.KeyChar <> Chr(Keys.Back) AndAlso e.KeyChar <> Chr(Keys.Delete) AndAlso e.KeyChar <> Chr(Keys.Separator) Then
                 e.Handled = True
             End If
         End If
@@ -417,7 +417,12 @@
         Dim ComprobanteActual As Comprobante
 
         If MsgBox(String.Format("Se van a generar los códigos de barras SEPSA de los comprobantes mostrados.{0}{0}¿Desea continuar?", Environment.NewLine), CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
-            Exit Sub
+            Return
+        End If
+        Dim idCliente As Integer = CS_Parameter_System.GetIntegerAsInteger(Parametros.EMPRESA_PAGOSEDUC_NUMERO)
+        If idCliente = 0 Then
+            MessageBox.Show("No está especificado el número de empresa para PagosEDUC.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Return
         End If
 
         Me.Cursor = Cursors.WaitCursor
@@ -437,12 +442,12 @@
                         datagridviewMain.Enabled = True
                         Me.Cursor = Cursors.Default
                         CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al cargar los datos del comprobante.")
-                        Exit Sub
+                        Return
                     End Try
 
                     If ComprobanteActual.ComprobanteTipo.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso (ComprobanteActual.ComprobanteTipo.CodigoAFIP = Constantes.ComprobanteCodigoAfipFacturaA OrElse ComprobanteActual.ComprobanteTipo.CodigoAFIP = Constantes.ComprobanteCodigoAfipFacturaB OrElse ComprobanteActual.ComprobanteTipo.CodigoAFIP = Constantes.ComprobanteCodigoAfipFacturaC) Then
-                        If Not ComprobanteActual.CalcularCodigoBarrasSepsa(ComprobanteActual.DocumentoNumero) Then
-                            Exit Sub
+                        If Not ComprobanteActual.CalcularCodigoBarrasSepsa(idCliente, ComprobanteActual.DocumentoNumero) Then
+                            Return
                         End If
                     End If
                 End If
@@ -658,7 +663,7 @@
                     End Using
 
                     ' Verifico que tenga un CAE asignado, si es que corresponde
-                    If ComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso ComprobanteTipoActual.EmisionElectronica AndAlso CurrentRow.CAE = "" And Not Permisos.VerificarPermiso(Permisos.COMPROBANTE_IMPRIMIR_SINCAE, False) Then
+                    If ComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso ComprobanteTipoActual.EmisionElectronica AndAlso CurrentRow.CAE = "" AndAlso Not Permisos.VerificarPermiso(Permisos.COMPROBANTE_IMPRIMIR_SINCAE, False) Then
                         MsgBox("El comprobante que desea imprimir no tiene un C.A.E. asignado." & vbCrLf & "Esto puede ocurrir porque aún no fue enviado a AFIP o porque AFIP rechazó el comprobante." & vbCrLf & "Por este motivo, este comprobante no tiene validez legal.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                         Exit Sub
                     End If
@@ -748,7 +753,7 @@
                         End If
 
                         ' Verifico que el Titular tenga especificada una dirección de e-mail
-                        If Titular.Email1 Is Nothing And Titular.Email2 Is Nothing Then
+                        If Titular.Email1 Is Nothing AndAlso Titular.Email2 Is Nothing Then
                             MsgBox("El Titular del Comprobante no tiene especificada ninguna dirección de e-mail.", MsgBoxStyle.Information, My.Application.Info.Title)
                             Exit Sub
                         End If

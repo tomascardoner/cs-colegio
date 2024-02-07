@@ -27,7 +27,7 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
     End Sub
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
     Private Sub RefreshData()
         Dim ComprobanteLoteActual As ComprobanteLote
 
@@ -42,7 +42,7 @@ Public Class formComprobantesTransmitirSantanderDebitoDirecto
                                     Join cl In dbContext.ComprobanteLote On c.IDComprobanteLote Equals cl.IDComprobanteLote
                                     Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                     Join e In dbContext.Entidad On c.IDEntidad Equals e.IDEntidad
-                                    Where c.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote And ct.EmisionElectronica And c.CAE IsNot Nothing And c.IDUsuarioAnulacion Is Nothing And e.DebitoAutomaticoTipo = Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO
+                                    Where c.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote AndAlso ct.EmisionElectronica AndAlso c.CAE IsNot Nothing AndAlso c.IDUsuarioAnulacion Is Nothing AndAlso e.DebitoAutomaticoTipo = Constantes.ENTIDAD_DEBITOAUTOMATICOTIPO_DEBITODIRECTO
                                     Order By ct.Nombre, c.NumeroCompleto
                                     Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal1, .FechaVencimiento = c.FechaVencimiento1.Value}).ToList
 

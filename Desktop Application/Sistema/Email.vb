@@ -1,5 +1,6 @@
 ﻿Imports System.Net.Mail
 Imports System.Security.Cryptography.X509Certificates
+Imports System.Text
 Imports MimeKit
 
 Module Email
@@ -26,7 +27,7 @@ Module Email
 #Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
         If (sslPolicyErrors And sslPolicyErrors.RemoteCertificateNotAvailable) <> 0 Then
 #Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
-            ' This means that the remote certificate Is unavailable. Notify the user And return false.
+            ' This means that the remote certificate Is unavailable. Notify the user and return false.
             MessageBox.Show(String.Format("The SSL certificate was not available for {0}", host), My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return False
         End If
@@ -36,14 +37,20 @@ Module Email
 #Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
             ' This means that the server's SSL certificate did not match the host name that we are trying to connect to.
             Dim certificate2 As X509Certificate2 = CType(certificate, X509Certificate2)
-            Dim cn = IIf(certificate2 IsNot Nothing, certificate2.GetNameInfo(X509NameType.SimpleName, False), certificate.Subject)
+            Dim certificateName As String
 
-            MessageBox.Show(String.Format("The Common Name for the SSL certificate did not match {0}. Instead, it was {1}.", host, cn), My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            If certificate2 Is Nothing Then
+                certificateName = certificate.Subject
+            Else
+                certificateName = certificate2.GetNameInfo(X509NameType.SimpleName, False)
+            End If
+
+            MessageBox.Show($"The Common Name for the SSL certificate did not match {host}. Instead, it was {certificateName}.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return False
         End If
 
         ' The only other errors left are chain errors.
-        Dim errorChain As String = ""
+        Dim sb As New StringBuilder
 
         ' The first element's certificate will be the server's SSL certificate (and will match the `certificate` argument)
         ' while the last element in the chain will typically either be the Root Certificate Authority's certificate -or- it
@@ -55,14 +62,14 @@ Module Email
                 Continue For
             End If
 
-            errorChain &= String.Format("- {1}{0}", vbNewLine, element.Certificate.Subject)
+            sb.Append($"- {element.Certificate.Subject}{vbNewLine}")
             For Each er In element.ChainElementStatus
                 ' error.StatusInformation` contains a human-readable error string while `error.Status` Is the corresponding enum value.
-                errorChain &= String.Format("   - {1}{0}", vbNewLine, er.StatusInformation)
+                sb.Append($"   - {er.StatusInformation}{vbNewLine}")
             Next
         Next
 
-        MessageBox.Show(String.Format("The SSL certificate for the server could not be validated for the following reasons:{0}", vbNewLine), My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
+        MessageBox.Show($"The SSL certificate for the server could not be validated for the following reasons:{vbNewLine}{sb.ToString()}", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
         Return False
     End Function
 
@@ -108,7 +115,7 @@ Module Email
         Dim Decrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PublicEncryptionPassword)
         Dim DecryptedPassword As String = ""
         If Not Decrypter.Decrypt(pEmailConfig.SmtpPassword, DecryptedPassword) Then
-            MsgBox("La contraseña de e-mail (SMTP) especificada es incorrecta.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+            MessageBox.Show("La contraseña de e-mail (SMTP) especificada es incorrecta.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Return False
         End If
         Try
@@ -128,10 +135,10 @@ Module Email
         End If
 
         ' Adjuntos
-        If Not adjuntoReporte Is Nothing Then
+        If adjuntoReporte IsNot Nothing Then
             bodyBuilder.Attachments.Add(adjuntoNombre, adjuntoReporte.ReportObject.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat))
         End If
-        If adjuntoArchivo <> "" Then
+        If adjuntoArchivo <> String.Empty Then
             bodyBuilder.Attachments.Add(adjuntoArchivo)
         End If
 
@@ -176,13 +183,13 @@ Module Email
         Dim destinatariosCC As New InternetAddressList
         Dim destinatariosBcc As New InternetAddressList
 
-        If Not destinatarioTo Is Nothing Then
+        If destinatarioTo IsNot Nothing Then
             destinatariosTo.Add(New MailboxAddress(destinatarioTo.DisplayName, destinatarioTo.Address))
         End If
-        If Not destinatarioCC Is Nothing Then
+        If destinatarioCC IsNot Nothing Then
             destinatariosCC.Add(New MailboxAddress(destinatarioCC.DisplayName, destinatarioCC.Address))
         End If
-        If Not destinatarioBcc Is Nothing Then
+        If destinatarioBcc IsNot Nothing Then
             destinatariosBcc.Add(New MailboxAddress(destinatarioBcc.DisplayName, destinatarioBcc.Address))
         End If
 
@@ -193,7 +200,7 @@ Module Email
         Dim destinatariosTo As New InternetAddressList
         Dim destinatariosCC As New InternetAddressList
         Dim destinatariosBcc As New InternetAddressList
-        Dim mailCount As Integer = 0
+        Dim mailCount As Integer
 
         mailCount += AgregarRecipientes(entidadesTo, destinatariosTo, forzarEnvio)
         mailCount += AgregarRecipientes(entidadesCC, destinatariosCC, forzarEnvio)
@@ -217,40 +224,40 @@ Module Email
             With entidad
                 Select Case .ComprobanteEnviarEmail
                     Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_CUALQUIERA
-                        If Not .Email1 Is Nothing Then
+                        If .Email1 IsNot Nothing Then
                             destinatarios.Add(New MailboxAddress(.ApellidoNombre, .Email1))
                             destinatariosCount += 1
-                        ElseIf Not .Email2 Is Nothing Then
+                        ElseIf .Email2 IsNot Nothing Then
                             destinatarios.Add(New MailboxAddress(.ApellidoNombre, .Email2))
                             destinatariosCount += 1
                         End If
                     Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO
                         If forzarEnvio Then
-                            If Not .Email1 Is Nothing Then
+                            If .Email1 IsNot Nothing Then
                                 destinatarios.Add(New MailboxAddress(.ApellidoNombre, .Email1))
                                 destinatariosCount += 1
                             End If
-                            If Not .Email2 Is Nothing Then
+                            If .Email2 IsNot Nothing Then
                                 destinatarios.Add(New MailboxAddress(.ApellidoNombre, .Email2))
                                 destinatariosCount += 1
                             End If
                         End If
                     Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_AMBAS
-                        If Not .Email1 Is Nothing Then
+                        If .Email1 IsNot Nothing Then
                             destinatarios.Add(New MailboxAddress(.ApellidoNombre, .Email1))
                             destinatariosCount += 1
                         End If
-                        If Not .Email2 Is Nothing Then
+                        If .Email2 IsNot Nothing Then
                             destinatarios.Add(New MailboxAddress(.ApellidoNombre, .Email2))
                             destinatariosCount += 1
                         End If
                     Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL1
-                        If Not .Email1 Is Nothing Then
+                        If .Email1 IsNot Nothing Then
                             destinatarios.Add(New MailboxAddress(.ApellidoNombre, .Email1))
                             destinatariosCount += 1
                         End If
                     Case Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_EMAIL2
-                        If Not .Email2 Is Nothing Then
+                        If .Email2 IsNot Nothing Then
                             destinatarios.Add(New MailboxAddress(.ApellidoNombre, .Email2))
                             destinatariosCount += 1
                         End If

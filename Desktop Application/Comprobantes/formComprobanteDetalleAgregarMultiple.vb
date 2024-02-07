@@ -52,7 +52,7 @@
     End Sub
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
 
     Friend Sub SetDataFromObjectToControls()
         textboxArticulo.Text = mArticuloActual.Nombre
@@ -104,7 +104,7 @@
 
         Using dbContext As New CSColegioContext(True)
             listAlumnos = (From e In dbContext.Entidad.Include("Descuento")
-                           Where e.EsActivo AndAlso e.TipoAlumno AndAlso (((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) And e.IDEntidadPadre = IDEntidadPadre) Or ((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) And e.IDEntidadMadre = IDEntidadPadre) Or ((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO Or e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) And e.IDEntidadTercero = IDEntidadPadre))
+                           Where e.EsActivo AndAlso e.TipoAlumno AndAlso (((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_PADRE OrElse e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES OrElse e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) AndAlso e.IDEntidadPadre = IDEntidadPadre) OrElse ((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_MADRE OrElse e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_AMBOSPADRES OrElse e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) AndAlso e.IDEntidadMadre = IDEntidadPadre) OrElse ((e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TERCERO OrElse e.EmitirFacturaA = Constantes.ENTIDAD_EMITIRFACTURAA_TODOS) AndAlso e.IDEntidadTercero = IDEntidadPadre))
                            Order By e.ApellidoNombre).ToList
         End Using
 
@@ -144,7 +144,7 @@
                     CursoActual = dbContext.Curso.Find(IDCurso)
                     If CursoActual IsNot Nothing Then
                         IDCuotaTipo = CursoActual.IDCuotaTipo
-                        AnioLectivoCuotaActual = dbContext.AnioLectivoCuota.Where(Function(alci) alci.AnioLectivo = AnioLectivo And alci.MesInicio <= CByte(comboboxCuotaMesDesde.SelectedIndex + 1) And alci.IDCuotaTipo = IDCuotaTipo).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
+                        AnioLectivoCuotaActual = dbContext.AnioLectivoCuota.Where(Function(alci) alci.AnioLectivo = AnioLectivo AndAlso alci.MesInicio <= CByte(comboboxCuotaMesDesde.SelectedIndex + 1) AndAlso alci.IDCuotaTipo = IDCuotaTipo).OrderByDescending(Function(alci) alci.MesInicio).FirstOrDefault
                         If AnioLectivoCuotaActual IsNot Nothing Then
                             PrecioUnitario = AnioLectivoCuotaActual.ImporteCuota
                         End If

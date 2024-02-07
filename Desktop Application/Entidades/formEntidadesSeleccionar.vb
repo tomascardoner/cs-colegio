@@ -39,7 +39,7 @@
 
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
     Friend Sub RefreshData(Optional ByVal PositionIDEntidad As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
         Me.Cursor = Cursors.WaitCursor
 
@@ -75,26 +75,26 @@
 
             Me.Cursor = Cursors.WaitCursor
 
-            If menuitemEntidadTipo_PersonalColegio.Checked And menuitemEntidadTipo_Docente.Checked And menuitemEntidadTipo_Alumno.Checked And menuitemEntidadTipo_Familiar.Checked And menuitemEntidadTipo_Proveedor.Checked And menuitemEntidadTipo_Otro.Checked Then
+            If menuitemEntidadTipo_PersonalColegio.Checked AndAlso menuitemEntidadTipo_Docente.Checked AndAlso menuitemEntidadTipo_Alumno.Checked AndAlso menuitemEntidadTipo_Familiar.Checked AndAlso menuitemEntidadTipo_Proveedor.Checked AndAlso menuitemEntidadTipo_Otro.Checked Then
                 'TODOS LOS TIPOS DE ENTIDAD SELECCIONADOS
                 If BusquedaAplicada Then
                     listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                                    Where ent.ApellidoNombre.ToLower().RemoveDiacritics().Contains(textboxBuscar.Text.ToLower().RemoveDiacritics().Trim()) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo))
+                                                    Where ent.ApellidoNombre.ToLower().RemoveDiacritics().Contains(textboxBuscar.Text.ToLower().RemoveDiacritics().Trim()) AndAlso (comboboxActivo.SelectedIndex = 0 OrElse (comboboxActivo.SelectedIndex = 1 AndAlso ent.EsActivo) OrElse (comboboxActivo.SelectedIndex = 2 AndAlso Not ent.EsActivo))
                                                     Select ent).ToList
                 Else
                     listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                       Where comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo)
+                                       Where comboboxActivo.SelectedIndex = 0 OrElse (comboboxActivo.SelectedIndex = 1 AndAlso ent.EsActivo) OrElse (comboboxActivo.SelectedIndex = 2 AndAlso Not ent.EsActivo)
                                        Select ent).ToList
                 End If
 
             Else
                 If BusquedaAplicada Then
                     listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                                    Where ((menuitemEntidadTipo_PersonalColegio.Checked And ent.TipoPersonalColegio) Or (menuitemEntidadTipo_Docente.Checked And ent.TipoDocente) Or (menuitemEntidadTipo_Alumno.Checked And ent.TipoAlumno) Or (menuitemEntidadTipo_Familiar.Checked And ent.TipoFamiliar) Or (menuitemEntidadTipo_Proveedor.Checked And ent.TipoProveedor) Or (menuitemEntidadTipo_Otro.Checked And ent.TipoOtro)) And ent.ApellidoNombre.ToLower().RemoveDiacritics().Contains(textboxBuscar.Text.ToLower().RemoveDiacritics().Trim()) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo))
+                                                    Where ((menuitemEntidadTipo_PersonalColegio.Checked AndAlso ent.TipoPersonalColegio) OrElse (menuitemEntidadTipo_Docente.Checked AndAlso ent.TipoDocente) OrElse (menuitemEntidadTipo_Alumno.Checked AndAlso ent.TipoAlumno) OrElse (menuitemEntidadTipo_Familiar.Checked AndAlso ent.TipoFamiliar) OrElse (menuitemEntidadTipo_Proveedor.Checked AndAlso ent.TipoProveedor) OrElse (menuitemEntidadTipo_Otro.Checked AndAlso ent.TipoOtro)) AndAlso ent.ApellidoNombre.ToLower().RemoveDiacritics().Contains(textboxBuscar.Text.ToLower().RemoveDiacritics().Trim()) AndAlso (comboboxActivo.SelectedIndex = 0 OrElse (comboboxActivo.SelectedIndex = 1 AndAlso ent.EsActivo) OrElse (comboboxActivo.SelectedIndex = 2 AndAlso Not ent.EsActivo))
                                                     Select ent).ToList
                 Else
                     listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                Where ((menuitemEntidadTipo_PersonalColegio.Checked And ent.TipoPersonalColegio) Or (menuitemEntidadTipo_Docente.Checked And ent.TipoDocente) Or (menuitemEntidadTipo_Alumno.Checked And ent.TipoAlumno) Or (menuitemEntidadTipo_Familiar.Checked And ent.TipoFamiliar) Or (menuitemEntidadTipo_Proveedor.Checked And ent.TipoProveedor) Or (menuitemEntidadTipo_Otro.Checked And ent.TipoOtro)) And (comboboxActivo.SelectedIndex = 0 Or (comboboxActivo.SelectedIndex = 1 And ent.EsActivo) Or (comboboxActivo.SelectedIndex = 2 And Not ent.EsActivo))
+                                Where ((menuitemEntidadTipo_PersonalColegio.Checked AndAlso ent.TipoPersonalColegio) OrElse (menuitemEntidadTipo_Docente.Checked AndAlso ent.TipoDocente) OrElse (menuitemEntidadTipo_Alumno.Checked AndAlso ent.TipoAlumno) OrElse (menuitemEntidadTipo_Familiar.Checked AndAlso ent.TipoFamiliar) OrElse (menuitemEntidadTipo_Proveedor.Checked AndAlso ent.TipoProveedor) OrElse (menuitemEntidadTipo_Otro.Checked AndAlso ent.TipoOtro)) AndAlso (comboboxActivo.SelectedIndex = 0 OrElse (comboboxActivo.SelectedIndex = 1 AndAlso ent.EsActivo) OrElse (comboboxActivo.SelectedIndex = 2 AndAlso Not ent.EsActivo))
                                 Select ent).ToList
                 End If
 
@@ -205,7 +205,7 @@
 
         ClickedColumn = CType(datagridviewMain.Columns(e.ColumnIndex), DataGridViewColumn)
 
-        If ClickedColumn.Name = columnIDEntidad.Name Or ClickedColumn.Name = columnApellido.Name Or ClickedColumn.Name = columnNombre.Name Then
+        If ClickedColumn.Name = columnIDEntidad.Name OrElse ClickedColumn.Name = columnApellido.Name OrElse ClickedColumn.Name = columnNombre.Name Then
             If ClickedColumn Is OrdenColumna Then
                 ' La columna clickeada es la misma por la que ya estaba ordenado, así que cambio la dirección del orden
                 If OrdenTipo = SortOrder.Ascending Then

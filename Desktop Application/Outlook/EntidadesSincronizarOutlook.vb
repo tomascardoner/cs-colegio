@@ -33,12 +33,12 @@ Module EntidadesSincronizarOutlook
 
                 If EntidadesSincronizarOutlookContactos.VerificarContactosEnOutlook(OutlookContacts, dbContext, IDEntidadesVerificadasEnOutlook, Opciones, ProgressBarProgreso) Then
                     Try
-                        If Opciones.EntidadTipoPersonalColegio And Opciones.EntidadTipoDocente And Opciones.EntidadTipoAlumno And Opciones.EntidadTipoFamiliar And Opciones.EntidadTipoProveedor And Opciones.EntidadTipoOtro Then
+                        If Opciones.EntidadTipoPersonalColegio AndAlso Opciones.EntidadTipoDocente AndAlso Opciones.EntidadTipoAlumno AndAlso Opciones.EntidadTipoFamiliar AndAlso Opciones.EntidadTipoProveedor AndAlso Opciones.EntidadTipoOtro Then
                             ' Todas las Entidades
-                            Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing))).ToList
+                            Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo AndAlso (Not (e.Email1 Is Nothing AndAlso e.Email2 Is Nothing))).ToList
                         Else
                             ' Sólo las seleccionadas
-                            Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo And (Not (e.Email1 Is Nothing And e.Email2 Is Nothing)) And ((Opciones.EntidadTipoPersonalColegio And e.TipoPersonalColegio) Or (Opciones.EntidadTipoDocente And e.TipoDocente) Or (Opciones.EntidadTipoAlumno And e.TipoAlumno) Or (Opciones.EntidadTipoFamiliar And e.TipoFamiliar) Or (Opciones.EntidadTipoProveedor And e.TipoProveedor) Or (Opciones.EntidadTipoOtro And e.TipoOtro))).ToList
+                            Entidades = dbContext.Entidad.Where(Function(e) e.EsActivo AndAlso (Not (e.Email1 Is Nothing AndAlso e.Email2 Is Nothing)) AndAlso ((Opciones.EntidadTipoPersonalColegio AndAlso e.TipoPersonalColegio) OrElse (Opciones.EntidadTipoDocente AndAlso e.TipoDocente) OrElse (Opciones.EntidadTipoAlumno AndAlso e.TipoAlumno) OrElse (Opciones.EntidadTipoFamiliar AndAlso e.TipoFamiliar) OrElse (Opciones.EntidadTipoProveedor AndAlso e.TipoProveedor) OrElse (Opciones.EntidadTipoOtro AndAlso e.TipoOtro))).ToList
                         End If
                     Catch ex As Exception
                         CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener las Entidades de la base de datos.")

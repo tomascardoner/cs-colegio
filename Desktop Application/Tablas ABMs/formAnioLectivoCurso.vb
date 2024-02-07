@@ -74,7 +74,7 @@
     End Sub
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
     Friend Sub SetDataFromObjectToControls()
         With mAnioLectivoCursoActual
             If .IDAnioLectivoCurso = 0 Then

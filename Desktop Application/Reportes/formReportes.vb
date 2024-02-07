@@ -124,11 +124,11 @@
             Select Case ParametroActual.Tipo
                 ' Entidades
                 Case Constantes.REPORTE_PARAMETRO_ENTIDAD, Constantes.REPORTE_PARAMETRO_ENTIDAD_PERSONALCOLEGIO, Constantes.REPORTE_PARAMETRO_ENTIDAD_DOCENTE, Constantes.REPORTE_PARAMETRO_ENTIDAD_ALUMNO, Constantes.REPORTE_PARAMETRO_ENTIDAD_FAMILIAR, Constantes.REPORTE_PARAMETRO_ENTIDAD_PROVEEDOR
-                    formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = (ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD Or ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD_PERSONALCOLEGIO)
-                    formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = (ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD Or ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD_DOCENTE)
-                    formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = (ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD Or ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD_ALUMNO)
-                    formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = (ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD Or ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD_FAMILIAR)
-                    formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = (ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD Or ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD_PROVEEDOR)
+                    formEntidadesSeleccionar.menuitemEntidadTipo_PersonalColegio.Checked = (ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD OrElse ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD_PERSONALCOLEGIO)
+                    formEntidadesSeleccionar.menuitemEntidadTipo_Docente.Checked = (ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD OrElse ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD_DOCENTE)
+                    formEntidadesSeleccionar.menuitemEntidadTipo_Alumno.Checked = (ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD OrElse ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD_ALUMNO)
+                    formEntidadesSeleccionar.menuitemEntidadTipo_Familiar.Checked = (ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD OrElse ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD_FAMILIAR)
+                    formEntidadesSeleccionar.menuitemEntidadTipo_Proveedor.Checked = (ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD OrElse ParametroActual.Tipo = Constantes.REPORTE_PARAMETRO_ENTIDAD_PROVEEDOR)
                     If formEntidadesSeleccionar.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
                         Dim EntidadSeleccionada As Entidad
 

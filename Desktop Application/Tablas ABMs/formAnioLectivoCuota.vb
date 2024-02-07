@@ -51,8 +51,8 @@
         buttonEditar.Visible = Not mEditMode
         buttonCerrar.Visible = Not mEditMode
 
-        comboboxMesInicio.Enabled = (mEditMode And mIsNew)
-        comboboxCuotaTipo.Enabled = (mEditMode And mIsNew)
+        comboboxMesInicio.Enabled = (mEditMode AndAlso mIsNew)
+        comboboxCuotaTipo.Enabled = (mEditMode AndAlso mIsNew)
         currencytextboxImporteMatricula.ReadOnly = Not mEditMode
         currencytextboxImporteCuota.ReadOnly = Not mEditMode
     End Sub
@@ -77,7 +77,7 @@
     End Sub
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
     Friend Sub SetDataFromObjectToControls()
         With mAnioLectivoCuotaActual
             textboxAnioLectivo.Text = mAnioLectivoCuotaActual.AnioLectivo.ToString

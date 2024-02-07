@@ -47,7 +47,7 @@
     End Sub
 #End Region
 
-#Region "Load and Set Data"
+#Region "Mostrar y leer datos"
     Friend Sub RefreshData(Optional ByVal PositionAnioLectivo As Short = 0, Optional ByVal PositionMesInicio As Byte = 0, Optional ByVal PositionIDCuotaTipo As Byte = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
         Dim GridRowDataCurrent As GridRowData
 
@@ -84,10 +84,10 @@
 
         FilterData()
 
-        If PositionAnioLectivo <> 0 And PositionMesInicio <> 0 And PositionIDCuotaTipo <> 0 Then
+        If PositionAnioLectivo <> 0 AndAlso PositionMesInicio <> 0 AndAlso PositionIDCuotaTipo <> 0 Then
             For Each CurrentRowChecked As DataGridViewRow In datagridviewMain.Rows
                 GridRowDataCurrent = CType(CurrentRowChecked.DataBoundItem, GridRowData)
-                If GridRowDataCurrent.AnioLectivo = PositionAnioLectivo And GridRowDataCurrent.MesInicio = PositionMesInicio And GridRowDataCurrent.IDCuotaTipo = PositionIDCuotaTipo Then
+                If GridRowDataCurrent.AnioLectivo = PositionAnioLectivo AndAlso GridRowDataCurrent.MesInicio = PositionMesInicio AndAlso GridRowDataCurrent.IDCuotaTipo = PositionIDCuotaTipo Then
                     datagridviewMain.CurrentCell = CurrentRowChecked.Cells(0)
                     Exit For
                 End If
@@ -106,7 +106,7 @@
                 mlistAniosLectivosCuotasFiltradaYOrdenada = mlistAniosLectivosCuotasBase.ToList
 
                 ' Filtro por Año Lectivo
-                mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AND ").ToString & String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0}", CShort(comboboxAnioLectivo.Text))
+                mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AndAlso ").ToString & String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0}", CShort(comboboxAnioLectivo.Text))
                 mlistAniosLectivosCuotasFiltradaYOrdenada = mlistAniosLectivosCuotasFiltradaYOrdenada.Where(Function(alc) alc.AnioLectivo = CShort(comboboxAnioLectivo.Text)).ToList
 
                 Select Case mlistAniosLectivosCuotasFiltradaYOrdenada.Count
