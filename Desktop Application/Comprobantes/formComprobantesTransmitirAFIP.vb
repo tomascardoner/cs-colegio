@@ -92,9 +92,8 @@
             Dim MensajeError As String
             Dim GenerarCodigoQR As Boolean
             Dim idMoneda As Short
-            Dim monedaCodigoAfip As String = ""
+            Dim monedaCodigoAfip As String = String.Empty
             Dim monedaCotizacion As Decimal
-            Dim comprobanteTipoCodigoAfip As Short = 0
             Dim comprobantesEnviadosCount As Integer = 0
 
             GenerarCodigoQR = CS_Parameter_System.GetBoolean(Parametros.AFIP_COMPROBANTES_CODIGOQR_GENERAR, False).Value
@@ -105,7 +104,7 @@
                 ' Moneda
                 monedaActual = dbContext.Moneda.Find(CS_Parameter_System.GetIntegerAsShort(Parametros.DEFAULT_MONEDA_ID))
                 If monedaActual Is Nothing Then
-                    MsgBox("No se ha especificado la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
+                    MessageBox.Show("No se ha especificado la Moneda predeterminada.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                     Return
                 End If
                 idMoneda = monedaActual.IDMoneda
@@ -115,7 +114,7 @@
                 ' Cotización
                 monedaCotizacionActual = dbContext.MonedaCotizacion.Where(Function(mc) mc.IDMoneda = idMoneda).FirstOrDefault
                 If monedaCotizacionActual Is Nothing Then
-                    MsgBox("No hay cotizaciones cargadas para la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
+                    MessageBox.Show("No hay cotizaciones cargadas para la Moneda predeterminada.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                     Return
                 End If
                 monedaCotizacion = monedaCotizacionActual.CotizacionVenta
@@ -141,63 +140,54 @@
                             datagridviewComprobantes.CurrentCell = RowActual.Cells(0)
                             GridDataRowActual = CType(RowActual.DataBoundItem, GridDataRow)
                             ComprobanteActual = dbContext.Comprobante.Find(GridDataRowActual.IDComprobante)
-                            If Not ComprobanteActual Is Nothing Then
-                                If ComprobanteActual.CAE Is Nothing Then
-                                    textboxStatus.AppendText(vbCrLf & String.Format("{0} n° {1} - Autorizando...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.NumeroCompleto))
-                                    If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual.IDComprobante) Then
-                                        progressbarStatus.Value += 1
-                                        If GenerarCodigoQR Then
-                                            comprobantesEnviadosCount += 1
-                                            textboxStatus.AppendText("CAE: " & Objeto_AFIP_WS.UltimoResultadoCAE.Numero & " - Obteniendo código QR...")
-                                            Application.DoEvents()
-                                            If ModuloComprobantes.GenerarCodigoQR(ComprobanteActual.IDComprobante, , idMoneda, monedaCodigoAfip, monedaCotizacion) Then
-                                                textboxStatus.AppendText("OK")
-                                            Else
-                                                textboxStatus.AppendText("ERROR")
-                                                MensajeError = "Error al obtener el código QR del comprobante electrónico:"
-                                                MensajeError &= vbCrLf & vbCrLf
-                                                MensajeError &= String.Format("{0} N°: {1}", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero)
-                                                MsgBox(MensajeError, MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                                                RefreshData()
-                                                MostrarOcultarEstado(False)
-                                                Me.Cursor = Cursors.Default
-                                                Exit Sub
-                                            End If
+                            If ComprobanteActual IsNot Nothing AndAlso ComprobanteActual.CAE Is Nothing Then
+                                textboxStatus.AppendText("{vbNewLine}{ComprobanteActual.ComprobanteTipo.Nombre} nº {ComprobanteActual.NumeroCompleto} - Autorizando...")
+                                If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual.IDComprobante) Then
+                                    progressbarStatus.Value += 1
+                                    If GenerarCodigoQR Then
+                                        comprobantesEnviadosCount += 1
+                                        textboxStatus.AppendText($"CAE: {Objeto_AFIP_WS.UltimoResultadoCAE.Numero} - Obteniendo código QR...")
+                                        Application.DoEvents()
+                                        If ModuloComprobantes.GenerarCodigoQR(ComprobanteActual.IDComprobante, , idMoneda, monedaCodigoAfip, monedaCotizacion) Then
+                                            textboxStatus.AppendText("OK")
                                         Else
-                                            comprobantesEnviadosCount += 1
-                                            textboxStatus.AppendText("CAE: " & Objeto_AFIP_WS.UltimoResultadoCAE.Numero)
-                                            Application.DoEvents()
+                                            textboxStatus.AppendText("ERROR")
+                                            MensajeError = $"Error al obtener el código QR del comprobante electrónico:{vbNewLine}{vbNewLine}{ComprobanteActual.ComprobanteTipo.Nombre} Nº: {ComprobanteActual.Numero}"
+                                            MsgBox(MensajeError, MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                                            RefreshData()
+                                            MostrarOcultarEstado(False)
+                                            Me.Cursor = Cursors.Default
+                                            Return
                                         End If
-
-                                    ElseIf Objeto_AFIP_WS.UltimoResultadoCAE.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoAceptado Then
-                                        textboxStatus.AppendText("RECHAZADO!!")
-
-                                        MensajeError = "Se Rechazó la Solicitud de CAE para el Comprobante Electrónico:"
-                                        MensajeError &= vbCrLf & vbCrLf
-                                        MensajeError &= String.Format("{0} N°: {1}", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.Numero)
-                                        MensajeError &= vbCrLf
-                                        MensajeError &= "Titular: " & ComprobanteActual.ApellidoNombre
-                                        MensajeError &= vbCrLf
-                                        MensajeError &= "Importe: " & FormatCurrency(ComprobanteActual.ImporteTotal1)
-                                        If Objeto_AFIP_WS.UltimoResultadoCAE.Observaciones <> "" Then
-                                            MensajeError &= vbCrLf & vbCrLf
-                                            MensajeError &= "Observaciones: " & Objeto_AFIP_WS.UltimoResultadoCAE.Observaciones
-                                        End If
-                                        If Objeto_AFIP_WS.UltimoResultadoCAE.ErrorMessage <> "" Then
-                                            MensajeError &= vbCrLf & vbCrLf
-                                            MensajeError &= "Error: " & Objeto_AFIP_WS.UltimoResultadoCAE.ErrorMessage
-                                        End If
-                                        MsgBox(MensajeError, MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                                        RefreshData()
-                                        MostrarOcultarEstado(False)
-                                        Me.Cursor = Cursors.Default
-                                        Exit Sub
                                     Else
-                                        RefreshData()
-                                        MostrarOcultarEstado(False)
-                                        Me.Cursor = Cursors.Default
-                                        Exit Sub
+                                        comprobantesEnviadosCount += 1
+                                        textboxStatus.AppendText($"CAE: {Objeto_AFIP_WS.UltimoResultadoCAE.Numero}")
+                                        Application.DoEvents()
                                     End If
+
+                                ElseIf Objeto_AFIP_WS.UltimoResultadoCAE.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoAceptado Then
+                                    textboxStatus.AppendText("RECHAZADO!!")
+
+                                    MensajeError = $"Se Rechazó la Solicitud de CAE para el Comprobante Electrónico:{vbNewLine}{vbNewLine}"
+                                    MensajeError &= $"{ComprobanteActual.ComprobanteTipo.Nombre} Nº: {ComprobanteActual.Numero}{vbNewLine}"
+                                    MensajeError &= $"Titular: {ComprobanteActual.ApellidoNombre}{vbNewLine}"
+                                    MensajeError &= $"Importe: {FormatCurrency(ComprobanteActual.ImporteTotal1)}"
+                                    If Not String.IsNullOrEmpty(Objeto_AFIP_WS.UltimoResultadoCAE.Observaciones) Then
+                                        MensajeError &= $"{vbNewLine}{vbNewLine}Observaciones: {Objeto_AFIP_WS.UltimoResultadoCAE.Observaciones}"
+                                    End If
+                                    If Not String.IsNullOrEmpty(Objeto_AFIP_WS.UltimoResultadoCAE.ErrorMessage) Then
+                                        MensajeError &= $"{vbNewLine}{vbNewLine}Error: {Objeto_AFIP_WS.UltimoResultadoCAE.ErrorMessage}"
+                                    End If
+                                    MsgBox(MensajeError, MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                                    RefreshData()
+                                    MostrarOcultarEstado(False)
+                                    Me.Cursor = Cursors.Default
+                                    Return
+                                Else
+                                    RefreshData()
+                                    MostrarOcultarEstado(False)
+                                    Me.Cursor = Cursors.Default
+                                    Return
                                 End If
                             End If
                             ' Verifico que no se cancele la Transmisión
@@ -207,11 +197,10 @@
                             End If
                         Next
                         If mCancelar Then
-                            MsgBox(String.Format("Se ha cancelado la transmisión.{1}{1}Se transmitieron exitosamente {0} Comprobantes a AFIP.", comprobantesEnviadosCount, vbCrLf), MsgBoxStyle.Information, My.Application.Info.Title)
+                            MessageBox.Show($"Se ha cancelado la transmisión.{vbNewLine}{vbNewLine}Se transmitieron exitosamente {comprobantesEnviadosCount} Comprobantes a AFIP.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
                         Else
-                            MsgBox(String.Format("Se han transmitido exitosamente {0} Comprobantes a AFIP.", comprobantesEnviadosCount, vbCrLf), MsgBoxStyle.Information, My.Application.Info.Title)
+                            MessageBox.Show($"Se han transmitido exitosamente {comprobantesEnviadosCount} Comprobantes a AFIP.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
                         End If
-
                         RefreshData()
                         MostrarOcultarEstado(False)
                         Me.Cursor = Cursors.Default
@@ -243,7 +232,7 @@
             datagridviewComprobantes.Height = 270
             progressbarStatus.Maximum = listComprobantes.Count
             progressbarStatus.Value = 0
-            textboxStatus.Text = ""
+            textboxStatus.Text = String.Empty
         Else
             datagridviewComprobantes.Height = 408
         End If

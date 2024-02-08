@@ -132,7 +132,7 @@
     End Sub
 
     Friend Sub SetAppearance()
-        menuitemAFIP_ObtenerQR.Visible = CS_Parameter_System.GetBoolean(Parametros.AFIP_COMPROBANTES_CODIGOQR_GENERAR, False).Value
+        menuitemAFIP_GenerarQR.Visible = CS_Parameter_System.GetBoolean(Parametros.AFIP_COMPROBANTES_CODIGOQR_GENERAR, False).Value
 
         datagridviewDetalle.DefaultCellStyle.Font = pAppearanceConfig.ListsFont
         datagridviewDetalle.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFont
@@ -375,10 +375,11 @@
 #Region "Main Toolbar"
 
     Private Sub Editar_Click(sender As Object, e As EventArgs) Handles buttonEditar.Click
-        If Permisos.VerificarPermiso(Permisos.COMPROBANTE_EDITAR) Then
-            mEditMode = True
-            ChangeMode()
+        If Not Permisos.VerificarPermiso(Permisos.COMPROBANTE_EDITAR) Then
+            Return
         End If
+        mEditMode = True
+        ChangeMode()
     End Sub
 
     Private Sub Cerrar_Click(sender As Object, e As EventArgs) Handles buttonCerrar.Click
@@ -386,7 +387,6 @@
     End Sub
 
     Private Sub Guardar_Click(sender As Object, e As EventArgs) Handles buttonGuardar.Click
-
         If Not VerificarDatosComprobante() Then
             Return
         End If
@@ -463,15 +463,15 @@
         Me.Close()
     End Sub
 
-    Private Sub MenuitemAFIP_ObtenerCAE_Click(sender As Object, e As EventArgs) Handles menuitemAFIP_ObtenerCAE.Click
+    Private Sub AFIP_ObtenerCAE_Click(sender As Object, e As EventArgs) Handles menuitemAFIP_ObtenerCAE.Click
         AutorizarComprobanteEnAfip(True, True)
     End Sub
 
-    Private Sub MenuitemAFIP_ObtenerQR_Click(sender As Object, e As EventArgs) Handles menuitemAFIP_ObtenerQR.Click
-        ObtenerCodigoQR()
+    Private Sub AFIP_GenerarQR_Click(sender As Object, e As EventArgs) Handles menuitemAFIP_GenerarQR.Click
+        GenerarCodigoQR()
     End Sub
 
-    Private Sub MenuitemAFIP_VerificarDatos_Click(sender As Object, e As EventArgs) Handles menuitemAFIP_VerificarDatos.Click
+    Private Sub AFIP_VerificarDatos_Click(sender As Object, e As EventArgs) Handles menuitemAFIP_VerificarDatos.Click
         VerificarDatosComprobanteEnAfip()
     End Sub
 
@@ -780,28 +780,16 @@
         End If
     End Sub
 
-    Private Sub ObtenerCodigoQR()
+    Private Sub GenerarCodigoQR()
         If mComprobanteActual Is Nothing Then
             Return
         End If
-
-        If Not mComprobanteTipoActual.EmisionElectronica Then
-            Return
-        End If
-
-        If mComprobanteActual.CAE Is Nothing Then
-            MsgBox("Este Comprobante no tiene CAE, por lo que no se puede generar el Código QR.", MsgBoxStyle.Information, My.Application.Info.Title)
-            Return
-        End If
-
-        If mComprobanteActual.CodigoQR IsNot Nothing AndAlso MsgBox("Este Comprobante ya tiene generado el Código QR." & vbCrLf & vbCrLf & "¿Desea generarlo nuevamente?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+        If mComprobanteActual.CodigoQR IsNot Nothing AndAlso MsgBox("Este Comprobante ya tiene el Código QR." & vbCrLf & vbCrLf & "¿Desea generarlo nuevamente?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
             Return
         End If
 
         If ModuloComprobantes.GenerarCodigoQR(mComprobanteActual.IDComprobante,,,,, True) Then
             MsgBox("Se ha generado el Código QR.", MsgBoxStyle.Information, My.Application.Info.Title)
-
-            pFillAndRefreshLists.Comprobantes(mComprobanteActual.IDComprobante)
         End If
     End Sub
 

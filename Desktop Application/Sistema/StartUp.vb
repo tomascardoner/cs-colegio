@@ -33,7 +33,7 @@
         End If
 
         ' Register Syncfusion License
-        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(CardonerSistemas.ConstantsSyncfusion.LicenseKey23_1_42)
+        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(CardonerSistemas.ConstantsSyncfusion.LicenseKey24_2_4)
 
         ' Realizo la inicialización de la Aplicación
         If pAppearanceConfig.EnableVisualStyles Then
@@ -157,7 +157,7 @@
         pFormMDIMain.Enabled = True
         pFormMDIMain.Focus()
 
-        System.Windows.Forms.Cursor.Current = Cursors.Default
+        Cursor.Current = Cursors.Default
 
         ' Inicio el loop sobre el form MDI principal
         My.Application.Log.WriteEntry("La Aplicación se ha iniciado correctamente.", TraceEventType.Information)

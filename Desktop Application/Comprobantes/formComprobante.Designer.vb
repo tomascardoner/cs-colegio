@@ -149,7 +149,7 @@ Partial Class formComprobante
         Me.buttonGuardar = New System.Windows.Forms.ToolStripButton()
         Me.buttonAFIP = New System.Windows.Forms.ToolStripDropDownButton()
         Me.menuitemAFIP_ObtenerCAE = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemAFIP_ObtenerQR = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemAFIP_GenerarQR = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemAFIP_VerificarDatos = New System.Windows.Forms.ToolStripMenuItem()
         labelFechaServicioDesde = New System.Windows.Forms.Label()
         labelFechaServicioHasta = New System.Windows.Forms.Label()
@@ -417,7 +417,7 @@ Partial Class formComprobante
         Me.tabpageImpuestos.Location = New System.Drawing.Point(4, 22)
         Me.tabpageImpuestos.Name = "tabpageImpuestos"
         Me.tabpageImpuestos.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageImpuestos.Size = New System.Drawing.Size(1014, 282)
+        Me.tabpageImpuestos.Size = New System.Drawing.Size(1014, 213)
         Me.tabpageImpuestos.TabIndex = 1
         Me.tabpageImpuestos.Text = "Impuestos"
         '
@@ -442,7 +442,7 @@ Partial Class formComprobante
         Me.datagridviewImpuestos.RowHeadersVisible = False
         Me.datagridviewImpuestos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewImpuestos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewImpuestos.Size = New System.Drawing.Size(921, 276)
+        Me.datagridviewImpuestos.Size = New System.Drawing.Size(921, 207)
         Me.datagridviewImpuestos.TabIndex = 7
         '
         'DataGridViewTextBoxColumn6
@@ -515,7 +515,7 @@ Partial Class formComprobante
         Me.toolstripImpuestos.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow
         Me.toolstripImpuestos.Location = New System.Drawing.Point(3, 3)
         Me.toolstripImpuestos.Name = "toolstripImpuestos"
-        Me.toolstripImpuestos.Size = New System.Drawing.Size(87, 276)
+        Me.toolstripImpuestos.Size = New System.Drawing.Size(87, 207)
         Me.toolstripImpuestos.TabIndex = 6
         '
         'buttonImpuestos_Agregar
@@ -555,7 +555,7 @@ Partial Class formComprobante
         Me.tabpageAplicaciones.Location = New System.Drawing.Point(4, 22)
         Me.tabpageAplicaciones.Name = "tabpageAplicaciones"
         Me.tabpageAplicaciones.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageAplicaciones.Size = New System.Drawing.Size(1014, 282)
+        Me.tabpageAplicaciones.Size = New System.Drawing.Size(1014, 213)
         Me.tabpageAplicaciones.TabIndex = 2
         Me.tabpageAplicaciones.Text = "Aplicaciones"
         '
@@ -580,7 +580,7 @@ Partial Class formComprobante
         Me.datagridviewAplicaciones.RowHeadersVisible = False
         Me.datagridviewAplicaciones.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewAplicaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewAplicaciones.Size = New System.Drawing.Size(921, 276)
+        Me.datagridviewAplicaciones.Size = New System.Drawing.Size(921, 207)
         Me.datagridviewAplicaciones.TabIndex = 9
         '
         'columnAplicaciones_Motivo
@@ -660,7 +660,7 @@ Partial Class formComprobante
         Me.toolstripAplicaciones.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow
         Me.toolstripAplicaciones.Location = New System.Drawing.Point(3, 3)
         Me.toolstripAplicaciones.Name = "toolstripAplicaciones"
-        Me.toolstripAplicaciones.Size = New System.Drawing.Size(87, 276)
+        Me.toolstripAplicaciones.Size = New System.Drawing.Size(87, 207)
         Me.toolstripAplicaciones.TabIndex = 8
         '
         'buttonAplicaciones_AplicarTodo
@@ -701,7 +701,7 @@ Partial Class formComprobante
         Me.tabpageMediosPago.Location = New System.Drawing.Point(4, 22)
         Me.tabpageMediosPago.Name = "tabpageMediosPago"
         Me.tabpageMediosPago.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageMediosPago.Size = New System.Drawing.Size(1014, 282)
+        Me.tabpageMediosPago.Size = New System.Drawing.Size(1014, 213)
         Me.tabpageMediosPago.TabIndex = 4
         Me.tabpageMediosPago.Text = "Medios de Pago"
         '
@@ -726,7 +726,7 @@ Partial Class formComprobante
         Me.datagridviewMediosPago.RowHeadersVisible = False
         Me.datagridviewMediosPago.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewMediosPago.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewMediosPago.Size = New System.Drawing.Size(878, 276)
+        Me.datagridviewMediosPago.Size = New System.Drawing.Size(878, 207)
         Me.datagridviewMediosPago.TabIndex = 3
         '
         'columnMedioPagos_MedioPagoNombre
@@ -798,7 +798,7 @@ Partial Class formComprobante
         Me.toolstripMediosPago.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow
         Me.toolstripMediosPago.Location = New System.Drawing.Point(3, 3)
         Me.toolstripMediosPago.Name = "toolstripMediosPago"
-        Me.toolstripMediosPago.Size = New System.Drawing.Size(130, 276)
+        Me.toolstripMediosPago.Size = New System.Drawing.Size(130, 207)
         Me.toolstripMediosPago.TabIndex = 4
         '
         'buttonMediosPago_AgregarOtro
@@ -859,7 +859,7 @@ Partial Class formComprobante
         Me.tabpageNotasAuditoria.Location = New System.Drawing.Point(4, 22)
         Me.tabpageNotasAuditoria.Name = "tabpageNotasAuditoria"
         Me.tabpageNotasAuditoria.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabpageNotasAuditoria.Size = New System.Drawing.Size(1014, 282)
+        Me.tabpageNotasAuditoria.Size = New System.Drawing.Size(1014, 213)
         Me.tabpageNotasAuditoria.TabIndex = 5
         Me.tabpageNotasAuditoria.Text = "Notas y Auditoría"
         '
@@ -1445,7 +1445,7 @@ Partial Class formComprobante
         '
         Me.buttonAFIP.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.buttonAFIP.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.buttonAFIP.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemAFIP_ObtenerCAE, Me.menuitemAFIP_ObtenerQR, Me.menuitemAFIP_VerificarDatos})
+        Me.buttonAFIP.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemAFIP_ObtenerCAE, Me.menuitemAFIP_GenerarQR, Me.menuitemAFIP_VerificarDatos})
         Me.buttonAFIP.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_LOGO_AFIP_SMALL
         Me.buttonAFIP.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonAFIP.ImageTransparentColor = System.Drawing.Color.Magenta
@@ -1457,19 +1457,19 @@ Partial Class formComprobante
         'menuitemAFIP_ObtenerCAE
         '
         Me.menuitemAFIP_ObtenerCAE.Name = "menuitemAFIP_ObtenerCAE"
-        Me.menuitemAFIP_ObtenerCAE.Size = New System.Drawing.Size(178, 22)
+        Me.menuitemAFIP_ObtenerCAE.Size = New System.Drawing.Size(180, 22)
         Me.menuitemAFIP_ObtenerCAE.Text = "Obtener CAE"
         '
-        'menuitemAFIP_ObtenerQR
+        'menuitemAFIP_GenerarQR
         '
-        Me.menuitemAFIP_ObtenerQR.Name = "menuitemAFIP_ObtenerQR"
-        Me.menuitemAFIP_ObtenerQR.Size = New System.Drawing.Size(178, 22)
-        Me.menuitemAFIP_ObtenerQR.Text = "Obtener Código QR"
+        Me.menuitemAFIP_GenerarQR.Name = "menuitemAFIP_GenerarQR"
+        Me.menuitemAFIP_GenerarQR.Size = New System.Drawing.Size(180, 22)
+        Me.menuitemAFIP_GenerarQR.Text = "Generar código QR"
         '
         'menuitemAFIP_VerificarDatos
         '
         Me.menuitemAFIP_VerificarDatos.Name = "menuitemAFIP_VerificarDatos"
-        Me.menuitemAFIP_VerificarDatos.Size = New System.Drawing.Size(178, 22)
+        Me.menuitemAFIP_VerificarDatos.Size = New System.Drawing.Size(180, 22)
         Me.menuitemAFIP_VerificarDatos.Text = "Verificar datos"
         '
         'formComprobante
@@ -1635,7 +1635,7 @@ Partial Class formComprobante
     Friend WithEvents currencytextboxImporteTotal As Syncfusion.Windows.Forms.Tools.CurrencyTextBox
     Friend WithEvents textboxNumero As TextBox
     Friend WithEvents textboxPuntoVenta As TextBox
-    Friend WithEvents menuitemAFIP_ObtenerQR As ToolStripMenuItem
+    Friend WithEvents menuitemAFIP_GenerarQR As ToolStripMenuItem
     Friend WithEvents columnDetalle_Descripcion As DataGridViewTextBoxColumn
     Friend WithEvents columnDetalle_PrecioUnitario As DataGridViewTextBoxColumn
     Friend WithEvents columnDetalle_PrecioTotal As DataGridViewTextBoxColumn

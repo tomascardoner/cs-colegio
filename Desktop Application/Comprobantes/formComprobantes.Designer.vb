@@ -74,6 +74,7 @@ Partial Class formComprobantes
         Me.toolstripTareas = New System.Windows.Forms.ToolStrip()
         Me.dropdownbuttonTareas = New System.Windows.Forms.ToolStripDropDownButton()
         Me.menuitemGenerarCódigosBarrasSEPSA = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItemGenerarCodigosQR = New System.Windows.Forms.ToolStripMenuItem()
         Me.statusstripMain.SuspendLayout()
         CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelToolbars.SuspendLayout()
@@ -469,7 +470,7 @@ Partial Class formComprobantes
         'dropdownbuttonTareas
         '
         Me.dropdownbuttonTareas.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.dropdownbuttonTareas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemGenerarCódigosBarrasSEPSA})
+        Me.dropdownbuttonTareas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItemGenerarCodigosQR, Me.menuitemGenerarCódigosBarrasSEPSA})
         Me.dropdownbuttonTareas.Image = CType(resources.GetObject("dropdownbuttonTareas.Image"), System.Drawing.Image)
         Me.dropdownbuttonTareas.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.dropdownbuttonTareas.Name = "dropdownbuttonTareas"
@@ -481,6 +482,12 @@ Partial Class formComprobantes
         Me.menuitemGenerarCódigosBarrasSEPSA.Name = "menuitemGenerarCódigosBarrasSEPSA"
         Me.menuitemGenerarCódigosBarrasSEPSA.Size = New System.Drawing.Size(247, 22)
         Me.menuitemGenerarCódigosBarrasSEPSA.Text = "Generar códigos de barras SEPSA"
+        '
+        'ToolStripMenuItemGenerarCodigosQR
+        '
+        Me.ToolStripMenuItemGenerarCodigosQR.Name = "ToolStripMenuItemGenerarCodigosQR"
+        Me.ToolStripMenuItemGenerarCodigosQR.Size = New System.Drawing.Size(247, 22)
+        Me.ToolStripMenuItemGenerarCodigosQR.Text = "Generar códigos QR"
         '
         'formComprobantes
         '
@@ -562,4 +569,5 @@ Partial Class formComprobantes
     Friend WithEvents toolstripTareas As ToolStrip
     Friend WithEvents dropdownbuttonTareas As ToolStripDropDownButton
     Friend WithEvents menuitemGenerarCódigosBarrasSEPSA As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItemGenerarCodigosQR As ToolStripMenuItem
 End Class

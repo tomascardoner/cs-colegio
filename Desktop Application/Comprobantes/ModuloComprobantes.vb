@@ -650,99 +650,144 @@ Module ModuloComprobantes
 
 #Region "Generación de código QR según AFIP"
 
-    Friend Function GenerarCodigoQR(IDComprobanteActual As Integer, Optional comprobanteTipoCodigoAfip As Short = 0, Optional idMoneda As Short = 0, Optional monedaCodigoAfip As String = "", Optional monedaCotizacion As Decimal = 0, Optional overwrite As Boolean = False) As Boolean
-        If IDComprobanteActual <> 0 Then
-
-            Using dbContext As New CSColegioContext(True)
-                Dim comprobanteActual As Comprobante
-
-                comprobanteActual = dbContext.Comprobante.Find(IDComprobanteActual)
-
-                If comprobanteActual.CodigoQR Is Nothing OrElse overwrite Then
-                    Dim afipData As String
-                    Dim afipUrl As String
-
-                    ' Preparo los datos del comprobante
-                    afipData = CS_Parameter_System.GetString(Parametros.AFIP_COMPROBANTES_CODIGOQR_DATA)
-                    If afipData.Length = 0 Then
-                        MsgBox("No se ha especificado el parámetro 'AFIP_COMPROBANTES_CODIGOQR_DATA'.", CType(MsgBoxStyle.Critical + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title)
-                        Return False
-                    End If
-                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldFecha, comprobanteActual.FechaEmision.ToString("yyyy-MM-dd"))
-                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldCuit, CS_Parameter_System.GetString(Parametros.EMPRESA_CUIT))
-                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldPuntoVenta, Convert.ToInt32(comprobanteActual.PuntoVenta).ToString())
-                    ' Tipo de comprobante
-                    If comprobanteTipoCodigoAfip = 0 Then
-                        comprobanteTipoCodigoAfip = comprobanteActual.ComprobanteTipo.CodigoAFIP
-                    End If
-                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldTipoComprobante, comprobanteActual.ComprobanteTipo.CodigoAFIP.ToString())
-                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldNumeroComprobante, Convert.ToInt32(comprobanteActual.Numero).ToString())
-                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldImporte, comprobanteActual.ImporteTotal1.ToString("#0.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "."))
-                    ' Moneda
-                    If idMoneda = 0 OrElse monedaCodigoAfip = String.Empty Then
-                        Dim monedaActual As Moneda
-
-                        monedaActual = dbContext.Moneda.Find(CS_Parameter_System.GetIntegerAsShort(Parametros.DEFAULT_MONEDA_ID))
-                        If monedaActual Is Nothing Then
-                            MsgBox("No se ha especificado la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
-                            Return False
-                        End If
-                        idMoneda = monedaActual.IDMoneda
-                        monedaCodigoAfip = monedaActual.CodigoAFIP
-                        monedaActual = Nothing
-                    End If
-                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldMoneda, monedaCodigoAfip)
-                    ' Cotización
-                    If monedaCotizacion = 0 Then
-                        Dim monedaCotizacionActual As MonedaCotizacion
-
-                        monedaCotizacionActual = dbContext.MonedaCotizacion.Where(Function(mc) mc.IDMoneda = idMoneda).FirstOrDefault
-                        If monedaCotizacionActual Is Nothing Then
-                            MsgBox("No hay cotizaciones cargadas para la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
-                            Return False
-                        End If
-                        monedaCotizacion = monedaCotizacionActual.CotizacionVenta
-                    End If
-                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldCotizacion, monedaCotizacion.ToString("#0.000000").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "."))
-                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldTipoDocumento, comprobanteActual.IDDocumentoTipo.ToString())
-                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldNumeroDocumento, comprobanteActual.DocumentoNumero.ToString())
-                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldTipoCodigoAutorizacion, "E")
-                    afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldCodigoAutorizacion, comprobanteActual.CAE)
-
-                    ' Convierto el string de datos a Base64
-                    afipData = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(afipData))
-
-                    ' Preparo el link de Afip
-                    afipUrl = CS_Parameter_System.GetString(Parametros.AFIP_COMPROBANTES_CODIGOQR_URL)
-                    afipUrl = afipUrl.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataField, afipData)
-                    'afipUrl = System.Net.WebUtility.UrlEncode(afipUrl)
-
-                    ' Genero el código QR
-                    Try
-                        Dim qrGenerator As New QRCoder.QRCodeGenerator()
-                        Dim qrData As QRCoder.QRCodeData = qrGenerator.CreateQrCode(afipUrl, QRCoder.QRCodeGenerator.ECCLevel.L, True)
-                        Dim qrCode As New QRCoder.QRCode(qrData)
-                        Dim qrCodeImage As Bitmap = qrCode.GetGraphic(4)
-                        Dim converter As New ImageConverter
-                        comprobanteActual.CodigoQR = CType(converter.ConvertTo(qrCodeImage, GetType(Byte())), Byte())
-                    Catch ex As Exception
-                        CardonerSistemas.ErrorHandler.ProcessError(ex, "No se pudo generar el Código QR del comprobante.")
-                        Return False
-                    End Try
-                    ' Guardo los cambios
-                    Try
-                        dbContext.SaveChanges()
-                        Return True
-                    Catch ex As Exception
-                        CardonerSistemas.ErrorHandler.ProcessError(ex, "No se pudo guardar el Código QR del comprobante.")
-                        Return False
-                    End Try
-                Else
-                    Return True
-                End If
-            End Using
+    Friend Function GenerarCodigoQR(comprobanteActual As Comprobante, afipData As String, afipUrl As String, idMoneda As Short, monedaCodigoAfip As String, monedaCotizacion As Decimal) As Boolean
+        If comprobanteActual Is Nothing Then
+            Return False
         End If
-        Return False
+        If comprobanteActual.CodigoQR IsNot Nothing Then
+            Return True
+        End If
+        If Not comprobanteActual.ComprobanteTipo.EmisionElectronica Then
+            Return False
+        End If
+        If comprobanteActual.CAE Is Nothing Then
+            MessageBox.Show("Este Comprobante no tiene CAE, por lo que no se puede obtener el Código QR.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End If
+        If String.IsNullOrEmpty(afipData) Then
+            MessageBox.Show("No se ha especificado el parámetro 'AFIP_COMPROBANTES_CODIGOQR_DATA'.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End If
+
+        ' Preparo los datos del comprobante
+        afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldFecha, comprobanteActual.FechaEmision.ToString("yyyy-MM-dd"))
+        afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldCuit, CS_Parameter_System.GetString(Parametros.EMPRESA_CUIT))
+        afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldPuntoVenta, Convert.ToInt32(comprobanteActual.PuntoVenta).ToString())
+        afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldTipoComprobante, comprobanteActual.ComprobanteTipo.CodigoAFIP.ToString())
+        afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldNumeroComprobante, Convert.ToInt32(comprobanteActual.Numero).ToString())
+        afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldImporte, comprobanteActual.ImporteTotal1.ToString("#0.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "."))
+        afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldMoneda, monedaCodigoAfip)
+        afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldCotizacion, monedaCotizacion.ToString("#0.000000").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "."))
+        afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldTipoDocumento, comprobanteActual.IDDocumentoTipo.ToString())
+        afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldNumeroDocumento, comprobanteActual.DocumentoNumero.ToString())
+        afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldTipoCodigoAutorizacion, "E")
+        afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldCodigoAutorizacion, comprobanteActual.CAE)
+
+        ' Convierto el string de datos a Base64
+        afipData = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(afipData))
+
+        ' Preparo el link de Afip
+        afipUrl = afipUrl.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataField, afipData)
+
+        ' Genero el código QR
+        Try
+            Dim qrGenerator As New QRCoder.QRCodeGenerator()
+            Dim qrData As QRCoder.QRCodeData = qrGenerator.CreateQrCode(afipUrl, QRCoder.QRCodeGenerator.ECCLevel.L, True)
+            Dim qrCode As New QRCoder.QRCode(qrData)
+            Dim qrCodeImage As Bitmap = qrCode.GetGraphic(4)
+            Dim converter As New ImageConverter
+
+            comprobanteActual.CodigoQR = CType(converter.ConvertTo(qrCodeImage, GetType(Byte())), Byte())
+            Return True
+        Catch ex As Exception
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "No se pudo generar el Código QR del comprobante.")
+            Return False
+        End Try
+    End Function
+
+    Friend Function GenerarCodigoQR(idComprobanteActual As Integer, Optional comprobanteTipoCodigoAfip As Short = 0, Optional idMoneda As Short = 0, Optional monedaCodigoAfip As String = "", Optional monedaCotizacion As Decimal = 0, Optional overwrite As Boolean = False) As Boolean
+        If idComprobanteActual <= 0 Then
+            Return False
+        End If
+
+        Using dbContext As New CSColegioContext(True)
+            Dim comprobanteActual As Comprobante
+
+            comprobanteActual = dbContext.Comprobante.Find(idComprobanteActual)
+            If comprobanteActual.CodigoQR IsNot Nothing AndAlso Not overwrite Then
+                Return True
+            End If
+            Dim afipData As String
+            Dim afipUrl As String
+
+            ' Preparo los datos del comprobante
+            afipData = CS_Parameter_System.GetString(Parametros.AFIP_COMPROBANTES_CODIGOQR_DATA)
+            If afipData.Length = 0 Then
+                MsgBox("No se ha especificado el parámetro 'AFIP_COMPROBANTES_CODIGOQR_DATA'.", CType(MsgBoxStyle.Critical + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title)
+                Return False
+            End If
+            afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldFecha, comprobanteActual.FechaEmision.ToString("yyyy-MM-dd"))
+            afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldCuit, CS_Parameter_System.GetString(Parametros.EMPRESA_CUIT))
+            afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldPuntoVenta, Convert.ToInt32(comprobanteActual.PuntoVenta).ToString())
+            ' Tipo de comprobante
+            If comprobanteTipoCodigoAfip = 0 Then
+                comprobanteTipoCodigoAfip = comprobanteActual.ComprobanteTipo.CodigoAFIP
+            End If
+            afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldTipoComprobante, comprobanteActual.ComprobanteTipo.CodigoAFIP.ToString())
+            afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldNumeroComprobante, Convert.ToInt32(comprobanteActual.Numero).ToString())
+            afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldImporte, comprobanteActual.ImporteTotal1.ToString("#0.00").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "."))
+            ' Moneda
+            If idMoneda = 0 OrElse monedaCodigoAfip = String.Empty Then
+                Dim monedaActual As Moneda
+
+                monedaActual = dbContext.Moneda.Find(CS_Parameter_System.GetIntegerAsShort(Parametros.DEFAULT_MONEDA_ID))
+                If monedaActual Is Nothing Then
+                    MsgBox("No se ha especificado la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
+                    Return False
+                End If
+                idMoneda = monedaActual.IDMoneda
+                monedaCodigoAfip = monedaActual.CodigoAFIP
+                monedaActual = Nothing
+            End If
+            afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldMoneda, monedaCodigoAfip)
+            ' Cotización
+            If monedaCotizacion = 0 Then
+                Dim monedaCotizacionActual As MonedaCotizacion
+
+                monedaCotizacionActual = dbContext.MonedaCotizacion.Where(Function(mc) mc.IDMoneda = idMoneda).FirstOrDefault
+                If monedaCotizacionActual Is Nothing Then
+                    MsgBox("No hay cotizaciones cargadas para la Moneda predeterminada.", vbExclamation, My.Application.Info.Title)
+                    Return False
+                End If
+                monedaCotizacion = monedaCotizacionActual.CotizacionVenta
+            End If
+            afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldCotizacion, monedaCotizacion.ToString("#0.000000").Replace(My.Application.Culture.NumberFormat.NumberDecimalSeparator, "."))
+            afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldTipoDocumento, comprobanteActual.IDDocumentoTipo.ToString())
+            afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldNumeroDocumento, comprobanteActual.DocumentoNumero.ToString())
+            afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldTipoCodigoAutorizacion, "E")
+            afipData = afipData.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataFieldCodigoAutorizacion, comprobanteActual.CAE)
+
+            ' Convierto el string de datos a Base64
+            afipData = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(afipData))
+
+            ' Preparo el link de Afip
+            afipUrl = CS_Parameter_System.GetString(Parametros.AFIP_COMPROBANTES_CODIGOQR_URL)
+            afipUrl = afipUrl.Replace(CardonerSistemas.Afip.ComprobantesCodigoQRDataField, afipData)
+
+            ' Genero el código QR
+            If Not GenerarCodigoQR(comprobanteActual, afipData, afipUrl, idMoneda, monedaCodigoAfip, monedaCotizacion) Then
+                Return False
+            End If
+
+            ' Guardo los cambios
+            Try
+                dbContext.SaveChanges()
+                Return True
+            Catch ex As Exception
+                CardonerSistemas.ErrorHandler.ProcessError(ex, "No se pudo guardar el Código QR del comprobante.")
+                Return False
+            End Try
+        End Using
     End Function
 
 #End Region
