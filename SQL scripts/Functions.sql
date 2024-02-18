@@ -111,3 +111,74 @@ BEGIN
 	RETURN @ReturnValue
 END
 GO
+
+
+
+-- =============================================
+-- Author:		Tomás A. Cardoner
+-- Create date: 2024-02-18
+-- Description:	Devuelve la CUIT o CUIL de la entidad
+-- =============================================
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.ObtenerEntidadCuitCuil') AND type = N'FN')
+	DROP FUNCTION dbo.ObtenerEntidadCuitCuil
+GO
+
+CREATE FUNCTION ObtenerEntidadCuitCuil 
+(	
+	@IDDocumentoTipo tinyint,
+	@DocumentoNumero varchar(12),
+	@FacturaIDDocumentoTipo tinyint,
+	@FacturaDocumentoNumero varchar(12)
+) RETURNS varchar(12) AS
+BEGIN
+	DECLARE @Result varchar(12)
+
+	IF @IDDocumentoTipo IN (80, 86)
+		SET @Result = ISNULL(@DocumentoNumero, '')
+	ELSE
+		IF @FacturaIDDocumentoTipo IN (80, 86)
+			SET @Result = ISNULL(@FacturaDocumentoNumero, '')
+		ELSE
+			SET @Result = ''
+
+	RETURN @Result
+
+END
+GO
+
+
+
+
+
+
+-- =============================================
+-- Author:		Tomás A. Cardoner
+-- Create date: 2024-02-18
+-- Description:	Devuelve el documento que no sea la CUIT o CUIL de la entidad
+-- =============================================
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.ObtenerEntidadDocumentoNoCuitCuil') AND type = N'FN')
+	DROP FUNCTION dbo.ObtenerEntidadDocumentoNoCuitCuil
+GO
+
+CREATE FUNCTION ObtenerEntidadDocumentoNoCuitCuil 
+(	
+	@IDDocumentoTipo tinyint,
+	@DocumentoNumero varchar(12),
+	@FacturaIDDocumentoTipo tinyint,
+	@FacturaDocumentoNumero varchar(12)
+) RETURNS varchar(12) AS
+BEGIN
+	DECLARE @Result varchar(12)
+
+	IF @IDDocumentoTipo NOT IN (80, 86)
+		SET @Result = ISNULL(@DocumentoNumero, '')
+	ELSE
+		IF @FacturaIDDocumentoTipo NOT IN (80, 86)
+			SET @Result = ISNULL(@FacturaDocumentoNumero, '')
+		ELSE
+			SET @Result = ''
+
+	RETURN @Result
+
+END
+GO
