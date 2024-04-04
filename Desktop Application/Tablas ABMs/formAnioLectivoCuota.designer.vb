@@ -154,37 +154,33 @@ Partial Class formAnioLectivoCuota
         Me.comboboxMesInicio.FormattingEnabled = True
         Me.comboboxMesInicio.Location = New System.Drawing.Point(111, 84)
         Me.comboboxMesInicio.Name = "comboboxMesInicio"
-        Me.comboboxMesInicio.Size = New System.Drawing.Size(118, 21)
+        Me.comboboxMesInicio.Size = New System.Drawing.Size(120, 21)
         Me.comboboxMesInicio.TabIndex = 1
         '
         'currencytextboxImporteMatricula
         '
-        Me.currencytextboxImporteMatricula.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.currencytextboxImporteMatricula.BeforeTouchSize = New System.Drawing.Size(120, 20)
         Me.currencytextboxImporteMatricula.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxImporteMatricula.Location = New System.Drawing.Point(111, 139)
-        Me.currencytextboxImporteMatricula.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
-        Me.currencytextboxImporteMatricula.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.currencytextboxImporteMatricula.MaxValue = New Decimal(New Integer() {276447231, 23283, 0, 131072})
         Me.currencytextboxImporteMatricula.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxImporteMatricula.Name = "currencytextboxImporteMatricula"
-        Me.currencytextboxImporteMatricula.NullString = ""
         Me.currencytextboxImporteMatricula.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
-        Me.currencytextboxImporteMatricula.Size = New System.Drawing.Size(100, 20)
+        Me.currencytextboxImporteMatricula.Size = New System.Drawing.Size(120, 20)
         Me.currencytextboxImporteMatricula.TabIndex = 5
         Me.currencytextboxImporteMatricula.Text = "$ 0,00"
         Me.currencytextboxImporteMatricula.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'currencytextboxImporteCuota
         '
-        Me.currencytextboxImporteCuota.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.currencytextboxImporteCuota.BeforeTouchSize = New System.Drawing.Size(120, 20)
         Me.currencytextboxImporteCuota.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxImporteCuota.Location = New System.Drawing.Point(111, 165)
-        Me.currencytextboxImporteCuota.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
-        Me.currencytextboxImporteCuota.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.currencytextboxImporteCuota.MaxValue = New Decimal(New Integer() {276447231, 23283, 0, 131072})
         Me.currencytextboxImporteCuota.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxImporteCuota.Name = "currencytextboxImporteCuota"
-        Me.currencytextboxImporteCuota.NullString = ""
         Me.currencytextboxImporteCuota.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
-        Me.currencytextboxImporteCuota.Size = New System.Drawing.Size(100, 20)
+        Me.currencytextboxImporteCuota.Size = New System.Drawing.Size(120, 20)
         Me.currencytextboxImporteCuota.TabIndex = 7
         Me.currencytextboxImporteCuota.Text = "$ 0,00"
         Me.currencytextboxImporteCuota.TextAlign = System.Windows.Forms.HorizontalAlignment.Right

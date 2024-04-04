@@ -1,5 +1,4 @@
 ﻿Imports System.Data.Entity
-Imports System.Data.Entity.Core.EntityClient
 Imports System.Data.Entity.Validation
 
 Partial Public Class CSColegioContext

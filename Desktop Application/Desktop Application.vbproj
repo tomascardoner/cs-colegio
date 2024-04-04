@@ -106,25 +106,29 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="MailKit, Version=4.3.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
-      <HintPath>..\packages\MailKit.4.3.0\lib\net48\MailKit.dll</HintPath>
+    <Reference Include="MailKit, Version=4.4.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
+      <HintPath>..\packages\MailKit.4.4.0\lib\net48\MailKit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="MimeKit, Version=4.3.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
-      <HintPath>..\packages\MimeKit.4.3.0\lib\net48\MimeKit.dll</HintPath>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="MimeKit, Version=4.4.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeKit.4.4.0\lib\net48\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="QRCoder, Version=1.4.3.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
       <HintPath>..\packages\QRCoder.1.4.3\lib\net40\QRCoder.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Licensing, Version=24.2460.4.0, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Syncfusion.Licensing.24.2.4\lib\net46\Syncfusion.Licensing.dll</HintPath>
+    <Reference Include="Syncfusion.Licensing, Version=25.1462.38.0, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Licensing.25.1.38\lib\net462\Syncfusion.Licensing.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Shared.Base, Version=24.2460.4.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
-      <HintPath>..\packages\Syncfusion.Shared.Base.24.2.4\lib\net46\Syncfusion.Shared.Base.dll</HintPath>
+    <Reference Include="Syncfusion.Shared.Base, Version=25.1462.38.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Shared.Base.25.1.38\lib\net462\Syncfusion.Shared.Base.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -155,8 +159,8 @@
     <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
-    <Reference Include="System.Text.Json, Version=8.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Json.8.0.1\lib\net462\System.Text.Json.dll</HintPath>
+    <Reference Include="System.Text.Json, Version=8.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.8.0.3\lib\net462\System.Text.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
@@ -204,9 +208,6 @@
     </Compile>
     <Compile Include="..\..\..\framework-vbnet\Controls.ComboBox.vb">
       <Link>Framework\Controls.ComboBox.vb</Link>
-    </Compile>
-    <Compile Include="..\..\..\framework-vbnet\CS_Office_Outlook_EarlyBinding.vb">
-      <Link>Framework\CS_Office_Outlook_EarlyBinding.vb</Link>
     </Compile>
     <Compile Include="..\..\..\framework-vbnet\CS_ValueTranslation_Syncfusion.vb">
       <Link>Framework\CS_ValueTranslation_Syncfusion.vb</Link>
@@ -397,6 +398,7 @@
     <Compile Include="Feriado.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="Impuesto.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -493,15 +495,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
-    <Compile Include="Outlook\EntidadesSincronizarOutlook.vb" />
-    <Compile Include="Outlook\EntidadesSincronizarOutlookContactos.vb" />
-    <Compile Include="Outlook\EntidadesSincronizarOutlookContactosABM.vb" />
-    <Compile Include="Outlook\EntidadesSincronizarOutlookGruposExistentes.vb" />
-    <Compile Include="Outlook\EntidadesSincronizarOutlookGruposABM.vb" />
-    <Compile Include="Outlook\EntidadesSincronizarOutlookGruposInexistentes.vb" />
-    <Compile Include="Outlook\EntidadesSincronizarOutlookGruposMiembros.vb" />
-    <Compile Include="Outlook\EntidadesSincronizarOutlookGruposMiembrosABM.vb" />
-    <Compile Include="Outlook\EntidadesSincronizarOutlookOpciones.vb" />
     <Compile Include="Sistema\Email.vb" />
     <Compile Include="Config\EmailConfig.vb" />
     <Compile Include="Sistema\FillAndRefreshLists.vb" />
@@ -552,12 +545,6 @@
       <DependentUpon>formComprobanteVerificaAFIP.vb</DependentUpon>
     </Compile>
     <Compile Include="Comprobantes\formComprobanteVerificaAFIP.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Outlook\formEntidadesSincronizarOutlook.Designer.vb">
-      <DependentUpon>formEntidadesSincronizarOutlook.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Outlook\formEntidadesSincronizarOutlook.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Entidades\formEntidadesVerificadorEmail.Designer.vb">
@@ -878,9 +865,6 @@
     <EmbeddedResource Include="Comprobantes\formComprobanteVerificaAFIP.resx">
       <DependentUpon>formComprobanteVerificaAFIP.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Outlook\formEntidadesSincronizarOutlook.resx">
-      <DependentUpon>formEntidadesSincronizarOutlook.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Entidades\formEntidadesVerificadorEmail.resx">
       <DependentUpon>formEntidadesVerificadorEmail.vb</DependentUpon>
     </EmbeddedResource>
@@ -1116,6 +1100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="My Project\DataSources\" />
+    <Folder Include="Outlook\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.1">
@@ -1135,19 +1120,19 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="Microsoft.Office.Interop.Excel">
-      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>9</VersionMinor>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
-    <COMReference Include="Microsoft.Office.Interop.Outlook">
-      <Guid>{00062FFF-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>9</VersionMajor>
-      <VersionMinor>5</VersionMinor>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>

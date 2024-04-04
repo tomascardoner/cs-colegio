@@ -87,30 +87,26 @@ Partial Class formReportesParametro
         '
         'currencytextboxMoney
         '
-        Me.currencytextboxMoney.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.currencytextboxMoney.BeforeTouchSize = New System.Drawing.Size(120, 20)
         Me.currencytextboxMoney.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxMoney.Location = New System.Drawing.Point(61, 66)
-        Me.currencytextboxMoney.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
-        Me.currencytextboxMoney.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.currencytextboxMoney.MaxValue = New Decimal(New Integer() {276447231, 23283, 0, 131072})
         Me.currencytextboxMoney.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxMoney.Name = "currencytextboxMoney"
-        Me.currencytextboxMoney.NullString = ""
         Me.currencytextboxMoney.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
-        Me.currencytextboxMoney.Size = New System.Drawing.Size(100, 20)
+        Me.currencytextboxMoney.Size = New System.Drawing.Size(120, 20)
         Me.currencytextboxMoney.TabIndex = 32
         Me.currencytextboxMoney.Text = "$ 0,00"
         Me.currencytextboxMoney.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'doubletextboxNumber
         '
-        Me.doubletextboxNumber.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.doubletextboxNumber.BeforeTouchSize = New System.Drawing.Size(120, 20)
         Me.doubletextboxNumber.DoubleValue = 0R
         Me.doubletextboxNumber.Location = New System.Drawing.Point(61, 66)
         Me.doubletextboxNumber.MaxValue = 999999.99R
-        Me.doubletextboxNumber.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.doubletextboxNumber.MinValue = 0R
         Me.doubletextboxNumber.Name = "doubletextboxNumber"
-        Me.doubletextboxNumber.NullString = ""
         Me.doubletextboxNumber.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
         Me.doubletextboxNumber.Size = New System.Drawing.Size(69, 20)
         Me.doubletextboxNumber.TabIndex = 33
@@ -129,15 +125,13 @@ Partial Class formReportesParametro
         'integertextboxNumber
         '
         Me.integertextboxNumber.AllowNull = True
-        Me.integertextboxNumber.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.integertextboxNumber.BeforeTouchSize = New System.Drawing.Size(120, 20)
         Me.integertextboxNumber.ForeColor = System.Drawing.SystemColors.WindowText
         Me.integertextboxNumber.IntegerValue = CType(0, Long)
         Me.integertextboxNumber.Location = New System.Drawing.Point(61, 65)
         Me.integertextboxNumber.MaxValue = CType(9999999, Long)
-        Me.integertextboxNumber.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.integertextboxNumber.MinValue = CType(0, Long)
         Me.integertextboxNumber.Name = "integertextboxNumber"
-        Me.integertextboxNumber.NullString = ""
         Me.integertextboxNumber.Size = New System.Drawing.Size(69, 20)
         Me.integertextboxNumber.TabIndex = 35
         Me.integertextboxNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Right

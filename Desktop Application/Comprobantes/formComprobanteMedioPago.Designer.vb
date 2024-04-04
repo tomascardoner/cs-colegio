@@ -248,14 +248,14 @@ Partial Class formComprobanteMedioPago
         '
         'currencytextboxImporte
         '
-        Me.currencytextboxImporte.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.currencytextboxImporte.BeforeTouchSize = New System.Drawing.Size(134, 20)
         Me.currencytextboxImporte.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxImporte.Location = New System.Drawing.Point(97, 263)
-        Me.currencytextboxImporte.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
+        Me.currencytextboxImporte.MaxValue = New Decimal(New Integer() {276447231, 23283, 0, 131072})
         Me.currencytextboxImporte.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxImporte.Name = "currencytextboxImporte"
         Me.currencytextboxImporte.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
-        Me.currencytextboxImporte.Size = New System.Drawing.Size(100, 20)
+        Me.currencytextboxImporte.Size = New System.Drawing.Size(134, 20)
         Me.currencytextboxImporte.TabIndex = 15
         Me.currencytextboxImporte.Text = "$ 0,00"
         Me.currencytextboxImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Right

@@ -1,6 +1,7 @@
 ﻿Public Class formAnioLectivoCuotas
 
 #Region "Declarations"
+
     Private Class GridRowData
         Public Property AnioLectivo As Short
         Public Property MesInicio As Byte
@@ -15,10 +16,10 @@
 
     Private mSkipFilterData As Boolean = False
     Private mBusquedaAplicada As Boolean = False
-    Private mReportSelectionFormula As String
 
     Private mOrdenColumna As DataGridViewColumn
     Private mOrdenTipo As SortOrder
+
 #End Region
 
 #Region "Form stuff"
@@ -37,6 +38,8 @@
 
         pFillAndRefreshLists.AnioLectivo(comboboxAnioLectivo.ComboBox, False, SortOrder.Descending)
         comboboxAnioLectivo.SelectedIndex = comboboxAnioLectivo.FindStringExact(DateTime.Today.Year.ToString)
+        pFillAndRefreshLists.Mes(ToolStripComboBoxMesInicio.ComboBox, True, False, True, False, False)
+        ToolStripComboBoxMesInicio.SelectedIndex = 0
 
         mSkipFilterData = False
 
@@ -48,6 +51,7 @@
 #End Region
 
 #Region "Mostrar y leer datos"
+
     Friend Sub RefreshData(Optional ByVal PositionAnioLectivo As Short = 0, Optional ByVal PositionMesInicio As Byte = 0, Optional ByVal PositionIDCuotaTipo As Byte = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
         Dim GridRowDataCurrent As GridRowData
 
@@ -64,7 +68,7 @@
 
             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al leer las Cuotas de los Años Lectivos.")
             Me.Cursor = Cursors.Default
-            Exit Sub
+            Return
         End Try
 
         Me.Cursor = Cursors.Default
@@ -89,7 +93,7 @@
                 GridRowDataCurrent = CType(CurrentRowChecked.DataBoundItem, GridRowData)
                 If GridRowDataCurrent.AnioLectivo = PositionAnioLectivo AndAlso GridRowDataCurrent.MesInicio = PositionMesInicio AndAlso GridRowDataCurrent.IDCuotaTipo = PositionIDCuotaTipo Then
                     datagridviewMain.CurrentCell = CurrentRowChecked.Cells(0)
-                    Exit For
+                    Return
                 End If
             Next
         End If
@@ -102,12 +106,13 @@
 
             Try
                 ' Inicializo las variables
-                mReportSelectionFormula = ""
                 mlistAniosLectivosCuotasFiltradaYOrdenada = mlistAniosLectivosCuotasBase.ToList
 
                 ' Filtro por Año Lectivo
-                mReportSelectionFormula &= IIf(mReportSelectionFormula.Length = 0, "", " AndAlso ").ToString & String.Format("{{AnioLectivoCurso.AnioLectivo}} = {0}", CShort(comboboxAnioLectivo.Text))
                 mlistAniosLectivosCuotasFiltradaYOrdenada = mlistAniosLectivosCuotasFiltradaYOrdenada.Where(Function(alc) alc.AnioLectivo = CShort(comboboxAnioLectivo.Text)).ToList
+
+                ' Filtro por Mes de inicio
+                mlistAniosLectivosCuotasFiltradaYOrdenada = mlistAniosLectivosCuotasFiltradaYOrdenada.Where(Function(alc) alc.MesInicio = ToolStripComboBoxMesInicio.SelectedIndex + 1).ToList
 
                 Select Case mlistAniosLectivosCuotasFiltradaYOrdenada.Count
                     Case 0
@@ -121,7 +126,7 @@
             Catch ex As Exception
                 CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al filtrar los datos.")
                 Me.Cursor = Cursors.Default
-                Exit Sub
+                Return
             End Try
 
             OrderData()
@@ -131,7 +136,6 @@
     End Sub
 
     Private Sub OrderData()
-        ' Realizo las rutinas de ordenamiento
         Select Case mOrdenColumna.Name
             Case columnMesInicio.Name
                 If mOrdenTipo = SortOrder.Ascending Then
@@ -165,10 +169,12 @@
         ' Muestro el ícono de orden en la columna correspondiente
         mOrdenColumna.HeaderCell.SortGlyphDirection = mOrdenTipo
     End Sub
+
 #End Region
 
 #Region "Controls behavior"
-    Private Sub CambioFiltros() Handles comboboxAnioLectivo.SelectedIndexChanged
+
+    Private Sub CambioFiltros(sender As Object, e As EventArgs) Handles comboboxAnioLectivo.SelectedIndexChanged, ToolStripComboBoxMesInicio.SelectedIndexChanged
         FilterData()
     End Sub
 
@@ -187,7 +193,7 @@
         Else
             ' La columna clickeada es diferencte a la que ya estaba ordenada.
             ' En primer lugar saco el ícono de orden de la columna vieja
-            If Not mOrdenColumna Is Nothing Then
+            If mOrdenColumna IsNot Nothing Then
                 mOrdenColumna.HeaderCell.SortGlyphDirection = SortOrder.None
             End If
 
@@ -198,6 +204,7 @@
 
         OrderData()
     End Sub
+
 #End Region
 
 #Region "Main Toolbar"
@@ -291,6 +298,7 @@
             Me.Cursor = Cursors.Default
         End If
     End Sub
+
 #End Region
 
 End Class

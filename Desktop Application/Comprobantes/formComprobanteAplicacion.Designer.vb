@@ -238,16 +238,14 @@ Partial Class formComprobanteAplicacion
         '
         'currencytextboxImporteAplicado
         '
-        Me.currencytextboxImporteAplicado.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.currencytextboxImporteAplicado.BeforeTouchSize = New System.Drawing.Size(130, 20)
         Me.currencytextboxImporteAplicado.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxImporteAplicado.Location = New System.Drawing.Point(103, 317)
-        Me.currencytextboxImporteAplicado.MaxValue = New Decimal(New Integer() {999999999, 0, 0, 131072})
-        Me.currencytextboxImporteAplicado.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.currencytextboxImporteAplicado.MaxValue = New Decimal(New Integer() {276447231, 23283, 0, 131072})
         Me.currencytextboxImporteAplicado.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxImporteAplicado.Name = "currencytextboxImporteAplicado"
-        Me.currencytextboxImporteAplicado.NullString = ""
         Me.currencytextboxImporteAplicado.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
-        Me.currencytextboxImporteAplicado.Size = New System.Drawing.Size(100, 20)
+        Me.currencytextboxImporteAplicado.Size = New System.Drawing.Size(130, 20)
         Me.currencytextboxImporteAplicado.TabIndex = 7
         Me.currencytextboxImporteAplicado.Text = "$ 0,00"
         Me.currencytextboxImporteAplicado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right

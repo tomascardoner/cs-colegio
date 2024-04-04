@@ -229,64 +229,54 @@ Partial Class formComprobanteDetalleAgregarMultiple
         '
         'currencytextboxPrecioTotal
         '
-        Me.currencytextboxPrecioTotal.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.currencytextboxPrecioTotal.BeforeTouchSize = New System.Drawing.Size(130, 20)
         Me.currencytextboxPrecioTotal.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxPrecioTotal.Location = New System.Drawing.Point(123, 289)
-        Me.currencytextboxPrecioTotal.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
-        Me.currencytextboxPrecioTotal.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.currencytextboxPrecioTotal.MaxValue = New Decimal(New Integer() {276447231, 23283, 0, 131072})
         Me.currencytextboxPrecioTotal.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxPrecioTotal.Name = "currencytextboxPrecioTotal"
-        Me.currencytextboxPrecioTotal.NullString = ""
         Me.currencytextboxPrecioTotal.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
         Me.currencytextboxPrecioTotal.ReadOnly = True
-        Me.currencytextboxPrecioTotal.Size = New System.Drawing.Size(100, 20)
+        Me.currencytextboxPrecioTotal.Size = New System.Drawing.Size(130, 20)
         Me.currencytextboxPrecioTotal.TabIndex = 20
         Me.currencytextboxPrecioTotal.Text = "$ 0,00"
         Me.currencytextboxPrecioTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'currencytextboxPrecioUnitarioFinal
         '
-        Me.currencytextboxPrecioUnitarioFinal.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.currencytextboxPrecioUnitarioFinal.BeforeTouchSize = New System.Drawing.Size(130, 20)
         Me.currencytextboxPrecioUnitarioFinal.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxPrecioUnitarioFinal.Location = New System.Drawing.Point(123, 263)
-        Me.currencytextboxPrecioUnitarioFinal.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
-        Me.currencytextboxPrecioUnitarioFinal.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.currencytextboxPrecioUnitarioFinal.MaxValue = New Decimal(New Integer() {276447231, 23283, 0, 131072})
         Me.currencytextboxPrecioUnitarioFinal.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxPrecioUnitarioFinal.Name = "currencytextboxPrecioUnitarioFinal"
-        Me.currencytextboxPrecioUnitarioFinal.NullString = ""
         Me.currencytextboxPrecioUnitarioFinal.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
         Me.currencytextboxPrecioUnitarioFinal.ReadOnly = True
-        Me.currencytextboxPrecioUnitarioFinal.Size = New System.Drawing.Size(100, 20)
+        Me.currencytextboxPrecioUnitarioFinal.Size = New System.Drawing.Size(130, 20)
         Me.currencytextboxPrecioUnitarioFinal.TabIndex = 18
         Me.currencytextboxPrecioUnitarioFinal.Text = "$ 0,00"
         Me.currencytextboxPrecioUnitarioFinal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'currencytextboxPrecioUnitarioDescuentoImporte
         '
-        Me.currencytextboxPrecioUnitarioDescuentoImporte.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.currencytextboxPrecioUnitarioDescuentoImporte.BeforeTouchSize = New System.Drawing.Size(130, 20)
         Me.currencytextboxPrecioUnitarioDescuentoImporte.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxPrecioUnitarioDescuentoImporte.Location = New System.Drawing.Point(123, 237)
-        Me.currencytextboxPrecioUnitarioDescuentoImporte.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
-        Me.currencytextboxPrecioUnitarioDescuentoImporte.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.currencytextboxPrecioUnitarioDescuentoImporte.MaxValue = New Decimal(New Integer() {276447231, 23283, 0, 131072})
         Me.currencytextboxPrecioUnitarioDescuentoImporte.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxPrecioUnitarioDescuentoImporte.Name = "currencytextboxPrecioUnitarioDescuentoImporte"
-        Me.currencytextboxPrecioUnitarioDescuentoImporte.NullString = ""
         Me.currencytextboxPrecioUnitarioDescuentoImporte.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
-        Me.currencytextboxPrecioUnitarioDescuentoImporte.Size = New System.Drawing.Size(100, 20)
+        Me.currencytextboxPrecioUnitarioDescuentoImporte.Size = New System.Drawing.Size(130, 20)
         Me.currencytextboxPrecioUnitarioDescuentoImporte.TabIndex = 16
         Me.currencytextboxPrecioUnitarioDescuentoImporte.Text = "$ 0,00"
         Me.currencytextboxPrecioUnitarioDescuentoImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'percenttextboxPrecioUnitarioDescuentoPorcentaje
         '
-        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.BeforeTouchSize = New System.Drawing.Size(69, 20)
-        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.DoubleValue = 0R
+        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.BeforeTouchSize = New System.Drawing.Size(130, 20)
         Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.Location = New System.Drawing.Point(123, 211)
-        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.MaxValue = 100.0R
-        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.MinValue = 0R
         Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.Name = "percenttextboxPrecioUnitarioDescuentoPorcentaje"
-        Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.NullString = ""
         Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentNegativePattern = 1
         Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentPositivePattern = 1
         Me.percenttextboxPrecioUnitarioDescuentoPorcentaje.Size = New System.Drawing.Size(69, 20)
@@ -296,16 +286,14 @@ Partial Class formComprobanteDetalleAgregarMultiple
         '
         'currencytextboxPrecioUnitario
         '
-        Me.currencytextboxPrecioUnitario.BeforeTouchSize = New System.Drawing.Size(69, 20)
+        Me.currencytextboxPrecioUnitario.BeforeTouchSize = New System.Drawing.Size(130, 20)
         Me.currencytextboxPrecioUnitario.DecimalValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxPrecioUnitario.Location = New System.Drawing.Point(123, 185)
-        Me.currencytextboxPrecioUnitario.MaxValue = New Decimal(New Integer() {99999999, 0, 0, 131072})
-        Me.currencytextboxPrecioUnitario.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.currencytextboxPrecioUnitario.MaxValue = New Decimal(New Integer() {276447231, 23283, 0, 131072})
         Me.currencytextboxPrecioUnitario.MinValue = New Decimal(New Integer() {0, 0, 0, 131072})
         Me.currencytextboxPrecioUnitario.Name = "currencytextboxPrecioUnitario"
-        Me.currencytextboxPrecioUnitario.NullString = ""
         Me.currencytextboxPrecioUnitario.OnValidationFailed = Syncfusion.Windows.Forms.Tools.OnValidationFailed.SetNullString
-        Me.currencytextboxPrecioUnitario.Size = New System.Drawing.Size(100, 20)
+        Me.currencytextboxPrecioUnitario.Size = New System.Drawing.Size(130, 20)
         Me.currencytextboxPrecioUnitario.TabIndex = 12
         Me.currencytextboxPrecioUnitario.Text = "$ 0,00"
         Me.currencytextboxPrecioUnitario.TextAlign = System.Windows.Forms.HorizontalAlignment.Right

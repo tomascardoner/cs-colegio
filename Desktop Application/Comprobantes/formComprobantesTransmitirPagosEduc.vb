@@ -118,7 +118,7 @@ Public Class formComprobantesTransmitirPagosEduc
         Dim DetalleCount As Integer = 0
         Dim DetalleImporteTotal As Decimal = 0
 
-        Dim FolderName As String = ""
+        Dim FolderName As String = String.Empty
         Dim FileName As String
 
         ' Obtengo y verifico si existe la carpeta de destino de los archivos a exportar

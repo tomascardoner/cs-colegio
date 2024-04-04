@@ -29,50 +29,49 @@
 #End Region
 
 #Region "Controls behavior"
-    Private Sub BuscarEnOutlook() Handles buttonBuscarEnOutlook.Click
-        Dim CRejectedEmailAddresses As Collection
 
+    Private Sub BuscarEnOutlook() Handles buttonBuscarEnOutlook.Click
         If datetimepickerOutlookFechaDesde.Value.Date > Date.Today Then
             MsgBox("Le Fecha Desde, para la Búsqueda en Microsoft Outlook, debe ser menor o igual a hoy.", MsgBoxStyle.Information, My.Application.Info.Title)
             datetimepickerOutlookFechaDesde.Focus()
-            Exit Sub
+            Return
         End If
         If datetimepickerOutlookFechaHasta.Value.Date > Date.Today Then
             MsgBox("Le Fecha Hasta, para la Búsqueda en Microsoft Outlook, debe ser menor o igual a hoy.", MsgBoxStyle.Information, My.Application.Info.Title)
             datetimepickerOutlookFechaHasta.Focus()
-            Exit Sub
+            Return
         End If
         If datetimepickerOutlookFechaDesde.Value.Date > datetimepickerOutlookFechaHasta.Value.Date Then
             MsgBox("Le Fecha Hasta, para la Búsqueda en Microsoft Outlook, debe ser mayor o igual a la Fecha Desde.", MsgBoxStyle.Information, My.Application.Info.Title)
             datetimepickerOutlookFechaHasta.Focus()
-            Exit Sub
+            Return
         End If
 
         Me.Cursor = Cursors.WaitCursor
         Application.DoEvents()
 
-        CRejectedEmailAddresses = CS_Office_Outlook_EarlyBinding.FindRejectedEmails(datetimepickerOutlookFechaDesde.Value, datetimepickerOutlookFechaHasta.Value)
-        If CRejectedEmailAddresses.Count > 0 Then
-            textboxDireccionesEmail.Text = ""
-            For Each RejectedEmailAddress As String In CRejectedEmailAddresses
-                If textboxDireccionesEmail.Text.Length > 0 Then
-                    textboxDireccionesEmail.Text &= "; "
-                End If
-                textboxDireccionesEmail.Text &= RejectedEmailAddress
-            Next
-        End If
-        CRejectedEmailAddresses = Nothing
+        'Dim CRejectedEmailAddresses As Collection = CS_Office_Outlook_EarlyBinding.FindRejectedEmails(datetimepickerOutlookFechaDesde.Value, datetimepickerOutlookFechaHasta.Value)
+        'If CRejectedEmailAddresses.Count > 0 Then
+        '    textboxDireccionesEmail.Text = ""
+        '    For Each RejectedEmailAddress As String In CRejectedEmailAddresses
+        '        If textboxDireccionesEmail.Text.Length > 0 Then
+        '            textboxDireccionesEmail.Text &= "; "
+        '        End If
+        '        textboxDireccionesEmail.Text &= RejectedEmailAddress
+        '    Next
+        'End If
+        'CRejectedEmailAddresses = Nothing
 
         Me.Cursor = Cursors.Default
     End Sub
 
     Private Sub BuscarEntidades() Handles buttonBuscarEntidades.Click
-        Dim aDireccionesEmail() As String
+        Dim aDireccionesEmail As String()
 
         If textboxDireccionesEmail.Text.Trim.Length = 0 Then
             MsgBox("Debe especificar al menos una dirección de e-mail para buscar en las Entidades.", MsgBoxStyle.Information, My.Application.Info.Title)
             textboxDireccionesEmail.Focus()
-            Exit Sub
+            Return
         End If
 
         listEntidadesEmail1 = New List(Of Entidad)

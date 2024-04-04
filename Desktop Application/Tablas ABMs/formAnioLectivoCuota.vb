@@ -10,6 +10,7 @@
 #End Region
 
 #Region "Form stuff"
+
     Friend Sub LoadAndShow(ByVal EditMode As Boolean, ByRef ParentForm As Form, ByVal AnioLectivo As Short, ByVal MesInicio As Byte, ByVal IDCuotaTipo As Byte)
         mIsNew = (IDCuotaTipo = 0)
         mIsLoading = True
@@ -43,7 +44,7 @@
 
     Private Sub ChangeMode()
         If mIsLoading Then
-            Exit Sub
+            Return
         End If
 
         buttonGuardar.Visible = mEditMode
@@ -58,15 +59,8 @@
     End Sub
 
     Friend Sub InitializeFormAndControls()
-        SetAppearance()
-
-        ' Cargo los ComboBox
         pFillAndRefreshLists.Mes(comboboxMesInicio, True, False, True, False, False)
         pFillAndRefreshLists.CuotaTipo(comboboxCuotaTipo, False, False)
-    End Sub
-
-    Friend Sub SetAppearance()
-
     End Sub
 
     Private Sub Me_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -75,6 +69,7 @@
         mAnioLectivoCuotaActual = Nothing
         Me.Dispose()
     End Sub
+
 #End Region
 
 #Region "Mostrar y leer datos"
