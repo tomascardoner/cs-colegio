@@ -107,7 +107,7 @@ Partial Class formAnioLectivoCuota
         Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonCerrar, Me.buttonEditar, Me.buttonCancelar, Me.buttonGuardar})
         Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
         Me.toolstripMain.Name = "toolstripMain"
-        Me.toolstripMain.Size = New System.Drawing.Size(429, 39)
+        Me.toolstripMain.Size = New System.Drawing.Size(335, 39)
         Me.toolstripMain.TabIndex = 10
         '
         'labelMesInicio
@@ -154,7 +154,7 @@ Partial Class formAnioLectivoCuota
         Me.comboboxMesInicio.FormattingEnabled = True
         Me.comboboxMesInicio.Location = New System.Drawing.Point(111, 84)
         Me.comboboxMesInicio.Name = "comboboxMesInicio"
-        Me.comboboxMesInicio.Size = New System.Drawing.Size(120, 21)
+        Me.comboboxMesInicio.Size = New System.Drawing.Size(84, 21)
         Me.comboboxMesInicio.TabIndex = 1
         '
         'currencytextboxImporteMatricula
@@ -187,18 +187,20 @@ Partial Class formAnioLectivoCuota
         '
         'comboboxCuotaTipo
         '
+        Me.comboboxCuotaTipo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.comboboxCuotaTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxCuotaTipo.FormattingEnabled = True
         Me.comboboxCuotaTipo.Location = New System.Drawing.Point(111, 112)
         Me.comboboxCuotaTipo.Name = "comboboxCuotaTipo"
-        Me.comboboxCuotaTipo.Size = New System.Drawing.Size(306, 21)
+        Me.comboboxCuotaTipo.Size = New System.Drawing.Size(212, 21)
         Me.comboboxCuotaTipo.TabIndex = 3
         '
         'formAnioLectivoCuota
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(429, 201)
+        Me.ClientSize = New System.Drawing.Size(335, 201)
         Me.Controls.Add(Me.comboboxCuotaTipo)
         Me.Controls.Add(Me.currencytextboxImporteCuota)
         Me.Controls.Add(Me.currencytextboxImporteMatricula)

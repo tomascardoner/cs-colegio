@@ -1,10 +1,13 @@
-﻿Public Class formAnioLectivoCuotas
+﻿Imports System.Globalization
+
+Public Class formAnioLectivoCuotas
 
 #Region "Declarations"
 
     Private Class GridRowData
         Public Property AnioLectivo As Short
         Public Property MesInicio As Byte
+        Public Property MesInicioNombre As String
         Public Property IDCuotaTipo As Byte
         Public Property CuotaTipoNombre As String
         Public Property ImporteMatricula As Decimal
@@ -38,7 +41,7 @@
 
         pFillAndRefreshLists.AnioLectivo(comboboxAnioLectivo.ComboBox, False, SortOrder.Descending)
         comboboxAnioLectivo.SelectedIndex = comboboxAnioLectivo.FindStringExact(DateTime.Today.Year.ToString)
-        pFillAndRefreshLists.Mes(ToolStripComboBoxMesInicio.ComboBox, True, False, True, False, False)
+        pFillAndRefreshLists.MesNombres(ToolStripComboBoxMesInicio.ComboBox, True, True, False)
         ToolStripComboBoxMesInicio.SelectedIndex = 0
 
         mSkipFilterData = False
@@ -63,6 +66,9 @@
                                                 Join ct In dbContext.CuotaTipo On ct.IDCuotaTipo Equals alc.IDCuotaTipo
                                                 Select New GridRowData With {.AnioLectivo = alc.AnioLectivo, .MesInicio = alc.MesInicio, .IDCuotaTipo = ct.IDCuotaTipo, .CuotaTipoNombre = ct.Nombre, .ImporteMatricula = alc.ImporteMatricula, .ImporteCuota = alc.ImporteCuota}).ToList
             End Using
+            For Each row As GridRowData In mlistAniosLectivosCuotasBase
+                row.MesInicioNombre = New DateTime(2000, row.MesInicio, 1, 0, 0, 0, DateTimeKind.Local).ToString("MMMM", CultureInfo.CreateSpecificCulture("es-AR")).ToTitleCase()
+            Next
 
         Catch ex As Exception
 
@@ -112,7 +118,9 @@
                 mlistAniosLectivosCuotasFiltradaYOrdenada = mlistAniosLectivosCuotasFiltradaYOrdenada.Where(Function(alc) alc.AnioLectivo = CShort(comboboxAnioLectivo.Text)).ToList
 
                 ' Filtro por Mes de inicio
-                mlistAniosLectivosCuotasFiltradaYOrdenada = mlistAniosLectivosCuotasFiltradaYOrdenada.Where(Function(alc) alc.MesInicio = ToolStripComboBoxMesInicio.SelectedIndex + 1).ToList
+                If ToolStripComboBoxMesInicio.SelectedIndex > 0 Then
+                    mlistAniosLectivosCuotasFiltradaYOrdenada = mlistAniosLectivosCuotasFiltradaYOrdenada.Where(Function(alc) alc.MesInicio = ToolStripComboBoxMesInicio.SelectedIndex).ToList
+                End If
 
                 Select Case mlistAniosLectivosCuotasFiltradaYOrdenada.Count
                     Case 0
@@ -197,7 +205,6 @@
                 mOrdenColumna.HeaderCell.SortGlyphDirection = SortOrder.None
             End If
 
-            ' Ahora preparo todo para la nueva columna
             mOrdenTipo = SortOrder.Ascending
             mOrdenColumna = ClickedColumn
         End If
@@ -208,16 +215,13 @@
 #End Region
 
 #Region "Main Toolbar"
+
     Private Sub Agregar_Click() Handles buttonAgregar.Click
         If Permisos.VerificarPermiso(Permisos.ANIOLECTIVOCUOTA_AGREGAR) Then
             Me.Cursor = Cursors.WaitCursor
-
             datagridviewMain.Enabled = False
-
             formAnioLectivoCuota.LoadAndShow(True, Me, Convert.ToInt16(comboboxAnioLectivo.Text), 0, 0)
-
             datagridviewMain.Enabled = True
-
             Me.Cursor = Cursors.Default
         End If
     End Sub
@@ -267,7 +271,7 @@
                                     MsgBox("No se puede eliminar la Cuota del Año Lectivo porque tiene datos relacionados.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
                             End Select
                             Me.Cursor = Cursors.Default
-                            Exit Sub
+                            Return
 
                         Catch ex As Exception
                             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al eliminar la Cuota del Año Lectivo.")

@@ -32,7 +32,7 @@
                     CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxValues, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, mParametroActual.Valor)
                 End If
             Case Constantes.REPORTE_PARAMETRO_TIPO_MONTH
-                pFillAndRefreshLists.Mes(comboboxValues, True, False, True, False, False)
+                pFillAndRefreshLists.MesNombres(comboboxValues, True, False, False)
                 If mParametroActual.Valor IsNot Nothing Then
                     comboboxValues.SelectedIndex = CInt(mParametroActual.Valor) - 1
                 End If

@@ -1,4 +1,6 @@
-﻿Friend Class FillAndRefreshLists
+﻿Imports System.Globalization
+
+Friend Class FillAndRefreshLists
 
 #Region "Declarations"
 
@@ -29,6 +31,7 @@
         Public Property IDCurso As Byte
         Public Property Descripcion As String
     End Class
+
 #End Region
 
     Friend Sub Anio(ByRef ComboBoxControl As ComboBox, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean, ByVal IncluyeNivelEnNombre As Boolean, Optional ByVal Excluye_IDAnio As Byte = 0, Optional ByVal IDNivel As Byte = 0)
@@ -91,8 +94,8 @@
         ComboBoxControl.DisplayMember = "Nombre"
 
         Dim qryList = From tbl In mdbContext.CategoriaIVA
-                          Where tbl.EsActivo
-                          Order By tbl.Nombre
+                      Where tbl.EsActivo
+                      Order By tbl.Nombre
 
         Dim localList = qryList.ToList
         If ShowUnspecifiedItem Then
@@ -130,7 +133,7 @@
         ComboBoxControl.DisplayMember = "Nombre"
 
         Dim qryList = From tbl In mdbContext.Provincia
-                          Order By tbl.Nombre
+                      Order By tbl.Nombre
 
         Dim localList = qryList.ToList
         If ShowUnspecifiedItem Then
@@ -148,8 +151,8 @@
         ComboBoxControl.DisplayMember = "Nombre"
 
         Dim qryList = From tbl In mdbContext.Localidad
-                          Where tbl.IDProvincia = IDProvincia
-                          Order By tbl.Nombre
+                      Where tbl.IDProvincia = IDProvincia
+                      Order By tbl.Nombre
 
         Dim localList = qryList.ToList
         If ShowUnspecifiedItem Then
@@ -448,33 +451,34 @@
         End If
     End Sub
 
-    Friend Sub Mes(ByRef ComboBoxControl As ComboBox, ByVal MostrarNombreDelMes As Boolean, ByVal NombreEnIdiomaDelSistema As Boolean, ByVal PrimerLetraEnMayusculas As Boolean, ByVal AgregarItem_Todos As Boolean, ByVal AgregarItem_NoEspecifica As Boolean)
-        ComboBoxControl.Items.Clear()
-        If MostrarNombreDelMes Then
-            If NombreEnIdiomaDelSistema Then
-                For MesNumero As Integer = 1 To 12
-                    If PrimerLetraEnMayusculas Then
-                        ComboBoxControl.Items.Add(MonthName(MesNumero).ElementAt(0).ToString.ToUpper & MonthName(MesNumero).Substring(1).ToLower)
-                    Else
-                        ComboBoxControl.Items.Add(MonthName(MesNumero))
-                    End If
-                Next
-            Else
-                If PrimerLetraEnMayusculas Then
-                    ComboBoxControl.Items.AddRange({"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"})
-                Else
-                    ComboBoxControl.Items.AddRange({"enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"})
-                End If
-            End If
-        Else
-            ComboBoxControl.Items.AddRange({1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12})
-        End If
+    Friend Sub MesNumeros(ByRef comboBoxControl As ComboBox, agregarItemTodos As Boolean, agregarItemNoEspecifica As Boolean)
+        comboBoxControl.Items.Clear()
+        comboBoxControl.Items.AddRange({1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12})
 
-        If AgregarItem_Todos Then
-            ComboBoxControl.Items.Insert(0, My.Resources.STRING_ITEM_ALL_MALE)
+        If agregarItemTodos Then
+            comboBoxControl.Items.Insert(0, My.Resources.STRING_ITEM_ALL_MALE)
         End If
-        If AgregarItem_NoEspecifica Then
-            ComboBoxControl.Items.Insert(0, My.Resources.STRING_ITEM_NOT_SPECIFIED)
+        If agregarItemNoEspecifica Then
+            comboBoxControl.Items.Insert(0, My.Resources.STRING_ITEM_NOT_SPECIFIED)
+        End If
+    End Sub
+
+    Friend Sub MesNombres(ByRef comboBoxControl As ComboBox, primeraLetraMayuscula As Boolean, agregarItemTodos As Boolean, agregarItemNoEspecifica As Boolean)
+        comboBoxControl.Items.Clear()
+        For mesNumero As Integer = 1 To 12
+            Dim fullMonthName As String = New DateTime(2024, mesNumero, 1, 0, 0, 0, DateTimeKind.Local).ToString("MMMM", CultureInfo.CreateSpecificCulture("es-AR"))
+            If primeraLetraMayuscula Then
+                comboBoxControl.Items.Add(fullMonthName.ToTitleCase())
+            Else
+                comboBoxControl.Items.Add(fullMonthName)
+            End If
+        Next
+
+        If agregarItemTodos Then
+            comboBoxControl.Items.Insert(0, My.Resources.STRING_ITEM_ALL_MALE)
+        End If
+        If agregarItemNoEspecifica Then
+            comboBoxControl.Items.Insert(0, My.Resources.STRING_ITEM_NOT_SPECIFIED)
         End If
     End Sub
 
@@ -483,8 +487,8 @@
         ComboBoxControl.DisplayMember = "Nombre"
 
         Dim qryList = From tbl In mdbContext.Nivel
-                          Where tbl.EsActivo AndAlso tbl.IDNivel >= IDNivelMinimo
-                          Order By tbl.Nombre
+                      Where tbl.EsActivo AndAlso tbl.IDNivel >= IDNivelMinimo
+                      Order By tbl.Nombre
 
         Dim localList = qryList.ToList
         If AgregarItem_Todos Then
@@ -508,9 +512,8 @@
         ComboBoxControl.DisplayMember = "Nombre"
 
         Dim qryList = From tbl In mdbContext.Turno
-                          Where tbl.EsActivo
-                          Order By tbl.Nombre
-
+                      Where tbl.EsActivo
+                      Order By tbl.Nombre
         Dim localList = qryList.ToList
         If AgregarItem_Todos Then
             Dim Item_Todos As New Turno
@@ -792,7 +795,7 @@
         Else
             listArticulos = (From a In mdbContext.Articulo
                              Join ag In mdbContext.ArticuloGrupo On a.IDArticuloGrupo Equals ag.IDArticuloGrupo
-                             Where a.EsActivo AndAlso ag.ComprobanteTipos.Where(Function(ct) ct.IDComprobanteTipo = IDComprobanteTipo).Count > 0
+                             Where a.EsActivo AndAlso ag.ComprobanteTipos.Where(Function(ct) ct.IDComprobanteTipo = IDComprobanteTipo).Any()
                              Order By a.Nombre
                              Select a).ToList
         End If

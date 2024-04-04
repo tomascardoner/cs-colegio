@@ -22,11 +22,11 @@ Partial Class formAnioLectivoCuotas
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.statuslabelMain = New System.Windows.Forms.ToolStripStatusLabel()
         Me.statusstripMain = New System.Windows.Forms.StatusStrip()
         Me.panelToolbars = New System.Windows.Forms.FlowLayoutPanel()
@@ -37,20 +37,20 @@ Partial Class formAnioLectivoCuotas
         Me.toolsptripAnioLectivo = New System.Windows.Forms.ToolStrip()
         Me.labelAnioLectivo = New System.Windows.Forms.ToolStripLabel()
         Me.comboboxAnioLectivo = New System.Windows.Forms.ToolStripComboBox()
+        Me.ToolStripMesInicio = New System.Windows.Forms.ToolStrip()
+        Me.ToolStripLabelMesInicio = New System.Windows.Forms.ToolStripLabel()
+        Me.ToolStripComboBoxMesInicio = New System.Windows.Forms.ToolStripComboBox()
         Me.datagridviewMain = New System.Windows.Forms.DataGridView()
         Me.columnMesInicio = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnCuotaTipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnImporteMatricula = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.columnImporteCuota = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ToolStripMesInicio = New System.Windows.Forms.ToolStrip()
-        Me.ToolStripLabelMesInicio = New System.Windows.Forms.ToolStripLabel()
-        Me.ToolStripComboBoxMesInicio = New System.Windows.Forms.ToolStripComboBox()
         Me.statusstripMain.SuspendLayout()
         Me.panelToolbars.SuspendLayout()
         Me.toolstripButtons.SuspendLayout()
         Me.toolsptripAnioLectivo.SuspendLayout()
-        CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStripMesInicio.SuspendLayout()
+        CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'statuslabelMain
@@ -143,76 +143,6 @@ Partial Class formAnioLectivoCuotas
         Me.comboboxAnioLectivo.Name = "comboboxAnioLectivo"
         Me.comboboxAnioLectivo.Size = New System.Drawing.Size(75, 39)
         '
-        'datagridviewMain
-        '
-        Me.datagridviewMain.AllowUserToAddRows = False
-        Me.datagridviewMain.AllowUserToDeleteRows = False
-        Me.datagridviewMain.AllowUserToResizeRows = False
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.datagridviewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
-        Me.datagridviewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnMesInicio, Me.columnCuotaTipo, Me.columnImporteMatricula, Me.columnImporteCuota})
-        Me.datagridviewMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.datagridviewMain.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.datagridviewMain.Location = New System.Drawing.Point(0, 39)
-        Me.datagridviewMain.MultiSelect = False
-        Me.datagridviewMain.Name = "datagridviewMain"
-        Me.datagridviewMain.ReadOnly = True
-        Me.datagridviewMain.RowHeadersVisible = False
-        Me.datagridviewMain.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
-        Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewMain.Size = New System.Drawing.Size(1032, 350)
-        Me.datagridviewMain.TabIndex = 0
-        '
-        'columnMesInicio
-        '
-        Me.columnMesInicio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnMesInicio.DataPropertyName = "MesInicio"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.columnMesInicio.DefaultCellStyle = DataGridViewCellStyle7
-        Me.columnMesInicio.HeaderText = "Mes Inicio"
-        Me.columnMesInicio.Name = "columnMesInicio"
-        Me.columnMesInicio.ReadOnly = True
-        Me.columnMesInicio.Width = 74
-        '
-        'columnCuotaTipo
-        '
-        Me.columnCuotaTipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnCuotaTipo.DataPropertyName = "CuotaTipoNombre"
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.columnCuotaTipo.DefaultCellStyle = DataGridViewCellStyle8
-        Me.columnCuotaTipo.HeaderText = "Tipo de Cuota"
-        Me.columnCuotaTipo.Name = "columnCuotaTipo"
-        Me.columnCuotaTipo.ReadOnly = True
-        Me.columnCuotaTipo.Width = 91
-        '
-        'columnImporteMatricula
-        '
-        Me.columnImporteMatricula.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnImporteMatricula.DataPropertyName = "ImporteMatricula"
-        DataGridViewCellStyle9.Format = "C2"
-        DataGridViewCellStyle9.NullValue = Nothing
-        Me.columnImporteMatricula.DefaultCellStyle = DataGridViewCellStyle9
-        Me.columnImporteMatricula.HeaderText = "Importe Matrícula"
-        Me.columnImporteMatricula.Name = "columnImporteMatricula"
-        Me.columnImporteMatricula.ReadOnly = True
-        Me.columnImporteMatricula.Width = 106
-        '
-        'columnImporteCuota
-        '
-        Me.columnImporteCuota.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.columnImporteCuota.DataPropertyName = "ImporteCuota"
-        DataGridViewCellStyle10.Format = "C2"
-        DataGridViewCellStyle10.NullValue = Nothing
-        Me.columnImporteCuota.DefaultCellStyle = DataGridViewCellStyle10
-        Me.columnImporteCuota.HeaderText = "Importe Cuota"
-        Me.columnImporteCuota.Name = "columnImporteCuota"
-        Me.columnImporteCuota.ReadOnly = True
-        Me.columnImporteCuota.Width = 90
-        '
         'ToolStripMesInicio
         '
         Me.ToolStripMesInicio.Dock = System.Windows.Forms.DockStyle.Fill
@@ -236,6 +166,76 @@ Partial Class formAnioLectivoCuotas
         Me.ToolStripComboBoxMesInicio.Name = "ToolStripComboBoxMesInicio"
         Me.ToolStripComboBoxMesInicio.Size = New System.Drawing.Size(120, 39)
         '
+        'datagridviewMain
+        '
+        Me.datagridviewMain.AllowUserToAddRows = False
+        Me.datagridviewMain.AllowUserToDeleteRows = False
+        Me.datagridviewMain.AllowUserToResizeRows = False
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.datagridviewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.datagridviewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.datagridviewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnMesInicio, Me.columnCuotaTipo, Me.columnImporteMatricula, Me.columnImporteCuota})
+        Me.datagridviewMain.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.datagridviewMain.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.datagridviewMain.Location = New System.Drawing.Point(0, 39)
+        Me.datagridviewMain.MultiSelect = False
+        Me.datagridviewMain.Name = "datagridviewMain"
+        Me.datagridviewMain.ReadOnly = True
+        Me.datagridviewMain.RowHeadersVisible = False
+        Me.datagridviewMain.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.datagridviewMain.Size = New System.Drawing.Size(1032, 350)
+        Me.datagridviewMain.TabIndex = 0
+        '
+        'columnMesInicio
+        '
+        Me.columnMesInicio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnMesInicio.DataPropertyName = "MesInicioNombre"
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.columnMesInicio.DefaultCellStyle = DataGridViewCellStyle2
+        Me.columnMesInicio.HeaderText = "Mes Inicio"
+        Me.columnMesInicio.Name = "columnMesInicio"
+        Me.columnMesInicio.ReadOnly = True
+        Me.columnMesInicio.Width = 80
+        '
+        'columnCuotaTipo
+        '
+        Me.columnCuotaTipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnCuotaTipo.DataPropertyName = "CuotaTipoNombre"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.columnCuotaTipo.DefaultCellStyle = DataGridViewCellStyle3
+        Me.columnCuotaTipo.HeaderText = "Tipo de Cuota"
+        Me.columnCuotaTipo.Name = "columnCuotaTipo"
+        Me.columnCuotaTipo.ReadOnly = True
+        Me.columnCuotaTipo.Width = 99
+        '
+        'columnImporteMatricula
+        '
+        Me.columnImporteMatricula.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnImporteMatricula.DataPropertyName = "ImporteMatricula"
+        DataGridViewCellStyle4.Format = "C2"
+        DataGridViewCellStyle4.NullValue = Nothing
+        Me.columnImporteMatricula.DefaultCellStyle = DataGridViewCellStyle4
+        Me.columnImporteMatricula.HeaderText = "Importe Matrícula"
+        Me.columnImporteMatricula.Name = "columnImporteMatricula"
+        Me.columnImporteMatricula.ReadOnly = True
+        Me.columnImporteMatricula.Width = 106
+        '
+        'columnImporteCuota
+        '
+        Me.columnImporteCuota.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.columnImporteCuota.DataPropertyName = "ImporteCuota"
+        DataGridViewCellStyle5.Format = "C2"
+        DataGridViewCellStyle5.NullValue = Nothing
+        Me.columnImporteCuota.DefaultCellStyle = DataGridViewCellStyle5
+        Me.columnImporteCuota.HeaderText = "Importe Cuota"
+        Me.columnImporteCuota.Name = "columnImporteCuota"
+        Me.columnImporteCuota.ReadOnly = True
+        Me.columnImporteCuota.Width = 90
+        '
         'formAnioLectivoCuotas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -255,9 +255,9 @@ Partial Class formAnioLectivoCuotas
         Me.toolstripButtons.PerformLayout()
         Me.toolsptripAnioLectivo.ResumeLayout(False)
         Me.toolsptripAnioLectivo.PerformLayout()
-        CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStripMesInicio.ResumeLayout(False)
         Me.ToolStripMesInicio.PerformLayout()
+        CType(Me.datagridviewMain, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -273,11 +273,11 @@ Partial Class formAnioLectivoCuotas
     Friend WithEvents labelAnioLectivo As System.Windows.Forms.ToolStripLabel
     Friend WithEvents comboboxAnioLectivo As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents datagridviewMain As DataGridView
+    Friend WithEvents ToolStripMesInicio As ToolStrip
+    Friend WithEvents ToolStripLabelMesInicio As ToolStripLabel
+    Friend WithEvents ToolStripComboBoxMesInicio As ToolStripComboBox
     Friend WithEvents columnMesInicio As DataGridViewTextBoxColumn
     Friend WithEvents columnCuotaTipo As DataGridViewTextBoxColumn
     Friend WithEvents columnImporteMatricula As DataGridViewTextBoxColumn
     Friend WithEvents columnImporteCuota As DataGridViewTextBoxColumn
-    Friend WithEvents ToolStripMesInicio As ToolStrip
-    Friend WithEvents ToolStripLabelMesInicio As ToolStripLabel
-    Friend WithEvents ToolStripComboBoxMesInicio As ToolStripComboBox
 End Class

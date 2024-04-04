@@ -59,7 +59,7 @@
     End Sub
 
     Friend Sub InitializeFormAndControls()
-        pFillAndRefreshLists.Mes(comboboxMesInicio, True, False, True, False, False)
+        pFillAndRefreshLists.MesNombres(comboboxMesInicio, True, False, False)
         pFillAndRefreshLists.CuotaTipo(comboboxCuotaTipo, False, False)
     End Sub
 
