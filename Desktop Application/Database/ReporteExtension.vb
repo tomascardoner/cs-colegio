@@ -18,6 +18,7 @@ Partial Public Class Reporte
 
     Friend Function Open(ByVal PathAndFileName As String) As Boolean
         If Not My.Computer.FileSystem.FileExists(PathAndFileName) Then
+            MessageBox.Show("No se ha encontrado el archivo del reporte.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return False
         End If
 

@@ -1,7 +1,7 @@
 {
   "SingleInstanceApplication": true,
   "DecimalesEnImportes": 2,
-  "ReportsPath": "{Dropbox}\\Cardoner Sistemas\\CS-Colegio\\Reportes",
+  "ReportsPath": "C:\\Data\\Cardoner Sistemas\\cs-colegio\\Reports",
   "IdPuntoVenta": 2,
   "PermiteGenerarMatriculaDesdeMes": 10,
   "ExchangeOutboundFolder": "{ApplicationFolder}\\Intercambio\\Salida",

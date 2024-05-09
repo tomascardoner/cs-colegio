@@ -87,17 +87,17 @@
     </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+      <HintPath>..\..\..\..\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\CrystalDecisions.Shared.dll</HintPath>
+      <HintPath>..\..\..\..\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\CrystalDecisions.Shared.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\CrystalDecisions.Windows.Forms.dll</HintPath>
+      <HintPath>..\..\..\..\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\CrystalDecisions.Windows.Forms.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -188,82 +188,82 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\framework-vbnet\Afip.vb">
+    <Compile Include="..\..\framework-vbnet\Afip.vb">
       <Link>Framework\Afip.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\AfipWebServices.vb">
+    <Compile Include="..\..\framework-vbnet\AfipWebServices.vb">
       <Link>Framework\AfipWebServices.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\Barcodes.vb">
+    <Compile Include="..\..\framework-vbnet\Barcodes.vb">
       <Link>Framework\Barcodes.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\ConfigurationJson.vb">
+    <Compile Include="..\..\framework-vbnet\ConfigurationJson.vb">
       <Link>Framework\ConfigurationJson.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\Constants.vb">
+    <Compile Include="..\..\framework-vbnet\Constants.vb">
       <Link>Framework\Constants.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\ConstantsSyncfusion.vb">
+    <Compile Include="..\..\framework-vbnet\ConstantsSyncfusion.vb">
       <Link>Framework\ConstantsSyncfusion.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\Controls.ComboBox.vb">
+    <Compile Include="..\..\framework-vbnet\Controls.ComboBox.vb">
       <Link>Framework\Controls.ComboBox.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\CS_ValueTranslation_Syncfusion.vb">
+    <Compile Include="..\..\framework-vbnet\CS_ValueTranslation_Syncfusion.vb">
       <Link>Framework\CS_ValueTranslation_Syncfusion.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\Database.Ado.SqlServer.vb">
+    <Compile Include="..\..\framework-vbnet\Database.Ado.SqlServer.vb">
       <Link>Framework\Database.Ado.SqlServer.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\Database.EntityFramework.vb">
+    <Compile Include="..\..\framework-vbnet\Database.EntityFramework.vb">
       <Link>Framework\Database.EntityFramework.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\Database.LoginInfo.designer.vb">
+    <Compile Include="..\..\framework-vbnet\Database.LoginInfo.designer.vb">
       <Link>Framework\Database.LoginInfo.designer.vb</Link>
       <DependentUpon>Database.LoginInfo.vb</DependentUpon>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\Database.LoginInfo.vb">
+    <Compile Include="..\..\framework-vbnet\Database.LoginInfo.vb">
       <Link>Framework\Database.LoginInfo.vb</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\Database.SelectDatasource.designer.vb">
+    <Compile Include="..\..\framework-vbnet\Database.SelectDatasource.designer.vb">
       <Link>Framework\Database.SelectDatasource.designer.vb</Link>
       <DependentUpon>Database.SelectDatasource.vb</DependentUpon>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\Database.SelectDatasource.vb">
+    <Compile Include="..\..\framework-vbnet\Database.SelectDatasource.vb">
       <Link>Framework\Database.SelectDatasource.vb</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\DateTime.vb">
+    <Compile Include="..\..\framework-vbnet\DateTime.vb">
       <Link>Framework\DateTime.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\Encoding.vb">
+    <Compile Include="..\..\framework-vbnet\Encoding.vb">
       <Link>Framework\Encoding.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\Encrypt.StringCipher.vb">
+    <Compile Include="..\..\framework-vbnet\Encrypt.StringCipher.vb">
       <Link>Framework\Encrypt.StringCipher.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\ErrorHandler.vb">
+    <Compile Include="..\..\framework-vbnet\ErrorHandler.vb">
       <Link>Framework\ErrorHandler.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\ErrorHandlerMessageBox.designer.vb">
+    <Compile Include="..\..\framework-vbnet\ErrorHandlerMessageBox.designer.vb">
       <Link>Framework\ErrorHandlerMessageBox.designer.vb</Link>
       <DependentUpon>ErrorHandlerMessageBox.vb</DependentUpon>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\ErrorHandlerMessageBox.vb">
+    <Compile Include="..\..\framework-vbnet\ErrorHandlerMessageBox.vb">
       <Link>Framework\ErrorHandlerMessageBox.vb</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\Files.vb">
+    <Compile Include="..\..\framework-vbnet\Files.vb">
       <Link>Framework\Files.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\Forms.vb">
+    <Compile Include="..\..\framework-vbnet\Forms.vb">
       <Link>Framework\Forms.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\Graphics.vb">
+    <Compile Include="..\..\framework-vbnet\Graphics.vb">
       <Link>Framework\Graphics.vb</Link>
     </Compile>
-    <Compile Include="..\..\..\framework-vbnet\Internet.vb">
+    <Compile Include="..\..\framework-vbnet\Internet.vb">
       <Link>Framework\Internet.vb</Link>
     </Compile>
     <Compile Include="Anio.vb">
@@ -287,13 +287,13 @@
     <Compile Include="Banco.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Bank.vb">
+    <Compile Include="..\..\framework-vbnet\CS_Bank.vb">
       <Link>Framework\CS_Bank.vb</Link>
     </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Parameter_System.vb">
+    <Compile Include="..\..\framework-vbnet\CS_Parameter_System.vb">
       <Link>Framework\CS_Parameter_System.vb</Link>
     </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_String.vb">
+    <Compile Include="..\..\framework-vbnet\CS_String.vb">
       <Link>Framework\CS_String.vb</Link>
     </Compile>
     <Compile Include="Caja.vb">
@@ -461,26 +461,26 @@
     </Compile>
     <Compile Include="Sistema\Appearance.vb" />
     <Compile Include="Sistema\BancoSantander_ADDI.vb" />
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Control_TabControl.vb">
+    <Compile Include="..\..\framework-vbnet\CS_Control_TabControl.vb">
       <Link>Framework\CS_Control_TabControl.vb</Link>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Encryption_TripleDES.vb">
+    <Compile Include="..\..\framework-vbnet\CS_Encryption_TripleDES.vb">
       <Link>Framework\CS_Encryption_TripleDES.vb</Link>
     </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_DataGridView.vb">
+    <Compile Include="..\..\framework-vbnet\CS_DataGridView.vb">
       <Link>Framework\CS_DataGridView.vb</Link>
     </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Email.vb">
+    <Compile Include="..\..\framework-vbnet\CS_Email.vb">
       <Link>Framework\CS_Email.vb</Link>
     </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_FileLog.vb">
+    <Compile Include="..\..\framework-vbnet\CS_FileLog.vb">
       <Link>Framework\CS_FileLog.vb</Link>
     </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_Instance.vb">
+    <Compile Include="..\..\framework-vbnet\CS_Instance.vb">
       <Link>Framework\CS_Instance.vb</Link>
     </Compile>
-    <Compile Include="C:\Data\Cardoner Sistemas\Development\framework-vbnet\CS_ValueTranslation.vb">
+    <Compile Include="..\..\framework-vbnet\CS_ValueTranslation.vb">
       <Link>Framework\CS_ValueTranslation.vb</Link>
     </Compile>
     <Compile Include="Config\Configuration.vb" />
@@ -826,15 +826,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\..\..\framework-vbnet\Database.LoginInfo.resx">
+    <EmbeddedResource Include="..\..\framework-vbnet\Database.LoginInfo.resx">
       <Link>Framework\Database.LoginInfo.resx</Link>
       <DependentUpon>Database.LoginInfo.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\framework-vbnet\Database.SelectDatasource.resx">
+    <EmbeddedResource Include="..\..\framework-vbnet\Database.SelectDatasource.resx">
       <Link>Framework\Database.SelectDatasource.resx</Link>
       <DependentUpon>Database.SelectDatasource.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\framework-vbnet\ErrorHandlerMessageBox.resx">
+    <EmbeddedResource Include="..\..\framework-vbnet\ErrorHandlerMessageBox.resx">
       <Link>Framework\ErrorHandlerMessageBox.resx</Link>
       <DependentUpon>ErrorHandlerMessageBox.vb</DependentUpon>
     </EmbeddedResource>
