@@ -33,7 +33,7 @@
         End If
 
         ' Register Syncfusion License
-        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXxfeHVTQmldUEF+WkM=")
+        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzM0MzE1NkAzMjM2MmUzMDJlMzBKQjRoNEwyckdyRDVVanV5UUtCN2M1N3Fkd2ZlVnRvK2YzY21WSzBDRTFjPQ==")
 
         ' Realizo la inicialización de la Aplicación
         If pAppearanceConfig.EnableVisualStyles Then

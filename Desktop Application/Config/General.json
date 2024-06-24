@@ -1,7 +1,7 @@
 {
   "SingleInstanceApplication": true,
   "DecimalesEnImportes": 2,
-  "ReportsPath": "C:\\Data\\Cardoner Sistemas\\cs-colegio\\Reports",
+  "ReportsPath": "C:\\Data\\Cardoner Sistemas\\CS-Colegio\\Reports",
   "IdPuntoVenta": 2,
   "PermiteGenerarMatriculaDesdeMes": 10,
   "ExchangeOutboundFolder": "{ApplicationFolder}\\Intercambio\\Salida",

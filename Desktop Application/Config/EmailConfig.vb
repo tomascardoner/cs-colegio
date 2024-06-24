@@ -4,8 +4,10 @@
     Public Property ReplyToAddress As String
     Public Property Signature As String
     Public Property SmtpServer As String
+    Public Property SmtpServerUseOAuth20 As Boolean
     Public Property SmtpUserName As String
     Public Property SmtpPassword As String
+    Public Property GoogleApiSecretFile As String
     Public Property SmtpPort As Integer
     Public Property SmtpSslOptions As Integer
     Public Property SmtpTimeout As Integer

@@ -46,6 +46,7 @@ Module Configuration
         If Not CardonerSistemas.ConfigurationJson.LoadFile(ConfigFolder, EmailFileName, pEmailConfig) Then
             Return False
         End If
+        pEmailConfig.GoogleApiSecretFile = CardonerSistemas.Files.ProcessFolderName(pEmailConfig.GoogleApiSecretFile)
 
         ' General
         If Not CardonerSistemas.ConfigurationJson.LoadFile(ConfigFolder, GeneralFileName, pGeneralConfig) Then
