@@ -399,6 +399,10 @@
     <Compile Include="EmailEnvio.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Email\Recipients.vb" />
+    <Compile Include="Email\Sender.vb" />
+    <Compile Include="Email\SmtpOAuth20.vb" />
+    <Compile Include="Email\SmtpStandard.vb" />
     <Compile Include="Entidad.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -508,7 +512,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sistema\Email.vb" />
     <Compile Include="Config\EmailConfig.vb" />
     <Compile Include="Sistema\FillAndRefreshLists.vb" />
     <Compile Include="Sistema\formAboutBox.Designer.vb">

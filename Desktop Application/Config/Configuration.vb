@@ -13,6 +13,8 @@ Module Configuration
     Private Const SantanderFileName As String = "Santander.json"
 
     Friend Function LoadFiles() As Boolean
+        Dim decrypter As New CS_Encrypt_TripleDES(CardonerSistemas.Constants.PublicEncryptionPassword)
+        Dim decryptedPassword As String = String.Empty
         Dim ConfigFolder As String
 
         ConfigFolder = Path.Combine(Application.StartupPath, ConfigSubFolder)
@@ -24,8 +26,6 @@ Module Configuration
         pAfipWebServicesConfig.CertificadoHomologacion = CardonerSistemas.Files.ProcessFolderName(pAfipWebServicesConfig.CertificadoHomologacion)
         pAfipWebServicesConfig.CertificadoProduccion = CardonerSistemas.Files.ProcessFolderName(pAfipWebServicesConfig.CertificadoProduccion)
         pAfipWebServicesConfig.ClavePrivada = CardonerSistemas.Files.ProcessFolderName(pAfipWebServicesConfig.ClavePrivada)
-        pAfipWebServicesConfig.LogFolder = CardonerSistemas.Files.ProcessFolderName(pAfipWebServicesConfig.LogFolder)
-        pAfipWebServicesConfig.LogFileName = CardonerSistemas.Files.ProcessFilename(pAfipWebServicesConfig.LogFileName)
 
         ' Appearance
         If Not CardonerSistemas.ConfigurationJson.LoadFile(ConfigFolder, AppearanceFileName, pAppearanceConfig) Then
@@ -46,6 +46,13 @@ Module Configuration
         If Not CardonerSistemas.ConfigurationJson.LoadFile(ConfigFolder, EmailFileName, pEmailConfig) Then
             Return False
         End If
+        If decrypter.Decrypt(pEmailConfig.SmtpPassword, decryptedPassword) Then
+            pEmailConfig.SmtpPassword = decryptedPassword
+        Else
+            MessageBox.Show("La contraseña de e-mail (SMTP) especificada es incorrecta.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Return False
+        End If
+        decrypter = Nothing
         pEmailConfig.GoogleApiSecretFile = CardonerSistemas.Files.ProcessFolderName(pEmailConfig.GoogleApiSecretFile)
 
         ' General

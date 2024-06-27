@@ -16,6 +16,9 @@
     Public Property DeliveryFailedErrorText As String
     Public Property DeliveryFailedRejectedAddressPreviousText As String
     Public Property DeliveryFailedSenderAddress As String
+    Public Property LogFolder As String
+    Public Property LogFileName As String
+    Public Property LogEnabled As Boolean
 
     'Friend Property SmtpSslTypeValue() As AegisImplicitMail.SslMode
     '    Get

@@ -10,7 +10,7 @@
     Friend pSantanderConfig As SantanderConfig
 
     ' Database stuff
-    Friend pDatabase As CardonerSistemas.Database.ADO.SQLServer
+    Friend pDatabase As CardonerSistemas.Database.ADO.SqlServer
     Friend pFillAndRefreshLists As FillAndRefreshLists
 
     Friend pFormMDIMain As formMDIMain

@@ -468,12 +468,8 @@ Module ModuloComprobantes
     Friend Function TransmitirAFIP_Inicializar(ByRef Objeto_Afip_WS As CardonerSistemas.AfipWebServices.WebService, ByVal ModoHomologacion As Boolean) As Boolean
         With Objeto_Afip_WS
             If pAfipWebServicesConfig.LogEnabled Then
-                .LogPath = pAfipWebServicesConfig.LogFolder
-                If Not .LogPath.EndsWith("\") Then
-                    .LogPath &= "\"
-                End If
-                .LogPath &= DateTime.Today.Year & "\" & DateTime.Today.Month.ToString.PadLeft(2, "0"c) & "\"
-                .LogFileName = pAfipWebServicesConfig.LogFileName
+                .LogPath = CardonerSistemas.Files.ProcessFolderName(pAfipWebServicesConfig.LogFolder)
+                .LogFileName = CardonerSistemas.Files.ProcessFilename(pAfipWebServicesConfig.LogFileName)
             End If
 
             ' Leo los valores comunes a todas las facturas

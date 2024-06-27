@@ -4,6 +4,8 @@ Public Class formComprobantes
 
 #Region "Declarations"
 
+    Private Const MaximoNumeroComprobantes As Integer = 2000
+
     Private WithEvents datetimepickerFechaDesdeHost As ToolStripControlHost
     Private WithEvents datetimepickerFechaHastaHost As ToolStripControlHost
 
@@ -131,7 +133,7 @@ Public Class formComprobantes
                                          Join ct In dbContext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                          Where cc.FechaEmision >= FechaDesde AndAlso cc.FechaEmision <= FechaHasta
                                          Order By cc.FechaEmision, cc.IDComprobante
-                                         Select New GridRowData With {.IDComprobante = cc.IDComprobante, .OperacionTipo = ct.OperacionTipo, .IDComprobanteTipo = cc.IDComprobanteTipo, .ComprobanteTipoNombre = ct.Nombre, .IDComprobanteLote = cc.IDComprobanteLote, .NumeroCompleto = cc.NumeroCompleto, .FechaEmision = cc.FechaEmision, .IDEntidad = cc.IDEntidad, .EntidadNombre = cc.ApellidoNombre, .DocumentoNumero = cc.DocumentoNumero, .ImporteTotal = cc.ImporteTotal1, .CAE = cc.CAE, .Anulado = cc.IDUsuarioAnulacion IsNot Nothing}).ToList
+                                         Select New GridRowData With {.IDComprobante = cc.IDComprobante, .OperacionTipo = ct.OperacionTipo, .IDComprobanteTipo = cc.IDComprobanteTipo, .ComprobanteTipoNombre = ct.Nombre, .IDComprobanteLote = cc.IDComprobanteLote, .NumeroCompleto = cc.NumeroCompleto, .FechaEmision = cc.FechaEmision, .IDEntidad = cc.IDEntidad, .EntidadNombre = cc.ApellidoNombre, .DocumentoNumero = cc.DocumentoNumero, .ImporteTotal = cc.ImporteTotal1, .CAE = cc.CAE, .Anulado = cc.IDUsuarioAnulacion IsNot Nothing}).Take(MaximoNumeroComprobantes).ToList
             End Using
 
         Catch ex As Exception
@@ -219,8 +221,10 @@ Public Class formComprobantes
                         statuslabelMain.Text = String.Format("No hay Comprobantes para mostrar.")
                     Case 1
                         statuslabelMain.Text = String.Format("Se muestra 1 Comprobante.")
+                    Case MaximoNumeroComprobantes
+                        statuslabelMain.Text = String.Format("Se muestran {0:N0} Comprobantes (limitado a la cantidad máxima permitida).", mlistComprobantesFiltradaYOrdenada.Count)
                     Case Else
-                        statuslabelMain.Text = String.Format("Se muestran {0} Comprobantes.", mlistComprobantesFiltradaYOrdenada.Count)
+                        statuslabelMain.Text = String.Format("Se muestran {0:N0} Comprobantes.", mlistComprobantesFiltradaYOrdenada.Count)
                 End Select
 
             Catch ex As Exception

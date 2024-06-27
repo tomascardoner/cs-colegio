@@ -4,7 +4,7 @@
   "ModoHomologacion": true,
   "ClavePrivada": "{Dropbox}\\Colegio Horizonte\\CS-Colegio\\Certificados\\cardonersistemas.key",
   "TtlTicketRequerimientoAcceso": 2400,
-  "LogFolder": "{ApplicationFolder}\\Log\\AFIP",
+  "LogFolder": "{ApplicationFolder}\\Log\\AFIP\\{Year}\\{Month}",
   "LogFileName": "{DateTimeUniversalNoSlashes}.log",
   "LogEnabled": true
 }

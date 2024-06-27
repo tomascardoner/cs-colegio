@@ -16,5 +16,8 @@
   "DeliveryFailedSubject": "RV: Mail delivery failed: returning message to sender",
   "DeliveryFailedErrorText": "550 Requested action not taken: mailbox unavailable",
   "DeliveryFailedRejectedAddressPreviousText": "The following address(es) failed:",
-  "DeliveryFailedSenderAddress": "Mailer-Daemon@orlando.dattaweb.com"
+  "DeliveryFailedSenderAddress": "Mailer-Daemon@orlando.dattaweb.com",
+  "LogFolder": "{ApplicationFolder}\\Log\\Email\\{Year}\\{Month}",
+  "LogFileName": "{DateTimeUniversalNoSlashes}.log",
+  "LogEnabled": true
 }
