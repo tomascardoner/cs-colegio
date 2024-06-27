@@ -3,9 +3,6 @@ Imports Google.Apis.Util.Store
 Imports System.Threading
 Imports MailKit.Net
 Imports Google.Apis.Auth.OAuth2.Responses
-Imports Google.Apis.Auth.OAuth2.Flows
-Imports System.Text.Json
-Imports Microsoft.VisualBasic.ApplicationServices
 
 Namespace Email
     Module SmtpOAuth20
@@ -35,49 +32,12 @@ Namespace Email
             End Try
         End Function
 
-        Private Function AuthorizeNew(logPath As String, logFileName As String, secrets As GoogleClientSecrets, ByRef accessToken As String) As Boolean
+        Friend Function Authorize(logPath As String, logFileName As String, ByRef accessToken As String) As Boolean
             Const GoogleScope As String = "https://mail.google.com/"
 
+            Dim secrets As GoogleClientSecrets
             Dim scopes As IEnumerable(Of String) = {GoogleScope}
             Dim credential As UserCredential
-
-            Try
-                CS_FileLog.WriteLine(pEmailConfig.LogEnabled, logPath, logFileName, LogEntryType.Information, "Autorización de Google API: inicio")
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(secrets.Secrets, scopes, pEmailConfig.SmtpUserName, CancellationToken.None, New FileDataStore(My.Application.Info.DirectoryPath, True)).Result
-                accessToken = credential.Token.AccessToken
-                CS_FileLog.WriteLine(pEmailConfig.LogEnabled, logPath, logFileName, LogEntryType.Information, "Autorización de Google API: fin")
-                Return True
-            Catch ex As Exception
-                CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al generar la autorización de acceso a GMail.")
-                Return False
-            End Try
-        End Function
-
-        Private Function AuthorizeRefresh(logPath As String, logFileName As String, secrets As GoogleClientSecrets, tokenResponse As TokenResponse, ByRef accessToken As String) As Boolean
-            Dim googleInitializer As GoogleAuthorizationCodeFlow.Initializer
-            Dim googleAuthorizationCodeFlow As GoogleAuthorizationCodeFlow
-            Dim fileDataStore As FileDataStore
-            Dim credential As UserCredential
-
-            Try
-                CS_FileLog.WriteLine(pEmailConfig.LogEnabled, logPath, logFileName, LogEntryType.Information, "Refresh de autorización de Google API: inicio")
-                'tokenResponse = New TokenResponse With {.AccessToken = accessToken, .RefreshToken = refreshToken}
-                'googleInitializer = New GoogleAuthorizationCodeFlow.Initializer With {.DataStore = New FileDataStore(My.Application.Info.DirectoryPath, True), .ClientSecrets = secrets.Secrets}
-                'googleAuthorizationCodeFlow = New GoogleAuthorizationCodeFlow(googleInitializer)
-
-                credential = New UserCredential(googleAuthorizationCodeFlow, pEmailConfig.SmtpUserName, tokenResponse)
-                accessToken = credential.Token.AccessToken
-                CS_FileLog.WriteLine(pEmailConfig.LogEnabled, logPath, logFileName, LogEntryType.Information, "Refresh de autorización de Google API: fin")
-                Return True
-            Catch ex As Exception
-                CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al renovar la autorización de acceso a GMail.")
-                Return False
-            End Try
-        End Function
-
-        Friend Function Authorize(logPath As String, logFileName As String, ByRef accessToken As String) As Boolean
-            Dim tokenResponse As TokenResponse
-            Dim secrets As GoogleClientSecrets
 
             ' Leo el archivo de Google Client Secrets
             secrets = ClientSecretsFileLoad(pEmailConfig.GoogleApiSecretFile)
@@ -85,18 +45,34 @@ Namespace Email
                 Return False
             End If
 
-            ' Leo el token si existe
-            tokenResponse = TokenResponseGetFromFile().Result
-            accessToken = tokenResponse?.AccessToken
+            ' Solicito autorización
+            Try
+                CS_FileLog.WriteLine(pEmailConfig.LogEnabled, logPath, logFileName, LogEntryType.Information, "Autorización de Google API: inicio")
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(secrets.Secrets, scopes, pEmailConfig.SmtpUserName, CancellationToken.None, New FileDataStore(My.Application.Info.DirectoryPath, True)).Result
+                CS_FileLog.WriteLine(pEmailConfig.LogEnabled, logPath, logFileName, LogEntryType.Information, "Autorización de Google API: fin")
+            Catch ex As Exception
+                CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al generar la autorización de acceso a GMail.")
+                Return False
+            End Try
 
-            If tokenResponse Is Nothing Then
-                Return AuthorizeNew(logPath, logFileName, secrets, accessToken)
-            ElseIf DateDiff(DateInterval.Second, DateTime.UtcNow, tokenResponse.IssuedUtc.AddSeconds(CType(tokenResponse.ExpiresInSeconds, Double))) < 0 Then
-                Return AuthorizeRefresh(logPath, logFileName, secrets, tokenResponse, accessToken)
-            Else
-                accessToken = tokenResponse.RefreshToken
+            ' Verifico si el token está vencido (en caso de leerlo del archivo local)
+            Try
+                If credential.Token.IsStale Then
+                    CS_FileLog.WriteLine(pEmailConfig.LogEnabled, logPath, logFileName, LogEntryType.Information, "Autorización de Google API: ==> Token vencido <==")
+                    CS_FileLog.WriteLine(pEmailConfig.LogEnabled, logPath, logFileName, LogEntryType.Information, "Autorización de Google API - Refresh del Token: inicio")
+                    If credential.RefreshTokenAsync(CancellationToken.None).Result Then
+                        CS_FileLog.WriteLine(pEmailConfig.LogEnabled, logPath, logFileName, LogEntryType.Information, "Autorización de Google API - Refresh del Token: fin")
+                    Else
+                        CS_FileLog.WriteLine(pEmailConfig.LogEnabled, logPath, logFileName, LogEntryType.Information, "Autorización de Google API - Refresh del Token: falló")
+                        Return False
+                    End If
+                End If
+                accessToken = credential.Token.AccessToken
                 Return True
-            End If
+            Catch ex As Exception
+                CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al re-generar la autorización de acceso a GMail.")
+                Return False
+            End Try
         End Function
 
         Friend Function Connect(logPath As String, logFileName As String, smtpClient As Smtp.SmtpClient) As Boolean
