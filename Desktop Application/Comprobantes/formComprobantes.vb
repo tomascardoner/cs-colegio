@@ -29,7 +29,6 @@ Public Class formComprobantes
     Private mlistComprobantesFiltradaYOrdenada As List(Of GridRowData)
 
     Private mSkipFilterData As Boolean = False
-    Private mBusquedaAplicada As Boolean = False
     Private mReportSelectionFormulaBase As String
     Private mReportSelectionFormula As String
 
@@ -193,7 +192,7 @@ Public Class formComprobantes
                 End If
 
                 ' Si hay una búsqueda aplicada, filtro por eso
-                If mBusquedaAplicada Then
+                If Not String.IsNullOrWhiteSpace(textboxBuscar.Text) Then
                     Select Case comboboxBuscarTipo.SelectedIndex
                         Case 0
                             ' Búsqueda por Entidad Titular
@@ -373,7 +372,6 @@ Public Class formComprobantes
                 MsgBox("Se deben especificar al menos 3 caracteres para buscar.", MsgBoxStyle.Information, My.Application.Info.Title)
                 textboxBuscar.Focus()
             Else
-                mBusquedaAplicada = True
                 FilterData()
             End If
             e.Handled = True
@@ -385,9 +383,8 @@ Public Class formComprobantes
     End Sub
 
     Private Sub BuscarBorrar_Click() Handles buttonBuscarBorrar.Click
-        If mBusquedaAplicada Then
+        If Not String.IsNullOrWhiteSpace(textboxBuscar.Text) Then
             textboxBuscar.Clear()
-            mBusquedaAplicada = False
             FilterData()
         End If
     End Sub
@@ -829,7 +826,7 @@ Public Class formComprobantes
                 End If
             End If
 
-            If MsgBox("Se va a enviar por e-mail el Comprobante seleccionado." & vbCrLf & vbCrLf & "¿Desea continuar?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+            If MsgBox("Se va a enviar el Comprobante seleccionado por e-mail." & vbCrLf & vbCrLf & "¿Desea continuar?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
                 Return
             End If
 
@@ -844,7 +841,7 @@ Public Class formComprobantes
                     Dim Cuerpo As String = String.Format(pComprobanteConfig.SendEmailBody, vbCrLf) & String.Format(pEmailConfig.Signature, vbCrLf)
                     Dim AdjuntoNombre As String = String.Format("{0}-{1}.pdf", ComprobanteTipoActual.Sigla.TrimEnd, CurrentRow.NumeroCompleto)
 
-                    If Email.Enviar(New List(Of Entidad)({Titular}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, String.Empty, True) = -1 Then
+                    If Email.EnviarSimple(New List(Of Entidad)({Titular}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, String.Empty, True) = -1 Then
                         datagridviewMain.Enabled = True
                         Me.Cursor = Cursors.Default
                         Return

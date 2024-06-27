@@ -399,6 +399,7 @@
     <Compile Include="EmailEnvio.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Email\Mailer.vb" />
     <Compile Include="Email\Recipients.vb" />
     <Compile Include="Email\Sender.vb" />
     <Compile Include="Email\SmtpOAuth20.vb" />

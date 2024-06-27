@@ -129,6 +129,7 @@
     Private Sub EnviarComprobantes()
         Dim GridDataRowActual As GridDataRow
         Dim ComprobanteActual As Comprobante
+        Dim mailer As New Email.Mailer()
         Dim IDComprobanteTipo As Byte
         Dim ReporteActual As New Reporte
         Dim Result As Integer
@@ -142,24 +143,32 @@
         textboxStatus.Text = "Iniciando el envío de Comprobantes..."
         Application.DoEvents()
 
+        If Not mailer.SmtpConnect Then
+            MostrarOcultarEstado(False)
+            Me.Cursor = Cursors.Default
+            Return
+        End If
+
         For Each RowActual As DataGridViewRow In datagridviewComprobantes.Rows
             ' Hago que la grilla vaya mostrando la fila que se está procesando
             datagridviewComprobantes.CurrentCell = RowActual.Cells(0)
             GridDataRowActual = CType(RowActual.DataBoundItem, GridDataRow)
 
             ComprobanteActual = dbContext.Comprobante.Find(GridDataRowActual.IDComprobante)
-            If Not ComprobanteActual Is Nothing Then
-                If (Not ComprobanteActual.Entidad.Email1 Is Nothing) OrElse (Not ComprobanteActual.Entidad.Email2 Is Nothing) Then
+            If ComprobanteActual IsNot Nothing Then
+                If (ComprobanteActual.Entidad.Email1 IsNot Nothing) OrElse (ComprobanteActual.Entidad.Email2 IsNot Nothing) Then
                     If IDComprobanteTipo <> ComprobanteActual.IDComprobanteTipo Then
                         IDComprobanteTipo = ComprobanteActual.IDComprobanteTipo
                         ReporteActual = New Reporte
                         If Not ReporteActual.Open(pGeneralConfig.ReportsPath & "\" & ComprobanteActual.ComprobanteTipo.ReporteNombre) Then
+                            mailer.SmtpDisconnect()
                             RefreshData()
                             MostrarOcultarEstado(False)
                             Me.Cursor = Cursors.Default
                             Exit Sub
                         End If
-                        If Not ReporteActual.SetDatabaseConnection(pDatabase.DataSource, pDatabase.InitialCatalog, pDatabase.UserID, pDatabase.Password) Then
+                        If Not ReporteActual.SetDatabaseConnection(pDatabase.Datasource, pDatabase.InitialCatalog, pDatabase.UserId, pDatabase.Password) Then
+                            mailer.SmtpDisconnect()
                             RefreshData()
                             MostrarOcultarEstado(False)
                             Me.Cursor = Cursors.Default
@@ -175,15 +184,17 @@
 
                     textboxStatus.AppendText(vbCrLf & String.Format("Enviando {0} N° {1} a {2}...", ComprobanteActual.ComprobanteTipo.Nombre, ComprobanteActual.NumeroCompleto, ComprobanteActual.Entidad.ApellidoNombre))
 
-                    Result = Email.Enviar(New List(Of Entidad)({ComprobanteActual.Entidad}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, "", False)
+                    Result = mailer.SendEmail(New List(Of Entidad)({ComprobanteActual.Entidad}), New List(Of Entidad), New List(Of Entidad), Asunto, False, Cuerpo, ReporteActual, AdjuntoNombre, String.Empty, False)
                     Select Case Result
                         Case 0
                             MsgBox("No hay una dirección de e-mail para la Entidad.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                            mailer.SmtpDisconnect()
                             RefreshData()
                             MostrarOcultarEstado(False)
                             Me.Cursor = Cursors.Default
                             Exit Sub
                         Case -1
+                            mailer.SmtpDisconnect()
                             RefreshData()
                             MostrarOcultarEstado(False)
                             Me.Cursor = Cursors.Default
@@ -219,6 +230,7 @@
         Else
             MsgBox(String.Format("Se han enviado {0} e-mails.", MailCount, vbCrLf), MsgBoxStyle.Information, My.Application.Info.Title)
         End If
+        mailer.SmtpDisconnect()
         RefreshData()
         MostrarOcultarEstado(False)
         Me.Cursor = Cursors.Default

@@ -124,6 +124,7 @@
 #End Region
 
 #Region "Controls behavior"
+
     Private Sub CambiarComunicacion() Handles comboboxComunicacion.SelectedIndexChanged
         RefreshData()
     End Sub
@@ -154,12 +155,14 @@
     Private Sub Cancelar_Click() Handles buttonCancelar.Click
         mCancelar = True
     End Sub
+
 #End Region
 
 #Region "Extra stuff"
 
     Private Sub EnviarComunicaciones()
         Dim ComunicacionActual As Comunicacion
+        Dim mailer As New Email.Mailer()
         Dim listEntidadesTo As New List(Of Entidad)
         Dim listEntidadesCC As New List(Of Entidad)
         Dim listEntidadesBCC As New List(Of Entidad)
@@ -175,6 +178,12 @@
 
         ComunicacionActual = CType(comboboxComunicacion.SelectedItem, Comunicacion)
 
+        If Not mailer.SmtpConnect() Then
+            MostrarOcultarEstado(False)
+            Me.Cursor = Cursors.Default
+            Return
+        End If
+
         For Each RowActual As DataGridViewRow In datagridviewEntidades.Rows
             ' Hago que la grilla vaya mostrando la fila que se está procesando
             datagridviewEntidades.CurrentCell = RowActual.Cells(0)
@@ -187,8 +196,9 @@
             End If
 
             If (listEntidadesTo.Count + listEntidadesCC.Count + listEntidadesBCC.Count) >= ComunicacionActual.CantidadDestinatariosPorEmail Then
-                Result = EnviarComunicacion(listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual)
+                Result = EnviarComunicacion(mailer, listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual)
                 If Result < 1 Then
+                    mailer.SmtpDisconnect()
                     RefreshData()
                     MostrarOcultarEstado(False)
                     Me.Cursor = Cursors.Default
@@ -199,8 +209,9 @@
 
             If comboboxCantidad.SelectedIndex > 0 AndAlso (TotalMailsEnviados + (listEntidadesTo.Count + listEntidadesCC.Count + listEntidadesBCC.Count)) >= CShort(comboboxCantidad.Text) Then
                 If (listEntidadesTo.Count + listEntidadesCC.Count + listEntidadesBCC.Count) > 0 Then
-                    Result = EnviarComunicacion(listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual)
+                    Result = EnviarComunicacion(mailer, listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual)
                     If Result < 1 Then
+                        mailer.SmtpDisconnect()
                         RefreshData()
                         MostrarOcultarEstado(False)
                         Me.Cursor = Cursors.Default
@@ -220,8 +231,9 @@
             End If
         Next
         If (listEntidadesTo.Count + listEntidadesCC.Count + listEntidadesBCC.Count) > 0 Then
-            Result = EnviarComunicacion(listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual)
+            Result = EnviarComunicacion(mailer, listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual)
             If Result < 1 Then
+                mailer.SmtpDisconnect()
                 RefreshData()
                 MostrarOcultarEstado(False)
                 Me.Cursor = Cursors.Default
@@ -229,6 +241,7 @@
             End If
             TotalMailsEnviados += Result
         End If
+        mailer.SmtpDisconnect()
 
         If mCancelar Then
             MsgBox(String.Format("Se ha cancelado el envío de e-mails.{1}Se enviaron {0} e-mails.", TotalMailsEnviados, vbCrLf), MsgBoxStyle.Information, My.Application.Info.Title)
@@ -242,8 +255,8 @@
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Function EnviarComunicacion(ByRef listEntidadesTo As List(Of Entidad), ByRef listEntidadesCC As List(Of Entidad), ByRef listEntidadesBCC As List(Of Entidad), ByRef ComunicacionActual As Comunicacion) As Integer
-        Dim MailCount As Integer = 0
+    Private Function EnviarComunicacion(mailer As Email.Mailer, ByRef listEntidadesTo As List(Of Entidad), ByRef listEntidadesCC As List(Of Entidad), ByRef listEntidadesBCC As List(Of Entidad), ByRef ComunicacionActual As Comunicacion) As Integer
+        Dim MailCount As Integer
 
         If listEntidadesTo.Count + listEntidadesCC.Count + listEntidadesBCC.Count = 1 Then
             If listEntidadesTo.Count = 1 Then
@@ -257,7 +270,7 @@
             textboxStatus.AppendText(vbCrLf & String.Format("Enviando Comunicación a {0} Entidades...", listEntidadesTo.Count + listEntidadesCC.Count + listEntidadesBCC.Count))
         End If
 
-        MailCount = Email.Enviar(listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual.Asunto, ComunicacionActual.CuerpoMensajeEsHTML, ComunicacionActual.CuerpoMensaje, Nothing, "", ComunicacionActual.ArchivoAdjunto, False)
+        MailCount = mailer.SendEmail(listEntidadesTo, listEntidadesCC, listEntidadesBCC, ComunicacionActual.Asunto, ComunicacionActual.CuerpoMensajeEsHTML, ComunicacionActual.CuerpoMensaje, Nothing, "", ComunicacionActual.ArchivoAdjunto, False)
         If MailCount = -1 Then
             Return 0
         End If
