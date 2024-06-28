@@ -1,6 +1,7 @@
 ﻿Public Class formComprobantesEnviarMail
 
 #Region "Declarations"
+
     Private dbContext As New CSColegioContext(True)
     Private listComprobantes As List(Of GridDataRow)
     Private mCancelar As Boolean
@@ -9,7 +10,6 @@
         Public Property IDComprobante As Integer
         Public Property IDComprobanteTipo As Byte
         Public Property IDComprobanteLote As Integer
-        Public Property LoteNombre As String
         Public Property ComprobanteTipoNombre As String
         Public Property NumeroCompleto As String
         Public Property IDEntidad As Integer
@@ -39,6 +39,7 @@
 #End Region
 
 #Region "Mostrar y leer datos"
+
     Private Sub RefreshData()
         Dim ComprobanteLoteActual As ComprobanteLote
 
@@ -46,7 +47,7 @@
 
         Try
 
-            If Not comboboxComprobanteLote.SelectedValue Is Nothing Then
+            If comboboxComprobanteLote.SelectedValue IsNot Nothing Then
                 ComprobanteLoteActual = CType(comboboxComprobanteLote.SelectedItem, ComprobanteLote)
 
                 ' Muestro los comprobantes que cumplan las siguientes condiciones:
@@ -61,9 +62,9 @@
                                     Join cl In dbContext.ComprobanteLote On c.IDComprobanteLote Equals cl.IDComprobanteLote
                                     Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
                                     Join e In dbContext.Entidad On c.IDEntidad Equals e.IDEntidad
-                                    Where c.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote AndAlso c.IDUsuarioAnulacion Is Nothing AndAlso c.IDUsuarioEnvioEmail Is Nothing AndAlso ct.EmisionElectronica AndAlso (Not c.CAE Is Nothing) AndAlso (Not (e.Email1 Is Nothing AndAlso e.Email2 Is Nothing)) AndAlso (Not e.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO)
+                                    Where c.IDComprobanteLote = ComprobanteLoteActual.IDComprobanteLote AndAlso c.IDUsuarioAnulacion Is Nothing AndAlso c.IDUsuarioEnvioEmail Is Nothing AndAlso ct.EmisionElectronica AndAlso (c.CAE IsNot Nothing) AndAlso (Not (e.Email1 Is Nothing AndAlso e.Email2 Is Nothing)) AndAlso (Not e.ComprobanteEnviarEmail = Constantes.ENTIDAD_COMPROBANTE_ENVIAREMAIL_NO)
                                     Order By ct.Nombre, c.NumeroCompleto
-                                    Select New GridDataRow With {.IDComprobante = c.IDComprobante, .IDComprobanteTipo = c.IDComprobanteTipo, .IDComprobanteLote = c.IDComprobanteLote.Value, .LoteNombre = cl.Nombre, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .IDEntidad = c.IDEntidad, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal1}).ToList
+                                    Select New GridDataRow With {.IDComprobante = c.IDComprobante, .IDComprobanteTipo = c.IDComprobanteTipo, .IDComprobanteLote = c.IDComprobanteLote.Value, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .IDEntidad = c.IDEntidad, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal1}).ToList
 
                 Select Case listComprobantes.Count
                     Case 0

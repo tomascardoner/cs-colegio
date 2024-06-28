@@ -54,14 +54,16 @@ Partial Class formComprobantesTransmitirPagosEduc
         Me.datagridviewComprobantes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewComprobantes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewComprobantes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnNumeroCompleto, Me.columnApellidoNombre, Me.columnImporteTotal})
-        Me.datagridviewComprobantes.Location = New System.Drawing.Point(12, 63)
+        Me.datagridviewComprobantes.Location = New System.Drawing.Point(16, 78)
+        Me.datagridviewComprobantes.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.datagridviewComprobantes.MultiSelect = False
         Me.datagridviewComprobantes.Name = "datagridviewComprobantes"
         Me.datagridviewComprobantes.ReadOnly = True
         Me.datagridviewComprobantes.RowHeadersVisible = False
+        Me.datagridviewComprobantes.RowHeadersWidth = 51
         Me.datagridviewComprobantes.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewComprobantes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewComprobantes.Size = New System.Drawing.Size(668, 419)
+        Me.datagridviewComprobantes.Size = New System.Drawing.Size(891, 516)
         Me.datagridviewComprobantes.TabIndex = 3
         '
         'columnComprobanteTipoNombre
@@ -69,30 +71,33 @@ Partial Class formComprobantesTransmitirPagosEduc
         Me.columnComprobanteTipoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnComprobanteTipoNombre.DataPropertyName = "ComprobanteTipoNombre"
         Me.columnComprobanteTipoNombre.HeaderText = "Tipo"
+        Me.columnComprobanteTipoNombre.MinimumWidth = 6
         Me.columnComprobanteTipoNombre.Name = "columnComprobanteTipoNombre"
         Me.columnComprobanteTipoNombre.ReadOnly = True
         Me.columnComprobanteTipoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnComprobanteTipoNombre.Width = 34
+        Me.columnComprobanteTipoNombre.Width = 41
         '
         'columnNumeroCompleto
         '
         Me.columnNumeroCompleto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnNumeroCompleto.DataPropertyName = "NumeroCompleto"
         Me.columnNumeroCompleto.HeaderText = "Comprobante N°"
+        Me.columnNumeroCompleto.MinimumWidth = 6
         Me.columnNumeroCompleto.Name = "columnNumeroCompleto"
         Me.columnNumeroCompleto.ReadOnly = True
         Me.columnNumeroCompleto.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnNumeroCompleto.Width = 82
+        Me.columnNumeroCompleto.Width = 101
         '
         'columnApellidoNombre
         '
         Me.columnApellidoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnApellidoNombre.DataPropertyName = "ApellidoNombre"
         Me.columnApellidoNombre.HeaderText = "Apellido y Nombre"
+        Me.columnApellidoNombre.MinimumWidth = 6
         Me.columnApellidoNombre.Name = "columnApellidoNombre"
         Me.columnApellidoNombre.ReadOnly = True
         Me.columnApellidoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnApellidoNombre.Width = 88
+        Me.columnApellidoNombre.Width = 113
         '
         'columnImporteTotal
         '
@@ -102,16 +107,18 @@ Partial Class formComprobantesTransmitirPagosEduc
         DataGridViewCellStyle2.NullValue = "0"
         Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle2
         Me.columnImporteTotal.HeaderText = "Importe"
+        Me.columnImporteTotal.MinimumWidth = 6
         Me.columnImporteTotal.Name = "columnImporteTotal"
         Me.columnImporteTotal.ReadOnly = True
         Me.columnImporteTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnImporteTotal.Width = 48
+        Me.columnImporteTotal.Width = 58
         '
         'buttonExportar
         '
-        Me.buttonExportar.Location = New System.Drawing.Point(332, 19)
+        Me.buttonExportar.Location = New System.Drawing.Point(443, 23)
+        Me.buttonExportar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.buttonExportar.Name = "buttonExportar"
-        Me.buttonExportar.Size = New System.Drawing.Size(57, 21)
+        Me.buttonExportar.Size = New System.Drawing.Size(76, 26)
         Me.buttonExportar.TabIndex = 2
         Me.buttonExportar.Text = "Exportar"
         Me.buttonExportar.UseVisualStyleBackColor = True
@@ -120,15 +127,16 @@ Partial Class formComprobantesTransmitirPagosEduc
         '
         Me.statusstripMain.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statuslabelMain})
-        Me.statusstripMain.Location = New System.Drawing.Point(0, 494)
+        Me.statusstripMain.Location = New System.Drawing.Point(0, 613)
         Me.statusstripMain.Name = "statusstripMain"
-        Me.statusstripMain.Size = New System.Drawing.Size(692, 22)
+        Me.statusstripMain.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
+        Me.statusstripMain.Size = New System.Drawing.Size(923, 22)
         Me.statusstripMain.TabIndex = 4
         '
         'statuslabelMain
         '
         Me.statuslabelMain.Name = "statuslabelMain"
-        Me.statuslabelMain.Size = New System.Drawing.Size(677, 17)
+        Me.statuslabelMain.Size = New System.Drawing.Size(903, 16)
         Me.statuslabelMain.Spring = True
         Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -137,9 +145,10 @@ Partial Class formComprobantesTransmitirPagosEduc
         Me.pictureboxLogo.BackColor = System.Drawing.Color.White
         Me.pictureboxLogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.pictureboxLogo.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_LOGO_PAGOSEDUC
-        Me.pictureboxLogo.Location = New System.Drawing.Point(517, 6)
+        Me.pictureboxLogo.Location = New System.Drawing.Point(689, 7)
+        Me.pictureboxLogo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.pictureboxLogo.Name = "pictureboxLogo"
-        Me.pictureboxLogo.Size = New System.Drawing.Size(52, 51)
+        Me.pictureboxLogo.Size = New System.Drawing.Size(68, 62)
         Me.pictureboxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pictureboxLogo.TabIndex = 9
         Me.pictureboxLogo.TabStop = False
@@ -148,25 +157,27 @@ Partial Class formComprobantesTransmitirPagosEduc
         '
         Me.comboboxComprobanteLote.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxComprobanteLote.FormattingEnabled = True
-        Me.comboboxComprobanteLote.Location = New System.Drawing.Point(46, 20)
+        Me.comboboxComprobanteLote.Location = New System.Drawing.Point(61, 25)
+        Me.comboboxComprobanteLote.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.comboboxComprobanteLote.Name = "comboboxComprobanteLote"
-        Me.comboboxComprobanteLote.Size = New System.Drawing.Size(282, 21)
+        Me.comboboxComprobanteLote.Size = New System.Drawing.Size(375, 24)
         Me.comboboxComprobanteLote.TabIndex = 13
         '
         'labelComprobanteLote
         '
         Me.labelComprobanteLote.AutoSize = True
-        Me.labelComprobanteLote.Location = New System.Drawing.Point(10, 22)
+        Me.labelComprobanteLote.Location = New System.Drawing.Point(13, 27)
+        Me.labelComprobanteLote.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelComprobanteLote.Name = "labelComprobanteLote"
-        Me.labelComprobanteLote.Size = New System.Drawing.Size(31, 13)
+        Me.labelComprobanteLote.Size = New System.Drawing.Size(36, 16)
         Me.labelComprobanteLote.TabIndex = 12
         Me.labelComprobanteLote.Text = "Lote:"
         '
         'formComprobantesTransmitirPagosEduc
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(692, 516)
+        Me.ClientSize = New System.Drawing.Size(923, 635)
         Me.Controls.Add(Me.comboboxComprobanteLote)
         Me.Controls.Add(Me.labelComprobanteLote)
         Me.Controls.Add(Me.pictureboxLogo)
@@ -175,7 +186,9 @@ Partial Class formComprobantesTransmitirPagosEduc
         Me.Controls.Add(Me.datagridviewComprobantes)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "formComprobantesTransmitirPagosEduc"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual

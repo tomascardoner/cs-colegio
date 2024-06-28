@@ -65,8 +65,7 @@
             mComprobanteActual = mdbContext.Comprobante.Find(IDComprobante)
         End If
 
-        Me.MdiParent = pFormMDIMain
-        CardonerSistemas.Forms.CenterToParent(ParentForm, Me)
+        CardonerSistemas.Forms.MdiChildPositionAndSizeToFit(CType(pFormMDIMain, Form), Me)
         InitializeFormAndControls()
         CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxComprobanteTipo, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, mComprobanteActual.IDComprobanteTipo)
         CambiarTipoComprobante()

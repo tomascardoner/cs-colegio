@@ -56,14 +56,16 @@ Partial Class formComprobantesTransmitirSantanderDebitoDirecto
         Me.datagridviewComprobantes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewComprobantes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewComprobantes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnNumeroCompleto, Me.columnApellidoNombre, Me.columnImporteTotal})
-        Me.datagridviewComprobantes.Location = New System.Drawing.Point(12, 65)
+        Me.datagridviewComprobantes.Location = New System.Drawing.Point(16, 80)
+        Me.datagridviewComprobantes.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.datagridviewComprobantes.MultiSelect = False
         Me.datagridviewComprobantes.Name = "datagridviewComprobantes"
         Me.datagridviewComprobantes.ReadOnly = True
         Me.datagridviewComprobantes.RowHeadersVisible = False
+        Me.datagridviewComprobantes.RowHeadersWidth = 51
         Me.datagridviewComprobantes.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewComprobantes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewComprobantes.Size = New System.Drawing.Size(668, 417)
+        Me.datagridviewComprobantes.Size = New System.Drawing.Size(891, 513)
         Me.datagridviewComprobantes.TabIndex = 5
         '
         'columnComprobanteTipoNombre
@@ -71,30 +73,33 @@ Partial Class formComprobantesTransmitirSantanderDebitoDirecto
         Me.columnComprobanteTipoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnComprobanteTipoNombre.DataPropertyName = "ComprobanteTipoNombre"
         Me.columnComprobanteTipoNombre.HeaderText = "Tipo"
+        Me.columnComprobanteTipoNombre.MinimumWidth = 6
         Me.columnComprobanteTipoNombre.Name = "columnComprobanteTipoNombre"
         Me.columnComprobanteTipoNombre.ReadOnly = True
         Me.columnComprobanteTipoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnComprobanteTipoNombre.Width = 34
+        Me.columnComprobanteTipoNombre.Width = 41
         '
         'columnNumeroCompleto
         '
         Me.columnNumeroCompleto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnNumeroCompleto.DataPropertyName = "NumeroCompleto"
         Me.columnNumeroCompleto.HeaderText = "Comprobante N°"
+        Me.columnNumeroCompleto.MinimumWidth = 6
         Me.columnNumeroCompleto.Name = "columnNumeroCompleto"
         Me.columnNumeroCompleto.ReadOnly = True
         Me.columnNumeroCompleto.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnNumeroCompleto.Width = 82
+        Me.columnNumeroCompleto.Width = 101
         '
         'columnApellidoNombre
         '
         Me.columnApellidoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnApellidoNombre.DataPropertyName = "ApellidoNombre"
         Me.columnApellidoNombre.HeaderText = "Apellido y Nombre"
+        Me.columnApellidoNombre.MinimumWidth = 6
         Me.columnApellidoNombre.Name = "columnApellidoNombre"
         Me.columnApellidoNombre.ReadOnly = True
         Me.columnApellidoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnApellidoNombre.Width = 88
+        Me.columnApellidoNombre.Width = 113
         '
         'columnImporteTotal
         '
@@ -104,16 +109,18 @@ Partial Class formComprobantesTransmitirSantanderDebitoDirecto
         DataGridViewCellStyle2.NullValue = "0"
         Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle2
         Me.columnImporteTotal.HeaderText = "Importe"
+        Me.columnImporteTotal.MinimumWidth = 6
         Me.columnImporteTotal.Name = "columnImporteTotal"
         Me.columnImporteTotal.ReadOnly = True
         Me.columnImporteTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnImporteTotal.Width = 48
+        Me.columnImporteTotal.Width = 58
         '
         'buttonExportar
         '
-        Me.buttonExportar.Location = New System.Drawing.Point(337, 11)
+        Me.buttonExportar.Location = New System.Drawing.Point(449, 14)
+        Me.buttonExportar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.buttonExportar.Name = "buttonExportar"
-        Me.buttonExportar.Size = New System.Drawing.Size(57, 23)
+        Me.buttonExportar.Size = New System.Drawing.Size(76, 28)
         Me.buttonExportar.TabIndex = 4
         Me.buttonExportar.Text = "Exportar"
         Me.buttonExportar.UseVisualStyleBackColor = True
@@ -122,15 +129,16 @@ Partial Class formComprobantesTransmitirSantanderDebitoDirecto
         '
         Me.statusstripMain.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statuslabelMain})
-        Me.statusstripMain.Location = New System.Drawing.Point(0, 494)
+        Me.statusstripMain.Location = New System.Drawing.Point(0, 613)
         Me.statusstripMain.Name = "statusstripMain"
-        Me.statusstripMain.Size = New System.Drawing.Size(692, 22)
+        Me.statusstripMain.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
+        Me.statusstripMain.Size = New System.Drawing.Size(923, 22)
         Me.statusstripMain.TabIndex = 4
         '
         'statuslabelMain
         '
         Me.statuslabelMain.Name = "statuslabelMain"
-        Me.statuslabelMain.Size = New System.Drawing.Size(677, 17)
+        Me.statuslabelMain.Size = New System.Drawing.Size(903, 16)
         Me.statuslabelMain.Spring = True
         Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -139,9 +147,10 @@ Partial Class formComprobantesTransmitirSantanderDebitoDirecto
         Me.pictureboxLogo.BackColor = System.Drawing.Color.White
         Me.pictureboxLogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.pictureboxLogo.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_LOGO_SANTANDER
-        Me.pictureboxLogo.Location = New System.Drawing.Point(512, 8)
+        Me.pictureboxLogo.Location = New System.Drawing.Point(683, 10)
+        Me.pictureboxLogo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.pictureboxLogo.Name = "pictureboxLogo"
-        Me.pictureboxLogo.Size = New System.Drawing.Size(170, 47)
+        Me.pictureboxLogo.Size = New System.Drawing.Size(225, 57)
         Me.pictureboxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pictureboxLogo.TabIndex = 9
         Me.pictureboxLogo.TabStop = False
@@ -150,26 +159,29 @@ Partial Class formComprobantesTransmitirSantanderDebitoDirecto
         '
         Me.comboboxComprobanteLote.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxComprobanteLote.FormattingEnabled = True
-        Me.comboboxComprobanteLote.Location = New System.Drawing.Point(49, 12)
+        Me.comboboxComprobanteLote.Location = New System.Drawing.Point(65, 15)
+        Me.comboboxComprobanteLote.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.comboboxComprobanteLote.Name = "comboboxComprobanteLote"
-        Me.comboboxComprobanteLote.Size = New System.Drawing.Size(282, 21)
+        Me.comboboxComprobanteLote.Size = New System.Drawing.Size(375, 24)
         Me.comboboxComprobanteLote.TabIndex = 1
         '
         'labelComprobanteLote
         '
         Me.labelComprobanteLote.AutoSize = True
-        Me.labelComprobanteLote.Location = New System.Drawing.Point(12, 15)
+        Me.labelComprobanteLote.Location = New System.Drawing.Point(16, 18)
+        Me.labelComprobanteLote.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelComprobanteLote.Name = "labelComprobanteLote"
-        Me.labelComprobanteLote.Size = New System.Drawing.Size(31, 13)
+        Me.labelComprobanteLote.Size = New System.Drawing.Size(36, 16)
         Me.labelComprobanteLote.TabIndex = 0
         Me.labelComprobanteLote.Text = "Lote:"
         '
         'labelFechaVencimiento
         '
         Me.labelFechaVencimiento.AutoSize = True
-        Me.labelFechaVencimiento.Location = New System.Drawing.Point(12, 43)
+        Me.labelFechaVencimiento.Location = New System.Drawing.Point(16, 53)
+        Me.labelFechaVencimiento.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelFechaVencimiento.Name = "labelFechaVencimiento"
-        Me.labelFechaVencimiento.Size = New System.Drawing.Size(115, 13)
+        Me.labelFechaVencimiento.Size = New System.Drawing.Size(142, 16)
         Me.labelFechaVencimiento.TabIndex = 2
         Me.labelFechaVencimiento.Text = "Fecha de vencimiento:"
         '
@@ -177,17 +189,18 @@ Partial Class formComprobantesTransmitirSantanderDebitoDirecto
         '
         Me.datetimepickkerFechaVencimiento.Checked = False
         Me.datetimepickkerFechaVencimiento.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.datetimepickkerFechaVencimiento.Location = New System.Drawing.Point(133, 39)
+        Me.datetimepickkerFechaVencimiento.Location = New System.Drawing.Point(177, 48)
+        Me.datetimepickkerFechaVencimiento.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.datetimepickkerFechaVencimiento.Name = "datetimepickkerFechaVencimiento"
         Me.datetimepickkerFechaVencimiento.ShowCheckBox = True
-        Me.datetimepickkerFechaVencimiento.Size = New System.Drawing.Size(134, 20)
+        Me.datetimepickkerFechaVencimiento.Size = New System.Drawing.Size(177, 22)
         Me.datetimepickkerFechaVencimiento.TabIndex = 3
         '
         'formComprobantesTransmitirSantanderDebitoDirecto
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(692, 516)
+        Me.ClientSize = New System.Drawing.Size(923, 635)
         Me.Controls.Add(Me.datetimepickkerFechaVencimiento)
         Me.Controls.Add(Me.labelFechaVencimiento)
         Me.Controls.Add(Me.comboboxComprobanteLote)
@@ -198,7 +211,9 @@ Partial Class formComprobantesTransmitirSantanderDebitoDirecto
         Me.Controls.Add(Me.datagridviewComprobantes)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "formComprobantesTransmitirSantanderDebitoDirecto"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual

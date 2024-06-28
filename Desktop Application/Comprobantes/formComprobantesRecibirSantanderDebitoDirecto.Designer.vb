@@ -66,18 +66,19 @@ Partial Class formComprobantesRecibirSantanderDebitoDirecto
         Me.panelPaso1.Controls.Add(Me.textboxUbicacionArchivos)
         Me.panelPaso1.Controls.Add(Me.labelUbicacionArchivos)
         Me.panelPaso1.Controls.Add(Me.labelPaso1)
-        Me.panelPaso1.Location = New System.Drawing.Point(9, 10)
-        Me.panelPaso1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.panelPaso1.Location = New System.Drawing.Point(12, 12)
+        Me.panelPaso1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.panelPaso1.Name = "panelPaso1"
-        Me.panelPaso1.Size = New System.Drawing.Size(633, 328)
+        Me.panelPaso1.Size = New System.Drawing.Size(844, 404)
         Me.panelPaso1.TabIndex = 0
         '
         'buttonPaso1Cancelar
         '
         Me.buttonPaso1Cancelar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonPaso1Cancelar.Location = New System.Drawing.Point(412, 294)
+        Me.buttonPaso1Cancelar.Location = New System.Drawing.Point(549, 362)
+        Me.buttonPaso1Cancelar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.buttonPaso1Cancelar.Name = "buttonPaso1Cancelar"
-        Me.buttonPaso1Cancelar.Size = New System.Drawing.Size(75, 34)
+        Me.buttonPaso1Cancelar.Size = New System.Drawing.Size(100, 42)
         Me.buttonPaso1Cancelar.TabIndex = 7
         Me.buttonPaso1Cancelar.Text = "Cancelar"
         Me.buttonPaso1Cancelar.UseVisualStyleBackColor = True
@@ -87,9 +88,10 @@ Partial Class formComprobantesRecibirSantanderDebitoDirecto
         Me.buttonPaso1Siguiente.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.buttonPaso1Siguiente.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_NEXT_24
         Me.buttonPaso1Siguiente.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.buttonPaso1Siguiente.Location = New System.Drawing.Point(493, 294)
+        Me.buttonPaso1Siguiente.Location = New System.Drawing.Point(657, 362)
+        Me.buttonPaso1Siguiente.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.buttonPaso1Siguiente.Name = "buttonPaso1Siguiente"
-        Me.buttonPaso1Siguiente.Size = New System.Drawing.Size(140, 34)
+        Me.buttonPaso1Siguiente.Size = New System.Drawing.Size(187, 42)
         Me.buttonPaso1Siguiente.TabIndex = 8
         Me.buttonPaso1Siguiente.Text = "Paso 2: Verificación"
         Me.buttonPaso1Siguiente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -98,58 +100,57 @@ Partial Class formComprobantesRecibirSantanderDebitoDirecto
         'labelArchivosEncontrados
         '
         Me.labelArchivosEncontrados.AutoSize = True
-        Me.labelArchivosEncontrados.Location = New System.Drawing.Point(2, 67)
-        Me.labelArchivosEncontrados.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.labelArchivosEncontrados.Location = New System.Drawing.Point(3, 82)
         Me.labelArchivosEncontrados.Name = "labelArchivosEncontrados"
-        Me.labelArchivosEncontrados.Size = New System.Drawing.Size(113, 13)
+        Me.labelArchivosEncontrados.Size = New System.Drawing.Size(140, 16)
         Me.labelArchivosEncontrados.TabIndex = 6
         Me.labelArchivosEncontrados.Text = "Archivos encontrados:"
         '
         'listboxArchivosEncontrados
         '
         Me.listboxArchivosEncontrados.FormattingEnabled = True
-        Me.listboxArchivosEncontrados.Location = New System.Drawing.Point(118, 67)
-        Me.listboxArchivosEncontrados.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.listboxArchivosEncontrados.ItemHeight = 16
+        Me.listboxArchivosEncontrados.Location = New System.Drawing.Point(157, 82)
+        Me.listboxArchivosEncontrados.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.listboxArchivosEncontrados.Name = "listboxArchivosEncontrados"
-        Me.listboxArchivosEncontrados.Size = New System.Drawing.Size(508, 212)
+        Me.listboxArchivosEncontrados.Size = New System.Drawing.Size(676, 260)
         Me.listboxArchivosEncontrados.TabIndex = 5
         '
         'buttonMostrar
         '
-        Me.buttonMostrar.Location = New System.Drawing.Point(566, 29)
-        Me.buttonMostrar.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.buttonMostrar.Location = New System.Drawing.Point(755, 36)
+        Me.buttonMostrar.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.buttonMostrar.Name = "buttonMostrar"
-        Me.buttonMostrar.Size = New System.Drawing.Size(60, 23)
+        Me.buttonMostrar.Size = New System.Drawing.Size(80, 28)
         Me.buttonMostrar.TabIndex = 4
         Me.buttonMostrar.Text = "Listar"
         Me.buttonMostrar.UseVisualStyleBackColor = True
         '
         'buttonUbicacionArchivos
         '
-        Me.buttonUbicacionArchivos.Location = New System.Drawing.Point(501, 29)
-        Me.buttonUbicacionArchivos.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.buttonUbicacionArchivos.Location = New System.Drawing.Point(668, 36)
+        Me.buttonUbicacionArchivos.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.buttonUbicacionArchivos.Name = "buttonUbicacionArchivos"
-        Me.buttonUbicacionArchivos.Size = New System.Drawing.Size(60, 23)
+        Me.buttonUbicacionArchivos.Size = New System.Drawing.Size(80, 28)
         Me.buttonUbicacionArchivos.TabIndex = 3
         Me.buttonUbicacionArchivos.Text = "Examinar"
         Me.buttonUbicacionArchivos.UseVisualStyleBackColor = True
         '
         'textboxUbicacionArchivos
         '
-        Me.textboxUbicacionArchivos.Location = New System.Drawing.Point(118, 32)
-        Me.textboxUbicacionArchivos.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.textboxUbicacionArchivos.Location = New System.Drawing.Point(157, 39)
+        Me.textboxUbicacionArchivos.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.textboxUbicacionArchivos.MaxLength = 255
         Me.textboxUbicacionArchivos.Name = "textboxUbicacionArchivos"
-        Me.textboxUbicacionArchivos.Size = New System.Drawing.Size(379, 20)
+        Me.textboxUbicacionArchivos.Size = New System.Drawing.Size(504, 22)
         Me.textboxUbicacionArchivos.TabIndex = 2
         '
         'labelUbicacionArchivos
         '
         Me.labelUbicacionArchivos.AutoSize = True
-        Me.labelUbicacionArchivos.Location = New System.Drawing.Point(2, 34)
-        Me.labelUbicacionArchivos.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.labelUbicacionArchivos.Location = New System.Drawing.Point(3, 42)
         Me.labelUbicacionArchivos.Name = "labelUbicacionArchivos"
-        Me.labelUbicacionArchivos.Size = New System.Drawing.Size(111, 13)
+        Me.labelUbicacionArchivos.Size = New System.Drawing.Size(138, 16)
         Me.labelUbicacionArchivos.TabIndex = 1
         Me.labelUbicacionArchivos.Text = "Carpeta de ubicación:"
         '
@@ -157,10 +158,9 @@ Partial Class formComprobantesRecibirSantanderDebitoDirecto
         '
         Me.labelPaso1.AutoSize = True
         Me.labelPaso1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelPaso1.Location = New System.Drawing.Point(2, 0)
-        Me.labelPaso1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.labelPaso1.Location = New System.Drawing.Point(3, 0)
         Me.labelPaso1.Name = "labelPaso1"
-        Me.labelPaso1.Size = New System.Drawing.Size(291, 17)
+        Me.labelPaso1.Size = New System.Drawing.Size(337, 20)
         Me.labelPaso1.TabIndex = 0
         Me.labelPaso1.Text = "Paso 1: Selección del archivo de datos"
         '
@@ -176,77 +176,73 @@ Partial Class formComprobantesRecibirSantanderDebitoDirecto
         Me.panelPaso2.Controls.Add(Me.buttonPaso2Siguiente)
         Me.panelPaso2.Controls.Add(Me.buttonPaso2Anterior)
         Me.panelPaso2.Controls.Add(Me.datagridviewPaso3Cabecera)
-        Me.panelPaso2.Location = New System.Drawing.Point(9, 10)
-        Me.panelPaso2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.panelPaso2.Location = New System.Drawing.Point(12, 12)
+        Me.panelPaso2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.panelPaso2.Name = "panelPaso2"
-        Me.panelPaso2.Size = New System.Drawing.Size(633, 328)
+        Me.panelPaso2.Size = New System.Drawing.Size(844, 404)
         Me.panelPaso2.TabIndex = 1
         '
         'textboxImporteTotal
         '
-        Me.textboxImporteTotal.Location = New System.Drawing.Point(494, 27)
-        Me.textboxImporteTotal.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.textboxImporteTotal.Location = New System.Drawing.Point(659, 33)
+        Me.textboxImporteTotal.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.textboxImporteTotal.Name = "textboxImporteTotal"
         Me.textboxImporteTotal.ReadOnly = True
-        Me.textboxImporteTotal.Size = New System.Drawing.Size(85, 20)
+        Me.textboxImporteTotal.Size = New System.Drawing.Size(112, 22)
         Me.textboxImporteTotal.TabIndex = 12
         '
         'labelImporteTotal
         '
         Me.labelImporteTotal.AutoSize = True
-        Me.labelImporteTotal.Location = New System.Drawing.Point(418, 29)
-        Me.labelImporteTotal.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.labelImporteTotal.Location = New System.Drawing.Point(557, 36)
         Me.labelImporteTotal.Name = "labelImporteTotal"
-        Me.labelImporteTotal.Size = New System.Drawing.Size(72, 13)
+        Me.labelImporteTotal.Size = New System.Drawing.Size(89, 16)
         Me.labelImporteTotal.TabIndex = 11
         Me.labelImporteTotal.Text = "Importe Total:"
         '
         'textboxCantidadRegistros
         '
-        Me.textboxCantidadRegistros.Location = New System.Drawing.Point(334, 27)
-        Me.textboxCantidadRegistros.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.textboxCantidadRegistros.Location = New System.Drawing.Point(445, 33)
+        Me.textboxCantidadRegistros.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.textboxCantidadRegistros.Name = "textboxCantidadRegistros"
         Me.textboxCantidadRegistros.ReadOnly = True
-        Me.textboxCantidadRegistros.Size = New System.Drawing.Size(46, 20)
+        Me.textboxCantidadRegistros.Size = New System.Drawing.Size(60, 22)
         Me.textboxCantidadRegistros.TabIndex = 10
         '
         'labelCantidadRegistros
         '
         Me.labelCantidadRegistros.AutoSize = True
-        Me.labelCantidadRegistros.Location = New System.Drawing.Point(215, 29)
-        Me.labelCantidadRegistros.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.labelCantidadRegistros.Location = New System.Drawing.Point(287, 36)
         Me.labelCantidadRegistros.Name = "labelCantidadRegistros"
-        Me.labelCantidadRegistros.Size = New System.Drawing.Size(114, 13)
+        Me.labelCantidadRegistros.Size = New System.Drawing.Size(144, 16)
         Me.labelCantidadRegistros.TabIndex = 9
         Me.labelCantidadRegistros.Text = "Cantidad de Registros:"
         '
         'textboxFechaEmision
         '
-        Me.textboxFechaEmision.Location = New System.Drawing.Point(100, 27)
-        Me.textboxFechaEmision.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.textboxFechaEmision.Location = New System.Drawing.Point(133, 33)
+        Me.textboxFechaEmision.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.textboxFechaEmision.Name = "textboxFechaEmision"
         Me.textboxFechaEmision.ReadOnly = True
-        Me.textboxFechaEmision.Size = New System.Drawing.Size(85, 20)
+        Me.textboxFechaEmision.Size = New System.Drawing.Size(112, 22)
         Me.textboxFechaEmision.TabIndex = 8
         '
         'labelPaso2
         '
         Me.labelPaso2.AutoSize = True
         Me.labelPaso2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelPaso2.Location = New System.Drawing.Point(2, 0)
-        Me.labelPaso2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.labelPaso2.Location = New System.Drawing.Point(3, 0)
         Me.labelPaso2.Name = "labelPaso2"
-        Me.labelPaso2.Size = New System.Drawing.Size(200, 17)
+        Me.labelPaso2.Size = New System.Drawing.Size(234, 20)
         Me.labelPaso2.TabIndex = 7
         Me.labelPaso2.Text = "Paso 2: Verificar los datos"
         '
         'labelFechaEmision
         '
         Me.labelFechaEmision.AutoSize = True
-        Me.labelFechaEmision.Location = New System.Drawing.Point(2, 29)
-        Me.labelFechaEmision.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.labelFechaEmision.Location = New System.Drawing.Point(3, 36)
         Me.labelFechaEmision.Name = "labelFechaEmision"
-        Me.labelFechaEmision.Size = New System.Drawing.Size(94, 13)
+        Me.labelFechaEmision.Size = New System.Drawing.Size(118, 16)
         Me.labelFechaEmision.TabIndex = 6
         Me.labelFechaEmision.Text = "Fecha de Emisión:"
         '
@@ -255,9 +251,10 @@ Partial Class formComprobantesRecibirSantanderDebitoDirecto
         Me.buttonPaso2Siguiente.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.buttonPaso2Siguiente.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_NEXT_24
         Me.buttonPaso2Siguiente.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.buttonPaso2Siguiente.Location = New System.Drawing.Point(493, 294)
+        Me.buttonPaso2Siguiente.Location = New System.Drawing.Point(657, 362)
+        Me.buttonPaso2Siguiente.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.buttonPaso2Siguiente.Name = "buttonPaso2Siguiente"
-        Me.buttonPaso2Siguiente.Size = New System.Drawing.Size(140, 34)
+        Me.buttonPaso2Siguiente.Size = New System.Drawing.Size(187, 42)
         Me.buttonPaso2Siguiente.TabIndex = 5
         Me.buttonPaso2Siguiente.Text = "Paso 3: Confirmación"
         Me.buttonPaso2Siguiente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -268,9 +265,10 @@ Partial Class formComprobantesRecibirSantanderDebitoDirecto
         Me.buttonPaso2Anterior.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.buttonPaso2Anterior.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MOVE_PREVIOUS_24
         Me.buttonPaso2Anterior.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.buttonPaso2Anterior.Location = New System.Drawing.Point(346, 294)
+        Me.buttonPaso2Anterior.Location = New System.Drawing.Point(461, 362)
+        Me.buttonPaso2Anterior.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.buttonPaso2Anterior.Name = "buttonPaso2Anterior"
-        Me.buttonPaso2Anterior.Size = New System.Drawing.Size(140, 34)
+        Me.buttonPaso2Anterior.Size = New System.Drawing.Size(187, 42)
         Me.buttonPaso2Anterior.TabIndex = 4
         Me.buttonPaso2Anterior.Text = "Paso 1: Selección"
         Me.buttonPaso2Anterior.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -289,14 +287,16 @@ Partial Class formComprobantesRecibirSantanderDebitoDirecto
         Me.datagridviewPaso3Cabecera.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewPaso3Cabecera.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewPaso3Cabecera.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnPuntoVenta, Me.columnNumero, Me.columnApellidoNombre, Me.columnDocumentoNumero, Me.columnCategoriaIVANombre})
-        Me.datagridviewPaso3Cabecera.Location = New System.Drawing.Point(3, 55)
+        Me.datagridviewPaso3Cabecera.Location = New System.Drawing.Point(4, 68)
+        Me.datagridviewPaso3Cabecera.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.datagridviewPaso3Cabecera.MultiSelect = False
         Me.datagridviewPaso3Cabecera.Name = "datagridviewPaso3Cabecera"
         Me.datagridviewPaso3Cabecera.ReadOnly = True
         Me.datagridviewPaso3Cabecera.RowHeadersVisible = False
+        Me.datagridviewPaso3Cabecera.RowHeadersWidth = 51
         Me.datagridviewPaso3Cabecera.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewPaso3Cabecera.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewPaso3Cabecera.Size = New System.Drawing.Size(627, 232)
+        Me.datagridviewPaso3Cabecera.Size = New System.Drawing.Size(836, 286)
         Me.datagridviewPaso3Cabecera.TabIndex = 1
         '
         'columnComprobanteTipoNombre
@@ -304,71 +304,78 @@ Partial Class formComprobantesRecibirSantanderDebitoDirecto
         Me.columnComprobanteTipoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnComprobanteTipoNombre.DataPropertyName = "Partida"
         Me.columnComprobanteTipoNombre.HeaderText = "N° Cliente"
+        Me.columnComprobanteTipoNombre.MinimumWidth = 6
         Me.columnComprobanteTipoNombre.Name = "columnComprobanteTipoNombre"
         Me.columnComprobanteTipoNombre.ReadOnly = True
         Me.columnComprobanteTipoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnComprobanteTipoNombre.Width = 54
+        Me.columnComprobanteTipoNombre.Width = 64
         '
         'columnPuntoVenta
         '
         Me.columnPuntoVenta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnPuntoVenta.DataPropertyName = "FechaVencimiento"
         Me.columnPuntoVenta.HeaderText = "Fecha de Venc."
+        Me.columnPuntoVenta.MinimumWidth = 6
         Me.columnPuntoVenta.Name = "columnPuntoVenta"
         Me.columnPuntoVenta.ReadOnly = True
         Me.columnPuntoVenta.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnPuntoVenta.Width = 80
+        Me.columnPuntoVenta.Width = 66
         '
         'columnNumero
         '
         Me.columnNumero.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnNumero.DataPropertyName = "ImporteDebito"
         Me.columnNumero.HeaderText = "Importe"
+        Me.columnNumero.MinimumWidth = 6
         Me.columnNumero.Name = "columnNumero"
         Me.columnNumero.ReadOnly = True
         Me.columnNumero.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnNumero.Width = 48
+        Me.columnNumero.Width = 58
         '
         'columnApellidoNombre
         '
         Me.columnApellidoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnApellidoNombre.DataPropertyName = "IdentificacionDebito"
         Me.columnApellidoNombre.HeaderText = "Factura"
+        Me.columnApellidoNombre.MinimumWidth = 6
         Me.columnApellidoNombre.Name = "columnApellidoNombre"
         Me.columnApellidoNombre.ReadOnly = True
         Me.columnApellidoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnApellidoNombre.Width = 49
+        Me.columnApellidoNombre.Width = 58
         '
         'columnDocumentoNumero
         '
         Me.columnDocumentoNumero.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnDocumentoNumero.DataPropertyName = "CodigoError"
         Me.columnDocumentoNumero.HeaderText = "Error"
+        Me.columnDocumentoNumero.MinimumWidth = 6
         Me.columnDocumentoNumero.Name = "columnDocumentoNumero"
         Me.columnDocumentoNumero.ReadOnly = True
         Me.columnDocumentoNumero.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnDocumentoNumero.Width = 35
+        Me.columnDocumentoNumero.Width = 42
         '
         'columnCategoriaIVANombre
         '
         Me.columnCategoriaIVANombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnCategoriaIVANombre.DataPropertyName = "ReferenciaEmpresa"
         Me.columnCategoriaIVANombre.HeaderText = "ID de Comprobante"
+        Me.columnCategoriaIVANombre.MinimumWidth = 6
         Me.columnCategoriaIVANombre.Name = "columnCategoriaIVANombre"
         Me.columnCategoriaIVANombre.ReadOnly = True
         Me.columnCategoriaIVANombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnCategoriaIVANombre.Width = 95
+        Me.columnCategoriaIVANombre.Width = 117
         '
         'formComprobantesRecibirSantanderDebitoDirecto
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(653, 351)
+        Me.ClientSize = New System.Drawing.Size(871, 432)
         Me.Controls.Add(Me.panelPaso1)
         Me.Controls.Add(Me.panelPaso2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "formComprobantesRecibirSantanderDebitoDirecto"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual

@@ -324,9 +324,6 @@
 
             CardonerSistemas.Forms.MdiChildPositionAndSizeToFit(Me, CType(formComprobantes, Form))
             formComprobantes.Show()
-            If formComprobantes.WindowState = FormWindowState.Minimized Then
-                formComprobantes.WindowState = FormWindowState.Normal
-            End If
             formComprobantes.Focus()
 
             Me.Cursor = Cursors.Default

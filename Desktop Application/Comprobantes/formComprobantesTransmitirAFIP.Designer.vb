@@ -49,9 +49,10 @@ Partial Class formComprobantesTransmitirAFIP
         'labelCantidad
         '
         Me.labelCantidad.AutoSize = True
-        Me.labelCantidad.Location = New System.Drawing.Point(12, 30)
+        Me.labelCantidad.Location = New System.Drawing.Point(16, 37)
+        Me.labelCantidad.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelCantidad.Name = "labelCantidad"
-        Me.labelCantidad.Size = New System.Drawing.Size(180, 13)
+        Me.labelCantidad.Size = New System.Drawing.Size(227, 16)
         Me.labelCantidad.TabIndex = 0
         Me.labelCantidad.Text = "Cantidad de Comprobantes a Enviar:"
         '
@@ -59,9 +60,10 @@ Partial Class formComprobantesTransmitirAFIP
         '
         Me.comboboxCantidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxCantidad.FormattingEnabled = True
-        Me.comboboxCantidad.Location = New System.Drawing.Point(210, 27)
+        Me.comboboxCantidad.Location = New System.Drawing.Point(280, 33)
+        Me.comboboxCantidad.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.comboboxCantidad.Name = "comboboxCantidad"
-        Me.comboboxCantidad.Size = New System.Drawing.Size(75, 21)
+        Me.comboboxCantidad.Size = New System.Drawing.Size(99, 24)
         Me.comboboxCantidad.TabIndex = 1
         '
         'datagridviewComprobantes
@@ -77,14 +79,16 @@ Partial Class formComprobantesTransmitirAFIP
         Me.datagridviewComprobantes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.datagridviewComprobantes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.datagridviewComprobantes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.columnComprobanteTipoNombre, Me.columnNumeroCompleto, Me.columnApellidoNombre, Me.columnImporteTotal})
-        Me.datagridviewComprobantes.Location = New System.Drawing.Point(12, 63)
+        Me.datagridviewComprobantes.Location = New System.Drawing.Point(16, 78)
+        Me.datagridviewComprobantes.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.datagridviewComprobantes.MultiSelect = False
         Me.datagridviewComprobantes.Name = "datagridviewComprobantes"
         Me.datagridviewComprobantes.ReadOnly = True
         Me.datagridviewComprobantes.RowHeadersVisible = False
+        Me.datagridviewComprobantes.RowHeadersWidth = 51
         Me.datagridviewComprobantes.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewComprobantes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewComprobantes.Size = New System.Drawing.Size(668, 419)
+        Me.datagridviewComprobantes.Size = New System.Drawing.Size(891, 516)
         Me.datagridviewComprobantes.TabIndex = 3
         '
         'columnComprobanteTipoNombre
@@ -92,30 +96,33 @@ Partial Class formComprobantesTransmitirAFIP
         Me.columnComprobanteTipoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnComprobanteTipoNombre.DataPropertyName = "ComprobanteTipoNombre"
         Me.columnComprobanteTipoNombre.HeaderText = "Tipo"
+        Me.columnComprobanteTipoNombre.MinimumWidth = 6
         Me.columnComprobanteTipoNombre.Name = "columnComprobanteTipoNombre"
         Me.columnComprobanteTipoNombre.ReadOnly = True
         Me.columnComprobanteTipoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnComprobanteTipoNombre.Width = 34
+        Me.columnComprobanteTipoNombre.Width = 41
         '
         'columnNumeroCompleto
         '
         Me.columnNumeroCompleto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnNumeroCompleto.DataPropertyName = "NumeroCompleto"
         Me.columnNumeroCompleto.HeaderText = "Comprobante N°"
+        Me.columnNumeroCompleto.MinimumWidth = 6
         Me.columnNumeroCompleto.Name = "columnNumeroCompleto"
         Me.columnNumeroCompleto.ReadOnly = True
         Me.columnNumeroCompleto.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnNumeroCompleto.Width = 82
+        Me.columnNumeroCompleto.Width = 101
         '
         'columnApellidoNombre
         '
         Me.columnApellidoNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnApellidoNombre.DataPropertyName = "ApellidoNombre"
         Me.columnApellidoNombre.HeaderText = "Apellido y Nombre"
+        Me.columnApellidoNombre.MinimumWidth = 6
         Me.columnApellidoNombre.Name = "columnApellidoNombre"
         Me.columnApellidoNombre.ReadOnly = True
         Me.columnApellidoNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnApellidoNombre.Width = 88
+        Me.columnApellidoNombre.Width = 113
         '
         'columnImporteTotal
         '
@@ -125,16 +132,18 @@ Partial Class formComprobantesTransmitirAFIP
         DataGridViewCellStyle2.NullValue = "0"
         Me.columnImporteTotal.DefaultCellStyle = DataGridViewCellStyle2
         Me.columnImporteTotal.HeaderText = "Importe"
+        Me.columnImporteTotal.MinimumWidth = 6
         Me.columnImporteTotal.Name = "columnImporteTotal"
         Me.columnImporteTotal.ReadOnly = True
         Me.columnImporteTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.columnImporteTotal.Width = 48
+        Me.columnImporteTotal.Width = 58
         '
         'buttonTransmitir
         '
-        Me.buttonTransmitir.Location = New System.Drawing.Point(291, 27)
+        Me.buttonTransmitir.Location = New System.Drawing.Point(388, 33)
+        Me.buttonTransmitir.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.buttonTransmitir.Name = "buttonTransmitir"
-        Me.buttonTransmitir.Size = New System.Drawing.Size(86, 21)
+        Me.buttonTransmitir.Size = New System.Drawing.Size(115, 26)
         Me.buttonTransmitir.TabIndex = 2
         Me.buttonTransmitir.Text = "Transmitir"
         Me.buttonTransmitir.UseVisualStyleBackColor = True
@@ -144,9 +153,11 @@ Partial Class formComprobantesTransmitirAFIP
         Me.groupboxStatus.Controls.Add(Me.textboxStatus)
         Me.groupboxStatus.Controls.Add(Me.progressbarStatus)
         Me.groupboxStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.groupboxStatus.Location = New System.Drawing.Point(12, 350)
+        Me.groupboxStatus.Location = New System.Drawing.Point(16, 431)
+        Me.groupboxStatus.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.groupboxStatus.Name = "groupboxStatus"
-        Me.groupboxStatus.Size = New System.Drawing.Size(668, 132)
+        Me.groupboxStatus.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.groupboxStatus.Size = New System.Drawing.Size(891, 162)
         Me.groupboxStatus.TabIndex = 7
         Me.groupboxStatus.TabStop = False
         Me.groupboxStatus.Text = "Estado de la Transmisión:"
@@ -155,20 +166,22 @@ Partial Class formComprobantesTransmitirAFIP
         'textboxStatus
         '
         Me.textboxStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textboxStatus.Location = New System.Drawing.Point(7, 54)
+        Me.textboxStatus.Location = New System.Drawing.Point(9, 66)
+        Me.textboxStatus.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.textboxStatus.MaxLength = 0
         Me.textboxStatus.Multiline = True
         Me.textboxStatus.Name = "textboxStatus"
         Me.textboxStatus.ReadOnly = True
         Me.textboxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.textboxStatus.Size = New System.Drawing.Size(655, 71)
+        Me.textboxStatus.Size = New System.Drawing.Size(872, 86)
         Me.textboxStatus.TabIndex = 8
         '
         'progressbarStatus
         '
-        Me.progressbarStatus.Location = New System.Drawing.Point(3, 21)
+        Me.progressbarStatus.Location = New System.Drawing.Point(4, 26)
+        Me.progressbarStatus.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.progressbarStatus.Name = "progressbarStatus"
-        Me.progressbarStatus.Size = New System.Drawing.Size(660, 26)
+        Me.progressbarStatus.Size = New System.Drawing.Size(880, 32)
         Me.progressbarStatus.TabIndex = 7
         '
         'pictureboxLogo
@@ -176,7 +189,8 @@ Partial Class formComprobantesTransmitirAFIP
         Me.pictureboxLogo.BackColor = System.Drawing.Color.Black
         Me.pictureboxLogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.pictureboxLogo.Image = CType(resources.GetObject("pictureboxLogo.Image"), System.Drawing.Image)
-        Me.pictureboxLogo.Location = New System.Drawing.Point(530, 12)
+        Me.pictureboxLogo.Location = New System.Drawing.Point(707, 15)
+        Me.pictureboxLogo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.pictureboxLogo.Name = "pictureboxLogo"
         Me.pictureboxLogo.Size = New System.Drawing.Size(150, 45)
         Me.pictureboxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
@@ -185,9 +199,10 @@ Partial Class formComprobantesTransmitirAFIP
         '
         'buttonCancelar
         '
-        Me.buttonCancelar.Location = New System.Drawing.Point(291, 26)
+        Me.buttonCancelar.Location = New System.Drawing.Point(388, 32)
+        Me.buttonCancelar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.buttonCancelar.Name = "buttonCancelar"
-        Me.buttonCancelar.Size = New System.Drawing.Size(86, 21)
+        Me.buttonCancelar.Size = New System.Drawing.Size(115, 26)
         Me.buttonCancelar.TabIndex = 9
         Me.buttonCancelar.Text = "Cancelar"
         Me.buttonCancelar.UseVisualStyleBackColor = True
@@ -195,7 +210,7 @@ Partial Class formComprobantesTransmitirAFIP
         'statuslabelMain
         '
         Me.statuslabelMain.Name = "statuslabelMain"
-        Me.statuslabelMain.Size = New System.Drawing.Size(677, 17)
+        Me.statuslabelMain.Size = New System.Drawing.Size(903, 16)
         Me.statuslabelMain.Spring = True
         Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -203,16 +218,17 @@ Partial Class formComprobantesTransmitirAFIP
         '
         Me.statusstripMain.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statuslabelMain})
-        Me.statusstripMain.Location = New System.Drawing.Point(0, 494)
+        Me.statusstripMain.Location = New System.Drawing.Point(0, 613)
         Me.statusstripMain.Name = "statusstripMain"
-        Me.statusstripMain.Size = New System.Drawing.Size(692, 22)
+        Me.statusstripMain.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
+        Me.statusstripMain.Size = New System.Drawing.Size(923, 22)
         Me.statusstripMain.TabIndex = 4
         '
         'formComprobantesTransmitirAFIP
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(692, 516)
+        Me.ClientSize = New System.Drawing.Size(923, 635)
         Me.Controls.Add(Me.pictureboxLogo)
         Me.Controls.Add(Me.groupboxStatus)
         Me.Controls.Add(Me.statusstripMain)
@@ -222,7 +238,9 @@ Partial Class formComprobantesTransmitirAFIP
         Me.Controls.Add(Me.labelCantidad)
         Me.Controls.Add(Me.buttonCancelar)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "formComprobantesTransmitirAFIP"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual

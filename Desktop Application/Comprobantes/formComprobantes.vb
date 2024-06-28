@@ -119,10 +119,34 @@ Public Class formComprobantes
     Friend Sub RefreshData(Optional ByVal PositionIDComprobante As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
         Dim FechaDesde As Date
         Dim FechaHasta As Date
+        Dim OperacionTipo As String = String.Empty
+        Dim IDComprobanteTipo As Byte = 0
+        Dim IDComprobanteLote As Integer = 0
+        Dim IDEntidad As Integer = 0
 
         Me.Cursor = Cursors.WaitCursor
 
+        ' Preparo los filtros
         CardonerSistemas.DateTime.GetDatesFromPeriodTypeAndValue(CType(comboboxPeriodoTipo.SelectedIndex, CardonerSistemas.DateTime.PeriodTypes), CByte(comboboxPeriodoValor.SelectedIndex), FechaDesde, FechaHasta, CType(datetimepickerFechaDesdeHost.Control, DateTimePicker).Value, CType(datetimepickerFechaHastaHost.Control, DateTimePicker).Value)
+
+        ' Tipo de operación y tipo de comprobante
+        If comboboxOperacionTipo.SelectedIndex = 0 Then
+            OperacionTipo = String.Empty
+        ElseIf comboboxComprobanteTipo.SelectedIndex = 0 Then
+            OperacionTipo = Choose(comboboxOperacionTipo.SelectedIndex, Constantes.OPERACIONTIPO_COMPRA, Constantes.OPERACIONTIPO_VENTA).ToString()
+        Else
+            IDComprobanteTipo = CByte(comboboxComprobanteTipo.ComboBox.SelectedValue)
+        End If
+
+        ' Lote de comprobantes
+        If comboboxComprobanteLote.SelectedIndex > 0 Then
+            IDComprobanteLote = CType(comboboxComprobanteLote.SelectedItem, ComprobanteLote).IDComprobanteLote
+        End If
+
+        ' Entidad
+        If textboxEntidad.Tag IsNot Nothing Then
+            IDEntidad = CInt(textboxEntidad.Tag)
+        End If
 
         Try
             mReportSelectionFormulaBase = String.Format("{{Comprobante.FechaEmision}} >= DateTime({0}, {1}, {2}) AndAlso {{Comprobante.FechaEmision}} <= DateTime({3}, {4}, {5})", FechaDesde.Year, FechaDesde.Month, FechaDesde.Day, FechaHasta.Year, FechaHasta.Month, FechaHasta.Day)
@@ -130,7 +154,7 @@ Public Class formComprobantes
             Using dbContext As New CSColegioContext(True)
                 mlistComprobantesBase = (From cc In dbContext.Comprobante
                                          Join ct In dbContext.ComprobanteTipo On cc.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                         Where cc.FechaEmision >= FechaDesde AndAlso cc.FechaEmision <= FechaHasta
+                                         Where cc.FechaEmision >= FechaDesde AndAlso cc.FechaEmision <= FechaHasta AndAlso (OperacionTipo = String.Empty OrElse ct.OperacionTipo = OperacionTipo) AndAlso (IDComprobanteTipo = 0 OrElse cc.IDComprobanteTipo = IDComprobanteTipo) AndAlso (IDComprobanteLote = 0 OrElse (cc.IDComprobanteLote.HasValue AndAlso cc.IDComprobanteLote.Value = IDComprobanteLote)) AndAlso (IDEntidad = 0 OrElse cc.IDEntidad = IDEntidad)
                                          Order By cc.FechaEmision, cc.IDComprobante
                                          Select New GridRowData With {.IDComprobante = cc.IDComprobante, .OperacionTipo = ct.OperacionTipo, .IDComprobanteTipo = cc.IDComprobanteTipo, .ComprobanteTipoNombre = ct.Nombre, .IDComprobanteLote = cc.IDComprobanteLote, .NumeroCompleto = cc.NumeroCompleto, .FechaEmision = cc.FechaEmision, .IDEntidad = cc.IDEntidad, .EntidadNombre = cc.ApellidoNombre, .DocumentoNumero = cc.DocumentoNumero, .ImporteTotal = cc.ImporteTotal1, .CAE = cc.CAE, .Anulado = cc.IDUsuarioAnulacion IsNot Nothing}).Take(MaximoNumeroComprobantes).ToList
             End Using
@@ -169,51 +193,24 @@ Public Class formComprobantes
         If Not mSkipFilterData Then
             Me.Cursor = Cursors.WaitCursor
 
+            mlistComprobantesFiltradaYOrdenada = mlistComprobantesBase
+
+            ' Si hay una búsqueda de texto, filtro por eso
+            If Not String.IsNullOrWhiteSpace(textboxBuscar.Text) Then
+                Select Case comboboxBuscarTipo.SelectedIndex
+                    Case 0
+                        ' Búsqueda por Entidad Titular
+                        mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.EntidadNombre.ToLower().RemoveDiacritics().Contains(textboxBuscar.Text.ToLower().RemoveDiacritics().Trim())).ToList
+                    Case 1
+                        ' Búsqueda por Número de Comprobante
+                        mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.NumeroCompleto.Contains(textboxBuscar.Text.ToLower().Trim())).ToList
+                    Case 2
+                        ' Búsqueda por Número de Documento del Titular
+                        mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.DocumentoNumero.ToLower().Contains(textboxBuscar.Text.ToLower().Trim())).ToList
+                End Select
+            End If
+
             Try
-                ' Filtro inicial por Tipos de Comprobante
-                If comboboxOperacionTipo.SelectedIndex = 0 Then
-                    ' Todos los tipos de comprobantes
-                    mReportSelectionFormula = mReportSelectionFormulaBase
-                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesBase.ToList
-                ElseIf comboboxComprobanteTipo.SelectedIndex = 0 Then
-                    ' Todos los comprobantes según la Operación (Compra o Venta)
-                    mReportSelectionFormula = mReportSelectionFormulaBase & String.Format(" AndAlso {{ComprobanteTipo.OperacionTipo}} = ""{0}""", Choose(comboboxOperacionTipo.SelectedIndex, Constantes.OPERACIONTIPO_COMPRA, Constantes.OPERACIONTIPO_VENTA).ToString)
-                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesBase.Where(Function(comp) comp.OperacionTipo = Choose(comboboxOperacionTipo.SelectedIndex, Constantes.OPERACIONTIPO_COMPRA, Constantes.OPERACIONTIPO_VENTA).ToString).ToList
-                Else
-                    ' Tipo de comprobante seleccionado
-                    mReportSelectionFormula = mReportSelectionFormulaBase & String.Format(" AndAlso {{Comprobante.IDComprobanteTipo}} = {0}", CByte(comboboxComprobanteTipo.ComboBox.SelectedValue))
-                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesBase.Where(Function(comp) comp.IDComprobanteTipo = CByte(comboboxComprobanteTipo.ComboBox.SelectedValue)).ToList
-                End If
-
-                ' Aplico el filtro de Lotes, si corresponde
-                If comboboxComprobanteLote.SelectedIndex > 0 Then
-                    mReportSelectionFormula &= String.Format(" AndAlso {{Comprobante.IDComprobanteLote}} = {0}", CType(comboboxComprobanteLote.SelectedItem, ComprobanteLote).IDComprobanteLote)
-                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.IDComprobanteLote.HasValue AndAlso comp.IDComprobanteLote.Value = CType(comboboxComprobanteLote.SelectedItem, ComprobanteLote).IDComprobanteLote).ToList
-                End If
-
-                ' Si hay una búsqueda aplicada, filtro por eso
-                If Not String.IsNullOrWhiteSpace(textboxBuscar.Text) Then
-                    Select Case comboboxBuscarTipo.SelectedIndex
-                        Case 0
-                            ' Búsqueda por Entidad Titular
-                            mReportSelectionFormula &= String.Format(" AndAlso InStr(LCase({{Comprobante.ApellidoNombre}}), ""{0}"") > 0", textboxBuscar.Text.ToLower.Trim)
-                            mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.EntidadNombre.ToLower().RemoveDiacritics().Contains(textboxBuscar.Text.ToLower().RemoveDiacritics().Trim())).ToList
-                        Case 1
-                            ' Búsqueda por Número de Comprobante
-                            mReportSelectionFormula &= String.Format(" AndAlso InStr({{Comprobante.Numero}}, ""{0}"") > 0", textboxBuscar.Text.Trim)
-                            mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.NumeroCompleto.Contains(textboxBuscar.Text.ToLower().Trim())).ToList
-                        Case 2
-                            ' Búsqueda por Número de Documento del Titular
-                            mReportSelectionFormula &= String.Format(" AndAlso InStr({{Comprobante.DocumentoNumero}}, ""{0}"") > 0", textboxBuscar.Text.Trim)
-                            mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.DocumentoNumero.ToLower().Contains(textboxBuscar.Text.ToLower().Trim())).ToList
-                    End Select
-                End If
-
-                ' Entidad
-                If textboxEntidad.Tag IsNot Nothing Then
-                    mReportSelectionFormula &= String.Format(" AndAlso {{Comprobante.IDEntidad}} = {0}", CInt(textboxEntidad.Tag))
-                    mlistComprobantesFiltradaYOrdenada = mlistComprobantesFiltradaYOrdenada.Where(Function(comp) comp.IDEntidad = CInt(textboxEntidad.Tag)).ToList
-                End If
 
                 Select Case mlistComprobantesFiltradaYOrdenada.Count
                     Case 0
@@ -309,24 +306,24 @@ Public Class formComprobantes
             Case -1, 0
                 comboboxComprobanteTipo.ComboBox.DataSource = Nothing
                 comboboxComprobanteTipo.Items.Clear()
-                comboboxComprobanteTipo.Enabled = False
+                comboboxComprobanteTipo.Visible = False
             Case 1
                 pFillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo.ComboBox, OPERACIONTIPO_COMPRA, True, False)
-                comboboxComprobanteTipo.Enabled = True
+                comboboxComprobanteTipo.Visible = True
                 comboboxComprobanteTipo.SelectedIndex = 0
             Case 2
                 pFillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo.ComboBox, OPERACIONTIPO_VENTA, True, False)
-                comboboxComprobanteTipo.Enabled = True
+                comboboxComprobanteTipo.Visible = True
                 comboboxComprobanteTipo.SelectedIndex = 0
         End Select
     End Sub
 
     Private Sub comboboxComprobanteTipo_SelectedIndexChanged() Handles comboboxComprobanteTipo.SelectedIndexChanged
-        FilterData()
+        RefreshData()
     End Sub
 
     Private Sub comboboxComprobanteLote_SelectedIndexChanged() Handles comboboxComprobanteLote.SelectedIndexChanged
-        FilterData()
+        RefreshData()
     End Sub
 
     Private Sub Entidad_Click() Handles buttonEntidad.Click
@@ -335,7 +332,7 @@ Public Class formComprobantes
             EntidadSeleccionada = CType(formEntidadesSeleccionar.datagridviewMain.SelectedRows(0).DataBoundItem, Entidad)
             textboxEntidad.Text = EntidadSeleccionada.ApellidoNombre
             textboxEntidad.Tag = EntidadSeleccionada.IDEntidad
-            FilterData()
+            RefreshData()
         End If
         formEntidadesSeleccionar.Dispose()
     End Sub
@@ -344,7 +341,7 @@ Public Class formComprobantes
         If textboxEntidad.Tag IsNot Nothing Then
             textboxEntidad.Text = ""
             textboxEntidad.Tag = Nothing
-            FilterData()
+            RefreshData()
         End If
     End Sub
 

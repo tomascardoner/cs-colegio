@@ -141,7 +141,7 @@
                             GridDataRowActual = CType(RowActual.DataBoundItem, GridDataRow)
                             ComprobanteActual = dbContext.Comprobante.Find(GridDataRowActual.IDComprobante)
                             If ComprobanteActual IsNot Nothing AndAlso ComprobanteActual.CAE Is Nothing Then
-                                textboxStatus.AppendText("{vbNewLine}{ComprobanteActual.ComprobanteTipo.Nombre} nº {ComprobanteActual.NumeroCompleto} - Autorizando...")
+                                textboxStatus.AppendText($"{vbNewLine}{ComprobanteActual.ComprobanteTipo.Nombre} nº {ComprobanteActual.NumeroCompleto} - Autorizando...")
                                 If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual.IDComprobante) Then
                                     progressbarStatus.Value += 1
                                     If GenerarCodigoQR Then

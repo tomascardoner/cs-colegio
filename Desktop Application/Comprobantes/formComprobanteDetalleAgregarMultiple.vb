@@ -84,7 +84,7 @@
                 .Descripcion = ModuloComprobantes.GenerarDescripcionConEtiquetas(mArticuloActual.Descripcion, mArticuloActual.Nombre, anioLectivo, DateAndTime.MonthName(cuotaMes), mEntidad, nivel, anio, turno)
             End If
 
-            .CuotaMes = CByte(IIf(comboboxCuotaMesDesde.SelectedIndex = -1, Nothing, comboboxCuotaMesDesde.SelectedIndex + 1))
+            .CuotaMes = cuotaMes
 
             .PrecioUnitario = currencytextboxPrecioUnitario.DecimalValue
             .PrecioUnitarioDescuentoPorcentaje = Convert.ToDecimal(percenttextboxPrecioUnitarioDescuentoPorcentaje.PercentValue)
