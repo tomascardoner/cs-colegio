@@ -146,7 +146,7 @@ Public Class FormCalculosModulos
 
     Private Sub AgregarDesdeInternet_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItemAgregarDesdeInternet.Click
         If Permisos.VerificarPermiso(Permisos.SUELDO_CALCULOMODULO_AGREGAR) Then
-            Using formCalculoModuloObtener As New FormCalculoModuloObtener(Convert.ToInt16(ToolStripComboBoxAnio.Text), CType(ToolStripComboBoxMes.SelectedIndex, Byte))
+            Using formCalculoModuloObtener As New FormCalculoModuloObtener()
                 formCalculoModuloObtener.ShowDialog()
             End Using
         End If

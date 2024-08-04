@@ -22,20 +22,18 @@ Partial Class FormCalculoModuloObtener
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ToolStripFiltroAnio = New System.Windows.Forms.ToolStrip()
         Me.ToolStripButtonObtenerDatos = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripButtonGuardar = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripComboBoxMes = New System.Windows.Forms.ToolStripComboBox()
-        Me.ToolStripLabelMes = New System.Windows.Forms.ToolStripLabel()
-        Me.ToolStripComboBoxAnio = New System.Windows.Forms.ToolStripComboBox()
-        Me.ToolStripLabelAnio = New System.Windows.Forms.ToolStripLabel()
         Me.DataGridViewMain = New System.Windows.Forms.DataGridView()
         Me.DataGridViewColumnCodigo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewColumnConcepto = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewColumnImporte = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ToolStripLabelPeriodo = New System.Windows.Forms.ToolStripLabel()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.ToolStripFiltroAnio.SuspendLayout()
         CType(Me.DataGridViewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -44,7 +42,7 @@ Partial Class FormCalculoModuloObtener
         '
         Me.ToolStripFiltroAnio.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStripFiltroAnio.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ToolStripFiltroAnio.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButtonObtenerDatos, Me.ToolStripButtonGuardar, Me.ToolStripComboBoxMes, Me.ToolStripLabelMes, Me.ToolStripComboBoxAnio, Me.ToolStripLabelAnio})
+        Me.ToolStripFiltroAnio.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButtonObtenerDatos, Me.ToolStripButtonGuardar, Me.ToolStripSeparator1, Me.ToolStripLabelPeriodo})
         Me.ToolStripFiltroAnio.Location = New System.Drawing.Point(0, 0)
         Me.ToolStripFiltroAnio.Name = "ToolStripFiltroAnio"
         Me.ToolStripFiltroAnio.Size = New System.Drawing.Size(658, 39)
@@ -69,44 +67,16 @@ Partial Class FormCalculoModuloObtener
         Me.ToolStripButtonGuardar.Size = New System.Drawing.Size(98, 36)
         Me.ToolStripButtonGuardar.Text = "Guardar"
         '
-        'ToolStripComboBoxMes
-        '
-        Me.ToolStripComboBoxMes.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.ToolStripComboBoxMes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ToolStripComboBoxMes.Name = "ToolStripComboBoxMes"
-        Me.ToolStripComboBoxMes.Size = New System.Drawing.Size(159, 39)
-        '
-        'ToolStripLabelMes
-        '
-        Me.ToolStripLabelMes.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.ToolStripLabelMes.Name = "ToolStripLabelMes"
-        Me.ToolStripLabelMes.Size = New System.Drawing.Size(39, 36)
-        Me.ToolStripLabelMes.Text = "Mes:"
-        '
-        'ToolStripComboBoxAnio
-        '
-        Me.ToolStripComboBoxAnio.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.ToolStripComboBoxAnio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ToolStripComboBoxAnio.Name = "ToolStripComboBoxAnio"
-        Me.ToolStripComboBoxAnio.Size = New System.Drawing.Size(75, 39)
-        '
-        'ToolStripLabelAnio
-        '
-        Me.ToolStripLabelAnio.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.ToolStripLabelAnio.Name = "ToolStripLabelAnio"
-        Me.ToolStripLabelAnio.Size = New System.Drawing.Size(39, 36)
-        Me.ToolStripLabelAnio.Text = "Año:"
-        '
         'DataGridViewMain
         '
         Me.DataGridViewMain.AllowUserToAddRows = False
         Me.DataGridViewMain.AllowUserToDeleteRows = False
         Me.DataGridViewMain.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText
-        Me.DataGridViewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        Me.DataGridViewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.DataGridViewMain.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DataGridViewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridViewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewColumnCodigo, Me.DataGridViewColumnConcepto, Me.DataGridViewColumnImporte})
@@ -127,8 +97,8 @@ Partial Class FormCalculoModuloObtener
         'DataGridViewColumnCodigo
         '
         Me.DataGridViewColumnCodigo.DataPropertyName = "Codigo"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.DataGridViewColumnCodigo.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.DataGridViewColumnCodigo.DefaultCellStyle = DataGridViewCellStyle5
         Me.DataGridViewColumnCodigo.HeaderText = "Código"
         Me.DataGridViewColumnCodigo.MinimumWidth = 6
         Me.DataGridViewColumnCodigo.Name = "DataGridViewColumnCodigo"
@@ -147,14 +117,24 @@ Partial Class FormCalculoModuloObtener
         'DataGridViewColumnImporte
         '
         Me.DataGridViewColumnImporte.DataPropertyName = "Importe"
-        DataGridViewCellStyle3.Format = "C2"
-        DataGridViewCellStyle3.NullValue = Nothing
-        Me.DataGridViewColumnImporte.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Format = "C2"
+        DataGridViewCellStyle6.NullValue = Nothing
+        Me.DataGridViewColumnImporte.DefaultCellStyle = DataGridViewCellStyle6
         Me.DataGridViewColumnImporte.HeaderText = "Importe"
         Me.DataGridViewColumnImporte.MinimumWidth = 6
         Me.DataGridViewColumnImporte.Name = "DataGridViewColumnImporte"
         Me.DataGridViewColumnImporte.ReadOnly = True
         Me.DataGridViewColumnImporte.Width = 81
+        '
+        'ToolStripLabelPeriodo
+        '
+        Me.ToolStripLabelPeriodo.Name = "ToolStripLabelPeriodo"
+        Me.ToolStripLabelPeriodo.Size = New System.Drawing.Size(0, 36)
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 39)
         '
         'FormCalculoModuloObtener
         '
@@ -179,14 +159,12 @@ Partial Class FormCalculoModuloObtener
 
     End Sub
     Friend WithEvents ToolStripFiltroAnio As ToolStrip
-    Friend WithEvents ToolStripLabelAnio As ToolStripLabel
-    Friend WithEvents ToolStripComboBoxAnio As ToolStripComboBox
-    Friend WithEvents ToolStripLabelMes As ToolStripLabel
-    Friend WithEvents ToolStripComboBoxMes As ToolStripComboBox
     Friend WithEvents ToolStripButtonObtenerDatos As ToolStripButton
     Friend WithEvents ToolStripButtonGuardar As ToolStripButton
     Friend WithEvents DataGridViewMain As DataGridView
     Friend WithEvents DataGridViewColumnCodigo As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewColumnConcepto As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewColumnImporte As DataGridViewTextBoxColumn
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents ToolStripLabelPeriodo As ToolStripLabel
 End Class

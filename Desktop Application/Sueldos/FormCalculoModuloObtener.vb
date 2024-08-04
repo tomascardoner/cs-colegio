@@ -1,8 +1,12 @@
-﻿Imports System.Net
+﻿Imports System.Globalization
+Imports System.Net
 
 Public Class FormCalculoModuloObtener
 
 #Region "Declarations"
+
+    Private _PeriodoAnio As Short
+    Private _PeriodoMes As Byte
 
     Private Class DataGridRowData
         Public Property Codigo As String
@@ -16,22 +20,13 @@ Public Class FormCalculoModuloObtener
 
 #Region "Form stuff"
 
-    Public Sub New(Anio As Short, Mes As Byte)
+    Public Sub New()
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        InitializeForm(Anio, Mes)
-    End Sub
-
-    Private Sub InitializeForm(Anio As Short, Mes As Byte)
         Me.Icon = CardonerSistemas.Graphics.GetIconFromBitmap(My.Resources.ImageSueldo32)
-
-        pFillAndRefreshLists.AnioLectivo(ToolStripComboBoxAnio.ComboBox, False, SortOrder.Descending)
-        ToolStripComboBoxAnio.SelectedIndex = ToolStripComboBoxAnio.FindStringExact(Anio.ToString)
-        pFillAndRefreshLists.MesNombres(ToolStripComboBoxMes.ComboBox, True, False, False)
-        ToolStripComboBoxMes.SelectedIndex = CInt(IIf(Mes = 0, DateTime.Today.Month, Mes)) - 1
     End Sub
 
     Private Sub Me_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -55,9 +50,9 @@ Public Class FormCalculoModuloObtener
         Cursor = Cursors.WaitCursor
         Try
             Using dbContext As New CSColegioContext(True)
-                If dbContext.SueldoCalculoModulo.Any(Function(scm) scm.Anio = CShort(ToolStripComboBoxAnio.Text) AndAlso scm.Mes = ToolStripComboBoxMes.SelectedIndex + 1) Then
+                If dbContext.SueldoCalculoModulo.Any(Function(scm) scm.Anio = _PeriodoAnio AndAlso scm.Mes = _PeriodoMes) Then
                     Cursor = Cursors.Default
-                    MessageBox.Show("No se pueden guardar los datos porque ya existen para el período seleccionado.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    MessageBox.Show("No se pueden guardar los datos porque ya existen para el período.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                     Return
                 End If
                 For Each row As DataGridRowData In _Rows
@@ -82,18 +77,12 @@ Public Class FormCalculoModuloObtener
 #Region "Extra stuff"
 
     Private Function VerificarDatos() As Boolean
-        If ToolStripComboBoxAnio.SelectedIndex = -1 Then
-            MsgBox("Debe especificar el año.", MsgBoxStyle.Information, My.Application.Info.Title)
-            ToolStripComboBoxAnio.Focus()
+        If DataGridViewMain.CurrentRow Is Nothing Then
+            MessageBox.Show($"No hay datos para guardar.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Return False
         End If
-        If ToolStripComboBoxMes.SelectedIndex = -1 Then
-            MsgBox("Debe especificar el mes.", MsgBoxStyle.Information, My.Application.Info.Title)
-            ToolStripComboBoxMes.Focus()
-            Return False
-        End If
-        If ToolStripComboBoxAnio.SelectedIndex = 0 AndAlso ToolStripComboBoxMes.SelectedIndex + 1 = DateTime.Today.Month Then
-            MessageBox.Show("El mes del período no puede ser mayor al actual.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        If _PeriodoAnio = 0 OrElse _PeriodoMes = 0 Then
+            MessageBox.Show($"No se ha podido determinar el período.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return False
         End If
 
@@ -115,8 +104,8 @@ Public Class FormCalculoModuloObtener
             End If
 
             Return New SueldoCalculoModulo With {
-                .Anio = Convert.ToInt16(ToolStripComboBoxAnio.Text),
-                .Mes = Convert.ToByte(ToolStripComboBoxMes.SelectedIndex + 1),
+                .Anio = _PeriodoAnio,
+                .Mes = _PeriodoMes,
                 .IdSueldoConcepto = sueldoConcepto.IdSueldoConcepto,
                 .Importe = Math.Abs(row.Importe),
                 .IdUsuarioCreacion = pUsuario.IDUsuario,
@@ -165,6 +154,7 @@ Public Class FormCalculoModuloObtener
 
     Private Sub ObtenerDatos()
         Dim document As New HtmlAgilityPack.HtmlDocument
+        Dim node As HtmlAgilityPack.HtmlNode
 
         Cursor = Cursors.WaitCursor
 
@@ -176,8 +166,26 @@ Public Class FormCalculoModuloObtener
         _Rows.Clear()
 
         Try
-            Dim rows As HtmlAgilityPack.HtmlNodeCollection = document.DocumentNode.SelectNodes(CS_Parameter_System.GetString(Parametros.SUELDO_MODULO_OBTENER_XPATH))
-            Dim node As HtmlAgilityPack.HtmlNode
+            ' Obtengo el período correspondiente al cálculo
+            node = document.DocumentNode.SelectSingleNode(CS_Parameter_System.GetString(Parametros.SUELDO_MODULO_OBTENER_PERIODO_XPATH))
+            If node Is Nothing OrElse Not HtmlAgilityPack.HtmlEntity.DeEntitize(node.InnerText).StartsWith(CS_Parameter_System.GetString(Parametros.SUELDO_MODULO_OBTENER_PERIODO_PREFIJO)) Then
+                Cursor = Cursors.Default
+                MessageBox.Show($"No se ha encontrado la información del período en la web.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End If
+            Dim periodoString As String = HtmlAgilityPack.HtmlEntity.DeEntitize(node.InnerText.Substring(CS_Parameter_System.GetString(Parametros.SUELDO_MODULO_OBTENER_PERIODO_PREFIJO).Length))
+            periodoString = periodoString.Substring(0, periodoString.IndexOf(","c)).Trim()
+            Dim periodo As Date
+            If Not Date.TryParseExact(periodoString.ToLower(), "MMMM yyyy", CultureInfo.CurrentCulture, DateTimeStyles.AllowInnerWhite, periodo) Then
+                Cursor = Cursors.Default
+                MessageBox.Show($"No se ha encontrado la información del período en la web.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End If
+            _PeriodoAnio = Convert.ToInt16(periodo.Year)
+            _PeriodoMes = Convert.ToByte(periodo.Month)
+            ToolStripLabelPeriodo.Text = "Período: " & periodo.ToString("MMMM \d\e yyyy")
+
+            Dim rows As HtmlAgilityPack.HtmlNodeCollection = document.DocumentNode.SelectNodes(CS_Parameter_System.GetString(Parametros.SUELDO_MODULO_OBTENER_DATOS_XPATH))
 
             For Each row As HtmlAgilityPack.HtmlNode In rows.Skip(1)
                 Dim newRow As New DataGridRowData
