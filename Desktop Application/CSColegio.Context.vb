@@ -83,5 +83,14 @@ Partial Public Class CSColegioContext
     Public Overridable Property ListaPrecioArticulo() As DbSet(Of ListaPrecioArticulo)
     Public Overridable Property ListaPrecioArticuloTalle() As DbSet(Of ListaPrecioArticuloTalle)
     Public Overridable Property EntidadExportacion() As DbSet(Of EntidadExportacion)
+    Public Overridable Property EntidadGrupo() As DbSet(Of EntidadGrupo)
+    Public Overridable Property EntidadPersonalColegio() As DbSet(Of EntidadPersonalColegio)
+    Public Overridable Property SueldoCalculoModulo() As DbSet(Of SueldoCalculoModulo)
+    Public Overridable Property SueldoConcepto() As DbSet(Of SueldoConcepto)
+    Public Overridable Property SueldoLiquidacion() As DbSet(Of SueldoLiquidacion)
+    Public Overridable Property SueldoLiquidacionEntidad() As DbSet(Of SueldoLiquidacionEntidad)
+    Public Overridable Property SueldoLiquidacionEntidadRecibo() As DbSet(Of SueldoLiquidacionEntidadRecibo)
+    Public Overridable Property EntidadPersonalColegioAntiguedadDetalle() As DbSet(Of EntidadPersonalColegioAntiguedadDetalle)
+    Public Overridable Property SueldoAntiguedad() As DbSet(Of SueldoAntiguedad)
 
 End Class

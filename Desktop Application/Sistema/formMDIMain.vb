@@ -27,7 +27,7 @@
         If Not (e.CloseReason = CloseReason.ApplicationExitCall OrElse e.CloseReason = CloseReason.TaskManagerClosing OrElse e.CloseReason = CloseReason.WindowsShutDown) Then
             If MsgBox("¿Desea salir de la aplicación?", CType(MsgBoxStyle.Information + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
                 e.Cancel = True
-                Exit Sub
+                Return
             End If
         End If
         TerminateApplication()
@@ -275,7 +275,7 @@
 
 #Region "Left Toolbar - Entidades"
 
-    Private Sub Entidades() Handles buttonEntidades.ButtonClick
+    Private Sub Entidades() Handles ToolStripSplitButtonEntidades.ButtonClick
         If Permisos.VerificarPermiso(Permisos.ENTIDAD) Then
             Me.Cursor = Cursors.WaitCursor
 
@@ -318,7 +318,7 @@
 
 #Region "Left Toolbar - Comprobantes"
 
-    Private Sub Comprobantes() Handles buttonComprobantes.ButtonClick
+    Private Sub Comprobantes() Handles ToolStripSplitButtonComprobantes.ButtonClick
         If Permisos.VerificarPermiso(Permisos.COMPROBANTE) Then
             Me.Cursor = Cursors.WaitCursor
 
@@ -475,9 +475,25 @@
     End Sub
 #End Region
 
+#Region "Left Toolbar - Sueldos"
+
+    Private Sub ToolStripMenuItemSueldosModulos_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItemSueldosModulos.Click
+        If Permisos.VerificarPermiso(Permisos.SUELDO_CALCULOMODULO) Then
+            CardonerSistemas.Forms.MdiChildShow(Me, CType(FormCalculosModulos, Form), False)
+        End If
+    End Sub
+
+    Private Sub ToolStripMenuItemSueldosLiquidaciones_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItemSueldosLiquidaciones.Click
+        If Permisos.VerificarPermiso(Permisos.SUELDO_LIQUIDACION) Then
+            CardonerSistemas.Forms.MdiChildShow(Me, CType(FormLiquidaciones, Form), False)
+        End If
+    End Sub
+
+#End Region
+
 #Region "Left Toolbar - Comunicaciones"
 
-    Private Sub Comunicaciones() Handles buttonComunicaciones.ButtonClick
+    Private Sub Comunicaciones() Handles ToolStripSplitButtonComunicaciones.ButtonClick
         If Permisos.VerificarPermiso(Permisos.COMUNICACION) Then
             CardonerSistemas.Forms.MdiChildShow(Me, CType(formComunicaciones, Form), False)
         End If
@@ -492,7 +508,7 @@
 #End Region
 
 #Region "Left Toolbar - Reportes"
-    Private Sub Reportes_Click(sender As Object, e As EventArgs) Handles buttonReportes.Click
+    Private Sub Reportes_Click(sender As Object, e As EventArgs) Handles ToolStripButtonReportes.Click
         If Permisos.VerificarPermiso(Permisos.REPORTE) Then
             CardonerSistemas.Forms.MdiChildShow(Me, CType(formReportes, Form), False)
         End If
@@ -511,12 +527,12 @@
         If MsgBox("¿Desea cerrar la sesión del Usuario actual?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
             CardonerSistemas.Forms.MdiChildCloseAll(Me)
             labelUsuarioNombre.Image = Nothing
-            labelUsuarioNombre.Text = ""
+            labelUsuarioNombre.Text = String.Empty
             pUsuario = Nothing
-            If Not formLogin.ShowDialog(Me) = DialogResult.OK Then
+            If formLogin.ShowDialog(Me) <> DialogResult.OK Then
                 Application.Exit()
                 My.Application.Log.WriteEntry("La Aplicación ha finalizado porque el Usuario no ha iniciado sesión.", TraceEventType.Warning)
-                Exit Sub
+                Return
             End If
             formLogin.Close()
             formLogin.Dispose()

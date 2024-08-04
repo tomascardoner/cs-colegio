@@ -694,7 +694,7 @@ Friend Class FillAndRefreshLists
                               Where tbl.EsActivo AndAlso Not tbl.EsCheque
                               Order By tbl.Nombre).ToList
         Else
-            listMediosPago = Nothing
+            listMediosPago = New List(Of MedioPago)
         End If
 
         If ShowUnspecifiedItem Then
@@ -880,6 +880,31 @@ Friend Class FillAndRefreshLists
         End If
 
         ComboBoxControl.DataSource = listItems
+    End Sub
+
+    Friend Sub SueldoConcepto(ByRef comboBoxControl As ComboBox, agregarItemTodos As Boolean, agregarItemNoEspecifica As Boolean)
+        Dim listItems As List(Of SueldoConcepto)
+
+        comboBoxControl.ValueMember = "IdSueldoConcepto"
+        comboBoxControl.DisplayMember = "Nombre"
+
+        listItems = mdbContext.SueldoConcepto.Where(Function(sc) sc.EsActivo).OrderBy(Function(sc) sc.Nombre).ToList
+
+        If agregarItemTodos Then
+            listItems.Insert(0, New SueldoConcepto With {
+                .IdSueldoConcepto = CardonerSistemas.Constants.FIELD_VALUE_ALL_SHORT,
+                .Nombre = My.Resources.STRING_ITEM_ALL_MALE
+            })
+        End If
+
+        If agregarItemNoEspecifica Then
+            listItems.Insert(0, New SueldoConcepto With {
+                .IdSueldoConcepto = CardonerSistemas.Constants.FIELD_VALUE_NOTSPECIFIED_BYTE,
+                .Nombre = My.Resources.STRING_ITEM_NOT_SPECIFIED
+            })
+        End If
+
+        comboBoxControl.DataSource = listItems
     End Sub
 
 End Class

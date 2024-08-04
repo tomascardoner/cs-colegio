@@ -4,7 +4,7 @@ Public Class formComprobantes
 
 #Region "Declarations"
 
-    Private Const MaximoNumeroComprobantes As Integer = 2000
+    Private Const MaximoNumeroComprobantes As Integer = 10000
 
     Private WithEvents datetimepickerFechaDesdeHost As ToolStripControlHost
     Private WithEvents datetimepickerFechaHastaHost As ToolStripControlHost
@@ -163,7 +163,7 @@ Public Class formComprobantes
 
             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al leer los Comprobantes.")
             Me.Cursor = Cursors.Default
-            Exit Sub
+            Return
         End Try
 
         Me.Cursor = Cursors.Default
@@ -182,7 +182,7 @@ Public Class formComprobantes
             For Each CurrentRowChecked As DataGridViewRow In datagridviewMain.Rows
                 If CType(CurrentRowChecked.DataBoundItem, GridRowData).IDComprobante = PositionIDComprobante Then
                     datagridviewMain.CurrentCell = CurrentRowChecked.Cells(0)
-                    Exit For
+                    Return
                 End If
             Next
         End If
@@ -226,7 +226,7 @@ Public Class formComprobantes
             Catch ex As Exception
                 CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al filtrar los datos.")
                 Me.Cursor = Cursors.Default
-                Exit Sub
+                Return
             End Try
 
             OrderData()

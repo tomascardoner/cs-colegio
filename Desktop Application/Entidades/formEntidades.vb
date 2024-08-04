@@ -56,7 +56,7 @@
 
     Friend Sub RefreshData(Optional ByVal PositionIDEntidad As Integer = 0, Optional ByVal RestoreCurrentPosition As Boolean = False)
         If SkipFilterData Then
-            Exit Sub
+            Return
         End If
 
         Me.Cursor = Cursors.WaitCursor
@@ -89,7 +89,7 @@
             For Each CurrentRowChecked As DataGridViewRow In datagridviewMain.Rows
                 If CInt(CurrentRowChecked.Cells(columnIDEntidad.Name).Value) = PositionIDEntidad Then
                     datagridviewMain.CurrentCell = CurrentRowChecked.Cells(columnIDEntidad.Name)
-                    Exit For
+                    Return
                 End If
             Next
         End If
@@ -98,7 +98,7 @@
     Private Sub FilterData()
 
         If SkipFilterData Then
-            Exit Sub
+            Return
         End If
 
         Me.Cursor = Cursors.WaitCursor

@@ -538,6 +538,41 @@
           <Property Name="Sistema" Type="char" MaxLength="2" Nullable="false" />
           <Property Name="Fecha" Type="date" Nullable="false" />
         </EntityType>
+        <EntityType Name="EntidadGrupo">
+          <Key>
+            <PropertyRef Name="IdEntidadGrupo" />
+          </Key>
+          <Property Name="IdEntidadGrupo" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Adicional" Type="decimal" Precision="3" Scale="2" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="Notas" Type="varchar(max)" />
+          <Property Name="IdUsuarioCreacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IdUsuarioModificacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EntidadPersonalColegio">
+          <Key>
+            <PropertyRef Name="IdEntidad" />
+          </Key>
+          <Property Name="IdEntidad" Type="int" Nullable="false" />
+          <Property Name="IdEntidadGrupo" Type="tinyint" Nullable="false" />
+          <Property Name="AdicionalAntiguedad" Type="decimal" Precision="3" Scale="2" />
+          <Property Name="Adicional1" Type="decimal" Precision="3" Scale="2" />
+          <Property Name="Adicional2" Type="decimal" Precision="3" Scale="2" />
+        </EntityType>
+        <EntityType Name="EntidadPersonalColegioAntiguedadDetalle">
+          <Key>
+            <PropertyRef Name="IdEntidad" />
+            <PropertyRef Name="IdDetalle" />
+          </Key>
+          <Property Name="IdEntidad" Type="int" Nullable="false" />
+          <Property Name="IdDetalle" Type="tinyint" Nullable="false" />
+          <Property Name="Institucion" Type="varchar" MaxLength="50" />
+          <Property Name="FechaDesde" Type="date" />
+          <Property Name="FechaHasta" Type="date" />
+        </EntityType>
         <EntityType Name="Feriado">
           <Key>
             <PropertyRef Name="Fecha" />
@@ -805,6 +840,81 @@
           <Property Name="ValorPredeterminadoFechaHora" Type="smalldatetime" />
           <Property Name="ValorPredeterminadoSiNo" Type="bit" />
           <Property Name="Orden" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="SueldoAntiguedad">
+          <Key>
+            <PropertyRef Name="IdSueldoAntiguedad" />
+          </Key>
+          <Property Name="IdSueldoAntiguedad" Type="tinyint" Nullable="false" />
+          <Property Name="AntiguedadDesde" Type="tinyint" Nullable="false" />
+          <Property Name="Porcentaje" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SueldoCalculoModulo">
+          <Key>
+            <PropertyRef Name="Anio" />
+            <PropertyRef Name="Mes" />
+            <PropertyRef Name="IdSueldoConcepto" />
+          </Key>
+          <Property Name="Anio" Type="smallint" Nullable="false" />
+          <Property Name="Mes" Type="tinyint" Nullable="false" />
+          <Property Name="IdSueldoConcepto" Type="smallint" Nullable="false" />
+          <Property Name="Importe" Type="money" Nullable="false" />
+          <Property Name="IdUsuarioCreacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IdUsuarioModificacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SueldoConcepto">
+          <Key>
+            <PropertyRef Name="IdSueldoConcepto" />
+          </Key>
+          <Property Name="IdSueldoConcepto" Type="smallint" Nullable="false" />
+          <Property Name="Codigo" Type="smallint" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Tipo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="Notas" Type="varchar(max)" />
+          <Property Name="IdUsuarioCreacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IdUsuarioModificacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SueldoLiquidacion">
+          <Key>
+            <PropertyRef Name="IdSueldoLiquidacion" />
+          </Key>
+          <Property Name="IdSueldoLiquidacion" Type="smallint" Nullable="false" />
+          <Property Name="Anio" Type="smallint" Nullable="false" />
+          <Property Name="Mes" Type="tinyint" Nullable="false" />
+          <Property Name="BaseAntiguedadImporte" Type="money" />
+          <Property Name="ModuloImporte" Type="money" />
+          <Property Name="Notas" Type="varchar(max)" />
+          <Property Name="IdUsuarioCreacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="IdUsuarioModificacion" Type="smallint" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SueldoLiquidacionEntidad">
+          <Key>
+            <PropertyRef Name="IdSueldoLiquidacion" />
+            <PropertyRef Name="IdEntidad" />
+          </Key>
+          <Property Name="IdSueldoLiquidacion" Type="smallint" Nullable="false" />
+          <Property Name="IdEntidad" Type="int" Nullable="false" />
+          <Property Name="ModuloCantidad" Type="decimal" Precision="3" Scale="1" />
+          <Property Name="Antiguedad" Type="decimal" Precision="3" Scale="2" />
+        </EntityType>
+        <EntityType Name="SueldoLiquidacionEntidadRecibo">
+          <Key>
+            <PropertyRef Name="IdSueldoLiquidacion" />
+            <PropertyRef Name="IdEntidad" />
+            <PropertyRef Name="IdRecibo" />
+          </Key>
+          <Property Name="IdSueldoLiquidacion" Type="smallint" Nullable="false" />
+          <Property Name="IdEntidad" Type="int" Nullable="false" />
+          <Property Name="IdRecibo" Type="tinyint" Nullable="false" />
+          <Property Name="ImporteBasico" Type="money" />
+          <Property Name="ImporteNeto" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="TarjetaCredito">
           <Key>
@@ -2525,6 +2635,188 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EntidadGrupo_UsuarioCreacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="EntidadGrupo" Type="Self.EntidadGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="EntidadGrupo">
+              <PropertyRef Name="IdUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EntidadGrupo_UsuarioModificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="EntidadGrupo" Type="Self.EntidadGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="EntidadGrupo">
+              <PropertyRef Name="IdUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EntidadPersonalColegio_Entidad">
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="1" />
+          <End Role="EntidadPersonalColegio" Type="Self.EntidadPersonalColegio" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="IDEntidad" />
+            </Principal>
+            <Dependent Role="EntidadPersonalColegio">
+              <PropertyRef Name="IdEntidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EntidadPersonalColegio_EntidadGrupo">
+          <End Role="EntidadGrupo" Type="Self.EntidadGrupo" Multiplicity="1" />
+          <End Role="EntidadPersonalColegio" Type="Self.EntidadPersonalColegio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EntidadGrupo">
+              <PropertyRef Name="IdEntidadGrupo" />
+            </Principal>
+            <Dependent Role="EntidadPersonalColegio">
+              <PropertyRef Name="IdEntidadGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EntidadPersonalColegioAntiguedadDetalle_EntidadPersonalColegio">
+          <End Role="EntidadPersonalColegio" Type="Self.EntidadPersonalColegio" Multiplicity="1" />
+          <End Role="EntidadPersonalColegioAntiguedadDetalle" Type="Self.EntidadPersonalColegioAntiguedadDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EntidadPersonalColegio">
+              <PropertyRef Name="IdEntidad" />
+            </Principal>
+            <Dependent Role="EntidadPersonalColegioAntiguedadDetalle">
+              <PropertyRef Name="IdEntidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoCalculoModulo_SueldoConcepto">
+          <End Role="SueldoConcepto" Type="Self.SueldoConcepto" Multiplicity="1" />
+          <End Role="SueldoCalculoModulo" Type="Self.SueldoCalculoModulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SueldoConcepto">
+              <PropertyRef Name="IdSueldoConcepto" />
+            </Principal>
+            <Dependent Role="SueldoCalculoModulo">
+              <PropertyRef Name="IdSueldoConcepto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoCalculoModulo_UsuarioCreacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="SueldoCalculoModulo" Type="Self.SueldoCalculoModulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="SueldoCalculoModulo">
+              <PropertyRef Name="IdUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoCalculoModulo_UsuarioModificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="SueldoCalculoModulo" Type="Self.SueldoCalculoModulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="SueldoCalculoModulo">
+              <PropertyRef Name="IdUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoConcepto_UsuarioCreacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="SueldoConcepto" Type="Self.SueldoConcepto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="SueldoConcepto">
+              <PropertyRef Name="IdUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoConcepto_UsuarioModificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="SueldoConcepto" Type="Self.SueldoConcepto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="SueldoConcepto">
+              <PropertyRef Name="IdUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoLiquidacion_UsuarioCreacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="SueldoLiquidacion" Type="Self.SueldoLiquidacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="SueldoLiquidacion">
+              <PropertyRef Name="IdUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoLiquidacion_UsuarioModificacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="SueldoLiquidacion" Type="Self.SueldoLiquidacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="SueldoLiquidacion">
+              <PropertyRef Name="IdUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoLiquidacionEntidad_Entidad">
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="1" />
+          <End Role="SueldoLiquidacionEntidad" Type="Self.SueldoLiquidacionEntidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="IDEntidad" />
+            </Principal>
+            <Dependent Role="SueldoLiquidacionEntidad">
+              <PropertyRef Name="IdEntidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoLiquidacionEntidad_SueldoLiquidacion">
+          <End Role="SueldoLiquidacion" Type="Self.SueldoLiquidacion" Multiplicity="1" />
+          <End Role="SueldoLiquidacionEntidad" Type="Self.SueldoLiquidacionEntidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SueldoLiquidacion">
+              <PropertyRef Name="IdSueldoLiquidacion" />
+            </Principal>
+            <Dependent Role="SueldoLiquidacionEntidad">
+              <PropertyRef Name="IdSueldoLiquidacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoLiquidacionEntidadRecibo_SueldoLiquidacionEntidad">
+          <End Role="SueldoLiquidacionEntidad" Type="Self.SueldoLiquidacionEntidad" Multiplicity="1" />
+          <End Role="SueldoLiquidacionEntidadRecibo" Type="Self.SueldoLiquidacionEntidadRecibo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SueldoLiquidacionEntidad">
+              <PropertyRef Name="IdSueldoLiquidacion" />
+              <PropertyRef Name="IdEntidad" />
+            </Principal>
+            <Dependent Role="SueldoLiquidacionEntidadRecibo">
+              <PropertyRef Name="IdSueldoLiquidacion" />
+              <PropertyRef Name="IdEntidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="CSColegioModelStoreContainer">
           <EntitySet Name="Anio" EntityType="Self.Anio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AnioLectivoCuota" EntityType="Self.AnioLectivoCuota" Schema="dbo" store:Type="Tables" />
@@ -2562,6 +2854,9 @@
           <EntitySet Name="EntidadAnioLectivoCurso" EntityType="Self.EntidadAnioLectivoCurso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EntidadEntidad" EntityType="Self.EntidadEntidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EntidadExportacion" EntityType="Self.EntidadExportacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EntidadGrupo" EntityType="Self.EntidadGrupo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EntidadPersonalColegio" EntityType="Self.EntidadPersonalColegio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EntidadPersonalColegioAntiguedadDetalle" EntityType="Self.EntidadPersonalColegioAntiguedadDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Feriado" EntityType="Self.Feriado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Impuesto" EntityType="Self.Impuesto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImpuestoOtro" EntityType="Self.ImpuestoOtro" Schema="dbo" store:Type="Tables" />
@@ -2584,6 +2879,12 @@
           <EntitySet Name="Reporte" EntityType="Self.Reporte" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReporteGrupo" EntityType="Self.ReporteGrupo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReporteParametro" EntityType="Self.ReporteParametro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SueldoAntiguedad" EntityType="Self.SueldoAntiguedad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SueldoCalculoModulo" EntityType="Self.SueldoCalculoModulo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SueldoConcepto" EntityType="Self.SueldoConcepto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SueldoLiquidacion" EntityType="Self.SueldoLiquidacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SueldoLiquidacionEntidad" EntityType="Self.SueldoLiquidacionEntidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SueldoLiquidacionEntidadRecibo" EntityType="Self.SueldoLiquidacionEntidadRecibo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TarjetaCredito" EntityType="Self.TarjetaCredito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TarjetaCreditoBanco" EntityType="Self.TarjetaCreditoBanco" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Turno" EntityType="Self.Turno" Schema="dbo" store:Type="Tables" />
@@ -3135,6 +3436,66 @@
             <End Role="UsuarioGrupo" EntitySet="UsuarioGrupo" />
             <End Role="UsuarioGrupoPermiso" EntitySet="UsuarioGrupoPermiso" />
           </AssociationSet>
+          <AssociationSet Name="FK_EntidadGrupo_UsuarioCreacion" Association="Self.FK_EntidadGrupo_UsuarioCreacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="EntidadGrupo" EntitySet="EntidadGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EntidadGrupo_UsuarioModificacion" Association="Self.FK_EntidadGrupo_UsuarioModificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="EntidadGrupo" EntitySet="EntidadGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EntidadPersonalColegio_Entidad" Association="Self.FK_EntidadPersonalColegio_Entidad">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="EntidadPersonalColegio" EntitySet="EntidadPersonalColegio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EntidadPersonalColegio_EntidadGrupo" Association="Self.FK_EntidadPersonalColegio_EntidadGrupo">
+            <End Role="EntidadGrupo" EntitySet="EntidadGrupo" />
+            <End Role="EntidadPersonalColegio" EntitySet="EntidadPersonalColegio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EntidadPersonalColegioAntiguedadDetalle_EntidadPersonalColegio" Association="Self.FK_EntidadPersonalColegioAntiguedadDetalle_EntidadPersonalColegio">
+            <End Role="EntidadPersonalColegio" EntitySet="EntidadPersonalColegio" />
+            <End Role="EntidadPersonalColegioAntiguedadDetalle" EntitySet="EntidadPersonalColegioAntiguedadDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoCalculoModulo_SueldoConcepto" Association="Self.FK_SueldoCalculoModulo_SueldoConcepto">
+            <End Role="SueldoConcepto" EntitySet="SueldoConcepto" />
+            <End Role="SueldoCalculoModulo" EntitySet="SueldoCalculoModulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoCalculoModulo_UsuarioCreacion" Association="Self.FK_SueldoCalculoModulo_UsuarioCreacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="SueldoCalculoModulo" EntitySet="SueldoCalculoModulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoCalculoModulo_UsuarioModificacion" Association="Self.FK_SueldoCalculoModulo_UsuarioModificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="SueldoCalculoModulo" EntitySet="SueldoCalculoModulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoConcepto_UsuarioCreacion" Association="Self.FK_SueldoConcepto_UsuarioCreacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="SueldoConcepto" EntitySet="SueldoConcepto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoConcepto_UsuarioModificacion" Association="Self.FK_SueldoConcepto_UsuarioModificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="SueldoConcepto" EntitySet="SueldoConcepto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoLiquidacion_UsuarioCreacion" Association="Self.FK_SueldoLiquidacion_UsuarioCreacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="SueldoLiquidacion" EntitySet="SueldoLiquidacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoLiquidacion_UsuarioModificacion" Association="Self.FK_SueldoLiquidacion_UsuarioModificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="SueldoLiquidacion" EntitySet="SueldoLiquidacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoLiquidacionEntidad_Entidad" Association="Self.FK_SueldoLiquidacionEntidad_Entidad">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="SueldoLiquidacionEntidad" EntitySet="SueldoLiquidacionEntidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoLiquidacionEntidad_SueldoLiquidacion" Association="Self.FK_SueldoLiquidacionEntidad_SueldoLiquidacion">
+            <End Role="SueldoLiquidacion" EntitySet="SueldoLiquidacion" />
+            <End Role="SueldoLiquidacionEntidad" EntitySet="SueldoLiquidacionEntidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoLiquidacionEntidadRecibo_SueldoLiquidacionEntidad" Association="Self.FK_SueldoLiquidacionEntidadRecibo_SueldoLiquidacionEntidad">
+            <End Role="SueldoLiquidacionEntidad" EntitySet="SueldoLiquidacionEntidad" />
+            <End Role="SueldoLiquidacionEntidadRecibo" EntitySet="SueldoLiquidacionEntidadRecibo" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -3352,6 +3713,8 @@
           <NavigationProperty Name="Comprobante" Relationship="CSColegioModel.FK__Entidad__Comprobante" FromRole="Entidad" ToRole="Comprobante" />
           <NavigationProperty Name="ComunicacionEntidad" Relationship="CSColegioModel.FK__Entidad__ComunicacionEntidad" FromRole="Entidad" ToRole="ComunicacionEntidad" />
           <NavigationProperty Name="EntidadExportacion" Relationship="CSColegioModel.FK__Entidad__EntidadExportacion" FromRole="Entidad" ToRole="EntidadExportacion" />
+          <NavigationProperty Name="EntidadPersonalColegio" Relationship="CSColegioModel.FK_EntidadPersonalColegio_Entidad" FromRole="Entidad" ToRole="EntidadPersonalColegio" />
+          <NavigationProperty Name="SueldosLiquidacionesEntidades" Relationship="CSColegioModel.FK_SueldoLiquidacionEntidad_Entidad" FromRole="Entidad" ToRole="SueldoLiquidacionEntidad" />
         </EntityType>
         <EntityType Name="EntidadEntidad">
           <Key>
@@ -3604,6 +3967,14 @@
           <NavigationProperty Name="MonedasModificadas" Relationship="CSColegioModel.FK__Usuario__Moneda__Modificacion" FromRole="Usuario" ToRole="Moneda" />
           <NavigationProperty Name="MonedaCotizacionesCreadas" Relationship="CSColegioModel.FK__Usuario__MonedaCotizacion__Creacion" FromRole="Usuario" ToRole="MonedaCotizacion" />
           <NavigationProperty Name="MonedaCotizacionesModificadas" Relationship="CSColegioModel.FK__Usuario__MonedaCotizacion__Modificacion" FromRole="Usuario" ToRole="MonedaCotizacion" />
+          <NavigationProperty Name="EntidadesGruposCreados" Relationship="CSColegioModel.FK_EntidadGrupo_UsuarioCreacion" FromRole="Usuario" ToRole="EntidadGrupo" />
+          <NavigationProperty Name="EntidadesGruposModificados" Relationship="CSColegioModel.FK_EntidadGrupo_UsuarioModificacion" FromRole="Usuario" ToRole="EntidadGrupo" />
+          <NavigationProperty Name="SueldosCalculosModulosCreados" Relationship="CSColegioModel.FK_SueldoCalculoModulo_UsuarioCreacion" FromRole="Usuario" ToRole="SueldoCalculoModulo" />
+          <NavigationProperty Name="SueldosCalculosModulosModificados" Relationship="CSColegioModel.FK_SueldoCalculoModulo_UsuarioModificacion" FromRole="Usuario" ToRole="SueldoCalculoModulo" />
+          <NavigationProperty Name="SueldosConceptosCreados" Relationship="CSColegioModel.FK_SueldoConcepto_UsuarioCreacion" FromRole="Usuario" ToRole="SueldoConcepto" />
+          <NavigationProperty Name="SueldosConceptosModificados" Relationship="CSColegioModel.FK_SueldoConcepto_UsuarioModificacion" FromRole="Usuario" ToRole="SueldoConcepto" />
+          <NavigationProperty Name="SueldosLiquidacionesCreados" Relationship="CSColegioModel.FK_SueldoLiquidacion_UsuarioCreacion" FromRole="Usuario" ToRole="SueldoLiquidacion" />
+          <NavigationProperty Name="SueldosLiquidacionesModificados" Relationship="CSColegioModel.FK_SueldoLiquidacion_UsuarioModificacion" FromRole="Usuario" ToRole="SueldoLiquidacion" />
         </EntityType>
         <EntityType Name="UsuarioGrupo">
           <Key>
@@ -4373,6 +4744,75 @@
           <AssociationSet Name="FK__Entidad__EntidadExportacion" Association="CSColegioModel.FK__Entidad__EntidadExportacion">
             <End Role="Entidad" EntitySet="Entidad" />
             <End Role="EntidadExportacion" EntitySet="EntidadExportacion" />
+          </AssociationSet>
+          <EntitySet Name="EntidadGrupo" EntityType="CSColegioModel.EntidadGrupo" />
+          <EntitySet Name="EntidadPersonalColegio" EntityType="CSColegioModel.EntidadPersonalColegio" />
+          <EntitySet Name="SueldoCalculoModulo" EntityType="CSColegioModel.SueldoCalculoModulo" />
+          <EntitySet Name="SueldoConcepto" EntityType="CSColegioModel.SueldoConcepto" />
+          <EntitySet Name="SueldoLiquidacion" EntityType="CSColegioModel.SueldoLiquidacion" />
+          <EntitySet Name="SueldoLiquidacionEntidad" EntityType="CSColegioModel.SueldoLiquidacionEntidad" />
+          <EntitySet Name="SueldoLiquidacionEntidadRecibo" EntityType="CSColegioModel.SueldoLiquidacionEntidadRecibo" />
+          <AssociationSet Name="FK_EntidadPersonalColegio_Entidad" Association="CSColegioModel.FK_EntidadPersonalColegio_Entidad">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="EntidadPersonalColegio" EntitySet="EntidadPersonalColegio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoLiquidacionEntidad_Entidad" Association="CSColegioModel.FK_SueldoLiquidacionEntidad_Entidad">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="SueldoLiquidacionEntidad" EntitySet="SueldoLiquidacionEntidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EntidadGrupo_UsuarioCreacion" Association="CSColegioModel.FK_EntidadGrupo_UsuarioCreacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="EntidadGrupo" EntitySet="EntidadGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EntidadGrupo_UsuarioModificacion" Association="CSColegioModel.FK_EntidadGrupo_UsuarioModificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="EntidadGrupo" EntitySet="EntidadGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EntidadPersonalColegio_EntidadGrupo" Association="CSColegioModel.FK_EntidadPersonalColegio_EntidadGrupo">
+            <End Role="EntidadGrupo" EntitySet="EntidadGrupo" />
+            <End Role="EntidadPersonalColegio" EntitySet="EntidadPersonalColegio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoCalculoModulo_SueldoConcepto" Association="CSColegioModel.FK_SueldoCalculoModulo_SueldoConcepto">
+            <End Role="SueldoConcepto" EntitySet="SueldoConcepto" />
+            <End Role="SueldoCalculoModulo" EntitySet="SueldoCalculoModulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoCalculoModulo_UsuarioCreacion" Association="CSColegioModel.FK_SueldoCalculoModulo_UsuarioCreacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="SueldoCalculoModulo" EntitySet="SueldoCalculoModulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoCalculoModulo_UsuarioModificacion" Association="CSColegioModel.FK_SueldoCalculoModulo_UsuarioModificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="SueldoCalculoModulo" EntitySet="SueldoCalculoModulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoConcepto_UsuarioCreacion" Association="CSColegioModel.FK_SueldoConcepto_UsuarioCreacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="SueldoConcepto" EntitySet="SueldoConcepto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoConcepto_UsuarioModificacion" Association="CSColegioModel.FK_SueldoConcepto_UsuarioModificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="SueldoConcepto" EntitySet="SueldoConcepto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoLiquidacion_UsuarioCreacion" Association="CSColegioModel.FK_SueldoLiquidacion_UsuarioCreacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="SueldoLiquidacion" EntitySet="SueldoLiquidacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoLiquidacion_UsuarioModificacion" Association="CSColegioModel.FK_SueldoLiquidacion_UsuarioModificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="SueldoLiquidacion" EntitySet="SueldoLiquidacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoLiquidacionEntidad_SueldoLiquidacion" Association="CSColegioModel.FK_SueldoLiquidacionEntidad_SueldoLiquidacion">
+            <End Role="SueldoLiquidacion" EntitySet="SueldoLiquidacion" />
+            <End Role="SueldoLiquidacionEntidad" EntitySet="SueldoLiquidacionEntidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SueldoLiquidacionEntidadRecibo_SueldoLiquidacionEntidad" Association="CSColegioModel.FK_SueldoLiquidacionEntidadRecibo_SueldoLiquidacionEntidad">
+            <End Role="SueldoLiquidacionEntidad" EntitySet="SueldoLiquidacionEntidad" />
+            <End Role="SueldoLiquidacionEntidadRecibo" EntitySet="SueldoLiquidacionEntidadRecibo" />
+          </AssociationSet>
+          <EntitySet Name="EntidadPersonalColegioAntiguedadDetalle" EntityType="CSColegioModel.EntidadPersonalColegioAntiguedadDetalle" />
+          <EntitySet Name="SueldoAntiguedad" EntityType="CSColegioModel.SueldoAntiguedad" />
+          <AssociationSet Name="FK_EntidadPersonalColegioAntiguedadDetalle_EntidadPersonalColegio" Association="CSColegioModel.FK_EntidadPersonalColegioAntiguedadDetalle_EntidadPersonalColegio">
+            <End Role="EntidadPersonalColegio" EntitySet="EntidadPersonalColegio" />
+            <End Role="EntidadPersonalColegioAntiguedadDetalle" EntitySet="EntidadPersonalColegioAntiguedadDetalle" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="ComprobanteImpuesto">
@@ -6417,6 +6857,318 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="EntidadGrupo">
+          <Key>
+            <PropertyRef Name="IdEntidadGrupo" />
+          </Key>
+          <Property Name="IdEntidadGrupo" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Adicional" Type="Decimal" Precision="3" Scale="2" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IdUsuarioCreacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IdUsuarioModificacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK_EntidadGrupo_UsuarioCreacion" FromRole="EntidadGrupo" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK_EntidadGrupo_UsuarioModificacion" FromRole="EntidadGrupo" ToRole="Usuario" />
+          <NavigationProperty Name="EntidadesPersonalColegio" Relationship="CSColegioModel.FK_EntidadPersonalColegio_EntidadGrupo" FromRole="EntidadGrupo" ToRole="EntidadPersonalColegio" />
+        </EntityType>
+        <EntityType Name="EntidadPersonalColegio">
+          <Key>
+            <PropertyRef Name="IdEntidad" />
+          </Key>
+          <Property Name="IdEntidad" Type="Int32" Nullable="false" />
+          <Property Name="IdEntidadGrupo" Type="Byte" Nullable="false" />
+          <Property Name="AdicionalAntiguedad" Type="Decimal" Precision="3" Scale="2" />
+          <Property Name="Adicional1" Type="Decimal" Precision="3" Scale="2" />
+          <Property Name="Adicional2" Type="Decimal" Precision="3" Scale="2" />
+          <NavigationProperty Name="Entidad" Relationship="CSColegioModel.FK_EntidadPersonalColegio_Entidad" FromRole="EntidadPersonalColegio" ToRole="Entidad" />
+          <NavigationProperty Name="EntidadGrupo" Relationship="CSColegioModel.FK_EntidadPersonalColegio_EntidadGrupo" FromRole="EntidadPersonalColegio" ToRole="EntidadGrupo" />
+          <NavigationProperty Name="EntidadPersonalColegioAntiguedadDetalle" Relationship="CSColegioModel.FK_EntidadPersonalColegioAntiguedadDetalle_EntidadPersonalColegio" FromRole="EntidadPersonalColegio" ToRole="EntidadPersonalColegioAntiguedadDetalle" />
+        </EntityType>
+        <EntityType Name="SueldoCalculoModulo">
+          <Key>
+            <PropertyRef Name="Anio" />
+            <PropertyRef Name="Mes" />
+            <PropertyRef Name="IdSueldoConcepto" />
+          </Key>
+          <Property Name="Anio" Type="Int16" Nullable="false" />
+          <Property Name="Mes" Type="Byte" Nullable="false" />
+          <Property Name="IdSueldoConcepto" Type="Int16" Nullable="false" />
+          <Property Name="Importe" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="IdUsuarioCreacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IdUsuarioModificacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="SueldoConcepto" Relationship="CSColegioModel.FK_SueldoCalculoModulo_SueldoConcepto" FromRole="SueldoCalculoModulo" ToRole="SueldoConcepto" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK_SueldoCalculoModulo_UsuarioCreacion" FromRole="SueldoCalculoModulo" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK_SueldoCalculoModulo_UsuarioModificacion" FromRole="SueldoCalculoModulo" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="SueldoConcepto">
+          <Key>
+            <PropertyRef Name="IdSueldoConcepto" />
+          </Key>
+          <Property Name="IdSueldoConcepto" Type="Int16" Nullable="false" />
+          <Property Name="Codigo" Type="Int16" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Tipo" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IdUsuarioCreacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IdUsuarioModificacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="SueldosCalculosModulo" Relationship="CSColegioModel.FK_SueldoCalculoModulo_SueldoConcepto" FromRole="SueldoConcepto" ToRole="SueldoCalculoModulo" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK_SueldoConcepto_UsuarioCreacion" FromRole="SueldoConcepto" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK_SueldoConcepto_UsuarioModificacion" FromRole="SueldoConcepto" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="SueldoLiquidacion">
+          <Key>
+            <PropertyRef Name="IdSueldoLiquidacion" />
+          </Key>
+          <Property Name="IdSueldoLiquidacion" Type="Int16" Nullable="false" />
+          <Property Name="Anio" Type="Int16" Nullable="false" />
+          <Property Name="Mes" Type="Byte" Nullable="false" />
+          <Property Name="BaseAntiguedadImporte" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ModuloImporte" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IdUsuarioCreacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IdUsuarioModificacion" Type="Int16" Nullable="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="UsuarioCreacion" Relationship="CSColegioModel.FK_SueldoLiquidacion_UsuarioCreacion" FromRole="SueldoLiquidacion" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioModificacion" Relationship="CSColegioModel.FK_SueldoLiquidacion_UsuarioModificacion" FromRole="SueldoLiquidacion" ToRole="Usuario" />
+          <NavigationProperty Name="SueldosLiquidacionesEntidades" Relationship="CSColegioModel.FK_SueldoLiquidacionEntidad_SueldoLiquidacion" FromRole="SueldoLiquidacion" ToRole="SueldoLiquidacionEntidad" />
+        </EntityType>
+        <EntityType Name="SueldoLiquidacionEntidad">
+          <Key>
+            <PropertyRef Name="IdSueldoLiquidacion" />
+            <PropertyRef Name="IdEntidad" />
+          </Key>
+          <Property Name="IdSueldoLiquidacion" Type="Int16" Nullable="false" />
+          <Property Name="IdEntidad" Type="Int32" Nullable="false" />
+          <Property Name="ModuloCantidad" Type="Decimal" Precision="3" Scale="1" />
+          <Property Name="Antiguedad" Type="Decimal" Precision="3" Scale="2" />
+          <NavigationProperty Name="Entidad" Relationship="CSColegioModel.FK_SueldoLiquidacionEntidad_Entidad" FromRole="SueldoLiquidacionEntidad" ToRole="Entidad" />
+          <NavigationProperty Name="SueldoLiquidacion" Relationship="CSColegioModel.FK_SueldoLiquidacionEntidad_SueldoLiquidacion" FromRole="SueldoLiquidacionEntidad" ToRole="SueldoLiquidacion" />
+          <NavigationProperty Name="SueldosLiquidacionesEntidadesRecibos" Relationship="CSColegioModel.FK_SueldoLiquidacionEntidadRecibo_SueldoLiquidacionEntidad" FromRole="SueldoLiquidacionEntidad" ToRole="SueldoLiquidacionEntidadRecibo" />
+        </EntityType>
+        <EntityType Name="SueldoLiquidacionEntidadRecibo">
+          <Key>
+            <PropertyRef Name="IdSueldoLiquidacion" />
+            <PropertyRef Name="IdEntidad" />
+            <PropertyRef Name="IdRecibo" />
+          </Key>
+          <Property Name="IdSueldoLiquidacion" Type="Int16" Nullable="false" />
+          <Property Name="IdEntidad" Type="Int32" Nullable="false" />
+          <Property Name="IdRecibo" Type="Byte" Nullable="false" />
+          <Property Name="ImporteBasico" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ImporteNeto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="SueldoLiquidacionEntidad" Relationship="CSColegioModel.FK_SueldoLiquidacionEntidadRecibo_SueldoLiquidacionEntidad" FromRole="SueldoLiquidacionEntidadRecibo" ToRole="SueldoLiquidacionEntidad" />
+        </EntityType>
+        <Association Name="FK_EntidadPersonalColegio_Entidad">
+          <End Type="CSColegioModel.Entidad" Role="Entidad" Multiplicity="1" />
+          <End Type="CSColegioModel.EntidadPersonalColegio" Role="EntidadPersonalColegio" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="IDEntidad" />
+            </Principal>
+            <Dependent Role="EntidadPersonalColegio">
+              <PropertyRef Name="IdEntidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoLiquidacionEntidad_Entidad">
+          <End Type="CSColegioModel.Entidad" Role="Entidad" Multiplicity="1" />
+          <End Type="CSColegioModel.SueldoLiquidacionEntidad" Role="SueldoLiquidacionEntidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="IDEntidad" />
+            </Principal>
+            <Dependent Role="SueldoLiquidacionEntidad">
+              <PropertyRef Name="IdEntidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EntidadGrupo_UsuarioCreacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.EntidadGrupo" Role="EntidadGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="EntidadGrupo">
+              <PropertyRef Name="IdUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EntidadGrupo_UsuarioModificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.EntidadGrupo" Role="EntidadGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="EntidadGrupo">
+              <PropertyRef Name="IdUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EntidadPersonalColegio_EntidadGrupo">
+          <End Type="CSColegioModel.EntidadGrupo" Role="EntidadGrupo" Multiplicity="1" />
+          <End Type="CSColegioModel.EntidadPersonalColegio" Role="EntidadPersonalColegio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EntidadGrupo">
+              <PropertyRef Name="IdEntidadGrupo" />
+            </Principal>
+            <Dependent Role="EntidadPersonalColegio">
+              <PropertyRef Name="IdEntidadGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoCalculoModulo_SueldoConcepto">
+          <End Type="CSColegioModel.SueldoConcepto" Role="SueldoConcepto" Multiplicity="1" />
+          <End Type="CSColegioModel.SueldoCalculoModulo" Role="SueldoCalculoModulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SueldoConcepto">
+              <PropertyRef Name="IdSueldoConcepto" />
+            </Principal>
+            <Dependent Role="SueldoCalculoModulo">
+              <PropertyRef Name="IdSueldoConcepto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoCalculoModulo_UsuarioCreacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.SueldoCalculoModulo" Role="SueldoCalculoModulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="SueldoCalculoModulo">
+              <PropertyRef Name="IdUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoCalculoModulo_UsuarioModificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.SueldoCalculoModulo" Role="SueldoCalculoModulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="SueldoCalculoModulo">
+              <PropertyRef Name="IdUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoConcepto_UsuarioCreacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.SueldoConcepto" Role="SueldoConcepto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="SueldoConcepto">
+              <PropertyRef Name="IdUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoConcepto_UsuarioModificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.SueldoConcepto" Role="SueldoConcepto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="SueldoConcepto">
+              <PropertyRef Name="IdUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoLiquidacion_UsuarioCreacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.SueldoLiquidacion" Role="SueldoLiquidacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="SueldoLiquidacion">
+              <PropertyRef Name="IdUsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoLiquidacion_UsuarioModificacion">
+          <End Type="CSColegioModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="CSColegioModel.SueldoLiquidacion" Role="SueldoLiquidacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="SueldoLiquidacion">
+              <PropertyRef Name="IdUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoLiquidacionEntidad_SueldoLiquidacion">
+          <End Type="CSColegioModel.SueldoLiquidacion" Role="SueldoLiquidacion" Multiplicity="1" />
+          <End Type="CSColegioModel.SueldoLiquidacionEntidad" Role="SueldoLiquidacionEntidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SueldoLiquidacion">
+              <PropertyRef Name="IdSueldoLiquidacion" />
+            </Principal>
+            <Dependent Role="SueldoLiquidacionEntidad">
+              <PropertyRef Name="IdSueldoLiquidacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SueldoLiquidacionEntidadRecibo_SueldoLiquidacionEntidad">
+          <End Type="CSColegioModel.SueldoLiquidacionEntidad" Role="SueldoLiquidacionEntidad" Multiplicity="1" />
+          <End Type="CSColegioModel.SueldoLiquidacionEntidadRecibo" Role="SueldoLiquidacionEntidadRecibo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SueldoLiquidacionEntidad">
+              <PropertyRef Name="IdSueldoLiquidacion" />
+              <PropertyRef Name="IdEntidad" />
+            </Principal>
+            <Dependent Role="SueldoLiquidacionEntidadRecibo">
+              <PropertyRef Name="IdSueldoLiquidacion" />
+              <PropertyRef Name="IdEntidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EntidadPersonalColegioAntiguedadDetalle">
+          <Key>
+            <PropertyRef Name="IdEntidad" />
+            <PropertyRef Name="IdDetalle" />
+          </Key>
+          <Property Name="IdEntidad" Type="Int32" Nullable="false" />
+          <Property Name="IdDetalle" Type="Byte" Nullable="false" />
+          <Property Name="Institucion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaDesde" Type="DateTime" Precision="0" />
+          <Property Name="FechaHasta" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="EntidadPersonalColegio" Relationship="CSColegioModel.FK_EntidadPersonalColegioAntiguedadDetalle_EntidadPersonalColegio" FromRole="EntidadPersonalColegioAntiguedadDetalle" ToRole="EntidadPersonalColegio" />
+        </EntityType>
+        <EntityType Name="SueldoAntiguedad">
+          <Key>
+            <PropertyRef Name="IdSueldoAntiguedad" />
+          </Key>
+          <Property Name="IdSueldoAntiguedad" Type="Byte" Nullable="false" />
+          <Property Name="AntiguedadDesde" Type="Byte" Nullable="false" />
+          <Property Name="Porcentaje" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+        </EntityType>
+        <Association Name="FK_EntidadPersonalColegioAntiguedadDetalle_EntidadPersonalColegio">
+          <End Type="CSColegioModel.EntidadPersonalColegio" Role="EntidadPersonalColegio" Multiplicity="1" />
+          <End Type="CSColegioModel.EntidadPersonalColegioAntiguedadDetalle" Role="EntidadPersonalColegioAntiguedadDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EntidadPersonalColegio">
+              <PropertyRef Name="IdEntidad" />
+            </Principal>
+            <Dependent Role="EntidadPersonalColegioAntiguedadDetalle">
+              <PropertyRef Name="IdEntidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7339,6 +8091,119 @@
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="Sistema" ColumnName="Sistema" />
                 <ScalarProperty Name="IDEntidad" ColumnName="IDEntidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntidadGrupo">
+            <EntityTypeMapping TypeName="CSColegioModel.EntidadGrupo">
+              <MappingFragment StoreEntitySet="EntidadGrupo">
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+                <ScalarProperty Name="IdUsuarioModificacion" ColumnName="IdUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IdUsuarioCreacion" ColumnName="IdUsuarioCreacion" />
+                <ScalarProperty Name="Notas" ColumnName="Notas" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="Adicional" ColumnName="Adicional" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdEntidadGrupo" ColumnName="IdEntidadGrupo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntidadPersonalColegio">
+            <EntityTypeMapping TypeName="CSColegioModel.EntidadPersonalColegio">
+              <MappingFragment StoreEntitySet="EntidadPersonalColegio">
+                <ScalarProperty Name="Adicional2" ColumnName="Adicional2" />
+                <ScalarProperty Name="Adicional1" ColumnName="Adicional1" />
+                <ScalarProperty Name="AdicionalAntiguedad" ColumnName="AdicionalAntiguedad" />
+                <ScalarProperty Name="IdEntidadGrupo" ColumnName="IdEntidadGrupo" />
+                <ScalarProperty Name="IdEntidad" ColumnName="IdEntidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SueldoCalculoModulo">
+            <EntityTypeMapping TypeName="CSColegioModel.SueldoCalculoModulo">
+              <MappingFragment StoreEntitySet="SueldoCalculoModulo">
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+                <ScalarProperty Name="IdUsuarioModificacion" ColumnName="IdUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IdUsuarioCreacion" ColumnName="IdUsuarioCreacion" />
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="IdSueldoConcepto" ColumnName="IdSueldoConcepto" />
+                <ScalarProperty Name="Mes" ColumnName="Mes" />
+                <ScalarProperty Name="Anio" ColumnName="Anio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SueldoConcepto">
+            <EntityTypeMapping TypeName="CSColegioModel.SueldoConcepto">
+              <MappingFragment StoreEntitySet="SueldoConcepto">
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+                <ScalarProperty Name="IdUsuarioModificacion" ColumnName="IdUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IdUsuarioCreacion" ColumnName="IdUsuarioCreacion" />
+                <ScalarProperty Name="Notas" ColumnName="Notas" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="IdSueldoConcepto" ColumnName="IdSueldoConcepto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SueldoLiquidacion">
+            <EntityTypeMapping TypeName="CSColegioModel.SueldoLiquidacion">
+              <MappingFragment StoreEntitySet="SueldoLiquidacion">
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+                <ScalarProperty Name="IdUsuarioModificacion" ColumnName="IdUsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IdUsuarioCreacion" ColumnName="IdUsuarioCreacion" />
+                <ScalarProperty Name="Notas" ColumnName="Notas" />
+                <ScalarProperty Name="ModuloImporte" ColumnName="ModuloImporte" />
+                <ScalarProperty Name="BaseAntiguedadImporte" ColumnName="BaseAntiguedadImporte" />
+                <ScalarProperty Name="Mes" ColumnName="Mes" />
+                <ScalarProperty Name="Anio" ColumnName="Anio" />
+                <ScalarProperty Name="IdSueldoLiquidacion" ColumnName="IdSueldoLiquidacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SueldoLiquidacionEntidad">
+            <EntityTypeMapping TypeName="CSColegioModel.SueldoLiquidacionEntidad">
+              <MappingFragment StoreEntitySet="SueldoLiquidacionEntidad">
+                <ScalarProperty Name="Antiguedad" ColumnName="Antiguedad" />
+                <ScalarProperty Name="ModuloCantidad" ColumnName="ModuloCantidad" />
+                <ScalarProperty Name="IdEntidad" ColumnName="IdEntidad" />
+                <ScalarProperty Name="IdSueldoLiquidacion" ColumnName="IdSueldoLiquidacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SueldoLiquidacionEntidadRecibo">
+            <EntityTypeMapping TypeName="CSColegioModel.SueldoLiquidacionEntidadRecibo">
+              <MappingFragment StoreEntitySet="SueldoLiquidacionEntidadRecibo">
+                <ScalarProperty Name="ImporteNeto" ColumnName="ImporteNeto" />
+                <ScalarProperty Name="ImporteBasico" ColumnName="ImporteBasico" />
+                <ScalarProperty Name="IdRecibo" ColumnName="IdRecibo" />
+                <ScalarProperty Name="IdEntidad" ColumnName="IdEntidad" />
+                <ScalarProperty Name="IdSueldoLiquidacion" ColumnName="IdSueldoLiquidacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntidadPersonalColegioAntiguedadDetalle">
+            <EntityTypeMapping TypeName="CSColegioModel.EntidadPersonalColegioAntiguedadDetalle">
+              <MappingFragment StoreEntitySet="EntidadPersonalColegioAntiguedadDetalle">
+                <ScalarProperty Name="FechaHasta" ColumnName="FechaHasta" />
+                <ScalarProperty Name="FechaDesde" ColumnName="FechaDesde" />
+                <ScalarProperty Name="Institucion" ColumnName="Institucion" />
+                <ScalarProperty Name="IdDetalle" ColumnName="IdDetalle" />
+                <ScalarProperty Name="IdEntidad" ColumnName="IdEntidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SueldoAntiguedad">
+            <EntityTypeMapping TypeName="CSColegioModel.SueldoAntiguedad">
+              <MappingFragment StoreEntitySet="SueldoAntiguedad">
+                <ScalarProperty Name="Porcentaje" ColumnName="Porcentaje" />
+                <ScalarProperty Name="AntiguedadDesde" ColumnName="AntiguedadDesde" />
+                <ScalarProperty Name="IdSueldoAntiguedad" ColumnName="IdSueldoAntiguedad" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

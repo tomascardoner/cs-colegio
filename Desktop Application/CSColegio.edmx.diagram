@@ -185,16 +185,20 @@
         <AssociationConnector Association="CSColegioModel.FK__Usuario__Nivel__Modificacion" />
         <AssociationConnector Association="CSColegioModel.FK__Usuario__RelacionTipo__Creacion" />
         <AssociationConnector Association="CSColegioModel.FK__Usuario__RelacionTipo__Modificacion" ManuallyRouted="true" >
-          <ConnectorPoint PointX="4.75" PointY="59.788515582153195" />
-          <ConnectorPoint PointX="5.1234807902712207" PointY="80.2716827262384" />
-          <ConnectorPoint PointX="5.12651920972878" PointY="80.438321694625074" />
-          <ConnectorPoint PointX="5.2172307902712207" PointY="85.413304383308059" />
-          <ConnectorPoint PointX="5.22026920972878" PointY="85.579943351694737" />
-          <ConnectorPoint PointX="5.2797307902712207" PointY="88.841052154687816" />
-          <ConnectorPoint PointX="5.28276920972878" PointY="89.0076911230745" />
+          <ConnectorPoint PointX="4.75" PointY="60.653914915529022" />
+          <ConnectorPoint PointX="5.1546877779768412" PointY="82.237309940646668" />
+          <ConnectorPoint PointX="5.1578122220231588" PointY="82.403947318288" />
+          <ConnectorPoint PointX="5.1859377779768412" PointY="83.903980226334255" />
+          <ConnectorPoint PointX="5.1890622220231588" PointY="84.070617603975592" />
+          <ConnectorPoint PointX="5.2171877779768412" PointY="85.570650512021842" />
+          <ConnectorPoint PointX="5.2203122220231588" PointY="85.737287889663179" />
+          <ConnectorPoint PointX="5.2640627779768412" PointY="88.070655940553166" />
+          <ConnectorPoint PointX="5.2671872220231588" PointY="88.2372933181945" />
+          <ConnectorPoint PointX="5.2953127779768412" PointY="89.7373262262407" />
+          <ConnectorPoint PointX="5.2984372220231588" PointY="89.903963603882033" />
           <ConnectorPoint PointX="5.322916666666667" PointY="91.209536819801045" />
           <ConnectorPoint PointX="6.17640625" PointY="91.209536819801045" />
-          <ConnectorPoint PointX="6.625" PointY="91.730858760165091" />
+          <ConnectorPoint PointX="6.625" PointY="91.730823936556774" />
         </AssociationConnector>
         <AssociationConnector Association="CSColegioModel.FK__Usuario__Turno__Creacion" />
         <AssociationConnector Association="CSColegioModel.FK__Usuario__Turno__Modificacion" />
@@ -214,6 +218,30 @@
         <AssociationConnector Association="CSColegioModel.FK__Usuario__MonedaCotizacion__Modificacion" />
         <EntityTypeShape EntityType="CSColegioModel.EntidadExportacion" Width="1.5" PointX="14.5" PointY="49.125" />
         <AssociationConnector Association="CSColegioModel.FK__Entidad__EntidadExportacion" />
+        <EntityTypeShape EntityType="CSColegioModel.EntidadGrupo" Width="1.5" PointX="20.25" PointY="51" />
+        <EntityTypeShape EntityType="CSColegioModel.EntidadPersonalColegio" Width="1.5" PointX="22.5" PointY="58.375" />
+        <EntityTypeShape EntityType="CSColegioModel.SueldoCalculoModulo" Width="1.5" PointX="17.75" PointY="51.125" />
+        <EntityTypeShape EntityType="CSColegioModel.SueldoConcepto" Width="1.5" PointX="5.5" PointY="62.75" />
+        <EntityTypeShape EntityType="CSColegioModel.SueldoLiquidacion" Width="1.5" PointX="15.25" PointY="44.875" />
+        <EntityTypeShape EntityType="CSColegioModel.SueldoLiquidacionEntidad" Width="1.5" PointX="17.5" PointY="56.375" />
+        <EntityTypeShape EntityType="CSColegioModel.SueldoLiquidacionEntidadRecibo" Width="1.5" PointX="19.75" PointY="55.5" />
+        <AssociationConnector Association="CSColegioModel.FK_EntidadPersonalColegio_Entidad" />
+        <AssociationConnector Association="CSColegioModel.FK_SueldoLiquidacionEntidad_Entidad" />
+        <AssociationConnector Association="CSColegioModel.FK_EntidadGrupo_UsuarioCreacion" />
+        <AssociationConnector Association="CSColegioModel.FK_EntidadGrupo_UsuarioModificacion" />
+        <AssociationConnector Association="CSColegioModel.FK_EntidadPersonalColegio_EntidadGrupo" />
+        <AssociationConnector Association="CSColegioModel.FK_SueldoCalculoModulo_SueldoConcepto" />
+        <AssociationConnector Association="CSColegioModel.FK_SueldoCalculoModulo_UsuarioCreacion" />
+        <AssociationConnector Association="CSColegioModel.FK_SueldoCalculoModulo_UsuarioModificacion" />
+        <AssociationConnector Association="CSColegioModel.FK_SueldoConcepto_UsuarioCreacion" />
+        <AssociationConnector Association="CSColegioModel.FK_SueldoConcepto_UsuarioModificacion" />
+        <AssociationConnector Association="CSColegioModel.FK_SueldoLiquidacion_UsuarioCreacion" />
+        <AssociationConnector Association="CSColegioModel.FK_SueldoLiquidacion_UsuarioModificacion" />
+        <AssociationConnector Association="CSColegioModel.FK_SueldoLiquidacionEntidad_SueldoLiquidacion" />
+        <AssociationConnector Association="CSColegioModel.FK_SueldoLiquidacionEntidadRecibo_SueldoLiquidacionEntidad" />
+        <EntityTypeShape EntityType="CSColegioModel.EntidadPersonalColegioAntiguedadDetalle" Width="1.5" PointX="24.75" PointY="58.625" />
+        <EntityTypeShape EntityType="CSColegioModel.SueldoAntiguedad" Width="1.5" PointX="7.375" PointY="8.75" />
+        <AssociationConnector Association="CSColegioModel.FK_EntidadPersonalColegioAntiguedadDetalle_EntidadPersonalColegio" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

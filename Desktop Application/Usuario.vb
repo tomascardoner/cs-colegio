@@ -90,5 +90,13 @@ Partial Public Class Usuario
     Public Overridable Property MonedasModificadas As ICollection(Of Moneda) = New HashSet(Of Moneda)
     Public Overridable Property MonedaCotizacionesCreadas As ICollection(Of MonedaCotizacion) = New HashSet(Of MonedaCotizacion)
     Public Overridable Property MonedaCotizacionesModificadas As ICollection(Of MonedaCotizacion) = New HashSet(Of MonedaCotizacion)
+    Public Overridable Property EntidadesGruposCreados As ICollection(Of EntidadGrupo) = New HashSet(Of EntidadGrupo)
+    Public Overridable Property EntidadesGruposModificados As ICollection(Of EntidadGrupo) = New HashSet(Of EntidadGrupo)
+    Public Overridable Property SueldosCalculosModulosCreados As ICollection(Of SueldoCalculoModulo) = New HashSet(Of SueldoCalculoModulo)
+    Public Overridable Property SueldosCalculosModulosModificados As ICollection(Of SueldoCalculoModulo) = New HashSet(Of SueldoCalculoModulo)
+    Public Overridable Property SueldosConceptosCreados As ICollection(Of SueldoConcepto) = New HashSet(Of SueldoConcepto)
+    Public Overridable Property SueldosConceptosModificados As ICollection(Of SueldoConcepto) = New HashSet(Of SueldoConcepto)
+    Public Overridable Property SueldosLiquidacionesCreados As ICollection(Of SueldoLiquidacion) = New HashSet(Of SueldoLiquidacion)
+    Public Overridable Property SueldosLiquidacionesModificados As ICollection(Of SueldoLiquidacion) = New HashSet(Of SueldoLiquidacion)
 
 End Class

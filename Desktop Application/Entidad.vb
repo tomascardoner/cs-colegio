@@ -89,5 +89,7 @@ Partial Public Class Entidad
     Public Overridable Property Comprobante As ICollection(Of Comprobante) = New HashSet(Of Comprobante)
     Public Overridable Property ComunicacionEntidad As ICollection(Of ComunicacionEntidad) = New HashSet(Of ComunicacionEntidad)
     Public Overridable Property EntidadExportacion As ICollection(Of EntidadExportacion) = New HashSet(Of EntidadExportacion)
+    Public Overridable Property EntidadPersonalColegio As EntidadPersonalColegio
+    Public Overridable Property SueldosLiquidacionesEntidades As ICollection(Of SueldoLiquidacionEntidad) = New HashSet(Of SueldoLiquidacionEntidad)
 
 End Class
