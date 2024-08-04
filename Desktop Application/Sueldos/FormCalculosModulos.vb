@@ -146,11 +146,9 @@ Public Class FormCalculosModulos
 
     Private Sub AgregarDesdeInternet_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItemAgregarDesdeInternet.Click
         If Permisos.VerificarPermiso(Permisos.SUELDO_CALCULOMODULO_AGREGAR) Then
-            Me.Cursor = Cursors.WaitCursor
-            DataGridViewMain.Enabled = False
-            'FormCalculoModuloObtener.LoadAndShow(True, Me, Convert.ToInt16(ToolStripComboBoxAnio.Text), , CType(ToolStripComboBoxMes.SelectedIndex, Byte))
-            DataGridViewMain.Enabled = True
-            Me.Cursor = Cursors.Default
+            Using formCalculoModuloObtener As New FormCalculoModuloObtener(Convert.ToInt16(ToolStripComboBoxAnio.Text), CType(ToolStripComboBoxMes.SelectedIndex, Byte))
+                formCalculoModuloObtener.ShowDialog()
+            End Using
         End If
     End Sub
 
