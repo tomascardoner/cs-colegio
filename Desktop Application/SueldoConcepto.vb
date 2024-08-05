@@ -15,6 +15,8 @@ Partial Public Class SueldoConcepto
     Public Property Codigo As Nullable(Of Short)
     Public Property Nombre As String
     Public Property Tipo As String
+    Public Property BaseCalculo As String
+    Public Property Coeficiente As Nullable(Of Decimal)
     Public Property EsActivo As Boolean
     Public Property Notas As String
     Public Property IdUsuarioCreacion As Short

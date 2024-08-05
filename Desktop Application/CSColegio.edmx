@@ -872,6 +872,8 @@
           <Property Name="Codigo" Type="smallint" />
           <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Tipo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="BaseCalculo" Type="char" MaxLength="2" />
+          <Property Name="Coeficiente" Type="decimal" Precision="4" Scale="3" />
           <Property Name="EsActivo" Type="bit" Nullable="false" />
           <Property Name="Notas" Type="varchar(max)" />
           <Property Name="IdUsuarioCreacion" Type="smallint" Nullable="false" />
@@ -6913,6 +6915,8 @@
           <Property Name="Codigo" Type="Int16" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Tipo" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="BaseCalculo" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Coeficiente" Type="Decimal" Precision="4" Scale="3" />
           <Property Name="EsActivo" Type="Boolean" Nullable="false" />
           <Property Name="Notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IdUsuarioCreacion" Type="Int16" Nullable="false" />
@@ -8137,6 +8141,8 @@
           <EntitySetMapping Name="SueldoConcepto">
             <EntityTypeMapping TypeName="CSColegioModel.SueldoConcepto">
               <MappingFragment StoreEntitySet="SueldoConcepto">
+                <ScalarProperty Name="Coeficiente" ColumnName="Coeficiente" />
+                <ScalarProperty Name="BaseCalculo" ColumnName="BaseCalculo" />
                 <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
                 <ScalarProperty Name="IdUsuarioModificacion" ColumnName="IdUsuarioModificacion" />
                 <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
