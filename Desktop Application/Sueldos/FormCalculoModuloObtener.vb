@@ -155,6 +155,13 @@ Public Class FormCalculoModuloObtener
     Private Sub ObtenerDatos()
         Dim document As New HtmlAgilityPack.HtmlDocument
         Dim node As HtmlAgilityPack.HtmlNode
+        Dim culture As New CultureInfo("es-AR")
+        Dim nfi As New NumberFormatInfo() With {
+            .NumberGroupSeparator = ".",
+            .NumberDecimalSeparator = ",",
+            .CurrencyGroupSeparator = ".",
+            .CurrencyDecimalSeparator = ","
+        }
 
         Cursor = Cursors.WaitCursor
 
@@ -176,7 +183,7 @@ Public Class FormCalculoModuloObtener
             Dim periodoString As String = HtmlAgilityPack.HtmlEntity.DeEntitize(node.InnerText.Substring(CS_Parameter_System.GetString(Parametros.SUELDO_MODULO_OBTENER_PERIODO_PREFIJO).Length))
             periodoString = periodoString.Substring(0, periodoString.IndexOf(","c)).Trim()
             Dim periodo As Date
-            If Not Date.TryParseExact(periodoString.ToLower(), "MMMM yyyy", CultureInfo.CurrentCulture, DateTimeStyles.AllowInnerWhite, periodo) Then
+            If Not Date.TryParseExact(periodoString.ToLower(), "MMMM yyyy", culture, DateTimeStyles.AllowInnerWhite, periodo) Then
                 Cursor = Cursors.Default
                 MessageBox.Show($"No se ha encontrado la información del período en la web.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Return
@@ -210,8 +217,11 @@ Public Class FormCalculoModuloObtener
                     Continue For
                 End If
                 Dim importeString As String = HtmlAgilityPack.HtmlEntity.DeEntitize(node.InnerText)
-                If Not String.IsNullOrWhiteSpace(importeString) Then
-                    Decimal.TryParse(importeString, newRow.Importe)
+                If String.IsNullOrWhiteSpace(importeString) Then
+                    MessageBox.Show("No se ha podido obtener el dato del importe desde la web.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                End If
+                If Not Decimal.TryParse(importeString, NumberStyles.Any, nfi, newRow.Importe) Then
+                    MessageBox.Show($"No se ha podido convertir el dato del importe desde la web ({importeString}).", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
 
                 _Rows.Add(newRow)
