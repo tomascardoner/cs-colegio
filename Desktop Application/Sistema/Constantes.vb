@@ -85,6 +85,13 @@
     Friend Const CHEQUE_ESTADO_DEPOSITADO_RECHAZADO_DEVUELTO As String = "DV"
 
     '///////////////////////////////////
+    '    PARÁMETROS DE LOS REPORTES
+    '///////////////////////////////////
+    Friend Const SueldoConceptoTipoRemunerativo As String = "R"
+    Friend Const SueldoConceptoTipoNoRemunerativo As String = "N"
+    Friend Const SueldoConceptoTipoDescuento As String = "D"
+
+    '///////////////////////////////////
     '    MICROSOFT OUTLOOK
     '///////////////////////////////////
     Friend Const OUTLOOK_USERPROPERTYNAME_CONTACTO_ENTIDAD As String = "CSCOLEGIO-IDENTIDAD"

@@ -197,44 +197,59 @@
     End Function
 
     Private Sub ObtenerImportes()
+        Dim sueldoCalculoModulo As SueldoCalculoModulo
+
         If Not VerificarDatos() Then
             Return
         End If
 
+        ' Obtener los importes para el período actual
+        If ObtenerImportes(_SueldoLiquidacion.Anio, Convert.ToByte(ComboBoxMes.SelectedIndex + 1)) Then
+            Return
+        End If
+
+        If MessageBox.Show($"No hay datos para el período especificado.{Environment.NewLine}{Environment.NewLine}¿Desea obtener los importes desde el cálculo anterior disponible?", My.Application.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then
+            Return
+        End If
+        sueldoCalculoModulo = _dbContext.SueldoCalculoModulo.Where(Function(scm) (scm.Anio = _SueldoLiquidacion.Anio AndAlso scm.Mes < CByte(ComboBoxMes.SelectedIndex + 1)) OrElse scm.Anio < _SueldoLiquidacion.Anio).OrderByDescending(Function(scm) scm.Anio).ThenByDescending(Function(scm) scm.Mes).FirstOrDefault()
+        If sueldoCalculoModulo Is Nothing Then
+            MessageBox.Show($"No se encontraron datos de cálculo de módulo de sueldos.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Return
+        End If
+
+        ' Obtener los importes del período anterior
+        ObtenerImportes(sueldoCalculoModulo.Anio, sueldoCalculoModulo.Mes)
+    End Sub
+
+    Private Function ObtenerImportes(anio As Short, mes As Byte) As Boolean
         Dim sueldoCalculoModulos As IEnumerable(Of SueldoCalculoModulo)
 
         Try
-            sueldoCalculoModulos = _dbContext.SueldoCalculoModulo.Where(Function(scm) scm.Anio = _SueldoLiquidacion.Anio AndAlso scm.Mes = ComboBoxMes.SelectedIndex + 1)
-            If Not sueldoCalculoModulos.Any() AndAlso MessageBox.Show($"No hay datos para el período especificado.{Environment.NewLine}{Environment.NewLine}¿Desea obtener los importes desde el último cálculo disponible?", My.Application.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-                Dim sueldoCalculoModulo As SueldoCalculoModulo = _dbContext.SueldoCalculoModulo.OrderByDescending(Function(scm) scm.Anio).ThenByDescending(Function(scm) scm.Mes).FirstOrDefault()
-                If sueldoCalculoModulo Is Nothing Then
-                    MessageBox.Show($"No se encontraron datos de cálculo de módulo de sueldos.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                    Return
-                End If
-                sueldoCalculoModulos = _dbContext.SueldoCalculoModulo.Where(Function(scm) scm.Anio = sueldoCalculoModulo.Anio AndAlso scm.Mes = sueldoCalculoModulo.Mes)
+            Me.Cursor = Cursors.WaitCursor
+            sueldoCalculoModulos = _dbContext.SueldoCalculoModulo.Where(Function(scm) scm.Anio = anio AndAlso scm.Mes = mes)
+            If Not sueldoCalculoModulos.Any() Then
+                Return False
             End If
         Catch ex As Exception
             Me.Cursor = Cursors.Default
             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener los datos de cálculo de módulo de sueldos desde la base de datos.")
-            Return
+            Return False
         End Try
 
         Try
-            Dim BaseAntiguedadImporte As Decimal? = sueldoCalculoModulos.Where(Function(scm) scm.IdSueldoConcepto = CS_Parameter_System.GetIntegerAsShort(Parametros.SUELDO_CONCEPTO_BASICO_CODIGO)).FirstOrDefault()?.Importe
-            If BaseAntiguedadImporte IsNot Nothing Then
-                CurrencyTextBoxBaseAntiguedadImporte.DecimalValue = BaseAntiguedadImporte.Value
-            Else
-                CurrencyTextBoxBaseAntiguedadImporte.BindableValue = Nothing
-            End If
-            Dim ModuloImporte As Decimal = sueldoCalculoModulos.Where(Function(scm) scm.IdSueldoConcepto <> CS_Parameter_System.GetIntegerAsShort(Parametros.SUELDO_CONCEPTO_ANTIGUEDAD_CODIGO)).Sum(Function(scm) scm.Importe)
-            CurrencyTextBoxModuloImporte.DecimalValue = ModuloImporte
+            Dim BaseAntiguedadImporte As Decimal? = sueldoCalculoModulos.Where(Function(scm) scm.SueldoConcepto.Codigo.HasValue AndAlso scm.SueldoConcepto.Codigo.Value = CS_Parameter_System.GetIntegerAsShort(Parametros.SUELDO_CONCEPTO_BASICO_CODIGO)).FirstOrDefault()?.Importe
+            Dim ModuloImporte As Decimal = sueldoCalculoModulos.Where(Function(scm) (Not scm.SueldoConcepto.Codigo.HasValue) OrElse (scm.SueldoConcepto.Codigo.HasValue AndAlso scm.SueldoConcepto.Codigo.Value <> CS_Parameter_System.GetIntegerAsShort(Parametros.SUELDO_CONCEPTO_ANTIGUEDAD_CODIGO))).Sum(Function(scm) scm.Importe * If(scm.SueldoConcepto.Tipo = Constantes.SueldoConceptoTipoDescuento, -1, 1))
 
+            CurrencyTextBoxBaseAntiguedadImporte.BindableValue = BaseAntiguedadImporte
+            CurrencyTextBoxModuloImporte.DecimalValue = ModuloImporte
+            Me.Cursor = Cursors.Default
+            Return True
         Catch ex As Exception
             Me.Cursor = Cursors.Default
             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al realizar los cálculos del módulo de sueldos.")
-            Return
+            Return False
         End Try
-    End Sub
+    End Function
 
 #End Region
 
