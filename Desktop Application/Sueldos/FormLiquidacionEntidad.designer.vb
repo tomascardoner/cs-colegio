@@ -99,7 +99,7 @@ Partial Class FormLiquidacionEntidad
         Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButtonCerrar, Me.ToolStripButtonEditar, Me.ToolStripButtonCancelar, Me.ToolStripButtonGuardar})
         Me.toolstripMain.Location = New System.Drawing.Point(0, 0)
         Me.toolstripMain.Name = "toolstripMain"
-        Me.toolstripMain.Size = New System.Drawing.Size(371, 39)
+        Me.toolstripMain.Size = New System.Drawing.Size(386, 39)
         Me.toolstripMain.TabIndex = 7
         '
         'LabelEntidad
@@ -141,7 +141,7 @@ Partial Class FormLiquidacionEntidad
         Me.ComboBoxEntidad.Location = New System.Drawing.Point(100, 103)
         Me.ComboBoxEntidad.Margin = New System.Windows.Forms.Padding(4)
         Me.ComboBoxEntidad.Name = "ComboBoxEntidad"
-        Me.ComboBoxEntidad.Size = New System.Drawing.Size(258, 24)
+        Me.ComboBoxEntidad.Size = New System.Drawing.Size(273, 24)
         Me.ComboBoxEntidad.TabIndex = 1
         '
         'ButtonObtenerDatos
@@ -150,9 +150,9 @@ Partial Class FormLiquidacionEntidad
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonObtenerDatos.Location = New System.Drawing.Point(170, 135)
         Me.ButtonObtenerDatos.Name = "ButtonObtenerDatos"
-        Me.ButtonObtenerDatos.Size = New System.Drawing.Size(188, 54)
+        Me.ButtonObtenerDatos.Size = New System.Drawing.Size(203, 54)
         Me.ButtonObtenerDatos.TabIndex = 6
-        Me.ButtonObtenerDatos.Text = "Obtener anterior"
+        Me.ButtonObtenerDatos.Text = "Obtener desde liquidación anterior"
         Me.ButtonObtenerDatos.UseVisualStyleBackColor = True
         '
         'TextBoxLiquidacion
@@ -163,7 +163,7 @@ Partial Class FormLiquidacionEntidad
         Me.TextBoxLiquidacion.Margin = New System.Windows.Forms.Padding(4)
         Me.TextBoxLiquidacion.Name = "TextBoxLiquidacion"
         Me.TextBoxLiquidacion.ReadOnly = True
-        Me.TextBoxLiquidacion.Size = New System.Drawing.Size(258, 22)
+        Me.TextBoxLiquidacion.Size = New System.Drawing.Size(273, 22)
         Me.TextBoxLiquidacion.TabIndex = 9
         Me.TextBoxLiquidacion.TabStop = False
         Me.TextBoxLiquidacion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -190,6 +190,7 @@ Partial Class FormLiquidacionEntidad
         Me.IntegerTextBoxAntiguedad.AccessibilityEnabled = True
         Me.IntegerTextBoxAntiguedad.AllowNull = True
         Me.IntegerTextBoxAntiguedad.BeforeTouchSize = New System.Drawing.Size(40, 22)
+        Me.IntegerTextBoxAntiguedad.ForeColor = System.Drawing.SystemColors.WindowText
         Me.IntegerTextBoxAntiguedad.IntegerValue = CType(0, Long)
         Me.IntegerTextBoxAntiguedad.Location = New System.Drawing.Point(100, 163)
         Me.IntegerTextBoxAntiguedad.MaxValue = CType(125, Long)
@@ -214,7 +215,7 @@ Partial Class FormLiquidacionEntidad
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(371, 200)
+        Me.ClientSize = New System.Drawing.Size(386, 200)
         Me.Controls.Add(Me.LabelAntiguedadPorcentaje)
         Me.Controls.Add(Me.IntegerTextBoxAntiguedad)
         Me.Controls.Add(Me.DoubleTextBoxModuloCantidad)

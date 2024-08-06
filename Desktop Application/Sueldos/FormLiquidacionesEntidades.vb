@@ -1,9 +1,12 @@
-﻿Public Class FormLiquidacionesEntidades
+﻿Imports System.Data.Entity
+
+Public Class FormLiquidacionesEntidades
 
 #Region "Declarations"
 
     Private _IdSueldoLiquidacion As Short
-    Private _SueldoLiquidacionTexto As String
+    Private _SueldoLiquidacionAnio As Short
+    Private _SueldoLiquidacionMes As Byte
 
     Private Class DataGridRowData
         Public Property IdEntidad As Integer
@@ -27,15 +30,16 @@
 
     Friend Sub SetAppearance()
         Me.Icon = CardonerSistemas.Graphics.GetIconFromBitmap(My.Resources.ImageSueldo32)
-        ToolStripLabelLiquidacionDatos.Text = $"Período: " & _SueldoLiquidacionTexto
+        ToolStripLabelLiquidacionDatos.Text = $"Período: {MonthName(_SueldoLiquidacionMes)} de {_SueldoLiquidacionAnio}"
 
         DataGridViewMain.DefaultCellStyle.Font = pAppearanceConfig.ListsFont
         DataGridViewMain.ColumnHeadersDefaultCellStyle.Font = pAppearanceConfig.ListsFont
     End Sub
 
-    Friend Sub InitializeFormAndShow(idSueldoLiquidacion As Short, anio As Short, mesNombre As String)
+    Friend Sub InitializeFormAndShow(idSueldoLiquidacion As Short, anio As Short, mes As Byte)
         _IdSueldoLiquidacion = idSueldoLiquidacion
-        _SueldoLiquidacionTexto = $"{mesNombre} de {anio}"
+        _SueldoLiquidacionAnio = anio
+        _SueldoLiquidacionMes = mes
 
         SetAppearance()
 
@@ -194,18 +198,18 @@
 
 #Region "Main Toolbar"
 
-    Private Sub Agregar_Click() Handles ToolStripButtonAgregar.Click
+    Private Sub Agregar_Click(sender As Object, e As EventArgs) Handles ToolStripButtonAgregar.Click
         If Not Permisos.VerificarPermiso(Permisos.SUELDO_LIQUIDACION_ENTIDAD_AGREGAR) Then
             Return
         End If
         Me.Cursor = Cursors.WaitCursor
-        Using form = New FormLiquidacionEntidad(True, _IdSueldoLiquidacion, 0, _SueldoLiquidacionTexto)
+        Using form = New FormLiquidacionEntidad(True, _IdSueldoLiquidacion, 0, _SueldoLiquidacionAnio, _SueldoLiquidacionMes)
             form.ShowDialog(Me)
         End Using
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub Editar_Click() Handles ToolStripButtonEditar.Click
+    Private Sub Editar_Click(sender As Object, e As EventArgs) Handles ToolStripButtonEditar.Click
         If DataGridViewMain.CurrentRow Is Nothing Then
             MessageBox.Show("No hay ninguna entidad para editar.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
@@ -214,13 +218,13 @@
             Return
         End If
         Me.Cursor = Cursors.WaitCursor
-        Using form = New FormLiquidacionEntidad(True, _IdSueldoLiquidacion, CType(DataGridViewMain.SelectedRows(0).DataBoundItem, DataGridRowData).IdEntidad, _SueldoLiquidacionTexto)
+        Using form = New FormLiquidacionEntidad(True, _IdSueldoLiquidacion, CType(DataGridViewMain.SelectedRows(0).DataBoundItem, DataGridRowData).IdEntidad, _SueldoLiquidacionAnio, _SueldoLiquidacionMes)
             form.ShowDialog(Me)
         End Using
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub Eliminar_Click() Handles ToolStripButtonEliminar.Click
+    Private Sub Eliminar_Click(sender As Object, e As EventArgs) Handles ToolStripButtonEliminar.Click
         If DataGridViewMain.CurrentRow Is Nothing Then
             MessageBox.Show("No hay ninguna entidad para eliminar.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
@@ -262,9 +266,65 @@
             Return
         End If
         Me.Cursor = Cursors.WaitCursor
-        Using form = New FormLiquidacionEntidad(False, _IdSueldoLiquidacion, CType(DataGridViewMain.SelectedRows(0).DataBoundItem, DataGridRowData).IdEntidad, _SueldoLiquidacionTexto)
+        Using form = New FormLiquidacionEntidad(False, _IdSueldoLiquidacion, CType(DataGridViewMain.SelectedRows(0).DataBoundItem, DataGridRowData).IdEntidad, _SueldoLiquidacionAnio, _SueldoLiquidacionMes)
             form.ShowDialog(Me)
         End Using
+        Me.Cursor = Cursors.Default
+    End Sub
+
+    Private Sub ToolStripButtonCopiarDatos_Click(sender As Object, e As EventArgs) Handles ToolStripButtonCopiarDatos.Click
+        If Not Permisos.VerificarPermiso(Permisos.SUELDO_LIQUIDACION_ENTIDAD_AGREGAR) Then
+            Return
+        End If
+        If MessageBox.Show("¿Desea copiar los datos desde la última liquidación anterior?", My.Application.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then
+            Return
+        End If
+
+        Try
+            Me.Cursor = Cursors.WaitCursor
+            Dim count As Integer
+            Dim totalCount As Integer
+            Using dbContext = New CSColegioContext(True)
+                Dim sueldoLiquidacion = dbContext.SueldoLiquidacion.AsNoTracking().Where(Function(sl) (sl.Anio = _SueldoLiquidacionAnio AndAlso sl.Mes < _SueldoLiquidacionMes) OrElse sl.Anio < _SueldoLiquidacionAnio).OrderByDescending(Function(sl) sl.Anio).ThenByDescending(Function(sl) sl.Mes).Take(1).FirstOrDefault()
+                If sueldoLiquidacion Is Nothing Then
+                    Me.Cursor = Cursors.Default
+                    MessageBox.Show("No se encontró una liquidación de sueldos anterior.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Return
+                End If
+                Dim idSueldoLiquidacionAnterior As Short = sueldoLiquidacion.IdSueldoLiquidacion
+                For Each sueldoLiquidacionEntidad In dbContext.SueldoLiquidacionEntidad.AsNoTracking().Where(Function(sle) sle.IdSueldoLiquidacion = idSueldoLiquidacionAnterior)
+                    Dim idEntidad As Integer = sueldoLiquidacionEntidad.IdEntidad
+                    totalCount += 1
+                    If Not dbContext.SueldoLiquidacionEntidad.Any(Function(sle) sle.IdSueldoLiquidacion = _IdSueldoLiquidacion AndAlso sle.IdEntidad = idEntidad) Then
+                        dbContext.SueldoLiquidacionEntidad.Add(New SueldoLiquidacionEntidad With {
+                            .IdSueldoLiquidacion = _IdSueldoLiquidacion,
+                            .IdEntidad = idEntidad,
+                            .ModuloCantidad = sueldoLiquidacionEntidad.ModuloCantidad,
+                            .Antiguedad = sueldoLiquidacionEntidad.Antiguedad
+                        })
+                        count += 1
+                    End If
+                Next
+                If dbContext.ChangeTracker.HasChanges Then
+                    dbContext.SaveChanges()
+                End If
+            End Using
+            ReadData()
+            If totalCount = 0 Then
+                MessageBox.Show($"No se encontraron datos de entidades en la liquidación de sueldos anterior.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                Select Case count
+                    Case 0
+                        MessageBox.Show($"No se copiaron los datos de las entidades porque ya existen en la liquidación actual.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Case 1
+                        MessageBox.Show($"Se copiaron los datos de 1 entidad.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Case Else
+                        MessageBox.Show($"Se copiaron los datos de {count} entidades.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End Select
+            End If
+        Catch ex As Exception
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener los datos de la última liquidación de sueldos de la entidad.")
+        End Try
         Me.Cursor = Cursors.Default
     End Sub
 

@@ -43,7 +43,7 @@
 
         Try
             Using dbContext As New CSColegioContext(True)
-                _EntitiesAll = dbContext.SueldoLiquidacion.Where(Function(sl) sl.Anio = CShort(ToolStripComboBoxAnio.Text)).OrderBy(Function(sl) sl.Mes).ToList()
+                _EntitiesAll = dbContext.SueldoLiquidacion.Where(Function(sl) sl.Anio = CShort(ToolStripComboBoxAnio.Text)).OrderByDescending(Function(sl) sl.Mes).ToList()
             End Using
         Catch ex As Exception
             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al leer las liquidaciones de sueldos.")
@@ -113,7 +113,7 @@
 
 #Region "Main Toolbar"
 
-    Private Sub Agregar_Click() Handles ToolStripButtonAgregar.Click
+    Private Sub Agregar_Click(sender As Object, e As EventArgs) Handles ToolStripButtonAgregar.Click
         If Not Permisos.VerificarPermiso(Permisos.SUELDO_LIQUIDACION_AGREGAR) Then
             Return
         End If
@@ -124,7 +124,7 @@
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub Editar_Click() Handles ToolStripButtonEditar.Click
+    Private Sub Editar_Click(sender As Object, e As EventArgs) Handles ToolStripButtonEditar.Click
         If DataGridViewMain.CurrentRow Is Nothing Then
             MessageBox.Show("No hay ninguna liquidación de sueldo para editar.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
@@ -139,7 +139,7 @@
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub Eliminar_Click() Handles ToolStripButtonEliminar.Click
+    Private Sub Eliminar_Click(sender As Object, e As EventArgs) Handles ToolStripButtonEliminar.Click
         If DataGridViewMain.CurrentRow Is Nothing Then
             MessageBox.Show("No hay ninguna liquidación de sueldo para eliminar.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
@@ -196,7 +196,7 @@
         End If
         Me.Cursor = Cursors.WaitCursor
         Dim form As FormLiquidacionesEntidades = Comunes.Forms.SueldosLiquidacionesEntidades.InstanciaActualONueva()
-        form.InitializeFormAndShow(CType(DataGridViewMain.SelectedRows(0).DataBoundItem, SueldoLiquidacion).IdSueldoLiquidacion, Convert.ToInt16(ToolStripComboBoxAnio.Text), MonthName(CType(DataGridViewMain.SelectedRows(0).DataBoundItem, SueldoLiquidacion).Mes))
+        form.InitializeFormAndShow(CType(DataGridViewMain.SelectedRows(0).DataBoundItem, SueldoLiquidacion).IdSueldoLiquidacion, Convert.ToInt16(ToolStripComboBoxAnio.Text), CType(DataGridViewMain.SelectedRows(0).DataBoundItem, SueldoLiquidacion).Mes)
         Me.Cursor = Cursors.Default
     End Sub
 

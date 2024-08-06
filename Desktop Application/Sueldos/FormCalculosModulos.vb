@@ -138,7 +138,7 @@ Public Class FormCalculosModulos
         End Using
     End Sub
 
-    Private Sub AgregarManualmente_Click() Handles ToolStripMenuItemAgregarManualmente.Click
+    Private Sub AgregarManualmente_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItemAgregarManualmente.Click
         If Not Permisos.VerificarPermiso(Permisos.SUELDO_CALCULOMODULO_AGREGAR) Then
             Return
         End If
@@ -149,7 +149,7 @@ Public Class FormCalculosModulos
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub Editar_Click() Handles ToolStripButtonEditar.Click
+    Private Sub Editar_Click(sender As Object, e As EventArgs) Handles ToolStripButtonEditar.Click
         If DataGridViewMain.CurrentRow Is Nothing Then
             MessageBox.Show("No hay ningún cálculo de módulo de sueldo para editar.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
@@ -164,7 +164,7 @@ Public Class FormCalculosModulos
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub Eliminar_Click() Handles ToolStripButtonEliminar.Click
+    Private Sub Eliminar_Click(sender As Object, e As EventArgs) Handles ToolStripButtonEliminar.Click
         If DataGridViewMain.CurrentRow Is Nothing Then
             MessageBox.Show("No hay ningún cálculo de módulo de sueldo para eliminar.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return

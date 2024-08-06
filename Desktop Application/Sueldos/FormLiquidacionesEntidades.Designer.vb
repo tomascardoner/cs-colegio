@@ -38,6 +38,7 @@ Partial Class FormLiquidacionesEntidades
         Me.DataGridViewColumnEntidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewColumnModuloCantidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewColumnAntiguedad = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ToolStripButtonCopiarDatos = New System.Windows.Forms.ToolStripButton()
         Me.StatusStripMain.SuspendLayout()
         Me.FlowLayoutPanelToolbars.SuspendLayout()
         Me.ToolStripButtons.SuspendLayout()
@@ -78,10 +79,10 @@ Partial Class FormLiquidacionesEntidades
         Me.ToolStripButtons.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ToolStripButtons.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStripButtons.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ToolStripButtons.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButtonAgregar, Me.ToolStripButtonEditar, Me.ToolStripButtonEliminar, Me.ToolStripSeparator1, Me.ToolStripLabelLiquidacionDatos})
+        Me.ToolStripButtons.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButtonAgregar, Me.ToolStripButtonEditar, Me.ToolStripButtonEliminar, Me.ToolStripButtonCopiarDatos, Me.ToolStripSeparator1, Me.ToolStripLabelLiquidacionDatos})
         Me.ToolStripButtons.Location = New System.Drawing.Point(0, 0)
         Me.ToolStripButtons.Name = "ToolStripButtons"
-        Me.ToolStripButtons.Size = New System.Drawing.Size(291, 39)
+        Me.ToolStripButtons.Size = New System.Drawing.Size(460, 39)
         Me.ToolStripButtons.TabIndex = 1
         '
         'ToolStripButtonAgregar
@@ -183,6 +184,14 @@ Partial Class FormLiquidacionesEntidades
         Me.DataGridViewColumnAntiguedad.ReadOnly = True
         Me.DataGridViewColumnAntiguedad.Width = 105
         '
+        'ToolStripButtonCopiarDatos
+        '
+        Me.ToolStripButtonCopiarDatos.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_COPY_32
+        Me.ToolStripButtonCopiarDatos.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.ToolStripButtonCopiarDatos.Name = "ToolStripButtonCopiarDatos"
+        Me.ToolStripButtonCopiarDatos.Size = New System.Drawing.Size(130, 36)
+        Me.ToolStripButtonCopiarDatos.Text = "Copiar datos"
+        '
         'FormLiquidacionesEntidades
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -222,4 +231,5 @@ Partial Class FormLiquidacionesEntidades
     Friend WithEvents DataGridViewColumnEntidad As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewColumnModuloCantidad As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewColumnAntiguedad As DataGridViewTextBoxColumn
+    Friend WithEvents ToolStripButtonCopiarDatos As ToolStripButton
 End Class

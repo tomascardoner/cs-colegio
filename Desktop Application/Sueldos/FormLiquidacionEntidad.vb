@@ -4,6 +4,8 @@
 
     Private _dbContext As New CSColegioContext(True)
     Private _SueldoLiquidacionEntidad As SueldoLiquidacionEntidad
+    Private _SueldoLiquidacionAnio As Short
+    Private _SueldoLiquidacionMes As Byte
 
     Private _IsNew As Boolean
     Private _IsLoading As Boolean = False
@@ -13,13 +15,15 @@
 
 #Region "Form stuff"
 
-    Public Sub New(editMode As Boolean, idSueldoLiquidacion As Short, idEntidad As Integer, liquidacionTexto As String)
+    Public Sub New(editMode As Boolean, idSueldoLiquidacion As Short, idEntidad As Integer, anio As Short, mes As Byte)
         InitializeComponent()
         _IsNew = (idEntidad = 0)
         _IsLoading = True
         _IsEditMode = editMode
 
-        TextBoxLiquidacion.Text = liquidacionTexto
+        _SueldoLiquidacionAnio = anio
+        _SueldoLiquidacionMes = mes
+
         If _IsNew Then
             _SueldoLiquidacionEntidad = New SueldoLiquidacionEntidad With {.IdSueldoLiquidacion = idSueldoLiquidacion}
             _dbContext.SueldoLiquidacionEntidad.Add(_SueldoLiquidacionEntidad)
@@ -35,12 +39,13 @@
     Private Sub InitializeForm()
         SetAppearance()
         Using dbContext = New CSColegioContext(True)
-            Comunes.Listas.Entidades.PersonalColegio(ComboBoxEntidad, dbContext)
+            Comunes.Listas.Entidades.ConSueldos(ComboBoxEntidad, dbContext)
         End Using
     End Sub
 
     Private Sub SetAppearance()
         Me.Icon = CardonerSistemas.Graphics.GetIconFromBitmap(My.Resources.ImageSueldo32)
+        TextBoxLiquidacion.Text = $"{MonthName(_SueldoLiquidacionMes)} de {_SueldoLiquidacionAnio}"
     End Sub
 
     Private Sub ChangeEditMode()
@@ -184,59 +189,26 @@
     End Function
 
     Private Sub ObtenerImportes()
-        Dim sueldoCalculoModulo As SueldoCalculoModulo
-
         If Not VerificarDatos() Then
             Return
         End If
 
-        ' Obtener los importes para el período actual
-        'If ObtenerImportes(_SueldoLiquidacionEntidad.Anio, Convert.ToByte(ComboBoxEntidad.SelectedIndex + 1)) Then
-        '    Return
-        'End If
-
-        If MessageBox.Show($"No hay datos para el período especificado.{Environment.NewLine}{Environment.NewLine}¿Desea obtener los importes desde el cálculo anterior disponible?", My.Application.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then
-            Return
-        End If
-        'sueldoCalculoModulo = _dbContext.SueldoCalculoModulo.Where(Function(scm) (scm.Anio = _SueldoLiquidacion.Anio AndAlso scm.Mes < CByte(ComboBoxEntidad.SelectedIndex + 1)) OrElse scm.Anio < _SueldoLiquidacion.Anio).OrderByDescending(Function(scm) scm.Anio).ThenByDescending(Function(scm) scm.Mes).FirstOrDefault()
-        If sueldoCalculoModulo Is Nothing Then
-            MessageBox.Show($"No se encontraron datos de cálculo de módulo de sueldos.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-            Return
-        End If
-
-        ' Obtener los importes del período anterior
-        ObtenerImportes(sueldoCalculoModulo.Anio, sueldoCalculoModulo.Mes)
-    End Sub
-
-    Private Function ObtenerImportes(anio As Short, mes As Byte) As Boolean
-        Dim sueldoCalculoModulos As IEnumerable(Of SueldoCalculoModulo)
-
         Try
             Me.Cursor = Cursors.WaitCursor
-            sueldoCalculoModulos = _dbContext.SueldoCalculoModulo.Where(Function(scm) scm.Anio = anio AndAlso scm.Mes = mes)
-            If Not sueldoCalculoModulos.Any() Then
-                Return False
+            Dim idEntidad As Integer = Convert.ToInt32(ComboBoxEntidad.SelectedValue)
+            Dim sueldoLiquidacionEntidad = _dbContext.SueldoLiquidacionEntidad.AsNoTracking().Where(Function(sle) sle.IdEntidad = idEntidad AndAlso (sle.SueldoLiquidacion.Anio = _SueldoLiquidacionAnio AndAlso sle.SueldoLiquidacion.Mes < _SueldoLiquidacionMes) OrElse sle.SueldoLiquidacion.Anio < _SueldoLiquidacionAnio).OrderByDescending(Function(sle) sle.SueldoLiquidacion.Anio).ThenByDescending(Function(sle) sle.SueldoLiquidacion.Mes).Take(1).FirstOrDefault()
+            If sueldoLiquidacionEntidad Is Nothing Then
+                Me.Cursor = Cursors.Default
+                MessageBox.Show($"No se encontró una liquidación de sueldos anterrior de la entidad.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Return
             End If
+            CS_ValueTranslation_Syncfusion.FromValueToControl(sueldoLiquidacionEntidad.ModuloCantidad, DoubleTextBoxModuloCantidad)
+            CS_ValueTranslation_Syncfusion.FromValueToControl(sueldoLiquidacionEntidad.Antiguedad, IntegerTextBoxAntiguedad)
         Catch ex As Exception
-            Me.Cursor = Cursors.Default
-            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener los datos de cálculo de módulo de sueldos desde la base de datos.")
-            Return False
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener los datos de la última liquidación de sueldos de la entidad.")
         End Try
-
-        Try
-            Dim BaseAntiguedadImporte As Decimal? = sueldoCalculoModulos.Where(Function(scm) scm.SueldoConcepto.Codigo.HasValue AndAlso scm.SueldoConcepto.Codigo.Value = CS_Parameter_System.GetIntegerAsShort(Parametros.SUELDO_CONCEPTO_BASICO_CODIGO)).FirstOrDefault()?.Importe
-            Dim ModuloImporte As Decimal = sueldoCalculoModulos.Where(Function(scm) (Not scm.SueldoConcepto.Codigo.HasValue) OrElse (scm.SueldoConcepto.Codigo.HasValue AndAlso scm.SueldoConcepto.Codigo.Value <> CS_Parameter_System.GetIntegerAsShort(Parametros.SUELDO_CONCEPTO_ANTIGUEDAD_CODIGO))).Sum(Function(scm) scm.Importe * If(scm.SueldoConcepto.Tipo = Constantes.SueldoConceptoTipoDescuento, -1, 1))
-
-            'CurrencyTextBoxBaseAntiguedadImporte.BindableValue = BaseAntiguedadImporte
-            'CurrencyTextBoxModuloImporte.DecimalValue = ModuloImporte
-            Me.Cursor = Cursors.Default
-            Return True
-        Catch ex As Exception
-            Me.Cursor = Cursors.Default
-            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al realizar los cálculos del módulo de sueldos.")
-            Return False
-        End Try
-    End Function
+        Me.Cursor = Cursors.Default
+    End Sub
 
 #End Region
 
