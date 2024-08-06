@@ -1,9 +1,9 @@
-﻿Public Class FormLiquidacion
+﻿Public Class FormLiquidacionEntidad
 
 #Region "Declarations"
 
     Private _dbContext As New CSColegioContext(True)
-    Private _SueldoLiquidacion As SueldoLiquidacion
+    Private _SueldoLiquidacionEntidad As SueldoLiquidacionEntidad
 
     Private _IsNew As Boolean
     Private _IsLoading As Boolean = False
@@ -13,17 +13,18 @@
 
 #Region "Form stuff"
 
-    Public Sub New(editMode As Boolean, idSueldoLiquidacion As Short, anio As Short)
+    Public Sub New(editMode As Boolean, idSueldoLiquidacion As Short, idEntidad As Integer, liquidacionTexto As String)
         InitializeComponent()
-        _IsNew = (idSueldoLiquidacion = 0)
+        _IsNew = (idEntidad = 0)
         _IsLoading = True
         _IsEditMode = editMode
 
+        TextBoxLiquidacion.Text = liquidacionTexto
         If _IsNew Then
-            _SueldoLiquidacion = New SueldoLiquidacion With {.Anio = anio}
-            _dbContext.SueldoLiquidacion.Add(_SueldoLiquidacion)
+            _SueldoLiquidacionEntidad = New SueldoLiquidacionEntidad With {.IdSueldoLiquidacion = idSueldoLiquidacion}
+            _dbContext.SueldoLiquidacionEntidad.Add(_SueldoLiquidacionEntidad)
         Else
-            _SueldoLiquidacion = _dbContext.SueldoLiquidacion.Find(idSueldoLiquidacion)
+            _SueldoLiquidacionEntidad = _dbContext.SueldoLiquidacionEntidad.Find(idSueldoLiquidacion, idEntidad)
         End If
         InitializeForm()
         SetDataToUserInterface()
@@ -32,9 +33,14 @@
     End Sub
 
     Private Sub InitializeForm()
+        SetAppearance()
+        Using dbContext = New CSColegioContext(True)
+            Comunes.Listas.Entidades.PersonalColegio(ComboBoxEntidad, dbContext)
+        End Using
+    End Sub
+
+    Private Sub SetAppearance()
         Me.Icon = CardonerSistemas.Graphics.GetIconFromBitmap(My.Resources.ImageSueldo32)
-        pFillAndRefreshLists.MesNombres(ComboBoxMes, True, False, False)
-        ComboBoxMes.SelectedIndex = DateTime.Today.Month - 1
     End Sub
 
     Private Sub ChangeEditMode()
@@ -42,21 +48,21 @@
             Return
         End If
 
-        buttonGuardar.Visible = _IsEditMode
-        buttonCancelar.Visible = _IsEditMode
-        buttonEditar.Visible = Not _IsEditMode
-        buttonCerrar.Visible = Not _IsEditMode
+        ToolStripButtonGuardar.Visible = _IsEditMode
+        ToolStripButtonCancelar.Visible = _IsEditMode
+        ToolStripButtonEditar.Visible = Not _IsEditMode
+        ToolStripButtonCerrar.Visible = Not _IsEditMode
 
-        ComboBoxMes.Enabled = (_IsEditMode AndAlso _IsNew)
-        CurrencyTextBoxBaseAntiguedadImporte.ReadOnly = Not _IsEditMode
-        CurrencyTextBoxModuloImporte.ReadOnly = Not _IsEditMode
+        ComboBoxEntidad.Enabled = (_IsEditMode AndAlso _IsNew)
+        DoubleTextBoxModuloCantidad.ReadOnly = Not _IsEditMode
+        IntegerTextBoxAntiguedad.ReadOnly = Not _IsEditMode
 
-        ButtonObtenerImportes.Visible = _IsEditMode
+        ButtonObtenerDatos.Visible = _IsEditMode
     End Sub
 
     Private Sub Me_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         _dbContext.Dispose()
-        _SueldoLiquidacion = Nothing
+        _SueldoLiquidacionEntidad = Nothing
     End Sub
 
 #End Region
@@ -64,19 +70,19 @@
 #Region "User interface data"
 
     Friend Sub SetDataToUserInterface()
-        With _SueldoLiquidacion
-            TextBoxAnio.Text = .Anio.ToString()
-            ComboBoxMes.SelectedIndex = .Mes - 1
-            CS_ValueTranslation_Syncfusion.FromValueToControl(.BaseAntiguedadImporte, CurrencyTextBoxBaseAntiguedadImporte)
-            CS_ValueTranslation_Syncfusion.FromValueToControl(.ModuloImporte, CurrencyTextBoxModuloImporte)
+        With _SueldoLiquidacionEntidad
+            'TextBoxLiquidacion.Text = .Anio.ToString()
+            CardonerSistemas.Controls.ComboBox.SetSelectedValue(ComboBoxEntidad, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, .IdEntidad)
+            CS_ValueTranslation_Syncfusion.FromValueToControl(.ModuloCantidad, DoubleTextBoxModuloCantidad)
+            CS_ValueTranslation_Syncfusion.FromValueToControl(.Antiguedad, IntegerTextBoxAntiguedad)
         End With
     End Sub
 
     Friend Sub SetDataToEntityObject()
-        With _SueldoLiquidacion
-            .Mes = CByte(ComboBoxMes.SelectedIndex + 1)
-            .BaseAntiguedadImporte = CS_ValueTranslation_Syncfusion.FromControlToDecimal(CurrencyTextBoxBaseAntiguedadImporte)
-            .ModuloImporte = CS_ValueTranslation_Syncfusion.FromControlToDecimal(CurrencyTextBoxModuloImporte)
+        With _SueldoLiquidacionEntidad
+            .IdEntidad = CS_ValueTranslation.FromControlComboBoxToObjectInteger(ComboBoxEntidad.SelectedValue).Value
+            .ModuloCantidad = CS_ValueTranslation_Syncfusion.FromControlToDecimal(DoubleTextBoxModuloCantidad)
+            .Antiguedad = CS_ValueTranslation_Syncfusion.FromControlToDecimal(IntegerTextBoxAntiguedad)
         End With
     End Sub
 
@@ -88,24 +94,28 @@
         Select Case e.KeyChar
             Case Microsoft.VisualBasic.ChrW(Keys.Return)
                 If _IsEditMode Then
-                    buttonGuardar.PerformClick()
+                    ToolStripButtonGuardar.PerformClick()
                 Else
-                    buttonCerrar.PerformClick()
+                    ToolStripButtonCerrar.PerformClick()
                 End If
             Case Microsoft.VisualBasic.ChrW(Keys.Escape)
                 If _IsEditMode Then
-                    buttonCancelar.PerformClick()
+                    ToolStripButtonCancelar.PerformClick()
                 Else
-                    buttonCerrar.PerformClick()
+                    ToolStripButtonCerrar.PerformClick()
                 End If
         End Select
     End Sub
 
-    Private Sub TextBoxs_GotFocus(sender As Object, e As EventArgs) Handles CurrencyTextBoxBaseAntiguedadImporte.GotFocus, CurrencyTextBoxModuloImporte.GotFocus
-        CType(sender, Syncfusion.Windows.Forms.Tools.CurrencyTextBox).SelectAll()
+    Private Sub DoubleTextBoxModuloCantidad_GotFocus(sender As Object, e As EventArgs) Handles DoubleTextBoxModuloCantidad.GotFocus
+        DoubleTextBoxModuloCantidad.SelectAll()
     End Sub
 
-    Private Sub ButtonObtenerImportes_Click(sender As Object, e As EventArgs) Handles ButtonObtenerImportes.Click
+    Private Sub IntegerTextBoxAntiguedad_GotFocus(sender As Object, e As EventArgs) Handles IntegerTextBoxAntiguedad.GotFocus
+        IntegerTextBoxAntiguedad.SelectAll()
+    End Sub
+
+    Private Sub ButtonObtenerImportes_Click(sender As Object, e As EventArgs) Handles ButtonObtenerDatos.Click
         ObtenerImportes()
     End Sub
 
@@ -113,7 +123,7 @@
 
 #Region "Main toolbar events"
 
-    Private Sub Guardar_Click() Handles buttonGuardar.Click
+    Private Sub Guardar_Click() Handles ToolStripButtonGuardar.Click
         If Not VerificarDatos() Then
             Return
         End If
@@ -123,12 +133,6 @@
         If Not _dbContext.ChangeTracker.HasChanges Then
             Return
         End If
-        If _IsNew Then
-            _SueldoLiquidacion.IdUsuarioCreacion = pUsuario.IDUsuario
-            _SueldoLiquidacion.FechaHoraCreacion = Now
-        End If
-        _SueldoLiquidacion.IdUsuarioModificacion = pUsuario.IDUsuario
-        _SueldoLiquidacion.FechaHoraModificacion = Now
 
         Try
             Me.Cursor = Cursors.WaitCursor
@@ -136,7 +140,7 @@
         Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
             Select Case CardonerSistemas.Database.EntityFramework.TryDecodeDbUpdateException(dbuex)
                 Case CardonerSistemas.Database.EntityFramework.Errors.DuplicatedEntity
-                    MessageBox.Show("No se pueden guardar los cambios porque ya existe una liquidación con el mismo mes y año.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    MessageBox.Show("No se pueden guardar los cambios porque ya existe la entidad en la liquidación de sueldo.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End Select
             Me.Cursor = Cursors.Default
             Return
@@ -146,22 +150,22 @@
             Return
         End Try
 
-        Comunes.RefreshLists.SueldosLiquidaciones.Refresh(_SueldoLiquidacion.IdSueldoLiquidacion)
+        Comunes.RefreshLists.SueldosLiquidacionesEntidades.Refresh(_SueldoLiquidacionEntidad.IdEntidad)
         Me.Close()
     End Sub
 
-    Private Sub Cerrar_Click() Handles buttonCerrar.Click
+    Private Sub Cerrar_Click() Handles ToolStripButtonCerrar.Click
         Me.Close()
     End Sub
 
-    Private Sub Editar_Click() Handles buttonEditar.Click
+    Private Sub Editar_Click() Handles ToolStripButtonEditar.Click
         If Permisos.VerificarPermiso(Permisos.SUELDO_LIQUIDACION_EDITAR) Then
             _IsEditMode = True
             ChangeEditMode()
         End If
     End Sub
 
-    Private Sub Cancelar_Click() Handles buttonCancelar.Click
+    Private Sub Cancelar_Click() Handles ToolStripButtonCancelar.Click
         Me.Close()
     End Sub
 
@@ -170,9 +174,9 @@
 #Region "Extra stuff"
 
     Private Function VerificarDatos() As Boolean
-        If ComboBoxMes.SelectedIndex = -1 Then
-            MsgBox("Debe especificar el mes.", MsgBoxStyle.Information, My.Application.Info.Title)
-            ComboBoxMes.Focus()
+        If ComboBoxEntidad.SelectedIndex = -1 Then
+            MsgBox("Debe especificar la entidad.", MsgBoxStyle.Information, My.Application.Info.Title)
+            ComboBoxEntidad.Focus()
             Return False
         End If
 
@@ -187,14 +191,14 @@
         End If
 
         ' Obtener los importes para el período actual
-        If ObtenerImportes(_SueldoLiquidacion.Anio, Convert.ToByte(ComboBoxMes.SelectedIndex + 1)) Then
-            Return
-        End If
+        'If ObtenerImportes(_SueldoLiquidacionEntidad.Anio, Convert.ToByte(ComboBoxEntidad.SelectedIndex + 1)) Then
+        '    Return
+        'End If
 
         If MessageBox.Show($"No hay datos para el período especificado.{Environment.NewLine}{Environment.NewLine}¿Desea obtener los importes desde el cálculo anterior disponible?", My.Application.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then
             Return
         End If
-        sueldoCalculoModulo = _dbContext.SueldoCalculoModulo.Where(Function(scm) (scm.Anio = _SueldoLiquidacion.Anio AndAlso scm.Mes < CByte(ComboBoxMes.SelectedIndex + 1)) OrElse scm.Anio < _SueldoLiquidacion.Anio).OrderByDescending(Function(scm) scm.Anio).ThenByDescending(Function(scm) scm.Mes).FirstOrDefault()
+        'sueldoCalculoModulo = _dbContext.SueldoCalculoModulo.Where(Function(scm) (scm.Anio = _SueldoLiquidacion.Anio AndAlso scm.Mes < CByte(ComboBoxEntidad.SelectedIndex + 1)) OrElse scm.Anio < _SueldoLiquidacion.Anio).OrderByDescending(Function(scm) scm.Anio).ThenByDescending(Function(scm) scm.Mes).FirstOrDefault()
         If sueldoCalculoModulo Is Nothing Then
             MessageBox.Show($"No se encontraron datos de cálculo de módulo de sueldos.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Return
@@ -223,8 +227,8 @@
             Dim BaseAntiguedadImporte As Decimal? = sueldoCalculoModulos.Where(Function(scm) scm.SueldoConcepto.Codigo.HasValue AndAlso scm.SueldoConcepto.Codigo.Value = CS_Parameter_System.GetIntegerAsShort(Parametros.SUELDO_CONCEPTO_BASICO_CODIGO)).FirstOrDefault()?.Importe
             Dim ModuloImporte As Decimal = sueldoCalculoModulos.Where(Function(scm) (Not scm.SueldoConcepto.Codigo.HasValue) OrElse (scm.SueldoConcepto.Codigo.HasValue AndAlso scm.SueldoConcepto.Codigo.Value <> CS_Parameter_System.GetIntegerAsShort(Parametros.SUELDO_CONCEPTO_ANTIGUEDAD_CODIGO))).Sum(Function(scm) scm.Importe * If(scm.SueldoConcepto.Tipo = Constantes.SueldoConceptoTipoDescuento, -1, 1))
 
-            CurrencyTextBoxBaseAntiguedadImporte.BindableValue = BaseAntiguedadImporte
-            CurrencyTextBoxModuloImporte.DecimalValue = ModuloImporte
+            'CurrencyTextBoxBaseAntiguedadImporte.BindableValue = BaseAntiguedadImporte
+            'CurrencyTextBoxModuloImporte.DecimalValue = ModuloImporte
             Me.Cursor = Cursors.Default
             Return True
         Catch ex As Exception

@@ -147,6 +147,7 @@ Partial Class FormLiquidacion
         Me.CurrencyTextBoxBaseAntiguedadImporte.AllowNull = True
         Me.CurrencyTextBoxBaseAntiguedadImporte.BeforeTouchSize = New System.Drawing.Size(111, 22)
         Me.CurrencyTextBoxBaseAntiguedadImporte.DecimalValue = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.CurrencyTextBoxBaseAntiguedadImporte.ForeColor = System.Drawing.SystemColors.WindowText
         Me.CurrencyTextBoxBaseAntiguedadImporte.Location = New System.Drawing.Point(188, 135)
         Me.CurrencyTextBoxBaseAntiguedadImporte.Margin = New System.Windows.Forms.Padding(4)
         Me.CurrencyTextBoxBaseAntiguedadImporte.MaxValue = New Decimal(New Integer() {276447231, 23283, 0, 131072})
@@ -163,6 +164,7 @@ Partial Class FormLiquidacion
         Me.CurrencyTextBoxModuloImporte.AllowNull = True
         Me.CurrencyTextBoxModuloImporte.BeforeTouchSize = New System.Drawing.Size(111, 22)
         Me.CurrencyTextBoxModuloImporte.DecimalValue = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.CurrencyTextBoxModuloImporte.ForeColor = System.Drawing.SystemColors.WindowText
         Me.CurrencyTextBoxModuloImporte.Location = New System.Drawing.Point(188, 167)
         Me.CurrencyTextBoxModuloImporte.Margin = New System.Windows.Forms.Padding(4)
         Me.CurrencyTextBoxModuloImporte.MaxValue = New Decimal(New Integer() {276447231, 23283, 0, 131072})
@@ -186,7 +188,6 @@ Partial Class FormLiquidacion
         '
         Me.TextBoxAnio.Location = New System.Drawing.Point(188, 71)
         Me.TextBoxAnio.Margin = New System.Windows.Forms.Padding(4)
-        Me.TextBoxAnio.MaxLength = 10
         Me.TextBoxAnio.Name = "TextBoxAnio"
         Me.TextBoxAnio.ReadOnly = True
         Me.TextBoxAnio.Size = New System.Drawing.Size(65, 22)
@@ -215,7 +216,7 @@ Partial Class FormLiquidacion
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "FormLiquidacion"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Liquidación de sueldo"
         Me.toolstripMain.ResumeLayout(False)
         Me.toolstripMain.PerformLayout()

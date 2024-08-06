@@ -160,7 +160,6 @@ Partial Class FormCalculoModulo
         '
         Me.TextBoxAnio.Location = New System.Drawing.Point(89, 71)
         Me.TextBoxAnio.Margin = New System.Windows.Forms.Padding(4)
-        Me.TextBoxAnio.MaxLength = 10
         Me.TextBoxAnio.Name = "TextBoxAnio"
         Me.TextBoxAnio.ReadOnly = True
         Me.TextBoxAnio.Size = New System.Drawing.Size(65, 22)
@@ -200,7 +199,7 @@ Partial Class FormCalculoModulo
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "FormCalculoModulo"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Cálculo de módulo"
         Me.toolstripMain.ResumeLayout(False)
         Me.toolstripMain.PerformLayout()

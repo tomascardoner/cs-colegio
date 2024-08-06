@@ -360,6 +360,14 @@
     <Compile Include="ComprobanteTipoPuntoVenta.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Comunes\Forms\SueldosCalculosModulos.vb" />
+    <Compile Include="Comunes\Forms\SueldosLiquidacionesEntidades.vb" />
+    <Compile Include="Comunes\Forms\SueldosLiquidaciones.vb" />
+    <Compile Include="Comunes\Listas\General.vb" />
+    <Compile Include="Comunes\Listas\Entidades.vb" />
+    <Compile Include="Comunes\RefreshLists\SueldosCalculosModulos.vb" />
+    <Compile Include="Comunes\RefreshLists\SueldosLiquidacionesEntidades.vb" />
+    <Compile Include="Comunes\RefreshLists\SueldosLiquidaciones.vb" />
     <Compile Include="Comunicacion.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -564,6 +572,12 @@
     <Compile Include="Sueldos\FormCalculoModulo.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Sueldos\FormLiquidacionEntidad.designer.vb">
+      <DependentUpon>FormLiquidacionEntidad.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Sueldos\FormLiquidacionEntidad.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Sueldos\FormLiquidacion.designer.vb">
       <DependentUpon>FormLiquidacion.vb</DependentUpon>
     </Compile>
@@ -574,6 +588,12 @@
       <DependentUpon>FormCalculosModulos.vb</DependentUpon>
     </Compile>
     <Compile Include="Sueldos\FormCalculosModulos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sueldos\FormLiquidacionesEntidades.Designer.vb">
+      <DependentUpon>FormLiquidacionesEntidades.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Sueldos\FormLiquidacionesEntidades.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Sueldos\FormLiquidaciones.Designer.vb">
@@ -927,11 +947,17 @@
     <EmbeddedResource Include="Sueldos\FormCalculoModulo.resx">
       <DependentUpon>FormCalculoModulo.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Sueldos\FormLiquidacionEntidad.resx">
+      <DependentUpon>FormLiquidacionEntidad.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Sueldos\FormLiquidacion.resx">
       <DependentUpon>FormLiquidacion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sueldos\FormCalculosModulos.resx">
       <DependentUpon>FormCalculosModulos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sueldos\FormLiquidacionesEntidades.resx">
+      <DependentUpon>FormLiquidacionesEntidades.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sueldos\FormLiquidaciones.resx">
       <DependentUpon>FormLiquidaciones.vb</DependentUpon>

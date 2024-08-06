@@ -906,5 +906,4 @@ Friend Class FillAndRefreshLists
 
         comboBoxControl.DataSource = listItems
     End Sub
-
 End Class

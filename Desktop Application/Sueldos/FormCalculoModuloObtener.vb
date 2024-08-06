@@ -62,7 +62,7 @@ Public Class FormCalculoModuloObtener
                     End If
                 Next
                 dbContext.SaveChanges()
-                FormCalculosModulos.RefreshData()
+                Comunes.RefreshLists.SueldosCalculosModulos.Refresh()
                 MessageBox.Show("Se han guardado los datos de los cálculos de módulos de sueldos.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End Using
         Catch ex As Exception

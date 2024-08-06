@@ -5,75 +5,64 @@
     Private _dbContext As New CSColegioContext(True)
     Private _SueldoCalculoModulo As SueldoCalculoModulo
 
-    Private mIsNew As Boolean
-    Private mIsLoading As Boolean = False
-    Private mEditMode As Boolean = False
+    Private _IsNew As Boolean
+    Private _IsLoading As Boolean = False
+    Private _IsEditMode As Boolean = False
 
 #End Region
 
 #Region "Form stuff"
 
-    Friend Sub LoadAndShow(EditMode As Boolean, ByRef ParentForm As Form, Anio As Short, Mes As Byte, IdSueldoConcepto As Short)
-        mIsNew = (IdSueldoConcepto = 0)
-        mIsLoading = True
-        mEditMode = EditMode
+    Public Sub New(editMode As Boolean, anio As Short, mes As Byte, idSueldoConcepto As Short)
+        InitializeComponent()
+        _IsNew = (idSueldoConcepto = 0)
+        _IsLoading = True
+        _IsEditMode = editMode
 
-        If mIsNew Then
-            ' Es Nuevo
-            _SueldoCalculoModulo = New SueldoCalculoModulo With {.Anio = Anio, .Mes = Mes}
+        If _IsNew Then
+            _SueldoCalculoModulo = New SueldoCalculoModulo With {.Anio = anio, .Mes = mes}
             _dbContext.SueldoCalculoModulo.Add(_SueldoCalculoModulo)
         Else
-            _SueldoCalculoModulo = _dbContext.SueldoCalculoModulo.Find(Anio, Mes, IdSueldoConcepto)
+            _SueldoCalculoModulo = _dbContext.SueldoCalculoModulo.Find(anio, mes, idSueldoConcepto)
         End If
-
-        Me.MdiParent = pFormMDIMain
-        CardonerSistemas.Forms.CenterToParent(ParentForm, Me)
-        InitializeFormAndControls()
-        SetDataFromObjectToControls()
-        Me.Show()
-        If Me.WindowState = FormWindowState.Minimized Then
-            Me.WindowState = FormWindowState.Normal
-        End If
-        Me.Focus()
-
-        mIsLoading = False
-
-        ChangeMode()
+        InitializeForm()
+        SetDataToUserInterface()
+        _IsLoading = False
+        ChangeEditMode()
     End Sub
 
-    Private Sub ChangeMode()
-        If mIsLoading Then
-            Return
-        End If
-
-        buttonGuardar.Visible = mEditMode
-        buttonCancelar.Visible = mEditMode
-        buttonEditar.Visible = Not mEditMode
-        buttonCerrar.Visible = Not mEditMode
-
-        ComboBoxMes.Enabled = (mEditMode AndAlso mIsNew)
-        ComboBoxConcepto.Enabled = (mEditMode AndAlso mIsNew)
-        CurrencyTextBoxImporte.ReadOnly = Not mEditMode
-    End Sub
-
-    Friend Sub InitializeFormAndControls()
+    Private Sub InitializeForm()
         Me.Icon = CardonerSistemas.Graphics.GetIconFromBitmap(My.Resources.ImageSueldo32)
         pFillAndRefreshLists.MesNombres(ComboBoxMes, True, False, False)
         ComboBoxMes.SelectedIndex = DateTime.Today.Month - 1
         pFillAndRefreshLists.SueldoConcepto(ComboBoxConcepto, False, False)
     End Sub
 
+    Private Sub ChangeEditMode()
+        If _IsLoading Then
+            Return
+        End If
+
+        buttonGuardar.Visible = _IsEditMode
+        buttonCancelar.Visible = _IsEditMode
+        buttonEditar.Visible = Not _IsEditMode
+        buttonCerrar.Visible = Not _IsEditMode
+
+        ComboBoxMes.Enabled = (_IsEditMode AndAlso _IsNew)
+        ComboBoxConcepto.Enabled = (_IsEditMode AndAlso _IsNew)
+        CurrencyTextBoxImporte.ReadOnly = Not _IsEditMode
+    End Sub
+
     Private Sub Me_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         _dbContext.Dispose()
         _SueldoCalculoModulo = Nothing
-        Me.Dispose()
     End Sub
 
 #End Region
 
-#Region "Mostrar y leer datos"
+#Region "User interface data"
 
-    Friend Sub SetDataFromObjectToControls()
+    Friend Sub SetDataToUserInterface()
         With _SueldoCalculoModulo
             TextBoxAnio.Text = .Anio.ToString()
             ComboBoxMes.SelectedIndex = .Mes - 1
@@ -82,7 +71,7 @@
         End With
     End Sub
 
-    Friend Sub SetDataFromControlsToObject()
+    Friend Sub SetDataToEntityObject()
         With _SueldoCalculoModulo
             .Mes = CByte(ComboBoxMes.SelectedIndex + 1)
             .IdSueldoConcepto = CS_ValueTranslation.FromControlComboBoxToObjectShort(ComboBoxConcepto.SelectedValue).Value
@@ -97,13 +86,13 @@
     Private Sub FormKeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
         Select Case e.KeyChar
             Case Microsoft.VisualBasic.ChrW(Keys.Return)
-                If mEditMode Then
+                If _IsEditMode Then
                     buttonGuardar.PerformClick()
                 Else
                     buttonCerrar.PerformClick()
                 End If
             Case Microsoft.VisualBasic.ChrW(Keys.Escape)
-                If mEditMode Then
+                If _IsEditMode Then
                     buttonCancelar.PerformClick()
                 Else
                     buttonCerrar.PerformClick()
@@ -117,69 +106,63 @@
 
 #End Region
 
-#Region "Main Toolbar"
-
-    Private Sub Editar_Click() Handles buttonEditar.Click
-        If Permisos.VerificarPermiso(Permisos.SUELDO_CALCULOMODULO_EDITAR) Then
-            mEditMode = True
-            ChangeMode()
-        End If
-    End Sub
-
-    Private Sub CerrarOCancelar_Click() Handles buttonCerrar.Click, buttonCancelar.Click
-        Me.Close()
-    End Sub
+#Region "Main toolbar events"
 
     Private Sub Guardar_Click() Handles buttonGuardar.Click
         If Not VerificarDatos() Then
             Return
         End If
 
-        ' Paso los datos desde los controles al Objecto de EF
-        SetDataFromControlsToObject()
+        SetDataToEntityObject()
 
-        If _dbContext.ChangeTracker.HasChanges Then
-
-            Me.Cursor = Cursors.WaitCursor
-
-            If mIsNew Then
-                _SueldoCalculoModulo.IdUsuarioCreacion = pUsuario.IDUsuario
-                _SueldoCalculoModulo.FechaHoraCreacion = Now
-            End If
-            _SueldoCalculoModulo.IdUsuarioModificacion = pUsuario.IDUsuario
-            _SueldoCalculoModulo.FechaHoraModificacion = Now
-            Try
-                ' Guardo los cambios
-                _dbContext.SaveChanges()
-
-                ' Refresco la lista de Importes de Cursos de Años Lectivos para mostrar los cambios
-                If CardonerSistemas.Forms.MdiChildIsLoaded(CType(pFormMDIMain, Form), "FormCalculosModulos") Then
-                    Dim form As FormCalculosModulos = CType(CardonerSistemas.Forms.MdiChildGetInstance(CType(pFormMDIMain, Form), "FormCalculosModulos"), FormCalculosModulos)
-                    form.RefreshData(_SueldoCalculoModulo.Mes, _SueldoCalculoModulo.IdSueldoConcepto, False)
-                    form = Nothing
-                End If
-
-            Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
-                Me.Cursor = Cursors.Default
-                Select Case CardonerSistemas.Database.EntityFramework.TryDecodeDbUpdateException(dbuex)
-                    Case CardonerSistemas.Database.EntityFramework.Errors.DuplicatedEntity
-                        MsgBox("No se pueden guardar los cambios porque ya existe un ítem con el mismo mes, año y concepto.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                End Select
-                Return
-
-            Catch ex As Exception
-                Me.Cursor = Cursors.Default
-                CardonerSistemas.ErrorHandler.ProcessError(ex, My.Resources.STRING_ERROR_SAVING_CHANGES)
-                Return
-            End Try
+        If Not _dbContext.ChangeTracker.HasChanges Then
+            Return
         End If
+        If _IsNew Then
+            _SueldoCalculoModulo.IdUsuarioCreacion = pUsuario.IDUsuario
+            _SueldoCalculoModulo.FechaHoraCreacion = Now
+        End If
+        _SueldoCalculoModulo.IdUsuarioModificacion = pUsuario.IDUsuario
+        _SueldoCalculoModulo.FechaHoraModificacion = Now
 
+        Try
+            Me.Cursor = Cursors.WaitCursor
+            _dbContext.SaveChanges()
+        Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
+            Select Case CardonerSistemas.Database.EntityFramework.TryDecodeDbUpdateException(dbuex)
+                Case CardonerSistemas.Database.EntityFramework.Errors.DuplicatedEntity
+                    MessageBox.Show("No se pueden guardar los cambios porque ya existe un ítem con el mismo mes, año y concepto.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            End Select
+            Me.Cursor = Cursors.Default
+            Return
+        Catch ex As Exception
+            CardonerSistemas.ErrorHandler.ProcessError(ex, My.Resources.STRING_ERROR_SAVING_CHANGES)
+            Me.Cursor = Cursors.Default
+            Return
+        End Try
+
+        Comunes.RefreshLists.SueldosCalculosModulos.Refresh(_SueldoCalculoModulo.Mes, _SueldoCalculoModulo.IdSueldoConcepto)
+        Me.Close()
+    End Sub
+
+    Private Sub Cerrar_Click() Handles buttonCerrar.Click
+        Me.Close()
+    End Sub
+
+    Private Sub Editar_Click() Handles buttonEditar.Click
+        If Permisos.VerificarPermiso(Permisos.SUELDO_CALCULOMODULO_EDITAR) Then
+            _IsEditMode = True
+            ChangeEditMode()
+        End If
+    End Sub
+
+    Private Sub Cancelar_Click() Handles buttonCancelar.Click
         Me.Close()
     End Sub
 
 #End Region
 
-#Region "Extras"
+#Region "Extra stuff"
 
     Private Function VerificarDatos() As Boolean
         If ComboBoxMes.SelectedIndex = -1 Then
