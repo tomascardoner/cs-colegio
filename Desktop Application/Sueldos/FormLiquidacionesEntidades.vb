@@ -9,17 +9,20 @@ Public Class FormLiquidacionesEntidades
     Private _SueldoLiquidacionMes As Byte
 
     Private Class DataGridRowData
+        Public Property IdEntidadGrupo As Byte
+        Public Property EntidadGrupoNombre As String
         Public Property IdEntidad As Integer
         Public Property EntidadApellidoNombre As String
         Public Property ModuloCantidad As Decimal?
         Public Property Antiguedad As Decimal?
+        Public Property ReciboImporteBasico As Decimal?
+        Public Property ReciboImporteNeto As Decimal?
     End Class
 
     Private _EntitiesAll As List(Of DataGridRowData)
     Private _EntitiesFiltered As List(Of DataGridRowData)
 
-    Private mSkipFilterData As Boolean = False
-    Private mBusquedaAplicada As Boolean = False
+    Private _SkipFilterData As Boolean = True
 
     Private _OrderColumn As DataGridViewColumn
     Private _OrderType As SortOrder
@@ -43,9 +46,14 @@ Public Class FormLiquidacionesEntidades
 
         SetAppearance()
 
-        _OrderColumn = DataGridViewColumnEntidad
+        Using dbContext As New CSColegioContext(True)
+            Comunes.Listas.Entidades.Grupos(ToolStripComboBoxEntidadGrupo.ComboBox, dbContext, True, False)
+        End Using
+
+        _OrderColumn = DataGridViewColumnEntidadGrupo
         _OrderType = SortOrder.Ascending
 
+        _SkipFilterData = False
         ReadData()
         CardonerSistemas.Forms.MdiChildShow(CType(pFormMDIMain, Form), Me, False)
     End Sub
@@ -59,14 +67,19 @@ Public Class FormLiquidacionesEntidades
 #Region "Mostrar y leer datos"
 
     Friend Sub ReadData(Optional idEntidad As Integer = 0, Optional restoreCurrentPosition As Boolean = False)
-        Me.Cursor = Cursors.WaitCursor
+        If _SkipFilterData Then
+            Return
+        End If
 
+        Me.Cursor = Cursors.WaitCursor
         Try
             Using dbContext As New CSColegioContext(True)
                 _EntitiesAll = (From sle In dbContext.SueldoLiquidacionEntidad
                                 Join e In dbContext.Entidad On sle.IdEntidad Equals e.IDEntidad
+                                Join epc In dbContext.EntidadPersonalColegio On e.IDEntidad Equals epc.IdEntidad
+                                Join eg In dbContext.EntidadGrupo On epc.IdEntidadGrupo Equals eg.IdEntidadGrupo
                                 Where sle.IdSueldoLiquidacion = _IdSueldoLiquidacion
-                                Select New DataGridRowData With {.IdEntidad = sle.IdEntidad, .EntidadApellidoNombre = e.ApellidoNombre, .ModuloCantidad = sle.ModuloCantidad, .Antiguedad = sle.Antiguedad}).ToList()
+                                Select New DataGridRowData With {.IdEntidadGrupo = e.EntidadPersonalColegio.IdEntidadGrupo, .EntidadGrupoNombre = eg.Nombre, .IdEntidad = sle.IdEntidad, .EntidadApellidoNombre = e.ApellidoNombre, .ModuloCantidad = sle.ModuloCantidad, .Antiguedad = sle.Antiguedad, .ReciboImporteBasico = If(sle.Recibo1ImporteBasico, 0) + If(sle.Recibo2ImporteBasico, 0) + If(sle.Recibo3ImporteBasico, 0) + If(sle.Recibo4ImporteBasico, 0) + If(sle.Recibo5ImporteBasico, 0), .ReciboImporteNeto = If(sle.Recibo1ImporteNeto, 0) + If(sle.Recibo2ImporteNeto, 0) + If(sle.Recibo3ImporteNeto, 0) + If(sle.Recibo4ImporteNeto, 0) + If(sle.Recibo5ImporteNeto, 0)}).ToList()
             End Using
         Catch ex As Exception
             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al leer las entidades de la liquidación de sueldos.")
@@ -97,36 +110,45 @@ Public Class FormLiquidacionesEntidades
     End Sub
 
     Private Sub FilterData()
-
-        If Not mSkipFilterData Then
-            Me.Cursor = Cursors.WaitCursor
-
-            Try
-                ' Inicializo las variables
-                _EntitiesFiltered = _EntitiesAll.ToList
-
-                Select Case _EntitiesFiltered.Count
-                    Case 0
-                        ToolStripStatusLabelMain.Text = String.Format("No hay entidades en la liquidación de sueldos para mostrar.")
-                    Case 1
-                        ToolStripStatusLabelMain.Text = String.Format("Se muestra 1 entidad en la liquidación de sueldos.")
-                    Case Else
-                        ToolStripStatusLabelMain.Text = String.Format("Se muestran {0} entidades en la liquidación de sueldos.", _EntitiesFiltered.Count)
-                End Select
-
-            Catch ex As Exception
-                CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al filtrar los datos.")
-                Me.Cursor = Cursors.Default
-                Return
-            End Try
-
-            OrderData()
+        If _SkipFilterData Then
+            Return
         End If
+        Me.Cursor = Cursors.WaitCursor
+        Try
+            ' Inicializo las variables
+            _EntitiesFiltered = _EntitiesAll.ToList
+
+            If ToolStripComboBoxEntidadGrupo.SelectedIndex > 0 Then
+                _EntitiesFiltered = _EntitiesFiltered.Where(Function(e) e.IdEntidadGrupo = CByte(ToolStripComboBoxEntidadGrupo.ComboBox.SelectedValue)).ToList()
+            End If
+
+            Select Case _EntitiesFiltered.Count
+                Case 0
+                    ToolStripStatusLabelMain.Text = String.Format("No hay entidades en la liquidación de sueldos para mostrar.")
+                Case 1
+                    ToolStripStatusLabelMain.Text = String.Format("Se muestra 1 entidad en la liquidación de sueldos.")
+                Case Else
+                    ToolStripStatusLabelMain.Text = String.Format("Se muestran {0} entidades en la liquidación de sueldos.", _EntitiesFiltered.Count)
+            End Select
+
+        Catch ex As Exception
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al filtrar los datos.")
+            Me.Cursor = Cursors.Default
+            Return
+        End Try
+
+        OrderData()
     End Sub
 
     Private Sub OrderData()
         ' Realizo las rutinas de ordenamiento
         Select Case _OrderColumn.Name
+            Case DataGridViewColumnEntidadGrupo.Name
+                If _OrderType = SortOrder.Ascending Then
+                    _EntitiesFiltered = _EntitiesFiltered.OrderBy(Function(r) r.EntidadGrupoNombre).ThenBy(Function(r) r.EntidadApellidoNombre).ToList
+                Else
+                    _EntitiesFiltered = _EntitiesFiltered.OrderByDescending(Function(r) r.EntidadGrupoNombre).ThenBy(Function(r) r.EntidadApellidoNombre).ToList
+                End If
             Case DataGridViewColumnEntidad.Name
                 If _OrderType = SortOrder.Ascending Then
                     _EntitiesFiltered = _EntitiesFiltered.OrderBy(Function(r) r.EntidadApellidoNombre).ToList
@@ -159,11 +181,7 @@ Public Class FormLiquidacionesEntidades
 
 #Region "Controls behavior"
 
-    Private Sub CambioAnio(sender As Object, e As EventArgs)
-        ReadData()
-    End Sub
-
-    Private Sub CambioMes(sender As Object, e As EventArgs)
+    Private Sub CambioGrupo(sender As Object, e As EventArgs) Handles ToolStripComboBoxEntidadGrupo.SelectedIndexChanged
         FilterData()
     End Sub
 
@@ -172,7 +190,7 @@ Public Class FormLiquidacionesEntidades
 
         ClickedColumn = CType(DataGridViewMain.Columns(e.ColumnIndex), DataGridViewColumn)
 
-        If {DataGridViewColumnEntidad.Name, DataGridViewColumnModuloCantidad.Name, DataGridViewColumnAntiguedad.Name}.Contains(ClickedColumn.Name) Then
+        If {DataGridViewColumnEntidadGrupo.Name, DataGridViewColumnEntidad.Name, DataGridViewColumnModuloCantidad.Name, DataGridViewColumnAntiguedad.Name}.Contains(ClickedColumn.Name) Then
             If ClickedColumn Is _OrderColumn Then
                 ' La columna clickeada es la misma por la que ya estaba ordenado, así que cambio la dirección del orden
                 If _OrderType = SortOrder.Ascending Then
@@ -300,7 +318,17 @@ Public Class FormLiquidacionesEntidades
                             .IdSueldoLiquidacion = _IdSueldoLiquidacion,
                             .IdEntidad = idEntidad,
                             .ModuloCantidad = sueldoLiquidacionEntidad.ModuloCantidad,
-                            .Antiguedad = sueldoLiquidacionEntidad.Antiguedad
+                            .Antiguedad = sueldoLiquidacionEntidad.Antiguedad,
+                            .Recibo1ImporteBasico = sueldoLiquidacionEntidad.Recibo1ImporteBasico,
+                            .Recibo1ImporteNeto = sueldoLiquidacionEntidad.Recibo1ImporteNeto,
+                            .Recibo2ImporteBasico = sueldoLiquidacionEntidad.Recibo2ImporteBasico,
+                            .Recibo2ImporteNeto = sueldoLiquidacionEntidad.Recibo2ImporteNeto,
+                            .Recibo3ImporteBasico = sueldoLiquidacionEntidad.Recibo3ImporteBasico,
+                            .Recibo3ImporteNeto = sueldoLiquidacionEntidad.Recibo3ImporteNeto,
+                            .Recibo4ImporteBasico = sueldoLiquidacionEntidad.Recibo4ImporteBasico,
+                            .Recibo4ImporteNeto = sueldoLiquidacionEntidad.Recibo4ImporteNeto,
+                            .Recibo5ImporteBasico = sueldoLiquidacionEntidad.Recibo5ImporteBasico,
+                            .Recibo5ImporteNeto = sueldoLiquidacionEntidad.Recibo5ImporteNeto
                         })
                         count += 1
                     End If
@@ -325,6 +353,81 @@ Public Class FormLiquidacionesEntidades
         Catch ex As Exception
             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener los datos de la última liquidación de sueldos de la entidad.")
         End Try
+        Me.Cursor = Cursors.Default
+    End Sub
+
+    Private Sub Imprimir(sender As Object, e As EventArgs) Handles ToolStripMenuItemImprimirResumenDirectoras.Click, ToolStripMenuItemImprimirResumenDocentesIngles.Click, ToolStripMenuItemImprimirRecibosDocentesInglesTodos.Click, ToolStripMenuItemImprimirReciboDocenteIngles.Click
+        If Not Permisos.VerificarPermiso(Permisos.SUELDO_LIQUIDACION_ENTIDAD_IMPRIMIR) Then
+            Return
+        End If
+        If DataGridViewMain.CurrentRow Is Nothing Then
+            MessageBox.Show("No hay ninguna entidad para imprimir los reportes.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
+
+        Me.Cursor = Cursors.WaitCursor
+        Dim idReporte As Integer
+        If sender.Equals(ToolStripMenuItemImprimirResumenDirectoras) Then
+            idReporte = CS_Parameter_System.GetIntegerAsShort(Parametros.REPORTE_ID_SUELDO_DIRECTOR_RESUMEN)
+        ElseIf sender.Equals(ToolStripMenuItemImprimirResumenDocentesIngles) Then
+            idReporte = CS_Parameter_System.GetIntegerAsShort(Parametros.REPORTE_ID_SUELDO_DOCENTE_INGLES_RESUMEN)
+        ElseIf sender.Equals(ToolStripMenuItemImprimirRecibosDocentesInglesTodos) OrElse sender.Equals(ToolStripMenuItemImprimirReciboDocenteIngles) Then
+            idReporte = CS_Parameter_System.GetIntegerAsShort(Parametros.REPORTE_ID_SUELDO_DOCENTE_INGLES_RECIBO)
+        End If
+        If idReporte = 0 Then
+            Me.Cursor = Cursors.Default
+            MessageBox.Show("No está especificado el id del reporte.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+        Using dbContext As New CSColegioContext(True)
+            Dim reporteActual = dbContext.Reporte.FirstOrDefault(Function(r) r.IDReporte = idReporte)
+            Dim reporteParametroActual As ReporteParametro
+
+            If reporteActual Is Nothing Then
+                Me.Cursor = Cursors.Default
+                MessageBox.Show("No se encontró la información del reporte.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End If
+
+            ' Año
+            reporteParametroActual = reporteActual.ReporteParametros.FirstOrDefault(Function(rp) rp.IDParametro.TrimEnd() = "Anio")
+            If reporteParametroActual Is Nothing Then
+                Me.Cursor = Cursors.Default
+                MessageBox.Show("No se encontró la información del parámetro del reporte.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End If
+            reporteParametroActual.Valor = _SueldoLiquidacionAnio
+
+            ' Mes
+            reporteParametroActual = reporteActual.ReporteParametros.FirstOrDefault(Function(rp) rp.IDParametro.TrimEnd() = "Mes")
+            If reporteParametroActual Is Nothing Then
+                Me.Cursor = Cursors.Default
+                MessageBox.Show("No se encontró la información del parámetro del reporte.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End If
+            reporteParametroActual.Valor = _SueldoLiquidacionMes
+
+            ' IdEntidad
+            If sender.Equals(ToolStripMenuItemImprimirResumenDocentesIngles) OrElse sender.Equals(ToolStripMenuItemImprimirRecibosDocentesInglesTodos) OrElse sender.Equals(ToolStripMenuItemImprimirReciboDocenteIngles) Then
+                reporteParametroActual = reporteActual.ReporteParametros.FirstOrDefault(Function(rp) rp.IDParametro.TrimEnd() = "IdEntidad")
+                If reporteParametroActual Is Nothing Then
+                    Me.Cursor = Cursors.Default
+                    MessageBox.Show("No se encontró la información del parámetro del reporte.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return
+                End If
+                If sender.Equals(ToolStripMenuItemImprimirResumenDocentesIngles) OrElse sender.Equals(ToolStripMenuItemImprimirRecibosDocentesInglesTodos) Then
+                    reporteParametroActual.Valor = Nothing
+                Else
+                    reporteParametroActual.Valor = CType(DataGridViewMain.CurrentRow.DataBoundItem, DataGridRowData).IdEntidad
+                End If
+            End If
+
+            If reporteActual.Open(System.IO.Path.Combine(pGeneralConfig.ReportsPath, reporteActual.Archivo)) Then
+                If reporteActual.SetDatabaseConnection(pDatabase.Datasource, pDatabase.InitialCatalog, pDatabase.UserId, pDatabase.Password) Then
+                    Reportes.PreviewCrystalReport(reporteActual, reporteActual.Titulo & $" - Período: {MonthName(_SueldoLiquidacionMes)} de {_SueldoLiquidacionAnio}")
+                End If
+            End If
+        End Using
         Me.Cursor = Cursors.Default
     End Sub
 

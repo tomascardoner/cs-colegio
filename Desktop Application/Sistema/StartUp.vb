@@ -19,7 +19,7 @@
     Friend pLicensedTo As String
     Friend pUsuario As Usuario
 
-    Friend Sub Main()
+    <STAThread()> Friend Sub Main()
         Dim StartupTime As Date
 
         Cursor.Current = Cursors.AppStarting

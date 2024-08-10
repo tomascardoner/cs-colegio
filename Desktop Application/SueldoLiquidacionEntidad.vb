@@ -15,9 +15,18 @@ Partial Public Class SueldoLiquidacionEntidad
     Public Property IdEntidad As Integer
     Public Property ModuloCantidad As Nullable(Of Decimal)
     Public Property Antiguedad As Nullable(Of Decimal)
+    Public Property Recibo1ImporteBasico As Nullable(Of Decimal)
+    Public Property Recibo1ImporteNeto As Nullable(Of Decimal)
+    Public Property Recibo2ImporteBasico As Nullable(Of Decimal)
+    Public Property Recibo2ImporteNeto As Nullable(Of Decimal)
+    Public Property Recibo3ImporteBasico As Nullable(Of Decimal)
+    Public Property Recibo3ImporteNeto As Nullable(Of Decimal)
+    Public Property Recibo4ImporteBasico As Nullable(Of Decimal)
+    Public Property Recibo4ImporteNeto As Nullable(Of Decimal)
+    Public Property Recibo5ImporteBasico As Nullable(Of Decimal)
+    Public Property Recibo5ImporteNeto As Nullable(Of Decimal)
 
     Public Overridable Property Entidad As Entidad
     Public Overridable Property SueldoLiquidacion As SueldoLiquidacion
-    Public Overridable Property SueldosLiquidacionesEntidadesRecibos As ICollection(Of SueldoLiquidacionEntidadRecibo) = New HashSet(Of SueldoLiquidacionEntidadRecibo)
 
 End Class

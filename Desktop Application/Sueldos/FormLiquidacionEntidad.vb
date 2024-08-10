@@ -31,7 +31,7 @@
             _SueldoLiquidacionEntidad = _dbContext.SueldoLiquidacionEntidad.Find(idSueldoLiquidacion, idEntidad)
         End If
         InitializeForm()
-        SetDataToUserInterface()
+        SetDataToUserInterface(_SueldoLiquidacionEntidad)
         _IsLoading = False
         ChangeEditMode()
     End Sub
@@ -62,6 +62,18 @@
         DoubleTextBoxModuloCantidad.ReadOnly = Not _IsEditMode
         IntegerTextBoxAntiguedad.ReadOnly = Not _IsEditMode
 
+        ' Importes de los recibos
+        CurrencyTextBoxRecibo1ImporteBasico.ReadOnly = Not _IsEditMode
+        CurrencyTextBoxRecibo1ImporteNeto.ReadOnly = Not _IsEditMode
+        CurrencyTextBoxRecibo2ImporteBasico.ReadOnly = Not _IsEditMode
+        CurrencyTextBoxRecibo2ImporteNeto.ReadOnly = Not _IsEditMode
+        CurrencyTextBoxRecibo3ImporteBasico.ReadOnly = Not _IsEditMode
+        CurrencyTextBoxRecibo3ImporteNeto.ReadOnly = Not _IsEditMode
+        CurrencyTextBoxRecibo4ImporteBasico.ReadOnly = Not _IsEditMode
+        CurrencyTextBoxRecibo4ImporteNeto.ReadOnly = Not _IsEditMode
+        CurrencyTextBoxRecibo5ImporteBasico.ReadOnly = Not _IsEditMode
+        CurrencyTextBoxRecibo5ImporteNeto.ReadOnly = Not _IsEditMode
+
         ButtonObtenerDatos.Visible = _IsEditMode
     End Sub
 
@@ -74,12 +86,23 @@
 
 #Region "User interface data"
 
-    Friend Sub SetDataToUserInterface()
-        With _SueldoLiquidacionEntidad
-            'TextBoxLiquidacion.Text = .Anio.ToString()
+    Friend Sub SetDataToUserInterface(sueldoLiquidacionEntidad As SueldoLiquidacionEntidad)
+        With sueldoLiquidacionEntidad
             CardonerSistemas.Controls.ComboBox.SetSelectedValue(ComboBoxEntidad, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.Value, .IdEntidad)
             CS_ValueTranslation_Syncfusion.FromValueToControl(.ModuloCantidad, DoubleTextBoxModuloCantidad)
             CS_ValueTranslation_Syncfusion.FromValueToControl(.Antiguedad, IntegerTextBoxAntiguedad)
+
+            ' Importes de los recibos
+            CS_ValueTranslation_Syncfusion.FromValueToControl(.Recibo1ImporteBasico, CurrencyTextBoxRecibo1ImporteBasico)
+            CS_ValueTranslation_Syncfusion.FromValueToControl(.Recibo1ImporteNeto, CurrencyTextBoxRecibo1ImporteNeto)
+            CS_ValueTranslation_Syncfusion.FromValueToControl(.Recibo2ImporteBasico, CurrencyTextBoxRecibo2ImporteBasico)
+            CS_ValueTranslation_Syncfusion.FromValueToControl(.Recibo2ImporteNeto, CurrencyTextBoxRecibo2ImporteNeto)
+            CS_ValueTranslation_Syncfusion.FromValueToControl(.Recibo2ImporteBasico, CurrencyTextBoxRecibo3ImporteBasico)
+            CS_ValueTranslation_Syncfusion.FromValueToControl(.Recibo3ImporteNeto, CurrencyTextBoxRecibo3ImporteNeto)
+            CS_ValueTranslation_Syncfusion.FromValueToControl(.Recibo4ImporteBasico, CurrencyTextBoxRecibo4ImporteBasico)
+            CS_ValueTranslation_Syncfusion.FromValueToControl(.Recibo4ImporteNeto, CurrencyTextBoxRecibo4ImporteNeto)
+            CS_ValueTranslation_Syncfusion.FromValueToControl(.Recibo5ImporteBasico, CurrencyTextBoxRecibo5ImporteBasico)
+            CS_ValueTranslation_Syncfusion.FromValueToControl(.Recibo5ImporteNeto, CurrencyTextBoxRecibo5ImporteNeto)
         End With
     End Sub
 
@@ -88,6 +111,18 @@
             .IdEntidad = CS_ValueTranslation.FromControlComboBoxToObjectInteger(ComboBoxEntidad.SelectedValue).Value
             .ModuloCantidad = CS_ValueTranslation_Syncfusion.FromControlToDecimal(DoubleTextBoxModuloCantidad)
             .Antiguedad = CS_ValueTranslation_Syncfusion.FromControlToDecimal(IntegerTextBoxAntiguedad)
+
+            ' Importes de los recibos
+            .Recibo1ImporteBasico = CS_ValueTranslation_Syncfusion.FromControlToDecimal(CurrencyTextBoxRecibo1ImporteBasico)
+            .Recibo1ImporteNeto = CS_ValueTranslation_Syncfusion.FromControlToDecimal(CurrencyTextBoxRecibo1ImporteNeto)
+            .Recibo2ImporteBasico = CS_ValueTranslation_Syncfusion.FromControlToDecimal(CurrencyTextBoxRecibo2ImporteBasico)
+            .Recibo2ImporteNeto = CS_ValueTranslation_Syncfusion.FromControlToDecimal(CurrencyTextBoxRecibo2ImporteNeto)
+            .Recibo3ImporteBasico = CS_ValueTranslation_Syncfusion.FromControlToDecimal(CurrencyTextBoxRecibo3ImporteBasico)
+            .Recibo3ImporteNeto = CS_ValueTranslation_Syncfusion.FromControlToDecimal(CurrencyTextBoxRecibo3ImporteNeto)
+            .Recibo4ImporteBasico = CS_ValueTranslation_Syncfusion.FromControlToDecimal(CurrencyTextBoxRecibo4ImporteBasico)
+            .Recibo4ImporteNeto = CS_ValueTranslation_Syncfusion.FromControlToDecimal(CurrencyTextBoxRecibo4ImporteNeto)
+            .Recibo5ImporteBasico = CS_ValueTranslation_Syncfusion.FromControlToDecimal(CurrencyTextBoxRecibo5ImporteBasico)
+            .Recibo5ImporteNeto = CS_ValueTranslation_Syncfusion.FromControlToDecimal(CurrencyTextBoxRecibo5ImporteNeto)
         End With
     End Sub
 
@@ -122,6 +157,10 @@
 
     Private Sub ButtonObtenerImportes_Click(sender As Object, e As EventArgs) Handles ButtonObtenerDatos.Click
         ObtenerImportes()
+    End Sub
+
+    Private Sub CurrencyTextBox_GotFocus(sender As Object, e As EventArgs) Handles CurrencyTextBoxRecibo1ImporteBasico.GotFocus, CurrencyTextBoxRecibo1ImporteNeto.GotFocus, CurrencyTextBoxRecibo2ImporteBasico.GotFocus, CurrencyTextBoxRecibo2ImporteNeto.GotFocus, CurrencyTextBoxRecibo3ImporteBasico.GotFocus, CurrencyTextBoxRecibo3ImporteNeto.GotFocus, CurrencyTextBoxRecibo4ImporteBasico.GotFocus, CurrencyTextBoxRecibo4ImporteNeto.GotFocus, CurrencyTextBoxRecibo5ImporteBasico.GotFocus, CurrencyTextBoxRecibo5ImporteNeto.GotFocus
+        CType(sender, Syncfusion.Windows.Forms.Tools.CurrencyTextBox).SelectAll()
     End Sub
 
 #End Region
@@ -202,8 +241,8 @@
                 MessageBox.Show($"No se encontró una liquidación de sueldos anterrior de la entidad.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Return
             End If
-            CS_ValueTranslation_Syncfusion.FromValueToControl(sueldoLiquidacionEntidad.ModuloCantidad, DoubleTextBoxModuloCantidad)
-            CS_ValueTranslation_Syncfusion.FromValueToControl(sueldoLiquidacionEntidad.Antiguedad, IntegerTextBoxAntiguedad)
+
+            SetDataToUserInterface(sueldoLiquidacionEntidad)
         Catch ex As Exception
             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener los datos de la última liquidación de sueldos de la entidad.")
         End Try

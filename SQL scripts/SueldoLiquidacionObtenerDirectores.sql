@@ -9,7 +9,7 @@ GO
 -- =============================================
 -- Author:		Tomás A. Cardoner
 -- Create date: 2024-08-01
--- Updates:
+-- Updates: 2024-08-10 - se éliminó la tabla de Recibos y se agregaron los valores a la tabla de la entidad
 -- Description:	Obtiene el cálculo de adicionales de sueldos de directivos
 -- =============================================
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'SueldoLiquidacionObtenerDirectores') AND type in (N'P', N'PC'))
@@ -38,14 +38,16 @@ CREATE PROCEDURE SueldoLiquidacionObtenerDirectores
 
 		INSERT INTO @Resultado
 			(ApellidoNombre, NetoReciboImporte, AdicionalAntiguedadPorcentaje, AdicionalAntiguedadImporte, Adicional1Porcentaje, Adicional2Porcentaje)
-			SELECT e.ApellidoNombre, SUM(sler.ImporteNeto) AS ImporteNetoRecibo, epc.AdicionalAntiguedad, ROUND(SUM(sler.ImporteBasico) * epc.AdicionalAntiguedad, 2) AS AdicionalAntiguedadImporte, epc.Adicional1, epc.Adicional2
+			SELECT e.ApellidoNombre,
+					ISNULL(sle.Recibo1ImporteNeto, 0) + ISNULL(sle.Recibo2ImporteNeto, 0) + ISNULL(sle.Recibo3ImporteNeto, 0) + ISNULL(sle.Recibo4ImporteNeto, 0) + ISNULL(sle.Recibo5ImporteNeto, 0) AS ImporteNetoRecibo,
+					epc.AdicionalAntiguedad,
+					ROUND((ISNULL(sle.Recibo1ImporteBasico, 0) + ISNULL(sle.Recibo2ImporteBasico, 0) + ISNULL(sle.Recibo3ImporteBasico, 0) + ISNULL(sle.Recibo4ImporteBasico, 0) + ISNULL(sle.Recibo5ImporteBasico, 0)) * epc.AdicionalAntiguedad, 2) AS AdicionalAntiguedadImporte,
+					epc.Adicional1, epc.Adicional2
 				FROM SueldoLiquidacion AS sl
 					INNER JOIN SueldoLiquidacionEntidad AS sle ON sl.IdSueldoLiquidacion = sle.IdSueldoLiquidacion
-					INNER JOIN SueldoLiquidacionEntidadRecibo AS sler ON sle.IdSueldoLiquidacion = sler.IdSueldoLiquidacion AND sle.IdEntidad = sler.IdEntidad
 					INNER JOIN Entidad AS e ON sle.IdEntidad = e.IDEntidad
 					INNER JOIN EntidadPersonalColegio AS epc ON e.IdEntidad = epc.IDEntidad
 				WHERE epc.IdEntidadGrupo = 1 AND sl.Anio = @Anio AND sl.Mes = @Mes
-				GROUP BY e.ApellidoNombre, epc.AdicionalAntiguedad, epc.Adicional1, epc.Adicional2
 
 		UPDATE @Resultado
 			SET AdicionalAntiguedadSubtotal = NetoReciboImporte + AdicionalAntiguedadImporte,

@@ -34,22 +34,22 @@ Partial Class FormLiquidaciones
         Me.ToolStripButtonEditar = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripButtonEliminar = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripButtonEntidades = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripFiltroAnio = New System.Windows.Forms.ToolStrip()
+        Me.ToolStripLabelAnio = New System.Windows.Forms.ToolStripLabel()
+        Me.ToolStripComboBoxAnio = New System.Windows.Forms.ToolStripComboBox()
+        Me.ToolStripFiltroMes = New System.Windows.Forms.ToolStrip()
+        Me.ToolStripLabelMes = New System.Windows.Forms.ToolStripLabel()
+        Me.ToolStripComboBoxMes = New System.Windows.Forms.ToolStripComboBox()
         Me.DataGridViewMain = New System.Windows.Forms.DataGridView()
         Me.DataGridViewColumnMes = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewColumnImporteMatricula = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewColumnImporteCuota = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ToolStripLabelMes = New System.Windows.Forms.ToolStripLabel()
-        Me.ToolStripComboBoxMes = New System.Windows.Forms.ToolStripComboBox()
-        Me.ToolStripFiltroMes = New System.Windows.Forms.ToolStrip()
-        Me.ToolStripLabelAnio = New System.Windows.Forms.ToolStripLabel()
-        Me.ToolStripComboBoxAnio = New System.Windows.Forms.ToolStripComboBox()
-        Me.ToolStripFiltroAnio = New System.Windows.Forms.ToolStrip()
         Me.StatusStripMain.SuspendLayout()
         Me.FlowLayoutPanelToolbars.SuspendLayout()
         Me.ToolStripButtons.SuspendLayout()
-        CType(Me.DataGridViewMain, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.ToolStripFiltroMes.SuspendLayout()
         Me.ToolStripFiltroAnio.SuspendLayout()
+        Me.ToolStripFiltroMes.SuspendLayout()
+        CType(Me.DataGridViewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolStripStatusLabelMain
@@ -126,6 +126,52 @@ Partial Class FormLiquidaciones
         Me.ToolStripButtonEntidades.Size = New System.Drawing.Size(110, 36)
         Me.ToolStripButtonEntidades.Text = "Entidades"
         '
+        'ToolStripFiltroAnio
+        '
+        Me.ToolStripFiltroAnio.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ToolStripFiltroAnio.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.ToolStripFiltroAnio.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.ToolStripFiltroAnio.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabelAnio, Me.ToolStripComboBoxAnio})
+        Me.ToolStripFiltroAnio.Location = New System.Drawing.Point(395, 0)
+        Me.ToolStripFiltroAnio.Name = "ToolStripFiltroAnio"
+        Me.ToolStripFiltroAnio.Size = New System.Drawing.Size(119, 39)
+        Me.ToolStripFiltroAnio.TabIndex = 14
+        '
+        'ToolStripLabelAnio
+        '
+        Me.ToolStripLabelAnio.Name = "ToolStripLabelAnio"
+        Me.ToolStripLabelAnio.Size = New System.Drawing.Size(39, 36)
+        Me.ToolStripLabelAnio.Text = "Año:"
+        '
+        'ToolStripComboBoxAnio
+        '
+        Me.ToolStripComboBoxAnio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ToolStripComboBoxAnio.Name = "ToolStripComboBoxAnio"
+        Me.ToolStripComboBoxAnio.Size = New System.Drawing.Size(75, 39)
+        '
+        'ToolStripFiltroMes
+        '
+        Me.ToolStripFiltroMes.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ToolStripFiltroMes.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.ToolStripFiltroMes.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.ToolStripFiltroMes.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabelMes, Me.ToolStripComboBoxMes})
+        Me.ToolStripFiltroMes.Location = New System.Drawing.Point(514, 0)
+        Me.ToolStripFiltroMes.Name = "ToolStripFiltroMes"
+        Me.ToolStripFiltroMes.Size = New System.Drawing.Size(244, 39)
+        Me.ToolStripFiltroMes.TabIndex = 15
+        '
+        'ToolStripLabelMes
+        '
+        Me.ToolStripLabelMes.Name = "ToolStripLabelMes"
+        Me.ToolStripLabelMes.Size = New System.Drawing.Size(39, 36)
+        Me.ToolStripLabelMes.Text = "Mes:"
+        '
+        'ToolStripComboBoxMes
+        '
+        Me.ToolStripComboBoxMes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ToolStripComboBoxMes.Name = "ToolStripComboBoxMes"
+        Me.ToolStripComboBoxMes.Size = New System.Drawing.Size(159, 39)
+        '
         'DataGridViewMain
         '
         Me.DataGridViewMain.AllowUserToAddRows = False
@@ -188,52 +234,6 @@ Partial Class FormLiquidaciones
         Me.DataGridViewColumnImporteCuota.ReadOnly = True
         Me.DataGridViewColumnImporteCuota.Width = 119
         '
-        'ToolStripLabelMes
-        '
-        Me.ToolStripLabelMes.Name = "ToolStripLabelMes"
-        Me.ToolStripLabelMes.Size = New System.Drawing.Size(39, 36)
-        Me.ToolStripLabelMes.Text = "Mes:"
-        '
-        'ToolStripComboBoxMes
-        '
-        Me.ToolStripComboBoxMes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ToolStripComboBoxMes.Name = "ToolStripComboBoxMes"
-        Me.ToolStripComboBoxMes.Size = New System.Drawing.Size(159, 39)
-        '
-        'ToolStripFiltroMes
-        '
-        Me.ToolStripFiltroMes.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ToolStripFiltroMes.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStripFiltroMes.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ToolStripFiltroMes.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabelMes, Me.ToolStripComboBoxMes})
-        Me.ToolStripFiltroMes.Location = New System.Drawing.Point(514, 0)
-        Me.ToolStripFiltroMes.Name = "ToolStripFiltroMes"
-        Me.ToolStripFiltroMes.Size = New System.Drawing.Size(203, 39)
-        Me.ToolStripFiltroMes.TabIndex = 15
-        '
-        'ToolStripLabelAnio
-        '
-        Me.ToolStripLabelAnio.Name = "ToolStripLabelAnio"
-        Me.ToolStripLabelAnio.Size = New System.Drawing.Size(39, 36)
-        Me.ToolStripLabelAnio.Text = "Año:"
-        '
-        'ToolStripComboBoxAnio
-        '
-        Me.ToolStripComboBoxAnio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ToolStripComboBoxAnio.Name = "ToolStripComboBoxAnio"
-        Me.ToolStripComboBoxAnio.Size = New System.Drawing.Size(75, 39)
-        '
-        'ToolStripFiltroAnio
-        '
-        Me.ToolStripFiltroAnio.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ToolStripFiltroAnio.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStripFiltroAnio.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ToolStripFiltroAnio.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabelAnio, Me.ToolStripComboBoxAnio})
-        Me.ToolStripFiltroAnio.Location = New System.Drawing.Point(395, 0)
-        Me.ToolStripFiltroAnio.Name = "ToolStripFiltroAnio"
-        Me.ToolStripFiltroAnio.Size = New System.Drawing.Size(119, 39)
-        Me.ToolStripFiltroAnio.TabIndex = 14
-        '
         'FormLiquidaciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -255,11 +255,11 @@ Partial Class FormLiquidaciones
         Me.FlowLayoutPanelToolbars.PerformLayout()
         Me.ToolStripButtons.ResumeLayout(False)
         Me.ToolStripButtons.PerformLayout()
-        CType(Me.DataGridViewMain, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ToolStripFiltroMes.ResumeLayout(False)
-        Me.ToolStripFiltroMes.PerformLayout()
         Me.ToolStripFiltroAnio.ResumeLayout(False)
         Me.ToolStripFiltroAnio.PerformLayout()
+        Me.ToolStripFiltroMes.ResumeLayout(False)
+        Me.ToolStripFiltroMes.PerformLayout()
+        CType(Me.DataGridViewMain, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

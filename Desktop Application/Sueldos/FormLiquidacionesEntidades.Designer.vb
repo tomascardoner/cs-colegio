@@ -25,6 +25,8 @@ Partial Class FormLiquidacionesEntidades
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ToolStripStatusLabelMain = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusStripMain = New System.Windows.Forms.StatusStrip()
         Me.FlowLayoutPanelToolbars = New System.Windows.Forms.FlowLayoutPanel()
@@ -32,16 +34,29 @@ Partial Class FormLiquidacionesEntidades
         Me.ToolStripButtonAgregar = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripButtonEditar = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripButtonEliminar = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripButtonCopiarDatos = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripDropDownButtonImprimir = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.ToolStripMenuItemImprimirResumenDirectoras = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItemImprimirResumenDocentesIngles = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripMenuItemImprimirRecibosDocentesInglesTodos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItemImprimirReciboDocenteIngles = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripFiltroEntidadGrupo = New System.Windows.Forms.ToolStrip()
+        Me.ToolStripLabelEntidadGrupo = New System.Windows.Forms.ToolStripLabel()
+        Me.ToolStripComboBoxEntidadGrupo = New System.Windows.Forms.ToolStripComboBox()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.ToolStripLabelLiquidacionDatos = New System.Windows.Forms.ToolStripLabel()
         Me.DataGridViewMain = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewColumnEntidadGrupo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewColumnEntidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewColumnModuloCantidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewColumnAntiguedad = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ToolStripButtonCopiarDatos = New System.Windows.Forms.ToolStripButton()
+        Me.DataGridViewColumnReciboImporteBasico = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewColumnReciboImporteNeto = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.StatusStripMain.SuspendLayout()
         Me.FlowLayoutPanelToolbars.SuspendLayout()
         Me.ToolStripButtons.SuspendLayout()
+        Me.ToolStripFiltroEntidadGrupo.SuspendLayout()
         CType(Me.DataGridViewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -67,6 +82,7 @@ Partial Class FormLiquidacionesEntidades
         Me.FlowLayoutPanelToolbars.AutoSize = True
         Me.FlowLayoutPanelToolbars.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.FlowLayoutPanelToolbars.Controls.Add(Me.ToolStripButtons)
+        Me.FlowLayoutPanelToolbars.Controls.Add(Me.ToolStripFiltroEntidadGrupo)
         Me.FlowLayoutPanelToolbars.Dock = System.Windows.Forms.DockStyle.Top
         Me.FlowLayoutPanelToolbars.Location = New System.Drawing.Point(0, 0)
         Me.FlowLayoutPanelToolbars.Margin = New System.Windows.Forms.Padding(4)
@@ -79,17 +95,16 @@ Partial Class FormLiquidacionesEntidades
         Me.ToolStripButtons.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ToolStripButtons.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStripButtons.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ToolStripButtons.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButtonAgregar, Me.ToolStripButtonEditar, Me.ToolStripButtonEliminar, Me.ToolStripButtonCopiarDatos, Me.ToolStripSeparator1, Me.ToolStripLabelLiquidacionDatos})
+        Me.ToolStripButtons.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButtonAgregar, Me.ToolStripButtonEditar, Me.ToolStripButtonEliminar, Me.ToolStripButtonCopiarDatos, Me.ToolStripDropDownButtonImprimir})
         Me.ToolStripButtons.Location = New System.Drawing.Point(0, 0)
         Me.ToolStripButtons.Name = "ToolStripButtons"
-        Me.ToolStripButtons.Size = New System.Drawing.Size(460, 39)
+        Me.ToolStripButtons.Size = New System.Drawing.Size(527, 39)
         Me.ToolStripButtons.TabIndex = 1
         '
         'ToolStripButtonAgregar
         '
         Me.ToolStripButtonAgregar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_ADD_32
         Me.ToolStripButtonAgregar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.ToolStripButtonAgregar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButtonAgregar.Name = "ToolStripButtonAgregar"
         Me.ToolStripButtonAgregar.Size = New System.Drawing.Size(99, 36)
         Me.ToolStripButtonAgregar.Text = "Agregar"
@@ -98,7 +113,6 @@ Partial Class FormLiquidacionesEntidades
         '
         Me.ToolStripButtonEditar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_EDIT_32
         Me.ToolStripButtonEditar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.ToolStripButtonEditar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButtonEditar.Name = "ToolStripButtonEditar"
         Me.ToolStripButtonEditar.Size = New System.Drawing.Size(84, 36)
         Me.ToolStripButtonEditar.Text = "Editar"
@@ -107,10 +121,78 @@ Partial Class FormLiquidacionesEntidades
         '
         Me.ToolStripButtonEliminar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_DELETE_32
         Me.ToolStripButtonEliminar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.ToolStripButtonEliminar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButtonEliminar.Name = "ToolStripButtonEliminar"
         Me.ToolStripButtonEliminar.Size = New System.Drawing.Size(99, 36)
         Me.ToolStripButtonEliminar.Text = "Eliminar"
+        '
+        'ToolStripButtonCopiarDatos
+        '
+        Me.ToolStripButtonCopiarDatos.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_COPY_32
+        Me.ToolStripButtonCopiarDatos.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.ToolStripButtonCopiarDatos.Name = "ToolStripButtonCopiarDatos"
+        Me.ToolStripButtonCopiarDatos.Size = New System.Drawing.Size(130, 36)
+        Me.ToolStripButtonCopiarDatos.Text = "Copiar datos"
+        '
+        'ToolStripDropDownButtonImprimir
+        '
+        Me.ToolStripDropDownButtonImprimir.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItemImprimirResumenDirectoras, Me.ToolStripMenuItemImprimirResumenDocentesIngles, Me.ToolStripSeparator2, Me.ToolStripMenuItemImprimirRecibosDocentesInglesTodos, Me.ToolStripMenuItemImprimirReciboDocenteIngles})
+        Me.ToolStripDropDownButtonImprimir.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_PRINT_PREVIEW_32
+        Me.ToolStripDropDownButtonImprimir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.ToolStripDropDownButtonImprimir.Name = "ToolStripDropDownButtonImprimir"
+        Me.ToolStripDropDownButtonImprimir.Size = New System.Drawing.Size(112, 36)
+        Me.ToolStripDropDownButtonImprimir.Text = "Imprimir"
+        '
+        'ToolStripMenuItemImprimirResumenDirectoras
+        '
+        Me.ToolStripMenuItemImprimirResumenDirectoras.Name = "ToolStripMenuItemImprimirResumenDirectoras"
+        Me.ToolStripMenuItemImprimirResumenDirectoras.Size = New System.Drawing.Size(376, 26)
+        Me.ToolStripMenuItemImprimirResumenDirectoras.Text = "Resumen de directores"
+        '
+        'ToolStripMenuItemImprimirResumenDocentesIngles
+        '
+        Me.ToolStripMenuItemImprimirResumenDocentesIngles.Name = "ToolStripMenuItemImprimirResumenDocentesIngles"
+        Me.ToolStripMenuItemImprimirResumenDocentesIngles.Size = New System.Drawing.Size(376, 26)
+        Me.ToolStripMenuItemImprimirResumenDocentesIngles.Text = "Resumen de docentes de inglés"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(373, 6)
+        '
+        'ToolStripMenuItemImprimirRecibosDocentesInglesTodos
+        '
+        Me.ToolStripMenuItemImprimirRecibosDocentesInglesTodos.Name = "ToolStripMenuItemImprimirRecibosDocentesInglesTodos"
+        Me.ToolStripMenuItemImprimirRecibosDocentesInglesTodos.Size = New System.Drawing.Size(376, 26)
+        Me.ToolStripMenuItemImprimirRecibosDocentesInglesTodos.Text = "Recibos de docentes de inglés"
+        '
+        'ToolStripMenuItemImprimirReciboDocenteIngles
+        '
+        Me.ToolStripMenuItemImprimirReciboDocenteIngles.Name = "ToolStripMenuItemImprimirReciboDocenteIngles"
+        Me.ToolStripMenuItemImprimirReciboDocenteIngles.Size = New System.Drawing.Size(376, 26)
+        Me.ToolStripMenuItemImprimirReciboDocenteIngles.Text = "Recibo del docente de inglés seleccionado"
+        '
+        'ToolStripFiltroEntidadGrupo
+        '
+        Me.ToolStripFiltroEntidadGrupo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ToolStripFiltroEntidadGrupo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.ToolStripFiltroEntidadGrupo.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.ToolStripFiltroEntidadGrupo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabelEntidadGrupo, Me.ToolStripComboBoxEntidadGrupo, Me.ToolStripSeparator1, Me.ToolStripLabelLiquidacionDatos})
+        Me.ToolStripFiltroEntidadGrupo.Location = New System.Drawing.Point(527, 0)
+        Me.ToolStripFiltroEntidadGrupo.Name = "ToolStripFiltroEntidadGrupo"
+        Me.ToolStripFiltroEntidadGrupo.Size = New System.Drawing.Size(223, 39)
+        Me.ToolStripFiltroEntidadGrupo.TabIndex = 16
+        '
+        'ToolStripLabelEntidadGrupo
+        '
+        Me.ToolStripLabelEntidadGrupo.Name = "ToolStripLabelEntidadGrupo"
+        Me.ToolStripLabelEntidadGrupo.Size = New System.Drawing.Size(53, 36)
+        Me.ToolStripLabelEntidadGrupo.Text = "Grupo:"
+        '
+        'ToolStripComboBoxEntidadGrupo
+        '
+        Me.ToolStripComboBoxEntidadGrupo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ToolStripComboBoxEntidadGrupo.Name = "ToolStripComboBoxEntidadGrupo"
+        Me.ToolStripComboBoxEntidadGrupo.Size = New System.Drawing.Size(159, 39)
         '
         'ToolStripSeparator1
         '
@@ -134,7 +216,7 @@ Partial Class FormLiquidacionesEntidades
         Me.DataGridViewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridViewMain.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DataGridViewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridViewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewColumnEntidad, Me.DataGridViewColumnModuloCantidad, Me.DataGridViewColumnAntiguedad})
+        Me.DataGridViewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewColumnEntidadGrupo, Me.DataGridViewColumnEntidad, Me.DataGridViewColumnModuloCantidad, Me.DataGridViewColumnAntiguedad, Me.DataGridViewColumnReciboImporteBasico, Me.DataGridViewColumnReciboImporteNeto})
         Me.DataGridViewMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridViewMain.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.DataGridViewMain.Location = New System.Drawing.Point(0, 39)
@@ -148,6 +230,15 @@ Partial Class FormLiquidacionesEntidades
         Me.DataGridViewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridViewMain.Size = New System.Drawing.Size(939, 415)
         Me.DataGridViewMain.TabIndex = 0
+        '
+        'DataGridViewColumnEntidadGrupo
+        '
+        Me.DataGridViewColumnEntidadGrupo.DataPropertyName = "EntidadGrupoNombre"
+        Me.DataGridViewColumnEntidadGrupo.HeaderText = "Grupo"
+        Me.DataGridViewColumnEntidadGrupo.MinimumWidth = 6
+        Me.DataGridViewColumnEntidadGrupo.Name = "DataGridViewColumnEntidadGrupo"
+        Me.DataGridViewColumnEntidadGrupo.ReadOnly = True
+        Me.DataGridViewColumnEntidadGrupo.Width = 73
         '
         'DataGridViewColumnEntidad
         '
@@ -184,13 +275,31 @@ Partial Class FormLiquidacionesEntidades
         Me.DataGridViewColumnAntiguedad.ReadOnly = True
         Me.DataGridViewColumnAntiguedad.Width = 105
         '
-        'ToolStripButtonCopiarDatos
+        'DataGridViewColumnReciboImporteBasico
         '
-        Me.ToolStripButtonCopiarDatos.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_ITEM_COPY_32
-        Me.ToolStripButtonCopiarDatos.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.ToolStripButtonCopiarDatos.Name = "ToolStripButtonCopiarDatos"
-        Me.ToolStripButtonCopiarDatos.Size = New System.Drawing.Size(130, 36)
-        Me.ToolStripButtonCopiarDatos.Text = "Copiar datos"
+        Me.DataGridViewColumnReciboImporteBasico.DataPropertyName = "ReciboImporteBasico"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle4.Format = "C2"
+        DataGridViewCellStyle4.NullValue = Nothing
+        Me.DataGridViewColumnReciboImporteBasico.DefaultCellStyle = DataGridViewCellStyle4
+        Me.DataGridViewColumnReciboImporteBasico.HeaderText = "Básico recibo"
+        Me.DataGridViewColumnReciboImporteBasico.MinimumWidth = 6
+        Me.DataGridViewColumnReciboImporteBasico.Name = "DataGridViewColumnReciboImporteBasico"
+        Me.DataGridViewColumnReciboImporteBasico.ReadOnly = True
+        Me.DataGridViewColumnReciboImporteBasico.Width = 119
+        '
+        'DataGridViewColumnReciboImporteNeto
+        '
+        Me.DataGridViewColumnReciboImporteNeto.DataPropertyName = "ReciboImporteNeto"
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle5.Format = "C2"
+        DataGridViewCellStyle5.NullValue = Nothing
+        Me.DataGridViewColumnReciboImporteNeto.DefaultCellStyle = DataGridViewCellStyle5
+        Me.DataGridViewColumnReciboImporteNeto.HeaderText = "Neto recibo"
+        Me.DataGridViewColumnReciboImporteNeto.MinimumWidth = 6
+        Me.DataGridViewColumnReciboImporteNeto.Name = "DataGridViewColumnReciboImporteNeto"
+        Me.DataGridViewColumnReciboImporteNeto.ReadOnly = True
+        Me.DataGridViewColumnReciboImporteNeto.Width = 106
         '
         'FormLiquidacionesEntidades
         '
@@ -213,6 +322,8 @@ Partial Class FormLiquidacionesEntidades
         Me.FlowLayoutPanelToolbars.PerformLayout()
         Me.ToolStripButtons.ResumeLayout(False)
         Me.ToolStripButtons.PerformLayout()
+        Me.ToolStripFiltroEntidadGrupo.ResumeLayout(False)
+        Me.ToolStripFiltroEntidadGrupo.PerformLayout()
         CType(Me.DataGridViewMain, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -226,10 +337,22 @@ Partial Class FormLiquidacionesEntidades
     Friend WithEvents ToolStripButtonEditar As System.Windows.Forms.ToolStripButton
     Friend WithEvents ToolStripButtonEliminar As System.Windows.Forms.ToolStripButton
     Friend WithEvents DataGridViewMain As DataGridView
-    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents ToolStripButtonCopiarDatos As ToolStripButton
+    Friend WithEvents ToolStripDropDownButtonImprimir As ToolStripDropDownButton
+    Friend WithEvents ToolStripMenuItemImprimirResumenDirectoras As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItemImprimirResumenDocentesIngles As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents ToolStripMenuItemImprimirRecibosDocentesInglesTodos As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItemImprimirReciboDocenteIngles As ToolStripMenuItem
+    Friend WithEvents ToolStripFiltroEntidadGrupo As ToolStrip
+    Friend WithEvents ToolStripLabelEntidadGrupo As ToolStripLabel
+    Friend WithEvents ToolStripComboBoxEntidadGrupo As ToolStripComboBox
     Friend WithEvents ToolStripLabelLiquidacionDatos As ToolStripLabel
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents DataGridViewColumnEntidadGrupo As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewColumnEntidad As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewColumnModuloCantidad As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewColumnAntiguedad As DataGridViewTextBoxColumn
-    Friend WithEvents ToolStripButtonCopiarDatos As ToolStripButton
+    Friend WithEvents DataGridViewColumnReciboImporteBasico As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewColumnReciboImporteNeto As DataGridViewTextBoxColumn
 End Class

@@ -905,18 +905,16 @@
           <Property Name="IdEntidad" Type="int" Nullable="false" />
           <Property Name="ModuloCantidad" Type="decimal" Precision="3" Scale="1" />
           <Property Name="Antiguedad" Type="decimal" Precision="3" Scale="2" />
-        </EntityType>
-        <EntityType Name="SueldoLiquidacionEntidadRecibo">
-          <Key>
-            <PropertyRef Name="IdSueldoLiquidacion" />
-            <PropertyRef Name="IdEntidad" />
-            <PropertyRef Name="IdRecibo" />
-          </Key>
-          <Property Name="IdSueldoLiquidacion" Type="smallint" Nullable="false" />
-          <Property Name="IdEntidad" Type="int" Nullable="false" />
-          <Property Name="IdRecibo" Type="tinyint" Nullable="false" />
-          <Property Name="ImporteBasico" Type="money" />
-          <Property Name="ImporteNeto" Type="money" Nullable="false" />
+          <Property Name="Recibo1ImporteBasico" Type="money" />
+          <Property Name="Recibo1ImporteNeto" Type="money" />
+          <Property Name="Recibo2ImporteBasico" Type="money" />
+          <Property Name="Recibo2ImporteNeto" Type="money" />
+          <Property Name="Recibo3ImporteBasico" Type="money" />
+          <Property Name="Recibo3ImporteNeto" Type="money" />
+          <Property Name="Recibo4ImporteBasico" Type="money" />
+          <Property Name="Recibo4ImporteNeto" Type="money" />
+          <Property Name="Recibo5ImporteBasico" Type="money" />
+          <Property Name="Recibo5ImporteNeto" Type="money" />
         </EntityType>
         <EntityType Name="TarjetaCredito">
           <Key>
@@ -2805,20 +2803,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SueldoLiquidacionEntidadRecibo_SueldoLiquidacionEntidad">
-          <End Role="SueldoLiquidacionEntidad" Type="Self.SueldoLiquidacionEntidad" Multiplicity="1" />
-          <End Role="SueldoLiquidacionEntidadRecibo" Type="Self.SueldoLiquidacionEntidadRecibo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SueldoLiquidacionEntidad">
-              <PropertyRef Name="IdSueldoLiquidacion" />
-              <PropertyRef Name="IdEntidad" />
-            </Principal>
-            <Dependent Role="SueldoLiquidacionEntidadRecibo">
-              <PropertyRef Name="IdSueldoLiquidacion" />
-              <PropertyRef Name="IdEntidad" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="CSColegioModelStoreContainer">
           <EntitySet Name="Anio" EntityType="Self.Anio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AnioLectivoCuota" EntityType="Self.AnioLectivoCuota" Schema="dbo" store:Type="Tables" />
@@ -2886,7 +2870,6 @@
           <EntitySet Name="SueldoConcepto" EntityType="Self.SueldoConcepto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SueldoLiquidacion" EntityType="Self.SueldoLiquidacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SueldoLiquidacionEntidad" EntityType="Self.SueldoLiquidacionEntidad" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SueldoLiquidacionEntidadRecibo" EntityType="Self.SueldoLiquidacionEntidadRecibo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TarjetaCredito" EntityType="Self.TarjetaCredito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TarjetaCreditoBanco" EntityType="Self.TarjetaCreditoBanco" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Turno" EntityType="Self.Turno" Schema="dbo" store:Type="Tables" />
@@ -3493,10 +3476,6 @@
           <AssociationSet Name="FK_SueldoLiquidacionEntidad_SueldoLiquidacion" Association="Self.FK_SueldoLiquidacionEntidad_SueldoLiquidacion">
             <End Role="SueldoLiquidacion" EntitySet="SueldoLiquidacion" />
             <End Role="SueldoLiquidacionEntidad" EntitySet="SueldoLiquidacionEntidad" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SueldoLiquidacionEntidadRecibo_SueldoLiquidacionEntidad" Association="Self.FK_SueldoLiquidacionEntidadRecibo_SueldoLiquidacionEntidad">
-            <End Role="SueldoLiquidacionEntidad" EntitySet="SueldoLiquidacionEntidad" />
-            <End Role="SueldoLiquidacionEntidadRecibo" EntitySet="SueldoLiquidacionEntidadRecibo" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -4753,7 +4732,6 @@
           <EntitySet Name="SueldoConcepto" EntityType="CSColegioModel.SueldoConcepto" />
           <EntitySet Name="SueldoLiquidacion" EntityType="CSColegioModel.SueldoLiquidacion" />
           <EntitySet Name="SueldoLiquidacionEntidad" EntityType="CSColegioModel.SueldoLiquidacionEntidad" />
-          <EntitySet Name="SueldoLiquidacionEntidadRecibo" EntityType="CSColegioModel.SueldoLiquidacionEntidadRecibo" />
           <AssociationSet Name="FK_EntidadPersonalColegio_Entidad" Association="CSColegioModel.FK_EntidadPersonalColegio_Entidad">
             <End Role="Entidad" EntitySet="Entidad" />
             <End Role="EntidadPersonalColegio" EntitySet="EntidadPersonalColegio" />
@@ -4805,10 +4783,6 @@
           <AssociationSet Name="FK_SueldoLiquidacionEntidad_SueldoLiquidacion" Association="CSColegioModel.FK_SueldoLiquidacionEntidad_SueldoLiquidacion">
             <End Role="SueldoLiquidacion" EntitySet="SueldoLiquidacion" />
             <End Role="SueldoLiquidacionEntidad" EntitySet="SueldoLiquidacionEntidad" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SueldoLiquidacionEntidadRecibo_SueldoLiquidacionEntidad" Association="CSColegioModel.FK_SueldoLiquidacionEntidadRecibo_SueldoLiquidacionEntidad">
-            <End Role="SueldoLiquidacionEntidad" EntitySet="SueldoLiquidacionEntidad" />
-            <End Role="SueldoLiquidacionEntidadRecibo" EntitySet="SueldoLiquidacionEntidadRecibo" />
           </AssociationSet>
           <EntitySet Name="EntidadPersonalColegioAntiguedadDetalle" EntityType="CSColegioModel.EntidadPersonalColegioAntiguedadDetalle" />
           <EntitySet Name="SueldoAntiguedad" EntityType="CSColegioModel.SueldoAntiguedad" />
@@ -6956,20 +6930,16 @@
           <Property Name="Antiguedad" Type="Decimal" Precision="3" Scale="2" />
           <NavigationProperty Name="Entidad" Relationship="CSColegioModel.FK_SueldoLiquidacionEntidad_Entidad" FromRole="SueldoLiquidacionEntidad" ToRole="Entidad" />
           <NavigationProperty Name="SueldoLiquidacion" Relationship="CSColegioModel.FK_SueldoLiquidacionEntidad_SueldoLiquidacion" FromRole="SueldoLiquidacionEntidad" ToRole="SueldoLiquidacion" />
-          <NavigationProperty Name="SueldosLiquidacionesEntidadesRecibos" Relationship="CSColegioModel.FK_SueldoLiquidacionEntidadRecibo_SueldoLiquidacionEntidad" FromRole="SueldoLiquidacionEntidad" ToRole="SueldoLiquidacionEntidadRecibo" />
-        </EntityType>
-        <EntityType Name="SueldoLiquidacionEntidadRecibo">
-          <Key>
-            <PropertyRef Name="IdSueldoLiquidacion" />
-            <PropertyRef Name="IdEntidad" />
-            <PropertyRef Name="IdRecibo" />
-          </Key>
-          <Property Name="IdSueldoLiquidacion" Type="Int16" Nullable="false" />
-          <Property Name="IdEntidad" Type="Int32" Nullable="false" />
-          <Property Name="IdRecibo" Type="Byte" Nullable="false" />
-          <Property Name="ImporteBasico" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="ImporteNeto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <NavigationProperty Name="SueldoLiquidacionEntidad" Relationship="CSColegioModel.FK_SueldoLiquidacionEntidadRecibo_SueldoLiquidacionEntidad" FromRole="SueldoLiquidacionEntidadRecibo" ToRole="SueldoLiquidacionEntidad" />
+          <Property Name="Recibo1ImporteBasico" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Recibo1ImporteNeto" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Recibo2ImporteBasico" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Recibo2ImporteNeto" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Recibo3ImporteBasico" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Recibo3ImporteNeto" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Recibo4ImporteBasico" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Recibo4ImporteNeto" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Recibo5ImporteBasico" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Recibo5ImporteNeto" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <Association Name="FK_EntidadPersonalColegio_Entidad">
           <End Type="CSColegioModel.Entidad" Role="Entidad" Multiplicity="1" />
@@ -7124,20 +7094,6 @@
             </Principal>
             <Dependent Role="SueldoLiquidacionEntidad">
               <PropertyRef Name="IdSueldoLiquidacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SueldoLiquidacionEntidadRecibo_SueldoLiquidacionEntidad">
-          <End Type="CSColegioModel.SueldoLiquidacionEntidad" Role="SueldoLiquidacionEntidad" Multiplicity="1" />
-          <End Type="CSColegioModel.SueldoLiquidacionEntidadRecibo" Role="SueldoLiquidacionEntidadRecibo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SueldoLiquidacionEntidad">
-              <PropertyRef Name="IdSueldoLiquidacion" />
-              <PropertyRef Name="IdEntidad" />
-            </Principal>
-            <Dependent Role="SueldoLiquidacionEntidadRecibo">
-              <PropertyRef Name="IdSueldoLiquidacion" />
-              <PropertyRef Name="IdEntidad" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8175,19 +8131,18 @@
           <EntitySetMapping Name="SueldoLiquidacionEntidad">
             <EntityTypeMapping TypeName="CSColegioModel.SueldoLiquidacionEntidad">
               <MappingFragment StoreEntitySet="SueldoLiquidacionEntidad">
+                <ScalarProperty Name="Recibo5ImporteNeto" ColumnName="Recibo5ImporteNeto" />
+                <ScalarProperty Name="Recibo5ImporteBasico" ColumnName="Recibo5ImporteBasico" />
+                <ScalarProperty Name="Recibo4ImporteNeto" ColumnName="Recibo4ImporteNeto" />
+                <ScalarProperty Name="Recibo4ImporteBasico" ColumnName="Recibo4ImporteBasico" />
+                <ScalarProperty Name="Recibo3ImporteNeto" ColumnName="Recibo3ImporteNeto" />
+                <ScalarProperty Name="Recibo3ImporteBasico" ColumnName="Recibo3ImporteBasico" />
+                <ScalarProperty Name="Recibo2ImporteNeto" ColumnName="Recibo2ImporteNeto" />
+                <ScalarProperty Name="Recibo2ImporteBasico" ColumnName="Recibo2ImporteBasico" />
+                <ScalarProperty Name="Recibo1ImporteNeto" ColumnName="Recibo1ImporteNeto" />
+                <ScalarProperty Name="Recibo1ImporteBasico" ColumnName="Recibo1ImporteBasico" />
                 <ScalarProperty Name="Antiguedad" ColumnName="Antiguedad" />
                 <ScalarProperty Name="ModuloCantidad" ColumnName="ModuloCantidad" />
-                <ScalarProperty Name="IdEntidad" ColumnName="IdEntidad" />
-                <ScalarProperty Name="IdSueldoLiquidacion" ColumnName="IdSueldoLiquidacion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SueldoLiquidacionEntidadRecibo">
-            <EntityTypeMapping TypeName="CSColegioModel.SueldoLiquidacionEntidadRecibo">
-              <MappingFragment StoreEntitySet="SueldoLiquidacionEntidadRecibo">
-                <ScalarProperty Name="ImporteNeto" ColumnName="ImporteNeto" />
-                <ScalarProperty Name="ImporteBasico" ColumnName="ImporteBasico" />
-                <ScalarProperty Name="IdRecibo" ColumnName="IdRecibo" />
                 <ScalarProperty Name="IdEntidad" ColumnName="IdEntidad" />
                 <ScalarProperty Name="IdSueldoLiquidacion" ColumnName="IdSueldoLiquidacion" />
               </MappingFragment>

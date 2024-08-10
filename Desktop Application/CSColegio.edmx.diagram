@@ -224,7 +224,6 @@
         <EntityTypeShape EntityType="CSColegioModel.SueldoConcepto" Width="1.5" PointX="5.5" PointY="62.75" />
         <EntityTypeShape EntityType="CSColegioModel.SueldoLiquidacion" Width="1.5" PointX="15.25" PointY="44.875" />
         <EntityTypeShape EntityType="CSColegioModel.SueldoLiquidacionEntidad" Width="1.5" PointX="17.5" PointY="56.375" />
-        <EntityTypeShape EntityType="CSColegioModel.SueldoLiquidacionEntidadRecibo" Width="1.5" PointX="19.75" PointY="55.5" />
         <AssociationConnector Association="CSColegioModel.FK_EntidadPersonalColegio_Entidad" />
         <AssociationConnector Association="CSColegioModel.FK_SueldoLiquidacionEntidad_Entidad" />
         <AssociationConnector Association="CSColegioModel.FK_EntidadGrupo_UsuarioCreacion" />
@@ -238,7 +237,6 @@
         <AssociationConnector Association="CSColegioModel.FK_SueldoLiquidacion_UsuarioCreacion" />
         <AssociationConnector Association="CSColegioModel.FK_SueldoLiquidacion_UsuarioModificacion" />
         <AssociationConnector Association="CSColegioModel.FK_SueldoLiquidacionEntidad_SueldoLiquidacion" />
-        <AssociationConnector Association="CSColegioModel.FK_SueldoLiquidacionEntidadRecibo_SueldoLiquidacionEntidad" />
         <EntityTypeShape EntityType="CSColegioModel.EntidadPersonalColegioAntiguedadDetalle" Width="1.5" PointX="24.75" PointY="58.625" />
         <EntityTypeShape EntityType="CSColegioModel.SueldoAntiguedad" Width="1.5" PointX="7.375" PointY="8.75" />
         <AssociationConnector Association="CSColegioModel.FK_EntidadPersonalColegioAntiguedadDetalle_EntidadPersonalColegio" />

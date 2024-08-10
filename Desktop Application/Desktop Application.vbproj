@@ -557,9 +557,6 @@
     <Compile Include="SueldoLiquidacionEntidad.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
-    <Compile Include="SueldoLiquidacionEntidadRecibo.vb">
-      <DependentUpon>CSColegio.tt</DependentUpon>
-    </Compile>
     <Compile Include="Sueldos\FormCalculoModuloObtener.designer.vb">
       <DependentUpon>FormCalculoModuloObtener.vb</DependentUpon>
     </Compile>
