@@ -202,6 +202,7 @@ Partial Class formEntidad
         Me.DataGridViewTextBoxColumnInstitucion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumnFechaDesde = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumnFechaHasta = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumnLapso = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.LabelEntidadGrupo = New System.Windows.Forms.Label()
         Me.ComboBoxEntidadGrupo = New System.Windows.Forms.ComboBox()
         Me.LabelAdicionales = New System.Windows.Forms.Label()
@@ -222,6 +223,7 @@ Partial Class formEntidad
         Me.textboxUsuarioCreacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraModificacion = New System.Windows.Forms.TextBox()
         Me.textboxFechaHoraCreacion = New System.Windows.Forms.TextBox()
+        Me.LabelAntiguedadTotal = New System.Windows.Forms.Label()
         labelApellido = New System.Windows.Forms.Label()
         labelIDEntidad = New System.Windows.Forms.Label()
         labelNombre = New System.Windows.Forms.Label()
@@ -2055,6 +2057,7 @@ Partial Class formEntidad
         Me.TableLayoutPanelEmpleados.ColumnCount = 2
         Me.TableLayoutPanelEmpleados.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanelEmpleados.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanelEmpleados.Controls.Add(Me.LabelAntiguedadTotal, 1, 4)
         Me.TableLayoutPanelEmpleados.Controls.Add(Me.ToolStripEmpleadosAntiguedad, 0, 3)
         Me.TableLayoutPanelEmpleados.Controls.Add(Me.DataGridViewEmpleadosAntiguedad, 1, 3)
         Me.TableLayoutPanelEmpleados.Controls.Add(Me.LabelEntidadGrupo, 0, 0)
@@ -2064,11 +2067,12 @@ Partial Class formEntidad
         Me.TableLayoutPanelEmpleados.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanelEmpleados.Location = New System.Drawing.Point(3, 3)
         Me.TableLayoutPanelEmpleados.Name = "TableLayoutPanelEmpleados"
-        Me.TableLayoutPanelEmpleados.RowCount = 4
+        Me.TableLayoutPanelEmpleados.RowCount = 5
         Me.TableLayoutPanelEmpleados.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanelEmpleados.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanelEmpleados.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
         Me.TableLayoutPanelEmpleados.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanelEmpleados.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanelEmpleados.Size = New System.Drawing.Size(671, 350)
         Me.TableLayoutPanelEmpleados.TabIndex = 14
         '
@@ -2081,6 +2085,7 @@ Partial Class formEntidad
         Me.ToolStripEmpleadosAntiguedad.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow
         Me.ToolStripEmpleadosAntiguedad.Location = New System.Drawing.Point(0, 74)
         Me.ToolStripEmpleadosAntiguedad.Name = "ToolStripEmpleadosAntiguedad"
+        Me.TableLayoutPanelEmpleados.SetRowSpan(Me.ToolStripEmpleadosAntiguedad, 2)
         Me.ToolStripEmpleadosAntiguedad.Size = New System.Drawing.Size(100, 276)
         Me.ToolStripEmpleadosAntiguedad.TabIndex = 19
         '
@@ -2126,7 +2131,7 @@ Partial Class formEntidad
         Me.DataGridViewEmpleadosAntiguedad.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DataGridViewEmpleadosAntiguedad.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.DataGridViewEmpleadosAntiguedad.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridViewEmpleadosAntiguedad.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumnInstitucion, Me.DataGridViewTextBoxColumnFechaDesde, Me.DataGridViewTextBoxColumnFechaHasta})
+        Me.DataGridViewEmpleadosAntiguedad.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumnInstitucion, Me.DataGridViewTextBoxColumnFechaDesde, Me.DataGridViewTextBoxColumnFechaHasta, Me.DataGridViewTextBoxColumnLapso})
         Me.DataGridViewEmpleadosAntiguedad.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridViewEmpleadosAntiguedad.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.DataGridViewEmpleadosAntiguedad.Location = New System.Drawing.Point(104, 78)
@@ -2138,7 +2143,7 @@ Partial Class formEntidad
         Me.DataGridViewEmpleadosAntiguedad.RowHeadersWidth = 51
         Me.DataGridViewEmpleadosAntiguedad.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.DataGridViewEmpleadosAntiguedad.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridViewEmpleadosAntiguedad.Size = New System.Drawing.Size(563, 268)
+        Me.DataGridViewEmpleadosAntiguedad.Size = New System.Drawing.Size(563, 252)
         Me.DataGridViewEmpleadosAntiguedad.TabIndex = 18
         '
         'DataGridViewTextBoxColumnInstitucion
@@ -2167,6 +2172,15 @@ Partial Class formEntidad
         Me.DataGridViewTextBoxColumnFechaHasta.Name = "DataGridViewTextBoxColumnFechaHasta"
         Me.DataGridViewTextBoxColumnFechaHasta.ReadOnly = True
         Me.DataGridViewTextBoxColumnFechaHasta.Width = 72
+        '
+        'DataGridViewTextBoxColumnLapso
+        '
+        Me.DataGridViewTextBoxColumnLapso.DataPropertyName = "Lapso"
+        Me.DataGridViewTextBoxColumnLapso.HeaderText = "Lapso"
+        Me.DataGridViewTextBoxColumnLapso.MinimumWidth = 6
+        Me.DataGridViewTextBoxColumnLapso.Name = "DataGridViewTextBoxColumnLapso"
+        Me.DataGridViewTextBoxColumnLapso.ReadOnly = True
+        Me.DataGridViewTextBoxColumnLapso.Width = 74
         '
         'LabelEntidadGrupo
         '
@@ -2436,6 +2450,17 @@ Partial Class formEntidad
         Me.textboxFechaHoraCreacion.Size = New System.Drawing.Size(160, 22)
         Me.textboxFechaHoraCreacion.TabIndex = 7
         '
+        'LabelAntiguedadTotal
+        '
+        Me.LabelAntiguedadTotal.AutoSize = True
+        Me.LabelAntiguedadTotal.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelAntiguedadTotal.Location = New System.Drawing.Point(104, 334)
+        Me.LabelAntiguedadTotal.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LabelAntiguedadTotal.Name = "LabelAntiguedadTotal"
+        Me.LabelAntiguedadTotal.Size = New System.Drawing.Size(563, 16)
+        Me.LabelAntiguedadTotal.TabIndex = 20
+        Me.LabelAntiguedadTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'formEntidad
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -2647,4 +2672,6 @@ Partial Class formEntidad
     Friend WithEvents DataGridViewTextBoxColumnInstitucion As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumnFechaDesde As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumnFechaHasta As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumnLapso As DataGridViewTextBoxColumn
+    Friend WithEvents LabelAntiguedadTotal As Label
 End Class

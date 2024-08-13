@@ -1,4 +1,6 @@
-﻿Public Class formEntidad
+﻿Imports System.Security.Cryptography
+
+Public Class formEntidad
 
 #Region "Declarations"
 
@@ -524,15 +526,6 @@
         End Using
     End Sub
 
-    Friend Sub RefreshData_EmpleadosAntiguedad(Optional idDetalle As Byte = 0)
-        DataGridViewEmpleadosAntiguedad.AutoGenerateColumns = False
-        If mEntidadActual.EntidadPersonalColegio IsNot Nothing AndAlso mEntidadActual.EntidadPersonalColegio.EntidadPersonalColegioAntiguedadDetalle IsNot Nothing Then
-            DataGridViewEmpleadosAntiguedad.DataSource = mEntidadActual.EntidadPersonalColegio.EntidadPersonalColegioAntiguedadDetalle.OrderBy(Function(epcad) epcad.FechaDesde).ThenBy(Function(epcad) epcad.FechaHasta).ThenBy(Function(epcad) epcad.Institucion).ToList()
-        Else
-            DataGridViewEmpleadosAntiguedad.DataSource = Nothing
-        End If
-    End Sub
-
 #End Region
 
 #Region "Toolbar events"
@@ -777,13 +770,52 @@
     End Sub
 
     Private Sub DebitoAutomaticoTipo_CheckedChanged(sender As Object, e As EventArgs) Handles radiobuttonDebitoAutomatico_Tipo_Ninguno.CheckedChanged, radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.CheckedChanged, radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.CheckedChanged
-        labelDebitoAutomaticoCBU.visible = (CType(sender, RadioButton) Is radiobuttonDebitoAutomatico_Tipo_DebitoDirecto)
+        labelDebitoAutomaticoCBU.Visible = (CType(sender, RadioButton) Is radiobuttonDebitoAutomatico_Tipo_DebitoDirecto)
         maskedtextboxDebitoAutomaticoCBU.Visible = (CType(sender, RadioButton) Is radiobuttonDebitoAutomatico_Tipo_DebitoDirecto)
     End Sub
 
 #End Region
 
 #Region "Empleados"
+
+    Public Class GridRowDataEmpleadosAntiguedad
+        Public Property IdDetalle As Byte
+        Public Property Institucion As String
+        Public Property FechaDesde As Date
+        Public Property FechaHasta As Date?
+        Public Property Lapso As String
+    End Class
+
+    Friend Sub RefreshData_EmpleadosAntiguedad(Optional idDetalle As Byte = 0)
+        DataGridViewEmpleadosAntiguedad.AutoGenerateColumns = False
+        If mEntidadActual.EntidadPersonalColegio IsNot Nothing AndAlso mEntidadActual.EntidadPersonalColegio.EntidadPersonalColegioAntiguedadDetalle IsNot Nothing Then
+            Dim items As List(Of GridRowDataEmpleadosAntiguedad)
+            Dim diasTotales As Integer
+
+            items = (From epcad In mEntidadActual.EntidadPersonalColegio.EntidadPersonalColegioAntiguedadDetalle
+                     Order By epcad.FechaDesde, epcad.FechaHasta, epcad.Institucion
+                     Select New GridRowDataEmpleadosAntiguedad With {.IdDetalle = epcad.IdDetalle, .FechaDesde = epcad.FechaDesde, .FechaHasta = epcad.FechaHasta, .Institucion = epcad.Institucion}).ToList()
+
+            For Each epcad In items
+                epcad.Lapso = ObtenerPeriodoTranscurrido(epcad.FechaDesde, epcad.FechaHasta)
+                diasTotales += Convert.ToInt32(DateDiff(DateInterval.Day, epcad.FechaDesde, If(epcad.FechaHasta, DateAndTime.Today.Date)) + 1)
+            Next
+            DataGridViewEmpleadosAntiguedad.DataSource = items
+            LabelAntiguedadTotal.Text = $"{items.Count} detalles"
+            If diasTotales = 0 Then
+                LabelAntiguedadTotal.Text &= " - No hay antigüedades cargadas"
+            Else
+                Dim aniosTotales As Integer = ObtenerAniosCompletosTranscurridos(diasTotales)
+                If aniosTotales = 1 Then
+                    LabelAntiguedadTotal.Text &= " - 1 año de antigüedad"
+                Else
+                    LabelAntiguedadTotal.Text &= $" - {aniosTotales} años de antigüedad"
+                End If
+            End If
+        Else
+            DataGridViewEmpleadosAntiguedad.DataSource = Nothing
+        End If
+    End Sub
 
     Private Sub EmpleadosAntiguedadAgregar(sender As Object, e As EventArgs) Handles ToolStripButtonEmpleadosAntiguedadAgregar.Click
         If Not Permisos.VerificarPermiso(Permisos.ENTIDAD_EMPLEADO_ANTIGUEDAD_AGREGAR) Then
@@ -808,7 +840,7 @@
         If mEntidadActual.EntidadPersonalColegio Is Nothing Then
             mEntidadActual.EntidadPersonalColegio = New EntidadPersonalColegio()
         End If
-        Using form As New FormEntidadPersonalColegioAntiguedadDetalle(mEditMode, True, mEntidadActual, CType(DataGridViewEmpleadosAntiguedad.CurrentRow.DataBoundItem, EntidadPersonalColegioAntiguedadDetalle).IdDetalle)
+        Using form As New FormEntidadPersonalColegioAntiguedadDetalle(mEditMode, True, mEntidadActual, CType(DataGridViewEmpleadosAntiguedad.CurrentRow.DataBoundItem, GridRowDataEmpleadosAntiguedad).IdDetalle)
             form.ShowDialog(Me)
         End Using
     End Sub
@@ -822,7 +854,7 @@
             Return
         End If
 
-        Dim row As EntidadPersonalColegioAntiguedadDetalle = CType(DataGridViewEmpleadosAntiguedad.CurrentRow.DataBoundItem, EntidadPersonalColegioAntiguedadDetalle)
+        Dim row As GridRowDataEmpleadosAntiguedad = CType(DataGridViewEmpleadosAntiguedad.CurrentRow.DataBoundItem, GridRowDataEmpleadosAntiguedad)
         Dim mensaje As String = String.Format("Se eliminará el detalle de la antigüedad de la entidad.{0}{0}Institución: {1}{0}Fecha desde: {2}{0}Fecha hasta: {3}{0}{0}¿Confirma la eliminación definitiva?", vbCrLf, row.Institucion, row.FechaDesde.ToShortDateString(), If(row.FechaHasta.HasValue, row.FechaHasta.Value.ToShortDateString(), String.Empty))
         If MessageBox.Show(mensaje, My.Application.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) = MsgBoxResult.No Then
             Return
@@ -843,7 +875,7 @@
         If mEntidadActual.EntidadPersonalColegio Is Nothing Then
             mEntidadActual.EntidadPersonalColegio = New EntidadPersonalColegio()
         End If
-        Using form As New FormEntidadPersonalColegioAntiguedadDetalle(mEditMode, False, mEntidadActual, CType(DataGridViewEmpleadosAntiguedad.CurrentRow.DataBoundItem, EntidadPersonalColegioAntiguedadDetalle).IdDetalle)
+        Using form As New FormEntidadPersonalColegioAntiguedadDetalle(mEditMode, False, mEntidadActual, CType(DataGridViewEmpleadosAntiguedad.CurrentRow.DataBoundItem, GridRowDataEmpleadosAntiguedad).IdDetalle)
             form.ShowDialog(Me)
         End Using
     End Sub
