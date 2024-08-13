@@ -16,6 +16,8 @@
         Public Property ImporteTotal As Decimal
     End Class
 
+    Private _TabControlExtension As CardonerSistemas.Controls.TabControlExtension
+
 #End Region
 
 #Region "Form stuff"
@@ -45,6 +47,7 @@
             mEntidadActual = mdbContext.Entidad.Find(IDEntidad)
         End If
 
+
         Me.MdiParent = pFormMDIMain
         CardonerSistemas.Forms.CenterToParent(ParentForm, Me)
         InitializeFormAndControls()
@@ -62,16 +65,16 @@
 
     Private Sub ChangeMode()
         If mIsLoading Then
-            Exit Sub
+            Return
         End If
 
         buttonGuardar.Visible = mEditMode
         buttonCancelar.Visible = mEditMode
-        buttonEditar.Visible = (mEditMode = False)
-        buttonCerrar.Visible = (mEditMode = False)
+        buttonEditar.Visible = Not mEditMode
+        buttonCerrar.Visible = Not mEditMode
 
-        textboxApellido.ReadOnly = (mEditMode = False)
-        textboxNombre.ReadOnly = (mEditMode = False)
+        textboxApellido.ReadOnly = Not mEditMode
+        textboxNombre.ReadOnly = Not mEditMode
 
         ' General
         checkboxTipoPersonalColegio.Enabled = mEditMode
@@ -81,36 +84,36 @@
         checkboxTipoProveedor.Enabled = mEditMode
         checkboxTipoOtro.Enabled = mEditMode
         comboboxDocumentoTipo.Enabled = mEditMode
-        textboxDocumentoNumero.ReadOnly = (mEditMode = False)
+        textboxDocumentoNumero.ReadOnly = Not mEditMode
         checkboxDocumentoNumeroVerificado.Enabled = mEditMode
-        maskedtextboxDocumentoNumero.ReadOnly = (mEditMode = False)
+        maskedtextboxDocumentoNumero.ReadOnly = Not mEditMode
         comboboxFacturaDocumentoTipo.Enabled = mEditMode
-        textboxFacturaDocumentoNumero.ReadOnly = (mEditMode = False)
+        textboxFacturaDocumentoNumero.ReadOnly = Not mEditMode
         checkboxFacturaDocumentoNumeroVerificado.Enabled = mEditMode
-        maskedtextboxFacturaDocumentoNumero.ReadOnly = (mEditMode = False)
+        maskedtextboxFacturaDocumentoNumero.ReadOnly = Not mEditMode
         comboboxGenero.Enabled = mEditMode
         datetimepickerFechaNacimiento.Enabled = mEditMode
         comboboxCategoriaIVA.Enabled = mEditMode
 
         ' Contacto
-        textboxTelefono1.ReadOnly = (mEditMode = False)
-        textboxTelefono2.ReadOnly = (mEditMode = False)
-        textboxTelefono3.ReadOnly = (mEditMode = False)
-        textboxEmail1.ReadOnly = (mEditMode = False)
+        textboxTelefono1.ReadOnly = Not mEditMode
+        textboxTelefono2.ReadOnly = Not mEditMode
+        textboxTelefono3.ReadOnly = Not mEditMode
+        textboxEmail1.ReadOnly = Not mEditMode
         checkboxVerificarEmail1.Enabled = mEditMode
-        textboxEmail2.ReadOnly = (mEditMode = False)
+        textboxEmail2.ReadOnly = Not mEditMode
         checkboxVerificarEmail2.Enabled = mEditMode
         comboboxComprobanteEnviarEmail.Enabled = mEditMode
-        textboxDomicilioCalle1.ReadOnly = (mEditMode = False)
-        textboxDomicilioNumero.ReadOnly = (mEditMode = False)
-        textboxDomicilioPiso.ReadOnly = (mEditMode = False)
-        textboxDomicilioDepartamento.ReadOnly = (mEditMode = False)
-        textboxDomicilioCalle2.ReadOnly = (mEditMode = False)
-        textboxDomicilioCalle3.ReadOnly = (mEditMode = False)
-        textboxDomicilioBarrio.ReadOnly = (mEditMode = False)
+        textboxDomicilioCalle1.ReadOnly = Not mEditMode
+        textboxDomicilioNumero.ReadOnly = Not mEditMode
+        textboxDomicilioPiso.ReadOnly = Not mEditMode
+        textboxDomicilioDepartamento.ReadOnly = Not mEditMode
+        textboxDomicilioCalle2.ReadOnly = Not mEditMode
+        textboxDomicilioCalle3.ReadOnly = Not mEditMode
+        textboxDomicilioBarrio.ReadOnly = Not mEditMode
         comboboxDomicilioProvincia.Enabled = mEditMode
         comboboxDomicilioLocalidad.Enabled = mEditMode
-        textboxDomicilioCodigoPostal.ReadOnly = (mEditMode = False)
+        textboxDomicilioCodigoPostal.ReadOnly = Not mEditMode
 
         ' Padres y Facturación
         buttonEntidadPadre.Enabled = mEditMode
@@ -125,18 +128,25 @@
         checkboxFacturaIndividual.Enabled = mEditMode
         datetimepickerExcluyeFacturaDesde.Enabled = mEditMode
         datetimepickerExcluyeFacturaHasta.Enabled = mEditMode
-        textboxFacturaLeyenda.ReadOnly = (mEditMode = False)
+        textboxFacturaLeyenda.ReadOnly = Not mEditMode
 
         ' Débito Automático
         radiobuttonDebitoAutomatico_Tipo_Ninguno.Enabled = mEditMode
         radiobuttonDebitoAutomatico_Tipo_DebitoDirecto.Enabled = mEditMode
         radiobuttonDebitoAutomatico_Tipo_TarjetaCredito.Enabled = mEditMode
-        maskedtextboxDebitoAutomaticoCBU.ReadOnly = (mEditMode = False)
+        maskedtextboxDebitoAutomaticoCBU.ReadOnly = Not mEditMode
+
+        ' Empleados
+        ComboBoxEntidadGrupo.Enabled = mEditMode
+        IntegerTextBoxAdicionalAntiguedad.ReadOnly = Not mEditMode
+        IntegerTextBoxAdicional1.ReadOnly = Not mEditMode
+        IntegerTextBoxAdicional2.ReadOnly = Not mEditMode
+        ToolStripEmpleadosAntiguedad.Enabled = mEditMode
 
         ' Notas y Auditoría
-        textboxNotas.ReadOnly = (mEditMode = False)
+        textboxNotas.ReadOnly = Not mEditMode
         checkboxEsActivo.Enabled = mEditMode
-        textboxIDOtroSistema.ReadOnly = (mEditMode = False)
+        textboxIDOtroSistema.ReadOnly = Not mEditMode
     End Sub
 
     Friend Sub InitializeFormAndControls()
@@ -151,6 +161,11 @@
         pFillAndRefreshLists.Provincia(comboboxDomicilioProvincia, True)
         pFillAndRefreshLists.Entidad_EmitirFacturaA(comboboxEmitirFacturaA, True)
         pFillAndRefreshLists.Descuento(comboboxDescuento, True)
+        Comunes.Listas.Entidades.Grupos(ComboBoxEntidadGrupo, mdbContext, False, True)
+
+        _TabControlExtension = New CardonerSistemas.Controls.TabControlExtension(tabcontrolMain)
+        _TabControlExtension.HidePage(tabcontrolMain, tabpageRelaciones)
+        _TabControlExtension.PageVisible(tabcontrolMain, tabpageEmpleados, Permisos.VerificarPermiso(Permisos.ENTIDAD_EMPLEADO, False))
     End Sub
 
     Friend Sub SetAppearance()
@@ -319,6 +334,20 @@
             ' Datos de la pestaña Relaciones Padres
             'RefreshData_Relaciones()
 
+            ' Datos de la pestaña Empleados
+            If .EntidadPersonalColegio Is Nothing Then
+                ComboBoxEntidadGrupo.SelectedIndex = 0
+                IntegerTextBoxAdicionalAntiguedad.BindableValue = Nothing
+                IntegerTextBoxAdicional1.BindableValue = Nothing
+                IntegerTextBoxAdicional2.BindableValue = Nothing
+            Else
+                CardonerSistemas.Controls.ComboBox.SetSelectedValue(ComboBoxEntidadGrupo, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirst, .EntidadPersonalColegio.IdEntidadGrupo, 0)
+                CS_ValueTranslation_Syncfusion.FromValueToControl(.EntidadPersonalColegio.AdicionalAntiguedad, IntegerTextBoxAdicionalAntiguedad)
+                CS_ValueTranslation_Syncfusion.FromValueToControl(.EntidadPersonalColegio.Adicional1, IntegerTextBoxAdicional1)
+                CS_ValueTranslation_Syncfusion.FromValueToControl(.EntidadPersonalColegio.Adicional2, IntegerTextBoxAdicional2)
+            End If
+            RefreshData_EmpleadosAntiguedad()
+
             ' Datos de la pestaña Notas y Auditoría
             textboxNotas.Text = CS_ValueTranslation.FromObjectStringToControlTextBox(.Notas)
             checkboxEsActivo.CheckState = CS_ValueTranslation.FromObjectBooleanToControlCheckBox(.EsActivo)
@@ -432,6 +461,17 @@
                 .DebitoAutomaticoDirectoCBU = Nothing
             End If
 
+            ' Datos de la pestaña Empleados
+            If ComboBoxEntidadGrupo.SelectedIndex > 0 OrElse IntegerTextBoxAdicionalAntiguedad.IntegerValue > 0 OrElse IntegerTextBoxAdicional1.IntegerValue > 0 OrElse IntegerTextBoxAdicional2.IntegerValue > 0 Then
+                If .EntidadPersonalColegio Is Nothing Then
+                    .EntidadPersonalColegio = New EntidadPersonalColegio
+                End If
+                .EntidadPersonalColegio.IdEntidadGrupo = CS_ValueTranslation.FromControlComboBoxToObjectByte(ComboBoxEntidadGrupo.SelectedValue, 0).Value
+                .EntidadPersonalColegio.AdicionalAntiguedad = CS_ValueTranslation_Syncfusion.FromControlToDecimal(IntegerTextBoxAdicionalAntiguedad)
+                .EntidadPersonalColegio.Adicional1 = CS_ValueTranslation_Syncfusion.FromControlToDecimal(IntegerTextBoxAdicional1)
+                .EntidadPersonalColegio.Adicional2 = CS_ValueTranslation_Syncfusion.FromControlToDecimal(IntegerTextBoxAdicional2)
+            End If
+
             ' Datos de la pestaña Notas y Aditoría
             .Notas = CS_ValueTranslation.FromControlTextBoxToObjectString(textboxNotas.Text)
             .EsActivo = CS_ValueTranslation.FromControlCheckBoxToObjectBoolean(checkboxEsActivo.CheckState)
@@ -484,9 +524,115 @@
         End Using
     End Sub
 
+    Friend Sub RefreshData_EmpleadosAntiguedad(Optional idDetalle As Byte = 0)
+        DataGridViewEmpleadosAntiguedad.AutoGenerateColumns = False
+        If mEntidadActual.EntidadPersonalColegio IsNot Nothing AndAlso mEntidadActual.EntidadPersonalColegio.EntidadPersonalColegioAntiguedadDetalle IsNot Nothing Then
+            DataGridViewEmpleadosAntiguedad.DataSource = mEntidadActual.EntidadPersonalColegio.EntidadPersonalColegioAntiguedadDetalle.OrderBy(Function(epcad) epcad.FechaDesde).ThenBy(Function(epcad) epcad.FechaHasta).ThenBy(Function(epcad) epcad.Institucion).ToList()
+        Else
+            DataGridViewEmpleadosAntiguedad.DataSource = Nothing
+        End If
+    End Sub
+
 #End Region
 
-#Region "Controls behavior"
+#Region "Toolbar events"
+
+    Private Sub Editar(sender As Object, e As EventArgs) Handles buttonEditar.Click
+        If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDITAR) Then
+            mEditMode = True
+            ChangeMode()
+        End If
+    End Sub
+
+    Private Sub Cerrar(sender As Object, e As EventArgs) Handles buttonCerrar.Click
+        Me.Close()
+    End Sub
+
+    Private Sub Guardar(sender As Object, e As EventArgs) Handles buttonGuardar.Click
+        If Not VerificarDatos() Then
+            Return
+        End If
+
+        ' Generar el ID de la Entidad nueva
+        If mEntidadActual.IDEntidad = 0 Then
+            Using dbcMaxID As New CSColegioContext(True)
+                If dbcMaxID.Entidad.Count = 0 Then
+                    mEntidadActual.IDEntidad = 1
+                Else
+                    mEntidadActual.IDEntidad = dbcMaxID.Entidad.Max(Function(ent) ent.IDEntidad) + 1
+                End If
+            End Using
+            mEntidadActual.FechaHoraCreacion = Now
+        End If
+
+        ' Paso los datos desde los controles al Objecto de EF
+        SetDataFromControlsToObject()
+
+        If mdbContext.ChangeTracker.HasChanges Then
+
+            Me.Cursor = Cursors.WaitCursor
+
+            mEntidadActual.IDUsuarioModificacion = pUsuario.IDUsuario
+            mEntidadActual.FechaHoraModificacion = Now
+
+            Try
+                ' Guardo los cambios
+                mdbContext.SaveChanges()
+
+                ' Refresco la lista de Entidades para mostrar los cambios
+                If CardonerSistemas.Forms.MdiChildIsLoaded(CType(pFormMDIMain, Form), "formEntidades") Then
+                    Dim formEntidades As formEntidades = CType(CardonerSistemas.Forms.MdiChildGetInstance(CType(pFormMDIMain, Form), "formEntidades"), formEntidades)
+                    formEntidades.RefreshData(mEntidadActual.IDEntidad)
+                    formEntidades = Nothing
+                End If
+
+            Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
+                Me.Cursor = Cursors.Default
+                Select Case CardonerSistemas.Database.EntityFramework.TryDecodeDbUpdateException(dbuex)
+                    Case CardonerSistemas.Database.EntityFramework.Errors.DuplicatedEntity
+                        If dbuex.InnerException IsNot Nothing AndAlso dbuex.InnerException.InnerException IsNot Nothing Then
+                            If dbuex.InnerException.InnerException.Message.Contains("UX_Entidad_ApellidoNombre") Then
+                                MsgBox("No se pueden guardar los cambios porque ya existe una Entidad con el mismo Apellido y Nombre.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                                Return
+                            ElseIf dbuex.InnerException.InnerException.Message.Contains("UX_Entidad_Documento") Then
+                                MsgBox("No se pueden guardar los cambios porque ya existe una Entidad con el mismo Tipo y Número de Documento.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                                Return
+                            ElseIf dbuex.InnerException.InnerException.Message.Contains("UX_Entidad_FacturaDocumento") Then
+                                MsgBox("No se pueden guardar los cambios porque ya existe una Entidad con el mismo Tipo y Número de Documento para Facturar.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                                Return
+                            End If
+                        End If
+                        MsgBox("No se pueden guardar los cambios porque ya existe una Entidad con algunos valores iguales.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
+                    Case CardonerSistemas.Database.EntityFramework.Errors.Unknown, CardonerSistemas.Database.EntityFramework.Errors.NoDBError
+                        CardonerSistemas.ErrorHandler.ProcessError(dbuex.GetBaseException, My.Resources.STRING_ERROR_SAVING_CHANGES)
+                    Case Else
+                        CardonerSistemas.ErrorHandler.ProcessError(dbuex.GetBaseException, My.Resources.STRING_ERROR_SAVING_CHANGES)
+                End Select
+                Exit Sub
+
+            Catch ex As Exception
+                Me.Cursor = Cursors.Default
+                CardonerSistemas.ErrorHandler.ProcessError(ex, My.Resources.STRING_ERROR_SAVING_CHANGES)
+                Exit Sub
+            End Try
+        End If
+
+        Me.Close()
+    End Sub
+
+    Private Sub Cancelar(sender As Object, e As EventArgs) Handles buttonCancelar.Click
+        If mdbContext.ChangeTracker.HasChanges Then
+            If MsgBox("Ha realizado cambios en los datos y seleccionó cancelar, los cambios se perderán." & vbCr & vbCr & "¿Confirma la pérdida de los cambios?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
+                Me.Close()
+            End If
+        Else
+            Me.Close()
+        End If
+    End Sub
+
+#End Region
+
+#Region "Controls events"
 
     Private Sub FormKeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
         Select Case e.KeyChar
@@ -637,99 +783,69 @@
 
 #End Region
 
-#Region "Main Toolbar"
+#Region "Empleados"
 
-    Private Sub Editar() Handles buttonEditar.Click
-        If Permisos.VerificarPermiso(Permisos.ENTIDAD_EDITAR) Then
-            mEditMode = True
-            ChangeMode()
+    Private Sub EmpleadosAntiguedadAgregar(sender As Object, e As EventArgs) Handles ToolStripButtonEmpleadosAntiguedadAgregar.Click
+        If Not Permisos.VerificarPermiso(Permisos.ENTIDAD_EMPLEADO_ANTIGUEDAD_AGREGAR) Then
+            Return
         End If
+        If mEntidadActual.EntidadPersonalColegio Is Nothing Then
+            mEntidadActual.EntidadPersonalColegio = New EntidadPersonalColegio()
+        End If
+        Using form As New FormEntidadPersonalColegioAntiguedadDetalle(mEditMode, True, mEntidadActual, 0)
+            form.ShowDialog(Me)
+        End Using
     End Sub
 
-    Private Sub Cerrar() Handles buttonCerrar.Click
-        Me.Close()
+    Private Sub EmpleadosAntiguedadEditar(sender As Object, e As EventArgs) Handles ToolStripButtonEmpleadosAntiguedadEditar.Click
+        If DataGridViewEmpleadosAntiguedad.CurrentRow Is Nothing Then
+            MessageBox.Show("No hay ninguna antigüedad para editar.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
+        If Not Permisos.VerificarPermiso(Permisos.ENTIDAD_EMPLEADO_ANTIGUEDAD_EDITAR) Then
+            Return
+        End If
+        If mEntidadActual.EntidadPersonalColegio Is Nothing Then
+            mEntidadActual.EntidadPersonalColegio = New EntidadPersonalColegio()
+        End If
+        Using form As New FormEntidadPersonalColegioAntiguedadDetalle(mEditMode, True, mEntidadActual, CType(DataGridViewEmpleadosAntiguedad.CurrentRow.DataBoundItem, EntidadPersonalColegioAntiguedadDetalle).IdDetalle)
+            form.ShowDialog(Me)
+        End Using
     End Sub
 
-    Private Sub Guardar() Handles buttonGuardar.Click
-        If Not VerificarDatos() Then
-            Exit Sub
+    Private Sub EmpleadosAntiguedadEliminar(sender As Object, e As EventArgs) Handles ToolStripButtonEmpleadosAntiguedadEliminar.Click
+        If DataGridViewEmpleadosAntiguedad.CurrentRow Is Nothing Then
+            MessageBox.Show("No hay ninguna antigüedad para eliminar.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
+        If Not Permisos.VerificarPermiso(Permisos.ENTIDAD_EMPLEADO_ANTIGUEDAD_ELIMINAR) Then
+            Return
         End If
 
-        ' Generar el ID de la Entidad nueva
-        If mEntidadActual.IDEntidad = 0 Then
-            Using dbcMaxID As New CSColegioContext(True)
-                If dbcMaxID.Entidad.Count = 0 Then
-                    mEntidadActual.IDEntidad = 1
-                Else
-                    mEntidadActual.IDEntidad = dbcMaxID.Entidad.Max(Function(ent) ent.IDEntidad) + 1
-                End If
-            End Using
-            mEntidadActual.FechaHoraCreacion = Now
+        Dim row As EntidadPersonalColegioAntiguedadDetalle = CType(DataGridViewEmpleadosAntiguedad.CurrentRow.DataBoundItem, EntidadPersonalColegioAntiguedadDetalle)
+        Dim mensaje As String = String.Format("Se eliminará el detalle de la antigüedad de la entidad.{0}{0}Institución: {1}{0}Fecha desde: {2}{0}Fecha hasta: {3}{0}{0}¿Confirma la eliminación definitiva?", vbCrLf, row.Institucion, row.FechaDesde.ToShortDateString(), If(row.FechaHasta.HasValue, row.FechaHasta.Value.ToShortDateString(), String.Empty))
+        If MessageBox.Show(mensaje, My.Application.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) = MsgBoxResult.No Then
+            Return
         End If
 
-        ' Paso los datos desde los controles al Objecto de EF
-        SetDataFromControlsToObject()
-
-        If mdbContext.ChangeTracker.HasChanges Then
-
-            Me.Cursor = Cursors.WaitCursor
-
-            mEntidadActual.IDUsuarioModificacion = pUsuario.IDUsuario
-            mEntidadActual.FechaHoraModificacion = Now
-
-            Try
-                ' Guardo los cambios
-                mdbContext.SaveChanges()
-
-                ' Refresco la lista de Entidades para mostrar los cambios
-                If CardonerSistemas.Forms.MdiChildIsLoaded(CType(pFormMDIMain, Form), "formEntidades") Then
-                    Dim formEntidades As formEntidades = CType(CardonerSistemas.Forms.MdiChildGetInstance(CType(pFormMDIMain, Form), "formEntidades"), formEntidades)
-                    formEntidades.RefreshData(mEntidadActual.IDEntidad)
-                    formEntidades = Nothing
-                End If
-
-            Catch dbuex As System.Data.Entity.Infrastructure.DbUpdateException
-                Me.Cursor = Cursors.Default
-                Select Case CardonerSistemas.Database.EntityFramework.TryDecodeDbUpdateException(dbuex)
-                    Case CardonerSistemas.Database.EntityFramework.Errors.DuplicatedEntity
-                        If dbuex.InnerException IsNot Nothing AndAlso dbuex.InnerException.InnerException IsNot Nothing Then
-                            If dbuex.InnerException.InnerException.Message.Contains("UX_Entidad_ApellidoNombre") Then
-                                MsgBox("No se pueden guardar los cambios porque ya existe una Entidad con el mismo Apellido y Nombre.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                                Return
-                            ElseIf dbuex.InnerException.InnerException.Message.Contains("UX_Entidad_Documento") Then
-                                MsgBox("No se pueden guardar los cambios porque ya existe una Entidad con el mismo Tipo y Número de Documento.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                                Return
-                            ElseIf dbuex.InnerException.InnerException.Message.Contains("UX_Entidad_FacturaDocumento") Then
-                                MsgBox("No se pueden guardar los cambios porque ya existe una Entidad con el mismo Tipo y Número de Documento para Facturar.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                                Return
-                            End If
-                        End If
-                        MsgBox("No se pueden guardar los cambios porque ya existe una Entidad con algunos valores iguales.", MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                    Case CardonerSistemas.Database.EntityFramework.Errors.Unknown, CardonerSistemas.Database.EntityFramework.Errors.NoDBError
-                        CardonerSistemas.ErrorHandler.ProcessError(dbuex.GetBaseException, My.Resources.STRING_ERROR_SAVING_CHANGES)
-                    Case Else
-                        CardonerSistemas.ErrorHandler.ProcessError(dbuex.GetBaseException, My.Resources.STRING_ERROR_SAVING_CHANGES)
-                End Select
-                Exit Sub
-
-            Catch ex As Exception
-                Me.Cursor = Cursors.Default
-                CardonerSistemas.ErrorHandler.ProcessError(ex, My.Resources.STRING_ERROR_SAVING_CHANGES)
-                Exit Sub
-            End Try
+        Dim entidadPersonalColegioAntiguedadDetalle = mEntidadActual.EntidadPersonalColegio.EntidadPersonalColegioAntiguedadDetalle.FirstOrDefault(Function(epcad) epcad.IdDetalle = row.IdDetalle)
+        If entidadPersonalColegioAntiguedadDetalle IsNot Nothing Then
+            mEntidadActual.EntidadPersonalColegio.EntidadPersonalColegioAntiguedadDetalle.Remove(entidadPersonalColegioAntiguedadDetalle)
         End If
-
-        Me.Close()
+        RefreshData_EmpleadosAntiguedad()
     End Sub
 
-    Private Sub Cancelar_Click() Handles buttonCancelar.Click
-        If mdbContext.ChangeTracker.HasChanges Then
-            If MsgBox("Ha realizado cambios en los datos y seleccionó cancelar, los cambios se perderán." & vbCr & vbCr & "¿Confirma la pérdida de los cambios?", CType(MsgBoxStyle.Exclamation + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.Yes Then
-                Me.Close()
-            End If
-        Else
-            Me.Close()
+    Private Sub EmpleadosAntiguedadVer(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridViewEmpleadosAntiguedad.CellContentDoubleClick
+        If DataGridViewEmpleadosAntiguedad.CurrentRow Is Nothing Then
+            MessageBox.Show("No hay ninguna antigüedad para ver.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
         End If
+        If mEntidadActual.EntidadPersonalColegio Is Nothing Then
+            mEntidadActual.EntidadPersonalColegio = New EntidadPersonalColegio()
+        End If
+        Using form As New FormEntidadPersonalColegioAntiguedadDetalle(mEditMode, False, mEntidadActual, CType(DataGridViewEmpleadosAntiguedad.CurrentRow.DataBoundItem, EntidadPersonalColegioAntiguedadDetalle).IdDetalle)
+            form.ShowDialog(Me)
+        End Using
     End Sub
 
 #End Region
@@ -752,7 +868,7 @@
         End If
     End Sub
 
-    Private Sub ComprobanteVer() Handles datagridviewComprobantes.DoubleClick
+    Private Sub ComprobanteVer(sender As Object, e As EventArgs) Handles datagridviewComprobantes.DoubleClick
         If datagridviewComprobantes.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Comprobante para ver.", vbInformation, My.Application.Info.Title)
         Else
@@ -760,7 +876,7 @@
 
             datagridviewComprobantes.Enabled = False
 
-            FormComprobante.LoadAndShow(False, Me, CType(datagridviewComprobantes.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).IDComprobante)
+            formComprobante.LoadAndShow(False, Me, CType(datagridviewComprobantes.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).IDComprobante)
 
             datagridviewComprobantes.Enabled = True
 

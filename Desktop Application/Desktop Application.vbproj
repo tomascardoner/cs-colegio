@@ -225,6 +225,9 @@
     <Compile Include="..\..\framework-vbnet\Controls.ComboBox.vb">
       <Link>Framework\Controls.ComboBox.vb</Link>
     </Compile>
+    <Compile Include="..\..\framework-vbnet\Controls.TabControlExtension.vb">
+      <Link>Framework\Controls.TabControlExtension.vb</Link>
+    </Compile>
     <Compile Include="..\..\framework-vbnet\CS_ValueTranslation_Syncfusion.vb">
       <Link>Framework\CS_ValueTranslation_Syncfusion.vb</Link>
     </Compile>
@@ -426,6 +429,12 @@
     <Compile Include="EntidadEntidad.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entidades\FormEntidadPersonalColegioAntiguedadDetalle.Designer.vb">
+      <DependentUpon>FormEntidadPersonalColegioAntiguedadDetalle.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Entidades\FormEntidadPersonalColegioAntiguedadDetalle.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EntidadExportacion.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>
@@ -504,10 +513,6 @@
     </Compile>
     <Compile Include="Sistema\Appearance.vb" />
     <Compile Include="Sistema\BancoSantander_ADDI.vb" />
-    <Compile Include="..\..\framework-vbnet\CS_Control_TabControl.vb">
-      <Link>Framework\CS_Control_TabControl.vb</Link>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="..\..\framework-vbnet\CS_Encryption_TripleDES.vb">
       <Link>Framework\CS_Encryption_TripleDES.vb</Link>
     </Compile>
@@ -934,6 +939,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Comprobantes\formComprobantesTransmitirPagosEduc.resx">
       <DependentUpon>formComprobantesTransmitirPagosEduc.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Entidades\FormEntidadPersonalColegioAntiguedadDetalle.resx">
+      <DependentUpon>FormEntidadPersonalColegioAntiguedadDetalle.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sistema\formAboutBox.resx">
       <DependentUpon>formAboutBox.vb</DependentUpon>

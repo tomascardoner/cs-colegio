@@ -570,7 +570,7 @@
           <Property Name="IdEntidad" Type="int" Nullable="false" />
           <Property Name="IdDetalle" Type="tinyint" Nullable="false" />
           <Property Name="Institucion" Type="varchar" MaxLength="50" />
-          <Property Name="FechaDesde" Type="date" />
+          <Property Name="FechaDesde" Type="date" Nullable="false" />
           <Property Name="FechaHasta" Type="date" />
         </EntityType>
         <EntityType Name="Feriado">
@@ -7105,7 +7105,7 @@
           <Property Name="IdEntidad" Type="Int32" Nullable="false" />
           <Property Name="IdDetalle" Type="Byte" Nullable="false" />
           <Property Name="Institucion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FechaDesde" Type="DateTime" Precision="0" />
+          <Property Name="FechaDesde" Type="DateTime" Precision="0" Nullable="false" />
           <Property Name="FechaHasta" Type="DateTime" Precision="0" />
           <NavigationProperty Name="EntidadPersonalColegio" Relationship="CSColegioModel.FK_EntidadPersonalColegioAntiguedadDetalle_EntidadPersonalColegio" FromRole="EntidadPersonalColegioAntiguedadDetalle" ToRole="EntidadPersonalColegio" />
         </EntityType>

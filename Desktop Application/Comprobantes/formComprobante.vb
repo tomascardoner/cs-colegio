@@ -40,6 +40,8 @@
         Public Property FechaVencimiento As Date
     End Class
 
+    Private _TabControlExtension As CardonerSistemas.Controls.TabControlExtension
+
 #End Region
 
 #Region "Form stuff"
@@ -125,6 +127,8 @@
 
         mIDArticuloMatricula = CS_Parameter_System.GetIntegerAsShort(Parametros.CUOTA_MATRICULA_ARTICULO_ID)
         mIDArticuloMensual = CS_Parameter_System.GetIntegerAsShort(Parametros.CUOTA_MENSUAL_ARTICULO_ID)
+
+        _TabControlExtension = New CardonerSistemas.Controls.TabControlExtension(tabcontrolMain)
 
         ' Cargo los ComboBox
         pFillAndRefreshLists.ComprobanteTipo(comboboxComprobanteTipo, Nothing, False, False)
@@ -1153,7 +1157,7 @@
         Catch ex As Exception
             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al leer los Medios de Pago.")
             Me.Cursor = Cursors.Default
-            Exit Sub
+            Return
         End Try
 
         For Each GridRowData_MedioPagoCurrent As GridRowData_MedioPago In listMediosPago
@@ -1168,7 +1172,7 @@
             For Each CurrentRowChecked As DataGridViewRow In datagridviewMediosPago.Rows
                 If CType(datagridviewMediosPago.CurrentRow.DataBoundItem, GridRowData_MedioPago).ComprobanteMedioPago.Indice = PositionIndice Then
                     datagridviewMediosPago.CurrentCell = CurrentRowChecked.Cells(0)
-                    Exit For
+                    Return
                 End If
             Next
         End If
@@ -1320,49 +1324,34 @@
             textboxPuntoVenta.TabStop = Not mUtilizaNumerador
             textboxNumero.TabStop = Not mUtilizaNumerador
 
+            ' Solapa de Detalle
             panelFechas.Visible = mComprobanteTipoActual.UtilizaDetalle
-            If mComprobanteTipoActual.UtilizaDetalle Then
-                tabcontrolMain.ShowTabPageByName(tabpageDetalle.Name)
-                panelDetalle_Subtotal.Visible = True
-            Else
-                tabcontrolMain.HideTabPageByName(tabpageDetalle.Name)
-                panelDetalle_Subtotal.Visible = False
-            End If
-            If mComprobanteTipoActual.UtilizaImpuesto Then
-                tabcontrolMain.ShowTabPageByName(tabpageImpuestos.Name)
-                panelImpuestos_Subtotal.Visible = True
-            Else
-                tabcontrolMain.HideTabPageByName(tabpageImpuestos.Name)
-                panelImpuestos_Subtotal.Visible = False
-            End If
-            If mComprobanteTipoActual.UtilizaAplicacion Then
-                tabcontrolMain.ShowTabPageByName(tabpageAplicaciones.Name)
-                panelAplicaciones_Subtotal.Visible = True
-            Else
-                tabcontrolMain.HideTabPageByName(tabpageAplicaciones.Name)
-                panelAplicaciones_Subtotal.Visible = False
-            End If
-            If mComprobanteTipoActual.UtilizaMedioPago Then
-                tabcontrolMain.ShowTabPageByName(tabpageMediosPago.Name)
-                panelMediosPago_Subtotal.Visible = True
-            Else
-                tabcontrolMain.HideTabPageByName(tabpageMediosPago.Name)
-                panelMediosPago_Subtotal.Visible = False
-            End If
+            _TabControlExtension.PageVisible(tabcontrolMain, tabpageDetalle, mComprobanteTipoActual.UtilizaDetalle)
+            panelDetalle_Subtotal.Visible = mComprobanteTipoActual.UtilizaDetalle
 
-            If mComprobanteTipoActual.UtilizaDetalle = False AndAlso mComprobanteTipoActual.UtilizaMedioPago = False Then
-                currencytextboxImporteTotal.ReadOnly = Not mEditMode
-            End If
+            ' Solapa de Impuestos
+            _TabControlExtension.PageVisible(tabcontrolMain, tabpageImpuestos, mComprobanteTipoActual.UtilizaImpuesto)
+            panelImpuestos_Subtotal.Visible = mComprobanteTipoActual.UtilizaImpuesto
+
+            ' Solapa de Aplicaciones
+            _TabControlExtension.PageVisible(tabcontrolMain, tabpageImpuestos, mComprobanteTipoActual.UtilizaAplicacion)
+            panelAplicaciones_Subtotal.Visible = mComprobanteTipoActual.UtilizaAplicacion
+
+            ' Solapa de Medios de pago
+            _TabControlExtension.PageVisible(tabcontrolMain, tabpageImpuestos, mComprobanteTipoActual.UtilizaMedioPago)
+            panelMediosPago_Subtotal.Visible = mComprobanteTipoActual.UtilizaMedioPago
+
+            currencytextboxImporteTotal.ReadOnly = (Not (mComprobanteTipoActual.UtilizaDetalle OrElse mComprobanteTipoActual.UtilizaMedioPago)) AndAlso Not mEditMode
 
         Else
             panelFechas.Visible = False
-            tabcontrolMain.HideTabPageByName(tabpageDetalle.Name)
+            _TabControlExtension.HidePage(tabcontrolMain, tabpageDetalle)
             panelDetalle_Subtotal.Visible = False
-            tabcontrolMain.HideTabPageByName(tabpageImpuestos.Name)
+            _TabControlExtension.HidePage(tabcontrolMain, tabpageImpuestos)
             panelImpuestos_Subtotal.Visible = False
-            tabcontrolMain.HideTabPageByName(tabpageAplicaciones.Name)
+            _TabControlExtension.HidePage(tabcontrolMain, tabpageAplicaciones)
             panelAplicaciones_Subtotal.Visible = False
-            tabcontrolMain.HideTabPageByName(tabpageMediosPago.Name)
+            _TabControlExtension.HidePage(tabcontrolMain, tabpageMediosPago)
             panelMediosPago_Subtotal.Visible = False
         End If
         tabcontrolMain.SelectTab(0)

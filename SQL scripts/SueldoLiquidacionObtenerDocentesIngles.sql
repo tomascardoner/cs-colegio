@@ -25,14 +25,17 @@ CREATE PROCEDURE SueldoLiquidacionObtenerDocentesIngles
 		-- SET NOCOUNT ON added to prevent extra result sets from interfering with SELECT statements.
 		SET NOCOUNT ON;
 
-		SELECT e.ApellidoNombre, sle.ModuloCantidad, sle.Antiguedad, ROUND(sle.ModuloCantidad * sl.ModuloImporte, 2) AS ModuloImporte,
-				ROUND(sle.ModuloCantidad * sl.BaseAntiguedadImporte * sle.Antiguedad, 2) AS AntiguedadImporte,
+		SELECT e.ApellidoNombre, dt.Nombre AS DocumentoTipo, e.DocumentoNumero,
+				sle.ModuloCantidad, sl.ModuloImporte AS ModuloPrecio, ROUND(sle.ModuloCantidad * sl.ModuloImporte, 2) AS ModuloImporte,
+				sle.Antiguedad, sl.BaseAntiguedadImporte, ROUND(sle.ModuloCantidad * sl.BaseAntiguedadImporte * sle.Antiguedad, 2) AS AntiguedadImporte,
+				ROUND(sle.ModuloCantidad * sl.ModuloImporte, 2) + ROUND(sle.ModuloCantidad * sl.BaseAntiguedadImporte * sle.Antiguedad, 2) AS SubtotalImporte,
 				ISNULL(sle.Recibo1ImporteNeto, 0) + ISNULL(sle.Recibo2ImporteNeto, 0) + ISNULL(sle.Recibo3ImporteNeto, 0) + ISNULL(sle.Recibo4ImporteNeto, 0) + ISNULL(sle.Recibo5ImporteNeto, 0) AS RecibosImporte,
 				ROUND(sle.ModuloCantidad * sl.ModuloImporte, 2) + ROUND(sle.ModuloCantidad * sl.BaseAntiguedadImporte * ISNULL(sle.Antiguedad, 0), 2) - ISNULL(sle.Recibo1ImporteNeto, 0) + ISNULL(sle.Recibo2ImporteNeto, 0) + ISNULL(sle.Recibo3ImporteNeto, 0) + ISNULL(sle.Recibo4ImporteNeto, 0) + ISNULL(sle.Recibo5ImporteNeto, 0) AS DiferenciaImporte
 			FROM SueldoLiquidacion AS sl
 				INNER JOIN SueldoLiquidacionEntidad AS sle ON sl.IdSueldoLiquidacion = sle.IdSueldoLiquidacion
 				INNER JOIN Entidad AS e ON sle.IdEntidad = e.IDEntidad
 				INNER JOIN EntidadPersonalColegio AS epc ON e.IdEntidad = epc.IDEntidad
+				LEFT JOIN DocumentoTipo AS dt ON e.IDDocumentoTipo = dt.IDDocumentoTipo
 			WHERE epc.IdEntidadGrupo = 2
 				AND sl.Anio = @Anio AND sl.Mes = @Mes
 				AND (@IdEntidad IS NULL OR sle.IdEntidad = @IdEntidad)

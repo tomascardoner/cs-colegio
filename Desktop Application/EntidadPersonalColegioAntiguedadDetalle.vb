@@ -14,7 +14,7 @@ Partial Public Class EntidadPersonalColegioAntiguedadDetalle
     Public Property IdEntidad As Integer
     Public Property IdDetalle As Byte
     Public Property Institucion As String
-    Public Property FechaDesde As Nullable(Of Date)
+    Public Property FechaDesde As Date
     Public Property FechaHasta As Nullable(Of Date)
 
     Public Overridable Property EntidadPersonalColegio As EntidadPersonalColegio

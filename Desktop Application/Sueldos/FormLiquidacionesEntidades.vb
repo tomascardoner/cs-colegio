@@ -64,7 +64,7 @@ Public Class FormLiquidacionesEntidades
 
 #End Region
 
-#Region "Mostrar y leer datos"
+#Region "Show interface data"
 
     Friend Sub ReadData(Optional idEntidad As Integer = 0, Optional restoreCurrentPosition As Boolean = False)
         If _SkipFilterData Then
@@ -179,42 +179,7 @@ Public Class FormLiquidacionesEntidades
 
 #End Region
 
-#Region "Controls behavior"
-
-    Private Sub CambioGrupo(sender As Object, e As EventArgs) Handles ToolStripComboBoxEntidadGrupo.SelectedIndexChanged
-        FilterData()
-    End Sub
-
-    Private Sub CambioColumnaOrden(sender As Object, e As DataGridViewCellMouseEventArgs) Handles DataGridViewMain.ColumnHeaderMouseClick
-        Dim ClickedColumn As DataGridViewColumn
-
-        ClickedColumn = CType(DataGridViewMain.Columns(e.ColumnIndex), DataGridViewColumn)
-
-        If {DataGridViewColumnEntidadGrupo.Name, DataGridViewColumnEntidad.Name, DataGridViewColumnModuloCantidad.Name, DataGridViewColumnAntiguedad.Name}.Contains(ClickedColumn.Name) Then
-            If ClickedColumn Is _OrderColumn Then
-                ' La columna clickeada es la misma por la que ya estaba ordenado, así que cambio la dirección del orden
-                If _OrderType = SortOrder.Ascending Then
-                    _OrderType = SortOrder.Descending
-                Else
-                    _OrderType = SortOrder.Ascending
-                End If
-            Else
-                ' La columna clickeada es diferencte a la que ya estaba ordenada.
-                If _OrderColumn IsNot Nothing Then
-                    _OrderColumn.HeaderCell.SortGlyphDirection = SortOrder.None
-                End If
-
-                _OrderColumn = ClickedColumn
-                _OrderType = SortOrder.Ascending
-            End If
-        End If
-
-        OrderData()
-    End Sub
-
-#End Region
-
-#Region "Main Toolbar"
+#Region "Toolbar events"
 
     Private Sub Agregar_Click(sender As Object, e As EventArgs) Handles ToolStripButtonAgregar.Click
         If Not Permisos.VerificarPermiso(Permisos.SUELDO_LIQUIDACION_ENTIDAD_AGREGAR) Then
@@ -422,13 +387,46 @@ Public Class FormLiquidacionesEntidades
                 End If
             End If
 
-            If reporteActual.Open(System.IO.Path.Combine(pGeneralConfig.ReportsPath, reporteActual.Archivo)) Then
-                If reporteActual.SetDatabaseConnection(pDatabase.Datasource, pDatabase.InitialCatalog, pDatabase.UserId, pDatabase.Password) Then
-                    Reportes.PreviewCrystalReport(reporteActual, reporteActual.Titulo & $" - Período: {MonthName(_SueldoLiquidacionMes)} de {_SueldoLiquidacionAnio}")
-                End If
+            If reporteActual.Open(System.IO.Path.Combine(pGeneralConfig.ReportsPath, reporteActual.Archivo)) AndAlso reporteActual.SetDatabaseConnection(pDatabase.Datasource, pDatabase.InitialCatalog, pDatabase.UserId, pDatabase.Password) Then
+                Reportes.PreviewCrystalReport(reporteActual, reporteActual.Titulo & $" - Período: {MonthName(_SueldoLiquidacionMes)} de {_SueldoLiquidacionAnio}")
             End If
         End Using
         Me.Cursor = Cursors.Default
+    End Sub
+
+#End Region
+
+#Region "Controls events"
+
+    Private Sub CambioGrupo(sender As Object, e As EventArgs) Handles ToolStripComboBoxEntidadGrupo.SelectedIndexChanged
+        FilterData()
+    End Sub
+
+    Private Sub CambioColumnaOrden(sender As Object, e As DataGridViewCellMouseEventArgs) Handles DataGridViewMain.ColumnHeaderMouseClick
+        Dim ClickedColumn As DataGridViewColumn
+
+        ClickedColumn = CType(DataGridViewMain.Columns(e.ColumnIndex), DataGridViewColumn)
+
+        If {DataGridViewColumnEntidadGrupo.Name, DataGridViewColumnEntidad.Name, DataGridViewColumnModuloCantidad.Name, DataGridViewColumnAntiguedad.Name}.Contains(ClickedColumn.Name) Then
+            If ClickedColumn Is _OrderColumn Then
+                ' La columna clickeada es la misma por la que ya estaba ordenado, así que cambio la dirección del orden
+                If _OrderType = SortOrder.Ascending Then
+                    _OrderType = SortOrder.Descending
+                Else
+                    _OrderType = SortOrder.Ascending
+                End If
+            Else
+                ' La columna clickeada es diferencte a la que ya estaba ordenada.
+                If _OrderColumn IsNot Nothing Then
+                    _OrderColumn.HeaderCell.SortGlyphDirection = SortOrder.None
+                End If
+
+                _OrderColumn = ClickedColumn
+                _OrderType = SortOrder.Ascending
+            End If
+        End If
+
+        OrderData()
     End Sub
 
 #End Region
