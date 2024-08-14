@@ -179,9 +179,9 @@ Partial Class FormLiquidacionEntidad
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonObtenerDatos.Location = New System.Drawing.Point(170, 135)
         Me.ButtonObtenerDatos.Name = "ButtonObtenerDatos"
-        Me.ButtonObtenerDatos.Size = New System.Drawing.Size(207, 54)
+        Me.ButtonObtenerDatos.Size = New System.Drawing.Size(207, 50)
         Me.ButtonObtenerDatos.TabIndex = 6
-        Me.ButtonObtenerDatos.Text = "Obtener todos los datos desde la liquidación anterior"
+        Me.ButtonObtenerDatos.Text = "Obtener datos"
         Me.ButtonObtenerDatos.UseVisualStyleBackColor = True
         '
         'TextBoxLiquidacion
@@ -201,7 +201,7 @@ Partial Class FormLiquidacionEntidad
         '
         Me.DoubleTextBoxModuloCantidad.AccessibilityEnabled = True
         Me.DoubleTextBoxModuloCantidad.AllowNull = True
-        Me.DoubleTextBoxModuloCantidad.BeforeTouchSize = New System.Drawing.Size(119, 22)
+        Me.DoubleTextBoxModuloCantidad.BeforeTouchSize = New System.Drawing.Size(126, 22)
         Me.DoubleTextBoxModuloCantidad.DoubleValue = 0R
         Me.DoubleTextBoxModuloCantidad.ForeColor = System.Drawing.SystemColors.WindowText
         Me.DoubleTextBoxModuloCantidad.Location = New System.Drawing.Point(100, 135)
@@ -218,7 +218,7 @@ Partial Class FormLiquidacionEntidad
         '
         Me.IntegerTextBoxAntiguedad.AccessibilityEnabled = True
         Me.IntegerTextBoxAntiguedad.AllowNull = True
-        Me.IntegerTextBoxAntiguedad.BeforeTouchSize = New System.Drawing.Size(119, 22)
+        Me.IntegerTextBoxAntiguedad.BeforeTouchSize = New System.Drawing.Size(126, 22)
         Me.IntegerTextBoxAntiguedad.ForeColor = System.Drawing.SystemColors.WindowText
         Me.IntegerTextBoxAntiguedad.IntegerValue = CType(0, Long)
         Me.IntegerTextBoxAntiguedad.Location = New System.Drawing.Point(100, 163)
@@ -343,6 +343,7 @@ Partial Class FormLiquidacionEntidad
         Me.CurrencyTextBoxRecibo1ImporteNeto.BeforeTouchSize = New System.Drawing.Size(126, 22)
         Me.CurrencyTextBoxRecibo1ImporteNeto.DecimalValue = New Decimal(New Integer() {0, 0, 0, 0})
         Me.CurrencyTextBoxRecibo1ImporteNeto.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CurrencyTextBoxRecibo1ImporteNeto.ForeColor = System.Drawing.SystemColors.WindowText
         Me.CurrencyTextBoxRecibo1ImporteNeto.Location = New System.Drawing.Point(233, 40)
         Me.CurrencyTextBoxRecibo1ImporteNeto.Margin = New System.Windows.Forms.Padding(4)
         Me.CurrencyTextBoxRecibo1ImporteNeto.MaxValue = New Decimal(New Integer() {276447231, 23283, 0, 131072})
@@ -390,6 +391,7 @@ Partial Class FormLiquidacionEntidad
         Me.CurrencyTextBoxRecibo2ImporteNeto.BeforeTouchSize = New System.Drawing.Size(126, 22)
         Me.CurrencyTextBoxRecibo2ImporteNeto.DecimalValue = New Decimal(New Integer() {0, 0, 0, 0})
         Me.CurrencyTextBoxRecibo2ImporteNeto.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CurrencyTextBoxRecibo2ImporteNeto.ForeColor = System.Drawing.SystemColors.WindowText
         Me.CurrencyTextBoxRecibo2ImporteNeto.Location = New System.Drawing.Point(233, 73)
         Me.CurrencyTextBoxRecibo2ImporteNeto.Margin = New System.Windows.Forms.Padding(4)
         Me.CurrencyTextBoxRecibo2ImporteNeto.MaxValue = New Decimal(New Integer() {276447231, 23283, 0, 131072})
@@ -437,6 +439,7 @@ Partial Class FormLiquidacionEntidad
         Me.CurrencyTextBoxRecibo3ImporteNeto.BeforeTouchSize = New System.Drawing.Size(126, 22)
         Me.CurrencyTextBoxRecibo3ImporteNeto.DecimalValue = New Decimal(New Integer() {0, 0, 0, 0})
         Me.CurrencyTextBoxRecibo3ImporteNeto.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CurrencyTextBoxRecibo3ImporteNeto.ForeColor = System.Drawing.SystemColors.WindowText
         Me.CurrencyTextBoxRecibo3ImporteNeto.Location = New System.Drawing.Point(233, 106)
         Me.CurrencyTextBoxRecibo3ImporteNeto.Margin = New System.Windows.Forms.Padding(4)
         Me.CurrencyTextBoxRecibo3ImporteNeto.MaxValue = New Decimal(New Integer() {276447231, 23283, 0, 131072})
@@ -484,6 +487,7 @@ Partial Class FormLiquidacionEntidad
         Me.CurrencyTextBoxRecibo4ImporteNeto.BeforeTouchSize = New System.Drawing.Size(126, 22)
         Me.CurrencyTextBoxRecibo4ImporteNeto.DecimalValue = New Decimal(New Integer() {0, 0, 0, 0})
         Me.CurrencyTextBoxRecibo4ImporteNeto.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CurrencyTextBoxRecibo4ImporteNeto.ForeColor = System.Drawing.SystemColors.WindowText
         Me.CurrencyTextBoxRecibo4ImporteNeto.Location = New System.Drawing.Point(233, 139)
         Me.CurrencyTextBoxRecibo4ImporteNeto.Margin = New System.Windows.Forms.Padding(4)
         Me.CurrencyTextBoxRecibo4ImporteNeto.MaxValue = New Decimal(New Integer() {276447231, 23283, 0, 131072})
@@ -531,6 +535,7 @@ Partial Class FormLiquidacionEntidad
         Me.CurrencyTextBoxRecibo5ImporteNeto.BeforeTouchSize = New System.Drawing.Size(126, 22)
         Me.CurrencyTextBoxRecibo5ImporteNeto.DecimalValue = New Decimal(New Integer() {0, 0, 0, 0})
         Me.CurrencyTextBoxRecibo5ImporteNeto.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CurrencyTextBoxRecibo5ImporteNeto.ForeColor = System.Drawing.SystemColors.WindowText
         Me.CurrencyTextBoxRecibo5ImporteNeto.Location = New System.Drawing.Point(233, 172)
         Me.CurrencyTextBoxRecibo5ImporteNeto.Margin = New System.Windows.Forms.Padding(4)
         Me.CurrencyTextBoxRecibo5ImporteNeto.MaxValue = New Decimal(New Integer() {276447231, 23283, 0, 131072})

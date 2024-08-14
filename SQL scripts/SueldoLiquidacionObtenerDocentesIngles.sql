@@ -37,6 +37,7 @@ CREATE PROCEDURE SueldoLiquidacionObtenerDocentesIngles
 				INNER JOIN EntidadPersonalColegio AS epc ON e.IdEntidad = epc.IDEntidad
 				LEFT JOIN DocumentoTipo AS dt ON e.IDDocumentoTipo = dt.IDDocumentoTipo
 			WHERE epc.IdEntidadGrupo = 2
+				AND e.EsActivo = 1
 				AND sl.Anio = @Anio AND sl.Mes = @Mes
 				AND (@IdEntidad IS NULL OR sle.IdEntidad = @IdEntidad)
 	END

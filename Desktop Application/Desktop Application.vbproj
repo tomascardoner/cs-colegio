@@ -435,6 +435,7 @@
     <Compile Include="Entidades\FormEntidadPersonalColegioAntiguedadDetalle.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Entidades\Funciones.vb" />
     <Compile Include="EntidadExportacion.vb">
       <DependentUpon>CSColegio.tt</DependentUpon>
     </Compile>

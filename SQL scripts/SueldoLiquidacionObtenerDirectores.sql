@@ -47,7 +47,9 @@ CREATE PROCEDURE SueldoLiquidacionObtenerDirectores
 					INNER JOIN SueldoLiquidacionEntidad AS sle ON sl.IdSueldoLiquidacion = sle.IdSueldoLiquidacion
 					INNER JOIN Entidad AS e ON sle.IdEntidad = e.IDEntidad
 					INNER JOIN EntidadPersonalColegio AS epc ON e.IdEntidad = epc.IDEntidad
-				WHERE epc.IdEntidadGrupo = 1 AND sl.Anio = @Anio AND sl.Mes = @Mes
+				WHERE epc.IdEntidadGrupo = 1
+					AND e.EsActivo = 1
+					AND sl.Anio = @Anio AND sl.Mes = @Mes
 
 		UPDATE @Resultado
 			SET AdicionalAntiguedadSubtotal = NetoReciboImporte + AdicionalAntiguedadImporte,

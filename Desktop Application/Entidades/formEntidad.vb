@@ -1,6 +1,4 @@
-﻿Imports System.Security.Cryptography
-
-Public Class formEntidad
+﻿Public Class formEntidad
 
 #Region "Declarations"
 

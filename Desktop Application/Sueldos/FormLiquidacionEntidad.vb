@@ -243,6 +243,8 @@
             End If
 
             SetDataToUserInterface(sueldoLiquidacionEntidad)
+            CS_ValueTranslation_Syncfusion.FromValueToControl(Entidades.ObtenerAntiguedadPorcentaje(_dbContext, idEntidad, New Date(_SueldoLiquidacionAnio, _SueldoLiquidacionMes, 1, 0, 0, 0, DateTimeKind.Unspecified)), IntegerTextBoxAntiguedad)
+
         Catch ex As Exception
             CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener los datos de la última liquidación de sueldos de la entidad.")
         End Try

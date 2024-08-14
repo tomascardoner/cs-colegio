@@ -181,7 +181,7 @@ Public Class FormLiquidacionesEntidades
 
 #Region "Toolbar events"
 
-    Private Sub Agregar_Click(sender As Object, e As EventArgs) Handles ToolStripButtonAgregar.Click
+    Private Sub Agregar(sender As Object, e As EventArgs) Handles ToolStripButtonAgregar.Click
         If Not Permisos.VerificarPermiso(Permisos.SUELDO_LIQUIDACION_ENTIDAD_AGREGAR) Then
             Return
         End If
@@ -192,7 +192,7 @@ Public Class FormLiquidacionesEntidades
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub Editar_Click(sender As Object, e As EventArgs) Handles ToolStripButtonEditar.Click
+    Private Sub Editar(sender As Object, e As EventArgs) Handles ToolStripButtonEditar.Click
         If DataGridViewMain.CurrentRow Is Nothing Then
             MessageBox.Show("No hay ninguna entidad para editar.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
@@ -207,7 +207,7 @@ Public Class FormLiquidacionesEntidades
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub Eliminar_Click(sender As Object, e As EventArgs) Handles ToolStripButtonEliminar.Click
+    Private Sub Eliminar(sender As Object, e As EventArgs) Handles ToolStripButtonEliminar.Click
         If DataGridViewMain.CurrentRow Is Nothing Then
             MessageBox.Show("No hay ninguna entidad para eliminar.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
@@ -255,7 +255,7 @@ Public Class FormLiquidacionesEntidades
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub ToolStripButtonCopiarDatos_Click(sender As Object, e As EventArgs) Handles ToolStripButtonCopiarDatos.Click
+    Private Sub CopiarDatos(sender As Object, e As EventArgs) Handles ToolStripButtonCopiarDatos.Click
         If Not Permisos.VerificarPermiso(Permisos.SUELDO_LIQUIDACION_ENTIDAD_AGREGAR) Then
             Return
         End If
@@ -283,7 +283,7 @@ Public Class FormLiquidacionesEntidades
                             .IdSueldoLiquidacion = _IdSueldoLiquidacion,
                             .IdEntidad = idEntidad,
                             .ModuloCantidad = sueldoLiquidacionEntidad.ModuloCantidad,
-                            .Antiguedad = sueldoLiquidacionEntidad.Antiguedad,
+                            .Antiguedad = Entidades.ObtenerAntiguedadPorcentaje(dbContext, idEntidad, New Date(_SueldoLiquidacionAnio, _SueldoLiquidacionMes, 1, 0, 0, 0, DateTimeKind.Unspecified)),
                             .Recibo1ImporteBasico = sueldoLiquidacionEntidad.Recibo1ImporteBasico,
                             .Recibo1ImporteNeto = sueldoLiquidacionEntidad.Recibo1ImporteNeto,
                             .Recibo2ImporteBasico = sueldoLiquidacionEntidad.Recibo2ImporteBasico,
