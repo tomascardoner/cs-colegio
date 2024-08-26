@@ -1334,11 +1334,11 @@
             panelImpuestos_Subtotal.Visible = mComprobanteTipoActual.UtilizaImpuesto
 
             ' Solapa de Aplicaciones
-            _TabControlExtension.PageVisible(tabcontrolMain, tabpageImpuestos, mComprobanteTipoActual.UtilizaAplicacion)
+            _TabControlExtension.PageVisible(tabcontrolMain, tabpageAplicaciones, mComprobanteTipoActual.UtilizaAplicacion)
             panelAplicaciones_Subtotal.Visible = mComprobanteTipoActual.UtilizaAplicacion
 
             ' Solapa de Medios de pago
-            _TabControlExtension.PageVisible(tabcontrolMain, tabpageImpuestos, mComprobanteTipoActual.UtilizaMedioPago)
+            _TabControlExtension.PageVisible(tabcontrolMain, tabpageMediosPago, mComprobanteTipoActual.UtilizaMedioPago)
             panelMediosPago_Subtotal.Visible = mComprobanteTipoActual.UtilizaMedioPago
 
             currencytextboxImporteTotal.ReadOnly = (Not (mComprobanteTipoActual.UtilizaDetalle OrElse mComprobanteTipoActual.UtilizaMedioPago)) AndAlso Not mEditMode
