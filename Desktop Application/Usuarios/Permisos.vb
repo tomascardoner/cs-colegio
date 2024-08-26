@@ -270,7 +270,10 @@
 
         ' Marco los items del Tree View que tienen asignado el permiso
         For Each permiso As UsuarioGrupoPermiso In listPermisos
-            Arbol.Nodes.Find(permiso.IDPermiso.Trim(), True).First.Checked = True
+            Dim treeNodes = Arbol.Nodes.Find(permiso.IDPermiso.Trim(), True)
+            If treeNodes.Any() Then
+                treeNodes.First.Checked = True
+            End If
         Next
 
         listPermisos = Nothing
