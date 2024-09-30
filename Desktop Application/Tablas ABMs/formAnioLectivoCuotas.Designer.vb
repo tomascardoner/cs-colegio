@@ -56,7 +56,7 @@ Partial Class formAnioLectivoCuotas
         'statuslabelMain
         '
         Me.statuslabelMain.Name = "statuslabelMain"
-        Me.statuslabelMain.Size = New System.Drawing.Size(1017, 17)
+        Me.statuslabelMain.Size = New System.Drawing.Size(1356, 16)
         Me.statuslabelMain.Spring = True
         Me.statuslabelMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -64,9 +64,10 @@ Partial Class formAnioLectivoCuotas
         '
         Me.statusstripMain.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statuslabelMain})
-        Me.statusstripMain.Location = New System.Drawing.Point(0, 389)
+        Me.statusstripMain.Location = New System.Drawing.Point(0, 484)
         Me.statusstripMain.Name = "statusstripMain"
-        Me.statusstripMain.Size = New System.Drawing.Size(1032, 22)
+        Me.statusstripMain.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
+        Me.statusstripMain.Size = New System.Drawing.Size(1376, 22)
         Me.statusstripMain.TabIndex = 4
         '
         'panelToolbars
@@ -78,8 +79,9 @@ Partial Class formAnioLectivoCuotas
         Me.panelToolbars.Controls.Add(Me.ToolStripMesInicio)
         Me.panelToolbars.Dock = System.Windows.Forms.DockStyle.Top
         Me.panelToolbars.Location = New System.Drawing.Point(0, 0)
+        Me.panelToolbars.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.panelToolbars.Name = "panelToolbars"
-        Me.panelToolbars.Size = New System.Drawing.Size(1032, 39)
+        Me.panelToolbars.Size = New System.Drawing.Size(1376, 39)
         Me.panelToolbars.TabIndex = 0
         '
         'toolstripButtons
@@ -90,7 +92,7 @@ Partial Class formAnioLectivoCuotas
         Me.toolstripButtons.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.buttonAgregar, Me.buttonEditar, Me.buttonEliminar})
         Me.toolstripButtons.Location = New System.Drawing.Point(0, 0)
         Me.toolstripButtons.Name = "toolstripButtons"
-        Me.toolstripButtons.Size = New System.Drawing.Size(247, 39)
+        Me.toolstripButtons.Size = New System.Drawing.Size(285, 39)
         Me.toolstripButtons.TabIndex = 1
         '
         'buttonAgregar
@@ -99,7 +101,7 @@ Partial Class formAnioLectivoCuotas
         Me.buttonAgregar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonAgregar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonAgregar.Name = "buttonAgregar"
-        Me.buttonAgregar.Size = New System.Drawing.Size(85, 36)
+        Me.buttonAgregar.Size = New System.Drawing.Size(99, 36)
         Me.buttonAgregar.Text = "Agregar"
         '
         'buttonEditar
@@ -108,7 +110,7 @@ Partial Class formAnioLectivoCuotas
         Me.buttonEditar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonEditar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonEditar.Name = "buttonEditar"
-        Me.buttonEditar.Size = New System.Drawing.Size(73, 36)
+        Me.buttonEditar.Size = New System.Drawing.Size(84, 36)
         Me.buttonEditar.Text = "Editar"
         '
         'buttonEliminar
@@ -117,7 +119,7 @@ Partial Class formAnioLectivoCuotas
         Me.buttonEliminar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.buttonEliminar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.buttonEliminar.Name = "buttonEliminar"
-        Me.buttonEliminar.Size = New System.Drawing.Size(86, 36)
+        Me.buttonEliminar.Size = New System.Drawing.Size(99, 36)
         Me.buttonEliminar.Text = "Eliminar"
         '
         'toolsptripAnioLectivo
@@ -126,22 +128,22 @@ Partial Class formAnioLectivoCuotas
         Me.toolsptripAnioLectivo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.toolsptripAnioLectivo.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolsptripAnioLectivo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelAnioLectivo, Me.comboboxAnioLectivo})
-        Me.toolsptripAnioLectivo.Location = New System.Drawing.Point(247, 0)
+        Me.toolsptripAnioLectivo.Location = New System.Drawing.Point(285, 0)
         Me.toolsptripAnioLectivo.Name = "toolsptripAnioLectivo"
-        Me.toolsptripAnioLectivo.Size = New System.Drawing.Size(153, 39)
+        Me.toolsptripAnioLectivo.Size = New System.Drawing.Size(194, 39)
         Me.toolsptripAnioLectivo.TabIndex = 14
         '
         'labelAnioLectivo
         '
         Me.labelAnioLectivo.Name = "labelAnioLectivo"
-        Me.labelAnioLectivo.Size = New System.Drawing.Size(73, 36)
+        Me.labelAnioLectivo.Size = New System.Drawing.Size(90, 36)
         Me.labelAnioLectivo.Text = "Año Lectivo:"
         '
         'comboboxAnioLectivo
         '
         Me.comboboxAnioLectivo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboboxAnioLectivo.Name = "comboboxAnioLectivo"
-        Me.comboboxAnioLectivo.Size = New System.Drawing.Size(75, 39)
+        Me.comboboxAnioLectivo.Size = New System.Drawing.Size(99, 39)
         '
         'ToolStripMesInicio
         '
@@ -149,22 +151,22 @@ Partial Class formAnioLectivoCuotas
         Me.ToolStripMesInicio.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStripMesInicio.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.ToolStripMesInicio.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabelMesInicio, Me.ToolStripComboBoxMesInicio})
-        Me.ToolStripMesInicio.Location = New System.Drawing.Point(400, 0)
+        Me.ToolStripMesInicio.Location = New System.Drawing.Point(479, 0)
         Me.ToolStripMesInicio.Name = "ToolStripMesInicio"
-        Me.ToolStripMesInicio.Size = New System.Drawing.Size(205, 39)
+        Me.ToolStripMesInicio.Size = New System.Drawing.Size(264, 39)
         Me.ToolStripMesInicio.TabIndex = 15
         '
         'ToolStripLabelMesInicio
         '
         Me.ToolStripLabelMesInicio.Name = "ToolStripLabelMesInicio"
-        Me.ToolStripLabelMesInicio.Size = New System.Drawing.Size(80, 36)
+        Me.ToolStripLabelMesInicio.Size = New System.Drawing.Size(100, 36)
         Me.ToolStripLabelMesInicio.Text = "Mes de inicio:"
         '
         'ToolStripComboBoxMesInicio
         '
         Me.ToolStripComboBoxMesInicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ToolStripComboBoxMesInicio.Name = "ToolStripComboBoxMesInicio"
-        Me.ToolStripComboBoxMesInicio.Size = New System.Drawing.Size(120, 39)
+        Me.ToolStripComboBoxMesInicio.Size = New System.Drawing.Size(159, 39)
         '
         'datagridviewMain
         '
@@ -181,13 +183,15 @@ Partial Class formAnioLectivoCuotas
         Me.datagridviewMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.datagridviewMain.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.datagridviewMain.Location = New System.Drawing.Point(0, 39)
+        Me.datagridviewMain.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.datagridviewMain.MultiSelect = False
         Me.datagridviewMain.Name = "datagridviewMain"
         Me.datagridviewMain.ReadOnly = True
         Me.datagridviewMain.RowHeadersVisible = False
+        Me.datagridviewMain.RowHeadersWidth = 51
         Me.datagridviewMain.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.datagridviewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.datagridviewMain.Size = New System.Drawing.Size(1032, 350)
+        Me.datagridviewMain.Size = New System.Drawing.Size(1376, 445)
         Me.datagridviewMain.TabIndex = 0
         '
         'columnMesInicio
@@ -196,10 +200,11 @@ Partial Class formAnioLectivoCuotas
         Me.columnMesInicio.DataPropertyName = "MesInicioNombre"
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         Me.columnMesInicio.DefaultCellStyle = DataGridViewCellStyle2
-        Me.columnMesInicio.HeaderText = "Mes Inicio"
+        Me.columnMesInicio.HeaderText = "Mes inicio"
+        Me.columnMesInicio.MinimumWidth = 6
         Me.columnMesInicio.Name = "columnMesInicio"
         Me.columnMesInicio.ReadOnly = True
-        Me.columnMesInicio.Width = 80
+        Me.columnMesInicio.Width = 96
         '
         'columnCuotaTipo
         '
@@ -207,46 +212,54 @@ Partial Class formAnioLectivoCuotas
         Me.columnCuotaTipo.DataPropertyName = "CuotaTipoNombre"
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         Me.columnCuotaTipo.DefaultCellStyle = DataGridViewCellStyle3
-        Me.columnCuotaTipo.HeaderText = "Tipo de Cuota"
+        Me.columnCuotaTipo.HeaderText = "Tipo de cuota"
+        Me.columnCuotaTipo.MinimumWidth = 6
         Me.columnCuotaTipo.Name = "columnCuotaTipo"
         Me.columnCuotaTipo.ReadOnly = True
-        Me.columnCuotaTipo.Width = 99
+        Me.columnCuotaTipo.Width = 119
         '
         'columnImporteMatricula
         '
         Me.columnImporteMatricula.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnImporteMatricula.DataPropertyName = "ImporteMatricula"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
         DataGridViewCellStyle4.Format = "C2"
         DataGridViewCellStyle4.NullValue = Nothing
         Me.columnImporteMatricula.DefaultCellStyle = DataGridViewCellStyle4
-        Me.columnImporteMatricula.HeaderText = "Importe Matrícula"
+        Me.columnImporteMatricula.HeaderText = "Importe matrícula"
+        Me.columnImporteMatricula.MinimumWidth = 6
         Me.columnImporteMatricula.Name = "columnImporteMatricula"
         Me.columnImporteMatricula.ReadOnly = True
-        Me.columnImporteMatricula.Width = 106
+        Me.columnImporteMatricula.Width = 127
         '
         'columnImporteCuota
         '
         Me.columnImporteCuota.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.columnImporteCuota.DataPropertyName = "ImporteCuota"
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
         DataGridViewCellStyle5.Format = "C2"
         DataGridViewCellStyle5.NullValue = Nothing
         Me.columnImporteCuota.DefaultCellStyle = DataGridViewCellStyle5
-        Me.columnImporteCuota.HeaderText = "Importe Cuota"
+        Me.columnImporteCuota.HeaderText = "Importe cuota"
+        Me.columnImporteCuota.MinimumWidth = 6
         Me.columnImporteCuota.Name = "columnImporteCuota"
         Me.columnImporteCuota.ReadOnly = True
-        Me.columnImporteCuota.Width = 90
+        Me.columnImporteCuota.Width = 108
         '
         'formAnioLectivoCuotas
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1032, 411)
+        Me.ClientSize = New System.Drawing.Size(1376, 506)
         Me.Controls.Add(Me.datagridviewMain)
         Me.Controls.Add(Me.panelToolbars)
         Me.Controls.Add(Me.statusstripMain)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "formAnioLectivoCuotas"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
-        Me.Text = "Cuotas de Años Lectivos"
+        Me.Text = "Cuotas de años lectivos"
         Me.statusstripMain.ResumeLayout(False)
         Me.statusstripMain.PerformLayout()
         Me.panelToolbars.ResumeLayout(False)

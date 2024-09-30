@@ -19,7 +19,8 @@
     Friend pLicensedTo As String
     Friend pUsuario As Usuario
 
-    <STAThread()> Friend Sub Main()
+    <STAThread()>
+    Friend Sub Main()
         Dim StartupTime As Date
 
         Cursor.Current = Cursors.AppStarting
@@ -33,7 +34,7 @@
         End If
 
         ' Register Syncfusion License
-        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzM0MzE1NkAzMjM2MmUzMDJlMzBKQjRoNEwyckdyRDVVanV5UUtCN2M1N3Fkd2ZlVnRvK2YzY21WSzBDRTFjPQ==")
+        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NDaF5cWWtCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXZdcHVTR2ldWEF+WUY=")
 
         ' Realizo la inicialización de la Aplicación
         If pAppearanceConfig.EnableVisualStyles Then
