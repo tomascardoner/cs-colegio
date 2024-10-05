@@ -123,12 +123,11 @@
         If Not _dbContext.ChangeTracker.HasChanges Then
             Return
         End If
-        If _IsNew Then
-            _SueldoLiquidacion.IdUsuarioCreacion = pUsuario.IDUsuario
-            _SueldoLiquidacion.FechaHoraCreacion = Now
+        If _IsNew AndAlso Not InitializeNewObjectData() Then
+            Return
         End If
         _SueldoLiquidacion.IdUsuarioModificacion = pUsuario.IDUsuario
-        _SueldoLiquidacion.FechaHoraModificacion = Now
+        _SueldoLiquidacion.FechaHoraModificacion = DateAndTime.Now
 
         Try
             Me.Cursor = Cursors.WaitCursor
@@ -164,6 +163,36 @@
     Private Sub Cancelar_Click() Handles buttonCancelar.Click
         Me.Close()
     End Sub
+
+#End Region
+
+#Region "New object initialization"
+
+    Private Function InitializeNewObjectData() As Boolean
+        If _SueldoLiquidacion Is Nothing Then
+            Return False
+        End If
+
+        Me.Cursor = Cursors.WaitCursor
+        _SueldoLiquidacion.IdUsuarioCreacion = pUsuario.IDUsuario
+        _SueldoLiquidacion.FechaHoraCreacion = Now
+
+        Try
+            Using dbContext As New CSColegioContext(True)
+                If dbContext.SueldoLiquidacion.Any() Then
+                    _SueldoLiquidacion.IdSueldoLiquidacion = CShort(dbContext.SueldoLiquidacion.Max(Function(sl) sl.IdSueldoLiquidacion) + 1)
+                Else
+                    _SueldoLiquidacion.IdSueldoLiquidacion = 1
+                End If
+            End Using
+            Me.Cursor = Cursors.Default
+            Return True
+        Catch ex As Exception
+            Me.Cursor = Cursors.Default
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener el nuevo id de la liquidación de sueldos.")
+            Return False
+        End Try
+    End Function
 
 #End Region
 
@@ -211,6 +240,7 @@
             Me.Cursor = Cursors.WaitCursor
             sueldoCalculoModulos = _dbContext.SueldoCalculoModulo.Where(Function(scm) scm.Anio = anio AndAlso scm.Mes = mes)
             If Not sueldoCalculoModulos.Any() Then
+                Me.Cursor = Cursors.Default
                 Return False
             End If
         Catch ex As Exception

@@ -157,7 +157,7 @@ Partial Class FormLiquidaciones
         Me.ToolStripFiltroMes.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabelMes, Me.ToolStripComboBoxMes})
         Me.ToolStripFiltroMes.Location = New System.Drawing.Point(514, 0)
         Me.ToolStripFiltroMes.Name = "ToolStripFiltroMes"
-        Me.ToolStripFiltroMes.Size = New System.Drawing.Size(244, 39)
+        Me.ToolStripFiltroMes.Size = New System.Drawing.Size(203, 39)
         Me.ToolStripFiltroMes.TabIndex = 15
         '
         'ToolStripLabelMes
@@ -213,6 +213,7 @@ Partial Class FormLiquidaciones
         'DataGridViewColumnImporteMatricula
         '
         Me.DataGridViewColumnImporteMatricula.DataPropertyName = "BaseAntiguedadImporte"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
         DataGridViewCellStyle3.Format = "C2"
         DataGridViewCellStyle3.NullValue = Nothing
         Me.DataGridViewColumnImporteMatricula.DefaultCellStyle = DataGridViewCellStyle3
@@ -225,6 +226,7 @@ Partial Class FormLiquidaciones
         'DataGridViewColumnImporteCuota
         '
         Me.DataGridViewColumnImporteCuota.DataPropertyName = "ModuloImporte"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
         DataGridViewCellStyle4.Format = "C2"
         DataGridViewCellStyle4.NullValue = Nothing
         Me.DataGridViewColumnImporteCuota.DefaultCellStyle = DataGridViewCellStyle4
@@ -272,9 +274,6 @@ Partial Class FormLiquidaciones
     Friend WithEvents ToolStripButtonEditar As System.Windows.Forms.ToolStripButton
     Friend WithEvents ToolStripButtonEliminar As System.Windows.Forms.ToolStripButton
     Friend WithEvents DataGridViewMain As DataGridView
-    Friend WithEvents DataGridViewColumnMes As DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewColumnImporteMatricula As DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewColumnImporteCuota As DataGridViewTextBoxColumn
     Friend WithEvents ToolStripButtonEntidades As ToolStripButton
     Friend WithEvents ToolStripFiltroAnio As ToolStrip
     Friend WithEvents ToolStripLabelAnio As ToolStripLabel
@@ -282,4 +281,7 @@ Partial Class FormLiquidaciones
     Friend WithEvents ToolStripFiltroMes As ToolStrip
     Friend WithEvents ToolStripLabelMes As ToolStripLabel
     Friend WithEvents ToolStripComboBoxMes As ToolStripComboBox
+    Friend WithEvents DataGridViewColumnMes As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewColumnImporteMatricula As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewColumnImporteCuota As DataGridViewTextBoxColumn
 End Class
