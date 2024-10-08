@@ -51,15 +51,16 @@
         buttonCerrar.Visible = Not mEditMode
 
         comboboxArticulo.Enabled = mEditMode
-        doubletextboxCantidad.ReadOnly = (mEditMode = False)
-        textboxUnidad.ReadOnly = (mEditMode = False)
+        doubletextboxCantidad.ReadOnly = Not mEditMode
+        textboxUnidad.ReadOnly = Not mEditMode
         comboboxAlumno.Enabled = mEditMode
         buttonAlumno.Enabled = mEditMode
         comboboxAnioLectivoCurso.Enabled = mEditMode
         comboboxCuotaMes.Enabled = mEditMode
-        currencytextboxPrecioUnitario.ReadOnly = (mEditMode = False)
-        percenttextboxPrecioUnitarioDescuentoPorcentaje.ReadOnly = (mEditMode = False)
-        currencytextboxPrecioUnitarioDescuentoImporte.ReadOnly = (mEditMode = False)
+        textboxDescripcion.ReadOnly = Not mEditMode
+        currencytextboxPrecioUnitario.ReadOnly = Not mEditMode
+        percenttextboxPrecioUnitarioDescuentoPorcentaje.ReadOnly = Not mEditMode
+        currencytextboxPrecioUnitarioDescuentoImporte.ReadOnly = Not mEditMode
     End Sub
 
     Friend Sub InitializeFormAndControls()

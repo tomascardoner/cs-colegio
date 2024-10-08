@@ -124,6 +124,7 @@
         buttonEntidadTercero.Enabled = mEditMode
         buttonEntidadTerceroBorrar.Enabled = mEditMode
         comboboxDescuento.Enabled = mEditMode
+        percenttextboxDescuentoOtroPorcentaje.ReadOnly = Not mEditMode
         checkboxExcluyeCalculoInteres.Enabled = mEditMode
         checkboxFacturaIndividual.Enabled = mEditMode
         datetimepickerExcluyeFacturaDesde.Enabled = mEditMode
