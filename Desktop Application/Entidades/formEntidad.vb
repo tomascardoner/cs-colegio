@@ -440,7 +440,7 @@
             End If
             .IDDescuento = CS_ValueTranslation.FromControlComboBoxToObjectByte(comboboxDescuento.SelectedValue, 0)
             If comboboxDescuento.SelectedIndex > -1 AndAlso CByte(comboboxDescuento.SelectedValue) = CardonerSistemas.Constants.FIELD_VALUE_OTHER_BYTE Then
-                .DescuentoOtroPorcentaje = CS_ValueTranslation_Syncfusion.FromControlToDecimal(percenttextboxDescuentoOtroPorcentaje)
+                .DescuentoOtroPorcentaje = CS_ValueTranslation_Syncfusion.FromControlPercentToDecimal(percenttextboxDescuentoOtroPorcentaje)
             Else
                 .DescuentoOtroPorcentaje = Nothing
             End If
