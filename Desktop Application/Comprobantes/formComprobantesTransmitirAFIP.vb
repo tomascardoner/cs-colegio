@@ -33,27 +33,21 @@
 #End Region
 
 #Region "Mostrar y leer datos"
+
     Private Sub RefreshData()
         Me.Cursor = Cursors.WaitCursor
 
         Try
 
-            Select Case comboboxCantidad.SelectedIndex
-                Case 0  ' Todos
-                    listComprobantes = (From c In dbContext.Comprobante
-                                        Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                        Where ct.EmisionElectronica AndAlso c.CAE Is Nothing AndAlso c.IDUsuarioAnulacion Is Nothing
-                                        Order By ct.Nombre, c.NumeroCompleto
-                                        Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal1}).ToList
+            listComprobantes = (From c In dbContext.Comprobante
+                                Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
+                                Where ct.EmisionElectronica AndAlso c.CAE Is Nothing AndAlso c.IDUsuarioAnulacion Is Nothing AndAlso c.IDConcepto.HasValue AndAlso ((c.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_SERVICIOS OrElse c.IDConcepto = Constantes.COMPROBANTE_CONCEPTO_PRODUCTOSYSERVICIOS) AndAlso c.FechaServicioDesde.HasValue AndAlso c.FechaServicioHasta.HasValue)
+                                Order By ct.Nombre, c.NumeroCompleto
+                                Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal1}).ToList
 
-                Case Is > 0 ' Cantidad de Comprobantes
-                    listComprobantes = (From c In dbContext.Comprobante
-                                        Join ct In dbContext.ComprobanteTipo On c.IDComprobanteTipo Equals ct.IDComprobanteTipo
-                                        Where ct.EmisionElectronica AndAlso c.CAE Is Nothing AndAlso c.IDUsuarioAnulacion Is Nothing
-                                        Order By ct.Nombre, c.PuntoVenta, c.Numero
-                                        Select New GridDataRow With {.IDComprobante = c.IDComprobante, .ComprobanteTipoNombre = ct.Nombre, .NumeroCompleto = c.NumeroCompleto, .ApellidoNombre = c.ApellidoNombre, .ImporteTotal = c.ImporteTotal1}).Take(CInt(comboboxCantidad.Text)).ToList
-
-            End Select
+            If comboboxCantidad.SelectedIndex > 0 Then
+                listComprobantes = listComprobantes.Take(CInt(comboboxCantidad.Text)).ToList
+            End If
 
             datagridviewComprobantes.AutoGenerateColumns = False
             datagridviewComprobantes.DataSource = listComprobantes
