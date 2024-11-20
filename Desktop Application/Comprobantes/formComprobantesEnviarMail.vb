@@ -166,14 +166,14 @@
                             RefreshData()
                             MostrarOcultarEstado(False)
                             Me.Cursor = Cursors.Default
-                            Exit Sub
+                            Return
                         End If
                         If Not ReporteActual.SetDatabaseConnection(pDatabase.Datasource, pDatabase.InitialCatalog, pDatabase.UserId, pDatabase.Password) Then
                             mailer.SmtpDisconnect()
                             RefreshData()
                             MostrarOcultarEstado(False)
                             Me.Cursor = Cursors.Default
-                            Exit Sub
+                            Return
                         End If
                     End If
                     ReporteActual.RecordSelectionFormula = "{Comprobante.IDComprobante} = " & ComprobanteActual.IDComprobante
@@ -193,13 +193,13 @@
                             RefreshData()
                             MostrarOcultarEstado(False)
                             Me.Cursor = Cursors.Default
-                            Exit Sub
+                            Return
                         Case -1
                             mailer.SmtpDisconnect()
                             RefreshData()
                             MostrarOcultarEstado(False)
                             Me.Cursor = Cursors.Default
-                            Exit Sub
+                            Return
                     End Select
                     MailCount += Result
 
