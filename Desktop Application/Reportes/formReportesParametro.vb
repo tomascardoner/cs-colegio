@@ -51,14 +51,14 @@
                 If comboboxValues.SelectedIndex = -1 Then
                     MsgBox("Debe seleccionar un Año.", MsgBoxStyle.Information, My.Application.Info.Title)
                     comboboxValues.Focus()
-                    Exit Sub
+                    Return
                 End If
                 mParametroActual.Valor = comboboxValues.Text
             Case Constantes.REPORTE_PARAMETRO_TIPO_MONTH
                 If comboboxValues.SelectedIndex = -1 Then
                     MsgBox("Debe seleccionar un Mes.", MsgBoxStyle.Information, My.Application.Info.Title)
                     comboboxValues.Focus()
-                    Exit Sub
+                    Return
                 End If
                 mParametroActual.Valor = comboboxValues.SelectedIndex + 1
         End Select

@@ -78,7 +78,7 @@
             listviewParametros.BeginUpdate()
             ReporteActual = CType(treeviewReportes.SelectedNode.Tag, Reporte)
 
-            labelParametrosTitulo.Text = String.Format("Parámetros del Reporte: ""{0} - {1}""", treeviewReportes.SelectedNode.Parent.Text, ReporteActual.Nombre)
+            labelParametrosTitulo.Text = $"Parámetros del Reporte: ""{treeviewReportes.SelectedNode.Parent.Text} - {ReporteActual.Nombre}"""
 
             For Each ParametroActual As ReporteParametro In ReporteActual.ReporteParametros.OrderBy(Function(rp) rp.Orden)
 
@@ -179,10 +179,8 @@
     Private Sub MostrarReporte(sender As Object, e As EventArgs) Handles buttonImprimir.Click, buttonPrevisualizar.Click
         Dim ReporteActual As Reporte
 
-        If sender.Equals(buttonImprimir) Then
-            If MsgBox("Se va a imprimir directamente el Reporte seleccionado." & vbCrLf & vbCrLf & "¿Desea continuar?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
-                Exit Sub
-            End If
+        If sender.Equals(buttonImprimir) AndAlso MsgBox("Se va a imprimir directamente el Reporte seleccionado." & vbCrLf & vbCrLf & "¿Desea continuar?", CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), My.Application.Info.Title) = MsgBoxResult.No Then
+            Return
         End If
 
         ReporteActual = CType(treeviewReportes.SelectedNode.Tag, Reporte)
@@ -190,19 +188,17 @@
             If ParametroActual.Requerido AndAlso ParametroActual.Valor Is Nothing Then
                 MsgBox(ParametroActual.RequeridoLeyenda, MsgBoxStyle.Information, My.Application.Info.Title)
                 listviewParametros.Focus()
-                Exit Sub
+                Return
             End If
         Next
 
         Me.Cursor = Cursors.WaitCursor
 
-        If ReporteActual.Open(pGeneralConfig.ReportsPath & "\" & ReporteActual.Archivo) Then
-            If ReporteActual.SetDatabaseConnection(pDatabase.Datasource, pDatabase.InitialCatalog, pDatabase.UserId, pDatabase.Password) Then
-                If sender.Equals(buttonImprimir) Then
-                    ReporteActual.ReportObject.PrintToPrinter(1, False, 1, 1000)
-                Else
-                    Reportes.PreviewCrystalReport(ReporteActual, ReporteActual.Titulo)
-                End If
+        If ReporteActual.Open($"{pGeneralConfig.ReportsPath}\{ReporteActual.Archivo}") AndAlso ReporteActual.SetDatabaseConnection(pDatabase.Datasource, pDatabase.InitialCatalog, pDatabase.UserId, pDatabase.Password) Then
+            If sender.Equals(buttonImprimir) Then
+                ReporteActual.ReportObject.PrintToPrinter(1, False, 1, 1000)
+            Else
+                Reportes.PreviewCrystalReport(ReporteActual, ReporteActual.Titulo)
             End If
         End If
 
