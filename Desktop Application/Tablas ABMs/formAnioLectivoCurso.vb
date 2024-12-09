@@ -58,7 +58,7 @@
         SetAppearance()
 
         ' Cargo los ComboBox
-        pFillAndRefreshLists.AnioLectivo(comboboxAnioLectivo, False, SortOrder.Ascending)
+        pFillAndRefreshLists.AnioLectivo(comboboxAnioLectivo, False, SortOrder.Descending)
         pFillAndRefreshLists.Curso(comboboxCurso, False, False, True)
     End Sub
 

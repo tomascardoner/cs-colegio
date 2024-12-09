@@ -35,7 +35,7 @@
 
         mSkipFilterData = True
 
-        pFillAndRefreshLists.AnioLectivo(comboboxAnioLectivo.ComboBox, False, SortOrder.Ascending)
+        pFillAndRefreshLists.AnioLectivo(comboboxAnioLectivo.ComboBox, False, SortOrder.Descending)
         comboboxAnioLectivo.SelectedIndex = comboboxAnioLectivo.FindStringExact(DateTime.Today.Year.ToString)
         pFillAndRefreshLists.Nivel(comboboxNivel.ComboBox, True, False)
 

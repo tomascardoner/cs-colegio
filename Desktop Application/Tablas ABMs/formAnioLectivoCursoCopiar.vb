@@ -27,8 +27,8 @@
         SetAppearance()
 
         ' Cargo los ComboBox
-        pFillAndRefreshLists.AnioLectivo(comboboxAnioLectivoOrigen, False, SortOrder.Ascending)
-        pFillAndRefreshLists.AnioLectivo(comboboxAnioLectivoDestino, False, SortOrder.Ascending)
+        pFillAndRefreshLists.AnioLectivo(comboboxAnioLectivoOrigen, False, SortOrder.Descending)
+        pFillAndRefreshLists.AnioLectivo(comboboxAnioLectivoDestino, False, SortOrder.Descending)
     End Sub
 
     Friend Sub SetAppearance()
