@@ -34,7 +34,7 @@
         End If
 
         ' Register Syncfusion License
-        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NDaF5cWWtCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXZdcHVTR2ldWEF+WUY=")
+        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1JEaF5cXmtCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWXhecnVTRWFcVkJ0VkpWYEk=")
 
         ' Realizo la inicialización de la Aplicación
         If pAppearanceConfig.EnableVisualStyles Then
@@ -49,7 +49,7 @@
 
         ' Obtengo el Connection String para las conexiones de ADO .NET
         pDatabase = New CardonerSistemas.Database.Ado.SqlServer()
-        If Not pDatabase.SetProperties(pDatabaseConfig.Datasource, pDatabaseConfig.Database, pDatabaseConfig.UserId, pDatabaseConfig.Password, pDatabaseConfig.ConnectTimeout, pDatabaseConfig.ConnectRetryCount, pDatabaseConfig.ConnectRetryInterval) Then
+        If Not pDatabase.SetProperties(pDatabaseConfig.Datasource, pDatabaseConfig.Database, String.Empty, False, pDatabaseConfig.UserId, pDatabaseConfig.Password, True, pDatabaseConfig.ConnectTimeout, pDatabaseConfig.ConnectRetryCount, pDatabaseConfig.ConnectRetryInterval) Then
             TerminateApplication()
             Return
         End If

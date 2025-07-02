@@ -1,5 +1,7 @@
 ﻿Imports System.Globalization
 Imports System.Net
+Imports System.Net.Http
+Imports System.Threading.Tasks
 
 Public Class FormCalculoModuloObtener
 
@@ -152,6 +154,80 @@ Public Class FormCalculoModuloObtener
         End Try
     End Function
 
+    Private Function ReemplazarValorEnForm(ByRef document As HtmlAgilityPack.HtmlDocument, formFieldId As String, value As Integer) As Boolean
+        ' Find the select element
+        Dim selectNode As HtmlAgilityPack.HtmlNode = document.DocumentNode.SelectSingleNode(formFieldId)
+        If selectNode Is Nothing Then
+            MessageBox.Show("No se encontró el campo en la página web.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        Else
+            ' Replace the value in the select element
+            Dim optionNode As HtmlAgilityPack.HtmlNode = selectNode.SelectSingleNode($"option[@value='{value}']")
+            If optionNode Is Nothing Then
+                MessageBox.Show($"No se encontró la opción con el valor en el campo de la página web.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return False
+            Else
+                optionNode.SetAttributeValue("selected", "selected")
+                Return True
+            End If
+        End If
+    End Function
+
+    Private Function ReemplazarValoresEnForm(ByRef document As HtmlAgilityPack.HtmlDocument) As Boolean
+        ' Find the form by ID
+        Dim formNode As HtmlAgilityPack.HtmlNode = document.DocumentNode.SelectSingleNode(CS_Parameter_System.GetString(Parametros.SUELDO_MODULO_OBTENER_FORM_ID))
+        If formNode Is Nothing Then
+            MessageBox.Show("No se encontró el formulario en la página web.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End If
+
+        ' Replace the values in the form
+        If ReemplazarValorEnForm(document, CS_Parameter_System.GetString(Parametros.SUELDO_MODULO_OBTENER_FORM_NIVEL_ID), CS_Parameter_System.GetIntegerAsInteger(Parametros.SUELDO_MODULO_OBTENER_FORM_NIVEL_VALUE)) AndAlso
+           ReemplazarValorEnForm(document, CS_Parameter_System.GetString(Parametros.SUELDO_MODULO_OBTENER_FORM_ESCALAFON_ID), CS_Parameter_System.GetIntegerAsInteger(Parametros.SUELDO_MODULO_OBTENER_FORM_ESCALAFON_VALUE)) AndAlso
+           ReemplazarValorEnForm(document, CS_Parameter_System.GetString(Parametros.SUELDO_MODULO_OBTENER_FORM_ANTIGUEDAD_ID), CS_Parameter_System.GetIntegerAsInteger(Parametros.SUELDO_MODULO_OBTENER_FORM_ANTIGUEDAD_VALUE)) AndAlso
+           ReemplazarValorEnForm(document, CS_Parameter_System.GetString(Parametros.SUELDO_MODULO_OBTENER_FORM_DESFAVORABILIDAD_ID), CS_Parameter_System.GetIntegerAsInteger(Parametros.SUELDO_MODULO_OBTENER_FORM_DESFAVORABILIDAD_VALUE)) Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+    Private Function ObtenerPaginaInicial(ByRef document As HtmlAgilityPack.HtmlDocument) As Boolean
+        Try
+            Dim HtmlWeb As New HtmlAgilityPack.HtmlWeb
+            document = HtmlWeb.Load(CS_Parameter_System.GetString(Parametros.SUELDO_MODULO_OBTENER_URL))
+            Return True
+        Catch ex As Exception
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al obtener la página inicial desde la web.")
+            Return False
+        End Try
+    End Function
+
+    Private Function EnviarPaginaConValores(ByRef document As HtmlAgilityPack.HtmlDocument) As Boolean
+        Dim httpClient As New HttpClient()
+        Try
+            Dim content As New FormUrlEncodedContent(New Dictionary(Of String, String) From {
+                {"nivel", CS_Parameter_System.GetIntegerAsInteger(Parametros.SUELDO_MODULO_OBTENER_FORM_NIVEL_VALUE).ToString()},
+                {"escalafon", CS_Parameter_System.GetIntegerAsInteger(Parametros.SUELDO_MODULO_OBTENER_FORM_ESCALAFON_VALUE).ToString()},
+                {"antiguedad", CS_Parameter_System.GetIntegerAsInteger(Parametros.SUELDO_MODULO_OBTENER_FORM_ANTIGUEDAD_VALUE).ToString()},
+                {"desfavorabilidad", CS_Parameter_System.GetIntegerAsInteger(Parametros.SUELDO_MODULO_OBTENER_FORM_DESFAVORABILIDAD_VALUE).ToString()},
+                {"zona_fria", "N"}
+            })
+            Dim response As HttpResponseMessage = httpClient.PostAsync(CS_Parameter_System.GetString(Parametros.SUELDO_MODULO_OBTENER_URL), content).Result
+            If response.IsSuccessStatusCode Then
+                Dim responseContent As String = response.Content.ReadAsStringAsync().Result
+                document.LoadHtml(responseContent)
+                Return True
+            Else
+                MessageBox.Show("Error al enviar los datos a la página web.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return False
+            End If
+        Catch ex As Exception
+            CardonerSistemas.ErrorHandler.ProcessError(ex, "Error al enviar los datos a la página web.")
+            Return False
+        End Try
+    End Function
+
     Private Sub ObtenerDatos()
         Dim document As New HtmlAgilityPack.HtmlDocument
         Dim node As HtmlAgilityPack.HtmlNode
@@ -165,7 +241,17 @@ Public Class FormCalculoModuloObtener
 
         Cursor = Cursors.WaitCursor
 
-        If Not ObtenerPaginaResultado(document) Then
+        If Not ObtenerPaginaInicial(document) Then
+            Cursor = Cursors.Default
+            Return
+        End If
+
+        If Not ReemplazarValoresEnForm(document) Then
+            Cursor = Cursors.Default
+            Return
+        End If
+
+        If Not EnviarPaginaConValores(document) Then
             Cursor = Cursors.Default
             Return
         End If
