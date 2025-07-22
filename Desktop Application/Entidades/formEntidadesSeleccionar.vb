@@ -83,8 +83,8 @@
                                                     Select ent).ToList
                 Else
                     listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                       Where comboboxActivo.SelectedIndex = 0 OrElse (comboboxActivo.SelectedIndex = 1 AndAlso ent.EsActivo) OrElse (comboboxActivo.SelectedIndex = 2 AndAlso Not ent.EsActivo)
-                                       Select ent).ToList
+                                                    Where comboboxActivo.SelectedIndex = 0 OrElse (comboboxActivo.SelectedIndex = 1 AndAlso ent.EsActivo) OrElse (comboboxActivo.SelectedIndex = 2 AndAlso Not ent.EsActivo)
+                                                    Select ent).ToList
                 End If
 
             Else
@@ -94,8 +94,8 @@
                                                     Select ent).ToList
                 Else
                     listEntidadFiltradaYOrdenada = (From ent In listEntidadBase
-                                Where ((menuitemEntidadTipo_PersonalColegio.Checked AndAlso ent.TipoPersonalColegio) OrElse (menuitemEntidadTipo_Docente.Checked AndAlso ent.TipoDocente) OrElse (menuitemEntidadTipo_Alumno.Checked AndAlso ent.TipoAlumno) OrElse (menuitemEntidadTipo_Familiar.Checked AndAlso ent.TipoFamiliar) OrElse (menuitemEntidadTipo_Proveedor.Checked AndAlso ent.TipoProveedor) OrElse (menuitemEntidadTipo_Otro.Checked AndAlso ent.TipoOtro)) AndAlso (comboboxActivo.SelectedIndex = 0 OrElse (comboboxActivo.SelectedIndex = 1 AndAlso ent.EsActivo) OrElse (comboboxActivo.SelectedIndex = 2 AndAlso Not ent.EsActivo))
-                                Select ent).ToList
+                                                    Where ((menuitemEntidadTipo_PersonalColegio.Checked AndAlso ent.TipoPersonalColegio) OrElse (menuitemEntidadTipo_Docente.Checked AndAlso ent.TipoDocente) OrElse (menuitemEntidadTipo_Alumno.Checked AndAlso ent.TipoAlumno) OrElse (menuitemEntidadTipo_Familiar.Checked AndAlso ent.TipoFamiliar) OrElse (menuitemEntidadTipo_Proveedor.Checked AndAlso ent.TipoProveedor) OrElse (menuitemEntidadTipo_Otro.Checked AndAlso ent.TipoOtro)) AndAlso (comboboxActivo.SelectedIndex = 0 OrElse (comboboxActivo.SelectedIndex = 1 AndAlso ent.EsActivo) OrElse (comboboxActivo.SelectedIndex = 2 AndAlso Not ent.EsActivo))
+                                                    Select ent).ToList
                 End If
 
             End If

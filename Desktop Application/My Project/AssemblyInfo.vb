@@ -1,5 +1,4 @@
-﻿Imports System
-Imports System.Reflection
+﻿Imports System.Reflection
 Imports System.Runtime.InteropServices
 
 ' General Information about an assembly is controlled through the following 
@@ -8,17 +7,17 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("CS-Colegio 2015")> 
-<Assembly: AssemblyDescription("Sistema de Gestión para Colegios")> 
-<Assembly: AssemblyCompany("Cardoner Sistemas")> 
+<Assembly: AssemblyTitle("CS-Colegio 2015")>
+<Assembly: AssemblyDescription("Sistema de Gestión para Colegios")>
+<Assembly: AssemblyCompany("Cardoner Sistemas")>
 <Assembly: AssemblyProduct("CS-Colegio")>
 <Assembly: AssemblyCopyright("© 2015-2025 Cardoner Sistemas. Reservados todos los derechos.")>
-<Assembly: AssemblyTrademark("® CS-Colegio 2015")> 
+<Assembly: AssemblyTrademark("® CS-Colegio 2015")>
 
 <Assembly: ComVisible(False)>
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("bc77ee75-353a-47a4-9824-ce9ff58f7ae2")> 
+<Assembly: Guid("bc77ee75-353a-47a4-9824-ce9ff58f7ae2")>
 
 ' Version information for an assembly consists of the following four values:
 '
@@ -31,5 +30,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.0.*")> 
+<Assembly: AssemblyVersion("1.0.*")>
 ' <Assembly: AssemblyFileVersion("1.0.0.0")> 

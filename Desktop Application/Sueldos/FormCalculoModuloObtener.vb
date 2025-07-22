@@ -1,7 +1,6 @@
 ﻿Imports System.Globalization
 Imports System.Net
 Imports System.Net.Http
-Imports System.Threading.Tasks
 
 Public Class FormCalculoModuloObtener
 

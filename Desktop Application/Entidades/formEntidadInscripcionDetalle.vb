@@ -153,9 +153,9 @@
             IDTurnoProximo = CByte(comboboxTurnoProximo.SelectedValue)
             comboboxDivisionProximo.ValueMember = "Division"
             comboboxDivisionProximo.DataSource = (From c In mdbContext.Curso
-                          Join alc In mdbContext.AnioLectivoCurso On c.IDCurso Equals alc.IDCurso
-                          Where alc.AnioLectivo = mAnioLectivoProximo AndAlso c.IDAnio = IDAnioProximo AndAlso c.IDTurno = IDTurnoProximo
-                          Select c.Division).ToList
+                                                  Join alc In mdbContext.AnioLectivoCurso On c.IDCurso Equals alc.IDCurso
+                                                  Where alc.AnioLectivo = mAnioLectivoProximo AndAlso c.IDAnio = IDAnioProximo AndAlso c.IDTurno = IDTurnoProximo
+                                                  Select c.Division).ToList
 
             ' Intento seleccionar la misma Division que el Año anterior
             CardonerSistemas.Controls.ComboBox.SetSelectedValue(comboboxDivisionProximo, CardonerSistemas.Controls.ComboBox.SelectedItemOptions.ValueOrFirstIfUnique, mAnioLectivoCursoActual.Curso.Division)

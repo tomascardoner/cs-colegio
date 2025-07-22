@@ -1,8 +1,8 @@
-﻿Imports Google.Apis.Auth.OAuth2
-Imports Google.Apis.Util.Store
-Imports System.Threading
-Imports MailKit.Net
+﻿Imports System.Threading
+Imports Google.Apis.Auth.OAuth2
 Imports Google.Apis.Auth.OAuth2.Responses
+Imports Google.Apis.Util.Store
+Imports MailKit.Net
 
 Namespace Email
     Module SmtpOAuth20
