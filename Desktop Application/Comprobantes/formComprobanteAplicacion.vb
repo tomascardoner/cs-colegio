@@ -47,11 +47,11 @@
     Private Sub ChangeMode()
         buttonGuardar.Visible = mEditMode
         buttonCancelar.Visible = mEditMode
-        buttonEditar.Visible = (mParentEditMode AndAlso Not mEditMode)
+        buttonEditar.Visible = mParentEditMode AndAlso Not mEditMode
         buttonCerrar.Visible = Not mEditMode
 
         comboboxMotivo.Enabled = mEditMode
-        currencytextboxImporteAplicado.ReadOnly = (mEditMode = False)
+        currencytextboxImporteAplicado.ReadOnly = Not mEditMode
     End Sub
 
     Friend Sub InitializeFormAndControls()
@@ -156,18 +156,12 @@
         If datagridviewMain.CurrentRow Is Nothing Then
             MsgBox("No hay ningún Comprobante para aplicar.", vbInformation, My.Application.Info.Title)
             datagridviewMain.Focus()
-            Exit Sub
+            Return
         End If
         If (Not (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso mComprobanteTipoActual.MovimientoTipo = Constantes.MOVIMIENTOTIPO_CREDITO)) AndAlso currencytextboxImporteAplicado.DecimalValue <= 0 Then
             MsgBox("El Importe a aplicar debe ser mayor a cero.", MsgBoxStyle.Information, My.Application.Info.Title)
             currencytextboxImporteAplicado.Focus()
-            Exit Sub
-        End If
-
-        If (Not (mComprobanteTipoActual.OperacionTipo = Constantes.OPERACIONTIPO_VENTA AndAlso mComprobanteTipoActual.MovimientoTipo = Constantes.MOVIMIENTOTIPO_CREDITO)) AndAlso currencytextboxImporteAplicado.DecimalValue > CType(datagridviewMain.SelectedRows(0).DataBoundItem, GridRowData_Comprobante).ImporteSinAplicar Then
-            MsgBox("El Importe a aplicar no puede ser mayor que el Importe pendiente.", MsgBoxStyle.Information, My.Application.Info.Title)
-            currencytextboxImporteAplicado.Focus()
-            Exit Sub
+            Return
         End If
 
         ' Si es un nuevo item, busco el próximo Indice y agrego el objeto nuevo a la colección del parent

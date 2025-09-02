@@ -8,7 +8,7 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("CS-Colegio 2015")>
-<Assembly: AssemblyDescription("Sistema de Gestión para Colegios")>
+<Assembly: AssemblyDescription("Sistema de gestión administrativa para colegios")>
 <Assembly: AssemblyCompany("Cardoner Sistemas")>
 <Assembly: AssemblyProduct("CS-Colegio")>
 <Assembly: AssemblyCopyright("© 2015-2025 Cardoner Sistemas. Reservados todos los derechos.")>
