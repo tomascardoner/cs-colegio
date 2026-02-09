@@ -760,6 +760,21 @@
         textboxEntidadTercero.Tag = Nothing
     End Sub
 
+    Private Sub Entidad_DoubleClick(sender As Object, e As EventArgs) Handles textboxEntidadPadre.DoubleClick, textboxEntidadMadre.DoubleClick, textboxEntidadTercero.DoubleClick
+        Dim idEntidad As Integer
+
+        If sender Is textboxEntidadPadre AndAlso TypeOf (textboxEntidadPadre.Tag) Is Integer Then
+            idEntidad = CS_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadPadre.Tag).Value
+        ElseIf sender Is textboxEntidadMadre AndAlso TypeOf (textboxEntidadMadre.Tag) Is Integer Then
+            idEntidad = CS_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadMadre.Tag).Value
+        ElseIf sender Is textboxEntidadTercero AndAlso TypeOf (textboxEntidadTercero.Tag) Is Integer Then
+            idEntidad = CS_ValueTranslation.FromControlTagToObjectInteger(textboxEntidadTercero.Tag).Value
+        End If
+        If idEntidad > 0 Then
+            Me.LoadAndShow(False, Me, idEntidad)
+        End If
+    End Sub
+
     Private Sub ComboboxDescuento_SelectedIndexChanged(sender As Object, e As EventArgs) Handles comboboxDescuento.SelectedIndexChanged
         If comboboxDescuento.SelectedIndex > -1 AndAlso CByte(comboboxDescuento.SelectedValue) = CardonerSistemas.Constants.FIELD_VALUE_OTHER_BYTE Then
             percenttextboxDescuentoOtroPorcentaje.Visible = True
