@@ -34,7 +34,7 @@
         End If
 
         ' Register Syncfusion License
-        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1JGaF5cXGpCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWH1fd3VWRWRZV0d+WUdWYEs=")
+        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(CardonerSistemas.ConstantsSyncfusion.LicenseKey)
 
         ' Realizo la inicialización de la Aplicación
         If pAppearanceConfig.EnableVisualStyles Then
