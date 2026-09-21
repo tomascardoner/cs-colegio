@@ -1,4 +1,5 @@
 ﻿Imports System.Text
+Imports Armuna.Framework.Tax.Arca
 
 Module ModuloComprobantes
 
@@ -607,6 +608,29 @@ Module ModuloComprobantes
                             }
                             .ComprobantesAsociados.Add(AFIP_ComprobanteAsociado)
                         Next
+
+                        ' Opcionales para la RG 3.368 – Educación
+                        ' sólo si el titular de la factura es alguien distinto al pagador y el importe total supera a $ 2.000 según la RG 3.368 del 2012
+                        If False Then
+                            ' Aplica sí o no
+                            .Opcionales.Add(New CardonerSistemas.AfipWebServices.Opcional With {
+                            .ID = "10",
+                            .Valor = "1"
+                            })
+
+                            ' Tipo de documento del pagador
+                            .Opcionales.Add(New CardonerSistemas.AfipWebServices.Opcional With {
+                                .ID = "1012",
+                                .Valor = "80" ' o el valor que corresponda según el tipo de documento del pagador
+                            })
+
+                            ' Número de documento del pagador
+                            .Opcionales.Add(New CardonerSistemas.AfipWebServices.Opcional With {
+                                .ID = "1013",
+                                .Valor = "20123456789" ' o el valor que corresponda según el número de documento del pagador
+                            })
+                        End If
+
                     End With
 
                     ' Obtengo el CAE

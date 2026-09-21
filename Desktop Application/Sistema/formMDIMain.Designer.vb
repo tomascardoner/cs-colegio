@@ -46,6 +46,14 @@ Partial Class formMDIMain
         Me.menuitemDebugAFIPWSProduccionLogin = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSProduccionConsultarComprobante = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugAFIPWSArmuna = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugAFIPWSArmunaHomologacionLogin = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugAFIPWSArmunaSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.menuitemDebugAFIPWSArmunaProduccionLogin = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugAFIPWSArmunaProduccionConsultarComprobante = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemAyuda = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemAyuda_AcercaDe = New System.Windows.Forms.ToolStripMenuItem()
         Me.toolstripMain = New System.Windows.Forms.ToolStrip()
@@ -186,7 +194,7 @@ Partial Class formMDIMain
         '
         'menuitemDebug
         '
-        Me.menuitemDebug.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWS})
+        Me.menuitemDebug.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWS, Me.menuitemDebugAFIPWSArmuna})
         Me.menuitemDebug.Name = "menuitemDebug"
         Me.menuitemDebug.Size = New System.Drawing.Size(68, 24)
         Me.menuitemDebug.Text = "Debug"
@@ -239,6 +247,54 @@ Partial Class formMDIMain
         Me.menuitemDebugAFIPWSProduccionConsultarComprobante.Name = "menuitemDebugAFIPWSProduccionConsultarComprobante"
         Me.menuitemDebugAFIPWSProduccionConsultarComprobante.Size = New System.Drawing.Size(405, 26)
         Me.menuitemDebugAFIPWSProduccionConsultarComprobante.Text = "Producción - Consultar Comprobante"
+        '
+        'menuitemDebugAFIPWSArmuna
+        '
+        Me.menuitemDebugAFIPWSArmuna.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWSArmunaHomologacionLogin, Me.menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante, Me.menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante, Me.menuitemDebugAFIPWSArmunaSeparator1, Me.menuitemDebugAFIPWSArmunaProduccionLogin, Me.menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante, Me.menuitemDebugAFIPWSArmunaProduccionConsultarComprobante})
+        Me.menuitemDebugAFIPWSArmuna.Name = "menuitemDebugAFIPWSArmuna"
+        Me.menuitemDebugAFIPWSArmuna.Size = New System.Drawing.Size(208, 26)
+        Me.menuitemDebugAFIPWSArmuna.Text = "AFIP WebServices (Armuna.Framework.Tax)"
+        '
+        'menuitemDebugAFIPWSArmunaHomologacionLogin
+        '
+        Me.menuitemDebugAFIPWSArmunaHomologacionLogin.Name = "menuitemDebugAFIPWSArmunaHomologacionLogin"
+        Me.menuitemDebugAFIPWSArmunaHomologacionLogin.Size = New System.Drawing.Size(405, 26)
+        Me.menuitemDebugAFIPWSArmunaHomologacionLogin.Text = "Homologación - Login"
+        '
+        'menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante
+        '
+        Me.menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante.Name = "menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante"
+        Me.menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante.Size = New System.Drawing.Size(405, 26)
+        Me.menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante.Text = "Homologación - Verificar Ultimo Comprobante"
+        '
+        'menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante
+        '
+        Me.menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante.Name = "menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante"
+        Me.menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante.Size = New System.Drawing.Size(405, 26)
+        Me.menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante.Text = "Homologación - Consultar Comprobante"
+        '
+        'menuitemDebugAFIPWSArmunaSeparator1
+        '
+        Me.menuitemDebugAFIPWSArmunaSeparator1.Name = "menuitemDebugAFIPWSArmunaSeparator1"
+        Me.menuitemDebugAFIPWSArmunaSeparator1.Size = New System.Drawing.Size(402, 6)
+        '
+        'menuitemDebugAFIPWSArmunaProduccionLogin
+        '
+        Me.menuitemDebugAFIPWSArmunaProduccionLogin.Name = "menuitemDebugAFIPWSArmunaProduccionLogin"
+        Me.menuitemDebugAFIPWSArmunaProduccionLogin.Size = New System.Drawing.Size(405, 26)
+        Me.menuitemDebugAFIPWSArmunaProduccionLogin.Text = "Producción - Login"
+        '
+        'menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante
+        '
+        Me.menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante.Name = "menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante"
+        Me.menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante.Size = New System.Drawing.Size(405, 26)
+        Me.menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante.Text = "Producción - Verificar Ultimo Comprobante"
+        '
+        'menuitemDebugAFIPWSArmunaProduccionConsultarComprobante
+        '
+        Me.menuitemDebugAFIPWSArmunaProduccionConsultarComprobante.Name = "menuitemDebugAFIPWSArmunaProduccionConsultarComprobante"
+        Me.menuitemDebugAFIPWSArmunaProduccionConsultarComprobante.Size = New System.Drawing.Size(405, 26)
+        Me.menuitemDebugAFIPWSArmunaProduccionConsultarComprobante.Text = "Producción - Consultar Comprobante"
         '
         'menuitemAyuda
         '
@@ -614,6 +670,14 @@ Partial Class formMDIMain
     Friend WithEvents menuitemDebugAFIPWSProduccionObtenerUltimoComprobante As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSProduccionConsultarComprobante As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSHomologacionConsultarComprobante As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDebugAFIPWSArmuna As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDebugAFIPWSArmunaHomologacionLogin As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDebugAFIPWSArmunaSeparator1 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents menuitemDebugAFIPWSArmunaProduccionLogin As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDebugAFIPWSArmunaProduccionConsultarComprobante As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemEntidadesVerificarEmails As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemAniosLectivosCuotas As ToolStripMenuItem
     Friend WithEvents menuitemComprobantesExportarPagosEduc As ToolStripMenuItem

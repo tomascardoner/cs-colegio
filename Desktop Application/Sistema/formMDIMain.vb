@@ -5,6 +5,9 @@
     Private mObjeto_AFIP_WS_Homologacion As CardonerSistemas.AfipWebServices.WebService
     Private mObjeto_AFIP_WS_Produccion As CardonerSistemas.AfipWebServices.WebService
 
+    Private mArcaCredenciales_Homologacion As Armuna.Framework.Tax.Arca.ArcaCredentials
+    Private mArcaCredenciales_Produccion As Armuna.Framework.Tax.Arca.ArcaCredentials
+
 #End Region
 
 #Region "Form stuff"
@@ -46,6 +49,37 @@
 #End Region
 
 #Region "Menu Debug"
+
+    Private Function ObtenerValorInputBoxInteger(ByVal Prompt As String, ByVal Title As String) As Integer
+        Dim InputValue As String
+        Dim ResultValue As Integer
+        InputValue = InputBox(Prompt, Title)
+        If Not Integer.TryParse(InputValue, ResultValue) Then
+            ResultValue = 0
+        End If
+        Return ResultValue
+    End Function
+
+    Private Function ObtenerValorInputBoxShort(ByVal Prompt As String, ByVal Title As String) As Short
+        Dim InputValue As String
+        Dim ResultValue As Short
+        InputValue = InputBox(Prompt, Title)
+        If Not Short.TryParse(InputValue, ResultValue) Then
+            ResultValue = 0
+        End If
+        Return ResultValue
+    End Function
+
+    Private Function ObtenerValorInputBoxByte(ByVal Prompt As String, ByVal Title As String) As Byte
+        Dim InputValue As String
+        Dim ResultValue As Byte
+        InputValue = InputBox(Prompt, Title)
+        If Not Byte.TryParse(InputValue, ResultValue) Then
+            ResultValue = 0
+        End If
+        Return ResultValue
+    End Function
+
     Private Sub Debug_AFIPWSHomologacionLogin() Handles menuitemDebugAFIPWSHomologacionLogin.Click
         mObjeto_AFIP_WS_Homologacion = New CardonerSistemas.AfipWebServices.WebService
 
@@ -136,6 +170,176 @@
                 Else
                     MsgBox(mObjeto_AFIP_WS_Produccion.UltimoResultadoConsultaComprobante.ErrorMessage, vbCritical, My.Application.Info.Title)
                 End If
+            End If
+        End If
+    End Sub
+
+#End Region
+
+#Region "Menu Debug (Armuna.Framework.Tax)"
+
+    Private Function Debug_Armuna_CargarCredenciales(ByVal ModoHomologacion As Boolean) As Armuna.Framework.Tax.Arca.ArcaCredentials
+        Dim CertificadoPath As String
+        Dim Entorno As Armuna.Framework.Tax.Arca.ArcaEnvironment
+        Dim Credenciales As Armuna.Framework.Tax.Arca.ArcaCredentials = Nothing
+        Dim ResultMessage As String = Nothing
+
+        If ModoHomologacion Then
+            CertificadoPath = pAfipWebServicesConfig.CertificadoHomologacion
+            Entorno = Armuna.Framework.Tax.Arca.ArcaEnvironment.Homologacion
+        Else
+            CertificadoPath = pAfipWebServicesConfig.CertificadoProduccion
+            Entorno = Armuna.Framework.Tax.Arca.ArcaEnvironment.Produccion
+        End If
+
+        If Not Armuna.Framework.Tax.Arca.ArcaCredentialsLoader.TryLoadFromPemFiles(CS_Parameter_System.GetString(Parametros.EMPRESA_CUIT), CertificadoPath, pAfipWebServicesConfig.ClavePrivada, Entorno, Credenciales, ResultMessage) Then
+            MsgBox(ResultMessage, vbCritical, My.Application.Info.Title)
+            Return Nothing
+        End If
+
+        Return Credenciales
+    End Function
+
+    Private Async Sub Debug_Armuna_AFIPWSHomologacionLogin() Handles menuitemDebugAFIPWSArmunaHomologacionLogin.Click
+        Dim Credenciales = Debug_Armuna_CargarCredenciales(True)
+        If Credenciales Is Nothing Then Exit Sub
+
+        Dim Resultado = Await Armuna.Framework.Tax.Arca.Wsaa.WsaaService.GetTicketAsync(Credenciales, Armuna.Framework.Tax.Arca.ArcaServiceId.FacturaElectronica)
+        If Resultado.success Then
+            mArcaCredenciales_Homologacion = Credenciales
+            MsgBox(Resultado.resultMessage, vbInformation, My.Application.Info.Title)
+        Else
+            MsgBox(Resultado.resultMessage, vbCritical, My.Application.Info.Title)
+        End If
+    End Sub
+
+    Private Async Sub Debug_Armuna_AFIPWSHomologacionObtenerUltimoComprobante(sender As Object, e As EventArgs) Handles menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante.Click
+        Dim TipoComprobante As Short
+        Dim PuntoVenta As Short
+
+        If mArcaCredenciales_Homologacion Is Nothing Then
+            MsgBox("No hay credenciales cargadas." & vbCrLf & "¿Ya inició sesión en AFIP?", vbExclamation, My.Application.Info.Title)
+        Else
+            TipoComprobante = CShort(InputBox("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante.Text))
+            PuntoVenta = CShort(InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante.Text))
+
+            Dim Resultado = Await Armuna.Framework.Tax.Arca.Wsfe.WsfeService.ObtenerUltimoComprobanteAutorizadoAsync(mArcaCredenciales_Homologacion, PuntoVenta, TipoComprobante)
+            If Resultado.success Then
+                MsgBox("El Último Número de comprobante autorizado es: " & Resultado.ultimoComprobante, vbInformation, My.Application.Info.Title)
+            Else
+                MsgBox(Resultado.resultMessage, vbCritical, My.Application.Info.Title)
+            End If
+        End If
+    End Sub
+
+    Private Async Sub Debug_Armuna_AFIPWSHomologacionConsultarComprobante(sender As Object, e As EventArgs) Handles menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante.Click
+        Dim TipoComprobante As Short
+        Dim PuntoVenta As Short
+        Dim NumeroComprobante As Integer
+
+        If mArcaCredenciales_Homologacion Is Nothing Then
+            MsgBox("No hay credenciales cargadas." & vbCrLf & "¿Ya inició sesión en AFIP?", vbExclamation, My.Application.Info.Title)
+        Else
+            TipoComprobante = CShort(InputBox("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante.Text))
+            PuntoVenta = CShort(InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante.Text))
+            NumeroComprobante = CShort(InputBox("Ingrese el Número de Comprobante:", Me.menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante.Text))
+
+            Dim Resultado = Await Armuna.Framework.Tax.Arca.Wsfe.WsfeService.ConsultarComprobanteAsync(mArcaCredenciales_Homologacion, PuntoVenta, TipoComprobante, NumeroComprobante)
+            If Resultado.success Then
+                If Resultado.resultado.Resultado = "A" Then
+                    MsgBox(String.Format("Los datos del comprobante autorizado son:{0}{0}Tipo de Comprobante: {1}{0}Punto de Venta: {2}{0}Número de Comprobante: {3}{0}CAE: {4}{0}Fecha de Vencimiento: {5}", vbCrLf, Resultado.resultado.ComprobanteTipo, Resultado.resultado.PuntoVenta, Resultado.resultado.ComprobanteNumero, Resultado.resultado.CodigoAutorizacion, Resultado.resultado.CaeFechaVencimiento), vbInformation, My.Application.Info.Title)
+                Else
+                    MsgBox(String.Join(vbCrLf, Resultado.resultado.Errores), vbCritical, My.Application.Info.Title)
+                End If
+            Else
+                MsgBox(Resultado.resultMessage, vbCritical, My.Application.Info.Title)
+            End If
+        End If
+    End Sub
+
+    Private Async Sub Debug_Armuna_AFIPWSProduccionLogin() Handles menuitemDebugAFIPWSArmunaProduccionLogin.Click
+        Dim Credenciales = Debug_Armuna_CargarCredenciales(False)
+        If Credenciales Is Nothing Then Exit Sub
+
+        Dim Resultado = Await Armuna.Framework.Tax.Arca.Wsaa.WsaaService.GetTicketAsync(Credenciales, Armuna.Framework.Tax.Arca.ArcaServiceId.FacturaElectronica)
+        If Resultado.success Then
+            mArcaCredenciales_Produccion = Credenciales
+            MsgBox(Resultado.resultMessage, vbInformation, My.Application.Info.Title)
+        Else
+            MsgBox(Resultado.resultMessage, vbCritical, My.Application.Info.Title)
+        End If
+    End Sub
+
+    Private Async Sub Debug_Armuna_AFIPWSProduccionObtenerUltimoComprobante(sender As Object, e As EventArgs) Handles menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante.Click
+        Dim TipoComprobante As Byte
+        Dim PuntoVenta As Short
+
+        If mArcaCredenciales_Produccion Is Nothing Then
+            MsgBox("No hay credenciales cargadas." & vbCrLf & "¿Ya inició sesión en ARCA?", vbExclamation, My.Application.Info.Title)
+        Else
+            TipoComprobante = ObtenerValorInputBoxByte("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante.Text)
+            If TipoComprobante = 0 Then
+                Return
+            End If
+            PuntoVenta = ObtenerValorInputBoxShort("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante.Text)
+            If PuntoVenta = 0 Then
+                Return
+            End If
+
+            Dim Resultado = Await Armuna.Framework.Tax.Arca.Wsfe.WsfeService.ObtenerUltimoComprobanteAutorizadoAsync(mArcaCredenciales_Produccion, PuntoVenta, TipoComprobante)
+            If Resultado.success Then
+                MsgBox("El Último Número de comprobante autorizado es: " & Resultado.ultimoComprobante, vbInformation, My.Application.Info.Title)
+            Else
+                MsgBox(Resultado.resultMessage, vbCritical, My.Application.Info.Title)
+            End If
+        End If
+    End Sub
+
+    Private Async Sub Debug_Armuna_AFIPWSProduccionConsultarComprobante(sender As Object, e As EventArgs) Handles menuitemDebugAFIPWSArmunaProduccionConsultarComprobante.Click
+        Dim TipoComprobante As Byte
+        Dim PuntoVenta As Short
+        Dim NumeroComprobante As Integer
+
+        If mArcaCredenciales_Produccion Is Nothing Then
+            MsgBox("No hay credenciales cargadas." & vbCrLf & "¿Ya inició sesión en ARCA?", vbExclamation, My.Application.Info.Title)
+        Else
+            TipoComprobante = ObtenerValorInputBoxByte("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSArmunaProduccionConsultarComprobante.Text)
+            If TipoComprobante = 0 Then
+                Return
+            End If
+            PuntoVenta = ObtenerValorInputBoxShort("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSArmunaProduccionConsultarComprobante.Text)
+            If PuntoVenta = 0 Then
+                Return
+            End If
+            NumeroComprobante = ObtenerValorInputBoxInteger("Ingrese el Número de Comprobante:", Me.menuitemDebugAFIPWSArmunaProduccionConsultarComprobante.Text)
+            If NumeroComprobante = 0 Then
+                Return
+            End If
+
+            Dim Resultado = Await Armuna.Framework.Tax.Arca.Wsfe.WsfeService.ConsultarComprobanteAsync(mArcaCredenciales_Produccion, PuntoVenta, TipoComprobante, NumeroComprobante)
+            If Resultado.success Then
+                If Resultado.resultado.Resultado = "A" Then
+                    MsgBox(
+                        String.Format(
+                                "Los datos del comprobante autorizado son:{0}{0}" +
+                                "Tipo de Comprobante: {1}{0}Punto de Venta: {2}{0}Número de Comprobante: {3}{0}" +
+                                "Tipo de documento: {4}{0}Nº de documento: {5}{0}" +
+                                "Importe neto: {6:C}{0}Importe IVA: {7:C}{0}Importe total: {8:C}{0}" +
+                                "Fecha de servicio desde: {9:d}{0}Fecha de servicio hasta: {10:d}{0}Fecha de vencimiento de pago: {11:d}{0}" +
+                                "CAE: {12}{0}Fecha de Vencimiento: {13:d}{0}Fecha de proceso: {14:g}",
+                            Environment.NewLine,
+                            Resultado.resultado.ComprobanteTipo, Resultado.resultado.PuntoVenta, Resultado.resultado.ComprobanteNumero,
+                            Resultado.resultado.DocumentoTipo, Resultado.resultado.DocumentoNro,
+                            Resultado.resultado.ImporteNeto, Resultado.resultado.ImporteIva, Resultado.resultado.ImporteTotal,
+                            Resultado.resultado.FechaServicioDesde, Resultado.resultado.FechaServicioHasta, Resultado.resultado.FechaVencimientoPago,
+                            Resultado.resultado.CodigoAutorizacion, Resultado.resultado.CaeFechaVencimiento, Resultado.resultado.FechaProceso),
+                        vbInformation,
+                        My.Application.Info.Title)
+                Else
+                    MsgBox(String.Join(vbCrLf, Resultado.resultado.Errores), vbCritical, My.Application.Info.Title)
+                End If
+            Else
+                MsgBox(Resultado.resultMessage, vbCritical, My.Application.Info.Title)
             End If
         End If
     End Sub
