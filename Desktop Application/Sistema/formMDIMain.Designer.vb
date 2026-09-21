@@ -38,14 +38,6 @@ Partial Class formMDIMain
         Me.menuitemVentanaCerrarTodas = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemVentanaSeparadorListaVentanas = New System.Windows.Forms.ToolStripSeparator()
         Me.menuitemDebug = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemDebugAFIPWS = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemDebugAFIPWSHomologacionLogin = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemDebugAFIPWSHomologacionConsultarComprobante = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemDebugAFIPWSSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.menuitemDebugAFIPWSProduccionLogin = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante = New System.Windows.Forms.ToolStripMenuItem()
-        Me.menuitemDebugAFIPWSProduccionConsultarComprobante = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSArmuna = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSArmunaHomologacionLogin = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante = New System.Windows.Forms.ToolStripMenuItem()
@@ -104,23 +96,22 @@ Partial Class formMDIMain
         '
         Me.statusstripMain.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.statusstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.labelLicenciaCompania, Me.labelUsuarioNombre})
-        Me.statusstripMain.Location = New System.Drawing.Point(0, 435)
+        Me.statusstripMain.Location = New System.Drawing.Point(0, 349)
         Me.statusstripMain.Name = "statusstripMain"
-        Me.statusstripMain.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
-        Me.statusstripMain.Size = New System.Drawing.Size(1237, 22)
+        Me.statusstripMain.Size = New System.Drawing.Size(928, 22)
         Me.statusstripMain.TabIndex = 2
         '
         'labelLicenciaCompania
         '
         Me.labelLicenciaCompania.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right
         Me.labelLicenciaCompania.Name = "labelLicenciaCompania"
-        Me.labelLicenciaCompania.Size = New System.Drawing.Size(1217, 16)
+        Me.labelLicenciaCompania.Size = New System.Drawing.Size(913, 17)
         Me.labelLicenciaCompania.Spring = True
         '
         'labelUsuarioNombre
         '
         Me.labelUsuarioNombre.Name = "labelUsuarioNombre"
-        Me.labelUsuarioNombre.Size = New System.Drawing.Size(0, 16)
+        Me.labelUsuarioNombre.Size = New System.Drawing.Size(0, 17)
         '
         'menustripMain
         '
@@ -129,184 +120,137 @@ Partial Class formMDIMain
         Me.menustripMain.Location = New System.Drawing.Point(0, 0)
         Me.menustripMain.MdiWindowListItem = Me.menuitemVentana
         Me.menustripMain.Name = "menustripMain"
-        Me.menustripMain.Size = New System.Drawing.Size(1237, 28)
+        Me.menustripMain.Padding = New System.Windows.Forms.Padding(4, 2, 0, 2)
+        Me.menustripMain.Size = New System.Drawing.Size(928, 24)
         Me.menustripMain.TabIndex = 0
         '
         'menuitemArchivo
         '
         Me.menuitemArchivo.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemArchivo_Opciones, Me.menuitemArchivo_Separador_CerrarSesion, Me.menuitemArchivo_CerrarSesion, Me.menuitemArchivo_Separador_Salir, Me.menuitemArchivo_Salir})
         Me.menuitemArchivo.Name = "menuitemArchivo"
-        Me.menuitemArchivo.Size = New System.Drawing.Size(73, 24)
+        Me.menuitemArchivo.Size = New System.Drawing.Size(60, 20)
         Me.menuitemArchivo.Text = "&Archivo"
         '
         'menuitemArchivo_Opciones
         '
         Me.menuitemArchivo_Opciones.Name = "menuitemArchivo_Opciones"
-        Me.menuitemArchivo_Opciones.Size = New System.Drawing.Size(256, 26)
+        Me.menuitemArchivo_Opciones.Size = New System.Drawing.Size(204, 22)
         Me.menuitemArchivo_Opciones.Text = "Opciones"
         '
         'menuitemArchivo_Separador_CerrarSesion
         '
         Me.menuitemArchivo_Separador_CerrarSesion.Name = "menuitemArchivo_Separador_CerrarSesion"
-        Me.menuitemArchivo_Separador_CerrarSesion.Size = New System.Drawing.Size(253, 6)
+        Me.menuitemArchivo_Separador_CerrarSesion.Size = New System.Drawing.Size(201, 6)
         '
         'menuitemArchivo_CerrarSesion
         '
         Me.menuitemArchivo_CerrarSesion.Name = "menuitemArchivo_CerrarSesion"
-        Me.menuitemArchivo_CerrarSesion.Size = New System.Drawing.Size(256, 26)
+        Me.menuitemArchivo_CerrarSesion.Size = New System.Drawing.Size(204, 22)
         Me.menuitemArchivo_CerrarSesion.Text = "Cerrar sesión del Usuario"
         '
         'menuitemArchivo_Separador_Salir
         '
         Me.menuitemArchivo_Separador_Salir.Name = "menuitemArchivo_Separador_Salir"
-        Me.menuitemArchivo_Separador_Salir.Size = New System.Drawing.Size(253, 6)
+        Me.menuitemArchivo_Separador_Salir.Size = New System.Drawing.Size(201, 6)
         '
         'menuitemArchivo_Salir
         '
         Me.menuitemArchivo_Salir.Name = "menuitemArchivo_Salir"
-        Me.menuitemArchivo_Salir.Size = New System.Drawing.Size(256, 26)
+        Me.menuitemArchivo_Salir.Size = New System.Drawing.Size(204, 22)
         Me.menuitemArchivo_Salir.Text = "&Salir"
         '
         'menuitemVentana
         '
         Me.menuitemVentana.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemVentanaOrganizarIconos, Me.menuitemVentanaCerrarTodas, Me.menuitemVentanaSeparadorListaVentanas})
         Me.menuitemVentana.Name = "menuitemVentana"
-        Me.menuitemVentana.Size = New System.Drawing.Size(76, 24)
+        Me.menuitemVentana.Size = New System.Drawing.Size(61, 20)
         Me.menuitemVentana.Text = "&Ventana"
         '
         'menuitemVentanaOrganizarIconos
         '
         Me.menuitemVentanaOrganizarIconos.Name = "menuitemVentanaOrganizarIconos"
-        Me.menuitemVentanaOrganizarIconos.Size = New System.Drawing.Size(204, 26)
+        Me.menuitemVentanaOrganizarIconos.Size = New System.Drawing.Size(184, 26)
         Me.menuitemVentanaOrganizarIconos.Text = "&Organizar Iconos"
         '
         'menuitemVentanaCerrarTodas
         '
         Me.menuitemVentanaCerrarTodas.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_MENU_WINDOW_CLOSE_ALL
         Me.menuitemVentanaCerrarTodas.Name = "menuitemVentanaCerrarTodas"
-        Me.menuitemVentanaCerrarTodas.Size = New System.Drawing.Size(204, 26)
+        Me.menuitemVentanaCerrarTodas.Size = New System.Drawing.Size(184, 26)
         Me.menuitemVentanaCerrarTodas.Text = "Cerrar todas"
         '
         'menuitemVentanaSeparadorListaVentanas
         '
         Me.menuitemVentanaSeparadorListaVentanas.Name = "menuitemVentanaSeparadorListaVentanas"
-        Me.menuitemVentanaSeparadorListaVentanas.Size = New System.Drawing.Size(201, 6)
+        Me.menuitemVentanaSeparadorListaVentanas.Size = New System.Drawing.Size(181, 6)
         '
         'menuitemDebug
         '
-        Me.menuitemDebug.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWS, Me.menuitemDebugAFIPWSArmuna})
+        Me.menuitemDebug.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWSArmuna})
         Me.menuitemDebug.Name = "menuitemDebug"
-        Me.menuitemDebug.Size = New System.Drawing.Size(68, 24)
+        Me.menuitemDebug.Size = New System.Drawing.Size(54, 20)
         Me.menuitemDebug.Text = "Debug"
         Me.menuitemDebug.Visible = False
-        '
-        'menuitemDebugAFIPWS
-        '
-        Me.menuitemDebugAFIPWS.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWSHomologacionLogin, Me.menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante, Me.menuitemDebugAFIPWSHomologacionConsultarComprobante, Me.menuitemDebugAFIPWSSeparator1, Me.menuitemDebugAFIPWSProduccionLogin, Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante, Me.menuitemDebugAFIPWSProduccionConsultarComprobante})
-        Me.menuitemDebugAFIPWS.Name = "menuitemDebugAFIPWS"
-        Me.menuitemDebugAFIPWS.Size = New System.Drawing.Size(208, 26)
-        Me.menuitemDebugAFIPWS.Text = "AFIP WebServices"
-        '
-        'menuitemDebugAFIPWSHomologacionLogin
-        '
-        Me.menuitemDebugAFIPWSHomologacionLogin.Name = "menuitemDebugAFIPWSHomologacionLogin"
-        Me.menuitemDebugAFIPWSHomologacionLogin.Size = New System.Drawing.Size(405, 26)
-        Me.menuitemDebugAFIPWSHomologacionLogin.Text = "Homologación - Login"
-        '
-        'menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante
-        '
-        Me.menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante.Name = "menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante"
-        Me.menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante.Size = New System.Drawing.Size(405, 26)
-        Me.menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante.Text = "Homologación - Verificar Ultimo Comprobante"
-        '
-        'menuitemDebugAFIPWSHomologacionConsultarComprobante
-        '
-        Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Name = "menuitemDebugAFIPWSHomologacionConsultarComprobante"
-        Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Size = New System.Drawing.Size(405, 26)
-        Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Text = "Homologación - Consultar Comprobante"
-        '
-        'menuitemDebugAFIPWSSeparator1
-        '
-        Me.menuitemDebugAFIPWSSeparator1.Name = "menuitemDebugAFIPWSSeparator1"
-        Me.menuitemDebugAFIPWSSeparator1.Size = New System.Drawing.Size(402, 6)
-        '
-        'menuitemDebugAFIPWSProduccionLogin
-        '
-        Me.menuitemDebugAFIPWSProduccionLogin.Name = "menuitemDebugAFIPWSProduccionLogin"
-        Me.menuitemDebugAFIPWSProduccionLogin.Size = New System.Drawing.Size(405, 26)
-        Me.menuitemDebugAFIPWSProduccionLogin.Text = "Producción - Login"
-        '
-        'menuitemDebugAFIPWSProduccionObtenerUltimoComprobante
-        '
-        Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Name = "menuitemDebugAFIPWSProduccionObtenerUltimoComprobante"
-        Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Size = New System.Drawing.Size(405, 26)
-        Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Text = "Producción - Verificar Ultimo Comprobante"
-        '
-        'menuitemDebugAFIPWSProduccionConsultarComprobante
-        '
-        Me.menuitemDebugAFIPWSProduccionConsultarComprobante.Name = "menuitemDebugAFIPWSProduccionConsultarComprobante"
-        Me.menuitemDebugAFIPWSProduccionConsultarComprobante.Size = New System.Drawing.Size(405, 26)
-        Me.menuitemDebugAFIPWSProduccionConsultarComprobante.Text = "Producción - Consultar Comprobante"
         '
         'menuitemDebugAFIPWSArmuna
         '
         Me.menuitemDebugAFIPWSArmuna.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWSArmunaHomologacionLogin, Me.menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante, Me.menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante, Me.menuitemDebugAFIPWSArmunaSeparator1, Me.menuitemDebugAFIPWSArmunaProduccionLogin, Me.menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante, Me.menuitemDebugAFIPWSArmunaProduccionConsultarComprobante})
         Me.menuitemDebugAFIPWSArmuna.Name = "menuitemDebugAFIPWSArmuna"
-        Me.menuitemDebugAFIPWSArmuna.Size = New System.Drawing.Size(208, 26)
-        Me.menuitemDebugAFIPWSArmuna.Text = "AFIP WebServices (Armuna.Framework.Tax)"
+        Me.menuitemDebugAFIPWSArmuna.Size = New System.Drawing.Size(180, 22)
+        Me.menuitemDebugAFIPWSArmuna.Text = "ARCA WebServices"
         '
         'menuitemDebugAFIPWSArmunaHomologacionLogin
         '
         Me.menuitemDebugAFIPWSArmunaHomologacionLogin.Name = "menuitemDebugAFIPWSArmunaHomologacionLogin"
-        Me.menuitemDebugAFIPWSArmunaHomologacionLogin.Size = New System.Drawing.Size(405, 26)
+        Me.menuitemDebugAFIPWSArmunaHomologacionLogin.Size = New System.Drawing.Size(323, 22)
         Me.menuitemDebugAFIPWSArmunaHomologacionLogin.Text = "Homologación - Login"
         '
         'menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante
         '
         Me.menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante.Name = "menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante"
-        Me.menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante.Size = New System.Drawing.Size(405, 26)
+        Me.menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante.Size = New System.Drawing.Size(323, 22)
         Me.menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante.Text = "Homologación - Verificar Ultimo Comprobante"
         '
         'menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante
         '
         Me.menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante.Name = "menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante"
-        Me.menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante.Size = New System.Drawing.Size(405, 26)
+        Me.menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante.Size = New System.Drawing.Size(323, 22)
         Me.menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante.Text = "Homologación - Consultar Comprobante"
         '
         'menuitemDebugAFIPWSArmunaSeparator1
         '
         Me.menuitemDebugAFIPWSArmunaSeparator1.Name = "menuitemDebugAFIPWSArmunaSeparator1"
-        Me.menuitemDebugAFIPWSArmunaSeparator1.Size = New System.Drawing.Size(402, 6)
+        Me.menuitemDebugAFIPWSArmunaSeparator1.Size = New System.Drawing.Size(320, 6)
         '
         'menuitemDebugAFIPWSArmunaProduccionLogin
         '
         Me.menuitemDebugAFIPWSArmunaProduccionLogin.Name = "menuitemDebugAFIPWSArmunaProduccionLogin"
-        Me.menuitemDebugAFIPWSArmunaProduccionLogin.Size = New System.Drawing.Size(405, 26)
+        Me.menuitemDebugAFIPWSArmunaProduccionLogin.Size = New System.Drawing.Size(323, 22)
         Me.menuitemDebugAFIPWSArmunaProduccionLogin.Text = "Producción - Login"
         '
         'menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante
         '
         Me.menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante.Name = "menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante"
-        Me.menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante.Size = New System.Drawing.Size(405, 26)
+        Me.menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante.Size = New System.Drawing.Size(323, 22)
         Me.menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante.Text = "Producción - Verificar Ultimo Comprobante"
         '
         'menuitemDebugAFIPWSArmunaProduccionConsultarComprobante
         '
         Me.menuitemDebugAFIPWSArmunaProduccionConsultarComprobante.Name = "menuitemDebugAFIPWSArmunaProduccionConsultarComprobante"
-        Me.menuitemDebugAFIPWSArmunaProduccionConsultarComprobante.Size = New System.Drawing.Size(405, 26)
+        Me.menuitemDebugAFIPWSArmunaProduccionConsultarComprobante.Size = New System.Drawing.Size(323, 22)
         Me.menuitemDebugAFIPWSArmunaProduccionConsultarComprobante.Text = "Producción - Consultar Comprobante"
         '
         'menuitemAyuda
         '
         Me.menuitemAyuda.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemAyuda_AcercaDe})
         Me.menuitemAyuda.Name = "menuitemAyuda"
-        Me.menuitemAyuda.Size = New System.Drawing.Size(65, 24)
+        Me.menuitemAyuda.Size = New System.Drawing.Size(53, 20)
         Me.menuitemAyuda.Text = "A&yuda"
         '
         'menuitemAyuda_AcercaDe
         '
         Me.menuitemAyuda_AcercaDe.Name = "menuitemAyuda_AcercaDe"
-        Me.menuitemAyuda_AcercaDe.Size = New System.Drawing.Size(167, 26)
+        Me.menuitemAyuda_AcercaDe.Size = New System.Drawing.Size(135, 22)
         Me.menuitemAyuda_AcercaDe.Text = "&Acerca de..."
         '
         'toolstripMain
@@ -315,9 +259,9 @@ Partial Class formMDIMain
         Me.toolstripMain.Dock = System.Windows.Forms.DockStyle.Left
         Me.toolstripMain.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.toolstripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripDropDownButtonTablas, Me.ToolStripSplitButtonEntidades, Me.ToolStripSplitButtonComprobantes, Me.ToolStripDropDownButtonSueldos, Me.ToolStripSplitButtonComunicaciones, Me.ToolStripButtonReportes})
-        Me.toolstripMain.Location = New System.Drawing.Point(0, 28)
+        Me.toolstripMain.Location = New System.Drawing.Point(0, 24)
         Me.toolstripMain.Name = "toolstripMain"
-        Me.toolstripMain.Size = New System.Drawing.Size(169, 407)
+        Me.toolstripMain.Size = New System.Drawing.Size(145, 325)
         Me.toolstripMain.TabIndex = 1
         Me.toolstripMain.Text = "Principal"
         '
@@ -329,71 +273,71 @@ Partial Class formMDIMain
         Me.ToolStripDropDownButtonTablas.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.ToolStripDropDownButtonTablas.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripDropDownButtonTablas.Name = "ToolStripDropDownButtonTablas"
-        Me.ToolStripDropDownButtonTablas.Size = New System.Drawing.Size(166, 36)
+        Me.ToolStripDropDownButtonTablas.Size = New System.Drawing.Size(142, 36)
         Me.ToolStripDropDownButtonTablas.Text = "Tablas"
         '
         'menuitemAnios
         '
         Me.menuitemAnios.Name = "menuitemAnios"
-        Me.menuitemAnios.Size = New System.Drawing.Size(300, 26)
+        Me.menuitemAnios.Size = New System.Drawing.Size(241, 22)
         Me.menuitemAnios.Text = "Años"
         '
         'menuitemCursos
         '
         Me.menuitemCursos.Name = "menuitemCursos"
-        Me.menuitemCursos.Size = New System.Drawing.Size(300, 26)
+        Me.menuitemCursos.Size = New System.Drawing.Size(241, 22)
         Me.menuitemCursos.Text = "Cursos"
         '
         'menuitemAniosLectivosCursos
         '
         Me.menuitemAniosLectivosCursos.Name = "menuitemAniosLectivosCursos"
-        Me.menuitemAniosLectivosCursos.Size = New System.Drawing.Size(300, 26)
+        Me.menuitemAniosLectivosCursos.Size = New System.Drawing.Size(241, 22)
         Me.menuitemAniosLectivosCursos.Text = "Años Lectivos y Cursos"
         '
         'menuitemAniosLectivosCuotas
         '
         Me.menuitemAniosLectivosCuotas.Name = "menuitemAniosLectivosCuotas"
-        Me.menuitemAniosLectivosCuotas.Size = New System.Drawing.Size(300, 26)
+        Me.menuitemAniosLectivosCuotas.Size = New System.Drawing.Size(241, 22)
         Me.menuitemAniosLectivosCuotas.Text = "Cuotas"
         '
         'separatorBancos
         '
         Me.separatorBancos.Name = "separatorBancos"
-        Me.separatorBancos.Size = New System.Drawing.Size(297, 6)
+        Me.separatorBancos.Size = New System.Drawing.Size(238, 6)
         '
         'menuitemBancos
         '
         Me.menuitemBancos.Name = "menuitemBancos"
-        Me.menuitemBancos.Size = New System.Drawing.Size(300, 26)
+        Me.menuitemBancos.Size = New System.Drawing.Size(241, 22)
         Me.menuitemBancos.Text = "Bancos"
         '
         'menuitemRelacionTipos
         '
         Me.menuitemRelacionTipos.Name = "menuitemRelacionTipos"
-        Me.menuitemRelacionTipos.Size = New System.Drawing.Size(300, 26)
+        Me.menuitemRelacionTipos.Size = New System.Drawing.Size(241, 22)
         Me.menuitemRelacionTipos.Text = "Tipos de Relación"
         '
         'separatorUsuarios
         '
         Me.separatorUsuarios.Name = "separatorUsuarios"
-        Me.separatorUsuarios.Size = New System.Drawing.Size(297, 6)
+        Me.separatorUsuarios.Size = New System.Drawing.Size(238, 6)
         '
         'menuitemGruposUsuarios
         '
         Me.menuitemGruposUsuarios.Name = "menuitemGruposUsuarios"
-        Me.menuitemGruposUsuarios.Size = New System.Drawing.Size(300, 26)
+        Me.menuitemGruposUsuarios.Size = New System.Drawing.Size(241, 22)
         Me.menuitemGruposUsuarios.Text = "Grupos de usuarios"
         '
         'menuitemPermisosGruposUsuarios
         '
         Me.menuitemPermisosGruposUsuarios.Name = "menuitemPermisosGruposUsuarios"
-        Me.menuitemPermisosGruposUsuarios.Size = New System.Drawing.Size(300, 26)
+        Me.menuitemPermisosGruposUsuarios.Size = New System.Drawing.Size(241, 22)
         Me.menuitemPermisosGruposUsuarios.Text = "Permisos de grupos de usuarios"
         '
         'menuitemUsuarios
         '
         Me.menuitemUsuarios.Name = "menuitemUsuarios"
-        Me.menuitemUsuarios.Size = New System.Drawing.Size(300, 26)
+        Me.menuitemUsuarios.Size = New System.Drawing.Size(241, 22)
         Me.menuitemUsuarios.Text = "Usuarios"
         '
         'ToolStripSplitButtonEntidades
@@ -404,25 +348,25 @@ Partial Class formMDIMain
         Me.ToolStripSplitButtonEntidades.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.ToolStripSplitButtonEntidades.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripSplitButtonEntidades.Name = "ToolStripSplitButtonEntidades"
-        Me.ToolStripSplitButtonEntidades.Size = New System.Drawing.Size(166, 36)
+        Me.ToolStripSplitButtonEntidades.Size = New System.Drawing.Size(142, 36)
         Me.ToolStripSplitButtonEntidades.Text = "Entidades"
         '
         'menuitemEntidadesAniosLectivosYCursos
         '
         Me.menuitemEntidadesAniosLectivosYCursos.Name = "menuitemEntidadesAniosLectivosYCursos"
-        Me.menuitemEntidadesAniosLectivosYCursos.Size = New System.Drawing.Size(313, 26)
+        Me.menuitemEntidadesAniosLectivosYCursos.Size = New System.Drawing.Size(253, 22)
         Me.menuitemEntidadesAniosLectivosYCursos.Text = "Años Lectivos y Cursos"
         '
         'menuitemEntidadesAnioLectivoCursoInscripcion
         '
         Me.menuitemEntidadesAnioLectivoCursoInscripcion.Name = "menuitemEntidadesAnioLectivoCursoInscripcion"
-        Me.menuitemEntidadesAnioLectivoCursoInscripcion.Size = New System.Drawing.Size(313, 26)
+        Me.menuitemEntidadesAnioLectivoCursoInscripcion.Size = New System.Drawing.Size(253, 22)
         Me.menuitemEntidadesAnioLectivoCursoInscripcion.Text = "Inscripción al Año Lectivo y Curso"
         '
         'menuitemEntidadesVerificarEmails
         '
         Me.menuitemEntidadesVerificarEmails.Name = "menuitemEntidadesVerificarEmails"
-        Me.menuitemEntidadesVerificarEmails.Size = New System.Drawing.Size(313, 26)
+        Me.menuitemEntidadesVerificarEmails.Size = New System.Drawing.Size(253, 22)
         Me.menuitemEntidadesVerificarEmails.Text = "Verificar direcciones e-mail"
         '
         'ToolStripSplitButtonComprobantes
@@ -433,31 +377,31 @@ Partial Class formMDIMain
         Me.ToolStripSplitButtonComprobantes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.ToolStripSplitButtonComprobantes.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripSplitButtonComprobantes.Name = "ToolStripSplitButtonComprobantes"
-        Me.ToolStripSplitButtonComprobantes.Size = New System.Drawing.Size(166, 36)
+        Me.ToolStripSplitButtonComprobantes.Size = New System.Drawing.Size(142, 36)
         Me.ToolStripSplitButtonComprobantes.Text = "Comprobantes"
         '
         'menuitemComprobantesGenerarLoteFacturas
         '
         Me.menuitemComprobantesGenerarLoteFacturas.Name = "menuitemComprobantesGenerarLoteFacturas"
-        Me.menuitemComprobantesGenerarLoteFacturas.Size = New System.Drawing.Size(263, 38)
+        Me.menuitemComprobantesGenerarLoteFacturas.Size = New System.Drawing.Size(215, 38)
         Me.menuitemComprobantesGenerarLoteFacturas.Text = "Generar lote de facturas"
         '
         'menuitemComprobantesTransmitirAFIP
         '
         Me.menuitemComprobantesTransmitirAFIP.Name = "menuitemComprobantesTransmitirAFIP"
-        Me.menuitemComprobantesTransmitirAFIP.Size = New System.Drawing.Size(263, 38)
+        Me.menuitemComprobantesTransmitirAFIP.Size = New System.Drawing.Size(215, 38)
         Me.menuitemComprobantesTransmitirAFIP.Text = "Transmitir a AFIP"
         '
         'menuitemComprobantesEnviarMail
         '
         Me.menuitemComprobantesEnviarMail.Name = "menuitemComprobantesEnviarMail"
-        Me.menuitemComprobantesEnviarMail.Size = New System.Drawing.Size(263, 38)
+        Me.menuitemComprobantesEnviarMail.Size = New System.Drawing.Size(215, 38)
         Me.menuitemComprobantesEnviarMail.Text = "Enviar por e-mail"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(260, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(212, 6)
         '
         'menuitemComprobantesExportar
         '
@@ -465,40 +409,40 @@ Partial Class formMDIMain
         Me.menuitemComprobantesExportar.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_EXPORT_32
         Me.menuitemComprobantesExportar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.menuitemComprobantesExportar.Name = "menuitemComprobantesExportar"
-        Me.menuitemComprobantesExportar.Size = New System.Drawing.Size(263, 38)
+        Me.menuitemComprobantesExportar.Size = New System.Drawing.Size(215, 38)
         Me.menuitemComprobantesExportar.Text = "Exportar archivos para..."
         '
         'menuitemComprobantesExportarPagosEduc
         '
         Me.menuitemComprobantesExportarPagosEduc.Name = "menuitemComprobantesExportarPagosEduc"
-        Me.menuitemComprobantesExportarPagosEduc.Size = New System.Drawing.Size(361, 26)
+        Me.menuitemComprobantesExportarPagosEduc.Size = New System.Drawing.Size(289, 22)
         Me.menuitemComprobantesExportarPagosEduc.Text = "PAGOS Educ"
         '
         'menuitemComprobantesExportarPagomiscuentas
         '
         Me.menuitemComprobantesExportarPagomiscuentas.Enabled = False
         Me.menuitemComprobantesExportarPagomiscuentas.Name = "menuitemComprobantesExportarPagomiscuentas"
-        Me.menuitemComprobantesExportarPagomiscuentas.Size = New System.Drawing.Size(361, 26)
+        Me.menuitemComprobantesExportarPagomiscuentas.Size = New System.Drawing.Size(289, 22)
         Me.menuitemComprobantesExportarPagomiscuentas.Text = "PagoMisCuentas"
         '
         'menuitemComprobantesExportarSantanderDebitoDirecto
         '
         Me.menuitemComprobantesExportarSantanderDebitoDirecto.Name = "menuitemComprobantesExportarSantanderDebitoDirecto"
-        Me.menuitemComprobantesExportarSantanderDebitoDirecto.Size = New System.Drawing.Size(361, 26)
+        Me.menuitemComprobantesExportarSantanderDebitoDirecto.Size = New System.Drawing.Size(289, 22)
         Me.menuitemComprobantesExportarSantanderDebitoDirecto.Text = "Banco Santander - Débito Directo"
         '
         'menuitemComprobantesExportarSantanderRecaudacionPorCaja
         '
         Me.menuitemComprobantesExportarSantanderRecaudacionPorCaja.Enabled = False
         Me.menuitemComprobantesExportarSantanderRecaudacionPorCaja.Name = "menuitemComprobantesExportarSantanderRecaudacionPorCaja"
-        Me.menuitemComprobantesExportarSantanderRecaudacionPorCaja.Size = New System.Drawing.Size(361, 26)
+        Me.menuitemComprobantesExportarSantanderRecaudacionPorCaja.Size = New System.Drawing.Size(289, 22)
         Me.menuitemComprobantesExportarSantanderRecaudacionPorCaja.Text = "Banco Santander - Recaudación Por Caja"
         '
         'menuitemComprobantesExportarRapipago
         '
         Me.menuitemComprobantesExportarRapipago.Enabled = False
         Me.menuitemComprobantesExportarRapipago.Name = "menuitemComprobantesExportarRapipago"
-        Me.menuitemComprobantesExportarRapipago.Size = New System.Drawing.Size(361, 26)
+        Me.menuitemComprobantesExportarRapipago.Size = New System.Drawing.Size(289, 22)
         Me.menuitemComprobantesExportarRapipago.Text = "Rapipago"
         '
         'ImportarArchivosDeToolStripMenuItem
@@ -507,35 +451,35 @@ Partial Class formMDIMain
         Me.ImportarArchivosDeToolStripMenuItem.Image = Global.CSColegio.DesktopApplication.My.Resources.Resources.IMAGE_IMPORT_32
         Me.ImportarArchivosDeToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.ImportarArchivosDeToolStripMenuItem.Name = "ImportarArchivosDeToolStripMenuItem"
-        Me.ImportarArchivosDeToolStripMenuItem.Size = New System.Drawing.Size(263, 38)
+        Me.ImportarArchivosDeToolStripMenuItem.Size = New System.Drawing.Size(215, 38)
         Me.ImportarArchivosDeToolStripMenuItem.Text = "Importar archivos de..."
         '
         'menuitemComprobantesImportarPagomiscuentas
         '
         Me.menuitemComprobantesImportarPagomiscuentas.Enabled = False
         Me.menuitemComprobantesImportarPagomiscuentas.Name = "menuitemComprobantesImportarPagomiscuentas"
-        Me.menuitemComprobantesImportarPagomiscuentas.Size = New System.Drawing.Size(361, 26)
+        Me.menuitemComprobantesImportarPagomiscuentas.Size = New System.Drawing.Size(289, 22)
         Me.menuitemComprobantesImportarPagomiscuentas.Text = "PagoMisCuentas"
         '
         'menuitemComprobantesImportarSantanderDebitoDirecto
         '
         Me.menuitemComprobantesImportarSantanderDebitoDirecto.Enabled = False
         Me.menuitemComprobantesImportarSantanderDebitoDirecto.Name = "menuitemComprobantesImportarSantanderDebitoDirecto"
-        Me.menuitemComprobantesImportarSantanderDebitoDirecto.Size = New System.Drawing.Size(361, 26)
+        Me.menuitemComprobantesImportarSantanderDebitoDirecto.Size = New System.Drawing.Size(289, 22)
         Me.menuitemComprobantesImportarSantanderDebitoDirecto.Text = "Banco Santander - Débito Directo"
         '
         'menuitemComprobantesImportarSantanderRecaudacionPorCaja
         '
         Me.menuitemComprobantesImportarSantanderRecaudacionPorCaja.Enabled = False
         Me.menuitemComprobantesImportarSantanderRecaudacionPorCaja.Name = "menuitemComprobantesImportarSantanderRecaudacionPorCaja"
-        Me.menuitemComprobantesImportarSantanderRecaudacionPorCaja.Size = New System.Drawing.Size(361, 26)
+        Me.menuitemComprobantesImportarSantanderRecaudacionPorCaja.Size = New System.Drawing.Size(289, 22)
         Me.menuitemComprobantesImportarSantanderRecaudacionPorCaja.Text = "Banco Santander - Recaudación Por Caja"
         '
         'menuitemComprobantesImportarRapipago
         '
         Me.menuitemComprobantesImportarRapipago.Enabled = False
         Me.menuitemComprobantesImportarRapipago.Name = "menuitemComprobantesImportarRapipago"
-        Me.menuitemComprobantesImportarRapipago.Size = New System.Drawing.Size(361, 26)
+        Me.menuitemComprobantesImportarRapipago.Size = New System.Drawing.Size(289, 22)
         Me.menuitemComprobantesImportarRapipago.Text = "Rapipago"
         '
         'ToolStripDropDownButtonSueldos
@@ -546,19 +490,19 @@ Partial Class formMDIMain
         Me.ToolStripDropDownButtonSueldos.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.ToolStripDropDownButtonSueldos.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripDropDownButtonSueldos.Name = "ToolStripDropDownButtonSueldos"
-        Me.ToolStripDropDownButtonSueldos.Size = New System.Drawing.Size(166, 36)
+        Me.ToolStripDropDownButtonSueldos.Size = New System.Drawing.Size(142, 36)
         Me.ToolStripDropDownButtonSueldos.Text = "Sueldos"
         '
         'ToolStripMenuItemSueldosModulos
         '
         Me.ToolStripMenuItemSueldosModulos.Name = "ToolStripMenuItemSueldosModulos"
-        Me.ToolStripMenuItemSueldosModulos.Size = New System.Drawing.Size(230, 26)
+        Me.ToolStripMenuItemSueldosModulos.Size = New System.Drawing.Size(185, 22)
         Me.ToolStripMenuItemSueldosModulos.Text = "Cálculos de módulos"
         '
         'ToolStripMenuItemSueldosLiquidaciones
         '
         Me.ToolStripMenuItemSueldosLiquidaciones.Name = "ToolStripMenuItemSueldosLiquidaciones"
-        Me.ToolStripMenuItemSueldosLiquidaciones.Size = New System.Drawing.Size(230, 26)
+        Me.ToolStripMenuItemSueldosLiquidaciones.Size = New System.Drawing.Size(185, 22)
         Me.ToolStripMenuItemSueldosLiquidaciones.Text = "Liquidaciones"
         '
         'ToolStripSplitButtonComunicaciones
@@ -569,13 +513,13 @@ Partial Class formMDIMain
         Me.ToolStripSplitButtonComunicaciones.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.ToolStripSplitButtonComunicaciones.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripSplitButtonComunicaciones.Name = "ToolStripSplitButtonComunicaciones"
-        Me.ToolStripSplitButtonComunicaciones.Size = New System.Drawing.Size(166, 36)
+        Me.ToolStripSplitButtonComunicaciones.Size = New System.Drawing.Size(142, 36)
         Me.ToolStripSplitButtonComunicaciones.Text = "Comunicaciones"
         '
         'menuitemComunicacionesEnviarMail
         '
         Me.menuitemComunicacionesEnviarMail.Name = "menuitemComunicacionesEnviarMail"
-        Me.menuitemComunicacionesEnviarMail.Size = New System.Drawing.Size(206, 26)
+        Me.menuitemComunicacionesEnviarMail.Size = New System.Drawing.Size(164, 22)
         Me.menuitemComunicacionesEnviarMail.Text = "Enviar por e-mail"
         '
         'ToolStripButtonReportes
@@ -585,21 +529,20 @@ Partial Class formMDIMain
         Me.ToolStripButtonReportes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.ToolStripButtonReportes.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButtonReportes.Name = "ToolStripButtonReportes"
-        Me.ToolStripButtonReportes.Size = New System.Drawing.Size(166, 36)
+        Me.ToolStripButtonReportes.Size = New System.Drawing.Size(142, 36)
         Me.ToolStripButtonReportes.Text = "Reportes"
         '
         'formMDIMain
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1237, 457)
+        Me.ClientSize = New System.Drawing.Size(928, 371)
         Me.Controls.Add(Me.toolstripMain)
         Me.Controls.Add(Me.statusstripMain)
         Me.Controls.Add(Me.menustripMain)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.IsMdiContainer = True
         Me.MainMenuStrip = Me.menustripMain
-        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "formMDIMain"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show
         Me.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds
@@ -644,8 +587,6 @@ Partial Class formMDIMain
     Friend WithEvents ToolStripSplitButtonEntidades As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents menuitemEntidadesAniosLectivosYCursos As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebug As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemDebugAFIPWS As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemDebugAFIPWSHomologacionLogin As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemComprobantesTransmitirAFIP As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemComprobantesEnviarMail As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripButtonReportes As System.Windows.Forms.ToolStripButton
@@ -664,12 +605,6 @@ Partial Class formMDIMain
     Friend WithEvents menuitemEntidadesAnioLectivoCursoInscripcion As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSplitButtonComunicaciones As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents menuitemComunicacionesEnviarMail As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemDebugAFIPWSProduccionLogin As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemDebugAFIPWSSeparator1 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemDebugAFIPWSProduccionObtenerUltimoComprobante As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemDebugAFIPWSProduccionConsultarComprobante As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents menuitemDebugAFIPWSHomologacionConsultarComprobante As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSArmuna As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSArmunaHomologacionLogin As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante As System.Windows.Forms.ToolStripMenuItem

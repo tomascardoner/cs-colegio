@@ -48,7 +48,7 @@
     End Sub
 #End Region
 
-#Region "Menu Debug"
+#Region "Menu Debug (Armuna.Framework.Tax)"
 
     Private Function ObtenerValorInputBoxInteger(ByVal Prompt As String, ByVal Title As String) As Integer
         Dim InputValue As String
@@ -80,103 +80,6 @@
         Return ResultValue
     End Function
 
-    Private Sub Debug_AFIPWSHomologacionLogin() Handles menuitemDebugAFIPWSHomologacionLogin.Click
-        mObjeto_AFIP_WS_Homologacion = New CardonerSistemas.AfipWebServices.WebService
-
-        If ModuloComprobantes.TransmitirAFIP_Inicializar(mObjeto_AFIP_WS_Homologacion, True) Then
-            mObjeto_AFIP_WS_Homologacion.FacturaElectronica_Login()
-        End If
-    End Sub
-
-    Private Sub Debug_AFIPWSHomologacionObtenerUltimoComprobante(sender As Object, e As EventArgs) Handles menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante.Click
-        Dim TipoComprobante As Short
-        Dim PuntoVenta As Short
-
-        If mObjeto_AFIP_WS_Homologacion Is Nothing Then
-            MsgBox("No hay un Ticket de Acceso válido." & vbCrLf & "¿Ya inició sesión en AFIP?", vbExclamation, My.Application.Info.Title)
-        Else
-            TipoComprobante = CShort(InputBox("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante.Text))
-            PuntoVenta = CShort(InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSHomologacionObtenerUltimoComprobante.Text))
-            If mObjeto_AFIP_WS_Homologacion.FacturaElectronica_ConectarYObtenerUltimoNumeroComprobante(TipoComprobante, PuntoVenta) Then
-                MsgBox("El Último Número de comprobante autorizado es: " & mObjeto_AFIP_WS_Homologacion.UltimoComprobanteAutorizado, vbInformation, My.Application.Info.Title)
-            End If
-        End If
-    End Sub
-
-    Private Sub Debug_AFIPWSHomologacionConsultarComprobante(sender As Object, e As EventArgs) Handles menuitemDebugAFIPWSHomologacionConsultarComprobante.Click
-        Dim TipoComprobante As Short
-        Dim PuntoVenta As Short
-        Dim NumeroComprobante As Integer
-
-        If mObjeto_AFIP_WS_Homologacion Is Nothing Then
-            MsgBox("No hay un Ticket de Acceso válido." & vbCrLf & "¿Ya inició sesión en AFIP?", vbExclamation, My.Application.Info.Title)
-        Else
-            TipoComprobante = CShort(InputBox("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Text))
-            PuntoVenta = CShort(InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Text))
-            NumeroComprobante = CShort(InputBox("Ingrese el Número de Comprobante:", Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Text))
-            If mObjeto_AFIP_WS_Homologacion.FacturaElectronica_ConectarYConsultarComprobante(TipoComprobante, PuntoVenta, NumeroComprobante) Then
-                If mObjeto_AFIP_WS_Homologacion.UltimoResultadoConsultaComprobante.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoAceptado Then
-                    MsgBox(String.Format("Los datos del comprobante autorizado son:{0}{0}Tipo de Comprobante: {1}{0}Punto de Venta: {2}{0}Número de Comprobante: {3}{0}CAE: {4}{0}Fecha de Vencimiento: {5}{0}Fecha/Hora de Proceso: {6}", vbCrLf, mObjeto_AFIP_WS_Homologacion.UltimoResultadoConsultaComprobante.TipoComprobante, mObjeto_AFIP_WS_Homologacion.UltimoResultadoConsultaComprobante.PuntoVenta, mObjeto_AFIP_WS_Homologacion.UltimoResultadoConsultaComprobante.ComprobanteDesde, mObjeto_AFIP_WS_Homologacion.UltimoResultadoConsultaComprobante.CodigoAutorizacion, mObjeto_AFIP_WS_Homologacion.UltimoResultadoConsultaComprobante.FechaVencimiento, mObjeto_AFIP_WS_Homologacion.UltimoResultadoConsultaComprobante.FechaHoraProceso), vbInformation, My.Application.Info.Title)
-                Else
-                    MsgBox(mObjeto_AFIP_WS_Homologacion.UltimoResultadoConsultaComprobante.ErrorMessage, vbCritical, My.Application.Info.Title)
-                End If
-            End If
-        End If
-    End Sub
-
-    Private Sub Debug_AFIPWSProduccionLogin() Handles menuitemDebugAFIPWSProduccionLogin.Click
-        mObjeto_AFIP_WS_Produccion = New CardonerSistemas.AfipWebServices.WebService
-
-        If ModuloComprobantes.TransmitirAFIP_Inicializar(mObjeto_AFIP_WS_Produccion, False) Then
-            mObjeto_AFIP_WS_Produccion.FacturaElectronica_Login()
-        End If
-    End Sub
-
-    Private Sub Debug_AFIPWSProduccionObtenerUltimoComprobante(sender As Object, e As EventArgs) Handles menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Click
-        Dim TipoComprobanteString As String
-        Dim TipoComprobante As Short
-        Dim PuntoVentaString As String
-        Dim PuntoVenta As Short
-
-        If mObjeto_AFIP_WS_Produccion Is Nothing Then
-            MsgBox("No hay un Ticket de Acceso válido." & vbCrLf & "¿Ya inició sesión en AFIP?", vbExclamation, My.Application.Info.Title)
-        Else
-            TipoComprobanteString = InputBox("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Text)
-            If TipoComprobanteString.Trim.Length() > 0 AndAlso Short.TryParse(TipoComprobanteString, TipoComprobante) Then
-                PuntoVentaString = InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSProduccionObtenerUltimoComprobante.Text)
-                If PuntoVentaString.Trim.Length() > 0 AndAlso Short.TryParse(PuntoVentaString, PuntoVenta) Then
-                    If mObjeto_AFIP_WS_Produccion.FacturaElectronica_ConectarYObtenerUltimoNumeroComprobante(TipoComprobante, PuntoVenta) Then
-                        MsgBox("El Último Número de comprobante autorizado es: " & mObjeto_AFIP_WS_Produccion.UltimoComprobanteAutorizado, vbInformation, My.Application.Info.Title)
-                    End If
-                End If
-            End If
-        End If
-    End Sub
-
-    Private Sub Debug_AFIPWSProduccionConsultarComprobante(sender As Object, e As EventArgs) Handles menuitemDebugAFIPWSProduccionConsultarComprobante.Click
-        Dim TipoComprobante As Short
-        Dim PuntoVenta As Short
-        Dim NumeroComprobante As Integer
-
-        If mObjeto_AFIP_WS_Produccion Is Nothing Then
-            MsgBox("No hay un Ticket de Acceso válido." & vbCrLf & "¿Ya inició sesión en AFIP?", vbExclamation, My.Application.Info.Title)
-        Else
-            TipoComprobante = CShort(InputBox("Ingrese el Código de Comprobante:", Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Text))
-            PuntoVenta = CShort(InputBox("Ingrese el Punto de Venta:", Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Text))
-            NumeroComprobante = CShort(InputBox("Ingrese el Número de Comprobante:", Me.menuitemDebugAFIPWSHomologacionConsultarComprobante.Text))
-            If mObjeto_AFIP_WS_Produccion.FacturaElectronica_ConectarYConsultarComprobante(TipoComprobante, PuntoVenta, NumeroComprobante) Then
-                If mObjeto_AFIP_WS_Produccion.UltimoResultadoConsultaComprobante.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoAceptado Then
-                    MsgBox(String.Format("Los datos del comprobante autorizado son:{0}{0}Tipo de Comprobante: {1}{0}Punto de Venta: {2}{0}Número de Comprobante: {3}{0}CAE: {4}{0}Fecha de Vencimiento: {5}{0}Fecha/Hora de Proceso: {6}", vbCrLf, mObjeto_AFIP_WS_Produccion.UltimoResultadoConsultaComprobante.TipoComprobante, mObjeto_AFIP_WS_Produccion.UltimoResultadoConsultaComprobante.PuntoVenta, mObjeto_AFIP_WS_Produccion.UltimoResultadoConsultaComprobante.ComprobanteDesde, mObjeto_AFIP_WS_Produccion.UltimoResultadoConsultaComprobante.CodigoAutorizacion, mObjeto_AFIP_WS_Produccion.UltimoResultadoConsultaComprobante.FechaVencimiento, mObjeto_AFIP_WS_Produccion.UltimoResultadoConsultaComprobante.FechaHoraProceso), vbInformation, My.Application.Info.Title)
-                Else
-                    MsgBox(mObjeto_AFIP_WS_Produccion.UltimoResultadoConsultaComprobante.ErrorMessage, vbCritical, My.Application.Info.Title)
-                End If
-            End If
-        End If
-    End Sub
-
-#End Region
-
-#Region "Menu Debug (Armuna.Framework.Tax)"
 
     Private Function Debug_Armuna_CargarCredenciales(ByVal ModoHomologacion As Boolean) As Armuna.Framework.Tax.Arca.ArcaCredentials
         Dim CertificadoPath As String

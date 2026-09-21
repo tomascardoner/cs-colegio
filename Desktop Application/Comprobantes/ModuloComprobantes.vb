@@ -563,6 +563,7 @@ Module ModuloComprobantes
                         ' Documento del Titular
                         .TipoDocumento = CShort(ComprobanteActual.IDDocumentoTipo)
                         .DocumentoNumero = CLng(CS_ValueTranslation.FromStringToOnlyDigitsString(ComprobanteActual.DocumentoNumero))
+                        .CondicionIVAReceptorId = ComprobanteActual.IDCategoriaIVA
 
                         ' Tipo de Comprobante
                         .TipoComprobante = ComprobanteTipoActual.CodigoAFIP
