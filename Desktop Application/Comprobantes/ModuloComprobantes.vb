@@ -474,14 +474,11 @@ Module ModuloComprobantes
             End If
 
             ' Leo los valores comunes a todas las facturas
+            .ModoHomologacion = ModoHomologacion
             If ModoHomologacion Then
                 .Certificado = pAfipWebServicesConfig.CertificadoHomologacion
-                .WSAA_URL = CS_Parameter_System.GetString(Parametros.AFIP_WS_AA_HOMOLOGACION)
-                .WSFEv1_URL = CS_Parameter_System.GetString(Parametros.AFIP_WS_FE_HOMOLOGACION)
             Else
                 .Certificado = pAfipWebServicesConfig.CertificadoProduccion
-                .WSAA_URL = CS_Parameter_System.GetString(Parametros.AFIP_WS_AA_PRODUCCION)
-                .WSFEv1_URL = CS_Parameter_System.GetString(Parametros.AFIP_WS_FE_PRODUCCION)
             End If
             .ClavePrivada = pAfipWebServicesConfig.ClavePrivada
 
