@@ -136,7 +136,24 @@
                             ComprobanteActual = dbContext.Comprobante.Find(GridDataRowActual.IDComprobante)
                             If ComprobanteActual IsNot Nothing AndAlso ComprobanteActual.CAE Is Nothing Then
                                 textboxStatus.AppendText($"{vbNewLine}{ComprobanteActual.ComprobanteTipo.Nombre} nº {ComprobanteActual.NumeroCompleto} - Autorizando...")
-                                If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual.IDComprobante) Then
+                                Application.DoEvents()
+
+                                ' Limpio el resultado anterior para no mostrar datos de otro comprobante
+                                Objeto_AFIP_WS.UltimoResultadoCAE = New CardonerSistemas.AfipWebServices.ResultadoCAE
+
+                                Dim ComprobanteTransmitido As Boolean
+                                Try
+                                    ComprobanteTransmitido = ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual.IDComprobante)
+                                Catch ex As Exception
+                                    textboxStatus.AppendText("ERROR")
+                                    CardonerSistemas.ErrorHandler.ProcessError(ex, $"Error al transmitir el Comprobante Electrónico {ComprobanteActual.ComprobanteTipo.Nombre} Nº {ComprobanteActual.NumeroCompleto}.")
+                                    RefreshData()
+                                    MostrarOcultarEstado(False)
+                                    Me.Cursor = Cursors.Default
+                                    Return
+                                End Try
+
+                                If ComprobanteTransmitido Then
                                     progressbarStatus.Value += 1
                                     If GenerarCodigoQR Then
                                         comprobantesEnviadosCount += 1
@@ -159,11 +176,15 @@
                                         Application.DoEvents()
                                     End If
 
-                                ElseIf Objeto_AFIP_WS.UltimoResultadoCAE.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoAceptado Then
-                                    textboxStatus.AppendText("RECHAZADO!!")
-
-                                    MensajeError = $"Se Rechazó la Solicitud de CAE para el Comprobante Electrónico:{vbNewLine}{vbNewLine}"
-                                    MensajeError &= $"{ComprobanteActual.ComprobanteTipo.Nombre} Nº: {ComprobanteActual.Numero}{vbNewLine}"
+                                Else
+                                    If Objeto_AFIP_WS.UltimoResultadoCAE.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoRechazado OrElse Objeto_AFIP_WS.UltimoResultadoCAE.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoParcial Then
+                                        textboxStatus.AppendText("RECHAZADO!!")
+                                        MensajeError = $"Se Rechazó la Solicitud de CAE para el Comprobante Electrónico:{vbNewLine}{vbNewLine}"
+                                    Else
+                                        textboxStatus.AppendText("ERROR")
+                                        MensajeError = $"No se pudo obtener el CAE para el Comprobante Electrónico:{vbNewLine}{vbNewLine}"
+                                    End If
+                                    MensajeError &= $"{ComprobanteActual.ComprobanteTipo.Nombre} Nº: {ComprobanteActual.NumeroCompleto}{vbNewLine}"
                                     MensajeError &= $"Titular: {ComprobanteActual.ApellidoNombre}{vbNewLine}"
                                     MensajeError &= $"Importe: {FormatCurrency(ComprobanteActual.ImporteTotal1)}"
                                     If Not String.IsNullOrEmpty(Objeto_AFIP_WS.UltimoResultadoCAE.Observaciones) Then
@@ -172,12 +193,8 @@
                                     If Not String.IsNullOrEmpty(Objeto_AFIP_WS.UltimoResultadoCAE.ErrorMessage) Then
                                         MensajeError &= $"{vbNewLine}{vbNewLine}Error: {Objeto_AFIP_WS.UltimoResultadoCAE.ErrorMessage}"
                                     End If
-                                    MsgBox(MensajeError, MsgBoxStyle.Exclamation, My.Application.Info.Title)
-                                    RefreshData()
-                                    MostrarOcultarEstado(False)
-                                    Me.Cursor = Cursors.Default
-                                    Return
-                                Else
+                                    MensajeError &= $"{vbNewLine}{vbNewLine}Se transmitieron exitosamente {comprobantesEnviadosCount} Comprobantes antes del error. Corrija el problema y vuelva a iniciar la transmisión."
+                                    MessageBox.Show(MensajeError, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                                     RefreshData()
                                     MostrarOcultarEstado(False)
                                     Me.Cursor = Cursors.Default

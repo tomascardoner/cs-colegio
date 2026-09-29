@@ -719,7 +719,6 @@
         If ModuloComprobantes.TransmitirAFIP_Comprobante(Objeto_AFIP_WS, ComprobanteActual.IDComprobante, CaeNumero, CaeFechaVencimiento) Then
             mComprobanteActual.CAE = CaeNumero
             mComprobanteActual.CAEVencimiento = CaeFechaVencimiento
-            MsgBox(String.Format("Se ha transmitido exitosamente el Comprobante a AFIP."), MsgBoxStyle.Information, My.Application.Info.Title)
             Me.Cursor = Cursors.Default
             Return True
         ElseIf Objeto_AFIP_WS.UltimoResultadoCAE.Resultado = CardonerSistemas.AfipWebServices.SolicitudCaeResultadoRechazado Then
