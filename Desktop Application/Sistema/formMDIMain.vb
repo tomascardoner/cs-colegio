@@ -48,7 +48,7 @@
     End Sub
 #End Region
 
-#Region "Menu Debug (Armuna.Framework.Tax)"
+#Region "Menu Debug"
 
     Private Function ObtenerValorInputBoxInteger(ByVal Prompt As String, ByVal Title As String) As Integer
         Dim InputValue As String
@@ -160,6 +160,28 @@
         End If
     End Sub
 
+    Private Async Function Debug_Armuna_MostrarCondicionesIvaReceptor(ByVal Credenciales As Armuna.Framework.Tax.Arca.ArcaCredentials, ByVal Titulo As String) As Threading.Tasks.Task
+        If Credenciales Is Nothing Then
+            MsgBox("No hay credenciales cargadas." & vbCrLf & "¿Ya inició sesión en ARCA?", vbExclamation, My.Application.Info.Title)
+            Return
+        End If
+
+        Me.Cursor = Cursors.WaitCursor
+        Dim Resultado = Await Armuna.Framework.Tax.Arca.Wsfe.WsfeParametrosService.ObtenerCondicionIvaReceptorAsync(Credenciales)
+        Me.Cursor = Cursors.Default
+
+        If Resultado.success Then
+            Dim Lineas = Resultado.resultado.Select(Function(c) String.Format("{0} - {1} (Clase: {2})", c.Id, c.Descripcion, c.ClaseComprobante))
+            MsgBox("Condiciones de IVA del receptor:" & vbCrLf & vbCrLf & String.Join(vbCrLf, Lineas), vbInformation, Titulo)
+        Else
+            MsgBox(Resultado.resultMessage, vbCritical, Titulo)
+        End If
+    End Function
+
+    Private Async Sub Debug_Armuna_AFIPWSHomologacionObtenerCondicionesIvaReceptor(sender As Object, e As EventArgs) Handles menuitemDebugAFIPWSArmunaHomologacionObtenerCondicionesIvaReceptor.Click
+        Await Debug_Armuna_MostrarCondicionesIvaReceptor(mArcaCredenciales_Homologacion, Me.menuitemDebugAFIPWSArmunaHomologacionObtenerCondicionesIvaReceptor.Text)
+    End Sub
+
     Private Async Sub Debug_Armuna_AFIPWSProduccionLogin() Handles menuitemDebugAFIPWSArmunaProduccionLogin.Click
         Dim Credenciales = Debug_Armuna_CargarCredenciales(False)
         If Credenciales Is Nothing Then Exit Sub
@@ -245,6 +267,10 @@
                 MsgBox(Resultado.resultMessage, vbCritical, My.Application.Info.Title)
             End If
         End If
+    End Sub
+
+    Private Async Sub Debug_Armuna_AFIPWSProduccionObtenerCondicionesIvaReceptor(sender As Object, e As EventArgs) Handles menuitemDebugAFIPWSArmunaProduccionObtenerCondicionesIvaReceptor.Click
+        Await Debug_Armuna_MostrarCondicionesIvaReceptor(mArcaCredenciales_Produccion, Me.menuitemDebugAFIPWSArmunaProduccionObtenerCondicionesIvaReceptor.Text)
     End Sub
 
 #End Region

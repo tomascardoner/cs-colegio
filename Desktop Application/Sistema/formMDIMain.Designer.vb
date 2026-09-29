@@ -42,10 +42,12 @@ Partial Class formMDIMain
         Me.menuitemDebugAFIPWSArmunaHomologacionLogin = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugAFIPWSArmunaHomologacionObtenerCondicionesIvaReceptor = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSArmunaSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.menuitemDebugAFIPWSArmunaProduccionLogin = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemDebugAFIPWSArmunaProduccionConsultarComprobante = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuitemDebugAFIPWSArmunaProduccionObtenerCondicionesIvaReceptor = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemAyuda = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuitemAyuda_AcercaDe = New System.Windows.Forms.ToolStripMenuItem()
         Me.toolstripMain = New System.Windows.Forms.ToolStrip()
@@ -194,7 +196,7 @@ Partial Class formMDIMain
         '
         'menuitemDebugAFIPWSArmuna
         '
-        Me.menuitemDebugAFIPWSArmuna.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWSArmunaHomologacionLogin, Me.menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante, Me.menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante, Me.menuitemDebugAFIPWSArmunaSeparator1, Me.menuitemDebugAFIPWSArmunaProduccionLogin, Me.menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante, Me.menuitemDebugAFIPWSArmunaProduccionConsultarComprobante})
+        Me.menuitemDebugAFIPWSArmuna.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuitemDebugAFIPWSArmunaHomologacionLogin, Me.menuitemDebugAFIPWSArmunaHomologacionObtenerUltimoComprobante, Me.menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante, Me.menuitemDebugAFIPWSArmunaHomologacionObtenerCondicionesIvaReceptor, Me.menuitemDebugAFIPWSArmunaSeparator1, Me.menuitemDebugAFIPWSArmunaProduccionLogin, Me.menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante, Me.menuitemDebugAFIPWSArmunaProduccionConsultarComprobante, Me.menuitemDebugAFIPWSArmunaProduccionObtenerCondicionesIvaReceptor})
         Me.menuitemDebugAFIPWSArmuna.Name = "menuitemDebugAFIPWSArmuna"
         Me.menuitemDebugAFIPWSArmuna.Size = New System.Drawing.Size(180, 22)
         Me.menuitemDebugAFIPWSArmuna.Text = "ARCA WebServices"
@@ -216,6 +218,12 @@ Partial Class formMDIMain
         Me.menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante.Name = "menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante"
         Me.menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante.Size = New System.Drawing.Size(323, 22)
         Me.menuitemDebugAFIPWSArmunaHomologacionConsultarComprobante.Text = "Homologación - Consultar Comprobante"
+        '
+        'menuitemDebugAFIPWSArmunaHomologacionObtenerCondicionesIvaReceptor
+        '
+        Me.menuitemDebugAFIPWSArmunaHomologacionObtenerCondicionesIvaReceptor.Name = "menuitemDebugAFIPWSArmunaHomologacionObtenerCondicionesIvaReceptor"
+        Me.menuitemDebugAFIPWSArmunaHomologacionObtenerCondicionesIvaReceptor.Size = New System.Drawing.Size(323, 22)
+        Me.menuitemDebugAFIPWSArmunaHomologacionObtenerCondicionesIvaReceptor.Text = "Homologación - Condiciones IVA Receptor"
         '
         'menuitemDebugAFIPWSArmunaSeparator1
         '
@@ -239,6 +247,12 @@ Partial Class formMDIMain
         Me.menuitemDebugAFIPWSArmunaProduccionConsultarComprobante.Name = "menuitemDebugAFIPWSArmunaProduccionConsultarComprobante"
         Me.menuitemDebugAFIPWSArmunaProduccionConsultarComprobante.Size = New System.Drawing.Size(323, 22)
         Me.menuitemDebugAFIPWSArmunaProduccionConsultarComprobante.Text = "Producción - Consultar Comprobante"
+        '
+        'menuitemDebugAFIPWSArmunaProduccionObtenerCondicionesIvaReceptor
+        '
+        Me.menuitemDebugAFIPWSArmunaProduccionObtenerCondicionesIvaReceptor.Name = "menuitemDebugAFIPWSArmunaProduccionObtenerCondicionesIvaReceptor"
+        Me.menuitemDebugAFIPWSArmunaProduccionObtenerCondicionesIvaReceptor.Size = New System.Drawing.Size(323, 22)
+        Me.menuitemDebugAFIPWSArmunaProduccionObtenerCondicionesIvaReceptor.Text = "Producción - Condiciones IVA Receptor"
         '
         'menuitemAyuda
         '
@@ -613,6 +627,8 @@ Partial Class formMDIMain
     Friend WithEvents menuitemDebugAFIPWSArmunaProduccionLogin As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSArmunaProduccionObtenerUltimoComprobante As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemDebugAFIPWSArmunaProduccionConsultarComprobante As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDebugAFIPWSArmunaHomologacionObtenerCondicionesIvaReceptor As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuitemDebugAFIPWSArmunaProduccionObtenerCondicionesIvaReceptor As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemEntidadesVerificarEmails As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuitemAniosLectivosCuotas As ToolStripMenuItem
     Friend WithEvents menuitemComprobantesExportarPagosEduc As ToolStripMenuItem
