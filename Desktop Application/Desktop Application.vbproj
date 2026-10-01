@@ -12,7 +12,7 @@
     <AssemblyName>CSColegio</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsFormsWithCustomSubMain</MyType>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -48,7 +48,7 @@
     <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
@@ -554,10 +554,10 @@
     </Compile>
     <Compile Include="Config\EmailConfig.vb" />
     <Compile Include="Sistema\FillAndRefreshLists.vb" />
-    <Compile Include="Sistema\formAboutBox.Designer.vb">
-      <DependentUpon>formAboutBox.vb</DependentUpon>
+    <Compile Include="Sistema\FormAboutBox.Designer.vb">
+      <DependentUpon>FormAboutBox.vb</DependentUpon>
     </Compile>
-    <Compile Include="Sistema\formAboutBox.vb">
+    <Compile Include="Sistema\FormAboutBox.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Sistema\Reportes.vb" />
@@ -957,8 +957,8 @@
     <EmbeddedResource Include="Entidades\FormEntidadPersonalColegioAntiguedadDetalle.resx">
       <DependentUpon>FormEntidadPersonalColegioAntiguedadDetalle.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Sistema\formAboutBox.resx">
-      <DependentUpon>formAboutBox.vb</DependentUpon>
+    <EmbeddedResource Include="Sistema\FormAboutBox.resx">
+      <DependentUpon>FormAboutBox.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sueldos\FormCalculoModuloObtener.resx">
       <DependentUpon>FormCalculoModuloObtener.vb</DependentUpon>

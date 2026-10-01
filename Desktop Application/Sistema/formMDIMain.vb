@@ -87,13 +87,8 @@
         Dim Credenciales As Armuna.Framework.Tax.Arca.ArcaCredentials = Nothing
         Dim ResultMessage As String = Nothing
 
-        If ModoHomologacion Then
-            CertificadoPath = pAfipWebServicesConfig.CertificadoHomologacion
-            Entorno = Armuna.Framework.Tax.Arca.ArcaEnvironment.Homologacion
-        Else
-            CertificadoPath = pAfipWebServicesConfig.CertificadoProduccion
-            Entorno = Armuna.Framework.Tax.Arca.ArcaEnvironment.Produccion
-        End If
+        CertificadoPath = pAfipWebServicesConfig.Certificado
+        Entorno = If(ModoHomologacion, Armuna.Framework.Tax.Arca.ArcaEnvironment.Homologacion, Armuna.Framework.Tax.Arca.ArcaEnvironment.Produccion)
 
         If Not Armuna.Framework.Tax.Arca.ArcaCredentialsLoader.TryLoadFromPemFiles(CS_Parameter_System.GetString(Parametros.EMPRESA_CUIT), CertificadoPath, pAfipWebServicesConfig.ClavePrivada, Entorno, Credenciales, ResultMessage) Then
             MsgBox(ResultMessage, vbCritical, My.Application.Info.Title)

@@ -23,9 +23,28 @@ Module Configuration
         If Not CardonerSistemas.ConfigurationJson.LoadFile(ConfigFolder, AfipWebServicesFileName, pAfipWebServicesConfig) Then
             Return False
         End If
-        pAfipWebServicesConfig.CertificadoHomologacion = CardonerSistemas.Files.ProcessFolderName(pAfipWebServicesConfig.CertificadoHomologacion)
-        pAfipWebServicesConfig.CertificadoProduccion = CardonerSistemas.Files.ProcessFolderName(pAfipWebServicesConfig.CertificadoProduccion)
+        pAfipWebServicesConfig.Certificado = CardonerSistemas.Files.ProcessFolderName(pAfipWebServicesConfig.Certificado)
         pAfipWebServicesConfig.ClavePrivada = CardonerSistemas.Files.ProcessFolderName(pAfipWebServicesConfig.ClavePrivada)
+        Dim dias As Integer = CInt(DateDiff(DateInterval.Day, Now, pAfipWebServicesConfig.CertificadoVencimiento))
+        Dim minutos As Integer = CInt(DateDiff(DateInterval.Minute, Now, pAfipWebServicesConfig.CertificadoVencimiento))
+
+        Select Case dias
+            Case Is < 0
+                MessageBox.Show("El certificado digital de ARCA está vencido.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Case 0 To 1
+                Select Case minutos
+                    Case Is < 0
+                        MessageBox.Show("El certificado digital de ARCA está vencido.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    Case 0 To 1439
+                        MessageBox.Show("ATENCIÓN: ¡¡El certificado digital de ARCA vence en unas horas!!", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    Case Else
+                        MessageBox.Show("ATENCIÓN: ¡¡El certificado digital de ARCA vence mañana!!", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                End Select
+            Case 2 To 10
+                MessageBox.Show("El certificado digital de ARCA vence en " & dias.ToString() & " días.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Case 11 To 20
+                MessageBox.Show("El certificado digital de ARCA vence en " & dias.ToString() & " días.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End Select
 
         ' Appearance
         If Not CardonerSistemas.ConfigurationJson.LoadFile(ConfigFolder, AppearanceFileName, pAppearanceConfig) Then

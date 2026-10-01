@@ -475,11 +475,7 @@ Module ModuloComprobantes
 
             ' Leo los valores comunes a todas las facturas
             .ModoHomologacion = ModoHomologacion
-            If ModoHomologacion Then
-                .Certificado = pAfipWebServicesConfig.CertificadoHomologacion
-            Else
-                .Certificado = pAfipWebServicesConfig.CertificadoProduccion
-            End If
+            .Certificado = pAfipWebServicesConfig.Certificado
             .ClavePrivada = pAfipWebServicesConfig.ClavePrivada
 
             .InternetProxy = CS_Parameter_System.GetString(Parametros.INTERNET_PROXY, String.Empty)

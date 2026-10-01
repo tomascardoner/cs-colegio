@@ -1,6 +1,6 @@
 {
-  "CertificadoHomologacion": "{Dropbox}\\Clientes\\Colegio Horizonte\\CS-Colegio\\Certificados\\administracion_homologacion.crt",
-  "CertificadoProduccion": "{Dropbox}\\Clientes\\Colegio Horizonte\\CS-Colegio\\Certificados\\administracion.crt",
+  "Certificado": "{Dropbox}\\Clientes\\Colegio Horizonte\\CS-Colegio\\Certificados\\administracion.crt",
+  "CertificadoVencimiento": "2028-09-30T14:11:00",
   "ModoHomologacion": false,
   "ClavePrivada": "{Dropbox}\\Clientes\\Colegio Horizonte\\CS-Colegio\\Certificados\\cardonersistemas.key",
   "TtlTicketRequerimientoAcceso": 2400,
